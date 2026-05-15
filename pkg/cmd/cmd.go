@@ -281,22 +281,6 @@ func init() {
 				},
 			},
 			{
-				Name:     "feature-keys",
-				Category: "API RESOURCE",
-				Suggest:  true,
-				Commands: []*cli.Command{
-					&featureKeysList,
-				},
-			},
-			{
-				Name:     "stale-features",
-				Category: "API RESOURCE",
-				Suggest:  true,
-				Commands: []*cli.Command{
-					&staleFeaturesList,
-				},
-			},
-			{
 				Name:     "revisions",
 				Category: "API RESOURCE",
 				Suggest:  true,
