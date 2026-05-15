@@ -101,10 +101,6 @@ var visualChangesetsVisualChangeUpdate = requestflag.WithInnerFlags(cli.Command{
 			PathParam: "visualChangeId",
 		},
 		&requestflag.Flag[string]{
-			Name:     "id",
-			BodyPath: "id",
-		},
-		&requestflag.Flag[string]{
 			Name:     "css",
 			BodyPath: "css",
 		},

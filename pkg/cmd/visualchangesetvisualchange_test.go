@@ -83,7 +83,6 @@ func TestVisualChangesetsVisualChangeUpdate(t *testing.T) {
 			"visual-changesets:visual-change", "update",
 			"--id", "id",
 			"--visual-change-id", "visualChangeId",
-			"--id", "id",
 			"--css", "css",
 			"--description", "description",
 			"--dom-mutation", "{action: append, attribute: attribute, selector: selector, insertBeforeSelector: insertBeforeSelector, parentSelector: parentSelector, value: value}",
@@ -103,7 +102,6 @@ func TestVisualChangesetsVisualChangeUpdate(t *testing.T) {
 			"visual-changesets:visual-change", "update",
 			"--id", "id",
 			"--visual-change-id", "visualChangeId",
-			"--id", "id",
 			"--css", "css",
 			"--description", "description",
 			"--dom-mutation.action", "append",
@@ -120,7 +118,6 @@ func TestVisualChangesetsVisualChangeUpdate(t *testing.T) {
 	t.Run("piping data", func(t *testing.T) {
 		// Test piping YAML data over stdin
 		pipeData := []byte("" +
-			"id: id\n" +
 			"css: css\n" +
 			"description: description\n" +
 			"domMutations:\n" +
