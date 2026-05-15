@@ -15,7 +15,6 @@ func TestCodeRefsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"code-refs", "create",
 			"--branch", "branch",
 			"--ref", "{contentHash: contentHash, filePath: filePath, flagKey: flagKey, lines: lines, startingLineNumber: 0}",
@@ -32,7 +31,6 @@ func TestCodeRefsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"code-refs", "create",
 			"--branch", "branch",
 			"--ref.content-hash", "contentHash",
@@ -59,7 +57,6 @@ func TestCodeRefsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"code-refs", "create",
 			"--delete-missing", "true",
 		)
@@ -72,7 +69,6 @@ func TestCodeRefsRetrieve(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"code-refs", "retrieve",
 			"--id", "id",
 		)
@@ -85,7 +81,6 @@ func TestCodeRefsList(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"code-refs", "list",
 			"--limit", "1",
 			"--offset", "0",

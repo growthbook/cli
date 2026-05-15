@@ -14,7 +14,7 @@ import (
 	"github.com/urfave/cli/v3"
 )
 
-var featuresCreate = requestflag.WithInnerFlags(cli.Command{
+var featuresCreate = cli.Command{
 	Name:    "create",
 	Usage:   "Creates a new feature. Rules are supplied as a top-level `rules` array; each\nrule includes `allEnvironments` / `environments` scope fields.",
 	Suggest: true,
@@ -27,7 +27,7 @@ var featuresCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 		&requestflag.Flag[string]{
 			Name:     "default-value",
-			Usage:    "Default value when feature is enabled. Type must match `valueType`. For `object` features, a JSON-stringified object whose keys match the `objectSchema`.",
+			Usage:    "Default value when feature is enabled. Type must match `valueType`.",
 			Required: true,
 			BodyPath: "defaultValue",
 		},
@@ -66,11 +66,6 @@ var featuresCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:    "Use JSON schema to validate the payload of a JSON-type feature value (enterprise only).",
 			BodyPath: "jsonSchema",
 		},
-		&requestflag.Flag[map[string]any]{
-			Name:     "object-schema",
-			Usage:    "Schema for `object`-type features: a fixed list of primitive-typed keys. Required when `valueType` is `object`.",
-			BodyPath: "objectSchema",
-		},
 		&requestflag.Flag[[]string]{
 			Name:     "prerequisite",
 			Usage:    "Feature IDs. Each feature must evaluate to `true`",
@@ -94,19 +89,7 @@ var featuresCreate = requestflag.WithInnerFlags(cli.Command{
 	},
 	Action:          handleFeaturesCreate,
 	HideHelpCommand: true,
-}, map[string][]requestflag.HasOuterFlag{
-	"object-schema": {
-		&requestflag.InnerFlag[[]map[string]any]{
-			Name:       "object-schema.fields",
-			InnerField: "fields",
-		},
-		&requestflag.InnerFlag[string]{
-			Name:       "object-schema.type",
-			Usage:      `Allowed values: "object", "object[]", "primitive", "primitive[]".`,
-			InnerField: "type",
-		},
-	},
-})
+}
 
 var featuresRetrieve = cli.Command{
 	Name:    "retrieve",
@@ -172,11 +155,6 @@ var featuresUpdate = requestflag.WithInnerFlags(cli.Command{
 			Usage:    "Use JSON schema to validate the payload of a JSON-type feature value (enterprise only).",
 			BodyPath: "jsonSchema",
 		},
-		&requestflag.Flag[map[string]any]{
-			Name:     "object-schema",
-			Usage:    "Schema for `object`-type features: a fixed list of primitive-typed keys.",
-			BodyPath: "objectSchema",
-		},
 		&requestflag.Flag[string]{
 			Name:     "owner",
 			Usage:    "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.",
@@ -216,17 +194,6 @@ var featuresUpdate = requestflag.WithInnerFlags(cli.Command{
 			Name:       "holdout.value",
 			Usage:      "The feature value assigned to users in the holdout treatment group",
 			InnerField: "value",
-		},
-	},
-	"object-schema": {
-		&requestflag.InnerFlag[[]map[string]any]{
-			Name:       "object-schema.fields",
-			InnerField: "fields",
-		},
-		&requestflag.InnerFlag[string]{
-			Name:       "object-schema.type",
-			Usage:      `Allowed values: "object", "object[]", "primitive", "primitive[]".`,
-			InnerField: "type",
 		},
 	},
 })

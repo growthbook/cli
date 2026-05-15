@@ -14,7 +14,6 @@ func TestEnvironmentsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"environments", "create",
 			"--id", "id",
 			"--default-state=true",
@@ -38,7 +37,6 @@ func TestEnvironmentsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"environments", "create",
 		)
 	})
@@ -50,7 +48,6 @@ func TestEnvironmentsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"environments", "update",
 			"--id", "id",
 			"--default-state=true",
@@ -71,7 +68,6 @@ func TestEnvironmentsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"environments", "update",
 			"--id", "id",
 		)
@@ -84,7 +80,6 @@ func TestEnvironmentsList(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"environments", "list",
 		)
 	})
@@ -96,7 +91,6 @@ func TestEnvironmentsDelete(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"environments", "delete",
 			"--id", "id",
 		)

@@ -14,7 +14,6 @@ func TestExperimentNamesList(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiment-names", "list",
 			"--project-id", "projectId",
 		)

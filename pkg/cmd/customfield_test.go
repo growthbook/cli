@@ -14,7 +14,6 @@ func TestCustomFieldsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"custom-fields", "create",
 			"--id", "x",
 			"--name", "name",
@@ -47,7 +46,6 @@ func TestCustomFieldsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"custom-fields", "create",
 		)
 	})
@@ -59,7 +57,6 @@ func TestCustomFieldsRetrieve(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"custom-fields", "retrieve",
 			"--id", "id",
 		)
@@ -72,7 +69,6 @@ func TestCustomFieldsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"custom-fields", "update",
 			"--id", "id",
 			"--active=true",
@@ -104,7 +100,6 @@ func TestCustomFieldsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"custom-fields", "update",
 			"--id", "id",
 		)
@@ -117,7 +112,6 @@ func TestCustomFieldsList(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"custom-fields", "list",
 			"--project-id", "projectId",
 		)
@@ -130,7 +124,6 @@ func TestCustomFieldsDelete(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"custom-fields", "delete",
 			"--id", "id",
 			"--index", "index",

@@ -14,7 +14,6 @@ func TestQueriesRetrieve(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"queries", "retrieve",
 			"--id", "id",
 		)

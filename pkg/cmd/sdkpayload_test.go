@@ -14,7 +14,6 @@ func TestSDKPayloadRetrieve(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"sdk-payload", "retrieve",
 			"--key", "key",
 		)

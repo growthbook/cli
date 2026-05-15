@@ -14,7 +14,6 @@ func TestSavedGroupsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"saved-groups", "create",
 			"--name", "name",
 			"--attribute-key", "attributeKey",
@@ -41,7 +40,6 @@ func TestSavedGroupsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"saved-groups", "create",
 		)
 	})
@@ -53,7 +51,6 @@ func TestSavedGroupsRetrieve(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"saved-groups", "retrieve",
 			"--id", "id",
 		)
@@ -66,7 +63,6 @@ func TestSavedGroupsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"saved-groups", "update",
 			"--id", "id",
 			"--condition", "condition",
@@ -90,7 +86,6 @@ func TestSavedGroupsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"saved-groups", "update",
 			"--id", "id",
 		)
@@ -103,7 +98,6 @@ func TestSavedGroupsList(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"saved-groups", "list",
 			"--limit", "1",
 			"--offset", "0",
@@ -117,7 +111,6 @@ func TestSavedGroupsDelete(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"saved-groups", "delete",
 			"--id", "id",
 		)
@@ -130,7 +123,6 @@ func TestSavedGroupsArchive(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"saved-groups", "archive",
 			"--id", "id",
 		)
@@ -143,7 +135,6 @@ func TestSavedGroupsUnarchive(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"saved-groups", "unarchive",
 			"--id", "id",
 		)

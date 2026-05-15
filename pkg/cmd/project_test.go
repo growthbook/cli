@@ -15,7 +15,6 @@ func TestProjectsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"projects", "create",
 			"--name", "name",
 			"--description", "description",
@@ -32,7 +31,6 @@ func TestProjectsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"projects", "create",
 			"--name", "name",
 			"--description", "description",
@@ -56,7 +54,6 @@ func TestProjectsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"projects", "create",
 		)
 	})
@@ -68,7 +65,6 @@ func TestProjectsRetrieve(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"projects", "retrieve",
 			"--id", "id",
 		)
@@ -81,7 +77,6 @@ func TestProjectsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"projects", "update",
 			"--id", "id",
 			"--description", "description",
@@ -99,7 +94,6 @@ func TestProjectsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"projects", "update",
 			"--id", "id",
 			"--description", "description",
@@ -124,7 +118,6 @@ func TestProjectsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"projects", "update",
 			"--id", "id",
 		)
@@ -137,7 +130,6 @@ func TestProjectsList(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"projects", "list",
 			"--limit", "1",
 			"--offset", "0",
@@ -151,7 +143,6 @@ func TestProjectsDelete(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"projects", "delete",
 			"--id", "id",
 		)

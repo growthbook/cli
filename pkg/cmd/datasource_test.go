@@ -14,7 +14,6 @@ func TestDataSourcesRetrieve(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"data-sources", "retrieve",
 			"--id", "id",
 		)
@@ -27,7 +26,6 @@ func TestDataSourcesList(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"data-sources", "list",
 			"--limit", "1",
 			"--offset", "0",
@@ -36,14 +34,13 @@ func TestDataSourcesList(t *testing.T) {
 	})
 }
 
-func TestDataSourcesRetrieveInformationSchema(t *testing.T) {
+func TestDataSourcesGetInformationSchema(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
-			"data-sources", "retrieve-information-schema",
+			"data-sources", "get-information-schema",
 			"--data-source-id", "dataSourceId",
 		)
 	})

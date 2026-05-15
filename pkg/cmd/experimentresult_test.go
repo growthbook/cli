@@ -14,7 +14,6 @@ func TestExperimentsResultsRetrieve(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiments:results", "retrieve",
 			"--id", "id",
 			"--dimension", "dimension",
@@ -29,7 +28,6 @@ func TestExperimentsResultsList(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiments:results", "list",
 			"--datasource-id", "datasourceId",
 			"--limit", "1",

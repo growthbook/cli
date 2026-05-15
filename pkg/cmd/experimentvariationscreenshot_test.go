@@ -14,7 +14,6 @@ func TestExperimentsVariationScreenshotDelete(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiments:variation:screenshot", "delete",
 			"--id", "id",
 			"--variation-id", "variationId",
@@ -28,7 +27,6 @@ func TestExperimentsVariationScreenshotDelete(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiments:variation:screenshot", "delete",
 			"--id", "id",
 			"--variation-id", "variationId",
@@ -42,7 +40,6 @@ func TestExperimentsVariationScreenshotUpload(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiments:variation:screenshot", "upload",
 			"--id", "id",
 			"--variation-id", "variationId",
@@ -61,7 +58,6 @@ func TestExperimentsVariationScreenshotUpload(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiments:variation:screenshot", "upload",
 			"--id", "id",
 			"--variation-id", "variationId",

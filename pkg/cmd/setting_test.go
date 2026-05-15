@@ -14,7 +14,6 @@ func TestSettingsRetrieve(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"settings", "retrieve",
 		)
 	})

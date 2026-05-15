@@ -14,7 +14,6 @@ func TestFactTablesFiltersCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"fact-tables:filters", "create",
 			"--fact-table-id", "factTableId",
 			"--name", "name",
@@ -34,7 +33,6 @@ func TestFactTablesFiltersCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"fact-tables:filters", "create",
 			"--fact-table-id", "factTableId",
 		)
@@ -47,7 +45,6 @@ func TestFactTablesFiltersRetrieve(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"fact-tables:filters", "retrieve",
 			"--fact-table-id", "factTableId",
 			"--id", "id",
@@ -61,7 +58,6 @@ func TestFactTablesFiltersUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"fact-tables:filters", "update",
 			"--fact-table-id", "factTableId",
 			"--id", "id",
@@ -82,7 +78,6 @@ func TestFactTablesFiltersUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"fact-tables:filters", "update",
 			"--fact-table-id", "factTableId",
 			"--id", "id",
@@ -96,7 +91,6 @@ func TestFactTablesFiltersList(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"fact-tables:filters", "list",
 			"--fact-table-id", "factTableId",
 			"--limit", "1",
@@ -111,7 +105,6 @@ func TestFactTablesFiltersDelete(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"fact-tables:filters", "delete",
 			"--fact-table-id", "factTableId",
 			"--id", "id",

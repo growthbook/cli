@@ -14,7 +14,6 @@ func TestAttributesCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"attributes", "create",
 			"--datatype", "boolean",
 			"--property", "property",
@@ -45,7 +44,6 @@ func TestAttributesCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"attributes", "create",
 		)
 	})
@@ -57,7 +55,6 @@ func TestAttributesUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"attributes", "update",
 			"--property", "property",
 			"--archived=true",
@@ -87,7 +84,6 @@ func TestAttributesUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"attributes", "update",
 			"--property", "property",
 		)
@@ -100,7 +96,6 @@ func TestAttributesList(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"attributes", "list",
 		)
 	})
@@ -112,7 +107,6 @@ func TestAttributesDelete(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"attributes", "delete",
 			"--property", "property",
 		)

@@ -15,7 +15,6 @@ func TestMembersList(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"members", "list",
 			"--global-role", "globalRole",
 			"--limit", "1",
@@ -32,7 +31,6 @@ func TestMembersDelete(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"members", "delete",
 			"--id", "id",
 		)
@@ -45,7 +43,6 @@ func TestMembersUpdateRole(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"members", "update-role",
 			"--id", "id",
 			"--member", "{environments: [string], projectRoles: [{environments: [string], project: project, role: role, limitAccessByEnvironment: true}], role: role}",
@@ -60,7 +57,6 @@ func TestMembersUpdateRole(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"members", "update-role",
 			"--id", "id",
 			"--member.environments", "[string]",
@@ -85,7 +81,6 @@ func TestMembersUpdateRole(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"members", "update-role",
 			"--id", "id",
 		)

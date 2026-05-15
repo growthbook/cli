@@ -14,7 +14,6 @@ func TestDimensionsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"dimensions", "create",
 			"--datasource-id", "datasourceId",
 			"--identifier-type", "identifierType",
@@ -39,7 +38,6 @@ func TestDimensionsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"dimensions", "create",
 		)
 	})
@@ -51,7 +49,6 @@ func TestDimensionsRetrieve(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"dimensions", "retrieve",
 			"--id", "id",
 		)
@@ -64,7 +61,6 @@ func TestDimensionsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"dimensions", "update",
 			"--id", "id",
 			"--datasource-id", "datasourceId",
@@ -90,7 +86,6 @@ func TestDimensionsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"dimensions", "update",
 			"--id", "id",
 		)
@@ -103,7 +98,6 @@ func TestDimensionsList(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"dimensions", "list",
 			"--datasource-id", "datasourceId",
 			"--limit", "1",
@@ -118,7 +112,6 @@ func TestDimensionsDelete(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"dimensions", "delete",
 			"--id", "id",
 		)

@@ -95,6 +95,7 @@ func init() {
 			},
 			&requestflag.Flag[string]{
 				Name:    "domain",
+				Usage:   "The host (and optional port) of your self-hosted GrowthBook API server, e.g. `growthbook.example.com` or `localhost:3100`.",
 				Sources: cli.EnvVars("GROWTHBOOK_DOMAIN"),
 			},
 			&cli.StringFlag{
@@ -343,7 +344,7 @@ func init() {
 					&sdkConnectionsUpdate,
 					&sdkConnectionsList,
 					&sdkConnectionsDelete,
-					&sdkConnectionsLookupByKey,
+					&sdkConnectionsLookup,
 				},
 			},
 			{
@@ -353,7 +354,7 @@ func init() {
 				Commands: []*cli.Command{
 					&dataSourcesRetrieve,
 					&dataSourcesList,
-					&dataSourcesRetrieveInformationSchema,
+					&dataSourcesGetInformationSchema,
 				},
 			},
 			{
@@ -533,7 +534,7 @@ func init() {
 					&namespacesUpdate,
 					&namespacesList,
 					&namespacesDelete,
-					&namespacesMemberships,
+					&namespacesGetMemberships,
 					&namespacesRotateSeed,
 				},
 			},

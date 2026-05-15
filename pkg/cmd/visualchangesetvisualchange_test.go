@@ -15,7 +15,6 @@ func TestVisualChangesetsVisualChangeCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"visual-changesets:visual-change", "create",
 			"--id", "id",
 			"--variation", "variation",
@@ -35,7 +34,6 @@ func TestVisualChangesetsVisualChangeCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"visual-changesets:visual-change", "create",
 			"--id", "id",
 			"--variation", "variation",
@@ -70,7 +68,6 @@ func TestVisualChangesetsVisualChangeCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"visual-changesets:visual-change", "create",
 			"--id", "id",
 		)
@@ -83,7 +80,6 @@ func TestVisualChangesetsVisualChangeUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"visual-changesets:visual-change", "update",
 			"--id", "id",
 			"--visual-change-id", "visualChangeId",
@@ -104,7 +100,6 @@ func TestVisualChangesetsVisualChangeUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"visual-changesets:visual-change", "update",
 			"--id", "id",
 			"--visual-change-id", "visualChangeId",
@@ -140,7 +135,6 @@ func TestVisualChangesetsVisualChangeUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"visual-changesets:visual-change", "update",
 			"--id", "id",
 			"--visual-change-id", "visualChangeId",

@@ -14,7 +14,6 @@ func TestTeamsMembersAdd(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"teams:members", "add",
 			"--id", "id",
 			"--member", "string",
@@ -29,7 +28,6 @@ func TestTeamsMembersAdd(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"teams:members", "add",
 			"--id", "id",
 		)
@@ -42,7 +40,6 @@ func TestTeamsMembersRemove(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"teams:members", "remove",
 			"--id", "id",
 			"--member", "string",
@@ -57,7 +54,6 @@ func TestTeamsMembersRemove(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"teams:members", "remove",
 			"--id", "id",
 		)

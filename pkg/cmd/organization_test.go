@@ -14,7 +14,6 @@ func TestOrganizationsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"organizations", "create",
 			"--name", "name",
 			"--external-id", "externalId",
@@ -29,7 +28,6 @@ func TestOrganizationsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"organizations", "create",
 		)
 	})
@@ -41,7 +39,6 @@ func TestOrganizationsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"organizations", "update",
 			"--id", "id",
 			"--external-id", "externalId",
@@ -57,7 +54,6 @@ func TestOrganizationsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"organizations", "update",
 			"--id", "id",
 		)
@@ -70,7 +66,6 @@ func TestOrganizationsList(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"organizations", "list",
 			"--limit", "1",
 			"--offset", "0",

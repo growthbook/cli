@@ -15,7 +15,6 @@ func TestFeaturesRevisionsRulesRampScheduleUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions:rules:ramp-schedule", "update",
 			"--id", "id",
 			"--version", "new",
@@ -40,7 +39,6 @@ func TestFeaturesRevisionsRulesRampScheduleUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions:rules:ramp-schedule", "update",
 			"--id", "id",
 			"--version", "new",
@@ -114,7 +112,6 @@ func TestFeaturesRevisionsRulesRampScheduleUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions:rules:ramp-schedule", "update",
 			"--id", "id",
 			"--version", "new",
@@ -129,7 +126,6 @@ func TestFeaturesRevisionsRulesRampScheduleDelete(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions:rules:ramp-schedule", "delete",
 			"--id", "id",
 			"--version", "new",
@@ -147,7 +143,6 @@ func TestFeaturesRevisionsRulesRampScheduleDelete(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions:rules:ramp-schedule", "delete",
 			"--id", "id",
 			"--version", "new",

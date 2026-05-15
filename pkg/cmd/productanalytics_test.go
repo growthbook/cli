@@ -15,7 +15,6 @@ func TestProductAnalyticsCreateDataSourceExploration(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"product-analytics", "create-data-source-exploration",
 			"--chart-type", "line",
 			"--dataset", "{columnTypes: {foo: string}, path: path, table: table, timestampColumn: timestampColumn, type: data_source, values: [{name: name, rowFilters: [{operator: '=', column: column, values: [string]}], type: data_source, unit: unit, valueColumn: valueColumn, valueType: unit_count}]}",
@@ -36,7 +35,6 @@ func TestProductAnalyticsCreateDataSourceExploration(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"product-analytics", "create-data-source-exploration",
 			"--chart-type", "line",
 			"--dataset.column-types", "{foo: string}",
@@ -96,7 +94,6 @@ func TestProductAnalyticsCreateDataSourceExploration(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"product-analytics", "create-data-source-exploration",
 			"--cache", "preferred",
 		)
@@ -109,7 +106,6 @@ func TestProductAnalyticsCreateMetricExploration(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"product-analytics", "create-metric-exploration",
 			"--chart-type", "line",
 			"--dataset", "{type: metric, values: [{denominatorUnit: denominatorUnit, metricId: metricId, name: name, rowFilters: [{operator: '=', column: column, values: [string]}], type: metric, unit: unit}]}",
@@ -130,7 +126,6 @@ func TestProductAnalyticsCreateMetricExploration(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"product-analytics", "create-metric-exploration",
 			"--chart-type", "line",
 			"--dataset.type", "metric",
@@ -181,7 +176,6 @@ func TestProductAnalyticsCreateMetricExploration(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"product-analytics", "create-metric-exploration",
 			"--cache", "preferred",
 		)
@@ -194,7 +188,6 @@ func TestProductAnalyticsRunFactTableExploration(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"product-analytics", "run-fact-table-exploration",
 			"--chart-type", "line",
 			"--dataset", "{factTableId: factTableId, type: fact_table, values: [{name: name, rowFilters: [{operator: '=', column: column, values: [string]}], type: fact_table, unit: unit, valueColumn: valueColumn, valueType: unit_count}]}",
@@ -215,7 +208,6 @@ func TestProductAnalyticsRunFactTableExploration(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"product-analytics", "run-fact-table-exploration",
 			"--chart-type", "line",
 			"--dataset.fact-table-id", "factTableId",
@@ -268,7 +260,6 @@ func TestProductAnalyticsRunFactTableExploration(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"product-analytics", "run-fact-table-exploration",
 			"--cache", "preferred",
 		)

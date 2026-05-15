@@ -14,7 +14,6 @@ func TestSDKConnectionsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"sdk-connections", "create",
 			"--environment", "environment",
 			"--language", "language",
@@ -67,7 +66,6 @@ func TestSDKConnectionsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"sdk-connections", "create",
 		)
 	})
@@ -79,7 +77,6 @@ func TestSDKConnectionsRetrieve(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"sdk-connections", "retrieve",
 			"--id", "id",
 		)
@@ -92,7 +89,6 @@ func TestSDKConnectionsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"sdk-connections", "update",
 			"--id", "id",
 			"--allowed-custom-fields-in-metadata", "string",
@@ -146,7 +142,6 @@ func TestSDKConnectionsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"sdk-connections", "update",
 			"--id", "id",
 		)
@@ -159,7 +154,6 @@ func TestSDKConnectionsList(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"sdk-connections", "list",
 			"--limit", "1",
 			"--multi-org", "multiOrg",
@@ -176,21 +170,19 @@ func TestSDKConnectionsDelete(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"sdk-connections", "delete",
 			"--id", "id",
 		)
 	})
 }
 
-func TestSDKConnectionsLookupByKey(t *testing.T) {
+func TestSDKConnectionsLookup(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
-			"sdk-connections", "lookup-by-key",
+			"sdk-connections", "lookup",
 			"--key", "key",
 		)
 	})

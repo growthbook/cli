@@ -14,7 +14,6 @@ func TestSnapshotsRetrieve(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"snapshots", "retrieve",
 			"--id", "id",
 		)

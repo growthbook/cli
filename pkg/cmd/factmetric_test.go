@@ -15,7 +15,6 @@ func TestFactMetricsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"fact-metrics", "create",
 			"--metric-type", "proportion",
 			"--name", "name",
@@ -51,7 +50,6 @@ func TestFactMetricsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"fact-metrics", "create",
 			"--metric-type", "proportion",
 			"--name", "name",
@@ -186,7 +184,6 @@ func TestFactMetricsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"fact-metrics", "create",
 		)
 	})
@@ -198,7 +195,6 @@ func TestFactMetricsRetrieve(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"fact-metrics", "retrieve",
 			"--id", "id",
 		)
@@ -211,7 +207,6 @@ func TestFactMetricsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"fact-metrics", "update",
 			"--id", "id",
 			"--archived=true",
@@ -249,7 +244,6 @@ func TestFactMetricsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"fact-metrics", "update",
 			"--id", "id",
 			"--archived=true",
@@ -387,7 +381,6 @@ func TestFactMetricsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"fact-metrics", "update",
 			"--id", "id",
 		)
@@ -400,7 +393,6 @@ func TestFactMetricsList(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"fact-metrics", "list",
 			"--datasource-id", "datasourceId",
 			"--fact-table-id", "factTableId",
@@ -417,7 +409,6 @@ func TestFactMetricsDelete(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"fact-metrics", "delete",
 			"--id", "id",
 		)
@@ -430,7 +421,6 @@ func TestFactMetricsCreateAnalysis(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"fact-metrics", "create-analysis",
 			"--id", "id",
 			"--additional-denominator-filter", "string",
@@ -458,7 +448,6 @@ func TestFactMetricsCreateAnalysis(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"fact-metrics", "create-analysis",
 			"--id", "id",
 		)

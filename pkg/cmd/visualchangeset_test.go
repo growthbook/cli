@@ -15,7 +15,6 @@ func TestVisualChangesetsRetrieve(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"visual-changesets", "retrieve",
 			"--id", "id",
 			"--include-experiment", "0",
@@ -29,7 +28,6 @@ func TestVisualChangesetsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"visual-changesets", "update",
 			"--id", "id",
 			"--editor-url", "editorUrl",
@@ -46,7 +44,6 @@ func TestVisualChangesetsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"visual-changesets", "update",
 			"--id", "id",
 			"--editor-url", "editorUrl",
@@ -86,7 +83,6 @@ func TestVisualChangesetsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"visual-changesets", "update",
 			"--id", "id",
 		)

@@ -15,7 +15,6 @@ func TestFactTablesCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"fact-tables", "create",
 			"--datasource", "datasource",
 			"--name", "name",
@@ -49,7 +48,6 @@ func TestFactTablesCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"fact-tables", "create",
 		)
 	})
@@ -61,7 +59,6 @@ func TestFactTablesRetrieve(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"fact-tables", "retrieve",
 			"--id", "id",
 		)
@@ -74,7 +71,6 @@ func TestFactTablesUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"fact-tables", "update",
 			"--id", "id",
 			"--archived=true",
@@ -100,7 +96,6 @@ func TestFactTablesUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"fact-tables", "update",
 			"--id", "id",
 			"--archived=true",
@@ -164,7 +159,6 @@ func TestFactTablesUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"fact-tables", "update",
 			"--id", "id",
 		)
@@ -177,7 +171,6 @@ func TestFactTablesList(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"fact-tables", "list",
 			"--datasource-id", "datasourceId",
 			"--limit", "1",
@@ -193,7 +186,6 @@ func TestFactTablesDelete(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"fact-tables", "delete",
 			"--id", "id",
 		)

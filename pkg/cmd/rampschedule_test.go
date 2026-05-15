@@ -15,7 +15,6 @@ func TestRampSchedulesCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"ramp-schedules", "create",
 			"--name", "name",
 			"--end-action", "{patch: {condition: condition, coverage: 0, enabled: true, force: {}, prerequisites: [{id: id, condition: condition}], ruleId: ruleId, savedGroups: [{ids: [string], match: all}]}, targetId: targetId, targetType: feature-rule}",
@@ -37,7 +36,6 @@ func TestRampSchedulesCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"ramp-schedules", "create",
 			"--name", "name",
 			"--end-action.patch", "{condition: condition, coverage: 0, enabled: true, force: {}, prerequisites: [{id: id, condition: condition}], ruleId: ruleId, savedGroups: [{ids: [string], match: all}]}",
@@ -108,7 +106,6 @@ func TestRampSchedulesCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"ramp-schedules", "create",
 		)
 	})
@@ -120,7 +117,6 @@ func TestRampSchedulesRetrieve(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"ramp-schedules", "retrieve",
 			"--id", "id",
 		)
@@ -133,7 +129,6 @@ func TestRampSchedulesUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"ramp-schedules", "update",
 			"--id", "id",
 			"--end-action", "{patch: {ruleId: ruleId, condition: condition, coverage: 0, enabled: true, force: {}, prerequisites: [{id: id, condition: condition}], savedGroups: [{ids: [string], match: all}]}, targetId: targetId, targetType: feature-rule}",
@@ -152,7 +147,6 @@ func TestRampSchedulesUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"ramp-schedules", "update",
 			"--id", "id",
 			"--end-action.patch", "{ruleId: ruleId, condition: condition, coverage: 0, enabled: true, force: {}, prerequisites: [{id: id, condition: condition}], savedGroups: [{ids: [string], match: all}]}",
@@ -216,7 +210,6 @@ func TestRampSchedulesUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"ramp-schedules", "update",
 			"--id", "id",
 		)
@@ -229,7 +222,6 @@ func TestRampSchedulesList(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"ramp-schedules", "list",
 			"--feature-id", "featureId",
 			"--limit", "1",
@@ -245,7 +237,6 @@ func TestRampSchedulesDelete(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"ramp-schedules", "delete",
 			"--id", "id",
 		)

@@ -14,7 +14,6 @@ func TestRampSchedulesActionsAddTarget(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"ramp-schedules:actions", "add-target",
 			"--id", "id",
 			"--feature-id", "featureId",
@@ -32,7 +31,6 @@ func TestRampSchedulesActionsAddTarget(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"ramp-schedules:actions", "add-target",
 			"--id", "id",
 		)
@@ -45,7 +43,6 @@ func TestRampSchedulesActionsApproveStep(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"ramp-schedules:actions", "approve-step",
 			"--id", "id",
 		)
@@ -58,7 +55,6 @@ func TestRampSchedulesActionsComplete(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"ramp-schedules:actions", "complete",
 			"--id", "id",
 		)
@@ -71,7 +67,6 @@ func TestRampSchedulesActionsEjectTarget(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"ramp-schedules:actions", "eject-target",
 			"--id", "id",
 			"--environment", "environment",
@@ -89,7 +84,6 @@ func TestRampSchedulesActionsEjectTarget(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"ramp-schedules:actions", "eject-target",
 			"--id", "id",
 		)
@@ -102,7 +96,6 @@ func TestRampSchedulesActionsJump(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"ramp-schedules:actions", "jump",
 			"--id", "id",
 			"--target-step-index", "-1",
@@ -115,7 +108,6 @@ func TestRampSchedulesActionsJump(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"ramp-schedules:actions", "jump",
 			"--id", "id",
 		)
@@ -128,7 +120,6 @@ func TestRampSchedulesActionsPause(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"ramp-schedules:actions", "pause",
 			"--id", "id",
 		)
@@ -141,7 +132,6 @@ func TestRampSchedulesActionsResume(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"ramp-schedules:actions", "resume",
 			"--id", "id",
 		)
@@ -154,7 +144,6 @@ func TestRampSchedulesActionsRollback(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"ramp-schedules:actions", "rollback",
 			"--id", "id",
 		)
@@ -167,7 +156,6 @@ func TestRampSchedulesActionsStart(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"ramp-schedules:actions", "start",
 			"--id", "id",
 		)

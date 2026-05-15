@@ -14,7 +14,6 @@ func TestDashboardsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"dashboards", "create",
 			"--block", "{content: content, description: description, title: title, type: markdown, snapshotId: snapshotId}",
 			"--edit-level", "published",
@@ -49,7 +48,6 @@ func TestDashboardsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"dashboards", "create",
 		)
 	})
@@ -61,7 +59,6 @@ func TestDashboardsRetrieve(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"dashboards", "retrieve",
 			"--id", "id",
 		)
@@ -74,7 +71,6 @@ func TestDashboardsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"dashboards", "update",
 			"--id", "id",
 			"--block", "{content: content, description: description, title: title, type: markdown, snapshotId: snapshotId}",
@@ -108,7 +104,6 @@ func TestDashboardsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"dashboards", "update",
 			"--id", "id",
 		)
@@ -121,7 +116,6 @@ func TestDashboardsList(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"dashboards", "list",
 		)
 	})
@@ -133,7 +127,6 @@ func TestDashboardsDelete(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"dashboards", "delete",
 			"--id", "id",
 		)
@@ -146,7 +139,6 @@ func TestDashboardsListByExperiment(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"dashboards", "list-by-experiment",
 			"--experiment-id", "experimentId",
 		)

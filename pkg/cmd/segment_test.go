@@ -14,7 +14,6 @@ func TestSegmentsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"segments", "create",
 			"--datasource-id", "datasourceId",
 			"--identifier-type", "identifierType",
@@ -49,7 +48,6 @@ func TestSegmentsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"segments", "create",
 		)
 	})
@@ -61,7 +59,6 @@ func TestSegmentsRetrieve(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"segments", "retrieve",
 			"--id", "id",
 		)
@@ -74,7 +71,6 @@ func TestSegmentsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"segments", "update",
 			"--id", "id",
 			"--datasource-id", "datasourceId",
@@ -110,7 +106,6 @@ func TestSegmentsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"segments", "update",
 			"--id", "id",
 		)
@@ -123,7 +118,6 @@ func TestSegmentsList(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"segments", "list",
 			"--datasource-id", "datasourceId",
 			"--limit", "1",
@@ -138,7 +132,6 @@ func TestSegmentsDelete(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"segments", "delete",
 			"--id", "id",
 		)

@@ -15,7 +15,6 @@ func TestMetricsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"metrics", "create",
 			"--datasource-id", "datasourceId",
 			"--name", "name",
@@ -41,7 +40,6 @@ func TestMetricsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"metrics", "create",
 			"--datasource-id", "datasourceId",
 			"--name", "name",
@@ -154,7 +152,6 @@ func TestMetricsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"metrics", "create",
 		)
 	})
@@ -166,7 +163,6 @@ func TestMetricsRetrieve(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"metrics", "retrieve",
 			"--id", "id",
 		)
@@ -179,7 +175,6 @@ func TestMetricsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"metrics", "update",
 			"--id", "id",
 			"--archived=true",
@@ -205,7 +200,6 @@ func TestMetricsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"metrics", "update",
 			"--id", "id",
 			"--archived=true",
@@ -317,7 +311,6 @@ func TestMetricsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"metrics", "update",
 			"--id", "id",
 		)
@@ -330,7 +323,6 @@ func TestMetricsList(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"metrics", "list",
 			"--datasource-id", "datasourceId",
 			"--limit", "1",
@@ -346,7 +338,6 @@ func TestMetricsDelete(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"metrics", "delete",
 			"--id", "id",
 		)

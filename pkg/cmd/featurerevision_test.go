@@ -15,7 +15,6 @@ func TestFeaturesRevisionsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "create",
 			"--id", "id",
 			"--comment", "comment",
@@ -31,7 +30,6 @@ func TestFeaturesRevisionsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "create",
 			"--id", "id",
 		)
@@ -44,7 +42,6 @@ func TestFeaturesRevisionsRetrieve(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "retrieve",
 			"--id", "id",
 			"--version", "0",
@@ -58,7 +55,6 @@ func TestFeaturesRevisionsList(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "list",
 			"--id", "id",
 			"--author", "author",
@@ -76,7 +72,6 @@ func TestFeaturesRevisionsDiscard(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "discard",
 			"--id", "id",
 			"--version", "0",
@@ -90,7 +85,6 @@ func TestFeaturesRevisionsDiscard(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "discard",
 			"--id", "id",
 			"--version", "0",
@@ -104,7 +98,6 @@ func TestFeaturesRevisionsGetMergeStatus(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "get-merge-status",
 			"--id", "id",
 			"--version", "0",
@@ -118,7 +111,6 @@ func TestFeaturesRevisionsPublish(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "publish",
 			"--id", "id",
 			"--version", "0",
@@ -132,7 +124,6 @@ func TestFeaturesRevisionsPublish(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "publish",
 			"--id", "id",
 			"--version", "0",
@@ -146,7 +137,6 @@ func TestFeaturesRevisionsRebase(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "rebase",
 			"--id", "id",
 			"--version", "0",
@@ -162,7 +152,6 @@ func TestFeaturesRevisionsRebase(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "rebase",
 			"--id", "id",
 			"--version", "0",
@@ -176,7 +165,6 @@ func TestFeaturesRevisionsRequestReview(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "request-review",
 			"--id", "id",
 			"--version", "0",
@@ -190,7 +178,6 @@ func TestFeaturesRevisionsRequestReview(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "request-review",
 			"--id", "id",
 			"--version", "0",
@@ -204,7 +191,6 @@ func TestFeaturesRevisionsRetrieveLatest(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "retrieve-latest",
 			"--id", "id",
 			"--mine", "'true'",
@@ -218,7 +204,6 @@ func TestFeaturesRevisionsRevert(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "revert",
 			"--id", "id",
 			"--version", "0",
@@ -237,7 +222,6 @@ func TestFeaturesRevisionsRevert(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "revert",
 			"--id", "id",
 			"--version", "0",
@@ -251,7 +235,6 @@ func TestFeaturesRevisionsSubmitReview(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "submit-review",
 			"--id", "id",
 			"--version", "0",
@@ -268,7 +251,6 @@ func TestFeaturesRevisionsSubmitReview(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "submit-review",
 			"--id", "id",
 			"--version", "0",
@@ -282,7 +264,6 @@ func TestFeaturesRevisionsToggle(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "toggle",
 			"--id", "id",
 			"--version", "new",
@@ -303,7 +284,6 @@ func TestFeaturesRevisionsToggle(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "toggle",
 			"--id", "id",
 			"--version", "new",
@@ -317,7 +297,6 @@ func TestFeaturesRevisionsUpdateArchive(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "update-archive",
 			"--id", "id",
 			"--version", "new",
@@ -336,7 +315,6 @@ func TestFeaturesRevisionsUpdateArchive(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "update-archive",
 			"--id", "id",
 			"--version", "new",
@@ -350,7 +328,6 @@ func TestFeaturesRevisionsUpdateDefaultValue(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "update-default-value",
 			"--id", "id",
 			"--version", "new",
@@ -369,7 +346,6 @@ func TestFeaturesRevisionsUpdateDefaultValue(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "update-default-value",
 			"--id", "id",
 			"--version", "new",
@@ -383,7 +359,6 @@ func TestFeaturesRevisionsUpdateHoldout(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "update-holdout",
 			"--id", "id",
 			"--version", "new",
@@ -401,7 +376,6 @@ func TestFeaturesRevisionsUpdateHoldout(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "update-holdout",
 			"--id", "id",
 			"--version", "new",
@@ -423,7 +397,6 @@ func TestFeaturesRevisionsUpdateHoldout(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "update-holdout",
 			"--id", "id",
 			"--version", "new",
@@ -437,7 +410,6 @@ func TestFeaturesRevisionsUpdateMetadata(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "update-metadata",
 			"--id", "id",
 			"--version", "new",
@@ -461,7 +433,6 @@ func TestFeaturesRevisionsUpdateMetadata(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "update-metadata",
 			"--id", "id",
 			"--version", "new",
@@ -514,7 +485,6 @@ func TestFeaturesRevisionsUpdateMetadata(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "update-metadata",
 			"--id", "id",
 			"--version", "new",
@@ -528,7 +498,6 @@ func TestFeaturesRevisionsUpdatePrerequisites(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "update-prerequisites",
 			"--id", "id",
 			"--version", "new",
@@ -546,7 +515,6 @@ func TestFeaturesRevisionsUpdatePrerequisites(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "update-prerequisites",
 			"--id", "id",
 			"--version", "new",
@@ -568,7 +536,6 @@ func TestFeaturesRevisionsUpdatePrerequisites(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"features:revisions", "update-prerequisites",
 			"--id", "id",
 			"--version", "new",

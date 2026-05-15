@@ -14,7 +14,6 @@ func TestArchetypesCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"archetypes", "create",
 			"--is-public=true",
 			"--name", "name",
@@ -37,7 +36,6 @@ func TestArchetypesCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"archetypes", "create",
 		)
 	})
@@ -49,7 +47,6 @@ func TestArchetypesRetrieve(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"archetypes", "retrieve",
 			"--id", "id",
 		)
@@ -62,7 +59,6 @@ func TestArchetypesUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"archetypes", "update",
 			"--id", "id",
 			"--attributes", "{foo: bar}",
@@ -86,7 +82,6 @@ func TestArchetypesUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"archetypes", "update",
 			"--id", "id",
 		)
@@ -99,7 +94,6 @@ func TestArchetypesList(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"archetypes", "list",
 		)
 	})
@@ -111,7 +105,6 @@ func TestArchetypesDelete(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"archetypes", "delete",
 			"--id", "id",
 		)

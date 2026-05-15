@@ -14,7 +14,6 @@ func TestStaleFeaturesRetrieve(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"stale-features", "retrieve",
 			"--ids", "ids",
 		)

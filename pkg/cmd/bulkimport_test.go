@@ -15,7 +15,6 @@ func TestBulkImportCreateFacts(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"bulk-import", "create-facts",
 			"--fact-metric", "{id: id, data: {metricType: proportion, name: name, numerator: {factTableId: factTableId, aggregateFilter: aggregateFilter, aggregateFilterColumn: aggregateFilterColumn, aggregation: sum, column: column, filters: [string], inlineFilters: {foo: [string]}, rowFilters: [{operator: '=', column: column, values: [string]}]}, archived: true, cappingSettings: {type: none, ignoreZeros: true, value: 0}, denominator: {column: column, factTableId: factTableId, aggregation: sum, filters: [string], inlineFilters: {foo: [string]}, rowFilters: [{operator: '=', column: column, values: [string]}]}, description: description, displayAsPercentage: true, inverse: true, managedBy: '', maxPercentChange: 0, metricAutoSlices: [string], minPercentChange: 0, minSampleSize: 0, owner: owner, priorSettings: {mean: 0, override: true, proper: true, stddev: 1}, projects: [string], quantileSettings: {ignoreZeros: true, quantile: 0.001, type: event, quantileEventCountColumn: quantileEventCountColumn}, regressionAdjustmentSettings: {override: true, days: 0, enabled: true}, riskThresholdDanger: 0, riskThresholdSuccess: 0, tags: [string], targetMDE: 0, windowSettings: {type: none, delayHours: 0, delayUnit: minutes, delayValue: 0, windowUnit: minutes, windowValue: 0}}}",
 			"--fact-table-filter", "{id: id, data: {name: name, value: country = 'US', description: description, managedBy: ''}, factTableId: factTableId}",
@@ -31,7 +30,6 @@ func TestBulkImportCreateFacts(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"bulk-import", "create-facts",
 			"--fact-metric.id", "id",
 			"--fact-metric.data", "{metricType: proportion, name: name, numerator: {factTableId: factTableId, aggregateFilter: aggregateFilter, aggregateFilterColumn: aggregateFilterColumn, aggregation: sum, column: column, filters: [string], inlineFilters: {foo: [string]}, rowFilters: [{operator: '=', column: column, values: [string]}]}, archived: true, cappingSettings: {type: none, ignoreZeros: true, value: 0}, denominator: {column: column, factTableId: factTableId, aggregation: sum, filters: [string], inlineFilters: {foo: [string]}, rowFilters: [{operator: '=', column: column, values: [string]}]}, description: description, displayAsPercentage: true, inverse: true, managedBy: '', maxPercentChange: 0, metricAutoSlices: [string], minPercentChange: 0, minSampleSize: 0, owner: owner, priorSettings: {mean: 0, override: true, proper: true, stddev: 1}, projects: [string], quantileSettings: {ignoreZeros: true, quantile: 0.001, type: event, quantileEventCountColumn: quantileEventCountColumn}, regressionAdjustmentSettings: {override: true, days: 0, enabled: true}, riskThresholdDanger: 0, riskThresholdSuccess: 0, tags: [string], targetMDE: 0, windowSettings: {type: none, delayHours: 0, delayUnit: minutes, delayValue: 0, windowUnit: minutes, windowValue: 0}}",
@@ -151,7 +149,6 @@ func TestBulkImportCreateFacts(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"bulk-import", "create-facts",
 		)
 	})

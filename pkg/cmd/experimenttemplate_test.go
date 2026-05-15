@@ -15,7 +15,6 @@ func TestExperimentTemplatesCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiment-templates", "create",
 			"--datasource", "datasource",
 			"--exposure-query-id", "exposureQueryId",
@@ -49,7 +48,6 @@ func TestExperimentTemplatesCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiment-templates", "create",
 			"--datasource", "datasource",
 			"--exposure-query-id", "exposureQueryId",
@@ -126,7 +124,6 @@ func TestExperimentTemplatesCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiment-templates", "create",
 		)
 	})
@@ -138,7 +135,6 @@ func TestExperimentTemplatesRetrieve(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiment-templates", "retrieve",
 			"--id", "id",
 		)
@@ -151,7 +147,6 @@ func TestExperimentTemplatesUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiment-templates", "update",
 			"--id", "id",
 			"--activation-metric", "activationMetric",
@@ -186,7 +181,6 @@ func TestExperimentTemplatesUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiment-templates", "update",
 			"--id", "id",
 			"--activation-metric", "activationMetric",
@@ -264,7 +258,6 @@ func TestExperimentTemplatesUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiment-templates", "update",
 			"--id", "id",
 		)
@@ -277,7 +270,6 @@ func TestExperimentTemplatesList(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiment-templates", "list",
 			"--project-id", "projectId",
 		)
@@ -290,7 +282,6 @@ func TestExperimentTemplatesDelete(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiment-templates", "delete",
 			"--id", "id",
 		)
@@ -303,7 +294,6 @@ func TestExperimentTemplatesBulkImport(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiment-templates", "bulk-import",
 			"--template", "{id: id, data: {datasource: datasource, exposureQueryId: exposureQueryId, statsEngine: bayesian, targeting: {condition: condition, coverage: 0, prerequisites: [{id: id, condition: condition}], savedGroups: [{ids: [string], match: all}]}, templateMetadata: {name: name, description: description}, type: standard, activationMetric: activationMetric, customFields: {foo: string}, customMetricSlices: [{slices: [{column: column, levels: [string]}]}], description: description, disableStickyBucketing: true, fallbackAttribute: fallbackAttribute, goalMetrics: [string], guardrailMetrics: [string], hashAttribute: hashAttribute, hypothesis: hypothesis, project: project, secondaryMetrics: [string], segment: segment, skipPartialData: true, tags: [string]}}",
 		)
@@ -317,7 +307,6 @@ func TestExperimentTemplatesBulkImport(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiment-templates", "bulk-import",
 			"--template.id", "id",
 			"--template.data", "{datasource: datasource, exposureQueryId: exposureQueryId, statsEngine: bayesian, targeting: {condition: condition, coverage: 0, prerequisites: [{id: id, condition: condition}], savedGroups: [{ids: [string], match: all}]}, templateMetadata: {name: name, description: description}, type: standard, activationMetric: activationMetric, customFields: {foo: string}, customMetricSlices: [{slices: [{column: column, levels: [string]}]}], description: description, disableStickyBucketing: true, fallbackAttribute: fallbackAttribute, goalMetrics: [string], guardrailMetrics: [string], hashAttribute: hashAttribute, hypothesis: hypothesis, project: project, secondaryMetrics: [string], segment: segment, skipPartialData: true, tags: [string]}",
@@ -374,7 +363,6 @@ func TestExperimentTemplatesBulkImport(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiment-templates", "bulk-import",
 		)
 	})

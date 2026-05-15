@@ -14,7 +14,6 @@ func TestNamespacesCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"namespaces", "create",
 			"--display-name", "displayName",
 			"--description", "description",
@@ -35,7 +34,6 @@ func TestNamespacesCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"namespaces", "create",
 		)
 	})
@@ -47,7 +45,6 @@ func TestNamespacesRetrieve(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"namespaces", "retrieve",
 			"--id", "id",
 		)
@@ -60,7 +57,6 @@ func TestNamespacesUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"namespaces", "update",
 			"--id", "id",
 			"--description", "description",
@@ -80,7 +76,6 @@ func TestNamespacesUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"namespaces", "update",
 			"--id", "id",
 		)
@@ -93,7 +88,6 @@ func TestNamespacesList(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"namespaces", "list",
 			"--limit", "1",
 			"--offset", "0",
@@ -107,21 +101,19 @@ func TestNamespacesDelete(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"namespaces", "delete",
 			"--id", "id",
 		)
 	})
 }
 
-func TestNamespacesMemberships(t *testing.T) {
+func TestNamespacesGetMemberships(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
-			"namespaces", "memberships",
+			"namespaces", "get-memberships",
 			"--id", "id",
 			"--limit", "1",
 			"--offset", "0",
@@ -135,7 +127,6 @@ func TestNamespacesRotateSeed(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"namespaces", "rotate-seed",
 			"--id", "id",
 			"--seed", "seed",
@@ -148,7 +139,6 @@ func TestNamespacesRotateSeed(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"namespaces", "rotate-seed",
 			"--id", "id",
 		)

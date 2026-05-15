@@ -57,8 +57,8 @@ var dataSourcesList = cli.Command{
 	HideHelpCommand: true,
 }
 
-var dataSourcesRetrieveInformationSchema = cli.Command{
-	Name:    "retrieve-information-schema",
+var dataSourcesGetInformationSchema = cli.Command{
+	Name:    "get-information-schema",
 	Usage:   "Returns cached database schema metadata for a data source, including databases,\nschemas, and tables. The information schema is automatically created when a\nSQL-based data source is added. Not all data source types support information\nschemas.",
 	Suggest: true,
 	Flags: []cli.Flag{
@@ -69,7 +69,7 @@ var dataSourcesRetrieveInformationSchema = cli.Command{
 			PathParam: "dataSourceId",
 		},
 	},
-	Action:          handleDataSourcesRetrieveInformationSchema,
+	Action:          handleDataSourcesGetInformationSchema,
 	HideHelpCommand: true,
 }
 
@@ -156,7 +156,7 @@ func handleDataSourcesList(ctx context.Context, cmd *cli.Command) error {
 	})
 }
 
-func handleDataSourcesRetrieveInformationSchema(ctx context.Context, cmd *cli.Command) error {
+func handleDataSourcesGetInformationSchema(ctx context.Context, cmd *cli.Command) error {
 	client := growthbook.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("data-source-id") && len(unusedArgs) > 0 {
@@ -193,7 +193,7 @@ func handleDataSourcesRetrieveInformationSchema(ctx context.Context, cmd *cli.Co
 		ExplicitFormat: explicitFormat,
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "data-sources retrieve-information-schema",
+		Title:          "data-sources get-information-schema",
 		Transform:      transform,
 	})
 }

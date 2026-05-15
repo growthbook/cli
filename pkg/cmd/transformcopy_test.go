@@ -14,7 +14,6 @@ func TestTransformCopyCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"transform-copy", "create",
 			"--copy", "copy",
 			"--mode", "energetic",
@@ -31,7 +30,6 @@ func TestTransformCopyCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"transform-copy", "create",
 		)
 	})

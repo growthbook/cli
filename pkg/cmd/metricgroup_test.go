@@ -14,7 +14,6 @@ func TestMetricGroupsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"metric-groups", "create",
 			"--datasource", "datasource",
 			"--description", "description",
@@ -44,7 +43,6 @@ func TestMetricGroupsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"metric-groups", "create",
 		)
 	})
@@ -56,7 +54,6 @@ func TestMetricGroupsRetrieve(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"metric-groups", "retrieve",
 			"--id", "id",
 		)
@@ -69,7 +66,6 @@ func TestMetricGroupsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"metric-groups", "update",
 			"--id", "id",
 			"--archived=true",
@@ -100,7 +96,6 @@ func TestMetricGroupsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"metric-groups", "update",
 			"--id", "id",
 		)
@@ -113,7 +108,6 @@ func TestMetricGroupsList(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"metric-groups", "list",
 		)
 	})
@@ -125,7 +119,6 @@ func TestMetricGroupsDelete(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"metric-groups", "delete",
 			"--id", "id",
 		)

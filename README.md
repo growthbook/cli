@@ -45,8 +45,7 @@ growthbook [resource] <command> [flags...]
 
 ```sh
 growthbook features list \
-  --api-key 'My API Key' \
-  --domain My-Domain
+  --api-key 'My API Key'
 ```
 
 For details about specific commands, use the `--help` flag.
@@ -61,7 +60,7 @@ For details about specific commands, use the `--help` flag.
 curl https://api.growthbook.io/api/v1/features   -H "Authorization: Bearer secret_abc123DEF456"
 ```
 
-                                                                         | no       | `null`        |
+                                                                         | no       | `null`             |
 
 | `GROWTHBOOK_USERNAME` | If using HTTP Basic auth, pass the Secret Key as the username and leave the password blank:
 
@@ -79,7 +78,7 @@ curl https://api.growthbook.io/api/v1/features   -u secret_abc123DEF456:
 ```
 
 | no | `null` |
-| `GROWTHBOOK_DOMAIN` | | yes | |
+| `GROWTHBOOK_DOMAIN` | The host (and optional port) of your self-hosted GrowthBook API server, e.g. `growthbook.example.com` or `localhost:3100`. | no | `"localhost:3100"` |
 
 ### Global flags
 
@@ -109,7 +108,7 @@ curl https://api.growthbook.io/api/v1/features   -u secret_abc123DEF456:
 
 (can also be set with `GROWTHBOOK_PASSWORD` env var)
 
-- `--domain` (can also be set with `GROWTHBOOK_DOMAIN` env var)
+- `--domain` - The host (and optional port) of your self-hosted GrowthBook API server, e.g. `growthbook.example.com` or `localhost:3100`. (can also be set with `GROWTHBOOK_DOMAIN` env var)
 - `--help` - Show command line usage
 - `--debug` - Enable debug logging (includes HTTP request/response details)
 - `--version`, `-v` - Show the CLI version

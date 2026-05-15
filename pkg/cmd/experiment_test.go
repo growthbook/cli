@@ -15,7 +15,6 @@ func TestExperimentsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiments", "create",
 			"--name", "name",
 			"--tracking-key", "trackingKey",
@@ -80,7 +79,6 @@ func TestExperimentsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiments", "create",
 			"--name", "name",
 			"--tracking-key", "trackingKey",
@@ -302,7 +300,6 @@ func TestExperimentsCreate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiments", "create",
 		)
 	})
@@ -314,7 +311,6 @@ func TestExperimentsRetrieve(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiments", "retrieve",
 			"--id", "id",
 		)
@@ -327,7 +323,6 @@ func TestExperimentsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiments", "update",
 			"--id", "id",
 			"--activation-metric", "activationMetric",
@@ -395,7 +390,6 @@ func TestExperimentsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiments", "update",
 			"--id", "id",
 			"--activation-metric", "activationMetric",
@@ -620,7 +614,6 @@ func TestExperimentsUpdate(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiments", "update",
 			"--id", "id",
 		)
@@ -633,7 +626,6 @@ func TestExperimentsList(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiments", "list",
 			"--datasource-id", "datasourceId",
 			"--experiment-id", "experimentId",
@@ -652,7 +644,6 @@ func TestExperimentsCreateSnapshot(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiments", "create-snapshot",
 			"--id", "id",
 			"--dimension", "dimension",
@@ -670,7 +661,6 @@ func TestExperimentsCreateSnapshot(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiments", "create-snapshot",
 			"--id", "id",
 		)
@@ -683,7 +673,6 @@ func TestExperimentsModifyTemporaryRollout(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiments", "modify-temporary-rollout",
 			"--id", "id",
 			"--enable-temporary-rollout=true",
@@ -699,7 +688,6 @@ func TestExperimentsModifyTemporaryRollout(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiments", "modify-temporary-rollout",
 			"--id", "id",
 		)
@@ -712,7 +700,6 @@ func TestExperimentsStart(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiments", "start",
 			"--id", "id",
 			"--skip-checklist=true",
@@ -725,7 +712,6 @@ func TestExperimentsStart(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiments", "start",
 			"--id", "id",
 		)
@@ -738,7 +724,6 @@ func TestExperimentsStop(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiments", "stop",
 			"--id", "id",
 			"--results", "dnf",
@@ -764,7 +749,6 @@ func TestExperimentsStop(t *testing.T) {
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"--domain", "string",
 			"experiments", "stop",
 			"--id", "id",
 		)
