@@ -10,7 +10,7 @@ import (
 	"os"
 	"slices"
 
-	"github.com/stainless-sdks/growthbook-cli/pkg/cmd"
+	"github.com/growthbook/cli/pkg/cmd"
 	"github.com/stainless-sdks/growthbook-go"
 	"github.com/tidwall/gjson"
 	"github.com/urfave/cli/v3"

@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/stainless-sdks/growthbook-cli/internal/apiquery"
+	"github.com/growthbook/cli/internal/apiquery"
 	"github.com/stainless-sdks/growthbook-go"
 	"github.com/stainless-sdks/growthbook-go/option"
 	"github.com/tidwall/gjson"

@@ -5,7 +5,7 @@ package cmd
 import (
 	"testing"
 
-	"github.com/stainless-sdks/growthbook-cli/internal/mocktest"
+	"github.com/growthbook/cli/internal/mocktest"
 )
 
 func TestSDKConnectionsCreate(t *testing.T) {

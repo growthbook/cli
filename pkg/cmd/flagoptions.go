@@ -16,10 +16,10 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"github.com/stainless-sdks/growthbook-cli/internal/apiform"
-	"github.com/stainless-sdks/growthbook-cli/internal/apiquery"
-	"github.com/stainless-sdks/growthbook-cli/internal/debugmiddleware"
-	"github.com/stainless-sdks/growthbook-cli/internal/requestflag"
+	"github.com/growthbook/cli/internal/apiform"
+	"github.com/growthbook/cli/internal/apiquery"
+	"github.com/growthbook/cli/internal/debugmiddleware"
+	"github.com/growthbook/cli/internal/requestflag"
 	"github.com/stainless-sdks/growthbook-go/option"
 
 	"github.com/goccy/go-yaml"
