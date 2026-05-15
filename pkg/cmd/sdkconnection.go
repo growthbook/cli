@@ -270,8 +270,8 @@ var sdkConnectionsDelete = cli.Command{
 	HideHelpCommand: true,
 }
 
-var sdkConnectionsLookup = cli.Command{
-	Name:    "lookup",
+var sdkConnectionsLookupByKey = cli.Command{
+	Name:    "lookup-by-key",
 	Usage:   "Find a single sdk connection by its key",
 	Suggest: true,
 	Flags: []cli.Flag{
@@ -282,7 +282,7 @@ var sdkConnectionsLookup = cli.Command{
 			PathParam: "key",
 		},
 	},
-	Action:          handleSDKConnectionsLookup,
+	Action:          handleSDKConnectionsLookupByKey,
 	HideHelpCommand: true,
 }
 
@@ -501,7 +501,7 @@ func handleSDKConnectionsDelete(ctx context.Context, cmd *cli.Command) error {
 	})
 }
 
-func handleSDKConnectionsLookup(ctx context.Context, cmd *cli.Command) error {
+func handleSDKConnectionsLookupByKey(ctx context.Context, cmd *cli.Command) error {
 	client := growthbook.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("key") && len(unusedArgs) > 0 {
@@ -525,7 +525,7 @@ func handleSDKConnectionsLookup(ctx context.Context, cmd *cli.Command) error {
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.SDKConnections.Lookup(ctx, cmd.Value("key").(string), options...)
+	_, err = client.SDKConnections.LookupByKey(ctx, cmd.Value("key").(string), options...)
 	if err != nil {
 		return err
 	}
@@ -538,7 +538,7 @@ func handleSDKConnectionsLookup(ctx context.Context, cmd *cli.Command) error {
 		ExplicitFormat: explicitFormat,
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "sdk-connections lookup",
+		Title:          "sdk-connections lookup-by-key",
 		Transform:      transform,
 	})
 }

@@ -14,37 +14,26 @@ import (
 	"github.com/urfave/cli/v3"
 )
 
-var featuresRevisionsRebaseCreate = cli.Command{
-	Name:    "create",
-	Usage:   "Updates the draft's base revision to match the currently-live revision, applying\nthe draft's changes on top. Supply `conflictResolutions` to resolve any\nconflicting fields. Valid keys: `defaultValue`, `rules`, `prerequisites`,\n`archived`, `holdout`, and `environmentsEnabled.<env>`. Unresolved conflicts\nrespond with `409`.",
+var staleFeaturesRetrieve = cli.Command{
+	Name:    "retrieve",
+	Usage:   "Get stale status for one or more features",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:      "id",
+			Name:      "ids",
+			Usage:     "Comma-separated list of feature IDs (URL-encoded if needed). Example: `my_feature,another_feature`",
 			Required:  true,
-			PathParam: "id",
-		},
-		&requestflag.Flag[int64]{
-			Name:      "version",
-			Required:  true,
-			PathParam: "version",
-		},
-		&requestflag.Flag[map[string]any]{
-			Name:     "conflict-resolutions",
-			BodyPath: "conflictResolutions",
+			QueryPath: "ids",
 		},
 	},
-	Action:          handleFeaturesRevisionsRebaseCreate,
+	Action:          handleStaleFeaturesRetrieve,
 	HideHelpCommand: true,
 }
 
-func handleFeaturesRevisionsRebaseCreate(ctx context.Context, cmd *cli.Command) error {
+func handleStaleFeaturesRetrieve(ctx context.Context, cmd *cli.Command) error {
 	client := growthbook.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
-	if !cmd.IsSet("version") && len(unusedArgs) > 0 {
-		cmd.Set("version", unusedArgs[0])
-		unusedArgs = unusedArgs[1:]
-	}
+
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
@@ -53,25 +42,18 @@ func handleFeaturesRevisionsRebaseCreate(ctx context.Context, cmd *cli.Command) 
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
-		ApplicationJSON,
+		EmptyBody,
 		false,
 	)
 	if err != nil {
 		return err
 	}
 
-	params := growthbook.FeatureRevisionRebaseNewParams{
-		ID: cmd.Value("id").(string),
-	}
+	params := growthbook.StaleFeatureGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Features.Revisions.Rebase.New(
-		ctx,
-		cmd.Value("version").(int64),
-		params,
-		options...,
-	)
+	_, err = client.StaleFeatures.Get(ctx, params, options...)
 	if err != nil {
 		return err
 	}
@@ -84,7 +66,7 @@ func handleFeaturesRevisionsRebaseCreate(ctx context.Context, cmd *cli.Command) 
 		ExplicitFormat: explicitFormat,
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "features:revisions:rebase create",
+		Title:          "stale-features retrieve",
 		Transform:      transform,
 	})
 }

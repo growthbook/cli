@@ -139,8 +139,8 @@ var namespacesDelete = cli.Command{
 	HideHelpCommand: true,
 }
 
-var namespacesGetMemberships = cli.Command{
-	Name:    "get-memberships",
+var namespacesMemberships = cli.Command{
+	Name:    "memberships",
 	Usage:   "Get namespace membership",
 	Suggest: true,
 	Flags: []cli.Flag{
@@ -163,7 +163,7 @@ var namespacesGetMemberships = cli.Command{
 			QueryPath: "offset",
 		},
 	},
-	Action:          handleNamespacesGetMemberships,
+	Action:          handleNamespacesMemberships,
 	HideHelpCommand: true,
 }
 
@@ -403,7 +403,7 @@ func handleNamespacesDelete(ctx context.Context, cmd *cli.Command) error {
 	})
 }
 
-func handleNamespacesGetMemberships(ctx context.Context, cmd *cli.Command) error {
+func handleNamespacesMemberships(ctx context.Context, cmd *cli.Command) error {
 	client := growthbook.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("id") && len(unusedArgs) > 0 {
@@ -425,11 +425,11 @@ func handleNamespacesGetMemberships(ctx context.Context, cmd *cli.Command) error
 		return err
 	}
 
-	params := growthbook.NamespaceGetMembershipsParams{}
+	params := growthbook.NamespaceMembershipsParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Namespaces.GetMemberships(
+	_, err = client.Namespaces.Memberships(
 		ctx,
 		cmd.Value("id").(string),
 		params,
@@ -447,7 +447,7 @@ func handleNamespacesGetMemberships(ctx context.Context, cmd *cli.Command) error
 		ExplicitFormat: explicitFormat,
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "namespaces get-memberships",
+		Title:          "namespaces memberships",
 		Transform:      transform,
 	})
 }

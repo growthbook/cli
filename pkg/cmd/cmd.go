@@ -113,22 +113,8 @@ func init() {
 					&featuresUpdate,
 					&featuresList,
 					&featuresDelete,
-				},
-			},
-			{
-				Name:     "features:toggle",
-				Category: "API RESOURCE",
-				Suggest:  true,
-				Commands: []*cli.Command{
-					&featuresToggleToggle,
-				},
-			},
-			{
-				Name:     "features:revert",
-				Category: "API RESOURCE",
-				Suggest:  true,
-				Commands: []*cli.Command{
-					&featuresRevertRevert,
+					&featuresRevert,
+					&featuresToggle,
 				},
 			},
 			{
@@ -139,62 +125,20 @@ func init() {
 					&featuresRevisionsCreate,
 					&featuresRevisionsRetrieve,
 					&featuresRevisionsList,
-				},
-			},
-			{
-				Name:     "features:revisions:latest",
-				Category: "API RESOURCE",
-				Suggest:  true,
-				Commands: []*cli.Command{
-					&featuresRevisionsLatestList,
-				},
-			},
-			{
-				Name:     "features:revisions:metadata",
-				Category: "API RESOURCE",
-				Suggest:  true,
-				Commands: []*cli.Command{
-					&featuresRevisionsMetadataCreate,
-				},
-			},
-			{
-				Name:     "features:revisions:default-value",
-				Category: "API RESOURCE",
-				Suggest:  true,
-				Commands: []*cli.Command{
-					&featuresRevisionsDefaultValueUpdateDefaultValue,
-				},
-			},
-			{
-				Name:     "features:revisions:prerequisites",
-				Category: "API RESOURCE",
-				Suggest:  true,
-				Commands: []*cli.Command{
-					&featuresRevisionsPrerequisitesCreate,
-				},
-			},
-			{
-				Name:     "features:revisions:holdout",
-				Category: "API RESOURCE",
-				Suggest:  true,
-				Commands: []*cli.Command{
-					&featuresRevisionsHoldoutCreate,
-				},
-			},
-			{
-				Name:     "features:revisions:archive",
-				Category: "API RESOURCE",
-				Suggest:  true,
-				Commands: []*cli.Command{
-					&featuresRevisionsArchiveCreate,
-				},
-			},
-			{
-				Name:     "features:revisions:toggle",
-				Category: "API RESOURCE",
-				Suggest:  true,
-				Commands: []*cli.Command{
-					&featuresRevisionsToggleCreate,
+					&featuresRevisionsDiscard,
+					&featuresRevisionsGetMergeStatus,
+					&featuresRevisionsPublish,
+					&featuresRevisionsRebase,
+					&featuresRevisionsRequestReview,
+					&featuresRevisionsRetrieveLatest,
+					&featuresRevisionsRevert,
+					&featuresRevisionsSubmitReview,
+					&featuresRevisionsToggle,
+					&featuresRevisionsUpdateArchive,
+					&featuresRevisionsUpdateDefaultValue,
+					&featuresRevisionsUpdateHoldout,
+					&featuresRevisionsUpdateMetadata,
+					&featuresRevisionsUpdatePrerequisites,
 				},
 			},
 			{
@@ -202,17 +146,10 @@ func init() {
 				Category: "API RESOURCE",
 				Suggest:  true,
 				Commands: []*cli.Command{
-					&featuresRevisionsRulesCreate,
 					&featuresRevisionsRulesUpdate,
 					&featuresRevisionsRulesDelete,
-				},
-			},
-			{
-				Name:     "features:revisions:rules:reorder",
-				Category: "API RESOURCE",
-				Suggest:  true,
-				Commands: []*cli.Command{
-					&featuresRevisionsRulesReorderCreate,
+					&featuresRevisionsRulesAdd,
+					&featuresRevisionsRulesReorder,
 				},
 			},
 			{
@@ -220,64 +157,24 @@ func init() {
 				Category: "API RESOURCE",
 				Suggest:  true,
 				Commands: []*cli.Command{
-					&featuresRevisionsRulesRampScheduleDeleteRampSchedule,
-					&featuresRevisionsRulesRampScheduleUpdateRampSchedule,
+					&featuresRevisionsRulesRampScheduleUpdate,
+					&featuresRevisionsRulesRampScheduleDelete,
 				},
 			},
 			{
-				Name:     "features:revisions:request-review",
+				Name:     "feature-keys",
 				Category: "API RESOURCE",
 				Suggest:  true,
 				Commands: []*cli.Command{
-					&featuresRevisionsRequestReviewRequestReview,
+					&featureKeysList,
 				},
 			},
 			{
-				Name:     "features:revisions:submit-review",
+				Name:     "stale-features",
 				Category: "API RESOURCE",
 				Suggest:  true,
 				Commands: []*cli.Command{
-					&featuresRevisionsSubmitReviewSubmitReview,
-				},
-			},
-			{
-				Name:     "features:revisions:merge-status",
-				Category: "API RESOURCE",
-				Suggest:  true,
-				Commands: []*cli.Command{
-					&featuresRevisionsMergeStatusRetrieveMergeStatus,
-				},
-			},
-			{
-				Name:     "features:revisions:rebase",
-				Category: "API RESOURCE",
-				Suggest:  true,
-				Commands: []*cli.Command{
-					&featuresRevisionsRebaseCreate,
-				},
-			},
-			{
-				Name:     "features:revisions:publish",
-				Category: "API RESOURCE",
-				Suggest:  true,
-				Commands: []*cli.Command{
-					&featuresRevisionsPublishCreate,
-				},
-			},
-			{
-				Name:     "features:revisions:discard",
-				Category: "API RESOURCE",
-				Suggest:  true,
-				Commands: []*cli.Command{
-					&featuresRevisionsDiscardCreate,
-				},
-			},
-			{
-				Name:     "features:revisions:revert",
-				Category: "API RESOURCE",
-				Suggest:  true,
-				Commands: []*cli.Command{
-					&featuresRevisionsRevertCreate,
+					&staleFeaturesRetrieve,
 				},
 			},
 			{
@@ -446,7 +343,7 @@ func init() {
 					&sdkConnectionsUpdate,
 					&sdkConnectionsList,
 					&sdkConnectionsDelete,
-					&sdkConnectionsLookup,
+					&sdkConnectionsLookupByKey,
 				},
 			},
 			{
@@ -456,7 +353,7 @@ func init() {
 				Commands: []*cli.Command{
 					&dataSourcesRetrieve,
 					&dataSourcesList,
-					&dataSourcesGetInformationSchema,
+					&dataSourcesRetrieveInformationSchema,
 				},
 			},
 			{
@@ -636,7 +533,7 @@ func init() {
 					&namespacesUpdate,
 					&namespacesList,
 					&namespacesDelete,
-					&namespacesGetMemberships,
+					&namespacesMemberships,
 					&namespacesRotateSeed,
 				},
 			},

@@ -285,6 +285,56 @@ var featuresDelete = cli.Command{
 	HideHelpCommand: true,
 }
 
+var featuresRevert = cli.Command{
+	Name:    "revert",
+	Usage:   "Revert a feature to a specific revision",
+	Suggest: true,
+	Flags: []cli.Flag{
+		&requestflag.Flag[string]{
+			Name:      "id",
+			Usage:     "The id of the requested resource",
+			Required:  true,
+			PathParam: "id",
+		},
+		&requestflag.Flag[float64]{
+			Name:     "revision",
+			Required: true,
+			BodyPath: "revision",
+		},
+		&requestflag.Flag[string]{
+			Name:     "comment",
+			BodyPath: "comment",
+		},
+	},
+	Action:          handleFeaturesRevert,
+	HideHelpCommand: true,
+}
+
+var featuresToggle = cli.Command{
+	Name:    "toggle",
+	Usage:   "Enables or disables a feature in one or more environments simultaneously.\nAccepts a map of environment name → boolean.",
+	Suggest: true,
+	Flags: []cli.Flag{
+		&requestflag.Flag[string]{
+			Name:      "id",
+			Usage:     "The id of the requested resource",
+			Required:  true,
+			PathParam: "id",
+		},
+		&requestflag.Flag[map[string]any]{
+			Name:     "environments",
+			Required: true,
+			BodyPath: "environments",
+		},
+		&requestflag.Flag[string]{
+			Name:     "reason",
+			BodyPath: "reason",
+		},
+	},
+	Action:          handleFeaturesToggle,
+	HideHelpCommand: true,
+}
+
 func handleFeaturesCreate(ctx context.Context, cmd *cli.Command) error {
 	client := growthbook.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
@@ -503,6 +553,104 @@ func handleFeaturesDelete(ctx context.Context, cmd *cli.Command) error {
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
 		Title:          "features delete",
+		Transform:      transform,
+	})
+}
+
+func handleFeaturesRevert(ctx context.Context, cmd *cli.Command) error {
+	client := growthbook.NewClient(getDefaultRequestOptions(cmd)...)
+	unusedArgs := cmd.Args().Slice()
+	if !cmd.IsSet("id") && len(unusedArgs) > 0 {
+		cmd.Set("id", unusedArgs[0])
+		unusedArgs = unusedArgs[1:]
+	}
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
+
+	options, err := flagOptions(
+		cmd,
+		apiquery.NestedQueryFormatBrackets,
+		apiquery.ArrayQueryFormatComma,
+		ApplicationJSON,
+		false,
+	)
+	if err != nil {
+		return err
+	}
+
+	params := growthbook.FeatureRevertParams{}
+
+	var res []byte
+	options = append(options, option.WithResponseBodyInto(&res))
+	_, err = client.Features.Revert(
+		ctx,
+		cmd.Value("id").(string),
+		params,
+		options...,
+	)
+	if err != nil {
+		return err
+	}
+
+	obj := gjson.ParseBytes(res)
+	format := cmd.Root().String("format")
+	explicitFormat := cmd.Root().IsSet("format")
+	transform := cmd.Root().String("transform")
+	return ShowJSON(obj, ShowJSONOpts{
+		ExplicitFormat: explicitFormat,
+		Format:         format,
+		RawOutput:      cmd.Root().Bool("raw-output"),
+		Title:          "features revert",
+		Transform:      transform,
+	})
+}
+
+func handleFeaturesToggle(ctx context.Context, cmd *cli.Command) error {
+	client := growthbook.NewClient(getDefaultRequestOptions(cmd)...)
+	unusedArgs := cmd.Args().Slice()
+	if !cmd.IsSet("id") && len(unusedArgs) > 0 {
+		cmd.Set("id", unusedArgs[0])
+		unusedArgs = unusedArgs[1:]
+	}
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
+
+	options, err := flagOptions(
+		cmd,
+		apiquery.NestedQueryFormatBrackets,
+		apiquery.ArrayQueryFormatComma,
+		ApplicationJSON,
+		false,
+	)
+	if err != nil {
+		return err
+	}
+
+	params := growthbook.FeatureToggleParams{}
+
+	var res []byte
+	options = append(options, option.WithResponseBodyInto(&res))
+	_, err = client.Features.Toggle(
+		ctx,
+		cmd.Value("id").(string),
+		params,
+		options...,
+	)
+	if err != nil {
+		return err
+	}
+
+	obj := gjson.ParseBytes(res)
+	format := cmd.Root().String("format")
+	explicitFormat := cmd.Root().IsSet("format")
+	transform := cmd.Root().String("transform")
+	return ShowJSON(obj, ShowJSONOpts{
+		ExplicitFormat: explicitFormat,
+		Format:         format,
+		RawOutput:      cmd.Root().Bool("raw-output"),
+		Title:          "features toggle",
 		Transform:      transform,
 	})
 }

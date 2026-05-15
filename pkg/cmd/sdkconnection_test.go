@@ -183,14 +183,14 @@ func TestSDKConnectionsDelete(t *testing.T) {
 	})
 }
 
-func TestSDKConnectionsLookup(t *testing.T) {
+func TestSDKConnectionsLookupByKey(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
 			"--domain", "string",
-			"sdk-connections", "lookup",
+			"sdk-connections", "lookup-by-key",
 			"--key", "key",
 		)
 	})

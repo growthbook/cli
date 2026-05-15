@@ -14,41 +14,8 @@ import (
 	"github.com/urfave/cli/v3"
 )
 
-var featuresRevisionsRulesRampScheduleDeleteRampSchedule = cli.Command{
-	Name:    "delete-ramp-schedule",
-	Usage:   "Remove ramp schedule from a rule",
-	Suggest: true,
-	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
-			Name:      "id",
-			Required:  true,
-			PathParam: "id",
-		},
-		&requestflag.Flag[any]{
-			Name:      "version",
-			Required:  true,
-			PathParam: "version",
-		},
-		&requestflag.Flag[string]{
-			Name:      "rule-id",
-			Required:  true,
-			PathParam: "ruleId",
-		},
-		&requestflag.Flag[string]{
-			Name:     "revision-comment",
-			BodyPath: "revisionComment",
-		},
-		&requestflag.Flag[string]{
-			Name:     "revision-title",
-			BodyPath: "revisionTitle",
-		},
-	},
-	Action:          handleFeaturesRevisionsRulesRampScheduleDeleteRampSchedule,
-	HideHelpCommand: true,
-}
-
-var featuresRevisionsRulesRampScheduleUpdateRampSchedule = requestflag.WithInnerFlags(cli.Command{
-	Name:    "update-ramp-schedule",
+var featuresRevisionsRulesRampScheduleUpdate = requestflag.WithInnerFlags(cli.Command{
+	Name:    "update",
 	Usage:   "Set ramp schedule for a rule",
 	Suggest: true,
 	Flags: []cli.Flag{
@@ -104,7 +71,7 @@ var featuresRevisionsRulesRampScheduleUpdateRampSchedule = requestflag.WithInner
 			BodyPath: "templateId",
 		},
 	},
-	Action:          handleFeaturesRevisionsRulesRampScheduleUpdateRampSchedule,
+	Action:          handleFeaturesRevisionsRulesRampScheduleUpdate,
 	HideHelpCommand: true,
 }, map[string][]requestflag.HasOuterFlag{
 	"end-action": {
@@ -144,7 +111,40 @@ var featuresRevisionsRulesRampScheduleUpdateRampSchedule = requestflag.WithInner
 	},
 })
 
-func handleFeaturesRevisionsRulesRampScheduleDeleteRampSchedule(ctx context.Context, cmd *cli.Command) error {
+var featuresRevisionsRulesRampScheduleDelete = cli.Command{
+	Name:    "delete",
+	Usage:   "Remove ramp schedule from a rule",
+	Suggest: true,
+	Flags: []cli.Flag{
+		&requestflag.Flag[string]{
+			Name:      "id",
+			Required:  true,
+			PathParam: "id",
+		},
+		&requestflag.Flag[any]{
+			Name:      "version",
+			Required:  true,
+			PathParam: "version",
+		},
+		&requestflag.Flag[string]{
+			Name:      "rule-id",
+			Required:  true,
+			PathParam: "ruleId",
+		},
+		&requestflag.Flag[string]{
+			Name:     "revision-comment",
+			BodyPath: "revisionComment",
+		},
+		&requestflag.Flag[string]{
+			Name:     "revision-title",
+			BodyPath: "revisionTitle",
+		},
+	},
+	Action:          handleFeaturesRevisionsRulesRampScheduleDelete,
+	HideHelpCommand: true,
+}
+
+func handleFeaturesRevisionsRulesRampScheduleUpdate(ctx context.Context, cmd *cli.Command) error {
 	client := growthbook.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("rule-id") && len(unusedArgs) > 0 {
@@ -166,14 +166,14 @@ func handleFeaturesRevisionsRulesRampScheduleDeleteRampSchedule(ctx context.Cont
 		return err
 	}
 
-	params := growthbook.FeatureRevisionRuleRampScheduleDeleteRampScheduleParams{
+	params := growthbook.FeatureRevisionRuleRampScheduleUpdateParams{
 		ID:      cmd.Value("id").(string),
-		Version: growthbook.FeatureRevisionRuleRampScheduleDeleteRampScheduleParamsVersionUnion(cmd.Value("version").(any)),
+		Version: growthbook.FeatureRevisionRuleRampScheduleUpdateParamsVersionUnion(cmd.Value("version").(any)),
 	}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Features.Revisions.Rules.RampSchedule.DeleteRampSchedule(
+	_, err = client.Features.Revisions.Rules.RampSchedule.Update(
 		ctx,
 		cmd.Value("rule-id").(string),
 		params,
@@ -191,12 +191,12 @@ func handleFeaturesRevisionsRulesRampScheduleDeleteRampSchedule(ctx context.Cont
 		ExplicitFormat: explicitFormat,
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "features:revisions:rules:ramp-schedule delete-ramp-schedule",
+		Title:          "features:revisions:rules:ramp-schedule update",
 		Transform:      transform,
 	})
 }
 
-func handleFeaturesRevisionsRulesRampScheduleUpdateRampSchedule(ctx context.Context, cmd *cli.Command) error {
+func handleFeaturesRevisionsRulesRampScheduleDelete(ctx context.Context, cmd *cli.Command) error {
 	client := growthbook.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("rule-id") && len(unusedArgs) > 0 {
@@ -218,14 +218,14 @@ func handleFeaturesRevisionsRulesRampScheduleUpdateRampSchedule(ctx context.Cont
 		return err
 	}
 
-	params := growthbook.FeatureRevisionRuleRampScheduleUpdateRampScheduleParams{
+	params := growthbook.FeatureRevisionRuleRampScheduleDeleteParams{
 		ID:      cmd.Value("id").(string),
-		Version: growthbook.FeatureRevisionRuleRampScheduleUpdateRampScheduleParamsVersionUnion(cmd.Value("version").(any)),
+		Version: growthbook.FeatureRevisionRuleRampScheduleDeleteParamsVersionUnion(cmd.Value("version").(any)),
 	}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Features.Revisions.Rules.RampSchedule.UpdateRampSchedule(
+	_, err = client.Features.Revisions.Rules.RampSchedule.Delete(
 		ctx,
 		cmd.Value("rule-id").(string),
 		params,
@@ -243,7 +243,7 @@ func handleFeaturesRevisionsRulesRampScheduleUpdateRampSchedule(ctx context.Cont
 		ExplicitFormat: explicitFormat,
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "features:revisions:rules:ramp-schedule update-ramp-schedule",
+		Title:          "features:revisions:rules:ramp-schedule delete",
 		Transform:      transform,
 	})
 }

@@ -9,47 +9,14 @@ import (
 	"github.com/stainless-sdks/growthbook-cli/internal/requestflag"
 )
 
-func TestFeaturesRevisionsRulesRampScheduleDeleteRampSchedule(t *testing.T) {
+func TestFeaturesRevisionsRulesRampScheduleUpdate(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
 			"--domain", "string",
-			"features:revisions:rules:ramp-schedule", "delete-ramp-schedule",
-			"--id", "id",
-			"--version", "new",
-			"--rule-id", "ruleId",
-			"--revision-comment", "revisionComment",
-			"--revision-title", "revisionTitle",
-		)
-	})
-
-	t.Run("piping data", func(t *testing.T) {
-		// Test piping YAML data over stdin
-		pipeData := []byte("" +
-			"revisionComment: revisionComment\n" +
-			"revisionTitle: revisionTitle\n")
-		mocktest.TestRunMockTestWithPipeAndFlags(
-			t, pipeData,
-			"--api-key", "string",
-			"--domain", "string",
-			"features:revisions:rules:ramp-schedule", "delete-ramp-schedule",
-			"--id", "id",
-			"--version", "new",
-			"--rule-id", "ruleId",
-		)
-	})
-}
-
-func TestFeaturesRevisionsRulesRampScheduleUpdateRampSchedule(t *testing.T) {
-	t.Skip("Mock server tests are disabled")
-	t.Run("regular flags", func(t *testing.T) {
-		mocktest.TestRunMockTestWithFlags(
-			t,
-			"--api-key", "string",
-			"--domain", "string",
-			"features:revisions:rules:ramp-schedule", "update-ramp-schedule",
+			"features:revisions:rules:ramp-schedule", "update",
 			"--id", "id",
 			"--version", "new",
 			"--rule-id", "ruleId",
@@ -67,14 +34,14 @@ func TestFeaturesRevisionsRulesRampScheduleUpdateRampSchedule(t *testing.T) {
 
 	t.Run("inner flags", func(t *testing.T) {
 		// Check that inner flags have been set up correctly
-		requestflag.CheckInnerFlags(featuresRevisionsRulesRampScheduleUpdateRampSchedule)
+		requestflag.CheckInnerFlags(featuresRevisionsRulesRampScheduleUpdate)
 
 		// Alternative argument passing style using inner flags
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
 			"--domain", "string",
-			"features:revisions:rules:ramp-schedule", "update-ramp-schedule",
+			"features:revisions:rules:ramp-schedule", "update",
 			"--id", "id",
 			"--version", "new",
 			"--rule-id", "ruleId",
@@ -148,7 +115,40 @@ func TestFeaturesRevisionsRulesRampScheduleUpdateRampSchedule(t *testing.T) {
 			t, pipeData,
 			"--api-key", "string",
 			"--domain", "string",
-			"features:revisions:rules:ramp-schedule", "update-ramp-schedule",
+			"features:revisions:rules:ramp-schedule", "update",
+			"--id", "id",
+			"--version", "new",
+			"--rule-id", "ruleId",
+		)
+	})
+}
+
+func TestFeaturesRevisionsRulesRampScheduleDelete(t *testing.T) {
+	t.Skip("Mock server tests are disabled")
+	t.Run("regular flags", func(t *testing.T) {
+		mocktest.TestRunMockTestWithFlags(
+			t,
+			"--api-key", "string",
+			"--domain", "string",
+			"features:revisions:rules:ramp-schedule", "delete",
+			"--id", "id",
+			"--version", "new",
+			"--rule-id", "ruleId",
+			"--revision-comment", "revisionComment",
+			"--revision-title", "revisionTitle",
+		)
+	})
+
+	t.Run("piping data", func(t *testing.T) {
+		// Test piping YAML data over stdin
+		pipeData := []byte("" +
+			"revisionComment: revisionComment\n" +
+			"revisionTitle: revisionTitle\n")
+		mocktest.TestRunMockTestWithPipeAndFlags(
+			t, pipeData,
+			"--api-key", "string",
+			"--domain", "string",
+			"features:revisions:rules:ramp-schedule", "delete",
 			"--id", "id",
 			"--version", "new",
 			"--rule-id", "ruleId",

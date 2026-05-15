@@ -8,16 +8,15 @@ import (
 	"github.com/stainless-sdks/growthbook-cli/internal/mocktest"
 )
 
-func TestFeaturesRevisionsLatestList(t *testing.T) {
+func TestFeatureKeysList(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
 			"--domain", "string",
-			"features:revisions:latest", "list",
-			"--id", "id",
-			"--mine", "'true'",
+			"feature-keys", "list",
+			"--project-id", "projectId",
 		)
 	})
 }

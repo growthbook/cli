@@ -1,4 +1,4 @@
-configured_endpoints: 190
-openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/growthbook/growthbook-7e8246d8a87c1a45f97b79d5b60385fc6b6c94e3dee3097fbe597c90f89819d8.yml
+configured_endpoints: 192
+openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/growthbook/growthbook-70c066eb82f6a5b740e07dc1cdf70f3a3b44f3886eaf8984f8a5814e47d390d3.yml
 openapi_spec_hash: e51ac36f6259e8b22d450f1f3a032769
-config_hash: 80c4a7c67697dbd6724cc1137905536d
+config_hash: 1411895fe1d8f5e4227a5b94b0f41811

@@ -44,13 +44,9 @@ growthbook [resource] <command> [flags...]
 ```
 
 ```sh
-growthbook features create \
+growthbook features list \
   --api-key 'My API Key' \
-  --domain My-Domain \
-  --id x \
-  --default-value defaultValue \
-  --owner owner \
-  --value-type boolean
+  --domain My-Domain
 ```
 
 For details about specific commands, use the `--help` flag.

@@ -14,84 +14,6 @@ import (
 	"github.com/urfave/cli/v3"
 )
 
-var featuresRevisionsRulesCreate = requestflag.WithInnerFlags(cli.Command{
-	Name:    "create",
-	Usage:   "Appends a new rule to the revision's rule list. Supply `allEnvironments: true`\nto target all environments, or `environments: [...]` to scope to specific ones.\nUse `rampSchedule` for ramp configuration or `schedule` for a simple start/end\nwindow.",
-	Suggest: true,
-	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
-			Name:      "id",
-			Required:  true,
-			PathParam: "id",
-		},
-		&requestflag.Flag[any]{
-			Name:      "version",
-			Required:  true,
-			PathParam: "version",
-		},
-		&requestflag.Flag[map[string]any]{
-			Name:     "rule",
-			Required: true,
-			BodyPath: "rule",
-		},
-		&requestflag.Flag[map[string]any]{
-			Name:     "ramp-schedule",
-			BodyPath: "rampSchedule",
-		},
-		&requestflag.Flag[string]{
-			Name:     "revision-comment",
-			BodyPath: "revisionComment",
-		},
-		&requestflag.Flag[string]{
-			Name:     "revision-title",
-			BodyPath: "revisionTitle",
-		},
-		&requestflag.Flag[map[string]any]{
-			Name:     "schedule",
-			BodyPath: "schedule",
-		},
-	},
-	Action:          handleFeaturesRevisionsRulesCreate,
-	HideHelpCommand: true,
-}, map[string][]requestflag.HasOuterFlag{
-	"ramp-schedule": {
-		&requestflag.InnerFlag[[]map[string]any]{
-			Name:       "ramp-schedule.end-actions",
-			InnerField: "endActions",
-		},
-		&requestflag.InnerFlag[map[string]any]{
-			Name:       "ramp-schedule.end-condition",
-			InnerField: "endCondition",
-		},
-		&requestflag.InnerFlag[string]{
-			Name:       "ramp-schedule.name",
-			InnerField: "name",
-		},
-		&requestflag.InnerFlag[*string]{
-			Name:       "ramp-schedule.start-date",
-			InnerField: "startDate",
-		},
-		&requestflag.InnerFlag[[]map[string]any]{
-			Name:       "ramp-schedule.steps",
-			InnerField: "steps",
-		},
-		&requestflag.InnerFlag[string]{
-			Name:       "ramp-schedule.template-id",
-			InnerField: "templateId",
-		},
-	},
-	"schedule": {
-		&requestflag.InnerFlag[*string]{
-			Name:       "schedule.end-date",
-			InnerField: "endDate",
-		},
-		&requestflag.InnerFlag[*string]{
-			Name:       "schedule.start-date",
-			InnerField: "startDate",
-		},
-	},
-})
-
 var featuresRevisionsRulesUpdate = requestflag.WithInnerFlags(cli.Command{
 	Name:    "update",
 	Usage:   "Patches fields on an existing rule (identified by `ruleId`). The rule `type`\ncannot be changed. Scope can be updated via `allEnvironments` / `environments`\npatch fields.",
@@ -284,55 +206,115 @@ var featuresRevisionsRulesDelete = cli.Command{
 	HideHelpCommand: true,
 }
 
-func handleFeaturesRevisionsRulesCreate(ctx context.Context, cmd *cli.Command) error {
-	client := growthbook.NewClient(getDefaultRequestOptions(cmd)...)
-	unusedArgs := cmd.Args().Slice()
-	if !cmd.IsSet("version") && len(unusedArgs) > 0 {
-		cmd.Set("version", unusedArgs[0])
-		unusedArgs = unusedArgs[1:]
-	}
-	if len(unusedArgs) > 0 {
-		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
-	}
+var featuresRevisionsRulesAdd = requestflag.WithInnerFlags(cli.Command{
+	Name:    "add",
+	Usage:   "Appends a new rule to the revision's rule list. Supply `allEnvironments: true`\nto target all environments, or `environments: [...]` to scope to specific ones.\nUse `rampSchedule` for ramp configuration or `schedule` for a simple start/end\nwindow.",
+	Suggest: true,
+	Flags: []cli.Flag{
+		&requestflag.Flag[string]{
+			Name:      "id",
+			Required:  true,
+			PathParam: "id",
+		},
+		&requestflag.Flag[any]{
+			Name:      "version",
+			Required:  true,
+			PathParam: "version",
+		},
+		&requestflag.Flag[map[string]any]{
+			Name:     "rule",
+			Required: true,
+			BodyPath: "rule",
+		},
+		&requestflag.Flag[map[string]any]{
+			Name:     "ramp-schedule",
+			BodyPath: "rampSchedule",
+		},
+		&requestflag.Flag[string]{
+			Name:     "revision-comment",
+			BodyPath: "revisionComment",
+		},
+		&requestflag.Flag[string]{
+			Name:     "revision-title",
+			BodyPath: "revisionTitle",
+		},
+		&requestflag.Flag[map[string]any]{
+			Name:     "schedule",
+			BodyPath: "schedule",
+		},
+	},
+	Action:          handleFeaturesRevisionsRulesAdd,
+	HideHelpCommand: true,
+}, map[string][]requestflag.HasOuterFlag{
+	"ramp-schedule": {
+		&requestflag.InnerFlag[[]map[string]any]{
+			Name:       "ramp-schedule.end-actions",
+			InnerField: "endActions",
+		},
+		&requestflag.InnerFlag[map[string]any]{
+			Name:       "ramp-schedule.end-condition",
+			InnerField: "endCondition",
+		},
+		&requestflag.InnerFlag[string]{
+			Name:       "ramp-schedule.name",
+			InnerField: "name",
+		},
+		&requestflag.InnerFlag[*string]{
+			Name:       "ramp-schedule.start-date",
+			InnerField: "startDate",
+		},
+		&requestflag.InnerFlag[[]map[string]any]{
+			Name:       "ramp-schedule.steps",
+			InnerField: "steps",
+		},
+		&requestflag.InnerFlag[string]{
+			Name:       "ramp-schedule.template-id",
+			InnerField: "templateId",
+		},
+	},
+	"schedule": {
+		&requestflag.InnerFlag[*string]{
+			Name:       "schedule.end-date",
+			InnerField: "endDate",
+		},
+		&requestflag.InnerFlag[*string]{
+			Name:       "schedule.start-date",
+			InnerField: "startDate",
+		},
+	},
+})
 
-	options, err := flagOptions(
-		cmd,
-		apiquery.NestedQueryFormatBrackets,
-		apiquery.ArrayQueryFormatComma,
-		ApplicationJSON,
-		false,
-	)
-	if err != nil {
-		return err
-	}
-
-	params := growthbook.FeatureRevisionRuleNewParams{
-		ID: cmd.Value("id").(string),
-	}
-
-	var res []byte
-	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Features.Revisions.Rules.New(
-		ctx,
-		growthbook.FeatureRevisionRuleNewParamsVersionUnion(cmd.Value("version").(any)),
-		params,
-		options...,
-	)
-	if err != nil {
-		return err
-	}
-
-	obj := gjson.ParseBytes(res)
-	format := cmd.Root().String("format")
-	explicitFormat := cmd.Root().IsSet("format")
-	transform := cmd.Root().String("transform")
-	return ShowJSON(obj, ShowJSONOpts{
-		ExplicitFormat: explicitFormat,
-		Format:         format,
-		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "features:revisions:rules create",
-		Transform:      transform,
-	})
+var featuresRevisionsRulesReorder = cli.Command{
+	Name:    "reorder",
+	Usage:   "Replaces the flat global rule order. `ruleIds` must contain **exactly** the set\nof all existing rule IDs in the revision — no additions, omissions, or\nduplicates.",
+	Suggest: true,
+	Flags: []cli.Flag{
+		&requestflag.Flag[string]{
+			Name:      "id",
+			Required:  true,
+			PathParam: "id",
+		},
+		&requestflag.Flag[any]{
+			Name:      "version",
+			Required:  true,
+			PathParam: "version",
+		},
+		&requestflag.Flag[[]string]{
+			Name:     "rule-id",
+			Required: true,
+			BodyPath: "ruleIds",
+		},
+		&requestflag.Flag[string]{
+			Name:     "revision-comment",
+			BodyPath: "revisionComment",
+		},
+		&requestflag.Flag[string]{
+			Name:     "revision-title",
+			BodyPath: "revisionTitle",
+		},
+	},
+	Action:          handleFeaturesRevisionsRulesReorder,
+	HideHelpCommand: true,
 }
 
 func handleFeaturesRevisionsRulesUpdate(ctx context.Context, cmd *cli.Command) error {
@@ -435,6 +417,108 @@ func handleFeaturesRevisionsRulesDelete(ctx context.Context, cmd *cli.Command) e
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
 		Title:          "features:revisions:rules delete",
+		Transform:      transform,
+	})
+}
+
+func handleFeaturesRevisionsRulesAdd(ctx context.Context, cmd *cli.Command) error {
+	client := growthbook.NewClient(getDefaultRequestOptions(cmd)...)
+	unusedArgs := cmd.Args().Slice()
+	if !cmd.IsSet("version") && len(unusedArgs) > 0 {
+		cmd.Set("version", unusedArgs[0])
+		unusedArgs = unusedArgs[1:]
+	}
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
+
+	options, err := flagOptions(
+		cmd,
+		apiquery.NestedQueryFormatBrackets,
+		apiquery.ArrayQueryFormatComma,
+		ApplicationJSON,
+		false,
+	)
+	if err != nil {
+		return err
+	}
+
+	params := growthbook.FeatureRevisionRuleAddParams{
+		ID: cmd.Value("id").(string),
+	}
+
+	var res []byte
+	options = append(options, option.WithResponseBodyInto(&res))
+	_, err = client.Features.Revisions.Rules.Add(
+		ctx,
+		growthbook.FeatureRevisionRuleAddParamsVersionUnion(cmd.Value("version").(any)),
+		params,
+		options...,
+	)
+	if err != nil {
+		return err
+	}
+
+	obj := gjson.ParseBytes(res)
+	format := cmd.Root().String("format")
+	explicitFormat := cmd.Root().IsSet("format")
+	transform := cmd.Root().String("transform")
+	return ShowJSON(obj, ShowJSONOpts{
+		ExplicitFormat: explicitFormat,
+		Format:         format,
+		RawOutput:      cmd.Root().Bool("raw-output"),
+		Title:          "features:revisions:rules add",
+		Transform:      transform,
+	})
+}
+
+func handleFeaturesRevisionsRulesReorder(ctx context.Context, cmd *cli.Command) error {
+	client := growthbook.NewClient(getDefaultRequestOptions(cmd)...)
+	unusedArgs := cmd.Args().Slice()
+	if !cmd.IsSet("version") && len(unusedArgs) > 0 {
+		cmd.Set("version", unusedArgs[0])
+		unusedArgs = unusedArgs[1:]
+	}
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
+
+	options, err := flagOptions(
+		cmd,
+		apiquery.NestedQueryFormatBrackets,
+		apiquery.ArrayQueryFormatComma,
+		ApplicationJSON,
+		false,
+	)
+	if err != nil {
+		return err
+	}
+
+	params := growthbook.FeatureRevisionRuleReorderParams{
+		ID: cmd.Value("id").(string),
+	}
+
+	var res []byte
+	options = append(options, option.WithResponseBodyInto(&res))
+	_, err = client.Features.Revisions.Rules.Reorder(
+		ctx,
+		growthbook.FeatureRevisionRuleReorderParamsVersionUnion(cmd.Value("version").(any)),
+		params,
+		options...,
+	)
+	if err != nil {
+		return err
+	}
+
+	obj := gjson.ParseBytes(res)
+	format := cmd.Root().String("format")
+	explicitFormat := cmd.Root().IsSet("format")
+	transform := cmd.Root().String("transform")
+	return ShowJSON(obj, ShowJSONOpts{
+		ExplicitFormat: explicitFormat,
+		Format:         format,
+		RawOutput:      cmd.Root().Bool("raw-output"),
+		Title:          "features:revisions:rules reorder",
 		Transform:      transform,
 	})
 }

@@ -114,14 +114,14 @@ func TestNamespacesDelete(t *testing.T) {
 	})
 }
 
-func TestNamespacesGetMemberships(t *testing.T) {
+func TestNamespacesMemberships(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
 			"--domain", "string",
-			"namespaces", "get-memberships",
+			"namespaces", "memberships",
 			"--id", "id",
 			"--limit", "1",
 			"--offset", "0",

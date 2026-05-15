@@ -14,42 +14,25 @@ import (
 	"github.com/urfave/cli/v3"
 )
 
-var featuresRevisionsSubmitReviewSubmitReview = cli.Command{
-	Name:    "submit-review",
-	Usage:   "Submit a review on a draft revision",
+var featureKeysList = cli.Command{
+	Name:    "list",
+	Usage:   "Get list of feature keys",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:      "id",
-			Required:  true,
-			PathParam: "id",
-		},
-		&requestflag.Flag[int64]{
-			Name:      "version",
-			Required:  true,
-			PathParam: "version",
-		},
-		&requestflag.Flag[string]{
-			Name:     "action",
-			Usage:    `Allowed values: "approve", "request-changes", "comment".`,
-			BodyPath: "action",
-		},
-		&requestflag.Flag[string]{
-			Name:     "comment",
-			BodyPath: "comment",
+			Name:      "project-id",
+			Usage:     "Filter by project id",
+			QueryPath: "projectId",
 		},
 	},
-	Action:          handleFeaturesRevisionsSubmitReviewSubmitReview,
+	Action:          handleFeatureKeysList,
 	HideHelpCommand: true,
 }
 
-func handleFeaturesRevisionsSubmitReviewSubmitReview(ctx context.Context, cmd *cli.Command) error {
+func handleFeatureKeysList(ctx context.Context, cmd *cli.Command) error {
 	client := growthbook.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
-	if !cmd.IsSet("version") && len(unusedArgs) > 0 {
-		cmd.Set("version", unusedArgs[0])
-		unusedArgs = unusedArgs[1:]
-	}
+
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
@@ -58,25 +41,18 @@ func handleFeaturesRevisionsSubmitReviewSubmitReview(ctx context.Context, cmd *c
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
-		ApplicationJSON,
+		EmptyBody,
 		false,
 	)
 	if err != nil {
 		return err
 	}
 
-	params := growthbook.FeatureRevisionSubmitReviewSubmitReviewParams{
-		ID: cmd.Value("id").(string),
-	}
+	params := growthbook.FeatureKeyListParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Features.Revisions.SubmitReview.SubmitReview(
-		ctx,
-		cmd.Value("version").(int64),
-		params,
-		options...,
-	)
+	_, err = client.FeatureKeys.List(ctx, params, options...)
 	if err != nil {
 		return err
 	}
@@ -89,7 +65,7 @@ func handleFeaturesRevisionsSubmitReviewSubmitReview(ctx context.Context, cmd *c
 		ExplicitFormat: explicitFormat,
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "features:revisions:submit-review submit-review",
+		Title:          "feature-keys list",
 		Transform:      transform,
 	})
 }
