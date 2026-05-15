@@ -12,8 +12,8 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/stainless-sdks/growthbook-cli/internal/autocomplete"
-	"github.com/stainless-sdks/growthbook-cli/internal/requestflag"
+	"github.com/growthbook/cli/internal/autocomplete"
+	"github.com/growthbook/cli/internal/requestflag"
 	docs "github.com/urfave/cli-docs/v3"
 	"github.com/urfave/cli/v3"
 )

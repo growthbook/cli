@@ -5,8 +5,8 @@ package cmd
 import (
 	"testing"
 
-	"github.com/stainless-sdks/growthbook-cli/internal/mocktest"
-	"github.com/stainless-sdks/growthbook-cli/internal/requestflag"
+	"github.com/growthbook/cli/internal/mocktest"
+	"github.com/growthbook/cli/internal/requestflag"
 )
 
 func TestExperimentTemplatesCreate(t *testing.T) {

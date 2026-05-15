@@ -16,7 +16,7 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/stainless-sdks/growthbook-cli/internal/jsonview"
+	"github.com/growthbook/cli/internal/jsonview"
 	"github.com/stainless-sdks/growthbook-go/option"
 
 	"github.com/charmbracelet/x/term"

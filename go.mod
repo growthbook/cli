@@ -1,4 +1,4 @@
-module github.com/stainless-sdks/growthbook-cli
+module github.com/growthbook/cli
 
 go 1.25
 
