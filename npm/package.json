@@ -1,0 +1,39 @@
+{
+  "name": "growthbook",
+  "version": "0.1.1",
+  "description": "Command-line interface for the GrowthBook REST API",
+  "bin": {
+    "growthbook": "bin/growthbook.js"
+  },
+  "scripts": {
+    "postinstall": "node install.js"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "install.js"
+  ],
+  "engines": {
+    "node": ">=16"
+  },
+  "os": [
+    "linux",
+    "darwin",
+    "win32"
+  ],
+  "cpu": [
+    "x64",
+    "arm64"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/growthbook/cli.git"
+  },
+  "license": "MIT",
+  "keywords": [
+    "growthbook",
+    "feature-flags",
+    "experimentation",
+    "cli"
+  ]
+}
