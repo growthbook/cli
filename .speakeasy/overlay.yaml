@@ -1,0 +1,59 @@
+overlay: 1.0.0
+info:
+  title: GrowthBook CLI codegen fixes
+  version: 0.0.1
+actions:
+  # Feature-value "simple schema" type enum.
+  # object/object[] and primitive/primitive[] normalize to the same Go
+  # identifier; give each member an explicit, distinct name.
+  - target: $..simple.properties.type
+    update:
+      x-speakeasy-enums:
+        - Object
+        - ObjectArray
+        - Primitive
+        - PrimitiveArray
+  # Attribute datatype enum (request bodies — carry a description).
+  # string/string[], number/number[], secureString/secureString[] collide.
+  - target: $..[?(@.enum && @.description=="The attribute datatype")]
+    update:
+      x-speakeasy-enums:
+        - Boolean
+        - String
+        - Number
+        - SecureString
+        - Enum
+        - StringArray
+        - NumberArray
+        - SecureStringArray
+  # Same datatype enum on the Attribute response model (no description).
+  - target: $.components.schemas.Attribute.properties.datatype
+    update:
+      x-speakeasy-enums:
+        - Boolean
+        - String
+        - Number
+        - SecureString
+        - Enum
+        - StringArray
+        - NumberArray
+        - SecureStringArray
+  # The feature/saved-group revision "version" path parameter is
+  # `anyOf: [integer, "new"]`. Path parameters must be scalar, so Speakeasy
+  # skips every operation that uses it (~30 revision endpoints). On the wire a
+  # path value is always a string (the back-end coerces it), so present it as a
+  # plain string. First drop the anyOf, then set the scalar type.
+  - target: $..[?(@.name=="version" && @.in=="path")].schema.anyOf
+    remove: true
+  - target: $..[?(@.name=="version" && @.in=="path")].schema
+    update:
+      type: string
+      description: Revision version number, or "new" to auto-create a draft (only where supported).
+  # The "usage" API tag generates a Go package `internal/cli/usage`, which
+  # collides with Speakeasy's reserved framework package `internal/usage`
+  # (powers --usage/schema), breaking compilation. Move the single usage
+  # endpoint into a differently-named command group.
+  - target: $["paths"]["/v1/usage/metrics"]["get"]
+    update:
+      x-speakeasy-group: usageMetrics
+      x-speakeasy-name-override: get

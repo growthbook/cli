@@ -1,0 +1,17 @@
+workflowVersion: 1.0.0
+speakeasyVersion: latest
+sources:
+    GrowthBook REST API:
+        inputs:
+            - location: ../growthbook/packages/back-end/generated/spec.yaml
+        overlays:
+            - location: .speakeasy/overlay.yaml
+        transformations:
+            - removeUnused: true
+        output: .speakeasy/out.openapi.yaml
+        registry:
+            location: registry.speakeasyapi.dev/growthbook-y8z/growthbook/growth-book-rest-api
+targets:
+    growthbook:
+        target: cli
+        source: GrowthBook REST API

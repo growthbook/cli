@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: "go.mod"
+          cache: true
+
+      - name: gofmt
+        run: |
+          unformatted=$(gofmt -l .)
+          if [ -n "$unformatted" ]; then
+            echo "These files are not gofmt-formatted:"; echo "$unformatted"; exit 1
+          fi
+
+      - name: Build
+        run: go build ./...
+
+      # `go vet ./...` is intentionally omitted: it fails on generated SDK structs
+      # (unexported fields with json tags), which we don't hand-edit. Speakeasy runs
+      # staticcheck (with exclusions) during `speakeasy run`, which is the real lint gate.
+
+      # Generated contract tests require a mock/live server, so compile them
+      # without executing — this matches `speakeasy run`'s own validation gate.
+      - name: Compile tests
+        run: go test -run=XXX_SHOULD_NEVER_MATCH_XXX ./...
