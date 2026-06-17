@@ -133,6 +133,7 @@ growthbook [flags]
 * [growthbook metrics](growthbook_metrics.md)	 - Metrics used as goals and guardrails for experiments
 * [growthbook namespaces](growthbook_namespaces.md)	 - Namespaces partition your user population into buckets so that experiments using the same hash attribute do not overlap unintentionally
 * [growthbook organizations](growthbook_organizations.md)	 - Organizations are used for multi-org deployments where different teams can run their own isolated feature flags and experiments
+* [growthbook ping](growthbook_ping.md)	 - Custom-code probe (verifies persistentEdits survival)
 * [growthbook post-copy-transform](growthbook_post-copy-transform.md)	 - Post Copy Transform
 * [growthbook post-visual-editor-AI-edit](growthbook_post-visual-editor-AI-edit.md)	 - Post Visual Editor AIEdit
 * [growthbook post-visual-editor-AI-edit-resume](growthbook_post-visual-editor-AI-edit-resume.md)	 - Post Visual Editor AIEdit Resume

@@ -8,3 +8,6 @@
 dist/
 # Built CLI binary (regenerate with: go build -o growthbook ./cmd/growthbook)
 /growthbook
+
+# generate-types default output (user artifact, not repo content)
+/growthbook-types/
