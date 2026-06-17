@@ -57,3 +57,96 @@ actions:
     update:
       x-speakeasy-group: usageMetrics
       x-speakeasy-name-override: get
+  # Friendlier feature command names: make the latest (v2) surface the plain
+  # `features` group and demote the old v1 surface to `features-v1` (deprecated).
+  # The group name (both the SDK namespace and the CLI command group) is driven
+  # by the operation's *tag*, so we rewrite the tags rather than layer on
+  # x-speakeasy-group (which, left alongside the original tag, makes the
+  # generator emit conflicting namespaces). x-speakeasy-name-override pins the
+  # leaf names, since the generator's operationId heuristic is inconsistent (it
+  # left the v2 leaves as `get-feature-v2` etc.). Generalizes to future bumps:
+  # when v3 lands, `features` points at v3 and the previous version → `features-v2`.
+  # Top-level tag definitions get renamed too so --help descriptions line up.
+  # Order matters: demote v1 first, then promote v2, so the second rename can't
+  # re-match the name the first one just created.
+  - target: $..[?(@.name=="features" && @.description)]
+    update: { name: features-v1 }
+  - target: $..[?(@.name=="features-v2" && @.description)]
+    update: { name: features }
+  # Each op: first `remove` the original tags array (overlay `update` MERGES
+  # arrays — it would append, leaving the op in both the old and new group and
+  # causing duplicate-operation-name collisions), then set the new tag + leaf.
+  # v2 -> `features` (the latest)
+  - target: $..[?(@.operationId=="listFeaturesV2")].tags
+    remove: true
+  - target: $..[?(@.operationId=="listFeaturesV2")]
+    update: { tags: [features], x-speakeasy-name-override: list }
+  - target: $..[?(@.operationId=="postFeatureV2")].tags
+    remove: true
+  - target: $..[?(@.operationId=="postFeatureV2")]
+    update: { tags: [features], x-speakeasy-name-override: post }
+  - target: $..[?(@.operationId=="getFeatureV2")].tags
+    remove: true
+  - target: $..[?(@.operationId=="getFeatureV2")]
+    update: { tags: [features], x-speakeasy-name-override: get }
+  - target: $..[?(@.operationId=="updateFeatureV2")].tags
+    remove: true
+  - target: $..[?(@.operationId=="updateFeatureV2")]
+    update: { tags: [features], x-speakeasy-name-override: update }
+  - target: $..[?(@.operationId=="deleteFeatureV2")].tags
+    remove: true
+  - target: $..[?(@.operationId=="deleteFeatureV2")]
+    update: { tags: [features], x-speakeasy-name-override: delete }
+  - target: $..[?(@.operationId=="toggleFeatureV2")].tags
+    remove: true
+  - target: $..[?(@.operationId=="toggleFeatureV2")]
+    update: { tags: [features], x-speakeasy-name-override: toggle }
+  - target: $..[?(@.operationId=="revertFeatureV2")].tags
+    remove: true
+  - target: $..[?(@.operationId=="revertFeatureV2")]
+    update: { tags: [features], x-speakeasy-name-override: revert }
+  - target: $..[?(@.operationId=="getFeatureKeysV2")].tags
+    remove: true
+  - target: $..[?(@.operationId=="getFeatureKeysV2")]
+    update: { tags: [features], x-speakeasy-name-override: get-feature-keys }
+  - target: $..[?(@.operationId=="getFeatureStaleV2")].tags
+    remove: true
+  - target: $..[?(@.operationId=="getFeatureStaleV2")]
+    update: { tags: [features], x-speakeasy-name-override: get-feature-stale }
+  # v1 -> `features-v1` (legacy; a startup hook warns when it's used)
+  - target: $..[?(@.operationId=="listFeatures")].tags
+    remove: true
+  - target: $..[?(@.operationId=="listFeatures")]
+    update: { tags: [features-v1], x-speakeasy-name-override: list }
+  - target: $..[?(@.operationId=="postFeature")].tags
+    remove: true
+  - target: $..[?(@.operationId=="postFeature")]
+    update: { tags: [features-v1], x-speakeasy-name-override: post }
+  - target: $..[?(@.operationId=="getFeature")].tags
+    remove: true
+  - target: $..[?(@.operationId=="getFeature")]
+    update: { tags: [features-v1], x-speakeasy-name-override: get }
+  - target: $..[?(@.operationId=="updateFeature")].tags
+    remove: true
+  - target: $..[?(@.operationId=="updateFeature")]
+    update: { tags: [features-v1], x-speakeasy-name-override: update }
+  - target: $..[?(@.operationId=="deleteFeature")].tags
+    remove: true
+  - target: $..[?(@.operationId=="deleteFeature")]
+    update: { tags: [features-v1], x-speakeasy-name-override: delete }
+  - target: $..[?(@.operationId=="toggleFeature")].tags
+    remove: true
+  - target: $..[?(@.operationId=="toggleFeature")]
+    update: { tags: [features-v1], x-speakeasy-name-override: toggle }
+  - target: $..[?(@.operationId=="revertFeature")].tags
+    remove: true
+  - target: $..[?(@.operationId=="revertFeature")]
+    update: { tags: [features-v1], x-speakeasy-name-override: revert }
+  - target: $..[?(@.operationId=="getFeatureKeys")].tags
+    remove: true
+  - target: $..[?(@.operationId=="getFeatureKeys")]
+    update: { tags: [features-v1], x-speakeasy-name-override: get-feature-keys }
+  - target: $..[?(@.operationId=="getFeatureStale")].tags
+    remove: true
+  - target: $..[?(@.operationId=="getFeatureStale")]
+    update: { tags: [features-v1], x-speakeasy-name-override: get-feature-stale }

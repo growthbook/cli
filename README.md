@@ -5,11 +5,6 @@ Command-line interface for the *GrowthBook REST* API.
 [![Built by Speakeasy](https://img.shields.io/badge/Built_by-SPEAKEASY-374151?style=for-the-badge&labelColor=f3f4f6)](https://www.speakeasy.com/?utm_source=github-com/growthbook/cli&utm_campaign=cli)
 [![License: MIT](https://img.shields.io/badge/LICENSE_//_MIT-3b5bdb?style=for-the-badge&labelColor=eff6ff)](https://opensource.org/licenses/MIT)
 
-
-<br /><br />
-> [!IMPORTANT]
-> This CLI is not yet ready for production use. To complete setup please follow the steps outlined in your [workspace](https://app.speakeasy.com/org/growthbook-y8z/growthbook). Delete this section before > publishing to a package manager.
-
 <!-- Start Summary [summary] -->
 ## Summary
 
@@ -258,17 +253,17 @@ Configuration is stored in `~/.config/growthbook/config.yaml`.
 * [`get-visual-editor-bootstrap`](docs/growthbook_get-visual-editor-bootstrap.md)
 * [`get-visual-editor-library-images`](docs/growthbook_get-visual-editor-library-images.md)
 
-### [features](docs/growthbook_features.md)
+### [features-v1](docs/growthbook_features-v1.md)
 
-* [`~~list~~`](docs/growthbook_features_list.md) - Get all features :warning: **Deprecated**
-* [`~~post~~`](docs/growthbook_features_post.md) - Create a single feature :warning: **Deprecated**
-* [`~~get~~`](docs/growthbook_features_get.md) - Get a single feature :warning: **Deprecated**
-* [`~~update~~`](docs/growthbook_features_update.md) - Partially update a feature :warning: **Deprecated**
-* [`~~delete~~`](docs/growthbook_features_delete.md) - Deletes a single feature :warning: **Deprecated**
-* [`~~toggle~~`](docs/growthbook_features_toggle.md) - Toggle a feature in one or more environments :warning: **Deprecated**
-* [`~~revert~~`](docs/growthbook_features_revert.md) - Revert a feature to a specific revision :warning: **Deprecated**
-* [`~~get-feature-keys~~`](docs/growthbook_features_get-feature-keys.md) - Get list of feature keys :warning: **Deprecated**
-* [`~~get-feature-stale~~`](docs/growthbook_features_get-feature-stale.md) - Get stale status for one or more features :warning: **Deprecated**
+* [`~~list~~`](docs/growthbook_features-v1_list.md) - Get all features :warning: **Deprecated**
+* [`~~post~~`](docs/growthbook_features-v1_post.md) - Create a single feature :warning: **Deprecated**
+* [`~~get~~`](docs/growthbook_features-v1_get.md) - Get a single feature :warning: **Deprecated**
+* [`~~update~~`](docs/growthbook_features-v1_update.md) - Partially update a feature :warning: **Deprecated**
+* [`~~delete~~`](docs/growthbook_features-v1_delete.md) - Deletes a single feature :warning: **Deprecated**
+* [`~~toggle~~`](docs/growthbook_features-v1_toggle.md) - Toggle a feature in one or more environments :warning: **Deprecated**
+* [`~~revert~~`](docs/growthbook_features-v1_revert.md) - Revert a feature to a specific revision :warning: **Deprecated**
+* [`~~get-feature-keys~~`](docs/growthbook_features-v1_get-feature-keys.md) - Get list of feature keys :warning: **Deprecated**
+* [`~~get-feature-stale~~`](docs/growthbook_features-v1_get-feature-stale.md) - Get stale status for one or more features :warning: **Deprecated**
 
 ### [feature-revisions](docs/growthbook_feature-revisions.md)
 
@@ -297,17 +292,17 @@ Configuration is stored in `~/.config/growthbook/config.yaml`.
 * [`~~post-feature-revision-discard~~`](docs/growthbook_feature-revisions_post-feature-revision-discard.md) - Discard a draft revision :warning: **Deprecated**
 * [`~~post-feature-revision-revert~~`](docs/growthbook_feature-revisions_post-feature-revision-revert.md) - Revert the feature to a prior revision :warning: **Deprecated**
 
-### [features-v2](docs/growthbook_features-v2.md)
+### [features](docs/growthbook_features.md)
 
-* [`list`](docs/growthbook_features-v2_list.md) - Get all features
-* [`post-feature-v2`](docs/growthbook_features-v2_post-feature-v2.md) - Create a single feature
-* [`get-feature-v2`](docs/growthbook_features-v2_get-feature-v2.md) - Get a single feature
-* [`update-feature-v2`](docs/growthbook_features-v2_update-feature-v2.md) - Partially update a feature
-* [`delete-feature-v2`](docs/growthbook_features-v2_delete-feature-v2.md) - Deletes a single feature
-* [`toggle-feature-v2`](docs/growthbook_features-v2_toggle-feature-v2.md) - Toggle a feature in one or more environments
-* [`revert-feature-v2`](docs/growthbook_features-v2_revert-feature-v2.md) - Revert a feature to a specific revision
-* [`get-feature-keys-v2`](docs/growthbook_features-v2_get-feature-keys-v2.md) - Get list of feature keys
-* [`get-feature-stale-v2`](docs/growthbook_features-v2_get-feature-stale-v2.md) - Get stale status for one or more features
+* [`list`](docs/growthbook_features_list.md) - Get all features
+* [`post`](docs/growthbook_features_post.md) - Create a single feature
+* [`get`](docs/growthbook_features_get.md) - Get a single feature
+* [`update`](docs/growthbook_features_update.md) - Partially update a feature
+* [`delete`](docs/growthbook_features_delete.md) - Deletes a single feature
+* [`toggle`](docs/growthbook_features_toggle.md) - Toggle a feature in one or more environments
+* [`revert`](docs/growthbook_features_revert.md) - Revert a feature to a specific revision
+* [`get-feature-keys`](docs/growthbook_features_get-feature-keys.md) - Get list of feature keys
+* [`get-feature-stale`](docs/growthbook_features_get-feature-stale.md) - Get stale status for one or more features
 
 ### [feature-revisions-v2](docs/growthbook_feature-revisions-v2.md)
 
@@ -316,6 +311,7 @@ Configuration is stored in `~/.config/growthbook/config.yaml`.
 * [`post-feature-revision-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-v2.md) - Create a draft revision
 * [`get-feature-revision-latest-v2`](docs/growthbook_feature-revisions-v2_get-feature-revision-latest-v2.md) - Get the most recent active draft revision
 * [`get-feature-revision-v2`](docs/growthbook_feature-revisions-v2_get-feature-revision-v2.md) - Get a single feature revision
+* [`get-feature-revision-diff-v2`](docs/growthbook_feature-revisions-v2_get-feature-revision-diff-v2.md) - Diff a revision against another revision
 * [`put-feature-revision-metadata-v2`](docs/growthbook_feature-revisions-v2_put-feature-revision-metadata-v2.md) - Update revision metadata
 * [`put-feature-revision-default-value-v2`](docs/growthbook_feature-revisions-v2_put-feature-revision-default-value-v2.md) - Set the default value in a draft revision
 * [`put-feature-revision-prerequisites-v2`](docs/growthbook_feature-revisions-v2_put-feature-revision-prerequisites-v2.md) - Set feature-level prerequisites in a draft revision
@@ -330,10 +326,17 @@ Configuration is stored in `~/.config/growthbook/config.yaml`.
 * [`delete-feature-revision-rule-ramp-schedule-v2`](docs/growthbook_feature-revisions-v2_delete-feature-revision-rule-ramp-schedule-v2.md) - Remove ramp schedule from a rule
 * [`post-feature-revision-request-review-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-request-review-v2.md) - Request review for a draft revision
 * [`post-feature-revision-submit-review-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-submit-review-v2.md) - Submit a review on a draft revision
+* [`post-feature-revision-recall-review-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-recall-review-v2.md) - Recall a review request (revert to draft)
+* [`post-feature-revision-undo-review-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-undo-review-v2.md) - Undo a reviewer's own review verdict
+* [`get-feature-revision-log-v2`](docs/growthbook_feature-revisions-v2_get-feature-revision-log-v2.md) - List the activity log for a revision
+* [`put-feature-revision-log-comment-v2`](docs/growthbook_feature-revisions-v2_put-feature-revision-log-comment-v2.md) - Edit the comment text of an owned log entry
+* [`delete-feature-revision-log-entry-v2`](docs/growthbook_feature-revisions-v2_delete-feature-revision-log-entry-v2.md) - Delete an owned revision Comment entry
 * [`get-feature-revision-merge-status-v2`](docs/growthbook_feature-revisions-v2_get-feature-revision-merge-status-v2.md) - Get merge status for a draft revision
+* [`post-feature-revision-rebase-preview-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-rebase-preview-v2.md) - Preview a rebase without applying it
 * [`post-feature-revision-rebase-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-rebase-v2.md) - Rebase a draft revision onto the current live version
 * [`post-feature-revision-publish-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-publish-v2.md) - Publish a draft revision
 * [`post-feature-revision-discard-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-discard-v2.md) - Discard a draft revision
+* [`post-feature-revision-reopen-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-reopen-v2.md) - Reopen a discarded revision as a draft
 * [`post-feature-revision-revert-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-revert-v2.md) - Revert the feature to a prior revision
 
 ### [archetypes](docs/growthbook_archetypes.md)
@@ -493,6 +496,8 @@ Configuration is stored in `~/.config/growthbook/config.yaml`.
 * [`delete-fact-table-filter`](docs/growthbook_fact-tables_delete-fact-table-filter.md) - Deletes a single fact table filter
 * [`get-aggregated`](docs/growthbook_fact-tables_get-aggregated.md) - Get the materialization status of a fact table's shared daily aggregated tables
 * [`refresh-aggregated`](docs/growthbook_fact-tables_refresh-aggregated.md) - Force a refresh or full restate of a fact table's shared daily aggregated tables
+* [`list-aggregated-table-runs`](docs/growthbook_fact-tables_list-aggregated-table-runs.md) - List aggregated table runs
+* [`get-aggregated-table-run`](docs/growthbook_fact-tables_get-aggregated-table-run.md) - Get a single aggregated table run
 * [`post-bulk-import-facts`](docs/growthbook_fact-tables_post-bulk-import-facts.md) - Bulk import fact tables, filters, and metrics
 
 ### [fact-metrics](docs/growthbook_fact-metrics.md)
@@ -523,6 +528,10 @@ Configuration is stored in `~/.config/growthbook/config.yaml`.
 ### [settings](docs/growthbook_settings.md)
 
 * [`get`](docs/growthbook_settings_get.md) - Get organization settings
+
+### [meta](docs/growthbook_meta.md)
+
+* [`get-version`](docs/growthbook_meta_get-version.md) - Get the GrowthBook server version and build info
 
 ### [ramp-schedules](docs/growthbook_ramp-schedules.md)
 

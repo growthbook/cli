@@ -1,5 +1,5 @@
 workflowVersion: 1.0.0
-speakeasyVersion: latest
+speakeasyVersion: 1.778.0
 sources:
     GrowthBook REST API:
         inputs:

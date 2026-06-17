@@ -44,9 +44,29 @@ build. (Don't commit a generated tree that hasn't been compiled.)
 
 - Run **`speakeasy agent context`** before a Speakeasy task; **`speakeasy agent feedback -m`**
   after. Prefer the CLI's own context/`--help` over external docs.
-- **`persistentEdits`**: keep customization in inputs (overlay/`gen.yaml`), not hand-edits to
-  generated files — answer **No** to the preservation prompt unless we have intentionally
-  added hand-written Go (then use `persistentEdits` or `.speakeasy/patches/`).
+- **Custom Go is additive + patched, NOT merged.** `persistentEdits` is **disabled**
+  (`gen.yaml` → `persistentEdits.enabled: "false"`), so every `speakeasy run` is a clean
+  overwrite — no 3-way merge, no silently-kept stale files, renamed-away packages actually
+  disappear. Keep customization in inputs (overlay/`gen.yaml`) wherever possible. Hand-written
+  Go lives in two forms, both of which survive a clean regen:
+  - **Separate files** the generator never emits: `internal/cli/custom_*.go` and the whole
+    `internal/customcfg/` package (profiles, legacy migration, startup hook, deprecation warning).
+  - **Edits to a generated file** → a unified-diff under `.speakeasy/patches/` (mirrors the
+    file path, e.g. `.speakeasy/patches/internal/cli/root.go.patch`). Speakeasy re-applies it
+    after every generation and **fails loudly** if it ever stops matching — the opposite of
+    persistentEdits silently keeping stale. `root.go` is patched with a **single line** —
+    `customRegister(rootCmd)` — and all the actual wiring (custom flags, extra commands, the
+    startup hook chained onto `PersistentPreRunE`) lives in `customRegister` in the hand-written
+    `custom_startup.go`. Keep the patch one line: a 1-hunk diff has no fragile multi-line context.
+    To rebuild it: restore pristine `root.go`, re-add the one line, `git diff` it, and assemble
+    the `.patch` with `cat` (NOT a text editor — editors strip the leading space on a diff's
+    blank context lines, which makes the patch "corrupt"/conflict on apply).
+  - **Patches only work on files Speakeasy fully overwrites** (the `.go` tree). `README.md` /
+    `USAGE.md` are *section-merged* — Speakeasy regenerates the marked sections and **preserves**
+    everything else — so a `.patch` there 3-way-conflicts on the second regen (and an empty/no-op
+    patch is rejected: "patch contains no hunks"). Edit those files **directly**; the change in a
+    non-managed region (e.g. the removed pre-publish banner at the top of `README.md`) survives
+    regeneration on its own. No patch file for them.
 
 ## Gotchas (learned the hard way)
 

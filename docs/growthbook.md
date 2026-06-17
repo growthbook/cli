@@ -69,37 +69,39 @@ growthbook [flags]
 ### Options
 
 ```
-      --agent-mode             Enable structured errors and default TOON output for AI coding agents. Automatically enabled when a known agent environment is detected (CLAUDE_CODE, CURSOR_AGENT, etc.). Use --agent-mode=false to disable.
-      --bearer-auth            If using Bearer auth, pass the Secret Key as the token:
-                               `bash
-                               curl https://api.growthbook.io/api/v1/features   -H "Authorization: Bearer secret_abc123DEF456"
-                               ```
-      --color string           Control colored output: auto (color when output is a TTY), always, or never. Respects NO_COLOR and FORCE_COLOR env vars. (default "auto")
-  -d, --debug                  Log request and response diagnostics to stderr
-      --domain string          Server template variable: domain
-      --dry-run                Preview the request that would be sent without executing it (output to stderr)
-  -H, --header stringArray     Set a custom HTTP request header (format: "Key: Value"). Can be specified multiple times.
-  -h, --help                   help for growthbook
-      --include-headers        Include HTTP response headers in the output
-  -q, --jq string              Filter and transform output using a jq expression (e.g., '.name', '.items[] | .id')
-      --no-interactive         Disable all interactive features (auto-prompting, explorer auto-launch, TUI forms)
-  -o, --output-format string   Specify the output format. Options: pretty, json, yaml, table, toon. (default "pretty")
-      --password               If using HTTP Basic auth, pass the Secret Key as the username and leave the password blank:
-                               `bash
-                               curl https://api.growthbook.io/api/v1/features   -u secret_abc123DEF456:
-                               # The ":" at the end stops curl from asking for a password
-                               ```
-                                password
-      --server string          Select a server by index (for indexed servers) or name (for named servers)
-      --server-url string      Override the default server URL
-      --timeout string         HTTP request timeout (e.g., 30s, 5m, 100ms)
-      --usage                  Print the CLI Usage schema in KDL format
-      --username               If using HTTP Basic auth, pass the Secret Key as the username and leave the password blank:
-                               `bash
-                               curl https://api.growthbook.io/api/v1/features   -u secret_abc123DEF456:
-                               # The ":" at the end stops curl from asking for a password
-                               ```
-                                username
+      --agent-mode                    Enable structured errors and default TOON output for AI coding agents. Automatically enabled when a known agent environment is detected (CLAUDE_CODE, CURSOR_AGENT, etc.). Use --agent-mode=false to disable.
+      --bearer-auth                   If using Bearer auth, pass the Secret Key as the token:
+                                      `bash
+                                      curl https://api.growthbook.io/api/v1/features   -H "Authorization: Bearer secret_abc123DEF456"
+                                      ```
+      --color string                  Control colored output: auto (color when output is a TTY), always, or never. Respects NO_COLOR and FORCE_COLOR env vars. (default "auto")
+  -d, --debug                         Log request and response diagnostics to stderr
+      --domain string                 Server template variable: domain
+      --dry-run                       Preview the request that would be sent without executing it (output to stderr)
+  -H, --header stringArray            Set a custom HTTP request header (format: "Key: Value"). Can be specified multiple times.
+  -h, --help                          help for growthbook
+      --include-headers               Include HTTP response headers in the output
+  -q, --jq string                     Filter and transform output using a jq expression (e.g., '.name', '.items[] | .id')
+      --no-interactive                Disable all interactive features (auto-prompting, explorer auto-launch, TUI forms)
+      --no-update-check               Disable the once-a-day check for a newer CLI version
+  -o, --output-format string          Specify the output format. Options: pretty, json, yaml, table, toon. (default "pretty")
+      --password                      If using HTTP Basic auth, pass the Secret Key as the username and leave the password blank:
+                                      `bash
+                                      curl https://api.growthbook.io/api/v1/features   -u secret_abc123DEF456:
+                                      # The ":" at the end stops curl from asking for a password
+                                      ```
+                                       password
+      --profile growthbook profiles   Use a named credential/server profile (manage with growthbook profiles)
+      --server string                 Select a server by index (for indexed servers) or name (for named servers)
+      --server-url string             Override the default server URL
+      --timeout string                HTTP request timeout (e.g., 30s, 5m, 100ms)
+      --usage                         Print the CLI Usage schema in KDL format
+      --username                      If using HTTP Basic auth, pass the Secret Key as the username and leave the password blank:
+                                      `bash
+                                      curl https://api.growthbook.io/api/v1/features   -u secret_abc123DEF456:
+                                      # The ":" at the end stops curl from asking for a password
+                                      ```
+                                       username
 ```
 
 ### SEE ALSO
@@ -124,16 +126,17 @@ growthbook [flags]
 * [growthbook feature-revisions](growthbook_feature-revisions.md)	 - Draft revisions for feature flags, including rules, scheduling, and approval workflows
 * [growthbook feature-revisions-v2](growthbook_feature-revisions-v2.md)	 - Draft revisions for feature flags, including rules, scheduling, and approval workflows
 * [growthbook features](growthbook_features.md)	 - Control your feature flags programatically
-* [growthbook features-v2](growthbook_features-v2.md)	 - Control your feature flags programatically
+* [growthbook features-v1](growthbook_features-v1.md)	 - Control your feature flags programatically
+* [growthbook generate-types](growthbook_generate-types.md)	 - Generate TypeScript types for all your features
 * [growthbook get-SDK-payload](growthbook_get-SDK-payload.md)	 - Get a SDK payload
 * [growthbook get-visual-editor-bootstrap](growthbook_get-visual-editor-bootstrap.md)	 - Get Visual Editor Bootstrap
 * [growthbook get-visual-editor-library-images](growthbook_get-visual-editor-library-images.md)	 - Get Visual Editor Library Images
 * [growthbook members](growthbook_members.md)	 - Members are users who have been invited to an organization
+* [growthbook meta](growthbook_meta.md)	 - Operations for meta
 * [growthbook metric-groups](growthbook_metric-groups.md)	 - Operations for metric-groups
 * [growthbook metrics](growthbook_metrics.md)	 - Metrics used as goals and guardrails for experiments
 * [growthbook namespaces](growthbook_namespaces.md)	 - Namespaces partition your user population into buckets so that experiments using the same hash attribute do not overlap unintentionally
 * [growthbook organizations](growthbook_organizations.md)	 - Organizations are used for multi-org deployments where different teams can run their own isolated feature flags and experiments
-* [growthbook ping](growthbook_ping.md)	 - Custom-code probe (verifies persistentEdits survival)
 * [growthbook post-copy-transform](growthbook_post-copy-transform.md)	 - Post Copy Transform
 * [growthbook post-visual-editor-AI-edit](growthbook_post-visual-editor-AI-edit.md)	 - Post Visual Editor AIEdit
 * [growthbook post-visual-editor-AI-edit-resume](growthbook_post-visual-editor-AI-edit-resume.md)	 - Post Visual Editor AIEdit Resume
@@ -145,6 +148,7 @@ growthbook [flags]
 * [growthbook post-visual-editor-create-changeset](growthbook_post-visual-editor-create-changeset.md)	 - Post Visual Editor Create Changeset
 * [growthbook post-visual-editor-create-experiment](growthbook_post-visual-editor-create-experiment.md)	 - Post Visual Editor Create Experiment
 * [growthbook post-visual-editor-rename-experiment](growthbook_post-visual-editor-rename-experiment.md)	 - Post Visual Editor Rename Experiment
+* [growthbook profiles](growthbook_profiles.md)	 - Manage named credential/server profiles
 * [growthbook projects](growthbook_projects.md)	 - Projects are used to organize your feature flags and experiments
 * [growthbook queries](growthbook_queries.md)	 - Retrieve queries used in experiments to calculate results
 * [growthbook ramp-schedule-templates](growthbook_ramp-schedule-templates.md)	 - Reusable step configurations for ramp schedules

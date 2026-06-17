@@ -127,7 +127,28 @@ func OnStartup(cmd *cobra.Command) error {
 		// Best-effort: never block the command on a migration hiccup.
 		fmt.Fprintf(cmd.ErrOrStderr(), "growthbook: legacy config migration skipped: %v\n", err)
 	}
-	return applyProfile(cmd)
+	warnIfDeprecated(cmd)
+	if err := applyProfile(cmd); err != nil {
+		return err
+	}
+	MaybeCheckForUpdate(cmd)
+	return nil
+}
+
+// deprecatedGroups maps a deprecated command group to the group that replaces it.
+var deprecatedGroups = map[string]string{"features-v1": "features"}
+
+// warnIfDeprecated prints a one-line notice to stderr (never stdout, so JSON
+// output stays clean) when the invoked command lives under a deprecated group.
+func warnIfDeprecated(cmd *cobra.Command) {
+	for c := cmd; c != nil; c = c.Parent() {
+		if replacement, ok := deprecatedGroups[c.Name()]; ok {
+			fmt.Fprintf(cmd.ErrOrStderr(),
+				"growthbook: `%s` targets the legacy v1 API and is deprecated; prefer `%s`. See MIGRATION.md.\n",
+				c.Name(), replacement)
+			return
+		}
+	}
 }
 
 // applyProfile injects the active profile's server URL and secret, preserving

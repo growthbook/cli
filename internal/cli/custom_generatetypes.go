@@ -86,7 +86,7 @@ func fetchAllFeatures(cmd *cobra.Command, s *sdk.Growthbook, project string) ([]
 		if project != "" {
 			req.ProjectID = &project
 		}
-		res, err := s.FeaturesV2.ListFeaturesV2(cmd.Context(), &req)
+		res, err := s.Features.List(cmd.Context(), &req)
 		if err != nil {
 			return nil, err
 		}

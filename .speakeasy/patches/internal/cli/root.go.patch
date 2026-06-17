@@ -1,0 +1,12 @@
+diff --git a/internal/cli/root.go b/internal/cli/root.go
+--- a/internal/cli/root.go
++++ b/internal/cli/root.go
+@@ -321,6 +321,8 @@ func NewRootCommand() (*cobra.Command, error) {
+ 
+ 	rootCmd.SetUsageTemplate(groupedUsageTemplate())
+ 
++	customRegister(rootCmd) // custom (persistentEdits)
++
+ 	return rootCmd, nil
+ }
+ 

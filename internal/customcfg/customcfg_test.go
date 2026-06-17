@@ -1,8 +1,10 @@
 package customcfg
 
 import (
+	"bytes"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/growthbook/cli/internal/config"
@@ -188,6 +190,43 @@ func TestToServerURL(t *testing.T) {
 		if got := toServerURL(in); got != want {
 			t.Errorf("toServerURL(%q) = %q, want %q", in, got, want)
 		}
+	}
+}
+
+func TestWarnIfDeprecated(t *testing.T) {
+	// leaf under the deprecated `features-v1` group warns on stderr only.
+	root := &cobra.Command{Use: "growthbook"}
+	v1 := &cobra.Command{Use: "features-v1"}
+	v1Get := &cobra.Command{Use: "get"}
+	v1.AddCommand(v1Get)
+	root.AddCommand(v1)
+
+	var out, errBuf bytes.Buffer
+	v1Get.SetOut(&out)
+	v1Get.SetErr(&errBuf)
+	warnIfDeprecated(v1Get)
+
+	if !strings.Contains(errBuf.String(), "deprecated") || !strings.Contains(errBuf.String(), "features-v1") {
+		t.Errorf("expected deprecation warning on stderr, got %q", errBuf.String())
+	}
+	if !strings.Contains(errBuf.String(), "features`") {
+		t.Errorf("warning should point to the replacement group, got %q", errBuf.String())
+	}
+	if out.Len() != 0 {
+		t.Errorf("warning leaked to stdout: %q", out.String())
+	}
+
+	// a leaf under the current `features` group is silent.
+	feat := &cobra.Command{Use: "features"}
+	featGet := &cobra.Command{Use: "get"}
+	feat.AddCommand(featGet)
+	root.AddCommand(feat)
+
+	var errBuf2 bytes.Buffer
+	featGet.SetErr(&errBuf2)
+	warnIfDeprecated(featGet)
+	if errBuf2.Len() != 0 {
+		t.Errorf("non-deprecated command must not warn, got %q", errBuf2.String())
 	}
 }
 
