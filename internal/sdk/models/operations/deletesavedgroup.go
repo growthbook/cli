@@ -19,6 +19,7 @@ func (d *DeleteSavedGroupRequest) GetID() string {
 	return d.ID
 }
 
+// DeleteSavedGroupResponseBody - Resource deleted
 type DeleteSavedGroupResponseBody struct {
 	DeletedID string `json:"deletedId"`
 }
@@ -32,7 +33,8 @@ func (d *DeleteSavedGroupResponseBody) GetDeletedID() string {
 
 type DeleteSavedGroupResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *DeleteSavedGroupResponseBody
+	// Resource deleted
+	Object *DeleteSavedGroupResponseBody
 }
 
 func (d DeleteSavedGroupResponse) MarshalJSON() ([]byte, error) {

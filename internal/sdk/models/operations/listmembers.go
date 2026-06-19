@@ -66,6 +66,7 @@ func (l *ListMembersRequest) GetGlobalRole() *string {
 	return l.GlobalRole
 }
 
+// ListMembersResponseBody - Successful response
 type ListMembersResponseBody struct {
 	Members    []components.Member `json:"members"`
 	Limit      int64               `json:"limit"`
@@ -127,7 +128,8 @@ func (l *ListMembersResponseBody) GetNextOffset() *int64 {
 
 type ListMembersResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListMembersResponseBody
+	// Successful response
+	Object *ListMembersResponseBody
 }
 
 func (l ListMembersResponse) MarshalJSON() ([]byte, error) {

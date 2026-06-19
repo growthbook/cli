@@ -22,6 +22,7 @@ func (d *DeleteFeatureV2Request) GetID() string {
 // #region class-body-deletefeaturev2request
 // #endregion class-body-deletefeaturev2request
 
+// DeleteFeatureV2ResponseBody - Resource deleted
 type DeleteFeatureV2ResponseBody struct {
 	// The ID of the deleted feature
 	DeletedID string `json:"deletedId"`
@@ -39,7 +40,8 @@ func (d *DeleteFeatureV2ResponseBody) GetDeletedID() string {
 
 type DeleteFeatureV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *DeleteFeatureV2ResponseBody
+	// Resource deleted
+	Object *DeleteFeatureV2ResponseBody
 }
 
 func (d DeleteFeatureV2Response) MarshalJSON() ([]byte, error) {

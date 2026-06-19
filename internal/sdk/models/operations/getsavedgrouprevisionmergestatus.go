@@ -61,6 +61,7 @@ func (c *Conflict) GetProposedValue() any {
 	return c.ProposedValue
 }
 
+// GetSavedGroupRevisionMergeStatusResponseBody - Successful response
 type GetSavedGroupRevisionMergeStatusResponseBody struct {
 	Success      bool       `json:"success"`
 	HasConflicts bool       `json:"hasConflicts"`
@@ -98,7 +99,8 @@ func (g *GetSavedGroupRevisionMergeStatusResponseBody) GetCanAutoMerge() bool {
 
 type GetSavedGroupRevisionMergeStatusResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetSavedGroupRevisionMergeStatusResponseBody
+	// Successful response
+	Object *GetSavedGroupRevisionMergeStatusResponseBody
 }
 
 func (g GetSavedGroupRevisionMergeStatusResponse) MarshalJSON() ([]byte, error) {

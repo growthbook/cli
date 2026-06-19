@@ -60,6 +60,7 @@ func (p *PutFeatureRevisionLogCommentV2Request) GetBody() PutFeatureRevisionLogC
 // #region class-body-putfeaturerevisionlogcommentv2request
 // #endregion class-body-putfeaturerevisionlogcommentv2request
 
+// PutFeatureRevisionLogCommentV2ResponseBody - Resource updated
 type PutFeatureRevisionLogCommentV2ResponseBody struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	status float64 `const:"200" json:"status"`
@@ -85,7 +86,8 @@ func (p *PutFeatureRevisionLogCommentV2ResponseBody) GetStatus() float64 {
 
 type PutFeatureRevisionLogCommentV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PutFeatureRevisionLogCommentV2ResponseBody
+	// Resource updated
+	Object *PutFeatureRevisionLogCommentV2ResponseBody
 }
 
 func (p PutFeatureRevisionLogCommentV2Response) MarshalJSON() ([]byte, error) {

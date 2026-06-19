@@ -73,6 +73,7 @@ func (e *PostExperimentModifyTemporaryRolloutCode) UnmarshalJSON(data []byte) er
 	}
 }
 
+// PostExperimentModifyTemporaryRolloutResponseBody - Resource created
 type PostExperimentModifyTemporaryRolloutResponseBody struct {
 	Experiment components.ExperimentWithEnhancedStatus `json:"experiment"`
 }
@@ -86,7 +87,8 @@ func (p *PostExperimentModifyTemporaryRolloutResponseBody) GetExperiment() compo
 
 type PostExperimentModifyTemporaryRolloutResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostExperimentModifyTemporaryRolloutResponseBody
+	// Resource created
+	Object *PostExperimentModifyTemporaryRolloutResponseBody
 }
 
 func (p PostExperimentModifyTemporaryRolloutResponse) MarshalJSON() ([]byte, error) {

@@ -1403,6 +1403,7 @@ func (p *PostFeatureV2Request) GetCustomFields() map[string]string {
 // #region class-body-postfeaturev2request
 // #endregion class-body-postfeaturev2request
 
+// PostFeatureV2ResponseBody - Resource created
 type PostFeatureV2ResponseBody struct {
 	Feature components.FeatureV2 `json:"feature"`
 }
@@ -1419,7 +1420,8 @@ func (p *PostFeatureV2ResponseBody) GetFeature() components.FeatureV2 {
 
 type PostFeatureV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostFeatureV2ResponseBody
+	// Resource created
+	Object *PostFeatureV2ResponseBody
 }
 
 func (p PostFeatureV2Response) MarshalJSON() ([]byte, error) {

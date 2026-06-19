@@ -7,6 +7,7 @@ import (
 	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
 )
 
+// ListMetricGroupsResponseBody - Successful response
 type ListMetricGroupsResponseBody struct {
 	MetricGroups []components.MetricGroup `json:"metricGroups"`
 }
@@ -20,7 +21,8 @@ func (l *ListMetricGroupsResponseBody) GetMetricGroups() []components.MetricGrou
 
 type ListMetricGroupsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListMetricGroupsResponseBody
+	// Successful response
+	Object *ListMetricGroupsResponseBody
 }
 
 func (l ListMetricGroupsResponse) MarshalJSON() ([]byte, error) {

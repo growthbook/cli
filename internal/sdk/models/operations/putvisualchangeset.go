@@ -318,6 +318,7 @@ func (p *PutVisualChangesetRequest) GetBody() PutVisualChangesetRequestBody {
 	return p.Body
 }
 
+// PutVisualChangesetResponseBody - Resource updated
 type PutVisualChangesetResponseBody struct {
 	NModified       float64                    `json:"nModified"`
 	VisualChangeset components.VisualChangeset `json:"visualChangeset"`
@@ -339,7 +340,8 @@ func (p *PutVisualChangesetResponseBody) GetVisualChangeset() components.VisualC
 
 type PutVisualChangesetResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PutVisualChangesetResponseBody
+	// Resource updated
+	Object *PutVisualChangesetResponseBody
 }
 
 func (p PutVisualChangesetResponse) MarshalJSON() ([]byte, error) {

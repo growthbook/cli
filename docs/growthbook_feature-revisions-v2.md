@@ -78,6 +78,7 @@ growthbook feature-revisions-v2 [flags]
 * [growthbook feature-revisions-v2 post-feature-revision-revert-v2](growthbook_feature-revisions-v2_post-feature-revision-revert-v2.md)	 - Revert the feature to a prior revision
 * [growthbook feature-revisions-v2 post-feature-revision-rule-add-v2](growthbook_feature-revisions-v2_post-feature-revision-rule-add-v2.md)	 - Add a rule to a draft revision
 * [growthbook feature-revisions-v2 post-feature-revision-rules-reorder-v2](growthbook_feature-revisions-v2_post-feature-revision-rules-reorder-v2.md)	 - Reorder rules in the revision
+* [growthbook feature-revisions-v2 post-feature-revision-schedule-publish-v2](growthbook_feature-revisions-v2_post-feature-revision-schedule-publish-v2.md)	 - Schedule (or cancel) a deferred publish for a draft revision
 * [growthbook feature-revisions-v2 post-feature-revision-submit-review-v2](growthbook_feature-revisions-v2_post-feature-revision-submit-review-v2.md)	 - Submit a review on a draft revision
 * [growthbook feature-revisions-v2 post-feature-revision-toggle-v2](growthbook_feature-revisions-v2_post-feature-revision-toggle-v2.md)	 - Toggle an environment on/off in a draft revision
 * [growthbook feature-revisions-v2 post-feature-revision-undo-review-v2](growthbook_feature-revisions-v2_post-feature-revision-undo-review-v2.md)	 - Undo a reviewer's own review verdict

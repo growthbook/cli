@@ -19,6 +19,7 @@ func (d *DeleteProjectRequest) GetID() string {
 	return d.ID
 }
 
+// DeleteProjectResponseBody - Resource deleted
 type DeleteProjectResponseBody struct {
 	// The ID of the deleted project
 	DeletedID string `json:"deletedId"`
@@ -33,7 +34,8 @@ func (d *DeleteProjectResponseBody) GetDeletedID() string {
 
 type DeleteProjectResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *DeleteProjectResponseBody
+	// Resource deleted
+	Object *DeleteProjectResponseBody
 }
 
 func (d DeleteProjectResponse) MarshalJSON() ([]byte, error) {

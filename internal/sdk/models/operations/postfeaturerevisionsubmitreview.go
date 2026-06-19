@@ -92,14 +92,15 @@ func (p *PostFeatureRevisionSubmitReviewRequest) GetBody() PostFeatureRevisionSu
 	return p.Body
 }
 
+// PostFeatureRevisionSubmitReviewResponseBody - Resource created
 type PostFeatureRevisionSubmitReviewResponseBody struct {
-	Revision      components.FeatureRevision `json:"revision"`
-	AutoPublished *bool                      `json:"autoPublished,omitzero"`
+	Revision      components.FeatureRevisionV1 `json:"revision"`
+	AutoPublished *bool                        `json:"autoPublished,omitzero"`
 }
 
-func (p *PostFeatureRevisionSubmitReviewResponseBody) GetRevision() components.FeatureRevision {
+func (p *PostFeatureRevisionSubmitReviewResponseBody) GetRevision() components.FeatureRevisionV1 {
 	if p == nil {
-		return components.FeatureRevision{}
+		return components.FeatureRevisionV1{}
 	}
 	return p.Revision
 }
@@ -113,7 +114,8 @@ func (p *PostFeatureRevisionSubmitReviewResponseBody) GetAutoPublished() *bool {
 
 type PostFeatureRevisionSubmitReviewResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostFeatureRevisionSubmitReviewResponseBody
+	// Resource created
+	Object *PostFeatureRevisionSubmitReviewResponseBody
 }
 
 func (p PostFeatureRevisionSubmitReviewResponse) MarshalJSON() ([]byte, error) {

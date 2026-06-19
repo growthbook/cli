@@ -21,6 +21,7 @@ var createRampScheduleTemplateCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "official", FieldPath: "Official", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "monitoring-config", Shorthand: "m", FieldPath: "MonitoringConfig", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"monitoringConfig,omitempty"`, Description: "JSON object"},
 	{FlagName: "lockdown-config", Shorthand: "l", FieldPath: "LockdownConfig", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"lockdownConfig,omitempty"`, Description: "JSON object"},
+	{FlagName: "order", FieldPath: "Order", Kind: flagutil.FlagKindFloat64, Optional: true, Description: "Display order within the org (lower sorts first). Omit to append to the end."},
 }
 
 // initCreateRampScheduleTemplateCmd initializes the create-ramp-schedule-template command.

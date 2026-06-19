@@ -18,6 +18,7 @@ func (g *GetMetricGroupRequest) GetID() string {
 	return g.ID
 }
 
+// GetMetricGroupResponseBody - Successful response
 type GetMetricGroupResponseBody struct {
 	MetricGroup components.MetricGroup `json:"metricGroup"`
 }
@@ -31,7 +32,8 @@ func (g *GetMetricGroupResponseBody) GetMetricGroup() components.MetricGroup {
 
 type GetMetricGroupResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetMetricGroupResponseBody
+	// Successful response
+	Object *GetMetricGroupResponseBody
 }
 
 func (g GetMetricGroupResponse) MarshalJSON() ([]byte, error) {

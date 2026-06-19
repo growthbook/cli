@@ -19,6 +19,7 @@ func (g *GetProjectRequest) GetID() string {
 	return g.ID
 }
 
+// GetProjectResponseBody - Successful response
 type GetProjectResponseBody struct {
 	Project components.Project `json:"project"`
 }
@@ -32,7 +33,8 @@ func (g *GetProjectResponseBody) GetProject() components.Project {
 
 type GetProjectResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetProjectResponseBody
+	// Successful response
+	Object *GetProjectResponseBody
 }
 
 func (g GetProjectResponse) MarshalJSON() ([]byte, error) {

@@ -108,6 +108,7 @@ func (p *PostNamespaceRequest) GetHashAttribute() *string {
 	return p.HashAttribute
 }
 
+// PostNamespaceResponseBody - Resource created
 type PostNamespaceResponseBody struct {
 	Namespace components.Namespace `json:"namespace"`
 }
@@ -121,7 +122,8 @@ func (p *PostNamespaceResponseBody) GetNamespace() components.Namespace {
 
 type PostNamespaceResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostNamespaceResponseBody
+	// Resource created
+	Object *PostNamespaceResponseBody
 }
 
 func (p PostNamespaceResponse) MarshalJSON() ([]byte, error) {

@@ -7,6 +7,7 @@ import (
 	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
 )
 
+// ListDashboardsResponseBody - Successful response
 type ListDashboardsResponseBody struct {
 	Dashboards []components.Dashboard `json:"dashboards"`
 }
@@ -20,7 +21,8 @@ func (l *ListDashboardsResponseBody) GetDashboards() []components.Dashboard {
 
 type ListDashboardsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListDashboardsResponseBody
+	// Successful response
+	Object *ListDashboardsResponseBody
 }
 
 func (l ListDashboardsResponse) MarshalJSON() ([]byte, error) {

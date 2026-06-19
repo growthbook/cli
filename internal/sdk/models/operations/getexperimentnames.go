@@ -19,6 +19,7 @@ func (g *GetExperimentNamesRequest) GetProjectID() *string {
 	return g.ProjectID
 }
 
+// GetExperimentNamesResponseBody - Successful response
 type GetExperimentNamesResponseBody struct {
 	Experiments []components.Experiments `json:"experiments"`
 }
@@ -32,7 +33,8 @@ func (g *GetExperimentNamesResponseBody) GetExperiments() []components.Experimen
 
 type GetExperimentNamesResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetExperimentNamesResponseBody
+	// Successful response
+	Object *GetExperimentNamesResponseBody
 }
 
 func (g GetExperimentNamesResponse) MarshalJSON() ([]byte, error) {

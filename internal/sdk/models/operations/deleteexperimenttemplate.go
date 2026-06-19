@@ -18,6 +18,7 @@ func (d *DeleteExperimentTemplateRequest) GetID() string {
 	return d.ID
 }
 
+// DeleteExperimentTemplateResponseBody - Resource deleted
 type DeleteExperimentTemplateResponseBody struct {
 	DeletedID string `json:"deletedId"`
 }
@@ -31,7 +32,8 @@ func (d *DeleteExperimentTemplateResponseBody) GetDeletedID() string {
 
 type DeleteExperimentTemplateResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *DeleteExperimentTemplateResponseBody
+	// Resource deleted
+	Object *DeleteExperimentTemplateResponseBody
 }
 
 func (d DeleteExperimentTemplateResponse) MarshalJSON() ([]byte, error) {

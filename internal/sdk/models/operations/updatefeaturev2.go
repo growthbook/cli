@@ -1409,6 +1409,7 @@ func (u *UpdateFeatureV2Request) GetBody() UpdateFeatureV2RequestBody {
 // #region class-body-updatefeaturev2request
 // #endregion class-body-updatefeaturev2request
 
+// UpdateFeatureV2ResponseBody - Resource created
 type UpdateFeatureV2ResponseBody struct {
 	Feature components.FeatureV2 `json:"feature"`
 }
@@ -1425,7 +1426,8 @@ func (u *UpdateFeatureV2ResponseBody) GetFeature() components.FeatureV2 {
 
 type UpdateFeatureV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *UpdateFeatureV2ResponseBody
+	// Resource created
+	Object *UpdateFeatureV2ResponseBody
 }
 
 func (u UpdateFeatureV2Response) MarshalJSON() ([]byte, error) {

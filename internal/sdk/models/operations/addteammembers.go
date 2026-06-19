@@ -37,6 +37,7 @@ func (a *AddTeamMembersRequest) GetBody() AddTeamMembersRequestBody {
 	return a.Body
 }
 
+// AddTeamMembersResponseBody - Resource created
 type AddTeamMembersResponseBody struct {
 	Status float64 `json:"status"`
 }
@@ -50,7 +51,8 @@ func (a *AddTeamMembersResponseBody) GetStatus() float64 {
 
 type AddTeamMembersResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *AddTeamMembersResponseBody
+	// Resource created
+	Object *AddTeamMembersResponseBody
 }
 
 func (a AddTeamMembersResponse) MarshalJSON() ([]byte, error) {

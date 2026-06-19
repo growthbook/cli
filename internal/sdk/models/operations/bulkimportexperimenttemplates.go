@@ -432,6 +432,7 @@ func (b *BulkImportExperimentTemplatesRequest) GetTemplates() []Template {
 	return b.Templates
 }
 
+// BulkImportExperimentTemplatesResponseBody - Resource created
 type BulkImportExperimentTemplatesResponseBody struct {
 	Added   int64 `json:"added"`
 	Updated int64 `json:"updated"`
@@ -453,7 +454,8 @@ func (b *BulkImportExperimentTemplatesResponseBody) GetUpdated() int64 {
 
 type BulkImportExperimentTemplatesResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *BulkImportExperimentTemplatesResponseBody
+	// Resource created
+	Object *BulkImportExperimentTemplatesResponseBody
 }
 
 func (b BulkImportExperimentTemplatesResponse) MarshalJSON() ([]byte, error) {

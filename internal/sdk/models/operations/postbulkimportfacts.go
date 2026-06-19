@@ -1416,6 +1416,7 @@ func (p *PostBulkImportFactsRequest) GetFactMetrics() []FactMetric {
 	return p.FactMetrics
 }
 
+// PostBulkImportFactsResponseBody - Resource created
 type PostBulkImportFactsResponseBody struct {
 	Success                 bool  `json:"success"`
 	FactTablesAdded         int64 `json:"factTablesAdded"`
@@ -1477,7 +1478,8 @@ func (p *PostBulkImportFactsResponseBody) GetFactMetricsUpdated() int64 {
 
 type PostBulkImportFactsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostBulkImportFactsResponseBody
+	// Resource created
+	Object *PostBulkImportFactsResponseBody
 }
 
 func (p PostBulkImportFactsResponse) MarshalJSON() ([]byte, error) {

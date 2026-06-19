@@ -141,6 +141,7 @@ func (p *PostVisualChangesetsRequest) GetBody() PostVisualChangesetsRequestBody 
 	return p.Body
 }
 
+// PostVisualChangesetsResponseBody - Resource created
 type PostVisualChangesetsResponseBody struct {
 	VisualChangeset components.VisualChangeset `json:"visualChangeset"`
 }
@@ -154,7 +155,8 @@ func (p *PostVisualChangesetsResponseBody) GetVisualChangeset() components.Visua
 
 type PostVisualChangesetsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostVisualChangesetsResponseBody
+	// Resource created
+	Object *PostVisualChangesetsResponseBody
 }
 
 func (p PostVisualChangesetsResponse) MarshalJSON() ([]byte, error) {

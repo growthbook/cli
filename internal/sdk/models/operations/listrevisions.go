@@ -83,19 +83,20 @@ func (l *ListRevisionsRequest) GetMine() any {
 	return l.Mine
 }
 
+// ListRevisionsResponseBody - Successful response
 type ListRevisionsResponseBody struct {
-	Revisions  []components.FeatureRevision `json:"revisions"`
-	Limit      int64                        `json:"limit"`
-	Offset     int64                        `json:"offset"`
-	Count      int64                        `json:"count"`
-	Total      int64                        `json:"total"`
-	HasMore    bool                         `json:"hasMore"`
-	NextOffset *int64                       `json:"nextOffset"`
+	Revisions  []components.FeatureRevisionV1 `json:"revisions"`
+	Limit      int64                          `json:"limit"`
+	Offset     int64                          `json:"offset"`
+	Count      int64                          `json:"count"`
+	Total      int64                          `json:"total"`
+	HasMore    bool                           `json:"hasMore"`
+	NextOffset *int64                         `json:"nextOffset"`
 }
 
-func (l *ListRevisionsResponseBody) GetRevisions() []components.FeatureRevision {
+func (l *ListRevisionsResponseBody) GetRevisions() []components.FeatureRevisionV1 {
 	if l == nil {
-		return []components.FeatureRevision{}
+		return []components.FeatureRevisionV1{}
 	}
 	return l.Revisions
 }
@@ -144,7 +145,8 @@ func (l *ListRevisionsResponseBody) GetNextOffset() *int64 {
 
 type ListRevisionsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListRevisionsResponseBody
+	// Successful response
+	Object *ListRevisionsResponseBody
 }
 
 func (l ListRevisionsResponse) MarshalJSON() ([]byte, error) {

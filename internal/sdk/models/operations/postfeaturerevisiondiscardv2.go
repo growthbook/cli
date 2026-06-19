@@ -43,6 +43,7 @@ func (p *PostFeatureRevisionDiscardV2Request) GetBody() PostFeatureRevisionDisca
 // #region class-body-postfeaturerevisiondiscardv2request
 // #endregion class-body-postfeaturerevisiondiscardv2request
 
+// PostFeatureRevisionDiscardV2ResponseBody - Resource created
 type PostFeatureRevisionDiscardV2ResponseBody struct {
 	Revision components.FeatureRevisionV2 `json:"revision"`
 }
@@ -59,7 +60,8 @@ func (p *PostFeatureRevisionDiscardV2ResponseBody) GetRevision() components.Feat
 
 type PostFeatureRevisionDiscardV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostFeatureRevisionDiscardV2ResponseBody
+	// Resource created
+	Object *PostFeatureRevisionDiscardV2ResponseBody
 }
 
 func (p PostFeatureRevisionDiscardV2Response) MarshalJSON() ([]byte, error) {

@@ -19,6 +19,7 @@ func (g *GetSegmentRequest) GetID() string {
 	return g.ID
 }
 
+// GetSegmentResponseBody - Successful response
 type GetSegmentResponseBody struct {
 	Segment components.Segment `json:"segment"`
 }
@@ -32,7 +33,8 @@ func (g *GetSegmentResponseBody) GetSegment() components.Segment {
 
 type GetSegmentResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetSegmentResponseBody
+	// Successful response
+	Object *GetSegmentResponseBody
 }
 
 func (g GetSegmentResponse) MarshalJSON() ([]byte, error) {

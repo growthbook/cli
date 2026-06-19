@@ -92,6 +92,7 @@ func (p *PutArchetypeRequest) GetBody() PutArchetypeRequestBody {
 	return p.Body
 }
 
+// PutArchetypeResponseBody - Resource updated
 type PutArchetypeResponseBody struct {
 	Archetype components.Archetype `json:"archetype"`
 }
@@ -105,7 +106,8 @@ func (p *PutArchetypeResponseBody) GetArchetype() components.Archetype {
 
 type PutArchetypeResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PutArchetypeResponseBody
+	// Resource updated
+	Object *PutArchetypeResponseBody
 }
 
 func (p PutArchetypeResponse) MarshalJSON() ([]byte, error) {

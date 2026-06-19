@@ -19,6 +19,7 @@ func (g *GetDataSourceRequest) GetID() string {
 	return g.ID
 }
 
+// GetDataSourceResponseBody - Successful response
 type GetDataSourceResponseBody struct {
 	DataSource components.DataSource `json:"dataSource"`
 }
@@ -32,7 +33,8 @@ func (g *GetDataSourceResponseBody) GetDataSource() components.DataSource {
 
 type GetDataSourceResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetDataSourceResponseBody
+	// Successful response
+	Object *GetDataSourceResponseBody
 }
 
 func (g GetDataSourceResponse) MarshalJSON() ([]byte, error) {

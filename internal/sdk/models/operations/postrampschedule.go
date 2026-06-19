@@ -902,6 +902,7 @@ func (p *PostRampScheduleRequest) GetTemplateID() *string {
 	return p.TemplateID
 }
 
+// PostRampScheduleResponseBody - Resource created
 type PostRampScheduleResponseBody struct {
 	RampSchedule components.RampSchedule `json:"rampSchedule"`
 }
@@ -915,7 +916,8 @@ func (p *PostRampScheduleResponseBody) GetRampSchedule() components.RampSchedule
 
 type PostRampScheduleResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostRampScheduleResponseBody
+	// Resource created
+	Object *PostRampScheduleResponseBody
 }
 
 func (p PostRampScheduleResponse) MarshalJSON() ([]byte, error) {

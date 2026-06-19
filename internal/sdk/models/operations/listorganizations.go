@@ -48,6 +48,7 @@ func (l *ListOrganizationsRequest) GetOffset() *int64 {
 	return l.Offset
 }
 
+// ListOrganizationsResponseBody - Successful response
 type ListOrganizationsResponseBody struct {
 	Organizations []components.Organization `json:"organizations"`
 	Limit         int64                     `json:"limit"`
@@ -109,7 +110,8 @@ func (l *ListOrganizationsResponseBody) GetNextOffset() *int64 {
 
 type ListOrganizationsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListOrganizationsResponseBody
+	// Successful response
+	Object *ListOrganizationsResponseBody
 }
 
 func (l ListOrganizationsResponse) MarshalJSON() ([]byte, error) {

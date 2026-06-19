@@ -18,6 +18,7 @@ func (d *DeleteRampScheduleRequest) GetID() string {
 	return d.ID
 }
 
+// DeleteRampScheduleResponseBody - Resource deleted
 type DeleteRampScheduleResponseBody struct {
 	DeletedID string `json:"deletedId"`
 }
@@ -31,7 +32,8 @@ func (d *DeleteRampScheduleResponseBody) GetDeletedID() string {
 
 type DeleteRampScheduleResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *DeleteRampScheduleResponseBody
+	// Resource deleted
+	Object *DeleteRampScheduleResponseBody
 }
 
 func (d DeleteRampScheduleResponse) MarshalJSON() ([]byte, error) {

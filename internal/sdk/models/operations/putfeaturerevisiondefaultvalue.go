@@ -61,20 +61,22 @@ func (p *PutFeatureRevisionDefaultValueRequest) GetBody() PutFeatureRevisionDefa
 	return p.Body
 }
 
+// PutFeatureRevisionDefaultValueResponseBody - Resource updated
 type PutFeatureRevisionDefaultValueResponseBody struct {
-	Revision components.FeatureRevision `json:"revision"`
+	Revision components.FeatureRevisionV1 `json:"revision"`
 }
 
-func (p *PutFeatureRevisionDefaultValueResponseBody) GetRevision() components.FeatureRevision {
+func (p *PutFeatureRevisionDefaultValueResponseBody) GetRevision() components.FeatureRevisionV1 {
 	if p == nil {
-		return components.FeatureRevision{}
+		return components.FeatureRevisionV1{}
 	}
 	return p.Revision
 }
 
 type PutFeatureRevisionDefaultValueResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PutFeatureRevisionDefaultValueResponseBody
+	// Resource updated
+	Object *PutFeatureRevisionDefaultValueResponseBody
 }
 
 func (p PutFeatureRevisionDefaultValueResponse) MarshalJSON() ([]byte, error) {

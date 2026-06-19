@@ -480,6 +480,7 @@ func (s *SetAutoUpdateRampScheduleMonitoringStatus) GetCurrentStepMonitored() bo
 	return s.CurrentStepMonitored
 }
 
+// SetAutoUpdateRampScheduleResponseBody - Resource created
 type SetAutoUpdateRampScheduleResponseBody struct {
 	// Unique identifier (rs_ prefix)
 	ID          string                              `json:"id"`
@@ -742,7 +743,8 @@ func (s *SetAutoUpdateRampScheduleResponseBody) GetMonitoringStatus() optionalnu
 
 type SetAutoUpdateRampScheduleResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *SetAutoUpdateRampScheduleResponseBody
+	// Resource created
+	Object *SetAutoUpdateRampScheduleResponseBody
 }
 
 func (s SetAutoUpdateRampScheduleResponse) MarshalJSON() ([]byte, error) {

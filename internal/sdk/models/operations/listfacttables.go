@@ -57,6 +57,7 @@ func (l *ListFactTablesRequest) GetProjectID() *string {
 	return l.ProjectID
 }
 
+// ListFactTablesResponseBody - Successful response
 type ListFactTablesResponseBody struct {
 	FactTables []components.FactTable `json:"factTables"`
 	Limit      int64                  `json:"limit"`
@@ -118,7 +119,8 @@ func (l *ListFactTablesResponseBody) GetNextOffset() *int64 {
 
 type ListFactTablesResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListFactTablesResponseBody
+	// Successful response
+	Object *ListFactTablesResponseBody
 }
 
 func (l ListFactTablesResponse) MarshalJSON() ([]byte, error) {

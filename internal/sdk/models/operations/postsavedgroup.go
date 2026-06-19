@@ -121,6 +121,7 @@ func (p *PostSavedGroupRequest) GetBypassApproval() *bool {
 	return p.BypassApproval
 }
 
+// PostSavedGroupResponseBody - Resource created
 type PostSavedGroupResponseBody struct {
 	SavedGroup components.SavedGroup `json:"savedGroup"`
 }
@@ -134,7 +135,8 @@ func (p *PostSavedGroupResponseBody) GetSavedGroup() components.SavedGroup {
 
 type PostSavedGroupResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostSavedGroupResponseBody
+	// Resource created
+	Object *PostSavedGroupResponseBody
 }
 
 func (p PostSavedGroupResponse) MarshalJSON() ([]byte, error) {

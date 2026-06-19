@@ -28,6 +28,7 @@ func (g *GetVisualChangesetRequest) GetIncludeExperiment() *int64 {
 	return g.IncludeExperiment
 }
 
+// GetVisualChangesetResponseBody - Successful response
 type GetVisualChangesetResponseBody struct {
 	VisualChangeset components.VisualChangeset `json:"visualChangeset"`
 	Experiment      *components.Experiment     `json:"experiment,omitzero"`
@@ -60,7 +61,8 @@ func (g *GetVisualChangesetResponseBody) GetExperiment() *components.Experiment 
 
 type GetVisualChangesetResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetVisualChangesetResponseBody
+	// Successful response
+	Object *GetVisualChangesetResponseBody
 }
 
 func (g GetVisualChangesetResponse) MarshalJSON() ([]byte, error) {

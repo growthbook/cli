@@ -1435,6 +1435,7 @@ func (p *PostExperimentRequest) GetStatusUpdateSchedule() *PostExperimentStatusU
 	return p.StatusUpdateSchedule
 }
 
+// PostExperimentResponseBody - Resource created
 type PostExperimentResponseBody struct {
 	Experiment components.Experiment `json:"experiment"`
 }
@@ -1448,7 +1449,8 @@ func (p *PostExperimentResponseBody) GetExperiment() components.Experiment {
 
 type PostExperimentResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostExperimentResponseBody
+	// Resource created
+	Object *PostExperimentResponseBody
 }
 
 func (p PostExperimentResponse) MarshalJSON() ([]byte, error) {

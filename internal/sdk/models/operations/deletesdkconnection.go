@@ -19,6 +19,7 @@ func (d *DeleteSDKConnectionRequest) GetID() string {
 	return d.ID
 }
 
+// DeleteSDKConnectionResponseBody - Resource deleted
 type DeleteSDKConnectionResponseBody struct {
 	DeletedID string `json:"deletedId"`
 }
@@ -32,7 +33,8 @@ func (d *DeleteSDKConnectionResponseBody) GetDeletedID() string {
 
 type DeleteSDKConnectionResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *DeleteSDKConnectionResponseBody
+	// Resource deleted
+	Object *DeleteSDKConnectionResponseBody
 }
 
 func (d DeleteSDKConnectionResponse) MarshalJSON() ([]byte, error) {

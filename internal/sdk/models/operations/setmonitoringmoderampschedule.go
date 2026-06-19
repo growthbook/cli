@@ -507,6 +507,7 @@ func (s *SetMonitoringModeRampScheduleMonitoringStatus) GetCurrentStepMonitored(
 	return s.CurrentStepMonitored
 }
 
+// SetMonitoringModeRampScheduleResponseBody - Resource created
 type SetMonitoringModeRampScheduleResponseBody struct {
 	// Unique identifier (rs_ prefix)
 	ID          string                                  `json:"id"`
@@ -769,7 +770,8 @@ func (s *SetMonitoringModeRampScheduleResponseBody) GetMonitoringStatus() option
 
 type SetMonitoringModeRampScheduleResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *SetMonitoringModeRampScheduleResponseBody
+	// Resource created
+	Object *SetMonitoringModeRampScheduleResponseBody
 }
 
 func (s SetMonitoringModeRampScheduleResponse) MarshalJSON() ([]byte, error) {

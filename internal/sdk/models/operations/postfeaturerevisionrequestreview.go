@@ -53,20 +53,22 @@ func (p *PostFeatureRevisionRequestReviewRequest) GetBody() PostFeatureRevisionR
 	return p.Body
 }
 
+// PostFeatureRevisionRequestReviewResponseBody - Resource created
 type PostFeatureRevisionRequestReviewResponseBody struct {
-	Revision components.FeatureRevision `json:"revision"`
+	Revision components.FeatureRevisionV1 `json:"revision"`
 }
 
-func (p *PostFeatureRevisionRequestReviewResponseBody) GetRevision() components.FeatureRevision {
+func (p *PostFeatureRevisionRequestReviewResponseBody) GetRevision() components.FeatureRevisionV1 {
 	if p == nil {
-		return components.FeatureRevision{}
+		return components.FeatureRevisionV1{}
 	}
 	return p.Revision
 }
 
 type PostFeatureRevisionRequestReviewResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostFeatureRevisionRequestReviewResponseBody
+	// Resource created
+	Object *PostFeatureRevisionRequestReviewResponseBody
 }
 
 func (p PostFeatureRevisionRequestReviewResponse) MarshalJSON() ([]byte, error) {

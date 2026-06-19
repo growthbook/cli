@@ -19,6 +19,7 @@ func (d *DeleteAttributeRequest) GetProperty() string {
 	return d.Property
 }
 
+// DeleteAttributeResponseBody - Resource deleted
 type DeleteAttributeResponseBody struct {
 	DeletedProperty string `json:"deletedProperty"`
 }
@@ -32,7 +33,8 @@ func (d *DeleteAttributeResponseBody) GetDeletedProperty() string {
 
 type DeleteAttributeResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *DeleteAttributeResponseBody
+	// Resource deleted
+	Object *DeleteAttributeResponseBody
 }
 
 func (d DeleteAttributeResponse) MarshalJSON() ([]byte, error) {

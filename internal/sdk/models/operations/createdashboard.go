@@ -2275,6 +2275,7 @@ func (c *CreateDashboardRequest) GetBlocks() []CreateDashboardBlockUnion {
 	return c.Blocks
 }
 
+// CreateDashboardResponseBody - Resource created
 type CreateDashboardResponseBody struct {
 	Dashboard components.Dashboard `json:"dashboard"`
 }
@@ -2288,7 +2289,8 @@ func (c *CreateDashboardResponseBody) GetDashboard() components.Dashboard {
 
 type CreateDashboardResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *CreateDashboardResponseBody
+	// Resource created
+	Object *CreateDashboardResponseBody
 }
 
 func (c CreateDashboardResponse) MarshalJSON() ([]byte, error) {

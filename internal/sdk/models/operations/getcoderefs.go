@@ -19,6 +19,7 @@ func (g *GetCodeRefsRequest) GetID() string {
 	return g.ID
 }
 
+// GetCodeRefsResponseBody - Successful response
 type GetCodeRefsResponseBody struct {
 	CodeRefs []components.CodeRef `json:"codeRefs"`
 }
@@ -32,7 +33,8 @@ func (g *GetCodeRefsResponseBody) GetCodeRefs() []components.CodeRef {
 
 type GetCodeRefsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetCodeRefsResponseBody
+	// Successful response
+	Object *GetCodeRefsResponseBody
 }
 
 func (g GetCodeRefsResponse) MarshalJSON() ([]byte, error) {

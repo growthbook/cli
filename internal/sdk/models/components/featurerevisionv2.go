@@ -2339,6 +2339,18 @@ type FeatureRevisionV2 struct {
 	Metadata *FeatureRevisionV2Metadata `json:"metadata,omitzero"`
 	// Pending ramp schedule actions that will be applied when this draft is published
 	RampActions []FeatureRevisionV2RampActionUnion `json:"rampActions,omitzero"`
+	// When true, the revision is armed to publish automatically once governance allows (immediately on approval, or on `scheduledPublishAt` if set).
+	AutoPublishOnApproval *bool `json:"autoPublishOnApproval,omitzero"`
+	// Target date for a deferred (scheduled) publish. Null/absent means publish as soon as approved.
+	ScheduledPublishAt optionalnullable.OptionalNullable[time.Time] `json:"scheduledPublishAt,omitzero"`
+	// When true, content edits to this draft are frozen while the schedule is pending (rebasing is still allowed).
+	ScheduledPublishLockEdits *bool `json:"scheduledPublishLockEdits,omitzero"`
+	// When true, publishing other drafts of this feature is blocked while the schedule is pending.
+	ScheduledPublishLockOthers *bool `json:"scheduledPublishLockOthers,omitzero"`
+	// When true, this schedule was armed by an admin via the bypass-approval override. It cannot be edited inline (only canceled and re-armed) and anyone with publish authority may cancel it.
+	ScheduledPublishBypassApproval *bool `json:"scheduledPublishBypassApproval,omitzero"`
+	// Set when a due scheduled publish keeps failing (e.g. still awaiting approval, merge conflict). Indicates the schedule is stuck and retrying.
+	ScheduledPublishLastError *string `json:"scheduledPublishLastError,omitzero"`
 	// Reviewer verdicts for the current review cycle (one entry per reviewer). Verdicts flip to their -stale variants when draft content changes after submission; the list is cleared when a new review cycle starts. Absent on revisions that predate this field.
 	Reviews []Review `json:"reviews,omitzero"`
 }
@@ -2464,6 +2476,48 @@ func (f *FeatureRevisionV2) GetRampActions() []FeatureRevisionV2RampActionUnion 
 		return nil
 	}
 	return f.RampActions
+}
+
+func (f *FeatureRevisionV2) GetAutoPublishOnApproval() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.AutoPublishOnApproval
+}
+
+func (f *FeatureRevisionV2) GetScheduledPublishAt() optionalnullable.OptionalNullable[time.Time] {
+	if f == nil {
+		return nil
+	}
+	return f.ScheduledPublishAt
+}
+
+func (f *FeatureRevisionV2) GetScheduledPublishLockEdits() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.ScheduledPublishLockEdits
+}
+
+func (f *FeatureRevisionV2) GetScheduledPublishLockOthers() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.ScheduledPublishLockOthers
+}
+
+func (f *FeatureRevisionV2) GetScheduledPublishBypassApproval() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.ScheduledPublishBypassApproval
+}
+
+func (f *FeatureRevisionV2) GetScheduledPublishLastError() *string {
+	if f == nil {
+		return nil
+	}
+	return f.ScheduledPublishLastError
 }
 
 func (f *FeatureRevisionV2) GetReviews() []Review {

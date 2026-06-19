@@ -16,6 +16,7 @@ import (
 	"net/url"
 )
 
+// Meta - Server metadata, including the running build's version and commit for version-skew checks.
 type Meta struct {
 	rootSDK          *Growthbook
 	sdkConfiguration config.SDKConfiguration

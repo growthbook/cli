@@ -28,6 +28,7 @@ func (g *GetFactTableFilterRequest) GetID() string {
 	return g.ID
 }
 
+// GetFactTableFilterResponseBody - Successful response
 type GetFactTableFilterResponseBody struct {
 	FactTableFilter components.FactTableFilter `json:"factTableFilter"`
 }
@@ -41,7 +42,8 @@ func (g *GetFactTableFilterResponseBody) GetFactTableFilter() components.FactTab
 
 type GetFactTableFilterResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetFactTableFilterResponseBody
+	// Successful response
+	Object *GetFactTableFilterResponseBody
 }
 
 func (g GetFactTableFilterResponse) MarshalJSON() ([]byte, error) {

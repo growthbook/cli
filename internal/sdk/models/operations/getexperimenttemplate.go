@@ -18,6 +18,7 @@ func (g *GetExperimentTemplateRequest) GetID() string {
 	return g.ID
 }
 
+// GetExperimentTemplateResponseBody - Successful response
 type GetExperimentTemplateResponseBody struct {
 	ExperimentTemplate components.ExperimentTemplate `json:"experimentTemplate"`
 }
@@ -31,7 +32,8 @@ func (g *GetExperimentTemplateResponseBody) GetExperimentTemplate() components.E
 
 type GetExperimentTemplateResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetExperimentTemplateResponseBody
+	// Successful response
+	Object *GetExperimentTemplateResponseBody
 }
 
 func (g GetExperimentTemplateResponse) MarshalJSON() ([]byte, error) {

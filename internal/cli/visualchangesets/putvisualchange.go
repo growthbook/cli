@@ -16,14 +16,13 @@ import (
 
 var putVisualChangeCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The id of the requested resource [required]"},
-	{FlagName: "visual-change-id", Shorthand: "v", FieldPath: "VisualChangeID", Kind: flagutil.FlagKindString, Required: true, Description: "Specify a specific visual change [required]"},
-	{FlagName: "body-param.id", FieldPath: "Body.ID", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "body-param.description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "body-param.css", FieldPath: "Body.CSS", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "body-param.js", FieldPath: "Body.Js", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "body-param.variation", FieldPath: "Body.Variation", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "body-param.dom-mutations", FieldPath: "Body.DomMutations", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"domMutations,omitempty"`, Description: "list of values"},
-	{FlagName: "body-param.additional-properties", FieldPath: "Body.AdditionalProperties", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `additionalProperties:"true" json:"-"`, Description: "value"},
+	{FlagName: "visual-change-id", FieldPath: "VisualChangeID", Kind: flagutil.FlagKindString, Required: true, Description: "Specify a specific visual change [required]"},
+	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "css", Shorthand: "c", FieldPath: "Body.CSS", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "js", Shorthand: "j", FieldPath: "Body.Js", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "variation", FieldPath: "Body.Variation", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "dom-mutations", FieldPath: "Body.DomMutations", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"domMutations,omitempty"`, Description: "list of values"},
+	{FlagName: "additional-properties", Shorthand: "a", FieldPath: "Body.AdditionalProperties", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `additionalProperties:"true" json:"-"`, Description: "value"},
 }
 
 // initPutVisualChangeCmd initializes the put-visual-change command.

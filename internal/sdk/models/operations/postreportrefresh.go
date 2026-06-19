@@ -19,6 +19,7 @@ func (p *PostReportRefreshRequest) GetID() string {
 	return p.ID
 }
 
+// PostReportRefreshResponseBody - Resource created
 type PostReportRefreshResponseBody struct {
 	Report components.Report `json:"report"`
 }
@@ -32,7 +33,8 @@ func (p *PostReportRefreshResponseBody) GetReport() components.Report {
 
 type PostReportRefreshResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostReportRefreshResponseBody
+	// Resource created
+	Object *PostReportRefreshResponseBody
 }
 
 func (p PostReportRefreshResponse) MarshalJSON() ([]byte, error) {

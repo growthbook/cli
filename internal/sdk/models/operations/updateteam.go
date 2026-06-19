@@ -261,6 +261,7 @@ func (u *UpdateTeamRequest) GetBody() UpdateTeamRequestBody {
 	return u.Body
 }
 
+// UpdateTeamResponseBody - Resource updated
 type UpdateTeamResponseBody struct {
 	Team components.Team `json:"team"`
 }
@@ -274,7 +275,8 @@ func (u *UpdateTeamResponseBody) GetTeam() components.Team {
 
 type UpdateTeamResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *UpdateTeamResponseBody
+	// Resource updated
+	Object *UpdateTeamResponseBody
 }
 
 func (u UpdateTeamResponse) MarshalJSON() ([]byte, error) {

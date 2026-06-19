@@ -2251,20 +2251,22 @@ func (u *UpdateFeatureRequest) GetBody() UpdateFeatureRequestBody {
 	return u.Body
 }
 
+// UpdateFeatureResponseBody - Resource created
 type UpdateFeatureResponseBody struct {
-	Feature components.Feature `json:"feature"`
+	Feature components.FeatureV1 `json:"feature"`
 }
 
-func (u *UpdateFeatureResponseBody) GetFeature() components.Feature {
+func (u *UpdateFeatureResponseBody) GetFeature() components.FeatureV1 {
 	if u == nil {
-		return components.Feature{}
+		return components.FeatureV1{}
 	}
 	return u.Feature
 }
 
 type UpdateFeatureResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *UpdateFeatureResponseBody
+	// Resource created
+	Object *UpdateFeatureResponseBody
 }
 
 func (u UpdateFeatureResponse) MarshalJSON() ([]byte, error) {

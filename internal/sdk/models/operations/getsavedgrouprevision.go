@@ -26,6 +26,7 @@ func (g *GetSavedGroupRevisionRequest) GetVersion() string {
 	return g.Version
 }
 
+// GetSavedGroupRevisionResponseBody - Successful response
 type GetSavedGroupRevisionResponseBody struct {
 	Revision components.SavedGroupRevision `json:"revision"`
 }
@@ -39,7 +40,8 @@ func (g *GetSavedGroupRevisionResponseBody) GetRevision() components.SavedGroupR
 
 type GetSavedGroupRevisionResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetSavedGroupRevisionResponseBody
+	// Successful response
+	Object *GetSavedGroupRevisionResponseBody
 }
 
 func (g GetSavedGroupRevisionResponse) MarshalJSON() ([]byte, error) {

@@ -26,20 +26,22 @@ func (g *GetFeatureRevisionRequest) GetVersion() string {
 	return g.Version
 }
 
+// GetFeatureRevisionResponseBody - Successful response
 type GetFeatureRevisionResponseBody struct {
-	Revision components.FeatureRevision `json:"revision"`
+	Revision components.FeatureRevisionV1 `json:"revision"`
 }
 
-func (g *GetFeatureRevisionResponseBody) GetRevision() components.FeatureRevision {
+func (g *GetFeatureRevisionResponseBody) GetRevision() components.FeatureRevisionV1 {
 	if g == nil {
-		return components.FeatureRevision{}
+		return components.FeatureRevisionV1{}
 	}
 	return g.Revision
 }
 
 type GetFeatureRevisionResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetFeatureRevisionResponseBody
+	// Successful response
+	Object *GetFeatureRevisionResponseBody
 }
 
 func (g GetFeatureRevisionResponse) MarshalJSON() ([]byte, error) {

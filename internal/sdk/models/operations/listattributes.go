@@ -19,6 +19,7 @@ func (l *ListAttributesRequest) GetProjectID() *string {
 	return l.ProjectID
 }
 
+// ListAttributesResponseBody - Successful response
 type ListAttributesResponseBody struct {
 	Attributes []components.Attribute `json:"attributes"`
 }
@@ -32,7 +33,8 @@ func (l *ListAttributesResponseBody) GetAttributes() []components.Attribute {
 
 type ListAttributesResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListAttributesResponseBody
+	// Successful response
+	Object *ListAttributesResponseBody
 }
 
 func (l ListAttributesResponse) MarshalJSON() ([]byte, error) {

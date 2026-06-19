@@ -19,6 +19,9 @@ var postFeatureRevisionRequestReviewV2CmdMeta = []flagutil.FlagMeta{
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "comment", Shorthand: "c", FieldPath: "Body.Comment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "auto-publish-on-approval", Shorthand: "a", FieldPath: "Body.AutoPublishOnApproval", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
+	{FlagName: "scheduled-publish-at", FieldPath: "Body.ScheduledPublishAt", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"scheduledPublishAt,omitempty"`, Description: "date/time value"},
+	{FlagName: "scheduled-publish-lock-edits", FieldPath: "Body.ScheduledPublishLockEdits", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
+	{FlagName: "scheduled-publish-lock-others", FieldPath: "Body.ScheduledPublishLockOthers", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 }
 
 // initPostFeatureRevisionRequestReviewV2Cmd initializes the post-feature-revision-request-review-v2 command.
@@ -26,7 +29,7 @@ func initPostFeatureRevisionRequestReviewV2Cmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "post-feature-revision-request-review-v2",
 		Short:   "Request review for a draft revision",
-		Long:    "Moves the draft into the `pending-review` state and notifies reviewers.\n\nSet `autoPublishOnApproval` to `true` to publish the revision automatically the moment it is approved (GitHub auto-merge model). This requires the org to have auto-publish-on-approval enabled for the feature and the caller to have publish permission; the auto-publish then executes with the caller's authority.",
+		Long:    "Moves the draft into the `pending-review` state and notifies reviewers.\n\nSet `autoPublishOnApproval` to `true` to publish the revision automatically the moment it is approved (GitHub auto-merge model). This requires the org to have auto-publish-on-approval enabled for the feature and the caller to have publish permission; the auto-publish then executes with the caller's authority.\n\nSet `scheduledPublishAt` to a future ISO date-time to defer the auto-publish until that date (it still also requires approval when review is required). Use `scheduledPublishLockEdits` to freeze edits to this draft while the schedule is pending, and `scheduledPublishLockOthers` to block publishing other drafts of this feature in the meantime.",
 		Example: "  growthbook feature-revisions-v2 post-feature-revision-request-review-v2 --id <id> --version-param 659874",
 		RunE:    runPostFeatureRevisionRequestReviewV2Cmd,
 		Aliases: []string{"pfrrrv2"},

@@ -48,6 +48,7 @@ func (p *PutOrganizationRequest) GetBody() PutOrganizationRequestBody {
 	return p.Body
 }
 
+// PutOrganizationResponseBody - Resource updated
 type PutOrganizationResponseBody struct {
 	Organization components.Organization `json:"organization"`
 }
@@ -61,7 +62,8 @@ func (p *PutOrganizationResponseBody) GetOrganization() components.Organization 
 
 type PutOrganizationResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PutOrganizationResponseBody
+	// Resource updated
+	Object *PutOrganizationResponseBody
 }
 
 func (p PutOrganizationResponse) MarshalJSON() ([]byte, error) {

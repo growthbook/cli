@@ -67,19 +67,20 @@ func (l *ListFeaturesRequest) GetSkipPagination() any {
 	return l.SkipPagination
 }
 
+// ListFeaturesResponseBody - Successful response
 type ListFeaturesResponseBody struct {
-	Features   []components.Feature `json:"features"`
-	Limit      int64                `json:"limit"`
-	Offset     int64                `json:"offset"`
-	Count      int64                `json:"count"`
-	Total      int64                `json:"total"`
-	HasMore    bool                 `json:"hasMore"`
-	NextOffset *int64               `json:"nextOffset"`
+	Features   []components.FeatureV1 `json:"features"`
+	Limit      int64                  `json:"limit"`
+	Offset     int64                  `json:"offset"`
+	Count      int64                  `json:"count"`
+	Total      int64                  `json:"total"`
+	HasMore    bool                   `json:"hasMore"`
+	NextOffset *int64                 `json:"nextOffset"`
 }
 
-func (l *ListFeaturesResponseBody) GetFeatures() []components.Feature {
+func (l *ListFeaturesResponseBody) GetFeatures() []components.FeatureV1 {
 	if l == nil {
-		return []components.Feature{}
+		return []components.FeatureV1{}
 	}
 	return l.Features
 }
@@ -128,7 +129,8 @@ func (l *ListFeaturesResponseBody) GetNextOffset() *int64 {
 
 type ListFeaturesResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListFeaturesResponseBody
+	// Successful response
+	Object *ListFeaturesResponseBody
 }
 
 func (l ListFeaturesResponse) MarshalJSON() ([]byte, error) {

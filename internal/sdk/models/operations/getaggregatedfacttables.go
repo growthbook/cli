@@ -20,6 +20,7 @@ func (g *GetAggregatedFactTablesRequest) GetID() string {
 	return g.ID
 }
 
+// GetAggregatedFactTablesResponseBody - Successful response
 type GetAggregatedFactTablesResponseBody struct {
 	AggregatedFactTables []components.AggregatedFactTable `json:"aggregatedFactTables"`
 	// When the next scheduled nightly refresh will run, or null if no schedule is configured
@@ -53,7 +54,8 @@ func (g *GetAggregatedFactTablesResponseBody) GetNextScheduledUpdate() *time.Tim
 
 type GetAggregatedFactTablesResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetAggregatedFactTablesResponseBody
+	// Successful response
+	Object *GetAggregatedFactTablesResponseBody
 }
 
 func (g GetAggregatedFactTablesResponse) MarshalJSON() ([]byte, error) {

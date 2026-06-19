@@ -48,6 +48,7 @@ func (r *RefreshAggregatedFactTableRequest) GetBody() RefreshAggregatedFactTable
 	return r.Body
 }
 
+// RefreshAggregatedFactTableResponseBody - Resource created
 type RefreshAggregatedFactTableResponseBody struct {
 	// One entry per id type refreshed
 	Runs []components.AggregatedTableRefreshTrigger `json:"runs"`
@@ -62,7 +63,8 @@ func (r *RefreshAggregatedFactTableResponseBody) GetRuns() []components.Aggregat
 
 type RefreshAggregatedFactTableResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *RefreshAggregatedFactTableResponseBody
+	// Resource created
+	Object *RefreshAggregatedFactTableResponseBody
 }
 
 func (r RefreshAggregatedFactTableResponse) MarshalJSON() ([]byte, error) {

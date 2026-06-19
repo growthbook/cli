@@ -32,65 +32,6 @@ func (e *FeatureWithRevisionsV2ValueType) IsExact() bool {
 	return false
 }
 
-type FeatureWithRevisionsV2Revision struct {
-	Version int64     `json:"version"`
-	Comment string    `json:"comment"`
-	Date    time.Time `json:"date"`
-	// The user (or automated actor) responsible for an action
-	CreatedBy *EventUser `json:"createdBy,omitzero"`
-	// The user (or automated actor) responsible for an action
-	PublishedBy *EventUser `json:"publishedBy,omitzero"`
-}
-
-func (f FeatureWithRevisionsV2Revision) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FeatureWithRevisionsV2Revision) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FeatureWithRevisionsV2Revision) GetVersion() int64 {
-	if f == nil {
-		return 0
-	}
-	return f.Version
-}
-
-func (f *FeatureWithRevisionsV2Revision) GetComment() string {
-	if f == nil {
-		return ""
-	}
-	return f.Comment
-}
-
-func (f *FeatureWithRevisionsV2Revision) GetDate() time.Time {
-	if f == nil {
-		return time.Time{}
-	}
-	return f.Date
-}
-
-func (f *FeatureWithRevisionsV2Revision) GetCreatedBy() *EventUser {
-	if f == nil {
-		return nil
-	}
-	return f.CreatedBy
-}
-
-func (f *FeatureWithRevisionsV2Revision) GetPublishedBy() *EventUser {
-	if f == nil {
-		return nil
-	}
-	return f.PublishedBy
-}
-
-// #region class-body-featurewithrevisionsv2revision
-// #endregion class-body-featurewithrevisionsv2revision
-
 type FeatureWithRevisionsV2Holdout struct {
 	// Holdout ID
 	ID string `json:"id"`
@@ -133,7 +74,7 @@ type FeatureWithRevisionsV2 struct {
 	Environments map[string]FeatureEnvironmentV2 `json:"environments"`
 	// Feature IDs. Each feature must evaluate to `true`
 	Prerequisites []string                                                         `json:"prerequisites,omitzero"`
-	Revision      FeatureWithRevisionsV2Revision                                   `json:"revision"`
+	Revision      FeatureRevisionSummary                                           `json:"revision"`
 	CustomFields  map[string]any                                                   `json:"customFields,omitzero"`
 	Holdout       optionalnullable.OptionalNullable[FeatureWithRevisionsV2Holdout] `json:"holdout,omitzero"`
 	Revisions     []FeatureRevisionV2                                              `json:"revisions,omitzero"`
@@ -241,9 +182,9 @@ func (f *FeatureWithRevisionsV2) GetPrerequisites() []string {
 	return f.Prerequisites
 }
 
-func (f *FeatureWithRevisionsV2) GetRevision() FeatureWithRevisionsV2Revision {
+func (f *FeatureWithRevisionsV2) GetRevision() FeatureRevisionSummary {
 	if f == nil {
-		return FeatureWithRevisionsV2Revision{}
+		return FeatureRevisionSummary{}
 	}
 	return f.Revision
 }

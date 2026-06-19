@@ -114,6 +114,7 @@ func (l *ListExperimentsRequest) GetStatus() *ListExperimentsStatus {
 	return l.Status
 }
 
+// ListExperimentsResponseBody - Successful response
 type ListExperimentsResponseBody struct {
 	Experiments []components.Experiment `json:"experiments"`
 	Limit       int64                   `json:"limit"`
@@ -175,7 +176,8 @@ func (l *ListExperimentsResponseBody) GetNextOffset() *int64 {
 
 type ListExperimentsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListExperimentsResponseBody
+	// Successful response
+	Object *ListExperimentsResponseBody
 }
 
 func (l ListExperimentsResponse) MarshalJSON() ([]byte, error) {

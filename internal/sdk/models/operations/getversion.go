@@ -7,6 +7,7 @@ import (
 	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
 )
 
+// GetVersionResponseBody - Successful response
 type GetVersionResponseBody struct {
 	Version string `json:"version"`
 	Commit  string `json:"commit"`
@@ -36,7 +37,8 @@ func (g *GetVersionResponseBody) GetDate() string {
 
 type GetVersionResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetVersionResponseBody
+	// Successful response
+	Object *GetVersionResponseBody
 }
 
 func (g GetVersionResponse) MarshalJSON() ([]byte, error) {

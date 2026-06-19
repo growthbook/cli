@@ -9,18 +9,18 @@ import (
 	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
 )
 
-type FeatureRuleType string
+type FeatureRuleV1Type string
 
 const (
-	FeatureRuleTypeForce         FeatureRuleType = "force"
-	FeatureRuleTypeRollout       FeatureRuleType = "rollout"
-	FeatureRuleTypeExperiment    FeatureRuleType = "experiment"
-	FeatureRuleTypeExperimentRef FeatureRuleType = "experiment-ref"
-	FeatureRuleTypeSafeRollout   FeatureRuleType = "safe-rollout"
-	FeatureRuleTypeUnknown       FeatureRuleType = "UNKNOWN"
+	FeatureRuleV1TypeForce         FeatureRuleV1Type = "force"
+	FeatureRuleV1TypeRollout       FeatureRuleV1Type = "rollout"
+	FeatureRuleV1TypeExperiment    FeatureRuleV1Type = "experiment"
+	FeatureRuleV1TypeExperimentRef FeatureRuleV1Type = "experiment-ref"
+	FeatureRuleV1TypeSafeRollout   FeatureRuleV1Type = "safe-rollout"
+	FeatureRuleV1TypeUnknown       FeatureRuleV1Type = "UNKNOWN"
 )
 
-type FeatureRule struct {
+type FeatureRuleV1 struct {
 	FeatureForceRule         *FeatureForceRule         `queryParam:"inline" union:"member"`
 	FeatureRolloutRule       *FeatureRolloutRule       `queryParam:"inline" union:"member"`
 	FeatureExperimentRule    *FeatureExperimentRule    `queryParam:"inline" union:"member"`
@@ -28,70 +28,70 @@ type FeatureRule struct {
 	FeatureSafeRolloutRule   *FeatureSafeRolloutRule   `queryParam:"inline" union:"member"`
 	UnknownRaw               json.RawMessage           `json:"-" union:"unknown"`
 
-	Type FeatureRuleType
+	Type FeatureRuleV1Type
 }
 
-func CreateFeatureRuleForce(force FeatureForceRule) FeatureRule {
-	typ := FeatureRuleTypeForce
+func CreateFeatureRuleV1Force(force FeatureForceRule) FeatureRuleV1 {
+	typ := FeatureRuleV1TypeForce
 
-	return FeatureRule{
+	return FeatureRuleV1{
 		FeatureForceRule: &force,
 		Type:             typ,
 	}
 }
 
-func CreateFeatureRuleRollout(rollout FeatureRolloutRule) FeatureRule {
-	typ := FeatureRuleTypeRollout
+func CreateFeatureRuleV1Rollout(rollout FeatureRolloutRule) FeatureRuleV1 {
+	typ := FeatureRuleV1TypeRollout
 
-	return FeatureRule{
+	return FeatureRuleV1{
 		FeatureRolloutRule: &rollout,
 		Type:               typ,
 	}
 }
 
-func CreateFeatureRuleExperiment(experiment FeatureExperimentRule) FeatureRule {
-	typ := FeatureRuleTypeExperiment
+func CreateFeatureRuleV1Experiment(experiment FeatureExperimentRule) FeatureRuleV1 {
+	typ := FeatureRuleV1TypeExperiment
 
-	return FeatureRule{
+	return FeatureRuleV1{
 		FeatureExperimentRule: &experiment,
 		Type:                  typ,
 	}
 }
 
-func CreateFeatureRuleExperimentRef(experimentRef FeatureExperimentRefRule) FeatureRule {
-	typ := FeatureRuleTypeExperimentRef
+func CreateFeatureRuleV1ExperimentRef(experimentRef FeatureExperimentRefRule) FeatureRuleV1 {
+	typ := FeatureRuleV1TypeExperimentRef
 
-	return FeatureRule{
+	return FeatureRuleV1{
 		FeatureExperimentRefRule: &experimentRef,
 		Type:                     typ,
 	}
 }
 
-func CreateFeatureRuleSafeRollout(safeRollout FeatureSafeRolloutRule) FeatureRule {
-	typ := FeatureRuleTypeSafeRollout
+func CreateFeatureRuleV1SafeRollout(safeRollout FeatureSafeRolloutRule) FeatureRuleV1 {
+	typ := FeatureRuleV1TypeSafeRollout
 
-	return FeatureRule{
+	return FeatureRuleV1{
 		FeatureSafeRolloutRule: &safeRollout,
 		Type:                   typ,
 	}
 }
 
-func CreateFeatureRuleUnknown(raw json.RawMessage) FeatureRule {
-	return FeatureRule{
+func CreateFeatureRuleV1Unknown(raw json.RawMessage) FeatureRuleV1 {
+	return FeatureRuleV1{
 		UnknownRaw: raw,
-		Type:       FeatureRuleTypeUnknown,
+		Type:       FeatureRuleV1TypeUnknown,
 	}
 }
 
-func (u FeatureRule) GetUnknownRaw() json.RawMessage {
+func (u FeatureRuleV1) GetUnknownRaw() json.RawMessage {
 	return u.UnknownRaw
 }
 
-func (u FeatureRule) IsUnknown() bool {
-	return u.Type == FeatureRuleTypeUnknown
+func (u FeatureRuleV1) IsUnknown() bool {
+	return u.Type == FeatureRuleV1TypeUnknown
 }
 
-func (u *FeatureRule) UnmarshalJSON(data []byte) error {
+func (u *FeatureRuleV1) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
 		Type string `json:"type"`
@@ -100,12 +100,12 @@ func (u *FeatureRule) UnmarshalJSON(data []byte) error {
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = FeatureRuleTypeUnknown
+		u.Type = FeatureRuleV1TypeUnknown
 		return nil
 	}
 	if dis == nil {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = FeatureRuleTypeUnknown
+		u.Type = FeatureRuleV1TypeUnknown
 		return nil
 	}
 
@@ -113,57 +113,57 @@ func (u *FeatureRule) UnmarshalJSON(data []byte) error {
 	case "force":
 		featureForceRule := new(FeatureForceRule)
 		if err := utils.UnmarshalJSON(data, &featureForceRule, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == force) type FeatureForceRule within FeatureRule: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == force) type FeatureForceRule within FeatureRuleV1: %w", string(data), err)
 		}
 
 		u.FeatureForceRule = featureForceRule
-		u.Type = FeatureRuleTypeForce
+		u.Type = FeatureRuleV1TypeForce
 		return nil
 	case "rollout":
 		featureRolloutRule := new(FeatureRolloutRule)
 		if err := utils.UnmarshalJSON(data, &featureRolloutRule, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == rollout) type FeatureRolloutRule within FeatureRule: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == rollout) type FeatureRolloutRule within FeatureRuleV1: %w", string(data), err)
 		}
 
 		u.FeatureRolloutRule = featureRolloutRule
-		u.Type = FeatureRuleTypeRollout
+		u.Type = FeatureRuleV1TypeRollout
 		return nil
 	case "experiment":
 		featureExperimentRule := new(FeatureExperimentRule)
 		if err := utils.UnmarshalJSON(data, &featureExperimentRule, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == experiment) type FeatureExperimentRule within FeatureRule: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == experiment) type FeatureExperimentRule within FeatureRuleV1: %w", string(data), err)
 		}
 
 		u.FeatureExperimentRule = featureExperimentRule
-		u.Type = FeatureRuleTypeExperiment
+		u.Type = FeatureRuleV1TypeExperiment
 		return nil
 	case "experiment-ref":
 		featureExperimentRefRule := new(FeatureExperimentRefRule)
 		if err := utils.UnmarshalJSON(data, &featureExperimentRefRule, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == experiment-ref) type FeatureExperimentRefRule within FeatureRule: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == experiment-ref) type FeatureExperimentRefRule within FeatureRuleV1: %w", string(data), err)
 		}
 
 		u.FeatureExperimentRefRule = featureExperimentRefRule
-		u.Type = FeatureRuleTypeExperimentRef
+		u.Type = FeatureRuleV1TypeExperimentRef
 		return nil
 	case "safe-rollout":
 		featureSafeRolloutRule := new(FeatureSafeRolloutRule)
 		if err := utils.UnmarshalJSON(data, &featureSafeRolloutRule, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == safe-rollout) type FeatureSafeRolloutRule within FeatureRule: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == safe-rollout) type FeatureSafeRolloutRule within FeatureRuleV1: %w", string(data), err)
 		}
 
 		u.FeatureSafeRolloutRule = featureSafeRolloutRule
-		u.Type = FeatureRuleTypeSafeRollout
+		u.Type = FeatureRuleV1TypeSafeRollout
 		return nil
 	default:
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = FeatureRuleTypeUnknown
+		u.Type = FeatureRuleV1TypeUnknown
 		return nil
 	}
 
 }
 
-func (u FeatureRule) MarshalJSON() ([]byte, error) {
+func (u FeatureRuleV1) MarshalJSON() ([]byte, error) {
 	if u.FeatureForceRule != nil {
 		return utils.MarshalJSON(u.FeatureForceRule, "", true)
 	}
@@ -187,5 +187,5 @@ func (u FeatureRule) MarshalJSON() ([]byte, error) {
 	if u.UnknownRaw != nil {
 		return json.RawMessage(u.UnknownRaw), nil
 	}
-	return nil, errors.New("could not marshal union type FeatureRule: all fields are null")
+	return nil, errors.New("could not marshal union type FeatureRuleV1: all fields are null")
 }

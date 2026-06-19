@@ -333,18 +333,18 @@ func (p *PutFeatureRevisionRuleRampScheduleV2Step) GetHoldConditions() *PutFeatu
 // #region class-body-putfeaturerevisionrulerampschedulev2step
 // #endregion class-body-putfeaturerevisionrulerampschedulev2step
 
-type PutFeatureRevisionRuleRampScheduleV2Match string
+type PutFeatureRevisionRuleRampScheduleV2PatchMatch string
 
 const (
-	PutFeatureRevisionRuleRampScheduleV2MatchAll  PutFeatureRevisionRuleRampScheduleV2Match = "all"
-	PutFeatureRevisionRuleRampScheduleV2MatchNone PutFeatureRevisionRuleRampScheduleV2Match = "none"
-	PutFeatureRevisionRuleRampScheduleV2MatchAny  PutFeatureRevisionRuleRampScheduleV2Match = "any"
+	PutFeatureRevisionRuleRampScheduleV2PatchMatchAll  PutFeatureRevisionRuleRampScheduleV2PatchMatch = "all"
+	PutFeatureRevisionRuleRampScheduleV2PatchMatchNone PutFeatureRevisionRuleRampScheduleV2PatchMatch = "none"
+	PutFeatureRevisionRuleRampScheduleV2PatchMatchAny  PutFeatureRevisionRuleRampScheduleV2PatchMatch = "any"
 )
 
-func (e PutFeatureRevisionRuleRampScheduleV2Match) ToPointer() *PutFeatureRevisionRuleRampScheduleV2Match {
+func (e PutFeatureRevisionRuleRampScheduleV2PatchMatch) ToPointer() *PutFeatureRevisionRuleRampScheduleV2PatchMatch {
 	return &e
 }
-func (e *PutFeatureRevisionRuleRampScheduleV2Match) UnmarshalJSON(data []byte) error {
+func (e *PutFeatureRevisionRuleRampScheduleV2PatchMatch) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -355,66 +355,66 @@ func (e *PutFeatureRevisionRuleRampScheduleV2Match) UnmarshalJSON(data []byte) e
 	case "none":
 		fallthrough
 	case "any":
-		*e = PutFeatureRevisionRuleRampScheduleV2Match(v)
+		*e = PutFeatureRevisionRuleRampScheduleV2PatchMatch(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for PutFeatureRevisionRuleRampScheduleV2Match: %v", v)
+		return fmt.Errorf("invalid value for PutFeatureRevisionRuleRampScheduleV2PatchMatch: %v", v)
 	}
 }
 
-type PutFeatureRevisionRuleRampScheduleV2SavedGroups struct {
-	Match PutFeatureRevisionRuleRampScheduleV2Match `json:"match"`
-	Ids   []string                                  `json:"ids"`
+type PutFeatureRevisionRuleRampScheduleV2PatchSavedGroups struct {
+	Match PutFeatureRevisionRuleRampScheduleV2PatchMatch `json:"match"`
+	Ids   []string                                       `json:"ids"`
 }
 
-func (p *PutFeatureRevisionRuleRampScheduleV2SavedGroups) GetMatch() PutFeatureRevisionRuleRampScheduleV2Match {
+func (p *PutFeatureRevisionRuleRampScheduleV2PatchSavedGroups) GetMatch() PutFeatureRevisionRuleRampScheduleV2PatchMatch {
 	if p == nil {
-		return PutFeatureRevisionRuleRampScheduleV2Match("")
+		return PutFeatureRevisionRuleRampScheduleV2PatchMatch("")
 	}
 	return p.Match
 }
 
-func (p *PutFeatureRevisionRuleRampScheduleV2SavedGroups) GetIds() []string {
+func (p *PutFeatureRevisionRuleRampScheduleV2PatchSavedGroups) GetIds() []string {
 	if p == nil {
 		return []string{}
 	}
 	return p.Ids
 }
 
-// #region class-body-putfeaturerevisionrulerampschedulev2savedgroups
-// #endregion class-body-putfeaturerevisionrulerampschedulev2savedgroups
+// #region class-body-putfeaturerevisionrulerampschedulev2patchsavedgroups
+// #endregion class-body-putfeaturerevisionrulerampschedulev2patchsavedgroups
 
-type PutFeatureRevisionRuleRampScheduleV2Prerequisites struct {
+type PutFeatureRevisionRuleRampScheduleV2PatchPrerequisites struct {
 	ID        string `json:"id"`
 	Condition string `json:"condition"`
 }
 
-func (p *PutFeatureRevisionRuleRampScheduleV2Prerequisites) GetID() string {
+func (p *PutFeatureRevisionRuleRampScheduleV2PatchPrerequisites) GetID() string {
 	if p == nil {
 		return ""
 	}
 	return p.ID
 }
 
-func (p *PutFeatureRevisionRuleRampScheduleV2Prerequisites) GetCondition() string {
+func (p *PutFeatureRevisionRuleRampScheduleV2PatchPrerequisites) GetCondition() string {
 	if p == nil {
 		return ""
 	}
 	return p.Condition
 }
 
-// #region class-body-putfeaturerevisionrulerampschedulev2prerequisites
-// #endregion class-body-putfeaturerevisionrulerampschedulev2prerequisites
+// #region class-body-putfeaturerevisionrulerampschedulev2patchprerequisites
+// #endregion class-body-putfeaturerevisionrulerampschedulev2patchprerequisites
 
 type PutFeatureRevisionRuleRampScheduleV2Patch struct {
 	RuleID *string `json:"ruleId,omitzero"`
 	// Traffic fraction (0–1). For monitored steps the rollout rule is promoted to an experiment: treatment = [0, coverage), control = [0.5, 0.5+coverage). Both arms are equal-sized and non-adjacent, so a step-up only adds new users to each arm — no existing user changes group. The REST API enforces coverage ≤ 0.5 on monitored steps so control end never exceeds 1.0. The SDK uses explicit hash ranges on bucketingV2 clients to keep bucketing stable across monitored/unmonitored transitions.
-	Coverage        optionalnullable.OptionalNullable[float64]                                             `json:"coverage,omitzero"`
-	Condition       optionalnullable.OptionalNullable[string]                                              `json:"condition,omitzero"`
-	SavedGroups     optionalnullable.OptionalNullable[[]PutFeatureRevisionRuleRampScheduleV2SavedGroups]   `json:"savedGroups,omitzero"`
-	Prerequisites   optionalnullable.OptionalNullable[[]PutFeatureRevisionRuleRampScheduleV2Prerequisites] `json:"prerequisites,omitzero"`
-	AllEnvironments optionalnullable.OptionalNullable[bool]                                                `json:"allEnvironments,omitzero"`
-	Environments    optionalnullable.OptionalNullable[[]string]                                            `json:"environments,omitzero"`
+	Coverage        optionalnullable.OptionalNullable[float64]                                                  `json:"coverage,omitzero"`
+	Condition       optionalnullable.OptionalNullable[string]                                                   `json:"condition,omitzero"`
+	SavedGroups     optionalnullable.OptionalNullable[[]PutFeatureRevisionRuleRampScheduleV2PatchSavedGroups]   `json:"savedGroups,omitzero"`
+	Prerequisites   optionalnullable.OptionalNullable[[]PutFeatureRevisionRuleRampScheduleV2PatchPrerequisites] `json:"prerequisites,omitzero"`
+	AllEnvironments optionalnullable.OptionalNullable[bool]                                                     `json:"allEnvironments,omitzero"`
+	Environments    optionalnullable.OptionalNullable[[]string]                                                 `json:"environments,omitzero"`
 	// Force value (any JSON type)
 	Force   any                                     `json:"force,omitzero"`
 	Enabled optionalnullable.OptionalNullable[bool] `json:"enabled,omitzero"`
@@ -452,14 +452,14 @@ func (p *PutFeatureRevisionRuleRampScheduleV2Patch) GetCondition() optionalnulla
 	return p.Condition
 }
 
-func (p *PutFeatureRevisionRuleRampScheduleV2Patch) GetSavedGroups() optionalnullable.OptionalNullable[[]PutFeatureRevisionRuleRampScheduleV2SavedGroups] {
+func (p *PutFeatureRevisionRuleRampScheduleV2Patch) GetSavedGroups() optionalnullable.OptionalNullable[[]PutFeatureRevisionRuleRampScheduleV2PatchSavedGroups] {
 	if p == nil {
 		return nil
 	}
 	return p.SavedGroups
 }
 
-func (p *PutFeatureRevisionRuleRampScheduleV2Patch) GetPrerequisites() optionalnullable.OptionalNullable[[]PutFeatureRevisionRuleRampScheduleV2Prerequisites] {
+func (p *PutFeatureRevisionRuleRampScheduleV2Patch) GetPrerequisites() optionalnullable.OptionalNullable[[]PutFeatureRevisionRuleRampScheduleV2PatchPrerequisites] {
 	if p == nil {
 		return nil
 	}
@@ -795,6 +795,154 @@ func (p *PutFeatureRevisionRuleRampScheduleV2LockdownConfig) GetMode() PutFeatur
 // #region class-body-putfeaturerevisionrulerampschedulev2lockdownconfig
 // #endregion class-body-putfeaturerevisionrulerampschedulev2lockdownconfig
 
+type StartStateMatch string
+
+const (
+	StartStateMatchAll  StartStateMatch = "all"
+	StartStateMatchNone StartStateMatch = "none"
+	StartStateMatchAny  StartStateMatch = "any"
+)
+
+func (e StartStateMatch) ToPointer() *StartStateMatch {
+	return &e
+}
+func (e *StartStateMatch) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "all":
+		fallthrough
+	case "none":
+		fallthrough
+	case "any":
+		*e = StartStateMatch(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for StartStateMatch: %v", v)
+	}
+}
+
+type StartStateSavedGroups struct {
+	Match StartStateMatch `json:"match"`
+	Ids   []string        `json:"ids"`
+}
+
+func (s *StartStateSavedGroups) GetMatch() StartStateMatch {
+	if s == nil {
+		return StartStateMatch("")
+	}
+	return s.Match
+}
+
+func (s *StartStateSavedGroups) GetIds() []string {
+	if s == nil {
+		return []string{}
+	}
+	return s.Ids
+}
+
+type StartStatePrerequisites struct {
+	ID        string `json:"id"`
+	Condition string `json:"condition"`
+}
+
+func (s *StartStatePrerequisites) GetID() string {
+	if s == nil {
+		return ""
+	}
+	return s.ID
+}
+
+func (s *StartStatePrerequisites) GetCondition() string {
+	if s == nil {
+		return ""
+	}
+	return s.Condition
+}
+
+// StartState - The rule state to roll back to (the rollback/jump-to-start anchor). Merged onto the rule's current state, so `{ "coverage": 0 }` keeps existing targeting but rolls back to 0%. This affects rollbacks only — it is NOT applied when the ramp starts. On create, omitting it infers the anchor from the rule's current coverage (and returns a warning if that isn't 0%); on update of a live schedule, omitting it leaves the existing anchor unchanged.
+type StartState struct {
+	// Traffic fraction (0–1). For monitored steps the rollout rule is promoted to an experiment: treatment = [0, coverage), control = [0.5, 0.5+coverage). Both arms are equal-sized and non-adjacent, so a step-up only adds new users to each arm — no existing user changes group. The REST API enforces coverage ≤ 0.5 on monitored steps so control end never exceeds 1.0. The SDK uses explicit hash ranges on bucketingV2 clients to keep bucketing stable across monitored/unmonitored transitions.
+	Coverage        optionalnullable.OptionalNullable[float64]                   `json:"coverage,omitzero"`
+	Condition       optionalnullable.OptionalNullable[string]                    `json:"condition,omitzero"`
+	SavedGroups     optionalnullable.OptionalNullable[[]StartStateSavedGroups]   `json:"savedGroups,omitzero"`
+	Prerequisites   optionalnullable.OptionalNullable[[]StartStatePrerequisites] `json:"prerequisites,omitzero"`
+	AllEnvironments optionalnullable.OptionalNullable[bool]                      `json:"allEnvironments,omitzero"`
+	Environments    optionalnullable.OptionalNullable[[]string]                  `json:"environments,omitzero"`
+	// Force value (any JSON type)
+	Force   any                                     `json:"force,omitzero"`
+	Enabled optionalnullable.OptionalNullable[bool] `json:"enabled,omitzero"`
+}
+
+func (s StartState) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *StartState) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *StartState) GetCoverage() optionalnullable.OptionalNullable[float64] {
+	if s == nil {
+		return nil
+	}
+	return s.Coverage
+}
+
+func (s *StartState) GetCondition() optionalnullable.OptionalNullable[string] {
+	if s == nil {
+		return nil
+	}
+	return s.Condition
+}
+
+func (s *StartState) GetSavedGroups() optionalnullable.OptionalNullable[[]StartStateSavedGroups] {
+	if s == nil {
+		return nil
+	}
+	return s.SavedGroups
+}
+
+func (s *StartState) GetPrerequisites() optionalnullable.OptionalNullable[[]StartStatePrerequisites] {
+	if s == nil {
+		return nil
+	}
+	return s.Prerequisites
+}
+
+func (s *StartState) GetAllEnvironments() optionalnullable.OptionalNullable[bool] {
+	if s == nil {
+		return nil
+	}
+	return s.AllEnvironments
+}
+
+func (s *StartState) GetEnvironments() optionalnullable.OptionalNullable[[]string] {
+	if s == nil {
+		return nil
+	}
+	return s.Environments
+}
+
+func (s *StartState) GetForce() any {
+	if s == nil {
+		return nil
+	}
+	return s.Force
+}
+
+func (s *StartState) GetEnabled() optionalnullable.OptionalNullable[bool] {
+	if s == nil {
+		return nil
+	}
+	return s.Enabled
+}
+
 type PutFeatureRevisionRuleRampScheduleV2RequestBody struct {
 	Name         *string                                           `json:"name,omitzero"`
 	TemplateID   *string                                           `json:"templateId,omitzero"`
@@ -809,6 +957,8 @@ type PutFeatureRevisionRuleRampScheduleV2RequestBody struct {
 	LockdownConfig   *PutFeatureRevisionRuleRampScheduleV2LockdownConfig   `json:"lockdownConfig,omitzero"`
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	Environment *string `json:"environment,omitzero"`
+	// The rule state to roll back to (the rollback/jump-to-start anchor). Merged onto the rule's current state, so `{ "coverage": 0 }` keeps existing targeting but rolls back to 0%. This affects rollbacks only — it is NOT applied when the ramp starts. On create, omitting it infers the anchor from the rule's current coverage (and returns a warning if that isn't 0%); on update of a live schedule, omitting it leaves the existing anchor unchanged.
+	StartState *StartState `json:"startState,omitzero"`
 	// Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
 	RevisionTitle *string `json:"revisionTitle,omitzero"`
 	// Comment for a newly created draft. Only used when version is "new"; ignored for existing revisions.
@@ -896,6 +1046,13 @@ func (p *PutFeatureRevisionRuleRampScheduleV2RequestBody) GetEnvironment() *stri
 	return p.Environment
 }
 
+func (p *PutFeatureRevisionRuleRampScheduleV2RequestBody) GetStartState() *StartState {
+	if p == nil {
+		return nil
+	}
+	return p.StartState
+}
+
 func (p *PutFeatureRevisionRuleRampScheduleV2RequestBody) GetRevisionTitle() *string {
 	if p == nil {
 		return nil
@@ -951,8 +1108,22 @@ func (p *PutFeatureRevisionRuleRampScheduleV2Request) GetBody() PutFeatureRevisi
 // #region class-body-putfeaturerevisionrulerampschedulev2request
 // #endregion class-body-putfeaturerevisionrulerampschedulev2request
 
+// PutFeatureRevisionRuleRampScheduleV2ResponseBody - Resource updated
 type PutFeatureRevisionRuleRampScheduleV2ResponseBody struct {
 	Revision components.FeatureRevisionV2 `json:"revision"`
+	// Non-fatal advisories about how the request was interpreted.
+	Warnings []string `json:"warnings,omitzero"`
+}
+
+func (p PutFeatureRevisionRuleRampScheduleV2ResponseBody) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PutFeatureRevisionRuleRampScheduleV2ResponseBody) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (p *PutFeatureRevisionRuleRampScheduleV2ResponseBody) GetRevision() components.FeatureRevisionV2 {
@@ -962,12 +1133,20 @@ func (p *PutFeatureRevisionRuleRampScheduleV2ResponseBody) GetRevision() compone
 	return p.Revision
 }
 
+func (p *PutFeatureRevisionRuleRampScheduleV2ResponseBody) GetWarnings() []string {
+	if p == nil {
+		return nil
+	}
+	return p.Warnings
+}
+
 // #region class-body-putfeaturerevisionrulerampschedulev2responsebody
 // #endregion class-body-putfeaturerevisionrulerampschedulev2responsebody
 
 type PutFeatureRevisionRuleRampScheduleV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PutFeatureRevisionRuleRampScheduleV2ResponseBody
+	// Resource updated
+	Object *PutFeatureRevisionRuleRampScheduleV2ResponseBody
 }
 
 func (p PutFeatureRevisionRuleRampScheduleV2Response) MarshalJSON() ([]byte, error) {

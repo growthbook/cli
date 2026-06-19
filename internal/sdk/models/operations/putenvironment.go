@@ -76,6 +76,7 @@ func (p *PutEnvironmentRequest) GetBody() PutEnvironmentRequestBody {
 	return p.Body
 }
 
+// PutEnvironmentResponseBody - Resource updated
 type PutEnvironmentResponseBody struct {
 	Environment components.Environment `json:"environment"`
 }
@@ -89,7 +90,8 @@ func (p *PutEnvironmentResponseBody) GetEnvironment() components.Environment {
 
 type PutEnvironmentResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PutEnvironmentResponseBody
+	// Resource updated
+	Object *PutEnvironmentResponseBody
 }
 
 func (p PutEnvironmentResponse) MarshalJSON() ([]byte, error) {

@@ -19,6 +19,7 @@ func (g *GetQueryRequest) GetID() string {
 	return g.ID
 }
 
+// GetQueryResponseBody - Successful response
 type GetQueryResponseBody struct {
 	Query components.Query `json:"query"`
 }
@@ -32,7 +33,8 @@ func (g *GetQueryResponseBody) GetQuery() components.Query {
 
 type GetQueryResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetQueryResponseBody
+	// Successful response
+	Object *GetQueryResponseBody
 }
 
 func (g GetQueryResponse) MarshalJSON() ([]byte, error) {

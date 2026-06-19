@@ -19,6 +19,7 @@ func (g *GetMetricUsageRequest) GetIds() string {
 	return g.Ids
 }
 
+// GetMetricUsageResponseBody - Successful response
 type GetMetricUsageResponseBody struct {
 	MetricUsage []components.MetricUsage `json:"metricUsage"`
 }
@@ -32,7 +33,8 @@ func (g *GetMetricUsageResponseBody) GetMetricUsage() []components.MetricUsage {
 
 type GetMetricUsageResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetMetricUsageResponseBody
+	// Successful response
+	Object *GetMetricUsageResponseBody
 }
 
 func (g GetMetricUsageResponse) MarshalJSON() ([]byte, error) {

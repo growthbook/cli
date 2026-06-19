@@ -27,6 +27,7 @@ func (g *GetSavedGroupRevisionLatestRequest) GetMine() any {
 	return g.Mine
 }
 
+// GetSavedGroupRevisionLatestResponseBody - Successful response
 type GetSavedGroupRevisionLatestResponseBody struct {
 	Revision components.SavedGroupRevision `json:"revision"`
 }
@@ -40,7 +41,8 @@ func (g *GetSavedGroupRevisionLatestResponseBody) GetRevision() components.Saved
 
 type GetSavedGroupRevisionLatestResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetSavedGroupRevisionLatestResponseBody
+	// Successful response
+	Object *GetSavedGroupRevisionLatestResponseBody
 }
 
 func (g GetSavedGroupRevisionLatestResponse) MarshalJSON() ([]byte, error) {

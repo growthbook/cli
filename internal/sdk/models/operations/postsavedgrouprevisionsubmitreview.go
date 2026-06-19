@@ -92,6 +92,7 @@ func (p *PostSavedGroupRevisionSubmitReviewRequest) GetBody() PostSavedGroupRevi
 	return p.Body
 }
 
+// PostSavedGroupRevisionSubmitReviewResponseBody - Resource created
 type PostSavedGroupRevisionSubmitReviewResponseBody struct {
 	Revision      components.SavedGroupRevision `json:"revision"`
 	AutoPublished *bool                         `json:"autoPublished,omitzero"`
@@ -113,7 +114,8 @@ func (p *PostSavedGroupRevisionSubmitReviewResponseBody) GetAutoPublished() *boo
 
 type PostSavedGroupRevisionSubmitReviewResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostSavedGroupRevisionSubmitReviewResponseBody
+	// Resource created
+	Object *PostSavedGroupRevisionSubmitReviewResponseBody
 }
 
 func (p PostSavedGroupRevisionSubmitReviewResponse) MarshalJSON() ([]byte, error) {

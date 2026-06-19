@@ -84,6 +84,7 @@ func (l *ListSavedGroupRevisionsRequest) GetMine() any {
 	return l.Mine
 }
 
+// ListSavedGroupRevisionsResponseBody - Successful response
 type ListSavedGroupRevisionsResponseBody struct {
 	Revisions  []components.SavedGroupRevision `json:"revisions"`
 	Limit      int64                           `json:"limit"`
@@ -145,7 +146,8 @@ func (l *ListSavedGroupRevisionsResponseBody) GetNextOffset() *int64 {
 
 type ListSavedGroupRevisionsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListSavedGroupRevisionsResponseBody
+	// Successful response
+	Object *ListSavedGroupRevisionsResponseBody
 }
 
 func (l ListSavedGroupRevisionsResponse) MarshalJSON() ([]byte, error) {

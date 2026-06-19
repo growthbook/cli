@@ -19,6 +19,7 @@ func (g *GetArchetypeRequest) GetID() string {
 	return g.ID
 }
 
+// GetArchetypeResponseBody - Successful response
 type GetArchetypeResponseBody struct {
 	Archetype components.Archetype `json:"archetype"`
 }
@@ -32,7 +33,8 @@ func (g *GetArchetypeResponseBody) GetArchetype() components.Archetype {
 
 type GetArchetypeResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetArchetypeResponseBody
+	// Successful response
+	Object *GetArchetypeResponseBody
 }
 
 func (g GetArchetypeResponse) MarshalJSON() ([]byte, error) {

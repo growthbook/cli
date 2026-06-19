@@ -19,6 +19,7 @@ func (g *GetReportRequest) GetID() string {
 	return g.ID
 }
 
+// GetReportResponseBody - Successful response
 type GetReportResponseBody struct {
 	Report components.Report `json:"report"`
 }
@@ -32,7 +33,8 @@ func (g *GetReportResponseBody) GetReport() components.Report {
 
 type GetReportResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetReportResponseBody
+	// Successful response
+	Object *GetReportResponseBody
 }
 
 func (g GetReportResponse) MarshalJSON() ([]byte, error) {

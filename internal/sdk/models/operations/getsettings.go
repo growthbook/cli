@@ -7,6 +7,7 @@ import (
 	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
 )
 
+// GetSettingsResponseBody - Successful response
 type GetSettingsResponseBody struct {
 	Settings components.Settings `json:"settings"`
 }
@@ -20,7 +21,8 @@ func (g *GetSettingsResponseBody) GetSettings() components.Settings {
 
 type GetSettingsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetSettingsResponseBody
+	// Successful response
+	Object *GetSettingsResponseBody
 }
 
 func (g GetSettingsResponse) MarshalJSON() ([]byte, error) {

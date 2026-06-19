@@ -41,6 +41,7 @@ func (e *GetExperimentStartChecklistStatus) IsExact() bool {
 	return false
 }
 
+// GetExperimentStartChecklistResponseBody - Successful response
 type GetExperimentStartChecklistResponseBody struct {
 	ChecklistItems []components.ChecklistItems       `json:"checklistItems"`
 	Status         GetExperimentStartChecklistStatus `json:"status"`
@@ -62,7 +63,8 @@ func (g *GetExperimentStartChecklistResponseBody) GetStatus() GetExperimentStart
 
 type GetExperimentStartChecklistResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetExperimentStartChecklistResponseBody
+	// Successful response
+	Object *GetExperimentStartChecklistResponseBody
 }
 
 func (g GetExperimentStartChecklistResponse) MarshalJSON() ([]byte, error) {

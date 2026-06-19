@@ -7976,6 +7976,7 @@ func (u *UpdateDashboardRequest) GetBody() UpdateDashboardRequestBody {
 	return u.Body
 }
 
+// UpdateDashboardResponseBody - Resource updated
 type UpdateDashboardResponseBody struct {
 	Dashboard components.Dashboard `json:"dashboard"`
 }
@@ -7989,7 +7990,8 @@ func (u *UpdateDashboardResponseBody) GetDashboard() components.Dashboard {
 
 type UpdateDashboardResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *UpdateDashboardResponseBody
+	// Resource updated
+	Object *UpdateDashboardResponseBody
 }
 
 func (u UpdateDashboardResponse) MarshalJSON() ([]byte, error) {

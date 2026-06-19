@@ -18,6 +18,7 @@ func (g *GetDashboardsForExperimentRequest) GetExperimentID() string {
 	return g.ExperimentID
 }
 
+// GetDashboardsForExperimentResponseBody - Successful response
 type GetDashboardsForExperimentResponseBody struct {
 	Dashboards []components.Dashboard `json:"dashboards"`
 }
@@ -31,7 +32,8 @@ func (g *GetDashboardsForExperimentResponseBody) GetDashboards() []components.Da
 
 type GetDashboardsForExperimentResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetDashboardsForExperimentResponseBody
+	// Successful response
+	Object *GetDashboardsForExperimentResponseBody
 }
 
 func (g GetDashboardsForExperimentResponse) MarshalJSON() ([]byte, error) {

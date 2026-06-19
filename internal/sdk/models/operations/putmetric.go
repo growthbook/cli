@@ -900,6 +900,7 @@ func (p *PutMetricRequest) GetBody() PutMetricRequestBody {
 	return p.Body
 }
 
+// PutMetricResponseBody - Resource updated
 type PutMetricResponseBody struct {
 	UpdatedID string `json:"updatedId"`
 }
@@ -913,7 +914,8 @@ func (p *PutMetricResponseBody) GetUpdatedID() string {
 
 type PutMetricResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PutMetricResponseBody
+	// Resource updated
+	Object *PutMetricResponseBody
 }
 
 func (p PutMetricResponse) MarshalJSON() ([]byte, error) {

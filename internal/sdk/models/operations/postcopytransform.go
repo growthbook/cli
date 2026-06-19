@@ -66,7 +66,8 @@ func (p *PostCopyTransformRequest) GetMode() PostCopyTransformMode {
 
 type PostCopyTransformResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Any      any
+	// Resource created
+	Any any
 }
 
 func (p *PostCopyTransformResponse) GetHTTPMeta() components.HTTPMetadata {

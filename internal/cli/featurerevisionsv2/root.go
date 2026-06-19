@@ -97,6 +97,10 @@ func InitFeatureRevisionsV2Root(parent *cobra.Command) error {
 		return err
 	}
 
+	if err := initPostFeatureRevisionSchedulePublishV2Cmd(FeatureRevisionsV2Cmd); err != nil {
+		return err
+	}
+
 	if err := initPostFeatureRevisionSubmitReviewV2Cmd(FeatureRevisionsV2Cmd); err != nil {
 		return err
 	}

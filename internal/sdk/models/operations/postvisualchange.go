@@ -198,6 +198,7 @@ func (p *PostVisualChangeRequest) GetBody() PostVisualChangeRequestBody {
 	return p.Body
 }
 
+// PostVisualChangeResponseBody - Resource created
 type PostVisualChangeResponseBody struct {
 	NModified      float64 `json:"nModified"`
 	VisualChangeID string  `json:"visualChangeId"`
@@ -219,7 +220,8 @@ func (p *PostVisualChangeResponseBody) GetVisualChangeID() string {
 
 type PostVisualChangeResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostVisualChangeResponseBody
+	// Resource created
+	Object *PostVisualChangeResponseBody
 }
 
 func (p PostVisualChangeResponse) MarshalJSON() ([]byte, error) {

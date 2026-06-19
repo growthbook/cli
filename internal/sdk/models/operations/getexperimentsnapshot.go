@@ -19,6 +19,7 @@ func (g *GetExperimentSnapshotRequest) GetID() string {
 	return g.ID
 }
 
+// GetExperimentSnapshotResponseBody - Successful response
 type GetExperimentSnapshotResponseBody struct {
 	Snapshot components.Snapshot `json:"snapshot"`
 }
@@ -32,7 +33,8 @@ func (g *GetExperimentSnapshotResponseBody) GetSnapshot() components.Snapshot {
 
 type GetExperimentSnapshotResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetExperimentSnapshotResponseBody
+	// Successful response
+	Object *GetExperimentSnapshotResponseBody
 }
 
 func (g GetExperimentSnapshotResponse) MarshalJSON() ([]byte, error) {

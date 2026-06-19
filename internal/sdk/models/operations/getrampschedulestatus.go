@@ -19,6 +19,7 @@ func (g *GetRampScheduleStatusRequest) GetID() string {
 	return g.ID
 }
 
+// GetRampScheduleStatusResponseBody - Successful response
 type GetRampScheduleStatusResponseBody struct {
 	ID                 string                                    `json:"id"`
 	Status             string                                    `json:"status"`
@@ -116,7 +117,8 @@ func (g *GetRampScheduleStatusResponseBody) GetHealthSummary() *components.Healt
 
 type GetRampScheduleStatusResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetRampScheduleStatusResponseBody
+	// Successful response
+	Object *GetRampScheduleStatusResponseBody
 }
 
 func (g GetRampScheduleStatusResponse) MarshalJSON() ([]byte, error) {

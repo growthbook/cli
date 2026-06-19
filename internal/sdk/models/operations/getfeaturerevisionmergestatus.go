@@ -27,6 +27,7 @@ func (g *GetFeatureRevisionMergeStatusRequest) GetVersion() string {
 	return g.Version
 }
 
+// GetFeatureRevisionMergeStatusResponseBody - Successful response
 type GetFeatureRevisionMergeStatusResponseBody struct {
 	Success bool `json:"success"`
 	// The current live version the merge was computed against.
@@ -94,7 +95,8 @@ func (g *GetFeatureRevisionMergeStatusResponseBody) GetResult() *components.Resu
 
 type GetFeatureRevisionMergeStatusResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetFeatureRevisionMergeStatusResponseBody
+	// Successful response
+	Object *GetFeatureRevisionMergeStatusResponseBody
 }
 
 func (g GetFeatureRevisionMergeStatusResponse) MarshalJSON() ([]byte, error) {

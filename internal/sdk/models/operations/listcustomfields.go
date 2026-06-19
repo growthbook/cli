@@ -19,7 +19,8 @@ func (l *ListCustomFieldsRequest) GetProjectID() *string {
 }
 
 type ListCustomFieldsResponse struct {
-	HTTPMeta     components.HTTPMetadata `json:"-"`
+	HTTPMeta components.HTTPMetadata `json:"-"`
+	// Successful response
 	CustomFields []components.CustomField
 }
 

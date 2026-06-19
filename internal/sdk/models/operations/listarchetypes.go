@@ -7,6 +7,7 @@ import (
 	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
 )
 
+// ListArchetypesResponseBody - Successful response
 type ListArchetypesResponseBody struct {
 	Archetypes []components.Archetype `json:"archetypes"`
 }
@@ -20,7 +21,8 @@ func (l *ListArchetypesResponseBody) GetArchetypes() []components.Archetype {
 
 type ListArchetypesResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListArchetypesResponseBody
+	// Successful response
+	Object *ListArchetypesResponseBody
 }
 
 func (l ListArchetypesResponse) MarshalJSON() ([]byte, error) {

@@ -102,6 +102,7 @@ func (p *PostDimensionRequest) GetManagedBy() *PostDimensionManagedBy {
 	return p.ManagedBy
 }
 
+// PostDimensionResponseBody - Resource created
 type PostDimensionResponseBody struct {
 	Dimension components.Dimension `json:"dimension"`
 }
@@ -115,7 +116,8 @@ func (p *PostDimensionResponseBody) GetDimension() components.Dimension {
 
 type PostDimensionResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostDimensionResponseBody
+	// Resource created
+	Object *PostDimensionResponseBody
 }
 
 func (p PostDimensionResponse) MarshalJSON() ([]byte, error) {

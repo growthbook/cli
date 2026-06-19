@@ -108,6 +108,7 @@ func (p *PostCodeRefsRequest) GetBody() PostCodeRefsRequestBody {
 	return p.Body
 }
 
+// PostCodeRefsResponseBody - Resource created
 type PostCodeRefsResponseBody struct {
 	FeaturesUpdated []string `json:"featuresUpdated,omitzero"`
 }
@@ -132,7 +133,8 @@ func (p *PostCodeRefsResponseBody) GetFeaturesUpdated() []string {
 
 type PostCodeRefsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostCodeRefsResponseBody
+	// Resource created
+	Object *PostCodeRefsResponseBody
 }
 
 func (p PostCodeRefsResponse) MarshalJSON() ([]byte, error) {

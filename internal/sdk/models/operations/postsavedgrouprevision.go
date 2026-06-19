@@ -45,6 +45,7 @@ func (p *PostSavedGroupRevisionRequest) GetBody() PostSavedGroupRevisionRequestB
 	return p.Body
 }
 
+// PostSavedGroupRevisionResponseBody - Resource created
 type PostSavedGroupRevisionResponseBody struct {
 	Revision components.SavedGroupRevision `json:"revision"`
 }
@@ -58,7 +59,8 @@ func (p *PostSavedGroupRevisionResponseBody) GetRevision() components.SavedGroup
 
 type PostSavedGroupRevisionResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostSavedGroupRevisionResponseBody
+	// Resource created
+	Object *PostSavedGroupRevisionResponseBody
 }
 
 func (p PostSavedGroupRevisionResponse) MarshalJSON() ([]byte, error) {

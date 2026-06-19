@@ -48,6 +48,7 @@ func (l *ListSegmentsRequest) GetDatasourceID() *string {
 	return l.DatasourceID
 }
 
+// ListSegmentsResponseBody - Successful response
 type ListSegmentsResponseBody struct {
 	Segments   []components.Segment `json:"segments"`
 	Limit      int64                `json:"limit"`
@@ -109,7 +110,8 @@ func (l *ListSegmentsResponseBody) GetNextOffset() *int64 {
 
 type ListSegmentsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListSegmentsResponseBody
+	// Successful response
+	Object *ListSegmentsResponseBody
 }
 
 func (l ListSegmentsResponse) MarshalJSON() ([]byte, error) {

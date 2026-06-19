@@ -52,6 +52,7 @@ func (t *ToggleFeatureV2Request) GetBody() ToggleFeatureV2RequestBody {
 // #region class-body-togglefeaturev2request
 // #endregion class-body-togglefeaturev2request
 
+// ToggleFeatureV2ResponseBody - Resource created
 type ToggleFeatureV2ResponseBody struct {
 	Feature components.FeatureV2 `json:"feature"`
 }
@@ -68,7 +69,8 @@ func (t *ToggleFeatureV2ResponseBody) GetFeature() components.FeatureV2 {
 
 type ToggleFeatureV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ToggleFeatureV2ResponseBody
+	// Resource created
+	Object *ToggleFeatureV2ResponseBody
 }
 
 func (t ToggleFeatureV2Response) MarshalJSON() ([]byte, error) {

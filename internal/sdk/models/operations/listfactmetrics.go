@@ -66,6 +66,7 @@ func (l *ListFactMetricsRequest) GetFactTableID() *string {
 	return l.FactTableID
 }
 
+// ListFactMetricsResponseBody - Successful response
 type ListFactMetricsResponseBody struct {
 	FactMetrics []components.FactMetric `json:"factMetrics"`
 	Limit       int64                   `json:"limit"`
@@ -127,7 +128,8 @@ func (l *ListFactMetricsResponseBody) GetNextOffset() *int64 {
 
 type ListFactMetricsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListFactMetricsResponseBody
+	// Successful response
+	Object *ListFactMetricsResponseBody
 }
 
 func (l ListFactMetricsResponse) MarshalJSON() ([]byte, error) {

@@ -98,6 +98,7 @@ func (p *PostFeatureRevisionSubmitReviewV2Request) GetBody() PostFeatureRevision
 // #region class-body-postfeaturerevisionsubmitreviewv2request
 // #endregion class-body-postfeaturerevisionsubmitreviewv2request
 
+// PostFeatureRevisionSubmitReviewV2ResponseBody - Resource created
 type PostFeatureRevisionSubmitReviewV2ResponseBody struct {
 	Revision      components.FeatureRevisionV2 `json:"revision"`
 	AutoPublished *bool                        `json:"autoPublished,omitzero"`
@@ -122,7 +123,8 @@ func (p *PostFeatureRevisionSubmitReviewV2ResponseBody) GetAutoPublished() *bool
 
 type PostFeatureRevisionSubmitReviewV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostFeatureRevisionSubmitReviewV2ResponseBody
+	// Resource created
+	Object *PostFeatureRevisionSubmitReviewV2ResponseBody
 }
 
 func (p PostFeatureRevisionSubmitReviewV2Response) MarshalJSON() ([]byte, error) {

@@ -19,6 +19,7 @@ func (g *GetSavedGroupRequest) GetID() string {
 	return g.ID
 }
 
+// GetSavedGroupResponseBody - Successful response
 type GetSavedGroupResponseBody struct {
 	SavedGroup components.SavedGroup `json:"savedGroup"`
 }
@@ -32,7 +33,8 @@ func (g *GetSavedGroupResponseBody) GetSavedGroup() components.SavedGroup {
 
 type GetSavedGroupResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetSavedGroupResponseBody
+	// Successful response
+	Object *GetSavedGroupResponseBody
 }
 
 func (g GetSavedGroupResponse) MarshalJSON() ([]byte, error) {

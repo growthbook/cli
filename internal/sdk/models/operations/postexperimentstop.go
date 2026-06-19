@@ -151,6 +151,7 @@ func (e *PostExperimentStopCode) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// PostExperimentStopResponseBody - Resource created
 type PostExperimentStopResponseBody struct {
 	Experiment components.ExperimentWithEnhancedStatus `json:"experiment"`
 }
@@ -164,7 +165,8 @@ func (p *PostExperimentStopResponseBody) GetExperiment() components.ExperimentWi
 
 type PostExperimentStopResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostExperimentStopResponseBody
+	// Resource created
+	Object *PostExperimentStopResponseBody
 }
 
 func (p PostExperimentStopResponse) MarshalJSON() ([]byte, error) {

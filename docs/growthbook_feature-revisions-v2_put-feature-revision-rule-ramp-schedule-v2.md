@@ -6,6 +6,8 @@ Set ramp schedule for a rule
 
 Queues a revision-controlled ramp action for this rule. If the rule already has a live ramp schedule, this stores an `update` action applied on publish; otherwise it stores a `create` action. No live schedule config changes are applied immediately by this endpoint.
 
+You can build the ramp from a template (`templateId`) and set the rollback anchor (`startState`) in the same request — e.g. pull in a template and pass `startState: { "coverage": 0 }` so a rollback returns the rule to 0%.
+
 ```
 growthbook feature-revisions-v2 put-feature-revision-rule-ramp-schedule-v2 [flags]
 ```
@@ -19,23 +21,24 @@ growthbook feature-revisions-v2 put-feature-revision-rule-ramp-schedule-v2 [flag
 ### Options
 
 ```
-      --body string                Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -c, --cutoff-date string         ISO 8601 date-time, e.g. "2025-07-01T00:00:00Z". The ramp ends at this time.
-      --end-actions string         list of values
-      --environment string         string value
-  -h, --help                       help for put-feature-revision-rule-ramp-schedule-v2
-  -i, --id string                  [required]
-  -l, --lockdown-config string     JSON object
-  -m, --monitoring-config string   JSON object
-  -n, --name string                string value
-      --revision-comment string    Comment for a newly created draft. Only used when version is "new"; ignored for existing revisions.
-      --revision-title string      Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
-      --rule-id string             [required]
-      --start-actions string       list of values
-      --start-date string          ISO 8601 date-time, e.g. "2025-06-01T00:00:00Z". Absent or null means start immediately on publish.
-      --steps string               list of values
-  -t, --template-id string         string value
-  -v, --version-param string       [required]
+      --body string                     Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -c, --cutoff-date string              ISO 8601 date-time, e.g. "2025-07-01T00:00:00Z". The ramp ends at this time.
+      --end-actions string              list of values
+      --environment string              string value
+  -h, --help                            help for put-feature-revision-rule-ramp-schedule-v2
+  -i, --id string                       [required]
+  -l, --lockdown-config string          JSON object
+  -m, --monitoring-config string        JSON object
+  -n, --name string                     string value
+      --revision-comment string         Comment for a newly created draft. Only used when version is "new"; ignored for existing revisions.
+      --revision-title string           Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
+      --rule-id string                  [required]
+      --start-actions string            list of values
+      --start-date string               ISO 8601 date-time, e.g. "2025-06-01T00:00:00Z". Absent or null means start immediately on publish.
+      --start-state { "coverage": 0 }   The rule state to roll back to (the rollback/jump-to-start anchor). Merged onto the rule's current state, so { "coverage": 0 } keeps existing targeting but rolls back to 0%. This affects rollbacks only — it is NOT applied when the ramp starts. On create, omitting it infers the anchor from the rule's current coverage (and returns a warning if that isn't 0%); on update of a live schedule, omitting it leaves the existing anchor unchanged.
+      --steps string                    list of values
+  -t, --template-id string              string value
+  -v, --version-param string            [required]
 ```
 
 ### Options inherited from parent commands

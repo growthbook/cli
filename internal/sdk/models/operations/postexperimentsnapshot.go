@@ -97,6 +97,7 @@ func (p *PostExperimentSnapshotRequest) GetBody() *PostExperimentSnapshotRequest
 	return p.Body
 }
 
+// PostExperimentSnapshotResponseBody - Resource created
 type PostExperimentSnapshotResponseBody struct {
 	Snapshot components.Snapshot `json:"snapshot"`
 }
@@ -110,7 +111,8 @@ func (p *PostExperimentSnapshotResponseBody) GetSnapshot() components.Snapshot {
 
 type PostExperimentSnapshotResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostExperimentSnapshotResponseBody
+	// Resource created
+	Object *PostExperimentSnapshotResponseBody
 }
 
 func (p PostExperimentSnapshotResponse) MarshalJSON() ([]byte, error) {

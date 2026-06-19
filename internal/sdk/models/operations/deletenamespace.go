@@ -19,6 +19,7 @@ func (d *DeleteNamespaceRequest) GetID() string {
 	return d.ID
 }
 
+// DeleteNamespaceResponseBody - Resource deleted
 type DeleteNamespaceResponseBody struct {
 	// The ID of the deleted namespace.
 	DeletedID string `json:"deletedId"`
@@ -33,7 +34,8 @@ func (d *DeleteNamespaceResponseBody) GetDeletedID() string {
 
 type DeleteNamespaceResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *DeleteNamespaceResponseBody
+	// Resource deleted
+	Object *DeleteNamespaceResponseBody
 }
 
 func (d DeleteNamespaceResponse) MarshalJSON() ([]byte, error) {

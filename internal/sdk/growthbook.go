@@ -173,7 +173,8 @@ type Growthbook struct {
 	Queries *Queries
 	// Get the organization settings.
 	Settings *Settings
-	Meta     *Meta
+	// Server metadata, including the running build's version and commit for version-skew checks.
+	Meta *Meta
 	// Multi-step rollout schedules that gradually increase feature rule traffic over time, with optional real-time monitoring. Each step supports interval timers, approval gates, and hold conditions. Monitored steps are backed by a live analysis experiment that can automatically hold, roll back, or advance the ramp based on guardrail and signal metric health.
 	RampSchedules *RampSchedules
 	// Custom analysis reports built on top of experiment snapshots. Reports let you re-run analysis with different metrics, date ranges, stats engines, and other settings without modifying the underlying experiment.

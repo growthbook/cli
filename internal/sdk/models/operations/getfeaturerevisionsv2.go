@@ -87,6 +87,7 @@ func (g *GetFeatureRevisionsV2Request) GetMine() any {
 // #region class-body-getfeaturerevisionsv2request
 // #endregion class-body-getfeaturerevisionsv2request
 
+// GetFeatureRevisionsV2ResponseBody - Successful response
 type GetFeatureRevisionsV2ResponseBody struct {
 	Revisions  []components.FeatureRevisionV2 `json:"revisions"`
 	Limit      int64                          `json:"limit"`
@@ -151,7 +152,8 @@ func (g *GetFeatureRevisionsV2ResponseBody) GetNextOffset() *int64 {
 
 type GetFeatureRevisionsV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetFeatureRevisionsV2ResponseBody
+	// Successful response
+	Object *GetFeatureRevisionsV2ResponseBody
 }
 
 func (g GetFeatureRevisionsV2Response) MarshalJSON() ([]byte, error) {

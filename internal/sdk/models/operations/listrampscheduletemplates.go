@@ -7,6 +7,7 @@ import (
 	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
 )
 
+// ListRampScheduleTemplatesResponseBody - Successful response
 type ListRampScheduleTemplatesResponseBody struct {
 	RampScheduleTemplates []components.RampScheduleTemplate `json:"rampScheduleTemplates"`
 }
@@ -20,7 +21,8 @@ func (l *ListRampScheduleTemplatesResponseBody) GetRampScheduleTemplates() []com
 
 type ListRampScheduleTemplatesResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListRampScheduleTemplatesResponseBody
+	// Successful response
+	Object *ListRampScheduleTemplatesResponseBody
 }
 
 func (l ListRampScheduleTemplatesResponse) MarshalJSON() ([]byte, error) {

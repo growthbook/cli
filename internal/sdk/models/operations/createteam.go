@@ -242,6 +242,7 @@ func (c *CreateTeamRequest) GetDefaultProject() *string {
 	return c.DefaultProject
 }
 
+// CreateTeamResponseBody - Resource created
 type CreateTeamResponseBody struct {
 	Team components.Team `json:"team"`
 }
@@ -255,7 +256,8 @@ func (c *CreateTeamResponseBody) GetTeam() components.Team {
 
 type CreateTeamResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *CreateTeamResponseBody
+	// Resource created
+	Object *CreateTeamResponseBody
 }
 
 func (c CreateTeamResponse) MarshalJSON() ([]byte, error) {

@@ -105,6 +105,7 @@ func (u *UpdateMetricGroupRequest) GetBody() UpdateMetricGroupRequestBody {
 	return u.Body
 }
 
+// UpdateMetricGroupResponseBody - Resource updated
 type UpdateMetricGroupResponseBody struct {
 	MetricGroup components.MetricGroup `json:"metricGroup"`
 }
@@ -118,7 +119,8 @@ func (u *UpdateMetricGroupResponseBody) GetMetricGroup() components.MetricGroup 
 
 type UpdateMetricGroupResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *UpdateMetricGroupResponseBody
+	// Resource updated
+	Object *UpdateMetricGroupResponseBody
 }
 
 func (u UpdateMetricGroupResponse) MarshalJSON() ([]byte, error) {

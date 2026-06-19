@@ -108,6 +108,7 @@ func (p *PutProjectRequest) GetBody() PutProjectRequestBody {
 	return p.Body
 }
 
+// PutProjectResponseBody - Resource updated
 type PutProjectResponseBody struct {
 	Project components.Project `json:"project"`
 }
@@ -121,7 +122,8 @@ func (p *PutProjectResponseBody) GetProject() components.Project {
 
 type PutProjectResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PutProjectResponseBody
+	// Resource updated
+	Object *PutProjectResponseBody
 }
 
 func (p PutProjectResponse) MarshalJSON() ([]byte, error) {

@@ -685,6 +685,7 @@ func (u *UpdateRampScheduleMonitoringMonitoringStatus) GetCurrentStepMonitored()
 	return u.CurrentStepMonitored
 }
 
+// UpdateRampScheduleMonitoringResponseBody - Resource updated
 type UpdateRampScheduleMonitoringResponseBody struct {
 	// Unique identifier (rs_ prefix)
 	ID          string                                 `json:"id"`
@@ -947,7 +948,8 @@ func (u *UpdateRampScheduleMonitoringResponseBody) GetMonitoringStatus() optiona
 
 type UpdateRampScheduleMonitoringResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *UpdateRampScheduleMonitoringResponseBody
+	// Resource updated
+	Object *UpdateRampScheduleMonitoringResponseBody
 }
 
 func (u UpdateRampScheduleMonitoringResponse) MarshalJSON() ([]byte, error) {

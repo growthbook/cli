@@ -429,6 +429,7 @@ const (
 	GetFeatureRevisionDiffV2ResponseBodyTypeUnknown                               GetFeatureRevisionDiffV2ResponseBodyType = "Unknown"
 )
 
+// GetFeatureRevisionDiffV2ResponseBody - Successful response
 type GetFeatureRevisionDiffV2ResponseBody struct {
 	GetFeatureRevisionDiffV2ResponseBody1 *GetFeatureRevisionDiffV2ResponseBody1 `queryParam:"inline" union:"member"`
 	GetFeatureRevisionDiffV2ResponseBody2 *GetFeatureRevisionDiffV2ResponseBody2 `queryParam:"inline" union:"member"`
@@ -538,7 +539,8 @@ func (u GetFeatureRevisionDiffV2ResponseBody) MarshalJSON() ([]byte, error) {
 
 type GetFeatureRevisionDiffV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	OneOf    *GetFeatureRevisionDiffV2ResponseBody
+	// Successful response
+	OneOf *GetFeatureRevisionDiffV2ResponseBody
 }
 
 func (g *GetFeatureRevisionDiffV2Response) GetHTTPMeta() components.HTTPMetadata {

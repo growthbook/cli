@@ -1,10 +1,10 @@
 ## growthbook meta
 
-Operations for meta
+Server metadata, including the running build's version and commit for version-skew checks
 
 ### Synopsis
 
-Operations for meta
+Server metadata, including the running build's version and commit for version-skew checks.
 
 ```
 growthbook meta [flags]

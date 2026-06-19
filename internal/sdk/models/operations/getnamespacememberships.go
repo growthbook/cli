@@ -48,6 +48,7 @@ func (g *GetNamespaceMembershipsRequest) GetOffset() *int64 {
 	return g.Offset
 }
 
+// GetNamespaceMembershipsResponseBody - Successful response
 type GetNamespaceMembershipsResponseBody struct {
 	Experiments []components.NamespaceExperimentMember `json:"experiments"`
 	Limit       int64                                  `json:"limit"`
@@ -109,7 +110,8 @@ func (g *GetNamespaceMembershipsResponseBody) GetNextOffset() *int64 {
 
 type GetNamespaceMembershipsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetNamespaceMembershipsResponseBody
+	// Successful response
+	Object *GetNamespaceMembershipsResponseBody
 }
 
 func (g GetNamespaceMembershipsResponse) MarshalJSON() ([]byte, error) {

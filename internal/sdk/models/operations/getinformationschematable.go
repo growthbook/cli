@@ -19,6 +19,7 @@ func (g *GetInformationSchemaTableRequest) GetTableID() string {
 	return g.TableID
 }
 
+// GetInformationSchemaTableResponseBody - Successful response
 type GetInformationSchemaTableResponseBody struct {
 	InformationSchemaTable components.InformationSchemaTable `json:"informationSchemaTable"`
 }
@@ -32,7 +33,8 @@ func (g *GetInformationSchemaTableResponseBody) GetInformationSchemaTable() comp
 
 type GetInformationSchemaTableResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetInformationSchemaTableResponseBody
+	// Successful response
+	Object *GetInformationSchemaTableResponseBody
 }
 
 func (g GetInformationSchemaTableResponse) MarshalJSON() ([]byte, error) {

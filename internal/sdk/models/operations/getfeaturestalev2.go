@@ -163,6 +163,7 @@ func (f *Features) GetStaleByEnv() map[string]StaleByEnv {
 	return f.StaleByEnv
 }
 
+// GetFeatureStaleV2ResponseBody - Successful response
 type GetFeatureStaleV2ResponseBody struct {
 	// Map of feature ID to stale status. Only requested features that were found and readable are included.
 	Features map[string]Features `json:"features"`
@@ -180,7 +181,8 @@ func (g *GetFeatureStaleV2ResponseBody) GetFeatures() map[string]Features {
 
 type GetFeatureStaleV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetFeatureStaleV2ResponseBody
+	// Successful response
+	Object *GetFeatureStaleV2ResponseBody
 }
 
 func (g GetFeatureStaleV2Response) MarshalJSON() ([]byte, error) {

@@ -705,6 +705,7 @@ func (p *PostReportRequest) GetShareLevel() *PostReportShareLevel {
 	return p.ShareLevel
 }
 
+// PostReportResponseBody - Resource created
 type PostReportResponseBody struct {
 	Report components.Report `json:"report"`
 }
@@ -718,7 +719,8 @@ func (p *PostReportResponseBody) GetReport() components.Report {
 
 type PostReportResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostReportResponseBody
+	// Resource created
+	Object *PostReportResponseBody
 }
 
 func (p PostReportResponse) MarshalJSON() ([]byte, error) {

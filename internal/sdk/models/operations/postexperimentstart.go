@@ -121,6 +121,7 @@ func (e *CodeChecklistIncomplete) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// PostExperimentStartResponseBody - Resource created
 type PostExperimentStartResponseBody struct {
 	Experiment components.ExperimentWithEnhancedStatus `json:"experiment"`
 	// Present only when the request staged a future scheduled start instead of starting the experiment immediately.
@@ -143,7 +144,8 @@ func (p *PostExperimentStartResponseBody) GetMessage() *string {
 
 type PostExperimentStartResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostExperimentStartResponseBody
+	// Resource created
+	Object *PostExperimentStartResponseBody
 }
 
 func (p PostExperimentStartResponse) MarshalJSON() ([]byte, error) {

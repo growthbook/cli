@@ -69,6 +69,7 @@ func (d *DeleteFeatureRevisionRuleRampScheduleV2Request) GetBody() DeleteFeature
 // #region class-body-deletefeaturerevisionrulerampschedulev2request
 // #endregion class-body-deletefeaturerevisionrulerampschedulev2request
 
+// DeleteFeatureRevisionRuleRampScheduleV2ResponseBody - Resource deleted
 type DeleteFeatureRevisionRuleRampScheduleV2ResponseBody struct {
 	Revision components.FeatureRevisionV2 `json:"revision"`
 }
@@ -85,7 +86,8 @@ func (d *DeleteFeatureRevisionRuleRampScheduleV2ResponseBody) GetRevision() comp
 
 type DeleteFeatureRevisionRuleRampScheduleV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *DeleteFeatureRevisionRuleRampScheduleV2ResponseBody
+	// Resource deleted
+	Object *DeleteFeatureRevisionRuleRampScheduleV2ResponseBody
 }
 
 func (d DeleteFeatureRevisionRuleRampScheduleV2Response) MarshalJSON() ([]byte, error) {

@@ -8,7 +8,8 @@ import (
 
 type GetVisualEditorBootstrapResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Any      any
+	// Successful response
+	Any any
 }
 
 func (g *GetVisualEditorBootstrapResponse) GetHTTPMeta() components.HTTPMetadata {

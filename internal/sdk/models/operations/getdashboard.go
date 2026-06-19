@@ -18,6 +18,7 @@ func (g *GetDashboardRequest) GetID() string {
 	return g.ID
 }
 
+// GetDashboardResponseBody - Successful response
 type GetDashboardResponseBody struct {
 	Dashboard components.Dashboard `json:"dashboard"`
 }
@@ -31,7 +32,8 @@ func (g *GetDashboardResponseBody) GetDashboard() components.Dashboard {
 
 type GetDashboardResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetDashboardResponseBody
+	// Successful response
+	Object *GetDashboardResponseBody
 }
 
 func (g GetDashboardResponse) MarshalJSON() ([]byte, error) {

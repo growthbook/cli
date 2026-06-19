@@ -27,7 +27,8 @@ func (p *PostVisualEditorAIPromoteImageRequest) GetFilePath() string {
 
 type PostVisualEditorAIPromoteImageResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Any      any
+	// Resource created
+	Any any
 }
 
 func (p *PostVisualEditorAIPromoteImageResponse) GetHTTPMeta() components.HTTPMetadata {

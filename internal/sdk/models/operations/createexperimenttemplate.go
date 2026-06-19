@@ -402,6 +402,7 @@ func (c *CreateExperimentTemplateRequest) GetCustomMetricSlices() []CreateExperi
 	return c.CustomMetricSlices
 }
 
+// CreateExperimentTemplateResponseBody - Resource created
 type CreateExperimentTemplateResponseBody struct {
 	ExperimentTemplate components.ExperimentTemplate `json:"experimentTemplate"`
 }
@@ -415,7 +416,8 @@ func (c *CreateExperimentTemplateResponseBody) GetExperimentTemplate() component
 
 type CreateExperimentTemplateResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *CreateExperimentTemplateResponseBody
+	// Resource created
+	Object *CreateExperimentTemplateResponseBody
 }
 
 func (c CreateExperimentTemplateResponse) MarshalJSON() ([]byte, error) {

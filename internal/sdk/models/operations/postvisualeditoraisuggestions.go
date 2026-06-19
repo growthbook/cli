@@ -85,7 +85,8 @@ func (p *PostVisualEditorAISuggestionsRequest) GetPageHints() *PageHints {
 
 type PostVisualEditorAISuggestionsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Any      any
+	// Resource created
+	Any any
 }
 
 func (p *PostVisualEditorAISuggestionsResponse) GetHTTPMeta() components.HTTPMetadata {

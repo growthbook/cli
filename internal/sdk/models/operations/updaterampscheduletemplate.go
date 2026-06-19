@@ -656,6 +656,8 @@ type UpdateRampScheduleTemplateRequestBody struct {
 	Official         *bool                                                                         `json:"official,omitzero"`
 	MonitoringConfig optionalnullable.OptionalNullable[UpdateRampScheduleTemplateMonitoringConfig] `json:"monitoringConfig,omitzero"`
 	LockdownConfig   *UpdateRampScheduleTemplateLockdownConfig                                     `json:"lockdownConfig,omitzero"`
+	// Display order within the org (lower sorts first).
+	Order *float64 `json:"order,omitzero"`
 }
 
 func (u UpdateRampScheduleTemplateRequestBody) MarshalJSON() ([]byte, error) {
@@ -711,6 +713,13 @@ func (u *UpdateRampScheduleTemplateRequestBody) GetLockdownConfig() *UpdateRampS
 	return u.LockdownConfig
 }
 
+func (u *UpdateRampScheduleTemplateRequestBody) GetOrder() *float64 {
+	if u == nil {
+		return nil
+	}
+	return u.Order
+}
+
 type UpdateRampScheduleTemplateRequest struct {
 	ID   string                                `pathParam:"style=simple,explode=false,name=id"`
 	Body UpdateRampScheduleTemplateRequestBody `request:"mediaType=application/json"`
@@ -730,6 +739,7 @@ func (u *UpdateRampScheduleTemplateRequest) GetBody() UpdateRampScheduleTemplate
 	return u.Body
 }
 
+// UpdateRampScheduleTemplateResponseBody - Resource updated
 type UpdateRampScheduleTemplateResponseBody struct {
 	RampScheduleTemplate components.RampScheduleTemplate `json:"rampScheduleTemplate"`
 }
@@ -743,7 +753,8 @@ func (u *UpdateRampScheduleTemplateResponseBody) GetRampScheduleTemplate() compo
 
 type UpdateRampScheduleTemplateResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *UpdateRampScheduleTemplateResponseBody
+	// Resource updated
+	Object *UpdateRampScheduleTemplateResponseBody
 }
 
 func (u UpdateRampScheduleTemplateResponse) MarshalJSON() ([]byte, error) {

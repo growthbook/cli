@@ -48,6 +48,7 @@ func (l *ListDataSourcesRequest) GetProjectID() *string {
 	return l.ProjectID
 }
 
+// ListDataSourcesResponseBody - Successful response
 type ListDataSourcesResponseBody struct {
 	DataSources []components.DataSource `json:"dataSources"`
 	Limit       int64                   `json:"limit"`
@@ -109,7 +110,8 @@ func (l *ListDataSourcesResponseBody) GetNextOffset() *int64 {
 
 type ListDataSourcesResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListDataSourcesResponseBody
+	// Successful response
+	Object *ListDataSourcesResponseBody
 }
 
 func (l ListDataSourcesResponse) MarshalJSON() ([]byte, error) {

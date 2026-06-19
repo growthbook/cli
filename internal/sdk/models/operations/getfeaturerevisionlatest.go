@@ -27,20 +27,22 @@ func (g *GetFeatureRevisionLatestRequest) GetMine() any {
 	return g.Mine
 }
 
+// GetFeatureRevisionLatestResponseBody - Successful response
 type GetFeatureRevisionLatestResponseBody struct {
-	Revision components.FeatureRevision `json:"revision"`
+	Revision components.FeatureRevisionV1 `json:"revision"`
 }
 
-func (g *GetFeatureRevisionLatestResponseBody) GetRevision() components.FeatureRevision {
+func (g *GetFeatureRevisionLatestResponseBody) GetRevision() components.FeatureRevisionV1 {
 	if g == nil {
-		return components.FeatureRevision{}
+		return components.FeatureRevisionV1{}
 	}
 	return g.Revision
 }
 
 type GetFeatureRevisionLatestResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetFeatureRevisionLatestResponseBody
+	// Successful response
+	Object *GetFeatureRevisionLatestResponseBody
 }
 
 func (g GetFeatureRevisionLatestResponse) MarshalJSON() ([]byte, error) {

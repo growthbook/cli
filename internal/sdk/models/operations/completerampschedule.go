@@ -48,6 +48,7 @@ func (c *CompleteRampScheduleRequest) GetBody() *CompleteRampScheduleRequestBody
 	return c.Body
 }
 
+// CompleteRampScheduleResponseBody - Resource created
 type CompleteRampScheduleResponseBody struct {
 	RampSchedule components.RampSchedule `json:"rampSchedule"`
 }
@@ -61,7 +62,8 @@ func (c *CompleteRampScheduleResponseBody) GetRampSchedule() components.RampSche
 
 type CompleteRampScheduleResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *CompleteRampScheduleResponseBody
+	// Resource created
+	Object *CompleteRampScheduleResponseBody
 }
 
 func (c CompleteRampScheduleResponse) MarshalJSON() ([]byte, error) {

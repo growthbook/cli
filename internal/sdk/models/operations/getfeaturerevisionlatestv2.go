@@ -48,6 +48,7 @@ func (g *GetFeatureRevisionLatestV2Request) GetAuthor() *string {
 // #region class-body-getfeaturerevisionlatestv2request
 // #endregion class-body-getfeaturerevisionlatestv2request
 
+// GetFeatureRevisionLatestV2ResponseBody - Successful response
 type GetFeatureRevisionLatestV2ResponseBody struct {
 	Revision components.FeatureRevisionV2 `json:"revision"`
 }
@@ -64,7 +65,8 @@ func (g *GetFeatureRevisionLatestV2ResponseBody) GetRevision() components.Featur
 
 type GetFeatureRevisionLatestV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetFeatureRevisionLatestV2ResponseBody
+	// Successful response
+	Object *GetFeatureRevisionLatestV2ResponseBody
 }
 
 func (g GetFeatureRevisionLatestV2Response) MarshalJSON() ([]byte, error) {

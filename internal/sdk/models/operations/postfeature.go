@@ -2252,20 +2252,22 @@ func (p *PostFeatureRequest) GetCustomFields() map[string]string {
 	return p.CustomFields
 }
 
+// PostFeatureResponseBody - Resource created
 type PostFeatureResponseBody struct {
-	Feature components.Feature `json:"feature"`
+	Feature components.FeatureV1 `json:"feature"`
 }
 
-func (p *PostFeatureResponseBody) GetFeature() components.Feature {
+func (p *PostFeatureResponseBody) GetFeature() components.FeatureV1 {
 	if p == nil {
-		return components.Feature{}
+		return components.FeatureV1{}
 	}
 	return p.Feature
 }
 
 type PostFeatureResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostFeatureResponseBody
+	// Resource created
+	Object *PostFeatureResponseBody
 }
 
 func (p PostFeatureResponse) MarshalJSON() ([]byte, error) {

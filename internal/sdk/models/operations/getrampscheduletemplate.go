@@ -18,6 +18,7 @@ func (g *GetRampScheduleTemplateRequest) GetID() string {
 	return g.ID
 }
 
+// GetRampScheduleTemplateResponseBody - Successful response
 type GetRampScheduleTemplateResponseBody struct {
 	RampScheduleTemplate components.RampScheduleTemplate `json:"rampScheduleTemplate"`
 }
@@ -31,7 +32,8 @@ func (g *GetRampScheduleTemplateResponseBody) GetRampScheduleTemplate() componen
 
 type GetRampScheduleTemplateResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetRampScheduleTemplateResponseBody
+	// Successful response
+	Object *GetRampScheduleTemplateResponseBody
 }
 
 func (g GetRampScheduleTemplateResponse) MarshalJSON() ([]byte, error) {

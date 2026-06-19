@@ -58,6 +58,7 @@ func (a *APIAdvanceRampScheduleRequest) GetBody() *APIAdvanceRampScheduleRequest
 	return a.Body
 }
 
+// APIAdvanceRampScheduleResponseBody - Resource created
 type APIAdvanceRampScheduleResponseBody struct {
 	RampSchedule components.RampSchedule `json:"rampSchedule"`
 }
@@ -71,7 +72,8 @@ func (a *APIAdvanceRampScheduleResponseBody) GetRampSchedule() components.RampSc
 
 type APIAdvanceRampScheduleResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *APIAdvanceRampScheduleResponseBody
+	// Resource created
+	Object *APIAdvanceRampScheduleResponseBody
 }
 
 func (a APIAdvanceRampScheduleResponse) MarshalJSON() ([]byte, error) {

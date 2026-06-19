@@ -61,6 +61,7 @@ func (e *PostExperimentStartChecklistManualCompleteStatus) IsExact() bool {
 	return false
 }
 
+// PostExperimentStartChecklistManualCompleteResponseBody - Resource created
 type PostExperimentStartChecklistManualCompleteResponseBody struct {
 	ChecklistItems []components.ChecklistItems                      `json:"checklistItems"`
 	Status         PostExperimentStartChecklistManualCompleteStatus `json:"status"`
@@ -82,7 +83,8 @@ func (p *PostExperimentStartChecklistManualCompleteResponseBody) GetStatus() Pos
 
 type PostExperimentStartChecklistManualCompleteResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostExperimentStartChecklistManualCompleteResponseBody
+	// Resource created
+	Object *PostExperimentStartChecklistManualCompleteResponseBody
 }
 
 func (p PostExperimentStartChecklistManualCompleteResponse) MarshalJSON() ([]byte, error) {

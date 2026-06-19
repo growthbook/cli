@@ -48,6 +48,7 @@ func (l *ListReportsRequest) GetExperimentID() *string {
 	return l.ExperimentID
 }
 
+// ListReportsResponseBody - Successful response
 type ListReportsResponseBody struct {
 	Reports    []components.Report `json:"reports"`
 	Limit      int64               `json:"limit"`
@@ -109,7 +110,8 @@ func (l *ListReportsResponseBody) GetNextOffset() *int64 {
 
 type ListReportsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListReportsResponseBody
+	// Successful response
+	Object *ListReportsResponseBody
 }
 
 func (l ListReportsResponse) MarshalJSON() ([]byte, error) {

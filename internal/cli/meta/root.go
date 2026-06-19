@@ -10,8 +10,8 @@ import (
 func InitMetaRoot(parent *cobra.Command) error {
 	var MetaCmd = &cobra.Command{
 		Use:   "meta",
-		Short: "Operations for meta",
-		Long:  "Operations for meta",
+		Short: "Server metadata, including the running build's version and commit for version-skew checks",
+		Long:  "Server metadata, including the running build's version and commit for version-skew checks.",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if usage.UsageRequested(cmd) {
 				return usage.EmitSchema(cmd, cmd.OutOrStdout())

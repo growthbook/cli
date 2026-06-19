@@ -190,6 +190,7 @@ func (p *PutAttributeRequest) GetBody() PutAttributeRequestBody {
 	return p.Body
 }
 
+// PutAttributeResponseBody - Resource updated
 type PutAttributeResponseBody struct {
 	Attribute components.Attribute `json:"attribute"`
 }
@@ -203,7 +204,8 @@ func (p *PutAttributeResponseBody) GetAttribute() components.Attribute {
 
 type PutAttributeResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PutAttributeResponseBody
+	// Resource updated
+	Object *PutAttributeResponseBody
 }
 
 func (p PutAttributeResponse) MarshalJSON() ([]byte, error) {

@@ -109,6 +109,7 @@ func (u *UpdateRampScheduleStepsRequest) GetBody() UpdateRampScheduleStepsReques
 	return u.Body
 }
 
+// UpdateRampScheduleStepsResponseBody - Resource updated
 type UpdateRampScheduleStepsResponseBody struct {
 	RampSchedule components.RampSchedule `json:"rampSchedule"`
 }
@@ -122,7 +123,8 @@ func (u *UpdateRampScheduleStepsResponseBody) GetRampSchedule() components.RampS
 
 type UpdateRampScheduleStepsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *UpdateRampScheduleStepsResponseBody
+	// Resource updated
+	Object *UpdateRampScheduleStepsResponseBody
 }
 
 func (u UpdateRampScheduleStepsResponse) MarshalJSON() ([]byte, error) {

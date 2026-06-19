@@ -198,6 +198,7 @@ func (p *PostFactTableRequest) GetManagedBy() *PostFactTableManagedBy {
 	return p.ManagedBy
 }
 
+// PostFactTableResponseBody - Resource created
 type PostFactTableResponseBody struct {
 	FactTable components.FactTable `json:"factTable"`
 }
@@ -211,7 +212,8 @@ func (p *PostFactTableResponseBody) GetFactTable() components.FactTable {
 
 type PostFactTableResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostFactTableResponseBody
+	// Resource created
+	Object *PostFactTableResponseBody
 }
 
 func (p PostFactTableResponse) MarshalJSON() ([]byte, error) {

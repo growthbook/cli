@@ -18,6 +18,7 @@ func (g *GetTeamRequest) GetID() string {
 	return g.ID
 }
 
+// GetTeamResponseBody - Successful response
 type GetTeamResponseBody struct {
 	Team components.Team `json:"team"`
 }
@@ -31,7 +32,8 @@ func (g *GetTeamResponseBody) GetTeam() components.Team {
 
 type GetTeamResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetTeamResponseBody
+	// Successful response
+	Object *GetTeamResponseBody
 }
 
 func (g GetTeamResponse) MarshalJSON() ([]byte, error) {

@@ -86,6 +86,7 @@ func (c *CreateMetricGroupRequest) GetArchived() *bool {
 	return c.Archived
 }
 
+// CreateMetricGroupResponseBody - Resource created
 type CreateMetricGroupResponseBody struct {
 	MetricGroup components.MetricGroup `json:"metricGroup"`
 }
@@ -99,7 +100,8 @@ func (c *CreateMetricGroupResponseBody) GetMetricGroup() components.MetricGroup 
 
 type CreateMetricGroupResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *CreateMetricGroupResponseBody
+	// Resource created
+	Object *CreateMetricGroupResponseBody
 }
 
 func (c CreateMetricGroupResponse) MarshalJSON() ([]byte, error) {

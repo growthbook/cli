@@ -210,6 +210,7 @@ func (p *PutSDKConnectionRequest) GetBody() PutSDKConnectionRequestBody {
 	return p.Body
 }
 
+// PutSDKConnectionResponseBody - Resource updated
 type PutSDKConnectionResponseBody struct {
 	SDKConnection components.SDKConnection `json:"sdkConnection"`
 }
@@ -223,7 +224,8 @@ func (p *PutSDKConnectionResponseBody) GetSDKConnection() components.SDKConnecti
 
 type PutSDKConnectionResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PutSDKConnectionResponseBody
+	// Resource updated
+	Object *PutSDKConnectionResponseBody
 }
 
 func (p PutSDKConnectionResponse) MarshalJSON() ([]byte, error) {

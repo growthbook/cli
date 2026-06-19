@@ -18,6 +18,7 @@ func (g *GetRampScheduleRequest) GetID() string {
 	return g.ID
 }
 
+// GetRampScheduleResponseBody - Successful response
 type GetRampScheduleResponseBody struct {
 	RampSchedule components.RampSchedule `json:"rampSchedule"`
 }
@@ -31,7 +32,8 @@ func (g *GetRampScheduleResponseBody) GetRampSchedule() components.RampSchedule 
 
 type GetRampScheduleResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetRampScheduleResponseBody
+	// Successful response
+	Object *GetRampScheduleResponseBody
 }
 
 func (g GetRampScheduleResponse) MarshalJSON() ([]byte, error) {

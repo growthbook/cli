@@ -19,7 +19,8 @@ func (g *GetSDKPayloadRequest) GetKey() string {
 
 type GetSDKPayloadResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Any      any
+	// Successful response
+	Any any
 }
 
 func (g *GetSDKPayloadResponse) GetHTTPMeta() components.HTTPMetadata {

@@ -220,8 +220,9 @@ tags:
     x-displayName: Usage
     description: Usage information for metrics in experiments.
   - name: meta
-    x-displayName: meta
-    description: ''
+    x-displayName: Meta
+    description: >-
+      Server metadata, including the running build's version and commit for version-skew checks.
   - name: Dashboards
     x-displayName: Dashboards
     description: ''
@@ -322,18 +323,15 @@ tags:
   - name: FactTableFilter_model
     x-displayName: Fact Table Filter
     description: <SchemaDefinition schemaRef="#/components/schemas/FactTableFilter" />
-  - name: Feature_model
-    x-displayName: Feature
-    description: <SchemaDefinition schemaRef="#/components/schemas/Feature" />
   - name: FeatureBaseRule_model
     x-displayName: Feature Base Rule
     description: <SchemaDefinition schemaRef="#/components/schemas/FeatureBaseRule" />
   - name: FeatureDefinition_model
     x-displayName: Feature Definition
     description: <SchemaDefinition schemaRef="#/components/schemas/FeatureDefinition" />
-  - name: FeatureEnvironment_model
-    x-displayName: Feature Environment
-    description: <SchemaDefinition schemaRef="#/components/schemas/FeatureEnvironment" />
+  - name: FeatureEnvironmentV1_model
+    x-displayName: Feature Environment V1
+    description: <SchemaDefinition schemaRef="#/components/schemas/FeatureEnvironmentV1" />
   - name: FeatureEnvironmentV2_model
     x-displayName: Feature Environment V2
     description: <SchemaDefinition schemaRef="#/components/schemas/FeatureEnvironmentV2" />
@@ -348,18 +346,22 @@ tags:
   - name: FeatureForceRule_model
     x-displayName: Feature Force Rule
     description: <SchemaDefinition schemaRef="#/components/schemas/FeatureForceRule" />
-  - name: FeatureRevision_model
-    x-displayName: Feature Revision
-    description: <SchemaDefinition schemaRef="#/components/schemas/FeatureRevision" />
+  - name: FeatureRevisionSummary_model
+    x-displayName: Feature Revision Summary
+    description: >-
+      <SchemaDefinition schemaRef="#/components/schemas/FeatureRevisionSummary" />
+  - name: FeatureRevisionV1_model
+    x-displayName: Feature Revision V1
+    description: <SchemaDefinition schemaRef="#/components/schemas/FeatureRevisionV1" />
   - name: FeatureRevisionV2_model
     x-displayName: Feature Revision V2
     description: <SchemaDefinition schemaRef="#/components/schemas/FeatureRevisionV2" />
   - name: FeatureRolloutRule_model
     x-displayName: Feature Rollout Rule
     description: <SchemaDefinition schemaRef="#/components/schemas/FeatureRolloutRule" />
-  - name: FeatureRule_model
-    x-displayName: Feature Rule
-    description: <SchemaDefinition schemaRef="#/components/schemas/FeatureRule" />
+  - name: FeatureRuleV1_model
+    x-displayName: Feature Rule V1
+    description: <SchemaDefinition schemaRef="#/components/schemas/FeatureRuleV1" />
   - name: FeatureRuleV2_model
     x-displayName: Feature Rule V2
     description: <SchemaDefinition schemaRef="#/components/schemas/FeatureRuleV2" />
@@ -367,12 +369,16 @@ tags:
     x-displayName: Feature Safe Rollout Rule
     description: >-
       <SchemaDefinition schemaRef="#/components/schemas/FeatureSafeRolloutRule" />
+  - name: FeatureV1_model
+    x-displayName: Feature V1
+    description: <SchemaDefinition schemaRef="#/components/schemas/FeatureV1" />
   - name: FeatureV2_model
     x-displayName: Feature V2
     description: <SchemaDefinition schemaRef="#/components/schemas/FeatureV2" />
-  - name: FeatureWithRevisions_model
-    x-displayName: Feature With Revisions
-    description: <SchemaDefinition schemaRef="#/components/schemas/FeatureWithRevisions" />
+  - name: FeatureWithRevisionsV1_model
+    x-displayName: Feature With Revisions V1
+    description: >-
+      <SchemaDefinition schemaRef="#/components/schemas/FeatureWithRevisionsV1" />
   - name: FeatureWithRevisionsV2_model
     x-displayName: Feature With Revisions V2
     description: >-
@@ -496,6 +502,7 @@ paths:
         - $ref: '#/components/parameters/skipPagination'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -505,12 +512,11 @@ paths:
                       features:
                         type: array
                         items:
-                          $ref: '#/components/schemas/Feature'
+                          $ref: '#/components/schemas/FeatureV1'
                     required:
                       - features
                     additionalProperties: false
                   - $ref: '#/components/schemas/PaginationFields'
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -1248,17 +1254,17 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   feature:
-                    $ref: '#/components/schemas/Feature'
+                    $ref: '#/components/schemas/FeatureV1'
                 required:
                   - feature
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -1278,17 +1284,17 @@ paths:
         - $ref: '#/components/parameters/withRevisions'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   feature:
-                    $ref: '#/components/schemas/FeatureWithRevisions'
+                    $ref: '#/components/schemas/FeatureWithRevisionsV1'
                 required:
                   - feature
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -2034,17 +2040,17 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   feature:
-                    $ref: '#/components/schemas/Feature'
+                    $ref: '#/components/schemas/FeatureV1'
                 required:
                   - feature
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -2069,6 +2075,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Resource deleted
           content:
             application/json:
               schema:
@@ -2081,7 +2088,6 @@ paths:
                 required:
                   - deletedId
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -2143,17 +2149,17 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   feature:
-                    $ref: '#/components/schemas/Feature'
+                    $ref: '#/components/schemas/FeatureV1'
                 required:
                   - feature
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -2201,17 +2207,17 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   feature:
-                    $ref: '#/components/schemas/Feature'
+                    $ref: '#/components/schemas/FeatureV1'
                 required:
                   - feature
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -2235,13 +2241,13 @@ paths:
         - $ref: '#/components/parameters/projectId'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
                 type: array
                 items:
                   type: string
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -2260,6 +2266,7 @@ paths:
         - $ref: '#/components/parameters/ids'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -2270,7 +2277,6 @@ paths:
                 required:
                   - features
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -2300,6 +2306,7 @@ paths:
         - $ref: '#/components/parameters/mine'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -2308,7 +2315,7 @@ paths:
                   revisions:
                     type: array
                     items:
-                      $ref: '#/components/schemas/FeatureRevision'
+                      $ref: '#/components/schemas/FeatureRevisionV1'
                   limit:
                     type: integer
                   offset:
@@ -2332,7 +2339,6 @@ paths:
                   - hasMore
                   - nextOffset
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -2359,6 +2365,7 @@ paths:
         - $ref: '#/components/parameters/author'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -2367,7 +2374,7 @@ paths:
                   revisions:
                     type: array
                     items:
-                      $ref: '#/components/schemas/FeatureRevision'
+                      $ref: '#/components/schemas/FeatureRevisionV1'
                   limit:
                     type: integer
                   offset:
@@ -2391,7 +2398,6 @@ paths:
                   - hasMore
                   - nextOffset
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -2433,17 +2439,17 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   revision:
-                    $ref: '#/components/schemas/FeatureRevision'
+                    $ref: '#/components/schemas/FeatureRevisionV1'
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -2490,17 +2496,17 @@ paths:
               - type: boolean
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   revision:
-                    $ref: '#/components/schemas/FeatureRevision'
+                    $ref: '#/components/schemas/FeatureRevisionV1'
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -2531,17 +2537,17 @@ paths:
         - $ref: '#/components/parameters/version'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   revision:
-                    $ref: '#/components/schemas/FeatureRevision'
+                    $ref: '#/components/schemas/FeatureRevisionV1'
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -2691,17 +2697,17 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   revision:
-                    $ref: '#/components/schemas/FeatureRevision'
+                    $ref: '#/components/schemas/FeatureRevisionV1'
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -2754,17 +2760,17 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   revision:
-                    $ref: '#/components/schemas/FeatureRevision'
+                    $ref: '#/components/schemas/FeatureRevisionV1'
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -2828,17 +2834,17 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   revision:
-                    $ref: '#/components/schemas/FeatureRevision'
+                    $ref: '#/components/schemas/FeatureRevisionV1'
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -2902,17 +2908,17 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   revision:
-                    $ref: '#/components/schemas/FeatureRevision'
+                    $ref: '#/components/schemas/FeatureRevisionV1'
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -2965,17 +2971,17 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   revision:
-                    $ref: '#/components/schemas/FeatureRevision'
+                    $ref: '#/components/schemas/FeatureRevisionV1'
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -3031,17 +3037,17 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   revision:
-                    $ref: '#/components/schemas/FeatureRevision'
+                    $ref: '#/components/schemas/FeatureRevisionV1'
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -3784,17 +3790,17 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   revision:
-                    $ref: '#/components/schemas/FeatureRevision'
+                    $ref: '#/components/schemas/FeatureRevisionV1'
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -4338,17 +4344,17 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   revision:
-                    $ref: '#/components/schemas/FeatureRevision'
+                    $ref: '#/components/schemas/FeatureRevisionV1'
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -4401,17 +4407,17 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource deleted
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   revision:
-                    $ref: '#/components/schemas/FeatureRevision'
+                    $ref: '#/components/schemas/FeatureRevisionV1'
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -4469,17 +4475,17 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   revision:
-                    $ref: '#/components/schemas/FeatureRevision'
+                    $ref: '#/components/schemas/FeatureRevisionV1'
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -4896,17 +4902,17 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   revision:
-                    $ref: '#/components/schemas/FeatureRevision'
+                    $ref: '#/components/schemas/FeatureRevisionV1'
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -4958,17 +4964,17 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource deleted
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   revision:
-                    $ref: '#/components/schemas/FeatureRevision'
+                    $ref: '#/components/schemas/FeatureRevisionV1'
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -5011,17 +5017,17 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   revision:
-                    $ref: '#/components/schemas/FeatureRevision'
+                    $ref: '#/components/schemas/FeatureRevisionV1'
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -5073,19 +5079,19 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   revision:
-                    $ref: '#/components/schemas/FeatureRevision'
+                    $ref: '#/components/schemas/FeatureRevisionV1'
                   autoPublished:
                     type: boolean
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -5116,6 +5122,7 @@ paths:
         - $ref: '#/components/parameters/version'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -5147,7 +5154,6 @@ paths:
                   - conflicts
                   - rebaseRequired
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -5198,17 +5204,17 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   revision:
-                    $ref: '#/components/schemas/FeatureRevision'
+                    $ref: '#/components/schemas/FeatureRevisionV1'
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -5253,17 +5259,17 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   revision:
-                    $ref: '#/components/schemas/FeatureRevision'
+                    $ref: '#/components/schemas/FeatureRevisionV1'
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -5302,17 +5308,17 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   revision:
-                    $ref: '#/components/schemas/FeatureRevision'
+                    $ref: '#/components/schemas/FeatureRevisionV1'
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -5360,17 +5366,17 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   revision:
-                    $ref: '#/components/schemas/FeatureRevision'
+                    $ref: '#/components/schemas/FeatureRevisionV1'
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -5395,6 +5401,7 @@ paths:
         - $ref: '#/components/parameters/skipPagination'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -5409,7 +5416,6 @@ paths:
                       - features
                     additionalProperties: false
                   - $ref: '#/components/schemas/PaginationFields'
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -5876,6 +5882,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -5886,7 +5893,6 @@ paths:
                 required:
                   - feature
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -5903,6 +5909,7 @@ paths:
         - $ref: '#/components/parameters/withRevisions'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -5913,7 +5920,6 @@ paths:
                 required:
                   - feature
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -6383,6 +6389,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -6393,7 +6400,6 @@ paths:
                 required:
                   - feature
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -6414,6 +6420,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Resource deleted
           content:
             application/json:
               schema:
@@ -6426,7 +6433,6 @@ paths:
                 required:
                   - deletedId
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -6480,6 +6486,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -6490,7 +6497,6 @@ paths:
                 required:
                   - feature
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -6532,6 +6538,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -6542,7 +6549,6 @@ paths:
                 required:
                   - feature
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -6561,13 +6567,13 @@ paths:
         - $ref: '#/components/parameters/projectId'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
                 type: array
                 items:
                   type: string
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -6583,6 +6589,7 @@ paths:
         - $ref: '#/components/parameters/ids'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -6656,7 +6663,6 @@ paths:
                 required:
                   - features
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -6715,6 +6721,7 @@ paths:
               - type: boolean
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -6747,7 +6754,6 @@ paths:
                   - hasMore
                   - nextOffset
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -6771,6 +6777,7 @@ paths:
         - $ref: '#/components/parameters/mine'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -6803,7 +6810,6 @@ paths:
                   - hasMore
                   - nextOffset
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -6840,6 +6846,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -6850,7 +6857,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -6900,6 +6906,7 @@ paths:
             type: string
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -6910,7 +6917,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -6937,6 +6943,7 @@ paths:
         - $ref: '#/components/parameters/version'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -6947,7 +6954,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -6976,6 +6982,7 @@ paths:
         - $ref: '#/components/parameters/base'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -7107,7 +7114,6 @@ paths:
                     required:
                       - diff
                     additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -7251,6 +7257,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -7261,7 +7268,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -7312,6 +7318,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -7322,7 +7329,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -7386,6 +7392,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -7396,7 +7403,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -7458,6 +7464,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -7468,7 +7475,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -7519,6 +7525,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -7529,7 +7536,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -7583,6 +7589,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -7593,7 +7600,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -8042,6 +8048,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -8052,7 +8059,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -8587,6 +8593,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -8597,7 +8604,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -8646,6 +8652,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource deleted
           content:
             application/json:
               schema:
@@ -8656,7 +8663,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -8711,6 +8717,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -8721,7 +8728,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -8736,6 +8742,9 @@ paths:
       summary: Set ramp schedule for a rule
       description: >-
         Queues a revision-controlled ramp action for this rule. If the rule already has a live ramp schedule, this stores an `update` action applied on publish; otherwise it stores a `create` action. No live schedule config changes are applied immediately by this endpoint.
+
+
+        You can build the ramp from a template (`templateId`) and set the rollback anchor (`startState`) in the same request — e.g. pull in a template and pass `startState: { "coverage": 0 }` so a rollback returns the rule to 0%.
       tags:
         - feature-revisions-v2
       parameters:
@@ -9127,6 +9136,76 @@ paths:
                 environment:
                   deprecated: true
                   type: string
+                startState:
+                  description: >-
+                    The rule state to roll back to (the rollback/jump-to-start anchor). Merged onto the rule's current state, so `{ "coverage": 0 }` keeps existing targeting but rolls back to 0%. This affects rollbacks only — it is NOT applied when the ramp starts. On create, omitting it infers the anchor from the rule's current coverage (and returns a warning if that isn't 0%); on update of a live schedule, omitting it leaves the existing anchor unchanged.
+                  type: object
+                  properties:
+                    coverage:
+                      description: >-
+                        Traffic fraction (0–1). For monitored steps the rollout rule is promoted to an experiment: treatment = [0, coverage), control = [0.5, 0.5+coverage). Both arms are equal-sized and non-adjacent, so a step-up only adds new users to each arm — no existing user changes group. The REST API enforces coverage ≤ 0.5 on monitored steps so control end never exceeds 1.0. The SDK uses explicit hash ranges on bucketingV2 clients to keep bucketing stable across monitored/unmonitored transitions.
+                      anyOf:
+                        - type: number
+                          minimum: 0
+                          maximum: 1
+                        - type: 'null'
+                    condition:
+                      anyOf:
+                        - type: string
+                        - type: 'null'
+                    savedGroups:
+                      anyOf:
+                        - type: array
+                          items:
+                            type: object
+                            properties:
+                              match:
+                                type: string
+                                enum:
+                                  - all
+                                  - none
+                                  - any
+                              ids:
+                                type: array
+                                items:
+                                  type: string
+                            required:
+                              - match
+                              - ids
+                            additionalProperties: false
+                        - type: 'null'
+                    prerequisites:
+                      anyOf:
+                        - type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                              condition:
+                                type: string
+                            required:
+                              - id
+                              - condition
+                            additionalProperties: false
+                        - type: 'null'
+                    allEnvironments:
+                      anyOf:
+                        - type: boolean
+                        - type: 'null'
+                    environments:
+                      anyOf:
+                        - type: array
+                          items:
+                            type: string
+                        - type: 'null'
+                    force:
+                      description: Force value (any JSON type)
+                    enabled:
+                      anyOf:
+                        - type: boolean
+                        - type: 'null'
+                  additionalProperties: false
                 revisionTitle:
                   description: >-
                     Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
@@ -9138,6 +9217,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -9145,10 +9225,15 @@ paths:
                 properties:
                   revision:
                     $ref: '#/components/schemas/FeatureRevisionV2'
+                  warnings:
+                    description: >-
+                      Non-fatal advisories about how the request was interpreted.
+                    type: array
+                    items:
+                      type: string
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -9197,6 +9282,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource deleted
           content:
             application/json:
               schema:
@@ -9207,7 +9293,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -9225,6 +9310,9 @@ paths:
 
 
         Set `autoPublishOnApproval` to `true` to publish the revision automatically the moment it is approved (GitHub auto-merge model). This requires the org to have auto-publish-on-approval enabled for the feature and the caller to have publish permission; the auto-publish then executes with the caller's authority.
+
+
+        Set `scheduledPublishAt` to a future ISO date-time to defer the auto-publish until that date (it still also requires approval when review is required). Use `scheduledPublishLockEdits` to freeze edits to this draft while the schedule is pending, and `scheduledPublishLockOthers` to block publishing other drafts of this feature in the meantime.
       tags:
         - feature-revisions-v2
       parameters:
@@ -9246,6 +9334,76 @@ paths:
                   type: string
                 autoPublishOnApproval:
                   type: boolean
+                scheduledPublishAt:
+                  anyOf:
+                    - format: date-time
+                      type: string
+                    - type: 'null'
+                scheduledPublishLockEdits:
+                  type: boolean
+                scheduledPublishLockOthers:
+                  type: boolean
+              additionalProperties: false
+      responses:
+        '200':
+          description: Resource created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  revision:
+                    $ref: '#/components/schemas/FeatureRevisionV2'
+                required:
+                  - revision
+                additionalProperties: false
+      x-codeSamples:
+        - lang: cURL
+          source: >-
+            curl -X POST 'https://api.growthbook.io/api/v2/features/{id}/revisions/{version}/request-review' \
+
+
+
+              -H 'Authorization: Bearer YOUR_API_KEY'
+  /v2/features/{id}/revisions/{version}/schedule-publish:
+    post:
+      operationId: postFeatureRevisionSchedulePublishV2
+      summary: Schedule (or cancel) a deferred publish for a draft revision
+      description: >-
+        Arms a deferred publish: the revision publishes automatically on/after `scheduledPublishAt` (and, when review is required, only once also approved). Send `scheduledPublishAt: null` to cancel the schedule.
+
+
+        Use `lockEdits` to freeze content edits to this draft while the schedule is pending (rebasing is still allowed), and `lockOthers` to block publishing other drafts of this feature until the schedule fires or is canceled. Requires publish permission; the publish executes with the caller's authority. An admin with bypass-approval permission can schedule even without approval — pass `bypassApproval: true` to mark it as an admin override, which locks the schedule to cancel-and-re-arm only.
+      tags:
+        - feature-revisions-v2
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ''
+          schema:
+            type: string
+        - $ref: '#/components/parameters/version'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                scheduledPublishAt:
+                  anyOf:
+                    - format: date-time
+                      type: string
+                    - type: 'null'
+                lockEdits:
+                  type: boolean
+                lockOthers:
+                  type: boolean
+                bypassApproval:
+                  type: boolean
+              required:
+                - scheduledPublishAt
               additionalProperties: false
       responses:
         '200':
@@ -9263,7 +9421,7 @@ paths:
       x-codeSamples:
         - lang: cURL
           source: >-
-            curl -X POST 'https://api.growthbook.io/api/v2/features/{id}/revisions/{version}/request-review' \
+            curl -X POST 'https://api.growthbook.io/api/v2/features/{id}/revisions/{version}/schedule-publish' \
 
 
 
@@ -9307,6 +9465,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -9319,7 +9478,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -9354,6 +9512,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -9364,7 +9523,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -9399,6 +9557,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -9409,7 +9568,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -9436,6 +9594,7 @@ paths:
         - $ref: '#/components/parameters/version'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -9448,7 +9607,6 @@ paths:
                 required:
                   - log
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -9489,6 +9647,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -9500,7 +9659,6 @@ paths:
                 required:
                   - status
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -9535,6 +9693,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource deleted
           content:
             application/json:
               schema:
@@ -9546,7 +9705,6 @@ paths:
                 required:
                   - status
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -9573,6 +9731,7 @@ paths:
         - $ref: '#/components/parameters/version'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -9655,7 +9814,6 @@ paths:
                   - conflicts
                   - rebaseRequired
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -9709,6 +9867,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -9786,7 +9945,6 @@ paths:
                   - draftDateUpdated
                   - conflicts
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -9840,6 +9998,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -9850,7 +10009,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -9891,6 +10049,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -9901,7 +10060,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -9934,6 +10092,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -9944,7 +10103,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -9979,6 +10137,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -9989,7 +10148,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -10031,6 +10189,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -10041,7 +10200,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -10058,6 +10216,7 @@ paths:
         - archetypes
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -10070,7 +10229,6 @@ paths:
                 required:
                   - archetypes
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -10119,6 +10277,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -10129,7 +10288,6 @@ paths:
                 required:
                   - archetype
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -10145,6 +10303,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -10155,7 +10314,6 @@ paths:
                 required:
                   - archetype
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -10203,6 +10361,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -10213,7 +10372,6 @@ paths:
                 required:
                   - archetype
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -10230,6 +10388,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Resource deleted
           content:
             application/json:
               schema:
@@ -10240,7 +10399,6 @@ paths:
                 required:
                   - deletedId
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -10273,6 +10431,7 @@ paths:
               - stopped
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -10287,7 +10446,6 @@ paths:
                       - experiments
                     additionalProperties: false
                   - $ref: '#/components/schemas/PaginationFields'
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -10743,6 +10901,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -10753,7 +10912,6 @@ paths:
                 required:
                   - experiment
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -10798,6 +10956,7 @@ paths:
               - stopped
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -10812,7 +10971,6 @@ paths:
                       - experimentResults
                     additionalProperties: false
                   - $ref: '#/components/schemas/PaginationFields'
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -10828,6 +10986,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -10838,7 +10997,6 @@ paths:
                 required:
                   - experiment
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -11303,6 +11461,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -11313,7 +11472,6 @@ paths:
                 required:
                   - experiment
                 additionalProperties: false
-          description: ""
         '409':
           description: Conflict
           content:
@@ -11350,6 +11508,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -11368,7 +11527,6 @@ paths:
                   - checklistItems
                   - status
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -11389,6 +11547,7 @@ paths:
         - $ref: '#/components/parameters/dimension'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -11402,7 +11561,6 @@ paths:
                   - experiment
                   - result
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -11435,6 +11593,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -11449,7 +11608,6 @@ paths:
                 required:
                   - experiment
                 additionalProperties: false
-          description: ""
         '409':
           description: Conflict
           content:
@@ -11538,6 +11696,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -11556,7 +11715,6 @@ paths:
                   - checklistItems
                   - status
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -11619,6 +11777,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -11629,7 +11788,6 @@ paths:
                 required:
                   - experiment
                 additionalProperties: false
-          description: ""
         '409':
           description: Conflict
           content:
@@ -11688,6 +11846,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -11698,7 +11857,6 @@ paths:
                 required:
                   - experiment
                 additionalProperties: false
-          description: ""
         '409':
           description: Conflict
           content:
@@ -11770,6 +11928,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -11780,7 +11939,6 @@ paths:
                 required:
                   - snapshot
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -11832,6 +11990,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -11842,7 +12001,6 @@ paths:
                 required:
                   - screenshot
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -11905,6 +12063,7 @@ paths:
         - $ref: '#/components/parameters/projectId'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -11917,7 +12076,6 @@ paths:
                 required:
                   - experiments
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -11939,6 +12097,7 @@ paths:
             type: string
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -11951,7 +12110,6 @@ paths:
                 required:
                   - visualChangesets
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -12004,6 +12162,7 @@ paths:
               additionalProperties: {}
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -12014,7 +12173,6 @@ paths:
                 required:
                   - visualChangeset
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -12042,6 +12200,7 @@ paths:
             type: string
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -12052,7 +12211,6 @@ paths:
                 required:
                   - snapshot
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -12071,6 +12229,7 @@ paths:
         - $ref: '#/components/parameters/datasourceId'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -12085,7 +12244,6 @@ paths:
                       - metrics
                     additionalProperties: false
                   - $ref: '#/components/schemas/PaginationFields'
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -12412,6 +12570,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -12422,7 +12581,6 @@ paths:
                 required:
                   - metric
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -12438,6 +12596,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -12448,7 +12607,6 @@ paths:
                 required:
                   - metric
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -12761,6 +12919,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -12771,7 +12930,6 @@ paths:
                 required:
                   - updatedId
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -12788,6 +12946,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Resource deleted
           content:
             application/json:
               schema:
@@ -12798,7 +12957,6 @@ paths:
                 required:
                   - deletedId
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -12823,6 +12981,7 @@ paths:
             type: string
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -12835,7 +12994,6 @@ paths:
                 required:
                   - metricUsage
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -12855,6 +13013,7 @@ paths:
         - $ref: '#/components/parameters/datasourceId'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -12869,7 +13028,6 @@ paths:
                       - segments
                     additionalProperties: false
                   - $ref: '#/components/schemas/PaginationFields'
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -12946,6 +13104,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -12956,7 +13115,6 @@ paths:
                 required:
                   - segment
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -12974,6 +13132,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -12984,7 +13143,6 @@ paths:
                 required:
                   - segment
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -13058,6 +13216,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -13068,7 +13227,6 @@ paths:
                 required:
                   - segment
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -13085,6 +13243,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Resource deleted
           content:
             application/json:
               schema:
@@ -13097,7 +13256,6 @@ paths:
                 required:
                   - deletedId
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -13115,6 +13273,7 @@ paths:
         - $ref: '#/components/parameters/datasourceId'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -13129,7 +13288,6 @@ paths:
                       - dimensions
                     additionalProperties: false
                   - $ref: '#/components/schemas/PaginationFields'
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -13182,6 +13340,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -13192,7 +13351,6 @@ paths:
                 required:
                   - dimension
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -13210,6 +13368,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -13220,7 +13379,6 @@ paths:
                 required:
                   - dimension
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -13270,6 +13428,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -13280,7 +13439,6 @@ paths:
                 required:
                   - dimension
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -13297,6 +13455,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Resource deleted
           content:
             application/json:
               schema:
@@ -13309,7 +13468,6 @@ paths:
                 required:
                   - deletedId
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -13329,6 +13487,7 @@ paths:
         - $ref: '#/components/parameters/offset'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -13366,7 +13525,6 @@ paths:
                       - hasMore
                       - nextOffset
                     additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -13414,6 +13572,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -13424,7 +13583,6 @@ paths:
                 required:
                   - project
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -13442,6 +13600,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -13452,7 +13611,6 @@ paths:
                 required:
                   - project
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -13501,6 +13659,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -13511,7 +13670,6 @@ paths:
                 required:
                   - project
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -13528,6 +13686,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Resource deleted
           content:
             application/json:
               schema:
@@ -13540,7 +13699,6 @@ paths:
                 required:
                   - deletedId
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -13554,6 +13712,7 @@ paths:
         - environments
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -13566,7 +13725,6 @@ paths:
                 required:
                   - environments
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -13609,6 +13767,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -13619,7 +13778,6 @@ paths:
                 required:
                   - environment
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -13658,6 +13816,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -13668,7 +13827,6 @@ paths:
                 required:
                   - environment
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -13685,6 +13843,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Resource deleted
           content:
             application/json:
               schema:
@@ -13695,7 +13854,6 @@ paths:
                 required:
                   - deletedId
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -13721,6 +13879,7 @@ paths:
             type: string
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -13733,7 +13892,6 @@ paths:
                 required:
                   - attributes
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -13808,6 +13966,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -13818,7 +13977,6 @@ paths:
                 required:
                   - attribute
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -13892,6 +14050,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -13902,7 +14061,6 @@ paths:
                 required:
                   - attribute
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -13919,6 +14077,7 @@ paths:
         - $ref: '#/components/parameters/property'
       responses:
         '200':
+          description: Resource deleted
           content:
             application/json:
               schema:
@@ -13929,7 +14088,6 @@ paths:
                 required:
                   - deletedProperty
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -13952,6 +14110,7 @@ paths:
         - $ref: '#/components/parameters/multiOrg'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -13966,7 +14125,6 @@ paths:
                       - connections
                     additionalProperties: false
                   - $ref: '#/components/schemas/PaginationFields'
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -14039,6 +14197,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -14049,7 +14208,6 @@ paths:
                 required:
                   - sdkConnection
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -14065,6 +14223,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -14075,7 +14234,6 @@ paths:
                 required:
                   - sdkConnection
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -14149,6 +14307,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -14159,7 +14318,6 @@ paths:
                 required:
                   - sdkConnection
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -14177,6 +14335,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Resource deleted
           content:
             application/json:
               schema:
@@ -14187,7 +14346,6 @@ paths:
                 required:
                   - deletedId
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -14206,6 +14364,7 @@ paths:
         - $ref: '#/components/parameters/key'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -14216,7 +14375,6 @@ paths:
                 required:
                   - sdkConnection
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -14237,6 +14395,7 @@ paths:
         - $ref: '#/components/parameters/projectId'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -14251,7 +14410,6 @@ paths:
                       - dataSources
                     additionalProperties: false
                   - $ref: '#/components/schemas/PaginationFields'
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -14267,6 +14425,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -14277,7 +14436,6 @@ paths:
                 required:
                   - dataSource
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -14295,6 +14453,7 @@ paths:
         - $ref: '#/components/parameters/dataSourceId'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -14305,7 +14464,6 @@ paths:
                 required:
                   - informationSchema
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -14325,6 +14483,7 @@ paths:
         - $ref: '#/components/parameters/includeExperiment'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -14337,7 +14496,6 @@ paths:
                 required:
                   - visualChangeset
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -14431,6 +14589,7 @@ paths:
               additionalProperties: {}
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -14444,7 +14603,6 @@ paths:
                   - nModified
                   - visualChangeset
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -14511,6 +14669,7 @@ paths:
               additionalProperties: {}
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -14524,7 +14683,6 @@ paths:
                   - nModified
                   - visualChangeId
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -14551,8 +14709,6 @@ paths:
             schema:
               type: object
               properties:
-                id:
-                  type: string
                 description:
                   type: string
                 css:
@@ -14590,6 +14746,7 @@ paths:
               additionalProperties: {}
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -14600,7 +14757,6 @@ paths:
                 required:
                   - nModified
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -14622,6 +14778,7 @@ paths:
         - $ref: '#/components/parameters/offset'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -14636,7 +14793,6 @@ paths:
                       - savedGroups
                     additionalProperties: false
                   - $ref: '#/components/schemas/PaginationFields'
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -14695,6 +14851,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -14705,7 +14862,6 @@ paths:
                 required:
                   - savedGroup
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -14754,6 +14910,7 @@ paths:
               - type: boolean
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -14786,7 +14943,6 @@ paths:
                   - hasMore
                   - nextOffset
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -14805,6 +14961,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -14815,7 +14972,6 @@ paths:
                 required:
                   - savedGroup
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -14863,6 +15019,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -14873,7 +15030,6 @@ paths:
                 required:
                   - savedGroup
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -14893,6 +15049,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Resource deleted
           content:
             application/json:
               schema:
@@ -14903,7 +15060,6 @@ paths:
                 required:
                   - deletedId
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -14922,6 +15078,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -14932,7 +15089,6 @@ paths:
                 required:
                   - savedGroup
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -14951,6 +15107,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -14961,7 +15118,6 @@ paths:
                 required:
                   - savedGroup
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -15016,6 +15172,7 @@ paths:
               - type: boolean
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -15048,7 +15205,6 @@ paths:
                   - hasMore
                   - nextOffset
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -15085,6 +15241,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -15095,7 +15252,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -15138,6 +15294,7 @@ paths:
               - type: boolean
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -15148,7 +15305,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -15175,6 +15331,7 @@ paths:
         - $ref: '#/components/parameters/version'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -15185,7 +15342,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -15242,6 +15398,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -15252,7 +15409,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -15302,6 +15458,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -15312,7 +15469,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -15363,6 +15519,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -15373,7 +15530,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -15422,6 +15578,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -15432,7 +15589,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -15483,6 +15639,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -15493,7 +15650,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -15544,6 +15700,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -15554,7 +15711,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -15594,6 +15750,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -15604,7 +15761,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -15654,6 +15810,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -15666,7 +15823,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -15693,6 +15849,7 @@ paths:
         - $ref: '#/components/parameters/version'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -15726,7 +15883,6 @@ paths:
                   - conflicts
                   - canAutoMerge
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -15780,6 +15936,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -15790,7 +15947,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -15829,6 +15985,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -15839,7 +15996,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -15876,6 +16032,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -15886,7 +16043,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -15930,6 +16086,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -15940,7 +16097,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -15962,6 +16118,7 @@ paths:
         - $ref: '#/components/parameters/offset'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -15999,7 +16156,6 @@ paths:
                       - hasMore
                       - nextOffset
                     additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -16030,6 +16186,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -16040,7 +16197,6 @@ paths:
                 required:
                   - organization
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -16074,6 +16230,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -16084,7 +16241,6 @@ paths:
                 required:
                   - organization
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -16108,10 +16264,10 @@ paths:
             type: string
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema: {}
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -16130,6 +16286,7 @@ paths:
         - $ref: '#/components/parameters/projectId'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -16144,7 +16301,6 @@ paths:
                       - factTables
                     additionalProperties: false
                   - $ref: '#/components/schemas/PaginationFields'
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -16240,6 +16396,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -16250,7 +16407,6 @@ paths:
                 required:
                   - factTable
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -16268,6 +16424,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -16278,7 +16435,6 @@ paths:
                 required:
                   - factTable
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -16381,6 +16537,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -16391,7 +16548,6 @@ paths:
                 required:
                   - factTable
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -16408,6 +16564,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Resource deleted
           content:
             application/json:
               schema:
@@ -16420,7 +16577,6 @@ paths:
                 required:
                   - deletedId
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -16441,6 +16597,7 @@ paths:
         - $ref: '#/components/parameters/offset'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -16455,7 +16612,6 @@ paths:
                       - factTableFilters
                     additionalProperties: false
                   - $ref: '#/components/schemas/PaginationFields'
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -16501,6 +16657,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -16511,7 +16668,6 @@ paths:
                 required:
                   - factTableFilter
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -16533,6 +16689,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -16543,7 +16700,6 @@ paths:
                 required:
                   - factTableFilter
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -16587,6 +16743,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -16597,7 +16754,6 @@ paths:
                 required:
                   - factTableFilter
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -16618,6 +16774,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Resource deleted
           content:
             application/json:
               schema:
@@ -16630,7 +16787,6 @@ paths:
                 required:
                   - deletedId
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -16650,6 +16806,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -16670,7 +16827,6 @@ paths:
                   - aggregatedFactTables
                   - nextScheduledUpdate
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -16706,6 +16862,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -16719,7 +16876,6 @@ paths:
                 required:
                   - runs
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -16743,6 +16899,7 @@ paths:
         - $ref: '#/components/parameters/offset'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -16758,7 +16915,6 @@ paths:
                       - runs
                     additionalProperties: false
                   - $ref: '#/components/schemas/PaginationFields'
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -16784,6 +16940,7 @@ paths:
         - $ref: '#/components/parameters/runId'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -16794,7 +16951,6 @@ paths:
                 required:
                   - run
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -16824,6 +16980,7 @@ paths:
             type: string
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -16838,7 +16995,6 @@ paths:
                       - factMetrics
                     additionalProperties: false
                   - $ref: '#/components/schemas/PaginationFields'
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -17251,6 +17407,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -17261,7 +17418,6 @@ paths:
                 required:
                   - factMetric
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -17279,6 +17435,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -17289,7 +17446,6 @@ paths:
                 required:
                   - factMetric
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -17700,6 +17856,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -17710,7 +17867,6 @@ paths:
                 required:
                   - factMetric
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -17730,6 +17886,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Resource deleted
           content:
             application/json:
               schema:
@@ -17742,7 +17899,6 @@ paths:
                 required:
                   - deletedId
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -17814,6 +17970,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -17824,7 +17981,6 @@ paths:
                 required:
                   - metricAnalysis
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -18362,6 +18518,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -18390,7 +18547,6 @@ paths:
                   - factMetricsAdded
                   - factMetricsUpdated
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -18446,6 +18602,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -18456,7 +18613,6 @@ paths:
                     items:
                       type: string
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -18474,6 +18630,7 @@ paths:
         - $ref: '#/components/parameters/offset'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -18488,7 +18645,6 @@ paths:
                       - codeRefs
                     additionalProperties: false
                   - $ref: '#/components/schemas/PaginationFields'
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -18504,6 +18660,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -18516,7 +18673,6 @@ paths:
                 required:
                   - codeRefs
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -18536,6 +18692,7 @@ paths:
         - $ref: '#/components/parameters/globalRole'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -18550,7 +18707,6 @@ paths:
                       - members
                     additionalProperties: false
                   - $ref: '#/components/schemas/PaginationFields'
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -18607,6 +18763,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -18617,7 +18774,6 @@ paths:
                 required:
                   - updatedMember
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -18633,6 +18789,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Resource deleted
           content:
             application/json:
               schema:
@@ -18643,7 +18800,6 @@ paths:
                 required:
                   - deletedId
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -18659,6 +18815,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -18669,7 +18826,6 @@ paths:
                 required:
                   - query
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -18683,6 +18839,7 @@ paths:
         - settings
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -18693,7 +18850,6 @@ paths:
                 required:
                   - settings
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -18707,6 +18863,7 @@ paths:
         - meta
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -18723,7 +18880,6 @@ paths:
                   - commit
                   - date
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -18741,6 +18897,7 @@ paths:
         - $ref: '#/components/parameters/tableId'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -18751,7 +18908,6 @@ paths:
                 required:
                   - informationSchemaTable
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -18787,6 +18943,7 @@ paths:
               - rolled-back
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -18819,7 +18976,6 @@ paths:
                   - nextOffset
                   - rampSchedules
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -19211,6 +19367,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -19221,7 +19378,6 @@ paths:
                 required:
                   - rampSchedule
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -19258,6 +19414,7 @@ paths:
             type: string
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -19268,7 +19425,6 @@ paths:
                 required:
                   - rampSchedule
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -19304,6 +19460,7 @@ paths:
             type: string
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -19314,7 +19471,6 @@ paths:
                 required:
                   - rampSchedule
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -19352,6 +19508,7 @@ paths:
             type: string
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -19362,7 +19519,6 @@ paths:
                 required:
                   - rampSchedule
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -19416,6 +19572,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -19426,7 +19583,6 @@ paths:
                 required:
                   - rampSchedule
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -19470,6 +19626,7 @@ paths:
             type: string
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -19480,7 +19637,6 @@ paths:
                 required:
                   - rampSchedule
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -19535,6 +19691,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -19545,7 +19702,6 @@ paths:
                 required:
                   - rampSchedule
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -19591,6 +19747,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -19601,7 +19758,6 @@ paths:
                 required:
                   - rampSchedule
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -19671,6 +19827,7 @@ paths:
             type: string
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -19681,7 +19838,6 @@ paths:
                 required:
                   - rampSchedule
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -19734,6 +19890,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -19744,7 +19901,6 @@ paths:
                 required:
                   - rampSchedule
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -19797,6 +19953,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -19818,7 +19975,6 @@ paths:
                       - deleted
                       - rampScheduleId
                     additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -19907,6 +20063,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -19917,7 +20074,6 @@ paths:
                 required:
                   - rampSchedule
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -19943,6 +20099,7 @@ paths:
             type: string
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -19980,7 +20137,6 @@ paths:
                   - currentStepIndex
                   - totalSteps
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -20024,6 +20180,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -20310,7 +20467,6 @@ paths:
                   - currentStepIndex
                   - nextStepAt
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -20351,6 +20507,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -20637,7 +20794,6 @@ paths:
                   - currentStepIndex
                   - nextStepAt
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -20734,6 +20890,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -21020,7 +21177,6 @@ paths:
                   - currentStepIndex
                   - nextStepAt
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -21062,6 +21218,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -21348,7 +21505,6 @@ paths:
                   - currentStepIndex
                   - nextStepAt
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -21426,6 +21582,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -21436,7 +21593,6 @@ paths:
                 required:
                   - rampSchedule
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -21482,6 +21638,7 @@ paths:
             type: string
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -21492,7 +21649,6 @@ paths:
                 required:
                   - rampSchedule
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -21518,6 +21674,7 @@ paths:
             type: string
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -21532,7 +21689,6 @@ paths:
                       - reports
                     additionalProperties: false
                   - $ref: '#/components/schemas/PaginationFields'
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -21744,6 +21900,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -21754,7 +21911,6 @@ paths:
                 required:
                   - report
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -21770,6 +21926,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -21780,7 +21937,6 @@ paths:
                 required:
                   - report
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -21796,6 +21952,7 @@ paths:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -21806,7 +21963,6 @@ paths:
                 required:
                   - report
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -21860,6 +22016,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -21870,7 +22027,6 @@ paths:
                 required:
                   - report
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -22095,6 +22251,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -22105,7 +22262,6 @@ paths:
                 required:
                   - report
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -22125,6 +22281,7 @@ paths:
         - $ref: '#/components/parameters/offset'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -22139,7 +22296,6 @@ paths:
                       - namespaces
                     additionalProperties: false
                   - $ref: '#/components/schemas/PaginationFields'
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -22184,6 +22340,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -22194,7 +22351,6 @@ paths:
                 required:
                   - namespace
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -22218,6 +22374,7 @@ paths:
             type: string
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -22228,7 +22385,6 @@ paths:
                 required:
                   - namespace
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -22276,6 +22432,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -22286,7 +22443,6 @@ paths:
                 required:
                   - namespace
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -22314,6 +22470,7 @@ paths:
             type: string
       responses:
         '200':
+          description: Resource deleted
           content:
             application/json:
               schema:
@@ -22326,7 +22483,6 @@ paths:
                 required:
                   - deletedId
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -22353,6 +22509,7 @@ paths:
         - $ref: '#/components/parameters/offset'
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -22367,7 +22524,6 @@ paths:
                       - experiments
                     additionalProperties: false
                   - $ref: '#/components/schemas/PaginationFields'
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -22406,6 +22562,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -22416,7 +22573,6 @@ paths:
                 required:
                   - namespace
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -22452,10 +22608,10 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema: {}
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -22661,10 +22817,10 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema: {}
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -22699,10 +22855,10 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema: {}
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -22743,10 +22899,10 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema: {}
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -22801,10 +22957,10 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema: {}
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -22833,10 +22989,10 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema: {}
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -22870,10 +23026,10 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema: {}
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -22903,10 +23059,10 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema: {}
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -22981,10 +23137,10 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema: {}
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -23038,10 +23194,10 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema: {}
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -23072,10 +23228,10 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema: {}
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -23089,10 +23245,10 @@ paths:
       operationId: getVisualEditorBootstrap
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema: {}
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -23114,10 +23270,10 @@ paths:
             maximum: 1000
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema: {}
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -23141,6 +23297,7 @@ paths:
             type: string
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -23151,7 +23308,6 @@ paths:
                 required:
                   - dashboard
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -23171,6 +23327,7 @@ paths:
             type: string
       responses:
         '200':
+          description: Resource deleted
           content:
             application/json:
               schema:
@@ -23181,7 +23338,6 @@ paths:
                 required:
                   - deletedId
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -25522,6 +25678,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -25532,7 +25689,6 @@ paths:
                 required:
                   - dashboard
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -26228,6 +26384,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -26238,7 +26395,6 @@ paths:
                 required:
                   - dashboard
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -26251,6 +26407,7 @@ paths:
         - Dashboards
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -26263,7 +26420,6 @@ paths:
                 required:
                   - dashboards
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -26284,6 +26440,7 @@ paths:
             type: string
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -26296,7 +26453,6 @@ paths:
                 required:
                   - dashboards
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -26399,6 +26555,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -26409,7 +26566,6 @@ paths:
                 required:
                   - customField
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -26428,13 +26584,13 @@ paths:
             type: string
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/CustomField'
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -26456,6 +26612,7 @@ paths:
         - $ref: '#/components/parameters/index'
       responses:
         '200':
+          description: Resource deleted
           content:
             application/json:
               schema:
@@ -26466,7 +26623,6 @@ paths:
                 required:
                   - deletedId
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -26489,6 +26645,7 @@ paths:
             type: string
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -26499,7 +26656,6 @@ paths:
                 required:
                   - customField
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -26583,6 +26739,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -26593,7 +26750,6 @@ paths:
                 required:
                   - customField
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -26614,6 +26770,7 @@ paths:
             type: string
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -26624,7 +26781,6 @@ paths:
                 required:
                   - metricGroup
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -26644,6 +26800,7 @@ paths:
             type: string
       responses:
         '200':
+          description: Resource deleted
           content:
             application/json:
               schema:
@@ -26654,7 +26811,6 @@ paths:
                 required:
                   - deletedId
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -26710,6 +26866,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -26720,7 +26877,6 @@ paths:
                 required:
                   - metricGroup
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -26773,6 +26929,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -26783,7 +26940,6 @@ paths:
                 required:
                   - metricGroup
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -26796,6 +26952,7 @@ paths:
         - MetricGroups
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -26808,7 +26965,6 @@ paths:
                 required:
                   - metricGroups
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -26829,6 +26985,7 @@ paths:
             type: string
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -26839,7 +26996,6 @@ paths:
                 required:
                   - team
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -26923,6 +27079,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -26933,7 +27090,6 @@ paths:
                 required:
                   - team
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -26954,6 +27110,7 @@ paths:
         - $ref: '#/components/parameters/deleteMembers'
       responses:
         '200':
+          description: Resource deleted
           content:
             application/json:
               schema:
@@ -26964,7 +27121,6 @@ paths:
                 required:
                   - deletedId
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -27046,6 +27202,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -27056,7 +27213,6 @@ paths:
                 required:
                   - team
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -27069,6 +27225,7 @@ paths:
         - Teams
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -27081,7 +27238,6 @@ paths:
                 required:
                   - teams
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -27116,6 +27272,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -27126,7 +27283,6 @@ paths:
                 required:
                   - status
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -27160,6 +27316,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource deleted
           content:
             application/json:
               schema:
@@ -27170,7 +27327,6 @@ paths:
                 required:
                   - status
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -27194,6 +27350,7 @@ paths:
             type: string
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -27204,7 +27361,6 @@ paths:
                 required:
                   - experimentTemplate
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -27227,6 +27383,7 @@ paths:
             type: string
       responses:
         '200':
+          description: Resource deleted
           content:
             application/json:
               schema:
@@ -27237,7 +27394,6 @@ paths:
                 required:
                   - deletedId
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -27399,6 +27555,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -27409,7 +27566,6 @@ paths:
                 required:
                   - experimentTemplate
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -27572,6 +27728,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -27582,7 +27739,6 @@ paths:
                 required:
                   - experimentTemplate
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -27604,6 +27760,7 @@ paths:
             type: string
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -27616,7 +27773,6 @@ paths:
                 required:
                   - experimentTemplates
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -27796,6 +27952,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -27809,7 +27966,6 @@ paths:
                   - added
                   - updated
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -28089,6 +28245,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -28448,7 +28605,6 @@ paths:
                   - exploration
                   - query
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -28737,6 +28893,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -29105,7 +29262,6 @@ paths:
                   - exploration
                   - query
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -29411,6 +29567,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -29796,7 +29953,6 @@ paths:
                   - exploration
                   - query
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -29820,6 +29976,7 @@ paths:
             type: string
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -29830,7 +29987,6 @@ paths:
                 required:
                   - rampScheduleTemplate
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -29853,6 +30009,7 @@ paths:
             type: string
       responses:
         '200':
+          description: Resource deleted
           content:
             application/json:
               schema:
@@ -29863,7 +30020,6 @@ paths:
                 required:
                   - deletedId
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -30132,9 +30288,13 @@ paths:
                   required:
                     - mode
                   additionalProperties: false
+                order:
+                  description: Display order within the org (lower sorts first).
+                  type: number
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -30145,7 +30305,6 @@ paths:
                 required:
                   - rampScheduleTemplate
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -30408,12 +30567,17 @@ paths:
                   required:
                     - mode
                   additionalProperties: false
+                order:
+                  description: >-
+                    Display order within the org (lower sorts first). Omit to append to the end.
+                  type: number
               required:
                 - name
                 - steps
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -30424,7 +30588,6 @@ paths:
                 required:
                   - rampScheduleTemplate
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -30440,6 +30603,7 @@ paths:
         - RampScheduleTemplates
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -30452,7 +30616,6 @@ paths:
                 required:
                   - rampScheduleTemplates
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -30476,6 +30639,7 @@ paths:
             type: string
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
               schema:
@@ -30486,7 +30650,6 @@ paths:
                 required:
                   - rampSchedule
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -30511,6 +30674,7 @@ paths:
             type: string
       responses:
         '200':
+          description: Resource deleted
           content:
             application/json:
               schema:
@@ -30521,7 +30685,6 @@ paths:
                 required:
                   - deletedId
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -30947,6 +31110,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource updated
           content:
             application/json:
               schema:
@@ -30957,7 +31121,6 @@ paths:
                 required:
                   - rampSchedule
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: |-
@@ -31388,7 +31551,7 @@ components:
           - required
           - never
   schemas:
-    Feature:
+    FeatureV1:
       type: object
       properties:
         id:
@@ -31431,7 +31594,7 @@ components:
           propertyNames:
             type: string
           additionalProperties:
-            $ref: '#/components/schemas/FeatureEnvironment'
+            $ref: '#/components/schemas/FeatureEnvironmentV1'
         prerequisites:
           description: Feature IDs. Each feature must evaluate to `true`
           type: array
@@ -31493,7 +31656,7 @@ components:
         - environments
         - revision
       additionalProperties: false
-    FeatureEnvironment:
+    FeatureEnvironmentV1:
       type: object
       properties:
         enabled:
@@ -31503,7 +31666,7 @@ components:
         rules:
           type: array
           items:
-            $ref: '#/components/schemas/FeatureRule'
+            $ref: '#/components/schemas/FeatureRuleV1'
         definition:
           description: A JSON stringified [FeatureDefinition](#tag/FeatureDefinition_model)
           type: string
@@ -31517,7 +31680,7 @@ components:
             rules:
               type: array
               items:
-                $ref: '#/components/schemas/FeatureRule'
+                $ref: '#/components/schemas/FeatureRuleV1'
             definition:
               description: >-
                 A JSON stringified [FeatureDefinition](#tag/FeatureDefinition_model)
@@ -31532,7 +31695,7 @@ components:
         - defaultValue
         - rules
       additionalProperties: false
-    FeatureRule:
+    FeatureRuleV1:
       anyOf:
         - $ref: '#/components/schemas/FeatureForceRule'
         - $ref: '#/components/schemas/FeatureRolloutRule'
@@ -32134,17 +32297,17 @@ components:
         - hasMore
         - nextOffset
       additionalProperties: false
-    FeatureWithRevisions:
+    FeatureWithRevisionsV1:
       allOf:
-        - $ref: '#/components/schemas/Feature'
+        - $ref: '#/components/schemas/FeatureV1'
         - type: object
           properties:
             revisions:
               type: array
               items:
-                $ref: '#/components/schemas/FeatureRevision'
+                $ref: '#/components/schemas/FeatureRevisionV1'
           additionalProperties: false
-    FeatureRevision:
+    FeatureRevisionV1:
       type: object
       properties:
         featureId:
@@ -32175,7 +32338,7 @@ components:
           additionalProperties:
             type: array
             items:
-              $ref: '#/components/schemas/FeatureRule'
+              $ref: '#/components/schemas/FeatureRuleV1'
         definitions:
           type: object
           propertyNames:
@@ -33124,24 +33287,7 @@ components:
           items:
             type: string
         revision:
-          type: object
-          properties:
-            version:
-              type: integer
-            comment:
-              type: string
-            date:
-              format: date-time
-              type: string
-            createdBy:
-              $ref: '#/components/schemas/EventUser'
-            publishedBy:
-              $ref: '#/components/schemas/EventUser'
-          required:
-            - version
-            - comment
-            - date
-          additionalProperties: false
+          $ref: '#/components/schemas/FeatureRevisionSummary'
         customFields:
           type: object
           propertyNames:
@@ -33180,7 +33326,7 @@ components:
       additionalProperties: false
     FeatureRuleV2:
       allOf:
-        - $ref: '#/components/schemas/FeatureRule'
+        - $ref: '#/components/schemas/FeatureRuleV1'
         - type: object
           properties:
             allEnvironments:
@@ -33216,6 +33362,25 @@ components:
       required:
         - enabled
         - defaultValue
+      additionalProperties: false
+    FeatureRevisionSummary:
+      type: object
+      properties:
+        version:
+          type: integer
+        comment:
+          type: string
+        date:
+          format: date-time
+          type: string
+        createdBy:
+          $ref: '#/components/schemas/EventUser'
+        publishedBy:
+          $ref: '#/components/schemas/EventUser'
+      required:
+        - version
+        - comment
+        - date
       additionalProperties: false
     EventUser:
       description: The user (or automated actor) responsible for an action
@@ -34154,6 +34319,33 @@ components:
                   - rampScheduleId
                   - ruleId
                 additionalProperties: false
+        autoPublishOnApproval:
+          description: >-
+            When true, the revision is armed to publish automatically once governance allows (immediately on approval, or on `scheduledPublishAt` if set).
+          type: boolean
+        scheduledPublishAt:
+          description: >-
+            Target date for a deferred (scheduled) publish. Null/absent means publish as soon as approved.
+          anyOf:
+            - format: date-time
+              type: string
+            - type: 'null'
+        scheduledPublishLockEdits:
+          description: >-
+            When true, content edits to this draft are frozen while the schedule is pending (rebasing is still allowed).
+          type: boolean
+        scheduledPublishLockOthers:
+          description: >-
+            When true, publishing other drafts of this feature is blocked while the schedule is pending.
+          type: boolean
+        scheduledPublishBypassApproval:
+          description: >-
+            When true, this schedule was armed by an admin via the bypass-approval override. It cannot be edited inline (only canceled and re-armed) and anyone with publish authority may cancel it.
+          type: boolean
+        scheduledPublishLastError:
+          description: >-
+            Set when a due scheduled publish keeps failing (e.g. still awaiting approval, merge conflict). Indicates the schedule is stuck and retrying.
+          type: string
         reviews:
           description: >-
             Reviewer verdicts for the current review cycle (one entry per reviewer). Verdicts flip to their -stale variants when draft content changes after submission; the list is cleared when a new review cycle starts. Absent on revisions that predate this field.
@@ -41574,12 +41766,17 @@ components:
                 - mode
               additionalProperties: false
             - type: 'null'
+        order:
+          description: >-
+            Manual display order within the org (read-only; managed via the app).
+          type: number
       required:
         - id
         - dateCreated
         - dateUpdated
         - name
         - steps
+        - order
       additionalProperties: false
     ApiErrorChecklistIncompleteDetails:
       type: object
@@ -43107,22 +43304,23 @@ x-tagGroups:
       - FactTable_model
       - FactTableColumn_model
       - FactTableFilter_model
-      - Feature_model
       - FeatureBaseRule_model
       - FeatureDefinition_model
-      - FeatureEnvironment_model
+      - FeatureEnvironmentV1_model
       - FeatureEnvironmentV2_model
       - FeatureExperimentRefRule_model
       - FeatureExperimentRule_model
       - FeatureForceRule_model
-      - FeatureRevision_model
+      - FeatureRevisionSummary_model
+      - FeatureRevisionV1_model
       - FeatureRevisionV2_model
       - FeatureRolloutRule_model
-      - FeatureRule_model
+      - FeatureRuleV1_model
       - FeatureRuleV2_model
       - FeatureSafeRolloutRule_model
+      - FeatureV1_model
       - FeatureV2_model
-      - FeatureWithRevisions_model
+      - FeatureWithRevisionsV1_model
       - FeatureWithRevisionsV2_model
       - InformationSchema_model
       - InformationSchemaTable_model

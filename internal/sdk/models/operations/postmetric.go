@@ -875,6 +875,7 @@ func (p *PostMetricRequest) GetMixpanel() *PostMetricMixpanel {
 	return p.Mixpanel
 }
 
+// PostMetricResponseBody - Resource created
 type PostMetricResponseBody struct {
 	Metric components.Metric `json:"metric"`
 }
@@ -888,7 +889,8 @@ func (p *PostMetricResponseBody) GetMetric() components.Metric {
 
 type PostMetricResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostMetricResponseBody
+	// Resource created
+	Object *PostMetricResponseBody
 }
 
 func (p PostMetricResponse) MarshalJSON() ([]byte, error) {

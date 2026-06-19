@@ -19,6 +19,7 @@ func (l *LookupSDKConnectionByKeyRequest) GetKey() string {
 	return l.Key
 }
 
+// LookupSDKConnectionByKeyResponseBody - Successful response
 type LookupSDKConnectionByKeyResponseBody struct {
 	SDKConnection components.SDKConnection `json:"sdkConnection"`
 }
@@ -32,7 +33,8 @@ func (l *LookupSDKConnectionByKeyResponseBody) GetSDKConnection() components.SDK
 
 type LookupSDKConnectionByKeyResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *LookupSDKConnectionByKeyResponseBody
+	// Successful response
+	Object *LookupSDKConnectionByKeyResponseBody
 }
 
 func (l LookupSDKConnectionByKeyResponse) MarshalJSON() ([]byte, error) {

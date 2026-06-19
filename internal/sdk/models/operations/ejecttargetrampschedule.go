@@ -126,6 +126,7 @@ const (
 	EjectTargetRampScheduleResponseBodyTypeUnknown                              EjectTargetRampScheduleResponseBodyType = "Unknown"
 )
 
+// EjectTargetRampScheduleResponseBody - Resource created
 type EjectTargetRampScheduleResponseBody struct {
 	EjectTargetRampScheduleResponseBody1 *EjectTargetRampScheduleResponseBody1 `queryParam:"inline" union:"member"`
 	EjectTargetRampScheduleResponseBody2 *EjectTargetRampScheduleResponseBody2 `queryParam:"inline" union:"member"`
@@ -235,7 +236,8 @@ func (u EjectTargetRampScheduleResponseBody) MarshalJSON() ([]byte, error) {
 
 type EjectTargetRampScheduleResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	OneOf    *EjectTargetRampScheduleResponseBody
+	// Resource created
+	OneOf *EjectTargetRampScheduleResponseBody
 }
 
 func (e *EjectTargetRampScheduleResponse) GetHTTPMeta() components.HTTPMetadata {

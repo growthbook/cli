@@ -35,6 +35,7 @@ func (g *GetExperimentResultsRequest) GetDimension() *string {
 	return g.Dimension
 }
 
+// GetExperimentResultsResponseBody - Successful response
 type GetExperimentResultsResponseBody struct {
 	Experiment components.Experiment        `json:"experiment"`
 	Result     components.ExperimentResults `json:"result"`
@@ -56,7 +57,8 @@ func (g *GetExperimentResultsResponseBody) GetResult() components.ExperimentResu
 
 type GetExperimentResultsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetExperimentResultsResponseBody
+	// Successful response
+	Object *GetExperimentResultsResponseBody
 }
 
 func (g GetExperimentResultsResponse) MarshalJSON() ([]byte, error) {

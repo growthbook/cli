@@ -26,6 +26,7 @@ func (d *DeleteCustomFieldRequest) GetIndex() *string {
 	return d.Index
 }
 
+// DeleteCustomFieldResponseBody - Resource deleted
 type DeleteCustomFieldResponseBody struct {
 	DeletedID string `json:"deletedId"`
 }
@@ -39,7 +40,8 @@ func (d *DeleteCustomFieldResponseBody) GetDeletedID() string {
 
 type DeleteCustomFieldResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *DeleteCustomFieldResponseBody
+	// Resource deleted
+	Object *DeleteCustomFieldResponseBody
 }
 
 func (d DeleteCustomFieldResponse) MarshalJSON() ([]byte, error) {

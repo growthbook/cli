@@ -46,20 +46,22 @@ func (r *RevertFeatureRequest) GetBody() RevertFeatureRequestBody {
 	return r.Body
 }
 
+// RevertFeatureResponseBody - Resource created
 type RevertFeatureResponseBody struct {
-	Feature components.Feature `json:"feature"`
+	Feature components.FeatureV1 `json:"feature"`
 }
 
-func (r *RevertFeatureResponseBody) GetFeature() components.Feature {
+func (r *RevertFeatureResponseBody) GetFeature() components.FeatureV1 {
 	if r == nil {
-		return components.Feature{}
+		return components.FeatureV1{}
 	}
 	return r.Feature
 }
 
 type RevertFeatureResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *RevertFeatureResponseBody
+	// Resource created
+	Object *RevertFeatureResponseBody
 }
 
 func (r RevertFeatureResponse) MarshalJSON() ([]byte, error) {

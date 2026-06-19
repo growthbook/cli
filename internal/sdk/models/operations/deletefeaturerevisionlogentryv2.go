@@ -51,6 +51,7 @@ func (d *DeleteFeatureRevisionLogEntryV2Request) GetBody() DeleteFeatureRevision
 // #region class-body-deletefeaturerevisionlogentryv2request
 // #endregion class-body-deletefeaturerevisionlogentryv2request
 
+// DeleteFeatureRevisionLogEntryV2ResponseBody - Resource deleted
 type DeleteFeatureRevisionLogEntryV2ResponseBody struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	status float64 `const:"200" json:"status"`
@@ -76,7 +77,8 @@ func (d *DeleteFeatureRevisionLogEntryV2ResponseBody) GetStatus() float64 {
 
 type DeleteFeatureRevisionLogEntryV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *DeleteFeatureRevisionLogEntryV2ResponseBody
+	// Resource deleted
+	Object *DeleteFeatureRevisionLogEntryV2ResponseBody
 }
 
 func (d DeleteFeatureRevisionLogEntryV2Response) MarshalJSON() ([]byte, error) {

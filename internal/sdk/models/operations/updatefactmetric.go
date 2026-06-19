@@ -1133,6 +1133,7 @@ func (u *UpdateFactMetricRequest) GetBody() UpdateFactMetricRequestBody {
 	return u.Body
 }
 
+// UpdateFactMetricResponseBody - Resource created
 type UpdateFactMetricResponseBody struct {
 	FactMetric components.FactMetric `json:"factMetric"`
 }
@@ -1146,7 +1147,8 @@ func (u *UpdateFactMetricResponseBody) GetFactMetric() components.FactMetric {
 
 type UpdateFactMetricResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *UpdateFactMetricResponseBody
+	// Resource created
+	Object *UpdateFactMetricResponseBody
 }
 
 func (u UpdateFactMetricResponse) MarshalJSON() ([]byte, error) {

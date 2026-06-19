@@ -46,20 +46,22 @@ func (t *ToggleFeatureRequest) GetBody() ToggleFeatureRequestBody {
 	return t.Body
 }
 
+// ToggleFeatureResponseBody - Resource created
 type ToggleFeatureResponseBody struct {
-	Feature components.Feature `json:"feature"`
+	Feature components.FeatureV1 `json:"feature"`
 }
 
-func (t *ToggleFeatureResponseBody) GetFeature() components.Feature {
+func (t *ToggleFeatureResponseBody) GetFeature() components.FeatureV1 {
 	if t == nil {
-		return components.Feature{}
+		return components.FeatureV1{}
 	}
 	return t.Feature
 }
 
 type ToggleFeatureResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ToggleFeatureResponseBody
+	// Resource created
+	Object *ToggleFeatureResponseBody
 }
 
 func (t ToggleFeatureResponse) MarshalJSON() ([]byte, error) {

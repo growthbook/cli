@@ -39,6 +39,7 @@ func (l *ListProjectsRequest) GetOffset() *int64 {
 	return l.Offset
 }
 
+// ListProjectsResponseBody - Successful response
 type ListProjectsResponseBody struct {
 	Projects   []components.Project `json:"projects"`
 	Limit      int64                `json:"limit"`
@@ -100,7 +101,8 @@ func (l *ListProjectsResponseBody) GetNextOffset() *int64 {
 
 type ListProjectsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListProjectsResponseBody
+	// Successful response
+	Object *ListProjectsResponseBody
 }
 
 func (l ListProjectsResponse) MarshalJSON() ([]byte, error) {

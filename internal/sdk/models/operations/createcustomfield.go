@@ -484,6 +484,7 @@ func (c *CreateCustomFieldRequest) GetSections() []CreateCustomFieldSection {
 	return c.Sections
 }
 
+// CreateCustomFieldResponseBody - Resource created
 type CreateCustomFieldResponseBody struct {
 	CustomField components.CustomField `json:"customField"`
 }
@@ -497,7 +498,8 @@ func (c *CreateCustomFieldResponseBody) GetCustomField() components.CustomField 
 
 type CreateCustomFieldResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *CreateCustomFieldResponseBody
+	// Resource created
+	Object *CreateCustomFieldResponseBody
 }
 
 func (c CreateCustomFieldResponse) MarshalJSON() ([]byte, error) {

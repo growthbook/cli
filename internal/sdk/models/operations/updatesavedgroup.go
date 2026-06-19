@@ -94,6 +94,7 @@ func (u *UpdateSavedGroupRequest) GetBody() UpdateSavedGroupRequestBody {
 	return u.Body
 }
 
+// UpdateSavedGroupResponseBody - Resource created
 type UpdateSavedGroupResponseBody struct {
 	SavedGroup components.SavedGroup `json:"savedGroup"`
 }
@@ -107,7 +108,8 @@ func (u *UpdateSavedGroupResponseBody) GetSavedGroup() components.SavedGroup {
 
 type UpdateSavedGroupResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *UpdateSavedGroupResponseBody
+	// Resource created
+	Object *UpdateSavedGroupResponseBody
 }
 
 func (u UpdateSavedGroupResponse) MarshalJSON() ([]byte, error) {

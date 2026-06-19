@@ -95,6 +95,7 @@ func (l *ListRevisionsV2Request) GetArchived() any {
 // #region class-body-listrevisionsv2request
 // #endregion class-body-listrevisionsv2request
 
+// ListRevisionsV2ResponseBody - Successful response
 type ListRevisionsV2ResponseBody struct {
 	Revisions  []components.FeatureRevisionV2 `json:"revisions"`
 	Limit      int64                          `json:"limit"`
@@ -159,7 +160,8 @@ func (l *ListRevisionsV2ResponseBody) GetNextOffset() *int64 {
 
 type ListRevisionsV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListRevisionsV2ResponseBody
+	// Successful response
+	Object *ListRevisionsV2ResponseBody
 }
 
 func (l ListRevisionsV2Response) MarshalJSON() ([]byte, error) {

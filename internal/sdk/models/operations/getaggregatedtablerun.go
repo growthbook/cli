@@ -28,6 +28,7 @@ func (g *GetAggregatedTableRunRequest) GetRunID() string {
 	return g.RunID
 }
 
+// GetAggregatedTableRunResponseBody - Successful response
 type GetAggregatedTableRunResponseBody struct {
 	Run components.AggregatedTableRun `json:"run"`
 }
@@ -41,7 +42,8 @@ func (g *GetAggregatedTableRunResponseBody) GetRun() components.AggregatedTableR
 
 type GetAggregatedTableRunResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetAggregatedTableRunResponseBody
+	// Successful response
+	Object *GetAggregatedTableRunResponseBody
 }
 
 func (g GetAggregatedTableRunResponse) MarshalJSON() ([]byte, error) {

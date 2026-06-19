@@ -421,6 +421,7 @@ func (u *UpdateExperimentTemplateRequest) GetBody() UpdateExperimentTemplateRequ
 	return u.Body
 }
 
+// UpdateExperimentTemplateResponseBody - Resource updated
 type UpdateExperimentTemplateResponseBody struct {
 	ExperimentTemplate components.ExperimentTemplate `json:"experimentTemplate"`
 }
@@ -434,7 +435,8 @@ func (u *UpdateExperimentTemplateResponseBody) GetExperimentTemplate() component
 
 type UpdateExperimentTemplateResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *UpdateExperimentTemplateResponseBody
+	// Resource updated
+	Object *UpdateExperimentTemplateResponseBody
 }
 
 func (u UpdateExperimentTemplateResponse) MarshalJSON() ([]byte, error) {

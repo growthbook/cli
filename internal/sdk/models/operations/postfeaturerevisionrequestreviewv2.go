@@ -4,12 +4,28 @@ package operations
 
 import (
 	"github.com/growthbook/cli/internal/sdk/models/components"
+	"github.com/growthbook/cli/internal/sdk/optionalnullable"
 	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"time"
 )
 
 type PostFeatureRevisionRequestReviewV2RequestBody struct {
-	Comment               *string `json:"comment,omitzero"`
-	AutoPublishOnApproval *bool   `json:"autoPublishOnApproval,omitzero"`
+	Comment                    *string                                      `json:"comment,omitzero"`
+	AutoPublishOnApproval      *bool                                        `json:"autoPublishOnApproval,omitzero"`
+	ScheduledPublishAt         optionalnullable.OptionalNullable[time.Time] `json:"scheduledPublishAt,omitzero"`
+	ScheduledPublishLockEdits  *bool                                        `json:"scheduledPublishLockEdits,omitzero"`
+	ScheduledPublishLockOthers *bool                                        `json:"scheduledPublishLockOthers,omitzero"`
+}
+
+func (p PostFeatureRevisionRequestReviewV2RequestBody) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostFeatureRevisionRequestReviewV2RequestBody) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (p *PostFeatureRevisionRequestReviewV2RequestBody) GetComment() *string {
@@ -24,6 +40,27 @@ func (p *PostFeatureRevisionRequestReviewV2RequestBody) GetAutoPublishOnApproval
 		return nil
 	}
 	return p.AutoPublishOnApproval
+}
+
+func (p *PostFeatureRevisionRequestReviewV2RequestBody) GetScheduledPublishAt() optionalnullable.OptionalNullable[time.Time] {
+	if p == nil {
+		return nil
+	}
+	return p.ScheduledPublishAt
+}
+
+func (p *PostFeatureRevisionRequestReviewV2RequestBody) GetScheduledPublishLockEdits() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.ScheduledPublishLockEdits
+}
+
+func (p *PostFeatureRevisionRequestReviewV2RequestBody) GetScheduledPublishLockOthers() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.ScheduledPublishLockOthers
 }
 
 // #region class-body-postfeaturerevisionrequestreviewv2requestbody
@@ -59,6 +96,7 @@ func (p *PostFeatureRevisionRequestReviewV2Request) GetBody() PostFeatureRevisio
 // #region class-body-postfeaturerevisionrequestreviewv2request
 // #endregion class-body-postfeaturerevisionrequestreviewv2request
 
+// PostFeatureRevisionRequestReviewV2ResponseBody - Resource created
 type PostFeatureRevisionRequestReviewV2ResponseBody struct {
 	Revision components.FeatureRevisionV2 `json:"revision"`
 }
@@ -75,7 +113,8 @@ func (p *PostFeatureRevisionRequestReviewV2ResponseBody) GetRevision() component
 
 type PostFeatureRevisionRequestReviewV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostFeatureRevisionRequestReviewV2ResponseBody
+	// Resource created
+	Object *PostFeatureRevisionRequestReviewV2ResponseBody
 }
 
 func (p PostFeatureRevisionRequestReviewV2Response) MarshalJSON() ([]byte, error) {

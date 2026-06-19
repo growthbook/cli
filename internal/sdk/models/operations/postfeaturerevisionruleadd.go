@@ -2105,20 +2105,22 @@ func (p *PostFeatureRevisionRuleAddRequest) GetBody() PostFeatureRevisionRuleAdd
 	return p.Body
 }
 
+// PostFeatureRevisionRuleAddResponseBody - Resource created
 type PostFeatureRevisionRuleAddResponseBody struct {
-	Revision components.FeatureRevision `json:"revision"`
+	Revision components.FeatureRevisionV1 `json:"revision"`
 }
 
-func (p *PostFeatureRevisionRuleAddResponseBody) GetRevision() components.FeatureRevision {
+func (p *PostFeatureRevisionRuleAddResponseBody) GetRevision() components.FeatureRevisionV1 {
 	if p == nil {
-		return components.FeatureRevision{}
+		return components.FeatureRevisionV1{}
 	}
 	return p.Revision
 }
 
 type PostFeatureRevisionRuleAddResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostFeatureRevisionRuleAddResponseBody
+	// Resource created
+	Object *PostFeatureRevisionRuleAddResponseBody
 }
 
 func (p PostFeatureRevisionRuleAddResponse) MarshalJSON() ([]byte, error) {

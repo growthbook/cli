@@ -7,6 +7,7 @@ import (
 	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
 )
 
+// ListEnvironmentsResponseBody - Successful response
 type ListEnvironmentsResponseBody struct {
 	Environments []components.Environment `json:"environments"`
 }
@@ -20,7 +21,8 @@ func (l *ListEnvironmentsResponseBody) GetEnvironments() []components.Environmen
 
 type ListEnvironmentsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListEnvironmentsResponseBody
+	// Successful response
+	Object *ListEnvironmentsResponseBody
 }
 
 func (l ListEnvironmentsResponse) MarshalJSON() ([]byte, error) {

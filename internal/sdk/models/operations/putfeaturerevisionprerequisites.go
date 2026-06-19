@@ -80,20 +80,22 @@ func (p *PutFeatureRevisionPrerequisitesRequest) GetBody() PutFeatureRevisionPre
 	return p.Body
 }
 
+// PutFeatureRevisionPrerequisitesResponseBody - Resource updated
 type PutFeatureRevisionPrerequisitesResponseBody struct {
-	Revision components.FeatureRevision `json:"revision"`
+	Revision components.FeatureRevisionV1 `json:"revision"`
 }
 
-func (p *PutFeatureRevisionPrerequisitesResponseBody) GetRevision() components.FeatureRevision {
+func (p *PutFeatureRevisionPrerequisitesResponseBody) GetRevision() components.FeatureRevisionV1 {
 	if p == nil {
-		return components.FeatureRevision{}
+		return components.FeatureRevisionV1{}
 	}
 	return p.Revision
 }
 
 type PutFeatureRevisionPrerequisitesResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PutFeatureRevisionPrerequisitesResponseBody
+	// Resource updated
+	Object *PutFeatureRevisionPrerequisitesResponseBody
 }
 
 func (p PutFeatureRevisionPrerequisitesResponse) MarshalJSON() ([]byte, error) {

@@ -19,6 +19,7 @@ func (l *ListVisualChangesetsRequest) GetID() string {
 	return l.ID
 }
 
+// ListVisualChangesetsResponseBody - Successful response
 type ListVisualChangesetsResponseBody struct {
 	VisualChangesets []components.VisualChangeset `json:"visualChangesets"`
 }
@@ -32,7 +33,8 @@ func (l *ListVisualChangesetsResponseBody) GetVisualChangesets() []components.Vi
 
 type ListVisualChangesetsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListVisualChangesetsResponseBody
+	// Successful response
+	Object *ListVisualChangesetsResponseBody
 }
 
 func (l ListVisualChangesetsResponse) MarshalJSON() ([]byte, error) {

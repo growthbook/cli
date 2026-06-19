@@ -62,6 +62,7 @@ func (p *PutSavedGroupRevisionConditionRequest) GetBody() PutSavedGroupRevisionC
 	return p.Body
 }
 
+// PutSavedGroupRevisionConditionResponseBody - Resource updated
 type PutSavedGroupRevisionConditionResponseBody struct {
 	Revision components.SavedGroupRevision `json:"revision"`
 }
@@ -75,7 +76,8 @@ func (p *PutSavedGroupRevisionConditionResponseBody) GetRevision() components.Sa
 
 type PutSavedGroupRevisionConditionResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PutSavedGroupRevisionConditionResponseBody
+	// Resource updated
+	Object *PutSavedGroupRevisionConditionResponseBody
 }
 
 func (p PutSavedGroupRevisionConditionResponse) MarshalJSON() ([]byte, error) {

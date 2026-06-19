@@ -31,6 +31,7 @@ func (g *GetFeatureV2Request) GetWithRevisions() *components.WithRevisions {
 // #region class-body-getfeaturev2request
 // #endregion class-body-getfeaturev2request
 
+// GetFeatureV2ResponseBody - Successful response
 type GetFeatureV2ResponseBody struct {
 	Feature components.FeatureWithRevisionsV2 `json:"feature"`
 }
@@ -47,7 +48,8 @@ func (g *GetFeatureV2ResponseBody) GetFeature() components.FeatureWithRevisionsV
 
 type GetFeatureV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetFeatureV2ResponseBody
+	// Successful response
+	Object *GetFeatureV2ResponseBody
 }
 
 func (g GetFeatureV2Response) MarshalJSON() ([]byte, error) {

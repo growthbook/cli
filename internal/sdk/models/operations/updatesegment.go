@@ -196,6 +196,7 @@ func (u *UpdateSegmentRequest) GetBody() UpdateSegmentRequestBody {
 	return u.Body
 }
 
+// UpdateSegmentResponseBody - Resource created
 type UpdateSegmentResponseBody struct {
 	Segment components.Segment `json:"segment"`
 }
@@ -209,7 +210,8 @@ func (u *UpdateSegmentResponseBody) GetSegment() components.Segment {
 
 type UpdateSegmentResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *UpdateSegmentResponseBody
+	// Resource created
+	Object *UpdateSegmentResponseBody
 }
 
 func (u UpdateSegmentResponse) MarshalJSON() ([]byte, error) {

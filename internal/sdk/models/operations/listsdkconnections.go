@@ -64,6 +64,7 @@ func (l *ListSDKConnectionsRequest) GetMultiOrg() *string {
 	return l.MultiOrg
 }
 
+// ListSDKConnectionsResponseBody - Successful response
 type ListSDKConnectionsResponseBody struct {
 	Connections []components.SDKConnection `json:"connections"`
 	Limit       int64                      `json:"limit"`
@@ -125,7 +126,8 @@ func (l *ListSDKConnectionsResponseBody) GetNextOffset() *int64 {
 
 type ListSDKConnectionsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListSDKConnectionsResponseBody
+	// Successful response
+	Object *ListSDKConnectionsResponseBody
 }
 
 func (l ListSDKConnectionsResponse) MarshalJSON() ([]byte, error) {

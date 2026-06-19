@@ -27,7 +27,8 @@ func (p *PostVisualEditorAddVariantRequest) GetName() *string {
 
 type PostVisualEditorAddVariantResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Any      any
+	// Resource created
+	Any any
 }
 
 func (p *PostVisualEditorAddVariantResponse) GetHTTPMeta() components.HTTPMetadata {

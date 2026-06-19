@@ -22,6 +22,7 @@ var updateRampScheduleTemplateCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "official", FieldPath: "Body.Official", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "monitoring-config", Shorthand: "m", FieldPath: "Body.MonitoringConfig", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"monitoringConfig,omitempty"`, Description: "JSON object"},
 	{FlagName: "lockdown-config", Shorthand: "l", FieldPath: "Body.LockdownConfig", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"lockdownConfig,omitempty"`, Description: "JSON object"},
+	{FlagName: "order", FieldPath: "Body.Order", Kind: flagutil.FlagKindFloat64, Optional: true, Description: "Display order within the org (lower sorts first)."},
 }
 
 // initUpdateRampScheduleTemplateCmd initializes the update-ramp-schedule-template command.

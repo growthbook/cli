@@ -18,6 +18,7 @@ func (g *GetCustomFieldRequest) GetID() string {
 	return g.ID
 }
 
+// GetCustomFieldResponseBody - Successful response
 type GetCustomFieldResponseBody struct {
 	CustomField components.CustomField `json:"customField"`
 }
@@ -31,7 +32,8 @@ func (g *GetCustomFieldResponseBody) GetCustomField() components.CustomField {
 
 type GetCustomFieldResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetCustomFieldResponseBody
+	// Successful response
+	Object *GetCustomFieldResponseBody
 }
 
 func (g GetCustomFieldResponse) MarshalJSON() ([]byte, error) {

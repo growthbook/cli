@@ -57,6 +57,7 @@ func (l *ListMetricsRequest) GetDatasourceID() *string {
 	return l.DatasourceID
 }
 
+// ListMetricsResponseBody - Successful response
 type ListMetricsResponseBody struct {
 	Metrics    []components.Metric `json:"metrics"`
 	Limit      int64               `json:"limit"`
@@ -118,7 +119,8 @@ func (l *ListMetricsResponseBody) GetNextOffset() *int64 {
 
 type ListMetricsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListMetricsResponseBody
+	// Successful response
+	Object *ListMetricsResponseBody
 }
 
 func (l ListMetricsResponse) MarshalJSON() ([]byte, error) {

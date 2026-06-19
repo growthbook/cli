@@ -96,6 +96,7 @@ func (p *PostVariationImageUploadRequest) GetBody() PostVariationImageUploadRequ
 	return p.Body
 }
 
+// PostVariationImageUploadResponseBody - Resource created
 type PostVariationImageUploadResponseBody struct {
 	Screenshot components.Screenshot `json:"screenshot"`
 }
@@ -109,7 +110,8 @@ func (p *PostVariationImageUploadResponseBody) GetScreenshot() components.Screen
 
 type PostVariationImageUploadResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostVariationImageUploadResponseBody
+	// Resource created
+	Object *PostVariationImageUploadResponseBody
 }
 
 func (p PostVariationImageUploadResponse) MarshalJSON() ([]byte, error) {

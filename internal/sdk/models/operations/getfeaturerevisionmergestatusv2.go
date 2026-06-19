@@ -189,6 +189,7 @@ func (g *GetFeatureRevisionMergeStatusV2Result) GetHoldout() optionalnullable.Op
 // #region class-body-getfeaturerevisionmergestatusv2result
 // #endregion class-body-getfeaturerevisionmergestatusv2result
 
+// GetFeatureRevisionMergeStatusV2ResponseBody - Successful response
 type GetFeatureRevisionMergeStatusV2ResponseBody struct {
 	Success bool `json:"success"`
 	// The current live version the merge was computed against. Echo this back as `expectedLiveVersion` when rebasing.
@@ -259,7 +260,8 @@ func (g *GetFeatureRevisionMergeStatusV2ResponseBody) GetRebaseRequired() bool {
 
 type GetFeatureRevisionMergeStatusV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetFeatureRevisionMergeStatusV2ResponseBody
+	// Successful response
+	Object *GetFeatureRevisionMergeStatusV2ResponseBody
 }
 
 func (g GetFeatureRevisionMergeStatusV2Response) MarshalJSON() ([]byte, error) {

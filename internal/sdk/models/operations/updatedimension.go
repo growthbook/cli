@@ -122,6 +122,7 @@ func (u *UpdateDimensionRequest) GetBody() UpdateDimensionRequestBody {
 	return u.Body
 }
 
+// UpdateDimensionResponseBody - Resource created
 type UpdateDimensionResponseBody struct {
 	Dimension components.Dimension `json:"dimension"`
 }
@@ -135,7 +136,8 @@ func (u *UpdateDimensionResponseBody) GetDimension() components.Dimension {
 
 type UpdateDimensionResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *UpdateDimensionResponseBody
+	// Resource created
+	Object *UpdateDimensionResponseBody
 }
 
 func (u UpdateDimensionResponse) MarshalJSON() ([]byte, error) {

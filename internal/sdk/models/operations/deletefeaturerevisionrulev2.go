@@ -69,6 +69,7 @@ func (d *DeleteFeatureRevisionRuleV2Request) GetBody() DeleteFeatureRevisionRule
 // #region class-body-deletefeaturerevisionrulev2request
 // #endregion class-body-deletefeaturerevisionrulev2request
 
+// DeleteFeatureRevisionRuleV2ResponseBody - Resource deleted
 type DeleteFeatureRevisionRuleV2ResponseBody struct {
 	Revision components.FeatureRevisionV2 `json:"revision"`
 }
@@ -85,7 +86,8 @@ func (d *DeleteFeatureRevisionRuleV2ResponseBody) GetRevision() components.Featu
 
 type DeleteFeatureRevisionRuleV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *DeleteFeatureRevisionRuleV2ResponseBody
+	// Resource deleted
+	Object *DeleteFeatureRevisionRuleV2ResponseBody
 }
 
 func (d DeleteFeatureRevisionRuleV2Response) MarshalJSON() ([]byte, error) {

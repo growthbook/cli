@@ -656,6 +656,8 @@ type CreateRampScheduleTemplateRequest struct {
 	Official         *bool                                                                         `json:"official,omitzero"`
 	MonitoringConfig optionalnullable.OptionalNullable[CreateRampScheduleTemplateMonitoringConfig] `json:"monitoringConfig,omitzero"`
 	LockdownConfig   *CreateRampScheduleTemplateLockdownConfig                                     `json:"lockdownConfig,omitzero"`
+	// Display order within the org (lower sorts first). Omit to append to the end.
+	Order *float64 `json:"order,omitzero"`
 }
 
 func (c CreateRampScheduleTemplateRequest) MarshalJSON() ([]byte, error) {
@@ -711,6 +713,14 @@ func (c *CreateRampScheduleTemplateRequest) GetLockdownConfig() *CreateRampSched
 	return c.LockdownConfig
 }
 
+func (c *CreateRampScheduleTemplateRequest) GetOrder() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.Order
+}
+
+// CreateRampScheduleTemplateResponseBody - Resource created
 type CreateRampScheduleTemplateResponseBody struct {
 	RampScheduleTemplate components.RampScheduleTemplate `json:"rampScheduleTemplate"`
 }
@@ -724,7 +734,8 @@ func (c *CreateRampScheduleTemplateResponseBody) GetRampScheduleTemplate() compo
 
 type CreateRampScheduleTemplateResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *CreateRampScheduleTemplateResponseBody
+	// Resource created
+	Object *CreateRampScheduleTemplateResponseBody
 }
 
 func (c CreateRampScheduleTemplateResponse) MarshalJSON() ([]byte, error) {

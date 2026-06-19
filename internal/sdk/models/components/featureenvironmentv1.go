@@ -7,9 +7,9 @@ import (
 )
 
 type Draft struct {
-	Enabled      bool          `json:"enabled"`
-	DefaultValue string        `json:"defaultValue"`
-	Rules        []FeatureRule `json:"rules"`
+	Enabled      bool            `json:"enabled"`
+	DefaultValue string          `json:"defaultValue"`
+	Rules        []FeatureRuleV1 `json:"rules"`
 	// A JSON stringified [FeatureDefinition](#tag/FeatureDefinition_model)
 	Definition *string `json:"definition,omitzero"`
 }
@@ -28,9 +28,9 @@ func (d *Draft) GetDefaultValue() string {
 	return d.DefaultValue
 }
 
-func (d *Draft) GetRules() []FeatureRule {
+func (d *Draft) GetRules() []FeatureRuleV1 {
 	if d == nil {
-		return []FeatureRule{}
+		return []FeatureRuleV1{}
 	}
 	return d.Rules
 }
@@ -42,57 +42,60 @@ func (d *Draft) GetDefinition() *string {
 	return d.Definition
 }
 
-type FeatureEnvironment struct {
-	Enabled      bool          `json:"enabled"`
-	DefaultValue string        `json:"defaultValue"`
-	Rules        []FeatureRule `json:"rules"`
+type FeatureEnvironmentV1 struct {
+	Enabled      bool            `json:"enabled"`
+	DefaultValue string          `json:"defaultValue"`
+	Rules        []FeatureRuleV1 `json:"rules"`
 	// A JSON stringified [FeatureDefinition](#tag/FeatureDefinition_model)
 	Definition *string `json:"definition,omitzero"`
 	Draft      *Draft  `json:"draft,omitzero"`
 }
 
-func (f FeatureEnvironment) MarshalJSON() ([]byte, error) {
+func (f FeatureEnvironmentV1) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(f, "", false)
 }
 
-func (f *FeatureEnvironment) UnmarshalJSON(data []byte) error {
+func (f *FeatureEnvironmentV1) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *FeatureEnvironment) GetEnabled() bool {
+func (f *FeatureEnvironmentV1) GetEnabled() bool {
 	if f == nil {
 		return false
 	}
 	return f.Enabled
 }
 
-func (f *FeatureEnvironment) GetDefaultValue() string {
+func (f *FeatureEnvironmentV1) GetDefaultValue() string {
 	if f == nil {
 		return ""
 	}
 	return f.DefaultValue
 }
 
-func (f *FeatureEnvironment) GetRules() []FeatureRule {
+func (f *FeatureEnvironmentV1) GetRules() []FeatureRuleV1 {
 	if f == nil {
-		return []FeatureRule{}
+		return []FeatureRuleV1{}
 	}
 	return f.Rules
 }
 
-func (f *FeatureEnvironment) GetDefinition() *string {
+func (f *FeatureEnvironmentV1) GetDefinition() *string {
 	if f == nil {
 		return nil
 	}
 	return f.Definition
 }
 
-func (f *FeatureEnvironment) GetDraft() *Draft {
+func (f *FeatureEnvironmentV1) GetDraft() *Draft {
 	if f == nil {
 		return nil
 	}
 	return f.Draft
 }
+
+// #region class-body-featureenvironmentv1
+// #endregion class-body-featureenvironmentv1

@@ -19,7 +19,8 @@ func (g *GetVisualEditorLibraryImagesRequest) GetLimit() *int64 {
 
 type GetVisualEditorLibraryImagesResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Any      any
+	// Successful response
+	Any any
 }
 
 func (g *GetVisualEditorLibraryImagesResponse) GetHTTPMeta() components.HTTPMetadata {

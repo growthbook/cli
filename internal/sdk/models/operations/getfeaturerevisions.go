@@ -75,19 +75,20 @@ func (g *GetFeatureRevisionsRequest) GetAuthor() *string {
 	return g.Author
 }
 
+// GetFeatureRevisionsResponseBody - Successful response
 type GetFeatureRevisionsResponseBody struct {
-	Revisions  []components.FeatureRevision `json:"revisions"`
-	Limit      int64                        `json:"limit"`
-	Offset     int64                        `json:"offset"`
-	Count      int64                        `json:"count"`
-	Total      int64                        `json:"total"`
-	HasMore    bool                         `json:"hasMore"`
-	NextOffset *int64                       `json:"nextOffset"`
+	Revisions  []components.FeatureRevisionV1 `json:"revisions"`
+	Limit      int64                          `json:"limit"`
+	Offset     int64                          `json:"offset"`
+	Count      int64                          `json:"count"`
+	Total      int64                          `json:"total"`
+	HasMore    bool                           `json:"hasMore"`
+	NextOffset *int64                         `json:"nextOffset"`
 }
 
-func (g *GetFeatureRevisionsResponseBody) GetRevisions() []components.FeatureRevision {
+func (g *GetFeatureRevisionsResponseBody) GetRevisions() []components.FeatureRevisionV1 {
 	if g == nil {
-		return []components.FeatureRevision{}
+		return []components.FeatureRevisionV1{}
 	}
 	return g.Revisions
 }
@@ -136,7 +137,8 @@ func (g *GetFeatureRevisionsResponseBody) GetNextOffset() *int64 {
 
 type GetFeatureRevisionsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetFeatureRevisionsResponseBody
+	// Successful response
+	Object *GetFeatureRevisionsResponseBody
 }
 
 func (g GetFeatureRevisionsResponse) MarshalJSON() ([]byte, error) {

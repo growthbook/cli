@@ -19,6 +19,7 @@ func (g *GetNamespaceRequest) GetID() string {
 	return g.ID
 }
 
+// GetNamespaceResponseBody - Successful response
 type GetNamespaceResponseBody struct {
 	Namespace components.Namespace `json:"namespace"`
 }
@@ -32,7 +33,8 @@ func (g *GetNamespaceResponseBody) GetNamespace() components.Namespace {
 
 type GetNamespaceResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetNamespaceResponseBody
+	// Successful response
+	Object *GetNamespaceResponseBody
 }
 
 func (g GetNamespaceResponse) MarshalJSON() ([]byte, error) {

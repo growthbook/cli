@@ -325,6 +325,7 @@ Configuration is stored in `~/.config/growthbook/config.yaml`.
 * [`put-feature-revision-rule-ramp-schedule-v2`](docs/growthbook_feature-revisions-v2_put-feature-revision-rule-ramp-schedule-v2.md) - Set ramp schedule for a rule
 * [`delete-feature-revision-rule-ramp-schedule-v2`](docs/growthbook_feature-revisions-v2_delete-feature-revision-rule-ramp-schedule-v2.md) - Remove ramp schedule from a rule
 * [`post-feature-revision-request-review-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-request-review-v2.md) - Request review for a draft revision
+* [`post-feature-revision-schedule-publish-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-schedule-publish-v2.md) - Schedule (or cancel) a deferred publish for a draft revision
 * [`post-feature-revision-submit-review-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-submit-review-v2.md) - Submit a review on a draft revision
 * [`post-feature-revision-recall-review-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-recall-review-v2.md) - Recall a review request (revert to draft)
 * [`post-feature-revision-undo-review-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-undo-review-v2.md) - Undo a reviewer's own review verdict

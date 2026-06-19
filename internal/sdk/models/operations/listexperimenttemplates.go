@@ -18,6 +18,7 @@ func (l *ListExperimentTemplatesRequest) GetProjectID() *string {
 	return l.ProjectID
 }
 
+// ListExperimentTemplatesResponseBody - Successful response
 type ListExperimentTemplatesResponseBody struct {
 	ExperimentTemplates []components.ExperimentTemplate `json:"experimentTemplates"`
 }
@@ -31,7 +32,8 @@ func (l *ListExperimentTemplatesResponseBody) GetExperimentTemplates() []compone
 
 type ListExperimentTemplatesResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListExperimentTemplatesResponseBody
+	// Successful response
+	Object *ListExperimentTemplatesResponseBody
 }
 
 func (l ListExperimentTemplatesResponse) MarshalJSON() ([]byte, error) {

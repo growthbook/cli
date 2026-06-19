@@ -19,6 +19,7 @@ func (g *GetDimensionRequest) GetID() string {
 	return g.ID
 }
 
+// GetDimensionResponseBody - Successful response
 type GetDimensionResponseBody struct {
 	Dimension components.Dimension `json:"dimension"`
 }
@@ -32,7 +33,8 @@ func (g *GetDimensionResponseBody) GetDimension() components.Dimension {
 
 type GetDimensionResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetDimensionResponseBody
+	// Successful response
+	Object *GetDimensionResponseBody
 }
 
 func (g GetDimensionResponse) MarshalJSON() ([]byte, error) {

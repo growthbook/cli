@@ -39,6 +39,7 @@ func (l *ListNamespacesRequest) GetOffset() *int64 {
 	return l.Offset
 }
 
+// ListNamespacesResponseBody - Successful response
 type ListNamespacesResponseBody struct {
 	Namespaces []components.Namespace `json:"namespaces"`
 	Limit      int64                  `json:"limit"`
@@ -100,7 +101,8 @@ func (l *ListNamespacesResponseBody) GetNextOffset() *int64 {
 
 type ListNamespacesResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListNamespacesResponseBody
+	// Successful response
+	Object *ListNamespacesResponseBody
 }
 
 func (l ListNamespacesResponse) MarshalJSON() ([]byte, error) {

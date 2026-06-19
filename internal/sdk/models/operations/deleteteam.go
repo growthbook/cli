@@ -27,6 +27,7 @@ func (d *DeleteTeamRequest) GetDeleteMembers() *string {
 	return d.DeleteMembers
 }
 
+// DeleteTeamResponseBody - Resource deleted
 type DeleteTeamResponseBody struct {
 	DeletedID string `json:"deletedId"`
 }
@@ -40,7 +41,8 @@ func (d *DeleteTeamResponseBody) GetDeletedID() string {
 
 type DeleteTeamResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *DeleteTeamResponseBody
+	// Resource deleted
+	Object *DeleteTeamResponseBody
 }
 
 func (d DeleteTeamResponse) MarshalJSON() ([]byte, error) {

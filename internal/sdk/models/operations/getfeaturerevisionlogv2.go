@@ -29,6 +29,7 @@ func (g *GetFeatureRevisionLogV2Request) GetVersion() string {
 // #region class-body-getfeaturerevisionlogv2request
 // #endregion class-body-getfeaturerevisionlogv2request
 
+// GetFeatureRevisionLogV2ResponseBody - Successful response
 type GetFeatureRevisionLogV2ResponseBody struct {
 	Log []components.Log `json:"log"`
 }
@@ -45,7 +46,8 @@ func (g *GetFeatureRevisionLogV2ResponseBody) GetLog() []components.Log {
 
 type GetFeatureRevisionLogV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetFeatureRevisionLogV2ResponseBody
+	// Successful response
+	Object *GetFeatureRevisionLogV2ResponseBody
 }
 
 func (g GetFeatureRevisionLogV2Response) MarshalJSON() ([]byte, error) {

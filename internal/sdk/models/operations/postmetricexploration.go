@@ -1906,6 +1906,7 @@ func (p *PostMetricExplorationExploration) GetConfig() PostMetricExplorationConf
 	return p.Config
 }
 
+// PostMetricExplorationResponseBody - Resource created
 type PostMetricExplorationResponseBody struct {
 	Exploration *PostMetricExplorationExploration `json:"exploration"`
 	Query       *components.Query                 `json:"query"`
@@ -1945,7 +1946,8 @@ func (p *PostMetricExplorationResponseBody) GetMessage() *string {
 
 type PostMetricExplorationResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostMetricExplorationResponseBody
+	// Resource created
+	Object *PostMetricExplorationResponseBody
 }
 
 func (p PostMetricExplorationResponse) MarshalJSON() ([]byte, error) {

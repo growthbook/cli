@@ -27,7 +27,8 @@ func (p *PostVisualEditorRenameExperimentRequest) GetName() string {
 
 type PostVisualEditorRenameExperimentResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Any      any
+	// Resource created
+	Any any
 }
 
 func (p *PostVisualEditorRenameExperimentResponse) GetHTTPMeta() components.HTTPMetadata {

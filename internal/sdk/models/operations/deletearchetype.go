@@ -19,6 +19,7 @@ func (d *DeleteArchetypeRequest) GetID() string {
 	return d.ID
 }
 
+// DeleteArchetypeResponseBody - Resource deleted
 type DeleteArchetypeResponseBody struct {
 	DeletedID string `json:"deletedId"`
 }
@@ -32,7 +33,8 @@ func (d *DeleteArchetypeResponseBody) GetDeletedID() string {
 
 type DeleteArchetypeResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *DeleteArchetypeResponseBody
+	// Resource deleted
+	Object *DeleteArchetypeResponseBody
 }
 
 func (d DeleteArchetypeResponse) MarshalJSON() ([]byte, error) {

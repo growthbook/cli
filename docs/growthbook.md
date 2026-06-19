@@ -132,7 +132,7 @@ growthbook [flags]
 * [growthbook get-visual-editor-bootstrap](growthbook_get-visual-editor-bootstrap.md)	 - Get Visual Editor Bootstrap
 * [growthbook get-visual-editor-library-images](growthbook_get-visual-editor-library-images.md)	 - Get Visual Editor Library Images
 * [growthbook members](growthbook_members.md)	 - Members are users who have been invited to an organization
-* [growthbook meta](growthbook_meta.md)	 - Operations for meta
+* [growthbook meta](growthbook_meta.md)	 - Server metadata, including the running build's version and commit for version-skew checks
 * [growthbook metric-groups](growthbook_metric-groups.md)	 - Operations for metric-groups
 * [growthbook metrics](growthbook_metrics.md)	 - Metrics used as goals and guardrails for experiments
 * [growthbook namespaces](growthbook_namespaces.md)	 - Namespaces partition your user population into buckets so that experiments using the same hash attribute do not overlap unintentionally

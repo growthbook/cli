@@ -69,6 +69,7 @@ func (p *PutFeatureRevisionArchiveV2Request) GetBody() PutFeatureRevisionArchive
 // #region class-body-putfeaturerevisionarchivev2request
 // #endregion class-body-putfeaturerevisionarchivev2request
 
+// PutFeatureRevisionArchiveV2ResponseBody - Resource updated
 type PutFeatureRevisionArchiveV2ResponseBody struct {
 	Revision components.FeatureRevisionV2 `json:"revision"`
 }
@@ -85,7 +86,8 @@ func (p *PutFeatureRevisionArchiveV2ResponseBody) GetRevision() components.Featu
 
 type PutFeatureRevisionArchiveV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PutFeatureRevisionArchiveV2ResponseBody
+	// Resource updated
+	Object *PutFeatureRevisionArchiveV2ResponseBody
 }
 
 func (p PutFeatureRevisionArchiveV2Response) MarshalJSON() ([]byte, error) {

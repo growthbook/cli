@@ -37,6 +37,7 @@ func (r *RollbackRampScheduleRequest) GetBody() RollbackRampScheduleRequestBody 
 	return r.Body
 }
 
+// RollbackRampScheduleResponseBody - Resource created
 type RollbackRampScheduleResponseBody struct {
 	RampSchedule components.RampSchedule `json:"rampSchedule"`
 }
@@ -50,7 +51,8 @@ func (r *RollbackRampScheduleResponseBody) GetRampSchedule() components.RampSche
 
 type RollbackRampScheduleResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *RollbackRampScheduleResponseBody
+	// Resource created
+	Object *RollbackRampScheduleResponseBody
 }
 
 func (r RollbackRampScheduleResponse) MarshalJSON() ([]byte, error) {

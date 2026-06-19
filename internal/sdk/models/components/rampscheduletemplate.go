@@ -619,6 +619,8 @@ type RampScheduleTemplate struct {
 	Official         *bool                                                                   `json:"official,omitzero"`
 	MonitoringConfig optionalnullable.OptionalNullable[RampScheduleTemplateMonitoringConfig] `json:"monitoringConfig,omitzero"`
 	LockdownConfig   optionalnullable.OptionalNullable[RampScheduleTemplateLockdownConfig]   `json:"lockdownConfig,omitzero"`
+	// Manual display order within the org (read-only; managed via the app).
+	Order float64 `json:"order"`
 }
 
 func (r RampScheduleTemplate) MarshalJSON() ([]byte, error) {
@@ -693,4 +695,11 @@ func (r *RampScheduleTemplate) GetLockdownConfig() optionalnullable.OptionalNull
 		return nil
 	}
 	return r.LockdownConfig
+}
+
+func (r *RampScheduleTemplate) GetOrder() float64 {
+	if r == nil {
+		return 0.0
+	}
+	return r.Order
 }

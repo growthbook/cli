@@ -39,6 +39,7 @@ func (p *PostNamespaceRotateSeedRequest) GetBody() PostNamespaceRotateSeedReques
 	return p.Body
 }
 
+// PostNamespaceRotateSeedResponseBody - Resource created
 type PostNamespaceRotateSeedResponseBody struct {
 	Namespace components.Namespace `json:"namespace"`
 }
@@ -52,7 +53,8 @@ func (p *PostNamespaceRotateSeedResponseBody) GetNamespace() components.Namespac
 
 type PostNamespaceRotateSeedResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostNamespaceRotateSeedResponseBody
+	// Resource created
+	Object *PostNamespaceRotateSeedResponseBody
 }
 
 func (p PostNamespaceRotateSeedResponse) MarshalJSON() ([]byte, error) {

@@ -103,6 +103,7 @@ func (u *UpdateFactTableFilterRequest) GetBody() UpdateFactTableFilterRequestBod
 	return u.Body
 }
 
+// UpdateFactTableFilterResponseBody - Resource created
 type UpdateFactTableFilterResponseBody struct {
 	FactTableFilter components.FactTableFilter `json:"factTableFilter"`
 }
@@ -116,7 +117,8 @@ func (u *UpdateFactTableFilterResponseBody) GetFactTableFilter() components.Fact
 
 type UpdateFactTableFilterResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *UpdateFactTableFilterResponseBody
+	// Resource created
+	Object *UpdateFactTableFilterResponseBody
 }
 
 func (u UpdateFactTableFilterResponse) MarshalJSON() ([]byte, error) {

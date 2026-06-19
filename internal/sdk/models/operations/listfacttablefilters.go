@@ -48,6 +48,7 @@ func (l *ListFactTableFiltersRequest) GetOffset() *int64 {
 	return l.Offset
 }
 
+// ListFactTableFiltersResponseBody - Successful response
 type ListFactTableFiltersResponseBody struct {
 	FactTableFilters []components.FactTableFilter `json:"factTableFilters"`
 	Limit            int64                        `json:"limit"`
@@ -109,7 +110,8 @@ func (l *ListFactTableFiltersResponseBody) GetNextOffset() *int64 {
 
 type ListFactTableFiltersResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListFactTableFiltersResponseBody
+	// Successful response
+	Object *ListFactTableFiltersResponseBody
 }
 
 func (l ListFactTableFiltersResponse) MarshalJSON() ([]byte, error) {

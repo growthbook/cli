@@ -21,7 +21,8 @@ func (g *GetFeatureKeysRequest) GetProjectID() *string {
 
 type GetFeatureKeysResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Strings  []string
+	// Successful response
+	Strings []string
 }
 
 func (g GetFeatureKeysResponse) MarshalJSON() ([]byte, error) {

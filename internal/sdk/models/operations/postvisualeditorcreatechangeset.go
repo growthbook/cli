@@ -102,7 +102,8 @@ func (p *PostVisualEditorCreateChangesetRequest) GetURLPatterns() []PostVisualEd
 
 type PostVisualEditorCreateChangesetResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Any      any
+	// Resource created
+	Any any
 }
 
 func (p *PostVisualEditorCreateChangesetResponse) GetHTTPMeta() components.HTTPMetadata {

@@ -20,6 +20,7 @@ func (g *GetFeatureStaleRequest) GetIds() string {
 	return g.Ids
 }
 
+// GetFeatureStaleResponseBody - Successful response
 type GetFeatureStaleResponseBody struct {
 	// Map of feature ID to stale status. Only requested features that were found and readable are included.
 	Features map[string]components.Features `json:"features"`
@@ -34,7 +35,8 @@ func (g *GetFeatureStaleResponseBody) GetFeatures() map[string]components.Featur
 
 type GetFeatureStaleResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetFeatureStaleResponseBody
+	// Successful response
+	Object *GetFeatureStaleResponseBody
 }
 
 func (g GetFeatureStaleResponse) MarshalJSON() ([]byte, error) {

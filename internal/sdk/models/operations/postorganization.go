@@ -28,6 +28,7 @@ func (p *PostOrganizationRequest) GetExternalID() *string {
 	return p.ExternalID
 }
 
+// PostOrganizationResponseBody - Resource created
 type PostOrganizationResponseBody struct {
 	Organization components.Organization `json:"organization"`
 }
@@ -41,7 +42,8 @@ func (p *PostOrganizationResponseBody) GetOrganization() components.Organization
 
 type PostOrganizationResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostOrganizationResponseBody
+	// Resource created
+	Object *PostOrganizationResponseBody
 }
 
 func (p PostOrganizationResponse) MarshalJSON() ([]byte, error) {

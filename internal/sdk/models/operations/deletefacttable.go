@@ -19,6 +19,7 @@ func (d *DeleteFactTableRequest) GetID() string {
 	return d.ID
 }
 
+// DeleteFactTableResponseBody - Resource deleted
 type DeleteFactTableResponseBody struct {
 	// The ID of the deleted fact table
 	DeletedID string `json:"deletedId"`
@@ -33,7 +34,8 @@ func (d *DeleteFactTableResponseBody) GetDeletedID() string {
 
 type DeleteFactTableResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *DeleteFactTableResponseBody
+	// Resource deleted
+	Object *DeleteFactTableResponseBody
 }
 
 func (d DeleteFactTableResponse) MarshalJSON() ([]byte, error) {

@@ -86,6 +86,7 @@ func (p *PostProjectRequest) GetSettings() *PostProjectSettings {
 	return p.Settings
 }
 
+// PostProjectResponseBody - Resource created
 type PostProjectResponseBody struct {
 	Project components.Project `json:"project"`
 }
@@ -99,7 +100,8 @@ func (p *PostProjectResponseBody) GetProject() components.Project {
 
 type PostProjectResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostProjectResponseBody
+	// Resource created
+	Object *PostProjectResponseBody
 }
 
 func (p PostProjectResponse) MarshalJSON() ([]byte, error) {

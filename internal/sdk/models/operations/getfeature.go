@@ -28,20 +28,22 @@ func (g *GetFeatureRequest) GetWithRevisions() *components.WithRevisions {
 	return g.WithRevisions
 }
 
+// GetFeatureResponseBody - Successful response
 type GetFeatureResponseBody struct {
-	Feature components.FeatureWithRevisions `json:"feature"`
+	Feature components.FeatureWithRevisionsV1 `json:"feature"`
 }
 
-func (g *GetFeatureResponseBody) GetFeature() components.FeatureWithRevisions {
+func (g *GetFeatureResponseBody) GetFeature() components.FeatureWithRevisionsV1 {
 	if g == nil {
-		return components.FeatureWithRevisions{}
+		return components.FeatureWithRevisionsV1{}
 	}
 	return g.Feature
 }
 
 type GetFeatureResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetFeatureResponseBody
+	// Successful response
+	Object *GetFeatureResponseBody
 }
 
 func (g GetFeatureResponse) MarshalJSON() ([]byte, error) {

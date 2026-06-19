@@ -74,6 +74,7 @@ func (p *PostEnvironmentRequest) GetParent() *string {
 	return p.Parent
 }
 
+// PostEnvironmentResponseBody - Resource created
 type PostEnvironmentResponseBody struct {
 	Environment components.Environment `json:"environment"`
 }
@@ -87,7 +88,8 @@ func (p *PostEnvironmentResponseBody) GetEnvironment() components.Environment {
 
 type PostEnvironmentResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostEnvironmentResponseBody
+	// Resource created
+	Object *PostEnvironmentResponseBody
 }
 
 func (p PostEnvironmentResponse) MarshalJSON() ([]byte, error) {

@@ -48,6 +48,7 @@ func (l *ListDimensionsRequest) GetDatasourceID() *string {
 	return l.DatasourceID
 }
 
+// ListDimensionsResponseBody - Successful response
 type ListDimensionsResponseBody struct {
 	Dimensions []components.Dimension `json:"dimensions"`
 	Limit      int64                  `json:"limit"`
@@ -109,7 +110,8 @@ func (l *ListDimensionsResponseBody) GetNextOffset() *int64 {
 
 type ListDimensionsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListDimensionsResponseBody
+	// Successful response
+	Object *ListDimensionsResponseBody
 }
 
 func (l ListDimensionsResponse) MarshalJSON() ([]byte, error) {

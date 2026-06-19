@@ -37,6 +37,7 @@ func (r *RemoveTeamMemberRequest) GetBody() RemoveTeamMemberRequestBody {
 	return r.Body
 }
 
+// RemoveTeamMemberResponseBody - Resource deleted
 type RemoveTeamMemberResponseBody struct {
 	Status float64 `json:"status"`
 }
@@ -50,7 +51,8 @@ func (r *RemoveTeamMemberResponseBody) GetStatus() float64 {
 
 type RemoveTeamMemberResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *RemoveTeamMemberResponseBody
+	// Resource deleted
+	Object *RemoveTeamMemberResponseBody
 }
 
 func (r RemoveTeamMemberResponse) MarshalJSON() ([]byte, error) {

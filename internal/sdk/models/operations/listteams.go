@@ -7,6 +7,7 @@ import (
 	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
 )
 
+// ListTeamsResponseBody - Successful response
 type ListTeamsResponseBody struct {
 	Teams []components.Team `json:"teams"`
 }
@@ -20,7 +21,8 @@ func (l *ListTeamsResponseBody) GetTeams() []components.Team {
 
 type ListTeamsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListTeamsResponseBody
+	// Successful response
+	Object *ListTeamsResponseBody
 }
 
 func (l ListTeamsResponse) MarshalJSON() ([]byte, error) {

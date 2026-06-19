@@ -1974,6 +1974,7 @@ func (p *PostFactTableExplorationExploration) GetConfig() PostFactTableExplorati
 	return p.Config
 }
 
+// PostFactTableExplorationResponseBody - Resource created
 type PostFactTableExplorationResponseBody struct {
 	Exploration *PostFactTableExplorationExploration `json:"exploration"`
 	Query       *components.Query                    `json:"query"`
@@ -2013,7 +2014,8 @@ func (p *PostFactTableExplorationResponseBody) GetMessage() *string {
 
 type PostFactTableExplorationResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostFactTableExplorationResponseBody
+	// Resource created
+	Object *PostFactTableExplorationResponseBody
 }
 
 func (p PostFactTableExplorationResponse) MarshalJSON() ([]byte, error) {

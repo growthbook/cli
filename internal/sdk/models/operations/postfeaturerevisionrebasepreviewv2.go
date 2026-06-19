@@ -269,6 +269,7 @@ func (p *PostFeatureRevisionRebasePreviewV2Result) GetHoldout() optionalnullable
 // #region class-body-postfeaturerevisionrebasepreviewv2result
 // #endregion class-body-postfeaturerevisionrebasepreviewv2result
 
+// PostFeatureRevisionRebasePreviewV2ResponseBody - Resource created
 type PostFeatureRevisionRebasePreviewV2ResponseBody struct {
 	Success bool `json:"success"`
 	// The current live version the merge was computed against. Echo this back as `expectedLiveVersion` when rebasing.
@@ -330,7 +331,8 @@ func (p *PostFeatureRevisionRebasePreviewV2ResponseBody) GetResult() *PostFeatur
 
 type PostFeatureRevisionRebasePreviewV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostFeatureRevisionRebasePreviewV2ResponseBody
+	// Resource created
+	Object *PostFeatureRevisionRebasePreviewV2ResponseBody
 }
 
 func (p PostFeatureRevisionRebasePreviewV2Response) MarshalJSON() ([]byte, error) {

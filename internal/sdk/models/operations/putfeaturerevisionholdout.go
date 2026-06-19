@@ -80,20 +80,22 @@ func (p *PutFeatureRevisionHoldoutRequest) GetBody() PutFeatureRevisionHoldoutRe
 	return p.Body
 }
 
+// PutFeatureRevisionHoldoutResponseBody - Resource updated
 type PutFeatureRevisionHoldoutResponseBody struct {
-	Revision components.FeatureRevision `json:"revision"`
+	Revision components.FeatureRevisionV1 `json:"revision"`
 }
 
-func (p *PutFeatureRevisionHoldoutResponseBody) GetRevision() components.FeatureRevision {
+func (p *PutFeatureRevisionHoldoutResponseBody) GetRevision() components.FeatureRevisionV1 {
 	if p == nil {
-		return components.FeatureRevision{}
+		return components.FeatureRevisionV1{}
 	}
 	return p.Revision
 }
 
 type PutFeatureRevisionHoldoutResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PutFeatureRevisionHoldoutResponseBody
+	// Resource updated
+	Object *PutFeatureRevisionHoldoutResponseBody
 }
 
 func (p PutFeatureRevisionHoldoutResponse) MarshalJSON() ([]byte, error) {

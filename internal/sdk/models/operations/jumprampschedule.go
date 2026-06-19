@@ -38,6 +38,7 @@ func (j *JumpRampScheduleRequest) GetBody() JumpRampScheduleRequestBody {
 	return j.Body
 }
 
+// JumpRampScheduleResponseBody - Resource created
 type JumpRampScheduleResponseBody struct {
 	RampSchedule components.RampSchedule `json:"rampSchedule"`
 }
@@ -51,7 +52,8 @@ func (j *JumpRampScheduleResponseBody) GetRampSchedule() components.RampSchedule
 
 type JumpRampScheduleResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *JumpRampScheduleResponseBody
+	// Resource created
+	Object *JumpRampScheduleResponseBody
 }
 
 func (j JumpRampScheduleResponse) MarshalJSON() ([]byte, error) {

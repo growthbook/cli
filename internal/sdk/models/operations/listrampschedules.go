@@ -97,6 +97,7 @@ func (l *ListRampSchedulesRequest) GetStatus() *ListRampSchedulesStatus {
 	return l.Status
 }
 
+// ListRampSchedulesResponseBody - Successful response
 type ListRampSchedulesResponseBody struct {
 	Limit         int64                     `json:"limit"`
 	Offset        int64                     `json:"offset"`
@@ -158,7 +159,8 @@ func (l *ListRampSchedulesResponseBody) GetRampSchedules() []components.RampSche
 
 type ListRampSchedulesResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListRampSchedulesResponseBody
+	// Successful response
+	Object *ListRampSchedulesResponseBody
 }
 
 func (l ListRampSchedulesResponse) MarshalJSON() ([]byte, error) {

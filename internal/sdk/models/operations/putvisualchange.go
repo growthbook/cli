@@ -109,7 +109,6 @@ func (p *PutVisualChangeDomMutation) GetAdditionalProperties() map[string]any {
 }
 
 type PutVisualChangeRequestBody struct {
-	ID                   *string                      `json:"id,omitzero"`
 	Description          *string                      `json:"description,omitzero"`
 	CSS                  *string                      `json:"css,omitzero"`
 	Js                   *string                      `json:"js,omitzero"`
@@ -127,13 +126,6 @@ func (p *PutVisualChangeRequestBody) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (p *PutVisualChangeRequestBody) GetID() *string {
-	if p == nil {
-		return nil
-	}
-	return p.ID
 }
 
 func (p *PutVisualChangeRequestBody) GetDescription() *string {
@@ -207,6 +199,7 @@ func (p *PutVisualChangeRequest) GetBody() PutVisualChangeRequestBody {
 	return p.Body
 }
 
+// PutVisualChangeResponseBody - Resource updated
 type PutVisualChangeResponseBody struct {
 	NModified float64 `json:"nModified"`
 }
@@ -220,7 +213,8 @@ func (p *PutVisualChangeResponseBody) GetNModified() float64 {
 
 type PutVisualChangeResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PutVisualChangeResponseBody
+	// Resource updated
+	Object *PutVisualChangeResponseBody
 }
 
 func (p PutVisualChangeResponse) MarshalJSON() ([]byte, error) {

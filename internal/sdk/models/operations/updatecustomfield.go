@@ -442,6 +442,7 @@ func (u *UpdateCustomFieldRequest) GetBody() UpdateCustomFieldRequestBody {
 	return u.Body
 }
 
+// UpdateCustomFieldResponseBody - Resource updated
 type UpdateCustomFieldResponseBody struct {
 	CustomField components.CustomField `json:"customField"`
 }
@@ -455,7 +456,8 @@ func (u *UpdateCustomFieldResponseBody) GetCustomField() components.CustomField 
 
 type UpdateCustomFieldResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *UpdateCustomFieldResponseBody
+	// Resource updated
+	Object *UpdateCustomFieldResponseBody
 }
 
 func (u UpdateCustomFieldResponse) MarshalJSON() ([]byte, error) {

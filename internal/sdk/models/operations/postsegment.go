@@ -176,6 +176,7 @@ func (p *PostSegmentRequest) GetFilters() []string {
 	return p.Filters
 }
 
+// PostSegmentResponseBody - Resource created
 type PostSegmentResponseBody struct {
 	Segment components.Segment `json:"segment"`
 }
@@ -189,7 +190,8 @@ func (p *PostSegmentResponseBody) GetSegment() components.Segment {
 
 type PostSegmentResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostSegmentResponseBody
+	// Resource created
+	Object *PostSegmentResponseBody
 }
 
 func (p PostSegmentResponse) MarshalJSON() ([]byte, error) {

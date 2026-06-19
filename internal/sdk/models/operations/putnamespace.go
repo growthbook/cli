@@ -95,6 +95,7 @@ func (p *PutNamespaceRequest) GetBody() PutNamespaceRequestBody {
 	return p.Body
 }
 
+// PutNamespaceResponseBody - Resource updated
 type PutNamespaceResponseBody struct {
 	Namespace components.Namespace `json:"namespace"`
 }
@@ -108,7 +109,8 @@ func (p *PutNamespaceResponseBody) GetNamespace() components.Namespace {
 
 type PutNamespaceResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PutNamespaceResponseBody
+	// Resource updated
+	Object *PutNamespaceResponseBody
 }
 
 func (p PutNamespaceResponse) MarshalJSON() ([]byte, error) {

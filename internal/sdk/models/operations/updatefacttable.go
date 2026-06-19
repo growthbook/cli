@@ -236,6 +236,7 @@ func (u *UpdateFactTableRequest) GetBody() UpdateFactTableRequestBody {
 	return u.Body
 }
 
+// UpdateFactTableResponseBody - Resource created
 type UpdateFactTableResponseBody struct {
 	FactTable components.FactTable `json:"factTable"`
 }
@@ -249,7 +250,8 @@ func (u *UpdateFactTableResponseBody) GetFactTable() components.FactTable {
 
 type UpdateFactTableResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *UpdateFactTableResponseBody
+	// Resource created
+	Object *UpdateFactTableResponseBody
 }
 
 func (u UpdateFactTableResponse) MarshalJSON() ([]byte, error) {

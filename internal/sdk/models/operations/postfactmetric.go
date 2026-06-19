@@ -1106,6 +1106,7 @@ func (p *PostFactMetricRequest) GetMetricAutoSlices() []string {
 	return p.MetricAutoSlices
 }
 
+// PostFactMetricResponseBody - Resource created
 type PostFactMetricResponseBody struct {
 	FactMetric components.FactMetric `json:"factMetric"`
 }
@@ -1119,7 +1120,8 @@ func (p *PostFactMetricResponseBody) GetFactMetric() components.FactMetric {
 
 type PostFactMetricResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostFactMetricResponseBody
+	// Resource created
+	Object *PostFactMetricResponseBody
 }
 
 func (p PostFactMetricResponse) MarshalJSON() ([]byte, error) {

@@ -61,4 +61,4 @@ growthbook meta get-version [flags]
 
 ### SEE ALSO
 
-* [growthbook meta](growthbook_meta.md)	 - Operations for meta
+* [growthbook meta](growthbook_meta.md)	 - Server metadata, including the running build's version and commit for version-skew checks

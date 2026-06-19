@@ -19,6 +19,7 @@ func (g *GetSDKConnectionRequest) GetID() string {
 	return g.ID
 }
 
+// GetSDKConnectionResponseBody - Successful response
 type GetSDKConnectionResponseBody struct {
 	SDKConnection components.SDKConnection `json:"sdkConnection"`
 }
@@ -32,7 +33,8 @@ func (g *GetSDKConnectionResponseBody) GetSDKConnection() components.SDKConnecti
 
 type GetSDKConnectionResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *GetSDKConnectionResponseBody
+	// Successful response
+	Object *GetSDKConnectionResponseBody
 }
 
 func (g GetSDKConnectionResponse) MarshalJSON() ([]byte, error) {

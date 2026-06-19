@@ -1510,6 +1510,7 @@ func (e *UpdateExperimentCode) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// UpdateExperimentResponseBody - Resource created
 type UpdateExperimentResponseBody struct {
 	Experiment components.Experiment `json:"experiment"`
 }
@@ -1523,7 +1524,8 @@ func (u *UpdateExperimentResponseBody) GetExperiment() components.Experiment {
 
 type UpdateExperimentResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *UpdateExperimentResponseBody
+	// Resource created
+	Object *UpdateExperimentResponseBody
 }
 
 func (u UpdateExperimentResponse) MarshalJSON() ([]byte, error) {

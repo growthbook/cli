@@ -39,6 +39,7 @@ func (l *ListCodeRefsRequest) GetOffset() *int64 {
 	return l.Offset
 }
 
+// ListCodeRefsResponseBody - Successful response
 type ListCodeRefsResponseBody struct {
 	CodeRefs   []components.CodeRef `json:"codeRefs"`
 	Limit      int64                `json:"limit"`
@@ -100,7 +101,8 @@ func (l *ListCodeRefsResponseBody) GetNextOffset() *int64 {
 
 type ListCodeRefsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListCodeRefsResponseBody
+	// Successful response
+	Object *ListCodeRefsResponseBody
 }
 
 func (l ListCodeRefsResponse) MarshalJSON() ([]byte, error) {

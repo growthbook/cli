@@ -39,6 +39,7 @@ func (l *ListSavedGroupsRequest) GetOffset() *int64 {
 	return l.Offset
 }
 
+// ListSavedGroupsResponseBody - Successful response
 type ListSavedGroupsResponseBody struct {
 	SavedGroups []components.SavedGroup `json:"savedGroups"`
 	Limit       int64                   `json:"limit"`
@@ -100,7 +101,8 @@ func (l *ListSavedGroupsResponseBody) GetNextOffset() *int64 {
 
 type ListSavedGroupsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListSavedGroupsResponseBody
+	// Successful response
+	Object *ListSavedGroupsResponseBody
 }
 
 func (l ListSavedGroupsResponse) MarshalJSON() ([]byte, error) {

@@ -57,6 +57,7 @@ func (l *ListAggregatedTableRunsRequest) GetOffset() *int64 {
 	return l.Offset
 }
 
+// ListAggregatedTableRunsResponseBody - Successful response
 type ListAggregatedTableRunsResponseBody struct {
 	// A list of the aggregated table runs for the fact table
 	Runs       []components.AggregatedTableRunSummary `json:"runs"`
@@ -119,7 +120,8 @@ func (l *ListAggregatedTableRunsResponseBody) GetNextOffset() *int64 {
 
 type ListAggregatedTableRunsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *ListAggregatedTableRunsResponseBody
+	// Successful response
+	Object *ListAggregatedTableRunsResponseBody
 }
 
 func (l ListAggregatedTableRunsResponse) MarshalJSON() ([]byte, error) {

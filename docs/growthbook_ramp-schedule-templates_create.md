@@ -26,6 +26,7 @@ growthbook ramp-schedule-templates create [flags]
   -m, --monitoring-config string   JSON object
   -n, --name string                [required]
       --official                   boolean flag
+      --order float                Display order within the org (lower sorts first). Omit to append to the end.
   -s, --steps string               [required]
 ```
 

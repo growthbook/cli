@@ -111,6 +111,7 @@ func (u *UpdateMemberRoleRequest) GetBody() UpdateMemberRoleRequestBody {
 	return u.Body
 }
 
+// UpdateMemberRoleResponseBody - Resource created
 type UpdateMemberRoleResponseBody struct {
 	UpdatedMember components.UpdatedMember `json:"updatedMember"`
 }
@@ -124,7 +125,8 @@ func (u *UpdateMemberRoleResponseBody) GetUpdatedMember() components.UpdatedMemb
 
 type UpdateMemberRoleResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *UpdateMemberRoleResponseBody
+	// Resource created
+	Object *UpdateMemberRoleResponseBody
 }
 
 func (u UpdateMemberRoleResponse) MarshalJSON() ([]byte, error) {

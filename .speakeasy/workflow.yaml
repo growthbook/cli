@@ -3,7 +3,7 @@ speakeasyVersion: 1.778.0
 sources:
     GrowthBook REST API:
         inputs:
-            - location: ../growthbook/packages/back-end/generated/spec.yaml
+            - location: https://raw.githubusercontent.com/growthbook/growthbook/main/packages/back-end/generated/spec.yaml
         overlays:
             - location: .speakeasy/overlay.yaml
         transformations:

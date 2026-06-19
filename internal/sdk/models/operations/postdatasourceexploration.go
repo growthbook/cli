@@ -2082,6 +2082,7 @@ func (p *PostDataSourceExplorationExploration) GetConfig() PostDataSourceExplora
 	return p.Config
 }
 
+// PostDataSourceExplorationResponseBody - Resource created
 type PostDataSourceExplorationResponseBody struct {
 	Exploration *PostDataSourceExplorationExploration `json:"exploration"`
 	Query       *components.Query                     `json:"query"`
@@ -2121,7 +2122,8 @@ func (p *PostDataSourceExplorationResponseBody) GetMessage() *string {
 
 type PostDataSourceExplorationResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostDataSourceExplorationResponseBody
+	// Resource created
+	Object *PostDataSourceExplorationResponseBody
 }
 
 func (p PostDataSourceExplorationResponse) MarshalJSON() ([]byte, error) {

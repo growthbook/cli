@@ -179,6 +179,7 @@ func (p *PostAttributeRequest) GetTags() []string {
 	return p.Tags
 }
 
+// PostAttributeResponseBody - Resource created
 type PostAttributeResponseBody struct {
 	Attribute components.Attribute `json:"attribute"`
 }
@@ -192,7 +193,8 @@ func (p *PostAttributeResponseBody) GetAttribute() components.Attribute {
 
 type PostAttributeResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostAttributeResponseBody
+	// Resource created
+	Object *PostAttributeResponseBody
 }
 
 func (p PostAttributeResponse) MarshalJSON() ([]byte, error) {

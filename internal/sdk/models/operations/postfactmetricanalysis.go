@@ -145,6 +145,7 @@ func (p *PostFactMetricAnalysisRequest) GetBody() *PostFactMetricAnalysisRequest
 	return p.Body
 }
 
+// PostFactMetricAnalysisResponseBody - Resource created
 type PostFactMetricAnalysisResponseBody struct {
 	MetricAnalysis components.MetricAnalysis `json:"metricAnalysis"`
 }
@@ -158,7 +159,8 @@ func (p *PostFactMetricAnalysisResponseBody) GetMetricAnalysis() components.Metr
 
 type PostFactMetricAnalysisResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostFactMetricAnalysisResponseBody
+	// Resource created
+	Object *PostFactMetricAnalysisResponseBody
 }
 
 func (p PostFactMetricAnalysisResponse) MarshalJSON() ([]byte, error) {

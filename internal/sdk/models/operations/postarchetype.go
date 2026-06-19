@@ -72,6 +72,7 @@ func (p *PostArchetypeRequest) GetEnvironments() []string {
 	return p.Environments
 }
 
+// PostArchetypeResponseBody - Resource created
 type PostArchetypeResponseBody struct {
 	Archetype components.Archetype `json:"archetype"`
 }
@@ -85,7 +86,8 @@ func (p *PostArchetypeResponseBody) GetArchetype() components.Archetype {
 
 type PostArchetypeResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostArchetypeResponseBody
+	// Resource created
+	Object *PostArchetypeResponseBody
 }
 
 func (p PostArchetypeResponse) MarshalJSON() ([]byte, error) {

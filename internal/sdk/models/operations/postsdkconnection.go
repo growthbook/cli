@@ -190,6 +190,7 @@ func (p *PostSDKConnectionRequest) GetSavedGroupReferencesEnabled() *bool {
 	return p.SavedGroupReferencesEnabled
 }
 
+// PostSDKConnectionResponseBody - Resource created
 type PostSDKConnectionResponseBody struct {
 	SDKConnection components.SDKConnection `json:"sdkConnection"`
 }
@@ -203,7 +204,8 @@ func (p *PostSDKConnectionResponseBody) GetSDKConnection() components.SDKConnect
 
 type PostSDKConnectionResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostSDKConnectionResponseBody
+	// Resource created
+	Object *PostSDKConnectionResponseBody
 }
 
 func (p PostSDKConnectionResponse) MarshalJSON() ([]byte, error) {

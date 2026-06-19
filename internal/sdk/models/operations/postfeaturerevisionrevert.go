@@ -89,20 +89,22 @@ func (p *PostFeatureRevisionRevertRequest) GetBody() PostFeatureRevisionRevertRe
 	return p.Body
 }
 
+// PostFeatureRevisionRevertResponseBody - Resource created
 type PostFeatureRevisionRevertResponseBody struct {
-	Revision components.FeatureRevision `json:"revision"`
+	Revision components.FeatureRevisionV1 `json:"revision"`
 }
 
-func (p *PostFeatureRevisionRevertResponseBody) GetRevision() components.FeatureRevision {
+func (p *PostFeatureRevisionRevertResponseBody) GetRevision() components.FeatureRevisionV1 {
 	if p == nil {
-		return components.FeatureRevision{}
+		return components.FeatureRevisionV1{}
 	}
 	return p.Revision
 }
 
 type PostFeatureRevisionRevertResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PostFeatureRevisionRevertResponseBody
+	// Resource created
+	Object *PostFeatureRevisionRevertResponseBody
 }
 
 func (p PostFeatureRevisionRevertResponse) MarshalJSON() ([]byte, error) {

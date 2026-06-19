@@ -161,6 +161,7 @@ func (p *PutReportMetadataRequest) GetBody() PutReportMetadataRequestBody {
 	return p.Body
 }
 
+// PutReportMetadataResponseBody - Resource updated
 type PutReportMetadataResponseBody struct {
 	Report components.Report `json:"report"`
 }
@@ -174,7 +175,8 @@ func (p *PutReportMetadataResponseBody) GetReport() components.Report {
 
 type PutReportMetadataResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	Object   *PutReportMetadataResponseBody
+	// Resource updated
+	Object *PutReportMetadataResponseBody
 }
 
 func (p PutReportMetadataResponse) MarshalJSON() ([]byte, error) {

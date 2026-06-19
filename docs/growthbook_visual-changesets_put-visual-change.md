@@ -19,17 +19,16 @@ growthbook visual-changesets put-visual-change [flags]
 ### Options
 
 ```
-      --body string                               Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --body-param.additional-properties string   value
-      --body-param.css string                     string value
-      --body-param.description string             string value
-      --body-param.dom-mutations string           list of values
-      --body-param.id string                      string value
-      --body-param.js string                      string value
-      --body-param.variation string               string value
-  -h, --help                                      help for put-visual-change
-  -i, --id string                                 The id of the requested resource [required]
-  -v, --visual-change-id string                   Specify a specific visual change [required]
+  -a, --additional-properties string   value
+      --body string                    Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -c, --css string                     string value
+      --description string             string value
+      --dom-mutations string           list of values
+  -h, --help                           help for put-visual-change
+  -i, --id string                      The id of the requested resource [required]
+  -j, --js string                      string value
+      --variation string               string value
+      --visual-change-id string        Specify a specific visual change [required]
 ```
 
 ### Options inherited from parent commands
