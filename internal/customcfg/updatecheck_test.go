@@ -15,9 +15,9 @@ func TestCompareSemver(t *testing.T) {
 		{"1.0.0", "1.0.1", -1},
 		{"1.2.0", "1.10.0", -1}, // numeric, not lexical
 		{"2.0.0", "1.9.9", 1},
-		{"v1.0.0", "1.0.0", 0},     // leading v tolerated
-		{"1.0.0", "dev", 1},        // non-numeric → 0.0.0
-		{"1.0.0-rc1", "1.0.0", 0},  // pre-release suffix on a segment ignored
+		{"v1.0.0", "1.0.0", 0},    // leading v tolerated
+		{"1.0.0", "dev", 1},       // non-numeric → 0.0.0
+		{"1.0.0-rc1", "1.0.0", 0}, // pre-release suffix on a segment ignored
 	}
 	for _, c := range cases {
 		if got := compareSemver(c.a, c.b); got != c.want {
@@ -64,8 +64,8 @@ func TestParseSpecDate(t *testing.T) {
 		body, want string
 	}{
 		{"Release notes\n<!-- gb-spec-date: 2026-06-18 -->\n", "2026-06-18"},
-		{"gb-spec-date:2026-01-02", "2026-01-02"},   // no space, no trailing marker
-		{"some notes without the marker", ""},        // absent → empty
+		{"gb-spec-date:2026-01-02", "2026-01-02"},            // no space, no trailing marker
+		{"some notes without the marker", ""},                // absent → empty
 		{"<!-- gb-spec-date:  2026-12-31 -->", "2026-12-31"}, // extra whitespace tolerated
 	}
 	for _, c := range cases {
