@@ -22,6 +22,13 @@ jobs:
         with:
           go-version-file: "go.mod"
           cache: true
+
+      # The generated-against date = the commit date of the committed spec
+      # snapshot. GoReleaser bakes it into the binary and into the release notes
+      # (see .goreleaser.yaml). Requires fetch-depth: 0 (full history) above.
+      - name: Compute spec date
+        run: echo "GB_SPEC_DATE=$(git log -1 --format=%cs -- .speakeasy/out.openapi.yaml)" >> "$GITHUB_ENV"
+
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v6
         with:

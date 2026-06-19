@@ -1,6 +1,9 @@
 package customcfg
 
-import "testing"
+import (
+	"testing"
+	"time"
+)
 
 func TestCompareSemver(t *testing.T) {
 	cases := []struct {
@@ -46,15 +49,45 @@ func TestShouldNudge(t *testing.T) {
 	} else if msg == "" {
 		t.Error("nudge message should be non-empty")
 	}
+	// Patch-only bump → no nudge (usually codegen-only, no new capability).
+	if _, ok := shouldNudge("1.2.0", "", rel("1.2.1", ""), nil); ok {
+		t.Error("no nudge expected for a patch-only bump")
+	}
+	// Major bump → nudge.
+	if _, ok := shouldNudge("1.2.0", "", rel("2.0.0", ""), nil); !ok {
+		t.Error("nudge expected for a major bump")
+	}
 }
 
-func TestUpdateCheckStamp(t *testing.T) {
-	setup(t)
-	if recentlyChecked() {
-		t.Error("a fresh environment should not be recentlyChecked")
+func TestParseSpecDate(t *testing.T) {
+	cases := []struct {
+		body, want string
+	}{
+		{"Release notes\n<!-- gb-spec-date: 2026-06-18 -->\n", "2026-06-18"},
+		{"gb-spec-date:2026-01-02", "2026-01-02"},   // no space, no trailing marker
+		{"some notes without the marker", ""},        // absent → empty
+		{"<!-- gb-spec-date:  2026-12-31 -->", "2026-12-31"}, // extra whitespace tolerated
 	}
-	touchCheckStamp()
-	if !recentlyChecked() {
-		t.Error("after touchCheckStamp, recentlyChecked should be true")
+	for _, c := range cases {
+		if got := parseSpecDate(c.body); got != c.want {
+			t.Errorf("parseSpecDate(%q) = %q, want %q", c.body, got, c.want)
+		}
+	}
+}
+
+func TestUpdateCheckState(t *testing.T) {
+	setup(t)
+	recent := func() bool {
+		return time.Since(time.Unix(readCheckState().CheckedAt, 0)) < updateCheckInterval
+	}
+	if recent() {
+		t.Error("a fresh environment should not look recently-checked")
+	}
+	writeCheckState(checkState{CheckedAt: time.Now().Unix(), NudgedVersion: "1.2.0"})
+	if !recent() {
+		t.Error("after writeCheckState the check should look recent")
+	}
+	if got := readCheckState().NudgedVersion; got != "1.2.0" {
+		t.Errorf("NudgedVersion round-trip = %q, want 1.2.0", got)
 	}
 }

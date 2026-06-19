@@ -26,6 +26,10 @@ The overlay currently carries deliberate fixes (enum identifier collisions, a sc
 action is commented — **don't remove them without understanding why**, or generation/compilation
 will break.
 
+For how a spec change becomes a published release — the automatic version-bump PR, what a
+reviewer confirms (and how to override a wrong bump with `set_version`), and the manual
+prerelease path — see **[RELEASING.md](RELEASING.md)**.
+
 ## Build & regenerate
 
 ```bash

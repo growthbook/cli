@@ -62,23 +62,36 @@ type cliRelease struct {
 // blocks meaningfully (bounded network timeout, at most once/day) and never
 // returns an error — an advisory must not break the user's command.
 func MaybeCheckForUpdate(cmd *cobra.Command) {
-	if updateCheckDisabled(cmd) || recentlyChecked() {
+	if updateCheckDisabled(cmd) {
 		return
 	}
-	touchCheckStamp() // record the attempt up-front so a hang can't re-fire all day
+	state := readCheckState()
+	if time.Since(time.Unix(state.CheckedAt, 0)) < updateCheckInterval {
+		return
+	}
+	// Record the attempt up-front (keeping the last-nudged version) so a hang
+	// can't re-fire all day.
+	state.CheckedAt = time.Now().Unix()
+	writeCheckState(state)
 
-	latest, err := latestCLIRelease()
+	// One shared budget across both network calls so a slow endpoint can't make
+	// startup drag (this runs on a human-interactive command, at most once/day).
+	ctx, cancel := context.WithTimeout(cmd.Context(), 2*time.Second)
+	defer cancel()
+
+	latest, err := latestCLIRelease(ctx)
 	if err != nil || latest == nil {
 		return // can't tell whether a newer CLI exists → say nothing
 	}
-
-	ctx, cancel := context.WithTimeout(cmd.Context(), 1500*time.Millisecond)
-	defer cancel()
 	server, _ := fetchServerBuild(ctx, resolveServerURL(cmd), resolveBearer(cmd))
 
-	if msg, ok := shouldNudge(Version, SpecDate, latest, server); ok {
-		fmt.Fprintln(cmd.ErrOrStderr(), msg)
+	msg, ok := shouldNudge(Version, SpecDate, latest, server)
+	if !ok || latest.Version == state.NudgedVersion {
+		return // nothing to advise, or already nudged about this exact version
 	}
+	fmt.Fprintln(cmd.ErrOrStderr(), msg)
+	state.NudgedVersion = latest.Version
+	writeCheckState(state)
 }
 
 // shouldNudge decides whether to advise an upgrade, and returns the message.
@@ -88,13 +101,15 @@ func MaybeCheckForUpdate(cmd *cobra.Command) {
 //   - latest:                   the latest published CLI release.
 //   - server:                   the connected backend's build (nil if unknown).
 //
-// Rule: only nudge if a newer CLI exists (semver). Then, if we know both the
-// latest CLI's generated-against date and the server's build date, require the
-// server to be at least as new — otherwise upgrading would point the CLI at
-// endpoints the server lacks. Missing dates → degrade to semver (permissive).
+// Rule: only nudge if a newer CLI exists by at least a minor version (patch-only
+// bumps are usually codegen-only and carry no new capability, so they stay
+// quiet). Then, if we know both the latest CLI's generated-against date and the
+// server's build date, require the server to be at least as new — otherwise
+// upgrading would point the CLI at endpoints the server lacks. Missing dates →
+// degrade to semver (permissive).
 func shouldNudge(localVer, localSpecDate string, latest *cliRelease, server *serverBuild) (string, bool) {
-	if latest == nil || compareSemver(latest.Version, localVer) <= 0 {
-		return "", false // already on the latest (or newer) CLI
+	if latest == nil || !minorOrMajorAhead(localVer, latest.Version) {
+		return "", false // already current, or only a patch ahead
 	}
 	if latest.SpecDate != "" && server != nil && server.Date != "" {
 		if server.Date < latest.SpecDate {
@@ -156,24 +171,28 @@ func checkStampPath() string {
 	return filepath.Join(dir, "update-check")
 }
 
-// recentlyChecked reports whether we checked within updateCheckInterval.
-func recentlyChecked() bool {
-	p := checkStampPath()
-	if p == "" {
-		return false
-	}
-	data, err := os.ReadFile(p)
-	if err != nil {
-		return false
-	}
-	unix, err := strconv.ParseInt(strings.TrimSpace(string(data)), 10, 64)
-	if err != nil {
-		return false
-	}
-	return time.Since(time.Unix(unix, 0)) < updateCheckInterval
+// checkState persists between runs: when we last hit the network (rate-limits the
+// check to once/day) and the last version we nudged about (per-version backoff —
+// we advise an upgrade at most once per distinct newer version, so an ignored
+// nudge doesn't nag daily). Stored as JSON at checkStampPath.
+type checkState struct {
+	CheckedAt     int64  `json:"checkedAt"`
+	NudgedVersion string `json:"nudgedVersion,omitempty"`
 }
 
-func touchCheckStamp() {
+func readCheckState() checkState {
+	var s checkState
+	p := checkStampPath()
+	if p == "" {
+		return s
+	}
+	if data, err := os.ReadFile(p); err == nil {
+		_ = json.Unmarshal(data, &s)
+	}
+	return s
+}
+
+func writeCheckState(s checkState) {
 	p := checkStampPath()
 	if p == "" {
 		return
@@ -181,7 +200,9 @@ func touchCheckStamp() {
 	if err := os.MkdirAll(filepath.Dir(p), 0o700); err != nil {
 		return
 	}
-	_ = os.WriteFile(p, []byte(strconv.FormatInt(time.Now().Unix(), 10)), 0o600)
+	if data, err := json.Marshal(s); err == nil {
+		_ = os.WriteFile(p, data, 0o600)
+	}
 }
 
 // --- backend / release lookups ----------------------------------------------
@@ -217,15 +238,63 @@ func fetchServerBuild(ctx context.Context, serverURL, bearer string) (*serverBui
 	return &b, nil
 }
 
-// latestCLIRelease fetches the latest published CLI release (version +
-// generated-against date). DEFERRED: needs the release pipeline to publish the
-// generated-against date in GitHub release metadata (no releases exist yet).
-// Returns (nil, nil) so the advisory cleanly no-ops until that lands.
-func latestCLIRelease() (*cliRelease, error) {
-	// TODO(release-infra): GET the latest release from the GitHub API and read
-	// its version tag + the generated-against date published in the release
-	// metadata, then return it here.
-	return nil, nil
+// latestCLIRelease fetches the latest published CLI release from the GitHub API:
+// the version tag, plus the generated-against date the release pipeline embeds in
+// the release body (see .goreleaser.yaml's `gb-spec-date:` footer marker).
+//
+// GitHub's /releases/latest excludes prereleases, so while only `@next`
+// prereleases exist this returns (nil, nil) and the advisory cleanly no-ops —
+// stable users are never nudged toward a prerelease.
+func latestCLIRelease(ctx context.Context) (*cliRelease, error) {
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet,
+		"https://api.github.com/repos/growthbook/cli/releases/latest", nil)
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("Accept", "application/vnd.github+json")
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return nil, nil // no stable release yet (e.g. 404 when only prereleases exist)
+	}
+	body, err := io.ReadAll(io.LimitReader(resp.Body, 1<<16))
+	if err != nil {
+		return nil, err
+	}
+	var rel struct {
+		TagName string `json:"tag_name"`
+		Body    string `json:"body"`
+	}
+	if err := json.Unmarshal(body, &rel); err != nil {
+		return nil, err
+	}
+	if rel.TagName == "" {
+		return nil, nil
+	}
+	return &cliRelease{
+		Version:  strings.TrimPrefix(rel.TagName, "v"),
+		SpecDate: parseSpecDate(rel.Body),
+	}, nil
+}
+
+// parseSpecDate extracts the generated-against date the release pipeline embeds
+// in the release body as `gb-spec-date: YYYY-MM-DD`. Returns "" if absent (the
+// compat gate then degrades to permissive semver).
+func parseSpecDate(body string) string {
+	const marker = "gb-spec-date:"
+	i := strings.Index(body, marker)
+	if i < 0 {
+		return ""
+	}
+	rest := strings.TrimSpace(body[i+len(marker):])
+	end := strings.IndexFunc(rest, func(r rune) bool { return r != '-' && (r < '0' || r > '9') })
+	if end >= 0 {
+		rest = rest[:end]
+	}
+	return rest
 }
 
 // resolveServerURL / resolveBearer read the effective connection settings the
@@ -264,6 +333,16 @@ func compareSemver(a, b string) int {
 		}
 	}
 	return 0
+}
+
+// minorOrMajorAhead reports whether b is ahead of a by at least a minor version.
+// Patch-only bumps (often codegen-only, no new capability) don't warrant a nudge.
+func minorOrMajorAhead(a, b string) bool {
+	pa, pb := parseSemver(a), parseSemver(b)
+	if pa[0] != pb[0] {
+		return pb[0] > pa[0]
+	}
+	return pb[1] > pa[1]
 }
 
 func parseSemver(v string) [3]int {
