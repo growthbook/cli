@@ -37,6 +37,20 @@ Everything downstream (binary version, npm version, dist-tag) is derived from it
 - **dist-tags** are derived from the tag in `release.yaml`: a prerelease tag
   (`v1.0.0-next.3`) publishes to **`next`**; a plain tag (`v1.2.0`) publishes to **`latest`**.
 
+### Command versioning is part of this
+
+Each command group points at the **newest** version of its API endpoint (e.g. `features` = v2
+today); superseded versions stay available as `<group>-vN` (e.g. `features-v1` — deprecated, warns
+on stderr). When a newer API version lands, the base group advances to it and the previous version
+becomes the next `-vN`.
+
+**Re-pointing a base command to a newer endpoint version is a breaking change → a MAJOR bump, and it
+must be called out explicitly in the changelog.** Scripts invoking the bare `features` will start
+receiving the new version's response shape, so customers need the heads-up to pin the prior major or
+switch to the `-vN` command. Speakeasy's spec-diff won't necessarily classify this as major on its
+own (the underlying endpoints both still exist) — **this is a case a reviewer must catch and force
+with `set_version`** if the bump comes through as minor.
+
 > Note: most spec changes don't strictly *require* a release to be usable — JSON/`--jq`
 > output passes new fields through losslessly, and new request-body fields can go via
 > `--body` raw JSON. The hard case that needs a release is a brand-new **endpoint** (no

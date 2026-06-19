@@ -5,6 +5,16 @@ Command-line interface for the *GrowthBook REST* API.
 [![Built by Speakeasy](https://img.shields.io/badge/Built_by-SPEAKEASY-374151?style=for-the-badge&labelColor=f3f4f6)](https://www.speakeasy.com/?utm_source=github-com/growthbook/cli&utm_campaign=cli)
 [![License: MIT](https://img.shields.io/badge/LICENSE_//_MIT-3b5bdb?style=for-the-badge&labelColor=eff6ff)](https://opensource.org/licenses/MIT)
 
+## Versioning and stability
+
+This CLI follows [semantic versioning](https://semver.org): breaking changes ship only in a **major** release and are called out in the changelog. Additive changes (new commands, flags, or response fields) are **minor** releases; fixes are **patch** releases. We recommend pinning to a version you have tested.
+
+### Command versioning
+
+Each command group targets the **newest** version of its API endpoint — e.g. `features` is the latest (v2) feature API. When a command is superseded, the previous version stays available under a version suffix (e.g. `features-v1`), deprecated and printing a one-line notice to stderr. When a newer API version lands, the base group advances to it and the prior version becomes the next `-vN`.
+
+Because the bare command then returns the newer version's response shape, **re-pointing a base command is a breaking change: it ships as a major release with the change called out in the changelog** — so you can pin the prior major or move to the explicit `-vN` command on your own schedule.
+
 <!-- Start Summary [summary] -->
 ## Summary
 
@@ -882,9 +892,7 @@ Diagnostic output should still be treated as potentially sensitive operational d
 
 ## Maturity
 
-This CLI is in beta, and there may be breaking changes between versions without a major version update. Therefore, we recommend pinning usage
-to a specific package version. This way, you can install the same version each time without breaking changes unless you are intentionally
-looking for the latest version.
+This CLI follows semantic versioning and a stable command-versioning convention — see **Versioning and stability** at the top of this README. We recommend pinning to a version you have tested.
 
 ## Contributions
 
