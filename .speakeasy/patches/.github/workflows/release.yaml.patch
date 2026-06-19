@@ -1,0 +1,48 @@
+diff --git a/.github/workflows/release.yaml b/.github/workflows/release.yaml
+--- a/.github/workflows/release.yaml
++++ b/.github/workflows/release.yaml
+@@ -22,6 +22,13 @@ jobs:
+         with:
+           go-version-file: "go.mod"
+           cache: true
++
++      # The generated-against date = the commit date of the committed spec
++      # snapshot. GoReleaser bakes it into the binary and into the release notes
++      # (see .goreleaser.yaml). Requires fetch-depth: 0 (full history) above.
++      - name: Compute spec date
++        run: echo "GB_SPEC_DATE=$(git log -1 --format=%cs -- .speakeasy/out.openapi.yaml)" >> "$GITHUB_ENV"
++
+       - name: Run GoReleaser
+         uses: goreleaser/goreleaser-action@v6
+         with:
+@@ -40,3 +47,30 @@ jobs:
+             dist/
+             !dist/*.txt
+           retention-days: 30
++
++  npm-publish:
++    name: Publish npm shim
++    needs: goreleaser
++    runs-on: ubuntu-latest
++    steps:
++      - name: Checkout
++        uses: actions/checkout@v4
++
++      - name: Setup Node
++        uses: actions/setup-node@v4
++        with:
++          node-version: "20"
++          registry-url: "https://registry.npmjs.org"
++
++      - name: Publish to npm
++        working-directory: npm
++        env:
++          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
++        run: |
++          VERSION="${GITHUB_REF_NAME#v}"
++          if [[ "$VERSION" == *-* ]]; then DIST_TAG=next; else DIST_TAG=latest; fi
++          echo "Publishing growthbook@$VERSION to dist-tag '$DIST_TAG'"
++          # Derive the package version from the tag so the tag stays the single
++          # source of truth (the committed npm/package.json version is informational).
++          npm version "$VERSION" --no-git-tag-version --allow-same-version
++          npm publish --tag "$DIST_TAG"

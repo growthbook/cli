@@ -65,7 +65,17 @@ build. (Don't commit a generated tree that hasn't been compiled.)
     To rebuild it: restore pristine `root.go`, re-add the one line, `git diff` it, and assemble
     the `.patch` with `cat` (NOT a text editor — editors strip the leading space on a diff's
     blank context lines, which makes the patch "corrupt"/conflict on apply).
-  - **Patches only work on files Speakeasy fully overwrites** (the `.go` tree). `README.md` /
+  - **The release pipeline is generated too** (`gen.yaml` → `cli.generateRelease: true`), so
+    `.goreleaser.yaml` and `.github/workflows/release.yaml` are also overwritten every regen — do
+    **not** hand-edit them (a regen, e.g. the daily cron, silently reverts it). Their
+    customizations live in patches: `.speakeasy/patches/.goreleaser.yaml.patch` (advisory
+    ldflags + the `gb-spec-date` release-notes footer) and
+    `.speakeasy/patches/.github/workflows/release.yaml.patch` (the "Compute spec date" step + the
+    `npm-publish` job that uses `NPM_TOKEN`). Other workflows — `auto-tag.yaml`, `ci.yaml`,
+    `sdk_generation.yaml` — and `.github/CODEOWNERS` are hand-owned (not in `gen.lock`), so edit
+    those directly. Check `gen.lock` if unsure whether a file is generated.
+  - **Patches only work on files Speakeasy fully overwrites** (the `.go` tree, `.goreleaser.yaml`,
+    the generated workflow). `README.md` /
     `USAGE.md` are *section-merged* — Speakeasy regenerates the marked sections and **preserves**
     everything else — so a `.patch` there 3-way-conflicts on the second regen (and an empty/no-op
     patch is rejected: "patch contains no hunks"). Edit those files **directly**; the change in a

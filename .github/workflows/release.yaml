@@ -47,3 +47,30 @@ jobs:
             dist/
             !dist/*.txt
           retention-days: 30
+
+  npm-publish:
+    name: Publish npm shim
+    needs: goreleaser
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Publish to npm
+        working-directory: npm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          if [[ "$VERSION" == *-* ]]; then DIST_TAG=next; else DIST_TAG=latest; fi
+          echo "Publishing growthbook@$VERSION to dist-tag '$DIST_TAG'"
+          # Derive the package version from the tag so the tag stays the single
+          # source of truth (the committed npm/package.json version is informational).
+          npm version "$VERSION" --no-git-tag-version --allow-same-version
+          npm publish --tag "$DIST_TAG"

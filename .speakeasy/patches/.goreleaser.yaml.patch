@@ -1,0 +1,30 @@
+diff --git a/.goreleaser.yaml b/.goreleaser.yaml
+--- a/.goreleaser.yaml
++++ b/.goreleaser.yaml
+@@ -22,6 +22,12 @@ builds:
+       - -s -w
+       - -X main.version={{.Version}}
+       - -X main.buildTime={{.Date}}
++      # Update/compat advisory build metadata (internal/customcfg). Version is
++      # required for the semver check; SpecDate (the spec's commit date, computed
++      # in CI) is the orderable compatibility signal.
++      - -X github.com/growthbook/cli/internal/customcfg.Version={{.Version}}
++      - -X github.com/growthbook/cli/internal/customcfg.Commit={{.ShortCommit}}
++      - -X github.com/growthbook/cli/internal/customcfg.SpecDate={{.Env.GB_SPEC_DATE}}
+ 
+ archives:
+   - id: growthbook
+@@ -47,6 +53,13 @@ release:
+   draft: false
+   prerelease: auto
+   mode: append
++  # Publish the generated-against date so a running CLI can read it back (via the
++  # GitHub API) and decide whether a newer CLI is compatible with the user's
++  # backend. Machine-read by internal/customcfg.parseSpecDate; the HTML comment
++  # keeps it out of the rendered notes.
++  footer: |
++    <!-- gb-spec-date: {{ .Env.GB_SPEC_DATE }} -->
++
+ 
+ checksum:
+   name_template: "checksums.txt"
