@@ -5,6 +5,16 @@ Command-line interface for the *GrowthBook REST* API.
 [![Built by Speakeasy](https://img.shields.io/badge/Built_by-SPEAKEASY-374151?style=for-the-badge&labelColor=f3f4f6)](https://www.speakeasy.com/?utm_source=github-com/growthbook/cli&utm_campaign=cli)
 [![License: MIT](https://img.shields.io/badge/LICENSE_//_MIT-3b5bdb?style=for-the-badge&labelColor=eff6ff)](https://opensource.org/licenses/MIT)
 
+## Installation
+
+The recommended way to install is via **npm**, which installs a small launcher that downloads the prebuilt binary for your platform:
+
+```bash
+npm i -g growthbook
+```
+
+Prefer a standalone binary with no Node.js dependency? An install script, `go install`, and prebuilt downloads are covered under [CLI Installation](#cli-installation) below.
+
 ## Versioning and stability
 
 This CLI follows [semantic versioning](https://semver.org): breaking changes ship only in a **major** release and are called out in the changelog. Additive changes (new commands, flags, or response fields) are **minor** releases; fixes are **patch** releases. We recommend pinning to a version you have tested.
