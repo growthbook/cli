@@ -1,5 +1,14 @@
-.prism.log
-.stdy.log
+# .gitignore
+.DS_Store
+**/.speakeasy/temp/
+**/.speakeasy/logs/
+.speakeasy/reports
+.env
+.env.local
 dist/
+# Built CLI binary (regenerate with: go build -o growthbook ./cmd/growthbook)
 /growthbook
-*.exe
+# generate-types default output (user artifact, not repo content)
+/growthbook-types/
+# Local working notes / handoff doc (not repo content)
+/PATH_TO_PRODUCTION.md

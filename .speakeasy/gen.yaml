@@ -1,0 +1,77 @@
+configVersion: 2.0.0
+generation:
+  sdkClassName: Growthbook
+  maintainOpenAPIOrder: true
+  usageSnippets:
+    optionalPropertyRendering: withExample
+    sdkInitStyle: constructor
+  useClassNamesForArrayFields: true
+  fixes:
+    nameResolutionDec2023: true
+    nameResolutionFeb2025: true
+    parameterOrderingFeb2024: true
+    requestResponseComponentNamesFeb2024: true
+    securityFeb2025: true
+    sharedErrorComponentsApr2025: true
+    sharedNestedComponentsJan2026: true
+    nameOverrideFeb2026: true
+  auth:
+    oAuth2ClientCredentialsEnabled: false
+    oAuth2PasswordEnabled: false
+    hoistGlobalSecurity: true
+  inferSSEOverload: true
+  sdkHooksConfigAccess: true
+  schemas:
+    allOfMergeStrategy: shallowMerge
+  requestBodyFieldName: body
+  # automatic: Speakeasy classifies each spec change and bumps major/minor/patch
+  # in the generation PR. A human confirms the bump in review; merging triggers
+  # the tag + release (see .github/workflows/auto-tag.yaml).
+  versioningStrategy: automatic
+  persistentEdits:
+    enabled: "false"
+  tests:
+    generateTests: false
+    generateNewTests: true
+    skipResponseBodyAssertions: false
+cli:
+  version: 1.0.0
+  additionalDependencies: {}
+  cliName: growthbook
+  distribution:
+    homebrew:
+      enabled: false
+      tap: ""
+    nfpm:
+      enabled: false
+      formats: deb,rpm
+      license: ""
+      maintainer: ""
+    winget:
+      enabled: false
+      license: ""
+      packageIdentifier: ""
+      publisher: ""
+      publisherUrl: ""
+      repositoryOwner: ""
+  enableCustomCodeRegions: false
+  envVarPrefix: GBCLI
+  generateRelease: true
+  imports:
+    option: openapi
+    paths:
+      callbacks: models/callbacks
+      errors: models/apierrors
+      operations: models/operations
+      shared: models/components
+      webhooks: models/webhooks
+  interactiveAuth: true
+  interactiveMode: true
+  interactiveTheme:
+    accentColor: '#38BDF8'
+    dimmedColor: '#64748B'
+    errorColor: '#F87171'
+    subtleColor: '#475569'
+    successColor: '#4ADE80'
+  packageName: github.com/growthbook/cli
+  removeStutter: true

@@ -1,0 +1,65 @@
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+version: 2
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: growthbook
+    main: ./cmd/growthbook
+    binary: growthbook
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w
+      - -X main.version={{.Version}}
+      - -X main.buildTime={{.Date}}
+      # Update/compat advisory build metadata (internal/customcfg). Version is
+      # required for the semver check; SpecDate (the spec's commit date, computed
+      # in CI) is the orderable compatibility signal.
+      - -X github.com/growthbook/cli/internal/customcfg.Version={{.Version}}
+      - -X github.com/growthbook/cli/internal/customcfg.Commit={{.ShortCommit}}
+      - -X github.com/growthbook/cli/internal/customcfg.SpecDate={{.Env.GB_SPEC_DATE}}
+
+archives:
+  - id: growthbook
+    formats: [tar.gz]
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+      {{- if .Arm }}v{{ .Arm }}{{ end }}
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+    files:
+      - README.md
+      - LICENSE*
+
+release:
+  github:
+    owner: growthbook
+    name: cli
+  draft: false
+  prerelease: auto
+  mode: append
+  # Publish the generated-against date so a running CLI can read it back (via the
+  # GitHub API) and decide whether a newer CLI is compatible with the user's
+  # backend. Machine-read by internal/customcfg.parseSpecDate; the HTML comment
+  # keeps it out of the rendered notes.
+  footer: |
+    <!-- gb-spec-date: {{ .Env.GB_SPEC_DATE }} -->
+
+
+checksum:
+  name_template: "checksums.txt"

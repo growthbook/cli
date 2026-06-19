@@ -1,0 +1,8 @@
+# Auto-requests review on every PR — including the Speakeasy generation PR that
+# proposes a version bump (see .github/workflows/sdk_generation.yaml). The
+# reviewer confirms Speakeasy's major/minor/patch classification before merge.
+#
+# Replace with a GitHub team alias (e.g. @growthbook/cli-maintainers) when one
+# exists. To make approval *required* (not just requested), enable branch
+# protection on `main` → "Require review from Code Owners".
+* @growthbook/cli-maintainers

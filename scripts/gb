@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Local-dev wrapper for the GrowthBook CLI.
+# Loads credentials from .env.local and pins the CLI to your local back-end
+# (GB_SERVER_URL), so every call is a single allowed command (`./scripts/gb ...`)
+# and can never accidentally hit GrowthBook Cloud.
+#
+#   ./scripts/gb projects list --output-format json
+#   ./scripts/gb projects post --name foo
+set -euo pipefail
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+set -a; source "$ROOT/.env.local"; set +a
+exec "$ROOT/growthbook" "$@" --server-url "$GB_SERVER_URL"
