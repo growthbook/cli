@@ -19,6 +19,8 @@ Prefer a standalone binary with no Node.js dependency? An install script, `go in
 
 This CLI follows [semantic versioning](https://semver.org): breaking changes ship only in a **major** release and are called out in the changelog. Additive changes (new commands, flags, or response fields) are **minor** releases; fixes are **patch** releases. We recommend pinning to a version you have tested.
 
+The CLI checks for a newer release at most once a day and prints a one-line notice to stderr (never stdout) when one is available and compatible with your server. Disable it with `--no-update-check` or `GBCLI_NO_UPDATE_CHECK=1`; it is also off automatically in CI and non-interactive shells.
+
 ### Command versioning
 
 Each command group targets the **newest** version of its API endpoint — e.g. `features` is the latest (v2) feature API. When a command is superseded, the previous version stays available under a version suffix (e.g. `features-v1`), deprecated and printing a one-line notice to stderr. When a newer API version lands, the base group advances to it and the prior version becomes the next `-vN`.
@@ -251,6 +253,31 @@ growthbook configure
 
 Configuration is stored in `~/.config/growthbook/config.yaml`.
 <!-- End Authentication [security] -->
+
+## Profiles
+
+Profiles let you switch between GrowthBook environments (e.g. cloud, staging, self-hosted), each with its own server URL and API key. Keys are stored in your OS keychain, not in plaintext config.
+
+```bash
+# Create or update a profile (the key comes from --bearer-auth, stored in the keychain)
+growthbook profiles set staging --server-url https://gb.staging.example.com/api --bearer-auth secret_xxx
+
+growthbook profiles use staging      # make it the active profile
+growthbook profiles list             # show configured profiles
+growthbook profiles remove staging   # delete one
+```
+
+Select a profile for a single command with `--profile <name>`, or set `GBCLI_PROFILE` in your environment. (Upgrading from the legacy CLI? An existing `~/.growthbook/config.toml` is imported into profiles automatically on first run — see [MIGRATION.md](MIGRATION.md).)
+
+## Generating TypeScript types
+
+`generate-types` fetches all of your features and writes a TypeScript `AppFeatures` definition, giving you type-safe feature keys and values in the GrowthBook SDK:
+
+```bash
+growthbook generate-types                                   # → ./growthbook-types/app-features.ts
+growthbook generate-types --output ./src/types --filename growthbook.ts
+growthbook generate-types --project prj_123                 # limit to one project
+```
 
 <!-- Start Available Commands [operations] -->
 ## Available Commands
