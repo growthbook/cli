@@ -192,6 +192,14 @@ tags:
 
 
       Most callers can interact with these endpoints via shorthand actions (`/items/add`, `/items/remove`, single-field PUTs) instead of authoring JSON Patch ops directly. Pass `version: "new"` on edit endpoints to auto-create a draft.
+  - name: constants
+    x-displayName: Constants
+    description: >-
+      Reusable named values referenced from feature flag values as `@const:key` and resolved into the SDK payload at build time. String constants are interpolated via `{{ @const:key }}`; JSON (object) constants are composed via an `$extends` array.
+  - name: constant-revisions
+    x-displayName: Constant Revisions
+    description: >-
+      Draft revisions for constants, including pending changes, approvals, and lifecycle (publish, discard, revert). Pass `version: "new"` on edit endpoints to auto-create a draft.
   - name: organizations
     x-displayName: Organizations
     description: >-
@@ -259,6 +267,23 @@ tags:
   - name: CodeRef_model
     x-displayName: Code Ref
     description: <SchemaDefinition schemaRef="#/components/schemas/CodeRef" />
+  - name: Constant_model
+    x-displayName: Constant
+    description: <SchemaDefinition schemaRef="#/components/schemas/Constant" />
+  - name: ConstantReferences_model
+    x-displayName: Constant References
+    description: <SchemaDefinition schemaRef="#/components/schemas/ConstantReferences" />
+  - name: ConstantRevision_model
+    x-displayName: Constant Revision
+    description: <SchemaDefinition schemaRef="#/components/schemas/ConstantRevision" />
+  - name: ConstantRevisionActivityLogEntry_model
+    x-displayName: Constant Revision Activity Log Entry
+    description: >-
+      <SchemaDefinition schemaRef="#/components/schemas/ConstantRevisionActivityLogEntry" />
+  - name: ConstantRevisionReview_model
+    x-displayName: Constant Revision Review
+    description: >-
+      <SchemaDefinition schemaRef="#/components/schemas/ConstantRevisionReview" />
   - name: CustomField_model
     x-displayName: Custom Field
     description: <SchemaDefinition schemaRef="#/components/schemas/CustomField" />
@@ -442,6 +467,9 @@ tags:
   - name: SavedGroup_model
     x-displayName: Saved Group
     description: <SchemaDefinition schemaRef="#/components/schemas/SavedGroup" />
+  - name: SavedGroupReferences_model
+    x-displayName: Saved Group References
+    description: <SchemaDefinition schemaRef="#/components/schemas/SavedGroupReferences" />
   - name: SavedGroupRevision_model
     x-displayName: Saved Group Revision
     description: <SchemaDefinition schemaRef="#/components/schemas/SavedGroupRevision" />
@@ -642,6 +670,10 @@ paths:
                                   const: force
                                 value:
                                   type: string
+                                sparse:
+                                  description: >-
+                                    JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
+                                  type: boolean
                               required:
                                 - type
                                 - value
@@ -701,6 +733,10 @@ paths:
                                   const: rollout
                                 value:
                                   type: string
+                                sparse:
+                                  description: >-
+                                    JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
+                                  type: boolean
                                 coverage:
                                   description: >-
                                     Percent of traffic included in this experiment. Users not included in the experiment will skip this rule.
@@ -790,6 +826,10 @@ paths:
                                     additionalProperties: false
                                 experimentId:
                                   type: string
+                                sparse:
+                                  description: >-
+                                    JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
+                                  type: boolean
                               required:
                                 - type
                                 - variations
@@ -966,6 +1006,10 @@ paths:
                                       const: force
                                     value:
                                       type: string
+                                    sparse:
+                                      description: >-
+                                        JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
+                                      type: boolean
                                   required:
                                     - type
                                     - value
@@ -1025,6 +1069,10 @@ paths:
                                       const: rollout
                                     value:
                                       type: string
+                                    sparse:
+                                      description: >-
+                                        JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
+                                      type: boolean
                                     coverage:
                                       description: >-
                                         Percent of traffic included in this experiment. Users not included in the experiment will skip this rule.
@@ -1114,6 +1162,10 @@ paths:
                                         additionalProperties: false
                                     experimentId:
                                       type: string
+                                    sparse:
+                                      description: >-
+                                        JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
+                                      type: boolean
                                   required:
                                     - type
                                     - variations
@@ -1413,6 +1465,10 @@ paths:
                                   const: force
                                 value:
                                   type: string
+                                sparse:
+                                  description: >-
+                                    JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
+                                  type: boolean
                               required:
                                 - type
                                 - value
@@ -1472,6 +1528,10 @@ paths:
                                   const: rollout
                                 value:
                                   type: string
+                                sparse:
+                                  description: >-
+                                    JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
+                                  type: boolean
                                 coverage:
                                   description: >-
                                     Percent of traffic included in this experiment. Users not included in the experiment will skip this rule.
@@ -1561,6 +1621,10 @@ paths:
                                     additionalProperties: false
                                 experimentId:
                                   type: string
+                                sparse:
+                                  description: >-
+                                    JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
+                                  type: boolean
                               required:
                                 - type
                                 - variations
@@ -1737,6 +1801,10 @@ paths:
                                       const: force
                                     value:
                                       type: string
+                                    sparse:
+                                      description: >-
+                                        JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
+                                      type: boolean
                                   required:
                                     - type
                                     - value
@@ -1796,6 +1864,10 @@ paths:
                                       const: rollout
                                     value:
                                       type: string
+                                    sparse:
+                                      description: >-
+                                        JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
+                                      type: boolean
                                     coverage:
                                       description: >-
                                         Percent of traffic included in this experiment. Users not included in the experiment will skip this rule.
@@ -1885,6 +1957,10 @@ paths:
                                         additionalProperties: false
                                     experimentId:
                                       type: string
+                                    sparse:
+                                      description: >-
+                                        JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
+                                      type: boolean
                                   required:
                                     - type
                                     - variations
@@ -3171,6 +3247,8 @@ paths:
                             required:
                               - value
                             additionalProperties: false
+                        sparse:
+                          type: boolean
                       required:
                         - type
                         - experimentId
@@ -3383,6 +3461,8 @@ paths:
                             - rollout
                         value:
                           type: string
+                        sparse:
+                          type: boolean
                         coverage:
                           type: number
                           minimum: 0
@@ -3920,6 +4000,8 @@ paths:
                         - safe-rollout
                     value:
                       type: string
+                    sparse:
+                      type: boolean
                     coverage:
                       type: number
                       minimum: 0
@@ -5543,6 +5625,10 @@ paths:
                             const: force
                           value:
                             type: string
+                          sparse:
+                            description: >-
+                              JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
+                            type: boolean
                           allEnvironments:
                             description: >-
                               When true the rule applies to all environments (default).
@@ -5624,6 +5710,10 @@ paths:
                             const: rollout
                           value:
                             type: string
+                          sparse:
+                            description: >-
+                              JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
+                            type: boolean
                           coverage:
                             type: number
                           hashAttribute:
@@ -5730,6 +5820,10 @@ paths:
                               additionalProperties: false
                           experimentId:
                             type: string
+                          sparse:
+                            description: >-
+                              JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
+                            type: boolean
                           allEnvironments:
                             description: >-
                               When true the rule applies to all environments (default).
@@ -6035,6 +6129,10 @@ paths:
                             const: force
                           value:
                             type: string
+                          sparse:
+                            description: >-
+                              JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
+                            type: boolean
                           allEnvironments:
                             description: >-
                               When true the rule applies to all environments (default).
@@ -6116,6 +6214,10 @@ paths:
                             const: rollout
                           value:
                             type: string
+                          sparse:
+                            description: >-
+                              JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
+                            type: boolean
                           coverage:
                             type: number
                           hashAttribute:
@@ -6222,6 +6324,10 @@ paths:
                               additionalProperties: false
                           experimentId:
                             type: string
+                          sparse:
+                            description: >-
+                              JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
+                            type: boolean
                           allEnvironments:
                             description: >-
                               When true the rule applies to all environments (default).
@@ -8150,6 +8256,8 @@ paths:
                         - safe-rollout
                     value:
                       type: string
+                    sparse:
+                      type: boolean
                     coverage:
                       type: number
                       minimum: 0
@@ -9407,6 +9515,7 @@ paths:
               additionalProperties: false
       responses:
         '200':
+          description: Resource created
           content:
             application/json:
               schema:
@@ -9417,7 +9526,6 @@ paths:
                 required:
                   - revision
                 additionalProperties: false
-          description: ""
       x-codeSamples:
         - lang: cURL
           source: >-
@@ -15126,6 +15234,73 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+  /v1/saved-groups/{id}/references:
+    get:
+      operationId: getSavedGroupReferences
+      summary: >-
+        Get features, experiments, and saved groups that reference this saved group
+      tags:
+        - saved-groups
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                id: SavedGroupReferences
+                type: object
+                properties:
+                  features:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        project:
+                          type: string
+                      required:
+                        - id
+                      additionalProperties: false
+                  experiments:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        project:
+                          type: string
+                        projects:
+                          type: array
+                          items:
+                            type: string
+                      required:
+                        - id
+                      additionalProperties: false
+                  savedGroups:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/savedGroups'
+                required:
+                  - features
+                  - experiments
+                  - savedGroups
+                additionalProperties: false
+      x-codeSamples:
+        - lang: cURL
+          source: >-
+            curl -X GET 'https://api.growthbook.io/api/v1/saved-groups/abc123/references' \
+
+
+
+              -H 'Authorization: Bearer YOUR_API_KEY'
   /v1/saved-groups-revisions/{savedGroupId}:
     get:
       operationId: getSavedGroupRevisions
@@ -16105,6 +16280,1247 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+  /v1/constants:
+    get:
+      operationId: listConstants
+      summary: Get all constants
+      tags:
+        - constants
+      parameters:
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      constants:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Constant'
+                    required:
+                      - constants
+                    additionalProperties: false
+                  - $ref: '#/components/schemas/PaginationFields'
+      x-codeSamples:
+        - lang: cURL
+          source: |-
+            curl -X GET 'https://api.growthbook.io/api/v1/constants' \
+              -H 'Authorization: Bearer YOUR_API_KEY'
+    post:
+      operationId: postConstant
+      summary: Create a single constant
+      tags:
+        - constants
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                key:
+                  description: >-
+                    Stable reference handle (lowercase slug, unique per org), referenced as `@const:key`
+                  type: string
+                  pattern: ^[a-z0-9][a-z0-9\-_]*$
+                name:
+                  description: The display name of the constant
+                  type: string
+                type:
+                  description: >-
+                    `string` (interpolated as `{{ @const:key }}`) or `json` (substituted as a whole value)
+                  type: string
+                  enum:
+                    - string
+                    - json
+                value:
+                  type: string
+                environmentValues:
+                  type: object
+                  propertyNames:
+                    type: string
+                  additionalProperties:
+                    type: string
+                description:
+                  type: string
+                  maxLength: 10000
+                project:
+                  type: string
+                owner:
+                  description: >-
+                    The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the user associated with the request's Personal Access Token (PAT), if one is being used.
+                  type: string
+                bypassApproval:
+                  description: >-
+                    Set to true to skip the approval flow when the org requires approvals for this constant's project. Requires the `bypassApprovalChecks` permission (or the org-level REST bypass setting). When approvals aren't required, this flag has no effect.
+                  type: boolean
+              required:
+                - key
+                - name
+                - type
+              additionalProperties: false
+      responses:
+        '200':
+          description: Resource created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  constant:
+                    $ref: '#/components/schemas/Constant'
+                required:
+                  - constant
+                additionalProperties: false
+      x-codeSamples:
+        - lang: cURL
+          source: |-
+            curl -X POST 'https://api.growthbook.io/api/v1/constants' \
+              -H 'Authorization: Bearer YOUR_API_KEY' \
+              -H 'Content-Type: application/json' \
+              -d '{"key":"config-snippet","name":"Config Snippet","type":"json","value":"{\"timeout\":30}"}'
+  /v1/constants-revisions:
+    get:
+      operationId: listConstantRevisions
+      summary: List constant revisions across the organization
+      description: >-
+        Returns a paginated list of revisions across all constants in the organization, sorted newest-first. Optionally filtered by constant, status, author, or the calling user's involvement.
+      tags:
+        - constant-revisions
+      parameters:
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/skipPagination'
+        - name: key
+          in: query
+          description: >-
+            Restrict results to revisions for a single constant (by its key). When omitted, returns revisions across every constant the caller can read.
+          schema:
+            description: >-
+              Restrict results to revisions for a single constant (by its key). When omitted, returns revisions across every constant the caller can read.
+            type: string
+        - name: status
+          in: query
+          description: >-
+            Filter by revision status. Accepts a comma-separated list, or the literal `open` for non-merged/non-discarded revisions.
+          schema:
+            description: >-
+              Filter by revision status. Accepts a comma-separated list, or the literal `open` for non-merged/non-discarded revisions.
+            type: string
+        - $ref: '#/components/parameters/author'
+        - name: mine
+          in: query
+          description: >-
+            If true, return only revisions authored by the calling user. Requires a user-scoped API key. Mutually exclusive with `author`.
+          schema:
+            description: >-
+              If true, return only revisions authored by the calling user. Requires a user-scoped API key. Mutually exclusive with `author`.
+            anyOf:
+              - type: string
+                const: 'true'
+              - type: string
+                const: 'false'
+              - type: string
+                const: '0'
+              - type: string
+                const: '1'
+              - type: boolean
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  revisions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ConstantRevision'
+                  limit:
+                    type: integer
+                  offset:
+                    type: integer
+                  count:
+                    type: integer
+                  total:
+                    type: integer
+                  hasMore:
+                    type: boolean
+                  nextOffset:
+                    anyOf:
+                      - type: integer
+                      - type: 'null'
+                required:
+                  - revisions
+                  - limit
+                  - offset
+                  - count
+                  - total
+                  - hasMore
+                  - nextOffset
+                additionalProperties: false
+      x-codeSamples:
+        - lang: cURL
+          source: |-
+            curl -X GET 'https://api.growthbook.io/api/v1/constants-revisions' \
+              -H 'Authorization: Bearer YOUR_API_KEY'
+  /v1/constants/{key}/references:
+    get:
+      operationId: getConstantReferences
+      summary: Get features and constants that reference this constant
+      tags:
+        - constants
+      parameters:
+        - name: key
+          in: path
+          required: true
+          description: The key of the constant
+          schema:
+            description: The key of the constant
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                id: ConstantReferences
+                type: object
+                properties:
+                  features:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        project:
+                          type: string
+                      required:
+                        - id
+                      additionalProperties: false
+                  constants:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/constants'
+                required:
+                  - features
+                  - constants
+                additionalProperties: false
+      x-codeSamples:
+        - lang: cURL
+          source: >-
+            curl -X GET 'https://api.growthbook.io/api/v1/constants/config-snippet/references' \
+
+
+
+              -H 'Authorization: Bearer YOUR_API_KEY'
+  /v1/constants/{key}:
+    get:
+      operationId: getConstant
+      summary: Get a single constant
+      tags:
+        - constants
+      parameters:
+        - name: key
+          in: path
+          required: true
+          description: The key of the constant
+          schema:
+            description: The key of the constant
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  constant:
+                    $ref: '#/components/schemas/Constant'
+                required:
+                  - constant
+                additionalProperties: false
+      x-codeSamples:
+        - lang: cURL
+          source: >-
+            curl -X GET 'https://api.growthbook.io/api/v1/constants/config-snippet' \
+
+
+
+              -H 'Authorization: Bearer YOUR_API_KEY'
+    post:
+      operationId: updateConstant
+      summary: Partially update a single constant
+      tags:
+        - constants
+      parameters:
+        - name: key
+          in: path
+          required: true
+          description: The key of the constant
+          schema:
+            description: The key of the constant
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                value:
+                  type: string
+                environmentValues:
+                  description: >-
+                    Per-environment value overrides (environment id → value). When provided, this REPLACES the entire override map — send the complete set, not just the environments you want to change (omit the field to leave overrides unchanged).
+                  type: object
+                  propertyNames:
+                    type: string
+                  additionalProperties:
+                    type: string
+                description:
+                  type: string
+                  maxLength: 10000
+                project:
+                  type: string
+                owner:
+                  description: >-
+                    The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
+                  type: string
+                bypassApproval:
+                  description: >-
+                    Set to true to skip the approval flow when the org requires approvals for this constant's project. Requires the `bypassApprovalChecks` permission (or the org-level REST bypass setting). When approvals aren't required, this flag has no effect.
+                  type: boolean
+              additionalProperties: false
+      responses:
+        '200':
+          description: Resource created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  constant:
+                    $ref: '#/components/schemas/Constant'
+                required:
+                  - constant
+                additionalProperties: false
+      x-codeSamples:
+        - lang: cURL
+          source: >-
+            curl -X POST 'https://api.growthbook.io/api/v1/constants/config-snippet' \
+
+
+
+              -H 'Authorization: Bearer YOUR_API_KEY' \
+              -H 'Content-Type: application/json' \
+              -d '{"value":"{\"timeout\":60}"}'
+    delete:
+      operationId: deleteConstant
+      summary: Delete a single constant
+      tags:
+        - constants
+      parameters:
+        - name: key
+          in: path
+          required: true
+          description: The key of the constant
+          schema:
+            description: The key of the constant
+            type: string
+      responses:
+        '200':
+          description: Resource deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  deletedId:
+                    type: string
+                required:
+                  - deletedId
+                additionalProperties: false
+      x-codeSamples:
+        - lang: cURL
+          source: >-
+            curl -X DELETE 'https://api.growthbook.io/api/v1/constants/config-snippet' \
+
+
+
+              -H 'Authorization: Bearer YOUR_API_KEY'
+  /v1/constants/{key}/archive:
+    post:
+      operationId: archiveConstant
+      summary: Archive a single constant
+      tags:
+        - constants
+      parameters:
+        - name: key
+          in: path
+          required: true
+          description: The key of the constant
+          schema:
+            description: The key of the constant
+            type: string
+      responses:
+        '200':
+          description: Resource created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  constant:
+                    $ref: '#/components/schemas/Constant'
+                required:
+                  - constant
+                additionalProperties: false
+      x-codeSamples:
+        - lang: cURL
+          source: >-
+            curl -X POST 'https://api.growthbook.io/api/v1/constants/config-snippet/archive' \
+
+
+
+              -H 'Authorization: Bearer YOUR_API_KEY'
+  /v1/constants/{key}/unarchive:
+    post:
+      operationId: unarchiveConstant
+      summary: Unarchive a single constant
+      tags:
+        - constants
+      parameters:
+        - name: key
+          in: path
+          required: true
+          description: The key of the constant
+          schema:
+            description: The key of the constant
+            type: string
+      responses:
+        '200':
+          description: Resource created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  constant:
+                    $ref: '#/components/schemas/Constant'
+                required:
+                  - constant
+                additionalProperties: false
+      x-codeSamples:
+        - lang: cURL
+          source: >-
+            curl -X POST 'https://api.growthbook.io/api/v1/constants/config-snippet/unarchive' \
+
+
+
+              -H 'Authorization: Bearer YOUR_API_KEY'
+  /v1/constants-revisions/{key}:
+    get:
+      operationId: getConstantRevisions
+      summary: List revisions for a constant
+      description: >-
+        Returns a paginated list of revisions for this constant, sorted newest-first. Optionally filtered by status, author, or the calling user's involvement.
+      tags:
+        - constant-revisions
+      parameters:
+        - name: key
+          in: path
+          required: true
+          description: ''
+          schema:
+            type: string
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/skipPagination'
+        - name: status
+          in: query
+          description: >-
+            Filter by revision status. Accepts a comma-separated list, or the literal `open` for non-merged/non-discarded revisions.
+          schema:
+            description: >-
+              Filter by revision status. Accepts a comma-separated list, or the literal `open` for non-merged/non-discarded revisions.
+            type: string
+        - $ref: '#/components/parameters/author'
+        - name: mine
+          in: query
+          description: >-
+            If true, return only revisions authored by the calling user. Requires a user-scoped API key. Mutually exclusive with `author`.
+          schema:
+            description: >-
+              If true, return only revisions authored by the calling user. Requires a user-scoped API key. Mutually exclusive with `author`.
+            anyOf:
+              - type: string
+                const: 'true'
+              - type: string
+                const: 'false'
+              - type: string
+                const: '0'
+              - type: string
+                const: '1'
+              - type: boolean
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  revisions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ConstantRevision'
+                  limit:
+                    type: integer
+                  offset:
+                    type: integer
+                  count:
+                    type: integer
+                  total:
+                    type: integer
+                  hasMore:
+                    type: boolean
+                  nextOffset:
+                    anyOf:
+                      - type: integer
+                      - type: 'null'
+                required:
+                  - revisions
+                  - limit
+                  - offset
+                  - count
+                  - total
+                  - hasMore
+                  - nextOffset
+                additionalProperties: false
+      x-codeSamples:
+        - lang: cURL
+          source: >-
+            curl -X GET 'https://api.growthbook.io/api/v1/constants-revisions/config-snippet' \
+
+
+
+              -H 'Authorization: Bearer YOUR_API_KEY'
+    post:
+      operationId: postConstantRevision
+      summary: Create a draft revision
+      description: >-
+        Creates a new draft revision branched from the current live constant. A constant can have multiple concurrent drafts; use this to start an isolated line of edits.
+      tags:
+        - constant-revisions
+      parameters:
+        - name: key
+          in: path
+          required: true
+          description: ''
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                comment:
+                  type: string
+              additionalProperties: false
+      responses:
+        '200':
+          description: Resource created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  revision:
+                    $ref: '#/components/schemas/ConstantRevision'
+                required:
+                  - revision
+                additionalProperties: false
+      x-codeSamples:
+        - lang: cURL
+          source: >-
+            curl -X POST 'https://api.growthbook.io/api/v1/constants-revisions/{key}' \
+
+
+
+              -H 'Authorization: Bearer YOUR_API_KEY'
+  /v1/constants-revisions/{key}/latest:
+    get:
+      operationId: getConstantRevisionLatest
+      summary: Get the most recent active draft revision
+      description: >-
+        Returns the most recently updated open (non-merged, non-discarded) revision for the constant. Returns 404 if there is no active draft. Pass `mine=true` to restrict to drafts authored by the calling user (requires a user-scoped API key).
+      tags:
+        - constant-revisions
+      parameters:
+        - name: key
+          in: path
+          required: true
+          description: ''
+          schema:
+            type: string
+        - name: mine
+          in: query
+          description: >-
+            If true, return only the most recent active draft authored by the calling user. Requires a user-scoped API key.
+          schema:
+            description: >-
+              If true, return only the most recent active draft authored by the calling user. Requires a user-scoped API key.
+            anyOf:
+              - type: string
+                const: 'true'
+              - type: string
+                const: 'false'
+              - type: string
+                const: '0'
+              - type: string
+                const: '1'
+              - type: boolean
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  revision:
+                    $ref: '#/components/schemas/ConstantRevision'
+                required:
+                  - revision
+                additionalProperties: false
+      x-codeSamples:
+        - lang: cURL
+          source: >-
+            curl -X GET 'https://api.growthbook.io/api/v1/constants-revisions/config-snippet/latest' \
+
+
+
+              -H 'Authorization: Bearer YOUR_API_KEY'
+  /v1/constants-revisions/{key}/{version}:
+    get:
+      operationId: getConstantRevision
+      summary: Get a single constant revision
+      description: >-
+        Returns the revision at the specified version for this constant. Use `GET /constants-revisions/{key}/latest` for the most recent active draft.
+      tags:
+        - constant-revisions
+      parameters:
+        - name: key
+          in: path
+          required: true
+          description: ''
+          schema:
+            type: string
+        - $ref: '#/components/parameters/version'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  revision:
+                    $ref: '#/components/schemas/ConstantRevision'
+                required:
+                  - revision
+                additionalProperties: false
+      x-codeSamples:
+        - lang: cURL
+          source: >-
+            curl -X GET 'https://api.growthbook.io/api/v1/constants-revisions/config-snippet/3' \
+
+
+
+              -H 'Authorization: Bearer YOUR_API_KEY'
+  /v1/constants-revisions/{key}/{version}/metadata:
+    put:
+      operationId: putConstantRevisionMetadata
+      summary: Update constant metadata in a draft revision
+      description: >-
+        Stages metadata changes (name, owner, description, project) on the draft. Pass `version: "new"` to auto-create a draft. The change is only applied to the live constant when the revision is merged.
+      tags:
+        - constant-revisions
+      parameters:
+        - name: key
+          in: path
+          required: true
+          description: ''
+          schema:
+            type: string
+        - name: version
+          in: path
+          required: true
+          description: ''
+          schema:
+            type: string
+            description: Revision version number, or "new" to auto-create a draft (only where supported).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                revisionTitle:
+                  type: string
+                revisionComment:
+                  type: string
+                name:
+                  type: string
+                owner:
+                  description: >-
+                    The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
+                  type: string
+                description:
+                  type: string
+                project:
+                  type: string
+              additionalProperties: false
+      responses:
+        '200':
+          description: Resource updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  revision:
+                    $ref: '#/components/schemas/ConstantRevision'
+                required:
+                  - revision
+                additionalProperties: false
+      x-codeSamples:
+        - lang: cURL
+          source: >-
+            curl -X PUT 'https://api.growthbook.io/api/v1/constants-revisions/{key}/{version}/metadata' \
+
+
+
+              -H 'Authorization: Bearer YOUR_API_KEY'
+  /v1/constants-revisions/{key}/{version}/value:
+    put:
+      operationId: putConstantRevisionValue
+      summary: Update the value of a constant draft revision
+      description: >-
+        Stages a new default `value` and/or per-environment `environmentValues` on the draft. At least one must be supplied. Pass `version: "new"` to auto-create a draft. The value must match the constant's type (valid JSON for `json` constants).
+      tags:
+        - constant-revisions
+      parameters:
+        - name: key
+          in: path
+          required: true
+          description: ''
+          schema:
+            type: string
+        - name: version
+          in: path
+          required: true
+          description: ''
+          schema:
+            type: string
+            description: Revision version number, or "new" to auto-create a draft (only where supported).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                revisionTitle:
+                  type: string
+                revisionComment:
+                  type: string
+                value:
+                  description: >-
+                    The default value (raw string for `string` constants, JSON-encoded for `json` constants)
+                  type: string
+                environmentValues:
+                  description: Per-environment value overrides (environment id → value)
+                  type: object
+                  propertyNames:
+                    type: string
+                  additionalProperties:
+                    type: string
+              additionalProperties: false
+      responses:
+        '200':
+          description: Resource updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  revision:
+                    $ref: '#/components/schemas/ConstantRevision'
+                required:
+                  - revision
+                additionalProperties: false
+      x-codeSamples:
+        - lang: cURL
+          source: >-
+            curl -X PUT 'https://api.growthbook.io/api/v1/constants-revisions/{key}/{version}/value' \
+
+
+
+              -H 'Authorization: Bearer YOUR_API_KEY'
+  /v1/constants-revisions/{key}/{version}/archive:
+    put:
+      operationId: putConstantRevisionArchive
+      summary: Stage an archive/unarchive in a draft revision
+      description: >-
+        Stages an archive or unarchive on the draft. Pass `version: "new"` to auto-create a draft. Archived constants can be permanently deleted via `DELETE /constants/{key}` once the archive is published.
+      tags:
+        - constant-revisions
+      parameters:
+        - name: key
+          in: path
+          required: true
+          description: ''
+          schema:
+            type: string
+        - name: version
+          in: path
+          required: true
+          description: ''
+          schema:
+            type: string
+            description: Revision version number, or "new" to auto-create a draft (only where supported).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                revisionTitle:
+                  type: string
+                revisionComment:
+                  type: string
+                archived:
+                  type: boolean
+              required:
+                - archived
+              additionalProperties: false
+      responses:
+        '200':
+          description: Resource updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  revision:
+                    $ref: '#/components/schemas/ConstantRevision'
+                required:
+                  - revision
+                additionalProperties: false
+      x-codeSamples:
+        - lang: cURL
+          source: >-
+            curl -X PUT 'https://api.growthbook.io/api/v1/constants-revisions/{key}/{version}/archive' \
+
+
+
+              -H 'Authorization: Bearer YOUR_API_KEY'
+  /v1/constants-revisions/{key}/{version}/request-review:
+    post:
+      operationId: postConstantRevisionRequestReview
+      summary: Request review for a draft revision
+      description: >-
+        Moves the draft from `draft` into `pending-review`. Notifies reviewers per the org's approval-flow settings.
+
+
+        Set `autoPublishOnApproval` to `true` to publish the revision automatically the moment it is approved. This requires the org to have auto-publish-on-approval enabled and the caller to have publish permission on the constant.
+      tags:
+        - constant-revisions
+      parameters:
+        - name: key
+          in: path
+          required: true
+          description: ''
+          schema:
+            type: string
+        - $ref: '#/components/parameters/version'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                autoPublishOnApproval:
+                  type: boolean
+              additionalProperties: false
+      responses:
+        '200':
+          description: Resource created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  revision:
+                    $ref: '#/components/schemas/ConstantRevision'
+                required:
+                  - revision
+                additionalProperties: false
+      x-codeSamples:
+        - lang: cURL
+          source: >-
+            curl -X POST 'https://api.growthbook.io/api/v1/constants-revisions/{key}/{version}/request-review' \
+
+
+
+              -H 'Authorization: Bearer YOUR_API_KEY'
+  /v1/constants-revisions/{key}/{version}/submit-review:
+    post:
+      operationId: postConstantRevisionSubmitReview
+      summary: Submit a review on a draft revision
+      description: >-
+        Submits an `approve`, `request-changes`, or `comment` review on the revision. Authors and contributors cannot submit `approve` reviews on their own drafts when the org has `blockSelfApproval` enabled.
+
+
+        When `decision` is `approve` and the revision has `autoPublishOnApproval` enabled, the revision is automatically published after approval. The response includes `autoPublished: true` when this happens. Pass `skipAutoPublish: true` to approve without triggering auto-publish.
+      tags:
+        - constant-revisions
+      parameters:
+        - name: key
+          in: path
+          required: true
+          description: ''
+          schema:
+            type: string
+        - $ref: '#/components/parameters/version'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                decision:
+                  type: string
+                  enum:
+                    - approve
+                    - request-changes
+                    - comment
+                comment:
+                  type: string
+                skipAutoPublish:
+                  type: boolean
+              required:
+                - decision
+              additionalProperties: false
+      responses:
+        '200':
+          description: Resource created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  revision:
+                    $ref: '#/components/schemas/ConstantRevision'
+                  autoPublished:
+                    type: boolean
+                required:
+                  - revision
+                additionalProperties: false
+      x-codeSamples:
+        - lang: cURL
+          source: >-
+            curl -X POST 'https://api.growthbook.io/api/v1/constants-revisions/{key}/{version}/submit-review' \
+
+
+
+              -H 'Authorization: Bearer YOUR_API_KEY'
+  /v1/constants-revisions/{key}/{version}/merge-status:
+    get:
+      operationId: getConstantRevisionMergeStatus
+      summary: Get merge status for a draft revision
+      description: >-
+        Runs a dry-run merge of the draft against the current live constant and returns any conflicts. Use this before publishing to preview changes and detect conflicting edits.
+      tags:
+        - constant-revisions
+      parameters:
+        - name: key
+          in: path
+          required: true
+          description: ''
+          schema:
+            type: string
+        - $ref: '#/components/parameters/version'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  hasConflicts:
+                    type: boolean
+                  conflicts:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                        baseValue: {}
+                        liveValue: {}
+                        proposedValue: {}
+                      required:
+                        - field
+                        - baseValue
+                        - liveValue
+                        - proposedValue
+                      additionalProperties: false
+                  canAutoMerge:
+                    type: boolean
+                required:
+                  - success
+                  - hasConflicts
+                  - conflicts
+                  - canAutoMerge
+                additionalProperties: false
+      x-codeSamples:
+        - lang: cURL
+          source: >-
+            curl -X GET 'https://api.growthbook.io/api/v1/constants-revisions/{key}/{version}/merge-status' \
+
+
+
+              -H 'Authorization: Bearer YOUR_API_KEY'
+  /v1/constants-revisions/{key}/{version}/rebase:
+    post:
+      operationId: postConstantRevisionRebase
+      summary: Rebase a draft revision onto the current live constant
+      description: >-
+        Updates the draft's base snapshot to the current live state, applying the draft's changes on top. Supply `conflictResolutions` to resolve any conflicting fields. Strategies are `overwrite` (use the draft's value) or `discard` (keep the live value).
+      tags:
+        - constant-revisions
+      parameters:
+        - name: key
+          in: path
+          required: true
+          description: ''
+          schema:
+            type: string
+        - $ref: '#/components/parameters/version'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                conflictResolutions:
+                  type: object
+                  propertyNames:
+                    type: string
+                  additionalProperties:
+                    type: string
+                    enum:
+                      - overwrite
+                      - discard
+              additionalProperties: false
+      responses:
+        '200':
+          description: Resource created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  revision:
+                    $ref: '#/components/schemas/ConstantRevision'
+                required:
+                  - revision
+                additionalProperties: false
+      x-codeSamples:
+        - lang: cURL
+          source: >-
+            curl -X POST 'https://api.growthbook.io/api/v1/constants-revisions/{key}/{version}/rebase' \
+
+
+
+              -H 'Authorization: Bearer YOUR_API_KEY'
+  /v1/constants-revisions/{key}/{version}/publish:
+    post:
+      operationId: postConstantRevisionPublish
+      summary: Publish a draft revision
+      description: >-
+        Publishes a draft revision, making it the live state of the constant. Blocked if the org requires approvals and the revision is not approved (callers with the bypass-approval permission may still publish).
+      tags:
+        - constant-revisions
+      parameters:
+        - name: key
+          in: path
+          required: true
+          description: ''
+          schema:
+            type: string
+        - $ref: '#/components/parameters/version'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mergeNow:
+                  description: >-
+                    When the org enforces same-base merges and the constant changed since this revision was created, set to true to force-merge the stale revision instead of rebasing first. This only takes effect for callers with bypass-approval permission; otherwise it is ignored and the revision must be rebased.
+                  type: boolean
+              additionalProperties: false
+      responses:
+        '200':
+          description: Resource created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  revision:
+                    $ref: '#/components/schemas/ConstantRevision'
+                required:
+                  - revision
+                additionalProperties: false
+      x-codeSamples:
+        - lang: cURL
+          source: >-
+            curl -X POST 'https://api.growthbook.io/api/v1/constants-revisions/{key}/{version}/publish' \
+
+
+
+              -H 'Authorization: Bearer YOUR_API_KEY'
+  /v1/constants-revisions/{key}/{version}/discard:
+    post:
+      operationId: postConstantRevisionDiscard
+      summary: Discard a draft revision
+      description: >-
+        Permanently discards a draft revision. Only open revisions (not merged or already-discarded) can be discarded.
+      tags:
+        - constant-revisions
+      parameters:
+        - name: key
+          in: path
+          required: true
+          description: ''
+          schema:
+            type: string
+        - $ref: '#/components/parameters/version'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reason:
+                  type: string
+              additionalProperties: false
+      responses:
+        '200':
+          description: Resource created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  revision:
+                    $ref: '#/components/schemas/ConstantRevision'
+                required:
+                  - revision
+                additionalProperties: false
+      x-codeSamples:
+        - lang: cURL
+          source: >-
+            curl -X POST 'https://api.growthbook.io/api/v1/constants-revisions/{key}/{version}/discard' \
+
+
+
+              -H 'Authorization: Bearer YOUR_API_KEY'
+  /v1/constants-revisions/{key}/{version}/revert:
+    post:
+      operationId: postConstantRevisionRevert
+      summary: Revert the constant to a prior revision
+      description: >-
+        Creates a new draft (or immediately publishes) whose content matches the specified historical revision. Defaults to creating a draft; when the org enables 'reverts bypass approval' it defaults to publishing immediately. Pass `strategy` to override.
+      tags:
+        - constant-revisions
+      parameters:
+        - name: key
+          in: path
+          required: true
+          description: ''
+          schema:
+            type: string
+        - $ref: '#/components/parameters/version'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                strategy:
+                  type: string
+                  enum:
+                    - draft
+                    - publish
+                title:
+                  type: string
+                comment:
+                  type: string
+              additionalProperties: false
+      responses:
+        '200':
+          description: Resource created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  revision:
+                    $ref: '#/components/schemas/ConstantRevision'
+                required:
+                  - revision
+                additionalProperties: false
+      x-codeSamples:
+        - lang: cURL
+          source: >-
+            curl -X POST 'https://api.growthbook.io/api/v1/constants-revisions/{key}/{version}/revert' \
+
+
+
+              -H 'Authorization: Bearer YOUR_API_KEY'
   /v1/organizations:
     get:
       operationId: listOrganizations
@@ -16370,6 +17786,10 @@ paths:
                     lookbackWindow:
                       type: integer
                       exclusiveMinimum: 0
+                    restateChunkDays:
+                      type: integer
+                      minimum: 1
+                      maximum: 7
                   required:
                     - idTypes
                     - updateTime
@@ -16503,6 +17923,10 @@ paths:
                     lookbackWindow:
                       type: integer
                       exclusiveMinimum: 0
+                    restateChunkDays:
+                      type: integer
+                      minimum: 1
+                      maximum: 7
                   required:
                     - idTypes
                     - updateTime
@@ -22617,671 +24041,6 @@ paths:
           source: |-
             curl -X POST 'https://api.growthbook.io/api/v1/transform-copy' \
               -H 'Authorization: Bearer YOUR_API_KEY'
-  /v1/visual-editor/ai/edit:
-    post:
-      operationId: postVisualEditorAIEdit
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                prompt:
-                  type: string
-                  minLength: 1
-                  maxLength: 2000
-                elementContext:
-                  default: []
-                  maxItems: 20
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      selector:
-                        type: string
-                      tagName:
-                        type: string
-                      textSnippet:
-                        type: string
-                      outerHTML:
-                        type: string
-                      attrs:
-                        type: object
-                        propertyNames:
-                          type: string
-                        additionalProperties:
-                          type: string
-                      computedStyles:
-                        type: object
-                        propertyNames:
-                          type: string
-                        additionalProperties:
-                          type: string
-                    required:
-                      - selector
-                      - tagName
-                      - textSnippet
-                      - outerHTML
-                      - attrs
-                    additionalProperties: false
-                variationId:
-                  type: string
-                visualChangesetId:
-                  type: string
-                domDigest:
-                  type: object
-                  properties:
-                    url:
-                      type: string
-                    title:
-                      type: string
-                    structural:
-                      default: []
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          selector:
-                            type: string
-                          tag:
-                            type: string
-                          note:
-                            type: string
-                        required:
-                          - selector
-                          - tag
-                        additionalProperties: false
-                    headings:
-                      default: []
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          selector:
-                            type: string
-                          tag:
-                            type: string
-                          text:
-                            type: string
-                        required:
-                          - selector
-                          - tag
-                          - text
-                        additionalProperties: false
-                    buttons:
-                      default: []
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          selector:
-                            type: string
-                          tag:
-                            type: string
-                          text:
-                            type: string
-                          href:
-                            type: string
-                        required:
-                          - selector
-                          - tag
-                          - text
-                        additionalProperties: false
-                    links:
-                      default: []
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          selector:
-                            type: string
-                          text:
-                            type: string
-                          href:
-                            type: string
-                        required:
-                          - selector
-                          - text
-                          - href
-                        additionalProperties: false
-                    inputs:
-                      default: []
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          selector:
-                            type: string
-                          type:
-                            type: string
-                          name:
-                            type: string
-                          placeholder:
-                            type: string
-                          label:
-                            type: string
-                        required:
-                          - selector
-                          - type
-                        additionalProperties: false
-                    images:
-                      default: []
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          selector:
-                            type: string
-                          alt:
-                            type: string
-                          src:
-                            type: string
-                        required:
-                          - selector
-                          - src
-                        additionalProperties: false
-                  required:
-                    - url
-                    - title
-                  additionalProperties: false
-                conversationHistory:
-                  maxItems: 12
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      role:
-                        type: string
-                        enum:
-                          - user
-                          - assistant
-                      text:
-                        type: string
-                        maxLength: 4000
-                    required:
-                      - role
-                      - text
-                    additionalProperties: false
-                locale:
-                  type: string
-                  minLength: 2
-                  maxLength: 10
-                  pattern: ^[a-zA-Z]{2,3}(-[a-zA-Z0-9]{2,8})?$
-                streamingMode:
-                  type: boolean
-              required:
-                - prompt
-                - variationId
-                - visualChangesetId
-              additionalProperties: false
-      responses:
-        '200':
-          description: Resource created
-          content:
-            application/json:
-              schema: {}
-      x-codeSamples:
-        - lang: cURL
-          source: >-
-            curl -X POST 'https://api.growthbook.io/api/v1/visual-editor/ai/edit' \
-
-
-
-              -H 'Authorization: Bearer YOUR_API_KEY'
-  /v1/visual-editor/ai/edit/resume:
-    post:
-      operationId: postVisualEditorAIEditResume
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                jobId:
-                  type: string
-                  minLength: 1
-                  maxLength: 100
-                callId:
-                  type: string
-                  minLength: 1
-                  maxLength: 100
-                result: {}
-              required:
-                - jobId
-                - callId
-                - result
-              additionalProperties: false
-      responses:
-        '200':
-          description: Resource created
-          content:
-            application/json:
-              schema: {}
-      x-codeSamples:
-        - lang: cURL
-          source: >-
-            curl -X POST 'https://api.growthbook.io/api/v1/visual-editor/ai/edit/resume' \
-
-
-
-              -H 'Authorization: Bearer YOUR_API_KEY'
-  /v1/visual-editor/ai/suggestions:
-    post:
-      operationId: postVisualEditorAISuggestions
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                visualChangesetId:
-                  type: string
-                pageHints:
-                  type: object
-                  properties:
-                    url:
-                      type: string
-                    title:
-                      type: string
-                    description:
-                      type: string
-                    headings:
-                      maxItems: 20
-                      type: array
-                      items:
-                        type: string
-                  additionalProperties: false
-              required:
-                - visualChangesetId
-              additionalProperties: false
-      responses:
-        '200':
-          description: Resource created
-          content:
-            application/json:
-              schema: {}
-      x-codeSamples:
-        - lang: cURL
-          source: >-
-            curl -X POST 'https://api.growthbook.io/api/v1/visual-editor/ai/suggestions' \
-
-
-
-              -H 'Authorization: Bearer YOUR_API_KEY'
-  /v1/visual-editor/ai/image-gen:
-    post:
-      operationId: postVisualEditorAIImageGen
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                prompt:
-                  type: string
-                  minLength: 1
-                  maxLength: 1000
-                aspectRatio:
-                  type: string
-                count:
-                  type: integer
-                  minimum: 1
-                  maximum: 4
-                visualChangesetId:
-                  type: string
-                referenceImage:
-                  type: object
-                  properties:
-                    data:
-                      type: string
-                      minLength: 1
-                      maxLength: 8388608
-                    mimeType:
-                      type: string
-                      enum:
-                        - image/png
-                        - image/jpeg
-                        - image/gif
-                        - image/webp
-                  required:
-                    - data
-                    - mimeType
-                  additionalProperties: false
-              required:
-                - prompt
-                - visualChangesetId
-              additionalProperties: false
-      responses:
-        '200':
-          description: Resource created
-          content:
-            application/json:
-              schema: {}
-      x-codeSamples:
-        - lang: cURL
-          source: >-
-            curl -X POST 'https://api.growthbook.io/api/v1/visual-editor/ai/image-gen' \
-
-
-
-              -H 'Authorization: Bearer YOUR_API_KEY'
-  /v1/visual-editor/ai/promote-image:
-    post:
-      operationId: postVisualEditorAIPromoteImage
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                visualChangesetId:
-                  type: string
-                filePath:
-                  type: string
-              required:
-                - visualChangesetId
-                - filePath
-              additionalProperties: false
-      responses:
-        '200':
-          description: Resource created
-          content:
-            application/json:
-              schema: {}
-      x-codeSamples:
-        - lang: cURL
-          source: >-
-            curl -X POST 'https://api.growthbook.io/api/v1/visual-editor/ai/promote-image' \
-
-
-
-              -H 'Authorization: Bearer YOUR_API_KEY'
-  /v1/visual-editor/ai/upload-signed-url:
-    post:
-      operationId: postVisualEditorAIUploadSignedUrl
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                contentType:
-                  type: string
-                  enum:
-                    - image/png
-                    - image/jpeg
-                    - image/gif
-                    - image/webp
-                visualChangesetId:
-                  type: string
-              required:
-                - contentType
-                - visualChangesetId
-              additionalProperties: false
-      responses:
-        '200':
-          description: Resource created
-          content:
-            application/json:
-              schema: {}
-      x-codeSamples:
-        - lang: cURL
-          source: >-
-            curl -X POST 'https://api.growthbook.io/api/v1/visual-editor/ai/upload-signed-url' \
-
-
-
-              -H 'Authorization: Bearer YOUR_API_KEY'
-  /v1/visual-editor/add-variant:
-    post:
-      operationId: postVisualEditorAddVariant
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                visualChangesetId:
-                  type: string
-                name:
-                  type: string
-                  minLength: 1
-                  maxLength: 120
-              required:
-                - visualChangesetId
-              additionalProperties: false
-      responses:
-        '200':
-          description: Resource created
-          content:
-            application/json:
-              schema: {}
-      x-codeSamples:
-        - lang: cURL
-          source: >-
-            curl -X POST 'https://api.growthbook.io/api/v1/visual-editor/add-variant' \
-
-
-
-              -H 'Authorization: Bearer YOUR_API_KEY'
-  /v1/visual-editor/create-experiment:
-    post:
-      operationId: postVisualEditorCreateExperiment
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  minLength: 1
-                  maxLength: 200
-                pageUrl:
-                  type: string
-                  format: uri
-                urlPatterns:
-                  minItems: 1
-                  maxItems: 100
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      include:
-                        default: true
-                        type: boolean
-                      type:
-                        default: simple
-                        type: string
-                        enum:
-                          - simple
-                          - regex
-                      pattern:
-                        type: string
-                        minLength: 1
-                        maxLength: 2000
-                    required:
-                      - pattern
-                    additionalProperties: false
-                project:
-                  type: string
-                hashAttribute:
-                  type: string
-                  minLength: 1
-                  maxLength: 100
-                hypothesis:
-                  type: string
-                  maxLength: 2000
-                description:
-                  type: string
-                  maxLength: 2000
-                type:
-                  default: standard
-                  type: string
-                  enum:
-                    - standard
-                    - multi-armed-bandit
-              required:
-                - name
-                - pageUrl
-                - urlPatterns
-                - hashAttribute
-              additionalProperties: false
-      responses:
-        '200':
-          description: Resource created
-          content:
-            application/json:
-              schema: {}
-      x-codeSamples:
-        - lang: cURL
-          source: >-
-            curl -X POST 'https://api.growthbook.io/api/v1/visual-editor/create-experiment' \
-
-
-
-              -H 'Authorization: Bearer YOUR_API_KEY'
-  /v1/visual-editor/create-changeset:
-    post:
-      operationId: postVisualEditorCreateChangeset
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                visualChangesetId:
-                  type: string
-                pageUrl:
-                  type: string
-                  format: uri
-                urlPatterns:
-                  minItems: 1
-                  maxItems: 100
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      include:
-                        default: true
-                        type: boolean
-                      type:
-                        default: simple
-                        type: string
-                        enum:
-                          - simple
-                          - regex
-                      pattern:
-                        type: string
-                        minLength: 1
-                        maxLength: 2000
-                    required:
-                      - pattern
-                    additionalProperties: false
-              required:
-                - visualChangesetId
-                - pageUrl
-                - urlPatterns
-              additionalProperties: false
-      responses:
-        '200':
-          description: Resource created
-          content:
-            application/json:
-              schema: {}
-      x-codeSamples:
-        - lang: cURL
-          source: >-
-            curl -X POST 'https://api.growthbook.io/api/v1/visual-editor/create-changeset' \
-
-
-
-              -H 'Authorization: Bearer YOUR_API_KEY'
-  /v1/visual-editor/rename-experiment:
-    post:
-      operationId: postVisualEditorRenameExperiment
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                visualChangesetId:
-                  type: string
-                name:
-                  type: string
-                  minLength: 1
-                  maxLength: 200
-              required:
-                - visualChangesetId
-                - name
-              additionalProperties: false
-      responses:
-        '200':
-          description: Resource created
-          content:
-            application/json:
-              schema: {}
-      x-codeSamples:
-        - lang: cURL
-          source: >-
-            curl -X POST 'https://api.growthbook.io/api/v1/visual-editor/rename-experiment' \
-
-
-
-              -H 'Authorization: Bearer YOUR_API_KEY'
-  /v1/visual-editor/bootstrap:
-    get:
-      operationId: getVisualEditorBootstrap
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json:
-              schema: {}
-      x-codeSamples:
-        - lang: cURL
-          source: >-
-            curl -X GET 'https://api.growthbook.io/api/v1/visual-editor/bootstrap' \
-
-
-
-              -H 'Authorization: Bearer YOUR_API_KEY'
-  /v1/visual-editor/library/images:
-    get:
-      operationId: getVisualEditorLibraryImages
-      parameters:
-        - name: limit
-          in: query
-          description: ''
-          schema:
-            type: integer
-            minimum: 1
-            maximum: 1000
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json:
-              schema: {}
-      x-codeSamples:
-        - lang: cURL
-          source: >-
-            curl -X GET 'https://api.growthbook.io/api/v1/visual-editor/library/images' \
-
-
-
-              -H 'Authorization: Bearer YOUR_API_KEY'
   /v1/dashboards/{id}:
     get:
       operationId: getDashboard
@@ -23978,6 +24737,52 @@ paths:
                                   - sum
                               metricAnalysisId:
                                 type: string
+                              comparison:
+                                type: object
+                                properties:
+                                  enabled:
+                                    type: boolean
+                                  previousTimeFrame:
+                                    type: object
+                                    properties:
+                                      predefined:
+                                        type: string
+                                        enum:
+                                          - today
+                                          - last7Days
+                                          - last30Days
+                                          - last90Days
+                                          - customLookback
+                                          - customDateRange
+                                      lookbackValue:
+                                        anyOf:
+                                          - type: number
+                                          - type: 'null'
+                                      lookbackUnit:
+                                        anyOf:
+                                          - type: string
+                                            enum:
+                                              - hour
+                                              - day
+                                              - week
+                                              - month
+                                          - type: 'null'
+                                      startDate:
+                                        anyOf:
+                                          - type: string
+                                          - type: 'null'
+                                      endDate:
+                                        anyOf:
+                                          - type: string
+                                          - type: 'null'
+                                    required:
+                                      - predefined
+                                    additionalProperties: false
+                                required:
+                                  - enabled
+                                additionalProperties: false
+                              comparisonMetricAnalysisId:
+                                type: string
                               analysisSettings:
                                 type: object
                                 properties:
@@ -24084,6 +24889,52 @@ paths:
                                   - avg
                                   - sum
                               metricAnalysisId:
+                                type: string
+                              comparison:
+                                type: object
+                                properties:
+                                  enabled:
+                                    type: boolean
+                                  previousTimeFrame:
+                                    type: object
+                                    properties:
+                                      predefined:
+                                        type: string
+                                        enum:
+                                          - today
+                                          - last7Days
+                                          - last30Days
+                                          - last90Days
+                                          - customLookback
+                                          - customDateRange
+                                      lookbackValue:
+                                        anyOf:
+                                          - type: number
+                                          - type: 'null'
+                                      lookbackUnit:
+                                        anyOf:
+                                          - type: string
+                                            enum:
+                                              - hour
+                                              - day
+                                              - week
+                                              - month
+                                          - type: 'null'
+                                      startDate:
+                                        anyOf:
+                                          - type: string
+                                          - type: 'null'
+                                      endDate:
+                                        anyOf:
+                                          - type: string
+                                          - type: 'null'
+                                    required:
+                                      - predefined
+                                    additionalProperties: false
+                                required:
+                                  - enabled
+                                additionalProperties: false
+                              comparisonMetricAnalysisId:
                                 type: string
                               analysisSettings:
                                 type: object
@@ -24751,6 +25602,52 @@ paths:
                                 additionalProperties: false
                               explorerAnalysisId:
                                 type: string
+                              comparison:
+                                type: object
+                                properties:
+                                  enabled:
+                                    type: boolean
+                                  previousTimeFrame:
+                                    type: object
+                                    properties:
+                                      predefined:
+                                        type: string
+                                        enum:
+                                          - today
+                                          - last7Days
+                                          - last30Days
+                                          - last90Days
+                                          - customLookback
+                                          - customDateRange
+                                      lookbackValue:
+                                        anyOf:
+                                          - type: number
+                                          - type: 'null'
+                                      lookbackUnit:
+                                        anyOf:
+                                          - type: string
+                                            enum:
+                                              - hour
+                                              - day
+                                              - week
+                                              - month
+                                          - type: 'null'
+                                      startDate:
+                                        anyOf:
+                                          - type: string
+                                          - type: 'null'
+                                      endDate:
+                                        anyOf:
+                                          - type: string
+                                          - type: 'null'
+                                    required:
+                                      - predefined
+                                    additionalProperties: false
+                                required:
+                                  - enabled
+                                additionalProperties: false
+                              comparisonExplorerAnalysisId:
+                                type: string
                               config:
                                 type: object
                                 properties:
@@ -25061,6 +25958,52 @@ paths:
                                   - h
                                 additionalProperties: false
                               explorerAnalysisId:
+                                type: string
+                              comparison:
+                                type: object
+                                properties:
+                                  enabled:
+                                    type: boolean
+                                  previousTimeFrame:
+                                    type: object
+                                    properties:
+                                      predefined:
+                                        type: string
+                                        enum:
+                                          - today
+                                          - last7Days
+                                          - last30Days
+                                          - last90Days
+                                          - customLookback
+                                          - customDateRange
+                                      lookbackValue:
+                                        anyOf:
+                                          - type: number
+                                          - type: 'null'
+                                      lookbackUnit:
+                                        anyOf:
+                                          - type: string
+                                            enum:
+                                              - hour
+                                              - day
+                                              - week
+                                              - month
+                                          - type: 'null'
+                                      startDate:
+                                        anyOf:
+                                          - type: string
+                                          - type: 'null'
+                                      endDate:
+                                        anyOf:
+                                          - type: string
+                                          - type: 'null'
+                                    required:
+                                      - predefined
+                                    additionalProperties: false
+                                required:
+                                  - enabled
+                                additionalProperties: false
+                              comparisonExplorerAnalysisId:
                                 type: string
                               config:
                                 type: object
@@ -25381,6 +26324,52 @@ paths:
                                   - h
                                 additionalProperties: false
                               explorerAnalysisId:
+                                type: string
+                              comparison:
+                                type: object
+                                properties:
+                                  enabled:
+                                    type: boolean
+                                  previousTimeFrame:
+                                    type: object
+                                    properties:
+                                      predefined:
+                                        type: string
+                                        enum:
+                                          - today
+                                          - last7Days
+                                          - last30Days
+                                          - last90Days
+                                          - customLookback
+                                          - customDateRange
+                                      lookbackValue:
+                                        anyOf:
+                                          - type: number
+                                          - type: 'null'
+                                      lookbackUnit:
+                                        anyOf:
+                                          - type: string
+                                            enum:
+                                              - hour
+                                              - day
+                                              - week
+                                              - month
+                                          - type: 'null'
+                                      startDate:
+                                        anyOf:
+                                          - type: string
+                                          - type: 'null'
+                                      endDate:
+                                        anyOf:
+                                          - type: string
+                                          - type: 'null'
+                                    required:
+                                      - predefined
+                                    additionalProperties: false
+                                required:
+                                  - enabled
+                                additionalProperties: false
+                              comparisonExplorerAnalysisId:
                                 type: string
                               config:
                                 type: object
@@ -26325,6 +27314,52 @@ paths:
                               - avg
                               - sum
                           metricAnalysisId:
+                            type: string
+                          comparison:
+                            type: object
+                            properties:
+                              enabled:
+                                type: boolean
+                              previousTimeFrame:
+                                type: object
+                                properties:
+                                  predefined:
+                                    type: string
+                                    enum:
+                                      - today
+                                      - last7Days
+                                      - last30Days
+                                      - last90Days
+                                      - customLookback
+                                      - customDateRange
+                                  lookbackValue:
+                                    anyOf:
+                                      - type: number
+                                      - type: 'null'
+                                  lookbackUnit:
+                                    anyOf:
+                                      - type: string
+                                        enum:
+                                          - hour
+                                          - day
+                                          - week
+                                          - month
+                                      - type: 'null'
+                                  startDate:
+                                    anyOf:
+                                      - type: string
+                                      - type: 'null'
+                                  endDate:
+                                    anyOf:
+                                      - type: string
+                                      - type: 'null'
+                                required:
+                                  - predefined
+                                additionalProperties: false
+                            required:
+                              - enabled
+                            additionalProperties: false
+                          comparisonMetricAnalysisId:
                             type: string
                           analysisSettings:
                             type: object
@@ -31789,6 +32824,10 @@ components:
               const: force
             value:
               type: string
+            sparse:
+              description: >-
+                JSON features only. When true, `value` is a partial object merged onto the feature's default value instead of replacing it.
+              type: boolean
           required:
             - type
             - value
@@ -31897,6 +32936,10 @@ components:
               const: rollout
             value:
               type: string
+            sparse:
+              description: >-
+                JSON features only. When true, `value` is a partial object merged onto the feature's default value instead of replacing it.
+              type: boolean
             coverage:
               type: number
               minimum: 0
@@ -32158,6 +33201,10 @@ components:
                 additionalProperties: false
             experimentId:
               type: string
+            sparse:
+              description: >-
+                JSON features only. When true, each variation `value` is a partial object merged onto the feature's default value instead of replacing it.
+              type: boolean
           required:
             - type
             - variations
@@ -34445,6 +35492,10 @@ components:
         value:
           description: The value to serve when this rule matches.
           type: string
+        sparse:
+          description: >-
+            JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
+          type: boolean
         coverage:
           description: >-
             Percentage of users to include (0–1). Defaults to 1. When less than 1, hashAttribute is required.
@@ -34538,6 +35589,10 @@ components:
             required:
               - value
             additionalProperties: false
+        sparse:
+          description: >-
+            JSON features only. When true, each variation value is a partial object merged onto the feature's default value instead of replacing it.
+          type: boolean
       required:
         - type
         - experimentId
@@ -36931,6 +37986,10 @@ components:
             - comment
         comment:
           type: string
+        stale:
+          description: >-
+            True if a later review cycle (re-submit, approval reset, recall, or reopen) superseded this verdict. Stale verdicts are kept for attribution but no longer count as an active approval or change-request.
+          type: boolean
         dateCreated:
           format: date-time
           type: string
@@ -36956,9 +38015,376 @@ components:
             - approved
             - requested-changes
             - commented
+            - review-requested
+            - review-retracted
             - merged
             - discarded
             - reopened
+            - scheduled-publish
+            - scheduled-publish-updated
+            - scheduled-publish-canceled
+        description:
+          anyOf:
+            - type: string
+            - type: 'null'
+        proposedChangesSnapshot:
+          type: array
+          items:
+            anyOf:
+              - type: object
+                properties:
+                  op:
+                    type: string
+                    const: add
+                  path:
+                    type: string
+                  value: {}
+                required:
+                  - op
+                  - path
+                  - value
+                additionalProperties: false
+              - type: object
+                properties:
+                  op:
+                    type: string
+                    const: remove
+                  path:
+                    type: string
+                required:
+                  - op
+                  - path
+                additionalProperties: false
+              - type: object
+                properties:
+                  op:
+                    type: string
+                    const: replace
+                  path:
+                    type: string
+                  value: {}
+                required:
+                  - op
+                  - path
+                  - value
+                additionalProperties: false
+              - type: object
+                properties:
+                  op:
+                    type: string
+                    const: move
+                  from:
+                    type: string
+                  path:
+                    type: string
+                required:
+                  - op
+                  - from
+                  - path
+                additionalProperties: false
+              - type: object
+                properties:
+                  op:
+                    type: string
+                    const: copy
+                  from:
+                    type: string
+                  path:
+                    type: string
+                required:
+                  - op
+                  - from
+                  - path
+                additionalProperties: false
+              - type: object
+                properties:
+                  op:
+                    type: string
+                    const: test
+                  path:
+                    type: string
+                  value: {}
+                required:
+                  - op
+                  - path
+                  - value
+                additionalProperties: false
+        targetSnapshot: {}
+        dateCreated:
+          format: date-time
+          type: string
+      required:
+        - id
+        - userId
+        - action
+        - dateCreated
+      additionalProperties: false
+    Constant:
+      type: object
+      properties:
+        id:
+          type: string
+        key:
+          description: Stable reference handle; used as `@const:key` in values
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+            - string
+            - json
+        owner:
+          description: The userId of the owner (or raw owner name/email for legacy records)
+          type: string
+        ownerEmail:
+          description: >-
+            The email address of the owner, when the owner can be resolved to a known user.
+          type: string
+        value:
+          description: >-
+            The default value (raw string for `string` constants, JSON-encoded for `json` constants)
+          type: string
+        environmentValues:
+          description: >-
+            Per-environment value overrides (environment id → value). Falls back to `value` when an environment is absent.
+          type: object
+          propertyNames:
+            type: string
+          additionalProperties:
+            type: string
+        description:
+          type: string
+          maxLength: 10000
+        project:
+          description: The project this constant belongs to (empty = all projects)
+          type: string
+        archived:
+          type: boolean
+        dateCreated:
+          format: date-time
+          type: string
+        dateUpdated:
+          format: date-time
+          type: string
+      required:
+        - id
+        - key
+        - name
+        - type
+        - dateCreated
+        - dateUpdated
+      additionalProperties: false
+    ConstantRevision:
+      type: object
+      properties:
+        id:
+          type: string
+        version:
+          type: integer
+        title:
+          type: string
+        status:
+          type: string
+          enum:
+            - draft
+            - pending-review
+            - approved
+            - changes-requested
+            - merged
+            - discarded
+        authorId:
+          type: string
+        authorEmail:
+          type: string
+        contributors:
+          type: array
+          items:
+            type: string
+        revertedFrom:
+          type: string
+        reviews:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConstantRevisionReview'
+        activityLog:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConstantRevisionActivityLogEntry'
+        resolution:
+          type: object
+          properties:
+            action:
+              type: string
+              enum:
+                - merged
+                - discarded
+            userId:
+              type: string
+            dateCreated:
+              format: date-time
+              type: string
+          required:
+            - action
+            - userId
+            - dateCreated
+          additionalProperties: false
+        dateCreated:
+          format: date-time
+          type: string
+        dateUpdated:
+          format: date-time
+          type: string
+        baseConstant:
+          $ref: '#/components/schemas/Constant'
+        proposedConstant:
+          $ref: '#/components/schemas/Constant'
+        proposedChanges:
+          type: array
+          items:
+            anyOf:
+              - type: object
+                properties:
+                  op:
+                    type: string
+                    const: add
+                  path:
+                    type: string
+                  value: {}
+                required:
+                  - op
+                  - path
+                  - value
+                additionalProperties: false
+              - type: object
+                properties:
+                  op:
+                    type: string
+                    const: remove
+                  path:
+                    type: string
+                required:
+                  - op
+                  - path
+                additionalProperties: false
+              - type: object
+                properties:
+                  op:
+                    type: string
+                    const: replace
+                  path:
+                    type: string
+                  value: {}
+                required:
+                  - op
+                  - path
+                  - value
+                additionalProperties: false
+              - type: object
+                properties:
+                  op:
+                    type: string
+                    const: move
+                  from:
+                    type: string
+                  path:
+                    type: string
+                required:
+                  - op
+                  - from
+                  - path
+                additionalProperties: false
+              - type: object
+                properties:
+                  op:
+                    type: string
+                    const: copy
+                  from:
+                    type: string
+                  path:
+                    type: string
+                required:
+                  - op
+                  - from
+                  - path
+                additionalProperties: false
+              - type: object
+                properties:
+                  op:
+                    type: string
+                    const: test
+                  path:
+                    type: string
+                  value: {}
+                required:
+                  - op
+                  - path
+                  - value
+                additionalProperties: false
+      required:
+        - id
+        - status
+        - authorId
+        - reviews
+        - activityLog
+        - dateCreated
+        - dateUpdated
+        - baseConstant
+        - proposedConstant
+        - proposedChanges
+      additionalProperties: false
+    ConstantRevisionReview:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        decision:
+          type: string
+          enum:
+            - approve
+            - request-changes
+            - comment
+        comment:
+          type: string
+        stale:
+          description: >-
+            True if a later review cycle (re-submit, approval reset, recall, or reopen) superseded this verdict. Stale verdicts are kept for attribution but no longer count as an active approval or change-request.
+          type: boolean
+        dateCreated:
+          format: date-time
+          type: string
+      required:
+        - id
+        - userId
+        - decision
+        - dateCreated
+      additionalProperties: false
+    ConstantRevisionActivityLogEntry:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        action:
+          type: string
+          enum:
+            - created
+            - updated
+            - reviewed
+            - approved
+            - requested-changes
+            - commented
+            - review-requested
+            - review-retracted
+            - merged
+            - discarded
+            - reopened
+            - scheduled-publish
+            - scheduled-publish-updated
+            - scheduled-publish-canceled
         description:
           anyOf:
             - type: string
@@ -37130,6 +38556,10 @@ components:
             lookbackWindow:
               type: integer
               exclusiveMinimum: 0
+            restateChunkDays:
+              type: integer
+              minimum: 1
+              maximum: 7
           required:
             - idTypes
             - updateTime
@@ -38304,6 +39734,8 @@ components:
           type: string
         featureRegexValidator:
           type: string
+        sparseJSONRulesByDefault:
+          type: boolean
         banditScheduleValue:
           type: number
         banditScheduleUnit:
@@ -38330,6 +39762,12 @@ components:
             - type: 'null'
         maxMetricSliceLevels:
           type: number
+        topValuesLookbackValue:
+          type: number
+        topValuesLookbackUnit:
+          type: string
+          enum:
+            - days
       required:
         - confidenceLevel
         - northStar
@@ -39428,6 +40866,50 @@ components:
               additionalProperties: false
         title:
           type: string
+        comparison:
+          type: object
+          properties:
+            enabled:
+              type: boolean
+            previousTimeFrame:
+              type: object
+              properties:
+                predefined:
+                  type: string
+                  enum:
+                    - today
+                    - last7Days
+                    - last30Days
+                    - last90Days
+                    - customLookback
+                    - customDateRange
+                lookbackValue:
+                  anyOf:
+                    - type: number
+                    - type: 'null'
+                lookbackUnit:
+                  anyOf:
+                    - type: string
+                      enum:
+                        - hour
+                        - day
+                        - week
+                        - month
+                    - type: 'null'
+                startDate:
+                  anyOf:
+                    - type: string
+                    - type: 'null'
+                endDate:
+                  anyOf:
+                    - type: string
+                    - type: 'null'
+              required:
+                - predefined
+              additionalProperties: false
+          required:
+            - enabled
+          additionalProperties: false
         grid:
           type: object
           properties:
@@ -39520,6 +41002,52 @@ components:
                       - avg
                       - sum
                   metricAnalysisId:
+                    type: string
+                  comparison:
+                    type: object
+                    properties:
+                      enabled:
+                        type: boolean
+                      previousTimeFrame:
+                        type: object
+                        properties:
+                          predefined:
+                            type: string
+                            enum:
+                              - today
+                              - last7Days
+                              - last30Days
+                              - last90Days
+                              - customLookback
+                              - customDateRange
+                          lookbackValue:
+                            anyOf:
+                              - type: number
+                              - type: 'null'
+                          lookbackUnit:
+                            anyOf:
+                              - type: string
+                                enum:
+                                  - hour
+                                  - day
+                                  - week
+                                  - month
+                              - type: 'null'
+                          startDate:
+                            anyOf:
+                              - type: string
+                              - type: 'null'
+                          endDate:
+                            anyOf:
+                              - type: string
+                              - type: 'null'
+                        required:
+                          - predefined
+                        additionalProperties: false
+                    required:
+                      - enabled
+                    additionalProperties: false
+                  comparisonMetricAnalysisId:
                     type: string
                   analysisSettings:
                     type: object
@@ -40187,6 +41715,52 @@ components:
                     additionalProperties: false
                   explorerAnalysisId:
                     type: string
+                  comparison:
+                    type: object
+                    properties:
+                      enabled:
+                        type: boolean
+                      previousTimeFrame:
+                        type: object
+                        properties:
+                          predefined:
+                            type: string
+                            enum:
+                              - today
+                              - last7Days
+                              - last30Days
+                              - last90Days
+                              - customLookback
+                              - customDateRange
+                          lookbackValue:
+                            anyOf:
+                              - type: number
+                              - type: 'null'
+                          lookbackUnit:
+                            anyOf:
+                              - type: string
+                                enum:
+                                  - hour
+                                  - day
+                                  - week
+                                  - month
+                              - type: 'null'
+                          startDate:
+                            anyOf:
+                              - type: string
+                              - type: 'null'
+                          endDate:
+                            anyOf:
+                              - type: string
+                              - type: 'null'
+                        required:
+                          - predefined
+                        additionalProperties: false
+                    required:
+                      - enabled
+                    additionalProperties: false
+                  comparisonExplorerAnalysisId:
+                    type: string
                   config:
                     type: object
                     properties:
@@ -40497,6 +42071,52 @@ components:
                       - h
                     additionalProperties: false
                   explorerAnalysisId:
+                    type: string
+                  comparison:
+                    type: object
+                    properties:
+                      enabled:
+                        type: boolean
+                      previousTimeFrame:
+                        type: object
+                        properties:
+                          predefined:
+                            type: string
+                            enum:
+                              - today
+                              - last7Days
+                              - last30Days
+                              - last90Days
+                              - customLookback
+                              - customDateRange
+                          lookbackValue:
+                            anyOf:
+                              - type: number
+                              - type: 'null'
+                          lookbackUnit:
+                            anyOf:
+                              - type: string
+                                enum:
+                                  - hour
+                                  - day
+                                  - week
+                                  - month
+                              - type: 'null'
+                          startDate:
+                            anyOf:
+                              - type: string
+                              - type: 'null'
+                          endDate:
+                            anyOf:
+                              - type: string
+                              - type: 'null'
+                        required:
+                          - predefined
+                        additionalProperties: false
+                    required:
+                      - enabled
+                    additionalProperties: false
+                  comparisonExplorerAnalysisId:
                     type: string
                   config:
                     type: object
@@ -40817,6 +42437,52 @@ components:
                       - h
                     additionalProperties: false
                   explorerAnalysisId:
+                    type: string
+                  comparison:
+                    type: object
+                    properties:
+                      enabled:
+                        type: boolean
+                      previousTimeFrame:
+                        type: object
+                        properties:
+                          predefined:
+                            type: string
+                            enum:
+                              - today
+                              - last7Days
+                              - last30Days
+                              - last90Days
+                              - customLookback
+                              - customDateRange
+                          lookbackValue:
+                            anyOf:
+                              - type: number
+                              - type: 'null'
+                          lookbackUnit:
+                            anyOf:
+                              - type: string
+                                enum:
+                                  - hour
+                                  - day
+                                  - week
+                                  - month
+                              - type: 'null'
+                          startDate:
+                            anyOf:
+                              - type: string
+                              - type: 'null'
+                          endDate:
+                            anyOf:
+                              - type: string
+                              - type: 'null'
+                        required:
+                          - predefined
+                        additionalProperties: false
+                    required:
+                      - enabled
+                    additionalProperties: false
+                  comparisonExplorerAnalysisId:
                     type: string
                   config:
                     type: object
@@ -42036,6 +43702,8 @@ components:
                     const: force
                   value:
                     type: string
+                  sparse:
+                    type: boolean
                 required:
                   - description
                   - id
@@ -42118,6 +43786,8 @@ components:
                     const: rollout
                   value:
                     type: string
+                  sparse:
+                    type: boolean
                   coverage:
                     type: number
                   hashAttribute:
@@ -42466,6 +44136,8 @@ components:
                         - variationId
                         - value
                       additionalProperties: false
+                  sparse:
+                    type: boolean
                 required:
                   - description
                   - id
@@ -42728,6 +44400,36 @@ components:
           type: string
       required:
         - id
+        - name
+      additionalProperties: false
+    savedGroups:
+      type: object
+      properties:
+        id:
+          type: string
+        groupName:
+          type: string
+        projects:
+          type: array
+          items:
+            type: string
+      required:
+        - id
+      additionalProperties: false
+    constants:
+      type: object
+      properties:
+        id:
+          type: string
+        key:
+          type: string
+        name:
+          type: string
+        project:
+          type: string
+      required:
+        - id
+        - key
         - name
       additionalProperties: false
     updatedMember:
@@ -43261,6 +44963,8 @@ x-tagGroups:
       - visual-changesets
       - saved-groups
       - saved-group-revisions
+      - constants
+      - constant-revisions
       - organizations
       - members
       - code-references
@@ -43284,6 +44988,11 @@ x-tagGroups:
       - Archetype_model
       - Attribute_model
       - CodeRef_model
+      - Constant_model
+      - ConstantReferences_model
+      - ConstantRevision_model
+      - ConstantRevisionActivityLogEntry_model
+      - ConstantRevisionReview_model
       - CustomField_model
       - Dashboard_model
       - DataSource_model
@@ -43341,6 +45050,7 @@ x-tagGroups:
       - Report_model
       - Safe Rollout Rule_model
       - SavedGroup_model
+      - SavedGroupReferences_model
       - SavedGroupRevision_model
       - SavedGroupRevisionActivityLogEntry_model
       - SavedGroupRevisionReview_model

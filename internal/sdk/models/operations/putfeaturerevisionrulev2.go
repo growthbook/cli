@@ -147,6 +147,7 @@ type PutFeatureRevisionRuleV2Rule struct {
 	Prerequisites   []PutFeatureRevisionRuleV2Prerequisite `json:"prerequisites,omitzero"`
 	Type            *PutFeatureRevisionRuleV2Type          `json:"type,omitzero"`
 	Value           *string                                `json:"value,omitzero"`
+	Sparse          *bool                                  `json:"sparse,omitzero"`
 	Coverage        *float64                               `json:"coverage,omitzero"`
 	HashAttribute   *string                                `json:"hashAttribute,omitzero"`
 	Seed            *string                                `json:"seed,omitzero"`
@@ -217,6 +218,13 @@ func (p *PutFeatureRevisionRuleV2Rule) GetValue() *string {
 		return nil
 	}
 	return p.Value
+}
+
+func (p *PutFeatureRevisionRuleV2Rule) GetSparse() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.Sparse
 }
 
 func (p *PutFeatureRevisionRuleV2Rule) GetCoverage() *float64 {

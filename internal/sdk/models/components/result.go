@@ -526,6 +526,7 @@ type RuleExperimentRef struct {
 	type_        string          `const:"experiment-ref" json:"type"`
 	ExperimentID string          `json:"experimentId"`
 	Variations   []RuleVariation `json:"variations"`
+	Sparse       *bool           `json:"sparse,omitzero"`
 }
 
 func (r RuleExperimentRef) MarshalJSON() ([]byte, error) {
@@ -625,6 +626,13 @@ func (r *RuleExperimentRef) GetVariations() []RuleVariation {
 		return []RuleVariation{}
 	}
 	return r.Variations
+}
+
+func (r *RuleExperimentRef) GetSparse() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.Sparse
 }
 
 type ResultScheduleRule3 struct {
@@ -1693,6 +1701,7 @@ type RuleRollout struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_         string   `const:"rollout" json:"type"`
 	Value         string   `json:"value"`
+	Sparse        *bool    `json:"sparse,omitzero"`
 	Coverage      float64  `json:"coverage"`
 	HashAttribute string   `json:"hashAttribute"`
 	Seed          *string  `json:"seed,omitzero"`
@@ -1789,6 +1798,13 @@ func (r *RuleRollout) GetValue() string {
 		return ""
 	}
 	return r.Value
+}
+
+func (r *RuleRollout) GetSparse() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.Sparse
 }
 
 func (r *RuleRollout) GetCoverage() float64 {
@@ -1976,8 +1992,9 @@ type RuleForce struct {
 	Prerequisites   []RulePrerequisite1   `json:"prerequisites,omitzero"`
 	ScheduleType    *ResultScheduleType1  `json:"scheduleType,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_ string `const:"force" json:"type"`
-	Value string `json:"value"`
+	type_  string `const:"force" json:"type"`
+	Value  string `json:"value"`
+	Sparse *bool  `json:"sparse,omitzero"`
 }
 
 func (r RuleForce) MarshalJSON() ([]byte, error) {
@@ -2070,6 +2087,13 @@ func (r *RuleForce) GetValue() string {
 		return ""
 	}
 	return r.Value
+}
+
+func (r *RuleForce) GetSparse() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.Sparse
 }
 
 type RuleType string

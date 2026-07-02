@@ -24,9 +24,6 @@ generation:
   schemas:
     allOfMergeStrategy: shallowMerge
   requestBodyFieldName: body
-  # automatic: Speakeasy classifies each spec change and bumps major/minor/patch
-  # in the generation PR. A human confirms the bump in review; merging triggers
-  # the tag + release (see .github/workflows/auto-tag.yaml).
   versioningStrategy: automatic
   persistentEdits:
     enabled: "false"
@@ -35,7 +32,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 cli:
-  version: 1.0.0
+  version: 1.0.1
   additionalDependencies: {}
   cliName: growthbook
   distribution:

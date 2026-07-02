@@ -113,6 +113,8 @@ growthbook [flags]
 * [growthbook auth](growthbook_auth.md)	 - Manage authentication credentials
 * [growthbook code-references](growthbook_code-references.md)	 - Intended for use with our code reference CI utility, [`gb-find-code-refs`](https://github
 * [growthbook configure](growthbook_configure.md)	 - Configure authentication credentials and preferences
+* [growthbook constant-revisions](growthbook_constant-revisions.md)	 - Draft revisions for constants, including pending changes, approvals, and lifecycle (publish, discard, revert)
+* [growthbook constants](growthbook_constants.md)	 - Reusable named values referenced from feature flag values as `@const:key` and resolved into the SDK payload at build time
 * [growthbook custom-fields](growthbook_custom-fields.md)	 - Operations for custom-fields
 * [growthbook dashboards](growthbook_dashboards.md)	 - Operations for dashboards
 * [growthbook data-sources](growthbook_data-sources.md)	 - How GrowthBook connects and queries your data, including cached database schema metadata (information schemas) for tables and columns
@@ -129,8 +131,6 @@ growthbook [flags]
 * [growthbook features-v1](growthbook_features-v1.md)	 - Control your feature flags programatically
 * [growthbook generate-types](growthbook_generate-types.md)	 - Generate TypeScript types for all your features
 * [growthbook get-SDK-payload](growthbook_get-SDK-payload.md)	 - Get a SDK payload
-* [growthbook get-visual-editor-bootstrap](growthbook_get-visual-editor-bootstrap.md)	 - Get Visual Editor Bootstrap
-* [growthbook get-visual-editor-library-images](growthbook_get-visual-editor-library-images.md)	 - Get Visual Editor Library Images
 * [growthbook members](growthbook_members.md)	 - Members are users who have been invited to an organization
 * [growthbook meta](growthbook_meta.md)	 - Server metadata, including the running build's version and commit for version-skew checks
 * [growthbook metric-groups](growthbook_metric-groups.md)	 - Operations for metric-groups
@@ -138,16 +138,6 @@ growthbook [flags]
 * [growthbook namespaces](growthbook_namespaces.md)	 - Namespaces partition your user population into buckets so that experiments using the same hash attribute do not overlap unintentionally
 * [growthbook organizations](growthbook_organizations.md)	 - Organizations are used for multi-org deployments where different teams can run their own isolated feature flags and experiments
 * [growthbook post-copy-transform](growthbook_post-copy-transform.md)	 - Post Copy Transform
-* [growthbook post-visual-editor-AI-edit](growthbook_post-visual-editor-AI-edit.md)	 - Post Visual Editor AIEdit
-* [growthbook post-visual-editor-AI-edit-resume](growthbook_post-visual-editor-AI-edit-resume.md)	 - Post Visual Editor AIEdit Resume
-* [growthbook post-visual-editor-AI-image-gen](growthbook_post-visual-editor-AI-image-gen.md)	 - Post Visual Editor AIImage Gen
-* [growthbook post-visual-editor-AI-promote-image](growthbook_post-visual-editor-AI-promote-image.md)	 - Post Visual Editor AIPromote Image
-* [growthbook post-visual-editor-AI-suggestions](growthbook_post-visual-editor-AI-suggestions.md)	 - Post Visual Editor AISuggestions
-* [growthbook post-visual-editor-AI-upload-signed-url](growthbook_post-visual-editor-AI-upload-signed-url.md)	 - Post Visual Editor AIUpload Signed Url
-* [growthbook post-visual-editor-add-variant](growthbook_post-visual-editor-add-variant.md)	 - Post Visual Editor Add Variant
-* [growthbook post-visual-editor-create-changeset](growthbook_post-visual-editor-create-changeset.md)	 - Post Visual Editor Create Changeset
-* [growthbook post-visual-editor-create-experiment](growthbook_post-visual-editor-create-experiment.md)	 - Post Visual Editor Create Experiment
-* [growthbook post-visual-editor-rename-experiment](growthbook_post-visual-editor-rename-experiment.md)	 - Post Visual Editor Rename Experiment
 * [growthbook profiles](growthbook_profiles.md)	 - Manage named credential/server profiles
 * [growthbook projects](growthbook_projects.md)	 - Projects are used to organize your feature flags and experiments
 * [growthbook queries](growthbook_queries.md)	 - Retrieve queries used in experiments to calculate results

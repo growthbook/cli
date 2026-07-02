@@ -220,6 +220,129 @@ func (u UpdateSchedule) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type UpdateSchedule: all fields are null")
 }
 
+type PreviousTimeFramePredefined string
+
+const (
+	PreviousTimeFramePredefinedToday           PreviousTimeFramePredefined = "today"
+	PreviousTimeFramePredefinedLast7Days       PreviousTimeFramePredefined = "last7Days"
+	PreviousTimeFramePredefinedLast30Days      PreviousTimeFramePredefined = "last30Days"
+	PreviousTimeFramePredefinedLast90Days      PreviousTimeFramePredefined = "last90Days"
+	PreviousTimeFramePredefinedCustomLookback  PreviousTimeFramePredefined = "customLookback"
+	PreviousTimeFramePredefinedCustomDateRange PreviousTimeFramePredefined = "customDateRange"
+)
+
+func (e PreviousTimeFramePredefined) ToPointer() *PreviousTimeFramePredefined {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *PreviousTimeFramePredefined) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "today", "last7Days", "last30Days", "last90Days", "customLookback", "customDateRange":
+			return true
+		}
+	}
+	return false
+}
+
+type PreviousTimeFrameLookbackUnit string
+
+const (
+	PreviousTimeFrameLookbackUnitHour  PreviousTimeFrameLookbackUnit = "hour"
+	PreviousTimeFrameLookbackUnitDay   PreviousTimeFrameLookbackUnit = "day"
+	PreviousTimeFrameLookbackUnitWeek  PreviousTimeFrameLookbackUnit = "week"
+	PreviousTimeFrameLookbackUnitMonth PreviousTimeFrameLookbackUnit = "month"
+)
+
+func (e PreviousTimeFrameLookbackUnit) ToPointer() *PreviousTimeFrameLookbackUnit {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *PreviousTimeFrameLookbackUnit) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "hour", "day", "week", "month":
+			return true
+		}
+	}
+	return false
+}
+
+type PreviousTimeFrame struct {
+	Predefined    PreviousTimeFramePredefined                                      `json:"predefined"`
+	LookbackValue optionalnullable.OptionalNullable[float64]                       `json:"lookbackValue,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[PreviousTimeFrameLookbackUnit] `json:"lookbackUnit,omitzero"`
+	StartDate     optionalnullable.OptionalNullable[string]                        `json:"startDate,omitzero"`
+	EndDate       optionalnullable.OptionalNullable[string]                        `json:"endDate,omitzero"`
+}
+
+func (p *PreviousTimeFrame) GetPredefined() PreviousTimeFramePredefined {
+	if p == nil {
+		return PreviousTimeFramePredefined("")
+	}
+	return p.Predefined
+}
+
+func (p *PreviousTimeFrame) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+	if p == nil {
+		return nil
+	}
+	return p.LookbackValue
+}
+
+func (p *PreviousTimeFrame) GetLookbackUnit() optionalnullable.OptionalNullable[PreviousTimeFrameLookbackUnit] {
+	if p == nil {
+		return nil
+	}
+	return p.LookbackUnit
+}
+
+func (p *PreviousTimeFrame) GetStartDate() optionalnullable.OptionalNullable[string] {
+	if p == nil {
+		return nil
+	}
+	return p.StartDate
+}
+
+func (p *PreviousTimeFrame) GetEndDate() optionalnullable.OptionalNullable[string] {
+	if p == nil {
+		return nil
+	}
+	return p.EndDate
+}
+
+type Comparison struct {
+	Enabled           bool               `json:"enabled"`
+	PreviousTimeFrame *PreviousTimeFrame `json:"previousTimeFrame,omitzero"`
+}
+
+func (c Comparison) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *Comparison) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *Comparison) GetEnabled() bool {
+	if c == nil {
+		return false
+	}
+	return c.Enabled
+}
+
+func (c *Comparison) GetPreviousTimeFrame() *PreviousTimeFrame {
+	if c == nil {
+		return nil
+	}
+	return c.PreviousTimeFrame
+}
+
 type Grid struct {
 	Cols      *int64 `default:"24" json:"cols"`
 	RowHeight *int64 `default:"40" json:"rowHeight"`
@@ -306,6 +429,146 @@ func (l *Layout11) GetStatic() *bool {
 
 // #region class-body-layout11
 // #endregion class-body-layout11
+
+type BlockPreviousTimeFramePredefined4 string
+
+const (
+	BlockPreviousTimeFramePredefined4Today           BlockPreviousTimeFramePredefined4 = "today"
+	BlockPreviousTimeFramePredefined4Last7Days       BlockPreviousTimeFramePredefined4 = "last7Days"
+	BlockPreviousTimeFramePredefined4Last30Days      BlockPreviousTimeFramePredefined4 = "last30Days"
+	BlockPreviousTimeFramePredefined4Last90Days      BlockPreviousTimeFramePredefined4 = "last90Days"
+	BlockPreviousTimeFramePredefined4CustomLookback  BlockPreviousTimeFramePredefined4 = "customLookback"
+	BlockPreviousTimeFramePredefined4CustomDateRange BlockPreviousTimeFramePredefined4 = "customDateRange"
+)
+
+func (e BlockPreviousTimeFramePredefined4) ToPointer() *BlockPreviousTimeFramePredefined4 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *BlockPreviousTimeFramePredefined4) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "today", "last7Days", "last30Days", "last90Days", "customLookback", "customDateRange":
+			return true
+		}
+	}
+	return false
+}
+
+type BlockPreviousTimeFrameLookbackUnit4 string
+
+const (
+	BlockPreviousTimeFrameLookbackUnit4Hour  BlockPreviousTimeFrameLookbackUnit4 = "hour"
+	BlockPreviousTimeFrameLookbackUnit4Day   BlockPreviousTimeFrameLookbackUnit4 = "day"
+	BlockPreviousTimeFrameLookbackUnit4Week  BlockPreviousTimeFrameLookbackUnit4 = "week"
+	BlockPreviousTimeFrameLookbackUnit4Month BlockPreviousTimeFrameLookbackUnit4 = "month"
+)
+
+func (e BlockPreviousTimeFrameLookbackUnit4) ToPointer() *BlockPreviousTimeFrameLookbackUnit4 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *BlockPreviousTimeFrameLookbackUnit4) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "hour", "day", "week", "month":
+			return true
+		}
+	}
+	return false
+}
+
+type BlockPreviousTimeFrame4 struct {
+	Predefined    BlockPreviousTimeFramePredefined4                                      `json:"predefined"`
+	LookbackValue optionalnullable.OptionalNullable[float64]                             `json:"lookbackValue,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[BlockPreviousTimeFrameLookbackUnit4] `json:"lookbackUnit,omitzero"`
+	StartDate     optionalnullable.OptionalNullable[string]                              `json:"startDate,omitzero"`
+	EndDate       optionalnullable.OptionalNullable[string]                              `json:"endDate,omitzero"`
+}
+
+func (b BlockPreviousTimeFrame4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BlockPreviousTimeFrame4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *BlockPreviousTimeFrame4) GetPredefined() BlockPreviousTimeFramePredefined4 {
+	if b == nil {
+		return BlockPreviousTimeFramePredefined4("")
+	}
+	return b.Predefined
+}
+
+func (b *BlockPreviousTimeFrame4) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+	if b == nil {
+		return nil
+	}
+	return b.LookbackValue
+}
+
+func (b *BlockPreviousTimeFrame4) GetLookbackUnit() optionalnullable.OptionalNullable[BlockPreviousTimeFrameLookbackUnit4] {
+	if b == nil {
+		return nil
+	}
+	return b.LookbackUnit
+}
+
+func (b *BlockPreviousTimeFrame4) GetStartDate() optionalnullable.OptionalNullable[string] {
+	if b == nil {
+		return nil
+	}
+	return b.StartDate
+}
+
+func (b *BlockPreviousTimeFrame4) GetEndDate() optionalnullable.OptionalNullable[string] {
+	if b == nil {
+		return nil
+	}
+	return b.EndDate
+}
+
+// #region class-body-blockprevioustimeframe4
+// #endregion class-body-blockprevioustimeframe4
+
+type BlockComparison4 struct {
+	Enabled           bool                     `json:"enabled"`
+	PreviousTimeFrame *BlockPreviousTimeFrame4 `json:"previousTimeFrame,omitzero"`
+}
+
+func (b BlockComparison4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BlockComparison4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *BlockComparison4) GetEnabled() bool {
+	if b == nil {
+		return false
+	}
+	return b.Enabled
+}
+
+func (b *BlockComparison4) GetPreviousTimeFrame() *BlockPreviousTimeFrame4 {
+	if b == nil {
+		return nil
+	}
+	return b.PreviousTimeFrame
+}
+
+// #region class-body-blockcomparison4
+// #endregion class-body-blockcomparison4
 
 type DimensionOperatorDataSource string
 
@@ -1205,13 +1468,15 @@ type BlockDataSourceExploration struct {
 	ID           string `json:"id"`
 	UID          string `json:"uid"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_              string           `const:"data-source-exploration" json:"type"`
-	Title              string           `json:"title"`
-	Description        string           `json:"description"`
-	SnapshotID         *string          `json:"snapshotId,omitzero"`
-	Layout             *Layout11        `json:"layout,omitzero"`
-	ExplorerAnalysisID string           `json:"explorerAnalysisId"`
-	Config             ConfigDataSource `json:"config"`
+	type_                        string            `const:"data-source-exploration" json:"type"`
+	Title                        string            `json:"title"`
+	Description                  string            `json:"description"`
+	SnapshotID                   *string           `json:"snapshotId,omitzero"`
+	Layout                       *Layout11         `json:"layout,omitzero"`
+	ExplorerAnalysisID           string            `json:"explorerAnalysisId"`
+	Comparison                   *BlockComparison4 `json:"comparison,omitzero"`
+	ComparisonExplorerAnalysisID *string           `json:"comparisonExplorerAnalysisId,omitzero"`
+	Config                       ConfigDataSource  `json:"config"`
 }
 
 func (b BlockDataSourceExploration) MarshalJSON() ([]byte, error) {
@@ -1285,6 +1550,20 @@ func (b *BlockDataSourceExploration) GetExplorerAnalysisID() string {
 	return b.ExplorerAnalysisID
 }
 
+func (b *BlockDataSourceExploration) GetComparison() *BlockComparison4 {
+	if b == nil {
+		return nil
+	}
+	return b.Comparison
+}
+
+func (b *BlockDataSourceExploration) GetComparisonExplorerAnalysisID() *string {
+	if b == nil {
+		return nil
+	}
+	return b.ComparisonExplorerAnalysisID
+}
+
 func (b *BlockDataSourceExploration) GetConfig() ConfigDataSource {
 	if b == nil {
 		return ConfigDataSource{}
@@ -1348,6 +1627,146 @@ func (l *Layout10) GetStatic() *bool {
 
 // #region class-body-layout10
 // #endregion class-body-layout10
+
+type BlockPreviousTimeFramePredefined3 string
+
+const (
+	BlockPreviousTimeFramePredefined3Today           BlockPreviousTimeFramePredefined3 = "today"
+	BlockPreviousTimeFramePredefined3Last7Days       BlockPreviousTimeFramePredefined3 = "last7Days"
+	BlockPreviousTimeFramePredefined3Last30Days      BlockPreviousTimeFramePredefined3 = "last30Days"
+	BlockPreviousTimeFramePredefined3Last90Days      BlockPreviousTimeFramePredefined3 = "last90Days"
+	BlockPreviousTimeFramePredefined3CustomLookback  BlockPreviousTimeFramePredefined3 = "customLookback"
+	BlockPreviousTimeFramePredefined3CustomDateRange BlockPreviousTimeFramePredefined3 = "customDateRange"
+)
+
+func (e BlockPreviousTimeFramePredefined3) ToPointer() *BlockPreviousTimeFramePredefined3 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *BlockPreviousTimeFramePredefined3) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "today", "last7Days", "last30Days", "last90Days", "customLookback", "customDateRange":
+			return true
+		}
+	}
+	return false
+}
+
+type BlockPreviousTimeFrameLookbackUnit3 string
+
+const (
+	BlockPreviousTimeFrameLookbackUnit3Hour  BlockPreviousTimeFrameLookbackUnit3 = "hour"
+	BlockPreviousTimeFrameLookbackUnit3Day   BlockPreviousTimeFrameLookbackUnit3 = "day"
+	BlockPreviousTimeFrameLookbackUnit3Week  BlockPreviousTimeFrameLookbackUnit3 = "week"
+	BlockPreviousTimeFrameLookbackUnit3Month BlockPreviousTimeFrameLookbackUnit3 = "month"
+)
+
+func (e BlockPreviousTimeFrameLookbackUnit3) ToPointer() *BlockPreviousTimeFrameLookbackUnit3 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *BlockPreviousTimeFrameLookbackUnit3) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "hour", "day", "week", "month":
+			return true
+		}
+	}
+	return false
+}
+
+type BlockPreviousTimeFrame3 struct {
+	Predefined    BlockPreviousTimeFramePredefined3                                      `json:"predefined"`
+	LookbackValue optionalnullable.OptionalNullable[float64]                             `json:"lookbackValue,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[BlockPreviousTimeFrameLookbackUnit3] `json:"lookbackUnit,omitzero"`
+	StartDate     optionalnullable.OptionalNullable[string]                              `json:"startDate,omitzero"`
+	EndDate       optionalnullable.OptionalNullable[string]                              `json:"endDate,omitzero"`
+}
+
+func (b BlockPreviousTimeFrame3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BlockPreviousTimeFrame3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *BlockPreviousTimeFrame3) GetPredefined() BlockPreviousTimeFramePredefined3 {
+	if b == nil {
+		return BlockPreviousTimeFramePredefined3("")
+	}
+	return b.Predefined
+}
+
+func (b *BlockPreviousTimeFrame3) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+	if b == nil {
+		return nil
+	}
+	return b.LookbackValue
+}
+
+func (b *BlockPreviousTimeFrame3) GetLookbackUnit() optionalnullable.OptionalNullable[BlockPreviousTimeFrameLookbackUnit3] {
+	if b == nil {
+		return nil
+	}
+	return b.LookbackUnit
+}
+
+func (b *BlockPreviousTimeFrame3) GetStartDate() optionalnullable.OptionalNullable[string] {
+	if b == nil {
+		return nil
+	}
+	return b.StartDate
+}
+
+func (b *BlockPreviousTimeFrame3) GetEndDate() optionalnullable.OptionalNullable[string] {
+	if b == nil {
+		return nil
+	}
+	return b.EndDate
+}
+
+// #region class-body-blockprevioustimeframe3
+// #endregion class-body-blockprevioustimeframe3
+
+type BlockComparison3 struct {
+	Enabled           bool                     `json:"enabled"`
+	PreviousTimeFrame *BlockPreviousTimeFrame3 `json:"previousTimeFrame,omitzero"`
+}
+
+func (b BlockComparison3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BlockComparison3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *BlockComparison3) GetEnabled() bool {
+	if b == nil {
+		return false
+	}
+	return b.Enabled
+}
+
+func (b *BlockComparison3) GetPreviousTimeFrame() *BlockPreviousTimeFrame3 {
+	if b == nil {
+		return nil
+	}
+	return b.PreviousTimeFrame
+}
+
+// #region class-body-blockcomparison3
+// #endregion class-body-blockcomparison3
 
 type DimensionOperatorFactTable string
 
@@ -2198,13 +2617,15 @@ type BlockFactTableExploration struct {
 	ID           string `json:"id"`
 	UID          string `json:"uid"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_              string          `const:"fact-table-exploration" json:"type"`
-	Title              string          `json:"title"`
-	Description        string          `json:"description"`
-	SnapshotID         *string         `json:"snapshotId,omitzero"`
-	Layout             *Layout10       `json:"layout,omitzero"`
-	ExplorerAnalysisID string          `json:"explorerAnalysisId"`
-	Config             ConfigFactTable `json:"config"`
+	type_                        string            `const:"fact-table-exploration" json:"type"`
+	Title                        string            `json:"title"`
+	Description                  string            `json:"description"`
+	SnapshotID                   *string           `json:"snapshotId,omitzero"`
+	Layout                       *Layout10         `json:"layout,omitzero"`
+	ExplorerAnalysisID           string            `json:"explorerAnalysisId"`
+	Comparison                   *BlockComparison3 `json:"comparison,omitzero"`
+	ComparisonExplorerAnalysisID *string           `json:"comparisonExplorerAnalysisId,omitzero"`
+	Config                       ConfigFactTable   `json:"config"`
 }
 
 func (b BlockFactTableExploration) MarshalJSON() ([]byte, error) {
@@ -2278,6 +2699,20 @@ func (b *BlockFactTableExploration) GetExplorerAnalysisID() string {
 	return b.ExplorerAnalysisID
 }
 
+func (b *BlockFactTableExploration) GetComparison() *BlockComparison3 {
+	if b == nil {
+		return nil
+	}
+	return b.Comparison
+}
+
+func (b *BlockFactTableExploration) GetComparisonExplorerAnalysisID() *string {
+	if b == nil {
+		return nil
+	}
+	return b.ComparisonExplorerAnalysisID
+}
+
 func (b *BlockFactTableExploration) GetConfig() ConfigFactTable {
 	if b == nil {
 		return ConfigFactTable{}
@@ -2341,6 +2776,146 @@ func (l *Layout9) GetStatic() *bool {
 
 // #region class-body-layout9
 // #endregion class-body-layout9
+
+type BlockPreviousTimeFramePredefined2 string
+
+const (
+	BlockPreviousTimeFramePredefined2Today           BlockPreviousTimeFramePredefined2 = "today"
+	BlockPreviousTimeFramePredefined2Last7Days       BlockPreviousTimeFramePredefined2 = "last7Days"
+	BlockPreviousTimeFramePredefined2Last30Days      BlockPreviousTimeFramePredefined2 = "last30Days"
+	BlockPreviousTimeFramePredefined2Last90Days      BlockPreviousTimeFramePredefined2 = "last90Days"
+	BlockPreviousTimeFramePredefined2CustomLookback  BlockPreviousTimeFramePredefined2 = "customLookback"
+	BlockPreviousTimeFramePredefined2CustomDateRange BlockPreviousTimeFramePredefined2 = "customDateRange"
+)
+
+func (e BlockPreviousTimeFramePredefined2) ToPointer() *BlockPreviousTimeFramePredefined2 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *BlockPreviousTimeFramePredefined2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "today", "last7Days", "last30Days", "last90Days", "customLookback", "customDateRange":
+			return true
+		}
+	}
+	return false
+}
+
+type BlockPreviousTimeFrameLookbackUnit2 string
+
+const (
+	BlockPreviousTimeFrameLookbackUnit2Hour  BlockPreviousTimeFrameLookbackUnit2 = "hour"
+	BlockPreviousTimeFrameLookbackUnit2Day   BlockPreviousTimeFrameLookbackUnit2 = "day"
+	BlockPreviousTimeFrameLookbackUnit2Week  BlockPreviousTimeFrameLookbackUnit2 = "week"
+	BlockPreviousTimeFrameLookbackUnit2Month BlockPreviousTimeFrameLookbackUnit2 = "month"
+)
+
+func (e BlockPreviousTimeFrameLookbackUnit2) ToPointer() *BlockPreviousTimeFrameLookbackUnit2 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *BlockPreviousTimeFrameLookbackUnit2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "hour", "day", "week", "month":
+			return true
+		}
+	}
+	return false
+}
+
+type BlockPreviousTimeFrame2 struct {
+	Predefined    BlockPreviousTimeFramePredefined2                                      `json:"predefined"`
+	LookbackValue optionalnullable.OptionalNullable[float64]                             `json:"lookbackValue,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[BlockPreviousTimeFrameLookbackUnit2] `json:"lookbackUnit,omitzero"`
+	StartDate     optionalnullable.OptionalNullable[string]                              `json:"startDate,omitzero"`
+	EndDate       optionalnullable.OptionalNullable[string]                              `json:"endDate,omitzero"`
+}
+
+func (b BlockPreviousTimeFrame2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BlockPreviousTimeFrame2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *BlockPreviousTimeFrame2) GetPredefined() BlockPreviousTimeFramePredefined2 {
+	if b == nil {
+		return BlockPreviousTimeFramePredefined2("")
+	}
+	return b.Predefined
+}
+
+func (b *BlockPreviousTimeFrame2) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+	if b == nil {
+		return nil
+	}
+	return b.LookbackValue
+}
+
+func (b *BlockPreviousTimeFrame2) GetLookbackUnit() optionalnullable.OptionalNullable[BlockPreviousTimeFrameLookbackUnit2] {
+	if b == nil {
+		return nil
+	}
+	return b.LookbackUnit
+}
+
+func (b *BlockPreviousTimeFrame2) GetStartDate() optionalnullable.OptionalNullable[string] {
+	if b == nil {
+		return nil
+	}
+	return b.StartDate
+}
+
+func (b *BlockPreviousTimeFrame2) GetEndDate() optionalnullable.OptionalNullable[string] {
+	if b == nil {
+		return nil
+	}
+	return b.EndDate
+}
+
+// #region class-body-blockprevioustimeframe2
+// #endregion class-body-blockprevioustimeframe2
+
+type BlockComparison2 struct {
+	Enabled           bool                     `json:"enabled"`
+	PreviousTimeFrame *BlockPreviousTimeFrame2 `json:"previousTimeFrame,omitzero"`
+}
+
+func (b BlockComparison2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BlockComparison2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *BlockComparison2) GetEnabled() bool {
+	if b == nil {
+		return false
+	}
+	return b.Enabled
+}
+
+func (b *BlockComparison2) GetPreviousTimeFrame() *BlockPreviousTimeFrame2 {
+	if b == nil {
+		return nil
+	}
+	return b.PreviousTimeFrame
+}
+
+// #region class-body-blockcomparison2
+// #endregion class-body-blockcomparison2
 
 type DimensionOperatorMetric string
 
@@ -3160,13 +3735,15 @@ type BlockMetricExploration struct {
 	ID           string `json:"id"`
 	UID          string `json:"uid"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_              string       `const:"metric-exploration" json:"type"`
-	Title              string       `json:"title"`
-	Description        string       `json:"description"`
-	SnapshotID         *string      `json:"snapshotId,omitzero"`
-	Layout             *Layout9     `json:"layout,omitzero"`
-	ExplorerAnalysisID string       `json:"explorerAnalysisId"`
-	Config             ConfigMetric `json:"config"`
+	type_                        string            `const:"metric-exploration" json:"type"`
+	Title                        string            `json:"title"`
+	Description                  string            `json:"description"`
+	SnapshotID                   *string           `json:"snapshotId,omitzero"`
+	Layout                       *Layout9          `json:"layout,omitzero"`
+	ExplorerAnalysisID           string            `json:"explorerAnalysisId"`
+	Comparison                   *BlockComparison2 `json:"comparison,omitzero"`
+	ComparisonExplorerAnalysisID *string           `json:"comparisonExplorerAnalysisId,omitzero"`
+	Config                       ConfigMetric      `json:"config"`
 }
 
 func (b BlockMetricExploration) MarshalJSON() ([]byte, error) {
@@ -3238,6 +3815,20 @@ func (b *BlockMetricExploration) GetExplorerAnalysisID() string {
 		return ""
 	}
 	return b.ExplorerAnalysisID
+}
+
+func (b *BlockMetricExploration) GetComparison() *BlockComparison2 {
+	if b == nil {
+		return nil
+	}
+	return b.Comparison
+}
+
+func (b *BlockMetricExploration) GetComparisonExplorerAnalysisID() *string {
+	if b == nil {
+		return nil
+	}
+	return b.ComparisonExplorerAnalysisID
 }
 
 func (b *BlockMetricExploration) GetConfig() ConfigMetric {
@@ -4875,6 +5466,146 @@ func (e *DashboardValueType) IsExact() bool {
 	return false
 }
 
+type BlockPreviousTimeFramePredefined1 string
+
+const (
+	BlockPreviousTimeFramePredefined1Today           BlockPreviousTimeFramePredefined1 = "today"
+	BlockPreviousTimeFramePredefined1Last7Days       BlockPreviousTimeFramePredefined1 = "last7Days"
+	BlockPreviousTimeFramePredefined1Last30Days      BlockPreviousTimeFramePredefined1 = "last30Days"
+	BlockPreviousTimeFramePredefined1Last90Days      BlockPreviousTimeFramePredefined1 = "last90Days"
+	BlockPreviousTimeFramePredefined1CustomLookback  BlockPreviousTimeFramePredefined1 = "customLookback"
+	BlockPreviousTimeFramePredefined1CustomDateRange BlockPreviousTimeFramePredefined1 = "customDateRange"
+)
+
+func (e BlockPreviousTimeFramePredefined1) ToPointer() *BlockPreviousTimeFramePredefined1 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *BlockPreviousTimeFramePredefined1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "today", "last7Days", "last30Days", "last90Days", "customLookback", "customDateRange":
+			return true
+		}
+	}
+	return false
+}
+
+type BlockPreviousTimeFrameLookbackUnit1 string
+
+const (
+	BlockPreviousTimeFrameLookbackUnit1Hour  BlockPreviousTimeFrameLookbackUnit1 = "hour"
+	BlockPreviousTimeFrameLookbackUnit1Day   BlockPreviousTimeFrameLookbackUnit1 = "day"
+	BlockPreviousTimeFrameLookbackUnit1Week  BlockPreviousTimeFrameLookbackUnit1 = "week"
+	BlockPreviousTimeFrameLookbackUnit1Month BlockPreviousTimeFrameLookbackUnit1 = "month"
+)
+
+func (e BlockPreviousTimeFrameLookbackUnit1) ToPointer() *BlockPreviousTimeFrameLookbackUnit1 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *BlockPreviousTimeFrameLookbackUnit1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "hour", "day", "week", "month":
+			return true
+		}
+	}
+	return false
+}
+
+type BlockPreviousTimeFrame1 struct {
+	Predefined    BlockPreviousTimeFramePredefined1                                      `json:"predefined"`
+	LookbackValue optionalnullable.OptionalNullable[float64]                             `json:"lookbackValue,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[BlockPreviousTimeFrameLookbackUnit1] `json:"lookbackUnit,omitzero"`
+	StartDate     optionalnullable.OptionalNullable[string]                              `json:"startDate,omitzero"`
+	EndDate       optionalnullable.OptionalNullable[string]                              `json:"endDate,omitzero"`
+}
+
+func (b BlockPreviousTimeFrame1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BlockPreviousTimeFrame1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *BlockPreviousTimeFrame1) GetPredefined() BlockPreviousTimeFramePredefined1 {
+	if b == nil {
+		return BlockPreviousTimeFramePredefined1("")
+	}
+	return b.Predefined
+}
+
+func (b *BlockPreviousTimeFrame1) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+	if b == nil {
+		return nil
+	}
+	return b.LookbackValue
+}
+
+func (b *BlockPreviousTimeFrame1) GetLookbackUnit() optionalnullable.OptionalNullable[BlockPreviousTimeFrameLookbackUnit1] {
+	if b == nil {
+		return nil
+	}
+	return b.LookbackUnit
+}
+
+func (b *BlockPreviousTimeFrame1) GetStartDate() optionalnullable.OptionalNullable[string] {
+	if b == nil {
+		return nil
+	}
+	return b.StartDate
+}
+
+func (b *BlockPreviousTimeFrame1) GetEndDate() optionalnullable.OptionalNullable[string] {
+	if b == nil {
+		return nil
+	}
+	return b.EndDate
+}
+
+// #region class-body-blockprevioustimeframe1
+// #endregion class-body-blockprevioustimeframe1
+
+type BlockComparison1 struct {
+	Enabled           bool                     `json:"enabled"`
+	PreviousTimeFrame *BlockPreviousTimeFrame1 `json:"previousTimeFrame,omitzero"`
+}
+
+func (b BlockComparison1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BlockComparison1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *BlockComparison1) GetEnabled() bool {
+	if b == nil {
+		return false
+	}
+	return b.Enabled
+}
+
+func (b *BlockComparison1) GetPreviousTimeFrame() *BlockPreviousTimeFrame1 {
+	if b == nil {
+		return nil
+	}
+	return b.PreviousTimeFrame
+}
+
+// #region class-body-blockcomparison1
+// #endregion class-body-blockcomparison1
+
 type PopulationType string
 
 const (
@@ -4983,16 +5714,18 @@ type BlockMetricExplorer struct {
 	ID           string `json:"id"`
 	UID          string `json:"uid"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_             string                    `const:"metric-explorer" json:"type"`
-	Title             string                    `json:"title"`
-	Description       string                    `json:"description"`
-	SnapshotID        *string                   `json:"snapshotId,omitzero"`
-	Layout            *Layout1                  `json:"layout,omitzero"`
-	FactMetricID      string                    `json:"factMetricId"`
-	VisualizationType VisualizationType         `json:"visualizationType"`
-	ValueType         DashboardValueType        `json:"valueType"`
-	MetricAnalysisID  string                    `json:"metricAnalysisId"`
-	AnalysisSettings  DashboardAnalysisSettings `json:"analysisSettings"`
+	type_                      string                    `const:"metric-explorer" json:"type"`
+	Title                      string                    `json:"title"`
+	Description                string                    `json:"description"`
+	SnapshotID                 *string                   `json:"snapshotId,omitzero"`
+	Layout                     *Layout1                  `json:"layout,omitzero"`
+	FactMetricID               string                    `json:"factMetricId"`
+	VisualizationType          VisualizationType         `json:"visualizationType"`
+	ValueType                  DashboardValueType        `json:"valueType"`
+	MetricAnalysisID           string                    `json:"metricAnalysisId"`
+	Comparison                 *BlockComparison1         `json:"comparison,omitzero"`
+	ComparisonMetricAnalysisID *string                   `json:"comparisonMetricAnalysisId,omitzero"`
+	AnalysisSettings           DashboardAnalysisSettings `json:"analysisSettings"`
 }
 
 func (b BlockMetricExplorer) MarshalJSON() ([]byte, error) {
@@ -5085,6 +5818,20 @@ func (b *BlockMetricExplorer) GetMetricAnalysisID() string {
 		return ""
 	}
 	return b.MetricAnalysisID
+}
+
+func (b *BlockMetricExplorer) GetComparison() *BlockComparison1 {
+	if b == nil {
+		return nil
+	}
+	return b.Comparison
+}
+
+func (b *BlockMetricExplorer) GetComparisonMetricAnalysisID() *string {
+	if b == nil {
+		return nil
+	}
+	return b.ComparisonMetricAnalysisID
 }
 
 func (b *BlockMetricExplorer) GetAnalysisSettings() DashboardAnalysisSettings {
@@ -5432,6 +6179,7 @@ type Dashboard struct {
 	EnableAutoUpdates bool                `json:"enableAutoUpdates"`
 	UpdateSchedule    *UpdateSchedule     `json:"updateSchedule,omitzero"`
 	Title             string              `json:"title"`
+	Comparison        *Comparison         `json:"comparison,omitzero"`
 	Grid              *Grid               `json:"grid,omitzero"`
 	Projects          []string            `json:"projects,omitzero"`
 	NextUpdate        *time.Time          `json:"nextUpdate,omitzero"`
@@ -5548,6 +6296,13 @@ func (d *Dashboard) GetTitle() string {
 		return ""
 	}
 	return d.Title
+}
+
+func (d *Dashboard) GetComparison() *Comparison {
+	if d == nil {
+		return nil
+	}
+	return d.Comparison
 }
 
 func (d *Dashboard) GetGrid() *Grid {

@@ -137,8 +137,10 @@ type FeatureRolloutRule struct {
 	SavedGroupTargeting []FeatureRolloutRuleSavedGroupTargeting `json:"savedGroupTargeting,omitzero"`
 	Prerequisites       []FeatureRolloutRulePrerequisite        `json:"prerequisites,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_         string  `const:"rollout" json:"type"`
-	Value         string  `json:"value"`
+	type_ string `const:"rollout" json:"type"`
+	Value string `json:"value"`
+	// JSON features only. When true, `value` is a partial object merged onto the feature's default value instead of replacing it.
+	Sparse        *bool   `json:"sparse,omitzero"`
 	Coverage      float64 `json:"coverage"`
 	HashAttribute string  `json:"hashAttribute"`
 	// Optional seed for the hash function; defaults to the rule id
@@ -230,6 +232,13 @@ func (f *FeatureRolloutRule) GetValue() string {
 		return ""
 	}
 	return f.Value
+}
+
+func (f *FeatureRolloutRule) GetSparse() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.Sparse
 }
 
 func (f *FeatureRolloutRule) GetCoverage() float64 {

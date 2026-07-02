@@ -8,6 +8,8 @@ import (
 	"github.com/growthbook/cli/internal/cli/archetypes"
 	"github.com/growthbook/cli/internal/cli/attributes"
 	"github.com/growthbook/cli/internal/cli/codereferences"
+	"github.com/growthbook/cli/internal/cli/constantrevisions"
+	"github.com/growthbook/cli/internal/cli/constants"
 	"github.com/growthbook/cli/internal/cli/customfields"
 	"github.com/growthbook/cli/internal/cli/dashboards"
 	"github.com/growthbook/cli/internal/cli/datasources"
@@ -139,6 +141,12 @@ func NewRootCommand() (*cobra.Command, error) {
 	if err := savedgrouprevisions.InitSavedGroupRevisionsRoot(rootCmd); err != nil {
 		return nil, fmt.Errorf("init saved-group-revisions: %w", err)
 	}
+	if err := constants.InitConstantsRoot(rootCmd); err != nil {
+		return nil, fmt.Errorf("init constants: %w", err)
+	}
+	if err := constantrevisions.InitConstantRevisionsRoot(rootCmd); err != nil {
+		return nil, fmt.Errorf("init constant-revisions: %w", err)
+	}
 	if err := organizations.InitOrganizationsRoot(rootCmd); err != nil {
 		return nil, fmt.Errorf("init organizations: %w", err)
 	}
@@ -198,42 +206,6 @@ func NewRootCommand() (*cobra.Command, error) {
 	}
 	if err := initPostCopyTransformCmd(rootCmd); err != nil {
 		return nil, fmt.Errorf("init post-copy-transform: %w", err)
-	}
-	if err := initPostVisualEditorAIEditCmd(rootCmd); err != nil {
-		return nil, fmt.Errorf("init post-visual-editor-AI-edit: %w", err)
-	}
-	if err := initPostVisualEditorAIEditResumeCmd(rootCmd); err != nil {
-		return nil, fmt.Errorf("init post-visual-editor-AI-edit-resume: %w", err)
-	}
-	if err := initPostVisualEditorAISuggestionsCmd(rootCmd); err != nil {
-		return nil, fmt.Errorf("init post-visual-editor-AI-suggestions: %w", err)
-	}
-	if err := initPostVisualEditorAIImageGenCmd(rootCmd); err != nil {
-		return nil, fmt.Errorf("init post-visual-editor-AI-image-gen: %w", err)
-	}
-	if err := initPostVisualEditorAIPromoteImageCmd(rootCmd); err != nil {
-		return nil, fmt.Errorf("init post-visual-editor-AI-promote-image: %w", err)
-	}
-	if err := initPostVisualEditorAIUploadSignedUrlCmd(rootCmd); err != nil {
-		return nil, fmt.Errorf("init post-visual-editor-AI-upload-signed-url: %w", err)
-	}
-	if err := initPostVisualEditorAddVariantCmd(rootCmd); err != nil {
-		return nil, fmt.Errorf("init post-visual-editor-add-variant: %w", err)
-	}
-	if err := initPostVisualEditorCreateExperimentCmd(rootCmd); err != nil {
-		return nil, fmt.Errorf("init post-visual-editor-create-experiment: %w", err)
-	}
-	if err := initPostVisualEditorCreateChangesetCmd(rootCmd); err != nil {
-		return nil, fmt.Errorf("init post-visual-editor-create-changeset: %w", err)
-	}
-	if err := initPostVisualEditorRenameExperimentCmd(rootCmd); err != nil {
-		return nil, fmt.Errorf("init post-visual-editor-rename-experiment: %w", err)
-	}
-	if err := initGetVisualEditorBootstrapCmd(rootCmd); err != nil {
-		return nil, fmt.Errorf("init get-visual-editor-bootstrap: %w", err)
-	}
-	if err := initGetVisualEditorLibraryImagesCmd(rootCmd); err != nil {
-		return nil, fmt.Errorf("init get-visual-editor-library-images: %w", err)
 	}
 	if err := initConfigureCmd(rootCmd); err != nil {
 		return nil, fmt.Errorf("init configure: %w", err)

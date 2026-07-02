@@ -31,11 +31,13 @@ func (e *SavedGroupRevisionReviewDecision) IsExact() bool {
 }
 
 type SavedGroupRevisionReview struct {
-	ID          string                           `json:"id"`
-	UserID      string                           `json:"userId"`
-	Decision    SavedGroupRevisionReviewDecision `json:"decision"`
-	Comment     *string                          `json:"comment,omitzero"`
-	DateCreated time.Time                        `json:"dateCreated"`
+	ID       string                           `json:"id"`
+	UserID   string                           `json:"userId"`
+	Decision SavedGroupRevisionReviewDecision `json:"decision"`
+	Comment  *string                          `json:"comment,omitzero"`
+	// True if a later review cycle (re-submit, approval reset, recall, or reopen) superseded this verdict. Stale verdicts are kept for attribution but no longer count as an active approval or change-request.
+	Stale       *bool     `json:"stale,omitzero"`
+	DateCreated time.Time `json:"dateCreated"`
 }
 
 func (s SavedGroupRevisionReview) MarshalJSON() ([]byte, error) {
@@ -75,6 +77,13 @@ func (s *SavedGroupRevisionReview) GetComment() *string {
 		return nil
 	}
 	return s.Comment
+}
+
+func (s *SavedGroupRevisionReview) GetStale() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.Stale
 }
 
 func (s *SavedGroupRevisionReview) GetDateCreated() time.Time {

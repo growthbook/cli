@@ -139,6 +139,8 @@ type FeatureForceRule struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_ string `const:"force" json:"type"`
 	Value string `json:"value"`
+	// JSON features only. When true, `value` is a partial object merged onto the feature's default value instead of replacing it.
+	Sparse *bool `json:"sparse,omitzero"`
 }
 
 func (f FeatureForceRule) MarshalJSON() ([]byte, error) {
@@ -224,4 +226,11 @@ func (f *FeatureForceRule) GetValue() string {
 		return ""
 	}
 	return f.Value
+}
+
+func (f *FeatureForceRule) GetSparse() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.Sparse
 }

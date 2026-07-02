@@ -14,15 +14,20 @@ import (
 type SavedGroupRevisionActivityLogEntryAction string
 
 const (
-	SavedGroupRevisionActivityLogEntryActionCreated          SavedGroupRevisionActivityLogEntryAction = "created"
-	SavedGroupRevisionActivityLogEntryActionUpdated          SavedGroupRevisionActivityLogEntryAction = "updated"
-	SavedGroupRevisionActivityLogEntryActionReviewed         SavedGroupRevisionActivityLogEntryAction = "reviewed"
-	SavedGroupRevisionActivityLogEntryActionApproved         SavedGroupRevisionActivityLogEntryAction = "approved"
-	SavedGroupRevisionActivityLogEntryActionRequestedChanges SavedGroupRevisionActivityLogEntryAction = "requested-changes"
-	SavedGroupRevisionActivityLogEntryActionCommented        SavedGroupRevisionActivityLogEntryAction = "commented"
-	SavedGroupRevisionActivityLogEntryActionMerged           SavedGroupRevisionActivityLogEntryAction = "merged"
-	SavedGroupRevisionActivityLogEntryActionDiscarded        SavedGroupRevisionActivityLogEntryAction = "discarded"
-	SavedGroupRevisionActivityLogEntryActionReopened         SavedGroupRevisionActivityLogEntryAction = "reopened"
+	SavedGroupRevisionActivityLogEntryActionCreated                  SavedGroupRevisionActivityLogEntryAction = "created"
+	SavedGroupRevisionActivityLogEntryActionUpdated                  SavedGroupRevisionActivityLogEntryAction = "updated"
+	SavedGroupRevisionActivityLogEntryActionReviewed                 SavedGroupRevisionActivityLogEntryAction = "reviewed"
+	SavedGroupRevisionActivityLogEntryActionApproved                 SavedGroupRevisionActivityLogEntryAction = "approved"
+	SavedGroupRevisionActivityLogEntryActionRequestedChanges         SavedGroupRevisionActivityLogEntryAction = "requested-changes"
+	SavedGroupRevisionActivityLogEntryActionCommented                SavedGroupRevisionActivityLogEntryAction = "commented"
+	SavedGroupRevisionActivityLogEntryActionReviewRequested          SavedGroupRevisionActivityLogEntryAction = "review-requested"
+	SavedGroupRevisionActivityLogEntryActionReviewRetracted          SavedGroupRevisionActivityLogEntryAction = "review-retracted"
+	SavedGroupRevisionActivityLogEntryActionMerged                   SavedGroupRevisionActivityLogEntryAction = "merged"
+	SavedGroupRevisionActivityLogEntryActionDiscarded                SavedGroupRevisionActivityLogEntryAction = "discarded"
+	SavedGroupRevisionActivityLogEntryActionReopened                 SavedGroupRevisionActivityLogEntryAction = "reopened"
+	SavedGroupRevisionActivityLogEntryActionScheduledPublish         SavedGroupRevisionActivityLogEntryAction = "scheduled-publish"
+	SavedGroupRevisionActivityLogEntryActionScheduledPublishUpdated  SavedGroupRevisionActivityLogEntryAction = "scheduled-publish-updated"
+	SavedGroupRevisionActivityLogEntryActionScheduledPublishCanceled SavedGroupRevisionActivityLogEntryAction = "scheduled-publish-canceled"
 )
 
 func (e SavedGroupRevisionActivityLogEntryAction) ToPointer() *SavedGroupRevisionActivityLogEntryAction {
@@ -33,315 +38,315 @@ func (e SavedGroupRevisionActivityLogEntryAction) ToPointer() *SavedGroupRevisio
 func (e *SavedGroupRevisionActivityLogEntryAction) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "created", "updated", "reviewed", "approved", "requested-changes", "commented", "merged", "discarded", "reopened":
+		case "created", "updated", "reviewed", "approved", "requested-changes", "commented", "review-requested", "review-retracted", "merged", "discarded", "reopened", "scheduled-publish", "scheduled-publish-updated", "scheduled-publish-canceled":
 			return true
 		}
 	}
 	return false
 }
 
-type ProposedChangesSnapshotTest struct {
+type SavedGroupRevisionActivityLogEntryProposedChangesSnapshotTest struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	op    string `const:"test" json:"op"`
 	Path  string `json:"path"`
 	Value any    `json:"value"`
 }
 
-func (p ProposedChangesSnapshotTest) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
+func (s SavedGroupRevisionActivityLogEntryProposedChangesSnapshotTest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
 }
 
-func (p *ProposedChangesSnapshotTest) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+func (s *SavedGroupRevisionActivityLogEntryProposedChangesSnapshotTest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *ProposedChangesSnapshotTest) GetOp() string {
+func (s *SavedGroupRevisionActivityLogEntryProposedChangesSnapshotTest) GetOp() string {
 	return "test"
 }
 
-func (p *ProposedChangesSnapshotTest) GetPath() string {
-	if p == nil {
+func (s *SavedGroupRevisionActivityLogEntryProposedChangesSnapshotTest) GetPath() string {
+	if s == nil {
 		return ""
 	}
-	return p.Path
+	return s.Path
 }
 
-func (p *ProposedChangesSnapshotTest) GetValue() any {
-	if p == nil {
+func (s *SavedGroupRevisionActivityLogEntryProposedChangesSnapshotTest) GetValue() any {
+	if s == nil {
 		return nil
 	}
-	return p.Value
+	return s.Value
 }
 
-type ProposedChangesSnapshotCopy struct {
+type SavedGroupRevisionActivityLogEntryProposedChangesSnapshotCopy struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	op   string `const:"copy" json:"op"`
 	From string `json:"from"`
 	Path string `json:"path"`
 }
 
-func (p ProposedChangesSnapshotCopy) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
+func (s SavedGroupRevisionActivityLogEntryProposedChangesSnapshotCopy) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
 }
 
-func (p *ProposedChangesSnapshotCopy) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+func (s *SavedGroupRevisionActivityLogEntryProposedChangesSnapshotCopy) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *ProposedChangesSnapshotCopy) GetOp() string {
+func (s *SavedGroupRevisionActivityLogEntryProposedChangesSnapshotCopy) GetOp() string {
 	return "copy"
 }
 
-func (p *ProposedChangesSnapshotCopy) GetFrom() string {
-	if p == nil {
+func (s *SavedGroupRevisionActivityLogEntryProposedChangesSnapshotCopy) GetFrom() string {
+	if s == nil {
 		return ""
 	}
-	return p.From
+	return s.From
 }
 
-func (p *ProposedChangesSnapshotCopy) GetPath() string {
-	if p == nil {
+func (s *SavedGroupRevisionActivityLogEntryProposedChangesSnapshotCopy) GetPath() string {
+	if s == nil {
 		return ""
 	}
-	return p.Path
+	return s.Path
 }
 
-type ProposedChangesSnapshotMove struct {
+type SavedGroupRevisionActivityLogEntryProposedChangesSnapshotMove struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	op   string `const:"move" json:"op"`
 	From string `json:"from"`
 	Path string `json:"path"`
 }
 
-func (p ProposedChangesSnapshotMove) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
+func (s SavedGroupRevisionActivityLogEntryProposedChangesSnapshotMove) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
 }
 
-func (p *ProposedChangesSnapshotMove) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+func (s *SavedGroupRevisionActivityLogEntryProposedChangesSnapshotMove) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *ProposedChangesSnapshotMove) GetOp() string {
+func (s *SavedGroupRevisionActivityLogEntryProposedChangesSnapshotMove) GetOp() string {
 	return "move"
 }
 
-func (p *ProposedChangesSnapshotMove) GetFrom() string {
-	if p == nil {
+func (s *SavedGroupRevisionActivityLogEntryProposedChangesSnapshotMove) GetFrom() string {
+	if s == nil {
 		return ""
 	}
-	return p.From
+	return s.From
 }
 
-func (p *ProposedChangesSnapshotMove) GetPath() string {
-	if p == nil {
+func (s *SavedGroupRevisionActivityLogEntryProposedChangesSnapshotMove) GetPath() string {
+	if s == nil {
 		return ""
 	}
-	return p.Path
+	return s.Path
 }
 
-type ProposedChangesSnapshotReplace struct {
+type SavedGroupRevisionActivityLogEntryProposedChangesSnapshotReplace struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	op    string `const:"replace" json:"op"`
 	Path  string `json:"path"`
 	Value any    `json:"value"`
 }
 
-func (p ProposedChangesSnapshotReplace) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
+func (s SavedGroupRevisionActivityLogEntryProposedChangesSnapshotReplace) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
 }
 
-func (p *ProposedChangesSnapshotReplace) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+func (s *SavedGroupRevisionActivityLogEntryProposedChangesSnapshotReplace) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *ProposedChangesSnapshotReplace) GetOp() string {
+func (s *SavedGroupRevisionActivityLogEntryProposedChangesSnapshotReplace) GetOp() string {
 	return "replace"
 }
 
-func (p *ProposedChangesSnapshotReplace) GetPath() string {
-	if p == nil {
+func (s *SavedGroupRevisionActivityLogEntryProposedChangesSnapshotReplace) GetPath() string {
+	if s == nil {
 		return ""
 	}
-	return p.Path
+	return s.Path
 }
 
-func (p *ProposedChangesSnapshotReplace) GetValue() any {
-	if p == nil {
+func (s *SavedGroupRevisionActivityLogEntryProposedChangesSnapshotReplace) GetValue() any {
+	if s == nil {
 		return nil
 	}
-	return p.Value
+	return s.Value
 }
 
-type ProposedChangesSnapshotRemove struct {
+type SavedGroupRevisionActivityLogEntryProposedChangesSnapshotRemove struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	op   string `const:"remove" json:"op"`
 	Path string `json:"path"`
 }
 
-func (p ProposedChangesSnapshotRemove) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
+func (s SavedGroupRevisionActivityLogEntryProposedChangesSnapshotRemove) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
 }
 
-func (p *ProposedChangesSnapshotRemove) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+func (s *SavedGroupRevisionActivityLogEntryProposedChangesSnapshotRemove) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *ProposedChangesSnapshotRemove) GetOp() string {
+func (s *SavedGroupRevisionActivityLogEntryProposedChangesSnapshotRemove) GetOp() string {
 	return "remove"
 }
 
-func (p *ProposedChangesSnapshotRemove) GetPath() string {
-	if p == nil {
+func (s *SavedGroupRevisionActivityLogEntryProposedChangesSnapshotRemove) GetPath() string {
+	if s == nil {
 		return ""
 	}
-	return p.Path
+	return s.Path
 }
 
-type ProposedChangesSnapshotAdd struct {
+type SavedGroupRevisionActivityLogEntryProposedChangesSnapshotAdd struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	op    string `const:"add" json:"op"`
 	Path  string `json:"path"`
 	Value any    `json:"value"`
 }
 
-func (p ProposedChangesSnapshotAdd) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
+func (s SavedGroupRevisionActivityLogEntryProposedChangesSnapshotAdd) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
 }
 
-func (p *ProposedChangesSnapshotAdd) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+func (s *SavedGroupRevisionActivityLogEntryProposedChangesSnapshotAdd) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *ProposedChangesSnapshotAdd) GetOp() string {
+func (s *SavedGroupRevisionActivityLogEntryProposedChangesSnapshotAdd) GetOp() string {
 	return "add"
 }
 
-func (p *ProposedChangesSnapshotAdd) GetPath() string {
-	if p == nil {
+func (s *SavedGroupRevisionActivityLogEntryProposedChangesSnapshotAdd) GetPath() string {
+	if s == nil {
 		return ""
 	}
-	return p.Path
+	return s.Path
 }
 
-func (p *ProposedChangesSnapshotAdd) GetValue() any {
-	if p == nil {
+func (s *SavedGroupRevisionActivityLogEntryProposedChangesSnapshotAdd) GetValue() any {
+	if s == nil {
 		return nil
 	}
-	return p.Value
+	return s.Value
 }
 
-type ProposedChangesSnapshotType string
+type SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionType string
 
 const (
-	ProposedChangesSnapshotTypeAdd     ProposedChangesSnapshotType = "add"
-	ProposedChangesSnapshotTypeRemove  ProposedChangesSnapshotType = "remove"
-	ProposedChangesSnapshotTypeReplace ProposedChangesSnapshotType = "replace"
-	ProposedChangesSnapshotTypeMove    ProposedChangesSnapshotType = "move"
-	ProposedChangesSnapshotTypeCopy    ProposedChangesSnapshotType = "copy"
-	ProposedChangesSnapshotTypeTest    ProposedChangesSnapshotType = "test"
-	ProposedChangesSnapshotTypeUnknown ProposedChangesSnapshotType = "UNKNOWN"
+	SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionTypeAdd     SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionType = "add"
+	SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionTypeRemove  SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionType = "remove"
+	SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionTypeReplace SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionType = "replace"
+	SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionTypeMove    SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionType = "move"
+	SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionTypeCopy    SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionType = "copy"
+	SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionTypeTest    SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionType = "test"
+	SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionTypeUnknown SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionType = "UNKNOWN"
 )
 
-type ProposedChangesSnapshot struct {
-	ProposedChangesSnapshotAdd     *ProposedChangesSnapshotAdd     `queryParam:"inline" union:"member"`
-	ProposedChangesSnapshotRemove  *ProposedChangesSnapshotRemove  `queryParam:"inline" union:"member"`
-	ProposedChangesSnapshotReplace *ProposedChangesSnapshotReplace `queryParam:"inline" union:"member"`
-	ProposedChangesSnapshotMove    *ProposedChangesSnapshotMove    `queryParam:"inline" union:"member"`
-	ProposedChangesSnapshotCopy    *ProposedChangesSnapshotCopy    `queryParam:"inline" union:"member"`
-	ProposedChangesSnapshotTest    *ProposedChangesSnapshotTest    `queryParam:"inline" union:"member"`
-	UnknownRaw                     json.RawMessage                 `json:"-" union:"unknown"`
+type SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnion struct {
+	SavedGroupRevisionActivityLogEntryProposedChangesSnapshotAdd     *SavedGroupRevisionActivityLogEntryProposedChangesSnapshotAdd     `queryParam:"inline" union:"member"`
+	SavedGroupRevisionActivityLogEntryProposedChangesSnapshotRemove  *SavedGroupRevisionActivityLogEntryProposedChangesSnapshotRemove  `queryParam:"inline" union:"member"`
+	SavedGroupRevisionActivityLogEntryProposedChangesSnapshotReplace *SavedGroupRevisionActivityLogEntryProposedChangesSnapshotReplace `queryParam:"inline" union:"member"`
+	SavedGroupRevisionActivityLogEntryProposedChangesSnapshotMove    *SavedGroupRevisionActivityLogEntryProposedChangesSnapshotMove    `queryParam:"inline" union:"member"`
+	SavedGroupRevisionActivityLogEntryProposedChangesSnapshotCopy    *SavedGroupRevisionActivityLogEntryProposedChangesSnapshotCopy    `queryParam:"inline" union:"member"`
+	SavedGroupRevisionActivityLogEntryProposedChangesSnapshotTest    *SavedGroupRevisionActivityLogEntryProposedChangesSnapshotTest    `queryParam:"inline" union:"member"`
+	UnknownRaw                                                       json.RawMessage                                                   `json:"-" union:"unknown"`
 
-	Type ProposedChangesSnapshotType
+	Type SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionType
 }
 
-func CreateProposedChangesSnapshotAdd(add ProposedChangesSnapshotAdd) ProposedChangesSnapshot {
-	typ := ProposedChangesSnapshotTypeAdd
+func CreateSavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionAdd(add SavedGroupRevisionActivityLogEntryProposedChangesSnapshotAdd) SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnion {
+	typ := SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionTypeAdd
 
-	return ProposedChangesSnapshot{
-		ProposedChangesSnapshotAdd: &add,
-		Type:                       typ,
+	return SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnion{
+		SavedGroupRevisionActivityLogEntryProposedChangesSnapshotAdd: &add,
+		Type: typ,
 	}
 }
 
-func CreateProposedChangesSnapshotRemove(remove ProposedChangesSnapshotRemove) ProposedChangesSnapshot {
-	typ := ProposedChangesSnapshotTypeRemove
+func CreateSavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionRemove(remove SavedGroupRevisionActivityLogEntryProposedChangesSnapshotRemove) SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnion {
+	typ := SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionTypeRemove
 
-	return ProposedChangesSnapshot{
-		ProposedChangesSnapshotRemove: &remove,
-		Type:                          typ,
+	return SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnion{
+		SavedGroupRevisionActivityLogEntryProposedChangesSnapshotRemove: &remove,
+		Type: typ,
 	}
 }
 
-func CreateProposedChangesSnapshotReplace(replace ProposedChangesSnapshotReplace) ProposedChangesSnapshot {
-	typ := ProposedChangesSnapshotTypeReplace
+func CreateSavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionReplace(replace SavedGroupRevisionActivityLogEntryProposedChangesSnapshotReplace) SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnion {
+	typ := SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionTypeReplace
 
-	return ProposedChangesSnapshot{
-		ProposedChangesSnapshotReplace: &replace,
-		Type:                           typ,
+	return SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnion{
+		SavedGroupRevisionActivityLogEntryProposedChangesSnapshotReplace: &replace,
+		Type: typ,
 	}
 }
 
-func CreateProposedChangesSnapshotMove(move ProposedChangesSnapshotMove) ProposedChangesSnapshot {
-	typ := ProposedChangesSnapshotTypeMove
+func CreateSavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionMove(move SavedGroupRevisionActivityLogEntryProposedChangesSnapshotMove) SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnion {
+	typ := SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionTypeMove
 
-	return ProposedChangesSnapshot{
-		ProposedChangesSnapshotMove: &move,
-		Type:                        typ,
+	return SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnion{
+		SavedGroupRevisionActivityLogEntryProposedChangesSnapshotMove: &move,
+		Type: typ,
 	}
 }
 
-func CreateProposedChangesSnapshotCopy(copy ProposedChangesSnapshotCopy) ProposedChangesSnapshot {
-	typ := ProposedChangesSnapshotTypeCopy
+func CreateSavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionCopy(copy SavedGroupRevisionActivityLogEntryProposedChangesSnapshotCopy) SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnion {
+	typ := SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionTypeCopy
 
-	return ProposedChangesSnapshot{
-		ProposedChangesSnapshotCopy: &copy,
-		Type:                        typ,
+	return SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnion{
+		SavedGroupRevisionActivityLogEntryProposedChangesSnapshotCopy: &copy,
+		Type: typ,
 	}
 }
 
-func CreateProposedChangesSnapshotTest(test ProposedChangesSnapshotTest) ProposedChangesSnapshot {
-	typ := ProposedChangesSnapshotTypeTest
+func CreateSavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionTest(test SavedGroupRevisionActivityLogEntryProposedChangesSnapshotTest) SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnion {
+	typ := SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionTypeTest
 
-	return ProposedChangesSnapshot{
-		ProposedChangesSnapshotTest: &test,
-		Type:                        typ,
+	return SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnion{
+		SavedGroupRevisionActivityLogEntryProposedChangesSnapshotTest: &test,
+		Type: typ,
 	}
 }
 
-func CreateProposedChangesSnapshotUnknown(raw json.RawMessage) ProposedChangesSnapshot {
-	return ProposedChangesSnapshot{
+func CreateSavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionUnknown(raw json.RawMessage) SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnion {
+	return SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnion{
 		UnknownRaw: raw,
-		Type:       ProposedChangesSnapshotTypeUnknown,
+		Type:       SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionTypeUnknown,
 	}
 }
 
-func (u ProposedChangesSnapshot) GetUnknownRaw() json.RawMessage {
+func (u SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnion) GetUnknownRaw() json.RawMessage {
 	return u.UnknownRaw
 }
 
-func (u ProposedChangesSnapshot) IsUnknown() bool {
-	return u.Type == ProposedChangesSnapshotTypeUnknown
+func (u SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnion) IsUnknown() bool {
+	return u.Type == SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionTypeUnknown
 }
 
-func (u *ProposedChangesSnapshot) UnmarshalJSON(data []byte) error {
+func (u *SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnion) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
 		Op string `json:"op"`
@@ -350,117 +355,117 @@ func (u *ProposedChangesSnapshot) UnmarshalJSON(data []byte) error {
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = ProposedChangesSnapshotTypeUnknown
+		u.Type = SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionTypeUnknown
 		return nil
 	}
 	if dis == nil {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = ProposedChangesSnapshotTypeUnknown
+		u.Type = SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionTypeUnknown
 		return nil
 	}
 
 	switch dis.Op {
 	case "add":
-		proposedChangesSnapshotAdd := new(ProposedChangesSnapshotAdd)
-		if err := utils.UnmarshalJSON(data, &proposedChangesSnapshotAdd, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Op == add) type ProposedChangesSnapshotAdd within ProposedChangesSnapshot: %w", string(data), err)
+		savedGroupRevisionActivityLogEntryProposedChangesSnapshotAdd := new(SavedGroupRevisionActivityLogEntryProposedChangesSnapshotAdd)
+		if err := utils.UnmarshalJSON(data, &savedGroupRevisionActivityLogEntryProposedChangesSnapshotAdd, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Op == add) type SavedGroupRevisionActivityLogEntryProposedChangesSnapshotAdd within SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnion: %w", string(data), err)
 		}
 
-		u.ProposedChangesSnapshotAdd = proposedChangesSnapshotAdd
-		u.Type = ProposedChangesSnapshotTypeAdd
+		u.SavedGroupRevisionActivityLogEntryProposedChangesSnapshotAdd = savedGroupRevisionActivityLogEntryProposedChangesSnapshotAdd
+		u.Type = SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionTypeAdd
 		return nil
 	case "remove":
-		proposedChangesSnapshotRemove := new(ProposedChangesSnapshotRemove)
-		if err := utils.UnmarshalJSON(data, &proposedChangesSnapshotRemove, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Op == remove) type ProposedChangesSnapshotRemove within ProposedChangesSnapshot: %w", string(data), err)
+		savedGroupRevisionActivityLogEntryProposedChangesSnapshotRemove := new(SavedGroupRevisionActivityLogEntryProposedChangesSnapshotRemove)
+		if err := utils.UnmarshalJSON(data, &savedGroupRevisionActivityLogEntryProposedChangesSnapshotRemove, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Op == remove) type SavedGroupRevisionActivityLogEntryProposedChangesSnapshotRemove within SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnion: %w", string(data), err)
 		}
 
-		u.ProposedChangesSnapshotRemove = proposedChangesSnapshotRemove
-		u.Type = ProposedChangesSnapshotTypeRemove
+		u.SavedGroupRevisionActivityLogEntryProposedChangesSnapshotRemove = savedGroupRevisionActivityLogEntryProposedChangesSnapshotRemove
+		u.Type = SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionTypeRemove
 		return nil
 	case "replace":
-		proposedChangesSnapshotReplace := new(ProposedChangesSnapshotReplace)
-		if err := utils.UnmarshalJSON(data, &proposedChangesSnapshotReplace, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Op == replace) type ProposedChangesSnapshotReplace within ProposedChangesSnapshot: %w", string(data), err)
+		savedGroupRevisionActivityLogEntryProposedChangesSnapshotReplace := new(SavedGroupRevisionActivityLogEntryProposedChangesSnapshotReplace)
+		if err := utils.UnmarshalJSON(data, &savedGroupRevisionActivityLogEntryProposedChangesSnapshotReplace, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Op == replace) type SavedGroupRevisionActivityLogEntryProposedChangesSnapshotReplace within SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnion: %w", string(data), err)
 		}
 
-		u.ProposedChangesSnapshotReplace = proposedChangesSnapshotReplace
-		u.Type = ProposedChangesSnapshotTypeReplace
+		u.SavedGroupRevisionActivityLogEntryProposedChangesSnapshotReplace = savedGroupRevisionActivityLogEntryProposedChangesSnapshotReplace
+		u.Type = SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionTypeReplace
 		return nil
 	case "move":
-		proposedChangesSnapshotMove := new(ProposedChangesSnapshotMove)
-		if err := utils.UnmarshalJSON(data, &proposedChangesSnapshotMove, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Op == move) type ProposedChangesSnapshotMove within ProposedChangesSnapshot: %w", string(data), err)
+		savedGroupRevisionActivityLogEntryProposedChangesSnapshotMove := new(SavedGroupRevisionActivityLogEntryProposedChangesSnapshotMove)
+		if err := utils.UnmarshalJSON(data, &savedGroupRevisionActivityLogEntryProposedChangesSnapshotMove, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Op == move) type SavedGroupRevisionActivityLogEntryProposedChangesSnapshotMove within SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnion: %w", string(data), err)
 		}
 
-		u.ProposedChangesSnapshotMove = proposedChangesSnapshotMove
-		u.Type = ProposedChangesSnapshotTypeMove
+		u.SavedGroupRevisionActivityLogEntryProposedChangesSnapshotMove = savedGroupRevisionActivityLogEntryProposedChangesSnapshotMove
+		u.Type = SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionTypeMove
 		return nil
 	case "copy":
-		proposedChangesSnapshotCopy := new(ProposedChangesSnapshotCopy)
-		if err := utils.UnmarshalJSON(data, &proposedChangesSnapshotCopy, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Op == copy) type ProposedChangesSnapshotCopy within ProposedChangesSnapshot: %w", string(data), err)
+		savedGroupRevisionActivityLogEntryProposedChangesSnapshotCopy := new(SavedGroupRevisionActivityLogEntryProposedChangesSnapshotCopy)
+		if err := utils.UnmarshalJSON(data, &savedGroupRevisionActivityLogEntryProposedChangesSnapshotCopy, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Op == copy) type SavedGroupRevisionActivityLogEntryProposedChangesSnapshotCopy within SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnion: %w", string(data), err)
 		}
 
-		u.ProposedChangesSnapshotCopy = proposedChangesSnapshotCopy
-		u.Type = ProposedChangesSnapshotTypeCopy
+		u.SavedGroupRevisionActivityLogEntryProposedChangesSnapshotCopy = savedGroupRevisionActivityLogEntryProposedChangesSnapshotCopy
+		u.Type = SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionTypeCopy
 		return nil
 	case "test":
-		proposedChangesSnapshotTest := new(ProposedChangesSnapshotTest)
-		if err := utils.UnmarshalJSON(data, &proposedChangesSnapshotTest, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Op == test) type ProposedChangesSnapshotTest within ProposedChangesSnapshot: %w", string(data), err)
+		savedGroupRevisionActivityLogEntryProposedChangesSnapshotTest := new(SavedGroupRevisionActivityLogEntryProposedChangesSnapshotTest)
+		if err := utils.UnmarshalJSON(data, &savedGroupRevisionActivityLogEntryProposedChangesSnapshotTest, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Op == test) type SavedGroupRevisionActivityLogEntryProposedChangesSnapshotTest within SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnion: %w", string(data), err)
 		}
 
-		u.ProposedChangesSnapshotTest = proposedChangesSnapshotTest
-		u.Type = ProposedChangesSnapshotTypeTest
+		u.SavedGroupRevisionActivityLogEntryProposedChangesSnapshotTest = savedGroupRevisionActivityLogEntryProposedChangesSnapshotTest
+		u.Type = SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionTypeTest
 		return nil
 	default:
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = ProposedChangesSnapshotTypeUnknown
+		u.Type = SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnionTypeUnknown
 		return nil
 	}
 
 }
 
-func (u ProposedChangesSnapshot) MarshalJSON() ([]byte, error) {
-	if u.ProposedChangesSnapshotAdd != nil {
-		return utils.MarshalJSON(u.ProposedChangesSnapshotAdd, "", true)
+func (u SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnion) MarshalJSON() ([]byte, error) {
+	if u.SavedGroupRevisionActivityLogEntryProposedChangesSnapshotAdd != nil {
+		return utils.MarshalJSON(u.SavedGroupRevisionActivityLogEntryProposedChangesSnapshotAdd, "", true)
 	}
 
-	if u.ProposedChangesSnapshotRemove != nil {
-		return utils.MarshalJSON(u.ProposedChangesSnapshotRemove, "", true)
+	if u.SavedGroupRevisionActivityLogEntryProposedChangesSnapshotRemove != nil {
+		return utils.MarshalJSON(u.SavedGroupRevisionActivityLogEntryProposedChangesSnapshotRemove, "", true)
 	}
 
-	if u.ProposedChangesSnapshotReplace != nil {
-		return utils.MarshalJSON(u.ProposedChangesSnapshotReplace, "", true)
+	if u.SavedGroupRevisionActivityLogEntryProposedChangesSnapshotReplace != nil {
+		return utils.MarshalJSON(u.SavedGroupRevisionActivityLogEntryProposedChangesSnapshotReplace, "", true)
 	}
 
-	if u.ProposedChangesSnapshotMove != nil {
-		return utils.MarshalJSON(u.ProposedChangesSnapshotMove, "", true)
+	if u.SavedGroupRevisionActivityLogEntryProposedChangesSnapshotMove != nil {
+		return utils.MarshalJSON(u.SavedGroupRevisionActivityLogEntryProposedChangesSnapshotMove, "", true)
 	}
 
-	if u.ProposedChangesSnapshotCopy != nil {
-		return utils.MarshalJSON(u.ProposedChangesSnapshotCopy, "", true)
+	if u.SavedGroupRevisionActivityLogEntryProposedChangesSnapshotCopy != nil {
+		return utils.MarshalJSON(u.SavedGroupRevisionActivityLogEntryProposedChangesSnapshotCopy, "", true)
 	}
 
-	if u.ProposedChangesSnapshotTest != nil {
-		return utils.MarshalJSON(u.ProposedChangesSnapshotTest, "", true)
+	if u.SavedGroupRevisionActivityLogEntryProposedChangesSnapshotTest != nil {
+		return utils.MarshalJSON(u.SavedGroupRevisionActivityLogEntryProposedChangesSnapshotTest, "", true)
 	}
 
 	if u.UnknownRaw != nil {
 		return json.RawMessage(u.UnknownRaw), nil
 	}
-	return nil, errors.New("could not marshal union type ProposedChangesSnapshot: all fields are null")
+	return nil, errors.New("could not marshal union type SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnion: all fields are null")
 }
 
 type SavedGroupRevisionActivityLogEntry struct {
-	ID                      string                                    `json:"id"`
-	UserID                  string                                    `json:"userId"`
-	Action                  SavedGroupRevisionActivityLogEntryAction  `json:"action"`
-	Description             optionalnullable.OptionalNullable[string] `json:"description,omitzero"`
-	ProposedChangesSnapshot []ProposedChangesSnapshot                 `json:"proposedChangesSnapshot,omitzero"`
-	TargetSnapshot          any                                       `json:"targetSnapshot,omitzero"`
-	DateCreated             time.Time                                 `json:"dateCreated"`
+	ID                      string                                                           `json:"id"`
+	UserID                  string                                                           `json:"userId"`
+	Action                  SavedGroupRevisionActivityLogEntryAction                         `json:"action"`
+	Description             optionalnullable.OptionalNullable[string]                        `json:"description,omitzero"`
+	ProposedChangesSnapshot []SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnion `json:"proposedChangesSnapshot,omitzero"`
+	TargetSnapshot          any                                                              `json:"targetSnapshot,omitzero"`
+	DateCreated             time.Time                                                        `json:"dateCreated"`
 }
 
 func (s SavedGroupRevisionActivityLogEntry) MarshalJSON() ([]byte, error) {
@@ -502,7 +507,7 @@ func (s *SavedGroupRevisionActivityLogEntry) GetDescription() optionalnullable.O
 	return s.Description
 }
 
-func (s *SavedGroupRevisionActivityLogEntry) GetProposedChangesSnapshot() []ProposedChangesSnapshot {
+func (s *SavedGroupRevisionActivityLogEntry) GetProposedChangesSnapshot() []SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnion {
 	if s == nil {
 		return nil
 	}

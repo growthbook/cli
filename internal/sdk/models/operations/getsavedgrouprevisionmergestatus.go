@@ -26,47 +26,47 @@ func (g *GetSavedGroupRevisionMergeStatusRequest) GetVersion() string {
 	return g.Version
 }
 
-type Conflict struct {
+type GetSavedGroupRevisionMergeStatusConflict struct {
 	Field         string `json:"field"`
 	BaseValue     any    `json:"baseValue"`
 	LiveValue     any    `json:"liveValue"`
 	ProposedValue any    `json:"proposedValue"`
 }
 
-func (c *Conflict) GetField() string {
-	if c == nil {
+func (g *GetSavedGroupRevisionMergeStatusConflict) GetField() string {
+	if g == nil {
 		return ""
 	}
-	return c.Field
+	return g.Field
 }
 
-func (c *Conflict) GetBaseValue() any {
-	if c == nil {
+func (g *GetSavedGroupRevisionMergeStatusConflict) GetBaseValue() any {
+	if g == nil {
 		return nil
 	}
-	return c.BaseValue
+	return g.BaseValue
 }
 
-func (c *Conflict) GetLiveValue() any {
-	if c == nil {
+func (g *GetSavedGroupRevisionMergeStatusConflict) GetLiveValue() any {
+	if g == nil {
 		return nil
 	}
-	return c.LiveValue
+	return g.LiveValue
 }
 
-func (c *Conflict) GetProposedValue() any {
-	if c == nil {
+func (g *GetSavedGroupRevisionMergeStatusConflict) GetProposedValue() any {
+	if g == nil {
 		return nil
 	}
-	return c.ProposedValue
+	return g.ProposedValue
 }
 
 // GetSavedGroupRevisionMergeStatusResponseBody - Successful response
 type GetSavedGroupRevisionMergeStatusResponseBody struct {
-	Success      bool       `json:"success"`
-	HasConflicts bool       `json:"hasConflicts"`
-	Conflicts    []Conflict `json:"conflicts"`
-	CanAutoMerge bool       `json:"canAutoMerge"`
+	Success      bool                                       `json:"success"`
+	HasConflicts bool                                       `json:"hasConflicts"`
+	Conflicts    []GetSavedGroupRevisionMergeStatusConflict `json:"conflicts"`
+	CanAutoMerge bool                                       `json:"canAutoMerge"`
 }
 
 func (g *GetSavedGroupRevisionMergeStatusResponseBody) GetSuccess() bool {
@@ -83,9 +83,9 @@ func (g *GetSavedGroupRevisionMergeStatusResponseBody) GetHasConflicts() bool {
 	return g.HasConflicts
 }
 
-func (g *GetSavedGroupRevisionMergeStatusResponseBody) GetConflicts() []Conflict {
+func (g *GetSavedGroupRevisionMergeStatusResponseBody) GetConflicts() []GetSavedGroupRevisionMergeStatusConflict {
 	if g == nil {
-		return []Conflict{}
+		return []GetSavedGroupRevisionMergeStatusConflict{}
 	}
 	return g.Conflicts
 }

@@ -93,6 +93,8 @@ The response body will be a JSON object with the following properties:
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
 * [growthbook](#growthbook)
+  * [Installation](#installation)
+  * [Versioning and stability](#versioning-and-stability)
   * [Versioning](#versioning)
   * [Authentication](#authentication)
   * [Errors](#errors)
@@ -100,6 +102,8 @@ The response body will be a JSON object with the following properties:
   * [Shell Completion](#shell-completion)
   * [CLI Example Usage](#cli-example-usage)
   * [Authentication](#authentication-1)
+  * [Profiles](#profiles)
+  * [Generating TypeScript types](#generating-typescript-types)
   * [Available Commands](#available-commands)
   * [Request Body Input](#request-body-input)
   * [Server Selection](#server-selection)
@@ -287,18 +291,6 @@ growthbook generate-types --project prj_123                 # limit to one proje
 
 * [`get-SDK-payload`](docs/growthbook_get-SDK-payload.md) - Get a SDK payload
 * [`post-copy-transform`](docs/growthbook_post-copy-transform.md)
-* [`post-visual-editor-AI-edit`](docs/growthbook_post-visual-editor-AI-edit.md)
-* [`post-visual-editor-AI-edit-resume`](docs/growthbook_post-visual-editor-AI-edit-resume.md)
-* [`post-visual-editor-AI-suggestions`](docs/growthbook_post-visual-editor-AI-suggestions.md)
-* [`post-visual-editor-AI-image-gen`](docs/growthbook_post-visual-editor-AI-image-gen.md)
-* [`post-visual-editor-AI-promote-image`](docs/growthbook_post-visual-editor-AI-promote-image.md)
-* [`post-visual-editor-AI-upload-signed-url`](docs/growthbook_post-visual-editor-AI-upload-signed-url.md)
-* [`post-visual-editor-add-variant`](docs/growthbook_post-visual-editor-add-variant.md)
-* [`post-visual-editor-create-experiment`](docs/growthbook_post-visual-editor-create-experiment.md)
-* [`post-visual-editor-create-changeset`](docs/growthbook_post-visual-editor-create-changeset.md)
-* [`post-visual-editor-rename-experiment`](docs/growthbook_post-visual-editor-rename-experiment.md)
-* [`get-visual-editor-bootstrap`](docs/growthbook_get-visual-editor-bootstrap.md)
-* [`get-visual-editor-library-images`](docs/growthbook_get-visual-editor-library-images.md)
 
 ### [features-v1](docs/growthbook_features-v1.md)
 
@@ -502,6 +494,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`delete`](docs/growthbook_saved-groups_delete.md) - Deletes a single saved group
 * [`archive`](docs/growthbook_saved-groups_archive.md) - Archive a single saved group
 * [`unarchive`](docs/growthbook_saved-groups_unarchive.md) - Unarchive a single saved group
+* [`get-saved-group-references`](docs/growthbook_saved-groups_get-saved-group-references.md) - Get features, experiments, and saved groups that reference this saved group
 
 ### [saved-group-revisions](docs/growthbook_saved-group-revisions.md)
 
@@ -523,6 +516,35 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`post-saved-group-revision-publish`](docs/growthbook_saved-group-revisions_post-saved-group-revision-publish.md) - Publish a draft revision
 * [`post-saved-group-revision-discard`](docs/growthbook_saved-group-revisions_post-saved-group-revision-discard.md) - Discard a draft revision
 * [`post-saved-group-revision-revert`](docs/growthbook_saved-group-revisions_post-saved-group-revision-revert.md) - Revert the saved group to a prior revision
+
+### [constants](docs/growthbook_constants.md)
+
+* [`list`](docs/growthbook_constants_list.md) - Get all constants
+* [`post`](docs/growthbook_constants_post.md) - Create a single constant
+* [`get-constant-references`](docs/growthbook_constants_get-constant-references.md) - Get features and constants that reference this constant
+* [`get`](docs/growthbook_constants_get.md) - Get a single constant
+* [`update`](docs/growthbook_constants_update.md) - Partially update a single constant
+* [`delete`](docs/growthbook_constants_delete.md) - Delete a single constant
+* [`archive`](docs/growthbook_constants_archive.md) - Archive a single constant
+* [`unarchive`](docs/growthbook_constants_unarchive.md) - Unarchive a single constant
+
+### [constant-revisions](docs/growthbook_constant-revisions.md)
+
+* [`list`](docs/growthbook_constant-revisions_list.md) - List constant revisions across the organization
+* [`get`](docs/growthbook_constant-revisions_get.md) - List revisions for a constant
+* [`post`](docs/growthbook_constant-revisions_post.md) - Create a draft revision
+* [`get-constant-revision-latest`](docs/growthbook_constant-revisions_get-constant-revision-latest.md) - Get the most recent active draft revision
+* [`get`](docs/growthbook_constant-revisions_get.md) - Get a single constant revision
+* [`put-constant-revision-metadata`](docs/growthbook_constant-revisions_put-constant-revision-metadata.md) - Update constant metadata in a draft revision
+* [`put-constant-revision-value`](docs/growthbook_constant-revisions_put-constant-revision-value.md) - Update the value of a constant draft revision
+* [`put-constant-revision-archive`](docs/growthbook_constant-revisions_put-constant-revision-archive.md) - Stage an archive/unarchive in a draft revision
+* [`post-constant-revision-request-review`](docs/growthbook_constant-revisions_post-constant-revision-request-review.md) - Request review for a draft revision
+* [`post-constant-revision-submit-review`](docs/growthbook_constant-revisions_post-constant-revision-submit-review.md) - Submit a review on a draft revision
+* [`get-constant-revision-merge-status`](docs/growthbook_constant-revisions_get-constant-revision-merge-status.md) - Get merge status for a draft revision
+* [`post-constant-revision-rebase`](docs/growthbook_constant-revisions_post-constant-revision-rebase.md) - Rebase a draft revision onto the current live constant
+* [`post-constant-revision-publish`](docs/growthbook_constant-revisions_post-constant-revision-publish.md) - Publish a draft revision
+* [`post-constant-revision-discard`](docs/growthbook_constant-revisions_post-constant-revision-discard.md) - Discard a draft revision
+* [`post-constant-revision-revert`](docs/growthbook_constant-revisions_post-constant-revision-revert.md) - Revert the constant to a prior revision
 
 ### [organizations](docs/growthbook_organizations.md)
 

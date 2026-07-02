@@ -170,6 +170,8 @@ type FeatureExperimentRefRule struct {
 	type_        string                              `const:"experiment-ref" json:"type"`
 	Variations   []FeatureExperimentRefRuleVariation `json:"variations"`
 	ExperimentID string                              `json:"experimentId"`
+	// JSON features only. When true, each variation `value` is a partial object merged onto the feature's default value instead of replacing it.
+	Sparse *bool `json:"sparse,omitzero"`
 }
 
 func (f FeatureExperimentRefRule) MarshalJSON() ([]byte, error) {
@@ -262,4 +264,11 @@ func (f *FeatureExperimentRefRule) GetExperimentID() string {
 		return ""
 	}
 	return f.ExperimentID
+}
+
+func (f *FeatureExperimentRefRule) GetSparse() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.Sparse
 }
