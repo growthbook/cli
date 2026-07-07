@@ -93,6 +93,8 @@ The response body will be a JSON object with the following properties:
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
 * [growthbook](#growthbook)
+  * [Installation](#installation)
+  * [Versioning and stability](#versioning-and-stability)
   * [Versioning](#versioning)
   * [Authentication](#authentication)
   * [Errors](#errors)
@@ -100,6 +102,8 @@ The response body will be a JSON object with the following properties:
   * [Shell Completion](#shell-completion)
   * [CLI Example Usage](#cli-example-usage)
   * [Authentication](#authentication-1)
+  * [Profiles](#profiles)
+  * [Generating TypeScript types](#generating-typescript-types)
   * [Available Commands](#available-commands)
   * [Request Body Input](#request-body-input)
   * [Server Selection](#server-selection)
@@ -287,18 +291,6 @@ growthbook generate-types --project prj_123                 # limit to one proje
 
 * [`get-SDK-payload`](docs/growthbook_get-SDK-payload.md) - Get a SDK payload
 * [`post-copy-transform`](docs/growthbook_post-copy-transform.md)
-* [`post-visual-editor-AI-edit`](docs/growthbook_post-visual-editor-AI-edit.md)
-* [`post-visual-editor-AI-edit-resume`](docs/growthbook_post-visual-editor-AI-edit-resume.md)
-* [`post-visual-editor-AI-suggestions`](docs/growthbook_post-visual-editor-AI-suggestions.md)
-* [`post-visual-editor-AI-image-gen`](docs/growthbook_post-visual-editor-AI-image-gen.md)
-* [`post-visual-editor-AI-promote-image`](docs/growthbook_post-visual-editor-AI-promote-image.md)
-* [`post-visual-editor-AI-upload-signed-url`](docs/growthbook_post-visual-editor-AI-upload-signed-url.md)
-* [`post-visual-editor-add-variant`](docs/growthbook_post-visual-editor-add-variant.md)
-* [`post-visual-editor-create-experiment`](docs/growthbook_post-visual-editor-create-experiment.md)
-* [`post-visual-editor-create-changeset`](docs/growthbook_post-visual-editor-create-changeset.md)
-* [`post-visual-editor-rename-experiment`](docs/growthbook_post-visual-editor-rename-experiment.md)
-* [`get-visual-editor-bootstrap`](docs/growthbook_get-visual-editor-bootstrap.md)
-* [`get-visual-editor-library-images`](docs/growthbook_get-visual-editor-library-images.md)
 
 ### [features-v1](docs/growthbook_features-v1.md)
 
@@ -427,6 +419,24 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`post-visual-change`](docs/growthbook_visual-changesets_post-visual-change.md) - Create a visual change for a visual changeset
 * [`put-visual-change`](docs/growthbook_visual-changesets_put-visual-change.md) - Update a visual change for a visual changeset
 
+### [contextual-bandits](docs/growthbook_contextual-bandits.md)
+
+* [`get-contextual-bandit-current-weights`](docs/growthbook_contextual-bandits_get-contextual-bandit-current-weights.md) - Get current Contextual Bandit leaf weights and latest event
+* [`list-contextual-bandit-snapshots`](docs/growthbook_contextual-bandits_list-contextual-bandit-snapshots.md) - List Contextual Bandit snapshots
+* [`get-contextual-bandit-snapshot`](docs/growthbook_contextual-bandits_get-contextual-bandit-snapshot.md) - Get a single Contextual Bandit snapshot
+* [`list-contextual-bandit-events`](docs/growthbook_contextual-bandits_list-contextual-bandit-events.md) - List Contextual Bandit weight-update events
+* [`get-contextual-bandit-event`](docs/growthbook_contextual-bandits_get-contextual-bandit-event.md) - Get a single Contextual Bandit weight-update event
+* [`get-contextual-bandit-results`](docs/growthbook_contextual-bandits_get-contextual-bandit-results.md) - Get latest Contextual Bandit results
+* [`get-contextual-bandit-linked-features`](docs/growthbook_contextual-bandits_get-contextual-bandit-linked-features.md) - Get features linked to a Contextual Bandit
+* [`delete-contextual-bandit-linked-feature`](docs/growthbook_contextual-bandits_delete-contextual-bandit-linked-feature.md) - Unlink a feature from a Contextual Bandit
+* [`get`](docs/growthbook_contextual-bandits_get.md) - Get a single contextualBandit
+* [`update`](docs/growthbook_contextual-bandits_update.md) - Update a single contextualBandit
+* [`create`](docs/growthbook_contextual-bandits_create.md) - Create a single contextualBandit
+* [`list`](docs/growthbook_contextual-bandits_list.md) - Get all contextualBandits
+* [`start`](docs/growthbook_contextual-bandits_start.md) - Start a Contextual Bandit
+* [`stop`](docs/growthbook_contextual-bandits_stop.md) - Stop a Contextual Bandit
+* [`refresh`](docs/growthbook_contextual-bandits_refresh.md) - Trigger a Contextual Bandit snapshot refresh
+
 ### [metrics](docs/growthbook_metrics.md)
 
 * [`list`](docs/growthbook_metrics_list.md) - Get all metrics
@@ -502,6 +512,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`delete`](docs/growthbook_saved-groups_delete.md) - Deletes a single saved group
 * [`archive`](docs/growthbook_saved-groups_archive.md) - Archive a single saved group
 * [`unarchive`](docs/growthbook_saved-groups_unarchive.md) - Unarchive a single saved group
+* [`get-saved-group-references`](docs/growthbook_saved-groups_get-saved-group-references.md) - Get features, experiments, and saved groups that reference this saved group
 
 ### [saved-group-revisions](docs/growthbook_saved-group-revisions.md)
 
@@ -523,6 +534,35 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`post-saved-group-revision-publish`](docs/growthbook_saved-group-revisions_post-saved-group-revision-publish.md) - Publish a draft revision
 * [`post-saved-group-revision-discard`](docs/growthbook_saved-group-revisions_post-saved-group-revision-discard.md) - Discard a draft revision
 * [`post-saved-group-revision-revert`](docs/growthbook_saved-group-revisions_post-saved-group-revision-revert.md) - Revert the saved group to a prior revision
+
+### [constants](docs/growthbook_constants.md)
+
+* [`list`](docs/growthbook_constants_list.md) - Get all constants
+* [`post`](docs/growthbook_constants_post.md) - Create a single constant
+* [`get-constant-references`](docs/growthbook_constants_get-constant-references.md) - Get features and constants that reference this constant
+* [`get`](docs/growthbook_constants_get.md) - Get a single constant
+* [`update`](docs/growthbook_constants_update.md) - Partially update a single constant
+* [`delete`](docs/growthbook_constants_delete.md) - Delete a single constant
+* [`archive`](docs/growthbook_constants_archive.md) - Archive a single constant
+* [`unarchive`](docs/growthbook_constants_unarchive.md) - Unarchive a single constant
+
+### [constant-revisions](docs/growthbook_constant-revisions.md)
+
+* [`list`](docs/growthbook_constant-revisions_list.md) - List constant revisions across the organization
+* [`get`](docs/growthbook_constant-revisions_get.md) - List revisions for a constant
+* [`post`](docs/growthbook_constant-revisions_post.md) - Create a draft revision
+* [`get-constant-revision-latest`](docs/growthbook_constant-revisions_get-constant-revision-latest.md) - Get the most recent active draft revision
+* [`get`](docs/growthbook_constant-revisions_get.md) - Get a single constant revision
+* [`put-constant-revision-metadata`](docs/growthbook_constant-revisions_put-constant-revision-metadata.md) - Update constant metadata in a draft revision
+* [`put-constant-revision-value`](docs/growthbook_constant-revisions_put-constant-revision-value.md) - Update the value of a constant draft revision
+* [`put-constant-revision-archive`](docs/growthbook_constant-revisions_put-constant-revision-archive.md) - Stage an archive/unarchive in a draft revision
+* [`post-constant-revision-request-review`](docs/growthbook_constant-revisions_post-constant-revision-request-review.md) - Request review for a draft revision
+* [`post-constant-revision-submit-review`](docs/growthbook_constant-revisions_post-constant-revision-submit-review.md) - Submit a review on a draft revision
+* [`get-constant-revision-merge-status`](docs/growthbook_constant-revisions_get-constant-revision-merge-status.md) - Get merge status for a draft revision
+* [`post-constant-revision-rebase`](docs/growthbook_constant-revisions_post-constant-revision-rebase.md) - Rebase a draft revision onto the current live constant
+* [`post-constant-revision-publish`](docs/growthbook_constant-revisions_post-constant-revision-publish.md) - Publish a draft revision
+* [`post-constant-revision-discard`](docs/growthbook_constant-revisions_post-constant-revision-discard.md) - Discard a draft revision
+* [`post-constant-revision-revert`](docs/growthbook_constant-revisions_post-constant-revision-revert.md) - Revert the constant to a prior revision
 
 ### [organizations](docs/growthbook_organizations.md)
 
@@ -634,6 +674,14 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`create`](docs/growthbook_dashboards_create.md) - Create a single dashboard
 * [`list`](docs/growthbook_dashboards_list.md) - Get all dashboards
 * [`get-dashboards-for-experiment`](docs/growthbook_dashboards_get-dashboards-for-experiment.md) - Get all dashboards for an experiment
+
+### [contextual-bandit-queries](docs/growthbook_contextual-bandit-queries.md)
+
+* [`get-contextual-bandit-query`](docs/growthbook_contextual-bandit-queries_get-contextual-bandit-query.md) - Get a single contextualBanditQuery
+* [`delete-contextual-bandit-query`](docs/growthbook_contextual-bandit-queries_delete-contextual-bandit-query.md) - Delete a single contextualBanditQuery
+* [`update-contextual-bandit-query`](docs/growthbook_contextual-bandit-queries_update-contextual-bandit-query.md) - Update a single contextualBanditQuery
+* [`create-contextual-bandit-query`](docs/growthbook_contextual-bandit-queries_create-contextual-bandit-query.md) - Create a single contextualBanditQuery
+* [`list`](docs/growthbook_contextual-bandit-queries_list.md) - Get all contextualBanditQueries
 
 ### [custom-fields](docs/growthbook_custom-fields.md)
 

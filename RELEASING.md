@@ -123,10 +123,15 @@ only reflects what the spec says.
 
 | Name | Type | Purpose |
 |---|---|---|
-| `NPM_TOKEN` | secret | publish the npm shim |
+| _(none for npm)_ | — | npm publishes via **OIDC trusted publishing** — no token. `release.yaml` grants `id-token: write`; the npm↔GitHub trust relationship is configured on npmjs.com. |
 | `RELEASE_TAG_PAT` | secret | push the tag from `auto-tag.yaml` so `release.yaml` fires (see gotcha) |
 | `SPEAKEASY_API_KEY` | secret | generation |
 | `RELEASE_AUTOMATION` | variable | set to `true` to arm `auto-tag.yaml` (off during `@next` staging) |
+
+> **npm OIDC notes:** trusted publishing needs npm ≥ 11.5.1 (newer than Node 20's bundled npm), so
+> the publish step runs `npm install -g npm@latest` first. The npm trust relationship is scoped to a
+> specific workflow — **when we move to the `auto-tag` → `release` flow at GA, the trust config must
+> be updated** to match (owner action).
 
 ## Manual / prerelease releases
 

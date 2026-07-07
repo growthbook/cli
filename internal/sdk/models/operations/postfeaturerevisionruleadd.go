@@ -206,6 +206,7 @@ type PostFeatureRevisionRuleAddRule struct {
 	ScheduleType  *PostFeatureRevisionRuleAddScheduleType3  `json:"scheduleType,omitzero"`
 	Type          *PostFeatureRevisionRuleAddType           `json:"type,omitzero"`
 	Value         string                                    `json:"value"`
+	Sparse        *bool                                     `json:"sparse,omitzero"`
 	Coverage      *float64                                  `json:"coverage,omitzero"`
 	HashAttribute *string                                   `json:"hashAttribute,omitzero"`
 	Seed          *string                                   `json:"seed,omitzero"`
@@ -284,6 +285,13 @@ func (p *PostFeatureRevisionRuleAddRule) GetValue() string {
 		return ""
 	}
 	return p.Value
+}
+
+func (p *PostFeatureRevisionRuleAddRule) GetSparse() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.Sparse
 }
 
 func (p *PostFeatureRevisionRuleAddRule) GetCoverage() *float64 {
@@ -970,6 +978,7 @@ type PostFeatureRevisionRuleAddRuleExperimentRef struct {
 	type_        string                                `const:"experiment-ref" json:"type"`
 	ExperimentID string                                `json:"experimentId"`
 	Variations   []PostFeatureRevisionRuleAddVariation `json:"variations"`
+	Sparse       *bool                                 `json:"sparse,omitzero"`
 }
 
 func (p PostFeatureRevisionRuleAddRuleExperimentRef) MarshalJSON() ([]byte, error) {
@@ -1048,6 +1057,13 @@ func (p *PostFeatureRevisionRuleAddRuleExperimentRef) GetVariations() []PostFeat
 		return []PostFeatureRevisionRuleAddVariation{}
 	}
 	return p.Variations
+}
+
+func (p *PostFeatureRevisionRuleAddRuleExperimentRef) GetSparse() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.Sparse
 }
 
 type PostFeatureRevisionRuleAddRuleUnionType string

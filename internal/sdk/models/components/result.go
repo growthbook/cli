@@ -11,6 +11,331 @@ import (
 	"github.com/growthbook/cli/internal/sdk/types"
 )
 
+type ResultScheduleRule6 struct {
+	Timestamp *string `json:"timestamp"`
+	Enabled   bool    `json:"enabled"`
+}
+
+func (r ResultScheduleRule6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *ResultScheduleRule6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *ResultScheduleRule6) GetTimestamp() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Timestamp
+}
+
+func (r *ResultScheduleRule6) GetEnabled() bool {
+	if r == nil {
+		return false
+	}
+	return r.Enabled
+}
+
+// #region class-body-resultschedulerule6
+// #endregion class-body-resultschedulerule6
+
+type ResultMatch6 string
+
+const (
+	ResultMatch6All  ResultMatch6 = "all"
+	ResultMatch6None ResultMatch6 = "none"
+	ResultMatch6Any  ResultMatch6 = "any"
+)
+
+func (e ResultMatch6) ToPointer() *ResultMatch6 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ResultMatch6) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "all", "none", "any":
+			return true
+		}
+	}
+	return false
+}
+
+type ResultSavedGroup6 struct {
+	Match ResultMatch6 `json:"match"`
+	Ids   []string     `json:"ids"`
+}
+
+func (r ResultSavedGroup6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *ResultSavedGroup6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *ResultSavedGroup6) GetMatch() ResultMatch6 {
+	if r == nil {
+		return ResultMatch6("")
+	}
+	return r.Match
+}
+
+func (r *ResultSavedGroup6) GetIds() []string {
+	if r == nil {
+		return []string{}
+	}
+	return r.Ids
+}
+
+// #region class-body-resultsavedgroup6
+// #endregion class-body-resultsavedgroup6
+
+type RulePrerequisite6 struct {
+	ID        string `json:"id"`
+	Condition string `json:"condition"`
+}
+
+func (r RulePrerequisite6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RulePrerequisite6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RulePrerequisite6) GetID() string {
+	if r == nil {
+		return ""
+	}
+	return r.ID
+}
+
+func (r *RulePrerequisite6) GetCondition() string {
+	if r == nil {
+		return ""
+	}
+	return r.Condition
+}
+
+// #region class-body-ruleprerequisite6
+// #endregion class-body-ruleprerequisite6
+
+type ResultScheduleType6 string
+
+const (
+	ResultScheduleType6None     ResultScheduleType6 = "none"
+	ResultScheduleType6Schedule ResultScheduleType6 = "schedule"
+	ResultScheduleType6Ramp     ResultScheduleType6 = "ramp"
+)
+
+func (e ResultScheduleType6) ToPointer() *ResultScheduleType6 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ResultScheduleType6) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "schedule", "ramp":
+			return true
+		}
+	}
+	return false
+}
+
+type ResultStatus string
+
+const (
+	ResultStatusRunning    ResultStatus = "running"
+	ResultStatusRolledBack ResultStatus = "rolled-back"
+	ResultStatusReleased   ResultStatus = "released"
+	ResultStatusStopped    ResultStatus = "stopped"
+)
+
+func (e ResultStatus) ToPointer() *ResultStatus {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ResultStatus) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "running", "rolled-back", "released", "stopped":
+			return true
+		}
+	}
+	return false
+}
+
+type RuleSafeRollout struct {
+	Description     string                `json:"description"`
+	Condition       *string               `json:"condition,omitzero"`
+	ID              string                `json:"id"`
+	AllEnvironments bool                  `json:"allEnvironments"`
+	Environments    []string              `json:"environments,omitzero"`
+	Enabled         *bool                 `json:"enabled,omitzero"`
+	ScheduleRules   []ResultScheduleRule6 `json:"scheduleRules,omitzero"`
+	SavedGroups     []ResultSavedGroup6   `json:"savedGroups,omitzero"`
+	Prerequisites   []RulePrerequisite6   `json:"prerequisites,omitzero"`
+	ScheduleType    *ResultScheduleType6  `json:"scheduleType,omitzero"`
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	type_          string        `const:"safe-rollout" json:"type"`
+	ControlValue   string        `json:"controlValue"`
+	VariationValue string        `json:"variationValue"`
+	SafeRolloutID  string        `json:"safeRolloutId"`
+	Status         *ResultStatus `default:"running" json:"status"`
+	HashAttribute  string        `json:"hashAttribute"`
+	Seed           string        `json:"seed"`
+	TrackingKey    string        `json:"trackingKey"`
+}
+
+func (r RuleSafeRollout) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RuleSafeRollout) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RuleSafeRollout) GetDescription() string {
+	if r == nil {
+		return ""
+	}
+	return r.Description
+}
+
+func (r *RuleSafeRollout) GetCondition() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Condition
+}
+
+func (r *RuleSafeRollout) GetID() string {
+	if r == nil {
+		return ""
+	}
+	return r.ID
+}
+
+func (r *RuleSafeRollout) GetAllEnvironments() bool {
+	if r == nil {
+		return false
+	}
+	return r.AllEnvironments
+}
+
+func (r *RuleSafeRollout) GetEnvironments() []string {
+	if r == nil {
+		return nil
+	}
+	return r.Environments
+}
+
+func (r *RuleSafeRollout) GetEnabled() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.Enabled
+}
+
+func (r *RuleSafeRollout) GetScheduleRules() []ResultScheduleRule6 {
+	if r == nil {
+		return nil
+	}
+	return r.ScheduleRules
+}
+
+func (r *RuleSafeRollout) GetSavedGroups() []ResultSavedGroup6 {
+	if r == nil {
+		return nil
+	}
+	return r.SavedGroups
+}
+
+func (r *RuleSafeRollout) GetPrerequisites() []RulePrerequisite6 {
+	if r == nil {
+		return nil
+	}
+	return r.Prerequisites
+}
+
+func (r *RuleSafeRollout) GetScheduleType() *ResultScheduleType6 {
+	if r == nil {
+		return nil
+	}
+	return r.ScheduleType
+}
+
+func (r *RuleSafeRollout) GetType() string {
+	return "safe-rollout"
+}
+
+func (r *RuleSafeRollout) GetControlValue() string {
+	if r == nil {
+		return ""
+	}
+	return r.ControlValue
+}
+
+func (r *RuleSafeRollout) GetVariationValue() string {
+	if r == nil {
+		return ""
+	}
+	return r.VariationValue
+}
+
+func (r *RuleSafeRollout) GetSafeRolloutID() string {
+	if r == nil {
+		return ""
+	}
+	return r.SafeRolloutID
+}
+
+func (r *RuleSafeRollout) GetStatus() *ResultStatus {
+	if r == nil {
+		return nil
+	}
+	return r.Status
+}
+
+func (r *RuleSafeRollout) GetHashAttribute() string {
+	if r == nil {
+		return ""
+	}
+	return r.HashAttribute
+}
+
+func (r *RuleSafeRollout) GetSeed() string {
+	if r == nil {
+		return ""
+	}
+	return r.Seed
+}
+
+func (r *RuleSafeRollout) GetTrackingKey() string {
+	if r == nil {
+		return ""
+	}
+	return r.TrackingKey
+}
+
 type ResultScheduleRule5 struct {
 	Timestamp *string `json:"timestamp"`
 	Enabled   bool    `json:"enabled"`
@@ -156,31 +481,40 @@ func (e *ResultScheduleType5) IsExact() bool {
 	return false
 }
 
-type ResultStatus string
-
-const (
-	ResultStatusRunning    ResultStatus = "running"
-	ResultStatusRolledBack ResultStatus = "rolled-back"
-	ResultStatusReleased   ResultStatus = "released"
-	ResultStatusStopped    ResultStatus = "stopped"
-)
-
-func (e ResultStatus) ToPointer() *ResultStatus {
-	return &e
+type RuleVariation2 struct {
+	VariationID string `json:"variationId"`
+	Value       string `json:"value"`
 }
 
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ResultStatus) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "running", "rolled-back", "released", "stopped":
-			return true
-		}
+func (r RuleVariation2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RuleVariation2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
 	}
-	return false
+	return nil
 }
 
-type RuleSafeRollout struct {
+func (r *RuleVariation2) GetVariationID() string {
+	if r == nil {
+		return ""
+	}
+	return r.VariationID
+}
+
+func (r *RuleVariation2) GetValue() string {
+	if r == nil {
+		return ""
+	}
+	return r.Value
+}
+
+// #region class-body-rulevariation2
+// #endregion class-body-rulevariation2
+
+type RuleContextualBanditRef struct {
 	Description     string                `json:"description"`
 	Condition       *string               `json:"condition,omitzero"`
 	ID              string                `json:"id"`
@@ -192,148 +526,108 @@ type RuleSafeRollout struct {
 	Prerequisites   []RulePrerequisite5   `json:"prerequisites,omitzero"`
 	ScheduleType    *ResultScheduleType5  `json:"scheduleType,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_          string        `const:"safe-rollout" json:"type"`
-	ControlValue   string        `json:"controlValue"`
-	VariationValue string        `json:"variationValue"`
-	SafeRolloutID  string        `json:"safeRolloutId"`
-	Status         *ResultStatus `default:"running" json:"status"`
-	HashAttribute  string        `json:"hashAttribute"`
-	Seed           string        `json:"seed"`
-	TrackingKey    string        `json:"trackingKey"`
+	type_              string           `const:"contextual-bandit-ref" json:"type"`
+	ContextualBanditID string           `json:"contextualBanditId"`
+	Variations         []RuleVariation2 `json:"variations"`
 }
 
-func (r RuleSafeRollout) MarshalJSON() ([]byte, error) {
+func (r RuleContextualBanditRef) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(r, "", false)
 }
 
-func (r *RuleSafeRollout) UnmarshalJSON(data []byte) error {
+func (r *RuleContextualBanditRef) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *RuleSafeRollout) GetDescription() string {
+func (r *RuleContextualBanditRef) GetDescription() string {
 	if r == nil {
 		return ""
 	}
 	return r.Description
 }
 
-func (r *RuleSafeRollout) GetCondition() *string {
+func (r *RuleContextualBanditRef) GetCondition() *string {
 	if r == nil {
 		return nil
 	}
 	return r.Condition
 }
 
-func (r *RuleSafeRollout) GetID() string {
+func (r *RuleContextualBanditRef) GetID() string {
 	if r == nil {
 		return ""
 	}
 	return r.ID
 }
 
-func (r *RuleSafeRollout) GetAllEnvironments() bool {
+func (r *RuleContextualBanditRef) GetAllEnvironments() bool {
 	if r == nil {
 		return false
 	}
 	return r.AllEnvironments
 }
 
-func (r *RuleSafeRollout) GetEnvironments() []string {
+func (r *RuleContextualBanditRef) GetEnvironments() []string {
 	if r == nil {
 		return nil
 	}
 	return r.Environments
 }
 
-func (r *RuleSafeRollout) GetEnabled() *bool {
+func (r *RuleContextualBanditRef) GetEnabled() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.Enabled
 }
 
-func (r *RuleSafeRollout) GetScheduleRules() []ResultScheduleRule5 {
+func (r *RuleContextualBanditRef) GetScheduleRules() []ResultScheduleRule5 {
 	if r == nil {
 		return nil
 	}
 	return r.ScheduleRules
 }
 
-func (r *RuleSafeRollout) GetSavedGroups() []ResultSavedGroup5 {
+func (r *RuleContextualBanditRef) GetSavedGroups() []ResultSavedGroup5 {
 	if r == nil {
 		return nil
 	}
 	return r.SavedGroups
 }
 
-func (r *RuleSafeRollout) GetPrerequisites() []RulePrerequisite5 {
+func (r *RuleContextualBanditRef) GetPrerequisites() []RulePrerequisite5 {
 	if r == nil {
 		return nil
 	}
 	return r.Prerequisites
 }
 
-func (r *RuleSafeRollout) GetScheduleType() *ResultScheduleType5 {
+func (r *RuleContextualBanditRef) GetScheduleType() *ResultScheduleType5 {
 	if r == nil {
 		return nil
 	}
 	return r.ScheduleType
 }
 
-func (r *RuleSafeRollout) GetType() string {
-	return "safe-rollout"
+func (r *RuleContextualBanditRef) GetType() string {
+	return "contextual-bandit-ref"
 }
 
-func (r *RuleSafeRollout) GetControlValue() string {
+func (r *RuleContextualBanditRef) GetContextualBanditID() string {
 	if r == nil {
 		return ""
 	}
-	return r.ControlValue
+	return r.ContextualBanditID
 }
 
-func (r *RuleSafeRollout) GetVariationValue() string {
+func (r *RuleContextualBanditRef) GetVariations() []RuleVariation2 {
 	if r == nil {
-		return ""
+		return []RuleVariation2{}
 	}
-	return r.VariationValue
-}
-
-func (r *RuleSafeRollout) GetSafeRolloutID() string {
-	if r == nil {
-		return ""
-	}
-	return r.SafeRolloutID
-}
-
-func (r *RuleSafeRollout) GetStatus() *ResultStatus {
-	if r == nil {
-		return nil
-	}
-	return r.Status
-}
-
-func (r *RuleSafeRollout) GetHashAttribute() string {
-	if r == nil {
-		return ""
-	}
-	return r.HashAttribute
-}
-
-func (r *RuleSafeRollout) GetSeed() string {
-	if r == nil {
-		return ""
-	}
-	return r.Seed
-}
-
-func (r *RuleSafeRollout) GetTrackingKey() string {
-	if r == nil {
-		return ""
-	}
-	return r.TrackingKey
+	return r.Variations
 }
 
 type ResultScheduleRule4 struct {
@@ -481,35 +775,38 @@ func (e *ResultScheduleType4) IsExact() bool {
 	return false
 }
 
-type RuleVariation struct {
+type RuleVariation1 struct {
 	VariationID string `json:"variationId"`
 	Value       string `json:"value"`
 }
 
-func (r RuleVariation) MarshalJSON() ([]byte, error) {
+func (r RuleVariation1) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(r, "", false)
 }
 
-func (r *RuleVariation) UnmarshalJSON(data []byte) error {
+func (r *RuleVariation1) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *RuleVariation) GetVariationID() string {
+func (r *RuleVariation1) GetVariationID() string {
 	if r == nil {
 		return ""
 	}
 	return r.VariationID
 }
 
-func (r *RuleVariation) GetValue() string {
+func (r *RuleVariation1) GetValue() string {
 	if r == nil {
 		return ""
 	}
 	return r.Value
 }
+
+// #region class-body-rulevariation1
+// #endregion class-body-rulevariation1
 
 type RuleExperimentRef struct {
 	Description     string                `json:"description"`
@@ -523,9 +820,10 @@ type RuleExperimentRef struct {
 	Prerequisites   []RulePrerequisite4   `json:"prerequisites,omitzero"`
 	ScheduleType    *ResultScheduleType4  `json:"scheduleType,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_        string          `const:"experiment-ref" json:"type"`
-	ExperimentID string          `json:"experimentId"`
-	Variations   []RuleVariation `json:"variations"`
+	type_        string           `const:"experiment-ref" json:"type"`
+	ExperimentID string           `json:"experimentId"`
+	Variations   []RuleVariation1 `json:"variations"`
+	Sparse       *bool            `json:"sparse,omitzero"`
 }
 
 func (r RuleExperimentRef) MarshalJSON() ([]byte, error) {
@@ -620,11 +918,18 @@ func (r *RuleExperimentRef) GetExperimentID() string {
 	return r.ExperimentID
 }
 
-func (r *RuleExperimentRef) GetVariations() []RuleVariation {
+func (r *RuleExperimentRef) GetVariations() []RuleVariation1 {
 	if r == nil {
-		return []RuleVariation{}
+		return []RuleVariation1{}
 	}
 	return r.Variations
+}
+
+func (r *RuleExperimentRef) GetSparse() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.Sparse
 }
 
 type ResultScheduleRule3 struct {
@@ -1693,6 +1998,7 @@ type RuleRollout struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_         string   `const:"rollout" json:"type"`
 	Value         string   `json:"value"`
+	Sparse        *bool    `json:"sparse,omitzero"`
 	Coverage      float64  `json:"coverage"`
 	HashAttribute string   `json:"hashAttribute"`
 	Seed          *string  `json:"seed,omitzero"`
@@ -1789,6 +2095,13 @@ func (r *RuleRollout) GetValue() string {
 		return ""
 	}
 	return r.Value
+}
+
+func (r *RuleRollout) GetSparse() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.Sparse
 }
 
 func (r *RuleRollout) GetCoverage() float64 {
@@ -1976,8 +2289,9 @@ type RuleForce struct {
 	Prerequisites   []RulePrerequisite1   `json:"prerequisites,omitzero"`
 	ScheduleType    *ResultScheduleType1  `json:"scheduleType,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_ string `const:"force" json:"type"`
-	Value string `json:"value"`
+	type_  string `const:"force" json:"type"`
+	Value  string `json:"value"`
+	Sparse *bool  `json:"sparse,omitzero"`
 }
 
 func (r RuleForce) MarshalJSON() ([]byte, error) {
@@ -2072,24 +2386,33 @@ func (r *RuleForce) GetValue() string {
 	return r.Value
 }
 
+func (r *RuleForce) GetSparse() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.Sparse
+}
+
 type RuleType string
 
 const (
-	RuleTypeForce         RuleType = "force"
-	RuleTypeRollout       RuleType = "rollout"
-	RuleTypeExperiment    RuleType = "experiment"
-	RuleTypeExperimentRef RuleType = "experiment-ref"
-	RuleTypeSafeRollout   RuleType = "safe-rollout"
-	RuleTypeUnknown       RuleType = "UNKNOWN"
+	RuleTypeForce               RuleType = "force"
+	RuleTypeRollout             RuleType = "rollout"
+	RuleTypeExperiment          RuleType = "experiment"
+	RuleTypeExperimentRef       RuleType = "experiment-ref"
+	RuleTypeContextualBanditRef RuleType = "contextual-bandit-ref"
+	RuleTypeSafeRollout         RuleType = "safe-rollout"
+	RuleTypeUnknown             RuleType = "UNKNOWN"
 )
 
 type Rule struct {
-	RuleForce         *RuleForce         `queryParam:"inline" union:"member"`
-	RuleRollout       *RuleRollout       `queryParam:"inline" union:"member"`
-	RuleExperiment    *RuleExperiment    `queryParam:"inline" union:"member"`
-	RuleExperimentRef *RuleExperimentRef `queryParam:"inline" union:"member"`
-	RuleSafeRollout   *RuleSafeRollout   `queryParam:"inline" union:"member"`
-	UnknownRaw        json.RawMessage    `json:"-" union:"unknown"`
+	RuleForce               *RuleForce               `queryParam:"inline" union:"member"`
+	RuleRollout             *RuleRollout             `queryParam:"inline" union:"member"`
+	RuleExperiment          *RuleExperiment          `queryParam:"inline" union:"member"`
+	RuleExperimentRef       *RuleExperimentRef       `queryParam:"inline" union:"member"`
+	RuleContextualBanditRef *RuleContextualBanditRef `queryParam:"inline" union:"member"`
+	RuleSafeRollout         *RuleSafeRollout         `queryParam:"inline" union:"member"`
+	UnknownRaw              json.RawMessage          `json:"-" union:"unknown"`
 
 	Type RuleType
 }
@@ -2127,6 +2450,15 @@ func CreateRuleExperimentRef(experimentRef RuleExperimentRef) Rule {
 	return Rule{
 		RuleExperimentRef: &experimentRef,
 		Type:              typ,
+	}
+}
+
+func CreateRuleContextualBanditRef(contextualBanditRef RuleContextualBanditRef) Rule {
+	typ := RuleTypeContextualBanditRef
+
+	return Rule{
+		RuleContextualBanditRef: &contextualBanditRef,
+		Type:                    typ,
 	}
 }
 
@@ -2209,6 +2541,15 @@ func (u *Rule) UnmarshalJSON(data []byte) error {
 		u.RuleExperimentRef = ruleExperimentRef
 		u.Type = RuleTypeExperimentRef
 		return nil
+	case "contextual-bandit-ref":
+		ruleContextualBanditRef := new(RuleContextualBanditRef)
+		if err := utils.UnmarshalJSON(data, &ruleContextualBanditRef, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == contextual-bandit-ref) type RuleContextualBanditRef within Rule: %w", string(data), err)
+		}
+
+		u.RuleContextualBanditRef = ruleContextualBanditRef
+		u.Type = RuleTypeContextualBanditRef
+		return nil
 	case "safe-rollout":
 		ruleSafeRollout := new(RuleSafeRollout)
 		if err := utils.UnmarshalJSON(data, &ruleSafeRollout, "", true, nil); err != nil {
@@ -2241,6 +2582,10 @@ func (u Rule) MarshalJSON() ([]byte, error) {
 
 	if u.RuleExperimentRef != nil {
 		return utils.MarshalJSON(u.RuleExperimentRef, "", true)
+	}
+
+	if u.RuleContextualBanditRef != nil {
+		return utils.MarshalJSON(u.RuleContextualBanditRef, "", true)
 	}
 
 	if u.RuleSafeRollout != nil {

@@ -9,18 +9,18 @@ import (
 	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
 )
 
-type Decision string
+type PostSavedGroupRevisionSubmitReviewDecision string
 
 const (
-	DecisionApprove        Decision = "approve"
-	DecisionRequestChanges Decision = "request-changes"
-	DecisionComment        Decision = "comment"
+	PostSavedGroupRevisionSubmitReviewDecisionApprove        PostSavedGroupRevisionSubmitReviewDecision = "approve"
+	PostSavedGroupRevisionSubmitReviewDecisionRequestChanges PostSavedGroupRevisionSubmitReviewDecision = "request-changes"
+	PostSavedGroupRevisionSubmitReviewDecisionComment        PostSavedGroupRevisionSubmitReviewDecision = "comment"
 )
 
-func (e Decision) ToPointer() *Decision {
+func (e PostSavedGroupRevisionSubmitReviewDecision) ToPointer() *PostSavedGroupRevisionSubmitReviewDecision {
 	return &e
 }
-func (e *Decision) UnmarshalJSON(data []byte) error {
+func (e *PostSavedGroupRevisionSubmitReviewDecision) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -31,22 +31,22 @@ func (e *Decision) UnmarshalJSON(data []byte) error {
 	case "request-changes":
 		fallthrough
 	case "comment":
-		*e = Decision(v)
+		*e = PostSavedGroupRevisionSubmitReviewDecision(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for Decision: %v", v)
+		return fmt.Errorf("invalid value for PostSavedGroupRevisionSubmitReviewDecision: %v", v)
 	}
 }
 
 type PostSavedGroupRevisionSubmitReviewRequestBody struct {
-	Decision        Decision `json:"decision"`
-	Comment         *string  `json:"comment,omitzero"`
-	SkipAutoPublish *bool    `json:"skipAutoPublish,omitzero"`
+	Decision        PostSavedGroupRevisionSubmitReviewDecision `json:"decision"`
+	Comment         *string                                    `json:"comment,omitzero"`
+	SkipAutoPublish *bool                                      `json:"skipAutoPublish,omitzero"`
 }
 
-func (p *PostSavedGroupRevisionSubmitReviewRequestBody) GetDecision() Decision {
+func (p *PostSavedGroupRevisionSubmitReviewRequestBody) GetDecision() PostSavedGroupRevisionSubmitReviewDecision {
 	if p == nil {
-		return Decision("")
+		return PostSavedGroupRevisionSubmitReviewDecision("")
 	}
 	return p.Decision
 }

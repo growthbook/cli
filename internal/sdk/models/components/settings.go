@@ -3,6 +3,8 @@
 package components
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/growthbook/cli/internal/sdk/optionalnullable"
 	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
 )
@@ -373,6 +375,29 @@ func (e *SettingsBanditBurnInUnit) IsExact() bool {
 	return false
 }
 
+type TopValuesLookbackUnit string
+
+const (
+	TopValuesLookbackUnitDays TopValuesLookbackUnit = "days"
+)
+
+func (e TopValuesLookbackUnit) ToPointer() *TopValuesLookbackUnit {
+	return &e
+}
+func (e *TopValuesLookbackUnit) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "days":
+		*e = TopValuesLookbackUnit(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for TopValuesLookbackUnit: %v", v)
+	}
+}
+
 type Settings struct {
 	ConfidenceLevel                  float64                                    `json:"confidenceLevel"`
 	NorthStar                        *NorthStar                                 `json:"northStar"`
@@ -405,6 +430,7 @@ type Settings struct {
 	MaxConcurrentDrafts              *float64                                   `json:"maxConcurrentDrafts,omitzero"`
 	FeatureKeyExample                string                                     `json:"featureKeyExample"`
 	FeatureRegexValidator            string                                     `json:"featureRegexValidator"`
+	SparseJSONRulesByDefault         *bool                                      `json:"sparseJSONRulesByDefault,omitzero"`
 	BanditScheduleValue              float64                                    `json:"banditScheduleValue"`
 	BanditScheduleUnit               SettingsBanditScheduleUnit                 `json:"banditScheduleUnit"`
 	BanditBurnInValue                float64                                    `json:"banditBurnInValue"`
@@ -413,6 +439,8 @@ type Settings struct {
 	ExperimentMaxLengthDays          optionalnullable.OptionalNullable[float64] `json:"experimentMaxLengthDays,omitzero"`
 	PreferredEnvironment             optionalnullable.OptionalNullable[string]  `json:"preferredEnvironment,omitzero"`
 	MaxMetricSliceLevels             *float64                                   `json:"maxMetricSliceLevels,omitzero"`
+	TopValuesLookbackValue           *float64                                   `json:"topValuesLookbackValue,omitzero"`
+	TopValuesLookbackUnit            *TopValuesLookbackUnit                     `json:"topValuesLookbackUnit,omitzero"`
 }
 
 func (s *Settings) GetConfidenceLevel() float64 {
@@ -632,6 +660,13 @@ func (s *Settings) GetFeatureRegexValidator() string {
 	return s.FeatureRegexValidator
 }
 
+func (s *Settings) GetSparseJSONRulesByDefault() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.SparseJSONRulesByDefault
+}
+
 func (s *Settings) GetBanditScheduleValue() float64 {
 	if s == nil {
 		return 0.0
@@ -686,4 +721,18 @@ func (s *Settings) GetMaxMetricSliceLevels() *float64 {
 		return nil
 	}
 	return s.MaxMetricSliceLevels
+}
+
+func (s *Settings) GetTopValuesLookbackValue() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.TopValuesLookbackValue
+}
+
+func (s *Settings) GetTopValuesLookbackUnit() *TopValuesLookbackUnit {
+	if s == nil {
+		return nil
+	}
+	return s.TopValuesLookbackUnit
 }

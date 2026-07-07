@@ -71,7 +71,8 @@ build. (Don't commit a generated tree that hasn't been compiled.)
     customizations live in patches: `.speakeasy/patches/.goreleaser.yaml.patch` (advisory
     ldflags + the `gb-spec-date` release-notes footer) and
     `.speakeasy/patches/.github/workflows/release.yaml.patch` (the "Compute spec date" step + the
-    `npm-publish` job that uses `NPM_TOKEN`). Other workflows — `auto-tag.yaml`, `ci.yaml`,
+    `npm-publish` job, which publishes via npm OIDC trusted publishing — no `NPM_TOKEN`; it needs
+    `id-token: write` in the workflow `permissions`). Other workflows — `auto-tag.yaml`, `ci.yaml`,
     `sdk_generation.yaml` — and `.github/CODEOWNERS` are hand-owned (not in `gen.lock`), so edit
     those directly. Check `gen.lock` if unsure whether a file is generated.
   - **Patches only work on files Speakeasy fully overwrites** (the `.go` tree, `.goreleaser.yaml`,

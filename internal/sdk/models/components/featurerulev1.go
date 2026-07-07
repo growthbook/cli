@@ -12,21 +12,23 @@ import (
 type FeatureRuleV1Type string
 
 const (
-	FeatureRuleV1TypeForce         FeatureRuleV1Type = "force"
-	FeatureRuleV1TypeRollout       FeatureRuleV1Type = "rollout"
-	FeatureRuleV1TypeExperiment    FeatureRuleV1Type = "experiment"
-	FeatureRuleV1TypeExperimentRef FeatureRuleV1Type = "experiment-ref"
-	FeatureRuleV1TypeSafeRollout   FeatureRuleV1Type = "safe-rollout"
-	FeatureRuleV1TypeUnknown       FeatureRuleV1Type = "UNKNOWN"
+	FeatureRuleV1TypeForce               FeatureRuleV1Type = "force"
+	FeatureRuleV1TypeRollout             FeatureRuleV1Type = "rollout"
+	FeatureRuleV1TypeExperiment          FeatureRuleV1Type = "experiment"
+	FeatureRuleV1TypeExperimentRef       FeatureRuleV1Type = "experiment-ref"
+	FeatureRuleV1TypeContextualBanditRef FeatureRuleV1Type = "contextual-bandit-ref"
+	FeatureRuleV1TypeSafeRollout         FeatureRuleV1Type = "safe-rollout"
+	FeatureRuleV1TypeUnknown             FeatureRuleV1Type = "UNKNOWN"
 )
 
 type FeatureRuleV1 struct {
-	FeatureForceRule         *FeatureForceRule         `queryParam:"inline" union:"member"`
-	FeatureRolloutRule       *FeatureRolloutRule       `queryParam:"inline" union:"member"`
-	FeatureExperimentRule    *FeatureExperimentRule    `queryParam:"inline" union:"member"`
-	FeatureExperimentRefRule *FeatureExperimentRefRule `queryParam:"inline" union:"member"`
-	FeatureSafeRolloutRule   *FeatureSafeRolloutRule   `queryParam:"inline" union:"member"`
-	UnknownRaw               json.RawMessage           `json:"-" union:"unknown"`
+	FeatureForceRule               *FeatureForceRule               `queryParam:"inline" union:"member"`
+	FeatureRolloutRule             *FeatureRolloutRule             `queryParam:"inline" union:"member"`
+	FeatureExperimentRule          *FeatureExperimentRule          `queryParam:"inline" union:"member"`
+	FeatureExperimentRefRule       *FeatureExperimentRefRule       `queryParam:"inline" union:"member"`
+	FeatureContextualBanditRefRule *FeatureContextualBanditRefRule `queryParam:"inline" union:"member"`
+	FeatureSafeRolloutRule         *FeatureSafeRolloutRule         `queryParam:"inline" union:"member"`
+	UnknownRaw                     json.RawMessage                 `json:"-" union:"unknown"`
 
 	Type FeatureRuleV1Type
 }
@@ -64,6 +66,15 @@ func CreateFeatureRuleV1ExperimentRef(experimentRef FeatureExperimentRefRule) Fe
 	return FeatureRuleV1{
 		FeatureExperimentRefRule: &experimentRef,
 		Type:                     typ,
+	}
+}
+
+func CreateFeatureRuleV1ContextualBanditRef(contextualBanditRef FeatureContextualBanditRefRule) FeatureRuleV1 {
+	typ := FeatureRuleV1TypeContextualBanditRef
+
+	return FeatureRuleV1{
+		FeatureContextualBanditRefRule: &contextualBanditRef,
+		Type:                           typ,
 	}
 }
 
@@ -146,6 +157,15 @@ func (u *FeatureRuleV1) UnmarshalJSON(data []byte) error {
 		u.FeatureExperimentRefRule = featureExperimentRefRule
 		u.Type = FeatureRuleV1TypeExperimentRef
 		return nil
+	case "contextual-bandit-ref":
+		featureContextualBanditRefRule := new(FeatureContextualBanditRefRule)
+		if err := utils.UnmarshalJSON(data, &featureContextualBanditRefRule, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == contextual-bandit-ref) type FeatureContextualBanditRefRule within FeatureRuleV1: %w", string(data), err)
+		}
+
+		u.FeatureContextualBanditRefRule = featureContextualBanditRefRule
+		u.Type = FeatureRuleV1TypeContextualBanditRef
+		return nil
 	case "safe-rollout":
 		featureSafeRolloutRule := new(FeatureSafeRolloutRule)
 		if err := utils.UnmarshalJSON(data, &featureSafeRolloutRule, "", true, nil); err != nil {
@@ -178,6 +198,10 @@ func (u FeatureRuleV1) MarshalJSON() ([]byte, error) {
 
 	if u.FeatureExperimentRefRule != nil {
 		return utils.MarshalJSON(u.FeatureExperimentRefRule, "", true)
+	}
+
+	if u.FeatureContextualBanditRefRule != nil {
+		return utils.MarshalJSON(u.FeatureContextualBanditRefRule, "", true)
 	}
 
 	if u.FeatureSafeRolloutRule != nil {

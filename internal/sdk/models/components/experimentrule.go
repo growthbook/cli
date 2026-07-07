@@ -144,6 +144,8 @@ type ExperimentRule struct {
 	// ID of the linked experiment.
 	ExperimentID string                    `json:"experimentId"`
 	Variations   []ExperimentRuleVariation `json:"variations"`
+	// JSON features only. When true, each variation value is a partial object merged onto the feature's default value instead of replacing it.
+	Sparse *bool `json:"sparse,omitzero"`
 }
 
 func (e ExperimentRule) MarshalJSON() ([]byte, error) {
@@ -222,4 +224,11 @@ func (e *ExperimentRule) GetVariations() []ExperimentRuleVariation {
 		return []ExperimentRuleVariation{}
 	}
 	return e.Variations
+}
+
+func (e *ExperimentRule) GetSparse() *bool {
+	if e == nil {
+		return nil
+	}
+	return e.Sparse
 }
