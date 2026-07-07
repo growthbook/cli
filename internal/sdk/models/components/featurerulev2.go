@@ -354,6 +354,317 @@ func (f *FeatureRuleV2FeatureSafeRolloutRule) GetPendingRamp() *PendingRampSafeR
 // #region class-body-featurerulev2featuresaferolloutrule
 // #endregion class-body-featurerulev2featuresaferolloutrule
 
+// ScheduleTypeContextualBanditRef - UI hint for which scheduling mode is active:
+// - `none` – no schedule
+// - `schedule` – simple time-based enable/disable via `scheduleRules`
+// - `ramp` – multi-step ramp-up controlled by an associated RampSchedule document
+type ScheduleTypeContextualBanditRef string
+
+const (
+	ScheduleTypeContextualBanditRefNone     ScheduleTypeContextualBanditRef = "none"
+	ScheduleTypeContextualBanditRefSchedule ScheduleTypeContextualBanditRef = "schedule"
+	ScheduleTypeContextualBanditRefRamp     ScheduleTypeContextualBanditRef = "ramp"
+)
+
+func (e ScheduleTypeContextualBanditRef) ToPointer() *ScheduleTypeContextualBanditRef {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ScheduleTypeContextualBanditRef) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "schedule", "ramp":
+			return true
+		}
+	}
+	return false
+}
+
+type MatchTypeContextualBanditRef string
+
+const (
+	MatchTypeContextualBanditRefAll  MatchTypeContextualBanditRef = "all"
+	MatchTypeContextualBanditRefAny  MatchTypeContextualBanditRef = "any"
+	MatchTypeContextualBanditRefNone MatchTypeContextualBanditRef = "none"
+)
+
+func (e MatchTypeContextualBanditRef) ToPointer() *MatchTypeContextualBanditRef {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *MatchTypeContextualBanditRef) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "all", "any", "none":
+			return true
+		}
+	}
+	return false
+}
+
+type SavedGroupTargetingContextualBanditRef struct {
+	MatchType   MatchTypeContextualBanditRef `json:"matchType"`
+	SavedGroups []string                     `json:"savedGroups"`
+}
+
+func (s SavedGroupTargetingContextualBanditRef) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SavedGroupTargetingContextualBanditRef) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *SavedGroupTargetingContextualBanditRef) GetMatchType() MatchTypeContextualBanditRef {
+	if s == nil {
+		return MatchTypeContextualBanditRef("")
+	}
+	return s.MatchType
+}
+
+func (s *SavedGroupTargetingContextualBanditRef) GetSavedGroups() []string {
+	if s == nil {
+		return []string{}
+	}
+	return s.SavedGroups
+}
+
+type PrerequisiteContextualBanditRef struct {
+	// Feature ID of the prerequisite
+	ID        string `json:"id"`
+	Condition string `json:"condition"`
+}
+
+func (p PrerequisiteContextualBanditRef) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PrerequisiteContextualBanditRef) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PrerequisiteContextualBanditRef) GetID() string {
+	if p == nil {
+		return ""
+	}
+	return p.ID
+}
+
+func (p *PrerequisiteContextualBanditRef) GetCondition() string {
+	if p == nil {
+		return ""
+	}
+	return p.Condition
+}
+
+type VariationContextualBanditRef struct {
+	Value       string `json:"value"`
+	VariationID string `json:"variationId"`
+}
+
+func (v VariationContextualBanditRef) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(v, "", false)
+}
+
+func (v *VariationContextualBanditRef) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &v, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (v *VariationContextualBanditRef) GetValue() string {
+	if v == nil {
+		return ""
+	}
+	return v.Value
+}
+
+func (v *VariationContextualBanditRef) GetVariationID() string {
+	if v == nil {
+		return ""
+	}
+	return v.VariationID
+}
+
+// PendingRampContextualBanditRef - Present on draft revisions only. "create" means a ramp schedule will be created for this rule on publish. "detach" means an existing live ramp schedule will be removed on publish. Use PUT/DELETE .../rules/{ruleId}/ramp-schedule to modify.
+type PendingRampContextualBanditRef string
+
+const (
+	PendingRampContextualBanditRefCreate PendingRampContextualBanditRef = "create"
+	PendingRampContextualBanditRefDetach PendingRampContextualBanditRef = "detach"
+)
+
+func (e PendingRampContextualBanditRef) ToPointer() *PendingRampContextualBanditRef {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *PendingRampContextualBanditRef) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "create", "detach":
+			return true
+		}
+	}
+	return false
+}
+
+// FeatureRuleV2FeatureContextualBanditRefRule - Common fields shared by all feature rule types. Specific rule types extend
+// this base with their own required properties (value, coverage, etc.).
+type FeatureRuleV2FeatureContextualBanditRefRule struct {
+	Description string  `json:"description"`
+	Condition   *string `json:"condition,omitzero"`
+	ID          string  `json:"id"`
+	Enabled     bool    `json:"enabled"`
+	// Simple time-based on/off schedule for this rule
+	ScheduleRules []ScheduleRule `json:"scheduleRules,omitzero"`
+	// UI hint for which scheduling mode is active:
+	// - `none` – no schedule
+	// - `schedule` – simple time-based enable/disable via `scheduleRules`
+	// - `ramp` – multi-step ramp-up controlled by an associated RampSchedule document
+	//
+	ScheduleType *ScheduleTypeContextualBanditRef `json:"scheduleType,omitzero"`
+	// ID of the active RampSchedule document controlling this rule. Present when `scheduleType` is `ramp` and a live schedule exists.
+	RampScheduleID      *string                                  `json:"rampScheduleId,omitzero"`
+	SavedGroupTargeting []SavedGroupTargetingContextualBanditRef `json:"savedGroupTargeting,omitzero"`
+	Prerequisites       []PrerequisiteContextualBanditRef        `json:"prerequisites,omitzero"`
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	type_              string                         `const:"contextual-bandit-ref" json:"type"`
+	Variations         []VariationContextualBanditRef `json:"variations"`
+	ContextualBanditID string                         `json:"contextualBanditId"`
+	// When true the rule applies to all environments. When false only the environments listed in `environments` receive the rule.
+	AllEnvironments bool `json:"allEnvironments"`
+	// The environment IDs this rule is active in. Populated when `allEnvironments` is false.
+	Environments []string `json:"environments,omitzero"`
+	// Present on draft revisions only. "create" means a ramp schedule will be created for this rule on publish. "detach" means an existing live ramp schedule will be removed on publish. Use PUT/DELETE .../rules/{ruleId}/ramp-schedule to modify.
+	PendingRamp *PendingRampContextualBanditRef `json:"pendingRamp,omitzero"`
+}
+
+func (f FeatureRuleV2FeatureContextualBanditRefRule) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
+}
+
+func (f *FeatureRuleV2FeatureContextualBanditRefRule) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (f *FeatureRuleV2FeatureContextualBanditRefRule) GetDescription() string {
+	if f == nil {
+		return ""
+	}
+	return f.Description
+}
+
+func (f *FeatureRuleV2FeatureContextualBanditRefRule) GetCondition() *string {
+	if f == nil {
+		return nil
+	}
+	return f.Condition
+}
+
+func (f *FeatureRuleV2FeatureContextualBanditRefRule) GetID() string {
+	if f == nil {
+		return ""
+	}
+	return f.ID
+}
+
+func (f *FeatureRuleV2FeatureContextualBanditRefRule) GetEnabled() bool {
+	if f == nil {
+		return false
+	}
+	return f.Enabled
+}
+
+func (f *FeatureRuleV2FeatureContextualBanditRefRule) GetScheduleRules() []ScheduleRule {
+	if f == nil {
+		return nil
+	}
+	return f.ScheduleRules
+}
+
+func (f *FeatureRuleV2FeatureContextualBanditRefRule) GetScheduleType() *ScheduleTypeContextualBanditRef {
+	if f == nil {
+		return nil
+	}
+	return f.ScheduleType
+}
+
+func (f *FeatureRuleV2FeatureContextualBanditRefRule) GetRampScheduleID() *string {
+	if f == nil {
+		return nil
+	}
+	return f.RampScheduleID
+}
+
+func (f *FeatureRuleV2FeatureContextualBanditRefRule) GetSavedGroupTargeting() []SavedGroupTargetingContextualBanditRef {
+	if f == nil {
+		return nil
+	}
+	return f.SavedGroupTargeting
+}
+
+func (f *FeatureRuleV2FeatureContextualBanditRefRule) GetPrerequisites() []PrerequisiteContextualBanditRef {
+	if f == nil {
+		return nil
+	}
+	return f.Prerequisites
+}
+
+func (f *FeatureRuleV2FeatureContextualBanditRefRule) GetType() string {
+	return "contextual-bandit-ref"
+}
+
+func (f *FeatureRuleV2FeatureContextualBanditRefRule) GetVariations() []VariationContextualBanditRef {
+	if f == nil {
+		return []VariationContextualBanditRef{}
+	}
+	return f.Variations
+}
+
+func (f *FeatureRuleV2FeatureContextualBanditRefRule) GetContextualBanditID() string {
+	if f == nil {
+		return ""
+	}
+	return f.ContextualBanditID
+}
+
+func (f *FeatureRuleV2FeatureContextualBanditRefRule) GetAllEnvironments() bool {
+	if f == nil {
+		return false
+	}
+	return f.AllEnvironments
+}
+
+func (f *FeatureRuleV2FeatureContextualBanditRefRule) GetEnvironments() []string {
+	if f == nil {
+		return nil
+	}
+	return f.Environments
+}
+
+func (f *FeatureRuleV2FeatureContextualBanditRefRule) GetPendingRamp() *PendingRampContextualBanditRef {
+	if f == nil {
+		return nil
+	}
+	return f.PendingRamp
+}
+
+// #region class-body-featurerulev2featurecontextualbanditrefrule
+// #endregion class-body-featurerulev2featurecontextualbanditrefrule
+
 // ScheduleTypeExperimentRef - UI hint for which scheduling mode is active:
 // - `none` – no schedule
 // - `schedule` – simple time-based enable/disable via `scheduleRules`
@@ -465,38 +776,35 @@ func (p *PrerequisiteExperimentRef) GetCondition() string {
 	return p.Condition
 }
 
-type FeatureRuleV2Variation struct {
+type VariationExperimentRef struct {
 	Value       string `json:"value"`
 	VariationID string `json:"variationId"`
 }
 
-func (f FeatureRuleV2Variation) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
+func (v VariationExperimentRef) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(v, "", false)
 }
 
-func (f *FeatureRuleV2Variation) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+func (v *VariationExperimentRef) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &v, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *FeatureRuleV2Variation) GetValue() string {
-	if f == nil {
+func (v *VariationExperimentRef) GetValue() string {
+	if v == nil {
 		return ""
 	}
-	return f.Value
+	return v.Value
 }
 
-func (f *FeatureRuleV2Variation) GetVariationID() string {
-	if f == nil {
+func (v *VariationExperimentRef) GetVariationID() string {
+	if v == nil {
 		return ""
 	}
-	return f.VariationID
+	return v.VariationID
 }
-
-// #region class-body-featurerulev2variation
-// #endregion class-body-featurerulev2variation
 
 // PendingRampExperimentRef - Present on draft revisions only. "create" means a ramp schedule will be created for this rule on publish. "detach" means an existing live ramp schedule will be removed on publish. Use PUT/DELETE .../rules/{ruleId}/ramp-schedule to modify.
 type PendingRampExperimentRef string
@@ -542,8 +850,10 @@ type FeatureRuleV2FeatureExperimentRefRule struct {
 	Prerequisites       []PrerequisiteExperimentRef        `json:"prerequisites,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_        string                   `const:"experiment-ref" json:"type"`
-	Variations   []FeatureRuleV2Variation `json:"variations"`
+	Variations   []VariationExperimentRef `json:"variations"`
 	ExperimentID string                   `json:"experimentId"`
+	// JSON features only. When true, each variation `value` is a partial object merged onto the feature's default value instead of replacing it.
+	Sparse *bool `json:"sparse,omitzero"`
 	// When true the rule applies to all environments. When false only the environments listed in `environments` receive the rule.
 	AllEnvironments bool `json:"allEnvironments"`
 	// The environment IDs this rule is active in. Populated when `allEnvironments` is false.
@@ -630,9 +940,9 @@ func (f *FeatureRuleV2FeatureExperimentRefRule) GetType() string {
 	return "experiment-ref"
 }
 
-func (f *FeatureRuleV2FeatureExperimentRefRule) GetVariations() []FeatureRuleV2Variation {
+func (f *FeatureRuleV2FeatureExperimentRefRule) GetVariations() []VariationExperimentRef {
 	if f == nil {
-		return []FeatureRuleV2Variation{}
+		return []VariationExperimentRef{}
 	}
 	return f.Variations
 }
@@ -642,6 +952,13 @@ func (f *FeatureRuleV2FeatureExperimentRefRule) GetExperimentID() string {
 		return ""
 	}
 	return f.ExperimentID
+}
+
+func (f *FeatureRuleV2FeatureExperimentRefRule) GetSparse() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.Sparse
 }
 
 func (f *FeatureRuleV2FeatureExperimentRefRule) GetAllEnvironments() bool {
@@ -1248,8 +1565,10 @@ type FeatureRuleV2FeatureRolloutRule struct {
 	SavedGroupTargeting []SavedGroupTargetingRollout `json:"savedGroupTargeting,omitzero"`
 	Prerequisites       []PrerequisiteRollout        `json:"prerequisites,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_         string  `const:"rollout" json:"type"`
-	Value         string  `json:"value"`
+	type_ string `const:"rollout" json:"type"`
+	Value string `json:"value"`
+	// JSON features only. When true, `value` is a partial object merged onto the feature's default value instead of replacing it.
+	Sparse        *bool   `json:"sparse,omitzero"`
 	Coverage      float64 `json:"coverage"`
 	HashAttribute string  `json:"hashAttribute"`
 	// Optional seed for the hash function; defaults to the rule id
@@ -1347,6 +1666,13 @@ func (f *FeatureRuleV2FeatureRolloutRule) GetValue() string {
 		return ""
 	}
 	return f.Value
+}
+
+func (f *FeatureRuleV2FeatureRolloutRule) GetSparse() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.Sparse
 }
 
 func (f *FeatureRuleV2FeatureRolloutRule) GetCoverage() float64 {
@@ -1557,6 +1883,8 @@ type FeatureRuleV2FeatureForceRule struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_ string `const:"force" json:"type"`
 	Value string `json:"value"`
+	// JSON features only. When true, `value` is a partial object merged onto the feature's default value instead of replacing it.
+	Sparse *bool `json:"sparse,omitzero"`
 	// When true the rule applies to all environments. When false only the environments listed in `environments` receive the rule.
 	AllEnvironments bool `json:"allEnvironments"`
 	// The environment IDs this rule is active in. Populated when `allEnvironments` is false.
@@ -1650,6 +1978,13 @@ func (f *FeatureRuleV2FeatureForceRule) GetValue() string {
 	return f.Value
 }
 
+func (f *FeatureRuleV2FeatureForceRule) GetSparse() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.Sparse
+}
+
 func (f *FeatureRuleV2FeatureForceRule) GetAllEnvironments() bool {
 	if f == nil {
 		return false
@@ -1677,21 +2012,23 @@ func (f *FeatureRuleV2FeatureForceRule) GetPendingRamp() *PendingRampForce {
 type FeatureRuleV2Type string
 
 const (
-	FeatureRuleV2TypeForce         FeatureRuleV2Type = "force"
-	FeatureRuleV2TypeRollout       FeatureRuleV2Type = "rollout"
-	FeatureRuleV2TypeExperiment    FeatureRuleV2Type = "experiment"
-	FeatureRuleV2TypeExperimentRef FeatureRuleV2Type = "experiment-ref"
-	FeatureRuleV2TypeSafeRollout   FeatureRuleV2Type = "safe-rollout"
-	FeatureRuleV2TypeUnknown       FeatureRuleV2Type = "UNKNOWN"
+	FeatureRuleV2TypeForce               FeatureRuleV2Type = "force"
+	FeatureRuleV2TypeRollout             FeatureRuleV2Type = "rollout"
+	FeatureRuleV2TypeExperiment          FeatureRuleV2Type = "experiment"
+	FeatureRuleV2TypeExperimentRef       FeatureRuleV2Type = "experiment-ref"
+	FeatureRuleV2TypeContextualBanditRef FeatureRuleV2Type = "contextual-bandit-ref"
+	FeatureRuleV2TypeSafeRollout         FeatureRuleV2Type = "safe-rollout"
+	FeatureRuleV2TypeUnknown             FeatureRuleV2Type = "UNKNOWN"
 )
 
 type FeatureRuleV2 struct {
-	FeatureRuleV2FeatureForceRule         *FeatureRuleV2FeatureForceRule         `queryParam:"inline" union:"member"`
-	FeatureRuleV2FeatureRolloutRule       *FeatureRuleV2FeatureRolloutRule       `queryParam:"inline" union:"member"`
-	FeatureRuleV2FeatureExperimentRule    *FeatureRuleV2FeatureExperimentRule    `queryParam:"inline" union:"member"`
-	FeatureRuleV2FeatureExperimentRefRule *FeatureRuleV2FeatureExperimentRefRule `queryParam:"inline" union:"member"`
-	FeatureRuleV2FeatureSafeRolloutRule   *FeatureRuleV2FeatureSafeRolloutRule   `queryParam:"inline" union:"member"`
-	UnknownRaw                            json.RawMessage                        `json:"-" union:"unknown"`
+	FeatureRuleV2FeatureForceRule               *FeatureRuleV2FeatureForceRule               `queryParam:"inline" union:"member"`
+	FeatureRuleV2FeatureRolloutRule             *FeatureRuleV2FeatureRolloutRule             `queryParam:"inline" union:"member"`
+	FeatureRuleV2FeatureExperimentRule          *FeatureRuleV2FeatureExperimentRule          `queryParam:"inline" union:"member"`
+	FeatureRuleV2FeatureExperimentRefRule       *FeatureRuleV2FeatureExperimentRefRule       `queryParam:"inline" union:"member"`
+	FeatureRuleV2FeatureContextualBanditRefRule *FeatureRuleV2FeatureContextualBanditRefRule `queryParam:"inline" union:"member"`
+	FeatureRuleV2FeatureSafeRolloutRule         *FeatureRuleV2FeatureSafeRolloutRule         `queryParam:"inline" union:"member"`
+	UnknownRaw                                  json.RawMessage                              `json:"-" union:"unknown"`
 
 	Type FeatureRuleV2Type
 }
@@ -1729,6 +2066,15 @@ func CreateFeatureRuleV2ExperimentRef(experimentRef FeatureRuleV2FeatureExperime
 	return FeatureRuleV2{
 		FeatureRuleV2FeatureExperimentRefRule: &experimentRef,
 		Type:                                  typ,
+	}
+}
+
+func CreateFeatureRuleV2ContextualBanditRef(contextualBanditRef FeatureRuleV2FeatureContextualBanditRefRule) FeatureRuleV2 {
+	typ := FeatureRuleV2TypeContextualBanditRef
+
+	return FeatureRuleV2{
+		FeatureRuleV2FeatureContextualBanditRefRule: &contextualBanditRef,
+		Type: typ,
 	}
 }
 
@@ -1811,6 +2157,15 @@ func (u *FeatureRuleV2) UnmarshalJSON(data []byte) error {
 		u.FeatureRuleV2FeatureExperimentRefRule = featureRuleV2FeatureExperimentRefRule
 		u.Type = FeatureRuleV2TypeExperimentRef
 		return nil
+	case "contextual-bandit-ref":
+		featureRuleV2FeatureContextualBanditRefRule := new(FeatureRuleV2FeatureContextualBanditRefRule)
+		if err := utils.UnmarshalJSON(data, &featureRuleV2FeatureContextualBanditRefRule, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == contextual-bandit-ref) type FeatureRuleV2FeatureContextualBanditRefRule within FeatureRuleV2: %w", string(data), err)
+		}
+
+		u.FeatureRuleV2FeatureContextualBanditRefRule = featureRuleV2FeatureContextualBanditRefRule
+		u.Type = FeatureRuleV2TypeContextualBanditRef
+		return nil
 	case "safe-rollout":
 		featureRuleV2FeatureSafeRolloutRule := new(FeatureRuleV2FeatureSafeRolloutRule)
 		if err := utils.UnmarshalJSON(data, &featureRuleV2FeatureSafeRolloutRule, "", true, nil); err != nil {
@@ -1843,6 +2198,10 @@ func (u FeatureRuleV2) MarshalJSON() ([]byte, error) {
 
 	if u.FeatureRuleV2FeatureExperimentRefRule != nil {
 		return utils.MarshalJSON(u.FeatureRuleV2FeatureExperimentRefRule, "", true)
+	}
+
+	if u.FeatureRuleV2FeatureContextualBanditRefRule != nil {
+		return utils.MarshalJSON(u.FeatureRuleV2FeatureContextualBanditRefRule, "", true)
 	}
 
 	if u.FeatureRuleV2FeatureSafeRolloutRule != nil {

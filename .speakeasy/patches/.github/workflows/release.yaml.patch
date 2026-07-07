@@ -1,7 +1,15 @@
 diff --git a/.github/workflows/release.yaml b/.github/workflows/release.yaml
 --- a/.github/workflows/release.yaml
 +++ b/.github/workflows/release.yaml
-@@ -22,6 +22,13 @@ jobs:
+@@ -7,6 +7,7 @@ on:
+ 
+ permissions:
+   contents: write
++  id-token: write # OIDC trusted publishing to npm (no NPM_TOKEN needed)
+ 
+ jobs:
+   goreleaser:
+@@ -22,6 +23,13 @@ jobs:
          with:
            go-version-file: "go.mod"
            cache: true
@@ -15,7 +23,7 @@ diff --git a/.github/workflows/release.yaml b/.github/workflows/release.yaml
        - name: Run GoReleaser
          uses: goreleaser/goreleaser-action@v6
          with:
-@@ -40,3 +47,30 @@ jobs:
+@@ -40,3 +48,31 @@ jobs:
              dist/
              !dist/*.txt
            retention-days: 30
@@ -34,11 +42,12 @@ diff --git a/.github/workflows/release.yaml b/.github/workflows/release.yaml
 +          node-version: "20"
 +          registry-url: "https://registry.npmjs.org"
 +
-+      - name: Publish to npm
++      - name: Publish to npm (OIDC trusted publishing)
 +        working-directory: npm
-+        env:
-+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 +        run: |
++          # Auth is via the id-token permission (trusted publishing), no NPM_TOKEN.
++          # Requires npm >= 11.5.1, newer than the npm bundled with Node 20.
++          npm install -g npm@latest
 +          VERSION="${GITHUB_REF_NAME#v}"
 +          if [[ "$VERSION" == *-* ]]; then DIST_TAG=next; else DIST_TAG=latest; fi
 +          echo "Publishing growthbook@$VERSION to dist-tag '$DIST_TAG'"

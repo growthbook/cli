@@ -397,7 +397,9 @@ func (u *UpdateExperimentScreenshot) GetDescription() *string {
 }
 
 type UpdateExperimentVariation struct {
-	ID          *string                      `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Alias for `id`. Mirrors the GET response. `id` takes precedence.
+	VariationID *string                      `json:"variationId,omitzero"`
 	Key         string                       `json:"key"`
 	Name        string                       `json:"name"`
 	Description *string                      `json:"description,omitzero"`
@@ -420,6 +422,13 @@ func (u *UpdateExperimentVariation) GetID() *string {
 		return nil
 	}
 	return u.ID
+}
+
+func (u *UpdateExperimentVariation) GetVariationID() *string {
+	if u == nil {
+		return nil
+	}
+	return u.VariationID
 }
 
 func (u *UpdateExperimentVariation) GetKey() string {
@@ -545,19 +554,51 @@ func (u *UpdateExperimentSavedGroupTargeting) GetSavedGroups() []string {
 	return u.SavedGroups
 }
 
+type UpdateExperimentTrafficSplit struct {
+	VariationID string  `json:"variationId"`
+	Weight      float64 `json:"weight"`
+}
+
+func (u *UpdateExperimentTrafficSplit) GetVariationID() string {
+	if u == nil {
+		return ""
+	}
+	return u.VariationID
+}
+
+func (u *UpdateExperimentTrafficSplit) GetWeight() float64 {
+	if u == nil {
+		return 0.0
+	}
+	return u.Weight
+}
+
 type UpdateExperimentPhase struct {
-	Name                string                                `json:"name"`
-	DateStarted         time.Time                             `json:"dateStarted"`
-	DateEnded           *time.Time                            `json:"dateEnded,omitzero"`
-	ReasonForStopping   *string                               `json:"reasonForStopping,omitzero"`
-	Seed                *string                               `json:"seed,omitzero"`
-	Coverage            *float64                              `json:"coverage,omitzero"`
-	Namespace           *UpdateExperimentNamespace            `json:"namespace,omitzero"`
-	Prerequisites       []UpdateExperimentPrerequisite        `json:"prerequisites,omitzero"`
-	Reason              *string                               `json:"reason,omitzero"`
-	Condition           *string                               `json:"condition,omitzero"`
+	Name              string                         `json:"name"`
+	DateStarted       time.Time                      `json:"dateStarted"`
+	DateEnded         *time.Time                     `json:"dateEnded,omitzero"`
+	ReasonForStopping *string                        `json:"reasonForStopping,omitzero"`
+	Seed              *string                        `json:"seed,omitzero"`
+	Coverage          *float64                       `json:"coverage,omitzero"`
+	Namespace         *UpdateExperimentNamespace     `json:"namespace,omitzero"`
+	Prerequisites     []UpdateExperimentPrerequisite `json:"prerequisites,omitzero"`
+	// Deprecated: use `reasonForStopping`. Takes precedence if set.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	Reason *string `json:"reason,omitzero"`
+	// Deprecated: use `targetingCondition`. Takes precedence if set.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	Condition *string `json:"condition,omitzero"`
+	// Targeting condition as a JSON string. Mirrors the GET response.
+	TargetingCondition  *string                               `json:"targetingCondition,omitzero"`
 	SavedGroupTargeting []UpdateExperimentSavedGroupTargeting `json:"savedGroupTargeting,omitzero"`
-	VariationWeights    []float64                             `json:"variationWeights,omitzero"`
+	// Deprecated: use `trafficSplit`. Takes precedence if set.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	VariationWeights []float64 `json:"variationWeights,omitzero"`
+	// Per-variation weights. Mirrors the GET response.
+	TrafficSplit []UpdateExperimentTrafficSplit `json:"trafficSplit,omitzero"`
 }
 
 func (u UpdateExperimentPhase) MarshalJSON() ([]byte, error) {
@@ -641,6 +682,13 @@ func (u *UpdateExperimentPhase) GetCondition() *string {
 	return u.Condition
 }
 
+func (u *UpdateExperimentPhase) GetTargetingCondition() *string {
+	if u == nil {
+		return nil
+	}
+	return u.TargetingCondition
+}
+
 func (u *UpdateExperimentPhase) GetSavedGroupTargeting() []UpdateExperimentSavedGroupTargeting {
 	if u == nil {
 		return nil
@@ -653,6 +701,13 @@ func (u *UpdateExperimentPhase) GetVariationWeights() []float64 {
 		return nil
 	}
 	return u.VariationWeights
+}
+
+func (u *UpdateExperimentPhase) GetTrafficSplit() []UpdateExperimentTrafficSplit {
+	if u == nil {
+		return nil
+	}
+	return u.TrafficSplit
 }
 
 type UpdateExperimentShareLevel string

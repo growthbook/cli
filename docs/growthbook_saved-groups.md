@@ -59,6 +59,7 @@ growthbook saved-groups [flags]
 * [growthbook saved-groups archive](growthbook_saved-groups_archive.md)	 - Archive a single saved group
 * [growthbook saved-groups delete](growthbook_saved-groups_delete.md)	 - Deletes a single saved group
 * [growthbook saved-groups get](growthbook_saved-groups_get.md)	 - Get a single saved group
+* [growthbook saved-groups get-saved-group-references](growthbook_saved-groups_get-saved-group-references.md)	 - Get features, experiments, and saved groups that reference this saved group
 * [growthbook saved-groups list](growthbook_saved-groups_list.md)	 - Get all saved group
 * [growthbook saved-groups post](growthbook_saved-groups_post.md)	 - Create a single saved group
 * [growthbook saved-groups unarchive](growthbook_saved-groups_unarchive.md)	 - Unarchive a single saved group

@@ -139,6 +139,8 @@ type TargetingRule struct {
 	Type *TargetingRuleType `json:"type,omitzero"`
 	// The value to serve when this rule matches.
 	Value string `json:"value"`
+	// JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
+	Sparse *bool `json:"sparse,omitzero"`
 	// Percentage of users to include (0–1). Defaults to 1. When less than 1, hashAttribute is required.
 	Coverage *float64 `json:"coverage,omitzero"`
 	// Attribute to hash on for consistent assignment. Required when coverage < 1.
@@ -220,6 +222,13 @@ func (t *TargetingRule) GetValue() string {
 		return ""
 	}
 	return t.Value
+}
+
+func (t *TargetingRule) GetSparse() *bool {
+	if t == nil {
+		return nil
+	}
+	return t.Sparse
 }
 
 func (t *TargetingRule) GetCoverage() *float64 {

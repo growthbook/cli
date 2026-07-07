@@ -364,7 +364,9 @@ func (p *PostExperimentScreenshot) GetDescription() *string {
 }
 
 type PostExperimentVariation struct {
-	ID          *string                    `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Alias for `id`. Mirrors the GET response. `id` takes precedence.
+	VariationID *string                    `json:"variationId,omitzero"`
 	Key         string                     `json:"key"`
 	Name        string                     `json:"name"`
 	Description *string                    `json:"description,omitzero"`
@@ -387,6 +389,13 @@ func (p *PostExperimentVariation) GetID() *string {
 		return nil
 	}
 	return p.ID
+}
+
+func (p *PostExperimentVariation) GetVariationID() *string {
+	if p == nil {
+		return nil
+	}
+	return p.VariationID
 }
 
 func (p *PostExperimentVariation) GetKey() string {
@@ -531,19 +540,51 @@ func (p *PostExperimentSavedGroupTargeting) GetSavedGroups() []string {
 	return p.SavedGroups
 }
 
+type PostExperimentTrafficSplit struct {
+	VariationID string  `json:"variationId"`
+	Weight      float64 `json:"weight"`
+}
+
+func (p *PostExperimentTrafficSplit) GetVariationID() string {
+	if p == nil {
+		return ""
+	}
+	return p.VariationID
+}
+
+func (p *PostExperimentTrafficSplit) GetWeight() float64 {
+	if p == nil {
+		return 0.0
+	}
+	return p.Weight
+}
+
 type PostExperimentPhase struct {
-	Name                string                              `json:"name"`
-	DateStarted         time.Time                           `json:"dateStarted"`
-	DateEnded           *time.Time                          `json:"dateEnded,omitzero"`
-	ReasonForStopping   *string                             `json:"reasonForStopping,omitzero"`
-	Seed                *string                             `json:"seed,omitzero"`
-	Coverage            *float64                            `json:"coverage,omitzero"`
-	Namespace           *PostExperimentNamespace            `json:"namespace,omitzero"`
-	Prerequisites       []PostExperimentPrerequisite        `json:"prerequisites,omitzero"`
-	Reason              *string                             `json:"reason,omitzero"`
-	Condition           *string                             `json:"condition,omitzero"`
+	Name              string                       `json:"name"`
+	DateStarted       time.Time                    `json:"dateStarted"`
+	DateEnded         *time.Time                   `json:"dateEnded,omitzero"`
+	ReasonForStopping *string                      `json:"reasonForStopping,omitzero"`
+	Seed              *string                      `json:"seed,omitzero"`
+	Coverage          *float64                     `json:"coverage,omitzero"`
+	Namespace         *PostExperimentNamespace     `json:"namespace,omitzero"`
+	Prerequisites     []PostExperimentPrerequisite `json:"prerequisites,omitzero"`
+	// Deprecated: use `reasonForStopping`. Takes precedence if set.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	Reason *string `json:"reason,omitzero"`
+	// Deprecated: use `targetingCondition`. Takes precedence if set.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	Condition *string `json:"condition,omitzero"`
+	// Targeting condition as a JSON string. Mirrors the GET response.
+	TargetingCondition  *string                             `json:"targetingCondition,omitzero"`
 	SavedGroupTargeting []PostExperimentSavedGroupTargeting `json:"savedGroupTargeting,omitzero"`
-	VariationWeights    []float64                           `json:"variationWeights,omitzero"`
+	// Deprecated: use `trafficSplit`. Takes precedence if set.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	VariationWeights []float64 `json:"variationWeights,omitzero"`
+	// Per-variation weights. Mirrors the GET response.
+	TrafficSplit []PostExperimentTrafficSplit `json:"trafficSplit,omitzero"`
 }
 
 func (p PostExperimentPhase) MarshalJSON() ([]byte, error) {
@@ -627,6 +668,13 @@ func (p *PostExperimentPhase) GetCondition() *string {
 	return p.Condition
 }
 
+func (p *PostExperimentPhase) GetTargetingCondition() *string {
+	if p == nil {
+		return nil
+	}
+	return p.TargetingCondition
+}
+
 func (p *PostExperimentPhase) GetSavedGroupTargeting() []PostExperimentSavedGroupTargeting {
 	if p == nil {
 		return nil
@@ -639,6 +687,13 @@ func (p *PostExperimentPhase) GetVariationWeights() []float64 {
 		return nil
 	}
 	return p.VariationWeights
+}
+
+func (p *PostExperimentPhase) GetTrafficSplit() []PostExperimentTrafficSplit {
+	if p == nil {
+		return nil
+	}
+	return p.TrafficSplit
 }
 
 type PostExperimentShareLevel string

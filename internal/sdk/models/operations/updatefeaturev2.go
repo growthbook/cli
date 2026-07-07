@@ -503,6 +503,8 @@ type UpdateFeatureV2RuleExperimentRef struct {
 	ScheduleRules       []UpdateFeatureV2ScheduleRule3        `json:"scheduleRules,omitzero"`
 	Variations          []UpdateFeatureV2Variation            `json:"variations"`
 	ExperimentID        string                                `json:"experimentId"`
+	// JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
+	Sparse *bool `json:"sparse,omitzero"`
 	// When true the rule applies to all environments (default).
 	AllEnvironments *bool `json:"allEnvironments,omitzero"`
 	// Specific environment IDs this rule applies to. Required when allEnvironments is false.
@@ -585,6 +587,13 @@ func (u *UpdateFeatureV2RuleExperimentRef) GetExperimentID() string {
 		return ""
 	}
 	return u.ExperimentID
+}
+
+func (u *UpdateFeatureV2RuleExperimentRef) GetSparse() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.Sparse
 }
 
 func (u *UpdateFeatureV2RuleExperimentRef) GetAllEnvironments() *bool {
@@ -743,8 +752,10 @@ type UpdateFeatureV2RuleRollout struct {
 	ID                  *string                               `json:"id,omitzero"`
 	Enabled             *bool                                 `json:"enabled,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_         string   `const:"rollout" json:"type"`
-	Value         string   `json:"value"`
+	type_ string `const:"rollout" json:"type"`
+	Value string `json:"value"`
+	// JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
+	Sparse        *bool    `json:"sparse,omitzero"`
 	Coverage      float64  `json:"coverage"`
 	HashAttribute string   `json:"hashAttribute"`
 	HashVersion   *float64 `json:"hashVersion,omitzero"`
@@ -823,6 +834,13 @@ func (u *UpdateFeatureV2RuleRollout) GetValue() string {
 		return ""
 	}
 	return u.Value
+}
+
+func (u *UpdateFeatureV2RuleRollout) GetSparse() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.Sparse
 }
 
 func (u *UpdateFeatureV2RuleRollout) GetCoverage() float64 {
@@ -1004,6 +1022,8 @@ type UpdateFeatureV2RuleForce struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_ string `const:"force" json:"type"`
 	Value string `json:"value"`
+	// JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
+	Sparse *bool `json:"sparse,omitzero"`
 	// When true the rule applies to all environments (default).
 	AllEnvironments *bool `json:"allEnvironments,omitzero"`
 	// Specific environment IDs this rule applies to. Required when allEnvironments is false.
@@ -1079,6 +1099,13 @@ func (u *UpdateFeatureV2RuleForce) GetValue() string {
 		return ""
 	}
 	return u.Value
+}
+
+func (u *UpdateFeatureV2RuleForce) GetSparse() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.Sparse
 }
 
 func (u *UpdateFeatureV2RuleForce) GetAllEnvironments() *bool {

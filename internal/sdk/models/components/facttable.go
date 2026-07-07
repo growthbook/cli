@@ -29,9 +29,10 @@ func (u *UpdateTime) GetTimezone() string {
 
 // AggregatedFactTableSettings - Settings for maintaining shared daily aggregated tables (a subset of userIdTypes plus the daily update time and restate lookback window) used to speed up CUPED. Requires the data pipeline (pipeline-mode) feature.
 type AggregatedFactTableSettings struct {
-	IDTypes        []string   `json:"idTypes"`
-	UpdateTime     UpdateTime `json:"updateTime"`
-	LookbackWindow int64      `json:"lookbackWindow"`
+	IDTypes          []string   `json:"idTypes"`
+	UpdateTime       UpdateTime `json:"updateTime"`
+	LookbackWindow   int64      `json:"lookbackWindow"`
+	RestateChunkDays *int64     `json:"restateChunkDays,omitzero"`
 }
 
 func (a *AggregatedFactTableSettings) GetIDTypes() []string {
@@ -53,6 +54,13 @@ func (a *AggregatedFactTableSettings) GetLookbackWindow() int64 {
 		return 0
 	}
 	return a.LookbackWindow
+}
+
+func (a *AggregatedFactTableSettings) GetRestateChunkDays() *int64 {
+	if a == nil {
+		return nil
+	}
+	return a.RestateChunkDays
 }
 
 // FactTableManagedBy - Where this fact table must be managed from. If not set (empty string), it can be managed from anywhere.

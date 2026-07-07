@@ -49,6 +49,10 @@ func InitSavedGroupsRoot(parent *cobra.Command) error {
 		return err
 	}
 
+	if err := initGetSavedGroupReferencesCmd(SavedGroupsCmd); err != nil {
+		return err
+	}
+
 	parent.AddCommand(SavedGroupsCmd)
 	return nil
 }

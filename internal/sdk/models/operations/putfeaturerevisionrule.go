@@ -188,6 +188,7 @@ type PutFeatureRevisionRuleRule struct {
 	ScheduleType   optionalnullable.OptionalNullable[PutFeatureRevisionRuleScheduleType] `json:"scheduleType,omitzero"`
 	Type           *PutFeatureRevisionRuleType                                           `json:"type,omitzero"`
 	Value          *string                                                               `json:"value,omitzero"`
+	Sparse         *bool                                                                 `json:"sparse,omitzero"`
 	Coverage       *float64                                                              `json:"coverage,omitzero"`
 	HashAttribute  *string                                                               `json:"hashAttribute,omitzero"`
 	Seed           *string                                                               `json:"seed,omitzero"`
@@ -270,6 +271,13 @@ func (p *PutFeatureRevisionRuleRule) GetValue() *string {
 		return nil
 	}
 	return p.Value
+}
+
+func (p *PutFeatureRevisionRuleRule) GetSparse() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.Sparse
 }
 
 func (p *PutFeatureRevisionRuleRule) GetCoverage() *float64 {

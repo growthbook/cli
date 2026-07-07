@@ -9,19 +9,19 @@ import (
 	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
 )
 
-// PostVariationImageUploadContentType - MIME type of the screenshot
-type PostVariationImageUploadContentType string
+// ContentType - MIME type of the screenshot
+type ContentType string
 
 const (
-	PostVariationImageUploadContentTypeImagePng  PostVariationImageUploadContentType = "image/png"
-	PostVariationImageUploadContentTypeImageJpeg PostVariationImageUploadContentType = "image/jpeg"
-	PostVariationImageUploadContentTypeImageGif  PostVariationImageUploadContentType = "image/gif"
+	ContentTypeImagePng  ContentType = "image/png"
+	ContentTypeImageJpeg ContentType = "image/jpeg"
+	ContentTypeImageGif  ContentType = "image/gif"
 )
 
-func (e PostVariationImageUploadContentType) ToPointer() *PostVariationImageUploadContentType {
+func (e ContentType) ToPointer() *ContentType {
 	return &e
 }
-func (e *PostVariationImageUploadContentType) UnmarshalJSON(data []byte) error {
+func (e *ContentType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -32,10 +32,10 @@ func (e *PostVariationImageUploadContentType) UnmarshalJSON(data []byte) error {
 	case "image/jpeg":
 		fallthrough
 	case "image/gif":
-		*e = PostVariationImageUploadContentType(v)
+		*e = ContentType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for PostVariationImageUploadContentType: %v", v)
+		return fmt.Errorf("invalid value for ContentType: %v", v)
 	}
 }
 
@@ -43,7 +43,7 @@ type PostVariationImageUploadRequestBody struct {
 	// Base64-encoded screenshot data
 	Screenshot string `json:"screenshot"`
 	// MIME type of the screenshot
-	ContentType PostVariationImageUploadContentType `json:"contentType"`
+	ContentType ContentType `json:"contentType"`
 	// Optional description for the screenshot
 	Description *string `json:"description,omitzero"`
 }
@@ -55,9 +55,9 @@ func (p *PostVariationImageUploadRequestBody) GetScreenshot() string {
 	return p.Screenshot
 }
 
-func (p *PostVariationImageUploadRequestBody) GetContentType() PostVariationImageUploadContentType {
+func (p *PostVariationImageUploadRequestBody) GetContentType() ContentType {
 	if p == nil {
-		return PostVariationImageUploadContentType("")
+		return ContentType("")
 	}
 	return p.ContentType
 }

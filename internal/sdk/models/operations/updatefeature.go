@@ -412,6 +412,8 @@ type UpdateFeatureRuleExperimentRef struct {
 	ScheduleRules       []components.ScheduleRule           `json:"scheduleRules,omitzero"`
 	Variations          []UpdateFeatureVariation            `json:"variations"`
 	ExperimentID        string                              `json:"experimentId"`
+	// JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
+	Sparse *bool `json:"sparse,omitzero"`
 }
 
 func (u UpdateFeatureRuleExperimentRef) MarshalJSON() ([]byte, error) {
@@ -490,6 +492,13 @@ func (u *UpdateFeatureRuleExperimentRef) GetExperimentID() string {
 		return ""
 	}
 	return u.ExperimentID
+}
+
+func (u *UpdateFeatureRuleExperimentRef) GetSparse() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.Sparse
 }
 
 type UpdateFeatureMatchType2 string
@@ -601,6 +610,8 @@ type UpdateFeatureRuleRollout struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_ string `const:"rollout" json:"type"`
 	Value string `json:"value"`
+	// JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
+	Sparse *bool `json:"sparse,omitzero"`
 	// Percent of traffic included in this experiment. Users not included in the experiment will skip this rule.
 	Coverage      float64 `json:"coverage"`
 	HashAttribute string  `json:"hashAttribute"`
@@ -678,6 +689,13 @@ func (u *UpdateFeatureRuleRollout) GetValue() string {
 		return ""
 	}
 	return u.Value
+}
+
+func (u *UpdateFeatureRuleRollout) GetSparse() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.Sparse
 }
 
 func (u *UpdateFeatureRuleRollout) GetCoverage() float64 {
@@ -817,6 +835,8 @@ type UpdateFeatureRuleForce struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_ string `const:"force" json:"type"`
 	Value string `json:"value"`
+	// JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
+	Sparse *bool `json:"sparse,omitzero"`
 }
 
 func (u UpdateFeatureRuleForce) MarshalJSON() ([]byte, error) {
@@ -888,6 +908,13 @@ func (u *UpdateFeatureRuleForce) GetValue() string {
 		return ""
 	}
 	return u.Value
+}
+
+func (u *UpdateFeatureRuleForce) GetSparse() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.Sparse
 }
 
 type UpdateFeatureRuleUnionType string
@@ -1418,6 +1445,8 @@ type UpdateFeatureRuleDraftExperimentRef struct {
 	ScheduleRules       []components.ScheduleRule                `json:"scheduleRules,omitzero"`
 	Variations          []UpdateFeatureDraftVariation            `json:"variations"`
 	ExperimentID        string                                   `json:"experimentId"`
+	// JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
+	Sparse *bool `json:"sparse,omitzero"`
 }
 
 func (u UpdateFeatureRuleDraftExperimentRef) MarshalJSON() ([]byte, error) {
@@ -1496,6 +1525,13 @@ func (u *UpdateFeatureRuleDraftExperimentRef) GetExperimentID() string {
 		return ""
 	}
 	return u.ExperimentID
+}
+
+func (u *UpdateFeatureRuleDraftExperimentRef) GetSparse() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.Sparse
 }
 
 type UpdateFeatureDraftMatchType2 string
@@ -1607,6 +1643,8 @@ type UpdateFeatureRuleDraftRollout struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_ string `const:"rollout" json:"type"`
 	Value string `json:"value"`
+	// JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
+	Sparse *bool `json:"sparse,omitzero"`
 	// Percent of traffic included in this experiment. Users not included in the experiment will skip this rule.
 	Coverage      float64 `json:"coverage"`
 	HashAttribute string  `json:"hashAttribute"`
@@ -1684,6 +1722,13 @@ func (u *UpdateFeatureRuleDraftRollout) GetValue() string {
 		return ""
 	}
 	return u.Value
+}
+
+func (u *UpdateFeatureRuleDraftRollout) GetSparse() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.Sparse
 }
 
 func (u *UpdateFeatureRuleDraftRollout) GetCoverage() float64 {
@@ -1823,6 +1868,8 @@ type UpdateFeatureRuleDraftForce struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_ string `const:"force" json:"type"`
 	Value string `json:"value"`
+	// JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
+	Sparse *bool `json:"sparse,omitzero"`
 }
 
 func (u UpdateFeatureRuleDraftForce) MarshalJSON() ([]byte, error) {
@@ -1894,6 +1941,13 @@ func (u *UpdateFeatureRuleDraftForce) GetValue() string {
 		return ""
 	}
 	return u.Value
+}
+
+func (u *UpdateFeatureRuleDraftForce) GetSparse() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.Sparse
 }
 
 type UpdateFeatureDraftRuleUnionType string

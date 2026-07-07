@@ -30,9 +30,10 @@ func (p *PostFactTableUpdateTime) GetTimezone() string {
 
 // PostFactTableAggregatedFactTableSettings - Settings for maintaining shared daily aggregated tables (a subset of userIdTypes plus the daily update time and restate lookback window) used to speed up CUPED. Requires the data pipeline (pipeline-mode) feature.
 type PostFactTableAggregatedFactTableSettings struct {
-	IDTypes        []string                `json:"idTypes"`
-	UpdateTime     PostFactTableUpdateTime `json:"updateTime"`
-	LookbackWindow int64                   `json:"lookbackWindow"`
+	IDTypes          []string                `json:"idTypes"`
+	UpdateTime       PostFactTableUpdateTime `json:"updateTime"`
+	LookbackWindow   int64                   `json:"lookbackWindow"`
+	RestateChunkDays *int64                  `json:"restateChunkDays,omitzero"`
 }
 
 func (p *PostFactTableAggregatedFactTableSettings) GetIDTypes() []string {
@@ -54,6 +55,13 @@ func (p *PostFactTableAggregatedFactTableSettings) GetLookbackWindow() int64 {
 		return 0
 	}
 	return p.LookbackWindow
+}
+
+func (p *PostFactTableAggregatedFactTableSettings) GetRestateChunkDays() *int64 {
+	if p == nil {
+		return nil
+	}
+	return p.RestateChunkDays
 }
 
 // PostFactTableManagedBy - Set this to "api" to disable editing in the GrowthBook UI
