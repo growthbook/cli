@@ -1,6 +1,11 @@
 # yaml-language-server: $schema=https://goreleaser.com/static/schema.json
 version: 2
 
+# The archive name_template uses {{ .ProjectName }}; without this it defaults to
+# the repo name ("cli"), producing cli_<Os>_<arch> archives. The npm shim
+# (npm/lib/platform.js) downloads growthbook_<Os>_<arch>, so pin the name.
+project_name: growthbook
+
 before:
   hooks:
     - go mod tidy

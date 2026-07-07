@@ -1,7 +1,19 @@
 diff --git a/.goreleaser.yaml b/.goreleaser.yaml
 --- a/.goreleaser.yaml
 +++ b/.goreleaser.yaml
-@@ -22,6 +22,12 @@ builds:
+@@ -1,6 +1,11 @@
+ # yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+ version: 2
+ 
++# The archive name_template uses {{ .ProjectName }}; without this it defaults to
++# the repo name ("cli"), producing cli_<Os>_<arch> archives. The npm shim
++# (npm/lib/platform.js) downloads growthbook_<Os>_<arch>, so pin the name.
++project_name: growthbook
++
+ before:
+   hooks:
+     - go mod tidy
+@@ -22,6 +27,12 @@ builds:
        - -s -w
        - -X main.version={{.Version}}
        - -X main.buildTime={{.Date}}
@@ -14,7 +26,7 @@ diff --git a/.goreleaser.yaml b/.goreleaser.yaml
  
  archives:
    - id: growthbook
-@@ -47,6 +53,13 @@ release:
+@@ -47,6 +58,13 @@ release:
    draft: false
    prerelease: auto
    mode: append
