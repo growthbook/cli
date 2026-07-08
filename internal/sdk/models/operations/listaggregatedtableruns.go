@@ -122,6 +122,8 @@ type ListAggregatedTableRunsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Successful response
 	Object *ListAggregatedTableRunsResponseBody
+
+	Next func() (*ListAggregatedTableRunsResponse, error)
 }
 
 func (l ListAggregatedTableRunsResponse) MarshalJSON() ([]byte, error) {

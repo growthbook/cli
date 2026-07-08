@@ -112,6 +112,8 @@ type ListDimensionsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Successful response
 	Object *ListDimensionsResponseBody
+
+	Next func() (*ListDimensionsResponse, error)
 }
 
 func (l ListDimensionsResponse) MarshalJSON() ([]byte, error) {

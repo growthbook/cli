@@ -12,6 +12,7 @@ import (
 	"github.com/growthbook/cli/internal/sdk/sdkinternal/config"
 	"github.com/growthbook/cli/internal/sdk/sdkinternal/hooks"
 	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/spyzhov/ajson"
 	"net/http"
 	"net/url"
 )
@@ -129,6 +130,51 @@ func (s *FactTables) ListFactTables(ctx context.Context, request *operations.Lis
 			Request:  req,
 			Response: httpRes,
 		},
+	}
+	res.Next = func() (*operations.ListFactTablesResponse, error) {
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err := ajson.Unmarshal(rawBody)
+		if err != nil {
+			return nil, err
+		}
+
+		oS := 0
+		if request.Offset != nil {
+			oS = int(*request.Offset)
+		}
+		r, err := ajson.Eval(b, "$.factTables")
+		if err != nil {
+			return nil, err
+		}
+		if !r.IsArray() {
+			return nil, nil
+		}
+		arr, err := r.GetArray()
+		if err != nil {
+			return nil, err
+		}
+		if len(arr) == 0 {
+			return nil, nil
+		}
+
+		l := 0
+		if request.Limit != nil {
+			l = int(*request.Limit)
+		}
+		if len(arr) < l {
+			return nil, nil
+		}
+		nOS := int64(oS + len(arr))
+		request.Offset = &nOS
+
+		return s.ListFactTables(
+			ctx,
+			request,
+		)
 	}
 
 	switch {
@@ -867,6 +913,51 @@ func (s *FactTables) ListFactTableFilters(ctx context.Context, request operation
 			Request:  req,
 			Response: httpRes,
 		},
+	}
+	res.Next = func() (*operations.ListFactTableFiltersResponse, error) {
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err := ajson.Unmarshal(rawBody)
+		if err != nil {
+			return nil, err
+		}
+
+		oS := 0
+		if request.Offset != nil {
+			oS = int(*request.Offset)
+		}
+		r, err := ajson.Eval(b, "$.factTableFilters")
+		if err != nil {
+			return nil, err
+		}
+		if !r.IsArray() {
+			return nil, nil
+		}
+		arr, err := r.GetArray()
+		if err != nil {
+			return nil, err
+		}
+		if len(arr) == 0 {
+			return nil, nil
+		}
+
+		l := 0
+		if request.Limit != nil {
+			l = int(*request.Limit)
+		}
+		if len(arr) < l {
+			return nil, nil
+		}
+		nOS := int64(oS + len(arr))
+		request.Offset = &nOS
+
+		return s.ListFactTableFilters(
+			ctx,
+			request,
+		)
 	}
 
 	switch {
@@ -1900,6 +1991,51 @@ func (s *FactTables) ListAggregatedTableRuns(ctx context.Context, request operat
 			Request:  req,
 			Response: httpRes,
 		},
+	}
+	res.Next = func() (*operations.ListAggregatedTableRunsResponse, error) {
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err := ajson.Unmarshal(rawBody)
+		if err != nil {
+			return nil, err
+		}
+
+		oS := 0
+		if request.Offset != nil {
+			oS = int(*request.Offset)
+		}
+		r, err := ajson.Eval(b, "$.runs")
+		if err != nil {
+			return nil, err
+		}
+		if !r.IsArray() {
+			return nil, nil
+		}
+		arr, err := r.GetArray()
+		if err != nil {
+			return nil, err
+		}
+		if len(arr) == 0 {
+			return nil, nil
+		}
+
+		l := 0
+		if request.Limit != nil {
+			l = int(*request.Limit)
+		}
+		if len(arr) < l {
+			return nil, nil
+		}
+		nOS := int64(oS + len(arr))
+		request.Offset = &nOS
+
+		return s.ListAggregatedTableRuns(
+			ctx,
+			request,
+		)
 	}
 
 	switch {

@@ -112,6 +112,8 @@ type GetNamespaceMembershipsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Successful response
 	Object *GetNamespaceMembershipsResponseBody
+
+	Next func() (*GetNamespaceMembershipsResponse, error)
 }
 
 func (g GetNamespaceMembershipsResponse) MarshalJSON() ([]byte, error) {

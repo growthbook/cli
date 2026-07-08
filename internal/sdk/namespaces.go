@@ -12,6 +12,7 @@ import (
 	"github.com/growthbook/cli/internal/sdk/sdkinternal/config"
 	"github.com/growthbook/cli/internal/sdk/sdkinternal/hooks"
 	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/spyzhov/ajson"
 	"net/http"
 	"net/url"
 )
@@ -129,6 +130,51 @@ func (s *Namespaces) ListNamespaces(ctx context.Context, request *operations.Lis
 			Request:  req,
 			Response: httpRes,
 		},
+	}
+	res.Next = func() (*operations.ListNamespacesResponse, error) {
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err := ajson.Unmarshal(rawBody)
+		if err != nil {
+			return nil, err
+		}
+
+		oS := 0
+		if request.Offset != nil {
+			oS = int(*request.Offset)
+		}
+		r, err := ajson.Eval(b, "$.namespaces")
+		if err != nil {
+			return nil, err
+		}
+		if !r.IsArray() {
+			return nil, nil
+		}
+		arr, err := r.GetArray()
+		if err != nil {
+			return nil, err
+		}
+		if len(arr) == 0 {
+			return nil, nil
+		}
+
+		l := 0
+		if request.Limit != nil {
+			l = int(*request.Limit)
+		}
+		if len(arr) < l {
+			return nil, nil
+		}
+		nOS := int64(oS + len(arr))
+		request.Offset = &nOS
+
+		return s.ListNamespaces(
+			ctx,
+			request,
+		)
 	}
 
 	switch {
@@ -868,6 +914,51 @@ func (s *Namespaces) GetNamespaceMemberships(ctx context.Context, request operat
 			Request:  req,
 			Response: httpRes,
 		},
+	}
+	res.Next = func() (*operations.GetNamespaceMembershipsResponse, error) {
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err := ajson.Unmarshal(rawBody)
+		if err != nil {
+			return nil, err
+		}
+
+		oS := 0
+		if request.Offset != nil {
+			oS = int(*request.Offset)
+		}
+		r, err := ajson.Eval(b, "$.experiments")
+		if err != nil {
+			return nil, err
+		}
+		if !r.IsArray() {
+			return nil, nil
+		}
+		arr, err := r.GetArray()
+		if err != nil {
+			return nil, err
+		}
+		if len(arr) == 0 {
+			return nil, nil
+		}
+
+		l := 0
+		if request.Limit != nil {
+			l = int(*request.Limit)
+		}
+		if len(arr) < l {
+			return nil, nil
+		}
+		nOS := int64(oS + len(arr))
+		request.Offset = &nOS
+
+		return s.GetNamespaceMemberships(
+			ctx,
+			request,
+		)
 	}
 
 	switch {

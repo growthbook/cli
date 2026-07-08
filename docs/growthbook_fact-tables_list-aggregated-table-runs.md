@@ -19,10 +19,12 @@ growthbook fact-tables list-aggregated-table-runs [flags]
 ### Options
 
 ```
+  -a, --all              Automatically paginate and fetch all results (streams NDJSON for JSON output)
   -h, --help             help for list-aggregated-table-runs
       --id string        The id of the requested resource [required]
       --id-type string   Only return runs for this id type. When omitted, runs for all id types are returned.
   -l, --limit int        The number of items to return (default 10)
+      --max-pages int    Maximum number of pages to fetch when using --all (0 = no limit)
       --offset int       How many items to skip (use in conjunction with limit for pagination)
 ```
 

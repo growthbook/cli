@@ -12,6 +12,7 @@ import (
 	"github.com/growthbook/cli/internal/sdk/sdkinternal/config"
 	"github.com/growthbook/cli/internal/sdk/sdkinternal/hooks"
 	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/spyzhov/ajson"
 	"net/http"
 	"net/url"
 )
@@ -136,6 +137,51 @@ func (s *FeatureRevisions) ListRevisions(ctx context.Context, request *operation
 			Request:  req,
 			Response: httpRes,
 		},
+	}
+	res.Next = func() (*operations.ListRevisionsResponse, error) {
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err := ajson.Unmarshal(rawBody)
+		if err != nil {
+			return nil, err
+		}
+
+		oS := 0
+		if request.Offset != nil {
+			oS = int(*request.Offset)
+		}
+		r, err := ajson.Eval(b, "$.revisions")
+		if err != nil {
+			return nil, err
+		}
+		if !r.IsArray() {
+			return nil, nil
+		}
+		arr, err := r.GetArray()
+		if err != nil {
+			return nil, err
+		}
+		if len(arr) == 0 {
+			return nil, nil
+		}
+
+		l := 0
+		if request.Limit != nil {
+			l = int(*request.Limit)
+		}
+		if len(arr) < l {
+			return nil, nil
+		}
+		nOS := int64(oS + len(arr))
+		request.Offset = &nOS
+
+		return s.ListRevisions(
+			ctx,
+			request,
+		)
 	}
 
 	switch {
@@ -289,6 +335,51 @@ func (s *FeatureRevisions) GetFeatureRevisions(ctx context.Context, request oper
 			Request:  req,
 			Response: httpRes,
 		},
+	}
+	res.Next = func() (*operations.GetFeatureRevisionsResponse, error) {
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err := ajson.Unmarshal(rawBody)
+		if err != nil {
+			return nil, err
+		}
+
+		oS := 0
+		if request.Offset != nil {
+			oS = int(*request.Offset)
+		}
+		r, err := ajson.Eval(b, "$.revisions")
+		if err != nil {
+			return nil, err
+		}
+		if !r.IsArray() {
+			return nil, nil
+		}
+		arr, err := r.GetArray()
+		if err != nil {
+			return nil, err
+		}
+		if len(arr) == 0 {
+			return nil, nil
+		}
+
+		l := 0
+		if request.Limit != nil {
+			l = int(*request.Limit)
+		}
+		if len(arr) < l {
+			return nil, nil
+		}
+		nOS := int64(oS + len(arr))
+		request.Offset = &nOS
+
+		return s.GetFeatureRevisions(
+			ctx,
+			request,
+		)
 	}
 
 	switch {

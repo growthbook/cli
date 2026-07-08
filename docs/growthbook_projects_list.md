@@ -19,9 +19,11 @@ growthbook projects list [flags]
 ### Options
 
 ```
-  -h, --help         help for list
-  -l, --limit int    The number of items to return (default 10)
-      --offset int   How many items to skip (use in conjunction with limit for pagination)
+  -a, --all             Automatically paginate and fetch all results (streams NDJSON for JSON output)
+  -h, --help            help for list
+  -l, --limit int       The number of items to return (default 10)
+      --max-pages int   Maximum number of pages to fetch when using --all (0 = no limit)
+      --offset int      How many items to skip (use in conjunction with limit for pagination)
 ```
 
 ### Options inherited from parent commands

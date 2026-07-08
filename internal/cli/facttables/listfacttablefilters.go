@@ -34,6 +34,8 @@ func initListFactTableFiltersCmd(parent *cobra.Command) error {
 	if err := flagutil.ValidateMeta[operations.ListFactTableFiltersRequest](listFactTableFiltersCmdMeta); err != nil {
 		return fmt.Errorf("invalid metadata for list-fact-table-filters: %w", err)
 	}
+	cmd.Flags().BoolP("all", "a", false, "Automatically paginate and fetch all results (streams NDJSON for JSON output)")
+	cmd.Flags().Int("max-pages", 0, "Maximum number of pages to fetch when using --all (0 = no limit)")
 	parent.AddCommand(cmd)
 	return nil
 }
@@ -68,6 +70,14 @@ func runListFactTableFiltersCmd(cmd *cobra.Command, args []string) error {
 	if err := output.ValidateGlobalServerIndex(cmd, len(sdk.ServerList)); err != nil {
 		return err
 	}
+	if allPages, _ := flagutil.GetBoolFlag(cmd, "all"); allPages && !client.IsDryRun(cmd) {
+		maxPages, _ := flagutil.GetIntFlag(cmd, "max-pages")
+		res, err := s.FactTables.ListFactTableFilters(cmd.Context(), *req, sdkOpts...)
+		if err != nil {
+			return output.Error(cmd, err)
+		}
+		return output.PaginatedResult(cmd, res, "Object", "FactTableFilters", maxPages)
+	}
 	if output.WantsRawJSON(cmd) {
 		sdkOpts = append(sdkOpts, operations.WithSkipDeserialization())
 	}
@@ -78,6 +88,9 @@ func runListFactTableFiltersCmd(cmd *cobra.Command, args []string) error {
 
 	if err := output.Result(cmd, res); err != nil {
 		return err
+	}
+	if output.HasMorePages(res) {
+		fmt.Fprintln(cmd.ErrOrStderr(), "Hint: more pages available. Use --all to fetch all results, or use --offset/--limit for manual pagination.")
 	}
 	return nil
 }

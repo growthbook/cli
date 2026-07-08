@@ -27,9 +27,11 @@ growthbook experiments list-experiment-results [flags]
 ### Options
 
 ```
+  -a, --all                    Automatically paginate and fetch all results (streams NDJSON for JSON output)
       --datasource-id string   Filter by Data Source
   -h, --help                   help for list-experiment-results
   -l, --limit int              The number of items to return (default 10)
+      --max-pages int          Maximum number of pages to fetch when using --all (0 = no limit)
       --offset int             How many items to skip (use in conjunction with limit for pagination)
   -p, --project-id string      Filter by project id
   -s, --status string          options: draft, running, stopped

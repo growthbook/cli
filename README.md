@@ -53,6 +53,7 @@ Authenticate with a Secret Key or Personal Access Token via `--bearer-auth` (or 
   * [Request Body Input](#request-body-input)
   * [Server Selection](#server-selection)
   * [Output Formats](#output-formats)
+  * [Pagination](#pagination)
   * [Error Handling](#error-handling)
   * [Diagnostics](#diagnostics)
 * [Development](#development)
@@ -833,6 +834,59 @@ When using `--all` (pagination) or streaming operations, output is written incre
 | `toon` | One TOON-encoded object per block, separated by blank lines |
 | `pretty` (default) | Pretty-printed items separated by blank lines |
 <!-- End Output Formats [output-formats] -->
+
+<!-- Start Pagination [pagination] -->
+## Pagination
+
+Some operations in this CLI support automatic pagination. These operations accept `--all` to automatically fetch all pages and stream results incrementally.
+
+### Basic usage
+
+```bash
+# Fetch a single page (default behavior)
+growthbook <command> --page 1
+
+# Automatically fetch all pages
+growthbook <command> --all
+```
+
+### Limiting pages
+
+Use `--max-pages` to cap the number of pages fetched:
+
+```bash
+# Fetch at most 5 pages
+growthbook <command> --all --max-pages 5
+```
+
+### Output formats
+
+When using `--all`, results are streamed as each page is fetched:
+
+| Format | Behavior |
+|--------|----------|
+| `--output-format json` | One JSON object per line ([NDJSON](https://github.com/ndjson/ndjson-spec)) |
+| `--output-format yaml` | YAML documents separated by `---` |
+| `--output-format toon` | One TOON-encoded block per item, separated by blank lines |
+| Default (pretty) | Pretty-printed items separated by blank lines |
+
+```bash
+# Stream all results as NDJSON
+growthbook <command> --all --output-format json
+
+# Pipe to jq for further processing
+growthbook <command> --all --output-format json | jq '.fieldName'
+
+# Use the built-in --jq flag
+growthbook <command> --all --jq '.fieldName'
+```
+
+### How it works
+
+Under the hood, `--all` calls the operation once, then follows the underlying `Next()` pagination closure to fetch subsequent pages. Results are written to stdout as they arrive rather than buffered in memory, so this works well even with large result sets.
+
+Without `--all`, paginated operations behave like any other command — pass cursor, page, offset, or limit flags manually and get a single page of results.
+<!-- End Pagination [pagination] -->
 
 <!-- Start Error Handling [errors] -->
 ## Error Handling

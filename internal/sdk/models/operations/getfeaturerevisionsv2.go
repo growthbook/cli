@@ -154,6 +154,8 @@ type GetFeatureRevisionsV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Successful response
 	Object *GetFeatureRevisionsV2ResponseBody
+
+	Next func() (*GetFeatureRevisionsV2Response, error)
 }
 
 func (g GetFeatureRevisionsV2Response) MarshalJSON() ([]byte, error) {
