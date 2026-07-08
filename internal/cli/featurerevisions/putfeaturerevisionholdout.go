@@ -18,8 +18,8 @@ var putFeatureRevisionHoldoutCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "holdout", FieldPath: "Body.Holdout", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"holdout"`, Description: "[required]"},
-	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "Title for a newly created draft. Only used when version is \"new\"; ignored for existing revisions."},
+	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "Comment for a newly created draft. Only used when version is \"new\"; ignored for existing revisions."},
 }
 
 // initPutFeatureRevisionHoldoutCmd initializes the put-feature-revision-holdout command.
@@ -27,13 +27,13 @@ func initPutFeatureRevisionHoldoutCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "put-feature-revision-holdout",
 		Short:   "Set holdout in a draft revision",
-		Long:    "DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible\n\n**Deprecated.** Use [PUT /v2/features/:id/revisions/:version/holdout](#operation/putFeatureRevisionHoldoutV2) instead.\n\nSets (or clears, via `holdout: null`) the holdout experiment bound to the feature. Holdout linkage side-effects (updating the holdout's linked feature list) are applied on publish.",
-		Example: "  growthbook feature-revisions put-feature-revision-holdout --id <id> --version-param <value> --holdout '{\"id\":\"<id>\",\"value\":\"<value>\"}'",
+		Long:    "Set holdout in a draft revision",
+		Example: "  growthbook feature-revisions put-feature-revision-holdout --id <id> --version-param <value> --holdout <value>",
 		RunE:    runPutFeatureRevisionHoldoutCmd,
 		Aliases: []string{"pfrh"},
 	}
 	flagutil.RegisterFlags(cmd, putFeatureRevisionHoldoutCmdMeta)
-	if err := flagutil.ValidateMeta[operations.PutFeatureRevisionHoldoutRequest](putFeatureRevisionHoldoutCmdMeta); err != nil {
+	if err := flagutil.ValidateMeta[operations.PutFeatureRevisionHoldoutV2Request](putFeatureRevisionHoldoutCmdMeta); err != nil {
 		return fmt.Errorf("invalid metadata for put-feature-revision-holdout: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
@@ -51,7 +51,7 @@ func runPutFeatureRevisionHoldoutCmd(cmd *cobra.Command, args []string) error {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.PutFeatureRevisionHoldoutRequest](cmd, putFeatureRevisionHoldoutCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.PutFeatureRevisionHoldoutV2Request](cmd, putFeatureRevisionHoldoutCmdMeta, "Body", "body")
 	if err != nil {
 		return err
 	}

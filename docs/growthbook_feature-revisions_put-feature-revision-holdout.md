@@ -4,11 +4,7 @@ Set holdout in a draft revision
 
 ### Synopsis
 
-DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible
-
-**Deprecated.** Use [PUT /v2/features/:id/revisions/:version/holdout](#operation/putFeatureRevisionHoldoutV2) instead.
-
-Sets (or clears, via `holdout: null`) the holdout experiment bound to the feature. Holdout linkage side-effects (updating the holdout's linked feature list) are applied on publish.
+Set holdout in a draft revision
 
 ```
 growthbook feature-revisions put-feature-revision-holdout [flags]
@@ -17,7 +13,7 @@ growthbook feature-revisions put-feature-revision-holdout [flags]
 ### Examples
 
 ```
-  growthbook feature-revisions put-feature-revision-holdout --id <id> --version-param <value> --holdout '{"id":"<id>","value":"<value>"}'
+  growthbook feature-revisions put-feature-revision-holdout --id <id> --version-param <value> --holdout <value>
 ```
 
 ### Options
@@ -27,8 +23,8 @@ growthbook feature-revisions put-feature-revision-holdout [flags]
   -h, --help                      help for put-feature-revision-holdout
       --holdout string            [required]
   -i, --id string                 [required]
-      --revision-comment string   string value
-      --revision-title string     string value
+      --revision-comment string   Comment for a newly created draft. Only used when version is "new"; ignored for existing revisions.
+      --revision-title string     Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
   -v, --version-param string      [required]
 ```
 

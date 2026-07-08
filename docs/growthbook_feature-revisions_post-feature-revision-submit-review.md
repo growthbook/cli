@@ -4,13 +4,9 @@ Submit a review on a draft revision
 
 ### Synopsis
 
-DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible
+Submits an `approve`, `request-changes`, or `comment` review on the draft. Contributors cannot approve their own drafts when `blockSelfApproval` is enabled.
 
-**Deprecated.** Use [POST /v2/features/:id/revisions/:version/submit-review](#operation/postFeatureRevisionSubmitReviewV2) instead.
-
-Submits an `approve`, `request-changes`, or `comment` review on the draft. Contributors cannot approve their own drafts, but may submit comments or request changes.
-
-When `action` is `approve` and the revision has `autoPublishOnApproval` enabled, the revision is automatically published after approval. Pass `skipAutoPublish: true` to approve without triggering auto-publish.
+When `action` is `approve` and the revision has `autoPublishOnApproval` enabled, the revision is automatically published after approval. The response includes `autoPublished: true` when this happens. Pass `skipAutoPublish: true` to approve without triggering auto-publish.
 
 ```
 growthbook feature-revisions post-feature-revision-submit-review [flags]
@@ -19,7 +15,7 @@ growthbook feature-revisions post-feature-revision-submit-review [flags]
 ### Examples
 
 ```
-  growthbook feature-revisions post-feature-revision-submit-review --id <id> --version-param 173592
+  growthbook feature-revisions post-feature-revision-submit-review --id <id> --version-param 494187
 ```
 
 ### Options

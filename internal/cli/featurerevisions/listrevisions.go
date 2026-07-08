@@ -21,21 +21,22 @@ var listRevisionsCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "feature-id", Shorthand: "f", FieldPath: "FeatureID", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "status", FieldPath: "Status", Kind: flagutil.FlagKindUnion, Union: &flagutil.UnionMeta{Discriminated: false, Optional: true, TypeDescription: "JSON value (one of: string | array of string)"}},
 	{FlagName: "author", FieldPath: "Author", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "mine", Shorthand: "m", FieldPath: "Mine", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `queryParam:"style=form,explode=true,name=mine"`, Description: "If true, return only revisions authored by or contributed to by the calling user. Requires a user-scoped API key. Mutually exclusive with `author`."},
+	{FlagName: "mine", Shorthand: "m", FieldPath: "Mine", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `queryParam:"style=form,explode=true,name=mine"`, Description: "If true, return only revisions authored by or contributed to by the calling user."},
+	{FlagName: "archived", FieldPath: "Archived", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `queryParam:"style=form,explode=true,name=archived"`, Description: "Whether to include revisions for archived features. Defaults to `false` (non-archived features only). Pass `true` to include revisions for archived features alongside non-archived ones."},
 }
 
 // initListRevisionsCmd initializes the list-revisions command.
 func initListRevisionsCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "list-revisions",
-		Short:   "List feature revisions",
-		Long:    "DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible\n\n**Deprecated.** Use [GET /v2/feature-revisions](#operation/listRevisionsV2) instead.\n\nReturns a paginated list of feature revisions across all features in the organization. Optionally filtered by feature, status, author, and/or the calling user's involvement. Results are sorted newest-first.",
+		Short:   "List revisions across all features",
+		Long:    "Returns a paginated list of feature revisions across all features in the organization. Use the `featureId` query parameter to filter to a single feature. Revision `rules` is a flat array with per-rule scope.",
 		Example: "  growthbook feature-revisions list-revisions",
 		RunE:    runListRevisionsCmd,
 		Aliases: []string{"lr"},
 	}
 	flagutil.RegisterFlags(cmd, listRevisionsCmdMeta)
-	if err := flagutil.ValidateMeta[operations.ListRevisionsRequest](listRevisionsCmdMeta); err != nil {
+	if err := flagutil.ValidateMeta[operations.ListRevisionsV2Request](listRevisionsCmdMeta); err != nil {
 		return fmt.Errorf("invalid metadata for list-revisions: %w", err)
 	}
 	cmd.Flags().BoolP("all", "a", false, "Automatically paginate and fetch all results (streams NDJSON for JSON output)")
@@ -54,7 +55,7 @@ func runListRevisionsCmd(cmd *cobra.Command, args []string) error {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.ListRevisionsRequest](cmd, listRevisionsCmdMeta, "", "")
+	req, err := flagutil.BuildRequest[operations.ListRevisionsV2Request](cmd, listRevisionsCmdMeta, "", "")
 	if err != nil {
 		return err
 	}

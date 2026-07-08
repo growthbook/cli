@@ -4,13 +4,7 @@ Rebase a draft revision onto the current live version
 
 ### Synopsis
 
-DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible
-
-**Deprecated.** Use [POST /v2/features/:id/revisions/:version/rebase](#operation/postFeatureRevisionRebaseV2) instead.
-
-Updates the draft's base revision to match the currently-live revision, applying the draft's changes on top. Supply `conflictResolutions` to resolve any conflicting fields.
-
-**Conflict key format changed for v1 clients.** The per-rule `envName.ruleId` keys used by older clients are no longer recognized. Valid keys: `defaultValue`, `prerequisites`, `archived`, `holdout`, `environmentsEnabled.<env>`, `metadata.<field>`, `rules.<ruleId>`, `rules.order`, and the blanket `rules` (applies one strategy to all rule-level conflicts). Unrecognized keys are ignored; unresolved conflicts respond with `409`.
+Updates the draft's base revision to match the currently-live revision, applying the draft's changes on top. Supply `conflictResolutions` to resolve conflicting items individually — including per-rule (`rules.<ruleId>`) and rule-order (`rules.order`) conflicts. Supply `expectedLiveVersion` and/or `expectedDraftDateUpdated` (both returned by merge-status and rebase preview) to fail fast with `409` if either side changes between conflict review and submission. Unresolved conflicts also respond with `409`.
 
 ```
 growthbook feature-revisions post-feature-revision-rebase [flags]
@@ -19,17 +13,19 @@ growthbook feature-revisions post-feature-revision-rebase [flags]
 ### Examples
 
 ```
-  growthbook feature-revisions post-feature-revision-rebase --id <id> --version-param 287768
+  growthbook feature-revisions post-feature-revision-rebase --id <id> --version-param 985805
 ```
 
 ### Options
 
 ```
-      --body string                   Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -c, --conflict-resolutions string   value
-  -h, --help                          help for post-feature-revision-rebase
-  -i, --id string                     [required]
-  -v, --version-param string          [required]
+      --body string                                    Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -c, --conflict-resolutions defaultValue              Map of conflict key → resolution. Keys come from the returned conflicts: defaultValue, `prerequisites`, `archived`, `holdout`, `environmentsEnabled.<env>`, `metadata.<field>`, `rules.<ruleId>`, and `rules.order`. `overwrite` keeps the draft's version of that item; `discard` keeps live's. The blanket `rules` key applies one strategy to all rule-level conflicts.
+      --expected-draft-date-updated draftDateUpdated   Optimistic-concurrency guard for the draft side: the draft's draftDateUpdated timestamp as returned by merge-status or rebase preview. If the draft has been modified since (e.g. by a co-author), the request fails with `409` instead of applying resolutions against changed draft content.
+      --expected-live-version 409                      Optimistic-concurrency guard: the live version the resolutions were authored against (as returned by merge-status or rebase preview). If live has since moved, the request fails with 409 instead of applying resolutions to different conflicts.
+  -h, --help                                           help for post-feature-revision-rebase
+  -i, --id string                                      [required]
+  -v, --version-param string                           [required]
 ```
 
 ### Options inherited from parent commands

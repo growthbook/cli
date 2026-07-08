@@ -1,0 +1,19 @@
+diff --git a/internal/cli/whoami.go b/internal/cli/whoami.go
+--- a/internal/cli/whoami.go
++++ b/internal/cli/whoami.go
+@@ -5,6 +5,7 @@ package cli
+ import (
+ 	"fmt"
+ 	"github.com/growthbook/cli/internal/config"
++	"github.com/growthbook/cli/internal/customcfg"
+ 	"github.com/growthbook/cli/internal/usage"
+ 	"github.com/spf13/cobra"
+ )
+@@ -40,6 +41,7 @@ func runWhoamiCmd(cmd *cobra.Command, args []string) error {
+ 	fmt.Fprintln(out, "=============")
+ 	fmt.Fprintln(out)
+ 	fmt.Fprintf(out, "Config file: %s\n", config.GetConfigPath())
++	fmt.Fprintf(out, "Profiles file: %s\n", customcfg.Path())
+ 	fmt.Fprintf(out, "Environment prefix: GBCLI_\n")
+ 	fmt.Fprintln(out)
+ 	fmt.Fprintln(out, "Credentials:")

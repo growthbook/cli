@@ -225,8 +225,8 @@ func (s *Reports) ListReports(ctx context.Context, request *operations.ListRepor
 
 }
 
-// PostReport - Create a new report
-func (s *Reports) PostReport(ctx context.Context, request operations.PostReportRequest, opts ...operations.Option) (*operations.PostReportResponse, error) {
+// Create a new report
+func (s *Reports) Create(ctx context.Context, request operations.PostReportRequest, opts ...operations.Option) (*operations.PostReportResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

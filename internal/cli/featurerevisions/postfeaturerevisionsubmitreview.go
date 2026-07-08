@@ -27,13 +27,13 @@ func initPostFeatureRevisionSubmitReviewCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "post-feature-revision-submit-review",
 		Short:   "Submit a review on a draft revision",
-		Long:    "DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible\n\n**Deprecated.** Use [POST /v2/features/:id/revisions/:version/submit-review](#operation/postFeatureRevisionSubmitReviewV2) instead.\n\nSubmits an `approve`, `request-changes`, or `comment` review on the draft. Contributors cannot approve their own drafts, but may submit comments or request changes.\n\nWhen `action` is `approve` and the revision has `autoPublishOnApproval` enabled, the revision is automatically published after approval. Pass `skipAutoPublish: true` to approve without triggering auto-publish.",
-		Example: "  growthbook feature-revisions post-feature-revision-submit-review --id <id> --version-param 173592",
+		Long:    "Submits an `approve`, `request-changes`, or `comment` review on the draft. Contributors cannot approve their own drafts when `blockSelfApproval` is enabled.\n\nWhen `action` is `approve` and the revision has `autoPublishOnApproval` enabled, the revision is automatically published after approval. The response includes `autoPublished: true` when this happens. Pass `skipAutoPublish: true` to approve without triggering auto-publish.",
+		Example: "  growthbook feature-revisions post-feature-revision-submit-review --id <id> --version-param 494187",
 		RunE:    runPostFeatureRevisionSubmitReviewCmd,
 		Aliases: []string{"pfrsr"},
 	}
 	flagutil.RegisterFlags(cmd, postFeatureRevisionSubmitReviewCmdMeta)
-	if err := flagutil.ValidateMeta[operations.PostFeatureRevisionSubmitReviewRequest](postFeatureRevisionSubmitReviewCmdMeta); err != nil {
+	if err := flagutil.ValidateMeta[operations.PostFeatureRevisionSubmitReviewV2Request](postFeatureRevisionSubmitReviewCmdMeta); err != nil {
 		return fmt.Errorf("invalid metadata for post-feature-revision-submit-review: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
@@ -51,7 +51,7 @@ func runPostFeatureRevisionSubmitReviewCmd(cmd *cobra.Command, args []string) er
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.PostFeatureRevisionSubmitReviewRequest](cmd, postFeatureRevisionSubmitReviewCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.PostFeatureRevisionSubmitReviewV2Request](cmd, postFeatureRevisionSubmitReviewCmdMeta, "Body", "body")
 	if err != nil {
 		return err
 	}

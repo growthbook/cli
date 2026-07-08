@@ -1,14 +1,10 @@
 ## growthbook feature-revisions list-revisions
 
-List feature revisions
+List revisions across all features
 
 ### Synopsis
 
-DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible
-
-**Deprecated.** Use [GET /v2/feature-revisions](#operation/listRevisionsV2) instead.
-
-Returns a paginated list of feature revisions across all features in the organization. Optionally filtered by feature, status, author, and/or the calling user's involvement. Results are sorted newest-first.
+Returns a paginated list of feature revisions across all features in the organization. Use the `featureId` query parameter to filter to a single feature. Revision `rules` is a flat array with per-rule scope.
 
 ```
 growthbook feature-revisions list-revisions [flags]
@@ -24,12 +20,13 @@ growthbook feature-revisions list-revisions [flags]
 
 ```
   -a, --all                      Automatically paginate and fetch all results (streams NDJSON for JSON output)
+      --archived false           Whether to include revisions for archived features. Defaults to false (non-archived features only). Pass `true` to include revisions for archived features alongside non-archived ones.
       --author string            string value
   -f, --feature-id string        string value
   -h, --help                     help for list-revisions
   -l, --limit int                The number of items to return (default 10)
       --max-pages int            Maximum number of pages to fetch when using --all (0 = no limit)
-  -m, --mine author              If true, return only revisions authored by or contributed to by the calling user. Requires a user-scoped API key. Mutually exclusive with author.
+  -m, --mine string              If true, return only revisions authored by or contributed to by the calling user.
       --offset int               How many items to skip (use in conjunction with limit for pagination)
       --skip-pagination string   If true, return all matching items and ignore limit/offset.
                                  Self-hosted only. Has no effect unless API_ALLOW_SKIP_PAGINATION is set to true or 1.

@@ -4,11 +4,7 @@ Revert the feature to a prior revision
 
 ### Synopsis
 
-DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible
-
-**Deprecated.** Use [POST /v2/features/:id/revisions/:version/revert](#operation/postFeatureRevisionRevertV2) instead.
-
-Creates a new draft (or immediately publishes) whose content matches the specified historical revision.
+Revert the feature to a prior revision
 
 ```
 growthbook feature-revisions post-feature-revision-revert [flags]
@@ -17,7 +13,7 @@ growthbook feature-revisions post-feature-revision-revert [flags]
 ### Examples
 
 ```
-  growthbook feature-revisions post-feature-revision-revert --id <id> --version-param 589550
+  growthbook feature-revisions post-feature-revision-revert --id <id> --version-param 675232
 ```
 
 ### Options

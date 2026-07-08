@@ -43,8 +43,8 @@ growthbook dimensions [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
+* [growthbook dimensions create](growthbook_dimensions_create.md)	 - Create a single dimension
 * [growthbook dimensions delete](growthbook_dimensions_delete.md)	 - Deletes a single dimension
 * [growthbook dimensions get](growthbook_dimensions_get.md)	 - Get a single dimension
 * [growthbook dimensions list](growthbook_dimensions_list.md)	 - Get all dimensions
-* [growthbook dimensions post](growthbook_dimensions_post.md)	 - Create a single dimension
 * [growthbook dimensions update](growthbook_dimensions_update.md)	 - Update a single dimension

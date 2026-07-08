@@ -225,8 +225,8 @@ func (s *Projects) ListProjects(ctx context.Context, request *operations.ListPro
 
 }
 
-// PostProject - Create a single project
-func (s *Projects) PostProject(ctx context.Context, request operations.PostProjectRequest, opts ...operations.Option) (*operations.PostProjectResponse, error) {
+// Create a single project
+func (s *Projects) Create(ctx context.Context, request operations.PostProjectRequest, opts ...operations.Option) (*operations.PostProjectResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -520,8 +520,8 @@ func (s *Projects) GetProject(ctx context.Context, request operations.GetProject
 
 }
 
-// PutProject - Edit a single project
-func (s *Projects) PutProject(ctx context.Context, request operations.PutProjectRequest, opts ...operations.Option) (*operations.PutProjectResponse, error) {
+// Update - Edit a single project
+func (s *Projects) Update(ctx context.Context, request operations.PutProjectRequest, opts ...operations.Option) (*operations.PutProjectResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

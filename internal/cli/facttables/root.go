@@ -25,7 +25,7 @@ func InitFactTablesRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPostFactTableCmd(FactTablesCmd); err != nil {
+	if err := initCreateCmd(FactTablesCmd); err != nil {
 		return err
 	}
 

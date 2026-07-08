@@ -1,14 +1,10 @@
 ## growthbook feature-revisions put-feature-revision-metadata
 
-Update revision metadata (comment, title, feature metadata)
+Update revision metadata
 
 ### Synopsis
 
-DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible
-
-**Deprecated.** Use [PUT /v2/features/:id/revisions/:version/metadata](#operation/putFeatureRevisionMetadataV2) instead.
-
-Updates draft-level metadata (`comment`, `title`) and/or feature-level metadata (owner, project, tags, customFields, jsonSchema, etc.). Merge semantics: omitted fields are left unchanged; any provided field replaces the current value (pass an empty string/array/object to clear). Feature metadata changes are staged on the revision and applied to the feature on publish. Changing `project` requires publish permission on both the old and new project.
+Update revision metadata
 
 ```
 growthbook feature-revisions put-feature-revision-metadata [flags]

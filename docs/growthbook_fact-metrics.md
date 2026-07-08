@@ -43,9 +43,9 @@ growthbook fact-metrics [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
+* [growthbook fact-metrics create](growthbook_fact-metrics_create.md)	 - Create a single fact metric
 * [growthbook fact-metrics delete](growthbook_fact-metrics_delete.md)	 - Deletes a single fact metric
 * [growthbook fact-metrics get](growthbook_fact-metrics_get.md)	 - Get a single fact metric
 * [growthbook fact-metrics list](growthbook_fact-metrics_list.md)	 - Get all fact metrics
-* [growthbook fact-metrics post](growthbook_fact-metrics_post.md)	 - Create a single fact metric
 * [growthbook fact-metrics post-fact-metric-analysis](growthbook_fact-metrics_post-fact-metric-analysis.md)	 - Create a fact metric analysis
 * [growthbook fact-metrics update](growthbook_fact-metrics_update.md)	 - Update a single fact metric

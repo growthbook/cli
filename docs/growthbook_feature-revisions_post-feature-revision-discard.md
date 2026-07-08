@@ -4,11 +4,7 @@ Discard a draft revision
 
 ### Synopsis
 
-DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible
-
-**Deprecated.** Use [POST /v2/features/:id/revisions/:version/discard](#operation/postFeatureRevisionDiscardV2) instead.
-
-Permanently discards a draft revision. Only drafts (never published revisions) can be discarded. Any pending ramp actions staged on the draft are dropped.
+Discard a draft revision
 
 ```
 growthbook feature-revisions post-feature-revision-discard [flags]
@@ -17,7 +13,7 @@ growthbook feature-revisions post-feature-revision-discard [flags]
 ### Examples
 
 ```
-  growthbook feature-revisions post-feature-revision-discard --id <id> --version-param 307081
+  growthbook feature-revisions post-feature-revision-discard --id <id> --version-param 299844
 ```
 
 ### Options

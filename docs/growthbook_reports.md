@@ -43,9 +43,9 @@ growthbook reports [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
+* [growthbook reports create](growthbook_reports_create.md)	 - Create a new report
 * [growthbook reports get](growthbook_reports_get.md)	 - Get a single report
 * [growthbook reports list](growthbook_reports_list.md)	 - Get all reports
-* [growthbook reports post](growthbook_reports_post.md)	 - Create a new report
 * [growthbook reports post-report-refresh](growthbook_reports_post-report-refresh.md)	 - Refresh a report by re-running its analysis
 * [growthbook reports put-report-metadata](growthbook_reports_put-report-metadata.md)	 - Update report metadata (title, description, visibility)
 * [growthbook reports put-report-settings](growthbook_reports_put-report-settings.md)	 - Update report analysis settings

@@ -25,7 +25,7 @@ func InitVisualChangesetsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPostVisualChangesetsCmd(VisualChangesetsCmd); err != nil {
+	if err := initCreateCmd(VisualChangesetsCmd); err != nil {
 		return err
 	}
 
@@ -33,7 +33,7 @@ func InitVisualChangesetsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPutVisualChangesetCmd(VisualChangesetsCmd); err != nil {
+	if err := initUpdateCmd(VisualChangesetsCmd); err != nil {
 		return err
 	}
 

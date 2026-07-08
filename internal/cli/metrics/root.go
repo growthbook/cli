@@ -24,7 +24,7 @@ func InitMetricsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPostMetricCmd(MetricsCmd); err != nil {
+	if err := initCreateCmd(MetricsCmd); err != nil {
 		return err
 	}
 
@@ -32,7 +32,7 @@ func InitMetricsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPutMetricCmd(MetricsCmd); err != nil {
+	if err := initUpdateCmd(MetricsCmd); err != nil {
 		return err
 	}
 

@@ -43,12 +43,12 @@ growthbook constant-revisions [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
+* [growthbook constant-revisions create](growthbook_constant-revisions_create.md)	 - Create a draft revision
 * [growthbook constant-revisions get](growthbook_constant-revisions_get.md)	 - Get a single constant revision
-* [growthbook constant-revisions get](growthbook_constant-revisions_get.md)	 - List revisions for a constant
 * [growthbook constant-revisions get-constant-revision-latest](growthbook_constant-revisions_get-constant-revision-latest.md)	 - Get the most recent active draft revision
 * [growthbook constant-revisions get-constant-revision-merge-status](growthbook_constant-revisions_get-constant-revision-merge-status.md)	 - Get merge status for a draft revision
 * [growthbook constant-revisions list](growthbook_constant-revisions_list.md)	 - List constant revisions across the organization
-* [growthbook constant-revisions post](growthbook_constant-revisions_post.md)	 - Create a draft revision
+* [growthbook constant-revisions list-for-constant](growthbook_constant-revisions_list-for-constant.md)	 - List revisions for a constant
 * [growthbook constant-revisions post-constant-revision-discard](growthbook_constant-revisions_post-constant-revision-discard.md)	 - Discard a draft revision
 * [growthbook constant-revisions post-constant-revision-publish](growthbook_constant-revisions_post-constant-revision-publish.md)	 - Publish a draft revision
 * [growthbook constant-revisions post-constant-revision-rebase](growthbook_constant-revisions_post-constant-revision-rebase.md)	 - Rebase a draft revision onto the current live constant

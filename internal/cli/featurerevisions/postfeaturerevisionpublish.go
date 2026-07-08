@@ -26,13 +26,13 @@ func initPostFeatureRevisionPublishCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "post-feature-revision-publish",
 		Short:   "Publish a draft revision",
-		Long:    "DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible\n\n**Deprecated.** Use [POST /v2/features/:id/revisions/:version/publish](#operation/postFeatureRevisionPublishV2) instead.\n\nImmediately publishes a draft revision, making it the live version of the feature. Blocked if the org requires approvals and `bypassApprovalChecks` is off.",
-		Example: "  growthbook feature-revisions post-feature-revision-publish --id <id> --version-param 886000",
+		Long:    "Immediately publishes a draft revision, making it the live version of the feature. Any pending ramp actions (`pendingRamp` on rules) are executed atomically — ramp schedules are created or detached as queued.",
+		Example: "  growthbook feature-revisions post-feature-revision-publish --id <id> --version-param 717368",
 		RunE:    runPostFeatureRevisionPublishCmd,
 		Aliases: []string{"pfrp"},
 	}
 	flagutil.RegisterFlags(cmd, postFeatureRevisionPublishCmdMeta)
-	if err := flagutil.ValidateMeta[operations.PostFeatureRevisionPublishRequest](postFeatureRevisionPublishCmdMeta); err != nil {
+	if err := flagutil.ValidateMeta[operations.PostFeatureRevisionPublishV2Request](postFeatureRevisionPublishCmdMeta); err != nil {
 		return fmt.Errorf("invalid metadata for post-feature-revision-publish: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
@@ -50,7 +50,7 @@ func runPostFeatureRevisionPublishCmd(cmd *cobra.Command, args []string) error {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.PostFeatureRevisionPublishRequest](cmd, postFeatureRevisionPublishCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.PostFeatureRevisionPublishV2Request](cmd, postFeatureRevisionPublishCmdMeta, "Body", "body")
 	if err != nil {
 		return err
 	}

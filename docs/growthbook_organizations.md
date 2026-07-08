@@ -43,6 +43,6 @@ growthbook organizations [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
+* [growthbook organizations create](growthbook_organizations_create.md)	 - Create a single organization (only for super admins on multi-org Enterprise Plan only)
 * [growthbook organizations list](growthbook_organizations_list.md)	 - Get all organizations (only for super admins on multi-org Enterprise Plan only)
-* [growthbook organizations post](growthbook_organizations_post.md)	 - Create a single organization (only for super admins on multi-org Enterprise Plan only)
-* [growthbook organizations put](growthbook_organizations_put.md)	 - Edit a single organization (only for super admins on multi-org Enterprise Plan only)
+* [growthbook organizations update](growthbook_organizations_update.md)	 - Edit a single organization (only for super admins on multi-org Enterprise Plan only)

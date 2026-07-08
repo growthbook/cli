@@ -43,10 +43,10 @@ growthbook namespaces [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
+* [growthbook namespaces create](growthbook_namespaces_create.md)	 - Create a namespace
 * [growthbook namespaces delete](growthbook_namespaces_delete.md)	 - Delete a namespace
 * [growthbook namespaces get](growthbook_namespaces_get.md)	 - Get a single namespace
 * [growthbook namespaces get-namespace-memberships](growthbook_namespaces_get-namespace-memberships.md)	 - Get namespace membership
 * [growthbook namespaces list](growthbook_namespaces_list.md)	 - Get all namespaces
-* [growthbook namespaces post](growthbook_namespaces_post.md)	 - Create a namespace
 * [growthbook namespaces post-namespace-rotate-seed](growthbook_namespaces_post-namespace-rotate-seed.md)	 - Rotate namespace seed
-* [growthbook namespaces put](growthbook_namespaces_put.md)	 - Update a namespace
+* [growthbook namespaces update](growthbook_namespaces_update.md)	 - Update a namespace

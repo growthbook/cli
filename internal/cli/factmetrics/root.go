@@ -25,7 +25,7 @@ func InitFactMetricsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPostFactMetricCmd(FactMetricsCmd); err != nil {
+	if err := initCreateCmd(FactMetricsCmd); err != nil {
 		return err
 	}
 

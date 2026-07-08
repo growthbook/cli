@@ -47,6 +47,7 @@ growthbook ramp-schedules [flags]
 * [growthbook ramp-schedules api-advance](growthbook_ramp-schedules_api-advance.md)	 - Advance to the next step, overriding any holds
 * [growthbook ramp-schedules approve-step](growthbook_ramp-schedules_approve-step.md)	 - Approve the current step
 * [growthbook ramp-schedules complete](growthbook_ramp-schedules_complete.md)	 - Complete a ramp schedule immediately
+* [growthbook ramp-schedules create](growthbook_ramp-schedules_create.md)	 - Create a ramp schedule
 * [growthbook ramp-schedules delete](growthbook_ramp-schedules_delete.md)	 - Delete a single rampSchedule
 * [growthbook ramp-schedules eject-target](growthbook_ramp-schedules_eject-target.md)	 - Remove a target rule from a ramp schedule
 * [growthbook ramp-schedules get](growthbook_ramp-schedules_get.md)	 - Get a single rampSchedule
@@ -54,7 +55,6 @@ growthbook ramp-schedules [flags]
 * [growthbook ramp-schedules jump](growthbook_ramp-schedules_jump.md)	 - Jump to a specific step
 * [growthbook ramp-schedules list](growthbook_ramp-schedules_list.md)	 - Get all rampSchedules
 * [growthbook ramp-schedules pause](growthbook_ramp-schedules_pause.md)	 - Pause a ramp schedule
-* [growthbook ramp-schedules post](growthbook_ramp-schedules_post.md)	 - Create a ramp schedule
 * [growthbook ramp-schedules refresh-monitoring](growthbook_ramp-schedules_refresh-monitoring.md)	 - Trigger a manual monitoring update
 * [growthbook ramp-schedules restart](growthbook_ramp-schedules_restart.md)	 - Restart a terminal ramp schedule
 * [growthbook ramp-schedules resume](growthbook_ramp-schedules_resume.md)	 - Resume a paused ramp schedule

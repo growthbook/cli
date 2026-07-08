@@ -225,8 +225,8 @@ func (s *Namespaces) ListNamespaces(ctx context.Context, request *operations.Lis
 
 }
 
-// PostNamespace - Create a namespace
-func (s *Namespaces) PostNamespace(ctx context.Context, request operations.PostNamespaceRequest, opts ...operations.Option) (*operations.PostNamespaceResponse, error) {
+// Create a namespace
+func (s *Namespaces) Create(ctx context.Context, request operations.PostNamespaceRequest, opts ...operations.Option) (*operations.PostNamespaceResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -520,8 +520,8 @@ func (s *Namespaces) GetNamespace(ctx context.Context, request operations.GetNam
 
 }
 
-// PutNamespace - Update a namespace
-func (s *Namespaces) PutNamespace(ctx context.Context, request operations.PutNamespaceRequest, opts ...operations.Option) (*operations.PutNamespaceResponse, error) {
+// Update a namespace
+func (s *Namespaces) Update(ctx context.Context, request operations.PutNamespaceRequest, opts ...operations.Option) (*operations.PutNamespaceResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

@@ -43,9 +43,9 @@ growthbook SDK-connections [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
+* [growthbook SDK-connections create](growthbook_SDK-connections_create.md)	 - Create a single sdk connection
 * [growthbook SDK-connections delete](growthbook_SDK-connections_delete.md)	 - Deletes a single SDK connection
 * [growthbook SDK-connections get](growthbook_SDK-connections_get.md)	 - Get a single sdk connection
 * [growthbook SDK-connections list](growthbook_SDK-connections_list.md)	 - Get all sdk connections
 * [growthbook SDK-connections lookup-SDK-connection-by-key](growthbook_SDK-connections_lookup-SDK-connection-by-key.md)	 - Find a single sdk connection by its key
-* [growthbook SDK-connections post](growthbook_SDK-connections_post.md)	 - Create a single sdk connection
-* [growthbook SDK-connections put](growthbook_SDK-connections_put.md)	 - Update a single sdk connection
+* [growthbook SDK-connections update](growthbook_SDK-connections_update.md)	 - Update a single sdk connection

@@ -11,7 +11,7 @@ func InitFeatureRevisionsRoot(parent *cobra.Command) error {
 	var FeatureRevisionsCmd = &cobra.Command{
 		Use:   "feature-revisions",
 		Short: "Draft revisions for feature flags, including rules, scheduling, and approval workflows",
-		Long:  "Draft revisions for feature flags, including rules, scheduling, and approval workflows.\n\n**These are v1 endpoints.** New integrations should use the v2 Feature Revisions endpoints.",
+		Long:  "Draft revisions for feature flags, including rules, scheduling, and approval workflows.\n\nRevision `rules` is a flat array with per-rule scope fields.",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if usage.UsageRequested(cmd) {
 				return usage.EmitSchema(cmd, cmd.OutOrStdout())
@@ -25,11 +25,11 @@ func InitFeatureRevisionsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initGetFeatureRevisionsCmd(FeatureRevisionsCmd); err != nil {
+	if err := initListForFeatureCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostFeatureRevisionCmd(FeatureRevisionsCmd); err != nil {
+	if err := initCreateCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
@@ -37,7 +37,11 @@ func InitFeatureRevisionsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initGetFeatureRevisionCmd(FeatureRevisionsCmd); err != nil {
+	if err := initGetCmd(FeatureRevisionsCmd); err != nil {
+		return err
+	}
+
+	if err := initGetFeatureRevisionDiffCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
@@ -93,11 +97,39 @@ func InitFeatureRevisionsRoot(parent *cobra.Command) error {
 		return err
 	}
 
+	if err := initPostFeatureRevisionSchedulePublishCmd(FeatureRevisionsCmd); err != nil {
+		return err
+	}
+
 	if err := initPostFeatureRevisionSubmitReviewCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
+	if err := initPostFeatureRevisionRecallReviewCmd(FeatureRevisionsCmd); err != nil {
+		return err
+	}
+
+	if err := initPostFeatureRevisionUndoReviewCmd(FeatureRevisionsCmd); err != nil {
+		return err
+	}
+
+	if err := initGetFeatureRevisionLogCmd(FeatureRevisionsCmd); err != nil {
+		return err
+	}
+
+	if err := initPutFeatureRevisionLogCommentCmd(FeatureRevisionsCmd); err != nil {
+		return err
+	}
+
+	if err := initDeleteFeatureRevisionLogEntryCmd(FeatureRevisionsCmd); err != nil {
+		return err
+	}
+
 	if err := initGetFeatureRevisionMergeStatusCmd(FeatureRevisionsCmd); err != nil {
+		return err
+	}
+
+	if err := initPostFeatureRevisionRebasePreviewCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
@@ -110,6 +142,10 @@ func InitFeatureRevisionsRoot(parent *cobra.Command) error {
 	}
 
 	if err := initPostFeatureRevisionDiscardCmd(FeatureRevisionsCmd); err != nil {
+		return err
+	}
+
+	if err := initPostFeatureRevisionReopenCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 

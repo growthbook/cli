@@ -237,32 +237,32 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`~~get-feature-keys~~`](docs/growthbook_features-v1_get-feature-keys.md) - Get list of feature keys :warning: **Deprecated**
 * [`~~get-feature-stale~~`](docs/growthbook_features-v1_get-feature-stale.md) - Get stale status for one or more features :warning: **Deprecated**
 
-### [feature-revisions](docs/growthbook_feature-revisions.md)
+### [feature-revisions-v1](docs/growthbook_feature-revisions-v1.md)
 
-* [`~~list-revisions~~`](docs/growthbook_feature-revisions_list-revisions.md) - List feature revisions :warning: **Deprecated**
-* [`~~get~~`](docs/growthbook_feature-revisions_get.md) - List revisions for a feature :warning: **Deprecated**
-* [`~~post~~`](docs/growthbook_feature-revisions_post.md) - Create a draft revision :warning: **Deprecated**
-* [`~~get-feature-revision-latest~~`](docs/growthbook_feature-revisions_get-feature-revision-latest.md) - Get the most recent active draft revision :warning: **Deprecated**
-* [`~~get~~`](docs/growthbook_feature-revisions_get.md) - Get a single feature revision :warning: **Deprecated**
-* [`~~put-feature-revision-metadata~~`](docs/growthbook_feature-revisions_put-feature-revision-metadata.md) - Update revision metadata (comment, title, feature metadata) :warning: **Deprecated**
-* [`~~put-feature-revision-default-value~~`](docs/growthbook_feature-revisions_put-feature-revision-default-value.md) - Set the default value in a draft revision :warning: **Deprecated**
-* [`~~put-feature-revision-prerequisites~~`](docs/growthbook_feature-revisions_put-feature-revision-prerequisites.md) - Set feature-level prerequisites in a draft revision :warning: **Deprecated**
-* [`~~put-feature-revision-holdout~~`](docs/growthbook_feature-revisions_put-feature-revision-holdout.md) - Set holdout in a draft revision :warning: **Deprecated**
-* [`~~put-feature-revision-archive~~`](docs/growthbook_feature-revisions_put-feature-revision-archive.md) - Set archived state in a draft revision :warning: **Deprecated**
-* [`~~post-feature-revision-toggle~~`](docs/growthbook_feature-revisions_post-feature-revision-toggle.md) - Toggle an environment on/off in a draft revision :warning: **Deprecated**
-* [`~~post-feature-revision-rule-add~~`](docs/growthbook_feature-revisions_post-feature-revision-rule-add.md) - Add a rule to a draft revision :warning: **Deprecated**
-* [`~~put-feature-revision-rule~~`](docs/growthbook_feature-revisions_put-feature-revision-rule.md) - Update a rule in a draft revision :warning: **Deprecated**
-* [`~~delete-feature-revision-rule~~`](docs/growthbook_feature-revisions_delete-feature-revision-rule.md) - Delete a rule from a draft revision :warning: **Deprecated**
-* [`~~post-feature-revision-rules-reorder~~`](docs/growthbook_feature-revisions_post-feature-revision-rules-reorder.md) - Reorder rules in an environment :warning: **Deprecated**
-* [`~~put-feature-revision-rule-ramp-schedule~~`](docs/growthbook_feature-revisions_put-feature-revision-rule-ramp-schedule.md) - Set ramp schedule for a rule :warning: **Deprecated**
-* [`~~delete-feature-revision-rule-ramp-schedule~~`](docs/growthbook_feature-revisions_delete-feature-revision-rule-ramp-schedule.md) - Remove ramp schedule from a rule :warning: **Deprecated**
-* [`~~post-feature-revision-request-review~~`](docs/growthbook_feature-revisions_post-feature-revision-request-review.md) - Request review for a draft revision :warning: **Deprecated**
-* [`~~post-feature-revision-submit-review~~`](docs/growthbook_feature-revisions_post-feature-revision-submit-review.md) - Submit a review on a draft revision :warning: **Deprecated**
-* [`~~get-feature-revision-merge-status~~`](docs/growthbook_feature-revisions_get-feature-revision-merge-status.md) - Get merge status for a draft revision :warning: **Deprecated**
-* [`~~post-feature-revision-rebase~~`](docs/growthbook_feature-revisions_post-feature-revision-rebase.md) - Rebase a draft revision onto the current live version :warning: **Deprecated**
-* [`~~post-feature-revision-publish~~`](docs/growthbook_feature-revisions_post-feature-revision-publish.md) - Publish a draft revision :warning: **Deprecated**
-* [`~~post-feature-revision-discard~~`](docs/growthbook_feature-revisions_post-feature-revision-discard.md) - Discard a draft revision :warning: **Deprecated**
-* [`~~post-feature-revision-revert~~`](docs/growthbook_feature-revisions_post-feature-revision-revert.md) - Revert the feature to a prior revision :warning: **Deprecated**
+* [`~~list-revisions~~`](docs/growthbook_feature-revisions-v1_list-revisions.md) - List feature revisions :warning: **Deprecated**
+* [`~~list-for-feature~~`](docs/growthbook_feature-revisions-v1_list-for-feature.md) - List revisions for a feature :warning: **Deprecated**
+* [`~~create~~`](docs/growthbook_feature-revisions-v1_create.md) - Create a draft revision :warning: **Deprecated**
+* [`~~get-feature-revision-latest~~`](docs/growthbook_feature-revisions-v1_get-feature-revision-latest.md) - Get the most recent active draft revision :warning: **Deprecated**
+* [`~~get-feature-revision~~`](docs/growthbook_feature-revisions-v1_get-feature-revision.md) - Get a single feature revision :warning: **Deprecated**
+* [`~~put-feature-revision-metadata~~`](docs/growthbook_feature-revisions-v1_put-feature-revision-metadata.md) - Update revision metadata (comment, title, feature metadata) :warning: **Deprecated**
+* [`~~put-feature-revision-default-value~~`](docs/growthbook_feature-revisions-v1_put-feature-revision-default-value.md) - Set the default value in a draft revision :warning: **Deprecated**
+* [`~~put-feature-revision-prerequisites~~`](docs/growthbook_feature-revisions-v1_put-feature-revision-prerequisites.md) - Set feature-level prerequisites in a draft revision :warning: **Deprecated**
+* [`~~put-feature-revision-holdout~~`](docs/growthbook_feature-revisions-v1_put-feature-revision-holdout.md) - Set holdout in a draft revision :warning: **Deprecated**
+* [`~~put-feature-revision-archive~~`](docs/growthbook_feature-revisions-v1_put-feature-revision-archive.md) - Set archived state in a draft revision :warning: **Deprecated**
+* [`~~post-feature-revision-toggle~~`](docs/growthbook_feature-revisions-v1_post-feature-revision-toggle.md) - Toggle an environment on/off in a draft revision :warning: **Deprecated**
+* [`~~post-feature-revision-rule-add~~`](docs/growthbook_feature-revisions-v1_post-feature-revision-rule-add.md) - Add a rule to a draft revision :warning: **Deprecated**
+* [`~~put-feature-revision-rule~~`](docs/growthbook_feature-revisions-v1_put-feature-revision-rule.md) - Update a rule in a draft revision :warning: **Deprecated**
+* [`~~delete-feature-revision-rule~~`](docs/growthbook_feature-revisions-v1_delete-feature-revision-rule.md) - Delete a rule from a draft revision :warning: **Deprecated**
+* [`~~post-feature-revision-rules-reorder~~`](docs/growthbook_feature-revisions-v1_post-feature-revision-rules-reorder.md) - Reorder rules in an environment :warning: **Deprecated**
+* [`~~put-feature-revision-rule-ramp-schedule~~`](docs/growthbook_feature-revisions-v1_put-feature-revision-rule-ramp-schedule.md) - Set ramp schedule for a rule :warning: **Deprecated**
+* [`~~delete-feature-revision-rule-ramp-schedule~~`](docs/growthbook_feature-revisions-v1_delete-feature-revision-rule-ramp-schedule.md) - Remove ramp schedule from a rule :warning: **Deprecated**
+* [`~~post-feature-revision-request-review~~`](docs/growthbook_feature-revisions-v1_post-feature-revision-request-review.md) - Request review for a draft revision :warning: **Deprecated**
+* [`~~post-feature-revision-submit-review~~`](docs/growthbook_feature-revisions-v1_post-feature-revision-submit-review.md) - Submit a review on a draft revision :warning: **Deprecated**
+* [`~~get-feature-revision-merge-status~~`](docs/growthbook_feature-revisions-v1_get-feature-revision-merge-status.md) - Get merge status for a draft revision :warning: **Deprecated**
+* [`~~post-feature-revision-rebase~~`](docs/growthbook_feature-revisions-v1_post-feature-revision-rebase.md) - Rebase a draft revision onto the current live version :warning: **Deprecated**
+* [`~~post-feature-revision-publish~~`](docs/growthbook_feature-revisions-v1_post-feature-revision-publish.md) - Publish a draft revision :warning: **Deprecated**
+* [`~~post-feature-revision-discard~~`](docs/growthbook_feature-revisions-v1_post-feature-revision-discard.md) - Discard a draft revision :warning: **Deprecated**
+* [`~~post-feature-revision-revert~~`](docs/growthbook_feature-revisions-v1_post-feature-revision-revert.md) - Revert the feature to a prior revision :warning: **Deprecated**
 
 ### [features](docs/growthbook_features.md)
 
@@ -276,54 +276,54 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`get-feature-keys`](docs/growthbook_features_get-feature-keys.md) - Get list of feature keys
 * [`get-feature-stale`](docs/growthbook_features_get-feature-stale.md) - Get stale status for one or more features
 
-### [feature-revisions-v2](docs/growthbook_feature-revisions-v2.md)
+### [feature-revisions](docs/growthbook_feature-revisions.md)
 
-* [`list-revisions-v2`](docs/growthbook_feature-revisions-v2_list-revisions-v2.md) - List revisions across all features
-* [`get`](docs/growthbook_feature-revisions-v2_get.md) - List revisions for a feature
-* [`post-feature-revision-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-v2.md) - Create a draft revision
-* [`get-feature-revision-latest-v2`](docs/growthbook_feature-revisions-v2_get-feature-revision-latest-v2.md) - Get the most recent active draft revision
-* [`get-feature-revision-v2`](docs/growthbook_feature-revisions-v2_get-feature-revision-v2.md) - Get a single feature revision
-* [`get-feature-revision-diff-v2`](docs/growthbook_feature-revisions-v2_get-feature-revision-diff-v2.md) - Diff a revision against another revision
-* [`put-feature-revision-metadata-v2`](docs/growthbook_feature-revisions-v2_put-feature-revision-metadata-v2.md) - Update revision metadata
-* [`put-feature-revision-default-value-v2`](docs/growthbook_feature-revisions-v2_put-feature-revision-default-value-v2.md) - Set the default value in a draft revision
-* [`put-feature-revision-prerequisites-v2`](docs/growthbook_feature-revisions-v2_put-feature-revision-prerequisites-v2.md) - Set feature-level prerequisites in a draft revision
-* [`put-feature-revision-holdout-v2`](docs/growthbook_feature-revisions-v2_put-feature-revision-holdout-v2.md) - Set holdout in a draft revision
-* [`put-feature-revision-archive-v2`](docs/growthbook_feature-revisions-v2_put-feature-revision-archive-v2.md) - Set archived state in a draft revision
-* [`post-feature-revision-toggle-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-toggle-v2.md) - Toggle an environment on/off in a draft revision
-* [`post-feature-revision-rule-add-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-rule-add-v2.md) - Add a rule to a draft revision
-* [`put-feature-revision-rule-v2`](docs/growthbook_feature-revisions-v2_put-feature-revision-rule-v2.md) - Update a rule in a draft revision
-* [`delete-feature-revision-rule-v2`](docs/growthbook_feature-revisions-v2_delete-feature-revision-rule-v2.md) - Delete a rule from a draft revision
-* [`post-feature-revision-rules-reorder-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-rules-reorder-v2.md) - Reorder rules in the revision
-* [`put-feature-revision-rule-ramp-schedule-v2`](docs/growthbook_feature-revisions-v2_put-feature-revision-rule-ramp-schedule-v2.md) - Set ramp schedule for a rule
-* [`delete-feature-revision-rule-ramp-schedule-v2`](docs/growthbook_feature-revisions-v2_delete-feature-revision-rule-ramp-schedule-v2.md) - Remove ramp schedule from a rule
-* [`post-feature-revision-request-review-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-request-review-v2.md) - Request review for a draft revision
-* [`post-feature-revision-schedule-publish-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-schedule-publish-v2.md) - Schedule (or cancel) a deferred publish for a draft revision
-* [`post-feature-revision-submit-review-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-submit-review-v2.md) - Submit a review on a draft revision
-* [`post-feature-revision-recall-review-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-recall-review-v2.md) - Recall a review request (revert to draft)
-* [`post-feature-revision-undo-review-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-undo-review-v2.md) - Undo a reviewer's own review verdict
-* [`get-feature-revision-log-v2`](docs/growthbook_feature-revisions-v2_get-feature-revision-log-v2.md) - List the activity log for a revision
-* [`put-feature-revision-log-comment-v2`](docs/growthbook_feature-revisions-v2_put-feature-revision-log-comment-v2.md) - Edit the comment text of an owned log entry
-* [`delete-feature-revision-log-entry-v2`](docs/growthbook_feature-revisions-v2_delete-feature-revision-log-entry-v2.md) - Delete an owned revision Comment entry
-* [`get-feature-revision-merge-status-v2`](docs/growthbook_feature-revisions-v2_get-feature-revision-merge-status-v2.md) - Get merge status for a draft revision
-* [`post-feature-revision-rebase-preview-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-rebase-preview-v2.md) - Preview a rebase without applying it
-* [`post-feature-revision-rebase-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-rebase-v2.md) - Rebase a draft revision onto the current live version
-* [`post-feature-revision-publish-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-publish-v2.md) - Publish a draft revision
-* [`post-feature-revision-discard-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-discard-v2.md) - Discard a draft revision
-* [`post-feature-revision-reopen-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-reopen-v2.md) - Reopen a discarded revision as a draft
-* [`post-feature-revision-revert-v2`](docs/growthbook_feature-revisions-v2_post-feature-revision-revert-v2.md) - Revert the feature to a prior revision
+* [`list-revisions`](docs/growthbook_feature-revisions_list-revisions.md) - List revisions across all features
+* [`list-for-feature`](docs/growthbook_feature-revisions_list-for-feature.md) - List revisions for a feature
+* [`create`](docs/growthbook_feature-revisions_create.md) - Create a draft revision
+* [`get-feature-revision-latest`](docs/growthbook_feature-revisions_get-feature-revision-latest.md) - Get the most recent active draft revision
+* [`get`](docs/growthbook_feature-revisions_get.md) - Get a single feature revision
+* [`get-feature-revision-diff`](docs/growthbook_feature-revisions_get-feature-revision-diff.md) - Diff a revision against another revision
+* [`put-feature-revision-metadata`](docs/growthbook_feature-revisions_put-feature-revision-metadata.md) - Update revision metadata
+* [`put-feature-revision-default-value`](docs/growthbook_feature-revisions_put-feature-revision-default-value.md) - Set the default value in a draft revision
+* [`put-feature-revision-prerequisites`](docs/growthbook_feature-revisions_put-feature-revision-prerequisites.md) - Set feature-level prerequisites in a draft revision
+* [`put-feature-revision-holdout`](docs/growthbook_feature-revisions_put-feature-revision-holdout.md) - Set holdout in a draft revision
+* [`put-feature-revision-archive`](docs/growthbook_feature-revisions_put-feature-revision-archive.md) - Set archived state in a draft revision
+* [`post-feature-revision-toggle`](docs/growthbook_feature-revisions_post-feature-revision-toggle.md) - Toggle an environment on/off in a draft revision
+* [`post-feature-revision-rule-add`](docs/growthbook_feature-revisions_post-feature-revision-rule-add.md) - Add a rule to a draft revision
+* [`put-feature-revision-rule`](docs/growthbook_feature-revisions_put-feature-revision-rule.md) - Update a rule in a draft revision
+* [`delete-feature-revision-rule`](docs/growthbook_feature-revisions_delete-feature-revision-rule.md) - Delete a rule from a draft revision
+* [`post-feature-revision-rules-reorder`](docs/growthbook_feature-revisions_post-feature-revision-rules-reorder.md) - Reorder rules in the revision
+* [`put-feature-revision-rule-ramp-schedule`](docs/growthbook_feature-revisions_put-feature-revision-rule-ramp-schedule.md) - Set ramp schedule for a rule
+* [`delete-feature-revision-rule-ramp-schedule`](docs/growthbook_feature-revisions_delete-feature-revision-rule-ramp-schedule.md) - Remove ramp schedule from a rule
+* [`post-feature-revision-request-review`](docs/growthbook_feature-revisions_post-feature-revision-request-review.md) - Request review for a draft revision
+* [`post-feature-revision-schedule-publish`](docs/growthbook_feature-revisions_post-feature-revision-schedule-publish.md) - Schedule (or cancel) a deferred publish for a draft revision
+* [`post-feature-revision-submit-review`](docs/growthbook_feature-revisions_post-feature-revision-submit-review.md) - Submit a review on a draft revision
+* [`post-feature-revision-recall-review`](docs/growthbook_feature-revisions_post-feature-revision-recall-review.md) - Recall a review request (revert to draft)
+* [`post-feature-revision-undo-review`](docs/growthbook_feature-revisions_post-feature-revision-undo-review.md) - Undo a reviewer's own review verdict
+* [`get-feature-revision-log`](docs/growthbook_feature-revisions_get-feature-revision-log.md) - List the activity log for a revision
+* [`put-feature-revision-log-comment`](docs/growthbook_feature-revisions_put-feature-revision-log-comment.md) - Edit the comment text of an owned log entry
+* [`delete-feature-revision-log-entry`](docs/growthbook_feature-revisions_delete-feature-revision-log-entry.md) - Delete an owned revision Comment entry
+* [`get-feature-revision-merge-status`](docs/growthbook_feature-revisions_get-feature-revision-merge-status.md) - Get merge status for a draft revision
+* [`post-feature-revision-rebase-preview`](docs/growthbook_feature-revisions_post-feature-revision-rebase-preview.md) - Preview a rebase without applying it
+* [`post-feature-revision-rebase`](docs/growthbook_feature-revisions_post-feature-revision-rebase.md) - Rebase a draft revision onto the current live version
+* [`post-feature-revision-publish`](docs/growthbook_feature-revisions_post-feature-revision-publish.md) - Publish a draft revision
+* [`post-feature-revision-discard`](docs/growthbook_feature-revisions_post-feature-revision-discard.md) - Discard a draft revision
+* [`post-feature-revision-reopen`](docs/growthbook_feature-revisions_post-feature-revision-reopen.md) - Reopen a discarded revision as a draft
+* [`post-feature-revision-revert`](docs/growthbook_feature-revisions_post-feature-revision-revert.md) - Revert the feature to a prior revision
 
 ### [archetypes](docs/growthbook_archetypes.md)
 
 * [`list`](docs/growthbook_archetypes_list.md) - Get the organization's archetypes
-* [`post`](docs/growthbook_archetypes_post.md) - Create a single archetype
+* [`create`](docs/growthbook_archetypes_create.md) - Create a single archetype
 * [`get`](docs/growthbook_archetypes_get.md) - Get a single archetype
-* [`put`](docs/growthbook_archetypes_put.md) - Update a single archetype
+* [`update`](docs/growthbook_archetypes_update.md) - Update a single archetype
 * [`delete`](docs/growthbook_archetypes_delete.md) - Deletes a single archetype
 
 ### [experiments](docs/growthbook_experiments.md)
 
 * [`list`](docs/growthbook_experiments_list.md) - Get all experiments
-* [`post`](docs/growthbook_experiments_post.md) - Create a single experiment
+* [`create`](docs/growthbook_experiments_create.md) - Create a single experiment
 * [`list-experiment-results`](docs/growthbook_experiments_list-experiment-results.md) - Get latest results for many experiments
 * [`get`](docs/growthbook_experiments_get.md) - Get a single experiment
 * [`update`](docs/growthbook_experiments_update.md) - Update a single experiment
@@ -346,9 +346,9 @@ growthbook generate-types --project prj_123                 # limit to one proje
 ### [visual-changesets](docs/growthbook_visual-changesets.md)
 
 * [`list`](docs/growthbook_visual-changesets_list.md) - Get all visual changesets
-* [`post`](docs/growthbook_visual-changesets_post.md) - Create a visual changeset for an experiment
+* [`create`](docs/growthbook_visual-changesets_create.md) - Create a visual changeset for an experiment
 * [`get`](docs/growthbook_visual-changesets_get.md) - Get a single visual changeset
-* [`put`](docs/growthbook_visual-changesets_put.md) - Update a visual changeset
+* [`update`](docs/growthbook_visual-changesets_update.md) - Update a visual changeset
 * [`post-visual-change`](docs/growthbook_visual-changesets_post-visual-change.md) - Create a visual change for a visual changeset
 * [`put-visual-change`](docs/growthbook_visual-changesets_put-visual-change.md) - Update a visual change for a visual changeset
 
@@ -373,9 +373,9 @@ growthbook generate-types --project prj_123                 # limit to one proje
 ### [metrics](docs/growthbook_metrics.md)
 
 * [`list`](docs/growthbook_metrics_list.md) - Get all metrics
-* [`post`](docs/growthbook_metrics_post.md) - Create a single metric
+* [`create`](docs/growthbook_metrics_create.md) - Create a single metric
 * [`get`](docs/growthbook_metrics_get.md) - Get a single metric
-* [`put`](docs/growthbook_metrics_put.md) - Update a metric
+* [`update`](docs/growthbook_metrics_update.md) - Update a metric
 * [`delete`](docs/growthbook_metrics_delete.md) - Deletes a metric
 
 ### [usage-metrics](docs/growthbook_usage-metrics.md)
@@ -385,7 +385,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 ### [segments](docs/growthbook_segments.md)
 
 * [`list`](docs/growthbook_segments_list.md) - Get all segments
-* [`post`](docs/growthbook_segments_post.md) - Create a single segment
+* [`create`](docs/growthbook_segments_create.md) - Create a single segment
 * [`get`](docs/growthbook_segments_get.md) - Get a single segment
 * [`update`](docs/growthbook_segments_update.md) - Update a single segment
 * [`delete`](docs/growthbook_segments_delete.md) - Deletes a single segment
@@ -393,7 +393,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 ### [dimensions](docs/growthbook_dimensions.md)
 
 * [`list`](docs/growthbook_dimensions_list.md) - Get all dimensions
-* [`post`](docs/growthbook_dimensions_post.md) - Create a single dimension
+* [`create`](docs/growthbook_dimensions_create.md) - Create a single dimension
 * [`get`](docs/growthbook_dimensions_get.md) - Get a single dimension
 * [`update`](docs/growthbook_dimensions_update.md) - Update a single dimension
 * [`delete`](docs/growthbook_dimensions_delete.md) - Deletes a single dimension
@@ -401,31 +401,31 @@ growthbook generate-types --project prj_123                 # limit to one proje
 ### [projects](docs/growthbook_projects.md)
 
 * [`list`](docs/growthbook_projects_list.md) - Get all projects
-* [`post`](docs/growthbook_projects_post.md) - Create a single project
+* [`create`](docs/growthbook_projects_create.md) - Create a single project
 * [`get`](docs/growthbook_projects_get.md) - Get a single project
-* [`put`](docs/growthbook_projects_put.md) - Edit a single project
+* [`update`](docs/growthbook_projects_update.md) - Edit a single project
 * [`delete`](docs/growthbook_projects_delete.md) - Deletes a single project
 
 ### [environments](docs/growthbook_environments.md)
 
 * [`list`](docs/growthbook_environments_list.md) - Get the organization's environments
-* [`post`](docs/growthbook_environments_post.md) - Create a new environment
-* [`put`](docs/growthbook_environments_put.md) - Update an environment
+* [`create`](docs/growthbook_environments_create.md) - Create a new environment
+* [`update`](docs/growthbook_environments_update.md) - Update an environment
 * [`delete`](docs/growthbook_environments_delete.md) - Deletes a single environment
 
 ### [attributes](docs/growthbook_attributes.md)
 
 * [`list`](docs/growthbook_attributes_list.md) - Get the organization's attributes
-* [`post`](docs/growthbook_attributes_post.md) - Create a new attribute
-* [`put`](docs/growthbook_attributes_put.md) - Update an attribute
+* [`create`](docs/growthbook_attributes_create.md) - Create a new attribute
+* [`update`](docs/growthbook_attributes_update.md) - Update an attribute
 * [`delete`](docs/growthbook_attributes_delete.md) - Deletes a single attribute
 
 ### [SDK-connections](docs/growthbook_SDK-connections.md)
 
 * [`list`](docs/growthbook_SDK-connections_list.md) - Get all sdk connections
-* [`post`](docs/growthbook_SDK-connections_post.md) - Create a single sdk connection
+* [`create`](docs/growthbook_SDK-connections_create.md) - Create a single sdk connection
 * [`get`](docs/growthbook_SDK-connections_get.md) - Get a single sdk connection
-* [`put`](docs/growthbook_SDK-connections_put.md) - Update a single sdk connection
+* [`update`](docs/growthbook_SDK-connections_update.md) - Update a single sdk connection
 * [`delete`](docs/growthbook_SDK-connections_delete.md) - Deletes a single SDK connection
 * [`lookup-SDK-connection-by-key`](docs/growthbook_SDK-connections_lookup-SDK-connection-by-key.md) - Find a single sdk connection by its key
 
@@ -439,7 +439,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 ### [saved-groups](docs/growthbook_saved-groups.md)
 
 * [`list`](docs/growthbook_saved-groups_list.md) - Get all saved group
-* [`post`](docs/growthbook_saved-groups_post.md) - Create a single saved group
+* [`create`](docs/growthbook_saved-groups_create.md) - Create a single saved group
 * [`get`](docs/growthbook_saved-groups_get.md) - Get a single saved group
 * [`update`](docs/growthbook_saved-groups_update.md) - Partially update a single saved group
 * [`delete`](docs/growthbook_saved-groups_delete.md) - Deletes a single saved group
@@ -450,8 +450,8 @@ growthbook generate-types --project prj_123                 # limit to one proje
 ### [saved-group-revisions](docs/growthbook_saved-group-revisions.md)
 
 * [`list`](docs/growthbook_saved-group-revisions_list.md) - List saved-group revisions across the organization
-* [`get`](docs/growthbook_saved-group-revisions_get.md) - List revisions for a saved group
-* [`post`](docs/growthbook_saved-group-revisions_post.md) - Create a draft revision
+* [`list-for-saved-group`](docs/growthbook_saved-group-revisions_list-for-saved-group.md) - List revisions for a saved group
+* [`create`](docs/growthbook_saved-group-revisions_create.md) - Create a draft revision
 * [`get-saved-group-revision-latest`](docs/growthbook_saved-group-revisions_get-saved-group-revision-latest.md) - Get the most recent active draft revision
 * [`get`](docs/growthbook_saved-group-revisions_get.md) - Get a single saved group revision
 * [`put-saved-group-revision-metadata`](docs/growthbook_saved-group-revisions_put-saved-group-revision-metadata.md) - Update saved group metadata in a draft revision
@@ -471,7 +471,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 ### [constants](docs/growthbook_constants.md)
 
 * [`list`](docs/growthbook_constants_list.md) - Get all constants
-* [`post`](docs/growthbook_constants_post.md) - Create a single constant
+* [`create`](docs/growthbook_constants_create.md) - Create a single constant
 * [`get-constant-references`](docs/growthbook_constants_get-constant-references.md) - Get features and constants that reference this constant
 * [`get`](docs/growthbook_constants_get.md) - Get a single constant
 * [`update`](docs/growthbook_constants_update.md) - Partially update a single constant
@@ -482,8 +482,8 @@ growthbook generate-types --project prj_123                 # limit to one proje
 ### [constant-revisions](docs/growthbook_constant-revisions.md)
 
 * [`list`](docs/growthbook_constant-revisions_list.md) - List constant revisions across the organization
-* [`get`](docs/growthbook_constant-revisions_get.md) - List revisions for a constant
-* [`post`](docs/growthbook_constant-revisions_post.md) - Create a draft revision
+* [`list-for-constant`](docs/growthbook_constant-revisions_list-for-constant.md) - List revisions for a constant
+* [`create`](docs/growthbook_constant-revisions_create.md) - Create a draft revision
 * [`get-constant-revision-latest`](docs/growthbook_constant-revisions_get-constant-revision-latest.md) - Get the most recent active draft revision
 * [`get`](docs/growthbook_constant-revisions_get.md) - Get a single constant revision
 * [`put-constant-revision-metadata`](docs/growthbook_constant-revisions_put-constant-revision-metadata.md) - Update constant metadata in a draft revision
@@ -500,13 +500,13 @@ growthbook generate-types --project prj_123                 # limit to one proje
 ### [organizations](docs/growthbook_organizations.md)
 
 * [`list`](docs/growthbook_organizations_list.md) - Get all organizations (only for super admins on multi-org Enterprise Plan only)
-* [`post`](docs/growthbook_organizations_post.md) - Create a single organization (only for super admins on multi-org Enterprise Plan only)
-* [`put`](docs/growthbook_organizations_put.md) - Edit a single organization (only for super admins on multi-org Enterprise Plan only)
+* [`create`](docs/growthbook_organizations_create.md) - Create a single organization (only for super admins on multi-org Enterprise Plan only)
+* [`update`](docs/growthbook_organizations_update.md) - Edit a single organization (only for super admins on multi-org Enterprise Plan only)
 
 ### [fact-tables](docs/growthbook_fact-tables.md)
 
 * [`list`](docs/growthbook_fact-tables_list.md) - Get all fact tables
-* [`post`](docs/growthbook_fact-tables_post.md) - Create a single fact table
+* [`create`](docs/growthbook_fact-tables_create.md) - Create a single fact table
 * [`get`](docs/growthbook_fact-tables_get.md) - Get a single fact table
 * [`update`](docs/growthbook_fact-tables_update.md) - Update a single fact table
 * [`delete`](docs/growthbook_fact-tables_delete.md) - Deletes a single fact table
@@ -524,7 +524,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 ### [fact-metrics](docs/growthbook_fact-metrics.md)
 
 * [`list`](docs/growthbook_fact-metrics_list.md) - Get all fact metrics
-* [`post`](docs/growthbook_fact-metrics_post.md) - Create a single fact metric
+* [`create`](docs/growthbook_fact-metrics_create.md) - Create a single fact metric
 * [`get`](docs/growthbook_fact-metrics_get.md) - Get a single fact metric
 * [`update`](docs/growthbook_fact-metrics_update.md) - Update a single fact metric
 * [`delete`](docs/growthbook_fact-metrics_delete.md) - Deletes a single fact metric
@@ -557,7 +557,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 ### [ramp-schedules](docs/growthbook_ramp-schedules.md)
 
 * [`list`](docs/growthbook_ramp-schedules_list.md) - Get all rampSchedules
-* [`post`](docs/growthbook_ramp-schedules_post.md) - Create a ramp schedule
+* [`create`](docs/growthbook_ramp-schedules_create.md) - Create a ramp schedule
 * [`start`](docs/growthbook_ramp-schedules_start.md) - Start a ramp schedule
 * [`pause`](docs/growthbook_ramp-schedules_pause.md) - Pause a ramp schedule
 * [`resume`](docs/growthbook_ramp-schedules_resume.md) - Resume a paused ramp schedule
@@ -583,7 +583,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 ### [reports](docs/growthbook_reports.md)
 
 * [`list`](docs/growthbook_reports_list.md) - Get all reports
-* [`post`](docs/growthbook_reports_post.md) - Create a new report
+* [`create`](docs/growthbook_reports_create.md) - Create a new report
 * [`get`](docs/growthbook_reports_get.md) - Get a single report
 * [`post-report-refresh`](docs/growthbook_reports_post-report-refresh.md) - Refresh a report by re-running its analysis
 * [`put-report-metadata`](docs/growthbook_reports_put-report-metadata.md) - Update report metadata (title, description, visibility)
@@ -592,9 +592,9 @@ growthbook generate-types --project prj_123                 # limit to one proje
 ### [namespaces](docs/growthbook_namespaces.md)
 
 * [`list`](docs/growthbook_namespaces_list.md) - Get all namespaces
-* [`post`](docs/growthbook_namespaces_post.md) - Create a namespace
+* [`create`](docs/growthbook_namespaces_create.md) - Create a namespace
 * [`get`](docs/growthbook_namespaces_get.md) - Get a single namespace
-* [`put`](docs/growthbook_namespaces_put.md) - Update a namespace
+* [`update`](docs/growthbook_namespaces_update.md) - Update a namespace
 * [`delete`](docs/growthbook_namespaces_delete.md) - Delete a namespace
 * [`get-namespace-memberships`](docs/growthbook_namespaces_get-namespace-memberships.md) - Get namespace membership
 * [`post-namespace-rotate-seed`](docs/growthbook_namespaces_post-namespace-rotate-seed.md) - Rotate namespace seed

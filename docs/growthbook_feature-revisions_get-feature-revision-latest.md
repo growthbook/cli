@@ -4,11 +4,7 @@ Get the most recent active draft revision
 
 ### Synopsis
 
-DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible
-
-**Deprecated.** Use [GET /v2/features/:id/revisions/latest](#operation/getFeatureRevisionLatestV2) instead.
-
-Returns the most recently updated draft revision for the feature. Returns 404 if there is no active draft. Pass `mine=true` to return the most recent draft authored by or contributed to by the calling user (requires a user-scoped API key).
+Returns the most recently updated active draft revision for the feature. Returns 404 if no matching draft exists. Filter by status, author, or use `mine=true` to scope to the calling user's own drafts.
 
 ```
 growthbook feature-revisions get-feature-revision-latest [flags]
@@ -23,9 +19,11 @@ growthbook feature-revisions get-feature-revision-latest [flags]
 ### Options
 
 ```
-  -h, --help          help for get-feature-revision-latest
-  -i, --id string     [required]
-  -m, --mine string   If true, return only the most recent active draft authored by or contributed to by the calling user. Requires a user-scoped API key.
+  -a, --author string   Filter to drafts created by this user (userId).
+  -h, --help            help for get-feature-revision-latest
+  -i, --id string       [required]
+  -m, --mine string     If true, return only the most recent active draft authored by or contributed to by the calling user.
+  -s, --status string   JSON value (one of: string | array of string)
 ```
 
 ### Options inherited from parent commands

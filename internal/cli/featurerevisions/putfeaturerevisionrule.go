@@ -18,12 +18,11 @@ var putFeatureRevisionRuleCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "rule-id", FieldPath: "RuleID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "environment", Shorthand: "e", FieldPath: "Body.Environment", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "rule", FieldPath: "Body.Rule", Kind: flagutil.FlagKindJSON, Required: true, Annotations: `json:"rule"`, Description: "[required]"},
-	{FlagName: "ramp-schedule", FieldPath: "Body.RampSchedule", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"rampSchedule,omitempty"`, Description: "JSON object"},
-	{FlagName: "schedule", Shorthand: "s", FieldPath: "Body.Schedule", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"schedule,omitempty"`, Description: "JSON object"},
-	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "ramp-schedule", FieldPath: "Body.RampSchedule", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"rampSchedule,omitempty"`, Description: "Multi-step ramp schedule for force/rollout rules. Not supported for experiment-ref or safe-rollout rules. Mutually exclusive with `schedule`."},
+	{FlagName: "schedule", Shorthand: "s", FieldPath: "Body.Schedule", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"schedule,omitempty"`, Description: "Simple start/end date window. For force/rollout rules this manages a standalone ramp action; for experiment-ref/safe-rollout rules this updates legacy schedule fields on the rule. Mutually exclusive with `rampSchedule`."},
+	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "Title for a newly created draft. Only used when version is \"new\"; ignored for existing revisions."},
+	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "Comment for a newly created draft. Only used when version is \"new\"; ignored for existing revisions."},
 }
 
 // initPutFeatureRevisionRuleCmd initializes the put-feature-revision-rule command.
@@ -31,13 +30,13 @@ func initPutFeatureRevisionRuleCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "put-feature-revision-rule",
 		Short:   "Update a rule in a draft revision",
-		Long:    "DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible\n\n**Deprecated.** Use [PUT /v2/features/:id/revisions/:version/rules/:ruleId](#operation/putFeatureRevisionRuleV2) instead, which locates rules by `ruleId` in the flat array without an `environment` parameter.\n\nPatches fields on an existing rule. The rule `type` cannot be changed — to convert types, delete and re-add. Fields that don't apply to the current rule type are rejected.",
-		Example: "  growthbook feature-revisions put-feature-revision-rule --id <id> --version-param <value> --rule-id <id> --environment <value> --rule '{}'",
+		Long:    "Patches fields on an existing rule (identified by `ruleId`). The rule `type` cannot be changed. Scope can be updated via `allEnvironments` / `environments` patch fields.\n\n**Scheduling:** For `force` and `rollout` rules, update the schedule via `rampSchedule` (multi-step ramp) or `schedule` (simple start/end window) — these manage standalone ramp actions and set `pendingRamp: \"create\"` on the rule. For `experiment-ref` and `safe-rollout` rules, only `schedule` is supported and updates legacy schedule fields on the rule itself (`rampSchedule` is not available for these rule types).",
+		Example: "  growthbook feature-revisions put-feature-revision-rule --id <id> --version-param <value> --rule-id <id> --rule '{}'",
 		RunE:    runPutFeatureRevisionRuleCmd,
 		Aliases: []string{"pfrru"},
 	}
 	flagutil.RegisterFlags(cmd, putFeatureRevisionRuleCmdMeta)
-	if err := flagutil.ValidateMeta[operations.PutFeatureRevisionRuleRequest](putFeatureRevisionRuleCmdMeta); err != nil {
+	if err := flagutil.ValidateMeta[operations.PutFeatureRevisionRuleV2Request](putFeatureRevisionRuleCmdMeta); err != nil {
 		return fmt.Errorf("invalid metadata for put-feature-revision-rule: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
@@ -55,7 +54,7 @@ func runPutFeatureRevisionRuleCmd(cmd *cobra.Command, args []string) error {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.PutFeatureRevisionRuleRequest](cmd, putFeatureRevisionRuleCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.PutFeatureRevisionRuleV2Request](cmd, putFeatureRevisionRuleCmdMeta, "Body", "body")
 	if err != nil {
 		return err
 	}

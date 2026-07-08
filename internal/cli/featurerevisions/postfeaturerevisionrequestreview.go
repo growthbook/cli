@@ -19,6 +19,9 @@ var postFeatureRevisionRequestReviewCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "comment", Shorthand: "c", FieldPath: "Body.Comment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "auto-publish-on-approval", Shorthand: "a", FieldPath: "Body.AutoPublishOnApproval", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
+	{FlagName: "scheduled-publish-at", FieldPath: "Body.ScheduledPublishAt", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"scheduledPublishAt,omitempty"`, Description: "date/time value"},
+	{FlagName: "scheduled-publish-lock-edits", FieldPath: "Body.ScheduledPublishLockEdits", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
+	{FlagName: "scheduled-publish-lock-others", FieldPath: "Body.ScheduledPublishLockOthers", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 }
 
 // initPostFeatureRevisionRequestReviewCmd initializes the post-feature-revision-request-review command.
@@ -26,13 +29,13 @@ func initPostFeatureRevisionRequestReviewCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "post-feature-revision-request-review",
 		Short:   "Request review for a draft revision",
-		Long:    "DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible\n\n**Deprecated.** Use [POST /v2/features/:id/revisions/:version/request-review](#operation/postFeatureRevisionRequestReviewV2) instead.\n\nMoves the draft into the `pending-review` state and notifies reviewers.",
-		Example: "  growthbook feature-revisions post-feature-revision-request-review --id <id> --version-param 725812",
+		Long:    "Moves the draft into the `pending-review` state and notifies reviewers.\n\nSet `autoPublishOnApproval` to `true` to publish the revision automatically the moment it is approved (GitHub auto-merge model). This requires the org to have auto-publish-on-approval enabled for the feature and the caller to have publish permission; the auto-publish then executes with the caller's authority.\n\nSet `scheduledPublishAt` to a future ISO date-time to defer the auto-publish until that date (it still also requires approval when review is required). Use `scheduledPublishLockEdits` to freeze edits to this draft while the schedule is pending, and `scheduledPublishLockOthers` to block publishing other drafts of this feature in the meantime.",
+		Example: "  growthbook feature-revisions post-feature-revision-request-review --id <id> --version-param 659874",
 		RunE:    runPostFeatureRevisionRequestReviewCmd,
-		Aliases: []string{"pfrrr"},
+		Aliases: []string{"pfrrre"},
 	}
 	flagutil.RegisterFlags(cmd, postFeatureRevisionRequestReviewCmdMeta)
-	if err := flagutil.ValidateMeta[operations.PostFeatureRevisionRequestReviewRequest](postFeatureRevisionRequestReviewCmdMeta); err != nil {
+	if err := flagutil.ValidateMeta[operations.PostFeatureRevisionRequestReviewV2Request](postFeatureRevisionRequestReviewCmdMeta); err != nil {
 		return fmt.Errorf("invalid metadata for post-feature-revision-request-review: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
@@ -50,7 +53,7 @@ func runPostFeatureRevisionRequestReviewCmd(cmd *cobra.Command, args []string) e
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.PostFeatureRevisionRequestReviewRequest](cmd, postFeatureRevisionRequestReviewCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.PostFeatureRevisionRequestReviewV2Request](cmd, postFeatureRevisionRequestReviewCmdMeta, "Body", "body")
 	if err != nil {
 		return err
 	}

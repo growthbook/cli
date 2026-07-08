@@ -25,7 +25,7 @@ func InitSavedGroupsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPostSavedGroupCmd(SavedGroupsCmd); err != nil {
+	if err := initCreateCmd(SavedGroupsCmd); err != nil {
 		return err
 	}
 

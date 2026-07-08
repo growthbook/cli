@@ -43,6 +43,7 @@ growthbook fact-tables [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
+* [growthbook fact-tables create](growthbook_fact-tables_create.md)	 - Create a single fact table
 * [growthbook fact-tables delete](growthbook_fact-tables_delete.md)	 - Deletes a single fact table
 * [growthbook fact-tables delete-fact-table-filter](growthbook_fact-tables_delete-fact-table-filter.md)	 - Deletes a single fact table filter
 * [growthbook fact-tables get](growthbook_fact-tables_get.md)	 - Get a single fact table
@@ -52,7 +53,6 @@ growthbook fact-tables [flags]
 * [growthbook fact-tables list](growthbook_fact-tables_list.md)	 - Get all fact tables
 * [growthbook fact-tables list-aggregated-table-runs](growthbook_fact-tables_list-aggregated-table-runs.md)	 - List aggregated table runs
 * [growthbook fact-tables list-fact-table-filters](growthbook_fact-tables_list-fact-table-filters.md)	 - Get all filters for a fact table
-* [growthbook fact-tables post](growthbook_fact-tables_post.md)	 - Create a single fact table
 * [growthbook fact-tables post-bulk-import-facts](growthbook_fact-tables_post-bulk-import-facts.md)	 - Bulk import fact tables, filters, and metrics
 * [growthbook fact-tables post-fact-table-filter](growthbook_fact-tables_post-fact-table-filter.md)	 - Create a single fact table filter
 * [growthbook fact-tables refresh-aggregated](growthbook_fact-tables_refresh-aggregated.md)	 - Force a refresh or full restate of a fact table's shared daily aggregated tables

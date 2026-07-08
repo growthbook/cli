@@ -4,11 +4,7 @@ Publish a draft revision
 
 ### Synopsis
 
-DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible
-
-**Deprecated.** Use [POST /v2/features/:id/revisions/:version/publish](#operation/postFeatureRevisionPublishV2) instead.
-
-Immediately publishes a draft revision, making it the live version of the feature. Blocked if the org requires approvals and `bypassApprovalChecks` is off.
+Immediately publishes a draft revision, making it the live version of the feature. Any pending ramp actions (`pendingRamp` on rules) are executed atomically — ramp schedules are created or detached as queued.
 
 ```
 growthbook feature-revisions post-feature-revision-publish [flags]
@@ -17,7 +13,7 @@ growthbook feature-revisions post-feature-revision-publish [flags]
 ### Examples
 
 ```
-  growthbook feature-revisions post-feature-revision-publish --id <id> --version-param 886000
+  growthbook feature-revisions post-feature-revision-publish --id <id> --version-param 717368
 ```
 
 ### Options

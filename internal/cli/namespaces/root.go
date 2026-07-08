@@ -24,7 +24,7 @@ func InitNamespacesRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPostNamespaceCmd(NamespacesCmd); err != nil {
+	if err := initCreateCmd(NamespacesCmd); err != nil {
 		return err
 	}
 
@@ -32,7 +32,7 @@ func InitNamespacesRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPutNamespaceCmd(NamespacesCmd); err != nil {
+	if err := initUpdateCmd(NamespacesCmd); err != nil {
 		return err
 	}
 

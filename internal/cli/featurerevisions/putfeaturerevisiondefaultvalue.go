@@ -18,8 +18,8 @@ var putFeatureRevisionDefaultValueCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "default-value", FieldPath: "Body.DefaultValue", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "Title for a newly created draft. Only used when version is \"new\"; ignored for existing revisions."},
+	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "Comment for a newly created draft. Only used when version is \"new\"; ignored for existing revisions."},
 }
 
 // initPutFeatureRevisionDefaultValueCmd initializes the put-feature-revision-default-value command.
@@ -27,13 +27,13 @@ func initPutFeatureRevisionDefaultValueCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "put-feature-revision-default-value",
 		Short:   "Set the default value in a draft revision",
-		Long:    "DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible\n\n**Deprecated.** Use [PUT /v2/features/:id/revisions/:version/default-value](#operation/putFeatureRevisionDefaultValueV2) instead.\n\nReplaces the feature's default value for this revision. The value must be a string representation matching the feature's value type (e.g. `\"true\"` for booleans, `42` for numbers, a JSON string for JSON features).",
+		Long:    "Set the default value in a draft revision",
 		Example: "  growthbook feature-revisions put-feature-revision-default-value --id <id> --version-param <value> --default-value <value>",
 		RunE:    runPutFeatureRevisionDefaultValueCmd,
 		Aliases: []string{"pfrdv"},
 	}
 	flagutil.RegisterFlags(cmd, putFeatureRevisionDefaultValueCmdMeta)
-	if err := flagutil.ValidateMeta[operations.PutFeatureRevisionDefaultValueRequest](putFeatureRevisionDefaultValueCmdMeta); err != nil {
+	if err := flagutil.ValidateMeta[operations.PutFeatureRevisionDefaultValueV2Request](putFeatureRevisionDefaultValueCmdMeta); err != nil {
 		return fmt.Errorf("invalid metadata for put-feature-revision-default-value: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
@@ -51,7 +51,7 @@ func runPutFeatureRevisionDefaultValueCmd(cmd *cobra.Command, args []string) err
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.PutFeatureRevisionDefaultValueRequest](cmd, putFeatureRevisionDefaultValueCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.PutFeatureRevisionDefaultValueV2Request](cmd, putFeatureRevisionDefaultValueCmdMeta, "Body", "body")
 	if err != nil {
 		return err
 	}

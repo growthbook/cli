@@ -43,8 +43,8 @@ growthbook projects [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
+* [growthbook projects create](growthbook_projects_create.md)	 - Create a single project
 * [growthbook projects delete](growthbook_projects_delete.md)	 - Deletes a single project
 * [growthbook projects get](growthbook_projects_get.md)	 - Get a single project
 * [growthbook projects list](growthbook_projects_list.md)	 - Get all projects
-* [growthbook projects post](growthbook_projects_post.md)	 - Create a single project
-* [growthbook projects put](growthbook_projects_put.md)	 - Edit a single project
+* [growthbook projects update](growthbook_projects_update.md)	 - Edit a single project

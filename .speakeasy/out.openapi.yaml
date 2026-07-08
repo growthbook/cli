@@ -34,7 +34,7 @@ tags:
 
 
       Rules are returned as a unified top-level array; each rule carries `allEnvironments` / `environments` scope fields instead of being bucketed by environment.
-  - name: feature-revisions-v2
+  - name: feature-revisions
     x-displayName: Feature Revisions
     description: >-
       Draft revisions for feature flags, including rules, scheduling, and approval workflows.
@@ -48,7 +48,7 @@ tags:
 
 
       **These are v1 endpoints.** New integrations should use the v2 Feature Flags endpoints, which expose a unified per-rule environment scope instead of per-environment rule arrays.
-  - name: feature-revisions
+  - name: feature-revisions-v1
     x-displayName: Feature Revisions (legacy)
     description: >-
       Draft revisions for feature flags, including rules, scheduling, and approval workflows.
@@ -2310,8 +2310,6 @@ paths:
 
         Returns a paginated list of feature revisions across all features in the organization. Optionally filtered by feature, status, author, and/or the calling user's involvement. Results are sorted newest-first.
       deprecated: true
-      tags:
-        - feature-revisions
       parameters:
         - $ref: '#/components/parameters/limit'
         - $ref: '#/components/parameters/offset'
@@ -2364,6 +2362,7 @@ paths:
         type: offsetLimit
         inputs: *offsetLimitInputs
         outputs: {results: $.revisions}
+      tags: [feature-revisions-v1]
   /v1/features/{id}/revisions:
     get:
       operationId: getFeatureRevisions
@@ -2374,8 +2373,6 @@ paths:
 
         Returns a paginated list of revisions for this feature, sorted newest-first. Optionally filtered by status and/or author.
       deprecated: true
-      tags:
-        - feature-revisions
       parameters:
         - $ref: '#/components/parameters/id'
         - $ref: '#/components/parameters/limit'
@@ -2430,6 +2427,8 @@ paths:
         type: offsetLimit
         inputs: *offsetLimitInputs
         outputs: {results: $.revisions}
+      x-speakeasy-name-override: list-for-feature
+      tags: [feature-revisions-v1]
     post:
       operationId: postFeatureRevision
       summary: Create a draft revision
@@ -2439,8 +2438,6 @@ paths:
 
         Creates a new draft revision branched from the current live revision. A feature can have multiple concurrent drafts; use this to start an isolated line of edits.
       deprecated: true
-      tags:
-        - feature-revisions
       parameters:
         - name: id
           in: path
@@ -2482,6 +2479,8 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: create
+      tags: [feature-revisions-v1]
   /v1/features/{id}/revisions/latest:
     get:
       operationId: getFeatureRevisionLatest
@@ -2492,8 +2491,6 @@ paths:
 
         Returns the most recently updated draft revision for the feature. Returns 404 if there is no active draft. Pass `mine=true` to return the most recent draft authored by or contributed to by the calling user (requires a user-scoped API key).
       deprecated: true
-      tags:
-        - feature-revisions
       parameters:
         - name: id
           in: path
@@ -2539,6 +2536,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions-v1]
   /v1/features/{id}/revisions/{version}:
     get:
       operationId: getFeatureRevision
@@ -2549,8 +2547,6 @@ paths:
 
         Returns the revision at the specified version for this feature. Use `GET /features/{id}/revisions/latest` for the most recent active draft.
       deprecated: true
-      tags:
-        - feature-revisions
       parameters:
         - name: id
           in: path
@@ -2580,6 +2576,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions-v1]
   /v1/features/{id}/revisions/{version}/metadata:
     put:
       operationId: putFeatureRevisionMetadata
@@ -2590,8 +2587,6 @@ paths:
 
         Updates draft-level metadata (`comment`, `title`) and/or feature-level metadata (owner, project, tags, customFields, jsonSchema, etc.). Merge semantics: omitted fields are left unchanged; any provided field replaces the current value (pass an empty string/array/object to clear). Feature metadata changes are staged on the revision and applied to the feature on publish. Changing `project` requires publish permission on both the old and new project.
       deprecated: true
-      tags:
-        - feature-revisions
       parameters:
         - name: id
           in: path
@@ -2740,6 +2735,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions-v1]
   /v1/features/{id}/revisions/{version}/default-value:
     put:
       operationId: putFeatureRevisionDefaultValue
@@ -2750,8 +2746,6 @@ paths:
 
         Replaces the feature's default value for this revision. The value must be a string representation matching the feature's value type (e.g. `"true"` for booleans, `42` for numbers, a JSON string for JSON features).
       deprecated: true
-      tags:
-        - feature-revisions
       parameters:
         - name: id
           in: path
@@ -2803,6 +2797,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions-v1]
   /v1/features/{id}/revisions/{version}/prerequisites:
     put:
       operationId: putFeatureRevisionPrerequisites
@@ -2813,8 +2808,6 @@ paths:
 
         Replaces the feature's prerequisite list for this revision. Each prerequisite condition is evaluated against `{ value: <prereq-flag-value> }` at SDK eval time — use `value` as the condition key.
       deprecated: true
-      tags:
-        - feature-revisions
       parameters:
         - name: id
           in: path
@@ -2877,6 +2870,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions-v1]
   /v1/features/{id}/revisions/{version}/holdout:
     put:
       operationId: putFeatureRevisionHoldout
@@ -2887,8 +2881,6 @@ paths:
 
         Sets (or clears, via `holdout: null`) the holdout experiment bound to the feature. Holdout linkage side-effects (updating the holdout's linked feature list) are applied on publish.
       deprecated: true
-      tags:
-        - feature-revisions
       parameters:
         - name: id
           in: path
@@ -2951,6 +2943,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions-v1]
   /v1/features/{id}/revisions/{version}/archive:
     put:
       operationId: putFeatureRevisionArchive
@@ -2961,8 +2954,6 @@ paths:
 
         Sets whether the feature is archived. Archived features are excluded from SDK payloads on publish.
       deprecated: true
-      tags:
-        - feature-revisions
       parameters:
         - name: id
           in: path
@@ -3014,6 +3005,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions-v1]
   /v1/features/{id}/revisions/{version}/toggle:
     post:
       operationId: postFeatureRevisionToggle
@@ -3024,8 +3016,6 @@ paths:
 
         Sets whether the feature is enabled in the given environment as part of the draft. Takes effect on publish.
       deprecated: true
-      tags:
-        - feature-revisions
       parameters:
         - name: id
           in: path
@@ -3080,6 +3070,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions-v1]
   /v1/features/{id}/revisions/{version}/rules:
     post:
       operationId: postFeatureRevisionRuleAdd
@@ -3090,8 +3081,6 @@ paths:
 
         Appends a new rule to the end of the rule list for the given environment. A `rule.type` of `force`, `rollout`, `experiment-ref`, or `safe-rollout` determines the accepted shape. Use `rampSchedule` for ramp configuration or `schedule` for a simple start/end window; if both are provided, `rampSchedule` wins.
       deprecated: true
-      tags:
-        - feature-revisions
       parameters:
         - name: id
           in: path
@@ -3837,6 +3826,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions-v1]
   /v1/features/{id}/revisions/{version}/rules/{ruleId}:
     put:
       operationId: putFeatureRevisionRule
@@ -3847,8 +3837,6 @@ paths:
 
         Patches fields on an existing rule. The rule `type` cannot be changed — to convert types, delete and re-add. Fields that don't apply to the current rule type are rejected.
       deprecated: true
-      tags:
-        - feature-revisions
       parameters:
         - name: id
           in: path
@@ -4393,6 +4381,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions-v1]
     delete:
       operationId: deleteFeatureRevisionRule
       summary: Delete a rule from a draft revision
@@ -4402,8 +4391,6 @@ paths:
 
         Removes the rule from the specified environment. Any pending ramp actions on the draft for this rule are also cleared.
       deprecated: true
-      tags:
-        - feature-revisions
       parameters:
         - name: id
           in: path
@@ -4456,6 +4443,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions-v1]
   /v1/features/{id}/revisions/{version}/rules/reorder:
     post:
       operationId: postFeatureRevisionRulesReorder
@@ -4466,8 +4454,6 @@ paths:
 
         Replaces the rule order for the environment. `ruleIds` must contain **exactly** the set of existing rule IDs in that environment — no additions, omissions, or duplicates.
       deprecated: true
-      tags:
-        - feature-revisions
       parameters:
         - name: id
           in: path
@@ -4524,6 +4510,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions-v1]
   /v1/features/{id}/revisions/{version}/rules/{ruleId}/ramp-schedule:
     put:
       operationId: putFeatureRevisionRuleRampSchedule
@@ -4534,8 +4521,6 @@ paths:
 
         Queues a revision-controlled ramp action for this rule. If the rule already has a live ramp schedule, this stores an `update` action applied on publish; otherwise it stores a `create` action. No live schedule config changes are applied immediately by this endpoint.
       deprecated: true
-      tags:
-        - feature-revisions
       parameters:
         - name: id
           in: path
@@ -4951,6 +4936,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions-v1]
     delete:
       operationId: deleteFeatureRevisionRuleRampSchedule
       summary: Remove ramp schedule from a rule
@@ -4960,8 +4946,6 @@ paths:
 
         Removes a pending ramp schedule attached by the draft. If the rule currently has a live ramp schedule, a detach action is queued and applied at publish time.
       deprecated: true
-      tags:
-        - feature-revisions
       parameters:
         - name: id
           in: path
@@ -5013,6 +4997,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions-v1]
   /v1/features/{id}/revisions/{version}/request-review:
     post:
       operationId: postFeatureRevisionRequestReview
@@ -5023,8 +5008,6 @@ paths:
 
         Moves the draft into the `pending-review` state and notifies reviewers.
       deprecated: true
-      tags:
-        - feature-revisions
       parameters:
         - name: id
           in: path
@@ -5066,6 +5049,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions-v1]
   /v1/features/{id}/revisions/{version}/submit-review:
     post:
       operationId: postFeatureRevisionSubmitReview
@@ -5079,8 +5063,6 @@ paths:
 
         When `action` is `approve` and the revision has `autoPublishOnApproval` enabled, the revision is automatically published after approval. Pass `skipAutoPublish: true` to approve without triggering auto-publish.
       deprecated: true
-      tags:
-        - feature-revisions
       parameters:
         - name: id
           in: path
@@ -5130,6 +5112,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions-v1]
   /v1/features/{id}/revisions/{version}/merge-status:
     get:
       operationId: getFeatureRevisionMergeStatus
@@ -5140,8 +5123,6 @@ paths:
 
         Runs a dry-run merge of the draft against the current live revision and returns any conflicts. Use this before publishing to preview changes and detect conflicting edits.
       deprecated: true
-      tags:
-        - feature-revisions
       parameters:
         - name: id
           in: path
@@ -5192,6 +5173,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions-v1]
   /v1/features/{id}/revisions/{version}/rebase:
     post:
       operationId: postFeatureRevisionRebase
@@ -5205,8 +5187,6 @@ paths:
 
         **Conflict key format changed for v1 clients.** The per-rule `envName.ruleId` keys used by older clients are no longer recognized. Valid keys: `defaultValue`, `prerequisites`, `archived`, `holdout`, `environmentsEnabled.<env>`, `metadata.<field>`, `rules.<ruleId>`, `rules.order`, and the blanket `rules` (applies one strategy to all rule-level conflicts). Unrecognized keys are ignored; unresolved conflicts respond with `409`.
       deprecated: true
-      tags:
-        - feature-revisions
       parameters:
         - name: id
           in: path
@@ -5253,6 +5233,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions-v1]
   /v1/features/{id}/revisions/{version}/publish:
     post:
       operationId: postFeatureRevisionPublish
@@ -5263,8 +5244,6 @@ paths:
 
         Immediately publishes a draft revision, making it the live version of the feature. Blocked if the org requires approvals and `bypassApprovalChecks` is off.
       deprecated: true
-      tags:
-        - feature-revisions
       parameters:
         - name: id
           in: path
@@ -5308,6 +5287,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions-v1]
   /v1/features/{id}/revisions/{version}/discard:
     post:
       operationId: postFeatureRevisionDiscard
@@ -5318,8 +5298,6 @@ paths:
 
         Permanently discards a draft revision. Only drafts (never published revisions) can be discarded. Any pending ramp actions staged on the draft are dropped.
       deprecated: true
-      tags:
-        - feature-revisions
       parameters:
         - name: id
           in: path
@@ -5357,6 +5335,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions-v1]
   /v1/features/{id}/revisions/{version}/revert:
     post:
       operationId: postFeatureRevisionRevert
@@ -5367,8 +5346,6 @@ paths:
 
         Creates a new draft (or immediately publishes) whose content matches the specified historical revision.
       deprecated: true
-      tags:
-        - feature-revisions
       parameters:
         - name: id
           in: path
@@ -5415,6 +5392,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions-v1]
   /v2/features:
     get:
       operationId: listFeaturesV2
@@ -6734,8 +6712,6 @@ paths:
       summary: List revisions across all features
       description: >-
         Returns a paginated list of feature revisions across all features in the organization. Use the `featureId` query parameter to filter to a single feature. Revision `rules` is a flat array with per-rule scope.
-      tags:
-        - feature-revisions-v2
       parameters:
         - $ref: '#/components/parameters/limit'
         - $ref: '#/components/parameters/offset'
@@ -6821,14 +6797,14 @@ paths:
         type: offsetLimit
         inputs: *offsetLimitInputs
         outputs: {results: $.revisions}
+      tags: [feature-revisions]
+      x-speakeasy-name-override: list-revisions
   /v2/features/{id}/revisions:
     get:
       operationId: getFeatureRevisionsV2
       summary: List revisions for a feature
       description: >-
         Returns a paginated list of revisions for this feature, sorted newest-first. Revision `rules` is a flat array with per-rule scope.
-      tags:
-        - feature-revisions-v2
       parameters:
         - $ref: '#/components/parameters/id'
         - $ref: '#/components/parameters/limit'
@@ -6884,12 +6860,12 @@ paths:
         type: offsetLimit
         inputs: *offsetLimitInputs
         outputs: {results: $.revisions}
+      tags: [feature-revisions]
+      x-speakeasy-name-override: list-for-feature
     post:
       operationId: postFeatureRevisionV2
       summary: Create a draft revision
       description: Creates a new draft revision branched from the current live revision.
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -6931,14 +6907,14 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: create
   /v2/features/{id}/revisions/latest:
     get:
       operationId: getFeatureRevisionLatestV2
       summary: Get the most recent active draft revision
       description: >-
         Returns the most recently updated active draft revision for the feature. Returns 404 if no matching draft exists. Filter by status, author, or use `mine=true` to scope to the calling user's own drafts.
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -6991,14 +6967,14 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: get-feature-revision-latest
   /v2/features/{id}/revisions/{version}:
     get:
       operationId: getFeatureRevisionV2
       summary: Get a single feature revision
       description: >-
         Returns the revision at the specified version for this feature. Revision `rules` is a flat array with per-rule environment scope.
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -7028,14 +7004,14 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: get
   /v2/features/{id}/revisions/{version}/diff:
     get:
       operationId: getFeatureRevisionDiffV2
       summary: Diff a revision against another revision
       description: >-
         Returns a schema-keyed JSON diff between this revision and a baseline. The same shapes the in-app review surface produces under `Copy as → Minimal JSON` / `Full JSON`: `minimal` lists only what changed (with id-keyed arrays bucketed into added/removed/modified items and reorder detection), while `full` returns the complete before/after content of the revision. Lifecycle fields (version, status, comment, date, createdBy, publishedBy) are excluded from the diff body and echoed via `from` / `to` instead. Defaults to diffing against the revision's own `baseVersion`; pass `?base=live` to diff against the current live revision, or `?base=<version>` for an arbitrary historical one.
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -7188,12 +7164,12 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: get-feature-revision-diff
   /v2/features/{id}/revisions/{version}/metadata:
     put:
       operationId: putFeatureRevisionMetadataV2
       summary: Update revision metadata
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -7342,12 +7318,12 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: put-feature-revision-metadata
   /v2/features/{id}/revisions/{version}/default-value:
     put:
       operationId: putFeatureRevisionDefaultValueV2
       summary: Set the default value in a draft revision
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -7403,14 +7379,14 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: put-feature-revision-default-value
   /v2/features/{id}/revisions/{version}/prerequisites:
     put:
       operationId: putFeatureRevisionPrerequisitesV2
       summary: Set feature-level prerequisites in a draft revision
       description: >-
         Sets the feature-level prerequisites for this revision. Each prerequisite must be a boolean feature flag; the gate is always 'prerequisite flag is on'. The condition is applied automatically — only the flag ID is required.
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -7477,12 +7453,12 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: put-feature-revision-prerequisites
   /v2/features/{id}/revisions/{version}/holdout:
     put:
       operationId: putFeatureRevisionHoldoutV2
       summary: Set holdout in a draft revision
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -7549,12 +7525,12 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: put-feature-revision-holdout
   /v2/features/{id}/revisions/{version}/archive:
     put:
       operationId: putFeatureRevisionArchiveV2
       summary: Set archived state in a draft revision
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -7610,12 +7586,12 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: put-feature-revision-archive
   /v2/features/{id}/revisions/{version}/toggle:
     post:
       operationId: postFeatureRevisionToggleV2
       summary: Toggle an environment on/off in a draft revision
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -7674,6 +7650,8 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: post-feature-revision-toggle
   /v2/features/{id}/revisions/{version}/rules:
     post:
       operationId: postFeatureRevisionRuleAddV2
@@ -7683,8 +7661,6 @@ paths:
 
 
         **Scheduling:** For `force` and `rollout` rules, attach a schedule via `rampSchedule` (multi-step ramp) or `schedule` (simple start/end window) — these create standalone ramp actions and set `pendingRamp: "create"` on the rule. For `experiment-ref` and `safe-rollout` rules, only `schedule` is supported and is stored as legacy schedule fields on the rule itself (`rampSchedule` is not available for these rule types).
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -8133,6 +8109,8 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: post-feature-revision-rule-add
   /v2/features/{id}/revisions/{version}/rules/{ruleId}:
     put:
       operationId: putFeatureRevisionRuleV2
@@ -8142,8 +8120,6 @@ paths:
 
 
         **Scheduling:** For `force` and `rollout` rules, update the schedule via `rampSchedule` (multi-step ramp) or `schedule` (simple start/end window) — these manage standalone ramp actions and set `pendingRamp: "create"` on the rule. For `experiment-ref` and `safe-rollout` rules, only `schedule` is supported and updates legacy schedule fields on the rule itself (`rampSchedule` is not available for these rule types).
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -8680,13 +8656,13 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: put-feature-revision-rule
     delete:
       operationId: deleteFeatureRevisionRuleV2
       summary: Delete a rule from a draft revision
       description: >-
         Removes the rule from the revision. Any pending ramp actions for this rule are also cleared.
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -8739,14 +8715,14 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: delete-feature-revision-rule
   /v2/features/{id}/revisions/{version}/rules/reorder:
     post:
       operationId: postFeatureRevisionRulesReorderV2
       summary: Reorder rules in the revision
       description: >-
         Replaces the flat global rule order. `ruleIds` must contain **exactly** the set of all existing rule IDs in the revision — no additions, omissions, or duplicates.
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -8804,6 +8780,8 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: post-feature-revision-rules-reorder
   /v2/features/{id}/revisions/{version}/rules/{ruleId}/ramp-schedule:
     put:
       operationId: putFeatureRevisionRuleRampScheduleV2
@@ -8813,8 +8791,6 @@ paths:
 
 
         You can build the ramp from a template (`templateId`) and set the rollback anchor (`startState`) in the same request — e.g. pull in a template and pass `startState: { "coverage": 0 }` so a rollback returns the rule to 0%.
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -9310,13 +9286,13 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: put-feature-revision-rule-ramp-schedule
     delete:
       operationId: deleteFeatureRevisionRuleRampScheduleV2
       summary: Remove ramp schedule from a rule
       description: >-
         Clears any pending ramp action for this rule. If a live ramp schedule exists, queues a detach that removes it on publish — the rule will show `pendingRamp: "detach"`. If only a pending create exists, it is removed and `pendingRamp` is cleared.
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -9369,6 +9345,8 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: delete-feature-revision-rule-ramp-schedule
   /v2/features/{id}/revisions/{version}/request-review:
     post:
       operationId: postFeatureRevisionRequestReviewV2
@@ -9381,8 +9359,6 @@ paths:
 
 
         Set `scheduledPublishAt` to a future ISO date-time to defer the auto-publish until that date (it still also requires approval when review is required). Use `scheduledPublishLockEdits` to freeze edits to this draft while the schedule is pending, and `scheduledPublishLockOthers` to block publishing other drafts of this feature in the meantime.
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -9433,6 +9409,8 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: post-feature-revision-request-review
   /v2/features/{id}/revisions/{version}/schedule-publish:
     post:
       operationId: postFeatureRevisionSchedulePublishV2
@@ -9442,8 +9420,6 @@ paths:
 
 
         Use `lockEdits` to freeze content edits to this draft while the schedule is pending (rebasing is still allowed), and `lockOthers` to block publishing other drafts of this feature until the schedule fires or is canceled. Requires publish permission; the publish executes with the caller's authority. An admin with bypass-approval permission can schedule even without approval — pass `bypassApproval: true` to mark it as an admin override, which locks the schedule to cancel-and-re-arm only.
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -9494,6 +9470,8 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: post-feature-revision-schedule-publish
   /v2/features/{id}/revisions/{version}/submit-review:
     post:
       operationId: postFeatureRevisionSubmitReviewV2
@@ -9503,8 +9481,6 @@ paths:
 
 
         When `action` is `approve` and the revision has `autoPublishOnApproval` enabled, the revision is automatically published after approval. The response includes `autoPublished: true` when this happens. Pass `skipAutoPublish: true` to approve without triggering auto-publish.
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -9554,14 +9530,14 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: post-feature-revision-submit-review
   /v2/features/{id}/revisions/{version}/recall-review:
     post:
       operationId: postFeatureRevisionRecallReviewV2
       summary: Recall a review request (revert to draft)
       description: >-
         Retracts the review request, returning the revision from `pending-review`, `changes-requested`, or `approved` back to `draft`. Allowed for any user with draft-management permission on the feature (the same permission required to request review), not only the original requester. Existing review log entries are preserved as audit history but any in-flight reviewer verdicts (Approved / Requested Changes) submitted during this review cycle no longer count — submitting a fresh `request-review` starts a new cycle.
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -9599,14 +9575,14 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: post-feature-revision-recall-review
   /v2/features/{id}/revisions/{version}/undo-review:
     post:
       operationId: postFeatureRevisionUndoReviewV2
       summary: Undo a reviewer's own review verdict
       description: >-
         Reviewer retracts their own verdict. The revision status rewinds to the state implied by the remaining active verdicts from other reviewers: any outstanding `Requested Changes` → `changes-requested`, else any outstanding `Approved` → `approved`, else `pending-review`. Existing review comments are preserved. If the retraction resolves the revision to `approved` and auto-publish-on-approval is armed, the revision is published.
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -9644,14 +9620,14 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: post-feature-revision-undo-review
   /v2/features/{id}/revisions/{version}/log:
     get:
       operationId: getFeatureRevisionLogV2
       summary: List the activity log for a revision
       description: >-
         Returns every log entry for the revision — content edits (rules, default value, rebases), review lifecycle events (review requested, approved, changes requested, recalled, undone), comments, and other audit events — sorted oldest-first.
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -9683,14 +9659,14 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: get-feature-revision-log
   /v2/features/{id}/revisions/{version}/log/{logId}:
     put:
       operationId: putFeatureRevisionLogCommentV2
       summary: Edit the comment text of an owned log entry
       description: >-
         Author of a `Comment`, `Approved`, or `Requested Changes` log entry can rewrite its comment text. The entry's action and other audit-trail metadata remain immutable; this only mutates `value.comment`. Other audit events (e.g. `Review Requested`, system events) are not editable.
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -9735,13 +9711,13 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: put-feature-revision-log-comment
     delete:
       operationId: deleteFeatureRevisionLogEntryV2
       summary: Delete an owned revision Comment entry
       description: >-
         Author of a `Comment` log entry can delete it. Verdict entries (Approved, Requested Changes, Review Requested) and other audit-trail events are immutable. To retract a verdict use `/undo-review`; to retract a review request use `/recall-review`.
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -9781,14 +9757,14 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: delete-feature-revision-log-entry
   /v2/features/{id}/revisions/{version}/merge-status:
     get:
       operationId: getFeatureRevisionMergeStatusV2
       summary: Get merge status for a draft revision
       description: >-
         Runs the three-way merge between the draft and the current live version without applying it. Conflicts are granular: each conflicting field gets its own key, and rules conflict individually (`rules.<ruleId>`, plus `rules.order` for competing reorders). Pass the returned `liveVersion` as `expectedLiveVersion` when rebasing. Also reports `rebaseRequired` so callers can detect ahead of time whether the publish endpoint will block until the draft is rebased.
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -9890,14 +9866,14 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: get-feature-revision-merge-status
   /v2/features/{id}/revisions/{version}/rebase/preview:
     post:
       operationId: postFeatureRevisionRebasePreviewV2
       summary: Preview a rebase without applying it
       description: >-
         Dry-run of the rebase: runs the same three-way merge with the supplied `conflictResolutions` and returns every conflict (resolved and unresolved) plus the merged result once all are resolved — without modifying the draft. Use it to iterate on resolutions before committing them via the rebase endpoint.
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -10021,14 +9997,14 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: post-feature-revision-rebase-preview
   /v2/features/{id}/revisions/{version}/rebase:
     post:
       operationId: postFeatureRevisionRebaseV2
       summary: Rebase a draft revision onto the current live version
       description: >-
         Updates the draft's base revision to match the currently-live revision, applying the draft's changes on top. Supply `conflictResolutions` to resolve conflicting items individually — including per-rule (`rules.<ruleId>`) and rule-order (`rules.order`) conflicts. Supply `expectedLiveVersion` and/or `expectedDraftDateUpdated` (both returned by merge-status and rebase preview) to fail fast with `409` if either side changes between conflict review and submission. Unresolved conflicts also respond with `409`.
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -10085,14 +10061,14 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: post-feature-revision-rebase
   /v2/features/{id}/revisions/{version}/publish:
     post:
       operationId: postFeatureRevisionPublishV2
       summary: Publish a draft revision
       description: >-
         Immediately publishes a draft revision, making it the live version of the feature. Any pending ramp actions (`pendingRamp` on rules) are executed atomically — ramp schedules are created or detached as queued.
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -10136,12 +10112,12 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: post-feature-revision-publish
   /v2/features/{id}/revisions/{version}/discard:
     post:
       operationId: postFeatureRevisionDiscardV2
       summary: Discard a draft revision
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -10179,14 +10155,14 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: post-feature-revision-discard
   /v2/features/{id}/revisions/{version}/reopen:
     post:
       operationId: postFeatureRevisionReopenV2
       summary: Reopen a discarded revision as a draft
       description: >-
         Returns a `discarded` revision to `draft` status so it can be edited, reviewed, and published. Prior review state is not restored — the draft must go back through review if approvals are required.
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -10224,12 +10200,12 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: post-feature-revision-reopen
   /v2/features/{id}/revisions/{version}/revert:
     post:
       operationId: postFeatureRevisionRevertV2
       summary: Revert the feature to a prior revision
-      tags:
-        - feature-revisions-v2
       parameters:
         - name: id
           in: path
@@ -10276,6 +10252,8 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      tags: [feature-revisions]
+      x-speakeasy-name-override: post-feature-revision-revert
   /v1/archetypes:
     get:
       operationId: listArchetypes
@@ -10361,6 +10339,7 @@ paths:
           source: |-
             curl -X POST 'https://api.growthbook.io/api/v1/archetypes' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: create
   /v1/archetypes/{id}:
     get:
       operationId: getArchetype
@@ -10447,6 +10426,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"description":"New description"}'
+      x-speakeasy-name-override: update
     delete:
       operationId: deleteArchetype
       summary: Deletes a single archetype
@@ -11020,6 +11000,7 @@ paths:
           source: |-
             curl -X POST 'https://api.growthbook.io/api/v1/experiments' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: create
   /v1/experiments/results:
     get:
       operationId: listExperimentResults
@@ -12321,6 +12302,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"editorUrl":"https://example.com/","urlPatterns":[{"type":"simple","pattern":"/","include":true}]}'
+      x-speakeasy-name-override: create
   /v1/contextual-bandits/{id}/current:
     get:
       operationId: getContextualBanditCurrentWeights
@@ -13330,6 +13312,7 @@ paths:
           source: |-
             curl -X POST 'https://api.growthbook.io/api/v1/metrics' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: create
   /v1/metrics/{id}:
     get:
       operationId: getMetric
@@ -13681,6 +13664,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"name":"net revenue","description":"revenue minus lacroix spend"}'
+      x-speakeasy-name-override: update
     delete:
       operationId: deleteMetric
       summary: Deletes a metric
@@ -13870,6 +13854,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"name":"Annual Subscribers","datasourceId":"ds_123abc","identifierType":"user_id","type":"SQL","query":"SELECT plan FROM subscribers WHERE plan = "}'
+      x-speakeasy-name-override: create
   /v1/segments/{id}:
     get:
       operationId: getSegment
@@ -14110,6 +14095,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"name":"User Country","datasourceId":"ds_123abc","identifierType":"user","query":"SELECT country FROM users"}'
+      x-speakeasy-name-override: create
   /v1/dimensions/{id}:
     get:
       operationId: getDimension
@@ -14346,6 +14332,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"name":"My Project","description":"Super cool project"}'
+      x-speakeasy-name-override: create
   /v1/projects/{id}:
     get:
       operationId: getProject
@@ -14433,6 +14420,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"name":"My Subsidiary"}'
+      x-speakeasy-name-override: update
     delete:
       operationId: deleteProject
       summary: Deletes a single project
@@ -14541,6 +14529,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"id":"new-env","description":"My new environment"}'
+      x-speakeasy-name-override: create
   /v1/environments/{id}:
     put:
       operationId: putEnvironment
@@ -14590,6 +14579,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"description":"My updated environment"}'
+      x-speakeasy-name-override: update
     delete:
       operationId: deleteEnvironment
       summary: Deletes a single environment
@@ -14740,6 +14730,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"property":"foo","datatype":"boolean","description":"My new attribute"}'
+      x-speakeasy-name-override: create
   /v1/attributes/{property}:
     put:
       operationId: putAttribute
@@ -14824,6 +14815,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"description":"My updated attribute"}'
+      x-speakeasy-name-override: update
     delete:
       operationId: deleteAttribute
       summary: Deletes a single attribute
@@ -14973,6 +14965,7 @@ paths:
           source: |-
             curl -X POST 'https://api.growthbook.io/api/v1/sdk-connections' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: create
   /v1/sdk-connections/{id}:
     get:
       operationId: getSdkConnection
@@ -15086,6 +15079,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: update
     delete:
       operationId: deleteSdkConnection
       summary: Deletes a single SDK connection
@@ -15377,6 +15371,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"editorUrl":"https://example.com/"}'
+      x-speakeasy-name-override: update
   /v1/visual-changesets/{id}/visual-change:
     post:
       operationId: postVisualChange
@@ -15637,6 +15632,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"name":"interal-users","values":["userId-123","userId-345","userId-678"],"attributeKey":"userId","owner":""}'
+      x-speakeasy-name-override: create
   /v1/saved-groups-revisions:
     get:
       operationId: listSavedGroupRevisions
@@ -16056,6 +16052,7 @@ paths:
         type: offsetLimit
         inputs: *offsetLimitInputs
         outputs: {results: $.revisions}
+      x-speakeasy-name-override: list-for-saved-group
     post:
       operationId: postSavedGroupRevision
       summary: Create a draft revision
@@ -16103,6 +16100,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: create
   /v1/saved-groups-revisions/{savedGroupId}/latest:
     get:
       operationId: getSavedGroupRevisionLatest
@@ -17056,6 +17054,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"key":"config-snippet","name":"Config Snippet","type":"json","value":"{\"timeout\":30}"}'
+      x-speakeasy-name-override: create
   /v1/constants-revisions:
     get:
       operationId: listConstantRevisions
@@ -17498,6 +17497,7 @@ paths:
         type: offsetLimit
         inputs: *offsetLimitInputs
         outputs: {results: $.revisions}
+      x-speakeasy-name-override: list-for-constant
     post:
       operationId: postConstantRevision
       summary: Create a draft revision
@@ -17545,6 +17545,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: create
   /v1/constants-revisions/{key}/latest:
     get:
       operationId: getConstantRevisionLatest
@@ -18304,6 +18305,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"name":"My Subsidiary"}'
+      x-speakeasy-name-override: create
   /v1/organizations/{id}:
     put:
       operationId: putOrganization
@@ -18351,6 +18353,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"name":"My Subsidiary","externalId":"subsidiary-123"}'
+      x-speakeasy-name-override: update
   /v1/sdk-payload/{key}:
     get:
       operationId: getSdkPayload
@@ -18522,6 +18525,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"name":"Orders","datasource":"ds_abc123","userIdTypes":["id"],"sql":"SELECT * FROM orders"}'
+      x-speakeasy-name-override: create
   /v1/fact-tables/{id}:
     get:
       operationId: getFactTable
@@ -19549,6 +19553,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"name":"Purchased","metricType":"proportion","numerator":{"factTableId":"ftb_abc123","column":"$$distinctUsers","filters":[]},"priorSettings":{"override":false,"proper":false,"mean":0,"stddev":0.3}}'
+      x-speakeasy-name-override: create
   /v1/fact-metrics/{id}:
     get:
       operationId: getFactMetric
@@ -21519,6 +21524,7 @@ paths:
           source: |-
             curl -X POST 'https://api.growthbook.io/api/v1/ramp-schedules' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: create
   /v1/ramp-schedules/{id}/actions/start:
     post:
       operationId: startRampSchedule
@@ -24056,6 +24062,7 @@ paths:
           source: |-
             curl -X POST 'https://api.growthbook.io/api/v1/reports' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: create
   /v1/reports/{id}:
     get:
       operationId: getReport
@@ -24502,6 +24509,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"displayName":"Checkout Flow","description":"Experiments on the checkout funnel","format":"multiRange","hashAttribute":"id"}'
+      x-speakeasy-name-override: create
   /v1/namespaces/{id}:
     get:
       operationId: getNamespace
@@ -24597,6 +24605,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"displayName":"Checkout v2","status":"inactive"}'
+      x-speakeasy-name-override: update
     delete:
       operationId: deleteNamespace
       summary: Delete a namespace

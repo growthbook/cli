@@ -25,7 +25,7 @@ func InitSDKConnectionsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPostSDKConnectionCmd(SDKConnectionsCmd); err != nil {
+	if err := initCreateCmd(SDKConnectionsCmd); err != nil {
 		return err
 	}
 
@@ -33,7 +33,7 @@ func InitSDKConnectionsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPutSDKConnectionCmd(SDKConnectionsCmd); err != nil {
+	if err := initUpdateCmd(SDKConnectionsCmd); err != nil {
 		return err
 	}
 

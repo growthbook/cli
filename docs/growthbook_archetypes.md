@@ -43,8 +43,8 @@ growthbook archetypes [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
+* [growthbook archetypes create](growthbook_archetypes_create.md)	 - Create a single archetype
 * [growthbook archetypes delete](growthbook_archetypes_delete.md)	 - Deletes a single archetype
 * [growthbook archetypes get](growthbook_archetypes_get.md)	 - Get a single archetype
 * [growthbook archetypes list](growthbook_archetypes_list.md)	 - Get the organization's archetypes
-* [growthbook archetypes post](growthbook_archetypes_post.md)	 - Create a single archetype
-* [growthbook archetypes put](growthbook_archetypes_put.md)	 - Update a single archetype
+* [growthbook archetypes update](growthbook_archetypes_update.md)	 - Update a single archetype

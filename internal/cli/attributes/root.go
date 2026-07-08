@@ -24,11 +24,11 @@ func InitAttributesRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPostAttributeCmd(AttributesCmd); err != nil {
+	if err := initCreateCmd(AttributesCmd); err != nil {
 		return err
 	}
 
-	if err := initPutAttributeCmd(AttributesCmd); err != nil {
+	if err := initUpdateCmd(AttributesCmd); err != nil {
 		return err
 	}
 

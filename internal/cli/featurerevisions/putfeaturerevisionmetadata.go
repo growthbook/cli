@@ -32,14 +32,14 @@ var putFeatureRevisionMetadataCmdMeta = []flagutil.FlagMeta{
 func initPutFeatureRevisionMetadataCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "put-feature-revision-metadata",
-		Short:   "Update revision metadata (comment, title, feature metadata)",
-		Long:    "DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible\n\n**Deprecated.** Use [PUT /v2/features/:id/revisions/:version/metadata](#operation/putFeatureRevisionMetadataV2) instead.\n\nUpdates draft-level metadata (`comment`, `title`) and/or feature-level metadata (owner, project, tags, customFields, jsonSchema, etc.). Merge semantics: omitted fields are left unchanged; any provided field replaces the current value (pass an empty string/array/object to clear). Feature metadata changes are staged on the revision and applied to the feature on publish. Changing `project` requires publish permission on both the old and new project.",
+		Short:   "Update revision metadata",
+		Long:    "Update revision metadata",
 		Example: "  growthbook feature-revisions put-feature-revision-metadata --id <id> --version-param <value>",
 		RunE:    runPutFeatureRevisionMetadataCmd,
 		Aliases: []string{"pfrm"},
 	}
 	flagutil.RegisterFlags(cmd, putFeatureRevisionMetadataCmdMeta)
-	if err := flagutil.ValidateMeta[operations.PutFeatureRevisionMetadataRequest](putFeatureRevisionMetadataCmdMeta); err != nil {
+	if err := flagutil.ValidateMeta[operations.PutFeatureRevisionMetadataV2Request](putFeatureRevisionMetadataCmdMeta); err != nil {
 		return fmt.Errorf("invalid metadata for put-feature-revision-metadata: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
@@ -57,7 +57,7 @@ func runPutFeatureRevisionMetadataCmd(cmd *cobra.Command, args []string) error {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.PutFeatureRevisionMetadataRequest](cmd, putFeatureRevisionMetadataCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.PutFeatureRevisionMetadataV2Request](cmd, putFeatureRevisionMetadataCmdMeta, "Body", "body")
 	if err != nil {
 		return err
 	}

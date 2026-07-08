@@ -24,11 +24,11 @@ func InitOrganizationsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPostOrganizationCmd(OrganizationsCmd); err != nil {
+	if err := initCreateCmd(OrganizationsCmd); err != nil {
 		return err
 	}
 
-	if err := initPutOrganizationCmd(OrganizationsCmd); err != nil {
+	if err := initUpdateCmd(OrganizationsCmd); err != nil {
 		return err
 	}
 

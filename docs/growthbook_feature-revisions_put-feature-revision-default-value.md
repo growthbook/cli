@@ -4,11 +4,7 @@ Set the default value in a draft revision
 
 ### Synopsis
 
-DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible
-
-**Deprecated.** Use [PUT /v2/features/:id/revisions/:version/default-value](#operation/putFeatureRevisionDefaultValueV2) instead.
-
-Replaces the feature's default value for this revision. The value must be a string representation matching the feature's value type (e.g. `"true"` for booleans, `42` for numbers, a JSON string for JSON features).
+Set the default value in a draft revision
 
 ```
 growthbook feature-revisions put-feature-revision-default-value [flags]
@@ -27,8 +23,8 @@ growthbook feature-revisions put-feature-revision-default-value [flags]
       --default-value string      [required]
   -h, --help                      help for put-feature-revision-default-value
   -i, --id string                 [required]
-      --revision-comment string   string value
-      --revision-title string     string value
+      --revision-comment string   Comment for a newly created draft. Only used when version is "new"; ignored for existing revisions.
+      --revision-title string     Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
   -v, --version-param string      [required]
 ```
 

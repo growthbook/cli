@@ -24,7 +24,7 @@ func InitReportsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPostReportCmd(ReportsCmd); err != nil {
+	if err := initCreateCmd(ReportsCmd); err != nil {
 		return err
 	}
 

@@ -28,8 +28,9 @@ var putFeatureRevisionRuleRampScheduleCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "monitoring-config", Shorthand: "m", FieldPath: "Body.MonitoringConfig", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"monitoringConfig,omitempty"`, Description: "JSON object"},
 	{FlagName: "lockdown-config", Shorthand: "l", FieldPath: "Body.LockdownConfig", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"lockdownConfig,omitempty"`, Description: "JSON object"},
 	{FlagName: "environment", FieldPath: "Body.Environment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "start-state", FieldPath: "Body.StartState", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"startState,omitempty"`, Description: "The rule state to roll back to (the rollback/jump-to-start anchor). Merged onto the rule's current state, so `{ \"coverage\": 0 }` keeps existing targeting but rolls back to 0%. This affects rollbacks only — it is NOT applied when the ramp starts. On create, omitting it infers the anchor from the rule's current coverage (and returns a warning if that isn't 0%); on update of a live schedule, omitting it leaves the existing anchor unchanged."},
+	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "Title for a newly created draft. Only used when version is \"new\"; ignored for existing revisions."},
+	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "Comment for a newly created draft. Only used when version is \"new\"; ignored for existing revisions."},
 }
 
 // initPutFeatureRevisionRuleRampScheduleCmd initializes the put-feature-revision-rule-ramp-schedule command.
@@ -37,13 +38,13 @@ func initPutFeatureRevisionRuleRampScheduleCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "put-feature-revision-rule-ramp-schedule",
 		Short:   "Set ramp schedule for a rule",
-		Long:    "DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible\n\n**Deprecated.** Use [PUT /v2/features/:id/revisions/:version/rules/:ruleId/ramp-schedule](#operation/putFeatureRevisionRuleRampScheduleV2) instead.\n\nQueues a revision-controlled ramp action for this rule. If the rule already has a live ramp schedule, this stores an `update` action applied on publish; otherwise it stores a `create` action. No live schedule config changes are applied immediately by this endpoint.",
+		Long:    "Queues a revision-controlled ramp action for this rule. If the rule already has a live ramp schedule, this stores an `update` action applied on publish; otherwise it stores a `create` action. No live schedule config changes are applied immediately by this endpoint.\n\nYou can build the ramp from a template (`templateId`) and set the rollback anchor (`startState`) in the same request — e.g. pull in a template and pass `startState: { \"coverage\": 0 }` so a rollback returns the rule to 0%.",
 		Example: "  growthbook feature-revisions put-feature-revision-rule-ramp-schedule --id <id> --version-param <value> --rule-id <id>",
 		RunE:    runPutFeatureRevisionRuleRampScheduleCmd,
 		Aliases: []string{"pfrrrs"},
 	}
 	flagutil.RegisterFlags(cmd, putFeatureRevisionRuleRampScheduleCmdMeta)
-	if err := flagutil.ValidateMeta[operations.PutFeatureRevisionRuleRampScheduleRequest](putFeatureRevisionRuleRampScheduleCmdMeta); err != nil {
+	if err := flagutil.ValidateMeta[operations.PutFeatureRevisionRuleRampScheduleV2Request](putFeatureRevisionRuleRampScheduleCmdMeta); err != nil {
 		return fmt.Errorf("invalid metadata for put-feature-revision-rule-ramp-schedule: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
@@ -61,7 +62,7 @@ func runPutFeatureRevisionRuleRampScheduleCmd(cmd *cobra.Command, args []string)
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.PutFeatureRevisionRuleRampScheduleRequest](cmd, putFeatureRevisionRuleRampScheduleCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.PutFeatureRevisionRuleRampScheduleV2Request](cmd, putFeatureRevisionRuleRampScheduleCmdMeta, "Body", "body")
 	if err != nil {
 		return err
 	}

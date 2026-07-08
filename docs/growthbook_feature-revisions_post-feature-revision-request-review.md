@@ -4,11 +4,11 @@ Request review for a draft revision
 
 ### Synopsis
 
-DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible
-
-**Deprecated.** Use [POST /v2/features/:id/revisions/:version/request-review](#operation/postFeatureRevisionRequestReviewV2) instead.
-
 Moves the draft into the `pending-review` state and notifies reviewers.
+
+Set `autoPublishOnApproval` to `true` to publish the revision automatically the moment it is approved (GitHub auto-merge model). This requires the org to have auto-publish-on-approval enabled for the feature and the caller to have publish permission; the auto-publish then executes with the caller's authority.
+
+Set `scheduledPublishAt` to a future ISO date-time to defer the auto-publish until that date (it still also requires approval when review is required). Use `scheduledPublishLockEdits` to freeze edits to this draft while the schedule is pending, and `scheduledPublishLockOthers` to block publishing other drafts of this feature in the meantime.
 
 ```
 growthbook feature-revisions post-feature-revision-request-review [flags]
@@ -17,18 +17,21 @@ growthbook feature-revisions post-feature-revision-request-review [flags]
 ### Examples
 
 ```
-  growthbook feature-revisions post-feature-revision-request-review --id <id> --version-param 725812
+  growthbook feature-revisions post-feature-revision-request-review --id <id> --version-param 659874
 ```
 
 ### Options
 
 ```
-  -a, --auto-publish-on-approval   boolean flag
-      --body string                Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -c, --comment string             string value
-  -h, --help                       help for post-feature-revision-request-review
-  -i, --id string                  [required]
-  -v, --version-param string       [required]
+  -a, --auto-publish-on-approval        boolean flag
+      --body string                     Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -c, --comment string                  string value
+  -h, --help                            help for post-feature-revision-request-review
+  -i, --id string                       [required]
+      --scheduled-publish-at string     date/time value
+      --scheduled-publish-lock-edits    boolean flag
+      --scheduled-publish-lock-others   boolean flag
+  -v, --version-param string            [required]
 ```
 
 ### Options inherited from parent commands

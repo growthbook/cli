@@ -68,7 +68,7 @@ type Growthbook struct {
 	// Draft revisions for feature flags, including rules, scheduling, and approval workflows.
 	//
 	// **These are v1 endpoints.** New integrations should use the v2 Feature Revisions endpoints.
-	FeatureRevisions *FeatureRevisions
+	FeatureRevisionsV1 *FeatureRevisionsV1
 	// Control your feature flags programatically.
 	//
 	// Rules are returned as a unified top-level array; each rule carries `allEnvironments` / `environments` scope fields instead of being bucketed by environment.
@@ -76,7 +76,7 @@ type Growthbook struct {
 	// Draft revisions for feature flags, including rules, scheduling, and approval workflows.
 	//
 	// Revision `rules` is a flat array with per-rule scope fields.
-	FeatureRevisionsV2 *FeatureRevisionsV2
+	FeatureRevisions *FeatureRevisions
 	// Archetypes allow you to simulate the result of targeting rules on pre-set user attributes
 	Archetypes *Archetypes
 	// Experiments (A/B Tests)
@@ -257,9 +257,9 @@ func New(opts ...SDKOption) *Growthbook {
 	sdk.sdkConfiguration = sdk.hooks.SDKInit(sdk.sdkConfiguration)
 
 	sdk.FeaturesV1 = newFeaturesV1(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.FeatureRevisions = newFeatureRevisions(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.FeatureRevisionsV1 = newFeatureRevisionsV1(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Features = newFeatures(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.FeatureRevisionsV2 = newFeatureRevisionsV2(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.FeatureRevisions = newFeatureRevisions(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Archetypes = newArchetypes(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Experiments = newExperiments(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Snapshots = newSnapshots(sdk, sdk.sdkConfiguration, sdk.hooks)

@@ -225,8 +225,8 @@ func (s *Segments) ListSegments(ctx context.Context, request *operations.ListSeg
 
 }
 
-// PostSegment - Create a single segment
-func (s *Segments) PostSegment(ctx context.Context, request operations.PostSegmentRequest, opts ...operations.Option) (*operations.PostSegmentResponse, error) {
+// Create a single segment
+func (s *Segments) Create(ctx context.Context, request operations.PostSegmentRequest, opts ...operations.Option) (*operations.PostSegmentResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

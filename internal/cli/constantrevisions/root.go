@@ -25,11 +25,11 @@ func InitConstantRevisionsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initGetConstantRevisionsCmd(ConstantRevisionsCmd); err != nil {
+	if err := initListForConstantCmd(ConstantRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostConstantRevisionCmd(ConstantRevisionsCmd); err != nil {
+	if err := initCreateCmd(ConstantRevisionsCmd); err != nil {
 		return err
 	}
 

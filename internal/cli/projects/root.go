@@ -24,7 +24,7 @@ func InitProjectsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPostProjectCmd(ProjectsCmd); err != nil {
+	if err := initCreateCmd(ProjectsCmd); err != nil {
 		return err
 	}
 
@@ -32,7 +32,7 @@ func InitProjectsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPutProjectCmd(ProjectsCmd); err != nil {
+	if err := initUpdateCmd(ProjectsCmd); err != nil {
 		return err
 	}
 

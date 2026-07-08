@@ -45,12 +45,12 @@ growthbook saved-group-revisions [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
+* [growthbook saved-group-revisions create](growthbook_saved-group-revisions_create.md)	 - Create a draft revision
 * [growthbook saved-group-revisions get](growthbook_saved-group-revisions_get.md)	 - Get a single saved group revision
-* [growthbook saved-group-revisions get](growthbook_saved-group-revisions_get.md)	 - List revisions for a saved group
 * [growthbook saved-group-revisions get-saved-group-revision-latest](growthbook_saved-group-revisions_get-saved-group-revision-latest.md)	 - Get the most recent active draft revision
 * [growthbook saved-group-revisions get-saved-group-revision-merge-status](growthbook_saved-group-revisions_get-saved-group-revision-merge-status.md)	 - Get merge status for a draft revision
 * [growthbook saved-group-revisions list](growthbook_saved-group-revisions_list.md)	 - List saved-group revisions across the organization
-* [growthbook saved-group-revisions post](growthbook_saved-group-revisions_post.md)	 - Create a draft revision
+* [growthbook saved-group-revisions list-for-saved-group](growthbook_saved-group-revisions_list-for-saved-group.md)	 - List revisions for a saved group
 * [growthbook saved-group-revisions post-saved-group-revision-discard](growthbook_saved-group-revisions_post-saved-group-revision-discard.md)	 - Discard a draft revision
 * [growthbook saved-group-revisions post-saved-group-revision-items-add](growthbook_saved-group-revisions_post-saved-group-revision-items-add.md)	 - Append items to a list saved group draft revision
 * [growthbook saved-group-revisions post-saved-group-revision-items-remove](growthbook_saved-group-revisions_post-saved-group-revision-items-remove.md)	 - Remove items from a list saved group draft revision

@@ -225,8 +225,8 @@ func (s *SavedGroups) ListSavedGroups(ctx context.Context, request *operations.L
 
 }
 
-// PostSavedGroup - Create a single saved group
-func (s *SavedGroups) PostSavedGroup(ctx context.Context, request operations.PostSavedGroupRequest, opts ...operations.Option) (*operations.PostSavedGroupResponse, error) {
+// Create a single saved group
+func (s *SavedGroups) Create(ctx context.Context, request operations.PostSavedGroupRequest, opts ...operations.Option) (*operations.PostSavedGroupResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

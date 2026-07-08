@@ -4,11 +4,7 @@ Get a single feature revision
 
 ### Synopsis
 
-DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible
-
-**Deprecated.** Use [GET /v2/features/:id/revisions/:version](#operation/getFeatureRevisionV2) instead.
-
-Returns the revision at the specified version for this feature. Use `GET /features/{id}/revisions/latest` for the most recent active draft.
+Returns the revision at the specified version for this feature. Revision `rules` is a flat array with per-rule environment scope.
 
 ```
 growthbook feature-revisions get [flags]
@@ -17,7 +13,7 @@ growthbook feature-revisions get [flags]
 ### Examples
 
 ```
-  growthbook feature-revisions get --id <id> --version-param 931576
+  growthbook feature-revisions get --id <id> --version-param 530749
 ```
 
 ### Options

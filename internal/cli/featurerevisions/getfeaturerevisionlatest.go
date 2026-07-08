@@ -16,7 +16,9 @@ import (
 
 var getFeatureRevisionLatestCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "mine", Shorthand: "m", FieldPath: "Mine", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `queryParam:"style=form,explode=true,name=mine"`, Description: "If true, return only the most recent active draft authored by or contributed to by the calling user. Requires a user-scoped API key."},
+	{FlagName: "mine", Shorthand: "m", FieldPath: "Mine", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `queryParam:"style=form,explode=true,name=mine"`, Description: "If true, return only the most recent active draft authored by or contributed to by the calling user."},
+	{FlagName: "status", Shorthand: "s", FieldPath: "Status", Kind: flagutil.FlagKindUnion, Union: &flagutil.UnionMeta{Discriminated: false, Optional: true, TypeDescription: "JSON value (one of: string | array of string)"}},
+	{FlagName: "author", Shorthand: "a", FieldPath: "Author", Kind: flagutil.FlagKindString, Optional: true, Description: "Filter to drafts created by this user (userId)."},
 }
 
 // initGetFeatureRevisionLatestCmd initializes the get-feature-revision-latest command.
@@ -24,13 +26,13 @@ func initGetFeatureRevisionLatestCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "get-feature-revision-latest",
 		Short:   "Get the most recent active draft revision",
-		Long:    "DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible\n\n**Deprecated.** Use [GET /v2/features/:id/revisions/latest](#operation/getFeatureRevisionLatestV2) instead.\n\nReturns the most recently updated draft revision for the feature. Returns 404 if there is no active draft. Pass `mine=true` to return the most recent draft authored by or contributed to by the calling user (requires a user-scoped API key).",
+		Long:    "Returns the most recently updated active draft revision for the feature. Returns 404 if no matching draft exists. Filter by status, author, or use `mine=true` to scope to the calling user's own drafts.",
 		Example: "  growthbook feature-revisions get-feature-revision-latest --id <id>",
 		RunE:    runGetFeatureRevisionLatestCmd,
 		Aliases: []string{"gfrl"},
 	}
 	flagutil.RegisterFlags(cmd, getFeatureRevisionLatestCmdMeta)
-	if err := flagutil.ValidateMeta[operations.GetFeatureRevisionLatestRequest](getFeatureRevisionLatestCmdMeta); err != nil {
+	if err := flagutil.ValidateMeta[operations.GetFeatureRevisionLatestV2Request](getFeatureRevisionLatestCmdMeta); err != nil {
 		return fmt.Errorf("invalid metadata for get-feature-revision-latest: %w", err)
 	}
 	parent.AddCommand(cmd)
@@ -47,7 +49,7 @@ func runGetFeatureRevisionLatestCmd(cmd *cobra.Command, args []string) error {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.GetFeatureRevisionLatestRequest](cmd, getFeatureRevisionLatestCmdMeta, "", "")
+	req, err := flagutil.BuildRequest[operations.GetFeatureRevisionLatestV2Request](cmd, getFeatureRevisionLatestCmdMeta, "", "")
 	if err != nil {
 		return err
 	}

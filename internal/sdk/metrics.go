@@ -225,8 +225,8 @@ func (s *Metrics) ListMetrics(ctx context.Context, request *operations.ListMetri
 
 }
 
-// PostMetric - Create a single metric
-func (s *Metrics) PostMetric(ctx context.Context, request operations.PostMetricRequest, opts ...operations.Option) (*operations.PostMetricResponse, error) {
+// Create a single metric
+func (s *Metrics) Create(ctx context.Context, request operations.PostMetricRequest, opts ...operations.Option) (*operations.PostMetricResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -520,8 +520,8 @@ func (s *Metrics) GetMetric(ctx context.Context, request operations.GetMetricReq
 
 }
 
-// PutMetric - Update a metric
-func (s *Metrics) PutMetric(ctx context.Context, request operations.PutMetricRequest, opts ...operations.Option) (*operations.PutMetricResponse, error) {
+// Update a metric
+func (s *Metrics) Update(ctx context.Context, request operations.PutMetricRequest, opts ...operations.Option) (*operations.PutMetricResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
