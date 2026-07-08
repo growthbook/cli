@@ -35,7 +35,26 @@ jobs:
       # (unexported fields with json tags), which we don't hand-edit. Speakeasy runs
       # staticcheck (with exclusions) during `speakeasy run`, which is the real lint gate.
 
-      # Generated contract tests require a mock/live server, so compile them
-      # without executing — this matches `speakeasy run`'s own validation gate.
-      - name: Compile tests
-        run: go test -run=XXX_SHOULD_NEVER_MATCH_XXX ./...
+      # The CLI command surface (every command + its flags) is generated from
+      # the OpenAPI spec, so a spec/overlay change can silently add, drop, or
+      # rename one. Regenerate the golden snapshot and fail if the committed copy
+      # is stale — a bare `speakeasy run` doesn't refresh it, so this makes the
+      # regen PR carry the surface diff instead of letting it drift.
+      - name: Check command surface is up to date
+        run: |
+          go generate ./internal/cli/...
+          # --porcelain catches both a stale tracked golden and a new,
+          # never-committed one (which `git diff` alone would miss).
+          if [ -n "$(git status --porcelain -- internal/cli/testdata)" ]; then
+            git --no-pager diff -- internal/cli/testdata
+            echo "::error::CLI command surface changed. Run 'go generate ./internal/cli/...' and commit internal/cli/testdata/command-surface.txt."
+            exit 1
+          fi
+
+      # Runs the hand-written unit + end-to-end tests (custom config/migration,
+      # and the in-process CLI-vs-mock-server e2e suite in internal/cli). All are
+      # offline. NOTE: if Speakeasy contract tests are ever enabled (gen.yaml →
+      # tests.generateTests: true), those need a mock server via `speakeasy test`
+      # and must run in a separate job, not here.
+      - name: Test
+        run: go test ./...

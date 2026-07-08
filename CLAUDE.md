@@ -35,10 +35,16 @@ prerelease path — see **[RELEASING.md](RELEASING.md)**.
 ```bash
 speakeasy run                                   # regenerate from spec + overlay
 go mod tidy                                     # if go.sum is incomplete after a regen
+go generate ./...                               # refresh generated test golden(s) (command surface)
 go build -o growthbook ./cmd/growthbook         # build the CLI
 ./growthbook --help
 go build ./...                                  # quick check the whole module compiles
 ```
+
+`speakeasy run` does **not** refresh the command-surface golden
+(`internal/cli/testdata/command-surface.txt`), so run `go generate ./...` after every regen and
+commit the result. CI regenerates it and fails on any drift, so a stale golden can't merge — but
+running it locally keeps the surface diff in the same PR as the spec change that caused it.
 
 **Go must be installed wherever generation runs — including CI.** Without it, `speakeasy run`
 skips the compile and `go mod tidy` steps, so `go.sum` is left incomplete and the output won't
