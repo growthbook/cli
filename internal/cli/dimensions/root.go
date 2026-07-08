@@ -24,7 +24,7 @@ func InitDimensionsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPostDimensionCmd(DimensionsCmd); err != nil {
+	if err := initCreateCmd(DimensionsCmd); err != nil {
 		return err
 	}
 

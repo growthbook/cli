@@ -25,7 +25,7 @@ func InitRampSchedulesRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPostRampScheduleCmd(RampSchedulesCmd); err != nil {
+	if err := initCreateCmd(RampSchedulesCmd); err != nil {
 		return err
 	}
 

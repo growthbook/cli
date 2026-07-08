@@ -43,6 +43,7 @@ growthbook experiments [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
+* [growthbook experiments create](growthbook_experiments_create.md)	 - Create a single experiment
 * [growthbook experiments delete-variation-screenshot](growthbook_experiments_delete-variation-screenshot.md)	 - Delete a variation screenshot
 * [growthbook experiments get](growthbook_experiments_get.md)	 - Get a single experiment
 * [growthbook experiments get-experiment-names](growthbook_experiments_get-experiment-names.md)	 - Get a list of experiments with names and ids
@@ -50,7 +51,6 @@ growthbook experiments [flags]
 * [growthbook experiments get-experiment-start-checklist](growthbook_experiments_get-experiment-start-checklist.md)	 - Get an experiment pre-launch checklist status
 * [growthbook experiments list](growthbook_experiments_list.md)	 - Get all experiments
 * [growthbook experiments list-experiment-results](growthbook_experiments_list-experiment-results.md)	 - Get latest results for many experiments
-* [growthbook experiments post](growthbook_experiments_post.md)	 - Create a single experiment
 * [growthbook experiments post-experiment-modify-temporary-rollout](growthbook_experiments_post-experiment-modify-temporary-rollout.md)	 - Modify temporary rollout status for a stopped experiment
 * [growthbook experiments post-experiment-snapshot](growthbook_experiments_post-experiment-snapshot.md)	 - Create Experiment Snapshot
 * [growthbook experiments post-experiment-start](growthbook_experiments_post-experiment-start.md)	 - Start/Stage an experiment

@@ -18,8 +18,8 @@ var putFeatureRevisionArchiveCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "archived", Shorthand: "a", FieldPath: "Body.Archived", Kind: flagutil.FlagKindBool, Required: true, Description: "[required]"},
-	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "Title for a newly created draft. Only used when version is \"new\"; ignored for existing revisions."},
+	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "Comment for a newly created draft. Only used when version is \"new\"; ignored for existing revisions."},
 }
 
 // initPutFeatureRevisionArchiveCmd initializes the put-feature-revision-archive command.
@@ -27,13 +27,13 @@ func initPutFeatureRevisionArchiveCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "put-feature-revision-archive",
 		Short:   "Set archived state in a draft revision",
-		Long:    "DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible\n\n**Deprecated.** Use [PUT /v2/features/:id/revisions/:version/archive](#operation/putFeatureRevisionArchiveV2) instead.\n\nSets whether the feature is archived. Archived features are excluded from SDK payloads on publish.",
-		Example: "  growthbook feature-revisions put-feature-revision-archive --id <id> --version-param <value> --archived false",
+		Long:    "Set archived state in a draft revision",
+		Example: "  growthbook feature-revisions put-feature-revision-archive --id <id> --version-param <value> --archived true",
 		RunE:    runPutFeatureRevisionArchiveCmd,
 		Aliases: []string{"pfra"},
 	}
 	flagutil.RegisterFlags(cmd, putFeatureRevisionArchiveCmdMeta)
-	if err := flagutil.ValidateMeta[operations.PutFeatureRevisionArchiveRequest](putFeatureRevisionArchiveCmdMeta); err != nil {
+	if err := flagutil.ValidateMeta[operations.PutFeatureRevisionArchiveV2Request](putFeatureRevisionArchiveCmdMeta); err != nil {
 		return fmt.Errorf("invalid metadata for put-feature-revision-archive: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
@@ -51,7 +51,7 @@ func runPutFeatureRevisionArchiveCmd(cmd *cobra.Command, args []string) error {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.PutFeatureRevisionArchiveRequest](cmd, putFeatureRevisionArchiveCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.PutFeatureRevisionArchiveV2Request](cmd, putFeatureRevisionArchiveCmdMeta, "Body", "body")
 	if err != nil {
 		return err
 	}

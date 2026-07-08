@@ -43,7 +43,7 @@ growthbook attributes [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
+* [growthbook attributes create](growthbook_attributes_create.md)	 - Create a new attribute
 * [growthbook attributes delete](growthbook_attributes_delete.md)	 - Deletes a single attribute
 * [growthbook attributes list](growthbook_attributes_list.md)	 - Get the organization's attributes
-* [growthbook attributes post](growthbook_attributes_post.md)	 - Create a new attribute
-* [growthbook attributes put](growthbook_attributes_put.md)	 - Update an attribute
+* [growthbook attributes update](growthbook_attributes_update.md)	 - Update an attribute

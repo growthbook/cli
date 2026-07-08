@@ -63,7 +63,7 @@ growthbook [flags]
 * [growthbook fact-metrics](growthbook_fact-metrics.md)	 - Fact Metrics are metrics built on top of Fact Table definitions
 * [growthbook fact-tables](growthbook_fact-tables.md)	 - Fact Tables describe the shape of your data warehouse tables
 * [growthbook feature-revisions](growthbook_feature-revisions.md)	 - Draft revisions for feature flags, including rules, scheduling, and approval workflows
-* [growthbook feature-revisions-v2](growthbook_feature-revisions-v2.md)	 - Draft revisions for feature flags, including rules, scheduling, and approval workflows
+* [growthbook feature-revisions-v1](growthbook_feature-revisions-v1.md)	 - Draft revisions for feature flags, including rules, scheduling, and approval workflows
 * [growthbook features](growthbook_features.md)	 - Control your feature flags programatically
 * [growthbook features-v1](growthbook_features-v1.md)	 - Control your feature flags programatically
 * [growthbook generate-types](growthbook_generate-types.md)	 - Generate TypeScript types for all your features

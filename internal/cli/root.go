@@ -22,7 +22,7 @@ import (
 	"github.com/growthbook/cli/internal/cli/factmetrics"
 	"github.com/growthbook/cli/internal/cli/facttables"
 	"github.com/growthbook/cli/internal/cli/featurerevisions"
-	"github.com/growthbook/cli/internal/cli/featurerevisionsv2"
+	"github.com/growthbook/cli/internal/cli/featurerevisionsv1"
 	"github.com/growthbook/cli/internal/cli/features"
 	"github.com/growthbook/cli/internal/cli/featuresv1"
 	"github.com/growthbook/cli/internal/cli/members"
@@ -89,14 +89,14 @@ func NewRootCommand() (*cobra.Command, error) {
 	if err := featuresv1.InitFeaturesV1Root(rootCmd); err != nil {
 		return nil, fmt.Errorf("init features-v1: %w", err)
 	}
-	if err := featurerevisions.InitFeatureRevisionsRoot(rootCmd); err != nil {
-		return nil, fmt.Errorf("init feature-revisions: %w", err)
+	if err := featurerevisionsv1.InitFeatureRevisionsV1Root(rootCmd); err != nil {
+		return nil, fmt.Errorf("init feature-revisions-v1: %w", err)
 	}
 	if err := features.InitFeaturesRoot(rootCmd); err != nil {
 		return nil, fmt.Errorf("init features: %w", err)
 	}
-	if err := featurerevisionsv2.InitFeatureRevisionsV2Root(rootCmd); err != nil {
-		return nil, fmt.Errorf("init feature-revisions-v2: %w", err)
+	if err := featurerevisions.InitFeatureRevisionsRoot(rootCmd); err != nil {
+		return nil, fmt.Errorf("init feature-revisions: %w", err)
 	}
 	if err := archetypes.InitArchetypesRoot(rootCmd); err != nil {
 		return nil, fmt.Errorf("init archetypes: %w", err)

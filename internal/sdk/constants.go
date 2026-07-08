@@ -225,8 +225,8 @@ func (s *Constants) ListConstants(ctx context.Context, request *operations.ListC
 
 }
 
-// PostConstant - Create a single constant
-func (s *Constants) PostConstant(ctx context.Context, request operations.PostConstantRequest, opts ...operations.Option) (*operations.PostConstantResponse, error) {
+// Create a single constant
+func (s *Constants) Create(ctx context.Context, request operations.PostConstantRequest, opts ...operations.Option) (*operations.PostConstantResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

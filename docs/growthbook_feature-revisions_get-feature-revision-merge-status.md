@@ -4,11 +4,7 @@ Get merge status for a draft revision
 
 ### Synopsis
 
-DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible
-
-**Deprecated.** Use [GET /v2/features/:id/revisions/:version/merge-status](#operation/getFeatureRevisionMergeStatusV2) instead.
-
-Runs a dry-run merge of the draft against the current live revision and returns any conflicts. Use this before publishing to preview changes and detect conflicting edits.
+Runs the three-way merge between the draft and the current live version without applying it. Conflicts are granular: each conflicting field gets its own key, and rules conflict individually (`rules.<ruleId>`, plus `rules.order` for competing reorders). Pass the returned `liveVersion` as `expectedLiveVersion` when rebasing. Also reports `rebaseRequired` so callers can detect ahead of time whether the publish endpoint will block until the draft is rebased.
 
 ```
 growthbook feature-revisions get-feature-revision-merge-status [flags]
@@ -17,7 +13,7 @@ growthbook feature-revisions get-feature-revision-merge-status [flags]
 ### Examples
 
 ```
-  growthbook feature-revisions get-feature-revision-merge-status --id <id> --version-param 48151
+  growthbook feature-revisions get-feature-revision-merge-status --id <id> --version-param 922325
 ```
 
 ### Options

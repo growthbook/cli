@@ -228,9 +228,9 @@ func (s *SavedGroupRevisions) ListSavedGroupRevisions(ctx context.Context, reque
 
 }
 
-// GetSavedGroupRevisions - List revisions for a saved group
+// ListForSavedGroup - List revisions for a saved group
 // Returns a paginated list of revisions for this saved group, sorted newest-first. Optionally filtered by status, author, or the calling user's involvement.
-func (s *SavedGroupRevisions) GetSavedGroupRevisions(ctx context.Context, request operations.GetSavedGroupRevisionsRequest, opts ...operations.Option) (*operations.GetSavedGroupRevisionsResponse, error) {
+func (s *SavedGroupRevisions) ListForSavedGroup(ctx context.Context, request operations.GetSavedGroupRevisionsRequest, opts ...operations.Option) (*operations.GetSavedGroupRevisionsResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -368,7 +368,7 @@ func (s *SavedGroupRevisions) GetSavedGroupRevisions(ctx context.Context, reques
 		nOS := int64(oS + len(arr))
 		request.Offset = &nOS
 
-		return s.GetSavedGroupRevisions(
+		return s.ListForSavedGroup(
 			ctx,
 			request,
 		)
@@ -422,9 +422,9 @@ func (s *SavedGroupRevisions) GetSavedGroupRevisions(ctx context.Context, reques
 
 }
 
-// PostSavedGroupRevision - Create a draft revision
+// Create a draft revision
 // Creates a new draft revision branched from the current live saved group. A saved group can have multiple concurrent drafts; use this to start an isolated line of edits.
-func (s *SavedGroupRevisions) PostSavedGroupRevision(ctx context.Context, request operations.PostSavedGroupRevisionRequest, opts ...operations.Option) (*operations.PostSavedGroupRevisionResponse, error) {
+func (s *SavedGroupRevisions) Create(ctx context.Context, request operations.PostSavedGroupRevisionRequest, opts ...operations.Option) (*operations.PostSavedGroupRevisionResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

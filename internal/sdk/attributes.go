@@ -179,8 +179,8 @@ func (s *Attributes) ListAttributes(ctx context.Context, request *operations.Lis
 
 }
 
-// PostAttribute - Create a new attribute
-func (s *Attributes) PostAttribute(ctx context.Context, request operations.PostAttributeRequest, opts ...operations.Option) (*operations.PostAttributeResponse, error) {
+// Create a new attribute
+func (s *Attributes) Create(ctx context.Context, request operations.PostAttributeRequest, opts ...operations.Option) (*operations.PostAttributeResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -330,8 +330,8 @@ func (s *Attributes) PostAttribute(ctx context.Context, request operations.PostA
 
 }
 
-// PutAttribute - Update an attribute
-func (s *Attributes) PutAttribute(ctx context.Context, request operations.PutAttributeRequest, opts ...operations.Option) (*operations.PutAttributeResponse, error) {
+// Update an attribute
+func (s *Attributes) Update(ctx context.Context, request operations.PutAttributeRequest, opts ...operations.Option) (*operations.PutAttributeResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

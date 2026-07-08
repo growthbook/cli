@@ -24,13 +24,13 @@ func initGetFeatureRevisionMergeStatusCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "get-feature-revision-merge-status",
 		Short:   "Get merge status for a draft revision",
-		Long:    "DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible\n\n**Deprecated.** Use [GET /v2/features/:id/revisions/:version/merge-status](#operation/getFeatureRevisionMergeStatusV2) instead.\n\nRuns a dry-run merge of the draft against the current live revision and returns any conflicts. Use this before publishing to preview changes and detect conflicting edits.",
-		Example: "  growthbook feature-revisions get-feature-revision-merge-status --id <id> --version-param 48151",
+		Long:    "Runs the three-way merge between the draft and the current live version without applying it. Conflicts are granular: each conflicting field gets its own key, and rules conflict individually (`rules.<ruleId>`, plus `rules.order` for competing reorders). Pass the returned `liveVersion` as `expectedLiveVersion` when rebasing. Also reports `rebaseRequired` so callers can detect ahead of time whether the publish endpoint will block until the draft is rebased.",
+		Example: "  growthbook feature-revisions get-feature-revision-merge-status --id <id> --version-param 922325",
 		RunE:    runGetFeatureRevisionMergeStatusCmd,
 		Aliases: []string{"gfrms"},
 	}
 	flagutil.RegisterFlags(cmd, getFeatureRevisionMergeStatusCmdMeta)
-	if err := flagutil.ValidateMeta[operations.GetFeatureRevisionMergeStatusRequest](getFeatureRevisionMergeStatusCmdMeta); err != nil {
+	if err := flagutil.ValidateMeta[operations.GetFeatureRevisionMergeStatusV2Request](getFeatureRevisionMergeStatusCmdMeta); err != nil {
 		return fmt.Errorf("invalid metadata for get-feature-revision-merge-status: %w", err)
 	}
 	parent.AddCommand(cmd)
@@ -47,7 +47,7 @@ func runGetFeatureRevisionMergeStatusCmd(cmd *cobra.Command, args []string) erro
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.GetFeatureRevisionMergeStatusRequest](cmd, getFeatureRevisionMergeStatusCmdMeta, "", "")
+	req, err := flagutil.BuildRequest[operations.GetFeatureRevisionMergeStatusV2Request](cmd, getFeatureRevisionMergeStatusCmdMeta, "", "")
 	if err != nil {
 		return err
 	}

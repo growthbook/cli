@@ -17,7 +17,9 @@ import (
 var postFeatureRevisionRebaseCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "conflict-resolutions", Shorthand: "c", FieldPath: "Body.ConflictResolutions", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"conflictResolutions,omitempty"`, Description: "value"},
+	{FlagName: "conflict-resolutions", Shorthand: "c", FieldPath: "Body.ConflictResolutions", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"conflictResolutions,omitempty"`, Description: "Map of conflict key → resolution. Keys come from the returned conflicts: `defaultValue`, `prerequisites`, `archived`, `holdout`, `environmentsEnabled.<env>`, `metadata.<field>`, `rules.<ruleId>`, and `rules.order`. `overwrite` keeps the draft's version of that item; `discard` keeps live's. The blanket `rules` key applies one strategy to all rule-level conflicts."},
+	{FlagName: "expected-live-version", FieldPath: "Body.ExpectedLiveVersion", Kind: flagutil.FlagKindInt64, Optional: true, Description: "Optimistic-concurrency guard: the live version the resolutions were authored against (as returned by merge-status or rebase preview). If live has since moved, the request fails with `409` instead of applying resolutions to different conflicts."},
+	{FlagName: "expected-draft-date-updated", FieldPath: "Body.ExpectedDraftDateUpdated", Kind: flagutil.FlagKindString, Optional: true, Description: "Optimistic-concurrency guard for the draft side: the draft's `draftDateUpdated` timestamp as returned by merge-status or rebase preview. If the draft has been modified since (e.g. by a co-author), the request fails with `409` instead of applying resolutions against changed draft content."},
 }
 
 // initPostFeatureRevisionRebaseCmd initializes the post-feature-revision-rebase command.
@@ -25,13 +27,13 @@ func initPostFeatureRevisionRebaseCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "post-feature-revision-rebase",
 		Short:   "Rebase a draft revision onto the current live version",
-		Long:    "DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible\n\n**Deprecated.** Use [POST /v2/features/:id/revisions/:version/rebase](#operation/postFeatureRevisionRebaseV2) instead.\n\nUpdates the draft's base revision to match the currently-live revision, applying the draft's changes on top. Supply `conflictResolutions` to resolve any conflicting fields.\n\n**Conflict key format changed for v1 clients.** The per-rule `envName.ruleId` keys used by older clients are no longer recognized. Valid keys: `defaultValue`, `prerequisites`, `archived`, `holdout`, `environmentsEnabled.<env>`, `metadata.<field>`, `rules.<ruleId>`, `rules.order`, and the blanket `rules` (applies one strategy to all rule-level conflicts). Unrecognized keys are ignored; unresolved conflicts respond with `409`.",
-		Example: "  growthbook feature-revisions post-feature-revision-rebase --id <id> --version-param 287768",
+		Long:    "Updates the draft's base revision to match the currently-live revision, applying the draft's changes on top. Supply `conflictResolutions` to resolve conflicting items individually — including per-rule (`rules.<ruleId>`) and rule-order (`rules.order`) conflicts. Supply `expectedLiveVersion` and/or `expectedDraftDateUpdated` (both returned by merge-status and rebase preview) to fail fast with `409` if either side changes between conflict review and submission. Unresolved conflicts also respond with `409`.",
+		Example: "  growthbook feature-revisions post-feature-revision-rebase --id <id> --version-param 985805",
 		RunE:    runPostFeatureRevisionRebaseCmd,
 		Aliases: []string{"pfrr"},
 	}
 	flagutil.RegisterFlags(cmd, postFeatureRevisionRebaseCmdMeta)
-	if err := flagutil.ValidateMeta[operations.PostFeatureRevisionRebaseRequest](postFeatureRevisionRebaseCmdMeta); err != nil {
+	if err := flagutil.ValidateMeta[operations.PostFeatureRevisionRebaseV2Request](postFeatureRevisionRebaseCmdMeta); err != nil {
 		return fmt.Errorf("invalid metadata for post-feature-revision-rebase: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
@@ -49,7 +51,7 @@ func runPostFeatureRevisionRebaseCmd(cmd *cobra.Command, args []string) error {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.PostFeatureRevisionRebaseRequest](cmd, postFeatureRevisionRebaseCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.PostFeatureRevisionRebaseV2Request](cmd, postFeatureRevisionRebaseCmdMeta, "Body", "body")
 	if err != nil {
 		return err
 	}

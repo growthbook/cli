@@ -225,8 +225,8 @@ func (s *Dimensions) ListDimensions(ctx context.Context, request *operations.Lis
 
 }
 
-// PostDimension - Create a single dimension
-func (s *Dimensions) PostDimension(ctx context.Context, request operations.PostDimensionRequest, opts ...operations.Option) (*operations.PostDimensionResponse, error) {
+// Create a single dimension
+func (s *Dimensions) Create(ctx context.Context, request operations.PostDimensionRequest, opts ...operations.Option) (*operations.PostDimensionResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

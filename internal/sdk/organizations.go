@@ -225,8 +225,8 @@ func (s *Organizations) ListOrganizations(ctx context.Context, request *operatio
 
 }
 
-// PostOrganization - Create a single organization (only for super admins on multi-org Enterprise Plan only)
-func (s *Organizations) PostOrganization(ctx context.Context, request operations.PostOrganizationRequest, opts ...operations.Option) (*operations.PostOrganizationResponse, error) {
+// Create a single organization (only for super admins on multi-org Enterprise Plan only)
+func (s *Organizations) Create(ctx context.Context, request operations.PostOrganizationRequest, opts ...operations.Option) (*operations.PostOrganizationResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -376,8 +376,8 @@ func (s *Organizations) PostOrganization(ctx context.Context, request operations
 
 }
 
-// PutOrganization - Edit a single organization (only for super admins on multi-org Enterprise Plan only)
-func (s *Organizations) PutOrganization(ctx context.Context, request operations.PutOrganizationRequest, opts ...operations.Option) (*operations.PutOrganizationResponse, error) {
+// Update - Edit a single organization (only for super admins on multi-org Enterprise Plan only)
+func (s *Organizations) Update(ctx context.Context, request operations.PutOrganizationRequest, opts ...operations.Option) (*operations.PutOrganizationResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

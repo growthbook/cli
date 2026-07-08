@@ -44,10 +44,10 @@ growthbook constants [flags]
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
 * [growthbook constants archive](growthbook_constants_archive.md)	 - Archive a single constant
+* [growthbook constants create](growthbook_constants_create.md)	 - Create a single constant
 * [growthbook constants delete](growthbook_constants_delete.md)	 - Delete a single constant
 * [growthbook constants get](growthbook_constants_get.md)	 - Get a single constant
 * [growthbook constants get-constant-references](growthbook_constants_get-constant-references.md)	 - Get features and constants that reference this constant
 * [growthbook constants list](growthbook_constants_list.md)	 - Get all constants
-* [growthbook constants post](growthbook_constants_post.md)	 - Create a single constant
 * [growthbook constants unarchive](growthbook_constants_unarchive.md)	 - Unarchive a single constant
 * [growthbook constants update](growthbook_constants_update.md)	 - Partially update a single constant

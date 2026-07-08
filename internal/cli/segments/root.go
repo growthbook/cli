@@ -24,7 +24,7 @@ func InitSegmentsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPostSegmentCmd(SegmentsCmd); err != nil {
+	if err := initCreateCmd(SegmentsCmd); err != nil {
 		return err
 	}
 

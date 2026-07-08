@@ -19,8 +19,8 @@ var postFeatureRevisionToggleCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "environment", FieldPath: "Body.Environment", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "enabled", FieldPath: "Body.Enabled", Kind: flagutil.FlagKindBool, Required: true, Description: "[required]"},
-	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "Title for a newly created draft. Only used when version is \"new\"; ignored for existing revisions."},
+	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "Comment for a newly created draft. Only used when version is \"new\"; ignored for existing revisions."},
 }
 
 // initPostFeatureRevisionToggleCmd initializes the post-feature-revision-toggle command.
@@ -28,13 +28,13 @@ func initPostFeatureRevisionToggleCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "post-feature-revision-toggle",
 		Short:   "Toggle an environment on/off in a draft revision",
-		Long:    "DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible\n\n**Deprecated.** Use [POST /v2/features/:id/revisions/:version/toggle](#operation/postFeatureRevisionToggleV2) instead.\n\nSets whether the feature is enabled in the given environment as part of the draft. Takes effect on publish.",
-		Example: "  growthbook feature-revisions post-feature-revision-toggle --id <id> --version-param <value> --environment <value> --enabled true",
+		Long:    "Toggle an environment on/off in a draft revision",
+		Example: "  growthbook feature-revisions post-feature-revision-toggle --id <id> --version-param <value> --environment <value> --enabled false",
 		RunE:    runPostFeatureRevisionToggleCmd,
 		Aliases: []string{"pfrt"},
 	}
 	flagutil.RegisterFlags(cmd, postFeatureRevisionToggleCmdMeta)
-	if err := flagutil.ValidateMeta[operations.PostFeatureRevisionToggleRequest](postFeatureRevisionToggleCmdMeta); err != nil {
+	if err := flagutil.ValidateMeta[operations.PostFeatureRevisionToggleV2Request](postFeatureRevisionToggleCmdMeta); err != nil {
 		return fmt.Errorf("invalid metadata for post-feature-revision-toggle: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
@@ -52,7 +52,7 @@ func runPostFeatureRevisionToggleCmd(cmd *cobra.Command, args []string) error {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.PostFeatureRevisionToggleRequest](cmd, postFeatureRevisionToggleCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.PostFeatureRevisionToggleV2Request](cmd, postFeatureRevisionToggleCmdMeta, "Body", "body")
 	if err != nil {
 		return err
 	}

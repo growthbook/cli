@@ -175,8 +175,8 @@ func (s *Environments) ListEnvironments(ctx context.Context, opts ...operations.
 
 }
 
-// PostEnvironment - Create a new environment
-func (s *Environments) PostEnvironment(ctx context.Context, request operations.PostEnvironmentRequest, opts ...operations.Option) (*operations.PostEnvironmentResponse, error) {
+// Create a new environment
+func (s *Environments) Create(ctx context.Context, request operations.PostEnvironmentRequest, opts ...operations.Option) (*operations.PostEnvironmentResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -326,8 +326,8 @@ func (s *Environments) PostEnvironment(ctx context.Context, request operations.P
 
 }
 
-// PutEnvironment - Update an environment
-func (s *Environments) PutEnvironment(ctx context.Context, request operations.PutEnvironmentRequest, opts ...operations.Option) (*operations.PutEnvironmentResponse, error) {
+// Update an environment
+func (s *Environments) Update(ctx context.Context, request operations.PutEnvironmentRequest, opts ...operations.Option) (*operations.PutEnvironmentResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

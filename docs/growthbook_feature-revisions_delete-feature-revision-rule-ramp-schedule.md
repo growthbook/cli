@@ -4,11 +4,7 @@ Remove ramp schedule from a rule
 
 ### Synopsis
 
-DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible
-
-**Deprecated.** Use [DELETE /v2/features/:id/revisions/:version/rules/:ruleId/ramp-schedule](#operation/deleteFeatureRevisionRuleRampScheduleV2) instead.
-
-Removes a pending ramp schedule attached by the draft. If the rule currently has a live ramp schedule, a detach action is queued and applied at publish time.
+Clears any pending ramp action for this rule. If a live ramp schedule exists, queues a detach that removes it on publish — the rule will show `pendingRamp: "detach"`. If only a pending create exists, it is removed and `pendingRamp` is cleared.
 
 ```
 growthbook feature-revisions delete-feature-revision-rule-ramp-schedule [flags]
@@ -24,11 +20,10 @@ growthbook feature-revisions delete-feature-revision-rule-ramp-schedule [flags]
 
 ```
       --body string               Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -e, --environment string        string value
   -h, --help                      help for delete-feature-revision-rule-ramp-schedule
   -i, --id string                 [required]
-      --revision-comment string   string value
-      --revision-title string     string value
+      --revision-comment string   Comment for a newly created draft. Only used when version is "new"; ignored for existing revisions.
+      --revision-title string     Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
       --rule-id string            [required]
   -v, --version-param string      [required]
 ```

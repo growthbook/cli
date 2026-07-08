@@ -225,8 +225,8 @@ func (s *FactTables) ListFactTables(ctx context.Context, request *operations.Lis
 
 }
 
-// PostFactTable - Create a single fact table
-func (s *FactTables) PostFactTable(ctx context.Context, request operations.PostFactTableRequest, opts ...operations.Option) (*operations.PostFactTableResponse, error) {
+// Create a single fact table
+func (s *FactTables) Create(ctx context.Context, request operations.PostFactTableRequest, opts ...operations.Option) (*operations.PostFactTableResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

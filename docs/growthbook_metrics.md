@@ -43,8 +43,8 @@ growthbook metrics [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
+* [growthbook metrics create](growthbook_metrics_create.md)	 - Create a single metric
 * [growthbook metrics delete](growthbook_metrics_delete.md)	 - Deletes a metric
 * [growthbook metrics get](growthbook_metrics_get.md)	 - Get a single metric
 * [growthbook metrics list](growthbook_metrics_list.md)	 - Get all metrics
-* [growthbook metrics post](growthbook_metrics_post.md)	 - Create a single metric
-* [growthbook metrics put](growthbook_metrics_put.md)	 - Update a metric
+* [growthbook metrics update](growthbook_metrics_update.md)	 - Update a metric

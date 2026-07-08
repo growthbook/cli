@@ -1,14 +1,10 @@
 ## growthbook feature-revisions post-feature-revision-rules-reorder
 
-Reorder rules in an environment
+Reorder rules in the revision
 
 ### Synopsis
 
-DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible
-
-**Deprecated.** Use [POST /v2/features/:id/revisions/:version/rules/reorder](#operation/postFeatureRevisionRulesReorderV2) instead, which reorders the global flat rule array without an `environment` parameter.
-
-Replaces the rule order for the environment. `ruleIds` must contain **exactly** the set of existing rule IDs in that environment — no additions, omissions, or duplicates.
+Replaces the flat global rule order. `ruleIds` must contain **exactly** the set of all existing rule IDs in the revision — no additions, omissions, or duplicates.
 
 ```
 growthbook feature-revisions post-feature-revision-rules-reorder [flags]
@@ -17,18 +13,17 @@ growthbook feature-revisions post-feature-revision-rules-reorder [flags]
 ### Examples
 
 ```
-  growthbook feature-revisions post-feature-revision-rules-reorder --id <id> --version-param <value> --environment <value> --rule-ids '[]'
+  growthbook feature-revisions post-feature-revision-rules-reorder --id <id> --version-param <value> --rule-ids '["<value 1>","<value 2>","<value 3>"]'
 ```
 
 ### Options
 
 ```
       --body string               Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -e, --environment string        [required]
   -h, --help                      help for post-feature-revision-rules-reorder
   -i, --id string                 [required]
-      --revision-comment string   string value
-      --revision-title string     string value
+      --revision-comment string   Comment for a newly created draft. Only used when version is "new"; ignored for existing revisions.
+      --revision-title string     Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
       --rule-ids stringArray      [required]
   -v, --version-param string      [required]
 ```

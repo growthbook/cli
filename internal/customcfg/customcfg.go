@@ -36,6 +36,12 @@ type File struct {
 	MigratedFromLegacy bool               `yaml:"migrated_from_legacy,omitempty"`
 }
 
+// Path returns the on-disk location of the custom config (cli.yaml), where
+// profiles are stored. Exported for `whoami` to surface alongside config.yaml.
+func Path() string {
+	return filePath()
+}
+
 func filePath() string {
 	dir := filepath.Dir(config.GetConfigPath())
 	if dir == "" || dir == "." {
@@ -136,7 +142,10 @@ func OnStartup(cmd *cobra.Command) error {
 }
 
 // deprecatedGroups maps a deprecated command group to the group that replaces it.
-var deprecatedGroups = map[string]string{"features-v1": "features"}
+var deprecatedGroups = map[string]string{
+	"features-v1":          "features",
+	"feature-revisions-v1": "feature-revisions",
+}
 
 // warnIfDeprecated prints a one-line notice to stderr (never stdout, so JSON
 // output stays clean) when the invoked command lives under a deprecated group.

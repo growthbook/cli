@@ -18,9 +18,8 @@ var deleteFeatureRevisionRuleCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "rule-id", FieldPath: "RuleID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "environment", Shorthand: "e", FieldPath: "Body.Environment", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "Title for a newly created draft. Only used when version is \"new\"; ignored for existing revisions."},
+	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "Comment for a newly created draft. Only used when version is \"new\"; ignored for existing revisions."},
 }
 
 // initDeleteFeatureRevisionRuleCmd initializes the delete-feature-revision-rule command.
@@ -28,13 +27,13 @@ func initDeleteFeatureRevisionRuleCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "delete-feature-revision-rule",
 		Short:   "Delete a rule from a draft revision",
-		Long:    "DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible\n\n**Deprecated.** Use [DELETE /v2/features/:id/revisions/:version/rules/:ruleId](#operation/deleteFeatureRevisionRuleV2) instead, which removes the rule from the flat array without an `environment` parameter.\n\nRemoves the rule from the specified environment. Any pending ramp actions on the draft for this rule are also cleared.",
-		Example: "  growthbook feature-revisions delete-feature-revision-rule --id <id> --version-param <value> --rule-id <id> --environment <value>",
+		Long:    "Removes the rule from the revision. Any pending ramp actions for this rule are also cleared.",
+		Example: "  growthbook feature-revisions delete-feature-revision-rule --id <id> --version-param <value> --rule-id <id>",
 		RunE:    runDeleteFeatureRevisionRuleCmd,
 		Aliases: []string{"dfrr"},
 	}
 	flagutil.RegisterFlags(cmd, deleteFeatureRevisionRuleCmdMeta)
-	if err := flagutil.ValidateMeta[operations.DeleteFeatureRevisionRuleRequest](deleteFeatureRevisionRuleCmdMeta); err != nil {
+	if err := flagutil.ValidateMeta[operations.DeleteFeatureRevisionRuleV2Request](deleteFeatureRevisionRuleCmdMeta); err != nil {
 		return fmt.Errorf("invalid metadata for delete-feature-revision-rule: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
@@ -52,7 +51,7 @@ func runDeleteFeatureRevisionRuleCmd(cmd *cobra.Command, args []string) error {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.DeleteFeatureRevisionRuleRequest](cmd, deleteFeatureRevisionRuleCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.DeleteFeatureRevisionRuleV2Request](cmd, deleteFeatureRevisionRuleCmdMeta, "Body", "body")
 	if err != nil {
 		return err
 	}

@@ -27,13 +27,13 @@ func initPostFeatureRevisionRevertCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "post-feature-revision-revert",
 		Short:   "Revert the feature to a prior revision",
-		Long:    "DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible\n\n**Deprecated.** Use [POST /v2/features/:id/revisions/:version/revert](#operation/postFeatureRevisionRevertV2) instead.\n\nCreates a new draft (or immediately publishes) whose content matches the specified historical revision.",
-		Example: "  growthbook feature-revisions post-feature-revision-revert --id <id> --version-param 589550",
+		Long:    "Revert the feature to a prior revision",
+		Example: "  growthbook feature-revisions post-feature-revision-revert --id <id> --version-param 675232",
 		RunE:    runPostFeatureRevisionRevertCmd,
-		Aliases: []string{"pfrre"},
+		Aliases: []string{"pfrrev"},
 	}
 	flagutil.RegisterFlags(cmd, postFeatureRevisionRevertCmdMeta)
-	if err := flagutil.ValidateMeta[operations.PostFeatureRevisionRevertRequest](postFeatureRevisionRevertCmdMeta); err != nil {
+	if err := flagutil.ValidateMeta[operations.PostFeatureRevisionRevertV2Request](postFeatureRevisionRevertCmdMeta); err != nil {
 		return fmt.Errorf("invalid metadata for post-feature-revision-revert: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
@@ -51,7 +51,7 @@ func runPostFeatureRevisionRevertCmd(cmd *cobra.Command, args []string) error {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.PostFeatureRevisionRevertRequest](cmd, postFeatureRevisionRevertCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.PostFeatureRevisionRevertV2Request](cmd, postFeatureRevisionRevertCmdMeta, "Body", "body")
 	if err != nil {
 		return err
 	}

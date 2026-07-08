@@ -175,8 +175,8 @@ func (s *Archetypes) ListArchetypes(ctx context.Context, opts ...operations.Opti
 
 }
 
-// PostArchetype - Create a single archetype
-func (s *Archetypes) PostArchetype(ctx context.Context, request operations.PostArchetypeRequest, opts ...operations.Option) (*operations.PostArchetypeResponse, error) {
+// Create a single archetype
+func (s *Archetypes) Create(ctx context.Context, request operations.PostArchetypeRequest, opts ...operations.Option) (*operations.PostArchetypeResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -470,8 +470,8 @@ func (s *Archetypes) GetArchetype(ctx context.Context, request operations.GetArc
 
 }
 
-// PutArchetype - Update a single archetype
-func (s *Archetypes) PutArchetype(ctx context.Context, request operations.PutArchetypeRequest, opts ...operations.Option) (*operations.PutArchetypeResponse, error) {
+// Update a single archetype
+func (s *Archetypes) Update(ctx context.Context, request operations.PutArchetypeRequest, opts ...operations.Option) (*operations.PutArchetypeResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

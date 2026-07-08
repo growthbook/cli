@@ -25,13 +25,13 @@ func initPostFeatureRevisionDiscardCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "post-feature-revision-discard",
 		Short:   "Discard a draft revision",
-		Long:    "DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible\n\n**Deprecated.** Use [POST /v2/features/:id/revisions/:version/discard](#operation/postFeatureRevisionDiscardV2) instead.\n\nPermanently discards a draft revision. Only drafts (never published revisions) can be discarded. Any pending ramp actions staged on the draft are dropped.",
-		Example: "  growthbook feature-revisions post-feature-revision-discard --id <id> --version-param 307081",
+		Long:    "Discard a draft revision",
+		Example: "  growthbook feature-revisions post-feature-revision-discard --id <id> --version-param 299844",
 		RunE:    runPostFeatureRevisionDiscardCmd,
 		Aliases: []string{"pfrd"},
 	}
 	flagutil.RegisterFlags(cmd, postFeatureRevisionDiscardCmdMeta)
-	if err := flagutil.ValidateMeta[operations.PostFeatureRevisionDiscardRequest](postFeatureRevisionDiscardCmdMeta); err != nil {
+	if err := flagutil.ValidateMeta[operations.PostFeatureRevisionDiscardV2Request](postFeatureRevisionDiscardCmdMeta); err != nil {
 		return fmt.Errorf("invalid metadata for post-feature-revision-discard: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
@@ -49,7 +49,7 @@ func runPostFeatureRevisionDiscardCmd(cmd *cobra.Command, args []string) error {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.PostFeatureRevisionDiscardRequest](cmd, postFeatureRevisionDiscardCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.PostFeatureRevisionDiscardV2Request](cmd, postFeatureRevisionDiscardCmdMeta, "Body", "body")
 	if err != nil {
 		return err
 	}

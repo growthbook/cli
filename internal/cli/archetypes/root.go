@@ -24,7 +24,7 @@ func InitArchetypesRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPostArchetypeCmd(ArchetypesCmd); err != nil {
+	if err := initCreateCmd(ArchetypesCmd); err != nil {
 		return err
 	}
 
@@ -32,7 +32,7 @@ func InitArchetypesRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPutArchetypeCmd(ArchetypesCmd); err != nil {
+	if err := initUpdateCmd(ArchetypesCmd); err != nil {
 		return err
 	}
 

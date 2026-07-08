@@ -226,9 +226,9 @@ func (s *ConstantRevisions) ListConstantRevisions(ctx context.Context, request *
 
 }
 
-// GetConstantRevisions - List revisions for a constant
+// ListForConstant - List revisions for a constant
 // Returns a paginated list of revisions for this constant, sorted newest-first. Optionally filtered by status, author, or the calling user's involvement.
-func (s *ConstantRevisions) GetConstantRevisions(ctx context.Context, request operations.GetConstantRevisionsRequest, opts ...operations.Option) (*operations.GetConstantRevisionsResponse, error) {
+func (s *ConstantRevisions) ListForConstant(ctx context.Context, request operations.GetConstantRevisionsRequest, opts ...operations.Option) (*operations.GetConstantRevisionsResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -366,7 +366,7 @@ func (s *ConstantRevisions) GetConstantRevisions(ctx context.Context, request op
 		nOS := int64(oS + len(arr))
 		request.Offset = &nOS
 
-		return s.GetConstantRevisions(
+		return s.ListForConstant(
 			ctx,
 			request,
 		)
@@ -420,9 +420,9 @@ func (s *ConstantRevisions) GetConstantRevisions(ctx context.Context, request op
 
 }
 
-// PostConstantRevision - Create a draft revision
+// Create a draft revision
 // Creates a new draft revision branched from the current live constant. A constant can have multiple concurrent drafts; use this to start an isolated line of edits.
-func (s *ConstantRevisions) PostConstantRevision(ctx context.Context, request operations.PostConstantRevisionRequest, opts ...operations.Option) (*operations.PostConstantRevisionResponse, error) {
+func (s *ConstantRevisions) Create(ctx context.Context, request operations.PostConstantRevisionRequest, opts ...operations.Option) (*operations.PostConstantRevisionResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

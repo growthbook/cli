@@ -24,11 +24,11 @@ func InitEnvironmentsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPostEnvironmentCmd(EnvironmentsCmd); err != nil {
+	if err := initCreateCmd(EnvironmentsCmd); err != nil {
 		return err
 	}
 
-	if err := initPutEnvironmentCmd(EnvironmentsCmd); err != nil {
+	if err := initUpdateCmd(EnvironmentsCmd); err != nil {
 		return err
 	}
 

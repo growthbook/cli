@@ -4,11 +4,7 @@ Toggle an environment on/off in a draft revision
 
 ### Synopsis
 
-DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible
-
-**Deprecated.** Use [POST /v2/features/:id/revisions/:version/toggle](#operation/postFeatureRevisionToggleV2) instead.
-
-Sets whether the feature is enabled in the given environment as part of the draft. Takes effect on publish.
+Toggle an environment on/off in a draft revision
 
 ```
 growthbook feature-revisions post-feature-revision-toggle [flags]
@@ -17,7 +13,7 @@ growthbook feature-revisions post-feature-revision-toggle [flags]
 ### Examples
 
 ```
-  growthbook feature-revisions post-feature-revision-toggle --id <id> --version-param <value> --environment <value> --enabled true
+  growthbook feature-revisions post-feature-revision-toggle --id <id> --version-param <value> --environment <value> --enabled false
 ```
 
 ### Options
@@ -28,8 +24,8 @@ growthbook feature-revisions post-feature-revision-toggle [flags]
       --environment string        [required]
   -h, --help                      help for post-feature-revision-toggle
   -i, --id string                 [required]
-      --revision-comment string   string value
-      --revision-title string     string value
+      --revision-comment string   Comment for a newly created draft. Only used when version is "new"; ignored for existing revisions.
+      --revision-title string     Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
   -v, --version-param string      [required]
 ```
 

@@ -4,11 +4,9 @@ Add a rule to a draft revision
 
 ### Synopsis
 
-DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible
+Appends a new rule to the revision's rule list. Supply `allEnvironments: true` on the rule to target all environments, or `environments: [...]` to scope to specific ones.
 
-**Deprecated.** Use [POST /v2/features/:id/revisions/:version/rules](#operation/postFeatureRevisionRuleAddV2) instead, which accepts rules with unified `allEnvironments`/`environments` scope fields instead of a per-environment `environment` parameter.
-
-Appends a new rule to the end of the rule list for the given environment. A `rule.type` of `force`, `rollout`, `experiment-ref`, or `safe-rollout` determines the accepted shape. Use `rampSchedule` for ramp configuration or `schedule` for a simple start/end window; if both are provided, `rampSchedule` wins.
+**Scheduling:** For `force` and `rollout` rules, attach a schedule via `rampSchedule` (multi-step ramp) or `schedule` (simple start/end window) — these create standalone ramp actions and set `pendingRamp: "create"` on the rule. For `experiment-ref` and `safe-rollout` rules, only `schedule` is supported and is stored as legacy schedule fields on the rule itself (`rampSchedule` is not available for these rule types).
 
 ```
 growthbook feature-revisions post-feature-revision-rule-add [flags]
@@ -17,21 +15,20 @@ growthbook feature-revisions post-feature-revision-rule-add [flags]
 ### Examples
 
 ```
-  growthbook feature-revisions post-feature-revision-rule-add --id <id> --version-param <value> --environment <value> --rule '{"value":"<value>"}'
+  growthbook feature-revisions post-feature-revision-rule-add --id <id> --version-param <value> --rule '{"value":"<value>"}'
 ```
 
 ### Options
 
 ```
       --body string               Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -e, --environment string        [required]
   -h, --help                      help for post-feature-revision-rule-add
   -i, --id string                 [required]
-      --ramp-schedule string      JSON object
-      --revision-comment string   string value
-      --revision-title string     string value
+      --ramp-schedule schedule    Multi-step ramp schedule for force/rollout rules. Not supported for experiment-ref or safe-rollout rules. Mutually exclusive with schedule.
+      --revision-comment string   Comment for a newly created draft. Only used when version is "new"; ignored for existing revisions.
+      --revision-title string     Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
       --rule string               JSON value (one of: { description: string, enabled: boolean, condition: string, savedGroups: object[], ... })
-  -s, --schedule string           JSON object
+  -s, --schedule rampSchedule     Simple start/end date window. For force/rollout rules this creates a standalone ramp action; for experiment-ref/safe-rollout rules this sets legacy schedule fields on the rule. Mutually exclusive with rampSchedule.
   -v, --version-param string      [required]
 ```
 

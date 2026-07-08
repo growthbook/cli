@@ -25,11 +25,11 @@ func InitSavedGroupRevisionsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initGetSavedGroupRevisionsCmd(SavedGroupRevisionsCmd); err != nil {
+	if err := initListForSavedGroupCmd(SavedGroupRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostSavedGroupRevisionCmd(SavedGroupRevisionsCmd); err != nil {
+	if err := initCreateCmd(SavedGroupRevisionsCmd); err != nil {
 		return err
 	}
 

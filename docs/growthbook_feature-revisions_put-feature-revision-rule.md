@@ -4,11 +4,9 @@ Update a rule in a draft revision
 
 ### Synopsis
 
-DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible
+Patches fields on an existing rule (identified by `ruleId`). The rule `type` cannot be changed. Scope can be updated via `allEnvironments` / `environments` patch fields.
 
-**Deprecated.** Use [PUT /v2/features/:id/revisions/:version/rules/:ruleId](#operation/putFeatureRevisionRuleV2) instead, which locates rules by `ruleId` in the flat array without an `environment` parameter.
-
-Patches fields on an existing rule. The rule `type` cannot be changed — to convert types, delete and re-add. Fields that don't apply to the current rule type are rejected.
+**Scheduling:** For `force` and `rollout` rules, update the schedule via `rampSchedule` (multi-step ramp) or `schedule` (simple start/end window) — these manage standalone ramp actions and set `pendingRamp: "create"` on the rule. For `experiment-ref` and `safe-rollout` rules, only `schedule` is supported and updates legacy schedule fields on the rule itself (`rampSchedule` is not available for these rule types).
 
 ```
 growthbook feature-revisions put-feature-revision-rule [flags]
@@ -17,22 +15,21 @@ growthbook feature-revisions put-feature-revision-rule [flags]
 ### Examples
 
 ```
-  growthbook feature-revisions put-feature-revision-rule --id <id> --version-param <value> --rule-id <id> --environment <value> --rule '{}'
+  growthbook feature-revisions put-feature-revision-rule --id <id> --version-param <value> --rule-id <id> --rule '{}'
 ```
 
 ### Options
 
 ```
       --body string               Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -e, --environment string        [required]
   -h, --help                      help for put-feature-revision-rule
   -i, --id string                 [required]
-      --ramp-schedule string      JSON object
-      --revision-comment string   string value
-      --revision-title string     string value
+      --ramp-schedule schedule    Multi-step ramp schedule for force/rollout rules. Not supported for experiment-ref or safe-rollout rules. Mutually exclusive with schedule.
+      --revision-comment string   Comment for a newly created draft. Only used when version is "new"; ignored for existing revisions.
+      --revision-title string     Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
       --rule string               [required]
       --rule-id string            [required]
-  -s, --schedule string           JSON object
+  -s, --schedule rampSchedule     Simple start/end date window. For force/rollout rules this manages a standalone ramp action; for experiment-ref/safe-rollout rules this updates legacy schedule fields on the rule. Mutually exclusive with rampSchedule.
   -v, --version-param string      [required]
 ```
 

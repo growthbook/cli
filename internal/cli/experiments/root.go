@@ -24,7 +24,7 @@ func InitExperimentsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPostExperimentCmd(ExperimentsCmd); err != nil {
+	if err := initCreateCmd(ExperimentsCmd); err != nil {
 		return err
 	}
 

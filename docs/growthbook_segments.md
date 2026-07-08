@@ -43,8 +43,8 @@ growthbook segments [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
+* [growthbook segments create](growthbook_segments_create.md)	 - Create a single segment
 * [growthbook segments delete](growthbook_segments_delete.md)	 - Deletes a single segment
 * [growthbook segments get](growthbook_segments_get.md)	 - Get a single segment
 * [growthbook segments list](growthbook_segments_list.md)	 - Get all segments
-* [growthbook segments post](growthbook_segments_post.md)	 - Create a single segment
 * [growthbook segments update](growthbook_segments_update.md)	 - Update a single segment

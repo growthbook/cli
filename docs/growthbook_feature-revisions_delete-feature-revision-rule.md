@@ -4,11 +4,7 @@ Delete a rule from a draft revision
 
 ### Synopsis
 
-DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible
-
-**Deprecated.** Use [DELETE /v2/features/:id/revisions/:version/rules/:ruleId](#operation/deleteFeatureRevisionRuleV2) instead, which removes the rule from the flat array without an `environment` parameter.
-
-Removes the rule from the specified environment. Any pending ramp actions on the draft for this rule are also cleared.
+Removes the rule from the revision. Any pending ramp actions for this rule are also cleared.
 
 ```
 growthbook feature-revisions delete-feature-revision-rule [flags]
@@ -17,18 +13,17 @@ growthbook feature-revisions delete-feature-revision-rule [flags]
 ### Examples
 
 ```
-  growthbook feature-revisions delete-feature-revision-rule --id <id> --version-param <value> --rule-id <id> --environment <value>
+  growthbook feature-revisions delete-feature-revision-rule --id <id> --version-param <value> --rule-id <id>
 ```
 
 ### Options
 
 ```
       --body string               Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -e, --environment string        [required]
   -h, --help                      help for delete-feature-revision-rule
   -i, --id string                 [required]
-      --revision-comment string   string value
-      --revision-title string     string value
+      --revision-comment string   Comment for a newly created draft. Only used when version is "new"; ignored for existing revisions.
+      --revision-title string     Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
       --rule-id string            [required]
   -v, --version-param string      [required]
 ```

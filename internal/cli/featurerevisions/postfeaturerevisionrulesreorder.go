@@ -17,24 +17,23 @@ import (
 var postFeatureRevisionRulesReorderCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "environment", Shorthand: "e", FieldPath: "Body.Environment", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "rule-ids", FieldPath: "Body.RuleIds", Kind: flagutil.FlagKindStringArray, Required: true, Description: "[required]"},
-	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "Title for a newly created draft. Only used when version is \"new\"; ignored for existing revisions."},
+	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "Comment for a newly created draft. Only used when version is \"new\"; ignored for existing revisions."},
 }
 
 // initPostFeatureRevisionRulesReorderCmd initializes the post-feature-revision-rules-reorder command.
 func initPostFeatureRevisionRulesReorderCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "post-feature-revision-rules-reorder",
-		Short:   "Reorder rules in an environment",
-		Long:    "DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible\n\n**Deprecated.** Use [POST /v2/features/:id/revisions/:version/rules/reorder](#operation/postFeatureRevisionRulesReorderV2) instead, which reorders the global flat rule array without an `environment` parameter.\n\nReplaces the rule order for the environment. `ruleIds` must contain **exactly** the set of existing rule IDs in that environment — no additions, omissions, or duplicates.",
-		Example: "  growthbook feature-revisions post-feature-revision-rules-reorder --id <id> --version-param <value> --environment <value> --rule-ids '[]'",
+		Short:   "Reorder rules in the revision",
+		Long:    "Replaces the flat global rule order. `ruleIds` must contain **exactly** the set of all existing rule IDs in the revision — no additions, omissions, or duplicates.",
+		Example: "  growthbook feature-revisions post-feature-revision-rules-reorder --id <id> --version-param <value> --rule-ids '[\"<value 1>\",\"<value 2>\",\"<value 3>\"]'",
 		RunE:    runPostFeatureRevisionRulesReorderCmd,
-		Aliases: []string{"pfrrre"},
+		Aliases: []string{"pfrrreo"},
 	}
 	flagutil.RegisterFlags(cmd, postFeatureRevisionRulesReorderCmdMeta)
-	if err := flagutil.ValidateMeta[operations.PostFeatureRevisionRulesReorderRequest](postFeatureRevisionRulesReorderCmdMeta); err != nil {
+	if err := flagutil.ValidateMeta[operations.PostFeatureRevisionRulesReorderV2Request](postFeatureRevisionRulesReorderCmdMeta); err != nil {
 		return fmt.Errorf("invalid metadata for post-feature-revision-rules-reorder: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
@@ -52,7 +51,7 @@ func runPostFeatureRevisionRulesReorderCmd(cmd *cobra.Command, args []string) er
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.PostFeatureRevisionRulesReorderRequest](cmd, postFeatureRevisionRulesReorderCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.PostFeatureRevisionRulesReorderV2Request](cmd, postFeatureRevisionRulesReorderCmdMeta, "Body", "body")
 	if err != nil {
 		return err
 	}

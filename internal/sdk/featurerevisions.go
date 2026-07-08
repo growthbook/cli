@@ -19,7 +19,7 @@ import (
 
 // FeatureRevisions - Draft revisions for feature flags, including rules, scheduling, and approval workflows.
 //
-// **These are v1 endpoints.** New integrations should use the v2 Feature Revisions endpoints.
+// Revision `rules` is a flat array with per-rule scope fields.
 type FeatureRevisions struct {
 	rootSDK          *Growthbook
 	sdkConfiguration config.SDKConfiguration
@@ -34,13 +34,9 @@ func newFeatureRevisions(rootSDK *Growthbook, sdkConfig config.SDKConfiguration,
 	}
 }
 
-// ListRevisions - List feature revisions
-// **Deprecated.** Use [GET /v2/feature-revisions](#operation/listRevisionsV2) instead.
-//
-// Returns a paginated list of feature revisions across all features in the organization. Optionally filtered by feature, status, author, and/or the calling user's involvement. Results are sorted newest-first.
-//
-// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-func (s *FeatureRevisions) ListRevisions(ctx context.Context, request *operations.ListRevisionsRequest, opts ...operations.Option) (*operations.ListRevisionsResponse, error) {
+// ListRevisions - List revisions across all features
+// Returns a paginated list of feature revisions across all features in the organization. Use the `featureId` query parameter to filter to a single feature. Revision `rules` is a flat array with per-rule scope.
+func (s *FeatureRevisions) ListRevisions(ctx context.Context, request *operations.ListRevisionsV2Request, opts ...operations.Option) (*operations.ListRevisionsV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -59,7 +55,7 @@ func (s *FeatureRevisions) ListRevisions(ctx context.Context, request *operation
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := url.JoinPath(baseURL, "/v1/revisions")
+	opURL, err := url.JoinPath(baseURL, "/v2/feature-revisions")
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -69,7 +65,7 @@ func (s *FeatureRevisions) ListRevisions(ctx context.Context, request *operation
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "listRevisions",
+		OperationID:      "listRevisionsV2",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 
@@ -132,13 +128,13 @@ func (s *FeatureRevisions) ListRevisions(ctx context.Context, request *operation
 		}
 	}
 
-	res := &operations.ListRevisionsResponse{
+	res := &operations.ListRevisionsV2Response{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
 		},
 	}
-	res.Next = func() (*operations.ListRevisionsResponse, error) {
+	res.Next = func() (*operations.ListRevisionsV2Response, error) {
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
 			return nil, err
@@ -194,7 +190,7 @@ func (s *FeatureRevisions) ListRevisions(ctx context.Context, request *operation
 					return nil, err
 				}
 
-				var out operations.ListRevisionsResponseBody
+				var out operations.ListRevisionsV2ResponseBody
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
@@ -232,13 +228,9 @@ func (s *FeatureRevisions) ListRevisions(ctx context.Context, request *operation
 
 }
 
-// GetFeatureRevisions - List revisions for a feature
-// **Deprecated.** Use [GET /v2/features/:id/revisions](#operation/getFeatureRevisionsV2) instead.
-//
-// Returns a paginated list of revisions for this feature, sorted newest-first. Optionally filtered by status and/or author.
-//
-// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-func (s *FeatureRevisions) GetFeatureRevisions(ctx context.Context, request operations.GetFeatureRevisionsRequest, opts ...operations.Option) (*operations.GetFeatureRevisionsResponse, error) {
+// ListForFeature - List revisions for a feature
+// Returns a paginated list of revisions for this feature, sorted newest-first. Revision `rules` is a flat array with per-rule scope.
+func (s *FeatureRevisions) ListForFeature(ctx context.Context, request operations.GetFeatureRevisionsV2Request, opts ...operations.Option) (*operations.GetFeatureRevisionsV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -257,7 +249,7 @@ func (s *FeatureRevisions) GetFeatureRevisions(ctx context.Context, request oper
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/features/{id}/revisions", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -267,7 +259,7 @@ func (s *FeatureRevisions) GetFeatureRevisions(ctx context.Context, request oper
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getFeatureRevisions",
+		OperationID:      "getFeatureRevisionsV2",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 
@@ -330,13 +322,13 @@ func (s *FeatureRevisions) GetFeatureRevisions(ctx context.Context, request oper
 		}
 	}
 
-	res := &operations.GetFeatureRevisionsResponse{
+	res := &operations.GetFeatureRevisionsV2Response{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
 		},
 	}
-	res.Next = func() (*operations.GetFeatureRevisionsResponse, error) {
+	res.Next = func() (*operations.GetFeatureRevisionsV2Response, error) {
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
 			return nil, err
@@ -376,7 +368,7 @@ func (s *FeatureRevisions) GetFeatureRevisions(ctx context.Context, request oper
 		nOS := int64(oS + len(arr))
 		request.Offset = &nOS
 
-		return s.GetFeatureRevisions(
+		return s.ListForFeature(
 			ctx,
 			request,
 		)
@@ -392,7 +384,7 @@ func (s *FeatureRevisions) GetFeatureRevisions(ctx context.Context, request oper
 					return nil, err
 				}
 
-				var out operations.GetFeatureRevisionsResponseBody
+				var out operations.GetFeatureRevisionsV2ResponseBody
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
@@ -430,13 +422,9 @@ func (s *FeatureRevisions) GetFeatureRevisions(ctx context.Context, request oper
 
 }
 
-// PostFeatureRevision - Create a draft revision
-// **Deprecated.** Use [POST /v2/features/:id/revisions](#operation/postFeatureRevisionV2) instead.
-//
-// Creates a new draft revision branched from the current live revision. A feature can have multiple concurrent drafts; use this to start an isolated line of edits.
-//
-// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-func (s *FeatureRevisions) PostFeatureRevision(ctx context.Context, request operations.PostFeatureRevisionRequest, opts ...operations.Option) (*operations.PostFeatureRevisionResponse, error) {
+// Create a draft revision
+// Creates a new draft revision branched from the current live revision.
+func (s *FeatureRevisions) Create(ctx context.Context, request operations.PostFeatureRevisionV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -455,7 +443,7 @@ func (s *FeatureRevisions) PostFeatureRevision(ctx context.Context, request oper
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/features/{id}/revisions", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -465,7 +453,7 @@ func (s *FeatureRevisions) PostFeatureRevision(ctx context.Context, request oper
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "postFeatureRevision",
+		OperationID:      "postFeatureRevisionV2",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
@@ -535,7 +523,7 @@ func (s *FeatureRevisions) PostFeatureRevision(ctx context.Context, request oper
 		}
 	}
 
-	res := &operations.PostFeatureRevisionResponse{
+	res := &operations.PostFeatureRevisionV2Response{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -552,7 +540,7 @@ func (s *FeatureRevisions) PostFeatureRevision(ctx context.Context, request oper
 					return nil, err
 				}
 
-				var out operations.PostFeatureRevisionResponseBody
+				var out operations.PostFeatureRevisionV2ResponseBody
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
@@ -591,12 +579,8 @@ func (s *FeatureRevisions) PostFeatureRevision(ctx context.Context, request oper
 }
 
 // GetFeatureRevisionLatest - Get the most recent active draft revision
-// **Deprecated.** Use [GET /v2/features/:id/revisions/latest](#operation/getFeatureRevisionLatestV2) instead.
-//
-// Returns the most recently updated draft revision for the feature. Returns 404 if there is no active draft. Pass `mine=true` to return the most recent draft authored by or contributed to by the calling user (requires a user-scoped API key).
-//
-// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-func (s *FeatureRevisions) GetFeatureRevisionLatest(ctx context.Context, request operations.GetFeatureRevisionLatestRequest, opts ...operations.Option) (*operations.GetFeatureRevisionLatestResponse, error) {
+// Returns the most recently updated active draft revision for the feature. Returns 404 if no matching draft exists. Filter by status, author, or use `mine=true` to scope to the calling user's own drafts.
+func (s *FeatureRevisions) GetFeatureRevisionLatest(ctx context.Context, request operations.GetFeatureRevisionLatestV2Request, opts ...operations.Option) (*operations.GetFeatureRevisionLatestV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -615,7 +599,7 @@ func (s *FeatureRevisions) GetFeatureRevisionLatest(ctx context.Context, request
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/features/{id}/revisions/latest", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions/latest", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -625,7 +609,7 @@ func (s *FeatureRevisions) GetFeatureRevisionLatest(ctx context.Context, request
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getFeatureRevisionLatest",
+		OperationID:      "getFeatureRevisionLatestV2",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 
@@ -688,7 +672,7 @@ func (s *FeatureRevisions) GetFeatureRevisionLatest(ctx context.Context, request
 		}
 	}
 
-	res := &operations.GetFeatureRevisionLatestResponse{
+	res := &operations.GetFeatureRevisionLatestV2Response{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -705,7 +689,7 @@ func (s *FeatureRevisions) GetFeatureRevisionLatest(ctx context.Context, request
 					return nil, err
 				}
 
-				var out operations.GetFeatureRevisionLatestResponseBody
+				var out operations.GetFeatureRevisionLatestV2ResponseBody
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
@@ -743,13 +727,9 @@ func (s *FeatureRevisions) GetFeatureRevisionLatest(ctx context.Context, request
 
 }
 
-// GetFeatureRevision - Get a single feature revision
-// **Deprecated.** Use [GET /v2/features/:id/revisions/:version](#operation/getFeatureRevisionV2) instead.
-//
-// Returns the revision at the specified version for this feature. Use `GET /features/{id}/revisions/latest` for the most recent active draft.
-//
-// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-func (s *FeatureRevisions) GetFeatureRevision(ctx context.Context, request operations.GetFeatureRevisionRequest, opts ...operations.Option) (*operations.GetFeatureRevisionResponse, error) {
+// Get a single feature revision
+// Returns the revision at the specified version for this feature. Revision `rules` is a flat array with per-rule environment scope.
+func (s *FeatureRevisions) Get(ctx context.Context, request operations.GetFeatureRevisionV2Request, opts ...operations.Option) (*operations.GetFeatureRevisionV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -768,7 +748,7 @@ func (s *FeatureRevisions) GetFeatureRevision(ctx context.Context, request opera
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/features/{id}/revisions/{version}", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions/{version}", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -778,7 +758,7 @@ func (s *FeatureRevisions) GetFeatureRevision(ctx context.Context, request opera
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getFeatureRevision",
+		OperationID:      "getFeatureRevisionV2",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 
@@ -837,7 +817,7 @@ func (s *FeatureRevisions) GetFeatureRevision(ctx context.Context, request opera
 		}
 	}
 
-	res := &operations.GetFeatureRevisionResponse{
+	res := &operations.GetFeatureRevisionV2Response{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -854,7 +834,7 @@ func (s *FeatureRevisions) GetFeatureRevision(ctx context.Context, request opera
 					return nil, err
 				}
 
-				var out operations.GetFeatureRevisionResponseBody
+				var out operations.GetFeatureRevisionV2ResponseBody
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
@@ -892,13 +872,9 @@ func (s *FeatureRevisions) GetFeatureRevision(ctx context.Context, request opera
 
 }
 
-// PutFeatureRevisionMetadata - Update revision metadata (comment, title, feature metadata)
-// **Deprecated.** Use [PUT /v2/features/:id/revisions/:version/metadata](#operation/putFeatureRevisionMetadataV2) instead.
-//
-// Updates draft-level metadata (`comment`, `title`) and/or feature-level metadata (owner, project, tags, customFields, jsonSchema, etc.). Merge semantics: omitted fields are left unchanged; any provided field replaces the current value (pass an empty string/array/object to clear). Feature metadata changes are staged on the revision and applied to the feature on publish. Changing `project` requires publish permission on both the old and new project.
-//
-// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-func (s *FeatureRevisions) PutFeatureRevisionMetadata(ctx context.Context, request operations.PutFeatureRevisionMetadataRequest, opts ...operations.Option) (*operations.PutFeatureRevisionMetadataResponse, error) {
+// GetFeatureRevisionDiff - Diff a revision against another revision
+// Returns a schema-keyed JSON diff between this revision and a baseline. The same shapes the in-app review surface produces under `Copy as → Minimal JSON` / `Full JSON`: `minimal` lists only what changed (with id-keyed arrays bucketed into added/removed/modified items and reorder detection), while `full` returns the complete before/after content of the revision. Lifecycle fields (version, status, comment, date, createdBy, publishedBy) are excluded from the diff body and echoed via `from` / `to` instead. Defaults to diffing against the revision's own `baseVersion`; pass `?base=live` to diff against the current live revision, or `?base=<version>` for an arbitrary historical one.
+func (s *FeatureRevisions) GetFeatureRevisionDiff(ctx context.Context, request operations.GetFeatureRevisionDiffV2Request, opts ...operations.Option) (*operations.GetFeatureRevisionDiffV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -917,7 +893,7 @@ func (s *FeatureRevisions) PutFeatureRevisionMetadata(ctx context.Context, reque
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/features/{id}/revisions/{version}/metadata", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions/{version}/diff", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -927,7 +903,155 @@ func (s *FeatureRevisions) PutFeatureRevisionMetadata(ctx context.Context, reque
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "putFeatureRevisionMetadata",
+		OperationID:      "getFeatureRevisionDiffV2",
+		SecuritySource:   s.sdkConfiguration.Security,
+	}
+
+	timeout := o.Timeout
+	if timeout == nil {
+		timeout = s.sdkConfiguration.Timeout
+	}
+
+	if timeout != nil {
+		var cancel context.CancelFunc
+		ctx, cancel = context.WithTimeout(ctx, *timeout)
+		defer cancel()
+	}
+
+	req, err := http.NewRequestWithContext(ctx, "GET", opURL, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error creating request: %w", err)
+	}
+	req.Header.Set("Accept", "application/json")
+	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
+
+	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
+		return nil, fmt.Errorf("error populating query params: %w", err)
+	}
+
+	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
+		return nil, err
+	}
+
+	for k, v := range o.SetHeaders {
+		req.Header.Set(k, v)
+	}
+
+	req, err = s.hooks.BeforeRequest(hooks.BeforeRequestContext{HookContext: hookCtx}, req)
+	if err != nil {
+		return nil, err
+	}
+
+	httpRes, err := s.sdkConfiguration.Client.Do(req)
+	if err != nil || httpRes == nil {
+		if err != nil {
+			err = fmt.Errorf("error sending request: %w", err)
+		} else {
+			err = fmt.Errorf("error sending request: no response")
+		}
+
+		_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
+		return nil, err
+	} else if utils.MatchStatusCodes([]string{"4XX", "5XX"}, httpRes.StatusCode) {
+		_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
+		if err != nil {
+			return nil, err
+		} else if _httpRes != nil {
+			httpRes = _httpRes
+		}
+	} else {
+		httpRes, err = s.hooks.AfterSuccess(hooks.AfterSuccessContext{HookContext: hookCtx}, httpRes)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	res := &operations.GetFeatureRevisionDiffV2Response{
+		HTTPMeta: components.HTTPMetadata{
+			Request:  req,
+			Response: httpRes,
+		},
+	}
+
+	switch {
+	case httpRes.StatusCode == 200:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out operations.GetFeatureRevisionDiffV2ResponseBody
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.OneOf = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, sdkerrors.NewSDKDefaultError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
+	case httpRes.StatusCode >= 500 && httpRes.StatusCode < 600:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, sdkerrors.NewSDKDefaultError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
+	default:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, sdkerrors.NewSDKDefaultError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
+	}
+
+	return res, nil
+
+}
+
+// PutFeatureRevisionMetadata - Update revision metadata
+func (s *FeatureRevisions) PutFeatureRevisionMetadata(ctx context.Context, request operations.PutFeatureRevisionMetadataV2Request, opts ...operations.Option) (*operations.PutFeatureRevisionMetadataV2Response, error) {
+	o := operations.Options{}
+	supportedOptions := []string{
+		operations.SupportedOptionTimeout,
+		operations.SupportedOptionSkipDeserialization,
+	}
+
+	for _, opt := range opts {
+		if err := opt(&o, supportedOptions...); err != nil {
+			return nil, fmt.Errorf("error applying option: %w", err)
+		}
+	}
+
+	var baseURL string
+	if o.ServerURL == nil {
+		baseURL = utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
+	} else {
+		baseURL = *o.ServerURL
+	}
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions/{version}/metadata", request, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		SDK:              s.rootSDK,
+		SDKConfiguration: s.sdkConfiguration,
+		BaseURL:          baseURL,
+		Context:          ctx,
+		OperationID:      "putFeatureRevisionMetadataV2",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
@@ -993,7 +1117,7 @@ func (s *FeatureRevisions) PutFeatureRevisionMetadata(ctx context.Context, reque
 		}
 	}
 
-	res := &operations.PutFeatureRevisionMetadataResponse{
+	res := &operations.PutFeatureRevisionMetadataV2Response{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -1010,7 +1134,7 @@ func (s *FeatureRevisions) PutFeatureRevisionMetadata(ctx context.Context, reque
 					return nil, err
 				}
 
-				var out operations.PutFeatureRevisionMetadataResponseBody
+				var out operations.PutFeatureRevisionMetadataV2ResponseBody
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
@@ -1049,12 +1173,7 @@ func (s *FeatureRevisions) PutFeatureRevisionMetadata(ctx context.Context, reque
 }
 
 // PutFeatureRevisionDefaultValue - Set the default value in a draft revision
-// **Deprecated.** Use [PUT /v2/features/:id/revisions/:version/default-value](#operation/putFeatureRevisionDefaultValueV2) instead.
-//
-// Replaces the feature's default value for this revision. The value must be a string representation matching the feature's value type (e.g. `"true"` for booleans, `42` for numbers, a JSON string for JSON features).
-//
-// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-func (s *FeatureRevisions) PutFeatureRevisionDefaultValue(ctx context.Context, request operations.PutFeatureRevisionDefaultValueRequest, opts ...operations.Option) (*operations.PutFeatureRevisionDefaultValueResponse, error) {
+func (s *FeatureRevisions) PutFeatureRevisionDefaultValue(ctx context.Context, request operations.PutFeatureRevisionDefaultValueV2Request, opts ...operations.Option) (*operations.PutFeatureRevisionDefaultValueV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1073,7 +1192,7 @@ func (s *FeatureRevisions) PutFeatureRevisionDefaultValue(ctx context.Context, r
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/features/{id}/revisions/{version}/default-value", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions/{version}/default-value", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -1083,7 +1202,7 @@ func (s *FeatureRevisions) PutFeatureRevisionDefaultValue(ctx context.Context, r
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "putFeatureRevisionDefaultValue",
+		OperationID:      "putFeatureRevisionDefaultValueV2",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
@@ -1149,7 +1268,7 @@ func (s *FeatureRevisions) PutFeatureRevisionDefaultValue(ctx context.Context, r
 		}
 	}
 
-	res := &operations.PutFeatureRevisionDefaultValueResponse{
+	res := &operations.PutFeatureRevisionDefaultValueV2Response{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -1166,7 +1285,7 @@ func (s *FeatureRevisions) PutFeatureRevisionDefaultValue(ctx context.Context, r
 					return nil, err
 				}
 
-				var out operations.PutFeatureRevisionDefaultValueResponseBody
+				var out operations.PutFeatureRevisionDefaultValueV2ResponseBody
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
@@ -1205,12 +1324,8 @@ func (s *FeatureRevisions) PutFeatureRevisionDefaultValue(ctx context.Context, r
 }
 
 // PutFeatureRevisionPrerequisites - Set feature-level prerequisites in a draft revision
-// **Deprecated.** Use [PUT /v2/features/:id/revisions/:version/prerequisites](#operation/putFeatureRevisionPrerequisitesV2) instead.
-//
-// Replaces the feature's prerequisite list for this revision. Each prerequisite condition is evaluated against `{ value: <prereq-flag-value> }` at SDK eval time — use `value` as the condition key.
-//
-// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-func (s *FeatureRevisions) PutFeatureRevisionPrerequisites(ctx context.Context, request operations.PutFeatureRevisionPrerequisitesRequest, opts ...operations.Option) (*operations.PutFeatureRevisionPrerequisitesResponse, error) {
+// Sets the feature-level prerequisites for this revision. Each prerequisite must be a boolean feature flag; the gate is always 'prerequisite flag is on'. The condition is applied automatically — only the flag ID is required.
+func (s *FeatureRevisions) PutFeatureRevisionPrerequisites(ctx context.Context, request operations.PutFeatureRevisionPrerequisitesV2Request, opts ...operations.Option) (*operations.PutFeatureRevisionPrerequisitesV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1229,7 +1344,7 @@ func (s *FeatureRevisions) PutFeatureRevisionPrerequisites(ctx context.Context, 
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/features/{id}/revisions/{version}/prerequisites", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions/{version}/prerequisites", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -1239,7 +1354,7 @@ func (s *FeatureRevisions) PutFeatureRevisionPrerequisites(ctx context.Context, 
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "putFeatureRevisionPrerequisites",
+		OperationID:      "putFeatureRevisionPrerequisitesV2",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
@@ -1305,7 +1420,7 @@ func (s *FeatureRevisions) PutFeatureRevisionPrerequisites(ctx context.Context, 
 		}
 	}
 
-	res := &operations.PutFeatureRevisionPrerequisitesResponse{
+	res := &operations.PutFeatureRevisionPrerequisitesV2Response{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -1322,7 +1437,7 @@ func (s *FeatureRevisions) PutFeatureRevisionPrerequisites(ctx context.Context, 
 					return nil, err
 				}
 
-				var out operations.PutFeatureRevisionPrerequisitesResponseBody
+				var out operations.PutFeatureRevisionPrerequisitesV2ResponseBody
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
@@ -1361,12 +1476,7 @@ func (s *FeatureRevisions) PutFeatureRevisionPrerequisites(ctx context.Context, 
 }
 
 // PutFeatureRevisionHoldout - Set holdout in a draft revision
-// **Deprecated.** Use [PUT /v2/features/:id/revisions/:version/holdout](#operation/putFeatureRevisionHoldoutV2) instead.
-//
-// Sets (or clears, via `holdout: null`) the holdout experiment bound to the feature. Holdout linkage side-effects (updating the holdout's linked feature list) are applied on publish.
-//
-// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-func (s *FeatureRevisions) PutFeatureRevisionHoldout(ctx context.Context, request operations.PutFeatureRevisionHoldoutRequest, opts ...operations.Option) (*operations.PutFeatureRevisionHoldoutResponse, error) {
+func (s *FeatureRevisions) PutFeatureRevisionHoldout(ctx context.Context, request operations.PutFeatureRevisionHoldoutV2Request, opts ...operations.Option) (*operations.PutFeatureRevisionHoldoutV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1385,7 +1495,7 @@ func (s *FeatureRevisions) PutFeatureRevisionHoldout(ctx context.Context, reques
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/features/{id}/revisions/{version}/holdout", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions/{version}/holdout", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -1395,7 +1505,7 @@ func (s *FeatureRevisions) PutFeatureRevisionHoldout(ctx context.Context, reques
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "putFeatureRevisionHoldout",
+		OperationID:      "putFeatureRevisionHoldoutV2",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
@@ -1461,7 +1571,7 @@ func (s *FeatureRevisions) PutFeatureRevisionHoldout(ctx context.Context, reques
 		}
 	}
 
-	res := &operations.PutFeatureRevisionHoldoutResponse{
+	res := &operations.PutFeatureRevisionHoldoutV2Response{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -1478,7 +1588,7 @@ func (s *FeatureRevisions) PutFeatureRevisionHoldout(ctx context.Context, reques
 					return nil, err
 				}
 
-				var out operations.PutFeatureRevisionHoldoutResponseBody
+				var out operations.PutFeatureRevisionHoldoutV2ResponseBody
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
@@ -1517,12 +1627,7 @@ func (s *FeatureRevisions) PutFeatureRevisionHoldout(ctx context.Context, reques
 }
 
 // PutFeatureRevisionArchive - Set archived state in a draft revision
-// **Deprecated.** Use [PUT /v2/features/:id/revisions/:version/archive](#operation/putFeatureRevisionArchiveV2) instead.
-//
-// Sets whether the feature is archived. Archived features are excluded from SDK payloads on publish.
-//
-// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-func (s *FeatureRevisions) PutFeatureRevisionArchive(ctx context.Context, request operations.PutFeatureRevisionArchiveRequest, opts ...operations.Option) (*operations.PutFeatureRevisionArchiveResponse, error) {
+func (s *FeatureRevisions) PutFeatureRevisionArchive(ctx context.Context, request operations.PutFeatureRevisionArchiveV2Request, opts ...operations.Option) (*operations.PutFeatureRevisionArchiveV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1541,7 +1646,7 @@ func (s *FeatureRevisions) PutFeatureRevisionArchive(ctx context.Context, reques
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/features/{id}/revisions/{version}/archive", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions/{version}/archive", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -1551,7 +1656,7 @@ func (s *FeatureRevisions) PutFeatureRevisionArchive(ctx context.Context, reques
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "putFeatureRevisionArchive",
+		OperationID:      "putFeatureRevisionArchiveV2",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
@@ -1617,7 +1722,7 @@ func (s *FeatureRevisions) PutFeatureRevisionArchive(ctx context.Context, reques
 		}
 	}
 
-	res := &operations.PutFeatureRevisionArchiveResponse{
+	res := &operations.PutFeatureRevisionArchiveV2Response{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -1634,7 +1739,7 @@ func (s *FeatureRevisions) PutFeatureRevisionArchive(ctx context.Context, reques
 					return nil, err
 				}
 
-				var out operations.PutFeatureRevisionArchiveResponseBody
+				var out operations.PutFeatureRevisionArchiveV2ResponseBody
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
@@ -1673,12 +1778,7 @@ func (s *FeatureRevisions) PutFeatureRevisionArchive(ctx context.Context, reques
 }
 
 // PostFeatureRevisionToggle - Toggle an environment on/off in a draft revision
-// **Deprecated.** Use [POST /v2/features/:id/revisions/:version/toggle](#operation/postFeatureRevisionToggleV2) instead.
-//
-// Sets whether the feature is enabled in the given environment as part of the draft. Takes effect on publish.
-//
-// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-func (s *FeatureRevisions) PostFeatureRevisionToggle(ctx context.Context, request operations.PostFeatureRevisionToggleRequest, opts ...operations.Option) (*operations.PostFeatureRevisionToggleResponse, error) {
+func (s *FeatureRevisions) PostFeatureRevisionToggle(ctx context.Context, request operations.PostFeatureRevisionToggleV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionToggleV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1697,7 +1797,7 @@ func (s *FeatureRevisions) PostFeatureRevisionToggle(ctx context.Context, reques
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/features/{id}/revisions/{version}/toggle", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions/{version}/toggle", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -1707,7 +1807,7 @@ func (s *FeatureRevisions) PostFeatureRevisionToggle(ctx context.Context, reques
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "postFeatureRevisionToggle",
+		OperationID:      "postFeatureRevisionToggleV2",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
@@ -1773,7 +1873,7 @@ func (s *FeatureRevisions) PostFeatureRevisionToggle(ctx context.Context, reques
 		}
 	}
 
-	res := &operations.PostFeatureRevisionToggleResponse{
+	res := &operations.PostFeatureRevisionToggleV2Response{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -1790,7 +1890,7 @@ func (s *FeatureRevisions) PostFeatureRevisionToggle(ctx context.Context, reques
 					return nil, err
 				}
 
-				var out operations.PostFeatureRevisionToggleResponseBody
+				var out operations.PostFeatureRevisionToggleV2ResponseBody
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
@@ -1829,12 +1929,10 @@ func (s *FeatureRevisions) PostFeatureRevisionToggle(ctx context.Context, reques
 }
 
 // PostFeatureRevisionRuleAdd - Add a rule to a draft revision
-// **Deprecated.** Use [POST /v2/features/:id/revisions/:version/rules](#operation/postFeatureRevisionRuleAddV2) instead, which accepts rules with unified `allEnvironments`/`environments` scope fields instead of a per-environment `environment` parameter.
+// Appends a new rule to the revision's rule list. Supply `allEnvironments: true` on the rule to target all environments, or `environments: [...]` to scope to specific ones.
 //
-// Appends a new rule to the end of the rule list for the given environment. A `rule.type` of `force`, `rollout`, `experiment-ref`, or `safe-rollout` determines the accepted shape. Use `rampSchedule` for ramp configuration or `schedule` for a simple start/end window; if both are provided, `rampSchedule` wins.
-//
-// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-func (s *FeatureRevisions) PostFeatureRevisionRuleAdd(ctx context.Context, request operations.PostFeatureRevisionRuleAddRequest, opts ...operations.Option) (*operations.PostFeatureRevisionRuleAddResponse, error) {
+// **Scheduling:** For `force` and `rollout` rules, attach a schedule via `rampSchedule` (multi-step ramp) or `schedule` (simple start/end window) — these create standalone ramp actions and set `pendingRamp: "create"` on the rule. For `experiment-ref` and `safe-rollout` rules, only `schedule` is supported and is stored as legacy schedule fields on the rule itself (`rampSchedule` is not available for these rule types).
+func (s *FeatureRevisions) PostFeatureRevisionRuleAdd(ctx context.Context, request operations.PostFeatureRevisionRuleAddV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionRuleAddV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1853,7 +1951,7 @@ func (s *FeatureRevisions) PostFeatureRevisionRuleAdd(ctx context.Context, reque
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/features/{id}/revisions/{version}/rules", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions/{version}/rules", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -1863,7 +1961,7 @@ func (s *FeatureRevisions) PostFeatureRevisionRuleAdd(ctx context.Context, reque
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "postFeatureRevisionRuleAdd",
+		OperationID:      "postFeatureRevisionRuleAddV2",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
@@ -1929,7 +2027,7 @@ func (s *FeatureRevisions) PostFeatureRevisionRuleAdd(ctx context.Context, reque
 		}
 	}
 
-	res := &operations.PostFeatureRevisionRuleAddResponse{
+	res := &operations.PostFeatureRevisionRuleAddV2Response{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -1946,7 +2044,7 @@ func (s *FeatureRevisions) PostFeatureRevisionRuleAdd(ctx context.Context, reque
 					return nil, err
 				}
 
-				var out operations.PostFeatureRevisionRuleAddResponseBody
+				var out operations.PostFeatureRevisionRuleAddV2ResponseBody
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
@@ -1985,12 +2083,10 @@ func (s *FeatureRevisions) PostFeatureRevisionRuleAdd(ctx context.Context, reque
 }
 
 // PutFeatureRevisionRule - Update a rule in a draft revision
-// **Deprecated.** Use [PUT /v2/features/:id/revisions/:version/rules/:ruleId](#operation/putFeatureRevisionRuleV2) instead, which locates rules by `ruleId` in the flat array without an `environment` parameter.
+// Patches fields on an existing rule (identified by `ruleId`). The rule `type` cannot be changed. Scope can be updated via `allEnvironments` / `environments` patch fields.
 //
-// Patches fields on an existing rule. The rule `type` cannot be changed — to convert types, delete and re-add. Fields that don't apply to the current rule type are rejected.
-//
-// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-func (s *FeatureRevisions) PutFeatureRevisionRule(ctx context.Context, request operations.PutFeatureRevisionRuleRequest, opts ...operations.Option) (*operations.PutFeatureRevisionRuleResponse, error) {
+// **Scheduling:** For `force` and `rollout` rules, update the schedule via `rampSchedule` (multi-step ramp) or `schedule` (simple start/end window) — these manage standalone ramp actions and set `pendingRamp: "create"` on the rule. For `experiment-ref` and `safe-rollout` rules, only `schedule` is supported and updates legacy schedule fields on the rule itself (`rampSchedule` is not available for these rule types).
+func (s *FeatureRevisions) PutFeatureRevisionRule(ctx context.Context, request operations.PutFeatureRevisionRuleV2Request, opts ...operations.Option) (*operations.PutFeatureRevisionRuleV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -2009,7 +2105,7 @@ func (s *FeatureRevisions) PutFeatureRevisionRule(ctx context.Context, request o
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/features/{id}/revisions/{version}/rules/{ruleId}", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions/{version}/rules/{ruleId}", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -2019,7 +2115,7 @@ func (s *FeatureRevisions) PutFeatureRevisionRule(ctx context.Context, request o
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "putFeatureRevisionRule",
+		OperationID:      "putFeatureRevisionRuleV2",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
@@ -2085,7 +2181,7 @@ func (s *FeatureRevisions) PutFeatureRevisionRule(ctx context.Context, request o
 		}
 	}
 
-	res := &operations.PutFeatureRevisionRuleResponse{
+	res := &operations.PutFeatureRevisionRuleV2Response{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -2102,7 +2198,7 @@ func (s *FeatureRevisions) PutFeatureRevisionRule(ctx context.Context, request o
 					return nil, err
 				}
 
-				var out operations.PutFeatureRevisionRuleResponseBody
+				var out operations.PutFeatureRevisionRuleV2ResponseBody
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
@@ -2141,12 +2237,8 @@ func (s *FeatureRevisions) PutFeatureRevisionRule(ctx context.Context, request o
 }
 
 // DeleteFeatureRevisionRule - Delete a rule from a draft revision
-// **Deprecated.** Use [DELETE /v2/features/:id/revisions/:version/rules/:ruleId](#operation/deleteFeatureRevisionRuleV2) instead, which removes the rule from the flat array without an `environment` parameter.
-//
-// Removes the rule from the specified environment. Any pending ramp actions on the draft for this rule are also cleared.
-//
-// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-func (s *FeatureRevisions) DeleteFeatureRevisionRule(ctx context.Context, request operations.DeleteFeatureRevisionRuleRequest, opts ...operations.Option) (*operations.DeleteFeatureRevisionRuleResponse, error) {
+// Removes the rule from the revision. Any pending ramp actions for this rule are also cleared.
+func (s *FeatureRevisions) DeleteFeatureRevisionRule(ctx context.Context, request operations.DeleteFeatureRevisionRuleV2Request, opts ...operations.Option) (*operations.DeleteFeatureRevisionRuleV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -2165,7 +2257,7 @@ func (s *FeatureRevisions) DeleteFeatureRevisionRule(ctx context.Context, reques
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/features/{id}/revisions/{version}/rules/{ruleId}", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions/{version}/rules/{ruleId}", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -2175,7 +2267,7 @@ func (s *FeatureRevisions) DeleteFeatureRevisionRule(ctx context.Context, reques
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "deleteFeatureRevisionRule",
+		OperationID:      "deleteFeatureRevisionRuleV2",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
@@ -2241,7 +2333,7 @@ func (s *FeatureRevisions) DeleteFeatureRevisionRule(ctx context.Context, reques
 		}
 	}
 
-	res := &operations.DeleteFeatureRevisionRuleResponse{
+	res := &operations.DeleteFeatureRevisionRuleV2Response{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -2258,7 +2350,7 @@ func (s *FeatureRevisions) DeleteFeatureRevisionRule(ctx context.Context, reques
 					return nil, err
 				}
 
-				var out operations.DeleteFeatureRevisionRuleResponseBody
+				var out operations.DeleteFeatureRevisionRuleV2ResponseBody
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
@@ -2296,13 +2388,9 @@ func (s *FeatureRevisions) DeleteFeatureRevisionRule(ctx context.Context, reques
 
 }
 
-// PostFeatureRevisionRulesReorder - Reorder rules in an environment
-// **Deprecated.** Use [POST /v2/features/:id/revisions/:version/rules/reorder](#operation/postFeatureRevisionRulesReorderV2) instead, which reorders the global flat rule array without an `environment` parameter.
-//
-// Replaces the rule order for the environment. `ruleIds` must contain **exactly** the set of existing rule IDs in that environment — no additions, omissions, or duplicates.
-//
-// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-func (s *FeatureRevisions) PostFeatureRevisionRulesReorder(ctx context.Context, request operations.PostFeatureRevisionRulesReorderRequest, opts ...operations.Option) (*operations.PostFeatureRevisionRulesReorderResponse, error) {
+// PostFeatureRevisionRulesReorder - Reorder rules in the revision
+// Replaces the flat global rule order. `ruleIds` must contain **exactly** the set of all existing rule IDs in the revision — no additions, omissions, or duplicates.
+func (s *FeatureRevisions) PostFeatureRevisionRulesReorder(ctx context.Context, request operations.PostFeatureRevisionRulesReorderV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionRulesReorderV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -2321,7 +2409,7 @@ func (s *FeatureRevisions) PostFeatureRevisionRulesReorder(ctx context.Context, 
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/features/{id}/revisions/{version}/rules/reorder", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions/{version}/rules/reorder", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -2331,7 +2419,7 @@ func (s *FeatureRevisions) PostFeatureRevisionRulesReorder(ctx context.Context, 
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "postFeatureRevisionRulesReorder",
+		OperationID:      "postFeatureRevisionRulesReorderV2",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
@@ -2397,7 +2485,7 @@ func (s *FeatureRevisions) PostFeatureRevisionRulesReorder(ctx context.Context, 
 		}
 	}
 
-	res := &operations.PostFeatureRevisionRulesReorderResponse{
+	res := &operations.PostFeatureRevisionRulesReorderV2Response{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -2414,7 +2502,7 @@ func (s *FeatureRevisions) PostFeatureRevisionRulesReorder(ctx context.Context, 
 					return nil, err
 				}
 
-				var out operations.PostFeatureRevisionRulesReorderResponseBody
+				var out operations.PostFeatureRevisionRulesReorderV2ResponseBody
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
@@ -2453,12 +2541,10 @@ func (s *FeatureRevisions) PostFeatureRevisionRulesReorder(ctx context.Context, 
 }
 
 // PutFeatureRevisionRuleRampSchedule - Set ramp schedule for a rule
-// **Deprecated.** Use [PUT /v2/features/:id/revisions/:version/rules/:ruleId/ramp-schedule](#operation/putFeatureRevisionRuleRampScheduleV2) instead.
-//
 // Queues a revision-controlled ramp action for this rule. If the rule already has a live ramp schedule, this stores an `update` action applied on publish; otherwise it stores a `create` action. No live schedule config changes are applied immediately by this endpoint.
 //
-// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-func (s *FeatureRevisions) PutFeatureRevisionRuleRampSchedule(ctx context.Context, request operations.PutFeatureRevisionRuleRampScheduleRequest, opts ...operations.Option) (*operations.PutFeatureRevisionRuleRampScheduleResponse, error) {
+// You can build the ramp from a template (`templateId`) and set the rollback anchor (`startState`) in the same request — e.g. pull in a template and pass `startState: { "coverage": 0 }` so a rollback returns the rule to 0%.
+func (s *FeatureRevisions) PutFeatureRevisionRuleRampSchedule(ctx context.Context, request operations.PutFeatureRevisionRuleRampScheduleV2Request, opts ...operations.Option) (*operations.PutFeatureRevisionRuleRampScheduleV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -2477,7 +2563,7 @@ func (s *FeatureRevisions) PutFeatureRevisionRuleRampSchedule(ctx context.Contex
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/features/{id}/revisions/{version}/rules/{ruleId}/ramp-schedule", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions/{version}/rules/{ruleId}/ramp-schedule", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -2487,7 +2573,7 @@ func (s *FeatureRevisions) PutFeatureRevisionRuleRampSchedule(ctx context.Contex
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "putFeatureRevisionRuleRampSchedule",
+		OperationID:      "putFeatureRevisionRuleRampScheduleV2",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
@@ -2553,7 +2639,7 @@ func (s *FeatureRevisions) PutFeatureRevisionRuleRampSchedule(ctx context.Contex
 		}
 	}
 
-	res := &operations.PutFeatureRevisionRuleRampScheduleResponse{
+	res := &operations.PutFeatureRevisionRuleRampScheduleV2Response{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -2570,7 +2656,7 @@ func (s *FeatureRevisions) PutFeatureRevisionRuleRampSchedule(ctx context.Contex
 					return nil, err
 				}
 
-				var out operations.PutFeatureRevisionRuleRampScheduleResponseBody
+				var out operations.PutFeatureRevisionRuleRampScheduleV2ResponseBody
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
@@ -2609,12 +2695,8 @@ func (s *FeatureRevisions) PutFeatureRevisionRuleRampSchedule(ctx context.Contex
 }
 
 // DeleteFeatureRevisionRuleRampSchedule - Remove ramp schedule from a rule
-// **Deprecated.** Use [DELETE /v2/features/:id/revisions/:version/rules/:ruleId/ramp-schedule](#operation/deleteFeatureRevisionRuleRampScheduleV2) instead.
-//
-// Removes a pending ramp schedule attached by the draft. If the rule currently has a live ramp schedule, a detach action is queued and applied at publish time.
-//
-// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-func (s *FeatureRevisions) DeleteFeatureRevisionRuleRampSchedule(ctx context.Context, request operations.DeleteFeatureRevisionRuleRampScheduleRequest, opts ...operations.Option) (*operations.DeleteFeatureRevisionRuleRampScheduleResponse, error) {
+// Clears any pending ramp action for this rule. If a live ramp schedule exists, queues a detach that removes it on publish — the rule will show `pendingRamp: "detach"`. If only a pending create exists, it is removed and `pendingRamp` is cleared.
+func (s *FeatureRevisions) DeleteFeatureRevisionRuleRampSchedule(ctx context.Context, request operations.DeleteFeatureRevisionRuleRampScheduleV2Request, opts ...operations.Option) (*operations.DeleteFeatureRevisionRuleRampScheduleV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -2633,7 +2715,7 @@ func (s *FeatureRevisions) DeleteFeatureRevisionRuleRampSchedule(ctx context.Con
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/features/{id}/revisions/{version}/rules/{ruleId}/ramp-schedule", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions/{version}/rules/{ruleId}/ramp-schedule", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -2643,7 +2725,7 @@ func (s *FeatureRevisions) DeleteFeatureRevisionRuleRampSchedule(ctx context.Con
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "deleteFeatureRevisionRuleRampSchedule",
+		OperationID:      "deleteFeatureRevisionRuleRampScheduleV2",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
@@ -2709,7 +2791,7 @@ func (s *FeatureRevisions) DeleteFeatureRevisionRuleRampSchedule(ctx context.Con
 		}
 	}
 
-	res := &operations.DeleteFeatureRevisionRuleRampScheduleResponse{
+	res := &operations.DeleteFeatureRevisionRuleRampScheduleV2Response{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -2726,7 +2808,7 @@ func (s *FeatureRevisions) DeleteFeatureRevisionRuleRampSchedule(ctx context.Con
 					return nil, err
 				}
 
-				var out operations.DeleteFeatureRevisionRuleRampScheduleResponseBody
+				var out operations.DeleteFeatureRevisionRuleRampScheduleV2ResponseBody
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
@@ -2765,12 +2847,12 @@ func (s *FeatureRevisions) DeleteFeatureRevisionRuleRampSchedule(ctx context.Con
 }
 
 // PostFeatureRevisionRequestReview - Request review for a draft revision
-// **Deprecated.** Use [POST /v2/features/:id/revisions/:version/request-review](#operation/postFeatureRevisionRequestReviewV2) instead.
-//
 // Moves the draft into the `pending-review` state and notifies reviewers.
 //
-// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-func (s *FeatureRevisions) PostFeatureRevisionRequestReview(ctx context.Context, request operations.PostFeatureRevisionRequestReviewRequest, opts ...operations.Option) (*operations.PostFeatureRevisionRequestReviewResponse, error) {
+// Set `autoPublishOnApproval` to `true` to publish the revision automatically the moment it is approved (GitHub auto-merge model). This requires the org to have auto-publish-on-approval enabled for the feature and the caller to have publish permission; the auto-publish then executes with the caller's authority.
+//
+// Set `scheduledPublishAt` to a future ISO date-time to defer the auto-publish until that date (it still also requires approval when review is required). Use `scheduledPublishLockEdits` to freeze edits to this draft while the schedule is pending, and `scheduledPublishLockOthers` to block publishing other drafts of this feature in the meantime.
+func (s *FeatureRevisions) PostFeatureRevisionRequestReview(ctx context.Context, request operations.PostFeatureRevisionRequestReviewV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionRequestReviewV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -2789,7 +2871,7 @@ func (s *FeatureRevisions) PostFeatureRevisionRequestReview(ctx context.Context,
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/features/{id}/revisions/{version}/request-review", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions/{version}/request-review", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -2799,7 +2881,7 @@ func (s *FeatureRevisions) PostFeatureRevisionRequestReview(ctx context.Context,
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "postFeatureRevisionRequestReview",
+		OperationID:      "postFeatureRevisionRequestReviewV2",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
@@ -2865,7 +2947,7 @@ func (s *FeatureRevisions) PostFeatureRevisionRequestReview(ctx context.Context,
 		}
 	}
 
-	res := &operations.PostFeatureRevisionRequestReviewResponse{
+	res := &operations.PostFeatureRevisionRequestReviewV2Response{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -2882,7 +2964,161 @@ func (s *FeatureRevisions) PostFeatureRevisionRequestReview(ctx context.Context,
 					return nil, err
 				}
 
-				var out operations.PostFeatureRevisionRequestReviewResponseBody
+				var out operations.PostFeatureRevisionRequestReviewV2ResponseBody
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.Object = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, sdkerrors.NewSDKDefaultError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
+	case httpRes.StatusCode >= 500 && httpRes.StatusCode < 600:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, sdkerrors.NewSDKDefaultError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
+	default:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, sdkerrors.NewSDKDefaultError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
+	}
+
+	return res, nil
+
+}
+
+// PostFeatureRevisionSchedulePublish - Schedule (or cancel) a deferred publish for a draft revision
+// Arms a deferred publish: the revision publishes automatically on/after `scheduledPublishAt` (and, when review is required, only once also approved). Send `scheduledPublishAt: null` to cancel the schedule.
+//
+// Use `lockEdits` to freeze content edits to this draft while the schedule is pending (rebasing is still allowed), and `lockOthers` to block publishing other drafts of this feature until the schedule fires or is canceled. Requires publish permission; the publish executes with the caller's authority. An admin with bypass-approval permission can schedule even without approval — pass `bypassApproval: true` to mark it as an admin override, which locks the schedule to cancel-and-re-arm only.
+func (s *FeatureRevisions) PostFeatureRevisionSchedulePublish(ctx context.Context, request operations.PostFeatureRevisionSchedulePublishV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionSchedulePublishV2Response, error) {
+	o := operations.Options{}
+	supportedOptions := []string{
+		operations.SupportedOptionTimeout,
+		operations.SupportedOptionSkipDeserialization,
+	}
+
+	for _, opt := range opts {
+		if err := opt(&o, supportedOptions...); err != nil {
+			return nil, fmt.Errorf("error applying option: %w", err)
+		}
+	}
+
+	var baseURL string
+	if o.ServerURL == nil {
+		baseURL = utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
+	} else {
+		baseURL = *o.ServerURL
+	}
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions/{version}/schedule-publish", request, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		SDK:              s.rootSDK,
+		SDKConfiguration: s.sdkConfiguration,
+		BaseURL:          baseURL,
+		Context:          ctx,
+		OperationID:      "postFeatureRevisionSchedulePublishV2",
+		SecuritySource:   s.sdkConfiguration.Security,
+	}
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
+	if err != nil {
+		return nil, err
+	}
+
+	timeout := o.Timeout
+	if timeout == nil {
+		timeout = s.sdkConfiguration.Timeout
+	}
+
+	if timeout != nil {
+		var cancel context.CancelFunc
+		ctx, cancel = context.WithTimeout(ctx, *timeout)
+		defer cancel()
+	}
+
+	req, err := http.NewRequestWithContext(ctx, "POST", opURL, bodyReader)
+	if err != nil {
+		return nil, fmt.Errorf("error creating request: %w", err)
+	}
+	req.Header.Set("Accept", "application/json")
+	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
+	if reqContentType != "" {
+		req.Header.Set("Content-Type", reqContentType)
+	}
+
+	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
+		return nil, err
+	}
+
+	for k, v := range o.SetHeaders {
+		req.Header.Set(k, v)
+	}
+
+	req, err = s.hooks.BeforeRequest(hooks.BeforeRequestContext{HookContext: hookCtx}, req)
+	if err != nil {
+		return nil, err
+	}
+
+	httpRes, err := s.sdkConfiguration.Client.Do(req)
+	if err != nil || httpRes == nil {
+		if err != nil {
+			err = fmt.Errorf("error sending request: %w", err)
+		} else {
+			err = fmt.Errorf("error sending request: no response")
+		}
+
+		_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
+		return nil, err
+	} else if utils.MatchStatusCodes([]string{"4XX", "5XX"}, httpRes.StatusCode) {
+		_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
+		if err != nil {
+			return nil, err
+		} else if _httpRes != nil {
+			httpRes = _httpRes
+		}
+	} else {
+		httpRes, err = s.hooks.AfterSuccess(hooks.AfterSuccessContext{HookContext: hookCtx}, httpRes)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	res := &operations.PostFeatureRevisionSchedulePublishV2Response{
+		HTTPMeta: components.HTTPMetadata{
+			Request:  req,
+			Response: httpRes,
+		},
+	}
+
+	switch {
+	case httpRes.StatusCode == 200:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out operations.PostFeatureRevisionSchedulePublishV2ResponseBody
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
@@ -2921,14 +3157,10 @@ func (s *FeatureRevisions) PostFeatureRevisionRequestReview(ctx context.Context,
 }
 
 // PostFeatureRevisionSubmitReview - Submit a review on a draft revision
-// **Deprecated.** Use [POST /v2/features/:id/revisions/:version/submit-review](#operation/postFeatureRevisionSubmitReviewV2) instead.
+// Submits an `approve`, `request-changes`, or `comment` review on the draft. Contributors cannot approve their own drafts when `blockSelfApproval` is enabled.
 //
-// Submits an `approve`, `request-changes`, or `comment` review on the draft. Contributors cannot approve their own drafts, but may submit comments or request changes.
-//
-// When `action` is `approve` and the revision has `autoPublishOnApproval` enabled, the revision is automatically published after approval. Pass `skipAutoPublish: true` to approve without triggering auto-publish.
-//
-// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-func (s *FeatureRevisions) PostFeatureRevisionSubmitReview(ctx context.Context, request operations.PostFeatureRevisionSubmitReviewRequest, opts ...operations.Option) (*operations.PostFeatureRevisionSubmitReviewResponse, error) {
+// When `action` is `approve` and the revision has `autoPublishOnApproval` enabled, the revision is automatically published after approval. The response includes `autoPublished: true` when this happens. Pass `skipAutoPublish: true` to approve without triggering auto-publish.
+func (s *FeatureRevisions) PostFeatureRevisionSubmitReview(ctx context.Context, request operations.PostFeatureRevisionSubmitReviewV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionSubmitReviewV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -2947,7 +3179,7 @@ func (s *FeatureRevisions) PostFeatureRevisionSubmitReview(ctx context.Context, 
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/features/{id}/revisions/{version}/submit-review", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions/{version}/submit-review", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -2957,7 +3189,7 @@ func (s *FeatureRevisions) PostFeatureRevisionSubmitReview(ctx context.Context, 
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "postFeatureRevisionSubmitReview",
+		OperationID:      "postFeatureRevisionSubmitReviewV2",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
@@ -3023,7 +3255,7 @@ func (s *FeatureRevisions) PostFeatureRevisionSubmitReview(ctx context.Context, 
 		}
 	}
 
-	res := &operations.PostFeatureRevisionSubmitReviewResponse{
+	res := &operations.PostFeatureRevisionSubmitReviewV2Response{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -3040,7 +3272,7 @@ func (s *FeatureRevisions) PostFeatureRevisionSubmitReview(ctx context.Context, 
 					return nil, err
 				}
 
-				var out operations.PostFeatureRevisionSubmitReviewResponseBody
+				var out operations.PostFeatureRevisionSubmitReviewV2ResponseBody
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
@@ -3078,13 +3310,9 @@ func (s *FeatureRevisions) PostFeatureRevisionSubmitReview(ctx context.Context, 
 
 }
 
-// GetFeatureRevisionMergeStatus - Get merge status for a draft revision
-// **Deprecated.** Use [GET /v2/features/:id/revisions/:version/merge-status](#operation/getFeatureRevisionMergeStatusV2) instead.
-//
-// Runs a dry-run merge of the draft against the current live revision and returns any conflicts. Use this before publishing to preview changes and detect conflicting edits.
-//
-// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-func (s *FeatureRevisions) GetFeatureRevisionMergeStatus(ctx context.Context, request operations.GetFeatureRevisionMergeStatusRequest, opts ...operations.Option) (*operations.GetFeatureRevisionMergeStatusResponse, error) {
+// PostFeatureRevisionRecallReview - Recall a review request (revert to draft)
+// Retracts the review request, returning the revision from `pending-review`, `changes-requested`, or `approved` back to `draft`. Allowed for any user with draft-management permission on the feature (the same permission required to request review), not only the original requester. Existing review log entries are preserved as audit history but any in-flight reviewer verdicts (Approved / Requested Changes) submitted during this review cycle no longer count — submitting a fresh `request-review` starts a new cycle.
+func (s *FeatureRevisions) PostFeatureRevisionRecallReview(ctx context.Context, request operations.PostFeatureRevisionRecallReviewV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionRecallReviewV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -3103,7 +3331,7 @@ func (s *FeatureRevisions) GetFeatureRevisionMergeStatus(ctx context.Context, re
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/features/{id}/revisions/{version}/merge-status", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions/{version}/recall-review", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -3113,7 +3341,311 @@ func (s *FeatureRevisions) GetFeatureRevisionMergeStatus(ctx context.Context, re
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getFeatureRevisionMergeStatus",
+		OperationID:      "postFeatureRevisionRecallReviewV2",
+		SecuritySource:   s.sdkConfiguration.Security,
+	}
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
+	if err != nil {
+		return nil, err
+	}
+
+	timeout := o.Timeout
+	if timeout == nil {
+		timeout = s.sdkConfiguration.Timeout
+	}
+
+	if timeout != nil {
+		var cancel context.CancelFunc
+		ctx, cancel = context.WithTimeout(ctx, *timeout)
+		defer cancel()
+	}
+
+	req, err := http.NewRequestWithContext(ctx, "POST", opURL, bodyReader)
+	if err != nil {
+		return nil, fmt.Errorf("error creating request: %w", err)
+	}
+	req.Header.Set("Accept", "application/json")
+	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
+	if reqContentType != "" {
+		req.Header.Set("Content-Type", reqContentType)
+	}
+
+	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
+		return nil, err
+	}
+
+	for k, v := range o.SetHeaders {
+		req.Header.Set(k, v)
+	}
+
+	req, err = s.hooks.BeforeRequest(hooks.BeforeRequestContext{HookContext: hookCtx}, req)
+	if err != nil {
+		return nil, err
+	}
+
+	httpRes, err := s.sdkConfiguration.Client.Do(req)
+	if err != nil || httpRes == nil {
+		if err != nil {
+			err = fmt.Errorf("error sending request: %w", err)
+		} else {
+			err = fmt.Errorf("error sending request: no response")
+		}
+
+		_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
+		return nil, err
+	} else if utils.MatchStatusCodes([]string{"4XX", "5XX"}, httpRes.StatusCode) {
+		_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
+		if err != nil {
+			return nil, err
+		} else if _httpRes != nil {
+			httpRes = _httpRes
+		}
+	} else {
+		httpRes, err = s.hooks.AfterSuccess(hooks.AfterSuccessContext{HookContext: hookCtx}, httpRes)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	res := &operations.PostFeatureRevisionRecallReviewV2Response{
+		HTTPMeta: components.HTTPMetadata{
+			Request:  req,
+			Response: httpRes,
+		},
+	}
+
+	switch {
+	case httpRes.StatusCode == 200:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out operations.PostFeatureRevisionRecallReviewV2ResponseBody
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.Object = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, sdkerrors.NewSDKDefaultError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
+	case httpRes.StatusCode >= 500 && httpRes.StatusCode < 600:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, sdkerrors.NewSDKDefaultError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
+	default:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, sdkerrors.NewSDKDefaultError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
+	}
+
+	return res, nil
+
+}
+
+// PostFeatureRevisionUndoReview - Undo a reviewer's own review verdict
+// Reviewer retracts their own verdict. The revision status rewinds to the state implied by the remaining active verdicts from other reviewers: any outstanding `Requested Changes` → `changes-requested`, else any outstanding `Approved` → `approved`, else `pending-review`. Existing review comments are preserved. If the retraction resolves the revision to `approved` and auto-publish-on-approval is armed, the revision is published.
+func (s *FeatureRevisions) PostFeatureRevisionUndoReview(ctx context.Context, request operations.PostFeatureRevisionUndoReviewV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionUndoReviewV2Response, error) {
+	o := operations.Options{}
+	supportedOptions := []string{
+		operations.SupportedOptionTimeout,
+		operations.SupportedOptionSkipDeserialization,
+	}
+
+	for _, opt := range opts {
+		if err := opt(&o, supportedOptions...); err != nil {
+			return nil, fmt.Errorf("error applying option: %w", err)
+		}
+	}
+
+	var baseURL string
+	if o.ServerURL == nil {
+		baseURL = utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
+	} else {
+		baseURL = *o.ServerURL
+	}
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions/{version}/undo-review", request, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		SDK:              s.rootSDK,
+		SDKConfiguration: s.sdkConfiguration,
+		BaseURL:          baseURL,
+		Context:          ctx,
+		OperationID:      "postFeatureRevisionUndoReviewV2",
+		SecuritySource:   s.sdkConfiguration.Security,
+	}
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
+	if err != nil {
+		return nil, err
+	}
+
+	timeout := o.Timeout
+	if timeout == nil {
+		timeout = s.sdkConfiguration.Timeout
+	}
+
+	if timeout != nil {
+		var cancel context.CancelFunc
+		ctx, cancel = context.WithTimeout(ctx, *timeout)
+		defer cancel()
+	}
+
+	req, err := http.NewRequestWithContext(ctx, "POST", opURL, bodyReader)
+	if err != nil {
+		return nil, fmt.Errorf("error creating request: %w", err)
+	}
+	req.Header.Set("Accept", "application/json")
+	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
+	if reqContentType != "" {
+		req.Header.Set("Content-Type", reqContentType)
+	}
+
+	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
+		return nil, err
+	}
+
+	for k, v := range o.SetHeaders {
+		req.Header.Set(k, v)
+	}
+
+	req, err = s.hooks.BeforeRequest(hooks.BeforeRequestContext{HookContext: hookCtx}, req)
+	if err != nil {
+		return nil, err
+	}
+
+	httpRes, err := s.sdkConfiguration.Client.Do(req)
+	if err != nil || httpRes == nil {
+		if err != nil {
+			err = fmt.Errorf("error sending request: %w", err)
+		} else {
+			err = fmt.Errorf("error sending request: no response")
+		}
+
+		_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
+		return nil, err
+	} else if utils.MatchStatusCodes([]string{"4XX", "5XX"}, httpRes.StatusCode) {
+		_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
+		if err != nil {
+			return nil, err
+		} else if _httpRes != nil {
+			httpRes = _httpRes
+		}
+	} else {
+		httpRes, err = s.hooks.AfterSuccess(hooks.AfterSuccessContext{HookContext: hookCtx}, httpRes)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	res := &operations.PostFeatureRevisionUndoReviewV2Response{
+		HTTPMeta: components.HTTPMetadata{
+			Request:  req,
+			Response: httpRes,
+		},
+	}
+
+	switch {
+	case httpRes.StatusCode == 200:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out operations.PostFeatureRevisionUndoReviewV2ResponseBody
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.Object = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, sdkerrors.NewSDKDefaultError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
+	case httpRes.StatusCode >= 500 && httpRes.StatusCode < 600:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, sdkerrors.NewSDKDefaultError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
+	default:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, sdkerrors.NewSDKDefaultError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
+	}
+
+	return res, nil
+
+}
+
+// GetFeatureRevisionLog - List the activity log for a revision
+// Returns every log entry for the revision — content edits (rules, default value, rebases), review lifecycle events (review requested, approved, changes requested, recalled, undone), comments, and other audit events — sorted oldest-first.
+func (s *FeatureRevisions) GetFeatureRevisionLog(ctx context.Context, request operations.GetFeatureRevisionLogV2Request, opts ...operations.Option) (*operations.GetFeatureRevisionLogV2Response, error) {
+	o := operations.Options{}
+	supportedOptions := []string{
+		operations.SupportedOptionTimeout,
+		operations.SupportedOptionSkipDeserialization,
+	}
+
+	for _, opt := range opts {
+		if err := opt(&o, supportedOptions...); err != nil {
+			return nil, fmt.Errorf("error applying option: %w", err)
+		}
+	}
+
+	var baseURL string
+	if o.ServerURL == nil {
+		baseURL = utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
+	} else {
+		baseURL = *o.ServerURL
+	}
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions/{version}/log", request, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		SDK:              s.rootSDK,
+		SDKConfiguration: s.sdkConfiguration,
+		BaseURL:          baseURL,
+		Context:          ctx,
+		OperationID:      "getFeatureRevisionLogV2",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 
@@ -3172,7 +3704,7 @@ func (s *FeatureRevisions) GetFeatureRevisionMergeStatus(ctx context.Context, re
 		}
 	}
 
-	res := &operations.GetFeatureRevisionMergeStatusResponse{
+	res := &operations.GetFeatureRevisionLogV2Response{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -3189,7 +3721,608 @@ func (s *FeatureRevisions) GetFeatureRevisionMergeStatus(ctx context.Context, re
 					return nil, err
 				}
 
-				var out operations.GetFeatureRevisionMergeStatusResponseBody
+				var out operations.GetFeatureRevisionLogV2ResponseBody
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.Object = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, sdkerrors.NewSDKDefaultError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
+	case httpRes.StatusCode >= 500 && httpRes.StatusCode < 600:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, sdkerrors.NewSDKDefaultError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
+	default:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, sdkerrors.NewSDKDefaultError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
+	}
+
+	return res, nil
+
+}
+
+// PutFeatureRevisionLogComment - Edit the comment text of an owned log entry
+// Author of a `Comment`, `Approved`, or `Requested Changes` log entry can rewrite its comment text. The entry's action and other audit-trail metadata remain immutable; this only mutates `value.comment`. Other audit events (e.g. `Review Requested`, system events) are not editable.
+func (s *FeatureRevisions) PutFeatureRevisionLogComment(ctx context.Context, request operations.PutFeatureRevisionLogCommentV2Request, opts ...operations.Option) (*operations.PutFeatureRevisionLogCommentV2Response, error) {
+	o := operations.Options{}
+	supportedOptions := []string{
+		operations.SupportedOptionTimeout,
+		operations.SupportedOptionSkipDeserialization,
+	}
+
+	for _, opt := range opts {
+		if err := opt(&o, supportedOptions...); err != nil {
+			return nil, fmt.Errorf("error applying option: %w", err)
+		}
+	}
+
+	var baseURL string
+	if o.ServerURL == nil {
+		baseURL = utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
+	} else {
+		baseURL = *o.ServerURL
+	}
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions/{version}/log/{logId}", request, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		SDK:              s.rootSDK,
+		SDKConfiguration: s.sdkConfiguration,
+		BaseURL:          baseURL,
+		Context:          ctx,
+		OperationID:      "putFeatureRevisionLogCommentV2",
+		SecuritySource:   s.sdkConfiguration.Security,
+	}
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
+	if err != nil {
+		return nil, err
+	}
+
+	timeout := o.Timeout
+	if timeout == nil {
+		timeout = s.sdkConfiguration.Timeout
+	}
+
+	if timeout != nil {
+		var cancel context.CancelFunc
+		ctx, cancel = context.WithTimeout(ctx, *timeout)
+		defer cancel()
+	}
+
+	req, err := http.NewRequestWithContext(ctx, "PUT", opURL, bodyReader)
+	if err != nil {
+		return nil, fmt.Errorf("error creating request: %w", err)
+	}
+	req.Header.Set("Accept", "application/json")
+	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
+	if reqContentType != "" {
+		req.Header.Set("Content-Type", reqContentType)
+	}
+
+	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
+		return nil, err
+	}
+
+	for k, v := range o.SetHeaders {
+		req.Header.Set(k, v)
+	}
+
+	req, err = s.hooks.BeforeRequest(hooks.BeforeRequestContext{HookContext: hookCtx}, req)
+	if err != nil {
+		return nil, err
+	}
+
+	httpRes, err := s.sdkConfiguration.Client.Do(req)
+	if err != nil || httpRes == nil {
+		if err != nil {
+			err = fmt.Errorf("error sending request: %w", err)
+		} else {
+			err = fmt.Errorf("error sending request: no response")
+		}
+
+		_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
+		return nil, err
+	} else if utils.MatchStatusCodes([]string{"4XX", "5XX"}, httpRes.StatusCode) {
+		_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
+		if err != nil {
+			return nil, err
+		} else if _httpRes != nil {
+			httpRes = _httpRes
+		}
+	} else {
+		httpRes, err = s.hooks.AfterSuccess(hooks.AfterSuccessContext{HookContext: hookCtx}, httpRes)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	res := &operations.PutFeatureRevisionLogCommentV2Response{
+		HTTPMeta: components.HTTPMetadata{
+			Request:  req,
+			Response: httpRes,
+		},
+	}
+
+	switch {
+	case httpRes.StatusCode == 200:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out operations.PutFeatureRevisionLogCommentV2ResponseBody
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.Object = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, sdkerrors.NewSDKDefaultError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
+	case httpRes.StatusCode >= 500 && httpRes.StatusCode < 600:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, sdkerrors.NewSDKDefaultError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
+	default:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, sdkerrors.NewSDKDefaultError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
+	}
+
+	return res, nil
+
+}
+
+// DeleteFeatureRevisionLogEntry - Delete an owned revision Comment entry
+// Author of a `Comment` log entry can delete it. Verdict entries (Approved, Requested Changes, Review Requested) and other audit-trail events are immutable. To retract a verdict use `/undo-review`; to retract a review request use `/recall-review`.
+func (s *FeatureRevisions) DeleteFeatureRevisionLogEntry(ctx context.Context, request operations.DeleteFeatureRevisionLogEntryV2Request, opts ...operations.Option) (*operations.DeleteFeatureRevisionLogEntryV2Response, error) {
+	o := operations.Options{}
+	supportedOptions := []string{
+		operations.SupportedOptionTimeout,
+		operations.SupportedOptionSkipDeserialization,
+	}
+
+	for _, opt := range opts {
+		if err := opt(&o, supportedOptions...); err != nil {
+			return nil, fmt.Errorf("error applying option: %w", err)
+		}
+	}
+
+	var baseURL string
+	if o.ServerURL == nil {
+		baseURL = utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
+	} else {
+		baseURL = *o.ServerURL
+	}
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions/{version}/log/{logId}", request, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		SDK:              s.rootSDK,
+		SDKConfiguration: s.sdkConfiguration,
+		BaseURL:          baseURL,
+		Context:          ctx,
+		OperationID:      "deleteFeatureRevisionLogEntryV2",
+		SecuritySource:   s.sdkConfiguration.Security,
+	}
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
+	if err != nil {
+		return nil, err
+	}
+
+	timeout := o.Timeout
+	if timeout == nil {
+		timeout = s.sdkConfiguration.Timeout
+	}
+
+	if timeout != nil {
+		var cancel context.CancelFunc
+		ctx, cancel = context.WithTimeout(ctx, *timeout)
+		defer cancel()
+	}
+
+	req, err := http.NewRequestWithContext(ctx, "DELETE", opURL, bodyReader)
+	if err != nil {
+		return nil, fmt.Errorf("error creating request: %w", err)
+	}
+	req.Header.Set("Accept", "application/json")
+	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
+	if reqContentType != "" {
+		req.Header.Set("Content-Type", reqContentType)
+	}
+
+	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
+		return nil, err
+	}
+
+	for k, v := range o.SetHeaders {
+		req.Header.Set(k, v)
+	}
+
+	req, err = s.hooks.BeforeRequest(hooks.BeforeRequestContext{HookContext: hookCtx}, req)
+	if err != nil {
+		return nil, err
+	}
+
+	httpRes, err := s.sdkConfiguration.Client.Do(req)
+	if err != nil || httpRes == nil {
+		if err != nil {
+			err = fmt.Errorf("error sending request: %w", err)
+		} else {
+			err = fmt.Errorf("error sending request: no response")
+		}
+
+		_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
+		return nil, err
+	} else if utils.MatchStatusCodes([]string{"4XX", "5XX"}, httpRes.StatusCode) {
+		_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
+		if err != nil {
+			return nil, err
+		} else if _httpRes != nil {
+			httpRes = _httpRes
+		}
+	} else {
+		httpRes, err = s.hooks.AfterSuccess(hooks.AfterSuccessContext{HookContext: hookCtx}, httpRes)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	res := &operations.DeleteFeatureRevisionLogEntryV2Response{
+		HTTPMeta: components.HTTPMetadata{
+			Request:  req,
+			Response: httpRes,
+		},
+	}
+
+	switch {
+	case httpRes.StatusCode == 200:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out operations.DeleteFeatureRevisionLogEntryV2ResponseBody
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.Object = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, sdkerrors.NewSDKDefaultError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
+	case httpRes.StatusCode >= 500 && httpRes.StatusCode < 600:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, sdkerrors.NewSDKDefaultError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
+	default:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, sdkerrors.NewSDKDefaultError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
+	}
+
+	return res, nil
+
+}
+
+// GetFeatureRevisionMergeStatus - Get merge status for a draft revision
+// Runs the three-way merge between the draft and the current live version without applying it. Conflicts are granular: each conflicting field gets its own key, and rules conflict individually (`rules.<ruleId>`, plus `rules.order` for competing reorders). Pass the returned `liveVersion` as `expectedLiveVersion` when rebasing. Also reports `rebaseRequired` so callers can detect ahead of time whether the publish endpoint will block until the draft is rebased.
+func (s *FeatureRevisions) GetFeatureRevisionMergeStatus(ctx context.Context, request operations.GetFeatureRevisionMergeStatusV2Request, opts ...operations.Option) (*operations.GetFeatureRevisionMergeStatusV2Response, error) {
+	o := operations.Options{}
+	supportedOptions := []string{
+		operations.SupportedOptionTimeout,
+		operations.SupportedOptionSkipDeserialization,
+	}
+
+	for _, opt := range opts {
+		if err := opt(&o, supportedOptions...); err != nil {
+			return nil, fmt.Errorf("error applying option: %w", err)
+		}
+	}
+
+	var baseURL string
+	if o.ServerURL == nil {
+		baseURL = utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
+	} else {
+		baseURL = *o.ServerURL
+	}
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions/{version}/merge-status", request, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		SDK:              s.rootSDK,
+		SDKConfiguration: s.sdkConfiguration,
+		BaseURL:          baseURL,
+		Context:          ctx,
+		OperationID:      "getFeatureRevisionMergeStatusV2",
+		SecuritySource:   s.sdkConfiguration.Security,
+	}
+
+	timeout := o.Timeout
+	if timeout == nil {
+		timeout = s.sdkConfiguration.Timeout
+	}
+
+	if timeout != nil {
+		var cancel context.CancelFunc
+		ctx, cancel = context.WithTimeout(ctx, *timeout)
+		defer cancel()
+	}
+
+	req, err := http.NewRequestWithContext(ctx, "GET", opURL, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error creating request: %w", err)
+	}
+	req.Header.Set("Accept", "application/json")
+	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
+
+	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
+		return nil, err
+	}
+
+	for k, v := range o.SetHeaders {
+		req.Header.Set(k, v)
+	}
+
+	req, err = s.hooks.BeforeRequest(hooks.BeforeRequestContext{HookContext: hookCtx}, req)
+	if err != nil {
+		return nil, err
+	}
+
+	httpRes, err := s.sdkConfiguration.Client.Do(req)
+	if err != nil || httpRes == nil {
+		if err != nil {
+			err = fmt.Errorf("error sending request: %w", err)
+		} else {
+			err = fmt.Errorf("error sending request: no response")
+		}
+
+		_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
+		return nil, err
+	} else if utils.MatchStatusCodes([]string{"4XX", "5XX"}, httpRes.StatusCode) {
+		_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
+		if err != nil {
+			return nil, err
+		} else if _httpRes != nil {
+			httpRes = _httpRes
+		}
+	} else {
+		httpRes, err = s.hooks.AfterSuccess(hooks.AfterSuccessContext{HookContext: hookCtx}, httpRes)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	res := &operations.GetFeatureRevisionMergeStatusV2Response{
+		HTTPMeta: components.HTTPMetadata{
+			Request:  req,
+			Response: httpRes,
+		},
+	}
+
+	switch {
+	case httpRes.StatusCode == 200:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out operations.GetFeatureRevisionMergeStatusV2ResponseBody
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.Object = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, sdkerrors.NewSDKDefaultError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
+	case httpRes.StatusCode >= 500 && httpRes.StatusCode < 600:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, sdkerrors.NewSDKDefaultError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
+	default:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, sdkerrors.NewSDKDefaultError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
+	}
+
+	return res, nil
+
+}
+
+// PostFeatureRevisionRebasePreview - Preview a rebase without applying it
+// Dry-run of the rebase: runs the same three-way merge with the supplied `conflictResolutions` and returns every conflict (resolved and unresolved) plus the merged result once all are resolved — without modifying the draft. Use it to iterate on resolutions before committing them via the rebase endpoint.
+func (s *FeatureRevisions) PostFeatureRevisionRebasePreview(ctx context.Context, request operations.PostFeatureRevisionRebasePreviewV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionRebasePreviewV2Response, error) {
+	o := operations.Options{}
+	supportedOptions := []string{
+		operations.SupportedOptionTimeout,
+		operations.SupportedOptionSkipDeserialization,
+	}
+
+	for _, opt := range opts {
+		if err := opt(&o, supportedOptions...); err != nil {
+			return nil, fmt.Errorf("error applying option: %w", err)
+		}
+	}
+
+	var baseURL string
+	if o.ServerURL == nil {
+		baseURL = utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
+	} else {
+		baseURL = *o.ServerURL
+	}
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions/{version}/rebase/preview", request, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		SDK:              s.rootSDK,
+		SDKConfiguration: s.sdkConfiguration,
+		BaseURL:          baseURL,
+		Context:          ctx,
+		OperationID:      "postFeatureRevisionRebasePreviewV2",
+		SecuritySource:   s.sdkConfiguration.Security,
+	}
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
+	if err != nil {
+		return nil, err
+	}
+
+	timeout := o.Timeout
+	if timeout == nil {
+		timeout = s.sdkConfiguration.Timeout
+	}
+
+	if timeout != nil {
+		var cancel context.CancelFunc
+		ctx, cancel = context.WithTimeout(ctx, *timeout)
+		defer cancel()
+	}
+
+	req, err := http.NewRequestWithContext(ctx, "POST", opURL, bodyReader)
+	if err != nil {
+		return nil, fmt.Errorf("error creating request: %w", err)
+	}
+	req.Header.Set("Accept", "application/json")
+	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
+	if reqContentType != "" {
+		req.Header.Set("Content-Type", reqContentType)
+	}
+
+	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
+		return nil, err
+	}
+
+	for k, v := range o.SetHeaders {
+		req.Header.Set(k, v)
+	}
+
+	req, err = s.hooks.BeforeRequest(hooks.BeforeRequestContext{HookContext: hookCtx}, req)
+	if err != nil {
+		return nil, err
+	}
+
+	httpRes, err := s.sdkConfiguration.Client.Do(req)
+	if err != nil || httpRes == nil {
+		if err != nil {
+			err = fmt.Errorf("error sending request: %w", err)
+		} else {
+			err = fmt.Errorf("error sending request: no response")
+		}
+
+		_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
+		return nil, err
+	} else if utils.MatchStatusCodes([]string{"4XX", "5XX"}, httpRes.StatusCode) {
+		_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
+		if err != nil {
+			return nil, err
+		} else if _httpRes != nil {
+			httpRes = _httpRes
+		}
+	} else {
+		httpRes, err = s.hooks.AfterSuccess(hooks.AfterSuccessContext{HookContext: hookCtx}, httpRes)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	res := &operations.PostFeatureRevisionRebasePreviewV2Response{
+		HTTPMeta: components.HTTPMetadata{
+			Request:  req,
+			Response: httpRes,
+		},
+	}
+
+	switch {
+	case httpRes.StatusCode == 200:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out operations.PostFeatureRevisionRebasePreviewV2ResponseBody
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
@@ -3228,14 +4361,8 @@ func (s *FeatureRevisions) GetFeatureRevisionMergeStatus(ctx context.Context, re
 }
 
 // PostFeatureRevisionRebase - Rebase a draft revision onto the current live version
-// **Deprecated.** Use [POST /v2/features/:id/revisions/:version/rebase](#operation/postFeatureRevisionRebaseV2) instead.
-//
-// Updates the draft's base revision to match the currently-live revision, applying the draft's changes on top. Supply `conflictResolutions` to resolve any conflicting fields.
-//
-// **Conflict key format changed for v1 clients.** The per-rule `envName.ruleId` keys used by older clients are no longer recognized. Valid keys: `defaultValue`, `prerequisites`, `archived`, `holdout`, `environmentsEnabled.<env>`, `metadata.<field>`, `rules.<ruleId>`, `rules.order`, and the blanket `rules` (applies one strategy to all rule-level conflicts). Unrecognized keys are ignored; unresolved conflicts respond with `409`.
-//
-// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-func (s *FeatureRevisions) PostFeatureRevisionRebase(ctx context.Context, request operations.PostFeatureRevisionRebaseRequest, opts ...operations.Option) (*operations.PostFeatureRevisionRebaseResponse, error) {
+// Updates the draft's base revision to match the currently-live revision, applying the draft's changes on top. Supply `conflictResolutions` to resolve conflicting items individually — including per-rule (`rules.<ruleId>`) and rule-order (`rules.order`) conflicts. Supply `expectedLiveVersion` and/or `expectedDraftDateUpdated` (both returned by merge-status and rebase preview) to fail fast with `409` if either side changes between conflict review and submission. Unresolved conflicts also respond with `409`.
+func (s *FeatureRevisions) PostFeatureRevisionRebase(ctx context.Context, request operations.PostFeatureRevisionRebaseV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionRebaseV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -3254,7 +4381,7 @@ func (s *FeatureRevisions) PostFeatureRevisionRebase(ctx context.Context, reques
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/features/{id}/revisions/{version}/rebase", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions/{version}/rebase", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -3264,7 +4391,7 @@ func (s *FeatureRevisions) PostFeatureRevisionRebase(ctx context.Context, reques
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "postFeatureRevisionRebase",
+		OperationID:      "postFeatureRevisionRebaseV2",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
@@ -3330,7 +4457,7 @@ func (s *FeatureRevisions) PostFeatureRevisionRebase(ctx context.Context, reques
 		}
 	}
 
-	res := &operations.PostFeatureRevisionRebaseResponse{
+	res := &operations.PostFeatureRevisionRebaseV2Response{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -3347,7 +4474,7 @@ func (s *FeatureRevisions) PostFeatureRevisionRebase(ctx context.Context, reques
 					return nil, err
 				}
 
-				var out operations.PostFeatureRevisionRebaseResponseBody
+				var out operations.PostFeatureRevisionRebaseV2ResponseBody
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
@@ -3386,12 +4513,8 @@ func (s *FeatureRevisions) PostFeatureRevisionRebase(ctx context.Context, reques
 }
 
 // PostFeatureRevisionPublish - Publish a draft revision
-// **Deprecated.** Use [POST /v2/features/:id/revisions/:version/publish](#operation/postFeatureRevisionPublishV2) instead.
-//
-// Immediately publishes a draft revision, making it the live version of the feature. Blocked if the org requires approvals and `bypassApprovalChecks` is off.
-//
-// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-func (s *FeatureRevisions) PostFeatureRevisionPublish(ctx context.Context, request operations.PostFeatureRevisionPublishRequest, opts ...operations.Option) (*operations.PostFeatureRevisionPublishResponse, error) {
+// Immediately publishes a draft revision, making it the live version of the feature. Any pending ramp actions (`pendingRamp` on rules) are executed atomically — ramp schedules are created or detached as queued.
+func (s *FeatureRevisions) PostFeatureRevisionPublish(ctx context.Context, request operations.PostFeatureRevisionPublishV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionPublishV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -3410,7 +4533,7 @@ func (s *FeatureRevisions) PostFeatureRevisionPublish(ctx context.Context, reque
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/features/{id}/revisions/{version}/publish", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions/{version}/publish", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -3420,7 +4543,7 @@ func (s *FeatureRevisions) PostFeatureRevisionPublish(ctx context.Context, reque
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "postFeatureRevisionPublish",
+		OperationID:      "postFeatureRevisionPublishV2",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
@@ -3486,7 +4609,7 @@ func (s *FeatureRevisions) PostFeatureRevisionPublish(ctx context.Context, reque
 		}
 	}
 
-	res := &operations.PostFeatureRevisionPublishResponse{
+	res := &operations.PostFeatureRevisionPublishV2Response{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -3503,7 +4626,7 @@ func (s *FeatureRevisions) PostFeatureRevisionPublish(ctx context.Context, reque
 					return nil, err
 				}
 
-				var out operations.PostFeatureRevisionPublishResponseBody
+				var out operations.PostFeatureRevisionPublishV2ResponseBody
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
@@ -3542,12 +4665,7 @@ func (s *FeatureRevisions) PostFeatureRevisionPublish(ctx context.Context, reque
 }
 
 // PostFeatureRevisionDiscard - Discard a draft revision
-// **Deprecated.** Use [POST /v2/features/:id/revisions/:version/discard](#operation/postFeatureRevisionDiscardV2) instead.
-//
-// Permanently discards a draft revision. Only drafts (never published revisions) can be discarded. Any pending ramp actions staged on the draft are dropped.
-//
-// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-func (s *FeatureRevisions) PostFeatureRevisionDiscard(ctx context.Context, request operations.PostFeatureRevisionDiscardRequest, opts ...operations.Option) (*operations.PostFeatureRevisionDiscardResponse, error) {
+func (s *FeatureRevisions) PostFeatureRevisionDiscard(ctx context.Context, request operations.PostFeatureRevisionDiscardV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionDiscardV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -3566,7 +4684,7 @@ func (s *FeatureRevisions) PostFeatureRevisionDiscard(ctx context.Context, reque
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/features/{id}/revisions/{version}/discard", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions/{version}/discard", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -3576,7 +4694,7 @@ func (s *FeatureRevisions) PostFeatureRevisionDiscard(ctx context.Context, reque
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "postFeatureRevisionDiscard",
+		OperationID:      "postFeatureRevisionDiscardV2",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
@@ -3642,7 +4760,7 @@ func (s *FeatureRevisions) PostFeatureRevisionDiscard(ctx context.Context, reque
 		}
 	}
 
-	res := &operations.PostFeatureRevisionDiscardResponse{
+	res := &operations.PostFeatureRevisionDiscardV2Response{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -3659,7 +4777,159 @@ func (s *FeatureRevisions) PostFeatureRevisionDiscard(ctx context.Context, reque
 					return nil, err
 				}
 
-				var out operations.PostFeatureRevisionDiscardResponseBody
+				var out operations.PostFeatureRevisionDiscardV2ResponseBody
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.Object = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, sdkerrors.NewSDKDefaultError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
+	case httpRes.StatusCode >= 500 && httpRes.StatusCode < 600:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, sdkerrors.NewSDKDefaultError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
+	default:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, sdkerrors.NewSDKDefaultError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
+	}
+
+	return res, nil
+
+}
+
+// PostFeatureRevisionReopen - Reopen a discarded revision as a draft
+// Returns a `discarded` revision to `draft` status so it can be edited, reviewed, and published. Prior review state is not restored — the draft must go back through review if approvals are required.
+func (s *FeatureRevisions) PostFeatureRevisionReopen(ctx context.Context, request operations.PostFeatureRevisionReopenV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionReopenV2Response, error) {
+	o := operations.Options{}
+	supportedOptions := []string{
+		operations.SupportedOptionTimeout,
+		operations.SupportedOptionSkipDeserialization,
+	}
+
+	for _, opt := range opts {
+		if err := opt(&o, supportedOptions...); err != nil {
+			return nil, fmt.Errorf("error applying option: %w", err)
+		}
+	}
+
+	var baseURL string
+	if o.ServerURL == nil {
+		baseURL = utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
+	} else {
+		baseURL = *o.ServerURL
+	}
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions/{version}/reopen", request, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		SDK:              s.rootSDK,
+		SDKConfiguration: s.sdkConfiguration,
+		BaseURL:          baseURL,
+		Context:          ctx,
+		OperationID:      "postFeatureRevisionReopenV2",
+		SecuritySource:   s.sdkConfiguration.Security,
+	}
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
+	if err != nil {
+		return nil, err
+	}
+
+	timeout := o.Timeout
+	if timeout == nil {
+		timeout = s.sdkConfiguration.Timeout
+	}
+
+	if timeout != nil {
+		var cancel context.CancelFunc
+		ctx, cancel = context.WithTimeout(ctx, *timeout)
+		defer cancel()
+	}
+
+	req, err := http.NewRequestWithContext(ctx, "POST", opURL, bodyReader)
+	if err != nil {
+		return nil, fmt.Errorf("error creating request: %w", err)
+	}
+	req.Header.Set("Accept", "application/json")
+	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
+	if reqContentType != "" {
+		req.Header.Set("Content-Type", reqContentType)
+	}
+
+	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
+		return nil, err
+	}
+
+	for k, v := range o.SetHeaders {
+		req.Header.Set(k, v)
+	}
+
+	req, err = s.hooks.BeforeRequest(hooks.BeforeRequestContext{HookContext: hookCtx}, req)
+	if err != nil {
+		return nil, err
+	}
+
+	httpRes, err := s.sdkConfiguration.Client.Do(req)
+	if err != nil || httpRes == nil {
+		if err != nil {
+			err = fmt.Errorf("error sending request: %w", err)
+		} else {
+			err = fmt.Errorf("error sending request: no response")
+		}
+
+		_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
+		return nil, err
+	} else if utils.MatchStatusCodes([]string{"4XX", "5XX"}, httpRes.StatusCode) {
+		_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
+		if err != nil {
+			return nil, err
+		} else if _httpRes != nil {
+			httpRes = _httpRes
+		}
+	} else {
+		httpRes, err = s.hooks.AfterSuccess(hooks.AfterSuccessContext{HookContext: hookCtx}, httpRes)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	res := &operations.PostFeatureRevisionReopenV2Response{
+		HTTPMeta: components.HTTPMetadata{
+			Request:  req,
+			Response: httpRes,
+		},
+	}
+
+	switch {
+	case httpRes.StatusCode == 200:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out operations.PostFeatureRevisionReopenV2ResponseBody
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
@@ -3698,12 +4968,7 @@ func (s *FeatureRevisions) PostFeatureRevisionDiscard(ctx context.Context, reque
 }
 
 // PostFeatureRevisionRevert - Revert the feature to a prior revision
-// **Deprecated.** Use [POST /v2/features/:id/revisions/:version/revert](#operation/postFeatureRevisionRevertV2) instead.
-//
-// Creates a new draft (or immediately publishes) whose content matches the specified historical revision.
-//
-// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-func (s *FeatureRevisions) PostFeatureRevisionRevert(ctx context.Context, request operations.PostFeatureRevisionRevertRequest, opts ...operations.Option) (*operations.PostFeatureRevisionRevertResponse, error) {
+func (s *FeatureRevisions) PostFeatureRevisionRevert(ctx context.Context, request operations.PostFeatureRevisionRevertV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionRevertV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -3722,7 +4987,7 @@ func (s *FeatureRevisions) PostFeatureRevisionRevert(ctx context.Context, reques
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/features/{id}/revisions/{version}/revert", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/v2/features/{id}/revisions/{version}/revert", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -3732,7 +4997,7 @@ func (s *FeatureRevisions) PostFeatureRevisionRevert(ctx context.Context, reques
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "postFeatureRevisionRevert",
+		OperationID:      "postFeatureRevisionRevertV2",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
@@ -3798,7 +5063,7 @@ func (s *FeatureRevisions) PostFeatureRevisionRevert(ctx context.Context, reques
 		}
 	}
 
-	res := &operations.PostFeatureRevisionRevertResponse{
+	res := &operations.PostFeatureRevisionRevertV2Response{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -3815,7 +5080,7 @@ func (s *FeatureRevisions) PostFeatureRevisionRevert(ctx context.Context, reques
 					return nil, err
 				}
 
-				var out operations.PostFeatureRevisionRevertResponseBody
+				var out operations.PostFeatureRevisionRevertV2ResponseBody
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}

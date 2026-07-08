@@ -225,8 +225,8 @@ func (s *Experiments) ListExperiments(ctx context.Context, request *operations.L
 
 }
 
-// PostExperiment - Create a single experiment
-func (s *Experiments) PostExperiment(ctx context.Context, request operations.PostExperimentRequest, opts ...operations.Option) (*operations.PostExperimentResponse, error) {
+// Create a single experiment
+func (s *Experiments) Create(ctx context.Context, request operations.PostExperimentRequest, opts ...operations.Option) (*operations.PostExperimentResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

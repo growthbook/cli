@@ -225,8 +225,8 @@ func (s *FactMetrics) ListFactMetrics(ctx context.Context, request *operations.L
 
 }
 
-// PostFactMetric - Create a single fact metric
-func (s *FactMetrics) PostFactMetric(ctx context.Context, request operations.PostFactMetricRequest, opts ...operations.Option) (*operations.PostFactMetricResponse, error) {
+// Create a single fact metric
+func (s *FactMetrics) Create(ctx context.Context, request operations.PostFactMetricRequest, opts ...operations.Option) (*operations.PostFactMetricResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

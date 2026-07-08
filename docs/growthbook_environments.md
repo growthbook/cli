@@ -43,7 +43,7 @@ growthbook environments [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
+* [growthbook environments create](growthbook_environments_create.md)	 - Create a new environment
 * [growthbook environments delete](growthbook_environments_delete.md)	 - Deletes a single environment
 * [growthbook environments list](growthbook_environments_list.md)	 - Get the organization's environments
-* [growthbook environments post](growthbook_environments_post.md)	 - Create a new environment
-* [growthbook environments put](growthbook_environments_put.md)	 - Update an environment
+* [growthbook environments update](growthbook_environments_update.md)	 - Update an environment

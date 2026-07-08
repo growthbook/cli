@@ -17,12 +17,11 @@ import (
 var postFeatureRevisionRuleAddCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "environment", Shorthand: "e", FieldPath: "Body.Environment", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "rule", FieldPath: "Body.Rule", Kind: flagutil.FlagKindUnion, Union: &flagutil.UnionMeta{Discriminated: false, TypeDescription: "JSON value (one of: { description: string, enabled: boolean, condition: string, savedGroups: object[], ... })"}},
-	{FlagName: "ramp-schedule", FieldPath: "Body.RampSchedule", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"rampSchedule,omitempty"`, Description: "JSON object"},
-	{FlagName: "schedule", Shorthand: "s", FieldPath: "Body.Schedule", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"schedule,omitempty"`, Description: "JSON object"},
-	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "ramp-schedule", FieldPath: "Body.RampSchedule", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"rampSchedule,omitempty"`, Description: "Multi-step ramp schedule for force/rollout rules. Not supported for experiment-ref or safe-rollout rules. Mutually exclusive with `schedule`."},
+	{FlagName: "schedule", Shorthand: "s", FieldPath: "Body.Schedule", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"schedule,omitempty"`, Description: "Simple start/end date window. For force/rollout rules this creates a standalone ramp action; for experiment-ref/safe-rollout rules this sets legacy schedule fields on the rule. Mutually exclusive with `rampSchedule`."},
+	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "Title for a newly created draft. Only used when version is \"new\"; ignored for existing revisions."},
+	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "Comment for a newly created draft. Only used when version is \"new\"; ignored for existing revisions."},
 }
 
 // initPostFeatureRevisionRuleAddCmd initializes the post-feature-revision-rule-add command.
@@ -30,13 +29,13 @@ func initPostFeatureRevisionRuleAddCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "post-feature-revision-rule-add",
 		Short:   "Add a rule to a draft revision",
-		Long:    "DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible\n\n**Deprecated.** Use [POST /v2/features/:id/revisions/:version/rules](#operation/postFeatureRevisionRuleAddV2) instead, which accepts rules with unified `allEnvironments`/`environments` scope fields instead of a per-environment `environment` parameter.\n\nAppends a new rule to the end of the rule list for the given environment. A `rule.type` of `force`, `rollout`, `experiment-ref`, or `safe-rollout` determines the accepted shape. Use `rampSchedule` for ramp configuration or `schedule` for a simple start/end window; if both are provided, `rampSchedule` wins.",
-		Example: "  growthbook feature-revisions post-feature-revision-rule-add --id <id> --version-param <value> --environment <value> --rule '{\"value\":\"<value>\"}'",
+		Long:    "Appends a new rule to the revision's rule list. Supply `allEnvironments: true` on the rule to target all environments, or `environments: [...]` to scope to specific ones.\n\n**Scheduling:** For `force` and `rollout` rules, attach a schedule via `rampSchedule` (multi-step ramp) or `schedule` (simple start/end window) — these create standalone ramp actions and set `pendingRamp: \"create\"` on the rule. For `experiment-ref` and `safe-rollout` rules, only `schedule` is supported and is stored as legacy schedule fields on the rule itself (`rampSchedule` is not available for these rule types).",
+		Example: "  growthbook feature-revisions post-feature-revision-rule-add --id <id> --version-param <value> --rule '{\"value\":\"<value>\"}'",
 		RunE:    runPostFeatureRevisionRuleAddCmd,
 		Aliases: []string{"pfrra"},
 	}
 	flagutil.RegisterFlags(cmd, postFeatureRevisionRuleAddCmdMeta)
-	if err := flagutil.ValidateMeta[operations.PostFeatureRevisionRuleAddRequest](postFeatureRevisionRuleAddCmdMeta); err != nil {
+	if err := flagutil.ValidateMeta[operations.PostFeatureRevisionRuleAddV2Request](postFeatureRevisionRuleAddCmdMeta); err != nil {
 		return fmt.Errorf("invalid metadata for post-feature-revision-rule-add: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
@@ -54,7 +53,7 @@ func runPostFeatureRevisionRuleAddCmd(cmd *cobra.Command, args []string) error {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.PostFeatureRevisionRuleAddRequest](cmd, postFeatureRevisionRuleAddCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.PostFeatureRevisionRuleAddV2Request](cmd, postFeatureRevisionRuleAddCmdMeta, "Body", "body")
 	if err != nil {
 		return err
 	}

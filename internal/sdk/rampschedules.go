@@ -226,8 +226,8 @@ func (s *RampSchedules) ListRampSchedules(ctx context.Context, request *operatio
 
 }
 
-// PostRampSchedule - Create a ramp schedule
-func (s *RampSchedules) PostRampSchedule(ctx context.Context, request operations.PostRampScheduleRequest, opts ...operations.Option) (*operations.PostRampScheduleResponse, error) {
+// Create a ramp schedule
+func (s *RampSchedules) Create(ctx context.Context, request operations.PostRampScheduleRequest, opts ...operations.Option) (*operations.PostRampScheduleResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

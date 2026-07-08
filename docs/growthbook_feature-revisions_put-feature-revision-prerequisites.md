@@ -4,11 +4,7 @@ Set feature-level prerequisites in a draft revision
 
 ### Synopsis
 
-DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible
-
-**Deprecated.** Use [PUT /v2/features/:id/revisions/:version/prerequisites](#operation/putFeatureRevisionPrerequisitesV2) instead.
-
-Replaces the feature's prerequisite list for this revision. Each prerequisite condition is evaluated against `{ value: <prereq-flag-value> }` at SDK eval time — use `value` as the condition key.
+Sets the feature-level prerequisites for this revision. Each prerequisite must be a boolean feature flag; the gate is always 'prerequisite flag is on'. The condition is applied automatically — only the flag ID is required.
 
 ```
 growthbook feature-revisions put-feature-revision-prerequisites [flags]
@@ -17,7 +13,7 @@ growthbook feature-revisions put-feature-revision-prerequisites [flags]
 ### Examples
 
 ```
-  growthbook feature-revisions put-feature-revision-prerequisites --id <id> --version-param <value> --prerequisites '[]'
+  growthbook feature-revisions put-feature-revision-prerequisites --id <id> --version-param <value> --prerequisites '[{"id":"<id>"}]'
 ```
 
 ### Options
@@ -26,9 +22,9 @@ growthbook feature-revisions put-feature-revision-prerequisites [flags]
       --body string               Request body as JSON (alternative to individual flags). Can also be provided via stdin.
   -h, --help                      help for put-feature-revision-prerequisites
   -i, --id string                 [required]
-  -p, --prerequisites string      [required]
-      --revision-comment string   string value
-      --revision-title string     string value
+  -p, --prerequisites string      List of prerequisite boolean flags. When any prerequisite flag is off for a user, this flag returns its defaultValue for that user. [required]
+      --revision-comment string   Comment for a newly created draft. Only used when version is "new"; ignored for existing revisions.
+      --revision-title string     Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
   -v, --version-param string      [required]
 ```
 

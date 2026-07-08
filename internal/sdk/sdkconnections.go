@@ -225,8 +225,8 @@ func (s *SDKConnections) ListSDKConnections(ctx context.Context, request *operat
 
 }
 
-// PostSDKConnection - Create a single sdk connection
-func (s *SDKConnections) PostSDKConnection(ctx context.Context, request operations.PostSDKConnectionRequest, opts ...operations.Option) (*operations.PostSDKConnectionResponse, error) {
+// Create a single sdk connection
+func (s *SDKConnections) Create(ctx context.Context, request operations.PostSDKConnectionRequest, opts ...operations.Option) (*operations.PostSDKConnectionResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -520,8 +520,8 @@ func (s *SDKConnections) GetSDKConnection(ctx context.Context, request operation
 
 }
 
-// PutSDKConnection - Update a single sdk connection
-func (s *SDKConnections) PutSDKConnection(ctx context.Context, request operations.PutSDKConnectionRequest, opts ...operations.Option) (*operations.PutSDKConnectionResponse, error) {
+// Update a single sdk connection
+func (s *SDKConnections) Update(ctx context.Context, request operations.PutSDKConnectionRequest, opts ...operations.Option) (*operations.PutSDKConnectionResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
