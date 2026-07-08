@@ -24,7 +24,7 @@ func InitFeaturesRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPostCmd(FeaturesCmd); err != nil {
+	if err := initCreateCmd(FeaturesCmd); err != nil {
 		return err
 	}
 

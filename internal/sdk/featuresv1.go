@@ -187,11 +187,11 @@ func (s *FeaturesV1) List(ctx context.Context, request *operations.ListFeaturesR
 
 }
 
-// Post - Create a single feature
+// Create a single feature
 // **Deprecated.** Use [POST /v2/features](#operation/postFeatureV2) instead.
 //
 // Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-func (s *FeaturesV1) Post(ctx context.Context, request operations.PostFeatureRequest, opts ...operations.Option) (*operations.PostFeatureResponse, error) {
+func (s *FeaturesV1) Create(ctx context.Context, request operations.PostFeatureRequest, opts ...operations.Option) (*operations.PostFeatureResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

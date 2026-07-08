@@ -1,0 +1,48 @@
+diff --git a/internal/output/output.go b/internal/output/output.go
+--- a/internal/output/output.go
++++ b/internal/output/output.go
+@@ -5,6 +5,7 @@ package output
+ 
+ import (
+ 	"encoding/json"
++	"errors"
+ 	"fmt"
+ 	"io"
+ 	"net/http"
+@@ -270,6 +271,18 @@ func Result(cmd *cobra.Command, res interface{}) error {
+ 	return nil
+ }
+ 
++// displayedError marks an error that Error has already printed to stderr, so
++// the top-level runner (cmd/growthbook) knows not to print it a second time.
++type displayedError struct{ error }
++
++func (d displayedError) Unwrap() error { return d.error }
++
++// IsDisplayed reports whether err was already surfaced to the user by Error.
++func IsDisplayed(err error) bool {
++	var d displayedError
++	return errors.As(err, &d)
++}
++
+ // Error handles SDK errors, outputting structured JSON when --output-format=json,
+ // --jq, or agent mode is active. Always returns the error for non-zero exit
+ // code. For non-JSON output modes outside agent mode, returns the error as-is
+@@ -315,7 +328,7 @@ func Error(cmd *cobra.Command, err error) error {
+ 			fmt.Fprintf(cmd.ErrOrStderr(), "\nHint: run '%s configure' to set up or update your credentials.\n", cliName)
+ 		}
+ 
+-		return err
++		return displayedError{err}
+ 	}
+ 
+ 	out := cmd.ErrOrStderr()
+@@ -403,7 +416,7 @@ func Error(cmd *cobra.Command, err error) error {
+ 
+ 	printJSON(out, jsonData, colorize)
+ 
+-	return err
++	return displayedError{err}
+ }
+ 
+ // tryReadRawBody attempts to read the raw HTTP response body from the response

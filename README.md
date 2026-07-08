@@ -30,63 +30,11 @@ Because the bare command then returns the newer version's response shape, **re-p
 <!-- Start Summary [summary] -->
 ## Summary
 
-GrowthBook REST API: GrowthBook offers a full REST API for interacting with the application.
+GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal.
 
-Request data can use either JSON or Form data encoding (with proper `Content-Type` headers). All response bodies are JSON-encoded.
+Endpoints are versioned by path prefix: `/v1` (stable) and `/v2` (improved shapes). Each command group targets the newest version of its endpoint; superseded versions remain available under a `-vN` suffix.
 
-The API base URL for GrowthBook Cloud is `https://api.growthbook.io/api`. For self-hosted deployments, it is the same as your API_HOST environment variable (defaults to `http://localhost:3100/api`). The rest of these docs will assume you are using GrowthBook Cloud.
-
-## Versioning
-
-Endpoints are versioned by path prefix:
-
-- `/v1/...` — stable, widely-supported endpoints
-- `/v2/...` — updated endpoints with improved shapes (e.g. unified per-rule environment scope for feature flags)
-
-New integrations should prefer v2 where available.
-
-## Authentication
-
-We support both the HTTP Basic and Bearer authentication schemes for convenience.
-
-You first need to generate a new API Key in GrowthBook. Different keys have different permissions:
-
-- **Personal Access Tokens**: These are sensitive and provide the same level of access as the user has to an organization. These can be created by going to `Personal Access Tokens` under the your user menu.
-- **Secret Keys**: These are sensitive and provide the level of access for the role, which currently is either `admin` or `readonly`. Only Admins with the `manageApiKeys` permission can manage Secret Keys on behalf of an organization. These can be created by going to `Settings -> API Keys`
-
-If using HTTP Basic auth, pass the Secret Key as the username and leave the password blank (when using curl, add `:` at the end of the secret to indicate an empty password)
-
-```bash
-curl https://api.growthbook.io/api/v1/features \
-
-
-
-  -u secret_abc123DEF456:
-```
-
-If using Bearer auth, pass the Secret Key as the token:
-
-```bash
-curl https://api.growthbook.io/api/v1/features \
--H "Authorization: Bearer secret_abc123DEF456"
-```
-
-## Errors
-
-The API may return the following error status codes:
-
-- **400** - Bad Request - Often due to a missing required parameter
-- **401** - Unauthorized - No valid API key provided
-- **402** - Request Failed - The parameters are valid, but the request failed
-- **403** - Forbidden - Provided API key does not have the required access
-- **404** - Not Found - Unknown API route or requested resource
-- **422** - Soft Warning - The request failed, but can be re-submitted with `?ignoreWarnings=true` to proceed anyway.
-- **429** - Too Many Requests - You exceeded the rate limit of 60 requests per minute. Try again later.
-- **5XX** - Server Error - Something went wrong on GrowthBook's end (these are rare)
-
-The response body will be a JSON object with the following properties:
-
-- **message** - Information about the error
+Authenticate with a Secret Key or Personal Access Token via `--bearer-auth` (or the `GBCLI_BEARER_AUTH` environment variable). Run `growthbook configure` to store credentials, or `growthbook whoami` to check the active configuration.
 <!-- End Summary [summary] -->
 
 <!-- Start Table of Contents [toc] -->
@@ -95,13 +43,10 @@ The response body will be a JSON object with the following properties:
 * [growthbook](#growthbook)
   * [Installation](#installation)
   * [Versioning and stability](#versioning-and-stability)
-  * [Versioning](#versioning)
-  * [Authentication](#authentication)
-  * [Errors](#errors)
   * [CLI Installation](#cli-installation)
   * [Shell Completion](#shell-completion)
   * [CLI Example Usage](#cli-example-usage)
-  * [Authentication](#authentication-1)
+  * [Authentication](#authentication)
   * [Profiles](#profiles)
   * [Generating TypeScript types](#generating-typescript-types)
   * [Available Commands](#available-commands)
@@ -215,22 +160,9 @@ Set credentials via environment variables:
 
 | Variable | Description |
 |----------|-------------|
-| `GBCLI_BEARER_AUTH` | If using Bearer auth, pass the Secret Key as the token:
-```bash
-curl https://api.growthbook.io/api/v1/features   -H "Authorization: Bearer secret_abc123DEF456"
-``` |
-| `GBCLI_USERNAME` | If using HTTP Basic auth, pass the Secret Key as the username and leave the password blank:
-```bash
-curl https://api.growthbook.io/api/v1/features   -u secret_abc123DEF456:
-# The ":" at the end stops curl from asking for a password
-```
- username |
-| `GBCLI_PASSWORD` | If using HTTP Basic auth, pass the Secret Key as the username and leave the password blank:
-```bash
-curl https://api.growthbook.io/api/v1/features   -u secret_abc123DEF456:
-# The ":" at the end stops curl from asking for a password
-```
- password |
+| `GBCLI_BEARER_AUTH` | Bearer auth token: your Secret Key or Personal Access Token, sent as an Authorization Bearer header. |
+| `GBCLI_USERNAME` | HTTP Basic auth: your Secret Key as the username, with an empty password. username |
+| `GBCLI_PASSWORD` | HTTP Basic auth: your Secret Key as the username, with an empty password. password |
 
 ### 3. OS Keychain (recommended for workstations)
 
@@ -295,7 +227,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 ### [features-v1](docs/growthbook_features-v1.md)
 
 * [`~~list~~`](docs/growthbook_features-v1_list.md) - Get all features :warning: **Deprecated**
-* [`~~post~~`](docs/growthbook_features-v1_post.md) - Create a single feature :warning: **Deprecated**
+* [`~~create~~`](docs/growthbook_features-v1_create.md) - Create a single feature :warning: **Deprecated**
 * [`~~get~~`](docs/growthbook_features-v1_get.md) - Get a single feature :warning: **Deprecated**
 * [`~~update~~`](docs/growthbook_features-v1_update.md) - Partially update a feature :warning: **Deprecated**
 * [`~~delete~~`](docs/growthbook_features-v1_delete.md) - Deletes a single feature :warning: **Deprecated**
@@ -334,7 +266,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 ### [features](docs/growthbook_features.md)
 
 * [`list`](docs/growthbook_features_list.md) - Get all features
-* [`post`](docs/growthbook_features_post.md) - Create a single feature
+* [`create`](docs/growthbook_features_create.md) - Create a single feature
 * [`get`](docs/growthbook_features_get.md) - Get a single feature
 * [`update`](docs/growthbook_features_update.md) - Partially update a feature
 * [`delete`](docs/growthbook_features_delete.md) - Deletes a single feature

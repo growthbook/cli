@@ -182,9 +182,9 @@ func (s *Features) List(ctx context.Context, request *operations.ListFeaturesV2R
 
 }
 
-// Post - Create a single feature
+// Create a single feature
 // Creates a new feature. Rules are supplied as a top-level `rules` array; each rule includes `allEnvironments` / `environments` scope fields.
-func (s *Features) Post(ctx context.Context, request operations.PostFeatureV2Request, opts ...operations.Option) (*operations.PostFeatureV2Response, error) {
+func (s *Features) Create(ctx context.Context, request operations.PostFeatureV2Request, opts ...operations.Option) (*operations.PostFeatureV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

@@ -1,66 +1,14 @@
 ## growthbook
 
-GrowthBook REST API: GrowthBook offers a full REST API for interacting with the application
+GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
 
 ### Synopsis
 
-GrowthBook REST API: GrowthBook offers a full REST API for interacting with the application.
+GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal.
 
-Request data can use either JSON or Form data encoding (with proper `Content-Type` headers). All response bodies are JSON-encoded.
+Endpoints are versioned by path prefix: `/v1` (stable) and `/v2` (improved shapes). Each command group targets the newest version of its endpoint; superseded versions remain available under a `-vN` suffix.
 
-The API base URL for GrowthBook Cloud is `https://api.growthbook.io/api`. For self-hosted deployments, it is the same as your API_HOST environment variable (defaults to `http://localhost:3100/api`). The rest of these docs will assume you are using GrowthBook Cloud.
-
-## Versioning
-
-Endpoints are versioned by path prefix:
-
-- `/v1/...` — stable, widely-supported endpoints
-- `/v2/...` — updated endpoints with improved shapes (e.g. unified per-rule environment scope for feature flags)
-
-New integrations should prefer v2 where available.
-
-## Authentication
-
-We support both the HTTP Basic and Bearer authentication schemes for convenience.
-
-You first need to generate a new API Key in GrowthBook. Different keys have different permissions:
-
-- **Personal Access Tokens**: These are sensitive and provide the same level of access as the user has to an organization. These can be created by going to `Personal Access Tokens` under the your user menu.
-- **Secret Keys**: These are sensitive and provide the level of access for the role, which currently is either `admin` or `readonly`. Only Admins with the `manageApiKeys` permission can manage Secret Keys on behalf of an organization. These can be created by going to `Settings -> API Keys`
-
-If using HTTP Basic auth, pass the Secret Key as the username and leave the password blank (when using curl, add `:` at the end of the secret to indicate an empty password)
-
-```bash
-curl https://api.growthbook.io/api/v1/features \
-
-
-
-  -u secret_abc123DEF456:
-```
-
-If using Bearer auth, pass the Secret Key as the token:
-
-```bash
-curl https://api.growthbook.io/api/v1/features \
--H "Authorization: Bearer secret_abc123DEF456"
-```
-
-## Errors
-
-The API may return the following error status codes:
-
-- **400** - Bad Request - Often due to a missing required parameter
-- **401** - Unauthorized - No valid API key provided
-- **402** - Request Failed - The parameters are valid, but the request failed
-- **403** - Forbidden - Provided API key does not have the required access
-- **404** - Not Found - Unknown API route or requested resource
-- **422** - Soft Warning - The request failed, but can be re-submitted with `?ignoreWarnings=true` to proceed anyway.
-- **429** - Too Many Requests - You exceeded the rate limit of 60 requests per minute. Try again later.
-- **5XX** - Server Error - Something went wrong on GrowthBook's end (these are rare)
-
-The response body will be a JSON object with the following properties:
-
-- **message** - Information about the error
+Authenticate with a Secret Key or Personal Access Token via `--bearer-auth` (or the `GBCLI_BEARER_AUTH` environment variable). Run `growthbook configure` to store credentials, or `growthbook whoami` to check the active configuration.
 
 ```
 growthbook [flags]
@@ -70,10 +18,7 @@ growthbook [flags]
 
 ```
       --agent-mode                    Enable structured errors and default TOON output for AI coding agents. Automatically enabled when a known agent environment is detected (CLAUDE_CODE, CURSOR_AGENT, etc.). Use --agent-mode=false to disable.
-      --bearer-auth                   If using Bearer auth, pass the Secret Key as the token:
-                                      `bash
-                                      curl https://api.growthbook.io/api/v1/features   -H "Authorization: Bearer secret_abc123DEF456"
-                                      ```
+      --bearer-auth string            Bearer auth token: your Secret Key or Personal Access Token, sent as an Authorization Bearer header.
       --color string                  Control colored output: auto (color when output is a TTY), always, or never. Respects NO_COLOR and FORCE_COLOR env vars. (default "auto")
   -d, --debug                         Log request and response diagnostics to stderr
       --domain string                 Server template variable: domain
@@ -85,23 +30,13 @@ growthbook [flags]
       --no-interactive                Disable all interactive features (auto-prompting, explorer auto-launch, TUI forms)
       --no-update-check               Disable the once-a-day check for a newer CLI version
   -o, --output-format string          Specify the output format. Options: pretty, json, yaml, table, toon. (default "pretty")
-      --password                      If using HTTP Basic auth, pass the Secret Key as the username and leave the password blank:
-                                      `bash
-                                      curl https://api.growthbook.io/api/v1/features   -u secret_abc123DEF456:
-                                      # The ":" at the end stops curl from asking for a password
-                                      ```
-                                       password
+      --password string               HTTP Basic auth: your Secret Key as the username, with an empty password. password
       --profile growthbook profiles   Use a named credential/server profile (manage with growthbook profiles)
       --server string                 Select a server by index (for indexed servers) or name (for named servers)
       --server-url string             Override the default server URL
       --timeout string                HTTP request timeout (e.g., 30s, 5m, 100ms)
       --usage                         Print the CLI Usage schema in KDL format
-      --username                      If using HTTP Basic auth, pass the Secret Key as the username and leave the password blank:
-                                      `bash
-                                      curl https://api.growthbook.io/api/v1/features   -u secret_abc123DEF456:
-                                      # The ":" at the end stops curl from asking for a password
-                                      ```
-                                       username
+      --username string               HTTP Basic auth: your Secret Key as the username, with an empty password. username
 ```
 
 ### SEE ALSO

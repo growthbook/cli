@@ -130,7 +130,7 @@ func runAuthLoginCmd(cmd *cobra.Command, args []string) error {
 			Title("Authentication Method").
 			Description("Choose which credentials to configure").
 			Options(
-				huh.NewOption("If using Bearer auth, pass the Secret Key as the token:\n```bash\ncurl https://api.growthbook.io/api/v1/features   -H \"Authorization: Bearer secret_abc123DEF456\"\n```", "bearer-auth"),
+				huh.NewOption("Bearer auth token: your Secret Key or Personal Access Token, sent as an Authorization Bearer header.", "bearer-auth"),
 				huh.NewOption("HTTP Basic (Username + Password)", "basic-auth"),
 			).
 			Value(&selectedScheme)
@@ -145,7 +145,7 @@ func runAuthLoginCmd(cmd *cobra.Command, args []string) error {
 
 			fields := []huh.Field{
 				huh.NewInput().
-					Title("If using Bearer auth, pass the Secret Key as the token:\n```bash\ncurl https://api.growthbook.io/api/v1/features   -H \"Authorization: Bearer secret_abc123DEF456\"\n```").
+					Title("Bearer auth token: your Secret Key or Personal Access Token, sent as an Authorization Bearer header.").
 					Description("--bearer-auth").
 					EchoMode(huh.EchoModePassword).
 					Placeholder(maskSecret(cfg.Security.BearerAuth)).
@@ -178,12 +178,12 @@ func runAuthLoginCmd(cmd *cobra.Command, args []string) error {
 
 			fields := []huh.Field{
 				huh.NewInput().
-					Title("If using HTTP Basic auth, pass the Secret Key as the username and leave the password blank:\n```bash\ncurl https://api.growthbook.io/api/v1/features   -u secret_abc123DEF456:\n# The \":\" at the end stops curl from asking for a password\n```\n username").
+					Title("HTTP Basic auth: your Secret Key as the username, with an empty password. username").
 					Description("--username").
 					Placeholder(cfg.Security.Username).
 					Value(&authUsername),
 				huh.NewInput().
-					Title("If using HTTP Basic auth, pass the Secret Key as the username and leave the password blank:\n```bash\ncurl https://api.growthbook.io/api/v1/features   -u secret_abc123DEF456:\n# The \":\" at the end stops curl from asking for a password\n```\n password").
+					Title("HTTP Basic auth: your Secret Key as the username, with an empty password. password").
 					Description("--password").
 					EchoMode(huh.EchoModePassword).
 					Placeholder(maskSecret(cfg.Security.Password)).

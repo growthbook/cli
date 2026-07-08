@@ -44,19 +44,19 @@ func runWhoamiCmd(cmd *cobra.Command, args []string) error {
 	fmt.Fprintln(out)
 	fmt.Fprintln(out, "Credentials:")
 
-	// If using Bearer auth, pass the Secret Key as the token: ```bash curl https://api.growthbook.io/api/v1/features -H "Authorization: Bearer secret_abc123DEF456" ```
+	// Bearer auth token: your Secret Key or Personal Access Token, sent as an Authorization Bearer header.
 	{
 		value, source := config.ResolveSecurityCredential(cmd, "bearer-auth")
 		fmt.Fprintf(out, "  --%-25s [%-7s] %s\n", "bearer-auth", source, maskSecret(value))
 	}
 
-	// If using HTTP Basic auth, pass the Secret Key as the username and leave the password blank: ```bash curl https://api.growthbook.io/api/v1/features -u secret_abc123DEF456: # The ":" at the end stops curl from asking for a password ``` username
+	// HTTP Basic auth: your Secret Key as the username, with an empty password. username
 	{
 		value, source := config.ResolveSecurityCredential(cmd, "username")
 		fmt.Fprintf(out, "  --%-25s [%-7s] %s\n", "username", source, maskSecret(value))
 	}
 
-	// If using HTTP Basic auth, pass the Secret Key as the username and leave the password blank: ```bash curl https://api.growthbook.io/api/v1/features -u secret_abc123DEF456: # The ":" at the end stops curl from asking for a password ``` password
+	// HTTP Basic auth: your Secret Key as the username, with an empty password. password
 	{
 		value, source := config.ResolveSecurityCredential(cmd, "password")
 		fmt.Fprintf(out, "  --%-25s [%-7s] %s\n", "password", source, maskSecret(value))
