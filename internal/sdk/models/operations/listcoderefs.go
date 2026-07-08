@@ -103,6 +103,8 @@ type ListCodeRefsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Successful response
 	Object *ListCodeRefsResponseBody
+
+	Next func() (*ListCodeRefsResponse, error)
 }
 
 func (l ListCodeRefsResponse) MarshalJSON() ([]byte, error) {

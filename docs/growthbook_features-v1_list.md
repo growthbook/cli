@@ -24,9 +24,11 @@ growthbook features-v1 list [flags]
 ### Options
 
 ```
+  -a, --all                      Automatically paginate and fetch all results (streams NDJSON for JSON output)
   -c, --client-key string        Filter by a SDK connection's client key
   -h, --help                     help for list
   -l, --limit int                The number of items to return (default 10)
+      --max-pages int            Maximum number of pages to fetch when using --all (0 = no limit)
       --offset int               How many items to skip (use in conjunction with limit for pagination)
   -p, --project-id string        Filter by project id
   -s, --skip-pagination string   If true, return all matching items and ignore limit/offset.

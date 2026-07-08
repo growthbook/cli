@@ -19,9 +19,11 @@ growthbook members list [flags]
 ### Options
 
 ```
+  -a, --all                  Automatically paginate and fetch all results (streams NDJSON for JSON output)
   -g, --global-role string   Name of the global role
   -h, --help                 help for list
   -l, --limit int            The number of items to return (default 10)
+      --max-pages int        Maximum number of pages to fetch when using --all (0 = no limit)
       --offset int           How many items to skip (use in conjunction with limit for pagination)
       --user-email string    Email address of the user.
       --user-name string     Name of the user.

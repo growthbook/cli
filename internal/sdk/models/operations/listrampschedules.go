@@ -161,6 +161,8 @@ type ListRampSchedulesResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Successful response
 	Object *ListRampSchedulesResponseBody
+
+	Next func() (*ListRampSchedulesResponse, error)
 }
 
 func (l ListRampSchedulesResponse) MarshalJSON() ([]byte, error) {

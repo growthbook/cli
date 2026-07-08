@@ -128,6 +128,8 @@ type ListSDKConnectionsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Successful response
 	Object *ListSDKConnectionsResponseBody
+
+	Next func() (*ListSDKConnectionsResponse, error)
 }
 
 func (l ListSDKConnectionsResponse) MarshalJSON() ([]byte, error) {

@@ -169,6 +169,8 @@ type ListExperimentResultsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Successful response
 	Object *ListExperimentResultsResponseBody
+
+	Next func() (*ListExperimentResultsResponse, error)
 }
 
 func (l ListExperimentResultsResponse) MarshalJSON() ([]byte, error) {

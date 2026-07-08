@@ -112,6 +112,8 @@ type ListFactTableFiltersResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Successful response
 	Object *ListFactTableFiltersResponseBody
+
+	Next func() (*ListFactTableFiltersResponse, error)
 }
 
 func (l ListFactTableFiltersResponse) MarshalJSON() ([]byte, error) {

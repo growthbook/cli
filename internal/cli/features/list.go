@@ -19,7 +19,7 @@ var listCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "offset", FieldPath: "Offset", Kind: flagutil.FlagKindInt64, Optional: true, HasDefault: true, Description: "How many items to skip (use in conjunction with limit for pagination)"},
 	{FlagName: "project-id", Shorthand: "p", FieldPath: "ProjectID", Kind: flagutil.FlagKindString, Optional: true, Description: "Filter by project id"},
 	{FlagName: "client-key", Shorthand: "c", FieldPath: "ClientKey", Kind: flagutil.FlagKindString, Optional: true, Description: "Filter by a SDK connection's client key"},
-	{FlagName: "archived", Shorthand: "a", FieldPath: "Archived", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `queryParam:"style=form,explode=true,name=archived"`, Description: "Whether to include archived features. Defaults to `false` (non-archived only). Pass `true` to include archived features alongside non-archived ones."},
+	{FlagName: "archived", FieldPath: "Archived", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `queryParam:"style=form,explode=true,name=archived"`, Description: "Whether to include archived features. Defaults to `false` (non-archived only). Pass `true` to include archived features alongside non-archived ones."},
 	{FlagName: "skip-pagination", Shorthand: "s", FieldPath: "SkipPagination", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `queryParam:"style=form,explode=true,name=skipPagination"`, Description: "If true, return all matching items and ignore limit/offset.\nSelf-hosted only. Has no effect unless API_ALLOW_SKIP_PAGINATION is set to true or 1."},
 }
 
@@ -36,6 +36,8 @@ func initListCmd(parent *cobra.Command) error {
 	if err := flagutil.ValidateMeta[operations.ListFeaturesV2Request](listCmdMeta); err != nil {
 		return fmt.Errorf("invalid metadata for list: %w", err)
 	}
+	cmd.Flags().BoolP("all", "a", false, "Automatically paginate and fetch all results (streams NDJSON for JSON output)")
+	cmd.Flags().Int("max-pages", 0, "Maximum number of pages to fetch when using --all (0 = no limit)")
 	parent.AddCommand(cmd)
 	return nil
 }
@@ -70,6 +72,14 @@ func runListCmd(cmd *cobra.Command, args []string) error {
 	if err := output.ValidateGlobalServerIndex(cmd, len(sdk.ServerList)); err != nil {
 		return err
 	}
+	if allPages, _ := flagutil.GetBoolFlag(cmd, "all"); allPages && !client.IsDryRun(cmd) {
+		maxPages, _ := flagutil.GetIntFlag(cmd, "max-pages")
+		res, err := s.Features.List(cmd.Context(), req, sdkOpts...)
+		if err != nil {
+			return output.Error(cmd, err)
+		}
+		return output.PaginatedResult(cmd, res, "Object", "Features", maxPages)
+	}
 	if output.WantsRawJSON(cmd) {
 		sdkOpts = append(sdkOpts, operations.WithSkipDeserialization())
 	}
@@ -80,6 +90,9 @@ func runListCmd(cmd *cobra.Command, args []string) error {
 
 	if err := output.Result(cmd, res); err != nil {
 		return err
+	}
+	if output.HasMorePages(res) {
+		fmt.Fprintln(cmd.ErrOrStderr(), "Hint: more pages available. Use --all to fetch all results, or use --offset/--limit for manual pagination.")
 	}
 	return nil
 }

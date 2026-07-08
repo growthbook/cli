@@ -174,3 +174,203 @@ actions:
       Endpoints are versioned by path prefix: `/v1` (stable) and `/v2` (improved shapes). Each command group targets the newest version of its endpoint; superseded versions remain available under a `-vN` suffix.
 
       Authenticate with a Secret Key or Personal Access Token via `--bearer-auth` (or the `GBCLI_BEARER_AUTH` environment variable). Run `growthbook configure` to store credentials, or `growthbook whoami` to check the active configuration.
+  # Client-side auto-pagination. Every collection endpoint takes the shared
+  # limit/offset query params and returns `{<resource>: [...], ...PaginationFields}`.
+  # Declaring x-speakeasy-pagination (offsetLimit) makes Speakeasy generate a
+  # `--all` (+ `--max-pages`) flag that walks pages by incrementing offset until a
+  # short page is returned. `--skip-pagination` stays a separate, server-side knob
+  # (self-hosted only). `outputs.results` differs per op (the array key); the
+  # offset/limit inputs are identical, so they share a YAML anchor. `name` matches
+  # the shared parameter component names (limit/offset), `in: parameters`.
+  - target: $..[?(@.operationId=="listFeatures")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: &offsetLimitInputs
+          - { name: offset, in: parameters, type: offset }
+          - { name: limit, in: parameters, type: limit }
+        outputs: { results: $.features }
+  - target: $..[?(@.operationId=="listFeaturesV2")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: { results: $.features }
+  - target: $..[?(@.operationId=="listExperiments")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: { results: $.experiments }
+  - target: $..[?(@.operationId=="listExperimentResults")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: { results: $.experimentResults }
+  - target: $..[?(@.operationId=="listMetrics")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: { results: $.metrics }
+  - target: $..[?(@.operationId=="listSegments")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: { results: $.segments }
+  - target: $..[?(@.operationId=="listDimensions")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: { results: $.dimensions }
+  - target: $..[?(@.operationId=="listSdkConnections")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: { results: $.connections }
+  - target: $..[?(@.operationId=="listDataSources")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: { results: $.dataSources }
+  - target: $..[?(@.operationId=="listSavedGroups")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: { results: $.savedGroups }
+  - target: $..[?(@.operationId=="listConstants")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: { results: $.constants }
+  - target: $..[?(@.operationId=="listFactTables")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: { results: $.factTables }
+  - target: $..[?(@.operationId=="listFactTableFilters")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: { results: $.factTableFilters }
+  - target: $..[?(@.operationId=="listAggregatedTableRuns")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: { results: $.runs }
+  - target: $..[?(@.operationId=="listFactMetrics")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: { results: $.factMetrics }
+  - target: $..[?(@.operationId=="listCodeRefs")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: { results: $.codeRefs }
+  - target: $..[?(@.operationId=="listMembers")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: { results: $.members }
+  - target: $..[?(@.operationId=="listReports")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: { results: $.reports }
+  - target: $..[?(@.operationId=="listNamespaces")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: { results: $.namespaces }
+  - target: $..[?(@.operationId=="getNamespaceMemberships")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: { results: $.experiments }
+  # These paginate identically but INLINE the pagination fields in the response
+  # instead of $ref-ing PaginationFields, so they don't show up in a
+  # PaginationFields search — enumerate them explicitly. Every revision list uses
+  # `revisions`; the rest use their resource name.
+  - target: $..[?(@.operationId=="listProjects")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: { results: $.projects }
+  - target: $..[?(@.operationId=="listOrganizations")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: { results: $.organizations }
+  - target: $..[?(@.operationId=="listRampSchedules")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: { results: $.rampSchedules }
+  - target: $..[?(@.operationId=="listRevisions")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: { results: $.revisions }
+  - target: $..[?(@.operationId=="getFeatureRevisions")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: { results: $.revisions }
+  - target: $..[?(@.operationId=="listRevisionsV2")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: { results: $.revisions }
+  - target: $..[?(@.operationId=="getFeatureRevisionsV2")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: { results: $.revisions }
+  - target: $..[?(@.operationId=="listSavedGroupRevisions")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: { results: $.revisions }
+  - target: $..[?(@.operationId=="getSavedGroupRevisions")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: { results: $.revisions }
+  - target: $..[?(@.operationId=="listConstantRevisions")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: { results: $.revisions }
+  - target: $..[?(@.operationId=="getConstantRevisions")]
+    update:
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: { results: $.revisions }

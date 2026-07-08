@@ -130,6 +130,8 @@ type ListMembersResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Successful response
 	Object *ListMembersResponseBody
+
+	Next func() (*ListMembersResponse, error)
 }
 
 func (l ListMembersResponse) MarshalJSON() ([]byte, error) {

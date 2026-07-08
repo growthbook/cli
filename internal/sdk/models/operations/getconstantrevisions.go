@@ -147,6 +147,8 @@ type GetConstantRevisionsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Successful response
 	Object *GetConstantRevisionsResponseBody
+
+	Next func() (*GetConstantRevisionsResponse, error)
 }
 
 func (g GetConstantRevisionsResponse) MarshalJSON() ([]byte, error) {

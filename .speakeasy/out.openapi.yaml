@@ -486,6 +486,12 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [features-v1]
       x-speakeasy-name-override: list
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: &offsetLimitInputs
+          - {name: offset, in: parameters, type: offset}
+          - {name: limit, in: parameters, type: limit}
+        outputs: {results: $.features}
     post:
       operationId: postFeature
       summary: Create a single feature
@@ -2354,6 +2360,10 @@ paths:
           source: |-
             curl -X GET 'https://api.growthbook.io/api/v1/revisions' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: {results: $.revisions}
   /v1/features/{id}/revisions:
     get:
       operationId: getFeatureRevisions
@@ -2416,6 +2426,10 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: {results: $.revisions}
     post:
       operationId: postFeatureRevision
       summary: Create a draft revision
@@ -5439,6 +5453,10 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [features]
       x-speakeasy-name-override: list
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: {results: $.features}
     post:
       operationId: postFeatureV2
       summary: Create a single feature
@@ -6799,6 +6817,10 @@ paths:
           source: |-
             curl -X GET 'https://api.growthbook.io/api/v2/feature-revisions' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: {results: $.revisions}
   /v2/features/{id}/revisions:
     get:
       operationId: getFeatureRevisionsV2
@@ -6858,6 +6880,10 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: {results: $.revisions}
     post:
       operationId: postFeatureRevisionV2
       summary: Create a draft revision
@@ -10493,6 +10519,10 @@ paths:
           source: |-
             curl -X GET 'https://api.growthbook.io/api/v1/experiments' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: {results: $.experiments}
     post:
       operationId: postExperiment
       summary: Create a single experiment
@@ -11049,6 +11079,10 @@ paths:
           source: |-
             curl -X GET 'https://api.growthbook.io/api/v1/experiments/results' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: {results: $.experimentResults}
   /v1/experiments/{id}:
     get:
       operationId: getExperiment
@@ -12955,6 +12989,10 @@ paths:
           source: |-
             curl -X GET 'https://api.growthbook.io/api/v1/metrics' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: {results: $.metrics}
     post:
       operationId: postMetric
       summary: Create a single metric
@@ -13739,6 +13777,10 @@ paths:
           source: |-
             curl -X GET 'https://api.growthbook.io/api/v1/segments' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: {results: $.segments}
     post:
       operationId: postSegment
       summary: Create a single segment
@@ -13999,6 +14041,10 @@ paths:
           source: |-
             curl -X GET 'https://api.growthbook.io/api/v1/dimensions' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: {results: $.dimensions}
     post:
       operationId: postDimension
       summary: Create a single dimension
@@ -14236,6 +14282,10 @@ paths:
           source: |-
             curl -X GET 'https://api.growthbook.io/api/v1/projects' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: {results: $.projects}
     post:
       operationId: postProject
       summary: Create a single project
@@ -14836,6 +14886,10 @@ paths:
           source: |-
             curl -X GET 'https://api.growthbook.io/api/v1/sdk-connections' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: {results: $.connections}
     post:
       operationId: postSdkConnection
       summary: Create a single sdk connection
@@ -15121,6 +15175,10 @@ paths:
           source: |-
             curl -X GET 'https://api.growthbook.io/api/v1/data-sources' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: {results: $.dataSources}
   /v1/data-sources/{id}:
     get:
       operationId: getDataSource
@@ -15504,6 +15562,10 @@ paths:
           source: |-
             curl -X GET 'https://api.growthbook.io/api/v1/saved-groups' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: {results: $.savedGroups}
     post:
       operationId: postSavedGroup
       summary: Create a single saved group
@@ -15657,6 +15719,10 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: {results: $.revisions}
   /v1/saved-groups/{id}:
     get:
       operationId: getSavedGroup
@@ -15986,6 +16052,10 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: {results: $.revisions}
     post:
       operationId: postSavedGroupRevision
       summary: Create a draft revision
@@ -16909,6 +16979,10 @@ paths:
           source: |-
             curl -X GET 'https://api.growthbook.io/api/v1/constants' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: {results: $.constants}
     post:
       operationId: postConstant
       summary: Create a single constant
@@ -17068,6 +17142,10 @@ paths:
           source: |-
             curl -X GET 'https://api.growthbook.io/api/v1/constants-revisions' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: {results: $.revisions}
   /v1/constants/{key}/references:
     get:
       operationId: getConstantReferences
@@ -17416,6 +17494,10 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: {results: $.revisions}
     post:
       operationId: postConstantRevision
       summary: Create a draft revision
@@ -18175,6 +18257,10 @@ paths:
           source: |-
             curl -X GET 'https://api.growthbook.io/api/v1/organizations' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: {results: $.organizations}
     post:
       operationId: postOrganization
       summary: >-
@@ -18320,6 +18406,10 @@ paths:
           source: |-
             curl -X GET 'https://api.growthbook.io/api/v1/fact-tables' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: {results: $.factTables}
     post:
       operationId: postFactTable
       summary: Create a single fact table
@@ -18642,6 +18732,10 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: {results: $.factTableFilters}
     post:
       operationId: postFactTableFilter
       summary: Create a single fact table filter
@@ -18945,6 +19039,10 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: {results: $.runs}
   /v1/fact-tables/{id}/aggregated-tables/runs/{runId}:
     get:
       operationId: getAggregatedTableRun
@@ -19022,6 +19120,10 @@ paths:
           source: |-
             curl -X GET 'https://api.growthbook.io/api/v1/fact-metrics' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: {results: $.factMetrics}
     post:
       operationId: postFactMetric
       summary: Create a single fact metric
@@ -20672,6 +20774,10 @@ paths:
           source: |-
             curl -X GET 'https://api.growthbook.io/api/v1/code-refs' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: {results: $.codeRefs}
   /v1/code-refs/{id}:
     get:
       operationId: getCodeRefs
@@ -20734,6 +20840,10 @@ paths:
           source: |-
             curl -X GET 'https://api.growthbook.io/api/v1/members' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: {results: $.members}
   /v1/members/{id}/role:
     post:
       operationId: updateMemberRole
@@ -21003,6 +21113,10 @@ paths:
           source: |-
             curl -X GET 'https://api.growthbook.io/api/v1/ramp-schedules' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: {results: $.rampSchedules}
     post:
       operationId: postRampSchedule
       summary: Create a ramp schedule
@@ -23716,6 +23830,10 @@ paths:
           source: |-
             curl -X GET 'https://api.growthbook.io/api/v1/reports' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: {results: $.reports}
     post:
       operationId: postReport
       summary: Create a new report
@@ -24323,6 +24441,10 @@ paths:
           source: |-
             curl -X GET 'https://api.growthbook.io/api/v1/namespaces' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: {results: $.namespaces}
     post:
       operationId: postNamespace
       summary: Create a namespace
@@ -24554,6 +24676,10 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs: *offsetLimitInputs
+        outputs: {results: $.experiments}
   /v1/namespaces/{id}/rotateSeed:
     post:
       operationId: postNamespaceRotateSeed
