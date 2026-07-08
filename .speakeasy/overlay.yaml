@@ -158,10 +158,14 @@ actions:
   # No backticks here: pflag treats the first backtick-quoted run in a flag's
   # usage string as the value placeholder, so a backticked example would replace
   # the "string" arg name in --help.
+  # basicAuth has TWO credential fields, so Speakeasy appends the field name
+  # ("username"/"password") after this description in the flag help and the
+  # README env-var table (bearerAuth, single-field, gets no append). Keep the
+  # sentence from ENDING in "password" or the password row reads "...password. password".
   - target: $.components.securitySchemes.bearerAuth.description
     update: "Bearer auth token: your Secret Key or Personal Access Token, sent as an Authorization Bearer header."
   - target: $.components.securitySchemes.basicAuth.description
-    update: "HTTP Basic auth: your Secret Key as the username, with an empty password."
+    update: "HTTP Basic auth: use your GrowthBook Secret Key as the username and leave the password empty."
   # The full API description (auth/errors/versioning prose) is dumped verbatim
   # into the top-level `--help` as the root command's long description, which is
   # far too long for CLI help. Trim to a concise summary. (This also drives the

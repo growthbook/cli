@@ -1,0 +1,23 @@
+# Self-contained GrowthBook stack for the live CLI e2e suite. Mirrors the
+# monorepo's docker-compose.yml (mongo + the published growthbook image) but is
+# committed here so the suite runs without the back-end checkout — including in
+# CI, which only has the CLI repo.
+#
+# API_RATE_LIMIT_MAX is raised so a full suite run doesn't trip the default
+# 60-req/min-per-key limit (see test/live/README.md).
+services:
+  mongo:
+    image: "mongo:latest"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password
+  growthbook:
+    image: "growthbook/growthbook:latest"
+    ports:
+      - "3000:3000"
+      - "3100:3100"
+    depends_on:
+      - mongo
+    environment:
+      - MONGODB_URI=mongodb://root:password@mongo:27017/growthbook?authSource=admin
+      - API_RATE_LIMIT_MAX=100000

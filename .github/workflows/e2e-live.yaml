@@ -1,0 +1,47 @@
+# On-demand live e2e run: stands up a real GrowthBook server, bootstraps
+# credentials, and runs the CLI suite against it — so reviewers can see a green
+# run (and the coverage report) without any local docker setup. Manual-only; not
+# part of the PR gate. See test/live/README.md.
+name: Live e2e
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: "go.mod"
+          cache: true
+
+      - name: Build CLI
+        run: go build -o growthbook ./cmd/growthbook
+
+      - name: Stand up server + bootstrap credentials
+        run: ./scripts/e2e-setup.sh
+
+      - name: Run live suite
+        run: |
+          set -a && source .env.local && set +a
+          go test -tags live ./test/live/ -v
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-coverage
+          path: test/live/coverage.txt
+          if-no-files-found: warn
+
+      - name: Tear down
+        if: always()
+        run: docker compose -f test/live/docker-compose.e2e.yml down -v
