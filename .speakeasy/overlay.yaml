@@ -84,7 +84,7 @@ actions:
   - target: $..[?(@.operationId=="postFeatureV2")].tags
     remove: true
   - target: $..[?(@.operationId=="postFeatureV2")]
-    update: { tags: [features], x-speakeasy-name-override: post }
+    update: { tags: [features], x-speakeasy-name-override: create }
   - target: $..[?(@.operationId=="getFeatureV2")].tags
     remove: true
   - target: $..[?(@.operationId=="getFeatureV2")]
@@ -121,7 +121,7 @@ actions:
   - target: $..[?(@.operationId=="postFeature")].tags
     remove: true
   - target: $..[?(@.operationId=="postFeature")]
-    update: { tags: [features-v1], x-speakeasy-name-override: post }
+    update: { tags: [features-v1], x-speakeasy-name-override: create }
   - target: $..[?(@.operationId=="getFeature")].tags
     remove: true
   - target: $..[?(@.operationId=="getFeature")]
@@ -150,3 +150,27 @@ actions:
     remove: true
   - target: $..[?(@.operationId=="getFeatureStale")]
     update: { tags: [features-v1], x-speakeasy-name-override: get-feature-stale }
+  # The security-scheme descriptions carry a fenced ```bash curl example. The CLI
+  # renders securityScheme.description as the --bearer-auth/--username/--password
+  # flag help (and in `whoami`), where the code fences and multi-line curl garble
+  # the terminal output. Replace them with concise single-line help. (Kept in the
+  # overlay, not the public spec, since this is a CLI-presentation fix.)
+  # No backticks here: pflag treats the first backtick-quoted run in a flag's
+  # usage string as the value placeholder, so a backticked example would replace
+  # the "string" arg name in --help.
+  - target: $.components.securitySchemes.bearerAuth.description
+    update: "Bearer auth token: your Secret Key or Personal Access Token, sent as an Authorization Bearer header."
+  - target: $.components.securitySchemes.basicAuth.description
+    update: "HTTP Basic auth: your Secret Key as the username, with an empty password."
+  # The full API description (auth/errors/versioning prose) is dumped verbatim
+  # into the top-level `--help` as the root command's long description, which is
+  # far too long for CLI help. Trim to a concise summary. (This also drives the
+  # README's auto-managed Summary section; the hand-written sections above it are
+  # preserved.) Overlay-only so the public spec keeps the full description.
+  - target: $.info.description
+    update: |-
+      A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal.
+
+      Endpoints are versioned by path prefix: `/v1` (stable) and `/v2` (improved shapes). Each command group targets the newest version of its endpoint; superseded versions remain available under a `-vN` suffix.
+
+      Authenticate with a Secret Key or Personal Access Token via `--bearer-auth` (or the `GBCLI_BEARER_AUTH` environment variable). Run `growthbook configure` to store credentials, or `growthbook whoami` to check the active configuration.

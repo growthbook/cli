@@ -2,11 +2,7 @@
 
 package components
 
-// SchemeBasicAuth - If using HTTP Basic auth, pass the Secret Key as the username and leave the password blank:
-// ```bash
-// curl https://api.growthbook.io/api/v1/features   -u secret_abc123DEF456:
-// # The ":" at the end stops curl from asking for a password
-// ```
+// SchemeBasicAuth - HTTP Basic auth: your Secret Key as the username, with an empty password.
 type SchemeBasicAuth struct {
 	Username string `security:"name=username"`
 	Password string `security:"name=password"`

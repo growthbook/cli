@@ -18,6 +18,12 @@ func customRegister(rootCmd *cobra.Command) {
 	rootCmd.PersistentFlags().String("profile", "", "Use a named credential/server profile (manage with `growthbook profiles`)")
 	rootCmd.PersistentFlags().Bool("no-update-check", false, "Disable the once-a-day check for a newer CLI version")
 
+	// Add a top-level `--version` flag alongside the existing `version` subcommand.
+	// Setting Version makes Cobra register the flag and short-circuit on it; the
+	// template matches the subcommand's output ("growthbook <version>").
+	rootCmd.Version = Version
+	rootCmd.SetVersionTemplate("growthbook {{.Version}}\n")
+
 	rootCmd.AddCommand(newGenerateTypesCmd())
 	rootCmd.AddCommand(newProfilesCmd())
 

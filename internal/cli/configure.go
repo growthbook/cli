@@ -97,18 +97,18 @@ func runConfigureCmd(cmd *cobra.Command, args []string) error {
 		var groups []*huh.Group
 		securityFields := []huh.Field{
 			huh.NewInput().
-				Title("If using Bearer auth, pass the Secret Key as the token:\n```bash\ncurl https://api.growthbook.io/api/v1/features   -H \"Authorization: Bearer secret_abc123DEF456\"\n```").
+				Title("Bearer auth token: your Secret Key or Personal Access Token, sent as an Authorization Bearer header.").
 				Description("--bearer-auth").
 				EchoMode(huh.EchoModePassword).
 				Placeholder(maskSecret(cfg.Security.BearerAuth)).
 				Value(&authBearerAuth),
 			huh.NewInput().
-				Title("If using HTTP Basic auth, pass the Secret Key as the username and leave the password blank:\n```bash\ncurl https://api.growthbook.io/api/v1/features   -u secret_abc123DEF456:\n# The \":\" at the end stops curl from asking for a password\n```\n username").
+				Title("HTTP Basic auth: your Secret Key as the username, with an empty password. username").
 				Description("--username").
 				Placeholder(cfg.Security.Username).
 				Value(&authUsername),
 			huh.NewInput().
-				Title("If using HTTP Basic auth, pass the Secret Key as the username and leave the password blank:\n```bash\ncurl https://api.growthbook.io/api/v1/features   -u secret_abc123DEF456:\n# The \":\" at the end stops curl from asking for a password\n```\n password").
+				Title("HTTP Basic auth: your Secret Key as the username, with an empty password. password").
 				Description("--password").
 				EchoMode(huh.EchoModePassword).
 				Placeholder(maskSecret(cfg.Security.Password)).
