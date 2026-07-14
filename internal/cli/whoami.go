@@ -52,13 +52,13 @@ func runWhoamiCmd(cmd *cobra.Command, args []string) error {
 		fmt.Fprintf(out, "  --%-25s [%-7s] %s\n", "bearer-auth", source, maskSecret(value))
 	}
 
-	// HTTP Basic auth: your Secret Key as the username, with an empty password. username
+	// HTTP Basic auth: use your GrowthBook Secret Key as the username and leave the password empty. username
 	{
 		value, source := config.ResolveSecurityCredential(cmd, "username")
 		fmt.Fprintf(out, "  --%-25s [%-7s] %s\n", "username", source, maskSecret(value))
 	}
 
-	// HTTP Basic auth: your Secret Key as the username, with an empty password. password
+	// HTTP Basic auth: use your GrowthBook Secret Key as the username and leave the password empty. password
 	{
 		value, source := config.ResolveSecurityCredential(cmd, "password")
 		fmt.Fprintf(out, "  --%-25s [%-7s] %s\n", "password", source, maskSecret(value))

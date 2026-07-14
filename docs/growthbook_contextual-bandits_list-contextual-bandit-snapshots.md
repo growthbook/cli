@@ -38,14 +38,14 @@ growthbook contextual-bandits list-contextual-bandit-snapshots [flags]
   -q, --jq string                     Filter and transform output using a jq expression (e.g., '.name', '.items[] | .id')
       --no-interactive                Disable all interactive features (auto-prompting, explorer auto-launch, TUI forms)
       --no-update-check               Disable the once-a-day check for a newer CLI version
-  -o, --output-format string          Specify the output format. Options: pretty, json, yaml, table, toon. (default "pretty")
-      --password string               HTTP Basic auth: your Secret Key as the username, with an empty password. password
+  -o, --output-format string          Specify the output format. Options: pretty, json, yaml, toon. (default "pretty")
+      --password string               HTTP Basic auth: use your GrowthBook Secret Key as the username and leave the password empty. password
       --profile growthbook profiles   Use a named credential/server profile (manage with growthbook profiles)
       --server string                 Select a server by index (for indexed servers) or name (for named servers)
       --server-url string             Override the default server URL
       --timeout string                HTTP request timeout (e.g., 30s, 5m, 100ms)
       --usage                         Print the CLI Usage schema in KDL format
-      --username string               HTTP Basic auth: your Secret Key as the username, with an empty password. username
+      --username string               HTTP Basic auth: use your GrowthBook Secret Key as the username and leave the password empty. username
 ```
 
 ### SEE ALSO
