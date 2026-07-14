@@ -46,6 +46,6 @@ growthbook dashboards [flags]
 * [growthbook dashboards create](growthbook_dashboards_create.md)	 - Create a single dashboard
 * [growthbook dashboards delete](growthbook_dashboards_delete.md)	 - Delete a single dashboard
 * [growthbook dashboards get](growthbook_dashboards_get.md)	 - Get a single dashboard
-* [growthbook dashboards get-dashboards-for-experiment](growthbook_dashboards_get-dashboards-for-experiment.md)	 - Get all dashboards for an experiment
 * [growthbook dashboards list](growthbook_dashboards_list.md)	 - Get all dashboards
+* [growthbook dashboards list-for-experiment](growthbook_dashboards_list-for-experiment.md)	 - Get all dashboards for an experiment
 * [growthbook dashboards update](growthbook_dashboards_update.md)	 - Update a single dashboard

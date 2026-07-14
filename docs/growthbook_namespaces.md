@@ -46,7 +46,7 @@ growthbook namespaces [flags]
 * [growthbook namespaces create](growthbook_namespaces_create.md)	 - Create a namespace
 * [growthbook namespaces delete](growthbook_namespaces_delete.md)	 - Delete a namespace
 * [growthbook namespaces get](growthbook_namespaces_get.md)	 - Get a single namespace
-* [growthbook namespaces get-namespace-memberships](growthbook_namespaces_get-namespace-memberships.md)	 - Get namespace membership
+* [growthbook namespaces get-memberships](growthbook_namespaces_get-memberships.md)	 - Get namespace membership
 * [growthbook namespaces list](growthbook_namespaces_list.md)	 - Get all namespaces
-* [growthbook namespaces post-namespace-rotate-seed](growthbook_namespaces_post-namespace-rotate-seed.md)	 - Rotate namespace seed
+* [growthbook namespaces rotate-seed](growthbook_namespaces_rotate-seed.md)	 - Rotate namespace seed
 * [growthbook namespaces update](growthbook_namespaces_update.md)	 - Update a namespace

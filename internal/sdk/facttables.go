@@ -815,8 +815,8 @@ func (s *FactTables) DeleteFactTable(ctx context.Context, request operations.Del
 
 }
 
-// ListFactTableFilters - Get all filters for a fact table
-func (s *FactTables) ListFactTableFilters(ctx context.Context, request operations.ListFactTableFiltersRequest, opts ...operations.Option) (*operations.ListFactTableFiltersResponse, error) {
+// ListFilters - Get all filters for a fact table
+func (s *FactTables) ListFilters(ctx context.Context, request operations.ListFactTableFiltersRequest, opts ...operations.Option) (*operations.ListFactTableFiltersResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -954,7 +954,7 @@ func (s *FactTables) ListFactTableFilters(ctx context.Context, request operation
 		nOS := int64(oS + len(arr))
 		request.Offset = &nOS
 
-		return s.ListFactTableFilters(
+		return s.ListFilters(
 			ctx,
 			request,
 		)
@@ -1008,8 +1008,8 @@ func (s *FactTables) ListFactTableFilters(ctx context.Context, request operation
 
 }
 
-// PostFactTableFilter - Create a single fact table filter
-func (s *FactTables) PostFactTableFilter(ctx context.Context, request operations.PostFactTableFilterRequest, opts ...operations.Option) (*operations.PostFactTableFilterResponse, error) {
+// CreateFilter - Create a single fact table filter
+func (s *FactTables) CreateFilter(ctx context.Context, request operations.PostFactTableFilterRequest, opts ...operations.Option) (*operations.PostFactTableFilterResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1159,8 +1159,8 @@ func (s *FactTables) PostFactTableFilter(ctx context.Context, request operations
 
 }
 
-// GetFactTableFilter - Get a single fact filter
-func (s *FactTables) GetFactTableFilter(ctx context.Context, request operations.GetFactTableFilterRequest, opts ...operations.Option) (*operations.GetFactTableFilterResponse, error) {
+// GetFilter - Get a single fact filter
+func (s *FactTables) GetFilter(ctx context.Context, request operations.GetFactTableFilterRequest, opts ...operations.Option) (*operations.GetFactTableFilterResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1303,8 +1303,8 @@ func (s *FactTables) GetFactTableFilter(ctx context.Context, request operations.
 
 }
 
-// UpdateFactTableFilter - Update a single fact table filter
-func (s *FactTables) UpdateFactTableFilter(ctx context.Context, request operations.UpdateFactTableFilterRequest, opts ...operations.Option) (*operations.UpdateFactTableFilterResponse, error) {
+// UpdateFilter - Update a single fact table filter
+func (s *FactTables) UpdateFilter(ctx context.Context, request operations.UpdateFactTableFilterRequest, opts ...operations.Option) (*operations.UpdateFactTableFilterResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1454,8 +1454,8 @@ func (s *FactTables) UpdateFactTableFilter(ctx context.Context, request operatio
 
 }
 
-// DeleteFactTableFilter - Deletes a single fact table filter
-func (s *FactTables) DeleteFactTableFilter(ctx context.Context, request operations.DeleteFactTableFilterRequest, opts ...operations.Option) (*operations.DeleteFactTableFilterResponse, error) {
+// DeleteFilter - Deletes a single fact table filter
+func (s *FactTables) DeleteFilter(ctx context.Context, request operations.DeleteFactTableFilterRequest, opts ...operations.Option) (*operations.DeleteFactTableFilterResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -2230,8 +2230,8 @@ func (s *FactTables) GetAggregatedTableRun(ctx context.Context, request operatio
 
 }
 
-// PostBulkImportFacts - Bulk import fact tables, filters, and metrics
-func (s *FactTables) PostBulkImportFacts(ctx context.Context, request operations.PostBulkImportFactsRequest, opts ...operations.Option) (*operations.PostBulkImportFactsResponse, error) {
+// BulkImport - Bulk import fact tables, filters, and metrics
+func (s *FactTables) BulkImport(ctx context.Context, request operations.PostBulkImportFactsRequest, opts ...operations.Option) (*operations.PostBulkImportFactsResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

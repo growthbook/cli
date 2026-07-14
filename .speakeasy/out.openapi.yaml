@@ -15466,6 +15466,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"variation":"var_abc123","domMutations":[]}'
+      x-speakeasy-name-override: add-visual-change
   /v1/visual-changesets/{id}/visual-change/{visualChangeId}:
     put:
       operationId: putVisualChange
@@ -15540,6 +15541,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"css":"h1 { color: red; }"}'
+      x-speakeasy-name-override: update-visual-change
   /v1/saved-groups:
     get:
       operationId: listSavedGroups
@@ -18779,6 +18781,7 @@ paths:
         type: offsetLimit
         inputs: *offsetLimitInputs
         outputs: {results: $.factTableFilters}
+      x-speakeasy-name-override: list-filters
     post:
       operationId: postFactTableFilter
       summary: Create a single fact table filter
@@ -18837,6 +18840,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"name":"High Value Order","value":"amount>100"}'
+      x-speakeasy-name-override: create-filter
   /v1/fact-tables/{factTableId}/filters/{id}:
     get:
       operationId: getFactTableFilter
@@ -18867,6 +18871,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: get-filter
     post:
       operationId: updateFactTableFilter
       summary: Update a single fact table filter
@@ -18923,6 +18928,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"value":"amount > 50"}'
+      x-speakeasy-name-override: update-filter
     delete:
       operationId: deleteFactTableFilter
       summary: Deletes a single fact table filter
@@ -18954,6 +18960,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: delete-filter
   /v1/fact-tables/{id}/aggregated-tables:
     get:
       operationId: getAggregatedFactTables
@@ -20159,6 +20166,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"lookbackDays":90}'
+      x-speakeasy-name-override: create-analysis
   /v1/bulk-import/facts:
     post:
       operationId: postBulkImportFacts
@@ -20722,6 +20730,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"factTables":[],"factTableFilters":[],"factMetrics":[]}'
+      x-speakeasy-name-override: bulk-import
   /v1/code-refs:
     post:
       operationId: postCodeRefs
@@ -20788,6 +20797,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"branch":"main","repoName":"my-repo","refs":[{"filePath":"src/app.ts","startingLineNumber":16,"lines":"...","flagKey":"my-feature","contentHash":"abc123"}]}'
+      x-speakeasy-name-override: submit
     get:
       operationId: listCodeRefs
       summary: Get list of all code references for the current organization
@@ -20822,6 +20832,7 @@ paths:
         type: offsetLimit
         inputs: *offsetLimitInputs
         outputs: {results: $.codeRefs}
+      x-speakeasy-name-override: list
   /v1/code-refs/{id}:
     get:
       operationId: getCodeRefs
@@ -20850,6 +20861,7 @@ paths:
           source: |-
             curl -X GET 'https://api.growthbook.io/api/v1/code-refs/abc123' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: get-for-feature
   /v1/members:
     get:
       operationId: listMembers
@@ -24157,6 +24169,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: refresh
   /v1/reports/{id}/metadata:
     put:
       operationId: putReportMetadata
@@ -24221,6 +24234,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: set-metadata
   /v1/reports/{id}/settings:
     put:
       operationId: putReportSettings
@@ -24456,6 +24470,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: set-settings
   /v1/namespaces:
     get:
       operationId: listNamespaces
@@ -24728,6 +24743,7 @@ paths:
         type: offsetLimit
         inputs: *offsetLimitInputs
         outputs: {results: $.experiments}
+      x-speakeasy-name-override: get-memberships
   /v1/namespaces/{id}/rotateSeed:
     post:
       operationId: postNamespaceRotateSeed
@@ -24777,6 +24793,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: rotate-seed
   /v1/transform-copy:
     post:
       operationId: postCopyTransform
@@ -24813,6 +24830,7 @@ paths:
           source: |-
             curl -X POST 'https://api.growthbook.io/api/v1/transform-copy' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: copy-transform
   /v1/dashboards/{id}:
     get:
       operationId: getDashboard
@@ -28268,6 +28286,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: list-for-experiment
   /v1/contextual-bandits/{id}:
     get:
       operationId: getContextualBandit
@@ -31148,6 +31167,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: run-metric
   /v1/product-analytics/fact-table-exploration:
     post:
       operationId: postFactTableExploration
@@ -31805,6 +31825,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: run-fact-table
   /v1/product-analytics/data-source-exploration:
     post:
       operationId: postDataSourceExploration
@@ -32496,6 +32517,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: run-data-source
   /v1/ramp-schedule-templates/{id}:
     get:
       operationId: getRampScheduleTemplate

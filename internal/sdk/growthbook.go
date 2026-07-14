@@ -445,7 +445,7 @@ func (s *Growthbook) GetSDKPayload(ctx context.Context, request operations.GetSD
 
 }
 
-func (s *Growthbook) PostCopyTransform(ctx context.Context, request operations.PostCopyTransformRequest, opts ...operations.Option) (*operations.PostCopyTransformResponse, error) {
+func (s *Growthbook) CopyTransform(ctx context.Context, request operations.PostCopyTransformRequest, opts ...operations.Option) (*operations.PostCopyTransformResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

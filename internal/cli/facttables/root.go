@@ -41,23 +41,23 @@ func InitFactTablesRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initListFactTableFiltersCmd(FactTablesCmd); err != nil {
+	if err := initListFiltersCmd(FactTablesCmd); err != nil {
 		return err
 	}
 
-	if err := initPostFactTableFilterCmd(FactTablesCmd); err != nil {
+	if err := initCreateFilterCmd(FactTablesCmd); err != nil {
 		return err
 	}
 
-	if err := initGetFactTableFilterCmd(FactTablesCmd); err != nil {
+	if err := initGetFilterCmd(FactTablesCmd); err != nil {
 		return err
 	}
 
-	if err := initUpdateFactTableFilterCmd(FactTablesCmd); err != nil {
+	if err := initUpdateFilterCmd(FactTablesCmd); err != nil {
 		return err
 	}
 
-	if err := initDeleteFactTableFilterCmd(FactTablesCmd); err != nil {
+	if err := initDeleteFilterCmd(FactTablesCmd); err != nil {
 		return err
 	}
 
@@ -77,7 +77,7 @@ func InitFactTablesRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPostBulkImportFactsCmd(FactTablesCmd); err != nil {
+	if err := initBulkImportCmd(FactTablesCmd); err != nil {
 		return err
 	}
 

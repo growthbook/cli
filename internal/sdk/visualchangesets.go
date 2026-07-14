@@ -624,8 +624,8 @@ func (s *VisualChangesets) Update(ctx context.Context, request operations.PutVis
 
 }
 
-// PostVisualChange - Create a visual change for a visual changeset
-func (s *VisualChangesets) PostVisualChange(ctx context.Context, request operations.PostVisualChangeRequest, opts ...operations.Option) (*operations.PostVisualChangeResponse, error) {
+// AddVisualChange - Create a visual change for a visual changeset
+func (s *VisualChangesets) AddVisualChange(ctx context.Context, request operations.PostVisualChangeRequest, opts ...operations.Option) (*operations.PostVisualChangeResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -775,8 +775,8 @@ func (s *VisualChangesets) PostVisualChange(ctx context.Context, request operati
 
 }
 
-// PutVisualChange - Update a visual change for a visual changeset
-func (s *VisualChangesets) PutVisualChange(ctx context.Context, request operations.PutVisualChangeRequest, opts ...operations.Option) (*operations.PutVisualChangeResponse, error) {
+// UpdateVisualChange - Update a visual change for a visual changeset
+func (s *VisualChangesets) UpdateVisualChange(ctx context.Context, request operations.PutVisualChangeRequest, opts ...operations.Option) (*operations.PutVisualChangeResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

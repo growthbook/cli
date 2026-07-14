@@ -46,6 +46,6 @@ growthbook reports [flags]
 * [growthbook reports create](growthbook_reports_create.md)	 - Create a new report
 * [growthbook reports get](growthbook_reports_get.md)	 - Get a single report
 * [growthbook reports list](growthbook_reports_list.md)	 - Get all reports
-* [growthbook reports post-report-refresh](growthbook_reports_post-report-refresh.md)	 - Refresh a report by re-running its analysis
-* [growthbook reports put-report-metadata](growthbook_reports_put-report-metadata.md)	 - Update report metadata (title, description, visibility)
-* [growthbook reports put-report-settings](growthbook_reports_put-report-settings.md)	 - Update report analysis settings
+* [growthbook reports refresh](growthbook_reports_refresh.md)	 - Refresh a report by re-running its analysis
+* [growthbook reports set-metadata](growthbook_reports_set-metadata.md)	 - Update report metadata (title, description, visibility)
+* [growthbook reports set-settings](growthbook_reports_set-settings.md)	 - Update report analysis settings

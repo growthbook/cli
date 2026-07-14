@@ -21,15 +21,15 @@ func InitAnalyticsExplorationsRoot(parent *cobra.Command) error {
 		Aliases: []string{"ae"},
 	}
 
-	if err := initPostMetricExplorationCmd(AnalyticsExplorationsCmd); err != nil {
+	if err := initRunMetricCmd(AnalyticsExplorationsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostFactTableExplorationCmd(AnalyticsExplorationsCmd); err != nil {
+	if err := initRunFactTableCmd(AnalyticsExplorationsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostDataSourceExplorationCmd(AnalyticsExplorationsCmd); err != nil {
+	if err := initRunDataSourceCmd(AnalyticsExplorationsCmd); err != nil {
 		return err
 	}
 

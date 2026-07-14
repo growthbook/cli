@@ -815,8 +815,8 @@ func (s *FactMetrics) DeleteFactMetric(ctx context.Context, request operations.D
 
 }
 
-// PostFactMetricAnalysis - Create a fact metric analysis
-func (s *FactMetrics) PostFactMetricAnalysis(ctx context.Context, request operations.PostFactMetricAnalysisRequest, opts ...operations.Option) (*operations.PostFactMetricAnalysisResponse, error) {
+// CreateAnalysis - Create a fact metric analysis
+func (s *FactMetrics) CreateAnalysis(ctx context.Context, request operations.PostFactMetricAnalysisRequest, opts ...operations.Option) (*operations.PostFactMetricAnalysisResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

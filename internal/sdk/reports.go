@@ -520,8 +520,8 @@ func (s *Reports) GetReport(ctx context.Context, request operations.GetReportReq
 
 }
 
-// PostReportRefresh - Refresh a report by re-running its analysis
-func (s *Reports) PostReportRefresh(ctx context.Context, request operations.PostReportRefreshRequest, opts ...operations.Option) (*operations.PostReportRefreshResponse, error) {
+// Refresh a report by re-running its analysis
+func (s *Reports) Refresh(ctx context.Context, request operations.PostReportRefreshRequest, opts ...operations.Option) (*operations.PostReportRefreshResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -664,8 +664,8 @@ func (s *Reports) PostReportRefresh(ctx context.Context, request operations.Post
 
 }
 
-// PutReportMetadata - Update report metadata (title, description, visibility)
-func (s *Reports) PutReportMetadata(ctx context.Context, request operations.PutReportMetadataRequest, opts ...operations.Option) (*operations.PutReportMetadataResponse, error) {
+// SetMetadata - Update report metadata (title, description, visibility)
+func (s *Reports) SetMetadata(ctx context.Context, request operations.PutReportMetadataRequest, opts ...operations.Option) (*operations.PutReportMetadataResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -815,9 +815,9 @@ func (s *Reports) PutReportMetadata(ctx context.Context, request operations.PutR
 
 }
 
-// PutReportSettings - Update report analysis settings
+// SetSettings - Update report analysis settings
 // Updates the analysis settings for an existing report. Changes are staged and do not take effect until you call `POST /reports/:id/refresh`.
-func (s *Reports) PutReportSettings(ctx context.Context, request operations.PutReportSettingsRequest, opts ...operations.Option) (*operations.PutReportSettingsResponse, error) {
+func (s *Reports) SetSettings(ctx context.Context, request operations.PutReportSettingsRequest, opts ...operations.Option) (*operations.PutReportSettingsResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

@@ -32,8 +32,8 @@ func newCodeReferences(rootSDK *Growthbook, sdkConfig config.SDKConfiguration, h
 	}
 }
 
-// PostCodeRefs - Submit list of code references
-func (s *CodeReferences) PostCodeRefs(ctx context.Context, request operations.PostCodeRefsRequest, opts ...operations.Option) (*operations.PostCodeRefsResponse, error) {
+// Submit list of code references
+func (s *CodeReferences) Submit(ctx context.Context, request operations.PostCodeRefsRequest, opts ...operations.Option) (*operations.PostCodeRefsResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -187,8 +187,8 @@ func (s *CodeReferences) PostCodeRefs(ctx context.Context, request operations.Po
 
 }
 
-// ListCodeRefs - Get list of all code references for the current organization
-func (s *CodeReferences) ListCodeRefs(ctx context.Context, request *operations.ListCodeRefsRequest, opts ...operations.Option) (*operations.ListCodeRefsResponse, error) {
+// List - Get list of all code references for the current organization
+func (s *CodeReferences) List(ctx context.Context, request *operations.ListCodeRefsRequest, opts ...operations.Option) (*operations.ListCodeRefsResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -326,7 +326,7 @@ func (s *CodeReferences) ListCodeRefs(ctx context.Context, request *operations.L
 		nOS := int64(oS + len(arr))
 		request.Offset = &nOS
 
-		return s.ListCodeRefs(
+		return s.List(
 			ctx,
 			request,
 		)
@@ -380,8 +380,8 @@ func (s *CodeReferences) ListCodeRefs(ctx context.Context, request *operations.L
 
 }
 
-// GetCodeRefs - Get list of code references for a single feature id
-func (s *CodeReferences) GetCodeRefs(ctx context.Context, request operations.GetCodeRefsRequest, opts ...operations.Option) (*operations.GetCodeRefsResponse, error) {
+// GetForFeature - Get list of code references for a single feature id
+func (s *CodeReferences) GetForFeature(ctx context.Context, request operations.GetCodeRefsRequest, opts ...operations.Option) (*operations.GetCodeRefsResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

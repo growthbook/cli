@@ -785,3 +785,61 @@ actions:
     update: { x-speakeasy-name-override: set-metadata }
   - target: $..[?(@.operationId=="putSavedGroupRevisionValues")]
     update: { x-speakeasy-name-override: set-values }
+  # Straggler leaf renames swept across the remaining groups — same rationale:
+  # drop the operationId-derived http-verb/resource-echo prefixes for the action,
+  # since the group already supplies the context. Keeps mixed-convention families
+  # (fact-tables filters, code-references) from reading half-clean. operationIds
+  # untouched. Per-op, so new ops appear as their raw operationId until overridden.
+  # analytics-explorations
+  - target: $..[?(@.operationId=="postDataSourceExploration")]
+    update: { x-speakeasy-name-override: run-data-source }
+  - target: $..[?(@.operationId=="postFactTableExploration")]
+    update: { x-speakeasy-name-override: run-fact-table }
+  - target: $..[?(@.operationId=="postMetricExploration")]
+    update: { x-speakeasy-name-override: run-metric }
+  # code-references
+  - target: $..[?(@.operationId=="getCodeRefs")]
+    update: { x-speakeasy-name-override: get-for-feature }
+  - target: $..[?(@.operationId=="listCodeRefs")]
+    update: { x-speakeasy-name-override: list }
+  - target: $..[?(@.operationId=="postCodeRefs")]
+    update: { x-speakeasy-name-override: submit }
+  # dashboards
+  - target: $..[?(@.operationId=="getDashboardsForExperiment")]
+    update: { x-speakeasy-name-override: list-for-experiment }
+  # fact-metrics
+  - target: $..[?(@.operationId=="postFactMetricAnalysis")]
+    update: { x-speakeasy-name-override: create-analysis }
+  # fact-tables (filter sub-resource + bulk import)
+  - target: $..[?(@.operationId=="postFactTableFilter")]
+    update: { x-speakeasy-name-override: create-filter }
+  - target: $..[?(@.operationId=="getFactTableFilter")]
+    update: { x-speakeasy-name-override: get-filter }
+  - target: $..[?(@.operationId=="deleteFactTableFilter")]
+    update: { x-speakeasy-name-override: delete-filter }
+  - target: $..[?(@.operationId=="updateFactTableFilter")]
+    update: { x-speakeasy-name-override: update-filter }
+  - target: $..[?(@.operationId=="listFactTableFilters")]
+    update: { x-speakeasy-name-override: list-filters }
+  - target: $..[?(@.operationId=="postBulkImportFacts")]
+    update: { x-speakeasy-name-override: bulk-import }
+  # namespaces
+  - target: $..[?(@.operationId=="postNamespaceRotateSeed")]
+    update: { x-speakeasy-name-override: rotate-seed }
+  - target: $..[?(@.operationId=="getNamespaceMemberships")]
+    update: { x-speakeasy-name-override: get-memberships }
+  # reports
+  - target: $..[?(@.operationId=="postReportRefresh")]
+    update: { x-speakeasy-name-override: refresh }
+  - target: $..[?(@.operationId=="putReportMetadata")]
+    update: { x-speakeasy-name-override: set-metadata }
+  - target: $..[?(@.operationId=="putReportSettings")]
+    update: { x-speakeasy-name-override: set-settings }
+  # visual-changesets (visual-change is a distinct sub-resource; keep its name)
+  - target: $..[?(@.operationId=="postVisualChange")]
+    update: { x-speakeasy-name-override: add-visual-change }
+  - target: $..[?(@.operationId=="putVisualChange")]
+    update: { x-speakeasy-name-override: update-visual-change }
+  # top-level
+  - target: $..[?(@.operationId=="postCopyTransform")]
+    update: { x-speakeasy-name-override: copy-transform }
