@@ -97,8 +97,9 @@ type PostAttributeRequest struct {
 	// The attribute is archived
 	Archived *bool `json:"archived,omitzero"`
 	// Shall the attribute be hashed
-	HashAttribute *bool   `json:"hashAttribute,omitzero"`
-	Enum          *string `json:"enum,omitzero"`
+	HashAttribute *bool `json:"hashAttribute,omitzero"`
+	// Comma-separated list of allowed values. Required for the 'enum' datatype. For array datatypes (string[], number[], secureString[]) it optionally restricts the list to these values. Ignored for all other datatypes.
+	Enum *string `json:"enum,omitzero"`
 	// The attribute's format
 	Format   *PostAttributeFormat `json:"format,omitzero"`
 	Projects []string             `json:"projects,omitzero"`

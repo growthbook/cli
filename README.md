@@ -162,8 +162,8 @@ Set credentials via environment variables:
 | Variable | Description |
 |----------|-------------|
 | `GBCLI_BEARER_AUTH` | Bearer auth token: your Secret Key or Personal Access Token, sent as an Authorization Bearer header. |
-| `GBCLI_USERNAME` | HTTP Basic auth: your Secret Key as the username, with an empty password. username |
-| `GBCLI_PASSWORD` | HTTP Basic auth: your Secret Key as the username, with an empty password. password |
+| `GBCLI_USERNAME` | HTTP Basic auth: use your GrowthBook Secret Key as the username and leave the password empty. username |
+| `GBCLI_PASSWORD` | HTTP Basic auth: use your GrowthBook Secret Key as the username and leave the password empty. password |
 
 ### 3. OS Keychain (recommended for workstations)
 

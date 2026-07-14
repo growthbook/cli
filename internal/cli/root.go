@@ -275,9 +275,9 @@ func NewRootCommand() (*cobra.Command, error) {
 	// Global security flags
 	rootCmd.PersistentFlags().String("bearer-auth", "", "Bearer auth token: your Secret Key or Personal Access Token, sent as an Authorization Bearer header.")
 	_ = rootCmd.PersistentFlags().SetAnnotation("bearer-auth", "speakeasy:group", []string{"Authentication"})
-	rootCmd.PersistentFlags().String("username", "", "HTTP Basic auth: your Secret Key as the username, with an empty password. username")
+	rootCmd.PersistentFlags().String("username", "", "HTTP Basic auth: use your GrowthBook Secret Key as the username and leave the password empty. username")
 	_ = rootCmd.PersistentFlags().SetAnnotation("username", "speakeasy:group", []string{"Authentication"})
-	rootCmd.PersistentFlags().String("password", "", "HTTP Basic auth: your Secret Key as the username, with an empty password. password")
+	rootCmd.PersistentFlags().String("password", "", "HTTP Basic auth: use your GrowthBook Secret Key as the username and leave the password empty. password")
 	_ = rootCmd.PersistentFlags().SetAnnotation("password", "speakeasy:group", []string{"Authentication"})
 
 	// Annotate persistent flags for grouped help display
