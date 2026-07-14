@@ -42,6 +42,7 @@ func runWhoamiCmd(cmd *cobra.Command, args []string) error {
 	fmt.Fprintln(out)
 	fmt.Fprintf(out, "Config file: %s\n", config.GetConfigPath())
 	fmt.Fprintf(out, "Profiles file: %s\n", customcfg.Path())
+	fmt.Fprintf(out, "Server: %s\n", resolvedServerURL(cmd))
 	fmt.Fprintf(out, "Environment prefix: GBCLI_\n")
 	fmt.Fprintln(out)
 	fmt.Fprintln(out, "Credentials:")
@@ -49,6 +50,9 @@ func runWhoamiCmd(cmd *cobra.Command, args []string) error {
 	// Bearer auth token: your Secret Key or Personal Access Token, sent as an Authorization Bearer header.
 	{
 		value, source := config.ResolveSecurityCredential(cmd, "bearer-auth")
+		if source == "env" && customcfg.BearerFromProfile() {
+			source = "keyring" // came from the active profile's keychain entry; env is just the injection path
+		}
 		fmt.Fprintf(out, "  --%-25s [%-7s] %s\n", "bearer-auth", source, maskSecret(value))
 	}
 
