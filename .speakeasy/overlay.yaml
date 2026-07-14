@@ -455,14 +455,16 @@ actions:
     update: { x-speakeasy-name-override: list-for-saved-group }
   # feature-revisions v1/v2 inversion — make the LATEST (v2) own the plain
   # `feature-revisions` group and demote v1 to `feature-revisions-v1`, matching
-  # the features convention ("latest owns the plain name"). Command names on the
-  # plain group are kept stable (v2 leaves have their `-v2` suffix stripped so
-  # they equal the old v1 leaf names) — so a base command simply advances to v2,
-  # exactly the versioning contract in RELEASING.md/README. Same tag-rewrite
+  # the features convention ("latest owns the plain name"). Same tag-rewrite
   # mechanism as the features block: rename the two tag DEFINITIONS (demote v1
   # first so the promote can't re-match), then per op `remove` the tags array
-  # (update MERGES arrays) and set the new tag (+ pinned leaf for v2, since the
-  # generator would otherwise keep the `-v2` suffix).
+  # (update MERGES arrays) and set the new tag. For the v2 leaves we pin a clean
+  # verb via x-speakeasy-name-override (publish, discard, add-rule, set-metadata,
+  # …) instead of the operationId-derived `post-feature-revision-*` mouthful —
+  # the `feature-revisions` group already supplies the context, so the leaf only
+  # needs the action. v1 leaves keep the verbose names (deprecated; the friction
+  # nudges users onto v2). NOTE: this pins names per-operation, so any NEW v2
+  # revision op will appear as its raw operationId until it gets an override here.
   - target: $..[?(@.name=="feature-revisions" && @.description)]
     update: { name: feature-revisions-v1 }
   - target: $..[?(@.name=="feature-revisions-v2" && @.description)]
@@ -572,31 +574,31 @@ actions:
   - target: $..[?(@.operationId=="deleteFeatureRevisionLogEntryV2")].tags
     remove: true
   - target: $..[?(@.operationId=="deleteFeatureRevisionLogEntryV2")]
-    update: { tags: [feature-revisions], x-speakeasy-name-override: delete-feature-revision-log-entry }
+    update: { tags: [feature-revisions], x-speakeasy-name-override: delete-log-entry }
   - target: $..[?(@.operationId=="deleteFeatureRevisionRuleRampScheduleV2")].tags
     remove: true
   - target: $..[?(@.operationId=="deleteFeatureRevisionRuleRampScheduleV2")]
-    update: { tags: [feature-revisions], x-speakeasy-name-override: delete-feature-revision-rule-ramp-schedule }
+    update: { tags: [feature-revisions], x-speakeasy-name-override: delete-rule-ramp-schedule }
   - target: $..[?(@.operationId=="deleteFeatureRevisionRuleV2")].tags
     remove: true
   - target: $..[?(@.operationId=="deleteFeatureRevisionRuleV2")]
-    update: { tags: [feature-revisions], x-speakeasy-name-override: delete-feature-revision-rule }
+    update: { tags: [feature-revisions], x-speakeasy-name-override: delete-rule }
   - target: $..[?(@.operationId=="getFeatureRevisionDiffV2")].tags
     remove: true
   - target: $..[?(@.operationId=="getFeatureRevisionDiffV2")]
-    update: { tags: [feature-revisions], x-speakeasy-name-override: get-feature-revision-diff }
+    update: { tags: [feature-revisions], x-speakeasy-name-override: diff }
   - target: $..[?(@.operationId=="getFeatureRevisionLatestV2")].tags
     remove: true
   - target: $..[?(@.operationId=="getFeatureRevisionLatestV2")]
-    update: { tags: [feature-revisions], x-speakeasy-name-override: get-feature-revision-latest }
+    update: { tags: [feature-revisions], x-speakeasy-name-override: latest }
   - target: $..[?(@.operationId=="getFeatureRevisionLogV2")].tags
     remove: true
   - target: $..[?(@.operationId=="getFeatureRevisionLogV2")]
-    update: { tags: [feature-revisions], x-speakeasy-name-override: get-feature-revision-log }
+    update: { tags: [feature-revisions], x-speakeasy-name-override: log }
   - target: $..[?(@.operationId=="getFeatureRevisionMergeStatusV2")].tags
     remove: true
   - target: $..[?(@.operationId=="getFeatureRevisionMergeStatusV2")]
-    update: { tags: [feature-revisions], x-speakeasy-name-override: get-feature-revision-merge-status }
+    update: { tags: [feature-revisions], x-speakeasy-name-override: merge-status }
   - target: $..[?(@.operationId=="getFeatureRevisionsV2")].tags
     remove: true
   - target: $..[?(@.operationId=="getFeatureRevisionsV2")]
@@ -612,59 +614,59 @@ actions:
   - target: $..[?(@.operationId=="postFeatureRevisionDiscardV2")].tags
     remove: true
   - target: $..[?(@.operationId=="postFeatureRevisionDiscardV2")]
-    update: { tags: [feature-revisions], x-speakeasy-name-override: post-feature-revision-discard }
+    update: { tags: [feature-revisions], x-speakeasy-name-override: discard }
   - target: $..[?(@.operationId=="postFeatureRevisionPublishV2")].tags
     remove: true
   - target: $..[?(@.operationId=="postFeatureRevisionPublishV2")]
-    update: { tags: [feature-revisions], x-speakeasy-name-override: post-feature-revision-publish }
+    update: { tags: [feature-revisions], x-speakeasy-name-override: publish }
   - target: $..[?(@.operationId=="postFeatureRevisionRebasePreviewV2")].tags
     remove: true
   - target: $..[?(@.operationId=="postFeatureRevisionRebasePreviewV2")]
-    update: { tags: [feature-revisions], x-speakeasy-name-override: post-feature-revision-rebase-preview }
+    update: { tags: [feature-revisions], x-speakeasy-name-override: rebase-preview }
   - target: $..[?(@.operationId=="postFeatureRevisionRebaseV2")].tags
     remove: true
   - target: $..[?(@.operationId=="postFeatureRevisionRebaseV2")]
-    update: { tags: [feature-revisions], x-speakeasy-name-override: post-feature-revision-rebase }
+    update: { tags: [feature-revisions], x-speakeasy-name-override: rebase }
   - target: $..[?(@.operationId=="postFeatureRevisionRecallReviewV2")].tags
     remove: true
   - target: $..[?(@.operationId=="postFeatureRevisionRecallReviewV2")]
-    update: { tags: [feature-revisions], x-speakeasy-name-override: post-feature-revision-recall-review }
+    update: { tags: [feature-revisions], x-speakeasy-name-override: recall-review }
   - target: $..[?(@.operationId=="postFeatureRevisionReopenV2")].tags
     remove: true
   - target: $..[?(@.operationId=="postFeatureRevisionReopenV2")]
-    update: { tags: [feature-revisions], x-speakeasy-name-override: post-feature-revision-reopen }
+    update: { tags: [feature-revisions], x-speakeasy-name-override: reopen }
   - target: $..[?(@.operationId=="postFeatureRevisionRequestReviewV2")].tags
     remove: true
   - target: $..[?(@.operationId=="postFeatureRevisionRequestReviewV2")]
-    update: { tags: [feature-revisions], x-speakeasy-name-override: post-feature-revision-request-review }
+    update: { tags: [feature-revisions], x-speakeasy-name-override: request-review }
   - target: $..[?(@.operationId=="postFeatureRevisionRevertV2")].tags
     remove: true
   - target: $..[?(@.operationId=="postFeatureRevisionRevertV2")]
-    update: { tags: [feature-revisions], x-speakeasy-name-override: post-feature-revision-revert }
+    update: { tags: [feature-revisions], x-speakeasy-name-override: revert }
   - target: $..[?(@.operationId=="postFeatureRevisionRuleAddV2")].tags
     remove: true
   - target: $..[?(@.operationId=="postFeatureRevisionRuleAddV2")]
-    update: { tags: [feature-revisions], x-speakeasy-name-override: post-feature-revision-rule-add }
+    update: { tags: [feature-revisions], x-speakeasy-name-override: add-rule }
   - target: $..[?(@.operationId=="postFeatureRevisionRulesReorderV2")].tags
     remove: true
   - target: $..[?(@.operationId=="postFeatureRevisionRulesReorderV2")]
-    update: { tags: [feature-revisions], x-speakeasy-name-override: post-feature-revision-rules-reorder }
+    update: { tags: [feature-revisions], x-speakeasy-name-override: reorder-rules }
   - target: $..[?(@.operationId=="postFeatureRevisionSchedulePublishV2")].tags
     remove: true
   - target: $..[?(@.operationId=="postFeatureRevisionSchedulePublishV2")]
-    update: { tags: [feature-revisions], x-speakeasy-name-override: post-feature-revision-schedule-publish }
+    update: { tags: [feature-revisions], x-speakeasy-name-override: schedule-publish }
   - target: $..[?(@.operationId=="postFeatureRevisionSubmitReviewV2")].tags
     remove: true
   - target: $..[?(@.operationId=="postFeatureRevisionSubmitReviewV2")]
-    update: { tags: [feature-revisions], x-speakeasy-name-override: post-feature-revision-submit-review }
+    update: { tags: [feature-revisions], x-speakeasy-name-override: submit-review }
   - target: $..[?(@.operationId=="postFeatureRevisionToggleV2")].tags
     remove: true
   - target: $..[?(@.operationId=="postFeatureRevisionToggleV2")]
-    update: { tags: [feature-revisions], x-speakeasy-name-override: post-feature-revision-toggle }
+    update: { tags: [feature-revisions], x-speakeasy-name-override: toggle }
   - target: $..[?(@.operationId=="postFeatureRevisionUndoReviewV2")].tags
     remove: true
   - target: $..[?(@.operationId=="postFeatureRevisionUndoReviewV2")]
-    update: { tags: [feature-revisions], x-speakeasy-name-override: post-feature-revision-undo-review }
+    update: { tags: [feature-revisions], x-speakeasy-name-override: undo-review }
   - target: $..[?(@.operationId=="postFeatureRevisionV2")].tags
     remove: true
   - target: $..[?(@.operationId=="postFeatureRevisionV2")]
@@ -672,32 +674,32 @@ actions:
   - target: $..[?(@.operationId=="putFeatureRevisionArchiveV2")].tags
     remove: true
   - target: $..[?(@.operationId=="putFeatureRevisionArchiveV2")]
-    update: { tags: [feature-revisions], x-speakeasy-name-override: put-feature-revision-archive }
+    update: { tags: [feature-revisions], x-speakeasy-name-override: archive }
   - target: $..[?(@.operationId=="putFeatureRevisionDefaultValueV2")].tags
     remove: true
   - target: $..[?(@.operationId=="putFeatureRevisionDefaultValueV2")]
-    update: { tags: [feature-revisions], x-speakeasy-name-override: put-feature-revision-default-value }
+    update: { tags: [feature-revisions], x-speakeasy-name-override: set-default-value }
   - target: $..[?(@.operationId=="putFeatureRevisionHoldoutV2")].tags
     remove: true
   - target: $..[?(@.operationId=="putFeatureRevisionHoldoutV2")]
-    update: { tags: [feature-revisions], x-speakeasy-name-override: put-feature-revision-holdout }
+    update: { tags: [feature-revisions], x-speakeasy-name-override: set-holdout }
   - target: $..[?(@.operationId=="putFeatureRevisionLogCommentV2")].tags
     remove: true
   - target: $..[?(@.operationId=="putFeatureRevisionLogCommentV2")]
-    update: { tags: [feature-revisions], x-speakeasy-name-override: put-feature-revision-log-comment }
+    update: { tags: [feature-revisions], x-speakeasy-name-override: add-log-comment }
   - target: $..[?(@.operationId=="putFeatureRevisionMetadataV2")].tags
     remove: true
   - target: $..[?(@.operationId=="putFeatureRevisionMetadataV2")]
-    update: { tags: [feature-revisions], x-speakeasy-name-override: put-feature-revision-metadata }
+    update: { tags: [feature-revisions], x-speakeasy-name-override: set-metadata }
   - target: $..[?(@.operationId=="putFeatureRevisionPrerequisitesV2")].tags
     remove: true
   - target: $..[?(@.operationId=="putFeatureRevisionPrerequisitesV2")]
-    update: { tags: [feature-revisions], x-speakeasy-name-override: put-feature-revision-prerequisites }
+    update: { tags: [feature-revisions], x-speakeasy-name-override: set-prerequisites }
   - target: $..[?(@.operationId=="putFeatureRevisionRuleRampScheduleV2")].tags
     remove: true
   - target: $..[?(@.operationId=="putFeatureRevisionRuleRampScheduleV2")]
-    update: { tags: [feature-revisions], x-speakeasy-name-override: put-feature-revision-rule-ramp-schedule }
+    update: { tags: [feature-revisions], x-speakeasy-name-override: set-rule-ramp-schedule }
   - target: $..[?(@.operationId=="putFeatureRevisionRuleV2")].tags
     remove: true
   - target: $..[?(@.operationId=="putFeatureRevisionRuleV2")]
-    update: { tags: [feature-revisions], x-speakeasy-name-override: put-feature-revision-rule }
+    update: { tags: [feature-revisions], x-speakeasy-name-override: update-rule }

@@ -578,9 +578,9 @@ func (s *FeatureRevisions) Create(ctx context.Context, request operations.PostFe
 
 }
 
-// GetFeatureRevisionLatest - Get the most recent active draft revision
+// Latest - Get the most recent active draft revision
 // Returns the most recently updated active draft revision for the feature. Returns 404 if no matching draft exists. Filter by status, author, or use `mine=true` to scope to the calling user's own drafts.
-func (s *FeatureRevisions) GetFeatureRevisionLatest(ctx context.Context, request operations.GetFeatureRevisionLatestV2Request, opts ...operations.Option) (*operations.GetFeatureRevisionLatestV2Response, error) {
+func (s *FeatureRevisions) Latest(ctx context.Context, request operations.GetFeatureRevisionLatestV2Request, opts ...operations.Option) (*operations.GetFeatureRevisionLatestV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -872,9 +872,9 @@ func (s *FeatureRevisions) Get(ctx context.Context, request operations.GetFeatur
 
 }
 
-// GetFeatureRevisionDiff - Diff a revision against another revision
+// Diff a revision against another revision
 // Returns a schema-keyed JSON diff between this revision and a baseline. The same shapes the in-app review surface produces under `Copy as → Minimal JSON` / `Full JSON`: `minimal` lists only what changed (with id-keyed arrays bucketed into added/removed/modified items and reorder detection), while `full` returns the complete before/after content of the revision. Lifecycle fields (version, status, comment, date, createdBy, publishedBy) are excluded from the diff body and echoed via `from` / `to` instead. Defaults to diffing against the revision's own `baseVersion`; pass `?base=live` to diff against the current live revision, or `?base=<version>` for an arbitrary historical one.
-func (s *FeatureRevisions) GetFeatureRevisionDiff(ctx context.Context, request operations.GetFeatureRevisionDiffV2Request, opts ...operations.Option) (*operations.GetFeatureRevisionDiffV2Response, error) {
+func (s *FeatureRevisions) Diff(ctx context.Context, request operations.GetFeatureRevisionDiffV2Request, opts ...operations.Option) (*operations.GetFeatureRevisionDiffV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1021,8 +1021,8 @@ func (s *FeatureRevisions) GetFeatureRevisionDiff(ctx context.Context, request o
 
 }
 
-// PutFeatureRevisionMetadata - Update revision metadata
-func (s *FeatureRevisions) PutFeatureRevisionMetadata(ctx context.Context, request operations.PutFeatureRevisionMetadataV2Request, opts ...operations.Option) (*operations.PutFeatureRevisionMetadataV2Response, error) {
+// SetMetadata - Update revision metadata
+func (s *FeatureRevisions) SetMetadata(ctx context.Context, request operations.PutFeatureRevisionMetadataV2Request, opts ...operations.Option) (*operations.PutFeatureRevisionMetadataV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1172,8 +1172,8 @@ func (s *FeatureRevisions) PutFeatureRevisionMetadata(ctx context.Context, reque
 
 }
 
-// PutFeatureRevisionDefaultValue - Set the default value in a draft revision
-func (s *FeatureRevisions) PutFeatureRevisionDefaultValue(ctx context.Context, request operations.PutFeatureRevisionDefaultValueV2Request, opts ...operations.Option) (*operations.PutFeatureRevisionDefaultValueV2Response, error) {
+// SetDefaultValue - Set the default value in a draft revision
+func (s *FeatureRevisions) SetDefaultValue(ctx context.Context, request operations.PutFeatureRevisionDefaultValueV2Request, opts ...operations.Option) (*operations.PutFeatureRevisionDefaultValueV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1323,9 +1323,9 @@ func (s *FeatureRevisions) PutFeatureRevisionDefaultValue(ctx context.Context, r
 
 }
 
-// PutFeatureRevisionPrerequisites - Set feature-level prerequisites in a draft revision
+// SetPrerequisites - Set feature-level prerequisites in a draft revision
 // Sets the feature-level prerequisites for this revision. Each prerequisite must be a boolean feature flag; the gate is always 'prerequisite flag is on'. The condition is applied automatically — only the flag ID is required.
-func (s *FeatureRevisions) PutFeatureRevisionPrerequisites(ctx context.Context, request operations.PutFeatureRevisionPrerequisitesV2Request, opts ...operations.Option) (*operations.PutFeatureRevisionPrerequisitesV2Response, error) {
+func (s *FeatureRevisions) SetPrerequisites(ctx context.Context, request operations.PutFeatureRevisionPrerequisitesV2Request, opts ...operations.Option) (*operations.PutFeatureRevisionPrerequisitesV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1475,8 +1475,8 @@ func (s *FeatureRevisions) PutFeatureRevisionPrerequisites(ctx context.Context, 
 
 }
 
-// PutFeatureRevisionHoldout - Set holdout in a draft revision
-func (s *FeatureRevisions) PutFeatureRevisionHoldout(ctx context.Context, request operations.PutFeatureRevisionHoldoutV2Request, opts ...operations.Option) (*operations.PutFeatureRevisionHoldoutV2Response, error) {
+// SetHoldout - Set holdout in a draft revision
+func (s *FeatureRevisions) SetHoldout(ctx context.Context, request operations.PutFeatureRevisionHoldoutV2Request, opts ...operations.Option) (*operations.PutFeatureRevisionHoldoutV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1626,8 +1626,8 @@ func (s *FeatureRevisions) PutFeatureRevisionHoldout(ctx context.Context, reques
 
 }
 
-// PutFeatureRevisionArchive - Set archived state in a draft revision
-func (s *FeatureRevisions) PutFeatureRevisionArchive(ctx context.Context, request operations.PutFeatureRevisionArchiveV2Request, opts ...operations.Option) (*operations.PutFeatureRevisionArchiveV2Response, error) {
+// Archive - Set archived state in a draft revision
+func (s *FeatureRevisions) Archive(ctx context.Context, request operations.PutFeatureRevisionArchiveV2Request, opts ...operations.Option) (*operations.PutFeatureRevisionArchiveV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1777,8 +1777,8 @@ func (s *FeatureRevisions) PutFeatureRevisionArchive(ctx context.Context, reques
 
 }
 
-// PostFeatureRevisionToggle - Toggle an environment on/off in a draft revision
-func (s *FeatureRevisions) PostFeatureRevisionToggle(ctx context.Context, request operations.PostFeatureRevisionToggleV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionToggleV2Response, error) {
+// Toggle an environment on/off in a draft revision
+func (s *FeatureRevisions) Toggle(ctx context.Context, request operations.PostFeatureRevisionToggleV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionToggleV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1928,11 +1928,11 @@ func (s *FeatureRevisions) PostFeatureRevisionToggle(ctx context.Context, reques
 
 }
 
-// PostFeatureRevisionRuleAdd - Add a rule to a draft revision
+// AddRule - Add a rule to a draft revision
 // Appends a new rule to the revision's rule list. Supply `allEnvironments: true` on the rule to target all environments, or `environments: [...]` to scope to specific ones.
 //
 // **Scheduling:** For `force` and `rollout` rules, attach a schedule via `rampSchedule` (multi-step ramp) or `schedule` (simple start/end window) — these create standalone ramp actions and set `pendingRamp: "create"` on the rule. For `experiment-ref` and `safe-rollout` rules, only `schedule` is supported and is stored as legacy schedule fields on the rule itself (`rampSchedule` is not available for these rule types).
-func (s *FeatureRevisions) PostFeatureRevisionRuleAdd(ctx context.Context, request operations.PostFeatureRevisionRuleAddV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionRuleAddV2Response, error) {
+func (s *FeatureRevisions) AddRule(ctx context.Context, request operations.PostFeatureRevisionRuleAddV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionRuleAddV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -2082,11 +2082,11 @@ func (s *FeatureRevisions) PostFeatureRevisionRuleAdd(ctx context.Context, reque
 
 }
 
-// PutFeatureRevisionRule - Update a rule in a draft revision
+// UpdateRule - Update a rule in a draft revision
 // Patches fields on an existing rule (identified by `ruleId`). The rule `type` cannot be changed. Scope can be updated via `allEnvironments` / `environments` patch fields.
 //
 // **Scheduling:** For `force` and `rollout` rules, update the schedule via `rampSchedule` (multi-step ramp) or `schedule` (simple start/end window) — these manage standalone ramp actions and set `pendingRamp: "create"` on the rule. For `experiment-ref` and `safe-rollout` rules, only `schedule` is supported and updates legacy schedule fields on the rule itself (`rampSchedule` is not available for these rule types).
-func (s *FeatureRevisions) PutFeatureRevisionRule(ctx context.Context, request operations.PutFeatureRevisionRuleV2Request, opts ...operations.Option) (*operations.PutFeatureRevisionRuleV2Response, error) {
+func (s *FeatureRevisions) UpdateRule(ctx context.Context, request operations.PutFeatureRevisionRuleV2Request, opts ...operations.Option) (*operations.PutFeatureRevisionRuleV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -2236,9 +2236,9 @@ func (s *FeatureRevisions) PutFeatureRevisionRule(ctx context.Context, request o
 
 }
 
-// DeleteFeatureRevisionRule - Delete a rule from a draft revision
+// DeleteRule - Delete a rule from a draft revision
 // Removes the rule from the revision. Any pending ramp actions for this rule are also cleared.
-func (s *FeatureRevisions) DeleteFeatureRevisionRule(ctx context.Context, request operations.DeleteFeatureRevisionRuleV2Request, opts ...operations.Option) (*operations.DeleteFeatureRevisionRuleV2Response, error) {
+func (s *FeatureRevisions) DeleteRule(ctx context.Context, request operations.DeleteFeatureRevisionRuleV2Request, opts ...operations.Option) (*operations.DeleteFeatureRevisionRuleV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -2388,9 +2388,9 @@ func (s *FeatureRevisions) DeleteFeatureRevisionRule(ctx context.Context, reques
 
 }
 
-// PostFeatureRevisionRulesReorder - Reorder rules in the revision
+// ReorderRules - Reorder rules in the revision
 // Replaces the flat global rule order. `ruleIds` must contain **exactly** the set of all existing rule IDs in the revision — no additions, omissions, or duplicates.
-func (s *FeatureRevisions) PostFeatureRevisionRulesReorder(ctx context.Context, request operations.PostFeatureRevisionRulesReorderV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionRulesReorderV2Response, error) {
+func (s *FeatureRevisions) ReorderRules(ctx context.Context, request operations.PostFeatureRevisionRulesReorderV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionRulesReorderV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -2540,11 +2540,11 @@ func (s *FeatureRevisions) PostFeatureRevisionRulesReorder(ctx context.Context, 
 
 }
 
-// PutFeatureRevisionRuleRampSchedule - Set ramp schedule for a rule
+// SetRuleRampSchedule - Set ramp schedule for a rule
 // Queues a revision-controlled ramp action for this rule. If the rule already has a live ramp schedule, this stores an `update` action applied on publish; otherwise it stores a `create` action. No live schedule config changes are applied immediately by this endpoint.
 //
 // You can build the ramp from a template (`templateId`) and set the rollback anchor (`startState`) in the same request — e.g. pull in a template and pass `startState: { "coverage": 0 }` so a rollback returns the rule to 0%.
-func (s *FeatureRevisions) PutFeatureRevisionRuleRampSchedule(ctx context.Context, request operations.PutFeatureRevisionRuleRampScheduleV2Request, opts ...operations.Option) (*operations.PutFeatureRevisionRuleRampScheduleV2Response, error) {
+func (s *FeatureRevisions) SetRuleRampSchedule(ctx context.Context, request operations.PutFeatureRevisionRuleRampScheduleV2Request, opts ...operations.Option) (*operations.PutFeatureRevisionRuleRampScheduleV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -2694,9 +2694,9 @@ func (s *FeatureRevisions) PutFeatureRevisionRuleRampSchedule(ctx context.Contex
 
 }
 
-// DeleteFeatureRevisionRuleRampSchedule - Remove ramp schedule from a rule
+// DeleteRuleRampSchedule - Remove ramp schedule from a rule
 // Clears any pending ramp action for this rule. If a live ramp schedule exists, queues a detach that removes it on publish — the rule will show `pendingRamp: "detach"`. If only a pending create exists, it is removed and `pendingRamp` is cleared.
-func (s *FeatureRevisions) DeleteFeatureRevisionRuleRampSchedule(ctx context.Context, request operations.DeleteFeatureRevisionRuleRampScheduleV2Request, opts ...operations.Option) (*operations.DeleteFeatureRevisionRuleRampScheduleV2Response, error) {
+func (s *FeatureRevisions) DeleteRuleRampSchedule(ctx context.Context, request operations.DeleteFeatureRevisionRuleRampScheduleV2Request, opts ...operations.Option) (*operations.DeleteFeatureRevisionRuleRampScheduleV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -2846,13 +2846,13 @@ func (s *FeatureRevisions) DeleteFeatureRevisionRuleRampSchedule(ctx context.Con
 
 }
 
-// PostFeatureRevisionRequestReview - Request review for a draft revision
+// RequestReview - Request review for a draft revision
 // Moves the draft into the `pending-review` state and notifies reviewers.
 //
 // Set `autoPublishOnApproval` to `true` to publish the revision automatically the moment it is approved (GitHub auto-merge model). This requires the org to have auto-publish-on-approval enabled for the feature and the caller to have publish permission; the auto-publish then executes with the caller's authority.
 //
 // Set `scheduledPublishAt` to a future ISO date-time to defer the auto-publish until that date (it still also requires approval when review is required). Use `scheduledPublishLockEdits` to freeze edits to this draft while the schedule is pending, and `scheduledPublishLockOthers` to block publishing other drafts of this feature in the meantime.
-func (s *FeatureRevisions) PostFeatureRevisionRequestReview(ctx context.Context, request operations.PostFeatureRevisionRequestReviewV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionRequestReviewV2Response, error) {
+func (s *FeatureRevisions) RequestReview(ctx context.Context, request operations.PostFeatureRevisionRequestReviewV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionRequestReviewV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -3002,11 +3002,11 @@ func (s *FeatureRevisions) PostFeatureRevisionRequestReview(ctx context.Context,
 
 }
 
-// PostFeatureRevisionSchedulePublish - Schedule (or cancel) a deferred publish for a draft revision
+// SchedulePublish - Schedule (or cancel) a deferred publish for a draft revision
 // Arms a deferred publish: the revision publishes automatically on/after `scheduledPublishAt` (and, when review is required, only once also approved). Send `scheduledPublishAt: null` to cancel the schedule.
 //
 // Use `lockEdits` to freeze content edits to this draft while the schedule is pending (rebasing is still allowed), and `lockOthers` to block publishing other drafts of this feature until the schedule fires or is canceled. Requires publish permission; the publish executes with the caller's authority. An admin with bypass-approval permission can schedule even without approval — pass `bypassApproval: true` to mark it as an admin override, which locks the schedule to cancel-and-re-arm only.
-func (s *FeatureRevisions) PostFeatureRevisionSchedulePublish(ctx context.Context, request operations.PostFeatureRevisionSchedulePublishV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionSchedulePublishV2Response, error) {
+func (s *FeatureRevisions) SchedulePublish(ctx context.Context, request operations.PostFeatureRevisionSchedulePublishV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionSchedulePublishV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -3156,11 +3156,11 @@ func (s *FeatureRevisions) PostFeatureRevisionSchedulePublish(ctx context.Contex
 
 }
 
-// PostFeatureRevisionSubmitReview - Submit a review on a draft revision
+// SubmitReview - Submit a review on a draft revision
 // Submits an `approve`, `request-changes`, or `comment` review on the draft. Contributors cannot approve their own drafts when `blockSelfApproval` is enabled.
 //
 // When `action` is `approve` and the revision has `autoPublishOnApproval` enabled, the revision is automatically published after approval. The response includes `autoPublished: true` when this happens. Pass `skipAutoPublish: true` to approve without triggering auto-publish.
-func (s *FeatureRevisions) PostFeatureRevisionSubmitReview(ctx context.Context, request operations.PostFeatureRevisionSubmitReviewV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionSubmitReviewV2Response, error) {
+func (s *FeatureRevisions) SubmitReview(ctx context.Context, request operations.PostFeatureRevisionSubmitReviewV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionSubmitReviewV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -3310,9 +3310,9 @@ func (s *FeatureRevisions) PostFeatureRevisionSubmitReview(ctx context.Context, 
 
 }
 
-// PostFeatureRevisionRecallReview - Recall a review request (revert to draft)
+// RecallReview - Recall a review request (revert to draft)
 // Retracts the review request, returning the revision from `pending-review`, `changes-requested`, or `approved` back to `draft`. Allowed for any user with draft-management permission on the feature (the same permission required to request review), not only the original requester. Existing review log entries are preserved as audit history but any in-flight reviewer verdicts (Approved / Requested Changes) submitted during this review cycle no longer count — submitting a fresh `request-review` starts a new cycle.
-func (s *FeatureRevisions) PostFeatureRevisionRecallReview(ctx context.Context, request operations.PostFeatureRevisionRecallReviewV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionRecallReviewV2Response, error) {
+func (s *FeatureRevisions) RecallReview(ctx context.Context, request operations.PostFeatureRevisionRecallReviewV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionRecallReviewV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -3462,9 +3462,9 @@ func (s *FeatureRevisions) PostFeatureRevisionRecallReview(ctx context.Context, 
 
 }
 
-// PostFeatureRevisionUndoReview - Undo a reviewer's own review verdict
+// UndoReview - Undo a reviewer's own review verdict
 // Reviewer retracts their own verdict. The revision status rewinds to the state implied by the remaining active verdicts from other reviewers: any outstanding `Requested Changes` → `changes-requested`, else any outstanding `Approved` → `approved`, else `pending-review`. Existing review comments are preserved. If the retraction resolves the revision to `approved` and auto-publish-on-approval is armed, the revision is published.
-func (s *FeatureRevisions) PostFeatureRevisionUndoReview(ctx context.Context, request operations.PostFeatureRevisionUndoReviewV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionUndoReviewV2Response, error) {
+func (s *FeatureRevisions) UndoReview(ctx context.Context, request operations.PostFeatureRevisionUndoReviewV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionUndoReviewV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -3614,9 +3614,9 @@ func (s *FeatureRevisions) PostFeatureRevisionUndoReview(ctx context.Context, re
 
 }
 
-// GetFeatureRevisionLog - List the activity log for a revision
+// Log - List the activity log for a revision
 // Returns every log entry for the revision — content edits (rules, default value, rebases), review lifecycle events (review requested, approved, changes requested, recalled, undone), comments, and other audit events — sorted oldest-first.
-func (s *FeatureRevisions) GetFeatureRevisionLog(ctx context.Context, request operations.GetFeatureRevisionLogV2Request, opts ...operations.Option) (*operations.GetFeatureRevisionLogV2Response, error) {
+func (s *FeatureRevisions) Log(ctx context.Context, request operations.GetFeatureRevisionLogV2Request, opts ...operations.Option) (*operations.GetFeatureRevisionLogV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -3759,9 +3759,9 @@ func (s *FeatureRevisions) GetFeatureRevisionLog(ctx context.Context, request op
 
 }
 
-// PutFeatureRevisionLogComment - Edit the comment text of an owned log entry
+// AddLogComment - Edit the comment text of an owned log entry
 // Author of a `Comment`, `Approved`, or `Requested Changes` log entry can rewrite its comment text. The entry's action and other audit-trail metadata remain immutable; this only mutates `value.comment`. Other audit events (e.g. `Review Requested`, system events) are not editable.
-func (s *FeatureRevisions) PutFeatureRevisionLogComment(ctx context.Context, request operations.PutFeatureRevisionLogCommentV2Request, opts ...operations.Option) (*operations.PutFeatureRevisionLogCommentV2Response, error) {
+func (s *FeatureRevisions) AddLogComment(ctx context.Context, request operations.PutFeatureRevisionLogCommentV2Request, opts ...operations.Option) (*operations.PutFeatureRevisionLogCommentV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -3911,9 +3911,9 @@ func (s *FeatureRevisions) PutFeatureRevisionLogComment(ctx context.Context, req
 
 }
 
-// DeleteFeatureRevisionLogEntry - Delete an owned revision Comment entry
+// DeleteLogEntry - Delete an owned revision Comment entry
 // Author of a `Comment` log entry can delete it. Verdict entries (Approved, Requested Changes, Review Requested) and other audit-trail events are immutable. To retract a verdict use `/undo-review`; to retract a review request use `/recall-review`.
-func (s *FeatureRevisions) DeleteFeatureRevisionLogEntry(ctx context.Context, request operations.DeleteFeatureRevisionLogEntryV2Request, opts ...operations.Option) (*operations.DeleteFeatureRevisionLogEntryV2Response, error) {
+func (s *FeatureRevisions) DeleteLogEntry(ctx context.Context, request operations.DeleteFeatureRevisionLogEntryV2Request, opts ...operations.Option) (*operations.DeleteFeatureRevisionLogEntryV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -4063,9 +4063,9 @@ func (s *FeatureRevisions) DeleteFeatureRevisionLogEntry(ctx context.Context, re
 
 }
 
-// GetFeatureRevisionMergeStatus - Get merge status for a draft revision
+// MergeStatus - Get merge status for a draft revision
 // Runs the three-way merge between the draft and the current live version without applying it. Conflicts are granular: each conflicting field gets its own key, and rules conflict individually (`rules.<ruleId>`, plus `rules.order` for competing reorders). Pass the returned `liveVersion` as `expectedLiveVersion` when rebasing. Also reports `rebaseRequired` so callers can detect ahead of time whether the publish endpoint will block until the draft is rebased.
-func (s *FeatureRevisions) GetFeatureRevisionMergeStatus(ctx context.Context, request operations.GetFeatureRevisionMergeStatusV2Request, opts ...operations.Option) (*operations.GetFeatureRevisionMergeStatusV2Response, error) {
+func (s *FeatureRevisions) MergeStatus(ctx context.Context, request operations.GetFeatureRevisionMergeStatusV2Request, opts ...operations.Option) (*operations.GetFeatureRevisionMergeStatusV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -4208,9 +4208,9 @@ func (s *FeatureRevisions) GetFeatureRevisionMergeStatus(ctx context.Context, re
 
 }
 
-// PostFeatureRevisionRebasePreview - Preview a rebase without applying it
+// RebasePreview - Preview a rebase without applying it
 // Dry-run of the rebase: runs the same three-way merge with the supplied `conflictResolutions` and returns every conflict (resolved and unresolved) plus the merged result once all are resolved — without modifying the draft. Use it to iterate on resolutions before committing them via the rebase endpoint.
-func (s *FeatureRevisions) PostFeatureRevisionRebasePreview(ctx context.Context, request operations.PostFeatureRevisionRebasePreviewV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionRebasePreviewV2Response, error) {
+func (s *FeatureRevisions) RebasePreview(ctx context.Context, request operations.PostFeatureRevisionRebasePreviewV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionRebasePreviewV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -4360,9 +4360,9 @@ func (s *FeatureRevisions) PostFeatureRevisionRebasePreview(ctx context.Context,
 
 }
 
-// PostFeatureRevisionRebase - Rebase a draft revision onto the current live version
+// Rebase a draft revision onto the current live version
 // Updates the draft's base revision to match the currently-live revision, applying the draft's changes on top. Supply `conflictResolutions` to resolve conflicting items individually — including per-rule (`rules.<ruleId>`) and rule-order (`rules.order`) conflicts. Supply `expectedLiveVersion` and/or `expectedDraftDateUpdated` (both returned by merge-status and rebase preview) to fail fast with `409` if either side changes between conflict review and submission. Unresolved conflicts also respond with `409`.
-func (s *FeatureRevisions) PostFeatureRevisionRebase(ctx context.Context, request operations.PostFeatureRevisionRebaseV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionRebaseV2Response, error) {
+func (s *FeatureRevisions) Rebase(ctx context.Context, request operations.PostFeatureRevisionRebaseV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionRebaseV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -4512,9 +4512,9 @@ func (s *FeatureRevisions) PostFeatureRevisionRebase(ctx context.Context, reques
 
 }
 
-// PostFeatureRevisionPublish - Publish a draft revision
+// Publish a draft revision
 // Immediately publishes a draft revision, making it the live version of the feature. Any pending ramp actions (`pendingRamp` on rules) are executed atomically — ramp schedules are created or detached as queued.
-func (s *FeatureRevisions) PostFeatureRevisionPublish(ctx context.Context, request operations.PostFeatureRevisionPublishV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionPublishV2Response, error) {
+func (s *FeatureRevisions) Publish(ctx context.Context, request operations.PostFeatureRevisionPublishV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionPublishV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -4664,8 +4664,8 @@ func (s *FeatureRevisions) PostFeatureRevisionPublish(ctx context.Context, reque
 
 }
 
-// PostFeatureRevisionDiscard - Discard a draft revision
-func (s *FeatureRevisions) PostFeatureRevisionDiscard(ctx context.Context, request operations.PostFeatureRevisionDiscardV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionDiscardV2Response, error) {
+// Discard a draft revision
+func (s *FeatureRevisions) Discard(ctx context.Context, request operations.PostFeatureRevisionDiscardV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionDiscardV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -4815,9 +4815,9 @@ func (s *FeatureRevisions) PostFeatureRevisionDiscard(ctx context.Context, reque
 
 }
 
-// PostFeatureRevisionReopen - Reopen a discarded revision as a draft
+// Reopen a discarded revision as a draft
 // Returns a `discarded` revision to `draft` status so it can be edited, reviewed, and published. Prior review state is not restored — the draft must go back through review if approvals are required.
-func (s *FeatureRevisions) PostFeatureRevisionReopen(ctx context.Context, request operations.PostFeatureRevisionReopenV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionReopenV2Response, error) {
+func (s *FeatureRevisions) Reopen(ctx context.Context, request operations.PostFeatureRevisionReopenV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionReopenV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -4967,8 +4967,8 @@ func (s *FeatureRevisions) PostFeatureRevisionReopen(ctx context.Context, reques
 
 }
 
-// PostFeatureRevisionRevert - Revert the feature to a prior revision
-func (s *FeatureRevisions) PostFeatureRevisionRevert(ctx context.Context, request operations.PostFeatureRevisionRevertV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionRevertV2Response, error) {
+// Revert the feature to a prior revision
+func (s *FeatureRevisions) Revert(ctx context.Context, request operations.PostFeatureRevisionRevertV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionRevertV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

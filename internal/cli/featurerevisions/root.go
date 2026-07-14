@@ -33,7 +33,7 @@ func InitFeatureRevisionsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initGetFeatureRevisionLatestCmd(FeatureRevisionsCmd); err != nil {
+	if err := initLatestCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
@@ -41,115 +41,115 @@ func InitFeatureRevisionsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initGetFeatureRevisionDiffCmd(FeatureRevisionsCmd); err != nil {
+	if err := initDiffCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPutFeatureRevisionMetadataCmd(FeatureRevisionsCmd); err != nil {
+	if err := initSetMetadataCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPutFeatureRevisionDefaultValueCmd(FeatureRevisionsCmd); err != nil {
+	if err := initSetDefaultValueCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPutFeatureRevisionPrerequisitesCmd(FeatureRevisionsCmd); err != nil {
+	if err := initSetPrerequisitesCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPutFeatureRevisionHoldoutCmd(FeatureRevisionsCmd); err != nil {
+	if err := initSetHoldoutCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPutFeatureRevisionArchiveCmd(FeatureRevisionsCmd); err != nil {
+	if err := initArchiveCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostFeatureRevisionToggleCmd(FeatureRevisionsCmd); err != nil {
+	if err := initToggleCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostFeatureRevisionRuleAddCmd(FeatureRevisionsCmd); err != nil {
+	if err := initAddRuleCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPutFeatureRevisionRuleCmd(FeatureRevisionsCmd); err != nil {
+	if err := initUpdateRuleCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initDeleteFeatureRevisionRuleCmd(FeatureRevisionsCmd); err != nil {
+	if err := initDeleteRuleCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostFeatureRevisionRulesReorderCmd(FeatureRevisionsCmd); err != nil {
+	if err := initReorderRulesCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPutFeatureRevisionRuleRampScheduleCmd(FeatureRevisionsCmd); err != nil {
+	if err := initSetRuleRampScheduleCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initDeleteFeatureRevisionRuleRampScheduleCmd(FeatureRevisionsCmd); err != nil {
+	if err := initDeleteRuleRampScheduleCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostFeatureRevisionRequestReviewCmd(FeatureRevisionsCmd); err != nil {
+	if err := initRequestReviewCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostFeatureRevisionSchedulePublishCmd(FeatureRevisionsCmd); err != nil {
+	if err := initSchedulePublishCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostFeatureRevisionSubmitReviewCmd(FeatureRevisionsCmd); err != nil {
+	if err := initSubmitReviewCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostFeatureRevisionRecallReviewCmd(FeatureRevisionsCmd); err != nil {
+	if err := initRecallReviewCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostFeatureRevisionUndoReviewCmd(FeatureRevisionsCmd); err != nil {
+	if err := initUndoReviewCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initGetFeatureRevisionLogCmd(FeatureRevisionsCmd); err != nil {
+	if err := initLogCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPutFeatureRevisionLogCommentCmd(FeatureRevisionsCmd); err != nil {
+	if err := initAddLogCommentCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initDeleteFeatureRevisionLogEntryCmd(FeatureRevisionsCmd); err != nil {
+	if err := initDeleteLogEntryCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initGetFeatureRevisionMergeStatusCmd(FeatureRevisionsCmd); err != nil {
+	if err := initMergeStatusCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostFeatureRevisionRebasePreviewCmd(FeatureRevisionsCmd); err != nil {
+	if err := initRebasePreviewCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostFeatureRevisionRebaseCmd(FeatureRevisionsCmd); err != nil {
+	if err := initRebaseCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostFeatureRevisionPublishCmd(FeatureRevisionsCmd); err != nil {
+	if err := initPublishCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostFeatureRevisionDiscardCmd(FeatureRevisionsCmd); err != nil {
+	if err := initDiscardCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostFeatureRevisionReopenCmd(FeatureRevisionsCmd); err != nil {
+	if err := initReopenCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostFeatureRevisionRevertCmd(FeatureRevisionsCmd); err != nil {
+	if err := initRevertCmd(FeatureRevisionsCmd); err != nil {
 		return err
 	}
 

@@ -6968,7 +6968,7 @@ paths:
 
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [feature-revisions]
-      x-speakeasy-name-override: get-feature-revision-latest
+      x-speakeasy-name-override: latest
   /v2/features/{id}/revisions/{version}:
     get:
       operationId: getFeatureRevisionV2
@@ -7165,7 +7165,7 @@ paths:
 
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [feature-revisions]
-      x-speakeasy-name-override: get-feature-revision-diff
+      x-speakeasy-name-override: diff
   /v2/features/{id}/revisions/{version}/metadata:
     put:
       operationId: putFeatureRevisionMetadataV2
@@ -7319,7 +7319,7 @@ paths:
 
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [feature-revisions]
-      x-speakeasy-name-override: put-feature-revision-metadata
+      x-speakeasy-name-override: set-metadata
   /v2/features/{id}/revisions/{version}/default-value:
     put:
       operationId: putFeatureRevisionDefaultValueV2
@@ -7380,7 +7380,7 @@ paths:
 
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [feature-revisions]
-      x-speakeasy-name-override: put-feature-revision-default-value
+      x-speakeasy-name-override: set-default-value
   /v2/features/{id}/revisions/{version}/prerequisites:
     put:
       operationId: putFeatureRevisionPrerequisitesV2
@@ -7454,7 +7454,7 @@ paths:
 
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [feature-revisions]
-      x-speakeasy-name-override: put-feature-revision-prerequisites
+      x-speakeasy-name-override: set-prerequisites
   /v2/features/{id}/revisions/{version}/holdout:
     put:
       operationId: putFeatureRevisionHoldoutV2
@@ -7526,7 +7526,7 @@ paths:
 
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [feature-revisions]
-      x-speakeasy-name-override: put-feature-revision-holdout
+      x-speakeasy-name-override: set-holdout
   /v2/features/{id}/revisions/{version}/archive:
     put:
       operationId: putFeatureRevisionArchiveV2
@@ -7587,7 +7587,7 @@ paths:
 
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [feature-revisions]
-      x-speakeasy-name-override: put-feature-revision-archive
+      x-speakeasy-name-override: archive
   /v2/features/{id}/revisions/{version}/toggle:
     post:
       operationId: postFeatureRevisionToggleV2
@@ -7651,7 +7651,7 @@ paths:
 
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [feature-revisions]
-      x-speakeasy-name-override: post-feature-revision-toggle
+      x-speakeasy-name-override: toggle
   /v2/features/{id}/revisions/{version}/rules:
     post:
       operationId: postFeatureRevisionRuleAddV2
@@ -8110,7 +8110,7 @@ paths:
 
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [feature-revisions]
-      x-speakeasy-name-override: post-feature-revision-rule-add
+      x-speakeasy-name-override: add-rule
   /v2/features/{id}/revisions/{version}/rules/{ruleId}:
     put:
       operationId: putFeatureRevisionRuleV2
@@ -8657,7 +8657,7 @@ paths:
 
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [feature-revisions]
-      x-speakeasy-name-override: put-feature-revision-rule
+      x-speakeasy-name-override: update-rule
     delete:
       operationId: deleteFeatureRevisionRuleV2
       summary: Delete a rule from a draft revision
@@ -8716,7 +8716,7 @@ paths:
 
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [feature-revisions]
-      x-speakeasy-name-override: delete-feature-revision-rule
+      x-speakeasy-name-override: delete-rule
   /v2/features/{id}/revisions/{version}/rules/reorder:
     post:
       operationId: postFeatureRevisionRulesReorderV2
@@ -8781,7 +8781,7 @@ paths:
 
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [feature-revisions]
-      x-speakeasy-name-override: post-feature-revision-rules-reorder
+      x-speakeasy-name-override: reorder-rules
   /v2/features/{id}/revisions/{version}/rules/{ruleId}/ramp-schedule:
     put:
       operationId: putFeatureRevisionRuleRampScheduleV2
@@ -9287,7 +9287,7 @@ paths:
 
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [feature-revisions]
-      x-speakeasy-name-override: put-feature-revision-rule-ramp-schedule
+      x-speakeasy-name-override: set-rule-ramp-schedule
     delete:
       operationId: deleteFeatureRevisionRuleRampScheduleV2
       summary: Remove ramp schedule from a rule
@@ -9346,7 +9346,7 @@ paths:
 
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [feature-revisions]
-      x-speakeasy-name-override: delete-feature-revision-rule-ramp-schedule
+      x-speakeasy-name-override: delete-rule-ramp-schedule
   /v2/features/{id}/revisions/{version}/request-review:
     post:
       operationId: postFeatureRevisionRequestReviewV2
@@ -9410,7 +9410,7 @@ paths:
 
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [feature-revisions]
-      x-speakeasy-name-override: post-feature-revision-request-review
+      x-speakeasy-name-override: request-review
   /v2/features/{id}/revisions/{version}/schedule-publish:
     post:
       operationId: postFeatureRevisionSchedulePublishV2
@@ -9471,7 +9471,7 @@ paths:
 
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [feature-revisions]
-      x-speakeasy-name-override: post-feature-revision-schedule-publish
+      x-speakeasy-name-override: schedule-publish
   /v2/features/{id}/revisions/{version}/submit-review:
     post:
       operationId: postFeatureRevisionSubmitReviewV2
@@ -9531,7 +9531,7 @@ paths:
 
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [feature-revisions]
-      x-speakeasy-name-override: post-feature-revision-submit-review
+      x-speakeasy-name-override: submit-review
   /v2/features/{id}/revisions/{version}/recall-review:
     post:
       operationId: postFeatureRevisionRecallReviewV2
@@ -9576,7 +9576,7 @@ paths:
 
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [feature-revisions]
-      x-speakeasy-name-override: post-feature-revision-recall-review
+      x-speakeasy-name-override: recall-review
   /v2/features/{id}/revisions/{version}/undo-review:
     post:
       operationId: postFeatureRevisionUndoReviewV2
@@ -9621,7 +9621,7 @@ paths:
 
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [feature-revisions]
-      x-speakeasy-name-override: post-feature-revision-undo-review
+      x-speakeasy-name-override: undo-review
   /v2/features/{id}/revisions/{version}/log:
     get:
       operationId: getFeatureRevisionLogV2
@@ -9660,7 +9660,7 @@ paths:
 
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [feature-revisions]
-      x-speakeasy-name-override: get-feature-revision-log
+      x-speakeasy-name-override: log
   /v2/features/{id}/revisions/{version}/log/{logId}:
     put:
       operationId: putFeatureRevisionLogCommentV2
@@ -9712,7 +9712,7 @@ paths:
 
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [feature-revisions]
-      x-speakeasy-name-override: put-feature-revision-log-comment
+      x-speakeasy-name-override: add-log-comment
     delete:
       operationId: deleteFeatureRevisionLogEntryV2
       summary: Delete an owned revision Comment entry
@@ -9758,7 +9758,7 @@ paths:
 
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [feature-revisions]
-      x-speakeasy-name-override: delete-feature-revision-log-entry
+      x-speakeasy-name-override: delete-log-entry
   /v2/features/{id}/revisions/{version}/merge-status:
     get:
       operationId: getFeatureRevisionMergeStatusV2
@@ -9867,7 +9867,7 @@ paths:
 
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [feature-revisions]
-      x-speakeasy-name-override: get-feature-revision-merge-status
+      x-speakeasy-name-override: merge-status
   /v2/features/{id}/revisions/{version}/rebase/preview:
     post:
       operationId: postFeatureRevisionRebasePreviewV2
@@ -9998,7 +9998,7 @@ paths:
 
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [feature-revisions]
-      x-speakeasy-name-override: post-feature-revision-rebase-preview
+      x-speakeasy-name-override: rebase-preview
   /v2/features/{id}/revisions/{version}/rebase:
     post:
       operationId: postFeatureRevisionRebaseV2
@@ -10062,7 +10062,7 @@ paths:
 
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [feature-revisions]
-      x-speakeasy-name-override: post-feature-revision-rebase
+      x-speakeasy-name-override: rebase
   /v2/features/{id}/revisions/{version}/publish:
     post:
       operationId: postFeatureRevisionPublishV2
@@ -10113,7 +10113,7 @@ paths:
 
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [feature-revisions]
-      x-speakeasy-name-override: post-feature-revision-publish
+      x-speakeasy-name-override: publish
   /v2/features/{id}/revisions/{version}/discard:
     post:
       operationId: postFeatureRevisionDiscardV2
@@ -10156,7 +10156,7 @@ paths:
 
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [feature-revisions]
-      x-speakeasy-name-override: post-feature-revision-discard
+      x-speakeasy-name-override: discard
   /v2/features/{id}/revisions/{version}/reopen:
     post:
       operationId: postFeatureRevisionReopenV2
@@ -10201,7 +10201,7 @@ paths:
 
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [feature-revisions]
-      x-speakeasy-name-override: post-feature-revision-reopen
+      x-speakeasy-name-override: reopen
   /v2/features/{id}/revisions/{version}/revert:
     post:
       operationId: postFeatureRevisionRevertV2
@@ -10253,7 +10253,7 @@ paths:
 
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [feature-revisions]
-      x-speakeasy-name-override: post-feature-revision-revert
+      x-speakeasy-name-override: revert
   /v1/archetypes:
     get:
       operationId: listArchetypes

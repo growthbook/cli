@@ -1,0 +1,57 @@
+## growthbook feature-revisions rebase
+
+Rebase a draft revision onto the current live version
+
+### Synopsis
+
+Updates the draft's base revision to match the currently-live revision, applying the draft's changes on top. Supply `conflictResolutions` to resolve conflicting items individually — including per-rule (`rules.<ruleId>`) and rule-order (`rules.order`) conflicts. Supply `expectedLiveVersion` and/or `expectedDraftDateUpdated` (both returned by merge-status and rebase preview) to fail fast with `409` if either side changes between conflict review and submission. Unresolved conflicts also respond with `409`.
+
+```
+growthbook feature-revisions rebase [flags]
+```
+
+### Examples
+
+```
+  growthbook feature-revisions rebase --id <id> --version-param 985805
+```
+
+### Options
+
+```
+      --body string                          Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -c, --conflict-resolutions string          Map of conflict key → resolution. Keys come from the returned conflicts: defaultValue, prerequisites, archived, holdout, environmentsEnabled.<env>, metadata.<field>, rules.<ruleId>, and rules.order. overwrite keeps the draft's version of that item; discard keeps live's. The blanket rules key applies one strategy to all rule-level conflicts.
+      --expected-draft-date-updated string   Optimistic-concurrency guard for the draft side: the draft's draftDateUpdated timestamp as returned by merge-status or rebase preview. If the draft has been modified since (e.g. by a co-author), the request fails with 409 instead of applying resolutions against changed draft content.
+      --expected-live-version int            Optimistic-concurrency guard: the live version the resolutions were authored against (as returned by merge-status or rebase preview). If live has since moved, the request fails with 409 instead of applying resolutions to different conflicts.
+  -h, --help                                 help for rebase
+  -i, --id string                            [required]
+  -v, --version-param string                 [required]
+```
+
+### Options inherited from parent commands
+
+```
+      --agent-mode                    Enable structured errors and default TOON output for AI coding agents. Automatically enabled when a known agent environment is detected (CLAUDE_CODE, CURSOR_AGENT, etc.). Use --agent-mode=false to disable.
+      --bearer-auth string            Bearer auth token: your Secret Key or Personal Access Token, sent as an Authorization Bearer header.
+      --color string                  Control colored output: auto (color when output is a TTY), always, or never. Respects NO_COLOR and FORCE_COLOR env vars. (default "auto")
+  -d, --debug                         Log request and response diagnostics to stderr
+      --domain string                 Server template variable: domain
+      --dry-run                       Preview the request that would be sent without executing it (output to stderr)
+  -H, --header stringArray            Set a custom HTTP request header (format: "Key: Value"). Can be specified multiple times.
+      --include-headers               Include HTTP response headers in the output
+  -q, --jq string                     Filter and transform output using a jq expression (e.g., '.name', '.items[] | .id')
+      --no-interactive                Disable all interactive features (auto-prompting, explorer auto-launch, TUI forms)
+      --no-update-check               Disable the once-a-day check for a newer CLI version
+  -o, --output-format string          Specify the output format. Options: pretty, json, yaml, toon. (default "pretty")
+      --password string               HTTP Basic auth: use your GrowthBook Secret Key as the username and leave the password empty. password
+      --profile growthbook profiles   Use a named credential/server profile (manage with growthbook profiles)
+      --server string                 Select a server by index (for indexed servers) or name (for named servers)
+      --server-url string             Override the default server URL
+      --timeout string                HTTP request timeout (e.g., 30s, 5m, 100ms)
+      --usage                         Print the CLI Usage schema in KDL format
+      --username string               HTTP Basic auth: use your GrowthBook Secret Key as the username and leave the password empty. username
+```
+
+### SEE ALSO
+
+* [growthbook feature-revisions](growthbook_feature-revisions.md)	 - Draft revisions for feature flags, including rules, scheduling, and approval workflows
