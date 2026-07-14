@@ -281,36 +281,36 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`list-revisions`](docs/growthbook_feature-revisions_list-revisions.md) - List revisions across all features
 * [`list-for-feature`](docs/growthbook_feature-revisions_list-for-feature.md) - List revisions for a feature
 * [`create`](docs/growthbook_feature-revisions_create.md) - Create a draft revision
-* [`get-feature-revision-latest`](docs/growthbook_feature-revisions_get-feature-revision-latest.md) - Get the most recent active draft revision
+* [`latest`](docs/growthbook_feature-revisions_latest.md) - Get the most recent active draft revision
 * [`get`](docs/growthbook_feature-revisions_get.md) - Get a single feature revision
-* [`get-feature-revision-diff`](docs/growthbook_feature-revisions_get-feature-revision-diff.md) - Diff a revision against another revision
-* [`put-feature-revision-metadata`](docs/growthbook_feature-revisions_put-feature-revision-metadata.md) - Update revision metadata
-* [`put-feature-revision-default-value`](docs/growthbook_feature-revisions_put-feature-revision-default-value.md) - Set the default value in a draft revision
-* [`put-feature-revision-prerequisites`](docs/growthbook_feature-revisions_put-feature-revision-prerequisites.md) - Set feature-level prerequisites in a draft revision
-* [`put-feature-revision-holdout`](docs/growthbook_feature-revisions_put-feature-revision-holdout.md) - Set holdout in a draft revision
-* [`put-feature-revision-archive`](docs/growthbook_feature-revisions_put-feature-revision-archive.md) - Set archived state in a draft revision
-* [`post-feature-revision-toggle`](docs/growthbook_feature-revisions_post-feature-revision-toggle.md) - Toggle an environment on/off in a draft revision
-* [`post-feature-revision-rule-add`](docs/growthbook_feature-revisions_post-feature-revision-rule-add.md) - Add a rule to a draft revision
-* [`put-feature-revision-rule`](docs/growthbook_feature-revisions_put-feature-revision-rule.md) - Update a rule in a draft revision
-* [`delete-feature-revision-rule`](docs/growthbook_feature-revisions_delete-feature-revision-rule.md) - Delete a rule from a draft revision
-* [`post-feature-revision-rules-reorder`](docs/growthbook_feature-revisions_post-feature-revision-rules-reorder.md) - Reorder rules in the revision
-* [`put-feature-revision-rule-ramp-schedule`](docs/growthbook_feature-revisions_put-feature-revision-rule-ramp-schedule.md) - Set ramp schedule for a rule
-* [`delete-feature-revision-rule-ramp-schedule`](docs/growthbook_feature-revisions_delete-feature-revision-rule-ramp-schedule.md) - Remove ramp schedule from a rule
-* [`post-feature-revision-request-review`](docs/growthbook_feature-revisions_post-feature-revision-request-review.md) - Request review for a draft revision
-* [`post-feature-revision-schedule-publish`](docs/growthbook_feature-revisions_post-feature-revision-schedule-publish.md) - Schedule (or cancel) a deferred publish for a draft revision
-* [`post-feature-revision-submit-review`](docs/growthbook_feature-revisions_post-feature-revision-submit-review.md) - Submit a review on a draft revision
-* [`post-feature-revision-recall-review`](docs/growthbook_feature-revisions_post-feature-revision-recall-review.md) - Recall a review request (revert to draft)
-* [`post-feature-revision-undo-review`](docs/growthbook_feature-revisions_post-feature-revision-undo-review.md) - Undo a reviewer's own review verdict
-* [`get-feature-revision-log`](docs/growthbook_feature-revisions_get-feature-revision-log.md) - List the activity log for a revision
-* [`put-feature-revision-log-comment`](docs/growthbook_feature-revisions_put-feature-revision-log-comment.md) - Edit the comment text of an owned log entry
-* [`delete-feature-revision-log-entry`](docs/growthbook_feature-revisions_delete-feature-revision-log-entry.md) - Delete an owned revision Comment entry
-* [`get-feature-revision-merge-status`](docs/growthbook_feature-revisions_get-feature-revision-merge-status.md) - Get merge status for a draft revision
-* [`post-feature-revision-rebase-preview`](docs/growthbook_feature-revisions_post-feature-revision-rebase-preview.md) - Preview a rebase without applying it
-* [`post-feature-revision-rebase`](docs/growthbook_feature-revisions_post-feature-revision-rebase.md) - Rebase a draft revision onto the current live version
-* [`post-feature-revision-publish`](docs/growthbook_feature-revisions_post-feature-revision-publish.md) - Publish a draft revision
-* [`post-feature-revision-discard`](docs/growthbook_feature-revisions_post-feature-revision-discard.md) - Discard a draft revision
-* [`post-feature-revision-reopen`](docs/growthbook_feature-revisions_post-feature-revision-reopen.md) - Reopen a discarded revision as a draft
-* [`post-feature-revision-revert`](docs/growthbook_feature-revisions_post-feature-revision-revert.md) - Revert the feature to a prior revision
+* [`diff`](docs/growthbook_feature-revisions_diff.md) - Diff a revision against another revision
+* [`set-metadata`](docs/growthbook_feature-revisions_set-metadata.md) - Update revision metadata
+* [`set-default-value`](docs/growthbook_feature-revisions_set-default-value.md) - Set the default value in a draft revision
+* [`set-prerequisites`](docs/growthbook_feature-revisions_set-prerequisites.md) - Set feature-level prerequisites in a draft revision
+* [`set-holdout`](docs/growthbook_feature-revisions_set-holdout.md) - Set holdout in a draft revision
+* [`archive`](docs/growthbook_feature-revisions_archive.md) - Set archived state in a draft revision
+* [`toggle`](docs/growthbook_feature-revisions_toggle.md) - Toggle an environment on/off in a draft revision
+* [`add-rule`](docs/growthbook_feature-revisions_add-rule.md) - Add a rule to a draft revision
+* [`update-rule`](docs/growthbook_feature-revisions_update-rule.md) - Update a rule in a draft revision
+* [`delete-rule`](docs/growthbook_feature-revisions_delete-rule.md) - Delete a rule from a draft revision
+* [`reorder-rules`](docs/growthbook_feature-revisions_reorder-rules.md) - Reorder rules in the revision
+* [`set-rule-ramp-schedule`](docs/growthbook_feature-revisions_set-rule-ramp-schedule.md) - Set ramp schedule for a rule
+* [`delete-rule-ramp-schedule`](docs/growthbook_feature-revisions_delete-rule-ramp-schedule.md) - Remove ramp schedule from a rule
+* [`request-review`](docs/growthbook_feature-revisions_request-review.md) - Request review for a draft revision
+* [`schedule-publish`](docs/growthbook_feature-revisions_schedule-publish.md) - Schedule (or cancel) a deferred publish for a draft revision
+* [`submit-review`](docs/growthbook_feature-revisions_submit-review.md) - Submit a review on a draft revision
+* [`recall-review`](docs/growthbook_feature-revisions_recall-review.md) - Recall a review request (revert to draft)
+* [`undo-review`](docs/growthbook_feature-revisions_undo-review.md) - Undo a reviewer's own review verdict
+* [`log`](docs/growthbook_feature-revisions_log.md) - List the activity log for a revision
+* [`add-log-comment`](docs/growthbook_feature-revisions_add-log-comment.md) - Edit the comment text of an owned log entry
+* [`delete-log-entry`](docs/growthbook_feature-revisions_delete-log-entry.md) - Delete an owned revision Comment entry
+* [`merge-status`](docs/growthbook_feature-revisions_merge-status.md) - Get merge status for a draft revision
+* [`rebase-preview`](docs/growthbook_feature-revisions_rebase-preview.md) - Preview a rebase without applying it
+* [`rebase`](docs/growthbook_feature-revisions_rebase.md) - Rebase a draft revision onto the current live version
+* [`publish`](docs/growthbook_feature-revisions_publish.md) - Publish a draft revision
+* [`discard`](docs/growthbook_feature-revisions_discard.md) - Discard a draft revision
+* [`reopen`](docs/growthbook_feature-revisions_reopen.md) - Reopen a discarded revision as a draft
+* [`revert`](docs/growthbook_feature-revisions_revert.md) - Revert the feature to a prior revision
 
 ### [archetypes](docs/growthbook_archetypes.md)
 
