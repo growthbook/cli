@@ -2,7 +2,8 @@
 # proposes a version bump (see .github/workflows/sdk_generation.yaml). The
 # reviewer confirms Speakeasy's major/minor/patch classification before merge.
 #
-# Replace with a GitHub team alias (e.g. @growthbook/cli-maintainers) when one
-# exists. To make approval *required* (not just requested), enable branch
-# protection on `main` → "Require review from Code Owners".
+# NOTE: GitHub silently ignores the team below unless it has WRITE access to
+# this repo (github.com/orgs/growthbook/teams/cli-maintainers). To make approval
+# *required* (not just requested), enable branch protection on `main` →
+# "Require review from Code Owners".
 * @growthbook/cli-maintainers
