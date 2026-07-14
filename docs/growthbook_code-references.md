@@ -43,6 +43,6 @@ growthbook code-references [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
-* [growthbook code-references get-code-refs](growthbook_code-references_get-code-refs.md)	 - Get list of code references for a single feature id
-* [growthbook code-references list-code-refs](growthbook_code-references_list-code-refs.md)	 - Get list of all code references for the current organization
-* [growthbook code-references post-code-refs](growthbook_code-references_post-code-refs.md)	 - Submit list of code references
+* [growthbook code-references get-for-feature](growthbook_code-references_get-for-feature.md)	 - Get list of code references for a single feature id
+* [growthbook code-references list](growthbook_code-references_list.md)	 - Get list of all code references for the current organization
+* [growthbook code-references submit](growthbook_code-references_submit.md)	 - Submit list of code references

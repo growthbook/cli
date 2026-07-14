@@ -32,15 +32,15 @@ func InitReportsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPostReportRefreshCmd(ReportsCmd); err != nil {
+	if err := initRefreshCmd(ReportsCmd); err != nil {
 		return err
 	}
 
-	if err := initPutReportMetadataCmd(ReportsCmd); err != nil {
+	if err := initSetMetadataCmd(ReportsCmd); err != nil {
 		return err
 	}
 
-	if err := initPutReportSettingsCmd(ReportsCmd); err != nil {
+	if err := initSetSettingsCmd(ReportsCmd); err != nil {
 		return err
 	}
 

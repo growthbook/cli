@@ -52,6 +52,7 @@ growthbook [flags]
 * [growthbook constants](growthbook_constants.md)	 - Reusable named values referenced from feature flag values as `@const:key` and resolved into the SDK payload at build time
 * [growthbook contextual-bandit-queries](growthbook_contextual-bandit-queries.md)	 - Operations for contextual-bandit-queries
 * [growthbook contextual-bandits](growthbook_contextual-bandits.md)	 - Operations for contextual-bandits
+* [growthbook copy-transform](growthbook_copy-transform.md)	 - Copy Transform
 * [growthbook custom-fields](growthbook_custom-fields.md)	 - Operations for custom-fields
 * [growthbook dashboards](growthbook_dashboards.md)	 - Operations for dashboards
 * [growthbook data-sources](growthbook_data-sources.md)	 - How GrowthBook connects and queries your data, including cached database schema metadata (information schemas) for tables and columns
@@ -74,7 +75,6 @@ growthbook [flags]
 * [growthbook metrics](growthbook_metrics.md)	 - Metrics used as goals and guardrails for experiments
 * [growthbook namespaces](growthbook_namespaces.md)	 - Namespaces partition your user population into buckets so that experiments using the same hash attribute do not overlap unintentionally
 * [growthbook organizations](growthbook_organizations.md)	 - Organizations are used for multi-org deployments where different teams can run their own isolated feature flags and experiments
-* [growthbook post-copy-transform](growthbook_post-copy-transform.md)	 - Post Copy Transform
 * [growthbook profiles](growthbook_profiles.md)	 - Manage named credential/server profiles
 * [growthbook projects](growthbook_projects.md)	 - Projects are used to organize your feature flags and experiments
 * [growthbook queries](growthbook_queries.md)	 - Retrieve queries used in experiments to calculate results

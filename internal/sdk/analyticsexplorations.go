@@ -30,8 +30,8 @@ func newAnalyticsExplorations(rootSDK *Growthbook, sdkConfig config.SDKConfigura
 	}
 }
 
-// PostMetricExploration - Create a Metric based visualization
-func (s *AnalyticsExplorations) PostMetricExploration(ctx context.Context, request operations.PostMetricExplorationRequest, opts ...operations.Option) (*operations.PostMetricExplorationResponse, error) {
+// RunMetric - Create a Metric based visualization
+func (s *AnalyticsExplorations) RunMetric(ctx context.Context, request operations.PostMetricExplorationRequest, opts ...operations.Option) (*operations.PostMetricExplorationResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -185,8 +185,8 @@ func (s *AnalyticsExplorations) PostMetricExploration(ctx context.Context, reque
 
 }
 
-// PostFactTableExploration - Run a Fact Table based visualization
-func (s *AnalyticsExplorations) PostFactTableExploration(ctx context.Context, request operations.PostFactTableExplorationRequest, opts ...operations.Option) (*operations.PostFactTableExplorationResponse, error) {
+// RunFactTable - Run a Fact Table based visualization
+func (s *AnalyticsExplorations) RunFactTable(ctx context.Context, request operations.PostFactTableExplorationRequest, opts ...operations.Option) (*operations.PostFactTableExplorationResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -340,8 +340,8 @@ func (s *AnalyticsExplorations) PostFactTableExploration(ctx context.Context, re
 
 }
 
-// PostDataSourceExploration - Create a Data Source based visualization
-func (s *AnalyticsExplorations) PostDataSourceExploration(ctx context.Context, request operations.PostDataSourceExplorationRequest, opts ...operations.Option) (*operations.PostDataSourceExplorationResponse, error) {
+// RunDataSource - Create a Data Source based visualization
+func (s *AnalyticsExplorations) RunDataSource(ctx context.Context, request operations.PostDataSourceExplorationRequest, opts ...operations.Option) (*operations.PostDataSourceExplorationResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

@@ -212,8 +212,8 @@ func NewRootCommand() (*cobra.Command, error) {
 	if err := initGetSDKPayloadCmd(rootCmd); err != nil {
 		return nil, fmt.Errorf("init get-SDK-payload: %w", err)
 	}
-	if err := initPostCopyTransformCmd(rootCmd); err != nil {
-		return nil, fmt.Errorf("init post-copy-transform: %w", err)
+	if err := initCopyTransformCmd(rootCmd); err != nil {
+		return nil, fmt.Errorf("init copy-transform: %w", err)
 	}
 	if err := initConfigureCmd(rootCmd); err != nil {
 		return nil, fmt.Errorf("init configure: %w", err)

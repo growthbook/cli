@@ -223,7 +223,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 <summary>Available commands</summary>
 
 * [`get-SDK-payload`](docs/growthbook_get-SDK-payload.md) - Get a SDK payload
-* [`post-copy-transform`](docs/growthbook_post-copy-transform.md)
+* [`copy-transform`](docs/growthbook_copy-transform.md)
 
 ### [features-v1](docs/growthbook_features-v1.md)
 
@@ -349,8 +349,8 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`create`](docs/growthbook_visual-changesets_create.md) - Create a visual changeset for an experiment
 * [`get`](docs/growthbook_visual-changesets_get.md) - Get a single visual changeset
 * [`update`](docs/growthbook_visual-changesets_update.md) - Update a visual changeset
-* [`post-visual-change`](docs/growthbook_visual-changesets_post-visual-change.md) - Create a visual change for a visual changeset
-* [`put-visual-change`](docs/growthbook_visual-changesets_put-visual-change.md) - Update a visual change for a visual changeset
+* [`add-visual-change`](docs/growthbook_visual-changesets_add-visual-change.md) - Create a visual change for a visual changeset
+* [`update-visual-change`](docs/growthbook_visual-changesets_update-visual-change.md) - Update a visual change for a visual changeset
 
 ### [contextual-bandits](docs/growthbook_contextual-bandits.md)
 
@@ -510,16 +510,16 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`get`](docs/growthbook_fact-tables_get.md) - Get a single fact table
 * [`update`](docs/growthbook_fact-tables_update.md) - Update a single fact table
 * [`delete`](docs/growthbook_fact-tables_delete.md) - Deletes a single fact table
-* [`list-fact-table-filters`](docs/growthbook_fact-tables_list-fact-table-filters.md) - Get all filters for a fact table
-* [`post-fact-table-filter`](docs/growthbook_fact-tables_post-fact-table-filter.md) - Create a single fact table filter
-* [`get-fact-table-filter`](docs/growthbook_fact-tables_get-fact-table-filter.md) - Get a single fact filter
-* [`update-fact-table-filter`](docs/growthbook_fact-tables_update-fact-table-filter.md) - Update a single fact table filter
-* [`delete-fact-table-filter`](docs/growthbook_fact-tables_delete-fact-table-filter.md) - Deletes a single fact table filter
+* [`list-filters`](docs/growthbook_fact-tables_list-filters.md) - Get all filters for a fact table
+* [`create-filter`](docs/growthbook_fact-tables_create-filter.md) - Create a single fact table filter
+* [`get-filter`](docs/growthbook_fact-tables_get-filter.md) - Get a single fact filter
+* [`update-filter`](docs/growthbook_fact-tables_update-filter.md) - Update a single fact table filter
+* [`delete-filter`](docs/growthbook_fact-tables_delete-filter.md) - Deletes a single fact table filter
 * [`get-aggregated`](docs/growthbook_fact-tables_get-aggregated.md) - Get the materialization status of a fact table's shared daily aggregated tables
 * [`refresh-aggregated`](docs/growthbook_fact-tables_refresh-aggregated.md) - Force a refresh or full restate of a fact table's shared daily aggregated tables
 * [`list-aggregated-table-runs`](docs/growthbook_fact-tables_list-aggregated-table-runs.md) - List aggregated table runs
 * [`get-aggregated-table-run`](docs/growthbook_fact-tables_get-aggregated-table-run.md) - Get a single aggregated table run
-* [`post-bulk-import-facts`](docs/growthbook_fact-tables_post-bulk-import-facts.md) - Bulk import fact tables, filters, and metrics
+* [`bulk-import`](docs/growthbook_fact-tables_bulk-import.md) - Bulk import fact tables, filters, and metrics
 
 ### [fact-metrics](docs/growthbook_fact-metrics.md)
 
@@ -528,13 +528,13 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`get`](docs/growthbook_fact-metrics_get.md) - Get a single fact metric
 * [`update`](docs/growthbook_fact-metrics_update.md) - Update a single fact metric
 * [`delete`](docs/growthbook_fact-metrics_delete.md) - Deletes a single fact metric
-* [`post-fact-metric-analysis`](docs/growthbook_fact-metrics_post-fact-metric-analysis.md) - Create a fact metric analysis
+* [`create-analysis`](docs/growthbook_fact-metrics_create-analysis.md) - Create a fact metric analysis
 
 ### [code-references](docs/growthbook_code-references.md)
 
-* [`post-code-refs`](docs/growthbook_code-references_post-code-refs.md) - Submit list of code references
-* [`list-code-refs`](docs/growthbook_code-references_list-code-refs.md) - Get list of all code references for the current organization
-* [`get-code-refs`](docs/growthbook_code-references_get-code-refs.md) - Get list of code references for a single feature id
+* [`submit`](docs/growthbook_code-references_submit.md) - Submit list of code references
+* [`list`](docs/growthbook_code-references_list.md) - Get list of all code references for the current organization
+* [`get-for-feature`](docs/growthbook_code-references_get-for-feature.md) - Get list of code references for a single feature id
 
 ### [members](docs/growthbook_members.md)
 
@@ -585,9 +585,9 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`list`](docs/growthbook_reports_list.md) - Get all reports
 * [`create`](docs/growthbook_reports_create.md) - Create a new report
 * [`get`](docs/growthbook_reports_get.md) - Get a single report
-* [`post-report-refresh`](docs/growthbook_reports_post-report-refresh.md) - Refresh a report by re-running its analysis
-* [`put-report-metadata`](docs/growthbook_reports_put-report-metadata.md) - Update report metadata (title, description, visibility)
-* [`put-report-settings`](docs/growthbook_reports_put-report-settings.md) - Update report analysis settings
+* [`refresh`](docs/growthbook_reports_refresh.md) - Refresh a report by re-running its analysis
+* [`set-metadata`](docs/growthbook_reports_set-metadata.md) - Update report metadata (title, description, visibility)
+* [`set-settings`](docs/growthbook_reports_set-settings.md) - Update report analysis settings
 
 ### [namespaces](docs/growthbook_namespaces.md)
 
@@ -596,8 +596,8 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`get`](docs/growthbook_namespaces_get.md) - Get a single namespace
 * [`update`](docs/growthbook_namespaces_update.md) - Update a namespace
 * [`delete`](docs/growthbook_namespaces_delete.md) - Delete a namespace
-* [`get-namespace-memberships`](docs/growthbook_namespaces_get-namespace-memberships.md) - Get namespace membership
-* [`post-namespace-rotate-seed`](docs/growthbook_namespaces_post-namespace-rotate-seed.md) - Rotate namespace seed
+* [`get-memberships`](docs/growthbook_namespaces_get-memberships.md) - Get namespace membership
+* [`rotate-seed`](docs/growthbook_namespaces_rotate-seed.md) - Rotate namespace seed
 
 ### [dashboards](docs/growthbook_dashboards.md)
 
@@ -606,7 +606,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`update`](docs/growthbook_dashboards_update.md) - Update a single dashboard
 * [`create`](docs/growthbook_dashboards_create.md) - Create a single dashboard
 * [`list`](docs/growthbook_dashboards_list.md) - Get all dashboards
-* [`get-dashboards-for-experiment`](docs/growthbook_dashboards_get-dashboards-for-experiment.md) - Get all dashboards for an experiment
+* [`list-for-experiment`](docs/growthbook_dashboards_list-for-experiment.md) - Get all dashboards for an experiment
 
 ### [contextual-bandit-queries](docs/growthbook_contextual-bandit-queries.md)
 
@@ -653,9 +653,9 @@ growthbook generate-types --project prj_123                 # limit to one proje
 
 ### [analytics-explorations](docs/growthbook_analytics-explorations.md)
 
-* [`post-metric-exploration`](docs/growthbook_analytics-explorations_post-metric-exploration.md) - Create a Metric based visualization
-* [`post-fact-table-exploration`](docs/growthbook_analytics-explorations_post-fact-table-exploration.md) - Run a Fact Table based visualization
-* [`post-data-source-exploration`](docs/growthbook_analytics-explorations_post-data-source-exploration.md) - Create a Data Source based visualization
+* [`run-metric`](docs/growthbook_analytics-explorations_run-metric.md) - Create a Metric based visualization
+* [`run-fact-table`](docs/growthbook_analytics-explorations_run-fact-table.md) - Run a Fact Table based visualization
+* [`run-data-source`](docs/growthbook_analytics-explorations_run-data-source.md) - Create a Data Source based visualization
 
 ### [ramp-schedule-templates](docs/growthbook_ramp-schedule-templates.md)
 

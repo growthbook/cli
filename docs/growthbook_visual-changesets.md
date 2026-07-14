@@ -43,9 +43,9 @@ growthbook visual-changesets [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
+* [growthbook visual-changesets add-visual-change](growthbook_visual-changesets_add-visual-change.md)	 - Create a visual change for a visual changeset
 * [growthbook visual-changesets create](growthbook_visual-changesets_create.md)	 - Create a visual changeset for an experiment
 * [growthbook visual-changesets get](growthbook_visual-changesets_get.md)	 - Get a single visual changeset
 * [growthbook visual-changesets list](growthbook_visual-changesets_list.md)	 - Get all visual changesets
-* [growthbook visual-changesets post-visual-change](growthbook_visual-changesets_post-visual-change.md)	 - Create a visual change for a visual changeset
-* [growthbook visual-changesets put-visual-change](growthbook_visual-changesets_put-visual-change.md)	 - Update a visual change for a visual changeset
 * [growthbook visual-changesets update](growthbook_visual-changesets_update.md)	 - Update a visual changeset
+* [growthbook visual-changesets update-visual-change](growthbook_visual-changesets_update-visual-change.md)	 - Update a visual change for a visual changeset

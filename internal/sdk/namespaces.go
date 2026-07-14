@@ -816,8 +816,8 @@ func (s *Namespaces) DeleteNamespace(ctx context.Context, request operations.Del
 
 }
 
-// GetNamespaceMemberships - Get namespace membership
-func (s *Namespaces) GetNamespaceMemberships(ctx context.Context, request operations.GetNamespaceMembershipsRequest, opts ...operations.Option) (*operations.GetNamespaceMembershipsResponse, error) {
+// GetMemberships - Get namespace membership
+func (s *Namespaces) GetMemberships(ctx context.Context, request operations.GetNamespaceMembershipsRequest, opts ...operations.Option) (*operations.GetNamespaceMembershipsResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -955,7 +955,7 @@ func (s *Namespaces) GetNamespaceMemberships(ctx context.Context, request operat
 		nOS := int64(oS + len(arr))
 		request.Offset = &nOS
 
-		return s.GetNamespaceMemberships(
+		return s.GetMemberships(
 			ctx,
 			request,
 		)
@@ -1009,9 +1009,9 @@ func (s *Namespaces) GetNamespaceMemberships(ctx context.Context, request operat
 
 }
 
-// PostNamespaceRotateSeed - Rotate namespace seed
+// RotateSeed - Rotate namespace seed
 // ⚠️ Dangerous: sets a new seed for a multiRange namespace. Every user's bucket position within the namespace is re-computed immediately, which re-randomizes traffic eligibility for **all** experiments currently using this namespace. Only do this if you intentionally want to reshuffle all allocations across experiments. This could be useful when re-using a namespace for a new set of experiments.
-func (s *Namespaces) PostNamespaceRotateSeed(ctx context.Context, request operations.PostNamespaceRotateSeedRequest, opts ...operations.Option) (*operations.PostNamespaceRotateSeedResponse, error) {
+func (s *Namespaces) RotateSeed(ctx context.Context, request operations.PostNamespaceRotateSeedRequest, opts ...operations.Option) (*operations.PostNamespaceRotateSeedResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

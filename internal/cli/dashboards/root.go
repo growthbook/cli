@@ -40,7 +40,7 @@ func InitDashboardsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initGetDashboardsForExperimentCmd(DashboardsCmd); err != nil {
+	if err := initListForExperimentCmd(DashboardsCmd); err != nil {
 		return err
 	}
 

@@ -21,15 +21,15 @@ func InitCodeReferencesRoot(parent *cobra.Command) error {
 		Aliases: []string{"cr"},
 	}
 
-	if err := initPostCodeRefsCmd(CodeReferencesCmd); err != nil {
+	if err := initSubmitCmd(CodeReferencesCmd); err != nil {
 		return err
 	}
 
-	if err := initListCodeRefsCmd(CodeReferencesCmd); err != nil {
+	if err := initListCmd(CodeReferencesCmd); err != nil {
 		return err
 	}
 
-	if err := initGetCodeRefsCmd(CodeReferencesCmd); err != nil {
+	if err := initGetForFeatureCmd(CodeReferencesCmd); err != nil {
 		return err
 	}
 

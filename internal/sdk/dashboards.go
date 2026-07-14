@@ -764,8 +764,8 @@ func (s *Dashboards) ListDashboards(ctx context.Context, opts ...operations.Opti
 
 }
 
-// GetDashboardsForExperiment - Get all dashboards for an experiment
-func (s *Dashboards) GetDashboardsForExperiment(ctx context.Context, request operations.GetDashboardsForExperimentRequest, opts ...operations.Option) (*operations.GetDashboardsForExperimentResponse, error) {
+// ListForExperiment - Get all dashboards for an experiment
+func (s *Dashboards) ListForExperiment(ctx context.Context, request operations.GetDashboardsForExperimentRequest, opts ...operations.Option) (*operations.GetDashboardsForExperimentResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

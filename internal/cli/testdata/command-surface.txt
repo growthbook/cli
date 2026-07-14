@@ -7,9 +7,9 @@ growthbook SDK-connections list  [--all --limit --max-pages --multi-org --offset
 growthbook SDK-connections lookup-SDK-connection-by-key  [--key]
 growthbook SDK-connections update  [--allowed-custom-fields-in-metadata --body --encrypt-payload --environment --hash-secure-attributes --id --include-custom-fields-in-metadata --include-draft-experiment-refs --include-draft-experiments --include-experiment-names --include-project-id-in-metadata --include-redirect-experiments --include-rule-ids --include-tags-in-metadata --include-visual-experiments --language --name --projects --proxy-enabled --proxy-host --remote-eval-enabled --saved-group-references-enabled --sdk-version]
 growthbook analytics-explorations
-growthbook analytics-explorations post-data-source-exploration  [--body --cache --chart-type --dataset --datasource --date-range --dimensions --show-as]
-growthbook analytics-explorations post-fact-table-exploration  [--body --cache --chart-type --dataset --datasource --date-range --dimensions --show-as]
-growthbook analytics-explorations post-metric-exploration  [--body --cache --chart-type --dataset --datasource --date-range --dimensions --show-as]
+growthbook analytics-explorations run-data-source  [--body --cache --chart-type --dataset --datasource --date-range --dimensions --show-as]
+growthbook analytics-explorations run-fact-table  [--body --cache --chart-type --dataset --datasource --date-range --dimensions --show-as]
+growthbook analytics-explorations run-metric  [--body --cache --chart-type --dataset --datasource --date-range --dimensions --show-as]
 growthbook archetypes
 growthbook archetypes create  [--attributes --body --description --environments --is-public --name --projects]
 growthbook archetypes delete  [--id]
@@ -26,9 +26,9 @@ growthbook auth login
 growthbook auth logout
 growthbook auth whoami
 growthbook code-references
-growthbook code-references get-code-refs  [--id]
-growthbook code-references list-code-refs  [--all --limit --max-pages --offset]
-growthbook code-references post-code-refs  [--body --branch --delete-missing --refs --repo-name]
+growthbook code-references get-for-feature  [--id]
+growthbook code-references list  [--all --limit --max-pages --offset]
+growthbook code-references submit  [--body --branch --delete-missing --refs --repo-name]
 growthbook configure
 growthbook constant-revisions
 growthbook constant-revisions archive  [--archived --body --key --revision-comment --revision-title --version-param]
@@ -77,6 +77,7 @@ growthbook contextual-bandits refresh  [--body --body-param --id]
 growthbook contextual-bandits start  [--body --body-param --id]
 growthbook contextual-bandits stop  [--body --body-param --id]
 growthbook contextual-bandits update  [--archived --body --burn-in-unit --burn-in-value --condition --contextual-attributes --contextual-bandit-query-id --conversion-window-unit --conversion-window-value --coverage --datasource --decision-metric --description --hash-attribute --id --max-leaves --min-users-per-leaf --name --owner --prerequisites --project --saved-groups --schedule-unit --schedule-value --seed --status --tags --tracking-key --variation-weights --variations]
+growthbook copy-transform  [--body --copy --mode --visual-changeset-id]
 growthbook custom-fields
 growthbook custom-fields create  [--body --default-value --description --id --name --placeholder --projects --required --sections --type --values]
 growthbook custom-fields delete  [--id --index]
@@ -87,8 +88,8 @@ growthbook dashboards
 growthbook dashboards create  [--blocks --body --edit-level --enable-auto-updates --experiment-id --projects --share-level --title --update-schedule --update-schedule.cron --update-schedule.cron.cron --update-schedule.stale --update-schedule.stale.hours]
 growthbook dashboards delete  [--id]
 growthbook dashboards get  [--id]
-growthbook dashboards get-dashboards-for-experiment  [--experiment-id]
 growthbook dashboards list
+growthbook dashboards list-for-experiment  [--experiment-id]
 growthbook dashboards update  [--blocks --body --edit-level --enable-auto-updates --id --projects --share-level --title --update-schedule --update-schedule.cron --update-schedule.cron.cron --update-schedule.stale --update-schedule.stale.hours]
 growthbook data-sources
 growthbook data-sources get  [--id]
@@ -132,27 +133,27 @@ growthbook experiments upload-variation-screenshot  [--body --content-type --des
 growthbook explore
 growthbook fact-metrics
 growthbook fact-metrics create  [--body --capping-settings --denominator --description --display-as-percentage --inverse --managed-by --max-percent-change --metric-auto-slices --metric-type --min-percent-change --min-sample-size --name --numerator --owner --prior-settings --projects --quantile-settings --regression-adjustment-settings --risk-threshold-danger --risk-threshold-success --tags --target-mde --window-settings]
+growthbook fact-metrics create-analysis  [--additional-denominator-filters --additional-numerator-filters --body --id --lookback-days --population-id --population-type --use-cache --user-id-type]
 growthbook fact-metrics delete  [--id]
 growthbook fact-metrics get  [--id]
 growthbook fact-metrics list  [--all --datasource-id --fact-table-id --limit --max-pages --offset --project-id]
-growthbook fact-metrics post-fact-metric-analysis  [--additional-denominator-filters --additional-numerator-filters --body --id --lookback-days --population-id --population-type --use-cache --user-id-type]
 growthbook fact-metrics update  [--archived --body --capping-settings --denominator --description --display-as-percentage --id --inverse --managed-by --max-percent-change --metric-auto-slices --metric-type --min-percent-change --min-sample-size --name --numerator --owner --prior-settings --projects --quantile-settings --regression-adjustment-settings --risk-threshold-danger --risk-threshold-success --tags --target-mde --window-settings]
 growthbook fact-tables
+growthbook fact-tables bulk-import  [--body --fact-metrics --fact-table-filters --fact-tables]
 growthbook fact-tables create  [--aggregated-fact-table-settings --body --datasource --description --event-name --managed-by --name --owner --projects --sql --tags --user-id-types]
+growthbook fact-tables create-filter  [--body --description --fact-table-id --managed-by --name --value]
 growthbook fact-tables delete  [--id]
-growthbook fact-tables delete-fact-table-filter  [--fact-table-id --id]
+growthbook fact-tables delete-filter  [--fact-table-id --id]
 growthbook fact-tables get  [--id]
 growthbook fact-tables get-aggregated  [--id]
 growthbook fact-tables get-aggregated-table-run  [--id --run-id]
-growthbook fact-tables get-fact-table-filter  [--fact-table-id --id]
+growthbook fact-tables get-filter  [--fact-table-id --id]
 growthbook fact-tables list  [--all --datasource-id --limit --max-pages --offset --project-id]
 growthbook fact-tables list-aggregated-table-runs  [--all --id --id-type --limit --max-pages --offset]
-growthbook fact-tables list-fact-table-filters  [--all --fact-table-id --limit --max-pages --offset]
-growthbook fact-tables post-bulk-import-facts  [--body --fact-metrics --fact-table-filters --fact-tables]
-growthbook fact-tables post-fact-table-filter  [--body --description --fact-table-id --managed-by --name --value]
+growthbook fact-tables list-filters  [--all --fact-table-id --limit --max-pages --offset]
 growthbook fact-tables refresh-aggregated  [--body --full-restate --id --id-type]
 growthbook fact-tables update  [--aggregated-fact-table-settings --archived --body --columns --columns-error --description --event-name --id --managed-by --name --owner --projects --sql --tags --user-id-types]
-growthbook fact-tables update-fact-table-filter  [--body --description --fact-table-id --id --managed-by --name --value]
+growthbook fact-tables update-filter  [--body --description --fact-table-id --id --managed-by --name --value]
 growthbook feature-revisions
 growthbook feature-revisions add-log-comment  [--body --comment --id --log-id --version-param]
 growthbook feature-revisions add-rule  [--body --id --ramp-schedule --revision-comment --revision-title --rule --schedule --version-param]
@@ -256,15 +257,14 @@ growthbook namespaces
 growthbook namespaces create  [--body --description --display-name --format-param --hash-attribute --status]
 growthbook namespaces delete  [--id]
 growthbook namespaces get  [--id]
-growthbook namespaces get-namespace-memberships  [--all --id --limit --max-pages --offset]
+growthbook namespaces get-memberships  [--all --id --limit --max-pages --offset]
 growthbook namespaces list  [--all --limit --max-pages --offset]
-growthbook namespaces post-namespace-rotate-seed  [--body --id --seed]
+growthbook namespaces rotate-seed  [--body --id --seed]
 growthbook namespaces update  [--body --description --display-name --hash-attribute --id --status]
 growthbook organizations
 growthbook organizations create  [--body --external-id --name]
 growthbook organizations list  [--all --limit --max-pages --offset --search]
 growthbook organizations update  [--body --external-id --id --name]
-growthbook post-copy-transform  [--body --copy --mode --visual-changeset-id]
 growthbook profiles
 growthbook profiles list
 growthbook profiles remove
@@ -312,9 +312,9 @@ growthbook reports
 growthbook reports create  [--activation-metric --attribution-model --body --custom-metric-slices --date-ended --date-started --description --difference-type --dimension --experiment-id --goal-metrics --guardrail-metrics --lookback-override --lookback-override.date --lookback-override.window --lookback-override.window.value --lookback-override.window.value-unit --metric-overrides --query-filter --regression-adjustment-enabled --secondary-metrics --segment --sequential-testing-enabled --sequential-testing-tuning-parameter --share-level --skip-partial-data --stats-engine --title]
 growthbook reports get  [--id]
 growthbook reports list  [--all --experiment-id --limit --max-pages --offset]
-growthbook reports post-report-refresh  [--id]
-growthbook reports put-report-metadata  [--body --description --edit-level --id --share-level --status --title]
-growthbook reports put-report-settings  [--activation-metric --attribution-model --body --coverage --custom-metric-slices --date-ended --date-started --difference-type --dimension --goal-metrics --guardrail-metrics --id --lookback-override --lookback-override.date --lookback-override.window --lookback-override.window.value --lookback-override.window.value-unit --metric-overrides --query-filter --regression-adjustment-enabled --secondary-metrics --segment --sequential-testing-enabled --sequential-testing-tuning-parameter --skip-partial-data --stats-engine --variations]
+growthbook reports refresh  [--id]
+growthbook reports set-metadata  [--body --description --edit-level --id --share-level --status --title]
+growthbook reports set-settings  [--activation-metric --attribution-model --body --coverage --custom-metric-slices --date-ended --date-started --difference-type --dimension --goal-metrics --guardrail-metrics --id --lookback-override --lookback-override.date --lookback-override.window --lookback-override.window.value --lookback-override.window.value-unit --metric-overrides --query-filter --regression-adjustment-enabled --secondary-metrics --segment --sequential-testing-enabled --sequential-testing-tuning-parameter --skip-partial-data --stats-engine --variations]
 growthbook saved-group-revisions
 growthbook saved-group-revisions add-items  [--body --items --revision-comment --revision-title --saved-group-id --version-param]
 growthbook saved-group-revisions archive  [--archived --body --revision-comment --revision-title --saved-group-id --version-param]
@@ -366,10 +366,10 @@ growthbook usage-metrics
 growthbook usage-metrics get  [--ids]
 growthbook version
 growthbook visual-changesets
+growthbook visual-changesets add-visual-change  [--body --body-param.additional-properties --body-param.css --body-param.description --body-param.dom-mutations --body-param.id --body-param.js --body-param.variation --id]
 growthbook visual-changesets create  [--additional-properties --body --editor-url --id --url-patterns]
 growthbook visual-changesets get  [--id --include-experiment]
 growthbook visual-changesets list  [--id]
-growthbook visual-changesets post-visual-change  [--body --body-param.additional-properties --body-param.css --body-param.description --body-param.dom-mutations --body-param.id --body-param.js --body-param.variation --id]
-growthbook visual-changesets put-visual-change  [--additional-properties --body --css --description --dom-mutations --id --js --variation --visual-change-id]
 growthbook visual-changesets update  [--additional-properties --body --editor-url --id --url-patterns --visual-changes]
+growthbook visual-changesets update-visual-change  [--additional-properties --body --css --description --dom-mutations --id --js --variation --visual-change-id]
 growthbook whoami

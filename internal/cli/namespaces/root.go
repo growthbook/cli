@@ -40,11 +40,11 @@ func InitNamespacesRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initGetNamespaceMembershipsCmd(NamespacesCmd); err != nil {
+	if err := initGetMembershipsCmd(NamespacesCmd); err != nil {
 		return err
 	}
 
-	if err := initPostNamespaceRotateSeedCmd(NamespacesCmd); err != nil {
+	if err := initRotateSeedCmd(NamespacesCmd); err != nil {
 		return err
 	}
 

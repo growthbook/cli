@@ -1,0 +1,12 @@
+diff --git a/internal/cli/copytransform.go b/internal/cli/copytransform.go
+--- a/internal/cli/copytransform.go
++++ b/internal/cli/copytransform.go
+@@ -26,7 +26,7 @@ func initCopyTransformCmd(parent *cobra.Command) error {
+ 		Use:     "copy-transform",
+ 		Short:   "Copy Transform",
+ 		Long:    "Copy Transform",
+-		Example: "  growthbook growthbook copy-transform --visual-changeset-id <id> --copy <value> --mode concise",
++		Example: "  growthbook copy-transform --visual-changeset-id <id> --copy <value> --mode concise",
+ 		RunE:    runCopyTransformCmd,
+ 		Aliases: []string{"ct"},
+ 	}
