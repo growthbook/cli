@@ -112,6 +112,15 @@ func SetProfileSecret(name, secret string) error {
 }
 func DeleteProfileSecret(name string) error { return config.DeleteKeyringValue(profileSecretKey(name)) }
 
+// bearerFromProfile records whether applyProfile injected the bearer credential
+// from the active profile's keyring entry. whoami reads it to label the source
+// as keyring rather than env (env is only the injection mechanism).
+var bearerFromProfile bool
+
+// BearerFromProfile reports whether the active profile supplied the bearer
+// credential during startup.
+func BearerFromProfile() bool { return bearerFromProfile }
+
 // activeProfileName resolves which profile applies: explicit --profile flag,
 // then GBCLI_PROFILE env, then the configured current profile.
 func activeProfileName(cmd *cobra.Command, f *File) (name string, explicit bool) {
@@ -190,6 +199,7 @@ func applyProfile(cmd *cobra.Command) error {
 	if !flagChanged(cmd, "bearer-auth") && os.Getenv("GBCLI_BEARER_AUTH") == "" {
 		if secret := GetProfileSecret(name); secret != "" {
 			_ = os.Setenv("GBCLI_BEARER_AUTH", secret)
+			bearerFromProfile = true
 		}
 	}
 	return nil

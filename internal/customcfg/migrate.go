@@ -85,6 +85,8 @@ func maybeMigrateLegacy(cmd *cobra.Command) error {
 			len(imported), strings.Join(imported, ", "))
 		if cur.Current != "" {
 			fmt.Fprintf(w, "  active profile: %s (switch with `growthbook profiles use <name>`)\n", cur.Current)
+		} else {
+			fmt.Fprintf(w, "  no active profile selected — run `growthbook profiles use <name>` to choose one\n")
 		}
 	}
 	return nil
