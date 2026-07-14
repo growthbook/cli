@@ -30,8 +30,8 @@ func newSnapshots(rootSDK *Growthbook, sdkConfig config.SDKConfiguration, hooks 
 	}
 }
 
-// PostExperimentSnapshot - Create Experiment Snapshot
-func (s *Snapshots) PostExperimentSnapshot(ctx context.Context, request operations.PostExperimentSnapshotRequest, opts ...operations.Option) (*operations.PostExperimentSnapshotResponse, error) {
+// CreateSnapshot - Create Experiment Snapshot
+func (s *Snapshots) CreateSnapshot(ctx context.Context, request operations.PostExperimentSnapshotRequest, opts ...operations.Option) (*operations.PostExperimentSnapshotResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

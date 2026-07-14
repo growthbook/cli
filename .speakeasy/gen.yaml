@@ -32,7 +32,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 cli:
-  version: 1.1.3
+  version: 1.1.4
   additionalDependencies: {}
   cliName: growthbook
   distribution:

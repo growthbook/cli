@@ -20,7 +20,7 @@ func InitSnapshotsRoot(parent *cobra.Command) error {
 		},
 	}
 
-	if err := initPostExperimentSnapshotCmd(SnapshotsCmd); err != nil {
+	if err := initCreateSnapshotCmd(SnapshotsCmd); err != nil {
 		return err
 	}
 

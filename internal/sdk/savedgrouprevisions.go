@@ -574,9 +574,9 @@ func (s *SavedGroupRevisions) Create(ctx context.Context, request operations.Pos
 
 }
 
-// GetSavedGroupRevisionLatest - Get the most recent active draft revision
+// Latest - Get the most recent active draft revision
 // Returns the most recently updated open (non-merged, non-discarded) revision for the saved group. Returns 404 if there is no active draft. Pass `mine=true` to restrict to drafts authored by the calling user (requires a user-scoped API key).
-func (s *SavedGroupRevisions) GetSavedGroupRevisionLatest(ctx context.Context, request operations.GetSavedGroupRevisionLatestRequest, opts ...operations.Option) (*operations.GetSavedGroupRevisionLatestResponse, error) {
+func (s *SavedGroupRevisions) Latest(ctx context.Context, request operations.GetSavedGroupRevisionLatestRequest, opts ...operations.Option) (*operations.GetSavedGroupRevisionLatestResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -868,9 +868,9 @@ func (s *SavedGroupRevisions) GetSavedGroupRevision(ctx context.Context, request
 
 }
 
-// PutSavedGroupRevisionMetadata - Update saved group metadata in a draft revision
+// SetMetadata - Update saved group metadata in a draft revision
 // Stages metadata changes (name, owner, description, projects) on the draft. Pass `version: "new"` to auto-create a draft. The change is only applied to the live saved group when the revision is merged.
-func (s *SavedGroupRevisions) PutSavedGroupRevisionMetadata(ctx context.Context, request operations.PutSavedGroupRevisionMetadataRequest, opts ...operations.Option) (*operations.PutSavedGroupRevisionMetadataResponse, error) {
+func (s *SavedGroupRevisions) SetMetadata(ctx context.Context, request operations.PutSavedGroupRevisionMetadataRequest, opts ...operations.Option) (*operations.PutSavedGroupRevisionMetadataResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1020,9 +1020,9 @@ func (s *SavedGroupRevisions) PutSavedGroupRevisionMetadata(ctx context.Context,
 
 }
 
-// PutSavedGroupRevisionCondition - Update the condition of a condition saved group draft revision
+// SetCondition - Update the condition of a condition saved group draft revision
 // Stages a new JSON-encoded condition for the draft. Only valid for `condition` saved groups. Pass `version: "new"` to auto-create a draft.
-func (s *SavedGroupRevisions) PutSavedGroupRevisionCondition(ctx context.Context, request operations.PutSavedGroupRevisionConditionRequest, opts ...operations.Option) (*operations.PutSavedGroupRevisionConditionResponse, error) {
+func (s *SavedGroupRevisions) SetCondition(ctx context.Context, request operations.PutSavedGroupRevisionConditionRequest, opts ...operations.Option) (*operations.PutSavedGroupRevisionConditionResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1172,9 +1172,9 @@ func (s *SavedGroupRevisions) PutSavedGroupRevisionCondition(ctx context.Context
 
 }
 
-// PutSavedGroupRevisionValues - Replace the values list in a list saved group draft revision
+// SetValues - Replace the values list in a list saved group draft revision
 // Replaces the entire `values` array atomically. Only valid for `list` saved groups. For safe concurrent updates against a draft, prefer `POST .../items/add` and `POST .../items/remove`. Pass `version: "new"` to auto-create a draft.
-func (s *SavedGroupRevisions) PutSavedGroupRevisionValues(ctx context.Context, request operations.PutSavedGroupRevisionValuesRequest, opts ...operations.Option) (*operations.PutSavedGroupRevisionValuesResponse, error) {
+func (s *SavedGroupRevisions) SetValues(ctx context.Context, request operations.PutSavedGroupRevisionValuesRequest, opts ...operations.Option) (*operations.PutSavedGroupRevisionValuesResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1324,9 +1324,9 @@ func (s *SavedGroupRevisions) PutSavedGroupRevisionValues(ctx context.Context, r
 
 }
 
-// PutSavedGroupRevisionArchive - Stage an archive/unarchive in a draft revision
+// Archive - Stage an archive/unarchive in a draft revision
 // Stages an archive or unarchive on the draft. Pass `version: "new"` to auto-create a draft. Archived saved groups can be permanently deleted via `DELETE /saved-groups/{id}` once the archive is published.
-func (s *SavedGroupRevisions) PutSavedGroupRevisionArchive(ctx context.Context, request operations.PutSavedGroupRevisionArchiveRequest, opts ...operations.Option) (*operations.PutSavedGroupRevisionArchiveResponse, error) {
+func (s *SavedGroupRevisions) Archive(ctx context.Context, request operations.PutSavedGroupRevisionArchiveRequest, opts ...operations.Option) (*operations.PutSavedGroupRevisionArchiveResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1476,9 +1476,9 @@ func (s *SavedGroupRevisions) PutSavedGroupRevisionArchive(ctx context.Context, 
 
 }
 
-// PostSavedGroupRevisionItemsAdd - Append items to a list saved group draft revision
+// AddItems - Append items to a list saved group draft revision
 // Appends the provided items (deduplicated) to the draft's `values` array. Only valid for `list` saved groups. Pass `version: "new"` to auto-create a draft. Duplicate items are merged on top of any existing draft, so multiple successive add/remove calls accumulate.
-func (s *SavedGroupRevisions) PostSavedGroupRevisionItemsAdd(ctx context.Context, request operations.PostSavedGroupRevisionItemsAddRequest, opts ...operations.Option) (*operations.PostSavedGroupRevisionItemsAddResponse, error) {
+func (s *SavedGroupRevisions) AddItems(ctx context.Context, request operations.PostSavedGroupRevisionItemsAddRequest, opts ...operations.Option) (*operations.PostSavedGroupRevisionItemsAddResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1628,9 +1628,9 @@ func (s *SavedGroupRevisions) PostSavedGroupRevisionItemsAdd(ctx context.Context
 
 }
 
-// PostSavedGroupRevisionItemsRemove - Remove items from a list saved group draft revision
+// RemoveItems - Remove items from a list saved group draft revision
 // Removes the provided items from the draft's `values` array. Only valid for `list` saved groups. Pass `version: "new"` to auto-create a draft.
-func (s *SavedGroupRevisions) PostSavedGroupRevisionItemsRemove(ctx context.Context, request operations.PostSavedGroupRevisionItemsRemoveRequest, opts ...operations.Option) (*operations.PostSavedGroupRevisionItemsRemoveResponse, error) {
+func (s *SavedGroupRevisions) RemoveItems(ctx context.Context, request operations.PostSavedGroupRevisionItemsRemoveRequest, opts ...operations.Option) (*operations.PostSavedGroupRevisionItemsRemoveResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1780,11 +1780,11 @@ func (s *SavedGroupRevisions) PostSavedGroupRevisionItemsRemove(ctx context.Cont
 
 }
 
-// PostSavedGroupRevisionRequestReview - Request review for a draft revision
+// RequestReview - Request review for a draft revision
 // Moves the draft from `draft` into `pending-review`. Notifies reviewers per the org's approval-flow settings.
 //
 // Set `autoPublishOnApproval` to `true` to publish the revision automatically the moment it is approved (GitHub auto-merge model). This requires the org to have auto-publish-on-approval enabled and the caller to have publish permission on the saved group; the auto-publish then executes with the caller's authority.
-func (s *SavedGroupRevisions) PostSavedGroupRevisionRequestReview(ctx context.Context, request operations.PostSavedGroupRevisionRequestReviewRequest, opts ...operations.Option) (*operations.PostSavedGroupRevisionRequestReviewResponse, error) {
+func (s *SavedGroupRevisions) RequestReview(ctx context.Context, request operations.PostSavedGroupRevisionRequestReviewRequest, opts ...operations.Option) (*operations.PostSavedGroupRevisionRequestReviewResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1934,11 +1934,11 @@ func (s *SavedGroupRevisions) PostSavedGroupRevisionRequestReview(ctx context.Co
 
 }
 
-// PostSavedGroupRevisionSubmitReview - Submit a review on a draft revision
+// SubmitReview - Submit a review on a draft revision
 // Submits an `approve`, `request-changes`, or `comment` review on the revision. Authors and contributors cannot submit `approve` reviews on their own drafts when the org has `blockSelfApproval` enabled.
 //
 // When `decision` is `approve` and the revision has `autoPublishOnApproval` enabled, the revision is automatically published after approval. The response includes `autoPublished: true` when this happens. Pass `skipAutoPublish: true` to approve without triggering auto-publish.
-func (s *SavedGroupRevisions) PostSavedGroupRevisionSubmitReview(ctx context.Context, request operations.PostSavedGroupRevisionSubmitReviewRequest, opts ...operations.Option) (*operations.PostSavedGroupRevisionSubmitReviewResponse, error) {
+func (s *SavedGroupRevisions) SubmitReview(ctx context.Context, request operations.PostSavedGroupRevisionSubmitReviewRequest, opts ...operations.Option) (*operations.PostSavedGroupRevisionSubmitReviewResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -2088,9 +2088,9 @@ func (s *SavedGroupRevisions) PostSavedGroupRevisionSubmitReview(ctx context.Con
 
 }
 
-// GetSavedGroupRevisionMergeStatus - Get merge status for a draft revision
+// MergeStatus - Get merge status for a draft revision
 // Runs a dry-run merge of the draft against the current live saved group and returns any conflicts. Use this before publishing to preview changes and detect conflicting edits.
-func (s *SavedGroupRevisions) GetSavedGroupRevisionMergeStatus(ctx context.Context, request operations.GetSavedGroupRevisionMergeStatusRequest, opts ...operations.Option) (*operations.GetSavedGroupRevisionMergeStatusResponse, error) {
+func (s *SavedGroupRevisions) MergeStatus(ctx context.Context, request operations.GetSavedGroupRevisionMergeStatusRequest, opts ...operations.Option) (*operations.GetSavedGroupRevisionMergeStatusResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -2233,9 +2233,9 @@ func (s *SavedGroupRevisions) GetSavedGroupRevisionMergeStatus(ctx context.Conte
 
 }
 
-// PostSavedGroupRevisionRebase - Rebase a draft revision onto the current live saved group
+// Rebase a draft revision onto the current live saved group
 // Updates the draft's base snapshot to the current live state, applying the draft's changes on top. Supply `conflictResolutions` to resolve any conflicting fields. Strategies are `overwrite` (use the draft's value), `discard` (keep the live value), or `union` (merge arrays — use only on `values`). Optimistic locking is not enforced by this endpoint; callers who need strict locking should call `merge-status` before and after.
-func (s *SavedGroupRevisions) PostSavedGroupRevisionRebase(ctx context.Context, request operations.PostSavedGroupRevisionRebaseRequest, opts ...operations.Option) (*operations.PostSavedGroupRevisionRebaseResponse, error) {
+func (s *SavedGroupRevisions) Rebase(ctx context.Context, request operations.PostSavedGroupRevisionRebaseRequest, opts ...operations.Option) (*operations.PostSavedGroupRevisionRebaseResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -2385,9 +2385,9 @@ func (s *SavedGroupRevisions) PostSavedGroupRevisionRebase(ctx context.Context, 
 
 }
 
-// PostSavedGroupRevisionPublish - Publish a draft revision
+// Publish a draft revision
 // Publishes a draft revision, making it the live state of the saved group. Blocked if the org requires approvals and the revision is not approved (callers with the bypass-approval permission may still publish).
-func (s *SavedGroupRevisions) PostSavedGroupRevisionPublish(ctx context.Context, request operations.PostSavedGroupRevisionPublishRequest, opts ...operations.Option) (*operations.PostSavedGroupRevisionPublishResponse, error) {
+func (s *SavedGroupRevisions) Publish(ctx context.Context, request operations.PostSavedGroupRevisionPublishRequest, opts ...operations.Option) (*operations.PostSavedGroupRevisionPublishResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -2537,9 +2537,9 @@ func (s *SavedGroupRevisions) PostSavedGroupRevisionPublish(ctx context.Context,
 
 }
 
-// PostSavedGroupRevisionDiscard - Discard a draft revision
+// Discard a draft revision
 // Permanently discards a draft revision. Only open revisions (not merged or already-discarded) can be discarded.
-func (s *SavedGroupRevisions) PostSavedGroupRevisionDiscard(ctx context.Context, request operations.PostSavedGroupRevisionDiscardRequest, opts ...operations.Option) (*operations.PostSavedGroupRevisionDiscardResponse, error) {
+func (s *SavedGroupRevisions) Discard(ctx context.Context, request operations.PostSavedGroupRevisionDiscardRequest, opts ...operations.Option) (*operations.PostSavedGroupRevisionDiscardResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -2689,9 +2689,9 @@ func (s *SavedGroupRevisions) PostSavedGroupRevisionDiscard(ctx context.Context,
 
 }
 
-// PostSavedGroupRevisionRevert - Revert the saved group to a prior revision
+// Revert the saved group to a prior revision
 // Creates a new draft (or immediately publishes) whose content matches the specified historical revision. Defaults to creating a draft; when the org enables 'reverts bypass approval' it defaults to publishing immediately. Pass `strategy` to override.
-func (s *SavedGroupRevisions) PostSavedGroupRevisionRevert(ctx context.Context, request operations.PostSavedGroupRevisionRevertRequest, opts ...operations.Option) (*operations.PostSavedGroupRevisionRevertResponse, error) {
+func (s *SavedGroupRevisions) Revert(ctx context.Context, request operations.PostSavedGroupRevisionRevertRequest, opts ...operations.Option) (*operations.PostSavedGroupRevisionRevertResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

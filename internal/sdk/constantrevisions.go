@@ -572,9 +572,9 @@ func (s *ConstantRevisions) Create(ctx context.Context, request operations.PostC
 
 }
 
-// GetConstantRevisionLatest - Get the most recent active draft revision
+// Latest - Get the most recent active draft revision
 // Returns the most recently updated open (non-merged, non-discarded) revision for the constant. Returns 404 if there is no active draft. Pass `mine=true` to restrict to drafts authored by the calling user (requires a user-scoped API key).
-func (s *ConstantRevisions) GetConstantRevisionLatest(ctx context.Context, request operations.GetConstantRevisionLatestRequest, opts ...operations.Option) (*operations.GetConstantRevisionLatestResponse, error) {
+func (s *ConstantRevisions) Latest(ctx context.Context, request operations.GetConstantRevisionLatestRequest, opts ...operations.Option) (*operations.GetConstantRevisionLatestResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -866,9 +866,9 @@ func (s *ConstantRevisions) GetConstantRevision(ctx context.Context, request ope
 
 }
 
-// PutConstantRevisionMetadata - Update constant metadata in a draft revision
+// SetMetadata - Update constant metadata in a draft revision
 // Stages metadata changes (name, owner, description, project) on the draft. Pass `version: "new"` to auto-create a draft. The change is only applied to the live constant when the revision is merged.
-func (s *ConstantRevisions) PutConstantRevisionMetadata(ctx context.Context, request operations.PutConstantRevisionMetadataRequest, opts ...operations.Option) (*operations.PutConstantRevisionMetadataResponse, error) {
+func (s *ConstantRevisions) SetMetadata(ctx context.Context, request operations.PutConstantRevisionMetadataRequest, opts ...operations.Option) (*operations.PutConstantRevisionMetadataResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1018,9 +1018,9 @@ func (s *ConstantRevisions) PutConstantRevisionMetadata(ctx context.Context, req
 
 }
 
-// PutConstantRevisionValue - Update the value of a constant draft revision
+// SetValue - Update the value of a constant draft revision
 // Stages a new default `value` and/or per-environment `environmentValues` on the draft. At least one must be supplied. Pass `version: "new"` to auto-create a draft. The value must match the constant's type (valid JSON for `json` constants).
-func (s *ConstantRevisions) PutConstantRevisionValue(ctx context.Context, request operations.PutConstantRevisionValueRequest, opts ...operations.Option) (*operations.PutConstantRevisionValueResponse, error) {
+func (s *ConstantRevisions) SetValue(ctx context.Context, request operations.PutConstantRevisionValueRequest, opts ...operations.Option) (*operations.PutConstantRevisionValueResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1170,9 +1170,9 @@ func (s *ConstantRevisions) PutConstantRevisionValue(ctx context.Context, reques
 
 }
 
-// PutConstantRevisionArchive - Stage an archive/unarchive in a draft revision
+// Archive - Stage an archive/unarchive in a draft revision
 // Stages an archive or unarchive on the draft. Pass `version: "new"` to auto-create a draft. Archived constants can be permanently deleted via `DELETE /constants/{key}` once the archive is published.
-func (s *ConstantRevisions) PutConstantRevisionArchive(ctx context.Context, request operations.PutConstantRevisionArchiveRequest, opts ...operations.Option) (*operations.PutConstantRevisionArchiveResponse, error) {
+func (s *ConstantRevisions) Archive(ctx context.Context, request operations.PutConstantRevisionArchiveRequest, opts ...operations.Option) (*operations.PutConstantRevisionArchiveResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1322,11 +1322,11 @@ func (s *ConstantRevisions) PutConstantRevisionArchive(ctx context.Context, requ
 
 }
 
-// PostConstantRevisionRequestReview - Request review for a draft revision
+// RequestReview - Request review for a draft revision
 // Moves the draft from `draft` into `pending-review`. Notifies reviewers per the org's approval-flow settings.
 //
 // Set `autoPublishOnApproval` to `true` to publish the revision automatically the moment it is approved. This requires the org to have auto-publish-on-approval enabled and the caller to have publish permission on the constant.
-func (s *ConstantRevisions) PostConstantRevisionRequestReview(ctx context.Context, request operations.PostConstantRevisionRequestReviewRequest, opts ...operations.Option) (*operations.PostConstantRevisionRequestReviewResponse, error) {
+func (s *ConstantRevisions) RequestReview(ctx context.Context, request operations.PostConstantRevisionRequestReviewRequest, opts ...operations.Option) (*operations.PostConstantRevisionRequestReviewResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1476,11 +1476,11 @@ func (s *ConstantRevisions) PostConstantRevisionRequestReview(ctx context.Contex
 
 }
 
-// PostConstantRevisionSubmitReview - Submit a review on a draft revision
+// SubmitReview - Submit a review on a draft revision
 // Submits an `approve`, `request-changes`, or `comment` review on the revision. Authors and contributors cannot submit `approve` reviews on their own drafts when the org has `blockSelfApproval` enabled.
 //
 // When `decision` is `approve` and the revision has `autoPublishOnApproval` enabled, the revision is automatically published after approval. The response includes `autoPublished: true` when this happens. Pass `skipAutoPublish: true` to approve without triggering auto-publish.
-func (s *ConstantRevisions) PostConstantRevisionSubmitReview(ctx context.Context, request operations.PostConstantRevisionSubmitReviewRequest, opts ...operations.Option) (*operations.PostConstantRevisionSubmitReviewResponse, error) {
+func (s *ConstantRevisions) SubmitReview(ctx context.Context, request operations.PostConstantRevisionSubmitReviewRequest, opts ...operations.Option) (*operations.PostConstantRevisionSubmitReviewResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1630,9 +1630,9 @@ func (s *ConstantRevisions) PostConstantRevisionSubmitReview(ctx context.Context
 
 }
 
-// GetConstantRevisionMergeStatus - Get merge status for a draft revision
+// MergeStatus - Get merge status for a draft revision
 // Runs a dry-run merge of the draft against the current live constant and returns any conflicts. Use this before publishing to preview changes and detect conflicting edits.
-func (s *ConstantRevisions) GetConstantRevisionMergeStatus(ctx context.Context, request operations.GetConstantRevisionMergeStatusRequest, opts ...operations.Option) (*operations.GetConstantRevisionMergeStatusResponse, error) {
+func (s *ConstantRevisions) MergeStatus(ctx context.Context, request operations.GetConstantRevisionMergeStatusRequest, opts ...operations.Option) (*operations.GetConstantRevisionMergeStatusResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1775,9 +1775,9 @@ func (s *ConstantRevisions) GetConstantRevisionMergeStatus(ctx context.Context, 
 
 }
 
-// PostConstantRevisionRebase - Rebase a draft revision onto the current live constant
+// Rebase a draft revision onto the current live constant
 // Updates the draft's base snapshot to the current live state, applying the draft's changes on top. Supply `conflictResolutions` to resolve any conflicting fields. Strategies are `overwrite` (use the draft's value) or `discard` (keep the live value).
-func (s *ConstantRevisions) PostConstantRevisionRebase(ctx context.Context, request operations.PostConstantRevisionRebaseRequest, opts ...operations.Option) (*operations.PostConstantRevisionRebaseResponse, error) {
+func (s *ConstantRevisions) Rebase(ctx context.Context, request operations.PostConstantRevisionRebaseRequest, opts ...operations.Option) (*operations.PostConstantRevisionRebaseResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1927,9 +1927,9 @@ func (s *ConstantRevisions) PostConstantRevisionRebase(ctx context.Context, requ
 
 }
 
-// PostConstantRevisionPublish - Publish a draft revision
+// Publish a draft revision
 // Publishes a draft revision, making it the live state of the constant. Blocked if the org requires approvals and the revision is not approved (callers with the bypass-approval permission may still publish).
-func (s *ConstantRevisions) PostConstantRevisionPublish(ctx context.Context, request operations.PostConstantRevisionPublishRequest, opts ...operations.Option) (*operations.PostConstantRevisionPublishResponse, error) {
+func (s *ConstantRevisions) Publish(ctx context.Context, request operations.PostConstantRevisionPublishRequest, opts ...operations.Option) (*operations.PostConstantRevisionPublishResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -2079,9 +2079,9 @@ func (s *ConstantRevisions) PostConstantRevisionPublish(ctx context.Context, req
 
 }
 
-// PostConstantRevisionDiscard - Discard a draft revision
+// Discard a draft revision
 // Permanently discards a draft revision. Only open revisions (not merged or already-discarded) can be discarded.
-func (s *ConstantRevisions) PostConstantRevisionDiscard(ctx context.Context, request operations.PostConstantRevisionDiscardRequest, opts ...operations.Option) (*operations.PostConstantRevisionDiscardResponse, error) {
+func (s *ConstantRevisions) Discard(ctx context.Context, request operations.PostConstantRevisionDiscardRequest, opts ...operations.Option) (*operations.PostConstantRevisionDiscardResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -2231,9 +2231,9 @@ func (s *ConstantRevisions) PostConstantRevisionDiscard(ctx context.Context, req
 
 }
 
-// PostConstantRevisionRevert - Revert the constant to a prior revision
+// Revert the constant to a prior revision
 // Creates a new draft (or immediately publishes) whose content matches the specified historical revision. Defaults to creating a draft; when the org enables 'reverts bypass approval' it defaults to publishing immediately. Pass `strategy` to override.
-func (s *ConstantRevisions) PostConstantRevisionRevert(ctx context.Context, request operations.PostConstantRevisionRevertRequest, opts ...operations.Option) (*operations.PostConstantRevisionRevertResponse, error) {
+func (s *ConstantRevisions) Revert(ctx context.Context, request operations.PostConstantRevisionRevertRequest, opts ...operations.Option) (*operations.PostConstantRevisionRevertResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

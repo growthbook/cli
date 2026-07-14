@@ -45,21 +45,21 @@ growthbook saved-group-revisions [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
+* [growthbook saved-group-revisions add-items](growthbook_saved-group-revisions_add-items.md)	 - Append items to a list saved group draft revision
+* [growthbook saved-group-revisions archive](growthbook_saved-group-revisions_archive.md)	 - Stage an archive/unarchive in a draft revision
 * [growthbook saved-group-revisions create](growthbook_saved-group-revisions_create.md)	 - Create a draft revision
+* [growthbook saved-group-revisions discard](growthbook_saved-group-revisions_discard.md)	 - Discard a draft revision
 * [growthbook saved-group-revisions get](growthbook_saved-group-revisions_get.md)	 - Get a single saved group revision
-* [growthbook saved-group-revisions get-saved-group-revision-latest](growthbook_saved-group-revisions_get-saved-group-revision-latest.md)	 - Get the most recent active draft revision
-* [growthbook saved-group-revisions get-saved-group-revision-merge-status](growthbook_saved-group-revisions_get-saved-group-revision-merge-status.md)	 - Get merge status for a draft revision
+* [growthbook saved-group-revisions latest](growthbook_saved-group-revisions_latest.md)	 - Get the most recent active draft revision
 * [growthbook saved-group-revisions list](growthbook_saved-group-revisions_list.md)	 - List saved-group revisions across the organization
 * [growthbook saved-group-revisions list-for-saved-group](growthbook_saved-group-revisions_list-for-saved-group.md)	 - List revisions for a saved group
-* [growthbook saved-group-revisions post-saved-group-revision-discard](growthbook_saved-group-revisions_post-saved-group-revision-discard.md)	 - Discard a draft revision
-* [growthbook saved-group-revisions post-saved-group-revision-items-add](growthbook_saved-group-revisions_post-saved-group-revision-items-add.md)	 - Append items to a list saved group draft revision
-* [growthbook saved-group-revisions post-saved-group-revision-items-remove](growthbook_saved-group-revisions_post-saved-group-revision-items-remove.md)	 - Remove items from a list saved group draft revision
-* [growthbook saved-group-revisions post-saved-group-revision-publish](growthbook_saved-group-revisions_post-saved-group-revision-publish.md)	 - Publish a draft revision
-* [growthbook saved-group-revisions post-saved-group-revision-rebase](growthbook_saved-group-revisions_post-saved-group-revision-rebase.md)	 - Rebase a draft revision onto the current live saved group
-* [growthbook saved-group-revisions post-saved-group-revision-request-review](growthbook_saved-group-revisions_post-saved-group-revision-request-review.md)	 - Request review for a draft revision
-* [growthbook saved-group-revisions post-saved-group-revision-revert](growthbook_saved-group-revisions_post-saved-group-revision-revert.md)	 - Revert the saved group to a prior revision
-* [growthbook saved-group-revisions post-saved-group-revision-submit-review](growthbook_saved-group-revisions_post-saved-group-revision-submit-review.md)	 - Submit a review on a draft revision
-* [growthbook saved-group-revisions put-saved-group-revision-archive](growthbook_saved-group-revisions_put-saved-group-revision-archive.md)	 - Stage an archive/unarchive in a draft revision
-* [growthbook saved-group-revisions put-saved-group-revision-condition](growthbook_saved-group-revisions_put-saved-group-revision-condition.md)	 - Update the condition of a condition saved group draft revision
-* [growthbook saved-group-revisions put-saved-group-revision-metadata](growthbook_saved-group-revisions_put-saved-group-revision-metadata.md)	 - Update saved group metadata in a draft revision
-* [growthbook saved-group-revisions put-saved-group-revision-values](growthbook_saved-group-revisions_put-saved-group-revision-values.md)	 - Replace the values list in a list saved group draft revision
+* [growthbook saved-group-revisions merge-status](growthbook_saved-group-revisions_merge-status.md)	 - Get merge status for a draft revision
+* [growthbook saved-group-revisions publish](growthbook_saved-group-revisions_publish.md)	 - Publish a draft revision
+* [growthbook saved-group-revisions rebase](growthbook_saved-group-revisions_rebase.md)	 - Rebase a draft revision onto the current live saved group
+* [growthbook saved-group-revisions remove-items](growthbook_saved-group-revisions_remove-items.md)	 - Remove items from a list saved group draft revision
+* [growthbook saved-group-revisions request-review](growthbook_saved-group-revisions_request-review.md)	 - Request review for a draft revision
+* [growthbook saved-group-revisions revert](growthbook_saved-group-revisions_revert.md)	 - Revert the saved group to a prior revision
+* [growthbook saved-group-revisions set-condition](growthbook_saved-group-revisions_set-condition.md)	 - Update the condition of a condition saved group draft revision
+* [growthbook saved-group-revisions set-metadata](growthbook_saved-group-revisions_set-metadata.md)	 - Update saved group metadata in a draft revision
+* [growthbook saved-group-revisions set-values](growthbook_saved-group-revisions_set-values.md)	 - Replace the values list in a list saved group draft revision
+* [growthbook saved-group-revisions submit-review](growthbook_saved-group-revisions_submit-review.md)	 - Submit a review on a draft revision
