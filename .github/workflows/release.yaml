@@ -60,15 +60,16 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "24"
           registry-url: "https://registry.npmjs.org"
 
       - name: Publish to npm (OIDC trusted publishing)
         working-directory: npm
         run: |
           # Auth is via the id-token permission (trusted publishing), no NPM_TOKEN.
-          # Requires npm >= 11.5.1, newer than the npm bundled with Node 20.
-          npm install -g npm@latest
+          # OIDC needs npm >= 11.5.1; pin the 11.x line (npm@latest floats into
+          # majors that drop the runner's Node LTS).
+          npm install -g npm@^11.5.1
           VERSION="${GITHUB_REF_NAME#v}"
           if [[ "$VERSION" == *-* ]]; then DIST_TAG=next; else DIST_TAG=latest; fi
           echo "Publishing growthbook@$VERSION to dist-tag '$DIST_TAG'"
