@@ -55,11 +55,11 @@ growthbook ramp-schedules api-advance [flags]
 ### Options
 
 ```
-      --body string                     Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -f, --force canBypassApprovalChecks   Bypass a pending approval gate on the current step. Requires admin-level (canBypassApprovalChecks) permission. When omitted or `false`, a 409 is returned if the step has an unsatisfied `holdConditions.requiresApproval` gate.
-  -h, --help                            help for api-advance
-  -i, --id string                       [required]
-  -r, --reason string                   Reason for advancing
+      --body string     Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -f, --force           Bypass a pending approval gate on the current step. Requires admin-level (canBypassApprovalChecks) permission. When omitted or false, a 409 is returned if the step has an unsatisfied holdConditions.requiresApproval gate.
+  -h, --help            help for api-advance
+  -i, --id string       [required]
+  -r, --reason string   Reason for advancing
 ```
 
 ### Options inherited from parent commands

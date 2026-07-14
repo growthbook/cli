@@ -25,7 +25,7 @@ growthbook feature-revisions list-for-feature [flags]
   -i, --id string                The id of the requested resource [required]
   -l, --limit int                The number of items to return (default 10)
       --max-pages int            Maximum number of pages to fetch when using --all (0 = no limit)
-  -m, --mine author              If true, return only revisions authored by or contributed to by the calling user. Requires a user-scoped API key. Mutually exclusive with author.
+  -m, --mine string              If true, return only revisions authored by or contributed to by the calling user. Requires a user-scoped API key. Mutually exclusive with author.
       --offset int               How many items to skip (use in conjunction with limit for pagination)
       --skip-pagination string   If true, return all matching items and ignore limit/offset.
                                  Self-hosted only. Has no effect unless API_ALLOW_SKIP_PAGINATION is set to true or 1.

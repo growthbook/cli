@@ -20,7 +20,7 @@ growthbook feature-revisions list-revisions [flags]
 
 ```
   -a, --all                      Automatically paginate and fetch all results (streams NDJSON for JSON output)
-      --archived false           Whether to include revisions for archived features. Defaults to false (non-archived features only). Pass `true` to include revisions for archived features alongside non-archived ones.
+      --archived string          Whether to include revisions for archived features. Defaults to false (non-archived features only). Pass true to include revisions for archived features alongside non-archived ones.
       --author string            string value
   -f, --feature-id string        string value
   -h, --help                     help for list-revisions

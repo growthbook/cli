@@ -1,0 +1,32 @@
+diff --git a/internal/output/paginated.go b/internal/output/paginated.go
+--- a/internal/output/paginated.go
++++ b/internal/output/paginated.go
+@@ -127,21 +127,14 @@ func callNext(res interface{}) (interface{}, error) {
+ 	return results[0].Interface(), nil
+ }
+ 
+-// HasMorePages checks if a paginated response has a non-nil Next closure,
+-// indicating more pages are available. Does not make any API calls.
++// HasMorePages reports whether a paginated response indicates further pages.
++// It reads the response body's own hasMore flag (Object.HasMore) rather than the
++// Next closure, which the generated SDK always assigns non-nil regardless of
++// whether more pages exist. Returns false when the body was not deserialized
++// (raw-JSON or --dry-run). Does not make any API calls.
+ func HasMorePages(res interface{}) bool {
+-	v := reflect.ValueOf(res)
+-	if v.Kind() == reflect.Ptr {
+-		if v.IsNil() {
+-			return false
+-		}
+-		v = v.Elem()
+-	}
+-	if v.Kind() != reflect.Struct {
+-		return false
+-	}
+-	nextField := v.FieldByName("Next")
+-	return nextField.IsValid() && nextField.Kind() == reflect.Func && !nextField.IsNil()
++	f := extractFieldByPath(reflect.ValueOf(res), "Object.HasMore")
++	return f.IsValid() && f.Kind() == reflect.Bool && f.Bool()
+ }
+ 
+ // extractFieldByPath navigates a reflect.Value by dot-delimited Go field names.

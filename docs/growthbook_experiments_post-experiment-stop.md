@@ -19,16 +19,16 @@ growthbook experiments post-experiment-stop [flags]
 ### Options
 
 ```
-  -a, --analysis string                                Optional markdown summary displayed on the experiment results page.
-      --body string                                    Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --date-ended string                              Optional ISO datetime for ending the latest phase. Defaults to the current date and time.
-  -e, --enable-temporary-rollout releasedVariationId   If true, include this stopped experiment in SDK payload and force the release variation (releasedVariationId) to all traffic.
-  -h, --help                                           help for post-experiment-stop
-  -i, --id string                                      The id of the requested resource [required]
-      --reason string                                  Optional reason for ending the phase stored on the latest phase metadata.
-      --released-variation-id string                   Required if enableTemporaryRollout is true. Variation ID (e.g. var_abc123) to release to 100% of traffic eligible for this experiment.
-      --results string                                 The experiment conclusion status. (options: dnf, won, lost, inconclusive) [required]
-  -w, --winner-variation-id string                     Variation ID (e.g. var_abc123) of the winning variation. Used only as metadata. Required if results is 'won' and there are multiple test variations. Otherwise, defaults to the test variation when results is 'won' and to the baseline variation for other results.
+  -a, --analysis string                Optional markdown summary displayed on the experiment results page.
+      --body string                    Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --date-ended string              Optional ISO datetime for ending the latest phase. Defaults to the current date and time.
+  -e, --enable-temporary-rollout       If true, include this stopped experiment in SDK payload and force the release variation (releasedVariationId) to all traffic.
+  -h, --help                           help for post-experiment-stop
+  -i, --id string                      The id of the requested resource [required]
+      --reason string                  Optional reason for ending the phase stored on the latest phase metadata.
+      --released-variation-id string   Required if enableTemporaryRollout is true. Variation ID (e.g. var_abc123) to release to 100% of traffic eligible for this experiment.
+      --results string                 The experiment conclusion status. (options: dnf, won, lost, inconclusive) [required]
+  -w, --winner-variation-id string     Variation ID (e.g. var_abc123) of the winning variation. Used only as metadata. Required if results is 'won' and there are multiple test variations. Otherwise, defaults to the test variation when results is 'won' and to the baseline variation for other results.
 ```
 
 ### Options inherited from parent commands

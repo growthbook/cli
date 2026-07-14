@@ -19,10 +19,10 @@ growthbook ramp-schedules set-monitoring-mode [flags]
 ### Options
 
 ```
-      --body string            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -h, --help                   help for set-monitoring-mode
-  -i, --id string              [required]
-  -m, --monitoring-mode auto   auto schedules snapshots automatically while allowed by ramp state. `manual` disables agenda updates and relies on manual Update clicks. (options: auto, manual) [required]
+      --body string              Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -h, --help                     help for set-monitoring-mode
+  -i, --id string                [required]
+  -m, --monitoring-mode string   auto schedules snapshots automatically while allowed by ramp state. manual disables agenda updates and relies on manual Update clicks. (options: auto, manual) [required]
 ```
 
 ### Options inherited from parent commands

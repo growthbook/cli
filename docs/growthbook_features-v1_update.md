@@ -25,21 +25,21 @@ growthbook features-v1 update [flags]
 ### Options
 
 ```
-  -a, --archived               boolean flag
-      --body string            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -c, --custom-fields string   value
-      --default-value string   string value
-      --description string     Description of the feature
-  -e, --environments string    value
-  -h, --help                   help for update
-      --holdout null           Holdout to assign this feature to. Pass null to remove the feature from its current holdout. Omit the field entirely to leave the holdout unchanged.
-                               
-  -i, --id string              The id of the requested resource [required]
-  -j, --json-schema string     Use JSON schema to validate the payload of a JSON-type feature value (enterprise only).
-      --owner string           The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-      --prerequisites true     Feature IDs. Each feature must evaluate to true
-      --project string         An associated project ID
-  -t, --tags stringArray       List of associated tags. Will override tags completely with submitted list
+  -a, --archived                    boolean flag
+      --body string                 Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -c, --custom-fields string        value
+      --default-value string        string value
+      --description string          Description of the feature
+  -e, --environments string         value
+  -h, --help                        help for update
+      --holdout string              Holdout to assign this feature to. Pass null to remove the feature from its current holdout. Omit the field entirely to leave the holdout unchanged.
+                                    
+  -i, --id string                   The id of the requested resource [required]
+  -j, --json-schema string          Use JSON schema to validate the payload of a JSON-type feature value (enterprise only).
+      --owner string                The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
+      --prerequisites stringArray   Feature IDs. Each feature must evaluate to true
+      --project string              An associated project ID
+  -t, --tags stringArray            List of associated tags. Will override tags completely with submitted list
 ```
 
 ### Options inherited from parent commands

@@ -24,7 +24,7 @@ func initGetSDKPayloadCmd(parent *cobra.Command) error {
 		Use:     "get-SDK-payload",
 		Short:   "Get a SDK payload",
 		Long:    "Get a SDK payload",
-		Example: "  growthbook growthbook get-SDK-payload --key <key>",
+		Example: "  growthbook get-SDK-payload --key <key>",
 		RunE:    runGetSDKPayloadCmd,
 		Aliases: []string{"gSp"},
 	}

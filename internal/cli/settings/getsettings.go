@@ -50,6 +50,18 @@ func runGetSettingsCmd(cmd *cobra.Command, args []string) error {
 	}
 	res, err := s.Settings.GetSettings(cmd.Context(), sdkOpts...)
 	if err != nil {
+		// Org settings may hold values that don't match the strict typed schema
+		// (e.g. updateSchedule.hours stored as a string). Re-fetch without typed
+		// decoding and output the raw body generically so the command still
+		// succeeds in every format instead of hard-failing on schema drift.
+		if output.IsResponseDecodeError(err) {
+			raw, rawErr := s.Settings.GetSettings(cmd.Context(), append(sdkOpts, operations.WithSkipDeserialization())...)
+			if rawErr == nil {
+				if generic, ok := output.GenericFromRawBody(raw); ok {
+					return output.Result(cmd, generic)
+				}
+			}
+		}
 		return output.Error(cmd, err)
 	}
 

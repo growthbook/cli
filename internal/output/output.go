@@ -298,7 +298,7 @@ func Result(cmd *cobra.Command, res interface{}) error {
 		if err != nil {
 			return fmt.Errorf("failed to encode response as TOON: %w", err)
 		}
-		fmt.Fprint(out, toonStr)
+		fmt.Fprintln(out, strings.TrimRight(toonStr, "\n"))
 	default: // "pretty" or unset
 		if err := prettyPrint(out, content, colorize); err != nil {
 			return err
@@ -469,6 +469,30 @@ func tryReadRawBody(res interface{}) []byte {
 		return nil
 	}
 	return rawBody
+}
+
+// IsResponseDecodeError reports whether err came from decoding a server response
+// whose shape did not match the expected schema (e.g. a numeric field arriving as
+// a string). Exported so commands can fall back to lenient generic output.
+func IsResponseDecodeError(err error) bool {
+	return isResponseDecodeError(err)
+}
+
+// GenericFromRawBody reads a skip-deserialization response's raw body and decodes
+// it into generic types (map/slice/scalar), which never fails on schema drift.
+// Returns (value, true) on success. Pass the result to Result for a lenient
+// fallback when a strict typed decode fails on server data that drifted from the
+// spec. The generic value carries the same JSON shape the typed path would emit.
+func GenericFromRawBody(res interface{}) (interface{}, bool) {
+	rawBody := tryReadRawBody(res)
+	if len(rawBody) == 0 {
+		return nil, false
+	}
+	var generic interface{}
+	if err := json.Unmarshal(rawBody, &generic); err != nil {
+		return nil, false
+	}
+	return generic, true
 }
 
 // derefToStruct dereferences pointer/interface values and validates the result
@@ -710,7 +734,7 @@ func outputWithHeaders(out io.Writer, content interface{}, headers http.Header, 
 		if err != nil {
 			return fmt.Errorf("failed to encode response as TOON: %w", err)
 		}
-		fmt.Fprint(out, toonStr)
+		fmt.Fprintln(out, strings.TrimRight(toonStr, "\n"))
 	default: // "json" or any other
 		jsonData, err := json.MarshalIndent(merged, "", "  ")
 		if err != nil {

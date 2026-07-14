@@ -782,6 +782,7 @@ Every command supports a `--output-format` flag that controls how the response i
 | Pretty | `--output-format pretty` (default) | Aligned key-value pairs with color, nested indentation. Human-readable at a glance. |
 | JSON | `--output-format json` | JSON output. Passthrough when the response is already JSON (preserves original field order and numeric precision). Falls back to typed marshaling otherwise. |
 | YAML | `--output-format yaml` | YAML output via standard marshaling. |
+| Table | `--output-format table` | Tabular output for array responses. |
 | TOON | `--output-format toon` | [Token-Oriented Object Notation](https://github.com/toon-format/spec) — a compact, line-oriented format that typically uses 30–60% fewer tokens than JSON. Well-suited for piping responses into LLM prompts. |
 
 ```bash

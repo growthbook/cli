@@ -9,6 +9,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"strings"
 
 	"github.com/alpkeskin/gotoon"
 	"gopkg.in/yaml.v3"
@@ -63,7 +64,7 @@ func outputOneItem(out io.Writer, item interface{}, format, jqExpr string, color
 		if !first {
 			fmt.Fprintln(out)
 		}
-		fmt.Fprint(out, toonStr)
+		fmt.Fprintln(out, strings.TrimRight(toonStr, "\n"))
 	default: // "pretty"
 		if !first {
 			fmt.Fprintln(out) // blank line between items

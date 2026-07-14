@@ -20,7 +20,7 @@ growthbook analytics-explorations post-data-source-exploration [flags]
 
 ```
       --body string         Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --cache preferred     Controls cache behavior for this exploration: preferred (default) returns a cached result if one exists, otherwise runs a new query; `never` always runs a new query, ignoring any cached results; `required` only returns a cached result, if none exists returns exploration: null with a message (options: preferred, required, never)
+      --cache string        Controls cache behavior for this exploration: preferred (default) returns a cached result if one exists, otherwise runs a new query; never always runs a new query, ignoring any cached results; required only returns a cached result, if none exists returns exploration: null with a message (options: preferred, required, never)
       --chart-type string   options: line, area, timeseries-table, table, bar, stackedBar, horizontalBar, stackedHorizontalBar, bigNumber [required]
       --dataset string      [required]
       --datasource string   ID of the datasource to query [required]

@@ -19,16 +19,16 @@ growthbook constants update [flags]
 ### Options
 
 ```
-      --body string                            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -b, --bypass-approval bypassApprovalChecks   Set to true to skip the approval flow when the org requires approvals for this constant's project. Requires the bypassApprovalChecks permission (or the org-level REST bypass setting). When approvals aren't required, this flag has no effect.
-      --description string                     string value
-  -e, --environment-values string              Per-environment value overrides (environment id → value). When provided, this REPLACES the entire override map — send the complete set, not just the environments you want to change (omit the field to leave overrides unchanged).
-  -h, --help                                   help for update
-  -k, --key string                             The key of the constant [required]
-  -n, --name string                            string value
-      --owner string                           The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-  -p, --project string                         string value
-  -v, --value string                           string value
+      --body string                 Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -b, --bypass-approval             Set to true to skip the approval flow when the org requires approvals for this constant's project. Requires the bypassApprovalChecks permission (or the org-level REST bypass setting). When approvals aren't required, this flag has no effect.
+      --description string          string value
+  -e, --environment-values string   Per-environment value overrides (environment id → value). When provided, this REPLACES the entire override map — send the complete set, not just the environments you want to change (omit the field to leave overrides unchanged).
+  -h, --help                        help for update
+  -k, --key string                  The key of the constant [required]
+  -n, --name string                 string value
+      --owner string                The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
+  -p, --project string              string value
+  -v, --value string                string value
 ```
 
 ### Options inherited from parent commands

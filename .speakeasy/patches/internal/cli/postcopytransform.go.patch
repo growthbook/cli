@@ -1,0 +1,12 @@
+diff --git a/internal/cli/postcopytransform.go b/internal/cli/postcopytransform.go
+--- a/internal/cli/postcopytransform.go
++++ b/internal/cli/postcopytransform.go
+@@ -26,7 +26,7 @@ func initPostCopyTransformCmd(parent *cobra.Command) error {
+ 		Use:     "post-copy-transform",
+ 		Short:   "Post Copy Transform",
+ 		Long:    "Post Copy Transform",
+-		Example: "  growthbook growthbook post-copy-transform --visual-changeset-id <id> --copy <value> --mode concise",
++		Example: "  growthbook post-copy-transform --visual-changeset-id <id> --copy <value> --mode concise",
+ 		RunE:    runPostCopyTransformCmd,
+ 		Aliases: []string{"pct"},
+ 	}

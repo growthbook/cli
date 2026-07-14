@@ -24,7 +24,7 @@ growthbook reports put-report-settings [flags]
       --body string                                  Request body as JSON (alternative to individual flags). Can also be provided via stdin.
       --coverage float                               Traffic coverage (0–1) for the latest phase. Used when computing scaled impact.
       --custom-metric-slices string                  Custom metric slice definitions
-      --date-ended null                              Analysis end date (ISO 8601). Pass null to clear the end date and analyze through today.
+      --date-ended string                            Analysis end date (ISO 8601). Pass null to clear the end date and analyze through today.
       --date-started string                          Analysis start date (ISO 8601)
       --difference-type string                       How lifts are expressed in results (options: relative, absolute, scaled)
       --dimension string                             Dimension to cut results by

@@ -24,12 +24,12 @@ growthbook feature-revisions put-feature-revision-rule [flags]
       --body string               Request body as JSON (alternative to individual flags). Can also be provided via stdin.
   -h, --help                      help for put-feature-revision-rule
   -i, --id string                 [required]
-      --ramp-schedule schedule    Multi-step ramp schedule for force/rollout rules. Not supported for experiment-ref or safe-rollout rules. Mutually exclusive with schedule.
+      --ramp-schedule string      Multi-step ramp schedule for force/rollout rules. Not supported for experiment-ref or safe-rollout rules. Mutually exclusive with schedule.
       --revision-comment string   Comment for a newly created draft. Only used when version is "new"; ignored for existing revisions.
       --revision-title string     Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
       --rule string               [required]
       --rule-id string            [required]
-  -s, --schedule rampSchedule     Simple start/end date window. For force/rollout rules this manages a standalone ramp action; for experiment-ref/safe-rollout rules this updates legacy schedule fields on the rule. Mutually exclusive with rampSchedule.
+  -s, --schedule string           Simple start/end date window. For force/rollout rules this manages a standalone ramp action; for experiment-ref/safe-rollout rules this updates legacy schedule fields on the rule. Mutually exclusive with rampSchedule.
   -v, --version-param string      [required]
 ```
 
