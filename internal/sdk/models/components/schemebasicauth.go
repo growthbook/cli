@@ -2,7 +2,7 @@
 
 package components
 
-// SchemeBasicAuth - HTTP Basic auth: your Secret Key as the username, with an empty password.
+// SchemeBasicAuth - HTTP Basic auth: use your GrowthBook Secret Key as the username and leave the password empty.
 type SchemeBasicAuth struct {
 	Username string `security:"name=username"`
 	Password string `security:"name=password"`

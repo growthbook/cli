@@ -20,7 +20,7 @@ var createCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "description", FieldPath: "Description", Kind: flagutil.FlagKindString, Optional: true, Description: "The description of the new attribute"},
 	{FlagName: "archived", Shorthand: "a", FieldPath: "Archived", Kind: flagutil.FlagKindBool, Optional: true, Description: "The attribute is archived"},
 	{FlagName: "hash-attribute", FieldPath: "HashAttribute", Kind: flagutil.FlagKindBool, Optional: true, Description: "Shall the attribute be hashed"},
-	{FlagName: "enum", Shorthand: "e", FieldPath: "Enum", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "enum", Shorthand: "e", FieldPath: "Enum", Kind: flagutil.FlagKindString, Optional: true, Description: "Comma-separated list of allowed values. Required for the 'enum' datatype. For array datatypes (string[], number[], secureString[]) it optionally restricts the list to these values. Ignored for all other datatypes."},
 	{FlagName: "format-param", Shorthand: "f", FieldPath: "Format", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"", "version", "date", "isoCountryCode"}, Description: "The attribute's format (options: , version, date, isoCountryCode)"},
 	{FlagName: "projects", FieldPath: "Projects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
 	{FlagName: "tags", Shorthand: "t", FieldPath: "Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},

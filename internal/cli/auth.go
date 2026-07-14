@@ -178,12 +178,12 @@ func runAuthLoginCmd(cmd *cobra.Command, args []string) error {
 
 			fields := []huh.Field{
 				huh.NewInput().
-					Title("HTTP Basic auth: your Secret Key as the username, with an empty password. username").
+					Title("HTTP Basic auth: use your GrowthBook Secret Key as the username and leave the password empty. username").
 					Description("--username").
 					Placeholder(cfg.Security.Username).
 					Value(&authUsername),
 				huh.NewInput().
-					Title("HTTP Basic auth: your Secret Key as the username, with an empty password. password").
+					Title("HTTP Basic auth: use your GrowthBook Secret Key as the username and leave the password empty. password").
 					Description("--password").
 					EchoMode(huh.EchoModePassword).
 					Placeholder(maskSecret(cfg.Security.Password)).
