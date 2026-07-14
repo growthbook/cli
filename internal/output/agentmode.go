@@ -22,6 +22,7 @@ var (
 // agentEnvVars lists environment variables set by known AI coding agents.
 var agentEnvVars = []string{
 	"CLAUDE_CODE",
+	"CLAUDECODE",
 	"CURSOR_AGENT",
 	"CODEX",
 	"AIDER",

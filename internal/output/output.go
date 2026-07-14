@@ -60,6 +60,18 @@ func resolveOutputFormat(cmd *cobra.Command) string {
 	return "pretty"
 }
 
+// ValidateOutputFormat rejects formats that are recognized but not currently
+// supported, so the CLI errors clearly instead of silently falling back to
+// pretty. Shares resolveOutputFormat's precedence so it also catches a format
+// set via config. ("table" is disabled pending an upstream Speakeasy fix — it
+// only renders the scalar envelope, never the primary result array.)
+func ValidateOutputFormat(cmd *cobra.Command) error {
+	if resolveOutputFormat(cmd) == "table" {
+		return fmt.Errorf("the 'table' output format is not currently supported; use one of: pretty, json, yaml, toon")
+	}
+	return nil
+}
+
 // marshalJSON marshals content to indented JSON bytes.
 func marshalJSON(content interface{}) ([]byte, error) {
 	data, err := utils.MarshalJSON(content, "", true)
@@ -71,6 +83,22 @@ func marshalJSON(content interface{}) ([]byte, error) {
 		}
 	}
 	return data, nil
+}
+
+// toGeneric round-trips content through JSON so that keys derive from the json
+// struct tags. The yaml and toon encoders otherwise read Go field names (yaml,
+// which lowercases them) or the raw json tag including its ",omitzero" option
+// (gotoon), neither of which matches the documented (json) field names.
+func toGeneric(content interface{}) (interface{}, error) {
+	data, err := marshalJSON(content)
+	if err != nil {
+		return nil, err
+	}
+	var generic interface{}
+	if err := json.Unmarshal(data, &generic); err != nil {
+		return nil, err
+	}
+	return generic, nil
 }
 
 // printJSON colorizes (if requested) and prints JSON data followed by a newline.
@@ -248,7 +276,11 @@ func Result(cmd *cobra.Command, res interface{}) error {
 		}
 		printJSON(out, data, colorize)
 	case "yaml":
-		data, err := yaml.Marshal(content)
+		generic, err := toGeneric(content)
+		if err != nil {
+			return fmt.Errorf("failed to marshal response as YAML: %w", err)
+		}
+		data, err := yaml.Marshal(generic)
 		if err != nil {
 			return fmt.Errorf("failed to marshal response as YAML: %w", err)
 		}
@@ -258,7 +290,11 @@ func Result(cmd *cobra.Command, res interface{}) error {
 			return err
 		}
 	case "toon":
-		toonStr, err := gotoon.Encode(content)
+		generic, err := toGeneric(content)
+		if err != nil {
+			return fmt.Errorf("failed to encode response as TOON: %w", err)
+		}
+		toonStr, err := gotoon.Encode(generic)
 		if err != nil {
 			return fmt.Errorf("failed to encode response as TOON: %w", err)
 		}

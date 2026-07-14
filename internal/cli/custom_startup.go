@@ -7,6 +7,8 @@ package cli
 
 import (
 	"github.com/growthbook/cli/internal/customcfg"
+	"github.com/growthbook/cli/internal/flagutil"
+	"github.com/growthbook/cli/internal/output"
 	"github.com/growthbook/cli/internal/usage"
 	"github.com/spf13/cobra"
 )
@@ -27,6 +29,13 @@ func customRegister(rootCmd *cobra.Command) {
 	rootCmd.AddCommand(newGenerateTypesCmd())
 	rootCmd.AddCommand(newProfilesCmd())
 
+	// Drop `table` from the advertised output formats — it's disabled pending an
+	// upstream Speakeasy fix (it renders only the scalar envelope, not the result
+	// array). Rejection happens in the startup hook via output.ValidateOutputFormat.
+	if f := rootCmd.PersistentFlags().Lookup("output-format"); f != nil {
+		f.Usage = "Specify the output format. Options: pretty, json, yaml, toon."
+	}
+
 	// Run custom startup after the generated PersistentPreRunE (which initializes
 	// config), but skip it for --usage/schema introspection, exactly as the
 	// generated code does for its own setup.
@@ -39,6 +48,17 @@ func customRegister(rootCmd *cobra.Command) {
 		}
 		if usage.UsageRequested(cmd) {
 			return nil
+		}
+		if err := output.ValidateOutputFormat(cmd); err != nil {
+			return err
+		}
+		// The generated code calls InitAgentMode() once early (root.go, before
+		// flag parsing) to gate the explorer TUI, which latches detection so the
+		// later post-parse call no-ops and an explicit --agent-mode is dropped.
+		// Re-evaluate here, after flags are parsed, so the flag wins.
+		if _, changed := flagutil.GetBoolFlag(cmd, "agent-mode"); changed {
+			output.ResetAgentMode()
+			output.InitAgentMode(cmd)
 		}
 		return customcfg.OnStartup(cmd)
 	}
