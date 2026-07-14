@@ -43,18 +43,18 @@ growthbook constant-revisions [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
+* [growthbook constant-revisions archive](growthbook_constant-revisions_archive.md)	 - Stage an archive/unarchive in a draft revision
 * [growthbook constant-revisions create](growthbook_constant-revisions_create.md)	 - Create a draft revision
+* [growthbook constant-revisions discard](growthbook_constant-revisions_discard.md)	 - Discard a draft revision
 * [growthbook constant-revisions get](growthbook_constant-revisions_get.md)	 - Get a single constant revision
-* [growthbook constant-revisions get-constant-revision-latest](growthbook_constant-revisions_get-constant-revision-latest.md)	 - Get the most recent active draft revision
-* [growthbook constant-revisions get-constant-revision-merge-status](growthbook_constant-revisions_get-constant-revision-merge-status.md)	 - Get merge status for a draft revision
+* [growthbook constant-revisions latest](growthbook_constant-revisions_latest.md)	 - Get the most recent active draft revision
 * [growthbook constant-revisions list](growthbook_constant-revisions_list.md)	 - List constant revisions across the organization
 * [growthbook constant-revisions list-for-constant](growthbook_constant-revisions_list-for-constant.md)	 - List revisions for a constant
-* [growthbook constant-revisions post-constant-revision-discard](growthbook_constant-revisions_post-constant-revision-discard.md)	 - Discard a draft revision
-* [growthbook constant-revisions post-constant-revision-publish](growthbook_constant-revisions_post-constant-revision-publish.md)	 - Publish a draft revision
-* [growthbook constant-revisions post-constant-revision-rebase](growthbook_constant-revisions_post-constant-revision-rebase.md)	 - Rebase a draft revision onto the current live constant
-* [growthbook constant-revisions post-constant-revision-request-review](growthbook_constant-revisions_post-constant-revision-request-review.md)	 - Request review for a draft revision
-* [growthbook constant-revisions post-constant-revision-revert](growthbook_constant-revisions_post-constant-revision-revert.md)	 - Revert the constant to a prior revision
-* [growthbook constant-revisions post-constant-revision-submit-review](growthbook_constant-revisions_post-constant-revision-submit-review.md)	 - Submit a review on a draft revision
-* [growthbook constant-revisions put-constant-revision-archive](growthbook_constant-revisions_put-constant-revision-archive.md)	 - Stage an archive/unarchive in a draft revision
-* [growthbook constant-revisions put-constant-revision-metadata](growthbook_constant-revisions_put-constant-revision-metadata.md)	 - Update constant metadata in a draft revision
-* [growthbook constant-revisions put-constant-revision-value](growthbook_constant-revisions_put-constant-revision-value.md)	 - Update the value of a constant draft revision
+* [growthbook constant-revisions merge-status](growthbook_constant-revisions_merge-status.md)	 - Get merge status for a draft revision
+* [growthbook constant-revisions publish](growthbook_constant-revisions_publish.md)	 - Publish a draft revision
+* [growthbook constant-revisions rebase](growthbook_constant-revisions_rebase.md)	 - Rebase a draft revision onto the current live constant
+* [growthbook constant-revisions request-review](growthbook_constant-revisions_request-review.md)	 - Request review for a draft revision
+* [growthbook constant-revisions revert](growthbook_constant-revisions_revert.md)	 - Revert the constant to a prior revision
+* [growthbook constant-revisions set-metadata](growthbook_constant-revisions_set-metadata.md)	 - Update constant metadata in a draft revision
+* [growthbook constant-revisions set-value](growthbook_constant-revisions_set-value.md)	 - Update the value of a constant draft revision
+* [growthbook constant-revisions submit-review](growthbook_constant-revisions_submit-review.md)	 - Submit a review on a draft revision

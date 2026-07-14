@@ -703,3 +703,85 @@ actions:
     remove: true
   - target: $..[?(@.operationId=="putFeatureRevisionRuleV2")]
     update: { tags: [feature-revisions], x-speakeasy-name-override: update-rule }
+  # Clean leaf names for the experiments group and the constant-/saved-group-
+  # revision groups — same rationale as feature-revisions: drop the
+  # operationId-derived `post-experiment-*` / `post-constant-revision-*` /
+  # `post-saved-group-revision-*` mouthfuls for action verbs, since the group
+  # already supplies the context. operationIds are untouched (spec consumers
+  # unaffected). Bare verbs for domain actions; a disambiguating verb (create-/
+  # set-/add-/remove-) for sub-resource CRUD. create/get/list/update/list-for-*
+  # are already clean and left alone. Per-op, so a new op appears as its raw
+  # operationId until it gets an override here.
+  # experiments
+  - target: $..[?(@.operationId=="postExperimentStart")]
+    update: { x-speakeasy-name-override: start }
+  - target: $..[?(@.operationId=="postExperimentStop")]
+    update: { x-speakeasy-name-override: stop }
+  - target: $..[?(@.operationId=="postExperimentModifyTemporaryRollout")]
+    update: { x-speakeasy-name-override: modify-temporary-rollout }
+  - target: $..[?(@.operationId=="postExperimentSnapshot")]
+    update: { x-speakeasy-name-override: create-snapshot }
+  - target: $..[?(@.operationId=="postVariationImageUpload")]
+    update: { x-speakeasy-name-override: upload-variation-screenshot }
+  - target: $..[?(@.operationId=="getExperimentResults")]
+    update: { x-speakeasy-name-override: results }
+  - target: $..[?(@.operationId=="listExperimentResults")]
+    update: { x-speakeasy-name-override: list-results }
+  - target: $..[?(@.operationId=="getExperimentNames")]
+    update: { x-speakeasy-name-override: list-names }
+  - target: $..[?(@.operationId=="getExperimentStartChecklist")]
+    update: { x-speakeasy-name-override: get-start-checklist }
+  - target: $..[?(@.operationId=="postExperimentStartChecklistManualComplete")]
+    update: { x-speakeasy-name-override: complete-start-checklist }
+  # constant-revisions
+  - target: $..[?(@.operationId=="getConstantRevisionLatest")]
+    update: { x-speakeasy-name-override: latest }
+  - target: $..[?(@.operationId=="getConstantRevisionMergeStatus")]
+    update: { x-speakeasy-name-override: merge-status }
+  - target: $..[?(@.operationId=="postConstantRevisionDiscard")]
+    update: { x-speakeasy-name-override: discard }
+  - target: $..[?(@.operationId=="postConstantRevisionPublish")]
+    update: { x-speakeasy-name-override: publish }
+  - target: $..[?(@.operationId=="postConstantRevisionRebase")]
+    update: { x-speakeasy-name-override: rebase }
+  - target: $..[?(@.operationId=="postConstantRevisionRequestReview")]
+    update: { x-speakeasy-name-override: request-review }
+  - target: $..[?(@.operationId=="postConstantRevisionRevert")]
+    update: { x-speakeasy-name-override: revert }
+  - target: $..[?(@.operationId=="postConstantRevisionSubmitReview")]
+    update: { x-speakeasy-name-override: submit-review }
+  - target: $..[?(@.operationId=="putConstantRevisionArchive")]
+    update: { x-speakeasy-name-override: archive }
+  - target: $..[?(@.operationId=="putConstantRevisionMetadata")]
+    update: { x-speakeasy-name-override: set-metadata }
+  - target: $..[?(@.operationId=="putConstantRevisionValue")]
+    update: { x-speakeasy-name-override: set-value }
+  # saved-group-revisions
+  - target: $..[?(@.operationId=="getSavedGroupRevisionLatest")]
+    update: { x-speakeasy-name-override: latest }
+  - target: $..[?(@.operationId=="getSavedGroupRevisionMergeStatus")]
+    update: { x-speakeasy-name-override: merge-status }
+  - target: $..[?(@.operationId=="postSavedGroupRevisionDiscard")]
+    update: { x-speakeasy-name-override: discard }
+  - target: $..[?(@.operationId=="postSavedGroupRevisionItemsAdd")]
+    update: { x-speakeasy-name-override: add-items }
+  - target: $..[?(@.operationId=="postSavedGroupRevisionItemsRemove")]
+    update: { x-speakeasy-name-override: remove-items }
+  - target: $..[?(@.operationId=="postSavedGroupRevisionPublish")]
+    update: { x-speakeasy-name-override: publish }
+  - target: $..[?(@.operationId=="postSavedGroupRevisionRebase")]
+    update: { x-speakeasy-name-override: rebase }
+  - target: $..[?(@.operationId=="postSavedGroupRevisionRequestReview")]
+    update: { x-speakeasy-name-override: request-review }
+  - target: $..[?(@.operationId=="postSavedGroupRevisionRevert")]
+    update: { x-speakeasy-name-override: revert }
+  - target: $..[?(@.operationId=="postSavedGroupRevisionSubmitReview")]
+    update: { x-speakeasy-name-override: submit-review }
+  - target: $..[?(@.operationId=="putSavedGroupRevisionArchive")]
+    update: { x-speakeasy-name-override: archive }
+  - target: $..[?(@.operationId=="putSavedGroupRevisionCondition")]
+    update: { x-speakeasy-name-override: set-condition }
+  - target: $..[?(@.operationId=="putSavedGroupRevisionMetadata")]
+    update: { x-speakeasy-name-override: set-metadata }
+  - target: $..[?(@.operationId=="putSavedGroupRevisionValues")]
+    update: { x-speakeasy-name-override: set-values }

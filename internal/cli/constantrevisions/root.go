@@ -33,7 +33,7 @@ func InitConstantRevisionsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initGetConstantRevisionLatestCmd(ConstantRevisionsCmd); err != nil {
+	if err := initLatestCmd(ConstantRevisionsCmd); err != nil {
 		return err
 	}
 
@@ -41,43 +41,43 @@ func InitConstantRevisionsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPutConstantRevisionMetadataCmd(ConstantRevisionsCmd); err != nil {
+	if err := initSetMetadataCmd(ConstantRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPutConstantRevisionValueCmd(ConstantRevisionsCmd); err != nil {
+	if err := initSetValueCmd(ConstantRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPutConstantRevisionArchiveCmd(ConstantRevisionsCmd); err != nil {
+	if err := initArchiveCmd(ConstantRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostConstantRevisionRequestReviewCmd(ConstantRevisionsCmd); err != nil {
+	if err := initRequestReviewCmd(ConstantRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostConstantRevisionSubmitReviewCmd(ConstantRevisionsCmd); err != nil {
+	if err := initSubmitReviewCmd(ConstantRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initGetConstantRevisionMergeStatusCmd(ConstantRevisionsCmd); err != nil {
+	if err := initMergeStatusCmd(ConstantRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostConstantRevisionRebaseCmd(ConstantRevisionsCmd); err != nil {
+	if err := initRebaseCmd(ConstantRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostConstantRevisionPublishCmd(ConstantRevisionsCmd); err != nil {
+	if err := initPublishCmd(ConstantRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostConstantRevisionDiscardCmd(ConstantRevisionsCmd); err != nil {
+	if err := initDiscardCmd(ConstantRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostConstantRevisionRevertCmd(ConstantRevisionsCmd); err != nil {
+	if err := initRevertCmd(ConstantRevisionsCmd); err != nil {
 		return err
 	}
 

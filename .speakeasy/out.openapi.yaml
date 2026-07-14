@@ -11064,6 +11064,7 @@ paths:
         type: offsetLimit
         inputs: *offsetLimitInputs
         outputs: {results: $.experimentResults}
+      x-speakeasy-name-override: list-results
   /v1/experiments/{id}:
     get:
       operationId: getExperiment
@@ -11654,6 +11655,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: get-start-checklist
   /v1/experiments/{id}/results:
     get:
       operationId: getExperimentResults
@@ -11688,6 +11690,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: results
   /v1/experiments/{id}/start:
     post:
       operationId: postExperimentStart
@@ -11788,6 +11791,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: start
   /v1/experiments/{id}/start-checklist/manual/complete:
     post:
       operationId: postExperimentStartChecklistManualComplete
@@ -11844,6 +11848,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"keys":["Stakeholder sign-off","QA complete"]}'
+      x-speakeasy-name-override: complete-start-checklist
   /v1/experiments/{id}/stop:
     post:
       operationId: postExperimentStop
@@ -11937,6 +11942,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"results":"won","releasedVariationId":"var_treatment","winnerVariationId":"var_treatment","enableTemporaryRollout":true,"analysis":"Reached desired sample size with statistically significant positive lift; shipping treatment"}'
+      x-speakeasy-name-override: stop
   /v1/experiments/{id}/modify-temporary-rollout:
     post:
       operationId: postExperimentModifyTemporaryRollout
@@ -12006,6 +12012,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"enableTemporaryRollout":false}'
+      x-speakeasy-name-override: modify-temporary-rollout
   /v1/experiments/{id}/snapshot:
     post:
       operationId: postExperimentSnapshot
@@ -12068,6 +12075,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"triggeredBy":"schedule"}'
+      x-speakeasy-name-override: create-snapshot
   /v1/experiments/{id}/variation/{variationId}/screenshot/upload:
     post:
       operationId: postVariationImageUpload
@@ -12128,6 +12136,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: upload-variation-screenshot
   /v1/experiments/{id}/variation/{variationId}/screenshot:
     delete:
       operationId: deleteVariationScreenshot
@@ -12200,6 +12209,7 @@ paths:
           source: |-
             curl -X GET 'https://api.growthbook.io/api/v1/experiment-names' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: list-names
   /v1/experiments/{id}/visual-changesets:
     get:
       operationId: listVisualChangesets
@@ -16158,6 +16168,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: latest
   /v1/saved-groups-revisions/{savedGroupId}/{version}:
     get:
       operationId: getSavedGroupRevision
@@ -16262,6 +16273,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: set-metadata
   /v1/saved-groups-revisions/{savedGroupId}/{version}/condition:
     put:
       operationId: putSavedGroupRevisionCondition
@@ -16322,6 +16334,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: set-condition
   /v1/saved-groups-revisions/{savedGroupId}/{version}/values:
     put:
       operationId: putSavedGroupRevisionValues
@@ -16383,6 +16396,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: set-values
   /v1/saved-groups-revisions/{savedGroupId}/{version}/archive:
     put:
       operationId: putSavedGroupRevisionArchive
@@ -16442,6 +16456,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: archive
   /v1/saved-groups-revisions/{savedGroupId}/{version}/items/add:
     post:
       operationId: postSavedGroupRevisionItemsAdd
@@ -16503,6 +16518,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: add-items
   /v1/saved-groups-revisions/{savedGroupId}/{version}/items/remove:
     post:
       operationId: postSavedGroupRevisionItemsRemove
@@ -16564,6 +16580,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: remove-items
   /v1/saved-groups-revisions/{savedGroupId}/{version}/request-review:
     post:
       operationId: postSavedGroupRevisionRequestReview
@@ -16614,6 +16631,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: request-review
   /v1/saved-groups-revisions/{savedGroupId}/{version}/submit-review:
     post:
       operationId: postSavedGroupRevisionSubmitReview
@@ -16676,6 +16694,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: submit-review
   /v1/saved-groups-revisions/{savedGroupId}/{version}/merge-status:
     get:
       operationId: getSavedGroupRevisionMergeStatus
@@ -16736,6 +16755,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: merge-status
   /v1/saved-groups-revisions/{savedGroupId}/{version}/rebase:
     post:
       operationId: postSavedGroupRevisionRebase
@@ -16800,6 +16820,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: rebase
   /v1/saved-groups-revisions/{savedGroupId}/{version}/publish:
     post:
       operationId: postSavedGroupRevisionPublish
@@ -16849,6 +16870,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: publish
   /v1/saved-groups-revisions/{savedGroupId}/{version}/discard:
     post:
       operationId: postSavedGroupRevisionDiscard
@@ -16896,6 +16918,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: discard
   /v1/saved-groups-revisions/{savedGroupId}/{version}/revert:
     post:
       operationId: postSavedGroupRevisionRevert
@@ -16950,6 +16973,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: revert
   /v1/constants:
     get:
       operationId: listConstants
@@ -17603,6 +17627,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: latest
   /v1/constants-revisions/{key}/{version}:
     get:
       operationId: getConstantRevision
@@ -17705,6 +17730,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: set-metadata
   /v1/constants-revisions/{key}/{version}/value:
     put:
       operationId: putConstantRevisionValue
@@ -17771,6 +17797,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: set-value
   /v1/constants-revisions/{key}/{version}/archive:
     put:
       operationId: putConstantRevisionArchive
@@ -17830,6 +17857,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: archive
   /v1/constants-revisions/{key}/{version}/request-review:
     post:
       operationId: postConstantRevisionRequestReview
@@ -17880,6 +17908,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: request-review
   /v1/constants-revisions/{key}/{version}/submit-review:
     post:
       operationId: postConstantRevisionSubmitReview
@@ -17942,6 +17971,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: submit-review
   /v1/constants-revisions/{key}/{version}/merge-status:
     get:
       operationId: getConstantRevisionMergeStatus
@@ -18002,6 +18032,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: merge-status
   /v1/constants-revisions/{key}/{version}/rebase:
     post:
       operationId: postConstantRevisionRebase
@@ -18056,6 +18087,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: rebase
   /v1/constants-revisions/{key}/{version}/publish:
     post:
       operationId: postConstantRevisionPublish
@@ -18105,6 +18137,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: publish
   /v1/constants-revisions/{key}/{version}/discard:
     post:
       operationId: postConstantRevisionDiscard
@@ -18152,6 +18185,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: discard
   /v1/constants-revisions/{key}/{version}/revert:
     post:
       operationId: postConstantRevisionRevert
@@ -18206,6 +18240,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: revert
   /v1/organizations:
     get:
       operationId: listOrganizations

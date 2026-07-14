@@ -109,6 +109,23 @@ If a change *should* have been breaking but the spec was written in a backward-c
 way (or vice-versa), fix it at the source (the Zod validators in `growthbook`) — the bump
 only reflects what the spec says.
 
+### Patches & name overrides — two extra things to check on generation PRs
+
+Beyond the version bump, generation PRs can silently regress two hand-maintained layers:
+
+- **`.speakeasy/patches/`** carries behavioral fixes to generated code (pagination hint,
+  stdin `--body -`, output newlines, agent-mode error classing, …) that re-apply on every
+  regen. A patch that no longer applies fails the generation — if the regen PR is missing or
+  the workflow failed, check for patch conflicts first and rebase the affected `.patch`
+  files. Prefer upstreaming fixes to Speakeasy over growing this directory (tracking issues
+  #24–#29); each patch is recurring regen-conflict surface (the `--usage` KDL patch was
+  already abandoned for this reason).
+- **Verb renames** live in the overlay as per-op `x-speakeasy-name-override`s (e.g.
+  `feature-revisions publish`). They are per-operation, so a **new endpoint added to a
+  renamed group surfaces under its raw operationId** (`post-feature-revision-…`) until an
+  override is added. When the spec diff shows a new operation in such a group, add the
+  override in the same PR.
+
 ## Mechanics (files involved)
 
 | Concern | Where |
@@ -148,7 +165,9 @@ npm view growthbook dist-tags          # confirm
 A human-pushed tag triggers `release.yaml` directly (no PAT needed — the recursion block
 below only applies to tags pushed *by a workflow*).
 
-At GA cutover: push a plain `v1.0.0` (→ `latest`), then deprecate the old line:
+At GA cutover: push the current version as a **plain tag** (no `-next` suffix, e.g.
+`v1.2.0` — the line has moved past 1.0.0 during staging), which publishes to `latest`;
+then deprecate the old line:
 `npm deprecate 'growthbook@<0.3' "v1 is a rewrite; see MIGRATION.md"`.
 
 ## Gotchas

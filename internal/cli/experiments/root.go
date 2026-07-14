@@ -28,7 +28,7 @@ func InitExperimentsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initListExperimentResultsCmd(ExperimentsCmd); err != nil {
+	if err := initListResultsCmd(ExperimentsCmd); err != nil {
 		return err
 	}
 
@@ -40,35 +40,35 @@ func InitExperimentsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initGetExperimentStartChecklistCmd(ExperimentsCmd); err != nil {
+	if err := initGetStartChecklistCmd(ExperimentsCmd); err != nil {
 		return err
 	}
 
-	if err := initGetExperimentResultsCmd(ExperimentsCmd); err != nil {
+	if err := initResultsCmd(ExperimentsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostExperimentStartCmd(ExperimentsCmd); err != nil {
+	if err := initStartCmd(ExperimentsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostExperimentStartChecklistManualCompleteCmd(ExperimentsCmd); err != nil {
+	if err := initCompleteStartChecklistCmd(ExperimentsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostExperimentStopCmd(ExperimentsCmd); err != nil {
+	if err := initStopCmd(ExperimentsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostExperimentModifyTemporaryRolloutCmd(ExperimentsCmd); err != nil {
+	if err := initModifyTemporaryRolloutCmd(ExperimentsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostExperimentSnapshotCmd(ExperimentsCmd); err != nil {
+	if err := initCreateSnapshotCmd(ExperimentsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostVariationImageUploadCmd(ExperimentsCmd); err != nil {
+	if err := initUploadVariationScreenshotCmd(ExperimentsCmd); err != nil {
 		return err
 	}
 
@@ -76,7 +76,7 @@ func InitExperimentsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initGetExperimentNamesCmd(ExperimentsCmd); err != nil {
+	if err := initListNamesCmd(ExperimentsCmd); err != nil {
 		return err
 	}
 

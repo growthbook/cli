@@ -43,18 +43,18 @@ growthbook experiments [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
+* [growthbook experiments complete-start-checklist](growthbook_experiments_complete-start-checklist.md)	 - Mark manual pre-launch checklist items complete
 * [growthbook experiments create](growthbook_experiments_create.md)	 - Create a single experiment
+* [growthbook experiments create-snapshot](growthbook_experiments_create-snapshot.md)	 - Create Experiment Snapshot
 * [growthbook experiments delete-variation-screenshot](growthbook_experiments_delete-variation-screenshot.md)	 - Delete a variation screenshot
 * [growthbook experiments get](growthbook_experiments_get.md)	 - Get a single experiment
-* [growthbook experiments get-experiment-names](growthbook_experiments_get-experiment-names.md)	 - Get a list of experiments with names and ids
-* [growthbook experiments get-experiment-results](growthbook_experiments_get-experiment-results.md)	 - Get results for an experiment
-* [growthbook experiments get-experiment-start-checklist](growthbook_experiments_get-experiment-start-checklist.md)	 - Get an experiment pre-launch checklist status
+* [growthbook experiments get-start-checklist](growthbook_experiments_get-start-checklist.md)	 - Get an experiment pre-launch checklist status
 * [growthbook experiments list](growthbook_experiments_list.md)	 - Get all experiments
-* [growthbook experiments list-experiment-results](growthbook_experiments_list-experiment-results.md)	 - Get latest results for many experiments
-* [growthbook experiments post-experiment-modify-temporary-rollout](growthbook_experiments_post-experiment-modify-temporary-rollout.md)	 - Modify temporary rollout status for a stopped experiment
-* [growthbook experiments post-experiment-snapshot](growthbook_experiments_post-experiment-snapshot.md)	 - Create Experiment Snapshot
-* [growthbook experiments post-experiment-start](growthbook_experiments_post-experiment-start.md)	 - Start/Stage an experiment
-* [growthbook experiments post-experiment-start-checklist-manual-complete](growthbook_experiments_post-experiment-start-checklist-manual-complete.md)	 - Mark manual pre-launch checklist items complete
-* [growthbook experiments post-experiment-stop](growthbook_experiments_post-experiment-stop.md)	 - Stop an experiment
-* [growthbook experiments post-variation-image-upload](growthbook_experiments_post-variation-image-upload.md)	 - Upload a variation screenshot
+* [growthbook experiments list-names](growthbook_experiments_list-names.md)	 - Get a list of experiments with names and ids
+* [growthbook experiments list-results](growthbook_experiments_list-results.md)	 - Get latest results for many experiments
+* [growthbook experiments modify-temporary-rollout](growthbook_experiments_modify-temporary-rollout.md)	 - Modify temporary rollout status for a stopped experiment
+* [growthbook experiments results](growthbook_experiments_results.md)	 - Get results for an experiment
+* [growthbook experiments start](growthbook_experiments_start.md)	 - Start/Stage an experiment
+* [growthbook experiments stop](growthbook_experiments_stop.md)	 - Stop an experiment
 * [growthbook experiments update](growthbook_experiments_update.md)	 - Update a single experiment
+* [growthbook experiments upload-variation-screenshot](growthbook_experiments_upload-variation-screenshot.md)	 - Upload a variation screenshot

@@ -38,8 +38,7 @@ the previous v1 surface is still available under `features-v1` (deprecated).
 | `features list` / `get` / `toggle` | **`features list` / `get` / `toggle`** (now the latest, v2, API) |
 | `features generate-types` | `generate-types` (top-level) |
 | (old v1 feature surface, if you still need it) | `features-v1 …` (deprecated; prints a one-line warning to stderr) |
-| `experiments results` | `experiments get-experiment-results` / `list-experiment-results` |
-| `metrics create` | `metrics post` |
+| `experiments results` | `experiments results` (one) / `experiments list-results` (many) |
 | `datasources …` | `data-sources …` |
 | `sdkconnections …` | `SDK-connections …` |
 | `savedgroups …` | `saved-groups …` |
@@ -68,8 +67,10 @@ Flags: `--output` (default `./growthbook-types`), `-f/--filename` (default `app-
 
 ## New conveniences
 
-- `--output-format pretty|json|yaml|table|toon`
+- `--output-format pretty|json|yaml|toon`
 - `--jq '<filter>'` to post-process JSON output
-- `--body` / stdin for request payloads
+- `--all` to auto-paginate list commands (streams NDJSON for JSON output)
+- `--body` / stdin (including `--body -`) for request payloads
 - `--dry-run` to print the request without sending it
+- `--agent-mode` structured errors + TOON output (auto-enabled under AI coding agents)
 - `--debug` for verbose diagnostics

@@ -376,7 +376,7 @@ func (s *Experiments) Create(ctx context.Context, request operations.PostExperim
 
 }
 
-// ListExperimentResults - Get latest results for many experiments
+// ListResults - Get latest results for many experiments
 // Returns the latest non-dimension snapshot for each experiment matching the filters. Use this to scan results across a portfolio in one call.
 //
 // Pagination semantics:
@@ -386,7 +386,7 @@ func (s *Experiments) Create(ctx context.Context, request operations.PostExperim
 // - `hasMore` and `nextOffset` advance over experiments matching the filters, not over returned results.
 //
 // Use the per-experiment `GET /experiments/{id}/results` endpoint to inspect specific phases or dimensions.
-func (s *Experiments) ListExperimentResults(ctx context.Context, request *operations.ListExperimentResultsRequest, opts ...operations.Option) (*operations.ListExperimentResultsResponse, error) {
+func (s *Experiments) ListResults(ctx context.Context, request *operations.ListExperimentResultsRequest, opts ...operations.Option) (*operations.ListExperimentResultsResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -524,7 +524,7 @@ func (s *Experiments) ListExperimentResults(ctx context.Context, request *operat
 		nOS := int64(oS + len(arr))
 		request.Offset = &nOS
 
-		return s.ListExperimentResults(
+		return s.ListResults(
 			ctx,
 			request,
 		)
@@ -898,8 +898,8 @@ func (s *Experiments) UpdateExperiment(ctx context.Context, request operations.U
 
 }
 
-// GetExperimentStartChecklist - Get an experiment pre-launch checklist status
-func (s *Experiments) GetExperimentStartChecklist(ctx context.Context, request operations.GetExperimentStartChecklistRequest, opts ...operations.Option) (*operations.GetExperimentStartChecklistResponse, error) {
+// GetStartChecklist - Get an experiment pre-launch checklist status
+func (s *Experiments) GetStartChecklist(ctx context.Context, request operations.GetExperimentStartChecklistRequest, opts ...operations.Option) (*operations.GetExperimentStartChecklistResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1042,8 +1042,8 @@ func (s *Experiments) GetExperimentStartChecklist(ctx context.Context, request o
 
 }
 
-// GetExperimentResults - Get results for an experiment
-func (s *Experiments) GetExperimentResults(ctx context.Context, request operations.GetExperimentResultsRequest, opts ...operations.Option) (*operations.GetExperimentResultsResponse, error) {
+// Results - Get results for an experiment
+func (s *Experiments) Results(ctx context.Context, request operations.GetExperimentResultsRequest, opts ...operations.Option) (*operations.GetExperimentResultsResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1190,9 +1190,9 @@ func (s *Experiments) GetExperimentResults(ctx context.Context, request operatio
 
 }
 
-// PostExperimentStart - Start/Stage an experiment
+// Start - Start/Stage an experiment
 // Starts an experiment or stages it for a future start if a `statusUpdateSchedule` is set on the experiment.
-func (s *Experiments) PostExperimentStart(ctx context.Context, request operations.PostExperimentStartRequest, opts ...operations.Option) (*operations.PostExperimentStartResponse, error) {
+func (s *Experiments) Start(ctx context.Context, request operations.PostExperimentStartRequest, opts ...operations.Option) (*operations.PostExperimentStartResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1367,8 +1367,8 @@ func (s *Experiments) PostExperimentStart(ctx context.Context, request operation
 
 }
 
-// PostExperimentStartChecklistManualComplete - Mark manual pre-launch checklist items complete
-func (s *Experiments) PostExperimentStartChecklistManualComplete(ctx context.Context, request operations.PostExperimentStartChecklistManualCompleteRequest, opts ...operations.Option) (*operations.PostExperimentStartChecklistManualCompleteResponse, error) {
+// CompleteStartChecklist - Mark manual pre-launch checklist items complete
+func (s *Experiments) CompleteStartChecklist(ctx context.Context, request operations.PostExperimentStartChecklistManualCompleteRequest, opts ...operations.Option) (*operations.PostExperimentStartChecklistManualCompleteResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1518,8 +1518,8 @@ func (s *Experiments) PostExperimentStartChecklistManualComplete(ctx context.Con
 
 }
 
-// PostExperimentStop - Stop an experiment
-func (s *Experiments) PostExperimentStop(ctx context.Context, request operations.PostExperimentStopRequest, opts ...operations.Option) (*operations.PostExperimentStopResponse, error) {
+// Stop an experiment
+func (s *Experiments) Stop(ctx context.Context, request operations.PostExperimentStopRequest, opts ...operations.Option) (*operations.PostExperimentStopResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1694,8 +1694,8 @@ func (s *Experiments) PostExperimentStop(ctx context.Context, request operations
 
 }
 
-// PostExperimentModifyTemporaryRollout - Modify temporary rollout status for a stopped experiment
-func (s *Experiments) PostExperimentModifyTemporaryRollout(ctx context.Context, request operations.PostExperimentModifyTemporaryRolloutRequest, opts ...operations.Option) (*operations.PostExperimentModifyTemporaryRolloutResponse, error) {
+// ModifyTemporaryRollout - Modify temporary rollout status for a stopped experiment
+func (s *Experiments) ModifyTemporaryRollout(ctx context.Context, request operations.PostExperimentModifyTemporaryRolloutRequest, opts ...operations.Option) (*operations.PostExperimentModifyTemporaryRolloutResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1870,8 +1870,8 @@ func (s *Experiments) PostExperimentModifyTemporaryRollout(ctx context.Context, 
 
 }
 
-// PostExperimentSnapshot - Create Experiment Snapshot
-func (s *Experiments) PostExperimentSnapshot(ctx context.Context, request operations.PostExperimentSnapshotRequest, opts ...operations.Option) (*operations.PostExperimentSnapshotResponse, error) {
+// CreateSnapshot - Create Experiment Snapshot
+func (s *Experiments) CreateSnapshot(ctx context.Context, request operations.PostExperimentSnapshotRequest, opts ...operations.Option) (*operations.PostExperimentSnapshotResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -2021,8 +2021,8 @@ func (s *Experiments) PostExperimentSnapshot(ctx context.Context, request operat
 
 }
 
-// PostVariationImageUpload - Upload a variation screenshot
-func (s *Experiments) PostVariationImageUpload(ctx context.Context, request operations.PostVariationImageUploadRequest, opts ...operations.Option) (*operations.PostVariationImageUploadResponse, error) {
+// UploadVariationScreenshot - Upload a variation screenshot
+func (s *Experiments) UploadVariationScreenshot(ctx context.Context, request operations.PostVariationImageUploadRequest, opts ...operations.Option) (*operations.PostVariationImageUploadResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -2323,8 +2323,8 @@ func (s *Experiments) DeleteVariationScreenshot(ctx context.Context, request ope
 
 }
 
-// GetExperimentNames - Get a list of experiments with names and ids
-func (s *Experiments) GetExperimentNames(ctx context.Context, request *operations.GetExperimentNamesRequest, opts ...operations.Option) (*operations.GetExperimentNamesResponse, error) {
+// ListNames - Get a list of experiments with names and ids
+func (s *Experiments) ListNames(ctx context.Context, request *operations.GetExperimentNamesRequest, opts ...operations.Option) (*operations.GetExperimentNamesResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

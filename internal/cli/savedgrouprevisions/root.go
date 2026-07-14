@@ -33,7 +33,7 @@ func InitSavedGroupRevisionsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initGetSavedGroupRevisionLatestCmd(SavedGroupRevisionsCmd); err != nil {
+	if err := initLatestCmd(SavedGroupRevisionsCmd); err != nil {
 		return err
 	}
 
@@ -41,55 +41,55 @@ func InitSavedGroupRevisionsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPutSavedGroupRevisionMetadataCmd(SavedGroupRevisionsCmd); err != nil {
+	if err := initSetMetadataCmd(SavedGroupRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPutSavedGroupRevisionConditionCmd(SavedGroupRevisionsCmd); err != nil {
+	if err := initSetConditionCmd(SavedGroupRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPutSavedGroupRevisionValuesCmd(SavedGroupRevisionsCmd); err != nil {
+	if err := initSetValuesCmd(SavedGroupRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPutSavedGroupRevisionArchiveCmd(SavedGroupRevisionsCmd); err != nil {
+	if err := initArchiveCmd(SavedGroupRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostSavedGroupRevisionItemsAddCmd(SavedGroupRevisionsCmd); err != nil {
+	if err := initAddItemsCmd(SavedGroupRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostSavedGroupRevisionItemsRemoveCmd(SavedGroupRevisionsCmd); err != nil {
+	if err := initRemoveItemsCmd(SavedGroupRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostSavedGroupRevisionRequestReviewCmd(SavedGroupRevisionsCmd); err != nil {
+	if err := initRequestReviewCmd(SavedGroupRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostSavedGroupRevisionSubmitReviewCmd(SavedGroupRevisionsCmd); err != nil {
+	if err := initSubmitReviewCmd(SavedGroupRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initGetSavedGroupRevisionMergeStatusCmd(SavedGroupRevisionsCmd); err != nil {
+	if err := initMergeStatusCmd(SavedGroupRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostSavedGroupRevisionRebaseCmd(SavedGroupRevisionsCmd); err != nil {
+	if err := initRebaseCmd(SavedGroupRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostSavedGroupRevisionPublishCmd(SavedGroupRevisionsCmd); err != nil {
+	if err := initPublishCmd(SavedGroupRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostSavedGroupRevisionDiscardCmd(SavedGroupRevisionsCmd); err != nil {
+	if err := initDiscardCmd(SavedGroupRevisionsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostSavedGroupRevisionRevertCmd(SavedGroupRevisionsCmd); err != nil {
+	if err := initRevertCmd(SavedGroupRevisionsCmd); err != nil {
 		return err
 	}
 

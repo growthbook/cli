@@ -324,23 +324,23 @@ growthbook generate-types --project prj_123                 # limit to one proje
 
 * [`list`](docs/growthbook_experiments_list.md) - Get all experiments
 * [`create`](docs/growthbook_experiments_create.md) - Create a single experiment
-* [`list-experiment-results`](docs/growthbook_experiments_list-experiment-results.md) - Get latest results for many experiments
+* [`list-results`](docs/growthbook_experiments_list-results.md) - Get latest results for many experiments
 * [`get`](docs/growthbook_experiments_get.md) - Get a single experiment
 * [`update`](docs/growthbook_experiments_update.md) - Update a single experiment
-* [`get-experiment-start-checklist`](docs/growthbook_experiments_get-experiment-start-checklist.md) - Get an experiment pre-launch checklist status
-* [`get-experiment-results`](docs/growthbook_experiments_get-experiment-results.md) - Get results for an experiment
-* [`post-experiment-start`](docs/growthbook_experiments_post-experiment-start.md) - Start/Stage an experiment
-* [`post-experiment-start-checklist-manual-complete`](docs/growthbook_experiments_post-experiment-start-checklist-manual-complete.md) - Mark manual pre-launch checklist items complete
-* [`post-experiment-stop`](docs/growthbook_experiments_post-experiment-stop.md) - Stop an experiment
-* [`post-experiment-modify-temporary-rollout`](docs/growthbook_experiments_post-experiment-modify-temporary-rollout.md) - Modify temporary rollout status for a stopped experiment
-* [`post-experiment-snapshot`](docs/growthbook_experiments_post-experiment-snapshot.md) - Create Experiment Snapshot
-* [`post-variation-image-upload`](docs/growthbook_experiments_post-variation-image-upload.md) - Upload a variation screenshot
+* [`get-start-checklist`](docs/growthbook_experiments_get-start-checklist.md) - Get an experiment pre-launch checklist status
+* [`results`](docs/growthbook_experiments_results.md) - Get results for an experiment
+* [`start`](docs/growthbook_experiments_start.md) - Start/Stage an experiment
+* [`complete-start-checklist`](docs/growthbook_experiments_complete-start-checklist.md) - Mark manual pre-launch checklist items complete
+* [`stop`](docs/growthbook_experiments_stop.md) - Stop an experiment
+* [`modify-temporary-rollout`](docs/growthbook_experiments_modify-temporary-rollout.md) - Modify temporary rollout status for a stopped experiment
+* [`create-snapshot`](docs/growthbook_experiments_create-snapshot.md) - Create Experiment Snapshot
+* [`upload-variation-screenshot`](docs/growthbook_experiments_upload-variation-screenshot.md) - Upload a variation screenshot
 * [`delete-variation-screenshot`](docs/growthbook_experiments_delete-variation-screenshot.md) - Delete a variation screenshot
-* [`get-experiment-names`](docs/growthbook_experiments_get-experiment-names.md) - Get a list of experiments with names and ids
+* [`list-names`](docs/growthbook_experiments_list-names.md) - Get a list of experiments with names and ids
 
 ### [snapshots](docs/growthbook_snapshots.md)
 
-* [`post-experiment`](docs/growthbook_snapshots_post-experiment.md) - Create Experiment Snapshot
+* [`create-snapshot`](docs/growthbook_snapshots_create-snapshot.md) - Create Experiment Snapshot
 * [`get-experiment`](docs/growthbook_snapshots_get-experiment.md) - Get an experiment snapshot status
 
 ### [visual-changesets](docs/growthbook_visual-changesets.md)
@@ -452,21 +452,21 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`list`](docs/growthbook_saved-group-revisions_list.md) - List saved-group revisions across the organization
 * [`list-for-saved-group`](docs/growthbook_saved-group-revisions_list-for-saved-group.md) - List revisions for a saved group
 * [`create`](docs/growthbook_saved-group-revisions_create.md) - Create a draft revision
-* [`get-saved-group-revision-latest`](docs/growthbook_saved-group-revisions_get-saved-group-revision-latest.md) - Get the most recent active draft revision
+* [`latest`](docs/growthbook_saved-group-revisions_latest.md) - Get the most recent active draft revision
 * [`get`](docs/growthbook_saved-group-revisions_get.md) - Get a single saved group revision
-* [`put-saved-group-revision-metadata`](docs/growthbook_saved-group-revisions_put-saved-group-revision-metadata.md) - Update saved group metadata in a draft revision
-* [`put-saved-group-revision-condition`](docs/growthbook_saved-group-revisions_put-saved-group-revision-condition.md) - Update the condition of a condition saved group draft revision
-* [`put-saved-group-revision-values`](docs/growthbook_saved-group-revisions_put-saved-group-revision-values.md) - Replace the values list in a list saved group draft revision
-* [`put-saved-group-revision-archive`](docs/growthbook_saved-group-revisions_put-saved-group-revision-archive.md) - Stage an archive/unarchive in a draft revision
-* [`post-saved-group-revision-items-add`](docs/growthbook_saved-group-revisions_post-saved-group-revision-items-add.md) - Append items to a list saved group draft revision
-* [`post-saved-group-revision-items-remove`](docs/growthbook_saved-group-revisions_post-saved-group-revision-items-remove.md) - Remove items from a list saved group draft revision
-* [`post-saved-group-revision-request-review`](docs/growthbook_saved-group-revisions_post-saved-group-revision-request-review.md) - Request review for a draft revision
-* [`post-saved-group-revision-submit-review`](docs/growthbook_saved-group-revisions_post-saved-group-revision-submit-review.md) - Submit a review on a draft revision
-* [`get-saved-group-revision-merge-status`](docs/growthbook_saved-group-revisions_get-saved-group-revision-merge-status.md) - Get merge status for a draft revision
-* [`post-saved-group-revision-rebase`](docs/growthbook_saved-group-revisions_post-saved-group-revision-rebase.md) - Rebase a draft revision onto the current live saved group
-* [`post-saved-group-revision-publish`](docs/growthbook_saved-group-revisions_post-saved-group-revision-publish.md) - Publish a draft revision
-* [`post-saved-group-revision-discard`](docs/growthbook_saved-group-revisions_post-saved-group-revision-discard.md) - Discard a draft revision
-* [`post-saved-group-revision-revert`](docs/growthbook_saved-group-revisions_post-saved-group-revision-revert.md) - Revert the saved group to a prior revision
+* [`set-metadata`](docs/growthbook_saved-group-revisions_set-metadata.md) - Update saved group metadata in a draft revision
+* [`set-condition`](docs/growthbook_saved-group-revisions_set-condition.md) - Update the condition of a condition saved group draft revision
+* [`set-values`](docs/growthbook_saved-group-revisions_set-values.md) - Replace the values list in a list saved group draft revision
+* [`archive`](docs/growthbook_saved-group-revisions_archive.md) - Stage an archive/unarchive in a draft revision
+* [`add-items`](docs/growthbook_saved-group-revisions_add-items.md) - Append items to a list saved group draft revision
+* [`remove-items`](docs/growthbook_saved-group-revisions_remove-items.md) - Remove items from a list saved group draft revision
+* [`request-review`](docs/growthbook_saved-group-revisions_request-review.md) - Request review for a draft revision
+* [`submit-review`](docs/growthbook_saved-group-revisions_submit-review.md) - Submit a review on a draft revision
+* [`merge-status`](docs/growthbook_saved-group-revisions_merge-status.md) - Get merge status for a draft revision
+* [`rebase`](docs/growthbook_saved-group-revisions_rebase.md) - Rebase a draft revision onto the current live saved group
+* [`publish`](docs/growthbook_saved-group-revisions_publish.md) - Publish a draft revision
+* [`discard`](docs/growthbook_saved-group-revisions_discard.md) - Discard a draft revision
+* [`revert`](docs/growthbook_saved-group-revisions_revert.md) - Revert the saved group to a prior revision
 
 ### [constants](docs/growthbook_constants.md)
 
@@ -484,18 +484,18 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`list`](docs/growthbook_constant-revisions_list.md) - List constant revisions across the organization
 * [`list-for-constant`](docs/growthbook_constant-revisions_list-for-constant.md) - List revisions for a constant
 * [`create`](docs/growthbook_constant-revisions_create.md) - Create a draft revision
-* [`get-constant-revision-latest`](docs/growthbook_constant-revisions_get-constant-revision-latest.md) - Get the most recent active draft revision
+* [`latest`](docs/growthbook_constant-revisions_latest.md) - Get the most recent active draft revision
 * [`get`](docs/growthbook_constant-revisions_get.md) - Get a single constant revision
-* [`put-constant-revision-metadata`](docs/growthbook_constant-revisions_put-constant-revision-metadata.md) - Update constant metadata in a draft revision
-* [`put-constant-revision-value`](docs/growthbook_constant-revisions_put-constant-revision-value.md) - Update the value of a constant draft revision
-* [`put-constant-revision-archive`](docs/growthbook_constant-revisions_put-constant-revision-archive.md) - Stage an archive/unarchive in a draft revision
-* [`post-constant-revision-request-review`](docs/growthbook_constant-revisions_post-constant-revision-request-review.md) - Request review for a draft revision
-* [`post-constant-revision-submit-review`](docs/growthbook_constant-revisions_post-constant-revision-submit-review.md) - Submit a review on a draft revision
-* [`get-constant-revision-merge-status`](docs/growthbook_constant-revisions_get-constant-revision-merge-status.md) - Get merge status for a draft revision
-* [`post-constant-revision-rebase`](docs/growthbook_constant-revisions_post-constant-revision-rebase.md) - Rebase a draft revision onto the current live constant
-* [`post-constant-revision-publish`](docs/growthbook_constant-revisions_post-constant-revision-publish.md) - Publish a draft revision
-* [`post-constant-revision-discard`](docs/growthbook_constant-revisions_post-constant-revision-discard.md) - Discard a draft revision
-* [`post-constant-revision-revert`](docs/growthbook_constant-revisions_post-constant-revision-revert.md) - Revert the constant to a prior revision
+* [`set-metadata`](docs/growthbook_constant-revisions_set-metadata.md) - Update constant metadata in a draft revision
+* [`set-value`](docs/growthbook_constant-revisions_set-value.md) - Update the value of a constant draft revision
+* [`archive`](docs/growthbook_constant-revisions_archive.md) - Stage an archive/unarchive in a draft revision
+* [`request-review`](docs/growthbook_constant-revisions_request-review.md) - Request review for a draft revision
+* [`submit-review`](docs/growthbook_constant-revisions_submit-review.md) - Submit a review on a draft revision
+* [`merge-status`](docs/growthbook_constant-revisions_merge-status.md) - Get merge status for a draft revision
+* [`rebase`](docs/growthbook_constant-revisions_rebase.md) - Rebase a draft revision onto the current live constant
+* [`publish`](docs/growthbook_constant-revisions_publish.md) - Publish a draft revision
+* [`discard`](docs/growthbook_constant-revisions_discard.md) - Discard a draft revision
+* [`revert`](docs/growthbook_constant-revisions_revert.md) - Revert the constant to a prior revision
 
 ### [organizations](docs/growthbook_organizations.md)
 
