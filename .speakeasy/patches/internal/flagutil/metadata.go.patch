@@ -1,0 +1,15 @@
+diff --git a/internal/flagutil/metadata.go b/internal/flagutil/metadata.go
+--- a/internal/flagutil/metadata.go
++++ b/internal/flagutil/metadata.go
+@@ -281,7 +281,10 @@ func BuildRequest[T any](cmd *cobra.Command, meta []FlagMeta, bodyFieldPath stri
+ 	// provided via --body/stdin, check if any individual flags were changed.
+ 	// If not, the user didn't attempt to provide a body at all — relax required
+ 	// checks so nullable/optional bodies work without erroring on inner required fields.
+-	if !bodyPrePopulated && bodyFieldPath == "" {
++	// bodyFlagName != "" gates this to operations that actually take a body: no-body
++	// ops (GET/DELETE by id) also pass bodyFieldPath == "", and relaxing them would
++	// wrongly drop required-path-param enforcement on a bare invocation.
++	if !bodyPrePopulated && bodyFieldPath == "" && bodyFlagName != "" {
+ 		anyChanged := false
+ 		for _, m := range meta {
+ 			if FlagChanged(cmd, m.FlagName) {
