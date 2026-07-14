@@ -19,10 +19,10 @@ growthbook ramp-schedules set-auto-update [flags]
 ### Options
 
 ```
-      --body string    Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -e, --enabled true   Legacy alias for monitoring mode (true => auto, `false` => manual). [required]
-  -h, --help           help for set-auto-update
-  -i, --id string      [required]
+      --body string   Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -e, --enabled       Legacy alias for monitoring mode (true => auto, false => manual). [required]
+  -h, --help          help for set-auto-update
+  -i, --id string     [required]
 ```
 
 ### Options inherited from parent commands

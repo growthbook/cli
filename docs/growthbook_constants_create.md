@@ -19,17 +19,17 @@ growthbook constants create [flags]
 ### Options
 
 ```
-      --body string                            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -b, --bypass-approval bypassApprovalChecks   Set to true to skip the approval flow when the org requires approvals for this constant's project. Requires the bypassApprovalChecks permission (or the org-level REST bypass setting). When approvals aren't required, this flag has no effect.
-      --description string                     string value
-  -e, --environment-values string              value
-  -h, --help                                   help for create
-  -k, --key @const:key                         Stable reference handle (lowercase slug, unique per org), referenced as @const:key [required]
-  -n, --name string                            The display name of the constant [required]
-      --owner string                           The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the user associated with the request's Personal Access Token (PAT), if one is being used.
-  -p, --project string                         string value
-  -t, --type string                            string (interpolated as `{ { @const:key } }`) or `json` (substituted as a whole value) (options: string, json) [required]
-  -v, --value string                           string value
+      --body string                 Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -b, --bypass-approval             Set to true to skip the approval flow when the org requires approvals for this constant's project. Requires the bypassApprovalChecks permission (or the org-level REST bypass setting). When approvals aren't required, this flag has no effect.
+      --description string          string value
+  -e, --environment-values string   value
+  -h, --help                        help for create
+  -k, --key string                  Stable reference handle (lowercase slug, unique per org), referenced as @const:key [required]
+  -n, --name string                 The display name of the constant [required]
+      --owner string                The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the user associated with the request's Personal Access Token (PAT), if one is being used.
+  -p, --project string              string value
+  -t, --type string                 string (interpolated as { { @const:key } }) or json (substituted as a whole value) (options: string, json) [required]
+  -v, --value string                string value
 ```
 
 ### Options inherited from parent commands

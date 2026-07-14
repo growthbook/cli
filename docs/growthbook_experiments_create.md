@@ -22,7 +22,7 @@ growthbook experiments create [flags]
       --activation-metric string                     Users must convert on this metric before being included
       --archived                                     boolean flag
       --assignment-query-id string                   The ID property of one of the assignment query objects associated with the datasource. Can only be set if a templateId is not provided.
-      --attribution-model "experimentDuration"       Setting attribution model to "experimentDuration" is the same as selecting "Ignore Conversion Windows" for the Conversion Window Override. Setting it to `"lookbackOverride"` requires a `lookbackOverride` object to be provided. (options: firstExposure, experimentDuration, lookbackOverride)
+      --attribution-model string                     Setting attribution model to "experimentDuration" is the same as selecting "Ignore Conversion Windows" for the Conversion Window Override. Setting it to "lookbackOverride" requires a lookbackOverride object to be provided. (options: firstExposure, experimentDuration, lookbackOverride)
       --auto-refresh                                 boolean flag
       --bandit-burn-in-unit string                   options: days, hours
       --bandit-burn-in-value float                   number value
@@ -68,7 +68,7 @@ growthbook experiments create [flags]
       --share-level string                           options: public, organization
       --stats-engine string                          options: bayesian, frequentist
       --status string                                options: draft, running, stopped
-      --status-update-schedule startAt               Schedule a future start for a draft experiment. Only startAt is currently supported.
+      --status-update-schedule string                Schedule a future start for a draft experiment. Only startAt is currently supported.
       --tags stringArray                             list of values
       --template-id string                           ID of the [ExperimentTemplate](#tag/ExperimentTemplate_model) this experiment was created from. Template fields are applied by default and overridden by explicitly provided payload fields.
       --tracking-key string                          [required]

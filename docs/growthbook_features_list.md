@@ -20,7 +20,7 @@ growthbook features list [flags]
 
 ```
   -a, --all                      Automatically paginate and fetch all results (streams NDJSON for JSON output)
-      --archived false           Whether to include archived features. Defaults to false (non-archived only). Pass `true` to include archived features alongside non-archived ones.
+      --archived string          Whether to include archived features. Defaults to false (non-archived only). Pass true to include archived features alongside non-archived ones.
   -c, --client-key string        Filter by a SDK connection's client key
   -h, --help                     help for list
   -l, --limit int                The number of items to return (default 10)

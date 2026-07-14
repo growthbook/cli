@@ -21,9 +21,9 @@ growthbook features-v1 get-feature-stale [flags]
 ### Options
 
 ```
-  -h, --help                             help for get-feature-stale
-  -i, --ids my_feature,another_feature   Comma-separated list of feature IDs (URL-encoded if needed). Example: my_feature,another_feature
-                                          [required]
+  -h, --help         help for get-feature-stale
+  -i, --ids string   Comma-separated list of feature IDs (URL-encoded if needed). Example: my_feature,another_feature
+                      [required]
 ```
 
 ### Options inherited from parent commands

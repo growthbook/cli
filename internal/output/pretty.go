@@ -28,9 +28,14 @@ func prettyPrint(w io.Writer, content interface{}, colorize bool) error {
 		return err
 	}
 
-	pp := &prettyPrinter{w: w, colorize: colorize}
+	var buf strings.Builder
+	pp := &prettyPrinter{w: &buf, colorize: colorize}
 	pp.printValue(parsed, 0)
-	return pp.err
+	if pp.err != nil {
+		return pp.err
+	}
+	_, err = fmt.Fprintln(w, strings.TrimRight(buf.String(), "\n"))
+	return err
 }
 
 type prettyPrinter struct {

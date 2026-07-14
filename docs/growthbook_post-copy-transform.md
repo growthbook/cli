@@ -13,7 +13,7 @@ growthbook post-copy-transform [flags]
 ### Examples
 
 ```
-  growthbook growthbook post-copy-transform --visual-changeset-id <id> --copy <value> --mode concise
+  growthbook post-copy-transform --visual-changeset-id <id> --copy <value> --mode concise
 ```
 
 ### Options

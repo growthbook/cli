@@ -23,12 +23,12 @@ growthbook feature-revisions-v1 create [flags]
 ### Options
 
 ```
-      --body string                                Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -c, --comment string                             string value
-  -h, --help                                       help for create
-  -i, --id string                                  [required]
-      --override-draft-limit maxConcurrentDrafts   If the organization caps concurrent drafts per feature (maxConcurrentDrafts setting), requests at or over the cap are rejected with a 409. Pass `true` to create the draft anyway.
-  -t, --title string                               string value
+      --body string                   Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -c, --comment string                string value
+  -h, --help                          help for create
+  -i, --id string                     [required]
+      --override-draft-limit string   If the organization caps concurrent drafts per feature (maxConcurrentDrafts setting), requests at or over the cap are rejected with a 409. Pass true to create the draft anyway.
+  -t, --title string                  string value
 ```
 
 ### Options inherited from parent commands

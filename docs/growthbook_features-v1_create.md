@@ -21,20 +21,20 @@ growthbook features-v1 create [flags]
 ### Options
 
 ```
-  -a, --archived                  boolean flag
-      --body string               Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -c, --custom-fields string      value
-      --default-value valueType   Default value when feature is enabled. Type must match valueType. [required]
-      --description string        Description of the feature
-  -e, --environments string       A dictionary of environments that are enabled for this feature. Keys supply the names of environments. Environments belong to organization and are not specified will be disabled by default.
-  -h, --help                      help for create
-  -i, --id string                 A unique key name for the feature. Feature keys can only include letters, numbers, hyphens, and underscores. [required]
-  -j, --json-schema string        Use JSON schema to validate the payload of a JSON-type feature value (enterprise only).
-      --owner string              The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the user associated with the request's Personal Access Token (PAT), if one is being used.
-      --prerequisites true        Feature IDs. Each feature must evaluate to true
-      --project string            An associated project ID
-  -t, --tags stringArray          List of associated tags
-  -v, --value-type string         The data type of the feature payload. Boolean by default. (options: boolean, string, number, json) [required]
+  -a, --archived                    boolean flag
+      --body string                 Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -c, --custom-fields string        value
+      --default-value string        Default value when feature is enabled. Type must match valueType. [required]
+      --description string          Description of the feature
+  -e, --environments string         A dictionary of environments that are enabled for this feature. Keys supply the names of environments. Environments belong to organization and are not specified will be disabled by default.
+  -h, --help                        help for create
+  -i, --id string                   A unique key name for the feature. Feature keys can only include letters, numbers, hyphens, and underscores. [required]
+  -j, --json-schema string          Use JSON schema to validate the payload of a JSON-type feature value (enterprise only).
+      --owner string                The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the user associated with the request's Personal Access Token (PAT), if one is being used.
+      --prerequisites stringArray   Feature IDs. Each feature must evaluate to true
+      --project string              An associated project ID
+  -t, --tags stringArray            List of associated tags
+  -v, --value-type string           The data type of the feature payload. Boolean by default. (options: boolean, string, number, json) [required]
 ```
 
 ### Options inherited from parent commands

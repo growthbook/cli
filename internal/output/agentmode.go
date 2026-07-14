@@ -4,6 +4,7 @@ package output
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 	"strings"
@@ -90,8 +91,9 @@ func isTruthyEnvVar(name string) bool {
 	}
 }
 
-// classifyErrorType maps HTTP status codes to machine-readable error types.
-func classifyErrorType(statusCode int) string {
+// classifyErrorType maps an error and HTTP status code to a machine-readable
+// error type.
+func classifyErrorType(err error, statusCode int) string {
 	switch {
 	case statusCode == 401:
 		return "authentication_error"
@@ -105,6 +107,8 @@ func classifyErrorType(statusCode int) string {
 		return "rate_limit_error"
 	case statusCode >= 500:
 		return "server_error"
+	case statusCode == 0 && isResponseDecodeError(err):
+		return "response_error"
 	case statusCode == 0:
 		return "connection_error"
 	default:
@@ -112,12 +116,22 @@ func classifyErrorType(statusCode int) string {
 	}
 }
 
+// isResponseDecodeError reports whether err came from decoding a server response
+// whose shape did not match the expected schema (e.g. a field typed as a number
+// arriving as a string). These errors carry no HTTP status, so without this
+// check they would be misclassified as connection errors.
+func isResponseDecodeError(err error) bool {
+	var typeErr *json.UnmarshalTypeError
+	var syntaxErr *json.SyntaxError
+	return errors.As(err, &typeErr) || errors.As(err, &syntaxErr)
+}
+
 // enrichAgentError adds structured error fields for agent mode consumers.
 // Non-destructive: only sets each key if not already present in m,
 // preserving any values already provided by the API response.
 func enrichAgentError(m map[string]interface{}, err error, statusCode int) {
 	if _, has := m["error_type"]; !has {
-		m["error_type"] = classifyErrorType(statusCode)
+		m["error_type"] = classifyErrorType(err, statusCode)
 	}
 	if _, has := m["message"]; !has {
 		m["message"] = err.Error()
@@ -139,6 +153,11 @@ func enrichAgentError(m map[string]interface{}, err error, statusCode int) {
 			hints = append(hints, "Rate limited — retry after a delay")
 		case statusCode >= 500:
 			hints = append(hints, "Server error — this may be transient, retry the command")
+		case statusCode == 0 && isResponseDecodeError(err):
+			hints = append(hints,
+				"The server response did not match the expected schema; the CLI and server versions may be out of sync",
+				"Retry with --output-format json to see the raw response",
+			)
 		case statusCode == 0:
 			hints = append(hints,
 				"Check network connectivity",

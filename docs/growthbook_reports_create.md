@@ -44,7 +44,7 @@ growthbook reports create [flags]
       --segment string                               Segment ID to filter users by. Defaults to experiment setting.
       --sequential-testing-enabled                   Enable sequential testing
       --sequential-testing-tuning-parameter float    Tuning parameter for sequential testing (frequentist only)
-      --share-level private                          Visibility of the created report. Defaults to private. Set to `public` to receive a shareable `shareUrl` in the response. (options: public, organization, private)
+      --share-level string                           Visibility of the created report. Defaults to private. Set to public to receive a shareable shareUrl in the response. (options: public, organization, private)
       --skip-partial-data                            When true, exclude users who have not completed the full conversion window.
       --stats-engine string                          Stats engine override (options: bayesian, frequentist)
   -t, --title string                                 Report title (defaults to experiment name)

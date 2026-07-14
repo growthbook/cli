@@ -13,7 +13,7 @@ growthbook get-SDK-payload [flags]
 ### Examples
 
 ```
-  growthbook growthbook get-SDK-payload --key <key>
+  growthbook get-SDK-payload --key <key>
 ```
 
 ### Options

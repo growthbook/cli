@@ -22,12 +22,12 @@ growthbook ramp-schedules add-target [flags]
 ### Options
 
 ```
-      --body string           Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -e, --environment rule.id   Deprecated pre-v2 disambiguator; ignored on v2 rules where rule.id is uniquely sufficient.
-  -f, --feature-id string     [required]
-  -h, --help                  help for add-target
-  -i, --id string             [required]
-  -r, --rule-id string        [required]
+      --body string          Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -e, --environment string   Deprecated pre-v2 disambiguator; ignored on v2 rules where rule.id is uniquely sufficient.
+  -f, --feature-id string    [required]
+  -h, --help                 help for add-target
+  -i, --id string            [required]
+  -r, --rule-id string       [required]
 ```
 
 ### Options inherited from parent commands

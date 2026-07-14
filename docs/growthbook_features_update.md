@@ -19,22 +19,22 @@ growthbook features update [flags]
 ### Options
 
 ```
-  -a, --archived               boolean flag
-      --body string            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -c, --custom-fields string   value
-      --default-value string   string value
-      --description string     Description of the feature
-  -e, --environments rules     Per-environment enabled state. V2 rules are specified on the top-level rules field.
-  -h, --help                   help for update
-      --holdout null           Holdout to assign this feature to. Pass null to remove the feature from its current holdout. Omit the field entirely to leave the holdout unchanged.
-                               
-  -i, --id string              The id of the requested resource [required]
-  -j, --json-schema string     Use JSON schema to validate the payload of a JSON-type feature value (enterprise only).
-      --owner string           The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-      --prerequisites true     Feature IDs. Each feature must evaluate to true
-      --project string         An associated project ID
-  -r, --rules rules            Replaces all feature rules atomically. Behavior differs from v1: v1 PUT applies per-environment patches, v2 PUT swaps the entire rules array in one revision. To preserve existing rules during a partial edit, GET the feature first, mutate the returned `rules` array, and PUT the full array back. Safe-rollout rules round-trip via their `safeRolloutId` (creation requires `POST /v2/features/:id/revisions/:version/rules`).
-  -t, --tags stringArray       List of associated tags. Will override tags completely with submitted list
+  -a, --archived                    boolean flag
+      --body string                 Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -c, --custom-fields string        value
+      --default-value string        string value
+      --description string          Description of the feature
+  -e, --environments string         Per-environment enabled state. V2 rules are specified on the top-level rules field.
+  -h, --help                        help for update
+      --holdout string              Holdout to assign this feature to. Pass null to remove the feature from its current holdout. Omit the field entirely to leave the holdout unchanged.
+                                    
+  -i, --id string                   The id of the requested resource [required]
+  -j, --json-schema string          Use JSON schema to validate the payload of a JSON-type feature value (enterprise only).
+      --owner string                The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
+      --prerequisites stringArray   Feature IDs. Each feature must evaluate to true
+      --project string              An associated project ID
+  -r, --rules string                Replaces all feature rules atomically. Behavior differs from v1: v1 PUT applies per-environment patches, v2 PUT swaps the entire rules array in one revision. To preserve existing rules during a partial edit, GET the feature first, mutate the returned rules array, and PUT the full array back. Safe-rollout rules round-trip via their safeRolloutId (creation requires POST /v2/features/:id/revisions/:version/rules).
+  -t, --tags stringArray            List of associated tags. Will override tags completely with submitted list
 ```
 
 ### Options inherited from parent commands

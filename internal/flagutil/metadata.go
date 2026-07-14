@@ -112,6 +112,10 @@ func RegisterFlags(cmd *cobra.Command, meta []FlagMeta) {
 			continue
 		}
 
+		// Strip markdown backticks so Cobra's UnquoteUsage doesn't mistake a
+		// back-quoted word in the description for the flag's metavar placeholder.
+		m.Description = strings.ReplaceAll(m.Description, "`", "")
+
 		switch m.Kind {
 		case FlagKindUnion:
 			if m.Union != nil {
@@ -227,6 +231,10 @@ func BuildRequest[T any](cmd *cobra.Command, meta []FlagMeta, bodyFieldPath stri
 	// Priority 1: --body flag (explicit whole-body JSON)
 	if bodyFlagName != "" && FlagChanged(cmd, bodyFlagName) {
 		bodyJSON, _ := GetStringFlag(cmd, bodyFlagName)
+		bodyJSON, err := resolveDashStdin(cmd, bodyJSON)
+		if err != nil {
+			return nil, err
+		}
 		if bodyJSON != "" {
 			if bodyFieldPath != "" {
 				bodyField, err := navigateToField(v, bodyFieldPath)
@@ -323,6 +331,11 @@ func BuildRequestBody[T any](cmd *cobra.Command, flagName string, annotations st
 
 	if FlagChanged(cmd, flagName) {
 		requestData, _ = GetStringFlag(cmd, flagName)
+		resolved, err := resolveDashStdin(cmd, requestData)
+		if err != nil {
+			return nil, err
+		}
+		requestData = strings.TrimSpace(resolved)
 	} else if HasStdinInput(cmd) {
 		stdin, err := io.ReadAll(cmd.InOrStdin())
 		if err != nil {
@@ -350,6 +363,19 @@ func BuildRequestBody[T any](cmd *cobra.Command, flagName string, annotations st
 		return nil, fmt.Errorf("invalid %s: %w", flagName, err)
 	}
 	return &req, nil
+}
+
+// resolveDashStdin implements the conventional Unix idiom where a lone "-" as a
+// value means "read from stdin". Any other value is returned unchanged.
+func resolveDashStdin(cmd *cobra.Command, val string) (string, error) {
+	if val != "-" {
+		return val, nil
+	}
+	data, err := io.ReadAll(cmd.InOrStdin())
+	if err != nil {
+		return "", fmt.Errorf("failed to read stdin: %w", err)
+	}
+	return string(data), nil
 }
 
 // unmarshalIntoField unmarshals JSON data into a reflect.Value field,

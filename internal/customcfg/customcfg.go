@@ -162,7 +162,7 @@ func warnIfDeprecated(cmd *cobra.Command) {
 	for c := cmd; c != nil; c = c.Parent() {
 		if replacement, ok := deprecatedGroups[c.Name()]; ok {
 			fmt.Fprintf(cmd.ErrOrStderr(),
-				"growthbook: `%s` targets the legacy v1 API and is deprecated; prefer `%s`. See MIGRATION.md.\n",
+				"growthbook: `%s` targets the legacy v1 API and is deprecated; prefer `%s`. See https://github.com/growthbook/cli/blob/main/MIGRATION.md.\n",
 				c.Name(), replacement)
 			return
 		}
