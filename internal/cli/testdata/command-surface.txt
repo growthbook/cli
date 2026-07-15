@@ -85,12 +85,12 @@ growthbook custom-fields get  [--id]
 growthbook custom-fields list  [--project-id]
 growthbook custom-fields update  [--active --body --default-value --description --id --name --placeholder --projects --required --sections --values]
 growthbook dashboards
-growthbook dashboards create  [--blocks --body --edit-level --enable-auto-updates --experiment-id --projects --share-level --title --update-schedule --update-schedule.cron --update-schedule.cron.cron --update-schedule.stale --update-schedule.stale.hours]
+growthbook dashboards create  [--blocks --body --edit-level --enable-auto-updates --experiment-id --global-controls --projects --share-level --title --update-schedule --update-schedule.cron --update-schedule.cron.cron --update-schedule.stale --update-schedule.stale.hours]
 growthbook dashboards delete  [--id]
 growthbook dashboards get  [--id]
 growthbook dashboards list
 growthbook dashboards list-for-experiment  [--experiment-id]
-growthbook dashboards update  [--blocks --body --edit-level --enable-auto-updates --id --projects --share-level --title --update-schedule --update-schedule.cron --update-schedule.cron.cron --update-schedule.stale --update-schedule.stale.hours]
+growthbook dashboards update  [--blocks --body --edit-level --enable-auto-updates --global-controls --id --projects --share-level --title --update-schedule --update-schedule.cron --update-schedule.cron.cron --update-schedule.stale --update-schedule.stale.hours]
 growthbook data-sources
 growthbook data-sources get  [--id]
 growthbook data-sources get-information-schema  [--data-source-id]

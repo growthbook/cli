@@ -29,6 +29,7 @@ var createDashboardCmdMeta = []flagutil.FlagMeta{
 	}}},
 	{FlagName: "experiment-id", FieldPath: "ExperimentID", Kind: flagutil.FlagKindString, Optional: true, Description: "The parent experiment for an Experiment Dashboard, or undefined for a general dashboard"},
 	{FlagName: "projects", Shorthand: "p", FieldPath: "Projects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "General Dashboards only, Experiment Dashboards use the experiment's projects"},
+	{FlagName: "global-controls", Shorthand: "g", FieldPath: "GlobalControls", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"globalControls,omitempty"`, Description: "JSON object"},
 	{FlagName: "blocks", Shorthand: "b", FieldPath: "Blocks", Kind: flagutil.FlagKindJSON, Required: true, Annotations: `json:"blocks"`, Description: "[required]"},
 }
 

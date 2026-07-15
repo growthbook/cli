@@ -220,6 +220,155 @@ func (u UpdateSchedule) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type UpdateSchedule: all fields are null")
 }
 
+type GlobalControlsPredefined string
+
+const (
+	GlobalControlsPredefinedToday           GlobalControlsPredefined = "today"
+	GlobalControlsPredefinedLast7Days       GlobalControlsPredefined = "last7Days"
+	GlobalControlsPredefinedLast30Days      GlobalControlsPredefined = "last30Days"
+	GlobalControlsPredefinedLast90Days      GlobalControlsPredefined = "last90Days"
+	GlobalControlsPredefinedCustomLookback  GlobalControlsPredefined = "customLookback"
+	GlobalControlsPredefinedCustomDateRange GlobalControlsPredefined = "customDateRange"
+)
+
+func (e GlobalControlsPredefined) ToPointer() *GlobalControlsPredefined {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *GlobalControlsPredefined) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "today", "last7Days", "last30Days", "last90Days", "customLookback", "customDateRange":
+			return true
+		}
+	}
+	return false
+}
+
+type GlobalControlsLookbackUnit string
+
+const (
+	GlobalControlsLookbackUnitHour  GlobalControlsLookbackUnit = "hour"
+	GlobalControlsLookbackUnitDay   GlobalControlsLookbackUnit = "day"
+	GlobalControlsLookbackUnitWeek  GlobalControlsLookbackUnit = "week"
+	GlobalControlsLookbackUnitMonth GlobalControlsLookbackUnit = "month"
+)
+
+func (e GlobalControlsLookbackUnit) ToPointer() *GlobalControlsLookbackUnit {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *GlobalControlsLookbackUnit) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "hour", "day", "week", "month":
+			return true
+		}
+	}
+	return false
+}
+
+type GlobalControlsDateRange struct {
+	Predefined    GlobalControlsPredefined                                      `json:"predefined"`
+	LookbackValue optionalnullable.OptionalNullable[float64]                    `json:"lookbackValue,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[GlobalControlsLookbackUnit] `json:"lookbackUnit,omitzero"`
+	StartDate     optionalnullable.OptionalNullable[string]                     `json:"startDate,omitzero"`
+	EndDate       optionalnullable.OptionalNullable[string]                     `json:"endDate,omitzero"`
+}
+
+func (g *GlobalControlsDateRange) GetPredefined() GlobalControlsPredefined {
+	if g == nil {
+		return GlobalControlsPredefined("")
+	}
+	return g.Predefined
+}
+
+func (g *GlobalControlsDateRange) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+	if g == nil {
+		return nil
+	}
+	return g.LookbackValue
+}
+
+func (g *GlobalControlsDateRange) GetLookbackUnit() optionalnullable.OptionalNullable[GlobalControlsLookbackUnit] {
+	if g == nil {
+		return nil
+	}
+	return g.LookbackUnit
+}
+
+func (g *GlobalControlsDateRange) GetStartDate() optionalnullable.OptionalNullable[string] {
+	if g == nil {
+		return nil
+	}
+	return g.StartDate
+}
+
+func (g *GlobalControlsDateRange) GetEndDate() optionalnullable.OptionalNullable[string] {
+	if g == nil {
+		return nil
+	}
+	return g.EndDate
+}
+
+type GlobalControlsDateGranularity string
+
+const (
+	GlobalControlsDateGranularityAuto  GlobalControlsDateGranularity = "auto"
+	GlobalControlsDateGranularityHour  GlobalControlsDateGranularity = "hour"
+	GlobalControlsDateGranularityDay   GlobalControlsDateGranularity = "day"
+	GlobalControlsDateGranularityWeek  GlobalControlsDateGranularity = "week"
+	GlobalControlsDateGranularityMonth GlobalControlsDateGranularity = "month"
+	GlobalControlsDateGranularityYear  GlobalControlsDateGranularity = "year"
+)
+
+func (e GlobalControlsDateGranularity) ToPointer() *GlobalControlsDateGranularity {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *GlobalControlsDateGranularity) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "hour", "day", "week", "month", "year":
+			return true
+		}
+	}
+	return false
+}
+
+type GlobalControls struct {
+	DateRange       *GlobalControlsDateRange       `json:"dateRange,omitzero"`
+	DateGranularity *GlobalControlsDateGranularity `json:"dateGranularity,omitzero"`
+}
+
+func (g GlobalControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GlobalControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (g *GlobalControls) GetDateRange() *GlobalControlsDateRange {
+	if g == nil {
+		return nil
+	}
+	return g.DateRange
+}
+
+func (g *GlobalControls) GetDateGranularity() *GlobalControlsDateGranularity {
+	if g == nil {
+		return nil
+	}
+	return g.DateGranularity
+}
+
 type PreviousTimeFramePredefined string
 
 const (
@@ -569,6 +718,31 @@ func (b *BlockComparison4) GetPreviousTimeFrame() *BlockPreviousTimeFrame4 {
 
 // #region class-body-blockcomparison4
 // #endregion class-body-blockcomparison4
+
+type GlobalControlSettings3 struct {
+	DateRange *bool `json:"dateRange,omitzero"`
+}
+
+func (g GlobalControlSettings3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GlobalControlSettings3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (g *GlobalControlSettings3) GetDateRange() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.DateRange
+}
+
+// #region class-body-globalcontrolsettings3
+// #endregion class-body-globalcontrolsettings3
 
 type DimensionOperatorDataSource string
 
@@ -1468,15 +1642,16 @@ type BlockDataSourceExploration struct {
 	ID           string `json:"id"`
 	UID          string `json:"uid"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_                        string            `const:"data-source-exploration" json:"type"`
-	Title                        string            `json:"title"`
-	Description                  string            `json:"description"`
-	SnapshotID                   *string           `json:"snapshotId,omitzero"`
-	Layout                       *Layout11         `json:"layout,omitzero"`
-	ExplorerAnalysisID           string            `json:"explorerAnalysisId"`
-	Comparison                   *BlockComparison4 `json:"comparison,omitzero"`
-	ComparisonExplorerAnalysisID *string           `json:"comparisonExplorerAnalysisId,omitzero"`
-	Config                       ConfigDataSource  `json:"config"`
+	type_                        string                  `const:"data-source-exploration" json:"type"`
+	Title                        string                  `json:"title"`
+	Description                  string                  `json:"description"`
+	SnapshotID                   *string                 `json:"snapshotId,omitzero"`
+	Layout                       *Layout11               `json:"layout,omitzero"`
+	ExplorerAnalysisID           string                  `json:"explorerAnalysisId"`
+	Comparison                   *BlockComparison4       `json:"comparison,omitzero"`
+	ComparisonExplorerAnalysisID *string                 `json:"comparisonExplorerAnalysisId,omitzero"`
+	GlobalControlSettings        *GlobalControlSettings3 `json:"globalControlSettings,omitzero"`
+	Config                       ConfigDataSource        `json:"config"`
 }
 
 func (b BlockDataSourceExploration) MarshalJSON() ([]byte, error) {
@@ -1562,6 +1737,13 @@ func (b *BlockDataSourceExploration) GetComparisonExplorerAnalysisID() *string {
 		return nil
 	}
 	return b.ComparisonExplorerAnalysisID
+}
+
+func (b *BlockDataSourceExploration) GetGlobalControlSettings() *GlobalControlSettings3 {
+	if b == nil {
+		return nil
+	}
+	return b.GlobalControlSettings
 }
 
 func (b *BlockDataSourceExploration) GetConfig() ConfigDataSource {
@@ -1767,6 +1949,31 @@ func (b *BlockComparison3) GetPreviousTimeFrame() *BlockPreviousTimeFrame3 {
 
 // #region class-body-blockcomparison3
 // #endregion class-body-blockcomparison3
+
+type GlobalControlSettings2 struct {
+	DateRange *bool `json:"dateRange,omitzero"`
+}
+
+func (g GlobalControlSettings2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GlobalControlSettings2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (g *GlobalControlSettings2) GetDateRange() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.DateRange
+}
+
+// #region class-body-globalcontrolsettings2
+// #endregion class-body-globalcontrolsettings2
 
 type DimensionOperatorFactTable string
 
@@ -2617,15 +2824,16 @@ type BlockFactTableExploration struct {
 	ID           string `json:"id"`
 	UID          string `json:"uid"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_                        string            `const:"fact-table-exploration" json:"type"`
-	Title                        string            `json:"title"`
-	Description                  string            `json:"description"`
-	SnapshotID                   *string           `json:"snapshotId,omitzero"`
-	Layout                       *Layout10         `json:"layout,omitzero"`
-	ExplorerAnalysisID           string            `json:"explorerAnalysisId"`
-	Comparison                   *BlockComparison3 `json:"comparison,omitzero"`
-	ComparisonExplorerAnalysisID *string           `json:"comparisonExplorerAnalysisId,omitzero"`
-	Config                       ConfigFactTable   `json:"config"`
+	type_                        string                  `const:"fact-table-exploration" json:"type"`
+	Title                        string                  `json:"title"`
+	Description                  string                  `json:"description"`
+	SnapshotID                   *string                 `json:"snapshotId,omitzero"`
+	Layout                       *Layout10               `json:"layout,omitzero"`
+	ExplorerAnalysisID           string                  `json:"explorerAnalysisId"`
+	Comparison                   *BlockComparison3       `json:"comparison,omitzero"`
+	ComparisonExplorerAnalysisID *string                 `json:"comparisonExplorerAnalysisId,omitzero"`
+	GlobalControlSettings        *GlobalControlSettings2 `json:"globalControlSettings,omitzero"`
+	Config                       ConfigFactTable         `json:"config"`
 }
 
 func (b BlockFactTableExploration) MarshalJSON() ([]byte, error) {
@@ -2711,6 +2919,13 @@ func (b *BlockFactTableExploration) GetComparisonExplorerAnalysisID() *string {
 		return nil
 	}
 	return b.ComparisonExplorerAnalysisID
+}
+
+func (b *BlockFactTableExploration) GetGlobalControlSettings() *GlobalControlSettings2 {
+	if b == nil {
+		return nil
+	}
+	return b.GlobalControlSettings
 }
 
 func (b *BlockFactTableExploration) GetConfig() ConfigFactTable {
@@ -2916,6 +3131,31 @@ func (b *BlockComparison2) GetPreviousTimeFrame() *BlockPreviousTimeFrame2 {
 
 // #region class-body-blockcomparison2
 // #endregion class-body-blockcomparison2
+
+type GlobalControlSettings1 struct {
+	DateRange *bool `json:"dateRange,omitzero"`
+}
+
+func (g GlobalControlSettings1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GlobalControlSettings1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (g *GlobalControlSettings1) GetDateRange() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.DateRange
+}
+
+// #region class-body-globalcontrolsettings1
+// #endregion class-body-globalcontrolsettings1
 
 type DimensionOperatorMetric string
 
@@ -3735,15 +3975,16 @@ type BlockMetricExploration struct {
 	ID           string `json:"id"`
 	UID          string `json:"uid"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_                        string            `const:"metric-exploration" json:"type"`
-	Title                        string            `json:"title"`
-	Description                  string            `json:"description"`
-	SnapshotID                   *string           `json:"snapshotId,omitzero"`
-	Layout                       *Layout9          `json:"layout,omitzero"`
-	ExplorerAnalysisID           string            `json:"explorerAnalysisId"`
-	Comparison                   *BlockComparison2 `json:"comparison,omitzero"`
-	ComparisonExplorerAnalysisID *string           `json:"comparisonExplorerAnalysisId,omitzero"`
-	Config                       ConfigMetric      `json:"config"`
+	type_                        string                  `const:"metric-exploration" json:"type"`
+	Title                        string                  `json:"title"`
+	Description                  string                  `json:"description"`
+	SnapshotID                   *string                 `json:"snapshotId,omitzero"`
+	Layout                       *Layout9                `json:"layout,omitzero"`
+	ExplorerAnalysisID           string                  `json:"explorerAnalysisId"`
+	Comparison                   *BlockComparison2       `json:"comparison,omitzero"`
+	ComparisonExplorerAnalysisID *string                 `json:"comparisonExplorerAnalysisId,omitzero"`
+	GlobalControlSettings        *GlobalControlSettings1 `json:"globalControlSettings,omitzero"`
+	Config                       ConfigMetric            `json:"config"`
 }
 
 func (b BlockMetricExploration) MarshalJSON() ([]byte, error) {
@@ -3829,6 +4070,13 @@ func (b *BlockMetricExploration) GetComparisonExplorerAnalysisID() *string {
 		return nil
 	}
 	return b.ComparisonExplorerAnalysisID
+}
+
+func (b *BlockMetricExploration) GetGlobalControlSettings() *GlobalControlSettings1 {
+	if b == nil {
+		return nil
+	}
+	return b.GlobalControlSettings
 }
 
 func (b *BlockMetricExploration) GetConfig() ConfigMetric {
@@ -6179,6 +6427,7 @@ type Dashboard struct {
 	EnableAutoUpdates bool                `json:"enableAutoUpdates"`
 	UpdateSchedule    *UpdateSchedule     `json:"updateSchedule,omitzero"`
 	Title             string              `json:"title"`
+	GlobalControls    *GlobalControls     `json:"globalControls,omitzero"`
 	Comparison        *Comparison         `json:"comparison,omitzero"`
 	Grid              *Grid               `json:"grid,omitzero"`
 	Projects          []string            `json:"projects,omitzero"`
@@ -6296,6 +6545,13 @@ func (d *Dashboard) GetTitle() string {
 		return ""
 	}
 	return d.Title
+}
+
+func (d *Dashboard) GetGlobalControls() *GlobalControls {
+	if d == nil {
+		return nil
+	}
+	return d.GlobalControls
 }
 
 func (d *Dashboard) GetComparison() *Comparison {
