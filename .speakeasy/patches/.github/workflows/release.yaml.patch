@@ -1,6 +1,6 @@
-diff --git b/.github/workflows/release.yaml a/.github/workflows/release.yaml
---- b/.github/workflows/release.yaml
-+++ a/.github/workflows/release.yaml
+diff --git a/.github/workflows/release.yaml b/.github/workflows/release.yaml
+--- a/.github/workflows/release.yaml
++++ b/.github/workflows/release.yaml
 @@ -7,6 +7,7 @@ on:
  
  permissions:

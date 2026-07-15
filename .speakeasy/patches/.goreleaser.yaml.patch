@@ -1,6 +1,6 @@
-diff --git b/.goreleaser.yaml a/.goreleaser.yaml
---- b/.goreleaser.yaml
-+++ a/.goreleaser.yaml
+diff --git a/.goreleaser.yaml b/.goreleaser.yaml
+--- a/.goreleaser.yaml
++++ b/.goreleaser.yaml
 @@ -1,6 +1,11 @@
  # yaml-language-server: $schema=https://goreleaser.com/static/schema.json
  version: 2
