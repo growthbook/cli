@@ -24,6 +24,7 @@ growthbook dashboards create [flags]
       --edit-level string                   Dashboards that are "published" are editable by organization members with appropriate permissions (options: published, private) [required]
       --enable-auto-updates                 If enabled for a General Dashboard, also requires an updateSchedule [required]
       --experiment-id string                The parent experiment for an Experiment Dashboard, or undefined for a general dashboard
+  -g, --global-controls string              JSON object
   -h, --help                                help for create
   -p, --projects stringArray                General Dashboards only, Experiment Dashboards use the experiment's projects
   -s, --share-level string                  General Dashboards only. Dashboards that are "published" are viewable by organization members with appropriate permissions (options: published, private) [required]

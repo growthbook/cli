@@ -29,6 +29,7 @@ var updateDashboardCmdMeta = []flagutil.FlagMeta{
 		}},
 	}}},
 	{FlagName: "projects", Shorthand: "p", FieldPath: "Body.Projects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "General Dashboards only, Experiment Dashboards use the experiment's projects"},
+	{FlagName: "global-controls", Shorthand: "g", FieldPath: "Body.GlobalControls", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"globalControls,omitempty"`, Description: "JSON object"},
 	{FlagName: "blocks", Shorthand: "b", FieldPath: "Body.Blocks", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"blocks,omitempty"`, Description: "list of values"},
 }
 
