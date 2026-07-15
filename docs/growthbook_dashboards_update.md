@@ -23,6 +23,7 @@ growthbook dashboards update [flags]
       --body string                         Request body as JSON (alternative to individual flags). Can also be provided via stdin.
       --edit-level string                   Dashboards that are "published" are editable by organization members with appropriate permissions (options: published, private)
       --enable-auto-updates                 If enabled for a General Dashboard, also requires an updateSchedule
+  -g, --global-controls string              JSON object
   -h, --help                                help for update
   -i, --id string                           [required]
   -p, --projects stringArray                General Dashboards only, Experiment Dashboards use the experiment's projects
