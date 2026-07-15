@@ -8,6 +8,7 @@
 package cli
 
 import (
+	"encoding/base64"
 	"encoding/json"
 	"io"
 	"net/http"
@@ -261,6 +262,50 @@ func TestE2E_ProjectCreate_MissingRequired_ServerValidates(t *testing.T) {
 	}
 	if !strings.Contains(stderr, "400") {
 		t.Errorf("stderr should surface the 400 status, got:\n%s", stderr)
+	}
+}
+
+// TestE2E_Auth_ExplicitBasicFlagsBeatEnvBearer is the regression test for
+// issue #39: a bearer credential present via the environment (the same
+// injection path an active profile uses) must not shadow explicit
+// --username/--password flags. The flag tier outranks the env tier across
+// schemes, so the request must use HTTP Basic, not the stored bearer.
+func TestE2E_Auth_ExplicitBasicFlagsBeatEnvBearer(t *testing.T) {
+	var gotAuth string
+	// runCLI seeds GBCLI_BEARER_AUTH=test-token (env tier).
+	_, _, err := runCLI(t, func(w http.ResponseWriter, r *http.Request) {
+		gotAuth = r.Header.Get("Authorization")
+		w.Header().Set("Content-Type", "application/json")
+		_, _ = w.Write([]byte(`{"projects":[]}`))
+	}, "projects", "list", "--output-format", "json",
+		"--username", "secret_admin_bogus", "--password", "")
+
+	if err != nil {
+		t.Fatalf("projects list returned error: %v", err)
+	}
+	want := "Basic " + base64.StdEncoding.EncodeToString([]byte("secret_admin_bogus:"))
+	if gotAuth != want {
+		t.Errorf("Authorization header = %q, want %q (env bearer must not shadow explicit basic-auth flags)", gotAuth, want)
+	}
+}
+
+// TestE2E_Auth_SameTierPrefersBearer locks in the chosen tie-break: when both
+// schemes resolve at the same source tier (here, both as flags), bearer wins —
+// matching the SDK's struct-order default.
+func TestE2E_Auth_SameTierPrefersBearer(t *testing.T) {
+	var gotAuth string
+	_, _, err := runCLI(t, func(w http.ResponseWriter, r *http.Request) {
+		gotAuth = r.Header.Get("Authorization")
+		w.Header().Set("Content-Type", "application/json")
+		_, _ = w.Write([]byte(`{"projects":[]}`))
+	}, "projects", "list", "--output-format", "json",
+		"--bearer-auth", "flag-token", "--username", "someuser")
+
+	if err != nil {
+		t.Fatalf("projects list returned error: %v", err)
+	}
+	if gotAuth != "Bearer flag-token" {
+		t.Errorf("Authorization header = %q, want %q (same-tier tie must prefer bearer)", gotAuth, "Bearer flag-token")
 	}
 }
 

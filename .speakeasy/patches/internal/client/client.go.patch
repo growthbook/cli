@@ -1,0 +1,67 @@
+diff --git a/internal/client/client.go b/internal/client/client.go
+--- a/internal/client/client.go
++++ b/internal/client/client.go
+@@ -62,17 +62,36 @@ func resolveStringFlag(cmd *cobra.Command, name string) string {
+ }
+ 
+ // buildGlobalSecurity reads security credentials from flags, env vars, and config file.
+-// Priority: flag > env var > config file.
++// Priority: flag > env var > keyring > config file.
+ func buildGlobalSecurity(cmd *cobra.Command) components.Security {
+ 	// Resolve security credentials: flag > env var > keyring > config file
+-	bearerAuth, _ := config.ResolveSecurityCredential(cmd, "bearer-auth")
+-	username, _ := config.ResolveSecurityCredential(cmd, "username")
+-	password, _ := config.ResolveSecurityCredential(cmd, "password")
++	bearerAuth, bearerSrc := config.ResolveSecurityCredential(cmd, "bearer-auth")
++	username, userSrc := config.ResolveSecurityCredential(cmd, "username")
++	password, passSrc := config.ResolveSecurityCredential(cmd, "password")
++
++	bearerSet := bearerAuth != ""
++	basicSet := username != "" || password != ""
++
++	// Bearer and basic are mutually exclusive; when both resolve, keep the one
++	// whose source wins the flag > env > keyring > config chain so an explicit
++	// flag always beats a stored credential of the other scheme.
++	if bearerSet && basicSet {
++		basicSrc := userSrc
++		if credentialSourceRank(passSrc) > credentialSourceRank(basicSrc) {
++			basicSrc = passSrc
++		}
++		if credentialSourceRank(basicSrc) > credentialSourceRank(bearerSrc) {
++			bearerSet = false
++		} else {
++			basicSet = false
++		}
++	}
++
+ 	globalSecurity := components.Security{}
+-	if bearerAuth != "" {
++	if bearerSet {
+ 		globalSecurity.BearerAuth = &bearerAuth
+ 	}
+-	if username != "" || password != "" {
++	if basicSet {
+ 		globalSecurity.BasicAuth = &components.SchemeBasicAuth{
+ 			Username: username,
+ 			Password: password,
+@@ -80,3 +99,20 @@ func buildGlobalSecurity(cmd *cobra.Command) components.Security {
+ 	}
+ 	return globalSecurity
+ }
++
++// credentialSourceRank orders credential sources by the resolution priority
++// flag > env > keyring > config, so schemes can be compared across each other.
++func credentialSourceRank(source string) int {
++	switch source {
++	case "flag":
++		return 4
++	case "env":
++		return 3
++	case "keyring":
++		return 2
++	case "config":
++		return 1
++	default:
++		return 0
++	}
++}
