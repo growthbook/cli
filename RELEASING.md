@@ -165,10 +165,14 @@ npm view growthbook dist-tags          # confirm
 A human-pushed tag triggers `release.yaml` directly (no PAT needed — the recursion block
 below only applies to tags pushed *by a workflow*).
 
-At GA cutover: push the current version as a **plain tag** (no `-next` suffix, e.g.
-`v1.2.0` — the line has moved past 1.0.0 during staging), which publishes to `latest`;
-then deprecate the old line:
+At GA cutover: push the current version as a **plain tag** (no `-next` suffix), which
+publishes to `latest`; then deprecate the old line:
 `npm deprecate 'growthbook@<0.3' "v1 is a rewrite; see MIGRATION.md"`.
+
+> **Until `RELEASE_AUTOMATION` is armed, this manual flow is also the post-GA release
+> path: merging a generation PR does NOT ship anything — after merge, hand-push the
+> `v<version>` tag matching the PR's version bump.** Arming the automation is tracked as a
+> post-GA improvement.
 
 ## Gotchas
 
