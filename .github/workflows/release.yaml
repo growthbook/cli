@@ -38,6 +38,9 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Cross-repo push of the Homebrew cask (GITHUB_TOKEN is repo-scoped).
+          # Empty on prerelease tags is fine — skip_upload: auto skips the tap.
+          HOMEBREW_TAP_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4

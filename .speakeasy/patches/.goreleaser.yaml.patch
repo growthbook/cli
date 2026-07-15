@@ -26,7 +26,7 @@ diff --git a/.goreleaser.yaml b/.goreleaser.yaml
  
  archives:
    - id: growthbook
-@@ -47,6 +58,13 @@ release:
+@@ -47,6 +58,34 @@ release:
    draft: false
    prerelease: auto
    mode: append
@@ -40,3 +40,24 @@ diff --git a/.goreleaser.yaml b/.goreleaser.yaml
  
  checksum:
    name_template: "checksums.txt"
++
++# Publish a Homebrew cask to growthbook/homebrew-tap. skip_upload: auto keeps
++# prerelease (-next) tags out of the tap; the post-install hook strips the
++# Gatekeeper quarantine attribute since the darwin binaries are unsigned.
++homebrew_casks:
++  - name: growthbook
++    repository:
++      owner: growthbook
++      name: homebrew-tap
++      token: "{{ .Env.HOMEBREW_TAP_TOKEN }}"
++    directory: Casks
++    homepage: https://docs.growthbook.io/tools/cli
++    description: Command-line interface for GrowthBook feature flags and experiments
++    skip_upload: auto
++    commit_msg_template: "growthbook {{ .Tag }}"
++    hooks:
++      post:
++        install: |
++          if OS.mac?
++            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/growthbook"]
++          end
