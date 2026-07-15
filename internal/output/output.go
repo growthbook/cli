@@ -63,8 +63,8 @@ func resolveOutputFormat(cmd *cobra.Command) string {
 // ValidateOutputFormat rejects formats that are recognized but not currently
 // supported, so the CLI errors clearly instead of silently falling back to
 // pretty. Shares resolveOutputFormat's precedence so it also catches a format
-// set via config. ("table" is disabled pending an upstream Speakeasy fix — it
-// only renders the scalar envelope, never the primary result array.)
+// set via config. ("table" is deliberately disabled: Speakeasy's formatter is
+// scalar-only by design, so it hides the primary result array on list endpoints.)
 func ValidateOutputFormat(cmd *cobra.Command) error {
 	if resolveOutputFormat(cmd) == "table" {
 		return fmt.Errorf("the 'table' output format is not currently supported; use one of: pretty, json, yaml, toon")
