@@ -106,8 +106,10 @@ type PutFeatureRevisionMetadataField struct {
 	Default     string                              `json:"default"`
 	Description string                              `json:"description"`
 	Enum        []string                            `json:"enum"`
-	Min         float64                             `json:"min"`
-	Max         float64                             `json:"max"`
+	Min         *float64                            `json:"min,omitzero"`
+	Max         *float64                            `json:"max,omitzero"`
+	Nullable    *bool                               `json:"nullable,omitzero"`
+	JSONSchema  *string                             `json:"jsonSchema,omitzero"`
 }
 
 func (p *PutFeatureRevisionMetadataField) GetKey() string {
@@ -152,23 +154,77 @@ func (p *PutFeatureRevisionMetadataField) GetEnum() []string {
 	return p.Enum
 }
 
-func (p *PutFeatureRevisionMetadataField) GetMin() float64 {
+func (p *PutFeatureRevisionMetadataField) GetMin() *float64 {
 	if p == nil {
-		return 0.0
+		return nil
 	}
 	return p.Min
 }
 
-func (p *PutFeatureRevisionMetadataField) GetMax() float64 {
+func (p *PutFeatureRevisionMetadataField) GetMax() *float64 {
 	if p == nil {
-		return 0.0
+		return nil
 	}
 	return p.Max
 }
 
+func (p *PutFeatureRevisionMetadataField) GetNullable() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.Nullable
+}
+
+func (p *PutFeatureRevisionMetadataField) GetJSONSchema() *string {
+	if p == nil {
+		return nil
+	}
+	return p.JSONSchema
+}
+
+type PutFeatureRevisionMetadataInvariant struct {
+	Name    string `json:"name"`
+	Rule    string `json:"rule"`
+	Message string `json:"message"`
+}
+
+func (p *PutFeatureRevisionMetadataInvariant) GetName() string {
+	if p == nil {
+		return ""
+	}
+	return p.Name
+}
+
+func (p *PutFeatureRevisionMetadataInvariant) GetRule() string {
+	if p == nil {
+		return ""
+	}
+	return p.Rule
+}
+
+func (p *PutFeatureRevisionMetadataInvariant) GetMessage() string {
+	if p == nil {
+		return ""
+	}
+	return p.Message
+}
+
 type PutFeatureRevisionMetadataSimple struct {
-	Type   PutFeatureRevisionMetadataType    `json:"type"`
-	Fields []PutFeatureRevisionMetadataField `json:"fields"`
+	Type                 PutFeatureRevisionMetadataType        `json:"type"`
+	Fields               []PutFeatureRevisionMetadataField     `json:"fields"`
+	AdditionalProperties *bool                                 `json:"additionalProperties,omitzero"`
+	Invariants           []PutFeatureRevisionMetadataInvariant `json:"invariants,omitzero"`
+}
+
+func (p PutFeatureRevisionMetadataSimple) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PutFeatureRevisionMetadataSimple) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (p *PutFeatureRevisionMetadataSimple) GetType() PutFeatureRevisionMetadataType {
@@ -183,6 +239,20 @@ func (p *PutFeatureRevisionMetadataSimple) GetFields() []PutFeatureRevisionMetad
 		return []PutFeatureRevisionMetadataField{}
 	}
 	return p.Fields
+}
+
+func (p *PutFeatureRevisionMetadataSimple) GetAdditionalProperties() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AdditionalProperties
+}
+
+func (p *PutFeatureRevisionMetadataSimple) GetInvariants() []PutFeatureRevisionMetadataInvariant {
+	if p == nil {
+		return nil
+	}
+	return p.Invariants
 }
 
 type PutFeatureRevisionMetadataJSONSchema struct {

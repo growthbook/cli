@@ -4,11 +4,15 @@ package operations
 
 import (
 	"github.com/growthbook/cli/internal/sdk/models/components"
+	"github.com/growthbook/cli/internal/sdk/optionalnullable"
 	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
 )
 
 type PutFeatureRevisionDefaultValueV2RequestBody struct {
+	// New default value. In Config mode (feature has `baseConfig`), the default must be exactly a config with no overrides: send `"{}"` to use `baseConfig`, or set `defaultValueConfig` to point at a descendant.
 	DefaultValue string `json:"defaultValue"`
+	// Key of a config within the feature's `baseConfig` family that the default value resolves to (the base itself or a descendant). The default is exactly that config with no overrides; pass `null` to use `baseConfig`. Do not embed `@config:` in `defaultValue` — use this field.
+	DefaultValueConfig optionalnullable.OptionalNullable[string] `json:"defaultValueConfig,omitzero"`
 	// Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
 	RevisionTitle *string `json:"revisionTitle,omitzero"`
 	// Comment for a newly created draft. Only used when version is "new"; ignored for existing revisions.
@@ -20,6 +24,13 @@ func (p *PutFeatureRevisionDefaultValueV2RequestBody) GetDefaultValue() string {
 		return ""
 	}
 	return p.DefaultValue
+}
+
+func (p *PutFeatureRevisionDefaultValueV2RequestBody) GetDefaultValueConfig() optionalnullable.OptionalNullable[string] {
+	if p == nil {
+		return nil
+	}
+	return p.DefaultValueConfig
 }
 
 func (p *PutFeatureRevisionDefaultValueV2RequestBody) GetRevisionTitle() *string {
@@ -40,9 +51,13 @@ func (p *PutFeatureRevisionDefaultValueV2RequestBody) GetRevisionComment() *stri
 // #endregion class-body-putfeaturerevisiondefaultvaluev2requestbody
 
 type PutFeatureRevisionDefaultValueV2Request struct {
-	ID      string                                      `pathParam:"style=simple,explode=false,name=id"`
-	Version string                                      `pathParam:"style=simple,explode=false,name=version"`
-	Body    PutFeatureRevisionDefaultValueV2RequestBody `request:"mediaType=application/json"`
+	ID      string `pathParam:"style=simple,explode=false,name=id"`
+	Version string `pathParam:"style=simple,explode=false,name=version"`
+	// Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the `bypassApprovalChecks` permission on all projects); ignored otherwise. Validation is enforced by default.
+	SkipSchemaValidation any `queryParam:"style=form,explode=true,name=skipSchemaValidation"`
+	// Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has `blockPublishOnSchemaError` disabled (warn mode).
+	IgnoreWarnings any                                         `queryParam:"style=form,explode=true,name=ignoreWarnings"`
+	Body           PutFeatureRevisionDefaultValueV2RequestBody `request:"mediaType=application/json"`
 }
 
 func (p *PutFeatureRevisionDefaultValueV2Request) GetID() string {
@@ -57,6 +72,20 @@ func (p *PutFeatureRevisionDefaultValueV2Request) GetVersion() string {
 		return ""
 	}
 	return p.Version
+}
+
+func (p *PutFeatureRevisionDefaultValueV2Request) GetSkipSchemaValidation() any {
+	if p == nil {
+		return nil
+	}
+	return p.SkipSchemaValidation
+}
+
+func (p *PutFeatureRevisionDefaultValueV2Request) GetIgnoreWarnings() any {
+	if p == nil {
+		return nil
+	}
+	return p.IgnoreWarnings
 }
 
 func (p *PutFeatureRevisionDefaultValueV2Request) GetBody() PutFeatureRevisionDefaultValueV2RequestBody {

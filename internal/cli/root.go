@@ -8,11 +8,14 @@ import (
 	"github.com/growthbook/cli/internal/cli/archetypes"
 	"github.com/growthbook/cli/internal/cli/attributes"
 	"github.com/growthbook/cli/internal/cli/codereferences"
+	"github.com/growthbook/cli/internal/cli/configrevisions"
+	"github.com/growthbook/cli/internal/cli/configs"
 	"github.com/growthbook/cli/internal/cli/constantrevisions"
 	"github.com/growthbook/cli/internal/cli/constants"
 	"github.com/growthbook/cli/internal/cli/contextualbanditqueries"
 	"github.com/growthbook/cli/internal/cli/contextualbandits"
 	"github.com/growthbook/cli/internal/cli/customfields"
+	"github.com/growthbook/cli/internal/cli/customhooks"
 	"github.com/growthbook/cli/internal/cli/dashboards"
 	"github.com/growthbook/cli/internal/cli/datasources"
 	"github.com/growthbook/cli/internal/cli/dimensions"
@@ -151,6 +154,15 @@ func NewRootCommand() (*cobra.Command, error) {
 	}
 	if err := constantrevisions.InitConstantRevisionsRoot(rootCmd); err != nil {
 		return nil, fmt.Errorf("init constant-revisions: %w", err)
+	}
+	if err := configs.InitConfigsRoot(rootCmd); err != nil {
+		return nil, fmt.Errorf("init configs: %w", err)
+	}
+	if err := configrevisions.InitConfigRevisionsRoot(rootCmd); err != nil {
+		return nil, fmt.Errorf("init config-revisions: %w", err)
+	}
+	if err := customhooks.InitCustomHooksRoot(rootCmd); err != nil {
+		return nil, fmt.Errorf("init custom-hooks: %w", err)
 	}
 	if err := organizations.InitOrganizationsRoot(rootCmd); err != nil {
 		return nil, fmt.Errorf("init organizations: %w", err)

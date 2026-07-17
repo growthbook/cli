@@ -67,7 +67,11 @@ type FeatureWithRevisionsV2 struct {
 	Project      string                          `json:"project"`
 	ValueType    FeatureWithRevisionsV2ValueType `json:"valueType"`
 	DefaultValue string                          `json:"defaultValue"`
-	Tags         []string                        `json:"tags"`
+	// Key of the config backing this flag ("Config mode"). Requires `valueType: "json"` and a live config. The config supplies the base JSON and schema; `defaultValue` and rule values are override patches on top. null or omitted for a plain flag.
+	BaseConfig optionalnullable.OptionalNullable[string] `json:"baseConfig,omitzero"`
+	// Optional. A config within `baseConfig`'s family that the default value resolves to instead of `baseConfig` itself. null or omitted means the default is `baseConfig`. The default is exactly this config and carries no overrides of its own.
+	DefaultValueConfig optionalnullable.OptionalNullable[string] `json:"defaultValueConfig,omitzero"`
+	Tags               []string                                  `json:"tags"`
 	// Unified rules array. Each rule carries its own environment scope via `allEnvironments` / `environments`.
 	Rules []FeatureRuleV2 `json:"rules"`
 	// Per-environment enabled state and SDK payload. Rules are on the top-level `rules` field.
@@ -152,6 +156,20 @@ func (f *FeatureWithRevisionsV2) GetDefaultValue() string {
 		return ""
 	}
 	return f.DefaultValue
+}
+
+func (f *FeatureWithRevisionsV2) GetBaseConfig() optionalnullable.OptionalNullable[string] {
+	if f == nil {
+		return nil
+	}
+	return f.BaseConfig
+}
+
+func (f *FeatureWithRevisionsV2) GetDefaultValueConfig() optionalnullable.OptionalNullable[string] {
+	if f == nil {
+		return nil
+	}
+	return f.DefaultValueConfig
 }
 
 func (f *FeatureWithRevisionsV2) GetTags() []string {

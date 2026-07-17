@@ -21,16 +21,18 @@ growthbook feature-revisions update-rule [flags]
 ### Options
 
 ```
-      --body string               Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -h, --help                      help for update-rule
-  -i, --id string                 [required]
-      --ramp-schedule string      Multi-step ramp schedule for force/rollout rules. Not supported for experiment-ref or safe-rollout rules. Mutually exclusive with schedule.
-      --revision-comment string   Comment for a newly created draft. Only used when version is "new"; ignored for existing revisions.
-      --revision-title string     Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
-      --rule string               [required]
-      --rule-id string            [required]
-  -s, --schedule string           Simple start/end date window. For force/rollout rules this manages a standalone ramp action; for experiment-ref/safe-rollout rules this updates legacy schedule fields on the rule. Mutually exclusive with rampSchedule.
-  -v, --version-param string      [required]
+      --body string                     Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -h, --help                            help for update-rule
+      --id string                       [required]
+      --ignore-warnings string          Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has blockPublishOnSchemaError disabled (warn mode).
+      --ramp-schedule string            Multi-step ramp schedule for force/rollout rules. Not supported for experiment-ref or safe-rollout rules. Mutually exclusive with schedule.
+      --revision-comment string         Comment for a newly created draft. Only used when version is "new"; ignored for existing revisions.
+      --revision-title string           Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
+      --rule string                     [required]
+      --rule-id string                  [required]
+      --schedule string                 Simple start/end date window. For force/rollout rules this manages a standalone ramp action; for experiment-ref/safe-rollout rules this updates legacy schedule fields on the rule. Mutually exclusive with rampSchedule.
+      --skip-schema-validation string   Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the bypassApprovalChecks permission on all projects); ignored otherwise. Validation is enforced by default.
+  -v, --version-param string            [required]
 ```
 
 ### Options inherited from parent commands

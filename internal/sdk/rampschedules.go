@@ -1462,32 +1462,21 @@ func (s *RampSchedules) CompleteRampSchedule(ctx context.Context, request operat
 
 }
 
-// ApproveStepRampSchedule - Approve the current step
-// Satisfies the `holdConditions.requiresApproval` gate on the current step of
-// a `running` schedule.
+// ApproveStepRampSchedule - Approve the pending approval gate
+// Clears whichever approval gate is currently pending on the schedule:
 //
-// Approval is the **final** gate: it can only be granted once every other hold
-// on the step has already cleared. This endpoint rejects the request (`400`) if
-// the step is not yet ready for approval — for example while the interval timer
-// is still counting down, or (for monitored steps) before fresh analysis
-// covering the step is available or while a guardrail/health signal is failing.
-// Poll the `/status` endpoint and only call this once it reports the step is
-// awaiting approval.
+// - **Start gate** — a schedule created with `requiresStartApproval` sits in `ready` at step -1 with its rule disabled (zero traffic). Approving starts the ramp (or, if a future `startDate` is set, arms it to start on that date).
+// - **Step gate** — the `holdConditions.requiresApproval` gate on the current step of a `running` schedule.
 //
-// **Non-monitored steps**: once the interval has elapsed, approving clears the
-// last hold and the schedule advances immediately, chaining through any
-// subsequent instant steps in the same request.
+// For a step gate, approval is the **final** gate: it can only be granted once every other hold has cleared. This endpoint rejects the request (`400`) if the step is not yet ready — while the interval timer is still counting down, or (for monitored steps) before fresh analysis is available or while a guardrail/health signal is failing. Poll `/status` and call this once it reports awaiting approval.
 //
-// **Monitored steps**: once the interval has elapsed and fresh, healthy analysis
-// is available, approving clears the last hold and the agenda advances the step
-// on its next tick (re-checking the latest analysis once more first).
+// **Non-monitored steps**: once the interval has elapsed, approving clears the last hold and advances immediately, chaining through subsequent instant steps.
 //
-// Different from `/actions/advance`: `approve-step` works within the normal
-// evaluation flow and refuses to skip ahead of the interval or any other
-// unmet gate. Use `/actions/advance` only if you want to bypass all remaining
-// holds entirely (including the interval timer).
+// **Monitored steps**: approving clears the last hold and the agenda advances on its next tick (re-checking analysis first).
 //
-// Requires feature review permissions for the associated feature.
+// Different from `/actions/advance`: `approve-step` works within the normal evaluation flow and refuses to skip ahead of the interval or any other unmet gate. Use `/actions/advance` to bypass all remaining holds.
+//
+// Requires update + publish (start gate) or review (step gate) permissions for the associated feature.
 func (s *RampSchedules) ApproveStepRampSchedule(ctx context.Context, request operations.ApproveStepRampScheduleRequest, opts ...operations.Option) (*operations.ApproveStepRampScheduleResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{

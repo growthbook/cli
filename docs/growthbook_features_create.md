@@ -6,6 +6,31 @@ Create a single feature
 
 Creates a new feature. Rules are supplied as a top-level `rules` array; each rule includes `allEnvironments` / `environments` scope fields.
 
+### Config-backed features (Config mode)
+
+A JSON feature can be backed by a shared **config** — the config supplies the base JSON value and schema, and the feature's *rule* values become override *patches* merged on top (nested objects deep-merge; arrays and scalars replace). The default value is exactly a config with no overrides (see below). Config backing is set exclusively through dedicated fields — never a raw `$extends: ["@config:…"]` inside a value string (that is rejected). `@const:` references inside values still work.
+
+- **Top-level (`baseConfig`):** set `valueType: "json"` and `baseConfig: "<configKey>"` to put the flag in Config mode. The config must be live. This is the family root and the base the default value patches.
+- **Default value:** unlike rules, the default is exactly a config with no overrides of its own — send `defaultValue: "{}"` to use `baseConfig`. To resolve the default to a *descendant* of `baseConfig` instead, set `defaultValueConfig` to that descendant's key (it must be within `baseConfig`'s family); omit/null to use `baseConfig` directly.
+- **Rules & experiment variations:** each carries its own `config` field naming the family config that value patches (omit/null to patch the base). `value` is the override patch.
+
+Example:
+
+```json
+{
+
+
+
+  "id": "checkout-config",
+  "valueType": "json",
+  "baseConfig": "purchase-flow",
+  "defaultValue": "{}",
+  "rules": [
+    { "type": "force", "config": "purchase-flow-vip", "value": "{\"maxItems\": 20}", "allEnvironments": true }
+  ]
+}
+```
+
 ```
 growthbook features create [flags]
 ```
@@ -19,21 +44,25 @@ growthbook features create [flags]
 ### Options
 
 ```
-  -a, --archived                    boolean flag
-      --body string                 Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -c, --custom-fields string        value
-      --default-value string        Default value when feature is enabled. Type must match valueType. [required]
-      --description string          Description of the feature
-  -e, --environments string         Per-environment enabled state. V2 rules are specified on the top-level rules field.
-  -h, --help                        help for create
-  -i, --id string                   A unique key name for the feature. Feature keys can only include letters, numbers, hyphens, and underscores. [required]
-  -j, --json-schema string          Use JSON schema to validate the payload of a JSON-type feature value (enterprise only).
-      --owner string                The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the user associated with the request's Personal Access Token (PAT), if one is being used.
-      --prerequisites stringArray   Feature IDs. Each feature must evaluate to true
-      --project string              An associated project ID
-  -r, --rules string                Feature rules. Each rule carries its own environment scope via allEnvironments / environments.
-  -t, --tags stringArray            List of associated tags
-  -v, --value-type string           The data type of the feature payload. Boolean by default. (options: boolean, string, number, json) [required]
+  -a, --archived                        boolean flag
+  -b, --base-config string              Key of the config backing this flag ("Config mode"). Requires valueType: "json" and a live config. The config supplies the base JSON and schema; defaultValue and rule values are override patches on top. null or omitted for a plain flag.
+      --body string                     Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -c, --custom-fields string            value
+      --default-value string            Default value when feature is enabled. Type must match valueType. In Config mode (baseConfig set) the default must be exactly a config with no overrides: send "{}" to use baseConfig, or set defaultValueConfig to point at a descendant. [required]
+      --default-value-config string     Optional. A config within baseConfig's family that the default value resolves to instead of baseConfig itself. null or omitted means the default is baseConfig. The default is exactly this config and carries no overrides of its own.
+      --description string              Description of the feature
+  -e, --environments string             Per-environment enabled state. V2 rules are specified on the top-level rules field.
+  -h, --help                            help for create
+      --id string                       A unique key name for the feature. Feature keys can only include letters, numbers, hyphens, and underscores. [required]
+      --ignore-warnings string          Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has blockPublishOnSchemaError disabled (warn mode).
+  -j, --json-schema string              Use JSON schema to validate the payload of a JSON-type feature value (enterprise only).
+      --owner string                    The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. Optional when authenticating with a Personal Access Token (PAT): when omitted, the owner defaults to the PAT's user. Required when authenticating with an organization secret API key (which has no associated user): omitting it fails with a 400.
+      --prerequisites stringArray       Feature IDs. Each feature must evaluate to true
+      --project string                  An associated project ID
+  -r, --rules string                    Feature rules. Each rule carries its own environment scope via allEnvironments / environments.
+  -s, --skip-schema-validation string   Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the bypassApprovalChecks permission on all projects); ignored otherwise. Validation is enforced by default.
+  -t, --tags stringArray                List of associated tags
+  -v, --value-type string               The data type of the feature payload. Boolean by default. (options: boolean, string, number, json) [required]
 ```
 
 ### Options inherited from parent commands

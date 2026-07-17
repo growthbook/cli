@@ -921,9 +921,10 @@ type PostFeatureRevisionRuleAddV2RampSchedule struct {
 	// ISO 8601 date-time, e.g. "2025-06-01T00:00:00Z". Absent or null means start immediately on publish.
 	StartDate optionalnullable.OptionalNullable[time.Time] `json:"startDate,omitzero"`
 	// ISO 8601 date-time, e.g. "2025-07-01T00:00:00Z". The ramp ends at this time.
-	CutoffDate       optionalnullable.OptionalNullable[time.Time]  `json:"cutoffDate,omitzero"`
-	MonitoringConfig *PostFeatureRevisionRuleAddV2MonitoringConfig `json:"monitoringConfig,omitzero"`
-	LockdownConfig   *PostFeatureRevisionRuleAddV2LockdownConfig   `json:"lockdownConfig,omitzero"`
+	CutoffDate            optionalnullable.OptionalNullable[time.Time]  `json:"cutoffDate,omitzero"`
+	MonitoringConfig      *PostFeatureRevisionRuleAddV2MonitoringConfig `json:"monitoringConfig,omitzero"`
+	LockdownConfig        *PostFeatureRevisionRuleAddV2LockdownConfig   `json:"lockdownConfig,omitzero"`
+	RequiresStartApproval optionalnullable.OptionalNullable[bool]       `json:"requiresStartApproval,omitzero"`
 }
 
 func (p PostFeatureRevisionRuleAddV2RampSchedule) MarshalJSON() ([]byte, error) {
@@ -998,6 +999,13 @@ func (p *PostFeatureRevisionRuleAddV2RampSchedule) GetLockdownConfig() *PostFeat
 		return nil
 	}
 	return p.LockdownConfig
+}
+
+func (p *PostFeatureRevisionRuleAddV2RampSchedule) GetRequiresStartApproval() optionalnullable.OptionalNullable[bool] {
+	if p == nil {
+		return nil
+	}
+	return p.RequiresStartApproval
 }
 
 // #region class-body-postfeaturerevisionruleaddv2rampschedule
@@ -1101,9 +1109,13 @@ func (p *PostFeatureRevisionRuleAddV2RequestBody) GetRevisionComment() *string {
 // #endregion class-body-postfeaturerevisionruleaddv2requestbody
 
 type PostFeatureRevisionRuleAddV2Request struct {
-	ID      string                                  `pathParam:"style=simple,explode=false,name=id"`
-	Version string                                  `pathParam:"style=simple,explode=false,name=version"`
-	Body    PostFeatureRevisionRuleAddV2RequestBody `request:"mediaType=application/json"`
+	ID      string `pathParam:"style=simple,explode=false,name=id"`
+	Version string `pathParam:"style=simple,explode=false,name=version"`
+	// Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the `bypassApprovalChecks` permission on all projects); ignored otherwise. Validation is enforced by default.
+	SkipSchemaValidation any `queryParam:"style=form,explode=true,name=skipSchemaValidation"`
+	// Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has `blockPublishOnSchemaError` disabled (warn mode).
+	IgnoreWarnings any                                     `queryParam:"style=form,explode=true,name=ignoreWarnings"`
+	Body           PostFeatureRevisionRuleAddV2RequestBody `request:"mediaType=application/json"`
 }
 
 func (p *PostFeatureRevisionRuleAddV2Request) GetID() string {
@@ -1118,6 +1130,20 @@ func (p *PostFeatureRevisionRuleAddV2Request) GetVersion() string {
 		return ""
 	}
 	return p.Version
+}
+
+func (p *PostFeatureRevisionRuleAddV2Request) GetSkipSchemaValidation() any {
+	if p == nil {
+		return nil
+	}
+	return p.SkipSchemaValidation
+}
+
+func (p *PostFeatureRevisionRuleAddV2Request) GetIgnoreWarnings() any {
+	if p == nil {
+		return nil
+	}
+	return p.IgnoreWarnings
 }
 
 func (p *PostFeatureRevisionRuleAddV2Request) GetBody() PostFeatureRevisionRuleAddV2RequestBody {

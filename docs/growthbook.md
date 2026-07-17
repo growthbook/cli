@@ -47,6 +47,8 @@ growthbook [flags]
 * [growthbook attributes](growthbook_attributes.md)	 - Used when targeting feature flags and experiments
 * [growthbook auth](growthbook_auth.md)	 - Manage authentication credentials
 * [growthbook code-references](growthbook_code-references.md)	 - Intended for use with our code reference CI utility, [`gb-find-code-refs`](https://github
+* [growthbook config-revisions](growthbook_config-revisions.md)	 - Draft revisions for configs, including value and schema edits, schema import (JSON Schema / TypeScript / inferred), approvals, and lifecycle (publish, discard, revert)
+* [growthbook configs](growthbook_configs.md)	 - Reusable, typed, inheritable JSON objects referenced from feature flag values as `@config:key`
 * [growthbook configure](growthbook_configure.md)	 - Configure authentication credentials and preferences
 * [growthbook constant-revisions](growthbook_constant-revisions.md)	 - Draft revisions for constants, including pending changes, approvals, and lifecycle (publish, discard, revert)
 * [growthbook constants](growthbook_constants.md)	 - Reusable named values referenced from feature flag values as `@const:key` and resolved into the SDK payload at build time
@@ -54,6 +56,7 @@ growthbook [flags]
 * [growthbook contextual-bandits](growthbook_contextual-bandits.md)	 - Operations for contextual-bandits
 * [growthbook copy-transform](growthbook_copy-transform.md)	 - Copy Transform
 * [growthbook custom-fields](growthbook_custom-fields.md)	 - Operations for custom-fields
+* [growthbook custom-hooks](growthbook_custom-hooks.md)	 - Sandboxed JavaScript validation hooks that run when features, configs, or their revisions are saved or published
 * [growthbook dashboards](growthbook_dashboards.md)	 - Operations for dashboards
 * [growthbook data-sources](growthbook_data-sources.md)	 - How GrowthBook connects and queries your data, including cached database schema metadata (information schemas) for tables and columns
 * [growthbook dimensions](growthbook_dimensions.md)	 - Dimensions used during experiment analysis

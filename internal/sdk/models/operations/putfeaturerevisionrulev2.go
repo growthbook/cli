@@ -120,6 +120,8 @@ func (e *PutFeatureRevisionRuleV2Type) UnmarshalJSON(data []byte) error {
 type PutFeatureRevisionRuleV2Variation struct {
 	VariationID string `json:"variationId"`
 	Value       string `json:"value"`
+	// Key of a config to back this variation value (or null to detach). When set, `value` is a JSON override patch merged on top of the config.
+	Config optionalnullable.OptionalNullable[string] `json:"config,omitzero"`
 }
 
 func (p *PutFeatureRevisionRuleV2Variation) GetVariationID() string {
@@ -136,28 +138,37 @@ func (p *PutFeatureRevisionRuleV2Variation) GetValue() string {
 	return p.Value
 }
 
+func (p *PutFeatureRevisionRuleV2Variation) GetConfig() optionalnullable.OptionalNullable[string] {
+	if p == nil {
+		return nil
+	}
+	return p.Config
+}
+
 // #region class-body-putfeaturerevisionrulev2variation
 // #endregion class-body-putfeaturerevisionrulev2variation
 
 type PutFeatureRevisionRuleV2Rule struct {
-	Description     *string                                `json:"description,omitzero"`
-	Enabled         *bool                                  `json:"enabled,omitzero"`
-	Condition       *string                                `json:"condition,omitzero"`
-	SavedGroups     []PutFeatureRevisionRuleV2SavedGroup   `json:"savedGroups,omitzero"`
-	Prerequisites   []PutFeatureRevisionRuleV2Prerequisite `json:"prerequisites,omitzero"`
-	Type            *PutFeatureRevisionRuleV2Type          `json:"type,omitzero"`
-	Value           *string                                `json:"value,omitzero"`
-	Sparse          *bool                                  `json:"sparse,omitzero"`
-	Coverage        *float64                               `json:"coverage,omitzero"`
-	HashAttribute   *string                                `json:"hashAttribute,omitzero"`
-	Seed            *string                                `json:"seed,omitzero"`
-	HashVersion     *float64                               `json:"hashVersion,omitzero"`
-	ExperimentID    *string                                `json:"experimentId,omitzero"`
-	Variations      []PutFeatureRevisionRuleV2Variation    `json:"variations,omitzero"`
-	ControlValue    *string                                `json:"controlValue,omitzero"`
-	VariationValue  *string                                `json:"variationValue,omitzero"`
-	AllEnvironments *bool                                  `json:"allEnvironments,omitzero"`
-	Environments    []string                               `json:"environments,omitzero"`
+	Description   *string                                `json:"description,omitzero"`
+	Enabled       *bool                                  `json:"enabled,omitzero"`
+	Condition     *string                                `json:"condition,omitzero"`
+	SavedGroups   []PutFeatureRevisionRuleV2SavedGroup   `json:"savedGroups,omitzero"`
+	Prerequisites []PutFeatureRevisionRuleV2Prerequisite `json:"prerequisites,omitzero"`
+	Type          *PutFeatureRevisionRuleV2Type          `json:"type,omitzero"`
+	Value         *string                                `json:"value,omitzero"`
+	// Force/rollout rules only. Key of a config to back the value (or null to detach). When set, `value` is a JSON override patch merged on top of the config. Omit to leave the existing config backing unchanged.
+	Config          optionalnullable.OptionalNullable[string] `json:"config,omitzero"`
+	Sparse          *bool                                     `json:"sparse,omitzero"`
+	Coverage        *float64                                  `json:"coverage,omitzero"`
+	HashAttribute   *string                                   `json:"hashAttribute,omitzero"`
+	Seed            *string                                   `json:"seed,omitzero"`
+	HashVersion     *float64                                  `json:"hashVersion,omitzero"`
+	ExperimentID    *string                                   `json:"experimentId,omitzero"`
+	Variations      []PutFeatureRevisionRuleV2Variation       `json:"variations,omitzero"`
+	ControlValue    *string                                   `json:"controlValue,omitzero"`
+	VariationValue  *string                                   `json:"variationValue,omitzero"`
+	AllEnvironments *bool                                     `json:"allEnvironments,omitzero"`
+	Environments    []string                                  `json:"environments,omitzero"`
 }
 
 func (p PutFeatureRevisionRuleV2Rule) MarshalJSON() ([]byte, error) {
@@ -218,6 +229,13 @@ func (p *PutFeatureRevisionRuleV2Rule) GetValue() *string {
 		return nil
 	}
 	return p.Value
+}
+
+func (p *PutFeatureRevisionRuleV2Rule) GetConfig() optionalnullable.OptionalNullable[string] {
+	if p == nil {
+		return nil
+	}
+	return p.Config
 }
 
 func (p *PutFeatureRevisionRuleV2Rule) GetSparse() *bool {
@@ -1093,9 +1111,10 @@ type PutFeatureRevisionRuleV2RampSchedule struct {
 	// ISO 8601 date-time, e.g. "2025-06-01T00:00:00Z". Absent or null means start immediately on publish.
 	StartDate optionalnullable.OptionalNullable[time.Time] `json:"startDate,omitzero"`
 	// ISO 8601 date-time, e.g. "2025-07-01T00:00:00Z". The ramp ends at this time.
-	CutoffDate       optionalnullable.OptionalNullable[time.Time] `json:"cutoffDate,omitzero"`
-	MonitoringConfig *PutFeatureRevisionRuleV2MonitoringConfig    `json:"monitoringConfig,omitzero"`
-	LockdownConfig   *PutFeatureRevisionRuleV2LockdownConfig      `json:"lockdownConfig,omitzero"`
+	CutoffDate            optionalnullable.OptionalNullable[time.Time] `json:"cutoffDate,omitzero"`
+	MonitoringConfig      *PutFeatureRevisionRuleV2MonitoringConfig    `json:"monitoringConfig,omitzero"`
+	LockdownConfig        *PutFeatureRevisionRuleV2LockdownConfig      `json:"lockdownConfig,omitzero"`
+	RequiresStartApproval optionalnullable.OptionalNullable[bool]      `json:"requiresStartApproval,omitzero"`
 }
 
 func (p PutFeatureRevisionRuleV2RampSchedule) MarshalJSON() ([]byte, error) {
@@ -1170,6 +1189,13 @@ func (p *PutFeatureRevisionRuleV2RampSchedule) GetLockdownConfig() *PutFeatureRe
 		return nil
 	}
 	return p.LockdownConfig
+}
+
+func (p *PutFeatureRevisionRuleV2RampSchedule) GetRequiresStartApproval() optionalnullable.OptionalNullable[bool] {
+	if p == nil {
+		return nil
+	}
+	return p.RequiresStartApproval
 }
 
 // #region class-body-putfeaturerevisionrulev2rampschedule
@@ -1273,10 +1299,14 @@ func (p *PutFeatureRevisionRuleV2RequestBody) GetRevisionComment() *string {
 // #endregion class-body-putfeaturerevisionrulev2requestbody
 
 type PutFeatureRevisionRuleV2Request struct {
-	ID      string                              `pathParam:"style=simple,explode=false,name=id"`
-	Version string                              `pathParam:"style=simple,explode=false,name=version"`
-	RuleID  string                              `pathParam:"style=simple,explode=false,name=ruleId"`
-	Body    PutFeatureRevisionRuleV2RequestBody `request:"mediaType=application/json"`
+	ID      string `pathParam:"style=simple,explode=false,name=id"`
+	Version string `pathParam:"style=simple,explode=false,name=version"`
+	RuleID  string `pathParam:"style=simple,explode=false,name=ruleId"`
+	// Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the `bypassApprovalChecks` permission on all projects); ignored otherwise. Validation is enforced by default.
+	SkipSchemaValidation any `queryParam:"style=form,explode=true,name=skipSchemaValidation"`
+	// Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has `blockPublishOnSchemaError` disabled (warn mode).
+	IgnoreWarnings any                                 `queryParam:"style=form,explode=true,name=ignoreWarnings"`
+	Body           PutFeatureRevisionRuleV2RequestBody `request:"mediaType=application/json"`
 }
 
 func (p *PutFeatureRevisionRuleV2Request) GetID() string {
@@ -1298,6 +1328,20 @@ func (p *PutFeatureRevisionRuleV2Request) GetRuleID() string {
 		return ""
 	}
 	return p.RuleID
+}
+
+func (p *PutFeatureRevisionRuleV2Request) GetSkipSchemaValidation() any {
+	if p == nil {
+		return nil
+	}
+	return p.SkipSchemaValidation
+}
+
+func (p *PutFeatureRevisionRuleV2Request) GetIgnoreWarnings() any {
+	if p == nil {
+		return nil
+	}
+	return p.IgnoreWarnings
 }
 
 func (p *PutFeatureRevisionRuleV2Request) GetBody() PutFeatureRevisionRuleV2RequestBody {

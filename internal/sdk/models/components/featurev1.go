@@ -122,12 +122,16 @@ type FeatureV1 struct {
 	// The userId of the owner (or raw owner name/email for legacy records)
 	Owner string `json:"owner"`
 	// The email address of the owner, when the owner can be resolved to a known user.
-	OwnerEmail   *string                         `json:"ownerEmail,omitzero"`
-	Project      string                          `json:"project"`
-	ValueType    FeatureV1ValueType              `json:"valueType"`
-	DefaultValue string                          `json:"defaultValue"`
-	Tags         []string                        `json:"tags"`
-	Environments map[string]FeatureEnvironmentV1 `json:"environments"`
+	OwnerEmail   *string            `json:"ownerEmail,omitzero"`
+	Project      string             `json:"project"`
+	ValueType    FeatureV1ValueType `json:"valueType"`
+	DefaultValue string             `json:"defaultValue"`
+	// Key of the config backing this flag ("Config mode"), or null. The config supplies the base JSON and schema. The internal `@config:` directive is scrubbed from values; `@const:` references are preserved. (v2 additionally exposes per-rule config fields.)
+	BaseConfig optionalnullable.OptionalNullable[string] `json:"baseConfig,omitzero"`
+	// Config within `baseConfig`'s family that the default value resolves to (a descendant), or null when the default uses `baseConfig` directly.
+	DefaultValueConfig optionalnullable.OptionalNullable[string] `json:"defaultValueConfig,omitzero"`
+	Tags               []string                                  `json:"tags"`
+	Environments       map[string]FeatureEnvironmentV1           `json:"environments"`
 	// Feature IDs. Each feature must evaluate to `true`
 	Prerequisites []string                                            `json:"prerequisites,omitzero"`
 	Revision      FeatureV1Revision                                   `json:"revision"`
@@ -214,6 +218,20 @@ func (f *FeatureV1) GetDefaultValue() string {
 		return ""
 	}
 	return f.DefaultValue
+}
+
+func (f *FeatureV1) GetBaseConfig() optionalnullable.OptionalNullable[string] {
+	if f == nil {
+		return nil
+	}
+	return f.BaseConfig
+}
+
+func (f *FeatureV1) GetDefaultValueConfig() optionalnullable.OptionalNullable[string] {
+	if f == nil {
+		return nil
+	}
+	return f.DefaultValueConfig
 }
 
 func (f *FeatureV1) GetTags() []string {

@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/growthbook/cli/internal/sdk/models/components"
+	"github.com/growthbook/cli/internal/sdk/optionalnullable"
 	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
 	"time"
 )
@@ -493,6 +494,8 @@ func (p *PostFeatureV2ScheduleRule3) GetEnabled() bool {
 type PostFeatureV2Variation struct {
 	Value       string `json:"value"`
 	VariationID string `json:"variationId"`
+	// Key of a config to back this value. When set, `value` is a JSON override patch merged on top of the config; omit or null for a plain value.
+	Config optionalnullable.OptionalNullable[string] `json:"config,omitzero"`
 }
 
 func (p PostFeatureV2Variation) MarshalJSON() ([]byte, error) {
@@ -518,6 +521,13 @@ func (p *PostFeatureV2Variation) GetVariationID() string {
 		return ""
 	}
 	return p.VariationID
+}
+
+func (p *PostFeatureV2Variation) GetConfig() optionalnullable.OptionalNullable[string] {
+	if p == nil {
+		return nil
+	}
+	return p.Config
 }
 
 // #region class-body-postfeaturev2variation
@@ -786,6 +796,8 @@ type PostFeatureV2RuleRollout struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_ string `const:"rollout" json:"type"`
 	Value string `json:"value"`
+	// Key of a config to back this value. When set, `value` is a JSON override patch merged on top of the config; omit or null for a plain value.
+	Config optionalnullable.OptionalNullable[string] `json:"config,omitzero"`
 	// JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
 	Sparse        *bool    `json:"sparse,omitzero"`
 	Coverage      float64  `json:"coverage"`
@@ -866,6 +878,13 @@ func (p *PostFeatureV2RuleRollout) GetValue() string {
 		return ""
 	}
 	return p.Value
+}
+
+func (p *PostFeatureV2RuleRollout) GetConfig() optionalnullable.OptionalNullable[string] {
+	if p == nil {
+		return nil
+	}
+	return p.Config
 }
 
 func (p *PostFeatureV2RuleRollout) GetSparse() *bool {
@@ -1054,6 +1073,8 @@ type PostFeatureV2RuleForce struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_ string `const:"force" json:"type"`
 	Value string `json:"value"`
+	// Key of a config to back this value. When set, `value` is a JSON override patch merged on top of the config; omit or null for a plain value.
+	Config optionalnullable.OptionalNullable[string] `json:"config,omitzero"`
 	// JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
 	Sparse *bool `json:"sparse,omitzero"`
 	// When true the rule applies to all environments (default).
@@ -1131,6 +1152,13 @@ func (p *PostFeatureV2RuleForce) GetValue() string {
 		return ""
 	}
 	return p.Value
+}
+
+func (p *PostFeatureV2RuleForce) GetConfig() optionalnullable.OptionalNullable[string] {
+	if p == nil {
+		return nil
+	}
+	return p.Config
 }
 
 func (p *PostFeatureV2RuleForce) GetSparse() *bool {
@@ -1298,20 +1326,24 @@ func (p *PostFeatureV2Environments) GetEnabled() *bool {
 // #region class-body-postfeaturev2environments
 // #endregion class-body-postfeaturev2environments
 
-type PostFeatureV2Request struct {
+type PostFeatureV2RequestBody struct {
 	// A unique key name for the feature. Feature keys can only include letters, numbers, hyphens, and underscores.
 	ID       string `json:"id"`
 	Archived *bool  `json:"archived,omitzero"`
 	// Description of the feature
 	Description *string `json:"description,omitzero"`
-	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the user associated with the request's Personal Access Token (PAT), if one is being used.
+	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. Optional when authenticating with a Personal Access Token (PAT): when omitted, the owner defaults to the PAT's user. Required when authenticating with an organization secret API key (which has no associated user): omitting it fails with a 400.
 	Owner *string `json:"owner,omitzero"`
 	// An associated project ID
 	Project *string `json:"project,omitzero"`
 	// The data type of the feature payload. Boolean by default.
 	ValueType PostFeatureV2ValueType `json:"valueType"`
-	// Default value when feature is enabled. Type must match `valueType`.
+	// Default value when feature is enabled. Type must match `valueType`. In Config mode (`baseConfig` set) the default must be exactly a config with no overrides: send `"{}"` to use `baseConfig`, or set `defaultValueConfig` to point at a descendant.
 	DefaultValue string `json:"defaultValue"`
+	// Key of the config backing this flag ("Config mode"). Requires `valueType: "json"` and a live config. The config supplies the base JSON and schema; `defaultValue` and rule values are override patches on top. null or omitted for a plain flag.
+	BaseConfig optionalnullable.OptionalNullable[string] `json:"baseConfig,omitzero"`
+	// Optional. A config within `baseConfig`'s family that the default value resolves to instead of `baseConfig` itself. null or omitted means the default is `baseConfig`. The default is exactly this config and carries no overrides of its own.
+	DefaultValueConfig optionalnullable.OptionalNullable[string] `json:"defaultValueConfig,omitzero"`
 	// List of associated tags
 	Tags []string `json:"tags,omitzero"`
 	// Feature rules. Each rule carries its own environment scope via `allEnvironments` / `environments`.
@@ -1325,106 +1357,152 @@ type PostFeatureV2Request struct {
 	CustomFields map[string]string `json:"customFields,omitzero"`
 }
 
-func (p PostFeatureV2Request) MarshalJSON() ([]byte, error) {
+func (p PostFeatureV2RequestBody) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(p, "", false)
 }
 
-func (p *PostFeatureV2Request) UnmarshalJSON(data []byte) error {
+func (p *PostFeatureV2RequestBody) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PostFeatureV2Request) GetID() string {
+func (p *PostFeatureV2RequestBody) GetID() string {
 	if p == nil {
 		return ""
 	}
 	return p.ID
 }
 
-func (p *PostFeatureV2Request) GetArchived() *bool {
+func (p *PostFeatureV2RequestBody) GetArchived() *bool {
 	if p == nil {
 		return nil
 	}
 	return p.Archived
 }
 
-func (p *PostFeatureV2Request) GetDescription() *string {
+func (p *PostFeatureV2RequestBody) GetDescription() *string {
 	if p == nil {
 		return nil
 	}
 	return p.Description
 }
 
-func (p *PostFeatureV2Request) GetOwner() *string {
+func (p *PostFeatureV2RequestBody) GetOwner() *string {
 	if p == nil {
 		return nil
 	}
 	return p.Owner
 }
 
-func (p *PostFeatureV2Request) GetProject() *string {
+func (p *PostFeatureV2RequestBody) GetProject() *string {
 	if p == nil {
 		return nil
 	}
 	return p.Project
 }
 
-func (p *PostFeatureV2Request) GetValueType() PostFeatureV2ValueType {
+func (p *PostFeatureV2RequestBody) GetValueType() PostFeatureV2ValueType {
 	if p == nil {
 		return PostFeatureV2ValueType("")
 	}
 	return p.ValueType
 }
 
-func (p *PostFeatureV2Request) GetDefaultValue() string {
+func (p *PostFeatureV2RequestBody) GetDefaultValue() string {
 	if p == nil {
 		return ""
 	}
 	return p.DefaultValue
 }
 
-func (p *PostFeatureV2Request) GetTags() []string {
+func (p *PostFeatureV2RequestBody) GetBaseConfig() optionalnullable.OptionalNullable[string] {
+	if p == nil {
+		return nil
+	}
+	return p.BaseConfig
+}
+
+func (p *PostFeatureV2RequestBody) GetDefaultValueConfig() optionalnullable.OptionalNullable[string] {
+	if p == nil {
+		return nil
+	}
+	return p.DefaultValueConfig
+}
+
+func (p *PostFeatureV2RequestBody) GetTags() []string {
 	if p == nil {
 		return nil
 	}
 	return p.Tags
 }
 
-func (p *PostFeatureV2Request) GetRules() []PostFeatureV2RuleUnion {
+func (p *PostFeatureV2RequestBody) GetRules() []PostFeatureV2RuleUnion {
 	if p == nil {
 		return nil
 	}
 	return p.Rules
 }
 
-func (p *PostFeatureV2Request) GetEnvironments() map[string]PostFeatureV2Environments {
+func (p *PostFeatureV2RequestBody) GetEnvironments() map[string]PostFeatureV2Environments {
 	if p == nil {
 		return nil
 	}
 	return p.Environments
 }
 
-func (p *PostFeatureV2Request) GetPrerequisites() []string {
+func (p *PostFeatureV2RequestBody) GetPrerequisites() []string {
 	if p == nil {
 		return nil
 	}
 	return p.Prerequisites
 }
 
-func (p *PostFeatureV2Request) GetJSONSchema() *string {
+func (p *PostFeatureV2RequestBody) GetJSONSchema() *string {
 	if p == nil {
 		return nil
 	}
 	return p.JSONSchema
 }
 
-func (p *PostFeatureV2Request) GetCustomFields() map[string]string {
+func (p *PostFeatureV2RequestBody) GetCustomFields() map[string]string {
 	if p == nil {
 		return nil
 	}
 	return p.CustomFields
+}
+
+// #region class-body-postfeaturev2requestbody
+// #endregion class-body-postfeaturev2requestbody
+
+type PostFeatureV2Request struct {
+	// Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the `bypassApprovalChecks` permission on all projects); ignored otherwise. Validation is enforced by default.
+	SkipSchemaValidation any `queryParam:"style=form,explode=true,name=skipSchemaValidation"`
+	// Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has `blockPublishOnSchemaError` disabled (warn mode).
+	IgnoreWarnings any                      `queryParam:"style=form,explode=true,name=ignoreWarnings"`
+	Body           PostFeatureV2RequestBody `request:"mediaType=application/json"`
+}
+
+func (p *PostFeatureV2Request) GetSkipSchemaValidation() any {
+	if p == nil {
+		return nil
+	}
+	return p.SkipSchemaValidation
+}
+
+func (p *PostFeatureV2Request) GetIgnoreWarnings() any {
+	if p == nil {
+		return nil
+	}
+	return p.IgnoreWarnings
+}
+
+func (p *PostFeatureV2Request) GetBody() PostFeatureV2RequestBody {
+	if p == nil {
+		return PostFeatureV2RequestBody{}
+	}
+	return p.Body
 }
 
 // #region class-body-postfeaturev2request

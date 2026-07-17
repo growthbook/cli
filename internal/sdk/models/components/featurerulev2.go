@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/growthbook/cli/internal/sdk/optionalnullable"
 	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
 )
 
@@ -354,24 +355,24 @@ func (f *FeatureRuleV2FeatureSafeRolloutRule) GetPendingRamp() *PendingRampSafeR
 // #region class-body-featurerulev2featuresaferolloutrule
 // #endregion class-body-featurerulev2featuresaferolloutrule
 
-// ScheduleTypeContextualBanditRef - UI hint for which scheduling mode is active:
+// FeatureRuleV2ScheduleType4 - UI hint for which scheduling mode is active:
 // - `none` – no schedule
 // - `schedule` – simple time-based enable/disable via `scheduleRules`
 // - `ramp` – multi-step ramp-up controlled by an associated RampSchedule document
-type ScheduleTypeContextualBanditRef string
+type FeatureRuleV2ScheduleType4 string
 
 const (
-	ScheduleTypeContextualBanditRefNone     ScheduleTypeContextualBanditRef = "none"
-	ScheduleTypeContextualBanditRefSchedule ScheduleTypeContextualBanditRef = "schedule"
-	ScheduleTypeContextualBanditRefRamp     ScheduleTypeContextualBanditRef = "ramp"
+	FeatureRuleV2ScheduleType4None     FeatureRuleV2ScheduleType4 = "none"
+	FeatureRuleV2ScheduleType4Schedule FeatureRuleV2ScheduleType4 = "schedule"
+	FeatureRuleV2ScheduleType4Ramp     FeatureRuleV2ScheduleType4 = "ramp"
 )
 
-func (e ScheduleTypeContextualBanditRef) ToPointer() *ScheduleTypeContextualBanditRef {
+func (e FeatureRuleV2ScheduleType4) ToPointer() *FeatureRuleV2ScheduleType4 {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ScheduleTypeContextualBanditRef) IsExact() bool {
+func (e *FeatureRuleV2ScheduleType4) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "none", "schedule", "ramp":
@@ -381,20 +382,20 @@ func (e *ScheduleTypeContextualBanditRef) IsExact() bool {
 	return false
 }
 
-type MatchTypeContextualBanditRef string
+type FeatureRuleV2MatchType4 string
 
 const (
-	MatchTypeContextualBanditRefAll  MatchTypeContextualBanditRef = "all"
-	MatchTypeContextualBanditRefAny  MatchTypeContextualBanditRef = "any"
-	MatchTypeContextualBanditRefNone MatchTypeContextualBanditRef = "none"
+	FeatureRuleV2MatchType4All  FeatureRuleV2MatchType4 = "all"
+	FeatureRuleV2MatchType4Any  FeatureRuleV2MatchType4 = "any"
+	FeatureRuleV2MatchType4None FeatureRuleV2MatchType4 = "none"
 )
 
-func (e MatchTypeContextualBanditRef) ToPointer() *MatchTypeContextualBanditRef {
+func (e FeatureRuleV2MatchType4) ToPointer() *FeatureRuleV2MatchType4 {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *MatchTypeContextualBanditRef) IsExact() bool {
+func (e *FeatureRuleV2MatchType4) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "all", "any", "none":
@@ -404,422 +405,129 @@ func (e *MatchTypeContextualBanditRef) IsExact() bool {
 	return false
 }
 
-type SavedGroupTargetingContextualBanditRef struct {
-	MatchType   MatchTypeContextualBanditRef `json:"matchType"`
-	SavedGroups []string                     `json:"savedGroups"`
+type FeatureRuleV2SavedGroupTargeting4 struct {
+	MatchType   FeatureRuleV2MatchType4 `json:"matchType"`
+	SavedGroups []string                `json:"savedGroups"`
 }
 
-func (s SavedGroupTargetingContextualBanditRef) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SavedGroupTargetingContextualBanditRef) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *SavedGroupTargetingContextualBanditRef) GetMatchType() MatchTypeContextualBanditRef {
-	if s == nil {
-		return MatchTypeContextualBanditRef("")
-	}
-	return s.MatchType
-}
-
-func (s *SavedGroupTargetingContextualBanditRef) GetSavedGroups() []string {
-	if s == nil {
-		return []string{}
-	}
-	return s.SavedGroups
-}
-
-type PrerequisiteContextualBanditRef struct {
-	// Feature ID of the prerequisite
-	ID        string `json:"id"`
-	Condition string `json:"condition"`
-}
-
-func (p PrerequisiteContextualBanditRef) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *PrerequisiteContextualBanditRef) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *PrerequisiteContextualBanditRef) GetID() string {
-	if p == nil {
-		return ""
-	}
-	return p.ID
-}
-
-func (p *PrerequisiteContextualBanditRef) GetCondition() string {
-	if p == nil {
-		return ""
-	}
-	return p.Condition
-}
-
-type VariationContextualBanditRef struct {
-	Value       string `json:"value"`
-	VariationID string `json:"variationId"`
-}
-
-func (v VariationContextualBanditRef) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(v, "", false)
-}
-
-func (v *VariationContextualBanditRef) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &v, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (v *VariationContextualBanditRef) GetValue() string {
-	if v == nil {
-		return ""
-	}
-	return v.Value
-}
-
-func (v *VariationContextualBanditRef) GetVariationID() string {
-	if v == nil {
-		return ""
-	}
-	return v.VariationID
-}
-
-// PendingRampContextualBanditRef - Present on draft revisions only. "create" means a ramp schedule will be created for this rule on publish. "detach" means an existing live ramp schedule will be removed on publish. Use PUT/DELETE .../rules/{ruleId}/ramp-schedule to modify.
-type PendingRampContextualBanditRef string
-
-const (
-	PendingRampContextualBanditRefCreate PendingRampContextualBanditRef = "create"
-	PendingRampContextualBanditRefDetach PendingRampContextualBanditRef = "detach"
-)
-
-func (e PendingRampContextualBanditRef) ToPointer() *PendingRampContextualBanditRef {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PendingRampContextualBanditRef) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "create", "detach":
-			return true
-		}
-	}
-	return false
-}
-
-// FeatureRuleV2FeatureContextualBanditRefRule - Common fields shared by all feature rule types. Specific rule types extend
-// this base with their own required properties (value, coverage, etc.).
-type FeatureRuleV2FeatureContextualBanditRefRule struct {
-	Description string  `json:"description"`
-	Condition   *string `json:"condition,omitzero"`
-	ID          string  `json:"id"`
-	Enabled     bool    `json:"enabled"`
-	// Simple time-based on/off schedule for this rule
-	ScheduleRules []ScheduleRule `json:"scheduleRules,omitzero"`
-	// UI hint for which scheduling mode is active:
-	// - `none` – no schedule
-	// - `schedule` – simple time-based enable/disable via `scheduleRules`
-	// - `ramp` – multi-step ramp-up controlled by an associated RampSchedule document
-	//
-	ScheduleType *ScheduleTypeContextualBanditRef `json:"scheduleType,omitzero"`
-	// ID of the active RampSchedule document controlling this rule. Present when `scheduleType` is `ramp` and a live schedule exists.
-	RampScheduleID      *string                                  `json:"rampScheduleId,omitzero"`
-	SavedGroupTargeting []SavedGroupTargetingContextualBanditRef `json:"savedGroupTargeting,omitzero"`
-	Prerequisites       []PrerequisiteContextualBanditRef        `json:"prerequisites,omitzero"`
-	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_              string                         `const:"contextual-bandit-ref" json:"type"`
-	Variations         []VariationContextualBanditRef `json:"variations"`
-	ContextualBanditID string                         `json:"contextualBanditId"`
-	// When true the rule applies to all environments. When false only the environments listed in `environments` receive the rule.
-	AllEnvironments bool `json:"allEnvironments"`
-	// The environment IDs this rule is active in. Populated when `allEnvironments` is false.
-	Environments []string `json:"environments,omitzero"`
-	// Present on draft revisions only. "create" means a ramp schedule will be created for this rule on publish. "detach" means an existing live ramp schedule will be removed on publish. Use PUT/DELETE .../rules/{ruleId}/ramp-schedule to modify.
-	PendingRamp *PendingRampContextualBanditRef `json:"pendingRamp,omitzero"`
-}
-
-func (f FeatureRuleV2FeatureContextualBanditRefRule) MarshalJSON() ([]byte, error) {
+func (f FeatureRuleV2SavedGroupTargeting4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(f, "", false)
 }
 
-func (f *FeatureRuleV2FeatureContextualBanditRefRule) UnmarshalJSON(data []byte) error {
+func (f *FeatureRuleV2SavedGroupTargeting4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *FeatureRuleV2FeatureContextualBanditRefRule) GetDescription() string {
+func (f *FeatureRuleV2SavedGroupTargeting4) GetMatchType() FeatureRuleV2MatchType4 {
 	if f == nil {
-		return ""
+		return FeatureRuleV2MatchType4("")
 	}
-	return f.Description
+	return f.MatchType
 }
 
-func (f *FeatureRuleV2FeatureContextualBanditRefRule) GetCondition() *string {
+func (f *FeatureRuleV2SavedGroupTargeting4) GetSavedGroups() []string {
 	if f == nil {
-		return nil
+		return []string{}
 	}
-	return f.Condition
+	return f.SavedGroups
 }
 
-func (f *FeatureRuleV2FeatureContextualBanditRefRule) GetID() string {
+// #region class-body-featurerulev2savedgrouptargeting4
+// #endregion class-body-featurerulev2savedgrouptargeting4
+
+type FeatureRuleV2Prerequisite4 struct {
+	// Feature ID of the prerequisite
+	ID        string `json:"id"`
+	Condition string `json:"condition"`
+}
+
+func (f FeatureRuleV2Prerequisite4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
+}
+
+func (f *FeatureRuleV2Prerequisite4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (f *FeatureRuleV2Prerequisite4) GetID() string {
 	if f == nil {
 		return ""
 	}
 	return f.ID
 }
 
-func (f *FeatureRuleV2FeatureContextualBanditRefRule) GetEnabled() bool {
-	if f == nil {
-		return false
-	}
-	return f.Enabled
-}
-
-func (f *FeatureRuleV2FeatureContextualBanditRefRule) GetScheduleRules() []ScheduleRule {
-	if f == nil {
-		return nil
-	}
-	return f.ScheduleRules
-}
-
-func (f *FeatureRuleV2FeatureContextualBanditRefRule) GetScheduleType() *ScheduleTypeContextualBanditRef {
-	if f == nil {
-		return nil
-	}
-	return f.ScheduleType
-}
-
-func (f *FeatureRuleV2FeatureContextualBanditRefRule) GetRampScheduleID() *string {
-	if f == nil {
-		return nil
-	}
-	return f.RampScheduleID
-}
-
-func (f *FeatureRuleV2FeatureContextualBanditRefRule) GetSavedGroupTargeting() []SavedGroupTargetingContextualBanditRef {
-	if f == nil {
-		return nil
-	}
-	return f.SavedGroupTargeting
-}
-
-func (f *FeatureRuleV2FeatureContextualBanditRefRule) GetPrerequisites() []PrerequisiteContextualBanditRef {
-	if f == nil {
-		return nil
-	}
-	return f.Prerequisites
-}
-
-func (f *FeatureRuleV2FeatureContextualBanditRefRule) GetType() string {
-	return "contextual-bandit-ref"
-}
-
-func (f *FeatureRuleV2FeatureContextualBanditRefRule) GetVariations() []VariationContextualBanditRef {
-	if f == nil {
-		return []VariationContextualBanditRef{}
-	}
-	return f.Variations
-}
-
-func (f *FeatureRuleV2FeatureContextualBanditRefRule) GetContextualBanditID() string {
+func (f *FeatureRuleV2Prerequisite4) GetCondition() string {
 	if f == nil {
 		return ""
 	}
-	return f.ContextualBanditID
+	return f.Condition
 }
 
-func (f *FeatureRuleV2FeatureContextualBanditRefRule) GetAllEnvironments() bool {
-	if f == nil {
-		return false
-	}
-	return f.AllEnvironments
-}
+// #region class-body-featurerulev2prerequisite4
+// #endregion class-body-featurerulev2prerequisite4
 
-func (f *FeatureRuleV2FeatureContextualBanditRefRule) GetEnvironments() []string {
-	if f == nil {
-		return nil
-	}
-	return f.Environments
-}
-
-func (f *FeatureRuleV2FeatureContextualBanditRefRule) GetPendingRamp() *PendingRampContextualBanditRef {
-	if f == nil {
-		return nil
-	}
-	return f.PendingRamp
-}
-
-// #region class-body-featurerulev2featurecontextualbanditrefrule
-// #endregion class-body-featurerulev2featurecontextualbanditrefrule
-
-// ScheduleTypeExperimentRef - UI hint for which scheduling mode is active:
-// - `none` – no schedule
-// - `schedule` – simple time-based enable/disable via `scheduleRules`
-// - `ramp` – multi-step ramp-up controlled by an associated RampSchedule document
-type ScheduleTypeExperimentRef string
-
-const (
-	ScheduleTypeExperimentRefNone     ScheduleTypeExperimentRef = "none"
-	ScheduleTypeExperimentRefSchedule ScheduleTypeExperimentRef = "schedule"
-	ScheduleTypeExperimentRefRamp     ScheduleTypeExperimentRef = "ramp"
-)
-
-func (e ScheduleTypeExperimentRef) ToPointer() *ScheduleTypeExperimentRef {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ScheduleTypeExperimentRef) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "schedule", "ramp":
-			return true
-		}
-	}
-	return false
-}
-
-type MatchTypeExperimentRef string
-
-const (
-	MatchTypeExperimentRefAll  MatchTypeExperimentRef = "all"
-	MatchTypeExperimentRefAny  MatchTypeExperimentRef = "any"
-	MatchTypeExperimentRefNone MatchTypeExperimentRef = "none"
-)
-
-func (e MatchTypeExperimentRef) ToPointer() *MatchTypeExperimentRef {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *MatchTypeExperimentRef) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "all", "any", "none":
-			return true
-		}
-	}
-	return false
-}
-
-type SavedGroupTargetingExperimentRef struct {
-	MatchType   MatchTypeExperimentRef `json:"matchType"`
-	SavedGroups []string               `json:"savedGroups"`
-}
-
-func (s SavedGroupTargetingExperimentRef) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SavedGroupTargetingExperimentRef) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *SavedGroupTargetingExperimentRef) GetMatchType() MatchTypeExperimentRef {
-	if s == nil {
-		return MatchTypeExperimentRef("")
-	}
-	return s.MatchType
-}
-
-func (s *SavedGroupTargetingExperimentRef) GetSavedGroups() []string {
-	if s == nil {
-		return []string{}
-	}
-	return s.SavedGroups
-}
-
-type PrerequisiteExperimentRef struct {
-	// Feature ID of the prerequisite
-	ID        string `json:"id"`
-	Condition string `json:"condition"`
-}
-
-func (p PrerequisiteExperimentRef) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *PrerequisiteExperimentRef) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *PrerequisiteExperimentRef) GetID() string {
-	if p == nil {
-		return ""
-	}
-	return p.ID
-}
-
-func (p *PrerequisiteExperimentRef) GetCondition() string {
-	if p == nil {
-		return ""
-	}
-	return p.Condition
-}
-
-type VariationExperimentRef struct {
+type FeatureRuleV2Variation2 struct {
 	Value       string `json:"value"`
 	VariationID string `json:"variationId"`
+	// Key of the config backing this value, or null when the value is not config-backed. The config supplies the base JSON (and its schema); the value is an override patch merged on top.
+	Config optionalnullable.OptionalNullable[string] `json:"config,omitzero"`
 }
 
-func (v VariationExperimentRef) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(v, "", false)
+func (f FeatureRuleV2Variation2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
 }
 
-func (v *VariationExperimentRef) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &v, "", false, nil); err != nil {
+func (f *FeatureRuleV2Variation2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (v *VariationExperimentRef) GetValue() string {
-	if v == nil {
+func (f *FeatureRuleV2Variation2) GetValue() string {
+	if f == nil {
 		return ""
 	}
-	return v.Value
+	return f.Value
 }
 
-func (v *VariationExperimentRef) GetVariationID() string {
-	if v == nil {
+func (f *FeatureRuleV2Variation2) GetVariationID() string {
+	if f == nil {
 		return ""
 	}
-	return v.VariationID
+	return f.VariationID
 }
 
-// PendingRampExperimentRef - Present on draft revisions only. "create" means a ramp schedule will be created for this rule on publish. "detach" means an existing live ramp schedule will be removed on publish. Use PUT/DELETE .../rules/{ruleId}/ramp-schedule to modify.
-type PendingRampExperimentRef string
+func (f *FeatureRuleV2Variation2) GetConfig() optionalnullable.OptionalNullable[string] {
+	if f == nil {
+		return nil
+	}
+	return f.Config
+}
+
+// #region class-body-featurerulev2variation2
+// #endregion class-body-featurerulev2variation2
+
+// PendingRamp4 - Present on draft revisions only. "create" means a ramp schedule will be created for this rule on publish. "detach" means an existing live ramp schedule will be removed on publish. Use PUT/DELETE .../rules/{ruleId}/ramp-schedule to modify.
+type PendingRamp4 string
 
 const (
-	PendingRampExperimentRefCreate PendingRampExperimentRef = "create"
-	PendingRampExperimentRefDetach PendingRampExperimentRef = "detach"
+	PendingRamp4Create PendingRamp4 = "create"
+	PendingRamp4Detach PendingRamp4 = "detach"
 )
 
-func (e PendingRampExperimentRef) ToPointer() *PendingRampExperimentRef {
+func (e PendingRamp4) ToPointer() *PendingRamp4 {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PendingRampExperimentRef) IsExact() bool {
+func (e *PendingRamp4) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "create", "detach":
@@ -829,9 +537,7 @@ func (e *PendingRampExperimentRef) IsExact() bool {
 	return false
 }
 
-// FeatureRuleV2FeatureExperimentRefRule - Common fields shared by all feature rule types. Specific rule types extend
-// this base with their own required properties (value, coverage, etc.).
-type FeatureRuleV2FeatureExperimentRefRule struct {
+type FeatureRuleV2ContextualBanditRef struct {
 	Description string  `json:"description"`
 	Condition   *string `json:"condition,omitzero"`
 	ID          string  `json:"id"`
@@ -843,15 +549,342 @@ type FeatureRuleV2FeatureExperimentRefRule struct {
 	// - `schedule` – simple time-based enable/disable via `scheduleRules`
 	// - `ramp` – multi-step ramp-up controlled by an associated RampSchedule document
 	//
-	ScheduleType *ScheduleTypeExperimentRef `json:"scheduleType,omitzero"`
+	ScheduleType *FeatureRuleV2ScheduleType4 `json:"scheduleType,omitzero"`
 	// ID of the active RampSchedule document controlling this rule. Present when `scheduleType` is `ramp` and a live schedule exists.
-	RampScheduleID      *string                            `json:"rampScheduleId,omitzero"`
-	SavedGroupTargeting []SavedGroupTargetingExperimentRef `json:"savedGroupTargeting,omitzero"`
-	Prerequisites       []PrerequisiteExperimentRef        `json:"prerequisites,omitzero"`
+	RampScheduleID      *string                             `json:"rampScheduleId,omitzero"`
+	SavedGroupTargeting []FeatureRuleV2SavedGroupTargeting4 `json:"savedGroupTargeting,omitzero"`
+	Prerequisites       []FeatureRuleV2Prerequisite4        `json:"prerequisites,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_        string                   `const:"experiment-ref" json:"type"`
-	Variations   []VariationExperimentRef `json:"variations"`
-	ExperimentID string                   `json:"experimentId"`
+	type_              string                    `const:"contextual-bandit-ref" json:"type"`
+	Variations         []FeatureRuleV2Variation2 `json:"variations"`
+	ContextualBanditID string                    `json:"contextualBanditId"`
+	// When true the rule applies to all environments. When false only the environments listed in `environments` receive the rule.
+	AllEnvironments bool `json:"allEnvironments"`
+	// The environment IDs this rule is active in. Populated when `allEnvironments` is false.
+	Environments []string `json:"environments,omitzero"`
+	// Present on draft revisions only. "create" means a ramp schedule will be created for this rule on publish. "detach" means an existing live ramp schedule will be removed on publish. Use PUT/DELETE .../rules/{ruleId}/ramp-schedule to modify.
+	PendingRamp *PendingRamp4 `json:"pendingRamp,omitzero"`
+}
+
+func (f FeatureRuleV2ContextualBanditRef) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
+}
+
+func (f *FeatureRuleV2ContextualBanditRef) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (f *FeatureRuleV2ContextualBanditRef) GetDescription() string {
+	if f == nil {
+		return ""
+	}
+	return f.Description
+}
+
+func (f *FeatureRuleV2ContextualBanditRef) GetCondition() *string {
+	if f == nil {
+		return nil
+	}
+	return f.Condition
+}
+
+func (f *FeatureRuleV2ContextualBanditRef) GetID() string {
+	if f == nil {
+		return ""
+	}
+	return f.ID
+}
+
+func (f *FeatureRuleV2ContextualBanditRef) GetEnabled() bool {
+	if f == nil {
+		return false
+	}
+	return f.Enabled
+}
+
+func (f *FeatureRuleV2ContextualBanditRef) GetScheduleRules() []ScheduleRule {
+	if f == nil {
+		return nil
+	}
+	return f.ScheduleRules
+}
+
+func (f *FeatureRuleV2ContextualBanditRef) GetScheduleType() *FeatureRuleV2ScheduleType4 {
+	if f == nil {
+		return nil
+	}
+	return f.ScheduleType
+}
+
+func (f *FeatureRuleV2ContextualBanditRef) GetRampScheduleID() *string {
+	if f == nil {
+		return nil
+	}
+	return f.RampScheduleID
+}
+
+func (f *FeatureRuleV2ContextualBanditRef) GetSavedGroupTargeting() []FeatureRuleV2SavedGroupTargeting4 {
+	if f == nil {
+		return nil
+	}
+	return f.SavedGroupTargeting
+}
+
+func (f *FeatureRuleV2ContextualBanditRef) GetPrerequisites() []FeatureRuleV2Prerequisite4 {
+	if f == nil {
+		return nil
+	}
+	return f.Prerequisites
+}
+
+func (f *FeatureRuleV2ContextualBanditRef) GetType() string {
+	return "contextual-bandit-ref"
+}
+
+func (f *FeatureRuleV2ContextualBanditRef) GetVariations() []FeatureRuleV2Variation2 {
+	if f == nil {
+		return []FeatureRuleV2Variation2{}
+	}
+	return f.Variations
+}
+
+func (f *FeatureRuleV2ContextualBanditRef) GetContextualBanditID() string {
+	if f == nil {
+		return ""
+	}
+	return f.ContextualBanditID
+}
+
+func (f *FeatureRuleV2ContextualBanditRef) GetAllEnvironments() bool {
+	if f == nil {
+		return false
+	}
+	return f.AllEnvironments
+}
+
+func (f *FeatureRuleV2ContextualBanditRef) GetEnvironments() []string {
+	if f == nil {
+		return nil
+	}
+	return f.Environments
+}
+
+func (f *FeatureRuleV2ContextualBanditRef) GetPendingRamp() *PendingRamp4 {
+	if f == nil {
+		return nil
+	}
+	return f.PendingRamp
+}
+
+// #region class-body-featurerulev2contextualbanditref
+// #endregion class-body-featurerulev2contextualbanditref
+
+// FeatureRuleV2ScheduleType3 - UI hint for which scheduling mode is active:
+// - `none` – no schedule
+// - `schedule` – simple time-based enable/disable via `scheduleRules`
+// - `ramp` – multi-step ramp-up controlled by an associated RampSchedule document
+type FeatureRuleV2ScheduleType3 string
+
+const (
+	FeatureRuleV2ScheduleType3None     FeatureRuleV2ScheduleType3 = "none"
+	FeatureRuleV2ScheduleType3Schedule FeatureRuleV2ScheduleType3 = "schedule"
+	FeatureRuleV2ScheduleType3Ramp     FeatureRuleV2ScheduleType3 = "ramp"
+)
+
+func (e FeatureRuleV2ScheduleType3) ToPointer() *FeatureRuleV2ScheduleType3 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *FeatureRuleV2ScheduleType3) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "schedule", "ramp":
+			return true
+		}
+	}
+	return false
+}
+
+type FeatureRuleV2MatchType3 string
+
+const (
+	FeatureRuleV2MatchType3All  FeatureRuleV2MatchType3 = "all"
+	FeatureRuleV2MatchType3Any  FeatureRuleV2MatchType3 = "any"
+	FeatureRuleV2MatchType3None FeatureRuleV2MatchType3 = "none"
+)
+
+func (e FeatureRuleV2MatchType3) ToPointer() *FeatureRuleV2MatchType3 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *FeatureRuleV2MatchType3) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "all", "any", "none":
+			return true
+		}
+	}
+	return false
+}
+
+type FeatureRuleV2SavedGroupTargeting3 struct {
+	MatchType   FeatureRuleV2MatchType3 `json:"matchType"`
+	SavedGroups []string                `json:"savedGroups"`
+}
+
+func (f FeatureRuleV2SavedGroupTargeting3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
+}
+
+func (f *FeatureRuleV2SavedGroupTargeting3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (f *FeatureRuleV2SavedGroupTargeting3) GetMatchType() FeatureRuleV2MatchType3 {
+	if f == nil {
+		return FeatureRuleV2MatchType3("")
+	}
+	return f.MatchType
+}
+
+func (f *FeatureRuleV2SavedGroupTargeting3) GetSavedGroups() []string {
+	if f == nil {
+		return []string{}
+	}
+	return f.SavedGroups
+}
+
+// #region class-body-featurerulev2savedgrouptargeting3
+// #endregion class-body-featurerulev2savedgrouptargeting3
+
+type FeatureRuleV2Prerequisite3 struct {
+	// Feature ID of the prerequisite
+	ID        string `json:"id"`
+	Condition string `json:"condition"`
+}
+
+func (f FeatureRuleV2Prerequisite3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
+}
+
+func (f *FeatureRuleV2Prerequisite3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (f *FeatureRuleV2Prerequisite3) GetID() string {
+	if f == nil {
+		return ""
+	}
+	return f.ID
+}
+
+func (f *FeatureRuleV2Prerequisite3) GetCondition() string {
+	if f == nil {
+		return ""
+	}
+	return f.Condition
+}
+
+// #region class-body-featurerulev2prerequisite3
+// #endregion class-body-featurerulev2prerequisite3
+
+type FeatureRuleV2Variation1 struct {
+	Value       string `json:"value"`
+	VariationID string `json:"variationId"`
+	// Key of the config backing this value, or null when the value is not config-backed. The config supplies the base JSON (and its schema); the value is an override patch merged on top.
+	Config optionalnullable.OptionalNullable[string] `json:"config,omitzero"`
+}
+
+func (f FeatureRuleV2Variation1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
+}
+
+func (f *FeatureRuleV2Variation1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (f *FeatureRuleV2Variation1) GetValue() string {
+	if f == nil {
+		return ""
+	}
+	return f.Value
+}
+
+func (f *FeatureRuleV2Variation1) GetVariationID() string {
+	if f == nil {
+		return ""
+	}
+	return f.VariationID
+}
+
+func (f *FeatureRuleV2Variation1) GetConfig() optionalnullable.OptionalNullable[string] {
+	if f == nil {
+		return nil
+	}
+	return f.Config
+}
+
+// #region class-body-featurerulev2variation1
+// #endregion class-body-featurerulev2variation1
+
+// PendingRamp3 - Present on draft revisions only. "create" means a ramp schedule will be created for this rule on publish. "detach" means an existing live ramp schedule will be removed on publish. Use PUT/DELETE .../rules/{ruleId}/ramp-schedule to modify.
+type PendingRamp3 string
+
+const (
+	PendingRamp3Create PendingRamp3 = "create"
+	PendingRamp3Detach PendingRamp3 = "detach"
+)
+
+func (e PendingRamp3) ToPointer() *PendingRamp3 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *PendingRamp3) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "create", "detach":
+			return true
+		}
+	}
+	return false
+}
+
+type FeatureRuleV2ExperimentRef struct {
+	Description string  `json:"description"`
+	Condition   *string `json:"condition,omitzero"`
+	ID          string  `json:"id"`
+	Enabled     bool    `json:"enabled"`
+	// Simple time-based on/off schedule for this rule
+	ScheduleRules []ScheduleRule `json:"scheduleRules,omitzero"`
+	// UI hint for which scheduling mode is active:
+	// - `none` – no schedule
+	// - `schedule` – simple time-based enable/disable via `scheduleRules`
+	// - `ramp` – multi-step ramp-up controlled by an associated RampSchedule document
+	//
+	ScheduleType *FeatureRuleV2ScheduleType3 `json:"scheduleType,omitzero"`
+	// ID of the active RampSchedule document controlling this rule. Present when `scheduleType` is `ramp` and a live schedule exists.
+	RampScheduleID      *string                             `json:"rampScheduleId,omitzero"`
+	SavedGroupTargeting []FeatureRuleV2SavedGroupTargeting3 `json:"savedGroupTargeting,omitzero"`
+	Prerequisites       []FeatureRuleV2Prerequisite3        `json:"prerequisites,omitzero"`
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	type_        string                    `const:"experiment-ref" json:"type"`
+	Variations   []FeatureRuleV2Variation1 `json:"variations"`
+	ExperimentID string                    `json:"experimentId"`
 	// JSON features only. When true, each variation `value` is a partial object merged onto the feature's default value instead of replacing it.
 	Sparse *bool `json:"sparse,omitzero"`
 	// When true the rule applies to all environments. When false only the environments listed in `environments` receive the rule.
@@ -859,131 +892,131 @@ type FeatureRuleV2FeatureExperimentRefRule struct {
 	// The environment IDs this rule is active in. Populated when `allEnvironments` is false.
 	Environments []string `json:"environments,omitzero"`
 	// Present on draft revisions only. "create" means a ramp schedule will be created for this rule on publish. "detach" means an existing live ramp schedule will be removed on publish. Use PUT/DELETE .../rules/{ruleId}/ramp-schedule to modify.
-	PendingRamp *PendingRampExperimentRef `json:"pendingRamp,omitzero"`
+	PendingRamp *PendingRamp3 `json:"pendingRamp,omitzero"`
 }
 
-func (f FeatureRuleV2FeatureExperimentRefRule) MarshalJSON() ([]byte, error) {
+func (f FeatureRuleV2ExperimentRef) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(f, "", false)
 }
 
-func (f *FeatureRuleV2FeatureExperimentRefRule) UnmarshalJSON(data []byte) error {
+func (f *FeatureRuleV2ExperimentRef) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *FeatureRuleV2FeatureExperimentRefRule) GetDescription() string {
+func (f *FeatureRuleV2ExperimentRef) GetDescription() string {
 	if f == nil {
 		return ""
 	}
 	return f.Description
 }
 
-func (f *FeatureRuleV2FeatureExperimentRefRule) GetCondition() *string {
+func (f *FeatureRuleV2ExperimentRef) GetCondition() *string {
 	if f == nil {
 		return nil
 	}
 	return f.Condition
 }
 
-func (f *FeatureRuleV2FeatureExperimentRefRule) GetID() string {
+func (f *FeatureRuleV2ExperimentRef) GetID() string {
 	if f == nil {
 		return ""
 	}
 	return f.ID
 }
 
-func (f *FeatureRuleV2FeatureExperimentRefRule) GetEnabled() bool {
+func (f *FeatureRuleV2ExperimentRef) GetEnabled() bool {
 	if f == nil {
 		return false
 	}
 	return f.Enabled
 }
 
-func (f *FeatureRuleV2FeatureExperimentRefRule) GetScheduleRules() []ScheduleRule {
+func (f *FeatureRuleV2ExperimentRef) GetScheduleRules() []ScheduleRule {
 	if f == nil {
 		return nil
 	}
 	return f.ScheduleRules
 }
 
-func (f *FeatureRuleV2FeatureExperimentRefRule) GetScheduleType() *ScheduleTypeExperimentRef {
+func (f *FeatureRuleV2ExperimentRef) GetScheduleType() *FeatureRuleV2ScheduleType3 {
 	if f == nil {
 		return nil
 	}
 	return f.ScheduleType
 }
 
-func (f *FeatureRuleV2FeatureExperimentRefRule) GetRampScheduleID() *string {
+func (f *FeatureRuleV2ExperimentRef) GetRampScheduleID() *string {
 	if f == nil {
 		return nil
 	}
 	return f.RampScheduleID
 }
 
-func (f *FeatureRuleV2FeatureExperimentRefRule) GetSavedGroupTargeting() []SavedGroupTargetingExperimentRef {
+func (f *FeatureRuleV2ExperimentRef) GetSavedGroupTargeting() []FeatureRuleV2SavedGroupTargeting3 {
 	if f == nil {
 		return nil
 	}
 	return f.SavedGroupTargeting
 }
 
-func (f *FeatureRuleV2FeatureExperimentRefRule) GetPrerequisites() []PrerequisiteExperimentRef {
+func (f *FeatureRuleV2ExperimentRef) GetPrerequisites() []FeatureRuleV2Prerequisite3 {
 	if f == nil {
 		return nil
 	}
 	return f.Prerequisites
 }
 
-func (f *FeatureRuleV2FeatureExperimentRefRule) GetType() string {
+func (f *FeatureRuleV2ExperimentRef) GetType() string {
 	return "experiment-ref"
 }
 
-func (f *FeatureRuleV2FeatureExperimentRefRule) GetVariations() []VariationExperimentRef {
+func (f *FeatureRuleV2ExperimentRef) GetVariations() []FeatureRuleV2Variation1 {
 	if f == nil {
-		return []VariationExperimentRef{}
+		return []FeatureRuleV2Variation1{}
 	}
 	return f.Variations
 }
 
-func (f *FeatureRuleV2FeatureExperimentRefRule) GetExperimentID() string {
+func (f *FeatureRuleV2ExperimentRef) GetExperimentID() string {
 	if f == nil {
 		return ""
 	}
 	return f.ExperimentID
 }
 
-func (f *FeatureRuleV2FeatureExperimentRefRule) GetSparse() *bool {
+func (f *FeatureRuleV2ExperimentRef) GetSparse() *bool {
 	if f == nil {
 		return nil
 	}
 	return f.Sparse
 }
 
-func (f *FeatureRuleV2FeatureExperimentRefRule) GetAllEnvironments() bool {
+func (f *FeatureRuleV2ExperimentRef) GetAllEnvironments() bool {
 	if f == nil {
 		return false
 	}
 	return f.AllEnvironments
 }
 
-func (f *FeatureRuleV2FeatureExperimentRefRule) GetEnvironments() []string {
+func (f *FeatureRuleV2ExperimentRef) GetEnvironments() []string {
 	if f == nil {
 		return nil
 	}
 	return f.Environments
 }
 
-func (f *FeatureRuleV2FeatureExperimentRefRule) GetPendingRamp() *PendingRampExperimentRef {
+func (f *FeatureRuleV2ExperimentRef) GetPendingRamp() *PendingRamp3 {
 	if f == nil {
 		return nil
 	}
 	return f.PendingRamp
 }
 
-// #region class-body-featurerulev2featureexperimentrefrule
-// #endregion class-body-featurerulev2featureexperimentrefrule
+// #region class-body-featurerulev2experimentref
+// #endregion class-body-featurerulev2experimentref
 
 // ScheduleTypeExperiment - UI hint for which scheduling mode is active:
 // - `none` – no schedule
@@ -1411,24 +1444,24 @@ func (f *FeatureRuleV2FeatureExperimentRule) GetPendingRamp() *PendingRampExperi
 // #region class-body-featurerulev2featureexperimentrule
 // #endregion class-body-featurerulev2featureexperimentrule
 
-// ScheduleTypeRollout - UI hint for which scheduling mode is active:
+// FeatureRuleV2ScheduleType2 - UI hint for which scheduling mode is active:
 // - `none` – no schedule
 // - `schedule` – simple time-based enable/disable via `scheduleRules`
 // - `ramp` – multi-step ramp-up controlled by an associated RampSchedule document
-type ScheduleTypeRollout string
+type FeatureRuleV2ScheduleType2 string
 
 const (
-	ScheduleTypeRolloutNone     ScheduleTypeRollout = "none"
-	ScheduleTypeRolloutSchedule ScheduleTypeRollout = "schedule"
-	ScheduleTypeRolloutRamp     ScheduleTypeRollout = "ramp"
+	FeatureRuleV2ScheduleType2None     FeatureRuleV2ScheduleType2 = "none"
+	FeatureRuleV2ScheduleType2Schedule FeatureRuleV2ScheduleType2 = "schedule"
+	FeatureRuleV2ScheduleType2Ramp     FeatureRuleV2ScheduleType2 = "ramp"
 )
 
-func (e ScheduleTypeRollout) ToPointer() *ScheduleTypeRollout {
+func (e FeatureRuleV2ScheduleType2) ToPointer() *FeatureRuleV2ScheduleType2 {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ScheduleTypeRollout) IsExact() bool {
+func (e *FeatureRuleV2ScheduleType2) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "none", "schedule", "ramp":
@@ -1438,20 +1471,20 @@ func (e *ScheduleTypeRollout) IsExact() bool {
 	return false
 }
 
-type MatchTypeRollout string
+type FeatureRuleV2MatchType2 string
 
 const (
-	MatchTypeRolloutAll  MatchTypeRollout = "all"
-	MatchTypeRolloutAny  MatchTypeRollout = "any"
-	MatchTypeRolloutNone MatchTypeRollout = "none"
+	FeatureRuleV2MatchType2All  FeatureRuleV2MatchType2 = "all"
+	FeatureRuleV2MatchType2Any  FeatureRuleV2MatchType2 = "any"
+	FeatureRuleV2MatchType2None FeatureRuleV2MatchType2 = "none"
 )
 
-func (e MatchTypeRollout) ToPointer() *MatchTypeRollout {
+func (e FeatureRuleV2MatchType2) ToPointer() *FeatureRuleV2MatchType2 {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *MatchTypeRollout) IsExact() bool {
+func (e *FeatureRuleV2MatchType2) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "all", "any", "none":
@@ -1461,81 +1494,87 @@ func (e *MatchTypeRollout) IsExact() bool {
 	return false
 }
 
-type SavedGroupTargetingRollout struct {
-	MatchType   MatchTypeRollout `json:"matchType"`
-	SavedGroups []string         `json:"savedGroups"`
+type FeatureRuleV2SavedGroupTargeting2 struct {
+	MatchType   FeatureRuleV2MatchType2 `json:"matchType"`
+	SavedGroups []string                `json:"savedGroups"`
 }
 
-func (s SavedGroupTargetingRollout) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
+func (f FeatureRuleV2SavedGroupTargeting2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
 }
 
-func (s *SavedGroupTargetingRollout) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+func (f *FeatureRuleV2SavedGroupTargeting2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *SavedGroupTargetingRollout) GetMatchType() MatchTypeRollout {
-	if s == nil {
-		return MatchTypeRollout("")
+func (f *FeatureRuleV2SavedGroupTargeting2) GetMatchType() FeatureRuleV2MatchType2 {
+	if f == nil {
+		return FeatureRuleV2MatchType2("")
 	}
-	return s.MatchType
+	return f.MatchType
 }
 
-func (s *SavedGroupTargetingRollout) GetSavedGroups() []string {
-	if s == nil {
+func (f *FeatureRuleV2SavedGroupTargeting2) GetSavedGroups() []string {
+	if f == nil {
 		return []string{}
 	}
-	return s.SavedGroups
+	return f.SavedGroups
 }
 
-type PrerequisiteRollout struct {
+// #region class-body-featurerulev2savedgrouptargeting2
+// #endregion class-body-featurerulev2savedgrouptargeting2
+
+type FeatureRuleV2Prerequisite2 struct {
 	// Feature ID of the prerequisite
 	ID        string `json:"id"`
 	Condition string `json:"condition"`
 }
 
-func (p PrerequisiteRollout) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
+func (f FeatureRuleV2Prerequisite2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
 }
 
-func (p *PrerequisiteRollout) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+func (f *FeatureRuleV2Prerequisite2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PrerequisiteRollout) GetID() string {
-	if p == nil {
+func (f *FeatureRuleV2Prerequisite2) GetID() string {
+	if f == nil {
 		return ""
 	}
-	return p.ID
+	return f.ID
 }
 
-func (p *PrerequisiteRollout) GetCondition() string {
-	if p == nil {
+func (f *FeatureRuleV2Prerequisite2) GetCondition() string {
+	if f == nil {
 		return ""
 	}
-	return p.Condition
+	return f.Condition
 }
 
-// PendingRampRollout - Present on draft revisions only. "create" means a ramp schedule will be created for this rule on publish. "detach" means an existing live ramp schedule will be removed on publish. Use PUT/DELETE .../rules/{ruleId}/ramp-schedule to modify.
-type PendingRampRollout string
+// #region class-body-featurerulev2prerequisite2
+// #endregion class-body-featurerulev2prerequisite2
+
+// PendingRamp2 - Present on draft revisions only. "create" means a ramp schedule will be created for this rule on publish. "detach" means an existing live ramp schedule will be removed on publish. Use PUT/DELETE .../rules/{ruleId}/ramp-schedule to modify.
+type PendingRamp2 string
 
 const (
-	PendingRampRolloutCreate PendingRampRollout = "create"
-	PendingRampRolloutDetach PendingRampRollout = "detach"
+	PendingRamp2Create PendingRamp2 = "create"
+	PendingRamp2Detach PendingRamp2 = "detach"
 )
 
-func (e PendingRampRollout) ToPointer() *PendingRampRollout {
+func (e PendingRamp2) ToPointer() *PendingRamp2 {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PendingRampRollout) IsExact() bool {
+func (e *PendingRamp2) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "create", "detach":
@@ -1545,9 +1584,9 @@ func (e *PendingRampRollout) IsExact() bool {
 	return false
 }
 
-// FeatureRuleV2FeatureRolloutRule - Common fields shared by all feature rule types. Specific rule types extend
+// FeatureRuleV2Rollout - Common fields shared by all feature rule types. Specific rule types extend
 // this base with their own required properties (value, coverage, etc.).
-type FeatureRuleV2FeatureRolloutRule struct {
+type FeatureRuleV2Rollout struct {
 	Description string  `json:"description"`
 	Condition   *string `json:"condition,omitzero"`
 	ID          string  `json:"id"`
@@ -1559,11 +1598,11 @@ type FeatureRuleV2FeatureRolloutRule struct {
 	// - `schedule` – simple time-based enable/disable via `scheduleRules`
 	// - `ramp` – multi-step ramp-up controlled by an associated RampSchedule document
 	//
-	ScheduleType *ScheduleTypeRollout `json:"scheduleType,omitzero"`
+	ScheduleType *FeatureRuleV2ScheduleType2 `json:"scheduleType,omitzero"`
 	// ID of the active RampSchedule document controlling this rule. Present when `scheduleType` is `ramp` and a live schedule exists.
-	RampScheduleID      *string                      `json:"rampScheduleId,omitzero"`
-	SavedGroupTargeting []SavedGroupTargetingRollout `json:"savedGroupTargeting,omitzero"`
-	Prerequisites       []PrerequisiteRollout        `json:"prerequisites,omitzero"`
+	RampScheduleID      *string                             `json:"rampScheduleId,omitzero"`
+	SavedGroupTargeting []FeatureRuleV2SavedGroupTargeting2 `json:"savedGroupTargeting,omitzero"`
+	Prerequisites       []FeatureRuleV2Prerequisite2        `json:"prerequisites,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_ string `const:"rollout" json:"type"`
 	Value string `json:"value"`
@@ -1575,176 +1614,185 @@ type FeatureRuleV2FeatureRolloutRule struct {
 	Seed *string `json:"seed,omitzero"`
 	// Hash algorithm version for bucketing. Defaults to 2 (preferred) when not specified.
 	HashVersion *float64 `json:"hashVersion,omitzero"`
+	// Key of the config backing this value, or null when the value is not config-backed. The config supplies the base JSON (and its schema); the value is an override patch merged on top.
+	Config optionalnullable.OptionalNullable[string] `json:"config,omitzero"`
 	// When true the rule applies to all environments. When false only the environments listed in `environments` receive the rule.
 	AllEnvironments bool `json:"allEnvironments"`
 	// The environment IDs this rule is active in. Populated when `allEnvironments` is false.
 	Environments []string `json:"environments,omitzero"`
 	// Present on draft revisions only. "create" means a ramp schedule will be created for this rule on publish. "detach" means an existing live ramp schedule will be removed on publish. Use PUT/DELETE .../rules/{ruleId}/ramp-schedule to modify.
-	PendingRamp *PendingRampRollout `json:"pendingRamp,omitzero"`
+	PendingRamp *PendingRamp2 `json:"pendingRamp,omitzero"`
 }
 
-func (f FeatureRuleV2FeatureRolloutRule) MarshalJSON() ([]byte, error) {
+func (f FeatureRuleV2Rollout) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(f, "", false)
 }
 
-func (f *FeatureRuleV2FeatureRolloutRule) UnmarshalJSON(data []byte) error {
+func (f *FeatureRuleV2Rollout) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *FeatureRuleV2FeatureRolloutRule) GetDescription() string {
+func (f *FeatureRuleV2Rollout) GetDescription() string {
 	if f == nil {
 		return ""
 	}
 	return f.Description
 }
 
-func (f *FeatureRuleV2FeatureRolloutRule) GetCondition() *string {
+func (f *FeatureRuleV2Rollout) GetCondition() *string {
 	if f == nil {
 		return nil
 	}
 	return f.Condition
 }
 
-func (f *FeatureRuleV2FeatureRolloutRule) GetID() string {
+func (f *FeatureRuleV2Rollout) GetID() string {
 	if f == nil {
 		return ""
 	}
 	return f.ID
 }
 
-func (f *FeatureRuleV2FeatureRolloutRule) GetEnabled() bool {
+func (f *FeatureRuleV2Rollout) GetEnabled() bool {
 	if f == nil {
 		return false
 	}
 	return f.Enabled
 }
 
-func (f *FeatureRuleV2FeatureRolloutRule) GetScheduleRules() []ScheduleRule {
+func (f *FeatureRuleV2Rollout) GetScheduleRules() []ScheduleRule {
 	if f == nil {
 		return nil
 	}
 	return f.ScheduleRules
 }
 
-func (f *FeatureRuleV2FeatureRolloutRule) GetScheduleType() *ScheduleTypeRollout {
+func (f *FeatureRuleV2Rollout) GetScheduleType() *FeatureRuleV2ScheduleType2 {
 	if f == nil {
 		return nil
 	}
 	return f.ScheduleType
 }
 
-func (f *FeatureRuleV2FeatureRolloutRule) GetRampScheduleID() *string {
+func (f *FeatureRuleV2Rollout) GetRampScheduleID() *string {
 	if f == nil {
 		return nil
 	}
 	return f.RampScheduleID
 }
 
-func (f *FeatureRuleV2FeatureRolloutRule) GetSavedGroupTargeting() []SavedGroupTargetingRollout {
+func (f *FeatureRuleV2Rollout) GetSavedGroupTargeting() []FeatureRuleV2SavedGroupTargeting2 {
 	if f == nil {
 		return nil
 	}
 	return f.SavedGroupTargeting
 }
 
-func (f *FeatureRuleV2FeatureRolloutRule) GetPrerequisites() []PrerequisiteRollout {
+func (f *FeatureRuleV2Rollout) GetPrerequisites() []FeatureRuleV2Prerequisite2 {
 	if f == nil {
 		return nil
 	}
 	return f.Prerequisites
 }
 
-func (f *FeatureRuleV2FeatureRolloutRule) GetType() string {
+func (f *FeatureRuleV2Rollout) GetType() string {
 	return "rollout"
 }
 
-func (f *FeatureRuleV2FeatureRolloutRule) GetValue() string {
+func (f *FeatureRuleV2Rollout) GetValue() string {
 	if f == nil {
 		return ""
 	}
 	return f.Value
 }
 
-func (f *FeatureRuleV2FeatureRolloutRule) GetSparse() *bool {
+func (f *FeatureRuleV2Rollout) GetSparse() *bool {
 	if f == nil {
 		return nil
 	}
 	return f.Sparse
 }
 
-func (f *FeatureRuleV2FeatureRolloutRule) GetCoverage() float64 {
+func (f *FeatureRuleV2Rollout) GetCoverage() float64 {
 	if f == nil {
 		return 0.0
 	}
 	return f.Coverage
 }
 
-func (f *FeatureRuleV2FeatureRolloutRule) GetHashAttribute() string {
+func (f *FeatureRuleV2Rollout) GetHashAttribute() string {
 	if f == nil {
 		return ""
 	}
 	return f.HashAttribute
 }
 
-func (f *FeatureRuleV2FeatureRolloutRule) GetSeed() *string {
+func (f *FeatureRuleV2Rollout) GetSeed() *string {
 	if f == nil {
 		return nil
 	}
 	return f.Seed
 }
 
-func (f *FeatureRuleV2FeatureRolloutRule) GetHashVersion() *float64 {
+func (f *FeatureRuleV2Rollout) GetHashVersion() *float64 {
 	if f == nil {
 		return nil
 	}
 	return f.HashVersion
 }
 
-func (f *FeatureRuleV2FeatureRolloutRule) GetAllEnvironments() bool {
+func (f *FeatureRuleV2Rollout) GetConfig() optionalnullable.OptionalNullable[string] {
+	if f == nil {
+		return nil
+	}
+	return f.Config
+}
+
+func (f *FeatureRuleV2Rollout) GetAllEnvironments() bool {
 	if f == nil {
 		return false
 	}
 	return f.AllEnvironments
 }
 
-func (f *FeatureRuleV2FeatureRolloutRule) GetEnvironments() []string {
+func (f *FeatureRuleV2Rollout) GetEnvironments() []string {
 	if f == nil {
 		return nil
 	}
 	return f.Environments
 }
 
-func (f *FeatureRuleV2FeatureRolloutRule) GetPendingRamp() *PendingRampRollout {
+func (f *FeatureRuleV2Rollout) GetPendingRamp() *PendingRamp2 {
 	if f == nil {
 		return nil
 	}
 	return f.PendingRamp
 }
 
-// #region class-body-featurerulev2featurerolloutrule
-// #endregion class-body-featurerulev2featurerolloutrule
+// #region class-body-featurerulev2rollout
+// #endregion class-body-featurerulev2rollout
 
-// ScheduleTypeForce - UI hint for which scheduling mode is active:
+// FeatureRuleV2ScheduleType1 - UI hint for which scheduling mode is active:
 // - `none` – no schedule
 // - `schedule` – simple time-based enable/disable via `scheduleRules`
 // - `ramp` – multi-step ramp-up controlled by an associated RampSchedule document
-type ScheduleTypeForce string
+type FeatureRuleV2ScheduleType1 string
 
 const (
-	ScheduleTypeForceNone     ScheduleTypeForce = "none"
-	ScheduleTypeForceSchedule ScheduleTypeForce = "schedule"
-	ScheduleTypeForceRamp     ScheduleTypeForce = "ramp"
+	FeatureRuleV2ScheduleType1None     FeatureRuleV2ScheduleType1 = "none"
+	FeatureRuleV2ScheduleType1Schedule FeatureRuleV2ScheduleType1 = "schedule"
+	FeatureRuleV2ScheduleType1Ramp     FeatureRuleV2ScheduleType1 = "ramp"
 )
 
-func (e ScheduleTypeForce) ToPointer() *ScheduleTypeForce {
+func (e FeatureRuleV2ScheduleType1) ToPointer() *FeatureRuleV2ScheduleType1 {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ScheduleTypeForce) IsExact() bool {
+func (e *FeatureRuleV2ScheduleType1) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "none", "schedule", "ramp":
@@ -1754,20 +1802,20 @@ func (e *ScheduleTypeForce) IsExact() bool {
 	return false
 }
 
-type MatchTypeForce string
+type FeatureRuleV2MatchType1 string
 
 const (
-	MatchTypeForceAll  MatchTypeForce = "all"
-	MatchTypeForceAny  MatchTypeForce = "any"
-	MatchTypeForceNone MatchTypeForce = "none"
+	FeatureRuleV2MatchType1All  FeatureRuleV2MatchType1 = "all"
+	FeatureRuleV2MatchType1Any  FeatureRuleV2MatchType1 = "any"
+	FeatureRuleV2MatchType1None FeatureRuleV2MatchType1 = "none"
 )
 
-func (e MatchTypeForce) ToPointer() *MatchTypeForce {
+func (e FeatureRuleV2MatchType1) ToPointer() *FeatureRuleV2MatchType1 {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *MatchTypeForce) IsExact() bool {
+func (e *FeatureRuleV2MatchType1) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "all", "any", "none":
@@ -1777,81 +1825,87 @@ func (e *MatchTypeForce) IsExact() bool {
 	return false
 }
 
-type SavedGroupTargetingForce struct {
-	MatchType   MatchTypeForce `json:"matchType"`
-	SavedGroups []string       `json:"savedGroups"`
+type FeatureRuleV2SavedGroupTargeting1 struct {
+	MatchType   FeatureRuleV2MatchType1 `json:"matchType"`
+	SavedGroups []string                `json:"savedGroups"`
 }
 
-func (s SavedGroupTargetingForce) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
+func (f FeatureRuleV2SavedGroupTargeting1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
 }
 
-func (s *SavedGroupTargetingForce) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+func (f *FeatureRuleV2SavedGroupTargeting1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *SavedGroupTargetingForce) GetMatchType() MatchTypeForce {
-	if s == nil {
-		return MatchTypeForce("")
+func (f *FeatureRuleV2SavedGroupTargeting1) GetMatchType() FeatureRuleV2MatchType1 {
+	if f == nil {
+		return FeatureRuleV2MatchType1("")
 	}
-	return s.MatchType
+	return f.MatchType
 }
 
-func (s *SavedGroupTargetingForce) GetSavedGroups() []string {
-	if s == nil {
+func (f *FeatureRuleV2SavedGroupTargeting1) GetSavedGroups() []string {
+	if f == nil {
 		return []string{}
 	}
-	return s.SavedGroups
+	return f.SavedGroups
 }
 
-type PrerequisiteForce struct {
+// #region class-body-featurerulev2savedgrouptargeting1
+// #endregion class-body-featurerulev2savedgrouptargeting1
+
+type FeatureRuleV2Prerequisite1 struct {
 	// Feature ID of the prerequisite
 	ID        string `json:"id"`
 	Condition string `json:"condition"`
 }
 
-func (p PrerequisiteForce) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
+func (f FeatureRuleV2Prerequisite1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
 }
 
-func (p *PrerequisiteForce) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+func (f *FeatureRuleV2Prerequisite1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PrerequisiteForce) GetID() string {
-	if p == nil {
+func (f *FeatureRuleV2Prerequisite1) GetID() string {
+	if f == nil {
 		return ""
 	}
-	return p.ID
+	return f.ID
 }
 
-func (p *PrerequisiteForce) GetCondition() string {
-	if p == nil {
+func (f *FeatureRuleV2Prerequisite1) GetCondition() string {
+	if f == nil {
 		return ""
 	}
-	return p.Condition
+	return f.Condition
 }
 
-// PendingRampForce - Present on draft revisions only. "create" means a ramp schedule will be created for this rule on publish. "detach" means an existing live ramp schedule will be removed on publish. Use PUT/DELETE .../rules/{ruleId}/ramp-schedule to modify.
-type PendingRampForce string
+// #region class-body-featurerulev2prerequisite1
+// #endregion class-body-featurerulev2prerequisite1
+
+// PendingRamp1 - Present on draft revisions only. "create" means a ramp schedule will be created for this rule on publish. "detach" means an existing live ramp schedule will be removed on publish. Use PUT/DELETE .../rules/{ruleId}/ramp-schedule to modify.
+type PendingRamp1 string
 
 const (
-	PendingRampForceCreate PendingRampForce = "create"
-	PendingRampForceDetach PendingRampForce = "detach"
+	PendingRamp1Create PendingRamp1 = "create"
+	PendingRamp1Detach PendingRamp1 = "detach"
 )
 
-func (e PendingRampForce) ToPointer() *PendingRampForce {
+func (e PendingRamp1) ToPointer() *PendingRamp1 {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PendingRampForce) IsExact() bool {
+func (e *PendingRamp1) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "create", "detach":
@@ -1861,9 +1915,9 @@ func (e *PendingRampForce) IsExact() bool {
 	return false
 }
 
-// FeatureRuleV2FeatureForceRule - Common fields shared by all feature rule types. Specific rule types extend
+// FeatureRuleV2Force - Common fields shared by all feature rule types. Specific rule types extend
 // this base with their own required properties (value, coverage, etc.).
-type FeatureRuleV2FeatureForceRule struct {
+type FeatureRuleV2Force struct {
 	Description string  `json:"description"`
 	Condition   *string `json:"condition,omitzero"`
 	ID          string  `json:"id"`
@@ -1875,139 +1929,148 @@ type FeatureRuleV2FeatureForceRule struct {
 	// - `schedule` – simple time-based enable/disable via `scheduleRules`
 	// - `ramp` – multi-step ramp-up controlled by an associated RampSchedule document
 	//
-	ScheduleType *ScheduleTypeForce `json:"scheduleType,omitzero"`
+	ScheduleType *FeatureRuleV2ScheduleType1 `json:"scheduleType,omitzero"`
 	// ID of the active RampSchedule document controlling this rule. Present when `scheduleType` is `ramp` and a live schedule exists.
-	RampScheduleID      *string                    `json:"rampScheduleId,omitzero"`
-	SavedGroupTargeting []SavedGroupTargetingForce `json:"savedGroupTargeting,omitzero"`
-	Prerequisites       []PrerequisiteForce        `json:"prerequisites,omitzero"`
+	RampScheduleID      *string                             `json:"rampScheduleId,omitzero"`
+	SavedGroupTargeting []FeatureRuleV2SavedGroupTargeting1 `json:"savedGroupTargeting,omitzero"`
+	Prerequisites       []FeatureRuleV2Prerequisite1        `json:"prerequisites,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_ string `const:"force" json:"type"`
 	Value string `json:"value"`
 	// JSON features only. When true, `value` is a partial object merged onto the feature's default value instead of replacing it.
 	Sparse *bool `json:"sparse,omitzero"`
+	// Key of the config backing this value, or null when the value is not config-backed. The config supplies the base JSON (and its schema); the value is an override patch merged on top.
+	Config optionalnullable.OptionalNullable[string] `json:"config,omitzero"`
 	// When true the rule applies to all environments. When false only the environments listed in `environments` receive the rule.
 	AllEnvironments bool `json:"allEnvironments"`
 	// The environment IDs this rule is active in. Populated when `allEnvironments` is false.
 	Environments []string `json:"environments,omitzero"`
 	// Present on draft revisions only. "create" means a ramp schedule will be created for this rule on publish. "detach" means an existing live ramp schedule will be removed on publish. Use PUT/DELETE .../rules/{ruleId}/ramp-schedule to modify.
-	PendingRamp *PendingRampForce `json:"pendingRamp,omitzero"`
+	PendingRamp *PendingRamp1 `json:"pendingRamp,omitzero"`
 }
 
-func (f FeatureRuleV2FeatureForceRule) MarshalJSON() ([]byte, error) {
+func (f FeatureRuleV2Force) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(f, "", false)
 }
 
-func (f *FeatureRuleV2FeatureForceRule) UnmarshalJSON(data []byte) error {
+func (f *FeatureRuleV2Force) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *FeatureRuleV2FeatureForceRule) GetDescription() string {
+func (f *FeatureRuleV2Force) GetDescription() string {
 	if f == nil {
 		return ""
 	}
 	return f.Description
 }
 
-func (f *FeatureRuleV2FeatureForceRule) GetCondition() *string {
+func (f *FeatureRuleV2Force) GetCondition() *string {
 	if f == nil {
 		return nil
 	}
 	return f.Condition
 }
 
-func (f *FeatureRuleV2FeatureForceRule) GetID() string {
+func (f *FeatureRuleV2Force) GetID() string {
 	if f == nil {
 		return ""
 	}
 	return f.ID
 }
 
-func (f *FeatureRuleV2FeatureForceRule) GetEnabled() bool {
+func (f *FeatureRuleV2Force) GetEnabled() bool {
 	if f == nil {
 		return false
 	}
 	return f.Enabled
 }
 
-func (f *FeatureRuleV2FeatureForceRule) GetScheduleRules() []ScheduleRule {
+func (f *FeatureRuleV2Force) GetScheduleRules() []ScheduleRule {
 	if f == nil {
 		return nil
 	}
 	return f.ScheduleRules
 }
 
-func (f *FeatureRuleV2FeatureForceRule) GetScheduleType() *ScheduleTypeForce {
+func (f *FeatureRuleV2Force) GetScheduleType() *FeatureRuleV2ScheduleType1 {
 	if f == nil {
 		return nil
 	}
 	return f.ScheduleType
 }
 
-func (f *FeatureRuleV2FeatureForceRule) GetRampScheduleID() *string {
+func (f *FeatureRuleV2Force) GetRampScheduleID() *string {
 	if f == nil {
 		return nil
 	}
 	return f.RampScheduleID
 }
 
-func (f *FeatureRuleV2FeatureForceRule) GetSavedGroupTargeting() []SavedGroupTargetingForce {
+func (f *FeatureRuleV2Force) GetSavedGroupTargeting() []FeatureRuleV2SavedGroupTargeting1 {
 	if f == nil {
 		return nil
 	}
 	return f.SavedGroupTargeting
 }
 
-func (f *FeatureRuleV2FeatureForceRule) GetPrerequisites() []PrerequisiteForce {
+func (f *FeatureRuleV2Force) GetPrerequisites() []FeatureRuleV2Prerequisite1 {
 	if f == nil {
 		return nil
 	}
 	return f.Prerequisites
 }
 
-func (f *FeatureRuleV2FeatureForceRule) GetType() string {
+func (f *FeatureRuleV2Force) GetType() string {
 	return "force"
 }
 
-func (f *FeatureRuleV2FeatureForceRule) GetValue() string {
+func (f *FeatureRuleV2Force) GetValue() string {
 	if f == nil {
 		return ""
 	}
 	return f.Value
 }
 
-func (f *FeatureRuleV2FeatureForceRule) GetSparse() *bool {
+func (f *FeatureRuleV2Force) GetSparse() *bool {
 	if f == nil {
 		return nil
 	}
 	return f.Sparse
 }
 
-func (f *FeatureRuleV2FeatureForceRule) GetAllEnvironments() bool {
+func (f *FeatureRuleV2Force) GetConfig() optionalnullable.OptionalNullable[string] {
+	if f == nil {
+		return nil
+	}
+	return f.Config
+}
+
+func (f *FeatureRuleV2Force) GetAllEnvironments() bool {
 	if f == nil {
 		return false
 	}
 	return f.AllEnvironments
 }
 
-func (f *FeatureRuleV2FeatureForceRule) GetEnvironments() []string {
+func (f *FeatureRuleV2Force) GetEnvironments() []string {
 	if f == nil {
 		return nil
 	}
 	return f.Environments
 }
 
-func (f *FeatureRuleV2FeatureForceRule) GetPendingRamp() *PendingRampForce {
+func (f *FeatureRuleV2Force) GetPendingRamp() *PendingRamp1 {
 	if f == nil {
 		return nil
 	}
 	return f.PendingRamp
 }
 
-// #region class-body-featurerulev2featureforcerule
-// #endregion class-body-featurerulev2featureforcerule
+// #region class-body-featurerulev2force
+// #endregion class-body-featurerulev2force
 
 type FeatureRuleV2Type string
 
@@ -2022,32 +2085,32 @@ const (
 )
 
 type FeatureRuleV2 struct {
-	FeatureRuleV2FeatureForceRule               *FeatureRuleV2FeatureForceRule               `queryParam:"inline" union:"member"`
-	FeatureRuleV2FeatureRolloutRule             *FeatureRuleV2FeatureRolloutRule             `queryParam:"inline" union:"member"`
-	FeatureRuleV2FeatureExperimentRule          *FeatureRuleV2FeatureExperimentRule          `queryParam:"inline" union:"member"`
-	FeatureRuleV2FeatureExperimentRefRule       *FeatureRuleV2FeatureExperimentRefRule       `queryParam:"inline" union:"member"`
-	FeatureRuleV2FeatureContextualBanditRefRule *FeatureRuleV2FeatureContextualBanditRefRule `queryParam:"inline" union:"member"`
-	FeatureRuleV2FeatureSafeRolloutRule         *FeatureRuleV2FeatureSafeRolloutRule         `queryParam:"inline" union:"member"`
-	UnknownRaw                                  json.RawMessage                              `json:"-" union:"unknown"`
+	FeatureRuleV2Force                  *FeatureRuleV2Force                  `queryParam:"inline" union:"member"`
+	FeatureRuleV2Rollout                *FeatureRuleV2Rollout                `queryParam:"inline" union:"member"`
+	FeatureRuleV2FeatureExperimentRule  *FeatureRuleV2FeatureExperimentRule  `queryParam:"inline" union:"member"`
+	FeatureRuleV2ExperimentRef          *FeatureRuleV2ExperimentRef          `queryParam:"inline" union:"member"`
+	FeatureRuleV2ContextualBanditRef    *FeatureRuleV2ContextualBanditRef    `queryParam:"inline" union:"member"`
+	FeatureRuleV2FeatureSafeRolloutRule *FeatureRuleV2FeatureSafeRolloutRule `queryParam:"inline" union:"member"`
+	UnknownRaw                          json.RawMessage                      `json:"-" union:"unknown"`
 
 	Type FeatureRuleV2Type
 }
 
-func CreateFeatureRuleV2Force(force FeatureRuleV2FeatureForceRule) FeatureRuleV2 {
+func CreateFeatureRuleV2Force(force FeatureRuleV2Force) FeatureRuleV2 {
 	typ := FeatureRuleV2TypeForce
 
 	return FeatureRuleV2{
-		FeatureRuleV2FeatureForceRule: &force,
-		Type:                          typ,
+		FeatureRuleV2Force: &force,
+		Type:               typ,
 	}
 }
 
-func CreateFeatureRuleV2Rollout(rollout FeatureRuleV2FeatureRolloutRule) FeatureRuleV2 {
+func CreateFeatureRuleV2Rollout(rollout FeatureRuleV2Rollout) FeatureRuleV2 {
 	typ := FeatureRuleV2TypeRollout
 
 	return FeatureRuleV2{
-		FeatureRuleV2FeatureRolloutRule: &rollout,
-		Type:                            typ,
+		FeatureRuleV2Rollout: &rollout,
+		Type:                 typ,
 	}
 }
 
@@ -2060,21 +2123,21 @@ func CreateFeatureRuleV2Experiment(experiment FeatureRuleV2FeatureExperimentRule
 	}
 }
 
-func CreateFeatureRuleV2ExperimentRef(experimentRef FeatureRuleV2FeatureExperimentRefRule) FeatureRuleV2 {
+func CreateFeatureRuleV2ExperimentRef(experimentRef FeatureRuleV2ExperimentRef) FeatureRuleV2 {
 	typ := FeatureRuleV2TypeExperimentRef
 
 	return FeatureRuleV2{
-		FeatureRuleV2FeatureExperimentRefRule: &experimentRef,
-		Type:                                  typ,
+		FeatureRuleV2ExperimentRef: &experimentRef,
+		Type:                       typ,
 	}
 }
 
-func CreateFeatureRuleV2ContextualBanditRef(contextualBanditRef FeatureRuleV2FeatureContextualBanditRefRule) FeatureRuleV2 {
+func CreateFeatureRuleV2ContextualBanditRef(contextualBanditRef FeatureRuleV2ContextualBanditRef) FeatureRuleV2 {
 	typ := FeatureRuleV2TypeContextualBanditRef
 
 	return FeatureRuleV2{
-		FeatureRuleV2FeatureContextualBanditRefRule: &contextualBanditRef,
-		Type: typ,
+		FeatureRuleV2ContextualBanditRef: &contextualBanditRef,
+		Type:                             typ,
 	}
 }
 
@@ -2122,21 +2185,21 @@ func (u *FeatureRuleV2) UnmarshalJSON(data []byte) error {
 
 	switch dis.Type {
 	case "force":
-		featureRuleV2FeatureForceRule := new(FeatureRuleV2FeatureForceRule)
-		if err := utils.UnmarshalJSON(data, &featureRuleV2FeatureForceRule, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == force) type FeatureRuleV2FeatureForceRule within FeatureRuleV2: %w", string(data), err)
+		featureRuleV2Force := new(FeatureRuleV2Force)
+		if err := utils.UnmarshalJSON(data, &featureRuleV2Force, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == force) type FeatureRuleV2Force within FeatureRuleV2: %w", string(data), err)
 		}
 
-		u.FeatureRuleV2FeatureForceRule = featureRuleV2FeatureForceRule
+		u.FeatureRuleV2Force = featureRuleV2Force
 		u.Type = FeatureRuleV2TypeForce
 		return nil
 	case "rollout":
-		featureRuleV2FeatureRolloutRule := new(FeatureRuleV2FeatureRolloutRule)
-		if err := utils.UnmarshalJSON(data, &featureRuleV2FeatureRolloutRule, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == rollout) type FeatureRuleV2FeatureRolloutRule within FeatureRuleV2: %w", string(data), err)
+		featureRuleV2Rollout := new(FeatureRuleV2Rollout)
+		if err := utils.UnmarshalJSON(data, &featureRuleV2Rollout, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == rollout) type FeatureRuleV2Rollout within FeatureRuleV2: %w", string(data), err)
 		}
 
-		u.FeatureRuleV2FeatureRolloutRule = featureRuleV2FeatureRolloutRule
+		u.FeatureRuleV2Rollout = featureRuleV2Rollout
 		u.Type = FeatureRuleV2TypeRollout
 		return nil
 	case "experiment":
@@ -2149,21 +2212,21 @@ func (u *FeatureRuleV2) UnmarshalJSON(data []byte) error {
 		u.Type = FeatureRuleV2TypeExperiment
 		return nil
 	case "experiment-ref":
-		featureRuleV2FeatureExperimentRefRule := new(FeatureRuleV2FeatureExperimentRefRule)
-		if err := utils.UnmarshalJSON(data, &featureRuleV2FeatureExperimentRefRule, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == experiment-ref) type FeatureRuleV2FeatureExperimentRefRule within FeatureRuleV2: %w", string(data), err)
+		featureRuleV2ExperimentRef := new(FeatureRuleV2ExperimentRef)
+		if err := utils.UnmarshalJSON(data, &featureRuleV2ExperimentRef, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == experiment-ref) type FeatureRuleV2ExperimentRef within FeatureRuleV2: %w", string(data), err)
 		}
 
-		u.FeatureRuleV2FeatureExperimentRefRule = featureRuleV2FeatureExperimentRefRule
+		u.FeatureRuleV2ExperimentRef = featureRuleV2ExperimentRef
 		u.Type = FeatureRuleV2TypeExperimentRef
 		return nil
 	case "contextual-bandit-ref":
-		featureRuleV2FeatureContextualBanditRefRule := new(FeatureRuleV2FeatureContextualBanditRefRule)
-		if err := utils.UnmarshalJSON(data, &featureRuleV2FeatureContextualBanditRefRule, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == contextual-bandit-ref) type FeatureRuleV2FeatureContextualBanditRefRule within FeatureRuleV2: %w", string(data), err)
+		featureRuleV2ContextualBanditRef := new(FeatureRuleV2ContextualBanditRef)
+		if err := utils.UnmarshalJSON(data, &featureRuleV2ContextualBanditRef, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == contextual-bandit-ref) type FeatureRuleV2ContextualBanditRef within FeatureRuleV2: %w", string(data), err)
 		}
 
-		u.FeatureRuleV2FeatureContextualBanditRefRule = featureRuleV2FeatureContextualBanditRefRule
+		u.FeatureRuleV2ContextualBanditRef = featureRuleV2ContextualBanditRef
 		u.Type = FeatureRuleV2TypeContextualBanditRef
 		return nil
 	case "safe-rollout":
@@ -2184,24 +2247,24 @@ func (u *FeatureRuleV2) UnmarshalJSON(data []byte) error {
 }
 
 func (u FeatureRuleV2) MarshalJSON() ([]byte, error) {
-	if u.FeatureRuleV2FeatureForceRule != nil {
-		return utils.MarshalJSON(u.FeatureRuleV2FeatureForceRule, "", true)
+	if u.FeatureRuleV2Force != nil {
+		return utils.MarshalJSON(u.FeatureRuleV2Force, "", true)
 	}
 
-	if u.FeatureRuleV2FeatureRolloutRule != nil {
-		return utils.MarshalJSON(u.FeatureRuleV2FeatureRolloutRule, "", true)
+	if u.FeatureRuleV2Rollout != nil {
+		return utils.MarshalJSON(u.FeatureRuleV2Rollout, "", true)
 	}
 
 	if u.FeatureRuleV2FeatureExperimentRule != nil {
 		return utils.MarshalJSON(u.FeatureRuleV2FeatureExperimentRule, "", true)
 	}
 
-	if u.FeatureRuleV2FeatureExperimentRefRule != nil {
-		return utils.MarshalJSON(u.FeatureRuleV2FeatureExperimentRefRule, "", true)
+	if u.FeatureRuleV2ExperimentRef != nil {
+		return utils.MarshalJSON(u.FeatureRuleV2ExperimentRef, "", true)
 	}
 
-	if u.FeatureRuleV2FeatureContextualBanditRefRule != nil {
-		return utils.MarshalJSON(u.FeatureRuleV2FeatureContextualBanditRefRule, "", true)
+	if u.FeatureRuleV2ContextualBanditRef != nil {
+		return utils.MarshalJSON(u.FeatureRuleV2ContextualBanditRef, "", true)
 	}
 
 	if u.FeatureRuleV2FeatureSafeRolloutRule != nil {

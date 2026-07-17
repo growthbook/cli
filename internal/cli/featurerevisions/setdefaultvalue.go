@@ -15,9 +15,12 @@ import (
 )
 
 var setDefaultValueCmdMeta = []flagutil.FlagMeta{
-	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
+	{FlagName: "id", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "default-value", FieldPath: "Body.DefaultValue", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
+	{FlagName: "skip-schema-validation", Shorthand: "s", FieldPath: "SkipSchemaValidation", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `queryParam:"style=form,explode=true,name=skipSchemaValidation"`, Description: "Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the `bypassApprovalChecks` permission on all projects); ignored otherwise. Validation is enforced by default."},
+	{FlagName: "ignore-warnings", FieldPath: "IgnoreWarnings", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `queryParam:"style=form,explode=true,name=ignoreWarnings"`, Description: "Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has `blockPublishOnSchemaError` disabled (warn mode)."},
+	{FlagName: "default-value", FieldPath: "Body.DefaultValue", Kind: flagutil.FlagKindString, Required: true, Description: "New default value. In Config mode (feature has `baseConfig`), the default must be exactly a config with no overrides: send `\"{}\"` to use `baseConfig`, or set `defaultValueConfig` to point at a descendant. [required]"},
+	{FlagName: "default-value-config", FieldPath: "Body.DefaultValueConfig", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"defaultValueConfig,omitempty"`, Description: "Key of a config within the feature's `baseConfig` family that the default value resolves to (the base itself or a descendant). The default is exactly that config with no overrides; pass `null` to use `baseConfig`. Do not embed `@config:` in `defaultValue` — use this field."},
 	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "Title for a newly created draft. Only used when version is \"new\"; ignored for existing revisions."},
 	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "Comment for a newly created draft. Only used when version is \"new\"; ignored for existing revisions."},
 }

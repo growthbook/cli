@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/growthbook/cli/internal/sdk/models/components"
+	"github.com/growthbook/cli/internal/sdk/optionalnullable"
 	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
 )
 
@@ -2192,14 +2193,16 @@ type PostFeatureRequest struct {
 	Archived *bool  `json:"archived,omitzero"`
 	// Description of the feature
 	Description *string `json:"description,omitzero"`
-	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the user associated with the request's Personal Access Token (PAT), if one is being used.
+	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. Optional when authenticating with a Personal Access Token (PAT): when omitted, the owner defaults to the PAT's user. Required when authenticating with an organization secret API key (which has no associated user): omitting it fails with a 400.
 	Owner *string `json:"owner,omitzero"`
 	// An associated project ID
 	Project *string `json:"project,omitzero"`
 	// The data type of the feature payload. Boolean by default.
 	ValueType PostFeatureValueType `json:"valueType"`
-	// Default value when feature is enabled. Type must match `valueType`.
+	// Default value when feature is enabled. Type must match `valueType`. In Config mode (`baseConfig` set) this is the JSON override patch merged on top of the config.
 	DefaultValue string `json:"defaultValue"`
+	// Key of the config backing this flag ("Config mode"). Requires `valueType: "json"` and a live config; `defaultValue` and rule values become override patches on top. null or omitted for a plain flag.
+	BaseConfig optionalnullable.OptionalNullable[string] `json:"baseConfig,omitzero"`
 	// List of associated tags
 	Tags []string `json:"tags,omitzero"`
 	// A dictionary of environments that are enabled for this feature. Keys supply the names of environments. Environments belong to organization and are not specified will be disabled by default.
@@ -2269,6 +2272,13 @@ func (p *PostFeatureRequest) GetDefaultValue() string {
 		return ""
 	}
 	return p.DefaultValue
+}
+
+func (p *PostFeatureRequest) GetBaseConfig() optionalnullable.OptionalNullable[string] {
+	if p == nil {
+		return nil
+	}
+	return p.BaseConfig
 }
 
 func (p *PostFeatureRequest) GetTags() []string {

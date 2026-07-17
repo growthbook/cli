@@ -5,6 +5,7 @@ package components
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/growthbook/cli/internal/sdk/optionalnullable"
 	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
 )
 
@@ -100,6 +101,8 @@ func (e *ExperimentRulePrerequisite) GetCondition() string {
 type ExperimentRuleVariation struct {
 	VariationID *string `json:"variationId,omitzero"`
 	Value       string  `json:"value"`
+	// Key of a config to back this variation value. When set, `value` is a JSON override patch merged on top of the config; omit or null for a plain value.
+	Config optionalnullable.OptionalNullable[string] `json:"config,omitzero"`
 }
 
 func (e ExperimentRuleVariation) MarshalJSON() ([]byte, error) {
@@ -125,6 +128,13 @@ func (e *ExperimentRuleVariation) GetValue() string {
 		return ""
 	}
 	return e.Value
+}
+
+func (e *ExperimentRuleVariation) GetConfig() optionalnullable.OptionalNullable[string] {
+	if e == nil {
+		return nil
+	}
+	return e.Config
 }
 
 // ExperimentRule - An experiment rule that links a feature value to an existing experiment.

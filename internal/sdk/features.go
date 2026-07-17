@@ -230,6 +230,30 @@ func (s *Features) List(ctx context.Context, request *operations.ListFeaturesV2R
 
 // Create a single feature
 // Creates a new feature. Rules are supplied as a top-level `rules` array; each rule includes `allEnvironments` / `environments` scope fields.
+//
+// ### Config-backed features (Config mode)
+//
+// A JSON feature can be backed by a shared **config** — the config supplies the base JSON value and schema, and the feature's *rule* values become override *patches* merged on top (nested objects deep-merge; arrays and scalars replace). The default value is exactly a config with no overrides (see below). Config backing is set exclusively through dedicated fields — never a raw `$extends: ["@config:…"]` inside a value string (that is rejected). `@const:` references inside values still work.
+//
+// - **Top-level (`baseConfig`):** set `valueType: "json"` and `baseConfig: "<configKey>"` to put the flag in Config mode. The config must be live. This is the family root and the base the default value patches.
+// - **Default value:** unlike rules, the default is exactly a config with no overrides of its own — send `defaultValue: "{}"` to use `baseConfig`. To resolve the default to a *descendant* of `baseConfig` instead, set `defaultValueConfig` to that descendant's key (it must be within `baseConfig`'s family); omit/null to use `baseConfig` directly.
+// - **Rules & experiment variations:** each carries its own `config` field naming the family config that value patches (omit/null to patch the base). `value` is the override patch.
+//
+// Example:
+//
+// ```json
+// {
+//
+//	  "id": "checkout-config",
+//	  "valueType": "json",
+//	  "baseConfig": "purchase-flow",
+//	  "defaultValue": "{}",
+//	  "rules": [
+//	    { "type": "force", "config": "purchase-flow-vip", "value": "{\"maxItems\": 20}", "allEnvironments": true }
+//	  ]
+//	}
+//
+// ```
 func (s *Features) Create(ctx context.Context, request operations.PostFeatureV2Request, opts ...operations.Option) (*operations.PostFeatureV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -262,7 +286,7 @@ func (s *Features) Create(ctx context.Context, request operations.PostFeatureV2R
 		OperationID:      "postFeatureV2",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Request", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -286,6 +310,10 @@ func (s *Features) Create(ctx context.Context, request operations.PostFeatureV2R
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
 	if reqContentType != "" {
 		req.Header.Set("Content-Type", reqContentType)
+	}
+
+	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
+		return nil, fmt.Errorf("error populating query params: %w", err)
 	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
@@ -586,6 +614,10 @@ func (s *Features) Update(ctx context.Context, request operations.UpdateFeatureV
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
 	if reqContentType != "" {
 		req.Header.Set("Content-Type", reqContentType)
+	}
+
+	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
+		return nil, fmt.Errorf("error populating query params: %w", err)
 	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
