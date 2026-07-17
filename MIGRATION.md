@@ -7,8 +7,8 @@ guide covers what moved.
 
 This is a new generation with breaking changes, so upgrade on purpose:
 
-- `npm i -g growthbook` installs the latest published version. Once the new CLI is the `latest`
-  dist-tag, `npm update -g growthbook` moves you onto it too.
+- `npm i -g growthbook` installs the latest published version; `npm update -g growthbook`
+  moves an existing install onto it.
 - Not ready yet? Pin the legacy line: `npm i -g growthbook@0.2`.
 - Also available via Homebrew, the install script, or `go install` (see the README).
 
@@ -17,13 +17,13 @@ This is a new generation with breaking changes, so upgrade on purpose:
 On first run the CLI detects a legacy `~/.growthbook/config.toml`, imports every profile into
 the OS keychain + new config, and prints what it did. Nothing to do by hand.
 
-| Legacy | New |
-| --- | --- |
+| Legacy                      | New                                                                         |
+| --------------------------- | --------------------------------------------------------------------------- |
 | `~/.growthbook/config.toml` | `~/.config/growthbook/config.yaml` + `cli.yaml`; secrets in the OS keychain |
-| `auth login` / `logout` | `auth login` / `logout` (plus `auth whoami`) |
-| `-p, --profile <name>` | `--profile <name>` / `GBCLI_PROFILE` |
-| `-u, --apiBaseUrl <url>` | `--server-url <url>` (or `--server` / `--domain`) |
-| key per profile | `--bearer-auth` / `GBCLI_BEARER_AUTH` / keychain / active profile |
+| `auth login` / `logout`     | `auth login` / `logout` (plus `auth whoami`)                                |
+| `-p, --profile <name>`      | `--profile <name>` / `GBCLI_PROFILE`                                        |
+| `-u, --apiBaseUrl <url>`    | `--server-url <url>` (or `--server` / `--domain`)                           |
+| key per profile             | `--bearer-auth` / `GBCLI_BEARER_AUTH` / keychain / active profile           |
 
 Profiles are managed with `growthbook profiles list|use|set|remove`. Credential precedence is
 **flag > env > active profile** (the server URL has no env tier, so it's flag > profile).
@@ -33,16 +33,16 @@ Profiles are managed with `growthbook profiles list|use|set|remove`. Credential 
 Most commands are unchanged. The feature commands now target the **latest (v2)** API by default;
 the previous v1 surface is still available under `features-v1` (deprecated).
 
-| Legacy | New |
-| --- | --- |
-| `features list` / `get` / `toggle` | **`features list` / `get` / `toggle`** (now the latest, v2, API) |
-| `features generate-types` | `generate-types` (top-level) |
+| Legacy                                         | New                                                               |
+| ---------------------------------------------- | ----------------------------------------------------------------- |
+| `features list` / `get` / `toggle`             | **`features list` / `get` / `toggle`** (now the latest, v2, API)  |
+| `features generate-types`                      | `generate-types` (top-level)                                      |
 | (old v1 feature surface, if you still need it) | `features-v1 …` (deprecated; prints a one-line warning to stderr) |
-| `experiments results` | `experiments results` (one) / `experiments list-results` (many) |
-| `datasources …` | `data-sources …` |
-| `sdkconnections …` | `SDK-connections …` |
-| `savedgroups …` | `saved-groups …` |
-| `vcs list` / `get` | `visual-changesets list` / `get` |
+| `experiments results`                          | `experiments results` (one) / `experiments list-results` (many)   |
+| `datasources …`                                | `data-sources …`                                                  |
+| `sdkconnections …`                             | `SDK-connections …`                                               |
+| `savedgroups …`                                | `saved-groups …`                                                  |
+| `vcs list` / `get`                             | `visual-changesets list` / `get`                                  |
 
 > The new CLI exposes the **full** GrowthBook REST API — run `growthbook --help` to explore the
 > complete command tree.
