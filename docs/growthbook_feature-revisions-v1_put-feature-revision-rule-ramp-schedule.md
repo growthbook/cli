@@ -23,23 +23,24 @@ growthbook feature-revisions-v1 put-feature-revision-rule-ramp-schedule [flags]
 ### Options
 
 ```
-      --body string                Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -c, --cutoff-date string         ISO 8601 date-time, e.g. "2025-07-01T00:00:00Z". The ramp ends at this time.
-      --end-actions string         list of values
-      --environment string         string value
-  -h, --help                       help for put-feature-revision-rule-ramp-schedule
-  -i, --id string                  [required]
-  -l, --lockdown-config string     JSON object
-  -m, --monitoring-config string   JSON object
-  -n, --name string                string value
-      --revision-comment string    string value
-      --revision-title string      string value
-      --rule-id string             [required]
-      --start-actions string       list of values
-      --start-date string          ISO 8601 date-time, e.g. "2025-06-01T00:00:00Z". Absent or null means start immediately on publish.
-      --steps string               list of values
-  -t, --template-id string         string value
-  -v, --version-param string       [required]
+      --body string                      Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -c, --cutoff-date string               ISO 8601 date-time, e.g. "2025-07-01T00:00:00Z". The ramp ends at this time.
+      --end-actions string               list of values
+      --environment string               string value
+  -h, --help                             help for put-feature-revision-rule-ramp-schedule
+  -i, --id string                        [required]
+  -l, --lockdown-config string           JSON object
+  -m, --monitoring-config string         JSON object
+  -n, --name string                      string value
+      --requires-start-approval string   boolean flag
+      --revision-comment string          string value
+      --revision-title string            string value
+      --rule-id string                   [required]
+      --start-actions string             list of values
+      --start-date string                ISO 8601 date-time, e.g. "2025-06-01T00:00:00Z". Absent or null means start immediately on publish.
+      --steps string                     list of values
+  -t, --template-id string               string value
+  -v, --version-param string             [required]
 ```
 
 ### Options inherited from parent commands

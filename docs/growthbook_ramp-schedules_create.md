@@ -29,7 +29,8 @@ growthbook ramp-schedules create [flags]
   -l, --lockdown-config string            JSON object
   -m, --monitoring-config string          JSON object
   -n, --name string                       string value
-  -r, --rule-id string                    string value
+      --requires-start-approval string    When true, the ramp holds at step -1 with its rule disabled (zero traffic) until a human approves the start via /actions/approve-step. Composes with startDate.
+      --rule-id string                    string value
       --start-actions string              list of values
       --start-date string                 date/time value
       --steps string                      list of values

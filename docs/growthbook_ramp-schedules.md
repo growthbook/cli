@@ -45,7 +45,7 @@ growthbook ramp-schedules [flags]
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
 * [growthbook ramp-schedules add-target](growthbook_ramp-schedules_add-target.md)	 - Add a target rule to a ramp schedule
 * [growthbook ramp-schedules api-advance](growthbook_ramp-schedules_api-advance.md)	 - Advance to the next step, overriding any holds
-* [growthbook ramp-schedules approve-step](growthbook_ramp-schedules_approve-step.md)	 - Approve the current step
+* [growthbook ramp-schedules approve-step](growthbook_ramp-schedules_approve-step.md)	 - Approve the pending approval gate
 * [growthbook ramp-schedules complete](growthbook_ramp-schedules_complete.md)	 - Complete a ramp schedule immediately
 * [growthbook ramp-schedules create](growthbook_ramp-schedules_create.md)	 - Create a ramp schedule
 * [growthbook ramp-schedules delete](growthbook_ramp-schedules_delete.md)	 - Delete a single rampSchedule

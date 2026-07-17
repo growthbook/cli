@@ -26,6 +26,7 @@ growthbook features-v1 update [flags]
 
 ```
   -a, --archived                    boolean flag
+  -b, --base-config string          The config backing this flag ("Config mode"), fixed at creation. Cannot be changed by an update — resend the current value or omit it; a different value (or null to detach) is rejected.
       --body string                 Request body as JSON (alternative to individual flags). Can also be provided via stdin.
   -c, --custom-fields string        value
       --default-value string        string value

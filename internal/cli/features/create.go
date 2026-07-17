@@ -15,19 +15,23 @@ import (
 )
 
 var createCmdMeta = []flagutil.FlagMeta{
-	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "A unique key name for the feature. Feature keys can only include letters, numbers, hyphens, and underscores. [required]"},
-	{FlagName: "archived", Shorthand: "a", FieldPath: "Archived", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
-	{FlagName: "description", FieldPath: "Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Description of the feature"},
-	{FlagName: "owner", FieldPath: "Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the user associated with the request's Personal Access Token (PAT), if one is being used."},
-	{FlagName: "project", FieldPath: "Project", Kind: flagutil.FlagKindString, Optional: true, Description: "An associated project ID"},
-	{FlagName: "value-type", Shorthand: "v", FieldPath: "ValueType", Kind: flagutil.FlagKindEnum, Required: true, EnumValues: []string{"boolean", "string", "number", "json"}, Description: "The data type of the feature payload. Boolean by default. (options: boolean, string, number, json) [required]"},
-	{FlagName: "default-value", FieldPath: "DefaultValue", Kind: flagutil.FlagKindString, Required: true, Description: "Default value when feature is enabled. Type must match `valueType`. [required]"},
-	{FlagName: "tags", Shorthand: "t", FieldPath: "Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "List of associated tags"},
-	{FlagName: "rules", Shorthand: "r", FieldPath: "Rules", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"rules,omitempty"`, Description: "Feature rules. Each rule carries its own environment scope via `allEnvironments` / `environments`."},
-	{FlagName: "environments", Shorthand: "e", FieldPath: "Environments", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"environments,omitempty"`, Description: "Per-environment enabled state. V2 rules are specified on the top-level `rules` field."},
-	{FlagName: "prerequisites", FieldPath: "Prerequisites", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Feature IDs. Each feature must evaluate to `true`"},
-	{FlagName: "json-schema", Shorthand: "j", FieldPath: "JSONSchema", Kind: flagutil.FlagKindString, Optional: true, Description: "Use JSON schema to validate the payload of a JSON-type feature value (enterprise only)."},
-	{FlagName: "custom-fields", Shorthand: "c", FieldPath: "CustomFields", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"customFields,omitempty"`, Description: "value"},
+	{FlagName: "skip-schema-validation", Shorthand: "s", FieldPath: "SkipSchemaValidation", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `queryParam:"style=form,explode=true,name=skipSchemaValidation"`, Description: "Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the `bypassApprovalChecks` permission on all projects); ignored otherwise. Validation is enforced by default."},
+	{FlagName: "ignore-warnings", FieldPath: "IgnoreWarnings", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `queryParam:"style=form,explode=true,name=ignoreWarnings"`, Description: "Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has `blockPublishOnSchemaError` disabled (warn mode)."},
+	{FlagName: "id", FieldPath: "Body.ID", Kind: flagutil.FlagKindString, Required: true, Description: "A unique key name for the feature. Feature keys can only include letters, numbers, hyphens, and underscores. [required]"},
+	{FlagName: "archived", Shorthand: "a", FieldPath: "Body.Archived", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
+	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Description of the feature"},
+	{FlagName: "owner", FieldPath: "Body.Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. Optional when authenticating with a Personal Access Token (PAT): when omitted, the owner defaults to the PAT's user. Required when authenticating with an organization secret API key (which has no associated user): omitting it fails with a 400."},
+	{FlagName: "project", FieldPath: "Body.Project", Kind: flagutil.FlagKindString, Optional: true, Description: "An associated project ID"},
+	{FlagName: "value-type", Shorthand: "v", FieldPath: "Body.ValueType", Kind: flagutil.FlagKindEnum, Required: true, EnumValues: []string{"boolean", "string", "number", "json"}, Description: "The data type of the feature payload. Boolean by default. (options: boolean, string, number, json) [required]"},
+	{FlagName: "default-value", FieldPath: "Body.DefaultValue", Kind: flagutil.FlagKindString, Required: true, Description: "Default value when feature is enabled. Type must match `valueType`. In Config mode (`baseConfig` set) the default must be exactly a config with no overrides: send `\"{}\"` to use `baseConfig`, or set `defaultValueConfig` to point at a descendant. [required]"},
+	{FlagName: "base-config", Shorthand: "b", FieldPath: "Body.BaseConfig", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"baseConfig,omitempty"`, Description: "Key of the config backing this flag (\"Config mode\"). Requires `valueType: \"json\"` and a live config. The config supplies the base JSON and schema; `defaultValue` and rule values are override patches on top. null or omitted for a plain flag."},
+	{FlagName: "default-value-config", FieldPath: "Body.DefaultValueConfig", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"defaultValueConfig,omitempty"`, Description: "Optional. A config within `baseConfig`'s family that the default value resolves to instead of `baseConfig` itself. null or omitted means the default is `baseConfig`. The default is exactly this config and carries no overrides of its own."},
+	{FlagName: "tags", Shorthand: "t", FieldPath: "Body.Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "List of associated tags"},
+	{FlagName: "rules", Shorthand: "r", FieldPath: "Body.Rules", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"rules,omitempty"`, Description: "Feature rules. Each rule carries its own environment scope via `allEnvironments` / `environments`."},
+	{FlagName: "environments", Shorthand: "e", FieldPath: "Body.Environments", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"environments,omitempty"`, Description: "Per-environment enabled state. V2 rules are specified on the top-level `rules` field."},
+	{FlagName: "prerequisites", FieldPath: "Body.Prerequisites", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Feature IDs. Each feature must evaluate to `true`"},
+	{FlagName: "json-schema", Shorthand: "j", FieldPath: "Body.JSONSchema", Kind: flagutil.FlagKindString, Optional: true, Description: "Use JSON schema to validate the payload of a JSON-type feature value (enterprise only)."},
+	{FlagName: "custom-fields", Shorthand: "c", FieldPath: "Body.CustomFields", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"customFields,omitempty"`, Description: "value"},
 }
 
 // initCreateCmd initializes the create command.
@@ -35,7 +39,7 @@ func initCreateCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "create",
 		Short:   "Create a single feature",
-		Long:    "Creates a new feature. Rules are supplied as a top-level `rules` array; each rule includes `allEnvironments` / `environments` scope fields.",
+		Long:    "Creates a new feature. Rules are supplied as a top-level `rules` array; each rule includes `allEnvironments` / `environments` scope fields.\n\n### Config-backed features (Config mode)\n\nA JSON feature can be backed by a shared **config** — the config supplies the base JSON value and schema, and the feature's *rule* values become override *patches* merged on top (nested objects deep-merge; arrays and scalars replace). The default value is exactly a config with no overrides (see below). Config backing is set exclusively through dedicated fields — never a raw `$extends: [\"@config:…\"]` inside a value string (that is rejected). `@const:` references inside values still work.\n\n- **Top-level (`baseConfig`):** set `valueType: \"json\"` and `baseConfig: \"<configKey>\"` to put the flag in Config mode. The config must be live. This is the family root and the base the default value patches.\n- **Default value:** unlike rules, the default is exactly a config with no overrides of its own — send `defaultValue: \"{}\"` to use `baseConfig`. To resolve the default to a *descendant* of `baseConfig` instead, set `defaultValueConfig` to that descendant's key (it must be within `baseConfig`'s family); omit/null to use `baseConfig` directly.\n- **Rules & experiment variations:** each carries its own `config` field naming the family config that value patches (omit/null to patch the base). `value` is the override patch.\n\nExample:\n\n```json\n{\n\n\n\n  \"id\": \"checkout-config\",\n  \"valueType\": \"json\",\n  \"baseConfig\": \"purchase-flow\",\n  \"defaultValue\": \"{}\",\n  \"rules\": [\n    { \"type\": \"force\", \"config\": \"purchase-flow-vip\", \"value\": \"{\\\"maxItems\\\": 20}\", \"allEnvironments\": true }\n  ]\n}\n```",
 		Example: "  growthbook features create --id <id> --value-type number --default-value <value>",
 		RunE:    runCreateCmd,
 	}
@@ -58,7 +62,7 @@ func runCreateCmd(cmd *cobra.Command, args []string) error {
 			return err
 		}
 	}
-	request, err := flagutil.BuildRequest[operations.PostFeatureV2Request](cmd, createCmdMeta, "", "body")
+	req, err := flagutil.BuildRequest[operations.PostFeatureV2Request](cmd, createCmdMeta, "Body", "body")
 	if err != nil {
 		return err
 	}
@@ -81,7 +85,7 @@ func runCreateCmd(cmd *cobra.Command, args []string) error {
 	if output.WantsRawJSON(cmd) {
 		sdkOpts = append(sdkOpts, operations.WithSkipDeserialization())
 	}
-	res, err := s.Features.Create(cmd.Context(), *request, sdkOpts...)
+	res, err := s.Features.Create(cmd.Context(), *req, sdkOpts...)
 	if err != nil {
 		return output.Error(cmd, err)
 	}

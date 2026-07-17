@@ -1934,9 +1934,10 @@ type PostFeatureRevisionRuleAddRampSchedule struct {
 	// ISO 8601 date-time, e.g. "2025-06-01T00:00:00Z". Absent or null means start immediately on publish.
 	StartDate optionalnullable.OptionalNullable[time.Time] `json:"startDate,omitzero"`
 	// ISO 8601 date-time, e.g. "2025-07-01T00:00:00Z". The ramp ends at this time.
-	CutoffDate       optionalnullable.OptionalNullable[time.Time] `json:"cutoffDate,omitzero"`
-	MonitoringConfig *PostFeatureRevisionRuleAddMonitoringConfig  `json:"monitoringConfig,omitzero"`
-	LockdownConfig   *PostFeatureRevisionRuleAddLockdownConfig    `json:"lockdownConfig,omitzero"`
+	CutoffDate            optionalnullable.OptionalNullable[time.Time] `json:"cutoffDate,omitzero"`
+	MonitoringConfig      *PostFeatureRevisionRuleAddMonitoringConfig  `json:"monitoringConfig,omitzero"`
+	LockdownConfig        *PostFeatureRevisionRuleAddLockdownConfig    `json:"lockdownConfig,omitzero"`
+	RequiresStartApproval optionalnullable.OptionalNullable[bool]      `json:"requiresStartApproval,omitzero"`
 }
 
 func (p PostFeatureRevisionRuleAddRampSchedule) MarshalJSON() ([]byte, error) {
@@ -2011,6 +2012,13 @@ func (p *PostFeatureRevisionRuleAddRampSchedule) GetLockdownConfig() *PostFeatur
 		return nil
 	}
 	return p.LockdownConfig
+}
+
+func (p *PostFeatureRevisionRuleAddRampSchedule) GetRequiresStartApproval() optionalnullable.OptionalNullable[bool] {
+	if p == nil {
+		return nil
+	}
+	return p.RequiresStartApproval
 }
 
 type PostFeatureRevisionRuleAddSchedule struct {

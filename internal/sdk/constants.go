@@ -376,8 +376,8 @@ func (s *Constants) Create(ctx context.Context, request operations.PostConstantR
 
 }
 
-// GetConstantReferences - Get features and constants that reference this constant
-func (s *Constants) GetConstantReferences(ctx context.Context, request operations.GetConstantReferencesRequest, opts ...operations.Option) (*operations.GetConstantReferencesResponse, error) {
+// GetReferences - Get features and constants that reference this constant
+func (s *Constants) GetReferences(ctx context.Context, request operations.GetConstantReferencesRequest, opts ...operations.Option) (*operations.GetConstantReferencesResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

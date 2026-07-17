@@ -2184,6 +2184,8 @@ type UpdateFeatureRequestBody struct {
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
 	Owner        *string `json:"owner,omitzero"`
 	DefaultValue *string `json:"defaultValue,omitzero"`
+	// The config backing this flag ("Config mode"), fixed at creation. Cannot be changed by an update — resend the current value or omit it; a different value (or null to detach) is rejected.
+	BaseConfig optionalnullable.OptionalNullable[string] `json:"baseConfig,omitzero"`
 	// List of associated tags. Will override tags completely with submitted list
 	Tags         []string                             `json:"tags,omitzero"`
 	Environments map[string]UpdateFeatureEnvironments `json:"environments,omitzero"`
@@ -2241,6 +2243,13 @@ func (u *UpdateFeatureRequestBody) GetDefaultValue() *string {
 		return nil
 	}
 	return u.DefaultValue
+}
+
+func (u *UpdateFeatureRequestBody) GetBaseConfig() optionalnullable.OptionalNullable[string] {
+	if u == nil {
+		return nil
+	}
+	return u.BaseConfig
 }
 
 func (u *UpdateFeatureRequestBody) GetTags() []string {

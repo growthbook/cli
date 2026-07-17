@@ -472,7 +472,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 
 * [`list`](docs/growthbook_constants_list.md) - Get all constants
 * [`create`](docs/growthbook_constants_create.md) - Create a single constant
-* [`get-constant-references`](docs/growthbook_constants_get-constant-references.md) - Get features and constants that reference this constant
+* [`get-references`](docs/growthbook_constants_get-references.md) - Get features and constants that reference this constant
 * [`get`](docs/growthbook_constants_get.md) - Get a single constant
 * [`update`](docs/growthbook_constants_update.md) - Partially update a single constant
 * [`delete`](docs/growthbook_constants_delete.md) - Delete a single constant
@@ -496,6 +496,58 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`publish`](docs/growthbook_constant-revisions_publish.md) - Publish a draft revision
 * [`discard`](docs/growthbook_constant-revisions_discard.md) - Discard a draft revision
 * [`revert`](docs/growthbook_constant-revisions_revert.md) - Revert the constant to a prior revision
+
+### [configs](docs/growthbook_configs.md)
+
+* [`list`](docs/growthbook_configs_list.md) - Get all configs
+* [`create`](docs/growthbook_configs_create.md) - Create a single config
+* [`get-references`](docs/growthbook_configs_get-references.md) - Get features and configs that reference this config
+* [`get-key-usage`](docs/growthbook_configs_get-key-usage.md) - Get the feature rules and default values implementing each key
+* [`get-lineage`](docs/growthbook_configs_get-lineage.md) - Get the full lineage (family tree) for a config
+* [`verify-schema`](docs/growthbook_configs_verify-schema.md) - Verify a config's schema against a source (drift check)
+* [`get-schema`](docs/growthbook_configs_get-schema.md) - Export a config's schema
+* [`get`](docs/growthbook_configs_get.md) - Get a single config
+* [`update`](docs/growthbook_configs_update.md) - Partially update a single config
+* [`delete`](docs/growthbook_configs_delete.md) - Delete a single config
+* [`archive`](docs/growthbook_configs_archive.md) - Archive a single config
+* [`unarchive`](docs/growthbook_configs_unarchive.md) - Unarchive a single config
+* [`lock`](docs/growthbook_configs_lock.md) - Lock a config at its current published revision
+* [`unlock`](docs/growthbook_configs_unlock.md) - Unlock a config
+
+### [config-revisions](docs/growthbook_config-revisions.md)
+
+* [`list`](docs/growthbook_config-revisions_list.md) - List config revisions across the organization
+* [`list-for-config`](docs/growthbook_config-revisions_list-for-config.md) - List revisions for a config
+* [`create`](docs/growthbook_config-revisions_create.md) - Create a draft revision
+* [`latest`](docs/growthbook_config-revisions_latest.md) - Get the most recent active draft revision
+* [`get`](docs/growthbook_config-revisions_get.md) - Get a single config revision
+* [`set-metadata`](docs/growthbook_config-revisions_set-metadata.md) - Update config metadata in a draft revision
+* [`set-value`](docs/growthbook_config-revisions_set-value.md) - Update the value of a config draft revision
+* [`set-schema`](docs/growthbook_config-revisions_set-schema.md) - Update or import the schema of a config draft revision
+* [`set-projection`](docs/growthbook_config-revisions_set-projection.md) - Set (or update) a config's per-source render projection on a draft
+* [`delete-projection`](docs/growthbook_config-revisions_delete-projection.md) - Remove a config's per-source render projection on a draft
+* [`archive`](docs/growthbook_config-revisions_archive.md) - Stage an archive/unarchive in a draft revision
+* [`request-review`](docs/growthbook_config-revisions_request-review.md) - Request review for a draft revision
+* [`submit-review`](docs/growthbook_config-revisions_submit-review.md) - Submit a review on a draft revision
+* [`recall-review`](docs/growthbook_config-revisions_recall-review.md) - Recall a review request
+* [`reopen`](docs/growthbook_config-revisions_reopen.md) - Reopen a discarded revision
+* [`schedule-publish`](docs/growthbook_config-revisions_schedule-publish.md) - Schedule (or cancel) a deferred publish
+* [`merge-status`](docs/growthbook_config-revisions_merge-status.md) - Get merge status for a draft revision
+* [`rebase`](docs/growthbook_config-revisions_rebase.md) - Rebase a draft revision onto the current live config
+* [`publish`](docs/growthbook_config-revisions_publish.md) - Publish a draft revision
+* [`discard`](docs/growthbook_config-revisions_discard.md) - Discard a draft revision
+* [`revert`](docs/growthbook_config-revisions_revert.md) - Revert the config to a prior revision
+
+### [custom-hooks](docs/growthbook_custom-hooks.md)
+
+* [`list`](docs/growthbook_custom-hooks_list.md) - Get all custom hooks
+* [`create`](docs/growthbook_custom-hooks_create.md) - Create a single custom hook
+* [`test`](docs/growthbook_custom-hooks_test.md) - Dry-run hook code in the sandbox
+* [`get`](docs/growthbook_custom-hooks_get.md) - Get a single custom hook
+* [`update`](docs/growthbook_custom-hooks_update.md) - Partially update a single custom hook
+* [`delete`](docs/growthbook_custom-hooks_delete.md) - Delete a single custom hook
+* [`list-history`](docs/growthbook_custom-hooks_list-history.md) - List a custom hook's version history
+* [`revert`](docs/growthbook_custom-hooks_revert.md) - Revert a custom hook to a previous version
 
 ### [organizations](docs/growthbook_organizations.md)
 
@@ -565,7 +617,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`restart`](docs/growthbook_ramp-schedules_restart.md) - Restart a terminal ramp schedule
 * [`jump`](docs/growthbook_ramp-schedules_jump.md) - Jump to a specific step
 * [`complete`](docs/growthbook_ramp-schedules_complete.md) - Complete a ramp schedule immediately
-* [`approve-step`](docs/growthbook_ramp-schedules_approve-step.md) - Approve the current step
+* [`approve-step`](docs/growthbook_ramp-schedules_approve-step.md) - Approve the pending approval gate
 * [`add-target`](docs/growthbook_ramp-schedules_add-target.md) - Add a target rule to a ramp schedule
 * [`eject-target`](docs/growthbook_ramp-schedules_eject-target.md) - Remove a target rule from a ramp schedule
 * [`api-advance`](docs/growthbook_ramp-schedules_api-advance.md) - Advance to the next step, overriding any holds

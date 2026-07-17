@@ -18,7 +18,7 @@ func InitConstantRevisionsRoot(parent *cobra.Command) error {
 			}
 			return cmd.Help()
 		},
-		Aliases: []string{"cre"},
+		Aliases: []string{"crev"},
 	}
 
 	if err := initListConstantRevisionsCmd(ConstantRevisionsCmd); err != nil {

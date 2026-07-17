@@ -113,6 +113,12 @@ type Growthbook struct {
 	Constants *Constants
 	// Draft revisions for constants, including pending changes, approvals, and lifecycle (publish, discard, revert). Pass `version: "new"` on edit endpoints to auto-create a draft.
 	ConstantRevisions *ConstantRevisions
+	// Reusable, typed, inheritable JSON objects referenced from feature flag values as `@config:key`. A config carries a field `schema` (with TypeScript/JSON Schema import-export) and a lineage `parent`; it resolves like a `json` constant, composed via `$extends`. Inheritance is expressed via `parent`, never an in-value `@config:` entry. Schema fields colliding with a published ancestor's key follow 'base wins': identical re-declarations are stripped with a warning, differing ones are rejected.
+	Configs *Configs
+	// Draft revisions for configs, including value and schema edits, schema import (JSON Schema / TypeScript / inferred), approvals, and lifecycle (publish, discard, revert). Publishing a schema change cascades the "base wins" normalization to descendant configs; a publish that removes or retypes fields descendants still use soft-blocks with a 422 unless `?ignoreWarnings=true`. Pass `version: "new"` on edit endpoints to auto-create a draft.
+	ConfigRevisions *ConfigRevisions
+	// Sandboxed JavaScript validation hooks that run when features, configs, or their revisions are saved or published. Throwing an Error blocks the save; `addWarning(msg)` raises a soft warning. Hooks are scoped by projects, or pinned to a single feature/config via `entityType`/`entityId`; a config-scoped hook also runs for every config inheriting from it (its whole descendant lineage). Scope can be retargeted on update (or cleared with nulls). Requires an enterprise plan; not available on GrowthBook Cloud.
+	CustomHooks *CustomHooks
 	// Organizations are used for multi-org deployments where different teams can run their own isolated feature flags and experiments. These endpoints are only via a super-admin's Personal Access Token.
 	Organizations *Organizations
 	// Fact Tables describe the shape of your data warehouse tables
@@ -278,6 +284,9 @@ func New(opts ...SDKOption) *Growthbook {
 	sdk.SavedGroupRevisions = newSavedGroupRevisions(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Constants = newConstants(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.ConstantRevisions = newConstantRevisions(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Configs = newConfigs(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.ConfigRevisions = newConfigRevisions(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.CustomHooks = newCustomHooks(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Organizations = newOrganizations(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.FactTables = newFactTables(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.FactMetrics = newFactMetrics(sdk, sdk.sdkConfiguration, sdk.hooks)

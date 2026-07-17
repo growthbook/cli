@@ -23,7 +23,6 @@ var createCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "description", FieldPath: "Description", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "project", Shorthand: "p", FieldPath: "Project", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "owner", FieldPath: "Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the user associated with the request's Personal Access Token (PAT), if one is being used."},
-	{FlagName: "bypass-approval", Shorthand: "b", FieldPath: "BypassApproval", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to skip the approval flow when the org requires approvals for this constant's project. Requires the `bypassApprovalChecks` permission (or the org-level REST bypass setting). When approvals aren't required, this flag has no effect."},
 }
 
 // initCreateCmd initializes the create command.

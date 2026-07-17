@@ -765,9 +765,10 @@ type PutFeatureRevisionRuleRampScheduleRequestBody struct {
 	// ISO 8601 date-time, e.g. "2025-06-01T00:00:00Z". Absent or null means start immediately on publish.
 	StartDate optionalnullable.OptionalNullable[time.Time] `json:"startDate,omitzero"`
 	// ISO 8601 date-time, e.g. "2025-07-01T00:00:00Z". The ramp ends at this time.
-	CutoffDate       optionalnullable.OptionalNullable[time.Time]        `json:"cutoffDate,omitzero"`
-	MonitoringConfig *PutFeatureRevisionRuleRampScheduleMonitoringConfig `json:"monitoringConfig,omitzero"`
-	LockdownConfig   *PutFeatureRevisionRuleRampScheduleLockdownConfig   `json:"lockdownConfig,omitzero"`
+	CutoffDate            optionalnullable.OptionalNullable[time.Time]        `json:"cutoffDate,omitzero"`
+	MonitoringConfig      *PutFeatureRevisionRuleRampScheduleMonitoringConfig `json:"monitoringConfig,omitzero"`
+	LockdownConfig        *PutFeatureRevisionRuleRampScheduleLockdownConfig   `json:"lockdownConfig,omitzero"`
+	RequiresStartApproval optionalnullable.OptionalNullable[bool]             `json:"requiresStartApproval,omitzero"`
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	Environment     *string `json:"environment,omitzero"`
 	RevisionTitle   *string `json:"revisionTitle,omitzero"`
@@ -846,6 +847,13 @@ func (p *PutFeatureRevisionRuleRampScheduleRequestBody) GetLockdownConfig() *Put
 		return nil
 	}
 	return p.LockdownConfig
+}
+
+func (p *PutFeatureRevisionRuleRampScheduleRequestBody) GetRequiresStartApproval() optionalnullable.OptionalNullable[bool] {
+	if p == nil {
+		return nil
+	}
+	return p.RequiresStartApproval
 }
 
 func (p *PutFeatureRevisionRuleRampScheduleRequestBody) GetEnvironment() *string {

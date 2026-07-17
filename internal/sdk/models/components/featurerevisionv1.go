@@ -141,13 +141,14 @@ func (f *FeatureRevisionV1JSONSchema) GetEnabled() *bool {
 type FeatureRevisionV1Metadata struct {
 	Description *string `json:"description,omitzero"`
 	// The userId of the owner (or raw owner name/email for legacy records)
-	Owner        *string                      `json:"owner,omitzero"`
-	Project      *string                      `json:"project,omitzero"`
-	Tags         []string                     `json:"tags,omitzero"`
-	NeverStale   *bool                        `json:"neverStale,omitzero"`
-	ValueType    *string                      `json:"valueType,omitzero"`
-	JSONSchema   *FeatureRevisionV1JSONSchema `json:"jsonSchema,omitzero"`
-	CustomFields map[string]any               `json:"customFields,omitzero"`
+	Owner        *string                                   `json:"owner,omitzero"`
+	Project      *string                                   `json:"project,omitzero"`
+	Tags         []string                                  `json:"tags,omitzero"`
+	NeverStale   *bool                                     `json:"neverStale,omitzero"`
+	ValueType    *string                                   `json:"valueType,omitzero"`
+	JSONSchema   *FeatureRevisionV1JSONSchema              `json:"jsonSchema,omitzero"`
+	CustomFields map[string]any                            `json:"customFields,omitzero"`
+	BaseConfig   optionalnullable.OptionalNullable[string] `json:"baseConfig,omitzero"`
 }
 
 func (f FeatureRevisionV1Metadata) MarshalJSON() ([]byte, error) {
@@ -215,6 +216,13 @@ func (f *FeatureRevisionV1Metadata) GetCustomFields() map[string]any {
 		return nil
 	}
 	return f.CustomFields
+}
+
+func (f *FeatureRevisionV1Metadata) GetBaseConfig() optionalnullable.OptionalNullable[string] {
+	if f == nil {
+		return nil
+	}
+	return f.BaseConfig
 }
 
 // #region class-body-featurerevisionv1metadata
@@ -1088,10 +1096,11 @@ type FeatureRevisionV1RampActionUpdate struct {
 	// ISO 8601 date-time, e.g. "2025-06-01T00:00:00Z". Absent or null means start immediately on publish.
 	StartDate optionalnullable.OptionalNullable[time.Time] `json:"startDate,omitzero"`
 	// ISO 8601 date-time, e.g. "2025-07-01T00:00:00Z". The ramp ends at this time.
-	CutoffDate       optionalnullable.OptionalNullable[time.Time] `json:"cutoffDate,omitzero"`
-	RuleID           string                                       `json:"ruleId"`
-	MonitoringConfig *FeatureRevisionV1MonitoringConfig2          `json:"monitoringConfig,omitzero"`
-	LockdownConfig   *FeatureRevisionV1LockdownConfig2            `json:"lockdownConfig,omitzero"`
+	CutoffDate            optionalnullable.OptionalNullable[time.Time] `json:"cutoffDate,omitzero"`
+	RuleID                string                                       `json:"ruleId"`
+	MonitoringConfig      *FeatureRevisionV1MonitoringConfig2          `json:"monitoringConfig,omitzero"`
+	LockdownConfig        *FeatureRevisionV1LockdownConfig2            `json:"lockdownConfig,omitzero"`
+	RequiresStartApproval optionalnullable.OptionalNullable[bool]      `json:"requiresStartApproval,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	mode           string `const:"update" json:"mode"`
 	RampScheduleID string `json:"rampScheduleId"`
@@ -1183,6 +1192,13 @@ func (f *FeatureRevisionV1RampActionUpdate) GetLockdownConfig() *FeatureRevision
 		return nil
 	}
 	return f.LockdownConfig
+}
+
+func (f *FeatureRevisionV1RampActionUpdate) GetRequiresStartApproval() optionalnullable.OptionalNullable[bool] {
+	if f == nil {
+		return nil
+	}
+	return f.RequiresStartApproval
 }
 
 func (f *FeatureRevisionV1RampActionUpdate) GetMode() string {
@@ -2022,10 +2038,11 @@ type FeatureRevisionV1RampActionCreate struct {
 	// ISO 8601 date-time, e.g. "2025-06-01T00:00:00Z". Absent or null means start immediately on publish.
 	StartDate optionalnullable.OptionalNullable[time.Time] `json:"startDate,omitzero"`
 	// ISO 8601 date-time, e.g. "2025-07-01T00:00:00Z". The ramp ends at this time.
-	CutoffDate       optionalnullable.OptionalNullable[time.Time] `json:"cutoffDate,omitzero"`
-	RuleID           string                                       `json:"ruleId"`
-	MonitoringConfig *FeatureRevisionV1MonitoringConfig1          `json:"monitoringConfig,omitzero"`
-	LockdownConfig   *FeatureRevisionV1LockdownConfig1            `json:"lockdownConfig,omitzero"`
+	CutoffDate            optionalnullable.OptionalNullable[time.Time] `json:"cutoffDate,omitzero"`
+	RuleID                string                                       `json:"ruleId"`
+	MonitoringConfig      *FeatureRevisionV1MonitoringConfig1          `json:"monitoringConfig,omitzero"`
+	LockdownConfig        *FeatureRevisionV1LockdownConfig1            `json:"lockdownConfig,omitzero"`
+	RequiresStartApproval optionalnullable.OptionalNullable[bool]      `json:"requiresStartApproval,omitzero"`
 }
 
 func (f FeatureRevisionV1RampActionCreate) MarshalJSON() ([]byte, error) {
@@ -2118,6 +2135,13 @@ func (f *FeatureRevisionV1RampActionCreate) GetLockdownConfig() *FeatureRevision
 		return nil
 	}
 	return f.LockdownConfig
+}
+
+func (f *FeatureRevisionV1RampActionCreate) GetRequiresStartApproval() optionalnullable.OptionalNullable[bool] {
+	if f == nil {
+		return nil
+	}
+	return f.RequiresStartApproval
 }
 
 // #region class-body-featurerevisionv1rampactioncreate

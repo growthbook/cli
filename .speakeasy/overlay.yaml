@@ -453,6 +453,8 @@ actions:
     update: { x-speakeasy-name-override: list-for-constant }
   - target: $..[?(@.operationId=="getSavedGroupRevisions")]
     update: { x-speakeasy-name-override: list-for-saved-group }
+  - target: $..[?(@.operationId=="getConfigRevisions")]
+    update: { x-speakeasy-name-override: list-for-config }
   # feature-revisions v1/v2 inversion — make the LATEST (v2) own the plain
   # `feature-revisions` group and demote v1 to `feature-revisions-v1`, matching
   # the features convention ("latest owns the plain name"). Same tag-rewrite
@@ -785,6 +787,43 @@ actions:
     update: { x-speakeasy-name-override: set-metadata }
   - target: $..[?(@.operationId=="putSavedGroupRevisionValues")]
     update: { x-speakeasy-name-override: set-values }
+  # config-revisions — same clean-verb treatment as constant-revisions (1:1 analog).
+  - target: $..[?(@.operationId=="postConfigRevision")]
+    update: { x-speakeasy-name-override: create }
+  - target: $..[?(@.operationId=="getConfigRevisionLatest")]
+    update: { x-speakeasy-name-override: latest }
+  - target: $..[?(@.operationId=="getConfigRevisionMergeStatus")]
+    update: { x-speakeasy-name-override: merge-status }
+  - target: $..[?(@.operationId=="postConfigRevisionDiscard")]
+    update: { x-speakeasy-name-override: discard }
+  - target: $..[?(@.operationId=="postConfigRevisionPublish")]
+    update: { x-speakeasy-name-override: publish }
+  - target: $..[?(@.operationId=="postConfigRevisionRebase")]
+    update: { x-speakeasy-name-override: rebase }
+  - target: $..[?(@.operationId=="postConfigRevisionRequestReview")]
+    update: { x-speakeasy-name-override: request-review }
+  - target: $..[?(@.operationId=="postConfigRevisionRecallReview")]
+    update: { x-speakeasy-name-override: recall-review }
+  - target: $..[?(@.operationId=="postConfigRevisionReopen")]
+    update: { x-speakeasy-name-override: reopen }
+  - target: $..[?(@.operationId=="postConfigRevisionRevert")]
+    update: { x-speakeasy-name-override: revert }
+  - target: $..[?(@.operationId=="postConfigRevisionSubmitReview")]
+    update: { x-speakeasy-name-override: submit-review }
+  - target: $..[?(@.operationId=="postConfigRevisionSchedulePublish")]
+    update: { x-speakeasy-name-override: schedule-publish }
+  - target: $..[?(@.operationId=="putConfigRevisionArchive")]
+    update: { x-speakeasy-name-override: archive }
+  - target: $..[?(@.operationId=="putConfigRevisionMetadata")]
+    update: { x-speakeasy-name-override: set-metadata }
+  - target: $..[?(@.operationId=="putConfigRevisionValue")]
+    update: { x-speakeasy-name-override: set-value }
+  - target: $..[?(@.operationId=="putConfigRevisionSchema")]
+    update: { x-speakeasy-name-override: set-schema }
+  - target: $..[?(@.operationId=="putConfigRevisionProjection")]
+    update: { x-speakeasy-name-override: set-projection }
+  - target: $..[?(@.operationId=="deleteConfigRevisionProjection")]
+    update: { x-speakeasy-name-override: delete-projection }
   # Straggler leaf renames swept across the remaining groups — same rationale:
   # drop the operationId-derived http-verb/resource-echo prefixes for the action,
   # since the group already supplies the context. Keeps mixed-convention families
@@ -843,3 +882,24 @@ actions:
   # top-level
   - target: $..[?(@.operationId=="postCopyTransform")]
     update: { x-speakeasy-name-override: copy-transform }
+  # configs + custom-hooks (new groups at GA) — same sweep convention: strip the
+  # http-verb/resource echo, keep a disambiguating verb for sub-resources.
+  - target: $..[?(@.operationId=="postConfig")]
+    update: { x-speakeasy-name-override: create }
+  - target: $..[?(@.operationId=="getConfigReferences")]
+    update: { x-speakeasy-name-override: get-references }
+  - target: $..[?(@.operationId=="getConfigKeyUsage")]
+    update: { x-speakeasy-name-override: get-key-usage }
+  - target: $..[?(@.operationId=="getConfigLineage")]
+    update: { x-speakeasy-name-override: get-lineage }
+  - target: $..[?(@.operationId=="getConfigSchema")]
+    update: { x-speakeasy-name-override: get-schema }
+  - target: $..[?(@.operationId=="verifyConfigSchema")]
+    update: { x-speakeasy-name-override: verify-schema }
+  - target: $..[?(@.operationId=="postCustomHook")]
+    update: { x-speakeasy-name-override: create }
+  - target: $..[?(@.operationId=="listCustomHookHistory")]
+    update: { x-speakeasy-name-override: list-history }
+  # constants — echo-strip for consistency with the configs group above.
+  - target: $..[?(@.operationId=="getConstantReferences")]
+    update: { x-speakeasy-name-override: get-references }

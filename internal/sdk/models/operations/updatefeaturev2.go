@@ -461,6 +461,8 @@ func (u *UpdateFeatureV2ScheduleRule3) GetEnabled() bool {
 type UpdateFeatureV2Variation struct {
 	Value       string `json:"value"`
 	VariationID string `json:"variationId"`
+	// Key of a config to back this value. When set, `value` is a JSON override patch merged on top of the config; omit or null for a plain value.
+	Config optionalnullable.OptionalNullable[string] `json:"config,omitzero"`
 }
 
 func (u UpdateFeatureV2Variation) MarshalJSON() ([]byte, error) {
@@ -486,6 +488,13 @@ func (u *UpdateFeatureV2Variation) GetVariationID() string {
 		return ""
 	}
 	return u.VariationID
+}
+
+func (u *UpdateFeatureV2Variation) GetConfig() optionalnullable.OptionalNullable[string] {
+	if u == nil {
+		return nil
+	}
+	return u.Config
 }
 
 // #region class-body-updatefeaturev2variation
@@ -754,6 +763,8 @@ type UpdateFeatureV2RuleRollout struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_ string `const:"rollout" json:"type"`
 	Value string `json:"value"`
+	// Key of a config to back this value. When set, `value` is a JSON override patch merged on top of the config; omit or null for a plain value.
+	Config optionalnullable.OptionalNullable[string] `json:"config,omitzero"`
 	// JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
 	Sparse        *bool    `json:"sparse,omitzero"`
 	Coverage      float64  `json:"coverage"`
@@ -834,6 +845,13 @@ func (u *UpdateFeatureV2RuleRollout) GetValue() string {
 		return ""
 	}
 	return u.Value
+}
+
+func (u *UpdateFeatureV2RuleRollout) GetConfig() optionalnullable.OptionalNullable[string] {
+	if u == nil {
+		return nil
+	}
+	return u.Config
 }
 
 func (u *UpdateFeatureV2RuleRollout) GetSparse() *bool {
@@ -1022,6 +1040,8 @@ type UpdateFeatureV2RuleForce struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_ string `const:"force" json:"type"`
 	Value string `json:"value"`
+	// Key of a config to back this value. When set, `value` is a JSON override patch merged on top of the config; omit or null for a plain value.
+	Config optionalnullable.OptionalNullable[string] `json:"config,omitzero"`
 	// JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
 	Sparse *bool `json:"sparse,omitzero"`
 	// When true the rule applies to all environments (default).
@@ -1099,6 +1119,13 @@ func (u *UpdateFeatureV2RuleForce) GetValue() string {
 		return ""
 	}
 	return u.Value
+}
+
+func (u *UpdateFeatureV2RuleForce) GetConfig() optionalnullable.OptionalNullable[string] {
+	if u == nil {
+		return nil
+	}
+	return u.Config
 }
 
 func (u *UpdateFeatureV2RuleForce) GetSparse() *bool {
@@ -1299,6 +1326,10 @@ type UpdateFeatureV2RequestBody struct {
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
 	Owner        *string `json:"owner,omitzero"`
 	DefaultValue *string `json:"defaultValue,omitzero"`
+	// The config backing this flag, fixed at creation. Cannot be changed by an update — resend the current value or omit it; a different value is rejected.
+	BaseConfig optionalnullable.OptionalNullable[string] `json:"baseConfig,omitzero"`
+	// Optional. A config within `baseConfig`'s family that the default value resolves to instead of `baseConfig` itself. null or omitted means the default is `baseConfig`. The default is exactly this config and carries no overrides of its own.
+	DefaultValueConfig optionalnullable.OptionalNullable[string] `json:"defaultValueConfig,omitzero"`
 	// List of associated tags. Will override tags completely with submitted list
 	Tags []string `json:"tags,omitzero"`
 	// Replaces all feature rules atomically. Behavior differs from v1: v1 PUT applies per-environment patches, v2 PUT swaps the entire `rules` array in one revision. To preserve existing rules during a partial edit, GET the feature first, mutate the returned `rules` array, and PUT the full array back. Safe-rollout rules round-trip via their `safeRolloutId` (creation requires `POST /v2/features/:id/revisions/:version/rules`).
@@ -1361,6 +1392,20 @@ func (u *UpdateFeatureV2RequestBody) GetDefaultValue() *string {
 	return u.DefaultValue
 }
 
+func (u *UpdateFeatureV2RequestBody) GetBaseConfig() optionalnullable.OptionalNullable[string] {
+	if u == nil {
+		return nil
+	}
+	return u.BaseConfig
+}
+
+func (u *UpdateFeatureV2RequestBody) GetDefaultValueConfig() optionalnullable.OptionalNullable[string] {
+	if u == nil {
+		return nil
+	}
+	return u.DefaultValueConfig
+}
+
 func (u *UpdateFeatureV2RequestBody) GetTags() []string {
 	if u == nil {
 		return nil
@@ -1415,8 +1460,12 @@ func (u *UpdateFeatureV2RequestBody) GetHoldout() optionalnullable.OptionalNulla
 
 type UpdateFeatureV2Request struct {
 	// The id of the requested resource
-	ID   string                     `pathParam:"style=simple,explode=false,name=id"`
-	Body UpdateFeatureV2RequestBody `request:"mediaType=application/json"`
+	ID string `pathParam:"style=simple,explode=false,name=id"`
+	// Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the `bypassApprovalChecks` permission on all projects); ignored otherwise. Validation is enforced by default.
+	SkipSchemaValidation any `queryParam:"style=form,explode=true,name=skipSchemaValidation"`
+	// Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has `blockPublishOnSchemaError` disabled (warn mode).
+	IgnoreWarnings any                        `queryParam:"style=form,explode=true,name=ignoreWarnings"`
+	Body           UpdateFeatureV2RequestBody `request:"mediaType=application/json"`
 }
 
 func (u *UpdateFeatureV2Request) GetID() string {
@@ -1424,6 +1473,20 @@ func (u *UpdateFeatureV2Request) GetID() string {
 		return ""
 	}
 	return u.ID
+}
+
+func (u *UpdateFeatureV2Request) GetSkipSchemaValidation() any {
+	if u == nil {
+		return nil
+	}
+	return u.SkipSchemaValidation
+}
+
+func (u *UpdateFeatureV2Request) GetIgnoreWarnings() any {
+	if u == nil {
+		return nil
+	}
+	return u.IgnoreWarnings
 }
 
 func (u *UpdateFeatureV2Request) GetBody() UpdateFeatureV2RequestBody {

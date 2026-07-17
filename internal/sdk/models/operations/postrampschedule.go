@@ -785,15 +785,17 @@ func (e *PostRampScheduleExperimentHealthAction) UnmarshalJSON(data []byte) erro
 }
 
 type PostRampScheduleRequest struct {
-	Name                   *string                                                             `json:"name,omitzero"`
-	FeatureID              *string                                                             `json:"featureId,omitzero"`
-	RuleID                 *string                                                             `json:"ruleId,omitzero"`
-	Environment            *string                                                             `json:"environment,omitzero"`
-	Steps                  []PostRampScheduleStep                                              `json:"steps,omitzero"`
-	StartActions           []PostRampScheduleStartAction                                       `json:"startActions,omitzero"`
-	EndActions             []PostRampScheduleEndAction                                         `json:"endActions,omitzero"`
-	StartDate              optionalnullable.OptionalNullable[time.Time]                        `json:"startDate,omitzero"`
-	CutoffDate             optionalnullable.OptionalNullable[time.Time]                        `json:"cutoffDate,omitzero"`
+	Name         *string                                      `json:"name,omitzero"`
+	FeatureID    *string                                      `json:"featureId,omitzero"`
+	RuleID       *string                                      `json:"ruleId,omitzero"`
+	Environment  *string                                      `json:"environment,omitzero"`
+	Steps        []PostRampScheduleStep                       `json:"steps,omitzero"`
+	StartActions []PostRampScheduleStartAction                `json:"startActions,omitzero"`
+	EndActions   []PostRampScheduleEndAction                  `json:"endActions,omitzero"`
+	StartDate    optionalnullable.OptionalNullable[time.Time] `json:"startDate,omitzero"`
+	CutoffDate   optionalnullable.OptionalNullable[time.Time] `json:"cutoffDate,omitzero"`
+	// When true, the ramp holds at step -1 with its rule disabled (zero traffic) until a human approves the start via /actions/approve-step. Composes with startDate.
+	RequiresStartApproval  optionalnullable.OptionalNullable[bool]                             `json:"requiresStartApproval,omitzero"`
 	MonitoringConfig       optionalnullable.OptionalNullable[PostRampScheduleMonitoringConfig] `json:"monitoringConfig,omitzero"`
 	LockdownConfig         *PostRampScheduleLockdownConfig                                     `json:"lockdownConfig,omitzero"`
 	ExperimentHealthAction *PostRampScheduleExperimentHealthAction                             `json:"experimentHealthAction,omitzero"`
@@ -872,6 +874,13 @@ func (p *PostRampScheduleRequest) GetCutoffDate() optionalnullable.OptionalNulla
 		return nil
 	}
 	return p.CutoffDate
+}
+
+func (p *PostRampScheduleRequest) GetRequiresStartApproval() optionalnullable.OptionalNullable[bool] {
+	if p == nil {
+		return nil
+	}
+	return p.RequiresStartApproval
 }
 
 func (p *PostRampScheduleRequest) GetMonitoringConfig() optionalnullable.OptionalNullable[PostRampScheduleMonitoringConfig] {

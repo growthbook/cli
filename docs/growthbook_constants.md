@@ -47,7 +47,7 @@ growthbook constants [flags]
 * [growthbook constants create](growthbook_constants_create.md)	 - Create a single constant
 * [growthbook constants delete](growthbook_constants_delete.md)	 - Delete a single constant
 * [growthbook constants get](growthbook_constants_get.md)	 - Get a single constant
-* [growthbook constants get-constant-references](growthbook_constants_get-constant-references.md)	 - Get features and constants that reference this constant
+* [growthbook constants get-references](growthbook_constants_get-references.md)	 - Get features and constants that reference this constant
 * [growthbook constants list](growthbook_constants_list.md)	 - Get all constants
 * [growthbook constants unarchive](growthbook_constants_unarchive.md)	 - Unarchive a single constant
 * [growthbook constants update](growthbook_constants_update.md)	 - Partially update a single constant
