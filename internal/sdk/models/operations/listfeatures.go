@@ -18,7 +18,7 @@ type ListFeaturesRequest struct {
 	ClientKey *string `queryParam:"style=form,explode=true,name=clientKey"`
 	// If true, return all matching items and ignore limit/offset.
 	// Self-hosted only. Has no effect unless API_ALLOW_SKIP_PAGINATION is set to true or 1.
-	SkipPagination any `queryParam:"style=form,explode=true,name=skipPagination"`
+	SkipPagination *bool `default:"false" queryParam:"style=form,explode=true,name=skipPagination"`
 }
 
 func (l ListFeaturesRequest) MarshalJSON() ([]byte, error) {
@@ -60,7 +60,7 @@ func (l *ListFeaturesRequest) GetClientKey() *string {
 	return l.ClientKey
 }
 
-func (l *ListFeaturesRequest) GetSkipPagination() any {
+func (l *ListFeaturesRequest) GetSkipPagination() *bool {
 	if l == nil {
 		return nil
 	}

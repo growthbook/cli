@@ -23,28 +23,28 @@ growthbook config-revisions set-schema [flags]
 ### Options
 
 ```
-  -a, --additional-properties            Whether the resulting object schema permits extra keys (family extensibility).
-      --body string                      Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -h, --help                             help for set-schema
-      --ignore-warnings string           Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has blockPublishOnSchemaError disabled (warn mode).
-      --infer                            Derive the schema from the draft's value instead.
-  -k, --key string                       [required]
-      --revision-comment string          string value
-      --revision-title string            string value
-      --schema string                    JSON value (variants: json-schema: { value: object }, typescript: { value: string }, protobuf: { value: string }, python: { value: string }, go: { value: string }, rust: { value: string })
-      --schema.go string                 ConfigSchemaSource_Go variant as JSON
-      --schema.go.value string           Go source — a struct definition. [required]
-      --schema.json-schema string        ConfigSchemaSource_JSONSchema variant as JSON
-      --schema.protobuf string           ConfigSchemaSource_Protobuf variant as JSON
-      --schema.protobuf.value string     Protobuf (proto3) source — a message definition. [required]
-      --schema.python string             ConfigSchemaSource_Python variant as JSON
-      --schema.python.value string       Python source — a Pydantic BaseModel class. [required]
-      --schema.rust string               ConfigSchemaSource_Rust variant as JSON
-      --schema.rust.value string         Rust source — a serde struct definition. [required]
-      --schema.typescript string         ConfigSchemaSource_Typescript variant as JSON
-      --schema.typescript.value string   TypeScript source — an interface or object type. [required]
-      --skip-schema-validation string    Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the bypassApprovalChecks permission on all projects); ignored otherwise. Validation is enforced by default.
-  -v, --version-param string             [required]
+  -a, --additional-properties                         Whether the resulting object schema permits extra keys (family extensibility).
+      --body string                                   Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -h, --help                                          help for set-schema
+      --ignore-warnings blockPublishOnSchemaError     Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has blockPublishOnSchemaError disabled (warn mode).
+      --infer                                         Derive the schema from the draft's value instead.
+  -k, --key string                                    [required]
+      --revision-comment string                       string value
+      --revision-title string                         string value
+      --schema string                                 JSON value (variants: json-schema: { value: object }, typescript: { value: string }, protobuf: { value: string }, python: { value: string }, go: { value: string }, rust: { value: string })
+      --schema.go string                              ConfigSchemaSource_Go variant as JSON
+      --schema.go.value struct                        Go source — a struct definition. [required]
+      --schema.json-schema string                     ConfigSchemaSource_JSONSchema variant as JSON
+      --schema.protobuf string                        ConfigSchemaSource_Protobuf variant as JSON
+      --schema.protobuf.value message                 Protobuf (proto3) source — a message definition. [required]
+      --schema.python string                          ConfigSchemaSource_Python variant as JSON
+      --schema.python.value BaseModel                 Python source — a Pydantic BaseModel class. [required]
+      --schema.rust string                            ConfigSchemaSource_Rust variant as JSON
+      --schema.rust.value struct                      Rust source — a serde struct definition. [required]
+      --schema.typescript string                      ConfigSchemaSource_Typescript variant as JSON
+      --schema.typescript.value string                TypeScript source — an interface or object type. [required]
+      --skip-schema-validation bypassApprovalChecks   Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the bypassApprovalChecks permission on all projects); ignored otherwise. Validation is enforced by default.
+  -v, --version-param string                          [required]
 ```
 
 ### Options inherited from parent commands

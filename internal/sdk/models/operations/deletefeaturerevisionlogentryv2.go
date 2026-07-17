@@ -14,10 +14,21 @@ type DeleteFeatureRevisionLogEntryV2RequestBody struct {
 // #endregion class-body-deletefeaturerevisionlogentryv2requestbody
 
 type DeleteFeatureRevisionLogEntryV2Request struct {
-	ID      string                                     `pathParam:"style=simple,explode=false,name=id"`
-	Version string                                     `pathParam:"style=simple,explode=false,name=version"`
-	LogID   string                                     `pathParam:"style=simple,explode=false,name=logId"`
-	Body    DeleteFeatureRevisionLogEntryV2RequestBody `request:"mediaType=application/json"`
+	ID      string                                      `pathParam:"style=simple,explode=false,name=id"`
+	Version string                                      `pathParam:"style=simple,explode=false,name=version"`
+	LogID   string                                      `pathParam:"style=simple,explode=false,name=logId"`
+	Body    *DeleteFeatureRevisionLogEntryV2RequestBody `request:"mediaType=application/json"`
+}
+
+func (d DeleteFeatureRevisionLogEntryV2Request) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DeleteFeatureRevisionLogEntryV2Request) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (d *DeleteFeatureRevisionLogEntryV2Request) GetID() string {
@@ -41,9 +52,9 @@ func (d *DeleteFeatureRevisionLogEntryV2Request) GetLogID() string {
 	return d.LogID
 }
 
-func (d *DeleteFeatureRevisionLogEntryV2Request) GetBody() DeleteFeatureRevisionLogEntryV2RequestBody {
+func (d *DeleteFeatureRevisionLogEntryV2Request) GetBody() *DeleteFeatureRevisionLogEntryV2RequestBody {
 	if d == nil {
-		return DeleteFeatureRevisionLogEntryV2RequestBody{}
+		return nil
 	}
 	return d.Body
 }

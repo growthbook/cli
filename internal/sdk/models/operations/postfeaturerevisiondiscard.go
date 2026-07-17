@@ -11,9 +11,20 @@ type PostFeatureRevisionDiscardRequestBody struct {
 }
 
 type PostFeatureRevisionDiscardRequest struct {
-	ID      string                                `pathParam:"style=simple,explode=false,name=id"`
-	Version string                                `pathParam:"style=simple,explode=false,name=version"`
-	Body    PostFeatureRevisionDiscardRequestBody `request:"mediaType=application/json"`
+	ID      string                                 `pathParam:"style=simple,explode=false,name=id"`
+	Version string                                 `pathParam:"style=simple,explode=false,name=version"`
+	Body    *PostFeatureRevisionDiscardRequestBody `request:"mediaType=application/json"`
+}
+
+func (p PostFeatureRevisionDiscardRequest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostFeatureRevisionDiscardRequest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (p *PostFeatureRevisionDiscardRequest) GetID() string {
@@ -30,9 +41,9 @@ func (p *PostFeatureRevisionDiscardRequest) GetVersion() string {
 	return p.Version
 }
 
-func (p *PostFeatureRevisionDiscardRequest) GetBody() PostFeatureRevisionDiscardRequestBody {
+func (p *PostFeatureRevisionDiscardRequest) GetBody() *PostFeatureRevisionDiscardRequestBody {
 	if p == nil {
-		return PostFeatureRevisionDiscardRequestBody{}
+		return nil
 	}
 	return p.Body
 }

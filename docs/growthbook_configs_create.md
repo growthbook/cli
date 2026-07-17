@@ -19,35 +19,35 @@ growthbook configs create [flags]
 ### Options
 
 ```
-      --body string                      Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --description string               string value
-      --experiment-guard                 Enable the experiment guard on this config: publishing a change served to a running experiment soft-blocks unless overridden. Omit to inherit the org default.
-      --extends stringArray              Additional composition bases (config keys) layered on top of parent, in precedence order (later overrides earlier; all override parent; own keys win last). Set inheritance here, never via a @config: entry in value.
-      --extensible                       boolean flag
-  -h, --help                             help for create
-      --ignore-warnings string           Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has blockPublishOnSchemaError disabled (warn mode).
-      --invariants string                Cross-field validation rules. Each rule's expression is a mongo condition (mongrule). Stored on the config schema and enforced at publish.
-  -k, --key string                       Stable reference handle (lowercase slug, unique per org), referenced as @config:key [required]
-  -n, --name string                      The display name of the config [required]
-      --owner string                     The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the user associated with the request's Personal Access Token (PAT), if one is being used.
-      --parent string                    The key of the config to inherit from (the primary lineage spine). Express inheritance via parent/extends, NEVER via a @config: entry in value (which is rejected).
-      --project string                   string value
-      --schema string                    JSON value (variants: json-schema: { value: object }, typescript: { value: string }, protobuf: { value: string }, python: { value: string }, go: { value: string }, rust: { value: string })
-      --schema.go string                 ConfigSchemaSource_Go variant as JSON
-      --schema.go.value string           Go source — a struct definition. [required]
-      --schema.json-schema string        ConfigSchemaSource_JSONSchema variant as JSON
-      --schema.protobuf string           ConfigSchemaSource_Protobuf variant as JSON
-      --schema.protobuf.value string     Protobuf (proto3) source — a message definition. [required]
-      --schema.python string             ConfigSchemaSource_Python variant as JSON
-      --schema.python.value string       Python source — a Pydantic BaseModel class. [required]
-      --schema.rust string               ConfigSchemaSource_Rust variant as JSON
-      --schema.rust.value string         Rust source — a serde struct definition. [required]
-      --schema.typescript string         ConfigSchemaSource_Typescript variant as JSON
-      --schema.typescript.value string   TypeScript source — an interface or object type. [required]
-      --scoped-overrides string          Ordered, first-match-wins environment/project-scoped variant selection. Each entry points at a flavor config (a child config, by key) whose value is deep-merged onto this config's resolved value when the (environment, project) scope matches — resolved at build time, per layer. This is how you create an environment-scoped override (as opposed to a plain child config): make a child config for the override value, then add it here with its scope. Send the complete list to replace it; an empty array clears all overrides. Entries must reference existing configs, may not reference this config itself, and may not be unreachable (fully subsumed by an earlier entry).
-      --skip-schema-validation string    Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the bypassApprovalChecks permission on all projects); ignored otherwise. Validation is enforced by default.
-      --source string                    Optional identifier of the consuming codebase/service. When a typed-code schema (typescript/protobuf/python/go/rust) is supplied, its named-type structure is captured under this source so GET /configs/:key/schema?source=<id>&format=<lang> can reproduce those names.
-  -v, --value string                     This config's base value as a JSON object. Per-environment/project variants are expressed via scopedOverrides.
+      --body string                                   Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --description string                            string value
+      --experiment-guard                              Enable the experiment guard on this config: publishing a change served to a running experiment soft-blocks unless overridden. Omit to inherit the org default.
+      --extends key                                   Additional composition bases (config keys) layered on top of `parent`, in precedence order (later overrides earlier; all override `parent`; own keys win last). Set inheritance here, never via a `@config:` entry in `value`.
+      --extensible                                    boolean flag
+  -h, --help                                          help for create
+      --ignore-warnings blockPublishOnSchemaError     Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has blockPublishOnSchemaError disabled (warn mode).
+      --invariants string                             Cross-field validation rules. Each rule's expression is a mongo condition (mongrule). Stored on the config schema and enforced at publish.
+  -k, --key @config:key                               Stable reference handle (lowercase slug, unique per org), referenced as @config:key [required]
+  -n, --name string                                   The display name of the config [required]
+      --owner string                                  The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the user associated with the request's Personal Access Token (PAT), if one is being used.
+      --parent key                                    The key of the config to inherit from (the primary lineage spine). Express inheritance via `parent`/`extends`, NEVER via a `@config:` entry in `value` (which is rejected).
+      --project string                                string value
+      --schema string                                 JSON value (variants: json-schema: { value: object }, typescript: { value: string }, protobuf: { value: string }, python: { value: string }, go: { value: string }, rust: { value: string })
+      --schema.go string                              ConfigSchemaSource_Go variant as JSON
+      --schema.go.value struct                        Go source — a struct definition. [required]
+      --schema.json-schema string                     ConfigSchemaSource_JSONSchema variant as JSON
+      --schema.protobuf string                        ConfigSchemaSource_Protobuf variant as JSON
+      --schema.protobuf.value message                 Protobuf (proto3) source — a message definition. [required]
+      --schema.python string                          ConfigSchemaSource_Python variant as JSON
+      --schema.python.value BaseModel                 Python source — a Pydantic BaseModel class. [required]
+      --schema.rust string                            ConfigSchemaSource_Rust variant as JSON
+      --schema.rust.value struct                      Rust source — a serde struct definition. [required]
+      --schema.typescript string                      ConfigSchemaSource_Typescript variant as JSON
+      --schema.typescript.value string                TypeScript source — an interface or object type. [required]
+      --scoped-overrides key                          Ordered, first-match-wins environment/project-scoped variant selection. Each entry points at a flavor config (a child config, by key) whose value is deep-merged onto this config's resolved value when the (environment, project) scope matches — resolved at build time, per layer. This is how you create an environment-scoped override (as opposed to a plain child config): make a child config for the override value, then add it here with its scope. Send the complete list to replace it; an empty array clears all overrides. Entries must reference existing configs, may not reference this config itself, and may not be unreachable (fully subsumed by an earlier entry).
+      --skip-schema-validation bypassApprovalChecks   Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the bypassApprovalChecks permission on all projects); ignored otherwise. Validation is enforced by default.
+      --source typescript                             Optional identifier of the consuming codebase/service. When a typed-code schema (typescript/`protobuf`/`python`/`go`/`rust`) is supplied, its named-type structure is captured under this source so `GET /configs/:key/schema?source=<id>&format=<lang>` can reproduce those names.
+  -v, --value scopedOverrides                         This config's base value as a JSON object. Per-environment/project variants are expressed via scopedOverrides.
 ```
 
 ### Options inherited from parent commands

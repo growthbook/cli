@@ -19,8 +19,8 @@ growthbook feature-revisions diff [flags]
 ### Options
 
 ```
-  -b, --base string            Compare against: baseVersion (default — the revision's own baseVersion, matches the in-app review view), live (the currently-live revision), or an integer version (an arbitrary historical revision).
-  -f, --format-param string    minimal (default) returns only what changed, with id-keyed arrays bucketed into added/removed/modified items. full returns the complete before/after content of the revision. (options: minimal, full)
+  -b, --base baseVersion       Compare against: baseVersion (default — the revision's own `baseVersion`, matches the in-app review view), `live` (the currently-live revision), or an integer version (an arbitrary historical revision).
+  -f, --format-param minimal   minimal (default) returns only what changed, with id-keyed arrays bucketed into added/removed/modified items. `full` returns the complete before/after content of the revision. (options: minimal, full)
   -h, --help                   help for diff
   -i, --id string              [required]
   -v, --version-param string   [required]

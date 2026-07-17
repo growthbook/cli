@@ -16,8 +16,8 @@ import (
 
 var updateCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The id of the requested resource [required]"},
-	{FlagName: "skip-schema-validation", Shorthand: "s", FieldPath: "SkipSchemaValidation", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `queryParam:"style=form,explode=true,name=skipSchemaValidation"`, Description: "Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the `bypassApprovalChecks` permission on all projects); ignored otherwise. Validation is enforced by default."},
-	{FlagName: "ignore-warnings", FieldPath: "IgnoreWarnings", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `queryParam:"style=form,explode=true,name=ignoreWarnings"`, Description: "Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has `blockPublishOnSchemaError` disabled (warn mode)."},
+	{FlagName: "skip-schema-validation", Shorthand: "s", FieldPath: "SkipSchemaValidation", Kind: flagutil.FlagKindBool, Optional: true, Description: "Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the `bypassApprovalChecks` permission on all projects); ignored otherwise. Validation is enforced by default."},
+	{FlagName: "ignore-warnings", FieldPath: "IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has `blockPublishOnSchemaError` disabled (warn mode)."},
 	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Description of the feature"},
 	{FlagName: "archived", Shorthand: "a", FieldPath: "Body.Archived", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "project", FieldPath: "Body.Project", Kind: flagutil.FlagKindString, Optional: true, Description: "An associated project ID"},

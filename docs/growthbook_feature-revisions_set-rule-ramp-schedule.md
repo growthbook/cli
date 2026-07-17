@@ -36,7 +36,7 @@ growthbook feature-revisions set-rule-ramp-schedule [flags]
       --rule-id string                   [required]
       --start-actions string             list of values
       --start-date string                ISO 8601 date-time, e.g. "2025-06-01T00:00:00Z". Absent or null means start immediately on publish.
-      --start-state string               The rule state to roll back to (the rollback/jump-to-start anchor). Merged onto the rule's current state, so { "coverage": 0 } keeps existing targeting but rolls back to 0%. This affects rollbacks only — it is NOT applied when the ramp starts. On create, omitting it infers the anchor from the rule's current coverage (and returns a warning if that isn't 0%); on update of a live schedule, omitting it leaves the existing anchor unchanged.
+      --start-state { "coverage": 0 }    The rule state to roll back to (the rollback/jump-to-start anchor). Merged onto the rule's current state, so { "coverage": 0 } keeps existing targeting but rolls back to 0%. This affects rollbacks only — it is NOT applied when the ramp starts. On create, omitting it infers the anchor from the rule's current coverage (and returns a warning if that isn't 0%); on update of a live schedule, omitting it leaves the existing anchor unchanged.
       --steps string                     list of values
   -t, --template-id string               string value
   -v, --version-param string             [required]

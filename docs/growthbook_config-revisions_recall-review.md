@@ -20,7 +20,7 @@ growthbook config-revisions recall-review [flags]
 
 ```
       --body string            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -b, --body-param string      [required]
+  -b, --body-param string      JSON object
   -h, --help                   help for recall-review
   -k, --key string             [required]
   -v, --version-param string   [required]

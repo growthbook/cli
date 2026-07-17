@@ -23,16 +23,16 @@ growthbook config-revisions set-value [flags]
 ### Options
 
 ```
-      --body string                     Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -h, --help                            help for set-value
-      --ignore-warnings string          Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has blockPublishOnSchemaError disabled (warn mode).
-      --infer-schema-if-missing         When the config has no schema yet, infer one from the supplied value and stage it on the same draft.
-  -k, --key string                      [required]
-      --revision-comment string         string value
-      --revision-title string           string value
-  -s, --skip-schema-validation string   Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the bypassApprovalChecks permission on all projects); ignored otherwise. Validation is enforced by default.
-      --value string                    This config's own value as a JSON object — a targeted patch deep-merged onto the resolved parent value.
-      --version-param string            [required]
+      --body string                                   Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -h, --help                                          help for set-value
+      --ignore-warnings blockPublishOnSchemaError     Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has blockPublishOnSchemaError disabled (warn mode).
+      --infer-schema-if-missing value                 When the config has no schema yet, infer one from the supplied value and stage it on the same draft.
+  -k, --key string                                    [required]
+      --revision-comment string                       string value
+      --revision-title string                         string value
+  -s, --skip-schema-validation bypassApprovalChecks   Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the bypassApprovalChecks permission on all projects); ignored otherwise. Validation is enforced by default.
+      --value string                                  This config's own value as a JSON object — a targeted patch deep-merged onto the resolved parent value.
+      --version-param string                          [required]
 ```
 
 ### Options inherited from parent commands

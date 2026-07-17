@@ -22,7 +22,7 @@ growthbook feature-revisions latest [flags]
   -a, --author string   Filter to drafts created by this user (userId).
   -h, --help            help for latest
   -i, --id string       [required]
-  -m, --mine string     If true, return only the most recent active draft authored by or contributed to by the calling user.
+  -m, --mine            If true, return only the most recent active draft authored by or contributed to by the calling user.
   -s, --status string   JSON value (one of: string | array of string)
 ```
 

@@ -20,7 +20,7 @@ growthbook saved-group-revisions latest [flags]
 
 ```
   -h, --help                    help for latest
-  -m, --mine string             If true, return only the most recent active draft authored by the calling user. Requires a user-scoped API key.
+  -m, --mine                    If true, return only the most recent active draft authored by the calling user. Requires a user-scoped API key.
   -s, --saved-group-id string   [required]
 ```
 

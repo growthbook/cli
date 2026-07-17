@@ -19,21 +19,21 @@ growthbook config-revisions set-metadata [flags]
 ### Options
 
 ```
-      --body string                     Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --description string              string value
-      --extends stringArray             Replace the composition mixins layered on top of parent, in precedence order (later overrides earlier; all override parent; own keys win last). Send the complete set; an empty array clears all mixins.
-      --extensible                      boolean flag
-  -h, --help                            help for set-metadata
-  -i, --ignore-warnings string          Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has blockPublishOnSchemaError disabled (warn mode).
-  -k, --key string                      [required]
-  -n, --name string                     string value
-      --owner string                    The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-      --parent string                   Change the lineage parent (the key to inherit from). Empty string detaches from the parent.
-      --project string                  string value
-      --revision-comment string         string value
-      --revision-title string           string value
-  -s, --skip-schema-validation string   Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the bypassApprovalChecks permission on all projects); ignored otherwise. Validation is enforced by default.
-  -v, --version-param string            [required]
+      --body string                                   Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --description string                            string value
+      --extends parent                                Replace the composition mixins layered on top of parent, in precedence order (later overrides earlier; all override `parent`; own keys win last). Send the complete set; an empty array clears all mixins.
+      --extensible                                    boolean flag
+  -h, --help                                          help for set-metadata
+  -i, --ignore-warnings blockPublishOnSchemaError     Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has blockPublishOnSchemaError disabled (warn mode).
+  -k, --key string                                    [required]
+  -n, --name string                                   string value
+      --owner string                                  The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
+      --parent key                                    Change the lineage parent (the key to inherit from). Empty string detaches from the parent.
+      --project string                                string value
+      --revision-comment string                       string value
+      --revision-title string                         string value
+  -s, --skip-schema-validation bypassApprovalChecks   Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the bypassApprovalChecks permission on all projects); ignored otherwise. Validation is enforced by default.
+  -v, --version-param string                          [required]
 ```
 
 ### Options inherited from parent commands

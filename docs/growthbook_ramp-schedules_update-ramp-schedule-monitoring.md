@@ -23,20 +23,20 @@ growthbook ramp-schedules update-ramp-schedule-monitoring [flags]
 ### Options
 
 ```
-  -a, --auto-update                            boolean flag
-      --body string                            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --datasource-id string                   [required]
-  -e, --exposure-query-id string               [required]
-  -g, --guardrail-metric-ids stringArray       [required]
-  -h, --help                                   help for update-ramp-schedule-monitoring
-  -i, --id string                              [required]
-      --monitoring-mode string                 options: auto, manual
-      --multiple-exposure-action string        options: rollback, hold, warn
-      --no-traffic-action string               options: rollback, hold, warn
-      --no-traffic-grace-period-hours string   How long to wait for traffic before applying noTrafficAction. Defaults to 24 hours when null or not set.
-      --signal-metric-ids stringArray          list of values
-      --srm-action string                      options: rollback, hold, warn
-  -u, --update-schedule-minutes string         number value
+  -a, --auto-update                                     boolean flag
+      --body string                                     Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --datasource-id string                            [required]
+  -e, --exposure-query-id string                        [required]
+  -g, --guardrail-metric-ids stringArray                [required]
+  -h, --help                                            help for update-ramp-schedule-monitoring
+  -i, --id string                                       [required]
+      --monitoring-mode string                          options: auto, manual
+      --multiple-exposure-action string                 options: rollback, hold, warn
+      --no-traffic-action string                        options: rollback, hold, warn
+      --no-traffic-grace-period-hours noTrafficAction   How long to wait for traffic before applying noTrafficAction. Defaults to 24 hours when null or not set.
+      --signal-metric-ids stringArray                   list of values
+      --srm-action string                               options: rollback, hold, warn
+  -u, --update-schedule-minutes string                  number value
 ```
 
 ### Options inherited from parent commands

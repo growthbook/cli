@@ -17,10 +17,10 @@ type ListFeaturesV2Request struct {
 	// Filter by a SDK connection's client key
 	ClientKey *string `queryParam:"style=form,explode=true,name=clientKey"`
 	// Whether to include archived features. Defaults to `false` (non-archived only). Pass `true` to include archived features alongside non-archived ones.
-	Archived any `queryParam:"style=form,explode=true,name=archived"`
+	Archived *bool `queryParam:"style=form,explode=true,name=archived"`
 	// If true, return all matching items and ignore limit/offset.
 	// Self-hosted only. Has no effect unless API_ALLOW_SKIP_PAGINATION is set to true or 1.
-	SkipPagination any `queryParam:"style=form,explode=true,name=skipPagination"`
+	SkipPagination *bool `default:"false" queryParam:"style=form,explode=true,name=skipPagination"`
 }
 
 func (l ListFeaturesV2Request) MarshalJSON() ([]byte, error) {
@@ -62,14 +62,14 @@ func (l *ListFeaturesV2Request) GetClientKey() *string {
 	return l.ClientKey
 }
 
-func (l *ListFeaturesV2Request) GetArchived() any {
+func (l *ListFeaturesV2Request) GetArchived() *bool {
 	if l == nil {
 		return nil
 	}
 	return l.Archived
 }
 
-func (l *ListFeaturesV2Request) GetSkipPagination() any {
+func (l *ListFeaturesV2Request) GetSkipPagination() *bool {
 	if l == nil {
 		return nil
 	}

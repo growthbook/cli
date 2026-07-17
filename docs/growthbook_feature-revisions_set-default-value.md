@@ -19,16 +19,16 @@ growthbook feature-revisions set-default-value [flags]
 ### Options
 
 ```
-      --body string                     Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --default-value string            New default value. In Config mode (feature has baseConfig), the default must be exactly a config with no overrides: send "{}" to use baseConfig, or set defaultValueConfig to point at a descendant. [required]
-      --default-value-config string     Key of a config within the feature's baseConfig family that the default value resolves to (the base itself or a descendant). The default is exactly that config with no overrides; pass null to use baseConfig. Do not embed @config: in defaultValue — use this field.
-  -h, --help                            help for set-default-value
-      --id string                       [required]
-      --ignore-warnings string          Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has blockPublishOnSchemaError disabled (warn mode).
-      --revision-comment string         Comment for a newly created draft. Only used when version is "new"; ignored for existing revisions.
-      --revision-title string           Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
-  -s, --skip-schema-validation string   Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the bypassApprovalChecks permission on all projects); ignored otherwise. Validation is enforced by default.
-  -v, --version-param string            [required]
+      --body string                                   Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --default-value baseConfig                      New default value. In Config mode (feature has baseConfig), the default must be exactly a config with no overrides: send `"{}"` to use `baseConfig`, or set `defaultValueConfig` to point at a descendant. [required]
+      --default-value-config baseConfig               Key of a config within the feature's baseConfig family that the default value resolves to (the base itself or a descendant). The default is exactly that config with no overrides; pass `null` to use `baseConfig`. Do not embed `@config:` in `defaultValue` — use this field.
+  -h, --help                                          help for set-default-value
+      --id string                                     [required]
+      --ignore-warnings blockPublishOnSchemaError     Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has blockPublishOnSchemaError disabled (warn mode).
+      --revision-comment string                       Comment for a newly created draft. Only used when version is "new"; ignored for existing revisions.
+      --revision-title string                         Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
+  -s, --skip-schema-validation bypassApprovalChecks   Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the bypassApprovalChecks permission on all projects); ignored otherwise. Validation is enforced by default.
+  -v, --version-param string                          [required]
 ```
 
 ### Options inherited from parent commands

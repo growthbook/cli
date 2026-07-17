@@ -10,7 +10,7 @@ import (
 type GetSavedGroupRevisionLatestRequest struct {
 	SavedGroupID string `pathParam:"style=simple,explode=false,name=savedGroupId"`
 	// If true, return only the most recent active draft authored by the calling user. Requires a user-scoped API key.
-	Mine any `queryParam:"style=form,explode=true,name=mine"`
+	Mine *bool `queryParam:"style=form,explode=true,name=mine"`
 }
 
 func (g *GetSavedGroupRevisionLatestRequest) GetSavedGroupID() string {
@@ -20,7 +20,7 @@ func (g *GetSavedGroupRevisionLatestRequest) GetSavedGroupID() string {
 	return g.SavedGroupID
 }
 
-func (g *GetSavedGroupRevisionLatestRequest) GetMine() any {
+func (g *GetSavedGroupRevisionLatestRequest) GetMine() *bool {
 	if g == nil {
 		return nil
 	}

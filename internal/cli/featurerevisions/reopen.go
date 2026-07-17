@@ -17,7 +17,7 @@ import (
 var reopenCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "body-param", Shorthand: "b", FieldPath: "Body", Kind: flagutil.FlagKindJSON, Required: true, Annotations: `request:"mediaType=application/json"`, Description: "[required]"},
+	{FlagName: "body-param", Shorthand: "b", FieldPath: "Body", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `request:"mediaType=application/json"`, Description: "JSON object"},
 }
 
 // initReopenCmd initializes the reopen command.

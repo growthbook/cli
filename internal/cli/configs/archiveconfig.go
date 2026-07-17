@@ -16,7 +16,7 @@ import (
 
 var archiveConfigCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "key", Shorthand: "k", FieldPath: "Key", Kind: flagutil.FlagKindString, Required: true, Description: "The key of the config [required]"},
-	{FlagName: "ignore-warnings", Shorthand: "i", FieldPath: "IgnoreWarnings", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `queryParam:"style=form,explode=true,name=ignoreWarnings"`, Description: "Proceed despite the soft warning raised when archiving a config that is actively serving a value — archiving reverts anything resolving it (features, or the environments an override applies to) back to the base. Not needed when the config's live value is an empty patch or nothing uses it."},
+	{FlagName: "ignore-warnings", Shorthand: "i", FieldPath: "IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Proceed despite the soft warning raised when archiving a config that is actively serving a value — archiving reverts anything resolving it (features, or the environments an override applies to) back to the base. Not needed when the config's live value is an empty patch or nothing uses it."},
 }
 
 // initArchiveConfigCmd initializes the archive-config command.

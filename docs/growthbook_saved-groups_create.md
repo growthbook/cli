@@ -19,16 +19,16 @@ growthbook saved-groups create [flags]
 ### Options
 
 ```
-  -a, --attribute-key string   When type = 'list', this is the attribute key the group is based on
-      --body string            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -b, --bypass-approval        Set to true to skip the approval flow when the org requires approvals on saved groups. Requires the bypassApprovalChecks permission on every project the saved group belongs to. When the org does not require approvals, this flag has no effect.
-  -c, --condition string       When type = 'condition', this is the JSON-encoded condition for the group
-  -h, --help                   help for create
-  -n, --name string            The display name of the Saved Group [required]
-      --owner string           The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the user associated with the request's Personal Access Token (PAT), if one is being used.
-  -p, --projects stringArray   list of values
-  -t, --type string            The type of Saved Group (inferred from other arguments if missing) (options: condition, list)
-  -v, --values stringArray     When type = 'list', this is the list of values for the attribute key
+  -a, --attribute-key string                   When type = 'list', this is the attribute key the group is based on
+      --body string                            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -b, --bypass-approval bypassApprovalChecks   Set to true to skip the approval flow when the org requires approvals on saved groups. Requires the bypassApprovalChecks permission on every project the saved group belongs to. When the org does not require approvals, this flag has no effect.
+  -c, --condition string                       When type = 'condition', this is the JSON-encoded condition for the group
+  -h, --help                                   help for create
+  -n, --name string                            The display name of the Saved Group [required]
+      --owner string                           The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the user associated with the request's Personal Access Token (PAT), if one is being used.
+  -p, --projects stringArray                   list of values
+  -t, --type string                            The type of Saved Group (inferred from other arguments if missing) (options: condition, list)
+  -v, --values stringArray                     When type = 'list', this is the list of values for the attribute key
 ```
 
 ### Options inherited from parent commands

@@ -16,7 +16,7 @@ import (
 
 var latestCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "saved-group-id", Shorthand: "s", FieldPath: "SavedGroupID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "mine", Shorthand: "m", FieldPath: "Mine", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `queryParam:"style=form,explode=true,name=mine"`, Description: "If true, return only the most recent active draft authored by the calling user. Requires a user-scoped API key."},
+	{FlagName: "mine", Shorthand: "m", FieldPath: "Mine", Kind: flagutil.FlagKindBool, Optional: true, Description: "If true, return only the most recent active draft authored by the calling user. Requires a user-scoped API key."},
 }
 
 // initLatestCmd initializes the latest command.

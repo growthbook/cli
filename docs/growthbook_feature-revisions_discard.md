@@ -20,7 +20,7 @@ growthbook feature-revisions discard [flags]
 
 ```
       --body string            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -b, --body-param string      [required]
+  -b, --body-param string      JSON object
   -h, --help                   help for discard
   -i, --id string              [required]
   -v, --version-param string   [required]

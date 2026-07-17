@@ -15,8 +15,8 @@ import (
 )
 
 var createCmdMeta = []flagutil.FlagMeta{
-	{FlagName: "skip-schema-validation", Shorthand: "s", FieldPath: "SkipSchemaValidation", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `queryParam:"style=form,explode=true,name=skipSchemaValidation"`, Description: "Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the `bypassApprovalChecks` permission on all projects); ignored otherwise. Validation is enforced by default."},
-	{FlagName: "ignore-warnings", FieldPath: "IgnoreWarnings", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `queryParam:"style=form,explode=true,name=ignoreWarnings"`, Description: "Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has `blockPublishOnSchemaError` disabled (warn mode)."},
+	{FlagName: "skip-schema-validation", Shorthand: "s", FieldPath: "SkipSchemaValidation", Kind: flagutil.FlagKindBool, Optional: true, Description: "Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the `bypassApprovalChecks` permission on all projects); ignored otherwise. Validation is enforced by default."},
+	{FlagName: "ignore-warnings", FieldPath: "IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has `blockPublishOnSchemaError` disabled (warn mode)."},
 	{FlagName: "id", FieldPath: "Body.ID", Kind: flagutil.FlagKindString, Required: true, Description: "A unique key name for the feature. Feature keys can only include letters, numbers, hyphens, and underscores. [required]"},
 	{FlagName: "archived", Shorthand: "a", FieldPath: "Body.Archived", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Description of the feature"},

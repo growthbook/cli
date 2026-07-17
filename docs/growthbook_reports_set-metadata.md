@@ -19,14 +19,14 @@ growthbook reports set-metadata [flags]
 ### Options
 
 ```
-      --body string          Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --description string   Report description
-  -e, --edit-level string    Who can edit the report in the GrowthBook UI. organization allows any org member with the createAnalyses permission; private restricts editing to the report owner. (options: organization, private)
-  -h, --help                 help for set-metadata
-  -i, --id string            The id of the requested resource [required]
-      --share-level string   Visibility of the report. Setting to public enables a shareable shareUrl; setting back to organization or private revokes public access (the share token is preserved, so re-publishing exposes the same URL). (options: public, organization, private)
-      --status string        UI lifecycle marker for the report (options: published, private)
-  -t, --title string         Report title
+      --body string               Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --description string        Report description
+  -e, --edit-level organization   Who can edit the report in the GrowthBook UI. organization allows any org member with the `createAnalyses` permission; `private` restricts editing to the report owner. (options: organization, private)
+  -h, --help                      help for set-metadata
+  -i, --id string                 The id of the requested resource [required]
+      --share-level public        Visibility of the report. Setting to public enables a shareable `shareUrl`; setting back to `organization` or `private` revokes public access (the share token is preserved, so re-publishing exposes the same URL). (options: public, organization, private)
+      --status string             UI lifecycle marker for the report (options: published, private)
+  -t, --title string              Report title
 ```
 
 ### Options inherited from parent commands

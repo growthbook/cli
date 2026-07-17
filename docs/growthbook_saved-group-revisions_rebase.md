@@ -21,7 +21,7 @@ growthbook saved-group-revisions rebase [flags]
 ```
       --body string                   Request body as JSON (alternative to individual flags). Can also be provided via stdin.
       --conflict-resolutions string   value
-      --custom-values string          Custom values to use for union strategy fields. Keyed by field name.
+      --custom-values union           Custom values to use for union strategy fields. Keyed by field name.
   -h, --help                          help for rebase
   -s, --saved-group-id string         [required]
   -v, --version-param string          [required]

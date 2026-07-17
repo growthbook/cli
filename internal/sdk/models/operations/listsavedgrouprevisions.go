@@ -14,14 +14,14 @@ type ListSavedGroupRevisionsRequest struct {
 	Offset *int64 `default:"0" queryParam:"style=form,explode=true,name=offset"`
 	// If true, return all matching items and ignore limit/offset.
 	// Self-hosted only. Has no effect unless API_ALLOW_SKIP_PAGINATION is set to true or 1.
-	SkipPagination any `queryParam:"style=form,explode=true,name=skipPagination"`
+	SkipPagination *bool `default:"false" queryParam:"style=form,explode=true,name=skipPagination"`
 	// Restrict results to revisions for a single saved group. When omitted, returns revisions across every saved group the caller can read.
 	SavedGroupID *string `queryParam:"style=form,explode=true,name=savedGroupId"`
 	// Filter by revision status. Accepts a comma-separated list, or the literal `open` for non-merged/non-discarded revisions.
 	Status *string `queryParam:"style=form,explode=true,name=status"`
 	Author *string `queryParam:"style=form,explode=true,name=author"`
 	// If true, return only revisions authored by the calling user. Requires a user-scoped API key. Mutually exclusive with `author`.
-	Mine any `queryParam:"style=form,explode=true,name=mine"`
+	Mine *bool `queryParam:"style=form,explode=true,name=mine"`
 }
 
 func (l ListSavedGroupRevisionsRequest) MarshalJSON() ([]byte, error) {
@@ -49,7 +49,7 @@ func (l *ListSavedGroupRevisionsRequest) GetOffset() *int64 {
 	return l.Offset
 }
 
-func (l *ListSavedGroupRevisionsRequest) GetSkipPagination() any {
+func (l *ListSavedGroupRevisionsRequest) GetSkipPagination() *bool {
 	if l == nil {
 		return nil
 	}
@@ -77,7 +77,7 @@ func (l *ListSavedGroupRevisionsRequest) GetAuthor() *string {
 	return l.Author
 }
 
-func (l *ListSavedGroupRevisionsRequest) GetMine() any {
+func (l *ListSavedGroupRevisionsRequest) GetMine() *bool {
 	if l == nil {
 		return nil
 	}

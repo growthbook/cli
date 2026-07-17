@@ -16,12 +16,12 @@ type GetFeatureRevisionsV2Request struct {
 	Offset *int64 `default:"0" queryParam:"style=form,explode=true,name=offset"`
 	// If true, return all matching items and ignore limit/offset.
 	// Self-hosted only. Has no effect unless API_ALLOW_SKIP_PAGINATION is set to true or 1.
-	SkipPagination any `queryParam:"style=form,explode=true,name=skipPagination"`
+	SkipPagination *bool `default:"false" queryParam:"style=form,explode=true,name=skipPagination"`
 	// Filter by revision status. Single value, comma-separated list, repeated params (?status=draft&status=approved), or `all-drafts` shorthand for all active-draft statuses (draft, pending-review, approved, changes-requested).
 	Status *components.Status `queryParam:"style=form,explode=true,name=status"`
 	Author *string            `queryParam:"style=form,explode=true,name=author"`
 	// If true, return only revisions authored by or contributed to by the calling user. Requires a user-scoped API key. Mutually exclusive with `author`.
-	Mine any `queryParam:"style=form,explode=true,name=mine"`
+	Mine *bool `queryParam:"style=form,explode=true,name=mine"`
 }
 
 func (g GetFeatureRevisionsV2Request) MarshalJSON() ([]byte, error) {
@@ -56,7 +56,7 @@ func (g *GetFeatureRevisionsV2Request) GetOffset() *int64 {
 	return g.Offset
 }
 
-func (g *GetFeatureRevisionsV2Request) GetSkipPagination() any {
+func (g *GetFeatureRevisionsV2Request) GetSkipPagination() *bool {
 	if g == nil {
 		return nil
 	}
@@ -77,7 +77,7 @@ func (g *GetFeatureRevisionsV2Request) GetAuthor() *string {
 	return g.Author
 }
 
-func (g *GetFeatureRevisionsV2Request) GetMine() any {
+func (g *GetFeatureRevisionsV2Request) GetMine() *bool {
 	if g == nil {
 		return nil
 	}

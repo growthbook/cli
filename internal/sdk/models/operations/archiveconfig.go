@@ -11,7 +11,7 @@ type ArchiveConfigRequest struct {
 	// The key of the config
 	Key string `pathParam:"style=simple,explode=false,name=key"`
 	// Proceed despite the soft warning raised when archiving a config that is actively serving a value — archiving reverts anything resolving it (features, or the environments an override applies to) back to the base. Not needed when the config's live value is an empty patch or nothing uses it.
-	IgnoreWarnings any `queryParam:"style=form,explode=true,name=ignoreWarnings"`
+	IgnoreWarnings *bool `queryParam:"style=form,explode=true,name=ignoreWarnings"`
 }
 
 func (a *ArchiveConfigRequest) GetKey() string {
@@ -21,7 +21,7 @@ func (a *ArchiveConfigRequest) GetKey() string {
 	return a.Key
 }
 
-func (a *ArchiveConfigRequest) GetIgnoreWarnings() any {
+func (a *ArchiveConfigRequest) GetIgnoreWarnings() *bool {
 	if a == nil {
 		return nil
 	}

@@ -19,9 +19,9 @@ growthbook constant-revisions latest [flags]
 ### Options
 
 ```
-  -h, --help          help for latest
-  -k, --key string    [required]
-  -m, --mine string   If true, return only the most recent active draft authored by the calling user. Requires a user-scoped API key.
+  -h, --help         help for latest
+  -k, --key string   [required]
+  -m, --mine         If true, return only the most recent active draft authored by the calling user. Requires a user-scoped API key.
 ```
 
 ### Options inherited from parent commands

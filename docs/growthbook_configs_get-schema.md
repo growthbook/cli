@@ -19,11 +19,11 @@ growthbook configs get-schema [flags]
 ### Options
 
 ```
-  -e, --effective string      When true, includes fields inherited across the lineage (the family's accumulated schema). When false (default), returns only this config's own fields.
-  -f, --format-param string   Output format. json-schema (default) returns a JSON Schema document; typescript, protobuf, python (Pydantic), go, and rust (serde) render the schema as source in that language. (options: json-schema, typescript, protobuf, python, go, rust)
-  -h, --help                  help for get-schema
-  -k, --key string            The key of the config [required]
-  -s, --source string         Render using a previously-captured source projection (its named types). Only affects the typed-code formats (typescript/protobuf/python/go/rust); ignored if the source has no projection.
+  -e, --effective                  When true, includes fields inherited across the lineage (the family's accumulated schema). When false (default), returns only this config's own fields.
+  -f, --format-param json-schema   Output format. json-schema (default) returns a JSON Schema document; `typescript`, `protobuf`, `python` (Pydantic), `go`, and `rust` (serde) render the schema as source in that language. (options: json-schema, typescript, protobuf, python, go, rust)
+  -h, --help                       help for get-schema
+  -k, --key string                 The key of the config [required]
+  -s, --source typescript          Render using a previously-captured source projection (its named types). Only affects the typed-code formats (typescript/`protobuf`/`python`/`go`/`rust`); ignored if the source has no projection.
 ```
 
 ### Options inherited from parent commands
