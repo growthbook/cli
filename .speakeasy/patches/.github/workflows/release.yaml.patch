@@ -1,7 +1,7 @@
 diff --git a/.github/workflows/release.yaml b/.github/workflows/release.yaml
 --- a/.github/workflows/release.yaml
 +++ b/.github/workflows/release.yaml
-@@ -7,32 +7,43 @@ on:
+@@ -7,32 +7,46 @@ on:
  
  permissions:
    contents: write
@@ -42,6 +42,9 @@ diff --git a/.github/workflows/release.yaml b/.github/workflows/release.yaml
 +          # Cross-repo push of the Homebrew cask (GITHUB_TOKEN is repo-scoped).
 +          # Empty on prerelease tags is fine — skip_upload: auto skips the tap.
 +          HOMEBREW_TAP_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
++          # Pin the release tag to the pushed ref so a beta and its GA promote
++          # sharing a commit don't confuse GoReleaser's tag detection.
++          GORELEASER_CURRENT_TAG: ${{ github.ref_name }}
  
        - name: Upload artifacts
 -        uses: actions/upload-artifact@v4
@@ -49,7 +52,7 @@ diff --git a/.github/workflows/release.yaml b/.github/workflows/release.yaml
          if: always()
          with:
            name: release-artifacts
-@@ -40,3 +51,32 @@ jobs:
+@@ -40,3 +54,32 @@ jobs:
              dist/
              !dist/*.txt
            retention-days: 30
