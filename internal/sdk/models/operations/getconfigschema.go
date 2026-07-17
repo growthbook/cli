@@ -54,7 +54,7 @@ type GetConfigSchemaRequest struct {
 	// Output format. `json-schema` (default) returns a JSON Schema document; `typescript`, `protobuf`, `python` (Pydantic), `go`, and `rust` (serde) render the schema as source in that language.
 	Format *GetConfigSchemaFormat `queryParam:"style=form,explode=true,name=format"`
 	// When true, includes fields inherited across the lineage (the family's accumulated schema). When false (default), returns only this config's own fields.
-	Effective any `queryParam:"style=form,explode=true,name=effective"`
+	Effective *bool `queryParam:"style=form,explode=true,name=effective"`
 	// Render using a previously-captured source projection (its named types). Only affects the typed-code formats (`typescript`/`protobuf`/`python`/`go`/`rust`); ignored if the source has no projection.
 	Source *string `queryParam:"style=form,explode=true,name=source"`
 }
@@ -73,7 +73,7 @@ func (g *GetConfigSchemaRequest) GetFormat() *GetConfigSchemaFormat {
 	return g.Format
 }
 
-func (g *GetConfigSchemaRequest) GetEffective() any {
+func (g *GetConfigSchemaRequest) GetEffective() *bool {
 	if g == nil {
 		return nil
 	}

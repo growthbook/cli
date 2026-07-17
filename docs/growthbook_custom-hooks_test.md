@@ -19,12 +19,12 @@ growthbook custom-hooks test [flags]
 ### Options
 
 ```
-      --body string            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --entity-id string       string value
-      --entity-type string     options: feature, config, experiment
-      --function-args string   Arguments exposed to the function as named globals (e.g. feature, config, revision)
-      --function-body string   JavaScript function body to execute in the sandbox [required]
-  -h, --help                   help for test
+      --body string             Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --entity-id string        string value
+      --entity-type string      options: feature, config, experiment
+      --function-args feature   Arguments exposed to the function as named globals (e.g. feature, `config`, `revision`)
+      --function-body string    JavaScript function body to execute in the sandbox [required]
+  -h, --help                    help for test
 ```
 
 ### Options inherited from parent commands

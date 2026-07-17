@@ -10,7 +10,7 @@ import (
 type GetFeatureRevisionLatestV2Request struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// If true, return only the most recent active draft authored by or contributed to by the calling user.
-	Mine any `queryParam:"style=form,explode=true,name=mine"`
+	Mine *bool `queryParam:"style=form,explode=true,name=mine"`
 	// Filter by revision status. Single value, comma-separated list, repeated params (?status=draft&status=approved), or `all-drafts` shorthand for all active-draft statuses (draft, pending-review, approved, changes-requested).
 	Status *components.Status `queryParam:"style=form,explode=true,name=status"`
 	// Filter to drafts created by this user (userId).
@@ -24,7 +24,7 @@ func (g *GetFeatureRevisionLatestV2Request) GetID() string {
 	return g.ID
 }
 
-func (g *GetFeatureRevisionLatestV2Request) GetMine() any {
+func (g *GetFeatureRevisionLatestV2Request) GetMine() *bool {
 	if g == nil {
 		return nil
 	}

@@ -2566,16 +2566,7 @@ paths:
           schema:
             description: >-
               If true, return only the most recent active draft authored by or contributed to by the calling user. Requires a user-scoped API key.
-            anyOf:
-              - type: string
-                const: 'true'
-              - type: string
-                const: 'false'
-              - type: string
-                const: '0'
-              - type: string
-                const: '1'
-              - type: boolean
+            type: boolean
       responses:
         '200':
           description: Successful response
@@ -5402,7 +5393,7 @@ paths:
             type: string
         - $ref: '#/components/parameters/version'
       requestBody:
-        required: true
+        required: false
         content:
           application/json:
             schema:
@@ -6920,16 +6911,7 @@ paths:
           schema:
             description: >-
               If true, return only revisions authored by or contributed to by the calling user.
-            anyOf:
-              - type: string
-                const: 'true'
-              - type: string
-                const: 'false'
-              - type: string
-                const: '0'
-              - type: string
-                const: '1'
-              - type: boolean
+            type: boolean
         - name: archived
           in: query
           description: >-
@@ -6937,16 +6919,7 @@ paths:
           schema:
             description: >-
               Whether to include revisions for archived features. Defaults to `false` (non-archived features only). Pass `true` to include revisions for archived features alongside non-archived ones.
-            anyOf:
-              - type: string
-                const: 'true'
-              - type: string
-                const: 'false'
-              - type: string
-                const: '0'
-              - type: string
-                const: '1'
-              - type: boolean
+            type: boolean
       responses:
         '200':
           description: Successful response
@@ -7123,16 +7096,7 @@ paths:
           schema:
             description: >-
               If true, return only the most recent active draft authored by or contributed to by the calling user.
-            anyOf:
-              - type: string
-                const: 'true'
-              - type: string
-                const: 'false'
-              - type: string
-                const: '0'
-              - type: string
-                const: '1'
-              - type: boolean
+            type: boolean
         - $ref: '#/components/parameters/status'
         - name: author
           in: query
@@ -9801,7 +9765,7 @@ paths:
             type: string
         - $ref: '#/components/parameters/version'
       requestBody:
-        required: true
+        required: false
         content:
           application/json:
             schema:
@@ -9846,7 +9810,7 @@ paths:
             type: string
         - $ref: '#/components/parameters/version'
       requestBody:
-        required: true
+        required: false
         content:
           application/json:
             schema:
@@ -9982,7 +9946,7 @@ paths:
         - $ref: '#/components/parameters/version'
         - $ref: '#/components/parameters/logId'
       requestBody:
-        required: true
+        required: false
         content:
           application/json:
             schema:
@@ -10383,7 +10347,7 @@ paths:
             type: string
         - $ref: '#/components/parameters/version'
       requestBody:
-        required: true
+        required: false
         content:
           application/json:
             schema:
@@ -10428,7 +10392,7 @@ paths:
             type: string
         - $ref: '#/components/parameters/version'
       requestBody:
-        required: true
+        required: false
         content:
           application/json:
             schema:
@@ -15934,16 +15898,7 @@ paths:
           schema:
             description: >-
               If true, return only revisions authored by the calling user. Requires a user-scoped API key. Mutually exclusive with `author`.
-            anyOf:
-              - type: string
-                const: 'true'
-              - type: string
-                const: 'false'
-              - type: string
-                const: '0'
-              - type: string
-                const: '1'
-              - type: boolean
+            type: boolean
       responses:
         '200':
           description: Successful response
@@ -16267,16 +16222,7 @@ paths:
           schema:
             description: >-
               If true, return only revisions authored by the calling user. Requires a user-scoped API key. Mutually exclusive with `author`.
-            anyOf:
-              - type: string
-                const: 'true'
-              - type: string
-                const: 'false'
-              - type: string
-                const: '0'
-              - type: string
-                const: '1'
-              - type: boolean
+            type: boolean
       responses:
         '200':
           description: Successful response
@@ -16395,16 +16341,7 @@ paths:
           schema:
             description: >-
               If true, return only the most recent active draft authored by the calling user. Requires a user-scoped API key.
-            anyOf:
-              - type: string
-                const: 'true'
-              - type: string
-                const: 'false'
-              - type: string
-                const: '0'
-              - type: string
-                const: '1'
-              - type: boolean
+            type: boolean
       responses:
         '200':
           description: Successful response
@@ -17373,16 +17310,7 @@ paths:
           schema:
             description: >-
               If true, return only revisions authored by the calling user. Requires a user-scoped API key. Mutually exclusive with `author`.
-            anyOf:
-              - type: string
-                const: 'true'
-              - type: string
-                const: 'false'
-              - type: string
-                const: '0'
-              - type: string
-                const: '1'
-              - type: boolean
+            type: boolean
       responses:
         '200':
           description: Successful response
@@ -17723,16 +17651,7 @@ paths:
           schema:
             description: >-
               If true, return only revisions authored by the calling user. Requires a user-scoped API key. Mutually exclusive with `author`.
-            anyOf:
-              - type: string
-                const: 'true'
-              - type: string
-                const: 'false'
-              - type: string
-                const: '0'
-              - type: string
-                const: '1'
-              - type: boolean
+            type: boolean
       responses:
         '200':
           description: Successful response
@@ -17851,16 +17770,7 @@ paths:
           schema:
             description: >-
               If true, return only the most recent active draft authored by the calling user. Requires a user-scoped API key.
-            anyOf:
-              - type: string
-                const: 'true'
-              - type: string
-                const: 'false'
-              - type: string
-                const: '0'
-              - type: string
-                const: '1'
-              - type: boolean
+            type: boolean
       responses:
         '200':
           description: Successful response
@@ -18705,16 +18615,7 @@ paths:
           schema:
             description: >-
               If true, return only revisions authored by the calling user. Requires a user-scoped API key. Mutually exclusive with `author`.
-            anyOf:
-              - type: string
-                const: 'true'
-              - type: string
-                const: 'false'
-              - type: string
-                const: '0'
-              - type: string
-                const: '1'
-              - type: boolean
+            type: boolean
       responses:
         '200':
           description: Successful response
@@ -19307,16 +19208,7 @@ paths:
           schema:
             description: >-
               Proceed despite the soft warning raised when archiving a config that is actively serving a value — archiving reverts anything resolving it (features, or the environments an override applies to) back to the base. Not needed when the config's live value is an empty patch or nothing uses it.
-            anyOf:
-              - type: string
-                const: 'true'
-              - type: string
-                const: 'false'
-              - type: string
-                const: '0'
-              - type: string
-                const: '1'
-              - type: boolean
+            type: boolean
       responses:
         '200':
           description: Resource created
@@ -19493,16 +19385,7 @@ paths:
           schema:
             description: >-
               If true, return only revisions authored by the calling user. Requires a user-scoped API key. Mutually exclusive with `author`.
-            anyOf:
-              - type: string
-                const: 'true'
-              - type: string
-                const: 'false'
-              - type: string
-                const: '0'
-              - type: string
-                const: '1'
-              - type: boolean
+            type: boolean
       responses:
         '200':
           description: Successful response
@@ -19617,16 +19500,7 @@ paths:
           schema:
             description: >-
               If true, return only the most recent active draft authored by the calling user. Requires a user-scoped API key.
-            anyOf:
-              - type: string
-                const: 'true'
-              - type: string
-                const: 'false'
-              - type: string
-                const: '0'
-              - type: string
-                const: '1'
-              - type: boolean
+            type: boolean
       responses:
         '200':
           description: Successful response
@@ -20243,7 +20117,7 @@ paths:
             type: string
         - $ref: '#/components/parameters/version'
       requestBody:
-        required: true
+        required: false
         content:
           application/json:
             schema:
@@ -20289,7 +20163,7 @@ paths:
             type: string
         - $ref: '#/components/parameters/version'
       requestBody:
-        required: true
+        required: false
         content:
           application/json:
             schema:
@@ -38901,16 +38775,7 @@ components:
 
           Self-hosted only. Has no effect unless API_ALLOW_SKIP_PAGINATION is set to true or 1.
         default: false
-        anyOf:
-          - type: string
-            const: 'true'
-          - type: string
-            const: 'false'
-          - type: string
-            const: '0'
-          - type: string
-            const: '1'
-          - type: boolean
+        type: boolean
       x-selfHostedOnly: true
       x-requiresEnv: API_ALLOW_SKIP_PAGINATION
     id:
@@ -38978,16 +38843,7 @@ components:
       schema:
         description: >-
           If true, return only revisions authored by or contributed to by the calling user. Requires a user-scoped API key. Mutually exclusive with `author`.
-        anyOf:
-          - type: string
-            const: 'true'
-          - type: string
-            const: 'false'
-          - type: string
-            const: '0'
-          - type: string
-            const: '1'
-          - type: boolean
+        type: boolean
     version:
       name: version
       in: path
@@ -39004,16 +38860,7 @@ components:
       schema:
         description: >-
           If the organization caps concurrent drafts per feature (`maxConcurrentDrafts` setting), requests at or over the cap are rejected with a 409. Pass `true` to create the draft anyway.
-        anyOf:
-          - type: string
-            const: 'true'
-          - type: string
-            const: 'false'
-          - type: string
-            const: '0'
-          - type: string
-            const: '1'
-          - type: boolean
+        type: boolean
     ruleId:
       name: ruleId
       in: path
@@ -39029,16 +38876,7 @@ components:
       schema:
         description: >-
           Whether to include archived features. Defaults to `false` (non-archived only). Pass `true` to include archived features alongside non-archived ones.
-        anyOf:
-          - type: string
-            const: 'true'
-          - type: string
-            const: 'false'
-          - type: string
-            const: '0'
-          - type: string
-            const: '1'
-          - type: boolean
+        type: boolean
     skipSchemaValidation:
       name: skipSchemaValidation
       in: query
@@ -39047,16 +38885,7 @@ components:
       schema:
         description: >-
           Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the `bypassApprovalChecks` permission on all projects); ignored otherwise. Validation is enforced by default.
-        anyOf:
-          - type: string
-            const: 'true'
-          - type: string
-            const: 'false'
-          - type: string
-            const: '0'
-          - type: string
-            const: '1'
-          - type: boolean
+        type: boolean
     ignoreWarnings:
       name: ignoreWarnings
       in: query
@@ -39065,16 +38894,7 @@ components:
       schema:
         description: >-
           Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has `blockPublishOnSchemaError` disabled (warn mode).
-        anyOf:
-          - type: string
-            const: 'true'
-          - type: string
-            const: 'false'
-          - type: string
-            const: '0'
-          - type: string
-            const: '1'
-          - type: boolean
+        type: boolean
     format:
       name: format
       in: query
@@ -39235,12 +39055,7 @@ components:
       schema:
         description: >-
           When true, includes fields inherited across the lineage (the family's accumulated schema). When false (default), returns only this config's own fields.
-        anyOf:
-          - type: string
-            const: 'true'
-          - type: string
-            const: 'false'
-          - type: boolean
+        type: boolean
     source:
       name: source
       in: query

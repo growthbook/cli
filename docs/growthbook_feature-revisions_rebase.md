@@ -19,13 +19,13 @@ growthbook feature-revisions rebase [flags]
 ### Options
 
 ```
-      --body string                          Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -c, --conflict-resolutions string          Map of conflict key → resolution. Keys come from the returned conflicts: defaultValue, prerequisites, archived, holdout, environmentsEnabled.<env>, metadata.<field>, rules.<ruleId>, and rules.order. overwrite keeps the draft's version of that item; discard keeps live's. The blanket rules key applies one strategy to all rule-level conflicts.
-      --expected-draft-date-updated string   Optimistic-concurrency guard for the draft side: the draft's draftDateUpdated timestamp as returned by merge-status or rebase preview. If the draft has been modified since (e.g. by a co-author), the request fails with 409 instead of applying resolutions against changed draft content.
-      --expected-live-version int            Optimistic-concurrency guard: the live version the resolutions were authored against (as returned by merge-status or rebase preview). If live has since moved, the request fails with 409 instead of applying resolutions to different conflicts.
-  -h, --help                                 help for rebase
-  -i, --id string                            [required]
-  -v, --version-param string                 [required]
+      --body string                                    Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -c, --conflict-resolutions defaultValue              Map of conflict key → resolution. Keys come from the returned conflicts: defaultValue, `prerequisites`, `archived`, `holdout`, `environmentsEnabled.<env>`, `metadata.<field>`, `rules.<ruleId>`, and `rules.order`. `overwrite` keeps the draft's version of that item; `discard` keeps live's. The blanket `rules` key applies one strategy to all rule-level conflicts.
+      --expected-draft-date-updated draftDateUpdated   Optimistic-concurrency guard for the draft side: the draft's draftDateUpdated timestamp as returned by merge-status or rebase preview. If the draft has been modified since (e.g. by a co-author), the request fails with `409` instead of applying resolutions against changed draft content.
+      --expected-live-version 409                      Optimistic-concurrency guard: the live version the resolutions were authored against (as returned by merge-status or rebase preview). If live has since moved, the request fails with 409 instead of applying resolutions to different conflicts.
+  -h, --help                                           help for rebase
+  -i, --id string                                      [required]
+  -v, --version-param string                           [required]
 ```
 
 ### Options inherited from parent commands

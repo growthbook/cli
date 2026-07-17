@@ -17,11 +17,11 @@ import (
 var listConfigRevisionsCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "limit", Shorthand: "l", FieldPath: "Limit", Kind: flagutil.FlagKindInt64, Optional: true, HasDefault: true, DefaultInt: 10, Description: "The number of items to return"},
 	{FlagName: "offset", FieldPath: "Offset", Kind: flagutil.FlagKindInt64, Optional: true, HasDefault: true, Description: "How many items to skip (use in conjunction with limit for pagination)"},
-	{FlagName: "skip-pagination", FieldPath: "SkipPagination", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `queryParam:"style=form,explode=true,name=skipPagination"`, Description: "If true, return all matching items and ignore limit/offset.\nSelf-hosted only. Has no effect unless API_ALLOW_SKIP_PAGINATION is set to true or 1."},
+	{FlagName: "skip-pagination", FieldPath: "SkipPagination", Kind: flagutil.FlagKindBool, Optional: true, HasDefault: true, Description: "If true, return all matching items and ignore limit/offset.\nSelf-hosted only. Has no effect unless API_ALLOW_SKIP_PAGINATION is set to true or 1."},
 	{FlagName: "key", Shorthand: "k", FieldPath: "Key", Kind: flagutil.FlagKindString, Optional: true, Description: "Restrict results to revisions for a single config (by its key). When omitted, returns revisions across every config the caller can read."},
 	{FlagName: "status", FieldPath: "Status", Kind: flagutil.FlagKindString, Optional: true, Description: "Filter by revision status. Accepts a comma-separated list, or the literal `open` for non-merged/non-discarded revisions."},
 	{FlagName: "author", Shorthand: "a", FieldPath: "Author", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "mine", Shorthand: "m", FieldPath: "Mine", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `queryParam:"style=form,explode=true,name=mine"`, Description: "If true, return only revisions authored by the calling user. Requires a user-scoped API key. Mutually exclusive with `author`."},
+	{FlagName: "mine", Shorthand: "m", FieldPath: "Mine", Kind: flagutil.FlagKindBool, Optional: true, Description: "If true, return only revisions authored by the calling user. Requires a user-scoped API key. Mutually exclusive with `author`."},
 }
 
 // initListConfigRevisionsCmd initializes the list-config-revisions command.

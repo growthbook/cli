@@ -16,7 +16,7 @@ import (
 
 var latestCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "mine", Shorthand: "m", FieldPath: "Mine", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `queryParam:"style=form,explode=true,name=mine"`, Description: "If true, return only the most recent active draft authored by or contributed to by the calling user."},
+	{FlagName: "mine", Shorthand: "m", FieldPath: "Mine", Kind: flagutil.FlagKindBool, Optional: true, Description: "If true, return only the most recent active draft authored by or contributed to by the calling user."},
 	{FlagName: "status", Shorthand: "s", FieldPath: "Status", Kind: flagutil.FlagKindUnion, Union: &flagutil.UnionMeta{Discriminated: false, Optional: true, TypeDescription: "JSON value (one of: string | array of string)"}},
 	{FlagName: "author", Shorthand: "a", FieldPath: "Author", Kind: flagutil.FlagKindString, Optional: true, Description: "Filter to drafts created by this user (userId)."},
 }

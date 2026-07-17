@@ -903,3 +903,57 @@ actions:
   # constants — echo-strip for consistency with the configs group above.
   - target: $..[?(@.operationId=="getConstantReferences")]
     update: { x-speakeasy-name-override: get-references }
+  # Booleanish query params (Zod-style anyOf['true','false','0','1',boolean]) degrade
+  # to STRING flags — a bare `--effective --dry-run` swallows the next token as its
+  # value. Retype as plain boolean so they become real switches; the server's Zod
+  # coercion accepts true/false on the wire either way. Retire when the back-end
+  # generator emits `type: boolean` at source (tracked in a repo issue).
+  - target: $..[?(@.name=="archived")].schema.anyOf
+    remove: true
+  - target: $..[?(@.name=="archived")].schema
+    update: { type: boolean }
+  - target: $..[?(@.name=="effective")].schema.anyOf
+    remove: true
+  - target: $..[?(@.name=="effective")].schema
+    update: { type: boolean }
+  - target: $..[?(@.name=="ignoreWarnings")].schema.anyOf
+    remove: true
+  - target: $..[?(@.name=="ignoreWarnings")].schema
+    update: { type: boolean }
+  - target: $..[?(@.name=="mine")].schema.anyOf
+    remove: true
+  - target: $..[?(@.name=="mine")].schema
+    update: { type: boolean }
+  - target: $..[?(@.name=="overrideDraftLimit")].schema.anyOf
+    remove: true
+  - target: $..[?(@.name=="overrideDraftLimit")].schema
+    update: { type: boolean }
+  - target: $..[?(@.name=="skipPagination")].schema.anyOf
+    remove: true
+  - target: $..[?(@.name=="skipPagination")].schema
+    update: { type: boolean }
+  - target: $..[?(@.name=="skipSchemaValidation")].schema.anyOf
+    remove: true
+  - target: $..[?(@.name=="skipSchemaValidation")].schema
+    update: { type: boolean }
+  # Empty-object request bodies marked required force a meaningless --body-param '{}'
+  # on the CLI (the generated doc examples themselves fail without it). Mark them
+  # optional; express's json parser defaults an absent body to {} so the server's
+  # z.object({}) still validates. Retire when the back-end marks these bodies
+  # optional at source (tracked in a repo issue).
+  - target: $..[?(@.operationId=="postFeatureRevisionDiscard")].requestBody
+    update: { required: false }
+  - target: $..[?(@.operationId=="postFeatureRevisionDiscardV2")].requestBody
+    update: { required: false }
+  - target: $..[?(@.operationId=="postFeatureRevisionRecallReviewV2")].requestBody
+    update: { required: false }
+  - target: $..[?(@.operationId=="postFeatureRevisionUndoReviewV2")].requestBody
+    update: { required: false }
+  - target: $..[?(@.operationId=="postFeatureRevisionReopenV2")].requestBody
+    update: { required: false }
+  - target: $..[?(@.operationId=="deleteFeatureRevisionLogEntryV2")].requestBody
+    update: { required: false }
+  - target: $..[?(@.operationId=="postConfigRevisionRecallReview")].requestBody
+    update: { required: false }
+  - target: $..[?(@.operationId=="postConfigRevisionReopen")].requestBody
+    update: { required: false }

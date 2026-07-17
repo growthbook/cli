@@ -21,10 +21,10 @@ growthbook ramp-schedules update-ramp-schedule-steps [flags]
 ### Options
 
 ```
-      --body string    Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -h, --help           help for update-ramp-schedule-steps
-  -i, --id string      [required]
-  -s, --steps string   Full replacement of the steps array. Step-level coverage patches (actions) are intentionally excluded — those require a revision publish because they change the SDK payload. Use the revision flow to modify coverage/targeting; use this endpoint to update monitoring flags and hold conditions. [required]
+      --body string     Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -h, --help            help for update-ramp-schedule-steps
+  -i, --id string       [required]
+  -s, --steps actions   Full replacement of the steps array. Step-level coverage patches (actions) are intentionally excluded — those require a revision publish because they change the SDK payload. Use the revision flow to modify coverage/targeting; use this endpoint to update monitoring flags and hold conditions. [required]
 ```
 
 ### Options inherited from parent commands

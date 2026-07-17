@@ -23,9 +23,9 @@ growthbook feature-revisions-v1 get-feature-revision-latest [flags]
 ### Options
 
 ```
-  -h, --help          help for get-feature-revision-latest
-  -i, --id string     [required]
-  -m, --mine string   If true, return only the most recent active draft authored by or contributed to by the calling user. Requires a user-scoped API key.
+  -h, --help        help for get-feature-revision-latest
+  -i, --id string   [required]
+  -m, --mine        If true, return only the most recent active draft authored by or contributed to by the calling user. Requires a user-scoped API key.
 ```
 
 ### Options inherited from parent commands

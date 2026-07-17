@@ -19,17 +19,17 @@ growthbook saved-group-revisions list-for-saved-group [flags]
 ### Options
 
 ```
-  -a, --all                      Automatically paginate and fetch all results (streams NDJSON for JSON output)
-      --author string            string value
-  -h, --help                     help for list-for-saved-group
-  -l, --limit int                The number of items to return (default 10)
-      --max-pages int            Maximum number of pages to fetch when using --all (0 = no limit)
-  -m, --mine string              If true, return only revisions authored by the calling user. Requires a user-scoped API key. Mutually exclusive with author.
-      --offset int               How many items to skip (use in conjunction with limit for pagination)
-      --saved-group-id string    [required]
-      --skip-pagination string   If true, return all matching items and ignore limit/offset.
-                                 Self-hosted only. Has no effect unless API_ALLOW_SKIP_PAGINATION is set to true or 1.
-      --status string            Filter by revision status. Accepts a comma-separated list, or the literal open for non-merged/non-discarded revisions.
+  -a, --all                     Automatically paginate and fetch all results (streams NDJSON for JSON output)
+      --author string           string value
+  -h, --help                    help for list-for-saved-group
+  -l, --limit int               The number of items to return (default 10)
+      --max-pages int           Maximum number of pages to fetch when using --all (0 = no limit)
+  -m, --mine author             If true, return only revisions authored by the calling user. Requires a user-scoped API key. Mutually exclusive with author.
+      --offset int              How many items to skip (use in conjunction with limit for pagination)
+      --saved-group-id string   [required]
+      --skip-pagination         If true, return all matching items and ignore limit/offset.
+                                Self-hosted only. Has no effect unless API_ALLOW_SKIP_PAGINATION is set to true or 1.
+      --status open             Filter by revision status. Accepts a comma-separated list, or the literal open for non-merged/non-discarded revisions.
 ```
 
 ### Options inherited from parent commands

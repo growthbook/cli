@@ -19,16 +19,16 @@ growthbook experiments list [flags]
 ### Options
 
 ```
-  -a, --all                    Automatically paginate and fetch all results (streams NDJSON for JSON output)
-      --datasource-id string   Filter by Data Source
-  -e, --experiment-id string   Filter the returned list by the experiment tracking key (not the internal experiment ID). Note, this was deprecated to help reduce confusion, consider using trackingKey instead, which is functionally identical. You cannot use both params at the same time.
-  -h, --help                   help for list
-  -l, --limit int              The number of items to return (default 10)
-      --max-pages int          Maximum number of pages to fetch when using --all (0 = no limit)
-      --offset int             How many items to skip (use in conjunction with limit for pagination)
-  -p, --project-id string      Filter by project id
-  -s, --status string          options: draft, running, stopped
-  -t, --tracking-key string    Filter by experiment tracking key
+  -a, --all                         Automatically paginate and fetch all results (streams NDJSON for JSON output)
+      --datasource-id string        Filter by Data Source
+  -e, --experiment-id trackingKey   Filter the returned list by the experiment tracking key (not the internal experiment ID). Note, this was deprecated to help reduce confusion, consider using trackingKey instead, which is functionally identical. You cannot use both params at the same time.
+  -h, --help                        help for list
+  -l, --limit int                   The number of items to return (default 10)
+      --max-pages int               Maximum number of pages to fetch when using --all (0 = no limit)
+      --offset int                  How many items to skip (use in conjunction with limit for pagination)
+  -p, --project-id string           Filter by project id
+  -s, --status string               options: draft, running, stopped
+  -t, --tracking-key string         Filter by experiment tracking key
 ```
 
 ### Options inherited from parent commands

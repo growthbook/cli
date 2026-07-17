@@ -23,7 +23,7 @@ growthbook experiments update [flags]
       --analysis string                              Analysis summary or conclusions for the experiment. Maps to resultSummary.conclusions in the GET response.
       --archived                                     boolean flag
       --assignment-query-id string                   string value
-      --attribution-model string                     Setting attribution model to "experimentDuration" is the same as selecting "Ignore Conversion Windows" for the Conversion Window Override. Setting it to "lookbackOverride" requires a lookbackOverride object to be provided. (options: firstExposure, experimentDuration, lookbackOverride)
+      --attribution-model "experimentDuration"       Setting attribution model to "experimentDuration" is the same as selecting "Ignore Conversion Windows" for the Conversion Window Override. Setting it to `"lookbackOverride"` requires a `lookbackOverride` object to be provided. (options: firstExposure, experimentDuration, lookbackOverride)
       --auto-refresh                                 boolean flag
       --bandit-burn-in-unit string                   options: days, hours
       --bandit-burn-in-value float                   number value

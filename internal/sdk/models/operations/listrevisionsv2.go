@@ -14,15 +14,15 @@ type ListRevisionsV2Request struct {
 	Offset *int64 `default:"0" queryParam:"style=form,explode=true,name=offset"`
 	// If true, return all matching items and ignore limit/offset.
 	// Self-hosted only. Has no effect unless API_ALLOW_SKIP_PAGINATION is set to true or 1.
-	SkipPagination any     `queryParam:"style=form,explode=true,name=skipPagination"`
+	SkipPagination *bool   `default:"false" queryParam:"style=form,explode=true,name=skipPagination"`
 	FeatureID      *string `queryParam:"style=form,explode=true,name=featureId"`
 	// Filter by revision status. Single value, comma-separated list, repeated params (?status=draft&status=approved), or `all-drafts` shorthand for all active-draft statuses (draft, pending-review, approved, changes-requested).
 	Status *components.Status `queryParam:"style=form,explode=true,name=status"`
 	Author *string            `queryParam:"style=form,explode=true,name=author"`
 	// If true, return only revisions authored by or contributed to by the calling user.
-	Mine any `queryParam:"style=form,explode=true,name=mine"`
+	Mine *bool `queryParam:"style=form,explode=true,name=mine"`
 	// Whether to include revisions for archived features. Defaults to `false` (non-archived features only). Pass `true` to include revisions for archived features alongside non-archived ones.
-	Archived any `queryParam:"style=form,explode=true,name=archived"`
+	Archived *bool `queryParam:"style=form,explode=true,name=archived"`
 }
 
 func (l ListRevisionsV2Request) MarshalJSON() ([]byte, error) {
@@ -50,7 +50,7 @@ func (l *ListRevisionsV2Request) GetOffset() *int64 {
 	return l.Offset
 }
 
-func (l *ListRevisionsV2Request) GetSkipPagination() any {
+func (l *ListRevisionsV2Request) GetSkipPagination() *bool {
 	if l == nil {
 		return nil
 	}
@@ -78,14 +78,14 @@ func (l *ListRevisionsV2Request) GetAuthor() *string {
 	return l.Author
 }
 
-func (l *ListRevisionsV2Request) GetMine() any {
+func (l *ListRevisionsV2Request) GetMine() *bool {
 	if l == nil {
 		return nil
 	}
 	return l.Mine
 }
 
-func (l *ListRevisionsV2Request) GetArchived() any {
+func (l *ListRevisionsV2Request) GetArchived() *bool {
 	if l == nil {
 		return nil
 	}

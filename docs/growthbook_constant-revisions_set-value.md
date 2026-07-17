@@ -25,7 +25,7 @@ growthbook constant-revisions set-value [flags]
   -k, --key string                  [required]
       --revision-comment string     string value
       --revision-title string       string value
-      --value string                The default value (raw string for string constants, JSON-encoded for json constants)
+      --value string                The default value (raw string for string constants, JSON-encoded for `json` constants)
       --version-param string        [required]
 ```
 

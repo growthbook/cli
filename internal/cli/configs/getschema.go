@@ -17,7 +17,7 @@ import (
 var getSchemaCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "key", Shorthand: "k", FieldPath: "Key", Kind: flagutil.FlagKindString, Required: true, Description: "The key of the config [required]"},
 	{FlagName: "format-param", Shorthand: "f", FieldPath: "Format", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"json-schema", "typescript", "protobuf", "python", "go", "rust"}, Description: "Output format. `json-schema` (default) returns a JSON Schema document; `typescript`, `protobuf`, `python` (Pydantic), `go`, and `rust` (serde) render the schema as source in that language. (options: json-schema, typescript, protobuf, python, go, rust)"},
-	{FlagName: "effective", Shorthand: "e", FieldPath: "Effective", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `queryParam:"style=form,explode=true,name=effective"`, Description: "When true, includes fields inherited across the lineage (the family's accumulated schema). When false (default), returns only this config's own fields."},
+	{FlagName: "effective", Shorthand: "e", FieldPath: "Effective", Kind: flagutil.FlagKindBool, Optional: true, Description: "When true, includes fields inherited across the lineage (the family's accumulated schema). When false (default), returns only this config's own fields."},
 	{FlagName: "source", Shorthand: "s", FieldPath: "Source", Kind: flagutil.FlagKindString, Optional: true, Description: "Render using a previously-captured source projection (its named types). Only affects the typed-code formats (`typescript`/`protobuf`/`python`/`go`/`rust`); ignored if the source has no projection."},
 }
 

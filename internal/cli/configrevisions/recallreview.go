@@ -17,7 +17,7 @@ import (
 var recallReviewCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "key", Shorthand: "k", FieldPath: "Key", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "body-param", Shorthand: "b", FieldPath: "Body", Kind: flagutil.FlagKindJSON, Required: true, Annotations: `request:"mediaType=application/json"`, Description: "[required]"},
+	{FlagName: "body-param", Shorthand: "b", FieldPath: "Body", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `request:"mediaType=application/json"`, Description: "JSON object"},
 }
 
 // initRecallReviewCmd initializes the recall-review command.

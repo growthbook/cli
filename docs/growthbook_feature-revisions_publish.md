@@ -19,14 +19,14 @@ growthbook feature-revisions publish [flags]
 ### Options
 
 ```
-      --body string                     Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -c, --comment string                  string value
-  -h, --help                            help for publish
-      --id string                       [required]
-      --ignore-warnings string          Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has blockPublishOnSchemaError disabled (warn mode).
-  -m, --merge-now                       When the org enforces same-base merges and the revision is behind the live version, set to true to force-merge the stale draft instead of rebasing first. This only takes effect for callers with bypass-approval permission; otherwise it is ignored and the revision must be rebased.
-  -s, --skip-schema-validation string   Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the bypassApprovalChecks permission on all projects); ignored otherwise. Validation is enforced by default.
-  -v, --version-param string            [required]
+      --body string                                   Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -c, --comment string                                string value
+  -h, --help                                          help for publish
+      --id string                                     [required]
+      --ignore-warnings blockPublishOnSchemaError     Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has blockPublishOnSchemaError disabled (warn mode).
+  -m, --merge-now                                     When the org enforces same-base merges and the revision is behind the live version, set to true to force-merge the stale draft instead of rebasing first. This only takes effect for callers with bypass-approval permission; otherwise it is ignored and the revision must be rebased.
+  -s, --skip-schema-validation bypassApprovalChecks   Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the bypassApprovalChecks permission on all projects); ignored otherwise. Validation is enforced by default.
+  -v, --version-param string                          [required]
 ```
 
 ### Options inherited from parent commands

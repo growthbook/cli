@@ -3579,7 +3579,7 @@ func (s *FeatureRevisionsV1) PostFeatureRevisionDiscard(ctx context.Context, req
 		OperationID:      "postFeatureRevisionDiscard",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, true, "Body", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}

@@ -112,10 +112,6 @@ func RegisterFlags(cmd *cobra.Command, meta []FlagMeta) {
 			continue
 		}
 
-		// Strip markdown backticks so Cobra's UnquoteUsage doesn't mistake a
-		// back-quoted word in the description for the flag's metavar placeholder.
-		m.Description = strings.ReplaceAll(m.Description, "`", "")
-
 		switch m.Kind {
 		case FlagKindUnion:
 			if m.Union != nil {
@@ -231,10 +227,6 @@ func BuildRequest[T any](cmd *cobra.Command, meta []FlagMeta, bodyFieldPath stri
 	// Priority 1: --body flag (explicit whole-body JSON)
 	if bodyFlagName != "" && FlagChanged(cmd, bodyFlagName) {
 		bodyJSON, _ := GetStringFlag(cmd, bodyFlagName)
-		bodyJSON, err := resolveDashStdin(cmd, bodyJSON)
-		if err != nil {
-			return nil, err
-		}
 		if bodyJSON != "" {
 			if bodyFieldPath != "" {
 				bodyField, err := navigateToField(v, bodyFieldPath)
@@ -254,8 +246,10 @@ func BuildRequest[T any](cmd *cobra.Command, meta []FlagMeta, bodyFieldPath stri
 		}
 	}
 
-	// Priority 2: stdin
-	if !bodyPrePopulated && HasStdinInput(cmd) {
+	// Priority 2: stdin. Only operations that take a body may consume stdin —
+	// no-body ops (GET/DELETE by id) pass bodyFlagName == "", and reading stdin
+	// for them blocks forever under CI/agent harnesses that hold the pipe open.
+	if !bodyPrePopulated && bodyFlagName != "" && HasStdinInput(cmd) {
 		stdinData, err := io.ReadAll(cmd.InOrStdin())
 		if err != nil {
 			return nil, fmt.Errorf("failed to read stdin: %w", err)
@@ -289,10 +283,7 @@ func BuildRequest[T any](cmd *cobra.Command, meta []FlagMeta, bodyFieldPath stri
 	// provided via --body/stdin, check if any individual flags were changed.
 	// If not, the user didn't attempt to provide a body at all — relax required
 	// checks so nullable/optional bodies work without erroring on inner required fields.
-	// bodyFlagName != "" gates this to operations that actually take a body: no-body
-	// ops (GET/DELETE by id) also pass bodyFieldPath == "", and relaxing them would
-	// wrongly drop required-path-param enforcement on a bare invocation.
-	if !bodyPrePopulated && bodyFieldPath == "" && bodyFlagName != "" {
+	if !bodyPrePopulated && bodyFieldPath == "" {
 		anyChanged := false
 		for _, m := range meta {
 			if FlagChanged(cmd, m.FlagName) {
@@ -331,11 +322,6 @@ func BuildRequestBody[T any](cmd *cobra.Command, flagName string, annotations st
 
 	if FlagChanged(cmd, flagName) {
 		requestData, _ = GetStringFlag(cmd, flagName)
-		resolved, err := resolveDashStdin(cmd, requestData)
-		if err != nil {
-			return nil, err
-		}
-		requestData = strings.TrimSpace(resolved)
 	} else if HasStdinInput(cmd) {
 		stdin, err := io.ReadAll(cmd.InOrStdin())
 		if err != nil {
@@ -363,19 +349,6 @@ func BuildRequestBody[T any](cmd *cobra.Command, flagName string, annotations st
 		return nil, fmt.Errorf("invalid %s: %w", flagName, err)
 	}
 	return &req, nil
-}
-
-// resolveDashStdin implements the conventional Unix idiom where a lone "-" as a
-// value means "read from stdin". Any other value is returned unchanged.
-func resolveDashStdin(cmd *cobra.Command, val string) (string, error) {
-	if val != "-" {
-		return val, nil
-	}
-	data, err := io.ReadAll(cmd.InOrStdin())
-	if err != nil {
-		return "", fmt.Errorf("failed to read stdin: %w", err)
-	}
-	return string(data), nil
 }
 
 // unmarshalIntoField unmarshals JSON data into a reflect.Value field,
@@ -613,6 +586,16 @@ func buildStringArrayField(cmd *cobra.Command, v reflect.Value, m FlagMeta) erro
 		return nil
 	}
 
+	// A single value that parses as a JSON string array (the form the generated
+	// examples show) is expanded into its elements — otherwise the JSON text
+	// would be sent as one literal element. Also the only way to express [].
+	if len(val) == 1 {
+		var arr []string
+		if json.Unmarshal([]byte(val[0]), &arr) == nil {
+			val = arr
+		}
+	}
+
 	return setFieldByPath(v, m.FieldPath, reflect.ValueOf(val))
 }
 
@@ -769,6 +752,14 @@ func buildJSONField(cmd *cobra.Command, v reflect.Value, m FlagMeta) error {
 
 	if val == "" {
 		return nil
+	}
+
+	// Bare-scalar convenience: nullable scalar fields (dates, config keys) are
+	// generated as JSON flags, so `--start-date 2027-01-01T00:00:00Z` is not
+	// valid JSON and would fail. Re-interpret invalid JSON as a JSON string;
+	// object/array-typed targets still reject it with a type error as before.
+	if !json.Valid([]byte(val)) {
+		val = strconv.Quote(val)
 	}
 
 	// Navigate to the target field to get its type

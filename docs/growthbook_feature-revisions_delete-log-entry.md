@@ -20,7 +20,7 @@ growthbook feature-revisions delete-log-entry [flags]
 
 ```
       --body string            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -b, --body-param string      [required]
+  -b, --body-param string      JSON object
   -h, --help                   help for delete-log-entry
   -i, --id string              [required]
   -l, --log-id string          [required]

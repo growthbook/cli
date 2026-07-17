@@ -16,7 +16,7 @@ import (
 
 var getFeatureRevisionLatestCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "mine", Shorthand: "m", FieldPath: "Mine", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `queryParam:"style=form,explode=true,name=mine"`, Description: "If true, return only the most recent active draft authored by or contributed to by the calling user. Requires a user-scoped API key."},
+	{FlagName: "mine", Shorthand: "m", FieldPath: "Mine", Kind: flagutil.FlagKindBool, Optional: true, Description: "If true, return only the most recent active draft authored by or contributed to by the calling user. Requires a user-scoped API key."},
 }
 
 // initGetFeatureRevisionLatestCmd initializes the get-feature-revision-latest command.

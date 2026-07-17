@@ -15,8 +15,8 @@ import (
 )
 
 var createCmdMeta = []flagutil.FlagMeta{
-	{FlagName: "skip-schema-validation", FieldPath: "SkipSchemaValidation", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `queryParam:"style=form,explode=true,name=skipSchemaValidation"`, Description: "Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the `bypassApprovalChecks` permission on all projects); ignored otherwise. Validation is enforced by default."},
-	{FlagName: "ignore-warnings", FieldPath: "IgnoreWarnings", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `queryParam:"style=form,explode=true,name=ignoreWarnings"`, Description: "Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has `blockPublishOnSchemaError` disabled (warn mode)."},
+	{FlagName: "skip-schema-validation", FieldPath: "SkipSchemaValidation", Kind: flagutil.FlagKindBool, Optional: true, Description: "Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the `bypassApprovalChecks` permission on all projects); ignored otherwise. Validation is enforced by default."},
+	{FlagName: "ignore-warnings", FieldPath: "IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has `blockPublishOnSchemaError` disabled (warn mode)."},
 	{FlagName: "key", Shorthand: "k", FieldPath: "Body.Key", Kind: flagutil.FlagKindString, Required: true, Description: "Stable reference handle (lowercase slug, unique per org), referenced as `@config:key` [required]"},
 	{FlagName: "name", Shorthand: "n", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Required: true, Description: "The display name of the config [required]"},
 	{FlagName: "parent", FieldPath: "Body.Parent", Kind: flagutil.FlagKindString, Optional: true, Description: "The `key` of the config to inherit from (the primary lineage spine). Express inheritance via `parent`/`extends`, NEVER via a `@config:` entry in `value` (which is rejected)."},

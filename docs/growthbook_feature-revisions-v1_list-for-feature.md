@@ -23,16 +23,16 @@ growthbook feature-revisions-v1 list-for-feature [flags]
 ### Options
 
 ```
-  -a, --all                      Automatically paginate and fetch all results (streams NDJSON for JSON output)
-      --author string            string value
-  -h, --help                     help for list-for-feature
-  -i, --id string                The id of the requested resource [required]
-  -l, --limit int                The number of items to return (default 10)
-      --max-pages int            Maximum number of pages to fetch when using --all (0 = no limit)
-      --offset int               How many items to skip (use in conjunction with limit for pagination)
-      --skip-pagination string   If true, return all matching items and ignore limit/offset.
-                                 Self-hosted only. Has no effect unless API_ALLOW_SKIP_PAGINATION is set to true or 1.
-      --status string            JSON value (one of: string | array of string)
+  -a, --all               Automatically paginate and fetch all results (streams NDJSON for JSON output)
+      --author string     string value
+  -h, --help              help for list-for-feature
+  -i, --id string         The id of the requested resource [required]
+  -l, --limit int         The number of items to return (default 10)
+      --max-pages int     Maximum number of pages to fetch when using --all (0 = no limit)
+      --offset int        How many items to skip (use in conjunction with limit for pagination)
+      --skip-pagination   If true, return all matching items and ignore limit/offset.
+                          Self-hosted only. Has no effect unless API_ALLOW_SKIP_PAGINATION is set to true or 1.
+      --status string     JSON value (one of: string | array of string)
 ```
 
 ### Options inherited from parent commands

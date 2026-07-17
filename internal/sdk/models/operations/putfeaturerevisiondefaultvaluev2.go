@@ -54,9 +54,9 @@ type PutFeatureRevisionDefaultValueV2Request struct {
 	ID      string `pathParam:"style=simple,explode=false,name=id"`
 	Version string `pathParam:"style=simple,explode=false,name=version"`
 	// Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the `bypassApprovalChecks` permission on all projects); ignored otherwise. Validation is enforced by default.
-	SkipSchemaValidation any `queryParam:"style=form,explode=true,name=skipSchemaValidation"`
+	SkipSchemaValidation *bool `queryParam:"style=form,explode=true,name=skipSchemaValidation"`
 	// Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has `blockPublishOnSchemaError` disabled (warn mode).
-	IgnoreWarnings any                                         `queryParam:"style=form,explode=true,name=ignoreWarnings"`
+	IgnoreWarnings *bool                                       `queryParam:"style=form,explode=true,name=ignoreWarnings"`
 	Body           PutFeatureRevisionDefaultValueV2RequestBody `request:"mediaType=application/json"`
 }
 
@@ -74,14 +74,14 @@ func (p *PutFeatureRevisionDefaultValueV2Request) GetVersion() string {
 	return p.Version
 }
 
-func (p *PutFeatureRevisionDefaultValueV2Request) GetSkipSchemaValidation() any {
+func (p *PutFeatureRevisionDefaultValueV2Request) GetSkipSchemaValidation() *bool {
 	if p == nil {
 		return nil
 	}
 	return p.SkipSchemaValidation
 }
 
-func (p *PutFeatureRevisionDefaultValueV2Request) GetIgnoreWarnings() any {
+func (p *PutFeatureRevisionDefaultValueV2Request) GetIgnoreWarnings() *bool {
 	if p == nil {
 		return nil
 	}

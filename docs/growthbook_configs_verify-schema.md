@@ -24,14 +24,14 @@ growthbook configs verify-schema [flags]
   -k, --key string                       The key of the config [required]
   -s, --schema string                    JSON value (variants: json-schema: { value: object }, typescript: { value: string }, protobuf: { value: string }, python: { value: string }, go: { value: string }, rust: { value: string })
       --schema.go string                 ConfigSchemaSource_Go variant as JSON
-      --schema.go.value string           Go source — a struct definition. [required]
+      --schema.go.value struct           Go source — a struct definition. [required]
       --schema.json-schema string        ConfigSchemaSource_JSONSchema variant as JSON
       --schema.protobuf string           ConfigSchemaSource_Protobuf variant as JSON
-      --schema.protobuf.value string     Protobuf (proto3) source — a message definition. [required]
+      --schema.protobuf.value message    Protobuf (proto3) source — a message definition. [required]
       --schema.python string             ConfigSchemaSource_Python variant as JSON
-      --schema.python.value string       Python source — a Pydantic BaseModel class. [required]
+      --schema.python.value BaseModel    Python source — a Pydantic BaseModel class. [required]
       --schema.rust string               ConfigSchemaSource_Rust variant as JSON
-      --schema.rust.value string         Rust source — a serde struct definition. [required]
+      --schema.rust.value struct         Rust source — a serde struct definition. [required]
       --schema.typescript string         ConfigSchemaSource_Typescript variant as JSON
       --schema.typescript.value string   TypeScript source — an interface or object type. [required]
 ```

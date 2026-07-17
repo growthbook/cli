@@ -19,9 +19,9 @@ growthbook configs archive [flags]
 ### Options
 
 ```
-  -h, --help                     help for archive
-  -i, --ignore-warnings string   Proceed despite the soft warning raised when archiving a config that is actively serving a value — archiving reverts anything resolving it (features, or the environments an override applies to) back to the base. Not needed when the config's live value is an empty patch or nothing uses it.
-  -k, --key string               The key of the config [required]
+  -h, --help              help for archive
+  -i, --ignore-warnings   Proceed despite the soft warning raised when archiving a config that is actively serving a value — archiving reverts anything resolving it (features, or the environments an override applies to) back to the base. Not needed when the config's live value is an empty patch or nothing uses it.
+  -k, --key string        The key of the config [required]
 ```
 
 ### Options inherited from parent commands

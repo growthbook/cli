@@ -10,7 +10,7 @@ import (
 type GetConfigRevisionLatestRequest struct {
 	Key string `pathParam:"style=simple,explode=false,name=key"`
 	// If true, return only the most recent active draft authored by the calling user. Requires a user-scoped API key.
-	Mine any `queryParam:"style=form,explode=true,name=mine"`
+	Mine *bool `queryParam:"style=form,explode=true,name=mine"`
 }
 
 func (g *GetConfigRevisionLatestRequest) GetKey() string {
@@ -20,7 +20,7 @@ func (g *GetConfigRevisionLatestRequest) GetKey() string {
 	return g.Key
 }
 
-func (g *GetConfigRevisionLatestRequest) GetMine() any {
+func (g *GetConfigRevisionLatestRequest) GetMine() *bool {
 	if g == nil {
 		return nil
 	}

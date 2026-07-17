@@ -29,7 +29,7 @@ func (p *PostFeatureRevisionRequestBody) GetTitle() *string {
 type PostFeatureRevisionRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// If the organization caps concurrent drafts per feature (`maxConcurrentDrafts` setting), requests at or over the cap are rejected with a 409. Pass `true` to create the draft anyway.
-	OverrideDraftLimit any                            `queryParam:"style=form,explode=true,name=overrideDraftLimit"`
+	OverrideDraftLimit *bool                          `queryParam:"style=form,explode=true,name=overrideDraftLimit"`
 	Body               PostFeatureRevisionRequestBody `request:"mediaType=application/json"`
 }
 
@@ -40,7 +40,7 @@ func (p *PostFeatureRevisionRequest) GetID() string {
 	return p.ID
 }
 
-func (p *PostFeatureRevisionRequest) GetOverrideDraftLimit() any {
+func (p *PostFeatureRevisionRequest) GetOverrideDraftLimit() *bool {
 	if p == nil {
 		return nil
 	}

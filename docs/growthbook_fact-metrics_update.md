@@ -19,33 +19,33 @@ growthbook fact-metrics update [flags]
 ### Options
 
 ```
-  -a, --archived                                boolean flag
-      --body string                             Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -c, --capping-settings string                 Controls how outliers are handled
-      --denominator string                      Only when metricType is 'ratio'
-      --description string                      string value
-      --display-as-percentage                   If true and the metric is a ratio or dailyParticipation metric, variation means will be displayed as a percentage. Defaults to true for dailyParticipation metrics and false for ratio metrics.
-  -h, --help                                    help for update
-      --id string                               The id of the requested resource [required]
-      --inverse                                 Set to true for things like Bounce Rate, where you want the metric to decrease
-      --managed-by string                       Set this to "api" to disable editing in the GrowthBook UI (options: , api, admin)
-      --max-percent-change float                Maximum percent change to consider uplift significant, as a proportion (e.g. put 0.5 for 50%)
-      --metric-auto-slices stringArray          Array of slice column names that will be automatically included in metric analysis. This is an enterprise feature.
-      --metric-type string                      options: proportion, retention, mean, quantile, ratio, dailyParticipation
-      --min-percent-change float                Minimum percent change to consider uplift significant, as a proportion (e.g. put 0.005 for 0.5%)
-      --min-sample-size float                   number value
-      --name string                             string value
-      --numerator string                        JSON object
-      --owner string                            The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-      --prior-settings string                   Controls the bayesian prior for the metric. If omitted, organization defaults will be used.
-      --projects stringArray                    list of values
-      --quantile-settings string                Controls the settings for quantile metrics (mandatory if metricType is "quantile")
-      --regression-adjustment-settings string   Controls the regression adjustment (CUPED) settings for the metric
-      --risk-threshold-danger float             No longer used. Threshold for Risk to be considered too high, as a proportion (e.g. put 0.0125 for 1.25%). <br/> Must be a non-negative number.
-      --risk-threshold-success float            No longer used. Threshold for Risk to be considered low enough, as a proportion (e.g. put 0.0025 for 0.25%). <br/> Must be a non-negative number and must not be higher than riskThresholdDanger.
-      --tags stringArray                        list of values
-      --target-mde float                        number value
-  -w, --window-settings string                  Controls the conversion window for the metric
+  -a, --archived                                     boolean flag
+      --body string                                  Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -c, --capping-settings string                      Controls how outliers are handled
+      --denominator string                           Only when metricType is 'ratio'
+      --description string                           string value
+      --display-as-percentage                        If true and the metric is a ratio or dailyParticipation metric, variation means will be displayed as a percentage. Defaults to true for dailyParticipation metrics and false for ratio metrics.
+  -h, --help                                         help for update
+      --id string                                    The id of the requested resource [required]
+      --inverse                                      Set to true for things like Bounce Rate, where you want the metric to decrease
+      --managed-by string                            Set this to "api" to disable editing in the GrowthBook UI (options: , api, admin)
+      --max-percent-change float                     Maximum percent change to consider uplift significant, as a proportion (e.g. put 0.5 for 50%)
+      --metric-auto-slices stringArray               Array of slice column names that will be automatically included in metric analysis. This is an enterprise feature.
+      --metric-type string                           options: proportion, retention, mean, quantile, ratio, dailyParticipation
+      --min-percent-change float                     Minimum percent change to consider uplift significant, as a proportion (e.g. put 0.005 for 0.5%)
+      --min-sample-size float                        number value
+      --name string                                  string value
+      --numerator string                             JSON object
+      --owner string                                 The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
+      --prior-settings string                        Controls the bayesian prior for the metric. If omitted, organization defaults will be used.
+      --projects stringArray                         list of values
+      --quantile-settings string                     Controls the settings for quantile metrics (mandatory if metricType is "quantile")
+      --regression-adjustment-settings string        Controls the regression adjustment (CUPED) settings for the metric
+      --risk-threshold-danger float                  No longer used. Threshold for Risk to be considered too high, as a proportion (e.g. put 0.0125 for 1.25%). <br/> Must be a non-negative number.
+      --risk-threshold-success riskThresholdDanger   No longer used. Threshold for Risk to be considered low enough, as a proportion (e.g. put 0.0025 for 0.25%). <br/> Must be a non-negative number and must not be higher than riskThresholdDanger.
+      --tags stringArray                             list of values
+      --target-mde float                             number value
+  -w, --window-settings string                       Controls the conversion window for the metric
 ```
 
 ### Options inherited from parent commands

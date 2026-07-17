@@ -10,7 +10,7 @@ import (
 type GetFeatureRevisionLatestRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// If true, return only the most recent active draft authored by or contributed to by the calling user. Requires a user-scoped API key.
-	Mine any `queryParam:"style=form,explode=true,name=mine"`
+	Mine *bool `queryParam:"style=form,explode=true,name=mine"`
 }
 
 func (g *GetFeatureRevisionLatestRequest) GetID() string {
@@ -20,7 +20,7 @@ func (g *GetFeatureRevisionLatestRequest) GetID() string {
 	return g.ID
 }
 
-func (g *GetFeatureRevisionLatestRequest) GetMine() any {
+func (g *GetFeatureRevisionLatestRequest) GetMine() *bool {
 	if g == nil {
 		return nil
 	}

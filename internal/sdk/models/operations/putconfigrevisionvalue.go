@@ -59,9 +59,9 @@ type PutConfigRevisionValueRequest struct {
 	Key     string `pathParam:"style=simple,explode=false,name=key"`
 	Version string `pathParam:"style=simple,explode=false,name=version"`
 	// Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the `bypassApprovalChecks` permission on all projects); ignored otherwise. Validation is enforced by default.
-	SkipSchemaValidation any `queryParam:"style=form,explode=true,name=skipSchemaValidation"`
+	SkipSchemaValidation *bool `queryParam:"style=form,explode=true,name=skipSchemaValidation"`
 	// Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has `blockPublishOnSchemaError` disabled (warn mode).
-	IgnoreWarnings any                               `queryParam:"style=form,explode=true,name=ignoreWarnings"`
+	IgnoreWarnings *bool                             `queryParam:"style=form,explode=true,name=ignoreWarnings"`
 	Body           PutConfigRevisionValueRequestBody `request:"mediaType=application/json"`
 }
 
@@ -79,14 +79,14 @@ func (p *PutConfigRevisionValueRequest) GetVersion() string {
 	return p.Version
 }
 
-func (p *PutConfigRevisionValueRequest) GetSkipSchemaValidation() any {
+func (p *PutConfigRevisionValueRequest) GetSkipSchemaValidation() *bool {
 	if p == nil {
 		return nil
 	}
 	return p.SkipSchemaValidation
 }
 
-func (p *PutConfigRevisionValueRequest) GetIgnoreWarnings() any {
+func (p *PutConfigRevisionValueRequest) GetIgnoreWarnings() *bool {
 	if p == nil {
 		return nil
 	}

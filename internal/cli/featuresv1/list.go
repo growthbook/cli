@@ -19,7 +19,7 @@ var listCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "offset", FieldPath: "Offset", Kind: flagutil.FlagKindInt64, Optional: true, HasDefault: true, Description: "How many items to skip (use in conjunction with limit for pagination)"},
 	{FlagName: "project-id", Shorthand: "p", FieldPath: "ProjectID", Kind: flagutil.FlagKindString, Optional: true, Description: "Filter by project id"},
 	{FlagName: "client-key", Shorthand: "c", FieldPath: "ClientKey", Kind: flagutil.FlagKindString, Optional: true, Description: "Filter by a SDK connection's client key"},
-	{FlagName: "skip-pagination", Shorthand: "s", FieldPath: "SkipPagination", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `queryParam:"style=form,explode=true,name=skipPagination"`, Description: "If true, return all matching items and ignore limit/offset.\nSelf-hosted only. Has no effect unless API_ALLOW_SKIP_PAGINATION is set to true or 1."},
+	{FlagName: "skip-pagination", Shorthand: "s", FieldPath: "SkipPagination", Kind: flagutil.FlagKindBool, Optional: true, HasDefault: true, Description: "If true, return all matching items and ignore limit/offset.\nSelf-hosted only. Has no effect unless API_ALLOW_SKIP_PAGINATION is set to true or 1."},
 }
 
 // initListCmd initializes the list command.

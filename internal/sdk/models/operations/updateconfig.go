@@ -258,9 +258,9 @@ type UpdateConfigRequest struct {
 	// The key of the config
 	Key string `pathParam:"style=simple,explode=false,name=key"`
 	// Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the `bypassApprovalChecks` permission on all projects); ignored otherwise. Validation is enforced by default.
-	SkipSchemaValidation any `queryParam:"style=form,explode=true,name=skipSchemaValidation"`
+	SkipSchemaValidation *bool `queryParam:"style=form,explode=true,name=skipSchemaValidation"`
 	// Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has `blockPublishOnSchemaError` disabled (warn mode).
-	IgnoreWarnings any                     `queryParam:"style=form,explode=true,name=ignoreWarnings"`
+	IgnoreWarnings *bool                   `queryParam:"style=form,explode=true,name=ignoreWarnings"`
 	Body           UpdateConfigRequestBody `request:"mediaType=application/json"`
 }
 
@@ -271,14 +271,14 @@ func (u *UpdateConfigRequest) GetKey() string {
 	return u.Key
 }
 
-func (u *UpdateConfigRequest) GetSkipSchemaValidation() any {
+func (u *UpdateConfigRequest) GetSkipSchemaValidation() *bool {
 	if u == nil {
 		return nil
 	}
 	return u.SkipSchemaValidation
 }
 
-func (u *UpdateConfigRequest) GetIgnoreWarnings() any {
+func (u *UpdateConfigRequest) GetIgnoreWarnings() *bool {
 	if u == nil {
 		return nil
 	}
