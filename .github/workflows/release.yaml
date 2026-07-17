@@ -41,6 +41,9 @@ jobs:
           # Cross-repo push of the Homebrew cask (GITHUB_TOKEN is repo-scoped).
           # Empty on prerelease tags is fine — skip_upload: auto skips the tap.
           HOMEBREW_TAP_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+          # Pin the release tag to the pushed ref so a beta and its GA promote
+          # sharing a commit don't confuse GoReleaser's tag detection.
+          GORELEASER_CURRENT_TAG: ${{ github.ref_name }}
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
