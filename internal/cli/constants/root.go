@@ -28,7 +28,7 @@ func InitConstantsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initGetConstantReferencesCmd(ConstantsCmd); err != nil {
+	if err := initGetReferencesCmd(ConstantsCmd); err != nil {
 		return err
 	}
 

@@ -22,15 +22,16 @@ growthbook features-v1 create [flags]
 
 ```
   -a, --archived                    boolean flag
+  -b, --base-config string          Key of the config backing this flag ("Config mode"). Requires valueType: "json" and a live config; defaultValue and rule values become override patches on top. null or omitted for a plain flag.
       --body string                 Request body as JSON (alternative to individual flags). Can also be provided via stdin.
   -c, --custom-fields string        value
-      --default-value string        Default value when feature is enabled. Type must match valueType. [required]
+      --default-value string        Default value when feature is enabled. Type must match valueType. In Config mode (baseConfig set) this is the JSON override patch merged on top of the config. [required]
       --description string          Description of the feature
   -e, --environments string         A dictionary of environments that are enabled for this feature. Keys supply the names of environments. Environments belong to organization and are not specified will be disabled by default.
   -h, --help                        help for create
   -i, --id string                   A unique key name for the feature. Feature keys can only include letters, numbers, hyphens, and underscores. [required]
   -j, --json-schema string          Use JSON schema to validate the payload of a JSON-type feature value (enterprise only).
-      --owner string                The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the user associated with the request's Personal Access Token (PAT), if one is being used.
+      --owner string                The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. Optional when authenticating with a Personal Access Token (PAT): when omitted, the owner defaults to the PAT's user. Required when authenticating with an organization secret API key (which has no associated user): omitting it fails with a 400.
       --prerequisites stringArray   Feature IDs. Each feature must evaluate to true
       --project string              An associated project ID
   -t, --tags stringArray            List of associated tags

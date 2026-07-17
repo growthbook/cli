@@ -5,6 +5,7 @@ package components
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/growthbook/cli/internal/sdk/optionalnullable"
 	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
 )
 
@@ -139,6 +140,8 @@ type TargetingRule struct {
 	Type *TargetingRuleType `json:"type,omitzero"`
 	// The value to serve when this rule matches.
 	Value string `json:"value"`
+	// Key of a config to back this value. When set, `value` is a JSON override patch merged on top of the config; omit or null for a plain value.
+	Config optionalnullable.OptionalNullable[string] `json:"config,omitzero"`
 	// JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
 	Sparse *bool `json:"sparse,omitzero"`
 	// Percentage of users to include (0–1). Defaults to 1. When less than 1, hashAttribute is required.
@@ -222,6 +225,13 @@ func (t *TargetingRule) GetValue() string {
 		return ""
 	}
 	return t.Value
+}
+
+func (t *TargetingRule) GetConfig() optionalnullable.OptionalNullable[string] {
+	if t == nil {
+		return nil
+	}
+	return t.Config
 }
 
 func (t *TargetingRule) GetSparse() *bool {

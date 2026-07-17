@@ -20,7 +20,6 @@ growthbook constants create [flags]
 
 ```
       --body string                 Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -b, --bypass-approval             Set to true to skip the approval flow when the org requires approvals for this constant's project. Requires the bypassApprovalChecks permission (or the org-level REST bypass setting). When approvals aren't required, this flag has no effect.
       --description string          string value
   -e, --environment-values string   value
   -h, --help                        help for create

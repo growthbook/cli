@@ -133,7 +133,7 @@ func (t *Table) GetDateUpdated() time.Time {
 	return t.DateUpdated
 }
 
-type Schema struct {
+type InformationSchemaSchema struct {
 	SchemaName  string    `json:"schemaName"`
 	Path        *string   `json:"path,omitzero"`
 	DateCreated time.Time `json:"dateCreated"`
@@ -141,58 +141,58 @@ type Schema struct {
 	Tables      []Table   `json:"tables"`
 }
 
-func (s Schema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
+func (i InformationSchemaSchema) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
 }
 
-func (s *Schema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+func (i *InformationSchemaSchema) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *Schema) GetSchemaName() string {
-	if s == nil {
+func (i *InformationSchemaSchema) GetSchemaName() string {
+	if i == nil {
 		return ""
 	}
-	return s.SchemaName
+	return i.SchemaName
 }
 
-func (s *Schema) GetPath() *string {
-	if s == nil {
+func (i *InformationSchemaSchema) GetPath() *string {
+	if i == nil {
 		return nil
 	}
-	return s.Path
+	return i.Path
 }
 
-func (s *Schema) GetDateCreated() time.Time {
-	if s == nil {
+func (i *InformationSchemaSchema) GetDateCreated() time.Time {
+	if i == nil {
 		return time.Time{}
 	}
-	return s.DateCreated
+	return i.DateCreated
 }
 
-func (s *Schema) GetDateUpdated() time.Time {
-	if s == nil {
+func (i *InformationSchemaSchema) GetDateUpdated() time.Time {
+	if i == nil {
 		return time.Time{}
 	}
-	return s.DateUpdated
+	return i.DateUpdated
 }
 
-func (s *Schema) GetTables() []Table {
-	if s == nil {
+func (i *InformationSchemaSchema) GetTables() []Table {
+	if i == nil {
 		return []Table{}
 	}
-	return s.Tables
+	return i.Tables
 }
 
 type Database struct {
-	DatabaseName string    `json:"databaseName"`
-	Path         *string   `json:"path,omitzero"`
-	DateCreated  time.Time `json:"dateCreated"`
-	DateUpdated  time.Time `json:"dateUpdated"`
-	Schemas      []Schema  `json:"schemas"`
+	DatabaseName string                    `json:"databaseName"`
+	Path         *string                   `json:"path,omitzero"`
+	DateCreated  time.Time                 `json:"dateCreated"`
+	DateUpdated  time.Time                 `json:"dateUpdated"`
+	Schemas      []InformationSchemaSchema `json:"schemas"`
 }
 
 func (d Database) MarshalJSON() ([]byte, error) {
@@ -234,9 +234,9 @@ func (d *Database) GetDateUpdated() time.Time {
 	return d.DateUpdated
 }
 
-func (d *Database) GetSchemas() []Schema {
+func (d *Database) GetSchemas() []InformationSchemaSchema {
 	if d == nil {
-		return []Schema{}
+		return []InformationSchemaSchema{}
 	}
 	return d.Schemas
 }

@@ -952,9 +952,10 @@ type PutFeatureRevisionRuleRampScheduleV2RequestBody struct {
 	// ISO 8601 date-time, e.g. "2025-06-01T00:00:00Z". Absent or null means start immediately on publish.
 	StartDate optionalnullable.OptionalNullable[time.Time] `json:"startDate,omitzero"`
 	// ISO 8601 date-time, e.g. "2025-07-01T00:00:00Z". The ramp ends at this time.
-	CutoffDate       optionalnullable.OptionalNullable[time.Time]          `json:"cutoffDate,omitzero"`
-	MonitoringConfig *PutFeatureRevisionRuleRampScheduleV2MonitoringConfig `json:"monitoringConfig,omitzero"`
-	LockdownConfig   *PutFeatureRevisionRuleRampScheduleV2LockdownConfig   `json:"lockdownConfig,omitzero"`
+	CutoffDate            optionalnullable.OptionalNullable[time.Time]          `json:"cutoffDate,omitzero"`
+	MonitoringConfig      *PutFeatureRevisionRuleRampScheduleV2MonitoringConfig `json:"monitoringConfig,omitzero"`
+	LockdownConfig        *PutFeatureRevisionRuleRampScheduleV2LockdownConfig   `json:"lockdownConfig,omitzero"`
+	RequiresStartApproval optionalnullable.OptionalNullable[bool]               `json:"requiresStartApproval,omitzero"`
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	Environment *string `json:"environment,omitzero"`
 	// The rule state to roll back to (the rollback/jump-to-start anchor). Merged onto the rule's current state, so `{ "coverage": 0 }` keeps existing targeting but rolls back to 0%. This affects rollbacks only — it is NOT applied when the ramp starts. On create, omitting it infers the anchor from the rule's current coverage (and returns a warning if that isn't 0%); on update of a live schedule, omitting it leaves the existing anchor unchanged.
@@ -1037,6 +1038,13 @@ func (p *PutFeatureRevisionRuleRampScheduleV2RequestBody) GetLockdownConfig() *P
 		return nil
 	}
 	return p.LockdownConfig
+}
+
+func (p *PutFeatureRevisionRuleRampScheduleV2RequestBody) GetRequiresStartApproval() optionalnullable.OptionalNullable[bool] {
+	if p == nil {
+		return nil
+	}
+	return p.RequiresStartApproval
 }
 
 func (p *PutFeatureRevisionRuleRampScheduleV2RequestBody) GetEnvironment() *string {

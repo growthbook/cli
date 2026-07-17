@@ -1,0 +1,61 @@
+## growthbook custom-hooks update
+
+Partially update a single custom hook
+
+### Synopsis
+
+Partially update a single custom hook
+
+```
+growthbook custom-hooks update [flags]
+```
+
+### Examples
+
+```
+  growthbook custom-hooks update --id <id>
+```
+
+### Options
+
+```
+      --body string                Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -c, --code string                string value
+      --enabled                    boolean flag
+      --entity-id string           The scoped resource: a feature id, or a config key. Pass null (with entityType: null) to clear the scope; omit to leave unchanged.
+      --entity-type string         Retarget the hook's scope (set with entityId). Pass null (with entityId: null) to make the hook global/project-scoped; omit to leave unchanged. (options: feature, config, experiment)
+  -h, --help                       help for update
+      --hook string                options: validateFeature, validateFeatureRevision, validateConfig, validateConfigRevision, validateExperiment
+      --id string                  The id of the custom hook [required]
+      --incremental-changes-only   boolean flag
+  -n, --name string                string value
+  -p, --projects stringArray       list of values
+```
+
+### Options inherited from parent commands
+
+```
+      --agent-mode                    Enable structured errors and default TOON output for AI coding agents. Automatically enabled when a known agent environment is detected (CLAUDE_CODE, CURSOR_AGENT, etc.). Use --agent-mode=false to disable.
+      --bearer-auth string            Bearer auth token: your Secret Key or Personal Access Token, sent as an Authorization Bearer header.
+      --color string                  Control colored output: auto (color when output is a TTY), always, or never. Respects NO_COLOR and FORCE_COLOR env vars. (default "auto")
+  -d, --debug                         Log request and response diagnostics to stderr
+      --domain string                 Server template variable: domain
+      --dry-run                       Preview the request that would be sent without executing it (output to stderr)
+  -H, --header stringArray            Set a custom HTTP request header (format: "Key: Value"). Can be specified multiple times.
+      --include-headers               Include HTTP response headers in the output
+  -q, --jq string                     Filter and transform output using a jq expression (e.g., '.name', '.items[] | .id')
+      --no-interactive                Disable all interactive features (auto-prompting, explorer auto-launch, TUI forms)
+      --no-update-check               Disable the once-a-day check for a newer CLI version
+  -o, --output-format string          Specify the output format. Options: pretty, json, yaml, toon. (default "pretty")
+      --password string               HTTP Basic auth: use your GrowthBook Secret Key as the username and leave the password empty. password
+      --profile growthbook profiles   Use a named credential/server profile (manage with growthbook profiles)
+      --server string                 Select a server by index (for indexed servers) or name (for named servers)
+      --server-url string             Override the default server URL
+      --timeout string                HTTP request timeout (e.g., 30s, 5m, 100ms)
+      --usage                         Print the CLI Usage schema in KDL format
+      --username string               HTTP Basic auth: use your GrowthBook Secret Key as the username and leave the password empty. username
+```
+
+### SEE ALSO
+
+* [growthbook custom-hooks](growthbook_custom-hooks.md)	 - Sandboxed JavaScript validation hooks that run when features, configs, or their revisions are saved or published

@@ -15,12 +15,14 @@ import (
 )
 
 var updateRuleCmdMeta = []flagutil.FlagMeta{
-	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
+	{FlagName: "id", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "rule-id", FieldPath: "RuleID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
+	{FlagName: "skip-schema-validation", FieldPath: "SkipSchemaValidation", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `queryParam:"style=form,explode=true,name=skipSchemaValidation"`, Description: "Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the `bypassApprovalChecks` permission on all projects); ignored otherwise. Validation is enforced by default."},
+	{FlagName: "ignore-warnings", FieldPath: "IgnoreWarnings", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `queryParam:"style=form,explode=true,name=ignoreWarnings"`, Description: "Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has `blockPublishOnSchemaError` disabled (warn mode)."},
 	{FlagName: "rule", FieldPath: "Body.Rule", Kind: flagutil.FlagKindJSON, Required: true, Annotations: `json:"rule"`, Description: "[required]"},
 	{FlagName: "ramp-schedule", FieldPath: "Body.RampSchedule", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"rampSchedule,omitempty"`, Description: "Multi-step ramp schedule for force/rollout rules. Not supported for experiment-ref or safe-rollout rules. Mutually exclusive with `schedule`."},
-	{FlagName: "schedule", Shorthand: "s", FieldPath: "Body.Schedule", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"schedule,omitempty"`, Description: "Simple start/end date window. For force/rollout rules this manages a standalone ramp action; for experiment-ref/safe-rollout rules this updates legacy schedule fields on the rule. Mutually exclusive with `rampSchedule`."},
+	{FlagName: "schedule", FieldPath: "Body.Schedule", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"schedule,omitempty"`, Description: "Simple start/end date window. For force/rollout rules this manages a standalone ramp action; for experiment-ref/safe-rollout rules this updates legacy schedule fields on the rule. Mutually exclusive with `rampSchedule`."},
 	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "Title for a newly created draft. Only used when version is \"new\"; ignored for existing revisions."},
 	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "Comment for a newly created draft. Only used when version is \"new\"; ignored for existing revisions."},
 }

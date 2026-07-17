@@ -501,7 +501,11 @@ type SetAutoUpdateRampScheduleResponseBody struct {
 	StartDate optionalnullable.OptionalNullable[time.Time] `json:"startDate,omitzero"`
 	// Rule-level kill date. When reached, the ramp is completed and the rule is disabled (enabled=false). Use for time-boxed rules that must stop serving on a fixed date regardless of ramp progress. Set to null to clear.
 	CutoffDate optionalnullable.OptionalNullable[time.Time] `json:"cutoffDate,omitzero"`
-	Status     SetAutoUpdateRampScheduleStatus              `json:"status"`
+	// When true, the ramp holds at step -1 with its rule disabled (zero traffic) until a human approves the start via /actions/approve-step. Composes with startDate ('hold until approved, then arm for that date').
+	RequiresStartApproval *bool `json:"requiresStartApproval,omitzero"`
+	// When the current launch's start was approved. Cleared on every return to step -1 (publish, rollback), re-arming the approval gate.
+	StartApprovedAt optionalnullable.OptionalNullable[time.Time] `json:"startApprovedAt,omitzero"`
+	Status          SetAutoUpdateRampScheduleStatus              `json:"status"`
 	// Index of current step; -1 = not yet started
 	CurrentStepIndex int64                                        `json:"currentStepIndex"`
 	StartedAt        optionalnullable.OptionalNullable[time.Time] `json:"startedAt,omitzero"`
@@ -519,6 +523,8 @@ type SetAutoUpdateRampScheduleResponseBody struct {
 	CurrentStepEnteredAt   optionalnullable.OptionalNullable[time.Time]                                 `json:"currentStepEnteredAt,omitzero"`
 	// Approval record for the current step. Valid only while `stepApproval.stepIndex === currentStepIndex`.
 	StepApproval optionalnullable.OptionalNullable[SetAutoUpdateRampScheduleStepApproval] `json:"stepApproval,omitzero"`
+	// Computed at read time: whether a human approval is the gate blocking the schedule right now — either the start-approval gate (`requiresStartApproval` before step 0) or the current step's `holdConditions.requiresApproval` once its time hold (if any) has elapsed. Paused schedules report `false` (the pause is the blocking gate). For monitored steps the approve-step endpoint may still reject an approval until analysis-based gates clear.
+	AwaitingApproval bool `json:"awaitingApproval"`
 	// When the monitored section most recently started (first monitored step entered). Used for no-traffic grace period gating.
 	MonitoringStartDate optionalnullable.OptionalNullable[time.Time] `json:"monitoringStartDate,omitzero"`
 	LastRollbackAt      optionalnullable.OptionalNullable[time.Time] `json:"lastRollbackAt,omitzero"`
@@ -622,6 +628,20 @@ func (s *SetAutoUpdateRampScheduleResponseBody) GetCutoffDate() optionalnullable
 	return s.CutoffDate
 }
 
+func (s *SetAutoUpdateRampScheduleResponseBody) GetRequiresStartApproval() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.RequiresStartApproval
+}
+
+func (s *SetAutoUpdateRampScheduleResponseBody) GetStartApprovedAt() optionalnullable.OptionalNullable[time.Time] {
+	if s == nil {
+		return nil
+	}
+	return s.StartApprovedAt
+}
+
 func (s *SetAutoUpdateRampScheduleResponseBody) GetStatus() SetAutoUpdateRampScheduleStatus {
 	if s == nil {
 		return SetAutoUpdateRampScheduleStatus("")
@@ -711,6 +731,13 @@ func (s *SetAutoUpdateRampScheduleResponseBody) GetStepApproval() optionalnullab
 		return nil
 	}
 	return s.StepApproval
+}
+
+func (s *SetAutoUpdateRampScheduleResponseBody) GetAwaitingApproval() bool {
+	if s == nil {
+		return false
+	}
+	return s.AwaitingApproval
 }
 
 func (s *SetAutoUpdateRampScheduleResponseBody) GetMonitoringStartDate() optionalnullable.OptionalNullable[time.Time] {

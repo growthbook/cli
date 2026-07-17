@@ -27,6 +27,7 @@ var putFeatureRevisionRuleRampScheduleCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "cutoff-date", Shorthand: "c", FieldPath: "Body.CutoffDate", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"cutoffDate,omitempty"`, Description: "ISO 8601 date-time, e.g. \"2025-07-01T00:00:00Z\". The ramp ends at this time."},
 	{FlagName: "monitoring-config", Shorthand: "m", FieldPath: "Body.MonitoringConfig", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"monitoringConfig,omitempty"`, Description: "JSON object"},
 	{FlagName: "lockdown-config", Shorthand: "l", FieldPath: "Body.LockdownConfig", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"lockdownConfig,omitempty"`, Description: "JSON object"},
+	{FlagName: "requires-start-approval", FieldPath: "Body.RequiresStartApproval", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"requiresStartApproval,omitempty"`, Description: "boolean flag"},
 	{FlagName: "environment", FieldPath: "Body.Environment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},

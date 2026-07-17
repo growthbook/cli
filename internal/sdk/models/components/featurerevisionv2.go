@@ -125,13 +125,14 @@ func (f *FeatureRevisionV2JSONSchema) GetEnabled() *bool {
 type FeatureRevisionV2Metadata struct {
 	Description *string `json:"description,omitzero"`
 	// The userId of the owner (or raw owner name/email for legacy records)
-	Owner        *string                      `json:"owner,omitzero"`
-	Project      *string                      `json:"project,omitzero"`
-	Tags         []string                     `json:"tags,omitzero"`
-	NeverStale   *bool                        `json:"neverStale,omitzero"`
-	ValueType    *string                      `json:"valueType,omitzero"`
-	JSONSchema   *FeatureRevisionV2JSONSchema `json:"jsonSchema,omitzero"`
-	CustomFields map[string]any               `json:"customFields,omitzero"`
+	Owner        *string                                   `json:"owner,omitzero"`
+	Project      *string                                   `json:"project,omitzero"`
+	Tags         []string                                  `json:"tags,omitzero"`
+	NeverStale   *bool                                     `json:"neverStale,omitzero"`
+	ValueType    *string                                   `json:"valueType,omitzero"`
+	JSONSchema   *FeatureRevisionV2JSONSchema              `json:"jsonSchema,omitzero"`
+	CustomFields map[string]any                            `json:"customFields,omitzero"`
+	BaseConfig   optionalnullable.OptionalNullable[string] `json:"baseConfig,omitzero"`
 }
 
 func (f FeatureRevisionV2Metadata) MarshalJSON() ([]byte, error) {
@@ -199,6 +200,13 @@ func (f *FeatureRevisionV2Metadata) GetCustomFields() map[string]any {
 		return nil
 	}
 	return f.CustomFields
+}
+
+func (f *FeatureRevisionV2Metadata) GetBaseConfig() optionalnullable.OptionalNullable[string] {
+	if f == nil {
+		return nil
+	}
+	return f.BaseConfig
 }
 
 // #region class-body-featurerevisionv2metadata
@@ -1072,10 +1080,11 @@ type FeatureRevisionV2RampActionUpdate struct {
 	// ISO 8601 date-time, e.g. "2025-06-01T00:00:00Z". Absent or null means start immediately on publish.
 	StartDate optionalnullable.OptionalNullable[time.Time] `json:"startDate,omitzero"`
 	// ISO 8601 date-time, e.g. "2025-07-01T00:00:00Z". The ramp ends at this time.
-	CutoffDate       optionalnullable.OptionalNullable[time.Time] `json:"cutoffDate,omitzero"`
-	RuleID           string                                       `json:"ruleId"`
-	MonitoringConfig *FeatureRevisionV2MonitoringConfig2          `json:"monitoringConfig,omitzero"`
-	LockdownConfig   *FeatureRevisionV2LockdownConfig2            `json:"lockdownConfig,omitzero"`
+	CutoffDate            optionalnullable.OptionalNullable[time.Time] `json:"cutoffDate,omitzero"`
+	RuleID                string                                       `json:"ruleId"`
+	MonitoringConfig      *FeatureRevisionV2MonitoringConfig2          `json:"monitoringConfig,omitzero"`
+	LockdownConfig        *FeatureRevisionV2LockdownConfig2            `json:"lockdownConfig,omitzero"`
+	RequiresStartApproval optionalnullable.OptionalNullable[bool]      `json:"requiresStartApproval,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	mode           string `const:"update" json:"mode"`
 	RampScheduleID string `json:"rampScheduleId"`
@@ -1167,6 +1176,13 @@ func (f *FeatureRevisionV2RampActionUpdate) GetLockdownConfig() *FeatureRevision
 		return nil
 	}
 	return f.LockdownConfig
+}
+
+func (f *FeatureRevisionV2RampActionUpdate) GetRequiresStartApproval() optionalnullable.OptionalNullable[bool] {
+	if f == nil {
+		return nil
+	}
+	return f.RequiresStartApproval
 }
 
 func (f *FeatureRevisionV2RampActionUpdate) GetMode() string {
@@ -2006,10 +2022,11 @@ type FeatureRevisionV2RampActionCreate struct {
 	// ISO 8601 date-time, e.g. "2025-06-01T00:00:00Z". Absent or null means start immediately on publish.
 	StartDate optionalnullable.OptionalNullable[time.Time] `json:"startDate,omitzero"`
 	// ISO 8601 date-time, e.g. "2025-07-01T00:00:00Z". The ramp ends at this time.
-	CutoffDate       optionalnullable.OptionalNullable[time.Time] `json:"cutoffDate,omitzero"`
-	RuleID           string                                       `json:"ruleId"`
-	MonitoringConfig *FeatureRevisionV2MonitoringConfig1          `json:"monitoringConfig,omitzero"`
-	LockdownConfig   *FeatureRevisionV2LockdownConfig1            `json:"lockdownConfig,omitzero"`
+	CutoffDate            optionalnullable.OptionalNullable[time.Time] `json:"cutoffDate,omitzero"`
+	RuleID                string                                       `json:"ruleId"`
+	MonitoringConfig      *FeatureRevisionV2MonitoringConfig1          `json:"monitoringConfig,omitzero"`
+	LockdownConfig        *FeatureRevisionV2LockdownConfig1            `json:"lockdownConfig,omitzero"`
+	RequiresStartApproval optionalnullable.OptionalNullable[bool]      `json:"requiresStartApproval,omitzero"`
 }
 
 func (f FeatureRevisionV2RampActionCreate) MarshalJSON() ([]byte, error) {
@@ -2102,6 +2119,13 @@ func (f *FeatureRevisionV2RampActionCreate) GetLockdownConfig() *FeatureRevision
 		return nil
 	}
 	return f.LockdownConfig
+}
+
+func (f *FeatureRevisionV2RampActionCreate) GetRequiresStartApproval() optionalnullable.OptionalNullable[bool] {
+	if f == nil {
+		return nil
+	}
+	return f.RequiresStartApproval
 }
 
 // #region class-body-featurerevisionv2rampactioncreate
@@ -2324,8 +2348,10 @@ type FeatureRevisionV2 struct {
 	CreatedBy *EventUser `json:"createdBy,omitzero"`
 	// The user (or automated actor) responsible for an action
 	PublishedBy *EventUser `json:"publishedBy,omitzero"`
-	// The default value at the time this revision was created
+	// The default value at the time this revision was created. When the feature is in Config mode, this is the JSON override patch merged on top of the config (its own keys win); otherwise it is the full value.
 	DefaultValue *string `json:"defaultValue,omitzero"`
+	// Optional. A config within `baseConfig`'s family that the default value resolves to instead of `baseConfig` itself. null or omitted means the default is `baseConfig`. The default is exactly this config and carries no overrides of its own.
+	DefaultValueConfig optionalnullable.OptionalNullable[string] `json:"defaultValueConfig,omitzero"`
 	// Unified rules array. Each rule carries its own environment scope via `allEnvironments` / `environments`.
 	Rules       []FeatureRuleV2   `json:"rules"`
 	Definitions map[string]string `json:"definitions,omitzero"`
@@ -2427,6 +2453,13 @@ func (f *FeatureRevisionV2) GetDefaultValue() *string {
 		return nil
 	}
 	return f.DefaultValue
+}
+
+func (f *FeatureRevisionV2) GetDefaultValueConfig() optionalnullable.OptionalNullable[string] {
+	if f == nil {
+		return nil
+	}
+	return f.DefaultValueConfig
 }
 
 func (f *FeatureRevisionV2) GetRules() []FeatureRuleV2 {
