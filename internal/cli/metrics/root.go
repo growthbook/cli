@@ -40,6 +40,10 @@ func InitMetricsRoot(parent *cobra.Command) error {
 		return err
 	}
 
+	if err := initListMetricExperimentsCmd(MetricsCmd); err != nil {
+		return err
+	}
+
 	parent.AddCommand(MetricsCmd)
 	return nil
 }

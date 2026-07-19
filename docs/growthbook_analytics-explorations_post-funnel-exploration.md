@@ -1,19 +1,33 @@
-## growthbook metrics
+## growthbook analytics-explorations post-funnel-exploration
 
-Metrics used as goals and guardrails for experiments
+Run a Funnel based visualization
 
 ### Synopsis
 
-Metrics used as goals and guardrails for experiments
+Run a Funnel based visualization
 
 ```
-growthbook metrics [flags]
+growthbook analytics-explorations post-funnel-exploration [flags]
+```
+
+### Examples
+
+```
+  growthbook analytics-explorations post-funnel-exploration --datasource <value> --dimensions '[{"dimensionType":"static","column":"<value>","values":["<value 1>","<value 2>","<value 3>"]}]' --chart-type bar --date-range '{"predefined":"last7Days"}' --dataset '{"type":"funnel","unit":"farad","steps":[{"name":"<value>","factTable":"<value>","rowFilters":[],"optional":false}]}'
 ```
 
 ### Options
 
 ```
-  -h, --help   help for metrics
+      --body string         Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --cache preferred     Controls cache behavior for this exploration: preferred (default) returns a cached result if one exists, otherwise runs a new query; `never` always runs a new query, ignoring any cached results; `required` only returns a cached result, if none exists returns exploration: null with a message (options: preferred, required, never)
+      --chart-type string   options: line, area, timeseries-table, table, bar, stackedBar, horizontalBar, stackedHorizontalBar, bigNumber [required]
+      --dataset string      [required]
+      --datasource string   ID of the datasource to query [required]
+      --date-range string   [required]
+      --dimensions string   [required]
+  -h, --help                help for post-funnel-exploration
+  -s, --show-as string      options: total, per_unit
 ```
 
 ### Options inherited from parent commands
@@ -42,10 +56,4 @@ growthbook metrics [flags]
 
 ### SEE ALSO
 
-* [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
-* [growthbook metrics create](growthbook_metrics_create.md)	 - Create a single metric
-* [growthbook metrics delete](growthbook_metrics_delete.md)	 - Deletes a metric
-* [growthbook metrics get](growthbook_metrics_get.md)	 - Get a single metric
-* [growthbook metrics list](growthbook_metrics_list.md)	 - Get all metrics
-* [growthbook metrics list-metric-experiments](growthbook_metrics_list-metric-experiments.md)	 - Get results for all experiments that use a metric
-* [growthbook metrics update](growthbook_metrics_update.md)	 - Update a metric
+* [growthbook analytics-explorations](growthbook_analytics-explorations.md)	 - Operations for analytics-explorations

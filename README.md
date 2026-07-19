@@ -377,6 +377,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`get`](docs/growthbook_metrics_get.md) - Get a single metric
 * [`update`](docs/growthbook_metrics_update.md) - Update a metric
 * [`delete`](docs/growthbook_metrics_delete.md) - Deletes a metric
+* [`list-metric-experiments`](docs/growthbook_metrics_list-metric-experiments.md) - Get results for all experiments that use a metric
 
 ### [usage-metrics](docs/growthbook_usage-metrics.md)
 
@@ -708,6 +709,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`run-metric`](docs/growthbook_analytics-explorations_run-metric.md) - Create a Metric based visualization
 * [`run-fact-table`](docs/growthbook_analytics-explorations_run-fact-table.md) - Run a Fact Table based visualization
 * [`run-data-source`](docs/growthbook_analytics-explorations_run-data-source.md) - Create a Data Source based visualization
+* [`post-funnel-exploration`](docs/growthbook_analytics-explorations_post-funnel-exploration.md) - Run a Funnel based visualization
 
 ### [ramp-schedule-templates](docs/growthbook_ramp-schedule-templates.md)
 

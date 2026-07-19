@@ -899,7 +899,7 @@ type Report struct {
 	SnapshotError      *string                 `json:"snapshotError,omitzero"`
 	AnalysisSettings   *ReportAnalysisSettings `json:"analysisSettings,omitzero"`
 	ExperimentMetadata *ExperimentMetadata     `json:"experimentMetadata,omitzero"`
-	Results            *ExperimentResults      `json:"results,omitzero"`
+	Results            *ExperimentResults1     `json:"results,omitzero"`
 }
 
 func (r Report) MarshalJSON() ([]byte, error) {
@@ -1018,7 +1018,7 @@ func (r *Report) GetExperimentMetadata() *ExperimentMetadata {
 	return r.ExperimentMetadata
 }
 
-func (r *Report) GetResults() *ExperimentResults {
+func (r *Report) GetResults() *ExperimentResults1 {
 	if r == nil {
 		return nil
 	}

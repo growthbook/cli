@@ -107,18 +107,18 @@ func (l *ListExperimentResultsRequest) GetStatus() *ListExperimentResultsStatus 
 
 // ListExperimentResultsResponseBody - Successful response
 type ListExperimentResultsResponseBody struct {
-	ExperimentResults []components.ExperimentResults `json:"experimentResults"`
-	Limit             int64                          `json:"limit"`
-	Offset            int64                          `json:"offset"`
-	Count             int64                          `json:"count"`
-	Total             int64                          `json:"total"`
-	HasMore           bool                           `json:"hasMore"`
-	NextOffset        *int64                         `json:"nextOffset"`
+	ExperimentResults []components.ExperimentResults1 `json:"experimentResults"`
+	Limit             int64                           `json:"limit"`
+	Offset            int64                           `json:"offset"`
+	Count             int64                           `json:"count"`
+	Total             int64                           `json:"total"`
+	HasMore           bool                            `json:"hasMore"`
+	NextOffset        *int64                          `json:"nextOffset"`
 }
 
-func (l *ListExperimentResultsResponseBody) GetExperimentResults() []components.ExperimentResults {
+func (l *ListExperimentResultsResponseBody) GetExperimentResults() []components.ExperimentResults1 {
 	if l == nil {
-		return []components.ExperimentResults{}
+		return []components.ExperimentResults1{}
 	}
 	return l.ExperimentResults
 }

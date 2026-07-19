@@ -33,6 +33,10 @@ func InitAnalyticsExplorationsRoot(parent *cobra.Command) error {
 		return err
 	}
 
+	if err := initPostFunnelExplorationCmd(AnalyticsExplorationsCmd); err != nil {
+		return err
+	}
+
 	parent.AddCommand(AnalyticsExplorationsCmd)
 	return nil
 }

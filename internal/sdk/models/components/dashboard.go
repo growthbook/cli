@@ -522,7 +522,7 @@ func (g *Grid) GetRowHeight() *int64 {
 	return g.RowHeight
 }
 
-type Layout11 struct {
+type Layout16 struct {
 	X      int64 `json:"x"`
 	Y      int64 `json:"y"`
 	W      int64 `json:"w"`
@@ -530,72 +530,72 @@ type Layout11 struct {
 	Static *bool `json:"static,omitzero"`
 }
 
-func (l Layout11) MarshalJSON() ([]byte, error) {
+func (l Layout16) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(l, "", false)
 }
 
-func (l *Layout11) UnmarshalJSON(data []byte) error {
+func (l *Layout16) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (l *Layout11) GetX() int64 {
+func (l *Layout16) GetX() int64 {
 	if l == nil {
 		return 0
 	}
 	return l.X
 }
 
-func (l *Layout11) GetY() int64 {
+func (l *Layout16) GetY() int64 {
 	if l == nil {
 		return 0
 	}
 	return l.Y
 }
 
-func (l *Layout11) GetW() int64 {
+func (l *Layout16) GetW() int64 {
 	if l == nil {
 		return 0
 	}
 	return l.W
 }
 
-func (l *Layout11) GetH() int64 {
+func (l *Layout16) GetH() int64 {
 	if l == nil {
 		return 0
 	}
 	return l.H
 }
 
-func (l *Layout11) GetStatic() *bool {
+func (l *Layout16) GetStatic() *bool {
 	if l == nil {
 		return nil
 	}
 	return l.Static
 }
 
-// #region class-body-layout11
-// #endregion class-body-layout11
+// #region class-body-layout16
+// #endregion class-body-layout16
 
-type BlockPreviousTimeFramePredefined4 string
+type BlockPreviousTimeFramePredefined8 string
 
 const (
-	BlockPreviousTimeFramePredefined4Today           BlockPreviousTimeFramePredefined4 = "today"
-	BlockPreviousTimeFramePredefined4Last7Days       BlockPreviousTimeFramePredefined4 = "last7Days"
-	BlockPreviousTimeFramePredefined4Last30Days      BlockPreviousTimeFramePredefined4 = "last30Days"
-	BlockPreviousTimeFramePredefined4Last90Days      BlockPreviousTimeFramePredefined4 = "last90Days"
-	BlockPreviousTimeFramePredefined4CustomLookback  BlockPreviousTimeFramePredefined4 = "customLookback"
-	BlockPreviousTimeFramePredefined4CustomDateRange BlockPreviousTimeFramePredefined4 = "customDateRange"
+	BlockPreviousTimeFramePredefined8Today           BlockPreviousTimeFramePredefined8 = "today"
+	BlockPreviousTimeFramePredefined8Last7Days       BlockPreviousTimeFramePredefined8 = "last7Days"
+	BlockPreviousTimeFramePredefined8Last30Days      BlockPreviousTimeFramePredefined8 = "last30Days"
+	BlockPreviousTimeFramePredefined8Last90Days      BlockPreviousTimeFramePredefined8 = "last90Days"
+	BlockPreviousTimeFramePredefined8CustomLookback  BlockPreviousTimeFramePredefined8 = "customLookback"
+	BlockPreviousTimeFramePredefined8CustomDateRange BlockPreviousTimeFramePredefined8 = "customDateRange"
 )
 
-func (e BlockPreviousTimeFramePredefined4) ToPointer() *BlockPreviousTimeFramePredefined4 {
+func (e BlockPreviousTimeFramePredefined8) ToPointer() *BlockPreviousTimeFramePredefined8 {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *BlockPreviousTimeFramePredefined4) IsExact() bool {
+func (e *BlockPreviousTimeFramePredefined8) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "today", "last7Days", "last30Days", "last90Days", "customLookback", "customDateRange":
@@ -605,21 +605,21 @@ func (e *BlockPreviousTimeFramePredefined4) IsExact() bool {
 	return false
 }
 
-type BlockPreviousTimeFrameLookbackUnit4 string
+type BlockPreviousTimeFrameLookbackUnit8 string
 
 const (
-	BlockPreviousTimeFrameLookbackUnit4Hour  BlockPreviousTimeFrameLookbackUnit4 = "hour"
-	BlockPreviousTimeFrameLookbackUnit4Day   BlockPreviousTimeFrameLookbackUnit4 = "day"
-	BlockPreviousTimeFrameLookbackUnit4Week  BlockPreviousTimeFrameLookbackUnit4 = "week"
-	BlockPreviousTimeFrameLookbackUnit4Month BlockPreviousTimeFrameLookbackUnit4 = "month"
+	BlockPreviousTimeFrameLookbackUnit8Hour  BlockPreviousTimeFrameLookbackUnit8 = "hour"
+	BlockPreviousTimeFrameLookbackUnit8Day   BlockPreviousTimeFrameLookbackUnit8 = "day"
+	BlockPreviousTimeFrameLookbackUnit8Week  BlockPreviousTimeFrameLookbackUnit8 = "week"
+	BlockPreviousTimeFrameLookbackUnit8Month BlockPreviousTimeFrameLookbackUnit8 = "month"
 )
 
-func (e BlockPreviousTimeFrameLookbackUnit4) ToPointer() *BlockPreviousTimeFrameLookbackUnit4 {
+func (e BlockPreviousTimeFrameLookbackUnit8) ToPointer() *BlockPreviousTimeFrameLookbackUnit8 {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *BlockPreviousTimeFrameLookbackUnit4) IsExact() bool {
+func (e *BlockPreviousTimeFrameLookbackUnit8) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "hour", "day", "week", "month":
@@ -629,95 +629,1340 @@ func (e *BlockPreviousTimeFrameLookbackUnit4) IsExact() bool {
 	return false
 }
 
-type BlockPreviousTimeFrame4 struct {
-	Predefined    BlockPreviousTimeFramePredefined4                                      `json:"predefined"`
+type BlockPreviousTimeFrame8 struct {
+	Predefined    BlockPreviousTimeFramePredefined8                                      `json:"predefined"`
 	LookbackValue optionalnullable.OptionalNullable[float64]                             `json:"lookbackValue,omitzero"`
-	LookbackUnit  optionalnullable.OptionalNullable[BlockPreviousTimeFrameLookbackUnit4] `json:"lookbackUnit,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[BlockPreviousTimeFrameLookbackUnit8] `json:"lookbackUnit,omitzero"`
 	StartDate     optionalnullable.OptionalNullable[string]                              `json:"startDate,omitzero"`
 	EndDate       optionalnullable.OptionalNullable[string]                              `json:"endDate,omitzero"`
 }
 
-func (b BlockPreviousTimeFrame4) MarshalJSON() ([]byte, error) {
+func (b BlockPreviousTimeFrame8) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(b, "", false)
 }
 
-func (b *BlockPreviousTimeFrame4) UnmarshalJSON(data []byte) error {
+func (b *BlockPreviousTimeFrame8) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (b *BlockPreviousTimeFrame4) GetPredefined() BlockPreviousTimeFramePredefined4 {
+func (b *BlockPreviousTimeFrame8) GetPredefined() BlockPreviousTimeFramePredefined8 {
 	if b == nil {
-		return BlockPreviousTimeFramePredefined4("")
+		return BlockPreviousTimeFramePredefined8("")
 	}
 	return b.Predefined
 }
 
-func (b *BlockPreviousTimeFrame4) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+func (b *BlockPreviousTimeFrame8) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
 	if b == nil {
 		return nil
 	}
 	return b.LookbackValue
 }
 
-func (b *BlockPreviousTimeFrame4) GetLookbackUnit() optionalnullable.OptionalNullable[BlockPreviousTimeFrameLookbackUnit4] {
+func (b *BlockPreviousTimeFrame8) GetLookbackUnit() optionalnullable.OptionalNullable[BlockPreviousTimeFrameLookbackUnit8] {
 	if b == nil {
 		return nil
 	}
 	return b.LookbackUnit
 }
 
-func (b *BlockPreviousTimeFrame4) GetStartDate() optionalnullable.OptionalNullable[string] {
+func (b *BlockPreviousTimeFrame8) GetStartDate() optionalnullable.OptionalNullable[string] {
 	if b == nil {
 		return nil
 	}
 	return b.StartDate
 }
 
-func (b *BlockPreviousTimeFrame4) GetEndDate() optionalnullable.OptionalNullable[string] {
+func (b *BlockPreviousTimeFrame8) GetEndDate() optionalnullable.OptionalNullable[string] {
 	if b == nil {
 		return nil
 	}
 	return b.EndDate
 }
 
-// #region class-body-blockprevioustimeframe4
-// #endregion class-body-blockprevioustimeframe4
+// #region class-body-blockprevioustimeframe8
+// #endregion class-body-blockprevioustimeframe8
 
-type BlockComparison4 struct {
+type BlockComparison8 struct {
 	Enabled           bool                     `json:"enabled"`
-	PreviousTimeFrame *BlockPreviousTimeFrame4 `json:"previousTimeFrame,omitzero"`
+	PreviousTimeFrame *BlockPreviousTimeFrame8 `json:"previousTimeFrame,omitzero"`
 }
 
-func (b BlockComparison4) MarshalJSON() ([]byte, error) {
+func (b BlockComparison8) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(b, "", false)
 }
 
-func (b *BlockComparison4) UnmarshalJSON(data []byte) error {
+func (b *BlockComparison8) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (b *BlockComparison4) GetEnabled() bool {
+func (b *BlockComparison8) GetEnabled() bool {
 	if b == nil {
 		return false
 	}
 	return b.Enabled
 }
 
-func (b *BlockComparison4) GetPreviousTimeFrame() *BlockPreviousTimeFrame4 {
+func (b *BlockComparison8) GetPreviousTimeFrame() *BlockPreviousTimeFrame8 {
 	if b == nil {
 		return nil
 	}
 	return b.PreviousTimeFrame
 }
 
-// #region class-body-blockcomparison4
-// #endregion class-body-blockcomparison4
+// #region class-body-blockcomparison8
+// #endregion class-body-blockcomparison8
+
+type GlobalControlSettings4 struct {
+	DateRange *bool `json:"dateRange,omitzero"`
+}
+
+func (g GlobalControlSettings4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GlobalControlSettings4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (g *GlobalControlSettings4) GetDateRange() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.DateRange
+}
+
+// #region class-body-globalcontrolsettings4
+// #endregion class-body-globalcontrolsettings4
+
+type DimensionOperatorFunnel string
+
+const (
+	DimensionOperatorFunnelEqual            DimensionOperatorFunnel = "="
+	DimensionOperatorFunnelNotEqual         DimensionOperatorFunnel = "!="
+	DimensionOperatorFunnelLessThan         DimensionOperatorFunnel = "<"
+	DimensionOperatorFunnelLessThanEqual    DimensionOperatorFunnel = "<="
+	DimensionOperatorFunnelGreaterThan      DimensionOperatorFunnel = ">"
+	DimensionOperatorFunnelGreaterThanEqual DimensionOperatorFunnel = ">="
+	DimensionOperatorFunnelIn               DimensionOperatorFunnel = "in"
+	DimensionOperatorFunnelNotIn            DimensionOperatorFunnel = "not_in"
+	DimensionOperatorFunnelContains         DimensionOperatorFunnel = "contains"
+	DimensionOperatorFunnelNotContains      DimensionOperatorFunnel = "not_contains"
+	DimensionOperatorFunnelStartsWith       DimensionOperatorFunnel = "starts_with"
+	DimensionOperatorFunnelEndsWith         DimensionOperatorFunnel = "ends_with"
+	DimensionOperatorFunnelIsNull           DimensionOperatorFunnel = "is_null"
+	DimensionOperatorFunnelNotNull          DimensionOperatorFunnel = "not_null"
+	DimensionOperatorFunnelIsTrue           DimensionOperatorFunnel = "is_true"
+	DimensionOperatorFunnelIsFalse          DimensionOperatorFunnel = "is_false"
+	DimensionOperatorFunnelSQLExpr          DimensionOperatorFunnel = "sql_expr"
+	DimensionOperatorFunnelSavedFilter      DimensionOperatorFunnel = "saved_filter"
+)
+
+func (e DimensionOperatorFunnel) ToPointer() *DimensionOperatorFunnel {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *DimensionOperatorFunnel) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "=", "!=", "<", "<=", ">", ">=", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+			return true
+		}
+	}
+	return false
+}
+
+type FilterFunnel struct {
+	Operator DimensionOperatorFunnel `json:"operator"`
+	Column   *string                 `json:"column,omitzero"`
+	Values   []string                `json:"values,omitzero"`
+}
+
+func (f FilterFunnel) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
+}
+
+func (f *FilterFunnel) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (f *FilterFunnel) GetOperator() DimensionOperatorFunnel {
+	if f == nil {
+		return DimensionOperatorFunnel("")
+	}
+	return f.Operator
+}
+
+func (f *FilterFunnel) GetColumn() *string {
+	if f == nil {
+		return nil
+	}
+	return f.Column
+}
+
+func (f *FilterFunnel) GetValues() []string {
+	if f == nil {
+		return nil
+	}
+	return f.Values
+}
+
+type SliceFunnel struct {
+	Name    string         `json:"name"`
+	Filters []FilterFunnel `json:"filters"`
+}
+
+func (s SliceFunnel) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SliceFunnel) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *SliceFunnel) GetName() string {
+	if s == nil {
+		return ""
+	}
+	return s.Name
+}
+
+func (s *SliceFunnel) GetFilters() []FilterFunnel {
+	if s == nil {
+		return []FilterFunnel{}
+	}
+	return s.Filters
+}
+
+type DimensionFunnelSlice struct {
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	dimensionType string        `const:"slice" json:"dimensionType"`
+	Slices        []SliceFunnel `json:"slices"`
+}
+
+func (d DimensionFunnelSlice) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DimensionFunnelSlice) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DimensionFunnelSlice) GetDimensionType() string {
+	return "slice"
+}
+
+func (d *DimensionFunnelSlice) GetSlices() []SliceFunnel {
+	if d == nil {
+		return []SliceFunnel{}
+	}
+	return d.Slices
+}
+
+type DimensionFunnelStatic struct {
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	dimensionType string   `const:"static" json:"dimensionType"`
+	Column        string   `json:"column"`
+	Values        []string `json:"values"`
+}
+
+func (d DimensionFunnelStatic) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DimensionFunnelStatic) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DimensionFunnelStatic) GetDimensionType() string {
+	return "static"
+}
+
+func (d *DimensionFunnelStatic) GetColumn() string {
+	if d == nil {
+		return ""
+	}
+	return d.Column
+}
+
+func (d *DimensionFunnelStatic) GetValues() []string {
+	if d == nil {
+		return []string{}
+	}
+	return d.Values
+}
+
+type DimensionFunnelDynamic struct {
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	dimensionType string  `const:"dynamic" json:"dimensionType"`
+	Column        *string `json:"column"`
+	MaxValues     float64 `json:"maxValues"`
+}
+
+func (d DimensionFunnelDynamic) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DimensionFunnelDynamic) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DimensionFunnelDynamic) GetDimensionType() string {
+	return "dynamic"
+}
+
+func (d *DimensionFunnelDynamic) GetColumn() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Column
+}
+
+func (d *DimensionFunnelDynamic) GetMaxValues() float64 {
+	if d == nil {
+		return 0.0
+	}
+	return d.MaxValues
+}
+
+type DateGranularityFunnel string
+
+const (
+	DateGranularityFunnelAuto  DateGranularityFunnel = "auto"
+	DateGranularityFunnelHour  DateGranularityFunnel = "hour"
+	DateGranularityFunnelDay   DateGranularityFunnel = "day"
+	DateGranularityFunnelWeek  DateGranularityFunnel = "week"
+	DateGranularityFunnelMonth DateGranularityFunnel = "month"
+	DateGranularityFunnelYear  DateGranularityFunnel = "year"
+)
+
+func (e DateGranularityFunnel) ToPointer() *DateGranularityFunnel {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *DateGranularityFunnel) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "hour", "day", "week", "month", "year":
+			return true
+		}
+	}
+	return false
+}
+
+type DimensionFunnelDate struct {
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	dimensionType   string                `const:"date" json:"dimensionType"`
+	Column          *string               `json:"column"`
+	DateGranularity DateGranularityFunnel `json:"dateGranularity"`
+}
+
+func (d DimensionFunnelDate) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DimensionFunnelDate) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DimensionFunnelDate) GetDimensionType() string {
+	return "date"
+}
+
+func (d *DimensionFunnelDate) GetColumn() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Column
+}
+
+func (d *DimensionFunnelDate) GetDateGranularity() DateGranularityFunnel {
+	if d == nil {
+		return DateGranularityFunnel("")
+	}
+	return d.DateGranularity
+}
+
+type DimensionFunnelUnionType string
+
+const (
+	DimensionFunnelUnionTypeDate    DimensionFunnelUnionType = "date"
+	DimensionFunnelUnionTypeDynamic DimensionFunnelUnionType = "dynamic"
+	DimensionFunnelUnionTypeStatic  DimensionFunnelUnionType = "static"
+	DimensionFunnelUnionTypeSlice   DimensionFunnelUnionType = "slice"
+	DimensionFunnelUnionTypeUnknown DimensionFunnelUnionType = "UNKNOWN"
+)
+
+type DimensionFunnelUnion struct {
+	DimensionFunnelDate    *DimensionFunnelDate    `queryParam:"inline" union:"member"`
+	DimensionFunnelDynamic *DimensionFunnelDynamic `queryParam:"inline" union:"member"`
+	DimensionFunnelStatic  *DimensionFunnelStatic  `queryParam:"inline" union:"member"`
+	DimensionFunnelSlice   *DimensionFunnelSlice   `queryParam:"inline" union:"member"`
+	UnknownRaw             json.RawMessage         `json:"-" union:"unknown"`
+
+	Type DimensionFunnelUnionType
+}
+
+func CreateDimensionFunnelUnionDate(date DimensionFunnelDate) DimensionFunnelUnion {
+	typ := DimensionFunnelUnionTypeDate
+
+	return DimensionFunnelUnion{
+		DimensionFunnelDate: &date,
+		Type:                typ,
+	}
+}
+
+func CreateDimensionFunnelUnionDynamic(dynamic DimensionFunnelDynamic) DimensionFunnelUnion {
+	typ := DimensionFunnelUnionTypeDynamic
+
+	return DimensionFunnelUnion{
+		DimensionFunnelDynamic: &dynamic,
+		Type:                   typ,
+	}
+}
+
+func CreateDimensionFunnelUnionStatic(static DimensionFunnelStatic) DimensionFunnelUnion {
+	typ := DimensionFunnelUnionTypeStatic
+
+	return DimensionFunnelUnion{
+		DimensionFunnelStatic: &static,
+		Type:                  typ,
+	}
+}
+
+func CreateDimensionFunnelUnionSlice(slice DimensionFunnelSlice) DimensionFunnelUnion {
+	typ := DimensionFunnelUnionTypeSlice
+
+	return DimensionFunnelUnion{
+		DimensionFunnelSlice: &slice,
+		Type:                 typ,
+	}
+}
+
+func CreateDimensionFunnelUnionUnknown(raw json.RawMessage) DimensionFunnelUnion {
+	return DimensionFunnelUnion{
+		UnknownRaw: raw,
+		Type:       DimensionFunnelUnionTypeUnknown,
+	}
+}
+
+func (u DimensionFunnelUnion) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u DimensionFunnelUnion) IsUnknown() bool {
+	return u.Type == DimensionFunnelUnionTypeUnknown
+}
+
+func (u *DimensionFunnelUnion) UnmarshalJSON(data []byte) error {
+
+	type discriminator struct {
+		DimensionType string `json:"dimensionType"`
+	}
+
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = DimensionFunnelUnionTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = DimensionFunnelUnionTypeUnknown
+		return nil
+	}
+
+	switch dis.DimensionType {
+	case "date":
+		dimensionFunnelDate := new(DimensionFunnelDate)
+		if err := utils.UnmarshalJSON(data, &dimensionFunnelDate, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (DimensionType == date) type DimensionFunnelDate within DimensionFunnelUnion: %w", string(data), err)
+		}
+
+		u.DimensionFunnelDate = dimensionFunnelDate
+		u.Type = DimensionFunnelUnionTypeDate
+		return nil
+	case "dynamic":
+		dimensionFunnelDynamic := new(DimensionFunnelDynamic)
+		if err := utils.UnmarshalJSON(data, &dimensionFunnelDynamic, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (DimensionType == dynamic) type DimensionFunnelDynamic within DimensionFunnelUnion: %w", string(data), err)
+		}
+
+		u.DimensionFunnelDynamic = dimensionFunnelDynamic
+		u.Type = DimensionFunnelUnionTypeDynamic
+		return nil
+	case "static":
+		dimensionFunnelStatic := new(DimensionFunnelStatic)
+		if err := utils.UnmarshalJSON(data, &dimensionFunnelStatic, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (DimensionType == static) type DimensionFunnelStatic within DimensionFunnelUnion: %w", string(data), err)
+		}
+
+		u.DimensionFunnelStatic = dimensionFunnelStatic
+		u.Type = DimensionFunnelUnionTypeStatic
+		return nil
+	case "slice":
+		dimensionFunnelSlice := new(DimensionFunnelSlice)
+		if err := utils.UnmarshalJSON(data, &dimensionFunnelSlice, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (DimensionType == slice) type DimensionFunnelSlice within DimensionFunnelUnion: %w", string(data), err)
+		}
+
+		u.DimensionFunnelSlice = dimensionFunnelSlice
+		u.Type = DimensionFunnelUnionTypeSlice
+		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = DimensionFunnelUnionTypeUnknown
+		return nil
+	}
+
+}
+
+func (u DimensionFunnelUnion) MarshalJSON() ([]byte, error) {
+	if u.DimensionFunnelDate != nil {
+		return utils.MarshalJSON(u.DimensionFunnelDate, "", true)
+	}
+
+	if u.DimensionFunnelDynamic != nil {
+		return utils.MarshalJSON(u.DimensionFunnelDynamic, "", true)
+	}
+
+	if u.DimensionFunnelStatic != nil {
+		return utils.MarshalJSON(u.DimensionFunnelStatic, "", true)
+	}
+
+	if u.DimensionFunnelSlice != nil {
+		return utils.MarshalJSON(u.DimensionFunnelSlice, "", true)
+	}
+
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
+	return nil, errors.New("could not marshal union type DimensionFunnelUnion: all fields are null")
+}
+
+type ChartTypeFunnel string
+
+const (
+	ChartTypeFunnelLine                 ChartTypeFunnel = "line"
+	ChartTypeFunnelArea                 ChartTypeFunnel = "area"
+	ChartTypeFunnelTimeseriesTable      ChartTypeFunnel = "timeseries-table"
+	ChartTypeFunnelTable                ChartTypeFunnel = "table"
+	ChartTypeFunnelBar                  ChartTypeFunnel = "bar"
+	ChartTypeFunnelStackedBar           ChartTypeFunnel = "stackedBar"
+	ChartTypeFunnelHorizontalBar        ChartTypeFunnel = "horizontalBar"
+	ChartTypeFunnelStackedHorizontalBar ChartTypeFunnel = "stackedHorizontalBar"
+	ChartTypeFunnelBigNumber            ChartTypeFunnel = "bigNumber"
+)
+
+func (e ChartTypeFunnel) ToPointer() *ChartTypeFunnel {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ChartTypeFunnel) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "line", "area", "timeseries-table", "table", "bar", "stackedBar", "horizontalBar", "stackedHorizontalBar", "bigNumber":
+			return true
+		}
+	}
+	return false
+}
+
+type PredefinedFunnel string
+
+const (
+	PredefinedFunnelToday           PredefinedFunnel = "today"
+	PredefinedFunnelLast7Days       PredefinedFunnel = "last7Days"
+	PredefinedFunnelLast30Days      PredefinedFunnel = "last30Days"
+	PredefinedFunnelLast90Days      PredefinedFunnel = "last90Days"
+	PredefinedFunnelCustomLookback  PredefinedFunnel = "customLookback"
+	PredefinedFunnelCustomDateRange PredefinedFunnel = "customDateRange"
+)
+
+func (e PredefinedFunnel) ToPointer() *PredefinedFunnel {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *PredefinedFunnel) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "today", "last7Days", "last30Days", "last90Days", "customLookback", "customDateRange":
+			return true
+		}
+	}
+	return false
+}
+
+type LookbackUnitFunnel string
+
+const (
+	LookbackUnitFunnelHour  LookbackUnitFunnel = "hour"
+	LookbackUnitFunnelDay   LookbackUnitFunnel = "day"
+	LookbackUnitFunnelWeek  LookbackUnitFunnel = "week"
+	LookbackUnitFunnelMonth LookbackUnitFunnel = "month"
+)
+
+func (e LookbackUnitFunnel) ToPointer() *LookbackUnitFunnel {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *LookbackUnitFunnel) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "hour", "day", "week", "month":
+			return true
+		}
+	}
+	return false
+}
+
+type DateRangeFunnel struct {
+	Predefined    PredefinedFunnel                                      `json:"predefined"`
+	LookbackValue optionalnullable.OptionalNullable[float64]            `json:"lookbackValue,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[LookbackUnitFunnel] `json:"lookbackUnit,omitzero"`
+	StartDate     optionalnullable.OptionalNullable[string]             `json:"startDate,omitzero"`
+	EndDate       optionalnullable.OptionalNullable[string]             `json:"endDate,omitzero"`
+}
+
+func (d DateRangeFunnel) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DateRangeFunnel) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DateRangeFunnel) GetPredefined() PredefinedFunnel {
+	if d == nil {
+		return PredefinedFunnel("")
+	}
+	return d.Predefined
+}
+
+func (d *DateRangeFunnel) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+	if d == nil {
+		return nil
+	}
+	return d.LookbackValue
+}
+
+func (d *DateRangeFunnel) GetLookbackUnit() optionalnullable.OptionalNullable[LookbackUnitFunnel] {
+	if d == nil {
+		return nil
+	}
+	return d.LookbackUnit
+}
+
+func (d *DateRangeFunnel) GetStartDate() optionalnullable.OptionalNullable[string] {
+	if d == nil {
+		return nil
+	}
+	return d.StartDate
+}
+
+func (d *DateRangeFunnel) GetEndDate() optionalnullable.OptionalNullable[string] {
+	if d == nil {
+		return nil
+	}
+	return d.EndDate
+}
+
+type ShowAsFunnel string
+
+const (
+	ShowAsFunnelTotal   ShowAsFunnel = "total"
+	ShowAsFunnelPerUnit ShowAsFunnel = "per_unit"
+)
+
+func (e ShowAsFunnel) ToPointer() *ShowAsFunnel {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ShowAsFunnel) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "total", "per_unit":
+			return true
+		}
+	}
+	return false
+}
+
+type StepOperator string
+
+const (
+	StepOperatorEqual            StepOperator = "="
+	StepOperatorNotEqual         StepOperator = "!="
+	StepOperatorLessThan         StepOperator = "<"
+	StepOperatorLessThanEqual    StepOperator = "<="
+	StepOperatorGreaterThan      StepOperator = ">"
+	StepOperatorGreaterThanEqual StepOperator = ">="
+	StepOperatorIn               StepOperator = "in"
+	StepOperatorNotIn            StepOperator = "not_in"
+	StepOperatorContains         StepOperator = "contains"
+	StepOperatorNotContains      StepOperator = "not_contains"
+	StepOperatorStartsWith       StepOperator = "starts_with"
+	StepOperatorEndsWith         StepOperator = "ends_with"
+	StepOperatorIsNull           StepOperator = "is_null"
+	StepOperatorNotNull          StepOperator = "not_null"
+	StepOperatorIsTrue           StepOperator = "is_true"
+	StepOperatorIsFalse          StepOperator = "is_false"
+	StepOperatorSQLExpr          StepOperator = "sql_expr"
+	StepOperatorSavedFilter      StepOperator = "saved_filter"
+)
+
+func (e StepOperator) ToPointer() *StepOperator {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *StepOperator) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "=", "!=", "<", "<=", ">", ">=", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+			return true
+		}
+	}
+	return false
+}
+
+type StepRowFilter struct {
+	Operator StepOperator `json:"operator"`
+	Column   *string      `json:"column,omitzero"`
+	Values   []string     `json:"values,omitzero"`
+}
+
+func (s StepRowFilter) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *StepRowFilter) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *StepRowFilter) GetOperator() StepOperator {
+	if s == nil {
+		return StepOperator("")
+	}
+	return s.Operator
+}
+
+func (s *StepRowFilter) GetColumn() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Column
+}
+
+func (s *StepRowFilter) GetValues() []string {
+	if s == nil {
+		return nil
+	}
+	return s.Values
+}
+
+type DashboardUnit string
+
+const (
+	DashboardUnitWeeks   DashboardUnit = "weeks"
+	DashboardUnitDays    DashboardUnit = "days"
+	DashboardUnitHours   DashboardUnit = "hours"
+	DashboardUnitMinutes DashboardUnit = "minutes"
+)
+
+func (e DashboardUnit) ToPointer() *DashboardUnit {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *DashboardUnit) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "weeks", "days", "hours", "minutes":
+			return true
+		}
+	}
+	return false
+}
+
+type ConversionWindow struct {
+	Unit  DashboardUnit `json:"unit"`
+	Value float64       `json:"value"`
+}
+
+func (c ConversionWindow) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ConversionWindow) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *ConversionWindow) GetUnit() DashboardUnit {
+	if c == nil {
+		return DashboardUnit("")
+	}
+	return c.Unit
+}
+
+func (c *ConversionWindow) GetValue() float64 {
+	if c == nil {
+		return 0.0
+	}
+	return c.Value
+}
+
+type DashboardStep struct {
+	Name             string                                              `json:"name"`
+	FactTable        string                                              `json:"factTable"`
+	RowFilters       []StepRowFilter                                     `json:"rowFilters"`
+	Optional         bool                                                `json:"optional"`
+	ConversionWindow optionalnullable.OptionalNullable[ConversionWindow] `json:"conversionWindow,omitzero"`
+}
+
+func (d DashboardStep) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DashboardStep) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DashboardStep) GetName() string {
+	if d == nil {
+		return ""
+	}
+	return d.Name
+}
+
+func (d *DashboardStep) GetFactTable() string {
+	if d == nil {
+		return ""
+	}
+	return d.FactTable
+}
+
+func (d *DashboardStep) GetRowFilters() []StepRowFilter {
+	if d == nil {
+		return []StepRowFilter{}
+	}
+	return d.RowFilters
+}
+
+func (d *DashboardStep) GetOptional() bool {
+	if d == nil {
+		return false
+	}
+	return d.Optional
+}
+
+func (d *DashboardStep) GetConversionWindow() optionalnullable.OptionalNullable[ConversionWindow] {
+	if d == nil {
+		return nil
+	}
+	return d.ConversionWindow
+}
+
+type YAxisScale string
+
+const (
+	YAxisScaleCount   YAxisScale = "count"
+	YAxisScalePercent YAxisScale = "percent"
+)
+
+func (e YAxisScale) ToPointer() *YAxisScale {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *YAxisScale) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "count", "percent":
+			return true
+		}
+	}
+	return false
+}
+
+type DatasetFunnel struct {
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	type_                    string          `const:"funnel" json:"type"`
+	Unit                     *string         `json:"unit"`
+	Steps                    []DashboardStep `json:"steps"`
+	ConcurrencyWindowSeconds *int64          `json:"concurrencyWindowSeconds,omitzero"`
+	YAxisScale               *YAxisScale     `json:"yAxisScale,omitzero"`
+}
+
+func (d DatasetFunnel) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DatasetFunnel) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DatasetFunnel) GetType() string {
+	return "funnel"
+}
+
+func (d *DatasetFunnel) GetUnit() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Unit
+}
+
+func (d *DatasetFunnel) GetSteps() []DashboardStep {
+	if d == nil {
+		return []DashboardStep{}
+	}
+	return d.Steps
+}
+
+func (d *DatasetFunnel) GetConcurrencyWindowSeconds() *int64 {
+	if d == nil {
+		return nil
+	}
+	return d.ConcurrencyWindowSeconds
+}
+
+func (d *DatasetFunnel) GetYAxisScale() *YAxisScale {
+	if d == nil {
+		return nil
+	}
+	return d.YAxisScale
+}
+
+type ConfigFunnel struct {
+	// ID of the datasource to query
+	Datasource string                 `json:"datasource"`
+	Dimensions []DimensionFunnelUnion `json:"dimensions"`
+	ChartType  ChartTypeFunnel        `json:"chartType"`
+	DateRange  DateRangeFunnel        `json:"dateRange"`
+	ShowAs     *ShowAsFunnel          `json:"showAs,omitzero"`
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	type_   string        `const:"funnel" json:"type"`
+	Dataset DatasetFunnel `json:"dataset"`
+}
+
+func (c ConfigFunnel) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ConfigFunnel) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *ConfigFunnel) GetDatasource() string {
+	if c == nil {
+		return ""
+	}
+	return c.Datasource
+}
+
+func (c *ConfigFunnel) GetDimensions() []DimensionFunnelUnion {
+	if c == nil {
+		return []DimensionFunnelUnion{}
+	}
+	return c.Dimensions
+}
+
+func (c *ConfigFunnel) GetChartType() ChartTypeFunnel {
+	if c == nil {
+		return ChartTypeFunnel("")
+	}
+	return c.ChartType
+}
+
+func (c *ConfigFunnel) GetDateRange() DateRangeFunnel {
+	if c == nil {
+		return DateRangeFunnel{}
+	}
+	return c.DateRange
+}
+
+func (c *ConfigFunnel) GetShowAs() *ShowAsFunnel {
+	if c == nil {
+		return nil
+	}
+	return c.ShowAs
+}
+
+func (c *ConfigFunnel) GetType() string {
+	return "funnel"
+}
+
+func (c *ConfigFunnel) GetDataset() DatasetFunnel {
+	if c == nil {
+		return DatasetFunnel{}
+	}
+	return c.Dataset
+}
+
+type BlockFunnelExploration struct {
+	Organization string `json:"organization"`
+	ID           string `json:"id"`
+	UID          string `json:"uid"`
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	type_                        string                  `const:"funnel-exploration" json:"type"`
+	Title                        string                  `json:"title"`
+	Description                  string                  `json:"description"`
+	SnapshotID                   *string                 `json:"snapshotId,omitzero"`
+	Layout                       *Layout16               `json:"layout,omitzero"`
+	ExplorerAnalysisID           string                  `json:"explorerAnalysisId"`
+	Comparison                   *BlockComparison8       `json:"comparison,omitzero"`
+	ComparisonExplorerAnalysisID *string                 `json:"comparisonExplorerAnalysisId,omitzero"`
+	GlobalControlSettings        *GlobalControlSettings4 `json:"globalControlSettings,omitzero"`
+	Config                       ConfigFunnel            `json:"config"`
+}
+
+func (b BlockFunnelExploration) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BlockFunnelExploration) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *BlockFunnelExploration) GetOrganization() string {
+	if b == nil {
+		return ""
+	}
+	return b.Organization
+}
+
+func (b *BlockFunnelExploration) GetID() string {
+	if b == nil {
+		return ""
+	}
+	return b.ID
+}
+
+func (b *BlockFunnelExploration) GetUID() string {
+	if b == nil {
+		return ""
+	}
+	return b.UID
+}
+
+func (b *BlockFunnelExploration) GetType() string {
+	return "funnel-exploration"
+}
+
+func (b *BlockFunnelExploration) GetTitle() string {
+	if b == nil {
+		return ""
+	}
+	return b.Title
+}
+
+func (b *BlockFunnelExploration) GetDescription() string {
+	if b == nil {
+		return ""
+	}
+	return b.Description
+}
+
+func (b *BlockFunnelExploration) GetSnapshotID() *string {
+	if b == nil {
+		return nil
+	}
+	return b.SnapshotID
+}
+
+func (b *BlockFunnelExploration) GetLayout() *Layout16 {
+	if b == nil {
+		return nil
+	}
+	return b.Layout
+}
+
+func (b *BlockFunnelExploration) GetExplorerAnalysisID() string {
+	if b == nil {
+		return ""
+	}
+	return b.ExplorerAnalysisID
+}
+
+func (b *BlockFunnelExploration) GetComparison() *BlockComparison8 {
+	if b == nil {
+		return nil
+	}
+	return b.Comparison
+}
+
+func (b *BlockFunnelExploration) GetComparisonExplorerAnalysisID() *string {
+	if b == nil {
+		return nil
+	}
+	return b.ComparisonExplorerAnalysisID
+}
+
+func (b *BlockFunnelExploration) GetGlobalControlSettings() *GlobalControlSettings4 {
+	if b == nil {
+		return nil
+	}
+	return b.GlobalControlSettings
+}
+
+func (b *BlockFunnelExploration) GetConfig() ConfigFunnel {
+	if b == nil {
+		return ConfigFunnel{}
+	}
+	return b.Config
+}
+
+type Layout15 struct {
+	X      int64 `json:"x"`
+	Y      int64 `json:"y"`
+	W      int64 `json:"w"`
+	H      int64 `json:"h"`
+	Static *bool `json:"static,omitzero"`
+}
+
+func (l Layout15) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
+}
+
+func (l *Layout15) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (l *Layout15) GetX() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.X
+}
+
+func (l *Layout15) GetY() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.Y
+}
+
+func (l *Layout15) GetW() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.W
+}
+
+func (l *Layout15) GetH() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.H
+}
+
+func (l *Layout15) GetStatic() *bool {
+	if l == nil {
+		return nil
+	}
+	return l.Static
+}
+
+// #region class-body-layout15
+// #endregion class-body-layout15
+
+type BlockPreviousTimeFramePredefined7 string
+
+const (
+	BlockPreviousTimeFramePredefined7Today           BlockPreviousTimeFramePredefined7 = "today"
+	BlockPreviousTimeFramePredefined7Last7Days       BlockPreviousTimeFramePredefined7 = "last7Days"
+	BlockPreviousTimeFramePredefined7Last30Days      BlockPreviousTimeFramePredefined7 = "last30Days"
+	BlockPreviousTimeFramePredefined7Last90Days      BlockPreviousTimeFramePredefined7 = "last90Days"
+	BlockPreviousTimeFramePredefined7CustomLookback  BlockPreviousTimeFramePredefined7 = "customLookback"
+	BlockPreviousTimeFramePredefined7CustomDateRange BlockPreviousTimeFramePredefined7 = "customDateRange"
+)
+
+func (e BlockPreviousTimeFramePredefined7) ToPointer() *BlockPreviousTimeFramePredefined7 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *BlockPreviousTimeFramePredefined7) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "today", "last7Days", "last30Days", "last90Days", "customLookback", "customDateRange":
+			return true
+		}
+	}
+	return false
+}
+
+type BlockPreviousTimeFrameLookbackUnit7 string
+
+const (
+	BlockPreviousTimeFrameLookbackUnit7Hour  BlockPreviousTimeFrameLookbackUnit7 = "hour"
+	BlockPreviousTimeFrameLookbackUnit7Day   BlockPreviousTimeFrameLookbackUnit7 = "day"
+	BlockPreviousTimeFrameLookbackUnit7Week  BlockPreviousTimeFrameLookbackUnit7 = "week"
+	BlockPreviousTimeFrameLookbackUnit7Month BlockPreviousTimeFrameLookbackUnit7 = "month"
+)
+
+func (e BlockPreviousTimeFrameLookbackUnit7) ToPointer() *BlockPreviousTimeFrameLookbackUnit7 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *BlockPreviousTimeFrameLookbackUnit7) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "hour", "day", "week", "month":
+			return true
+		}
+	}
+	return false
+}
+
+type BlockPreviousTimeFrame7 struct {
+	Predefined    BlockPreviousTimeFramePredefined7                                      `json:"predefined"`
+	LookbackValue optionalnullable.OptionalNullable[float64]                             `json:"lookbackValue,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[BlockPreviousTimeFrameLookbackUnit7] `json:"lookbackUnit,omitzero"`
+	StartDate     optionalnullable.OptionalNullable[string]                              `json:"startDate,omitzero"`
+	EndDate       optionalnullable.OptionalNullable[string]                              `json:"endDate,omitzero"`
+}
+
+func (b BlockPreviousTimeFrame7) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BlockPreviousTimeFrame7) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *BlockPreviousTimeFrame7) GetPredefined() BlockPreviousTimeFramePredefined7 {
+	if b == nil {
+		return BlockPreviousTimeFramePredefined7("")
+	}
+	return b.Predefined
+}
+
+func (b *BlockPreviousTimeFrame7) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+	if b == nil {
+		return nil
+	}
+	return b.LookbackValue
+}
+
+func (b *BlockPreviousTimeFrame7) GetLookbackUnit() optionalnullable.OptionalNullable[BlockPreviousTimeFrameLookbackUnit7] {
+	if b == nil {
+		return nil
+	}
+	return b.LookbackUnit
+}
+
+func (b *BlockPreviousTimeFrame7) GetStartDate() optionalnullable.OptionalNullable[string] {
+	if b == nil {
+		return nil
+	}
+	return b.StartDate
+}
+
+func (b *BlockPreviousTimeFrame7) GetEndDate() optionalnullable.OptionalNullable[string] {
+	if b == nil {
+		return nil
+	}
+	return b.EndDate
+}
+
+// #region class-body-blockprevioustimeframe7
+// #endregion class-body-blockprevioustimeframe7
+
+type BlockComparison7 struct {
+	Enabled           bool                     `json:"enabled"`
+	PreviousTimeFrame *BlockPreviousTimeFrame7 `json:"previousTimeFrame,omitzero"`
+}
+
+func (b BlockComparison7) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BlockComparison7) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *BlockComparison7) GetEnabled() bool {
+	if b == nil {
+		return false
+	}
+	return b.Enabled
+}
+
+func (b *BlockComparison7) GetPreviousTimeFrame() *BlockPreviousTimeFrame7 {
+	if b == nil {
+		return nil
+	}
+	return b.PreviousTimeFrame
+}
+
+// #region class-body-blockcomparison7
+// #endregion class-body-blockcomparison7
 
 type GlobalControlSettings3 struct {
 	DateRange *bool `json:"dateRange,omitzero"`
@@ -1646,9 +2891,9 @@ type BlockDataSourceExploration struct {
 	Title                        string                  `json:"title"`
 	Description                  string                  `json:"description"`
 	SnapshotID                   *string                 `json:"snapshotId,omitzero"`
-	Layout                       *Layout11               `json:"layout,omitzero"`
+	Layout                       *Layout15               `json:"layout,omitzero"`
 	ExplorerAnalysisID           string                  `json:"explorerAnalysisId"`
-	Comparison                   *BlockComparison4       `json:"comparison,omitzero"`
+	Comparison                   *BlockComparison7       `json:"comparison,omitzero"`
 	ComparisonExplorerAnalysisID *string                 `json:"comparisonExplorerAnalysisId,omitzero"`
 	GlobalControlSettings        *GlobalControlSettings3 `json:"globalControlSettings,omitzero"`
 	Config                       ConfigDataSource        `json:"config"`
@@ -1711,7 +2956,7 @@ func (b *BlockDataSourceExploration) GetSnapshotID() *string {
 	return b.SnapshotID
 }
 
-func (b *BlockDataSourceExploration) GetLayout() *Layout11 {
+func (b *BlockDataSourceExploration) GetLayout() *Layout15 {
 	if b == nil {
 		return nil
 	}
@@ -1725,7 +2970,7 @@ func (b *BlockDataSourceExploration) GetExplorerAnalysisID() string {
 	return b.ExplorerAnalysisID
 }
 
-func (b *BlockDataSourceExploration) GetComparison() *BlockComparison4 {
+func (b *BlockDataSourceExploration) GetComparison() *BlockComparison7 {
 	if b == nil {
 		return nil
 	}
@@ -1753,7 +2998,7 @@ func (b *BlockDataSourceExploration) GetConfig() ConfigDataSource {
 	return b.Config
 }
 
-type Layout10 struct {
+type Layout14 struct {
 	X      int64 `json:"x"`
 	Y      int64 `json:"y"`
 	W      int64 `json:"w"`
@@ -1761,72 +3006,72 @@ type Layout10 struct {
 	Static *bool `json:"static,omitzero"`
 }
 
-func (l Layout10) MarshalJSON() ([]byte, error) {
+func (l Layout14) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(l, "", false)
 }
 
-func (l *Layout10) UnmarshalJSON(data []byte) error {
+func (l *Layout14) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (l *Layout10) GetX() int64 {
+func (l *Layout14) GetX() int64 {
 	if l == nil {
 		return 0
 	}
 	return l.X
 }
 
-func (l *Layout10) GetY() int64 {
+func (l *Layout14) GetY() int64 {
 	if l == nil {
 		return 0
 	}
 	return l.Y
 }
 
-func (l *Layout10) GetW() int64 {
+func (l *Layout14) GetW() int64 {
 	if l == nil {
 		return 0
 	}
 	return l.W
 }
 
-func (l *Layout10) GetH() int64 {
+func (l *Layout14) GetH() int64 {
 	if l == nil {
 		return 0
 	}
 	return l.H
 }
 
-func (l *Layout10) GetStatic() *bool {
+func (l *Layout14) GetStatic() *bool {
 	if l == nil {
 		return nil
 	}
 	return l.Static
 }
 
-// #region class-body-layout10
-// #endregion class-body-layout10
+// #region class-body-layout14
+// #endregion class-body-layout14
 
-type BlockPreviousTimeFramePredefined3 string
+type BlockPreviousTimeFramePredefined6 string
 
 const (
-	BlockPreviousTimeFramePredefined3Today           BlockPreviousTimeFramePredefined3 = "today"
-	BlockPreviousTimeFramePredefined3Last7Days       BlockPreviousTimeFramePredefined3 = "last7Days"
-	BlockPreviousTimeFramePredefined3Last30Days      BlockPreviousTimeFramePredefined3 = "last30Days"
-	BlockPreviousTimeFramePredefined3Last90Days      BlockPreviousTimeFramePredefined3 = "last90Days"
-	BlockPreviousTimeFramePredefined3CustomLookback  BlockPreviousTimeFramePredefined3 = "customLookback"
-	BlockPreviousTimeFramePredefined3CustomDateRange BlockPreviousTimeFramePredefined3 = "customDateRange"
+	BlockPreviousTimeFramePredefined6Today           BlockPreviousTimeFramePredefined6 = "today"
+	BlockPreviousTimeFramePredefined6Last7Days       BlockPreviousTimeFramePredefined6 = "last7Days"
+	BlockPreviousTimeFramePredefined6Last30Days      BlockPreviousTimeFramePredefined6 = "last30Days"
+	BlockPreviousTimeFramePredefined6Last90Days      BlockPreviousTimeFramePredefined6 = "last90Days"
+	BlockPreviousTimeFramePredefined6CustomLookback  BlockPreviousTimeFramePredefined6 = "customLookback"
+	BlockPreviousTimeFramePredefined6CustomDateRange BlockPreviousTimeFramePredefined6 = "customDateRange"
 )
 
-func (e BlockPreviousTimeFramePredefined3) ToPointer() *BlockPreviousTimeFramePredefined3 {
+func (e BlockPreviousTimeFramePredefined6) ToPointer() *BlockPreviousTimeFramePredefined6 {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *BlockPreviousTimeFramePredefined3) IsExact() bool {
+func (e *BlockPreviousTimeFramePredefined6) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "today", "last7Days", "last30Days", "last90Days", "customLookback", "customDateRange":
@@ -1836,21 +3081,21 @@ func (e *BlockPreviousTimeFramePredefined3) IsExact() bool {
 	return false
 }
 
-type BlockPreviousTimeFrameLookbackUnit3 string
+type BlockPreviousTimeFrameLookbackUnit6 string
 
 const (
-	BlockPreviousTimeFrameLookbackUnit3Hour  BlockPreviousTimeFrameLookbackUnit3 = "hour"
-	BlockPreviousTimeFrameLookbackUnit3Day   BlockPreviousTimeFrameLookbackUnit3 = "day"
-	BlockPreviousTimeFrameLookbackUnit3Week  BlockPreviousTimeFrameLookbackUnit3 = "week"
-	BlockPreviousTimeFrameLookbackUnit3Month BlockPreviousTimeFrameLookbackUnit3 = "month"
+	BlockPreviousTimeFrameLookbackUnit6Hour  BlockPreviousTimeFrameLookbackUnit6 = "hour"
+	BlockPreviousTimeFrameLookbackUnit6Day   BlockPreviousTimeFrameLookbackUnit6 = "day"
+	BlockPreviousTimeFrameLookbackUnit6Week  BlockPreviousTimeFrameLookbackUnit6 = "week"
+	BlockPreviousTimeFrameLookbackUnit6Month BlockPreviousTimeFrameLookbackUnit6 = "month"
 )
 
-func (e BlockPreviousTimeFrameLookbackUnit3) ToPointer() *BlockPreviousTimeFrameLookbackUnit3 {
+func (e BlockPreviousTimeFrameLookbackUnit6) ToPointer() *BlockPreviousTimeFrameLookbackUnit6 {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *BlockPreviousTimeFrameLookbackUnit3) IsExact() bool {
+func (e *BlockPreviousTimeFrameLookbackUnit6) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "hour", "day", "week", "month":
@@ -1860,95 +3105,95 @@ func (e *BlockPreviousTimeFrameLookbackUnit3) IsExact() bool {
 	return false
 }
 
-type BlockPreviousTimeFrame3 struct {
-	Predefined    BlockPreviousTimeFramePredefined3                                      `json:"predefined"`
+type BlockPreviousTimeFrame6 struct {
+	Predefined    BlockPreviousTimeFramePredefined6                                      `json:"predefined"`
 	LookbackValue optionalnullable.OptionalNullable[float64]                             `json:"lookbackValue,omitzero"`
-	LookbackUnit  optionalnullable.OptionalNullable[BlockPreviousTimeFrameLookbackUnit3] `json:"lookbackUnit,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[BlockPreviousTimeFrameLookbackUnit6] `json:"lookbackUnit,omitzero"`
 	StartDate     optionalnullable.OptionalNullable[string]                              `json:"startDate,omitzero"`
 	EndDate       optionalnullable.OptionalNullable[string]                              `json:"endDate,omitzero"`
 }
 
-func (b BlockPreviousTimeFrame3) MarshalJSON() ([]byte, error) {
+func (b BlockPreviousTimeFrame6) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(b, "", false)
 }
 
-func (b *BlockPreviousTimeFrame3) UnmarshalJSON(data []byte) error {
+func (b *BlockPreviousTimeFrame6) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (b *BlockPreviousTimeFrame3) GetPredefined() BlockPreviousTimeFramePredefined3 {
+func (b *BlockPreviousTimeFrame6) GetPredefined() BlockPreviousTimeFramePredefined6 {
 	if b == nil {
-		return BlockPreviousTimeFramePredefined3("")
+		return BlockPreviousTimeFramePredefined6("")
 	}
 	return b.Predefined
 }
 
-func (b *BlockPreviousTimeFrame3) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+func (b *BlockPreviousTimeFrame6) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
 	if b == nil {
 		return nil
 	}
 	return b.LookbackValue
 }
 
-func (b *BlockPreviousTimeFrame3) GetLookbackUnit() optionalnullable.OptionalNullable[BlockPreviousTimeFrameLookbackUnit3] {
+func (b *BlockPreviousTimeFrame6) GetLookbackUnit() optionalnullable.OptionalNullable[BlockPreviousTimeFrameLookbackUnit6] {
 	if b == nil {
 		return nil
 	}
 	return b.LookbackUnit
 }
 
-func (b *BlockPreviousTimeFrame3) GetStartDate() optionalnullable.OptionalNullable[string] {
+func (b *BlockPreviousTimeFrame6) GetStartDate() optionalnullable.OptionalNullable[string] {
 	if b == nil {
 		return nil
 	}
 	return b.StartDate
 }
 
-func (b *BlockPreviousTimeFrame3) GetEndDate() optionalnullable.OptionalNullable[string] {
+func (b *BlockPreviousTimeFrame6) GetEndDate() optionalnullable.OptionalNullable[string] {
 	if b == nil {
 		return nil
 	}
 	return b.EndDate
 }
 
-// #region class-body-blockprevioustimeframe3
-// #endregion class-body-blockprevioustimeframe3
+// #region class-body-blockprevioustimeframe6
+// #endregion class-body-blockprevioustimeframe6
 
-type BlockComparison3 struct {
+type BlockComparison6 struct {
 	Enabled           bool                     `json:"enabled"`
-	PreviousTimeFrame *BlockPreviousTimeFrame3 `json:"previousTimeFrame,omitzero"`
+	PreviousTimeFrame *BlockPreviousTimeFrame6 `json:"previousTimeFrame,omitzero"`
 }
 
-func (b BlockComparison3) MarshalJSON() ([]byte, error) {
+func (b BlockComparison6) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(b, "", false)
 }
 
-func (b *BlockComparison3) UnmarshalJSON(data []byte) error {
+func (b *BlockComparison6) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (b *BlockComparison3) GetEnabled() bool {
+func (b *BlockComparison6) GetEnabled() bool {
 	if b == nil {
 		return false
 	}
 	return b.Enabled
 }
 
-func (b *BlockComparison3) GetPreviousTimeFrame() *BlockPreviousTimeFrame3 {
+func (b *BlockComparison6) GetPreviousTimeFrame() *BlockPreviousTimeFrame6 {
 	if b == nil {
 		return nil
 	}
 	return b.PreviousTimeFrame
 }
 
-// #region class-body-blockcomparison3
-// #endregion class-body-blockcomparison3
+// #region class-body-blockcomparison6
+// #endregion class-body-blockcomparison6
 
 type GlobalControlSettings2 struct {
 	DateRange *bool `json:"dateRange,omitzero"`
@@ -2828,9 +4073,9 @@ type BlockFactTableExploration struct {
 	Title                        string                  `json:"title"`
 	Description                  string                  `json:"description"`
 	SnapshotID                   *string                 `json:"snapshotId,omitzero"`
-	Layout                       *Layout10               `json:"layout,omitzero"`
+	Layout                       *Layout14               `json:"layout,omitzero"`
 	ExplorerAnalysisID           string                  `json:"explorerAnalysisId"`
-	Comparison                   *BlockComparison3       `json:"comparison,omitzero"`
+	Comparison                   *BlockComparison6       `json:"comparison,omitzero"`
 	ComparisonExplorerAnalysisID *string                 `json:"comparisonExplorerAnalysisId,omitzero"`
 	GlobalControlSettings        *GlobalControlSettings2 `json:"globalControlSettings,omitzero"`
 	Config                       ConfigFactTable         `json:"config"`
@@ -2893,7 +4138,7 @@ func (b *BlockFactTableExploration) GetSnapshotID() *string {
 	return b.SnapshotID
 }
 
-func (b *BlockFactTableExploration) GetLayout() *Layout10 {
+func (b *BlockFactTableExploration) GetLayout() *Layout14 {
 	if b == nil {
 		return nil
 	}
@@ -2907,7 +4152,7 @@ func (b *BlockFactTableExploration) GetExplorerAnalysisID() string {
 	return b.ExplorerAnalysisID
 }
 
-func (b *BlockFactTableExploration) GetComparison() *BlockComparison3 {
+func (b *BlockFactTableExploration) GetComparison() *BlockComparison6 {
 	if b == nil {
 		return nil
 	}
@@ -2935,7 +4180,7 @@ func (b *BlockFactTableExploration) GetConfig() ConfigFactTable {
 	return b.Config
 }
 
-type Layout9 struct {
+type Layout13 struct {
 	X      int64 `json:"x"`
 	Y      int64 `json:"y"`
 	W      int64 `json:"w"`
@@ -2943,72 +4188,72 @@ type Layout9 struct {
 	Static *bool `json:"static,omitzero"`
 }
 
-func (l Layout9) MarshalJSON() ([]byte, error) {
+func (l Layout13) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(l, "", false)
 }
 
-func (l *Layout9) UnmarshalJSON(data []byte) error {
+func (l *Layout13) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (l *Layout9) GetX() int64 {
+func (l *Layout13) GetX() int64 {
 	if l == nil {
 		return 0
 	}
 	return l.X
 }
 
-func (l *Layout9) GetY() int64 {
+func (l *Layout13) GetY() int64 {
 	if l == nil {
 		return 0
 	}
 	return l.Y
 }
 
-func (l *Layout9) GetW() int64 {
+func (l *Layout13) GetW() int64 {
 	if l == nil {
 		return 0
 	}
 	return l.W
 }
 
-func (l *Layout9) GetH() int64 {
+func (l *Layout13) GetH() int64 {
 	if l == nil {
 		return 0
 	}
 	return l.H
 }
 
-func (l *Layout9) GetStatic() *bool {
+func (l *Layout13) GetStatic() *bool {
 	if l == nil {
 		return nil
 	}
 	return l.Static
 }
 
-// #region class-body-layout9
-// #endregion class-body-layout9
+// #region class-body-layout13
+// #endregion class-body-layout13
 
-type BlockPreviousTimeFramePredefined2 string
+type BlockPreviousTimeFramePredefined5 string
 
 const (
-	BlockPreviousTimeFramePredefined2Today           BlockPreviousTimeFramePredefined2 = "today"
-	BlockPreviousTimeFramePredefined2Last7Days       BlockPreviousTimeFramePredefined2 = "last7Days"
-	BlockPreviousTimeFramePredefined2Last30Days      BlockPreviousTimeFramePredefined2 = "last30Days"
-	BlockPreviousTimeFramePredefined2Last90Days      BlockPreviousTimeFramePredefined2 = "last90Days"
-	BlockPreviousTimeFramePredefined2CustomLookback  BlockPreviousTimeFramePredefined2 = "customLookback"
-	BlockPreviousTimeFramePredefined2CustomDateRange BlockPreviousTimeFramePredefined2 = "customDateRange"
+	BlockPreviousTimeFramePredefined5Today           BlockPreviousTimeFramePredefined5 = "today"
+	BlockPreviousTimeFramePredefined5Last7Days       BlockPreviousTimeFramePredefined5 = "last7Days"
+	BlockPreviousTimeFramePredefined5Last30Days      BlockPreviousTimeFramePredefined5 = "last30Days"
+	BlockPreviousTimeFramePredefined5Last90Days      BlockPreviousTimeFramePredefined5 = "last90Days"
+	BlockPreviousTimeFramePredefined5CustomLookback  BlockPreviousTimeFramePredefined5 = "customLookback"
+	BlockPreviousTimeFramePredefined5CustomDateRange BlockPreviousTimeFramePredefined5 = "customDateRange"
 )
 
-func (e BlockPreviousTimeFramePredefined2) ToPointer() *BlockPreviousTimeFramePredefined2 {
+func (e BlockPreviousTimeFramePredefined5) ToPointer() *BlockPreviousTimeFramePredefined5 {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *BlockPreviousTimeFramePredefined2) IsExact() bool {
+func (e *BlockPreviousTimeFramePredefined5) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "today", "last7Days", "last30Days", "last90Days", "customLookback", "customDateRange":
@@ -3018,21 +4263,21 @@ func (e *BlockPreviousTimeFramePredefined2) IsExact() bool {
 	return false
 }
 
-type BlockPreviousTimeFrameLookbackUnit2 string
+type BlockPreviousTimeFrameLookbackUnit5 string
 
 const (
-	BlockPreviousTimeFrameLookbackUnit2Hour  BlockPreviousTimeFrameLookbackUnit2 = "hour"
-	BlockPreviousTimeFrameLookbackUnit2Day   BlockPreviousTimeFrameLookbackUnit2 = "day"
-	BlockPreviousTimeFrameLookbackUnit2Week  BlockPreviousTimeFrameLookbackUnit2 = "week"
-	BlockPreviousTimeFrameLookbackUnit2Month BlockPreviousTimeFrameLookbackUnit2 = "month"
+	BlockPreviousTimeFrameLookbackUnit5Hour  BlockPreviousTimeFrameLookbackUnit5 = "hour"
+	BlockPreviousTimeFrameLookbackUnit5Day   BlockPreviousTimeFrameLookbackUnit5 = "day"
+	BlockPreviousTimeFrameLookbackUnit5Week  BlockPreviousTimeFrameLookbackUnit5 = "week"
+	BlockPreviousTimeFrameLookbackUnit5Month BlockPreviousTimeFrameLookbackUnit5 = "month"
 )
 
-func (e BlockPreviousTimeFrameLookbackUnit2) ToPointer() *BlockPreviousTimeFrameLookbackUnit2 {
+func (e BlockPreviousTimeFrameLookbackUnit5) ToPointer() *BlockPreviousTimeFrameLookbackUnit5 {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *BlockPreviousTimeFrameLookbackUnit2) IsExact() bool {
+func (e *BlockPreviousTimeFrameLookbackUnit5) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "hour", "day", "week", "month":
@@ -3042,95 +4287,95 @@ func (e *BlockPreviousTimeFrameLookbackUnit2) IsExact() bool {
 	return false
 }
 
-type BlockPreviousTimeFrame2 struct {
-	Predefined    BlockPreviousTimeFramePredefined2                                      `json:"predefined"`
+type BlockPreviousTimeFrame5 struct {
+	Predefined    BlockPreviousTimeFramePredefined5                                      `json:"predefined"`
 	LookbackValue optionalnullable.OptionalNullable[float64]                             `json:"lookbackValue,omitzero"`
-	LookbackUnit  optionalnullable.OptionalNullable[BlockPreviousTimeFrameLookbackUnit2] `json:"lookbackUnit,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[BlockPreviousTimeFrameLookbackUnit5] `json:"lookbackUnit,omitzero"`
 	StartDate     optionalnullable.OptionalNullable[string]                              `json:"startDate,omitzero"`
 	EndDate       optionalnullable.OptionalNullable[string]                              `json:"endDate,omitzero"`
 }
 
-func (b BlockPreviousTimeFrame2) MarshalJSON() ([]byte, error) {
+func (b BlockPreviousTimeFrame5) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(b, "", false)
 }
 
-func (b *BlockPreviousTimeFrame2) UnmarshalJSON(data []byte) error {
+func (b *BlockPreviousTimeFrame5) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (b *BlockPreviousTimeFrame2) GetPredefined() BlockPreviousTimeFramePredefined2 {
+func (b *BlockPreviousTimeFrame5) GetPredefined() BlockPreviousTimeFramePredefined5 {
 	if b == nil {
-		return BlockPreviousTimeFramePredefined2("")
+		return BlockPreviousTimeFramePredefined5("")
 	}
 	return b.Predefined
 }
 
-func (b *BlockPreviousTimeFrame2) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+func (b *BlockPreviousTimeFrame5) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
 	if b == nil {
 		return nil
 	}
 	return b.LookbackValue
 }
 
-func (b *BlockPreviousTimeFrame2) GetLookbackUnit() optionalnullable.OptionalNullable[BlockPreviousTimeFrameLookbackUnit2] {
+func (b *BlockPreviousTimeFrame5) GetLookbackUnit() optionalnullable.OptionalNullable[BlockPreviousTimeFrameLookbackUnit5] {
 	if b == nil {
 		return nil
 	}
 	return b.LookbackUnit
 }
 
-func (b *BlockPreviousTimeFrame2) GetStartDate() optionalnullable.OptionalNullable[string] {
+func (b *BlockPreviousTimeFrame5) GetStartDate() optionalnullable.OptionalNullable[string] {
 	if b == nil {
 		return nil
 	}
 	return b.StartDate
 }
 
-func (b *BlockPreviousTimeFrame2) GetEndDate() optionalnullable.OptionalNullable[string] {
+func (b *BlockPreviousTimeFrame5) GetEndDate() optionalnullable.OptionalNullable[string] {
 	if b == nil {
 		return nil
 	}
 	return b.EndDate
 }
 
-// #region class-body-blockprevioustimeframe2
-// #endregion class-body-blockprevioustimeframe2
+// #region class-body-blockprevioustimeframe5
+// #endregion class-body-blockprevioustimeframe5
 
-type BlockComparison2 struct {
+type BlockComparison5 struct {
 	Enabled           bool                     `json:"enabled"`
-	PreviousTimeFrame *BlockPreviousTimeFrame2 `json:"previousTimeFrame,omitzero"`
+	PreviousTimeFrame *BlockPreviousTimeFrame5 `json:"previousTimeFrame,omitzero"`
 }
 
-func (b BlockComparison2) MarshalJSON() ([]byte, error) {
+func (b BlockComparison5) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(b, "", false)
 }
 
-func (b *BlockComparison2) UnmarshalJSON(data []byte) error {
+func (b *BlockComparison5) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (b *BlockComparison2) GetEnabled() bool {
+func (b *BlockComparison5) GetEnabled() bool {
 	if b == nil {
 		return false
 	}
 	return b.Enabled
 }
 
-func (b *BlockComparison2) GetPreviousTimeFrame() *BlockPreviousTimeFrame2 {
+func (b *BlockComparison5) GetPreviousTimeFrame() *BlockPreviousTimeFrame5 {
 	if b == nil {
 		return nil
 	}
 	return b.PreviousTimeFrame
 }
 
-// #region class-body-blockcomparison2
-// #endregion class-body-blockcomparison2
+// #region class-body-blockcomparison5
+// #endregion class-body-blockcomparison5
 
 type GlobalControlSettings1 struct {
 	DateRange *bool `json:"dateRange,omitzero"`
@@ -3979,9 +5224,9 @@ type BlockMetricExploration struct {
 	Title                        string                  `json:"title"`
 	Description                  string                  `json:"description"`
 	SnapshotID                   *string                 `json:"snapshotId,omitzero"`
-	Layout                       *Layout9                `json:"layout,omitzero"`
+	Layout                       *Layout13               `json:"layout,omitzero"`
 	ExplorerAnalysisID           string                  `json:"explorerAnalysisId"`
-	Comparison                   *BlockComparison2       `json:"comparison,omitzero"`
+	Comparison                   *BlockComparison5       `json:"comparison,omitzero"`
 	ComparisonExplorerAnalysisID *string                 `json:"comparisonExplorerAnalysisId,omitzero"`
 	GlobalControlSettings        *GlobalControlSettings1 `json:"globalControlSettings,omitzero"`
 	Config                       ConfigMetric            `json:"config"`
@@ -4044,7 +5289,7 @@ func (b *BlockMetricExploration) GetSnapshotID() *string {
 	return b.SnapshotID
 }
 
-func (b *BlockMetricExploration) GetLayout() *Layout9 {
+func (b *BlockMetricExploration) GetLayout() *Layout13 {
 	if b == nil {
 		return nil
 	}
@@ -4058,7 +5303,7 @@ func (b *BlockMetricExploration) GetExplorerAnalysisID() string {
 	return b.ExplorerAnalysisID
 }
 
-func (b *BlockMetricExploration) GetComparison() *BlockComparison2 {
+func (b *BlockMetricExploration) GetComparison() *BlockComparison5 {
 	if b == nil {
 		return nil
 	}
@@ -4086,7 +5331,7 @@ func (b *BlockMetricExploration) GetConfig() ConfigMetric {
 	return b.Config
 }
 
-type Layout8 struct {
+type Layout12 struct {
 	X      int64 `json:"x"`
 	Y      int64 `json:"y"`
 	W      int64 `json:"w"`
@@ -4094,68 +5339,68 @@ type Layout8 struct {
 	Static *bool `json:"static,omitzero"`
 }
 
-func (l Layout8) MarshalJSON() ([]byte, error) {
+func (l Layout12) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(l, "", false)
 }
 
-func (l *Layout8) UnmarshalJSON(data []byte) error {
+func (l *Layout12) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (l *Layout8) GetX() int64 {
+func (l *Layout12) GetX() int64 {
 	if l == nil {
 		return 0
 	}
 	return l.X
 }
 
-func (l *Layout8) GetY() int64 {
+func (l *Layout12) GetY() int64 {
 	if l == nil {
 		return 0
 	}
 	return l.Y
 }
 
-func (l *Layout8) GetW() int64 {
+func (l *Layout12) GetW() int64 {
 	if l == nil {
 		return 0
 	}
 	return l.W
 }
 
-func (l *Layout8) GetH() int64 {
+func (l *Layout12) GetH() int64 {
 	if l == nil {
 		return 0
 	}
 	return l.H
 }
 
-func (l *Layout8) GetStatic() *bool {
+func (l *Layout12) GetStatic() *bool {
 	if l == nil {
 		return nil
 	}
 	return l.Static
 }
 
-// #region class-body-layout8
-// #endregion class-body-layout8
+// #region class-body-layout12
+// #endregion class-body-layout12
 
 type BlockSQLExplorer struct {
 	Organization string `json:"organization"`
 	ID           string `json:"id"`
 	UID          string `json:"uid"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_              string   `const:"sql-explorer" json:"type"`
-	Title              string   `json:"title"`
-	Description        string   `json:"description"`
-	SnapshotID         *string  `json:"snapshotId,omitzero"`
-	Layout             *Layout8 `json:"layout,omitzero"`
-	SavedQueryID       string   `json:"savedQueryId"`
-	DataVizConfigIndex *float64 `json:"dataVizConfigIndex,omitzero"`
-	BlockConfig        []string `json:"blockConfig"`
+	type_              string    `const:"sql-explorer" json:"type"`
+	Title              string    `json:"title"`
+	Description        string    `json:"description"`
+	SnapshotID         *string   `json:"snapshotId,omitzero"`
+	Layout             *Layout12 `json:"layout,omitzero"`
+	SavedQueryID       string    `json:"savedQueryId"`
+	DataVizConfigIndex *float64  `json:"dataVizConfigIndex,omitzero"`
+	BlockConfig        []string  `json:"blockConfig"`
 }
 
 func (b BlockSQLExplorer) MarshalJSON() ([]byte, error) {
@@ -4215,7 +5460,7 @@ func (b *BlockSQLExplorer) GetSnapshotID() *string {
 	return b.SnapshotID
 }
 
-func (b *BlockSQLExplorer) GetLayout() *Layout8 {
+func (b *BlockSQLExplorer) GetLayout() *Layout12 {
 	if b == nil {
 		return nil
 	}
@@ -4243,7 +5488,7 @@ func (b *BlockSQLExplorer) GetBlockConfig() []string {
 	return b.BlockConfig
 }
 
-type Layout7 struct {
+type Layout11 struct {
 	X      int64 `json:"x"`
 	Y      int64 `json:"y"`
 	W      int64 `json:"w"`
@@ -4251,68 +5496,68 @@ type Layout7 struct {
 	Static *bool `json:"static,omitzero"`
 }
 
-func (l Layout7) MarshalJSON() ([]byte, error) {
+func (l Layout11) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(l, "", false)
 }
 
-func (l *Layout7) UnmarshalJSON(data []byte) error {
+func (l *Layout11) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (l *Layout7) GetX() int64 {
+func (l *Layout11) GetX() int64 {
 	if l == nil {
 		return 0
 	}
 	return l.X
 }
 
-func (l *Layout7) GetY() int64 {
+func (l *Layout11) GetY() int64 {
 	if l == nil {
 		return 0
 	}
 	return l.Y
 }
 
-func (l *Layout7) GetW() int64 {
+func (l *Layout11) GetW() int64 {
 	if l == nil {
 		return 0
 	}
 	return l.W
 }
 
-func (l *Layout7) GetH() int64 {
+func (l *Layout11) GetH() int64 {
 	if l == nil {
 		return 0
 	}
 	return l.H
 }
 
-func (l *Layout7) GetStatic() *bool {
+func (l *Layout11) GetStatic() *bool {
 	if l == nil {
 		return nil
 	}
 	return l.Static
 }
 
-// #region class-body-layout7
-// #endregion class-body-layout7
+// #region class-body-layout11
+// #endregion class-body-layout11
 
 type BlockExperimentTraffic struct {
 	Organization string `json:"organization"`
 	ID           string `json:"id"`
 	UID          string `json:"uid"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_          string   `const:"experiment-traffic" json:"type"`
-	Title          string   `json:"title"`
-	Description    string   `json:"description"`
-	SnapshotID     *string  `json:"snapshotId,omitzero"`
-	Layout         *Layout7 `json:"layout,omitzero"`
-	ExperimentID   string   `json:"experimentId"`
-	ShowTable      bool     `json:"showTable"`
-	ShowTimeseries bool     `json:"showTimeseries"`
+	type_          string    `const:"experiment-traffic" json:"type"`
+	Title          string    `json:"title"`
+	Description    string    `json:"description"`
+	SnapshotID     *string   `json:"snapshotId,omitzero"`
+	Layout         *Layout11 `json:"layout,omitzero"`
+	ExperimentID   string    `json:"experimentId"`
+	ShowTable      bool      `json:"showTable"`
+	ShowTimeseries bool      `json:"showTimeseries"`
 }
 
 func (b BlockExperimentTraffic) MarshalJSON() ([]byte, error) {
@@ -4372,7 +5617,7 @@ func (b *BlockExperimentTraffic) GetSnapshotID() *string {
 	return b.SnapshotID
 }
 
-func (b *BlockExperimentTraffic) GetLayout() *Layout7 {
+func (b *BlockExperimentTraffic) GetLayout() *Layout11 {
 	if b == nil {
 		return nil
 	}
@@ -4400,7 +5645,7 @@ func (b *BlockExperimentTraffic) GetShowTimeseries() bool {
 	return b.ShowTimeseries
 }
 
-type Layout6 struct {
+type Layout10 struct {
 	X      int64 `json:"x"`
 	Y      int64 `json:"y"`
 	W      int64 `json:"w"`
@@ -4408,69 +5653,69 @@ type Layout6 struct {
 	Static *bool `json:"static,omitzero"`
 }
 
-func (l Layout6) MarshalJSON() ([]byte, error) {
+func (l Layout10) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(l, "", false)
 }
 
-func (l *Layout6) UnmarshalJSON(data []byte) error {
+func (l *Layout10) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (l *Layout6) GetX() int64 {
+func (l *Layout10) GetX() int64 {
 	if l == nil {
 		return 0
 	}
 	return l.X
 }
 
-func (l *Layout6) GetY() int64 {
+func (l *Layout10) GetY() int64 {
 	if l == nil {
 		return 0
 	}
 	return l.Y
 }
 
-func (l *Layout6) GetW() int64 {
+func (l *Layout10) GetW() int64 {
 	if l == nil {
 		return 0
 	}
 	return l.W
 }
 
-func (l *Layout6) GetH() int64 {
+func (l *Layout10) GetH() int64 {
 	if l == nil {
 		return 0
 	}
 	return l.H
 }
 
-func (l *Layout6) GetStatic() *bool {
+func (l *Layout10) GetStatic() *bool {
 	if l == nil {
 		return nil
 	}
 	return l.Static
 }
 
-// #region class-body-layout6
-// #endregion class-body-layout6
+// #region class-body-layout10
+// #endregion class-body-layout10
 
-type DashboardDifferenceType3 string
+type DashboardDifferenceType4 string
 
 const (
-	DashboardDifferenceType3Absolute DashboardDifferenceType3 = "absolute"
-	DashboardDifferenceType3Relative DashboardDifferenceType3 = "relative"
-	DashboardDifferenceType3Scaled   DashboardDifferenceType3 = "scaled"
+	DashboardDifferenceType4Absolute DashboardDifferenceType4 = "absolute"
+	DashboardDifferenceType4Relative DashboardDifferenceType4 = "relative"
+	DashboardDifferenceType4Scaled   DashboardDifferenceType4 = "scaled"
 )
 
-func (e DashboardDifferenceType3) ToPointer() *DashboardDifferenceType3 {
+func (e DashboardDifferenceType4) ToPointer() *DashboardDifferenceType4 {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *DashboardDifferenceType3) IsExact() bool {
+func (e *DashboardDifferenceType4) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "absolute", "relative", "scaled":
@@ -4535,12 +5780,12 @@ type BlockExperimentTimeSeries struct {
 	Title           string                   `json:"title"`
 	Description     string                   `json:"description"`
 	SnapshotID      string                   `json:"snapshotId"`
-	Layout          *Layout6                 `json:"layout,omitzero"`
+	Layout          *Layout10                `json:"layout,omitzero"`
 	ExperimentID    string                   `json:"experimentId"`
 	MetricID        *string                  `json:"metricId,omitzero"`
 	MetricIds       []string                 `json:"metricIds"`
 	VariationIds    []string                 `json:"variationIds"`
-	DifferenceType  DashboardDifferenceType3 `json:"differenceType"`
+	DifferenceType  DashboardDifferenceType4 `json:"differenceType"`
 	SliceTagsFilter []string                 `json:"sliceTagsFilter"`
 	MetricTagFilter []string                 `json:"metricTagFilter"`
 	SortBy          *SortBy3                 `json:"sortBy"`
@@ -4604,7 +5849,7 @@ func (b *BlockExperimentTimeSeries) GetSnapshotID() string {
 	return b.SnapshotID
 }
 
-func (b *BlockExperimentTimeSeries) GetLayout() *Layout6 {
+func (b *BlockExperimentTimeSeries) GetLayout() *Layout10 {
 	if b == nil {
 		return nil
 	}
@@ -4639,9 +5884,9 @@ func (b *BlockExperimentTimeSeries) GetVariationIds() []string {
 	return b.VariationIds
 }
 
-func (b *BlockExperimentTimeSeries) GetDifferenceType() DashboardDifferenceType3 {
+func (b *BlockExperimentTimeSeries) GetDifferenceType() DashboardDifferenceType4 {
 	if b == nil {
-		return DashboardDifferenceType3("")
+		return DashboardDifferenceType4("")
 	}
 	return b.DifferenceType
 }
@@ -4674,7 +5919,7 @@ func (b *BlockExperimentTimeSeries) GetSortDirection() *SortDirection3 {
 	return b.SortDirection
 }
 
-type Layout5 struct {
+type Layout9 struct {
 	X      int64 `json:"x"`
 	Y      int64 `json:"y"`
 	W      int64 `json:"w"`
@@ -4682,69 +5927,69 @@ type Layout5 struct {
 	Static *bool `json:"static,omitzero"`
 }
 
-func (l Layout5) MarshalJSON() ([]byte, error) {
+func (l Layout9) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(l, "", false)
 }
 
-func (l *Layout5) UnmarshalJSON(data []byte) error {
+func (l *Layout9) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (l *Layout5) GetX() int64 {
+func (l *Layout9) GetX() int64 {
 	if l == nil {
 		return 0
 	}
 	return l.X
 }
 
-func (l *Layout5) GetY() int64 {
+func (l *Layout9) GetY() int64 {
 	if l == nil {
 		return 0
 	}
 	return l.Y
 }
 
-func (l *Layout5) GetW() int64 {
+func (l *Layout9) GetW() int64 {
 	if l == nil {
 		return 0
 	}
 	return l.W
 }
 
-func (l *Layout5) GetH() int64 {
+func (l *Layout9) GetH() int64 {
 	if l == nil {
 		return 0
 	}
 	return l.H
 }
 
-func (l *Layout5) GetStatic() *bool {
+func (l *Layout9) GetStatic() *bool {
 	if l == nil {
 		return nil
 	}
 	return l.Static
 }
 
-// #region class-body-layout5
-// #endregion class-body-layout5
+// #region class-body-layout9
+// #endregion class-body-layout9
 
-type DashboardDifferenceType2 string
+type DashboardDifferenceType3 string
 
 const (
-	DashboardDifferenceType2Absolute DashboardDifferenceType2 = "absolute"
-	DashboardDifferenceType2Relative DashboardDifferenceType2 = "relative"
-	DashboardDifferenceType2Scaled   DashboardDifferenceType2 = "scaled"
+	DashboardDifferenceType3Absolute DashboardDifferenceType3 = "absolute"
+	DashboardDifferenceType3Relative DashboardDifferenceType3 = "relative"
+	DashboardDifferenceType3Scaled   DashboardDifferenceType3 = "scaled"
 )
 
-func (e DashboardDifferenceType2) ToPointer() *DashboardDifferenceType2 {
+func (e DashboardDifferenceType3) ToPointer() *DashboardDifferenceType3 {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *DashboardDifferenceType2) IsExact() bool {
+func (e *DashboardDifferenceType3) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "absolute", "relative", "scaled":
@@ -4835,14 +6080,14 @@ type BlockExperimentDimension struct {
 	Title           string                   `json:"title"`
 	Description     string                   `json:"description"`
 	SnapshotID      string                   `json:"snapshotId"`
-	Layout          *Layout5                 `json:"layout,omitzero"`
+	Layout          *Layout9                 `json:"layout,omitzero"`
 	ExperimentID    string                   `json:"experimentId"`
 	DimensionID     string                   `json:"dimensionId"`
 	DimensionValues []string                 `json:"dimensionValues"`
 	MetricIds       []string                 `json:"metricIds"`
 	VariationIds    []string                 `json:"variationIds"`
 	BaselineRow     float64                  `json:"baselineRow"`
-	DifferenceType  DashboardDifferenceType2 `json:"differenceType"`
+	DifferenceType  DashboardDifferenceType3 `json:"differenceType"`
 	ColumnsFilter   []ColumnsFilter2         `json:"columnsFilter"`
 	MetricTagFilter []string                 `json:"metricTagFilter"`
 	SortBy          *SortBy2                 `json:"sortBy"`
@@ -4906,7 +6151,7 @@ func (b *BlockExperimentDimension) GetSnapshotID() string {
 	return b.SnapshotID
 }
 
-func (b *BlockExperimentDimension) GetLayout() *Layout5 {
+func (b *BlockExperimentDimension) GetLayout() *Layout9 {
 	if b == nil {
 		return nil
 	}
@@ -4955,9 +6200,9 @@ func (b *BlockExperimentDimension) GetBaselineRow() float64 {
 	return b.BaselineRow
 }
 
-func (b *BlockExperimentDimension) GetDifferenceType() DashboardDifferenceType2 {
+func (b *BlockExperimentDimension) GetDifferenceType() DashboardDifferenceType3 {
 	if b == nil {
-		return DashboardDifferenceType2("")
+		return DashboardDifferenceType3("")
 	}
 	return b.DifferenceType
 }
@@ -4988,6 +6233,1750 @@ func (b *BlockExperimentDimension) GetSortDirection() *SortDirection2 {
 		return nil
 	}
 	return b.SortDirection
+}
+
+type Layout8 struct {
+	X      int64 `json:"x"`
+	Y      int64 `json:"y"`
+	W      int64 `json:"w"`
+	H      int64 `json:"h"`
+	Static *bool `json:"static,omitzero"`
+}
+
+func (l Layout8) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
+}
+
+func (l *Layout8) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (l *Layout8) GetX() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.X
+}
+
+func (l *Layout8) GetY() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.Y
+}
+
+func (l *Layout8) GetW() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.W
+}
+
+func (l *Layout8) GetH() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.H
+}
+
+func (l *Layout8) GetStatic() *bool {
+	if l == nil {
+		return nil
+	}
+	return l.Static
+}
+
+// #region class-body-layout8
+// #endregion class-body-layout8
+
+type BlockDateRangePredefined3 string
+
+const (
+	BlockDateRangePredefined3Today           BlockDateRangePredefined3 = "today"
+	BlockDateRangePredefined3Last7Days       BlockDateRangePredefined3 = "last7Days"
+	BlockDateRangePredefined3Last30Days      BlockDateRangePredefined3 = "last30Days"
+	BlockDateRangePredefined3Last90Days      BlockDateRangePredefined3 = "last90Days"
+	BlockDateRangePredefined3CustomLookback  BlockDateRangePredefined3 = "customLookback"
+	BlockDateRangePredefined3CustomDateRange BlockDateRangePredefined3 = "customDateRange"
+)
+
+func (e BlockDateRangePredefined3) ToPointer() *BlockDateRangePredefined3 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *BlockDateRangePredefined3) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "today", "last7Days", "last30Days", "last90Days", "customLookback", "customDateRange":
+			return true
+		}
+	}
+	return false
+}
+
+type BlockDateRangeLookbackUnit3 string
+
+const (
+	BlockDateRangeLookbackUnit3Hour  BlockDateRangeLookbackUnit3 = "hour"
+	BlockDateRangeLookbackUnit3Day   BlockDateRangeLookbackUnit3 = "day"
+	BlockDateRangeLookbackUnit3Week  BlockDateRangeLookbackUnit3 = "week"
+	BlockDateRangeLookbackUnit3Month BlockDateRangeLookbackUnit3 = "month"
+)
+
+func (e BlockDateRangeLookbackUnit3) ToPointer() *BlockDateRangeLookbackUnit3 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *BlockDateRangeLookbackUnit3) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "hour", "day", "week", "month":
+			return true
+		}
+	}
+	return false
+}
+
+type BlockDateRange3 struct {
+	Predefined    BlockDateRangePredefined3                                      `json:"predefined"`
+	LookbackValue optionalnullable.OptionalNullable[float64]                     `json:"lookbackValue,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[BlockDateRangeLookbackUnit3] `json:"lookbackUnit,omitzero"`
+	StartDate     optionalnullable.OptionalNullable[string]                      `json:"startDate,omitzero"`
+	EndDate       optionalnullable.OptionalNullable[string]                      `json:"endDate,omitzero"`
+}
+
+func (b BlockDateRange3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BlockDateRange3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *BlockDateRange3) GetPredefined() BlockDateRangePredefined3 {
+	if b == nil {
+		return BlockDateRangePredefined3("")
+	}
+	return b.Predefined
+}
+
+func (b *BlockDateRange3) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+	if b == nil {
+		return nil
+	}
+	return b.LookbackValue
+}
+
+func (b *BlockDateRange3) GetLookbackUnit() optionalnullable.OptionalNullable[BlockDateRangeLookbackUnit3] {
+	if b == nil {
+		return nil
+	}
+	return b.LookbackUnit
+}
+
+func (b *BlockDateRange3) GetStartDate() optionalnullable.OptionalNullable[string] {
+	if b == nil {
+		return nil
+	}
+	return b.StartDate
+}
+
+func (b *BlockDateRange3) GetEndDate() optionalnullable.OptionalNullable[string] {
+	if b == nil {
+		return nil
+	}
+	return b.EndDate
+}
+
+// #region class-body-blockdaterange3
+// #endregion class-body-blockdaterange3
+
+type BlockPreviousTimeFramePredefined4 string
+
+const (
+	BlockPreviousTimeFramePredefined4Today           BlockPreviousTimeFramePredefined4 = "today"
+	BlockPreviousTimeFramePredefined4Last7Days       BlockPreviousTimeFramePredefined4 = "last7Days"
+	BlockPreviousTimeFramePredefined4Last30Days      BlockPreviousTimeFramePredefined4 = "last30Days"
+	BlockPreviousTimeFramePredefined4Last90Days      BlockPreviousTimeFramePredefined4 = "last90Days"
+	BlockPreviousTimeFramePredefined4CustomLookback  BlockPreviousTimeFramePredefined4 = "customLookback"
+	BlockPreviousTimeFramePredefined4CustomDateRange BlockPreviousTimeFramePredefined4 = "customDateRange"
+)
+
+func (e BlockPreviousTimeFramePredefined4) ToPointer() *BlockPreviousTimeFramePredefined4 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *BlockPreviousTimeFramePredefined4) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "today", "last7Days", "last30Days", "last90Days", "customLookback", "customDateRange":
+			return true
+		}
+	}
+	return false
+}
+
+type BlockPreviousTimeFrameLookbackUnit4 string
+
+const (
+	BlockPreviousTimeFrameLookbackUnit4Hour  BlockPreviousTimeFrameLookbackUnit4 = "hour"
+	BlockPreviousTimeFrameLookbackUnit4Day   BlockPreviousTimeFrameLookbackUnit4 = "day"
+	BlockPreviousTimeFrameLookbackUnit4Week  BlockPreviousTimeFrameLookbackUnit4 = "week"
+	BlockPreviousTimeFrameLookbackUnit4Month BlockPreviousTimeFrameLookbackUnit4 = "month"
+)
+
+func (e BlockPreviousTimeFrameLookbackUnit4) ToPointer() *BlockPreviousTimeFrameLookbackUnit4 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *BlockPreviousTimeFrameLookbackUnit4) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "hour", "day", "week", "month":
+			return true
+		}
+	}
+	return false
+}
+
+type BlockPreviousTimeFrame4 struct {
+	Predefined    BlockPreviousTimeFramePredefined4                                      `json:"predefined"`
+	LookbackValue optionalnullable.OptionalNullable[float64]                             `json:"lookbackValue,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[BlockPreviousTimeFrameLookbackUnit4] `json:"lookbackUnit,omitzero"`
+	StartDate     optionalnullable.OptionalNullable[string]                              `json:"startDate,omitzero"`
+	EndDate       optionalnullable.OptionalNullable[string]                              `json:"endDate,omitzero"`
+}
+
+func (b BlockPreviousTimeFrame4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BlockPreviousTimeFrame4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *BlockPreviousTimeFrame4) GetPredefined() BlockPreviousTimeFramePredefined4 {
+	if b == nil {
+		return BlockPreviousTimeFramePredefined4("")
+	}
+	return b.Predefined
+}
+
+func (b *BlockPreviousTimeFrame4) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+	if b == nil {
+		return nil
+	}
+	return b.LookbackValue
+}
+
+func (b *BlockPreviousTimeFrame4) GetLookbackUnit() optionalnullable.OptionalNullable[BlockPreviousTimeFrameLookbackUnit4] {
+	if b == nil {
+		return nil
+	}
+	return b.LookbackUnit
+}
+
+func (b *BlockPreviousTimeFrame4) GetStartDate() optionalnullable.OptionalNullable[string] {
+	if b == nil {
+		return nil
+	}
+	return b.StartDate
+}
+
+func (b *BlockPreviousTimeFrame4) GetEndDate() optionalnullable.OptionalNullable[string] {
+	if b == nil {
+		return nil
+	}
+	return b.EndDate
+}
+
+// #region class-body-blockprevioustimeframe4
+// #endregion class-body-blockprevioustimeframe4
+
+type BlockComparison4 struct {
+	Enabled           bool                     `json:"enabled"`
+	PreviousTimeFrame *BlockPreviousTimeFrame4 `json:"previousTimeFrame,omitzero"`
+}
+
+func (b BlockComparison4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BlockComparison4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *BlockComparison4) GetEnabled() bool {
+	if b == nil {
+		return false
+	}
+	return b.Enabled
+}
+
+func (b *BlockComparison4) GetPreviousTimeFrame() *BlockPreviousTimeFrame4 {
+	if b == nil {
+		return nil
+	}
+	return b.PreviousTimeFrame
+}
+
+// #region class-body-blockcomparison4
+// #endregion class-body-blockcomparison4
+
+type BlockDateGranularity string
+
+const (
+	BlockDateGranularityAuto  BlockDateGranularity = "auto"
+	BlockDateGranularityHour  BlockDateGranularity = "hour"
+	BlockDateGranularityDay   BlockDateGranularity = "day"
+	BlockDateGranularityWeek  BlockDateGranularity = "week"
+	BlockDateGranularityMonth BlockDateGranularity = "month"
+	BlockDateGranularityYear  BlockDateGranularity = "year"
+)
+
+func (e BlockDateGranularity) ToPointer() *BlockDateGranularity {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *BlockDateGranularity) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "hour", "day", "week", "month", "year":
+			return true
+		}
+	}
+	return false
+}
+
+type BlockExperimentsStatus struct {
+	Organization string `json:"organization"`
+	ID           string `json:"id"`
+	UID          string `json:"uid"`
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	type_                  string                `const:"experiments-status" json:"type"`
+	Title                  string                `json:"title"`
+	Description            string                `json:"description"`
+	SnapshotID             *string               `json:"snapshotId,omitzero"`
+	Layout                 *Layout8              `json:"layout,omitzero"`
+	DateRange              BlockDateRange3       `json:"dateRange"`
+	Projects               []string              `json:"projects"`
+	ExperimentSearchString *string               `json:"experimentSearchString,omitzero"`
+	Comparison             *BlockComparison4     `json:"comparison,omitzero"`
+	DateGranularity        *BlockDateGranularity `json:"dateGranularity,omitzero"`
+}
+
+func (b BlockExperimentsStatus) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BlockExperimentsStatus) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *BlockExperimentsStatus) GetOrganization() string {
+	if b == nil {
+		return ""
+	}
+	return b.Organization
+}
+
+func (b *BlockExperimentsStatus) GetID() string {
+	if b == nil {
+		return ""
+	}
+	return b.ID
+}
+
+func (b *BlockExperimentsStatus) GetUID() string {
+	if b == nil {
+		return ""
+	}
+	return b.UID
+}
+
+func (b *BlockExperimentsStatus) GetType() string {
+	return "experiments-status"
+}
+
+func (b *BlockExperimentsStatus) GetTitle() string {
+	if b == nil {
+		return ""
+	}
+	return b.Title
+}
+
+func (b *BlockExperimentsStatus) GetDescription() string {
+	if b == nil {
+		return ""
+	}
+	return b.Description
+}
+
+func (b *BlockExperimentsStatus) GetSnapshotID() *string {
+	if b == nil {
+		return nil
+	}
+	return b.SnapshotID
+}
+
+func (b *BlockExperimentsStatus) GetLayout() *Layout8 {
+	if b == nil {
+		return nil
+	}
+	return b.Layout
+}
+
+func (b *BlockExperimentsStatus) GetDateRange() BlockDateRange3 {
+	if b == nil {
+		return BlockDateRange3{}
+	}
+	return b.DateRange
+}
+
+func (b *BlockExperimentsStatus) GetProjects() []string {
+	if b == nil {
+		return []string{}
+	}
+	return b.Projects
+}
+
+func (b *BlockExperimentsStatus) GetExperimentSearchString() *string {
+	if b == nil {
+		return nil
+	}
+	return b.ExperimentSearchString
+}
+
+func (b *BlockExperimentsStatus) GetComparison() *BlockComparison4 {
+	if b == nil {
+		return nil
+	}
+	return b.Comparison
+}
+
+func (b *BlockExperimentsStatus) GetDateGranularity() *BlockDateGranularity {
+	if b == nil {
+		return nil
+	}
+	return b.DateGranularity
+}
+
+type Layout7 struct {
+	X      int64 `json:"x"`
+	Y      int64 `json:"y"`
+	W      int64 `json:"w"`
+	H      int64 `json:"h"`
+	Static *bool `json:"static,omitzero"`
+}
+
+func (l Layout7) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
+}
+
+func (l *Layout7) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (l *Layout7) GetX() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.X
+}
+
+func (l *Layout7) GetY() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.Y
+}
+
+func (l *Layout7) GetW() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.W
+}
+
+func (l *Layout7) GetH() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.H
+}
+
+func (l *Layout7) GetStatic() *bool {
+	if l == nil {
+		return nil
+	}
+	return l.Static
+}
+
+// #region class-body-layout7
+// #endregion class-body-layout7
+
+type BlockDateRangePredefined2 string
+
+const (
+	BlockDateRangePredefined2Today           BlockDateRangePredefined2 = "today"
+	BlockDateRangePredefined2Last7Days       BlockDateRangePredefined2 = "last7Days"
+	BlockDateRangePredefined2Last30Days      BlockDateRangePredefined2 = "last30Days"
+	BlockDateRangePredefined2Last90Days      BlockDateRangePredefined2 = "last90Days"
+	BlockDateRangePredefined2CustomLookback  BlockDateRangePredefined2 = "customLookback"
+	BlockDateRangePredefined2CustomDateRange BlockDateRangePredefined2 = "customDateRange"
+)
+
+func (e BlockDateRangePredefined2) ToPointer() *BlockDateRangePredefined2 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *BlockDateRangePredefined2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "today", "last7Days", "last30Days", "last90Days", "customLookback", "customDateRange":
+			return true
+		}
+	}
+	return false
+}
+
+type BlockDateRangeLookbackUnit2 string
+
+const (
+	BlockDateRangeLookbackUnit2Hour  BlockDateRangeLookbackUnit2 = "hour"
+	BlockDateRangeLookbackUnit2Day   BlockDateRangeLookbackUnit2 = "day"
+	BlockDateRangeLookbackUnit2Week  BlockDateRangeLookbackUnit2 = "week"
+	BlockDateRangeLookbackUnit2Month BlockDateRangeLookbackUnit2 = "month"
+)
+
+func (e BlockDateRangeLookbackUnit2) ToPointer() *BlockDateRangeLookbackUnit2 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *BlockDateRangeLookbackUnit2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "hour", "day", "week", "month":
+			return true
+		}
+	}
+	return false
+}
+
+type BlockDateRange2 struct {
+	Predefined    BlockDateRangePredefined2                                      `json:"predefined"`
+	LookbackValue optionalnullable.OptionalNullable[float64]                     `json:"lookbackValue,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[BlockDateRangeLookbackUnit2] `json:"lookbackUnit,omitzero"`
+	StartDate     optionalnullable.OptionalNullable[string]                      `json:"startDate,omitzero"`
+	EndDate       optionalnullable.OptionalNullable[string]                      `json:"endDate,omitzero"`
+}
+
+func (b BlockDateRange2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BlockDateRange2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *BlockDateRange2) GetPredefined() BlockDateRangePredefined2 {
+	if b == nil {
+		return BlockDateRangePredefined2("")
+	}
+	return b.Predefined
+}
+
+func (b *BlockDateRange2) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+	if b == nil {
+		return nil
+	}
+	return b.LookbackValue
+}
+
+func (b *BlockDateRange2) GetLookbackUnit() optionalnullable.OptionalNullable[BlockDateRangeLookbackUnit2] {
+	if b == nil {
+		return nil
+	}
+	return b.LookbackUnit
+}
+
+func (b *BlockDateRange2) GetStartDate() optionalnullable.OptionalNullable[string] {
+	if b == nil {
+		return nil
+	}
+	return b.StartDate
+}
+
+func (b *BlockDateRange2) GetEndDate() optionalnullable.OptionalNullable[string] {
+	if b == nil {
+		return nil
+	}
+	return b.EndDate
+}
+
+// #region class-body-blockdaterange2
+// #endregion class-body-blockdaterange2
+
+type BlockPreviousTimeFramePredefined3 string
+
+const (
+	BlockPreviousTimeFramePredefined3Today           BlockPreviousTimeFramePredefined3 = "today"
+	BlockPreviousTimeFramePredefined3Last7Days       BlockPreviousTimeFramePredefined3 = "last7Days"
+	BlockPreviousTimeFramePredefined3Last30Days      BlockPreviousTimeFramePredefined3 = "last30Days"
+	BlockPreviousTimeFramePredefined3Last90Days      BlockPreviousTimeFramePredefined3 = "last90Days"
+	BlockPreviousTimeFramePredefined3CustomLookback  BlockPreviousTimeFramePredefined3 = "customLookback"
+	BlockPreviousTimeFramePredefined3CustomDateRange BlockPreviousTimeFramePredefined3 = "customDateRange"
+)
+
+func (e BlockPreviousTimeFramePredefined3) ToPointer() *BlockPreviousTimeFramePredefined3 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *BlockPreviousTimeFramePredefined3) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "today", "last7Days", "last30Days", "last90Days", "customLookback", "customDateRange":
+			return true
+		}
+	}
+	return false
+}
+
+type BlockPreviousTimeFrameLookbackUnit3 string
+
+const (
+	BlockPreviousTimeFrameLookbackUnit3Hour  BlockPreviousTimeFrameLookbackUnit3 = "hour"
+	BlockPreviousTimeFrameLookbackUnit3Day   BlockPreviousTimeFrameLookbackUnit3 = "day"
+	BlockPreviousTimeFrameLookbackUnit3Week  BlockPreviousTimeFrameLookbackUnit3 = "week"
+	BlockPreviousTimeFrameLookbackUnit3Month BlockPreviousTimeFrameLookbackUnit3 = "month"
+)
+
+func (e BlockPreviousTimeFrameLookbackUnit3) ToPointer() *BlockPreviousTimeFrameLookbackUnit3 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *BlockPreviousTimeFrameLookbackUnit3) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "hour", "day", "week", "month":
+			return true
+		}
+	}
+	return false
+}
+
+type BlockPreviousTimeFrame3 struct {
+	Predefined    BlockPreviousTimeFramePredefined3                                      `json:"predefined"`
+	LookbackValue optionalnullable.OptionalNullable[float64]                             `json:"lookbackValue,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[BlockPreviousTimeFrameLookbackUnit3] `json:"lookbackUnit,omitzero"`
+	StartDate     optionalnullable.OptionalNullable[string]                              `json:"startDate,omitzero"`
+	EndDate       optionalnullable.OptionalNullable[string]                              `json:"endDate,omitzero"`
+}
+
+func (b BlockPreviousTimeFrame3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BlockPreviousTimeFrame3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *BlockPreviousTimeFrame3) GetPredefined() BlockPreviousTimeFramePredefined3 {
+	if b == nil {
+		return BlockPreviousTimeFramePredefined3("")
+	}
+	return b.Predefined
+}
+
+func (b *BlockPreviousTimeFrame3) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+	if b == nil {
+		return nil
+	}
+	return b.LookbackValue
+}
+
+func (b *BlockPreviousTimeFrame3) GetLookbackUnit() optionalnullable.OptionalNullable[BlockPreviousTimeFrameLookbackUnit3] {
+	if b == nil {
+		return nil
+	}
+	return b.LookbackUnit
+}
+
+func (b *BlockPreviousTimeFrame3) GetStartDate() optionalnullable.OptionalNullable[string] {
+	if b == nil {
+		return nil
+	}
+	return b.StartDate
+}
+
+func (b *BlockPreviousTimeFrame3) GetEndDate() optionalnullable.OptionalNullable[string] {
+	if b == nil {
+		return nil
+	}
+	return b.EndDate
+}
+
+// #region class-body-blockprevioustimeframe3
+// #endregion class-body-blockprevioustimeframe3
+
+type BlockComparison3 struct {
+	Enabled           bool                     `json:"enabled"`
+	PreviousTimeFrame *BlockPreviousTimeFrame3 `json:"previousTimeFrame,omitzero"`
+}
+
+func (b BlockComparison3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BlockComparison3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *BlockComparison3) GetEnabled() bool {
+	if b == nil {
+		return false
+	}
+	return b.Enabled
+}
+
+func (b *BlockComparison3) GetPreviousTimeFrame() *BlockPreviousTimeFrame3 {
+	if b == nil {
+		return nil
+	}
+	return b.PreviousTimeFrame
+}
+
+// #region class-body-blockcomparison3
+// #endregion class-body-blockcomparison3
+
+type BlockExperimentsWinRate struct {
+	Organization string `json:"organization"`
+	ID           string `json:"id"`
+	UID          string `json:"uid"`
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	type_                  string            `const:"experiments-win-rate" json:"type"`
+	Title                  string            `json:"title"`
+	Description            string            `json:"description"`
+	SnapshotID             *string           `json:"snapshotId,omitzero"`
+	Layout                 *Layout7          `json:"layout,omitzero"`
+	DateRange              BlockDateRange2   `json:"dateRange"`
+	Projects               []string          `json:"projects"`
+	ExperimentSearchString *string           `json:"experimentSearchString,omitzero"`
+	Comparison             *BlockComparison3 `json:"comparison,omitzero"`
+	ShowProjectBreakdown   bool              `json:"showProjectBreakdown"`
+}
+
+func (b BlockExperimentsWinRate) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BlockExperimentsWinRate) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *BlockExperimentsWinRate) GetOrganization() string {
+	if b == nil {
+		return ""
+	}
+	return b.Organization
+}
+
+func (b *BlockExperimentsWinRate) GetID() string {
+	if b == nil {
+		return ""
+	}
+	return b.ID
+}
+
+func (b *BlockExperimentsWinRate) GetUID() string {
+	if b == nil {
+		return ""
+	}
+	return b.UID
+}
+
+func (b *BlockExperimentsWinRate) GetType() string {
+	return "experiments-win-rate"
+}
+
+func (b *BlockExperimentsWinRate) GetTitle() string {
+	if b == nil {
+		return ""
+	}
+	return b.Title
+}
+
+func (b *BlockExperimentsWinRate) GetDescription() string {
+	if b == nil {
+		return ""
+	}
+	return b.Description
+}
+
+func (b *BlockExperimentsWinRate) GetSnapshotID() *string {
+	if b == nil {
+		return nil
+	}
+	return b.SnapshotID
+}
+
+func (b *BlockExperimentsWinRate) GetLayout() *Layout7 {
+	if b == nil {
+		return nil
+	}
+	return b.Layout
+}
+
+func (b *BlockExperimentsWinRate) GetDateRange() BlockDateRange2 {
+	if b == nil {
+		return BlockDateRange2{}
+	}
+	return b.DateRange
+}
+
+func (b *BlockExperimentsWinRate) GetProjects() []string {
+	if b == nil {
+		return []string{}
+	}
+	return b.Projects
+}
+
+func (b *BlockExperimentsWinRate) GetExperimentSearchString() *string {
+	if b == nil {
+		return nil
+	}
+	return b.ExperimentSearchString
+}
+
+func (b *BlockExperimentsWinRate) GetComparison() *BlockComparison3 {
+	if b == nil {
+		return nil
+	}
+	return b.Comparison
+}
+
+func (b *BlockExperimentsWinRate) GetShowProjectBreakdown() bool {
+	if b == nil {
+		return false
+	}
+	return b.ShowProjectBreakdown
+}
+
+type Layout6 struct {
+	X      int64 `json:"x"`
+	Y      int64 `json:"y"`
+	W      int64 `json:"w"`
+	H      int64 `json:"h"`
+	Static *bool `json:"static,omitzero"`
+}
+
+func (l Layout6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
+}
+
+func (l *Layout6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (l *Layout6) GetX() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.X
+}
+
+func (l *Layout6) GetY() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.Y
+}
+
+func (l *Layout6) GetW() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.W
+}
+
+func (l *Layout6) GetH() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.H
+}
+
+func (l *Layout6) GetStatic() *bool {
+	if l == nil {
+		return nil
+	}
+	return l.Static
+}
+
+// #region class-body-layout6
+// #endregion class-body-layout6
+
+type BlockDateRangePredefined1 string
+
+const (
+	BlockDateRangePredefined1Today           BlockDateRangePredefined1 = "today"
+	BlockDateRangePredefined1Last7Days       BlockDateRangePredefined1 = "last7Days"
+	BlockDateRangePredefined1Last30Days      BlockDateRangePredefined1 = "last30Days"
+	BlockDateRangePredefined1Last90Days      BlockDateRangePredefined1 = "last90Days"
+	BlockDateRangePredefined1CustomLookback  BlockDateRangePredefined1 = "customLookback"
+	BlockDateRangePredefined1CustomDateRange BlockDateRangePredefined1 = "customDateRange"
+)
+
+func (e BlockDateRangePredefined1) ToPointer() *BlockDateRangePredefined1 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *BlockDateRangePredefined1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "today", "last7Days", "last30Days", "last90Days", "customLookback", "customDateRange":
+			return true
+		}
+	}
+	return false
+}
+
+type BlockDateRangeLookbackUnit1 string
+
+const (
+	BlockDateRangeLookbackUnit1Hour  BlockDateRangeLookbackUnit1 = "hour"
+	BlockDateRangeLookbackUnit1Day   BlockDateRangeLookbackUnit1 = "day"
+	BlockDateRangeLookbackUnit1Week  BlockDateRangeLookbackUnit1 = "week"
+	BlockDateRangeLookbackUnit1Month BlockDateRangeLookbackUnit1 = "month"
+)
+
+func (e BlockDateRangeLookbackUnit1) ToPointer() *BlockDateRangeLookbackUnit1 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *BlockDateRangeLookbackUnit1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "hour", "day", "week", "month":
+			return true
+		}
+	}
+	return false
+}
+
+type BlockDateRange1 struct {
+	Predefined    BlockDateRangePredefined1                                      `json:"predefined"`
+	LookbackValue optionalnullable.OptionalNullable[float64]                     `json:"lookbackValue,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[BlockDateRangeLookbackUnit1] `json:"lookbackUnit,omitzero"`
+	StartDate     optionalnullable.OptionalNullable[string]                      `json:"startDate,omitzero"`
+	EndDate       optionalnullable.OptionalNullable[string]                      `json:"endDate,omitzero"`
+}
+
+func (b BlockDateRange1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BlockDateRange1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *BlockDateRange1) GetPredefined() BlockDateRangePredefined1 {
+	if b == nil {
+		return BlockDateRangePredefined1("")
+	}
+	return b.Predefined
+}
+
+func (b *BlockDateRange1) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+	if b == nil {
+		return nil
+	}
+	return b.LookbackValue
+}
+
+func (b *BlockDateRange1) GetLookbackUnit() optionalnullable.OptionalNullable[BlockDateRangeLookbackUnit1] {
+	if b == nil {
+		return nil
+	}
+	return b.LookbackUnit
+}
+
+func (b *BlockDateRange1) GetStartDate() optionalnullable.OptionalNullable[string] {
+	if b == nil {
+		return nil
+	}
+	return b.StartDate
+}
+
+func (b *BlockDateRange1) GetEndDate() optionalnullable.OptionalNullable[string] {
+	if b == nil {
+		return nil
+	}
+	return b.EndDate
+}
+
+// #region class-body-blockdaterange1
+// #endregion class-body-blockdaterange1
+
+type BlockPreviousTimeFramePredefined2 string
+
+const (
+	BlockPreviousTimeFramePredefined2Today           BlockPreviousTimeFramePredefined2 = "today"
+	BlockPreviousTimeFramePredefined2Last7Days       BlockPreviousTimeFramePredefined2 = "last7Days"
+	BlockPreviousTimeFramePredefined2Last30Days      BlockPreviousTimeFramePredefined2 = "last30Days"
+	BlockPreviousTimeFramePredefined2Last90Days      BlockPreviousTimeFramePredefined2 = "last90Days"
+	BlockPreviousTimeFramePredefined2CustomLookback  BlockPreviousTimeFramePredefined2 = "customLookback"
+	BlockPreviousTimeFramePredefined2CustomDateRange BlockPreviousTimeFramePredefined2 = "customDateRange"
+)
+
+func (e BlockPreviousTimeFramePredefined2) ToPointer() *BlockPreviousTimeFramePredefined2 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *BlockPreviousTimeFramePredefined2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "today", "last7Days", "last30Days", "last90Days", "customLookback", "customDateRange":
+			return true
+		}
+	}
+	return false
+}
+
+type BlockPreviousTimeFrameLookbackUnit2 string
+
+const (
+	BlockPreviousTimeFrameLookbackUnit2Hour  BlockPreviousTimeFrameLookbackUnit2 = "hour"
+	BlockPreviousTimeFrameLookbackUnit2Day   BlockPreviousTimeFrameLookbackUnit2 = "day"
+	BlockPreviousTimeFrameLookbackUnit2Week  BlockPreviousTimeFrameLookbackUnit2 = "week"
+	BlockPreviousTimeFrameLookbackUnit2Month BlockPreviousTimeFrameLookbackUnit2 = "month"
+)
+
+func (e BlockPreviousTimeFrameLookbackUnit2) ToPointer() *BlockPreviousTimeFrameLookbackUnit2 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *BlockPreviousTimeFrameLookbackUnit2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "hour", "day", "week", "month":
+			return true
+		}
+	}
+	return false
+}
+
+type BlockPreviousTimeFrame2 struct {
+	Predefined    BlockPreviousTimeFramePredefined2                                      `json:"predefined"`
+	LookbackValue optionalnullable.OptionalNullable[float64]                             `json:"lookbackValue,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[BlockPreviousTimeFrameLookbackUnit2] `json:"lookbackUnit,omitzero"`
+	StartDate     optionalnullable.OptionalNullable[string]                              `json:"startDate,omitzero"`
+	EndDate       optionalnullable.OptionalNullable[string]                              `json:"endDate,omitzero"`
+}
+
+func (b BlockPreviousTimeFrame2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BlockPreviousTimeFrame2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *BlockPreviousTimeFrame2) GetPredefined() BlockPreviousTimeFramePredefined2 {
+	if b == nil {
+		return BlockPreviousTimeFramePredefined2("")
+	}
+	return b.Predefined
+}
+
+func (b *BlockPreviousTimeFrame2) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+	if b == nil {
+		return nil
+	}
+	return b.LookbackValue
+}
+
+func (b *BlockPreviousTimeFrame2) GetLookbackUnit() optionalnullable.OptionalNullable[BlockPreviousTimeFrameLookbackUnit2] {
+	if b == nil {
+		return nil
+	}
+	return b.LookbackUnit
+}
+
+func (b *BlockPreviousTimeFrame2) GetStartDate() optionalnullable.OptionalNullable[string] {
+	if b == nil {
+		return nil
+	}
+	return b.StartDate
+}
+
+func (b *BlockPreviousTimeFrame2) GetEndDate() optionalnullable.OptionalNullable[string] {
+	if b == nil {
+		return nil
+	}
+	return b.EndDate
+}
+
+// #region class-body-blockprevioustimeframe2
+// #endregion class-body-blockprevioustimeframe2
+
+type BlockComparison2 struct {
+	Enabled           bool                     `json:"enabled"`
+	PreviousTimeFrame *BlockPreviousTimeFrame2 `json:"previousTimeFrame,omitzero"`
+}
+
+func (b BlockComparison2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BlockComparison2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *BlockComparison2) GetEnabled() bool {
+	if b == nil {
+		return false
+	}
+	return b.Enabled
+}
+
+func (b *BlockComparison2) GetPreviousTimeFrame() *BlockPreviousTimeFrame2 {
+	if b == nil {
+		return nil
+	}
+	return b.PreviousTimeFrame
+}
+
+// #region class-body-blockcomparison2
+// #endregion class-body-blockcomparison2
+
+type BlockExperimentsScaledImpact struct {
+	Organization string `json:"organization"`
+	ID           string `json:"id"`
+	UID          string `json:"uid"`
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	type_                  string            `const:"experiments-scaled-impact" json:"type"`
+	Title                  string            `json:"title"`
+	Description            string            `json:"description"`
+	SnapshotID             *string           `json:"snapshotId,omitzero"`
+	Layout                 *Layout6          `json:"layout,omitzero"`
+	DateRange              BlockDateRange1   `json:"dateRange"`
+	Projects               []string          `json:"projects"`
+	ExperimentSearchString *string           `json:"experimentSearchString,omitzero"`
+	Comparison             *BlockComparison2 `json:"comparison,omitzero"`
+	MetricID               string            `json:"metricId"`
+}
+
+func (b BlockExperimentsScaledImpact) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BlockExperimentsScaledImpact) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *BlockExperimentsScaledImpact) GetOrganization() string {
+	if b == nil {
+		return ""
+	}
+	return b.Organization
+}
+
+func (b *BlockExperimentsScaledImpact) GetID() string {
+	if b == nil {
+		return ""
+	}
+	return b.ID
+}
+
+func (b *BlockExperimentsScaledImpact) GetUID() string {
+	if b == nil {
+		return ""
+	}
+	return b.UID
+}
+
+func (b *BlockExperimentsScaledImpact) GetType() string {
+	return "experiments-scaled-impact"
+}
+
+func (b *BlockExperimentsScaledImpact) GetTitle() string {
+	if b == nil {
+		return ""
+	}
+	return b.Title
+}
+
+func (b *BlockExperimentsScaledImpact) GetDescription() string {
+	if b == nil {
+		return ""
+	}
+	return b.Description
+}
+
+func (b *BlockExperimentsScaledImpact) GetSnapshotID() *string {
+	if b == nil {
+		return nil
+	}
+	return b.SnapshotID
+}
+
+func (b *BlockExperimentsScaledImpact) GetLayout() *Layout6 {
+	if b == nil {
+		return nil
+	}
+	return b.Layout
+}
+
+func (b *BlockExperimentsScaledImpact) GetDateRange() BlockDateRange1 {
+	if b == nil {
+		return BlockDateRange1{}
+	}
+	return b.DateRange
+}
+
+func (b *BlockExperimentsScaledImpact) GetProjects() []string {
+	if b == nil {
+		return []string{}
+	}
+	return b.Projects
+}
+
+func (b *BlockExperimentsScaledImpact) GetExperimentSearchString() *string {
+	if b == nil {
+		return nil
+	}
+	return b.ExperimentSearchString
+}
+
+func (b *BlockExperimentsScaledImpact) GetComparison() *BlockComparison2 {
+	if b == nil {
+		return nil
+	}
+	return b.Comparison
+}
+
+func (b *BlockExperimentsScaledImpact) GetMetricID() string {
+	if b == nil {
+		return ""
+	}
+	return b.MetricID
+}
+
+type Layout5 struct {
+	X      int64 `json:"x"`
+	Y      int64 `json:"y"`
+	W      int64 `json:"w"`
+	H      int64 `json:"h"`
+	Static *bool `json:"static,omitzero"`
+}
+
+func (l Layout5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
+}
+
+func (l *Layout5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (l *Layout5) GetX() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.X
+}
+
+func (l *Layout5) GetY() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.Y
+}
+
+func (l *Layout5) GetW() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.W
+}
+
+func (l *Layout5) GetH() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.H
+}
+
+func (l *Layout5) GetStatic() *bool {
+	if l == nil {
+		return nil
+	}
+	return l.Static
+}
+
+// #region class-body-layout5
+// #endregion class-body-layout5
+
+type DashboardDifferenceType2 string
+
+const (
+	DashboardDifferenceType2Absolute DashboardDifferenceType2 = "absolute"
+	DashboardDifferenceType2Relative DashboardDifferenceType2 = "relative"
+	DashboardDifferenceType2Scaled   DashboardDifferenceType2 = "scaled"
+)
+
+func (e DashboardDifferenceType2) ToPointer() *DashboardDifferenceType2 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *DashboardDifferenceType2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "absolute", "relative", "scaled":
+			return true
+		}
+	}
+	return false
+}
+
+type StartDateRangePredefined string
+
+const (
+	StartDateRangePredefinedToday           StartDateRangePredefined = "today"
+	StartDateRangePredefinedLast7Days       StartDateRangePredefined = "last7Days"
+	StartDateRangePredefinedLast30Days      StartDateRangePredefined = "last30Days"
+	StartDateRangePredefinedLast90Days      StartDateRangePredefined = "last90Days"
+	StartDateRangePredefinedCustomLookback  StartDateRangePredefined = "customLookback"
+	StartDateRangePredefinedCustomDateRange StartDateRangePredefined = "customDateRange"
+)
+
+func (e StartDateRangePredefined) ToPointer() *StartDateRangePredefined {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *StartDateRangePredefined) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "today", "last7Days", "last30Days", "last90Days", "customLookback", "customDateRange":
+			return true
+		}
+	}
+	return false
+}
+
+type StartDateRangeLookbackUnit string
+
+const (
+	StartDateRangeLookbackUnitHour  StartDateRangeLookbackUnit = "hour"
+	StartDateRangeLookbackUnitDay   StartDateRangeLookbackUnit = "day"
+	StartDateRangeLookbackUnitWeek  StartDateRangeLookbackUnit = "week"
+	StartDateRangeLookbackUnitMonth StartDateRangeLookbackUnit = "month"
+)
+
+func (e StartDateRangeLookbackUnit) ToPointer() *StartDateRangeLookbackUnit {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *StartDateRangeLookbackUnit) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "hour", "day", "week", "month":
+			return true
+		}
+	}
+	return false
+}
+
+type StartDateRange struct {
+	Predefined    StartDateRangePredefined                                      `json:"predefined"`
+	LookbackValue optionalnullable.OptionalNullable[float64]                    `json:"lookbackValue,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[StartDateRangeLookbackUnit] `json:"lookbackUnit,omitzero"`
+	StartDate     optionalnullable.OptionalNullable[string]                     `json:"startDate,omitzero"`
+	EndDate       optionalnullable.OptionalNullable[string]                     `json:"endDate,omitzero"`
+}
+
+func (s StartDateRange) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *StartDateRange) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *StartDateRange) GetPredefined() StartDateRangePredefined {
+	if s == nil {
+		return StartDateRangePredefined("")
+	}
+	return s.Predefined
+}
+
+func (s *StartDateRange) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+	if s == nil {
+		return nil
+	}
+	return s.LookbackValue
+}
+
+func (s *StartDateRange) GetLookbackUnit() optionalnullable.OptionalNullable[StartDateRangeLookbackUnit] {
+	if s == nil {
+		return nil
+	}
+	return s.LookbackUnit
+}
+
+func (s *StartDateRange) GetStartDate() optionalnullable.OptionalNullable[string] {
+	if s == nil {
+		return nil
+	}
+	return s.StartDate
+}
+
+func (s *StartDateRange) GetEndDate() optionalnullable.OptionalNullable[string] {
+	if s == nil {
+		return nil
+	}
+	return s.EndDate
+}
+
+type EndDateRangePredefined string
+
+const (
+	EndDateRangePredefinedToday           EndDateRangePredefined = "today"
+	EndDateRangePredefinedLast7Days       EndDateRangePredefined = "last7Days"
+	EndDateRangePredefinedLast30Days      EndDateRangePredefined = "last30Days"
+	EndDateRangePredefinedLast90Days      EndDateRangePredefined = "last90Days"
+	EndDateRangePredefinedCustomLookback  EndDateRangePredefined = "customLookback"
+	EndDateRangePredefinedCustomDateRange EndDateRangePredefined = "customDateRange"
+)
+
+func (e EndDateRangePredefined) ToPointer() *EndDateRangePredefined {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *EndDateRangePredefined) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "today", "last7Days", "last30Days", "last90Days", "customLookback", "customDateRange":
+			return true
+		}
+	}
+	return false
+}
+
+type EndDateRangeLookbackUnit string
+
+const (
+	EndDateRangeLookbackUnitHour  EndDateRangeLookbackUnit = "hour"
+	EndDateRangeLookbackUnitDay   EndDateRangeLookbackUnit = "day"
+	EndDateRangeLookbackUnitWeek  EndDateRangeLookbackUnit = "week"
+	EndDateRangeLookbackUnitMonth EndDateRangeLookbackUnit = "month"
+)
+
+func (e EndDateRangeLookbackUnit) ToPointer() *EndDateRangeLookbackUnit {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *EndDateRangeLookbackUnit) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "hour", "day", "week", "month":
+			return true
+		}
+	}
+	return false
+}
+
+type EndDateRange struct {
+	Predefined    EndDateRangePredefined                                      `json:"predefined"`
+	LookbackValue optionalnullable.OptionalNullable[float64]                  `json:"lookbackValue,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[EndDateRangeLookbackUnit] `json:"lookbackUnit,omitzero"`
+	StartDate     optionalnullable.OptionalNullable[string]                   `json:"startDate,omitzero"`
+	EndDate       optionalnullable.OptionalNullable[string]                   `json:"endDate,omitzero"`
+}
+
+func (e EndDateRange) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *EndDateRange) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (e *EndDateRange) GetPredefined() EndDateRangePredefined {
+	if e == nil {
+		return EndDateRangePredefined("")
+	}
+	return e.Predefined
+}
+
+func (e *EndDateRange) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+	if e == nil {
+		return nil
+	}
+	return e.LookbackValue
+}
+
+func (e *EndDateRange) GetLookbackUnit() optionalnullable.OptionalNullable[EndDateRangeLookbackUnit] {
+	if e == nil {
+		return nil
+	}
+	return e.LookbackUnit
+}
+
+func (e *EndDateRange) GetStartDate() optionalnullable.OptionalNullable[string] {
+	if e == nil {
+		return nil
+	}
+	return e.StartDate
+}
+
+func (e *EndDateRange) GetEndDate() optionalnullable.OptionalNullable[string] {
+	if e == nil {
+		return nil
+	}
+	return e.EndDate
+}
+
+type DashboardColumn struct {
+	ID      string `json:"id"`
+	Visible bool   `json:"visible"`
+}
+
+func (d DashboardColumn) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DashboardColumn) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DashboardColumn) GetID() string {
+	if d == nil {
+		return ""
+	}
+	return d.ID
+}
+
+func (d *DashboardColumn) GetVisible() bool {
+	if d == nil {
+		return false
+	}
+	return d.Visible
+}
+
+type BlockMetricExperiments struct {
+	Organization string `json:"organization"`
+	ID           string `json:"id"`
+	UID          string `json:"uid"`
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	type_                  string                   `const:"metric-experiments" json:"type"`
+	Title                  string                   `json:"title"`
+	Description            string                   `json:"description"`
+	SnapshotID             *string                  `json:"snapshotId,omitzero"`
+	Layout                 *Layout5                 `json:"layout,omitzero"`
+	MetricID               string                   `json:"metricId"`
+	Projects               []string                 `json:"projects"`
+	ExperimentSearchString string                   `json:"experimentSearchString"`
+	DifferenceType         DashboardDifferenceType2 `json:"differenceType"`
+	Bandits                bool                     `json:"bandits"`
+	StartDateRange         *StartDateRange          `json:"startDateRange,omitzero"`
+	EndDateRange           *EndDateRange            `json:"endDateRange,omitzero"`
+	Columns                []DashboardColumn        `json:"columns,omitzero"`
+}
+
+func (b BlockMetricExperiments) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BlockMetricExperiments) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *BlockMetricExperiments) GetOrganization() string {
+	if b == nil {
+		return ""
+	}
+	return b.Organization
+}
+
+func (b *BlockMetricExperiments) GetID() string {
+	if b == nil {
+		return ""
+	}
+	return b.ID
+}
+
+func (b *BlockMetricExperiments) GetUID() string {
+	if b == nil {
+		return ""
+	}
+	return b.UID
+}
+
+func (b *BlockMetricExperiments) GetType() string {
+	return "metric-experiments"
+}
+
+func (b *BlockMetricExperiments) GetTitle() string {
+	if b == nil {
+		return ""
+	}
+	return b.Title
+}
+
+func (b *BlockMetricExperiments) GetDescription() string {
+	if b == nil {
+		return ""
+	}
+	return b.Description
+}
+
+func (b *BlockMetricExperiments) GetSnapshotID() *string {
+	if b == nil {
+		return nil
+	}
+	return b.SnapshotID
+}
+
+func (b *BlockMetricExperiments) GetLayout() *Layout5 {
+	if b == nil {
+		return nil
+	}
+	return b.Layout
+}
+
+func (b *BlockMetricExperiments) GetMetricID() string {
+	if b == nil {
+		return ""
+	}
+	return b.MetricID
+}
+
+func (b *BlockMetricExperiments) GetProjects() []string {
+	if b == nil {
+		return []string{}
+	}
+	return b.Projects
+}
+
+func (b *BlockMetricExperiments) GetExperimentSearchString() string {
+	if b == nil {
+		return ""
+	}
+	return b.ExperimentSearchString
+}
+
+func (b *BlockMetricExperiments) GetDifferenceType() DashboardDifferenceType2 {
+	if b == nil {
+		return DashboardDifferenceType2("")
+	}
+	return b.DifferenceType
+}
+
+func (b *BlockMetricExperiments) GetBandits() bool {
+	if b == nil {
+		return false
+	}
+	return b.Bandits
+}
+
+func (b *BlockMetricExperiments) GetStartDateRange() *StartDateRange {
+	if b == nil {
+		return nil
+	}
+	return b.StartDateRange
+}
+
+func (b *BlockMetricExperiments) GetEndDateRange() *EndDateRange {
+	if b == nil {
+		return nil
+	}
+	return b.EndDateRange
+}
+
+func (b *BlockMetricExperiments) GetColumns() []DashboardColumn {
+	if b == nil {
+		return nil
+	}
+	return b.Columns
 }
 
 type Layout4 struct {
@@ -6092,33 +9081,43 @@ func (b *BlockMetricExplorer) GetAnalysisSettings() DashboardAnalysisSettings {
 type BlockType string
 
 const (
-	BlockTypeMetricExplorer        BlockType = "metric-explorer"
-	BlockTypeMarkdown              BlockType = "markdown"
-	BlockTypeExperimentMetadata    BlockType = "experiment-metadata"
-	BlockTypeExperimentMetric      BlockType = "experiment-metric"
-	BlockTypeExperimentDimension   BlockType = "experiment-dimension"
-	BlockTypeExperimentTimeSeries  BlockType = "experiment-time-series"
-	BlockTypeExperimentTraffic     BlockType = "experiment-traffic"
-	BlockTypeSQLExplorer           BlockType = "sql-explorer"
-	BlockTypeMetricExploration     BlockType = "metric-exploration"
-	BlockTypeFactTableExploration  BlockType = "fact-table-exploration"
-	BlockTypeDataSourceExploration BlockType = "data-source-exploration"
-	BlockTypeUnknown               BlockType = "UNKNOWN"
+	BlockTypeMetricExplorer          BlockType = "metric-explorer"
+	BlockTypeMarkdown                BlockType = "markdown"
+	BlockTypeExperimentMetadata      BlockType = "experiment-metadata"
+	BlockTypeExperimentMetric        BlockType = "experiment-metric"
+	BlockTypeMetricExperiments       BlockType = "metric-experiments"
+	BlockTypeExperimentsScaledImpact BlockType = "experiments-scaled-impact"
+	BlockTypeExperimentsWinRate      BlockType = "experiments-win-rate"
+	BlockTypeExperimentsStatus       BlockType = "experiments-status"
+	BlockTypeExperimentDimension     BlockType = "experiment-dimension"
+	BlockTypeExperimentTimeSeries    BlockType = "experiment-time-series"
+	BlockTypeExperimentTraffic       BlockType = "experiment-traffic"
+	BlockTypeSQLExplorer             BlockType = "sql-explorer"
+	BlockTypeMetricExploration       BlockType = "metric-exploration"
+	BlockTypeFactTableExploration    BlockType = "fact-table-exploration"
+	BlockTypeDataSourceExploration   BlockType = "data-source-exploration"
+	BlockTypeFunnelExploration       BlockType = "funnel-exploration"
+	BlockTypeUnknown                 BlockType = "UNKNOWN"
 )
 
 type Block struct {
-	BlockMetricExplorer        *BlockMetricExplorer        `queryParam:"inline" union:"member"`
-	BlockMarkdown              *BlockMarkdown              `queryParam:"inline" union:"member"`
-	BlockExperimentMetadata    *BlockExperimentMetadata    `queryParam:"inline" union:"member"`
-	BlockExperimentMetric      *BlockExperimentMetric      `queryParam:"inline" union:"member"`
-	BlockExperimentDimension   *BlockExperimentDimension   `queryParam:"inline" union:"member"`
-	BlockExperimentTimeSeries  *BlockExperimentTimeSeries  `queryParam:"inline" union:"member"`
-	BlockExperimentTraffic     *BlockExperimentTraffic     `queryParam:"inline" union:"member"`
-	BlockSQLExplorer           *BlockSQLExplorer           `queryParam:"inline" union:"member"`
-	BlockMetricExploration     *BlockMetricExploration     `queryParam:"inline" union:"member"`
-	BlockFactTableExploration  *BlockFactTableExploration  `queryParam:"inline" union:"member"`
-	BlockDataSourceExploration *BlockDataSourceExploration `queryParam:"inline" union:"member"`
-	UnknownRaw                 json.RawMessage             `json:"-" union:"unknown"`
+	BlockMetricExplorer          *BlockMetricExplorer          `queryParam:"inline" union:"member"`
+	BlockMarkdown                *BlockMarkdown                `queryParam:"inline" union:"member"`
+	BlockExperimentMetadata      *BlockExperimentMetadata      `queryParam:"inline" union:"member"`
+	BlockExperimentMetric        *BlockExperimentMetric        `queryParam:"inline" union:"member"`
+	BlockMetricExperiments       *BlockMetricExperiments       `queryParam:"inline" union:"member"`
+	BlockExperimentsScaledImpact *BlockExperimentsScaledImpact `queryParam:"inline" union:"member"`
+	BlockExperimentsWinRate      *BlockExperimentsWinRate      `queryParam:"inline" union:"member"`
+	BlockExperimentsStatus       *BlockExperimentsStatus       `queryParam:"inline" union:"member"`
+	BlockExperimentDimension     *BlockExperimentDimension     `queryParam:"inline" union:"member"`
+	BlockExperimentTimeSeries    *BlockExperimentTimeSeries    `queryParam:"inline" union:"member"`
+	BlockExperimentTraffic       *BlockExperimentTraffic       `queryParam:"inline" union:"member"`
+	BlockSQLExplorer             *BlockSQLExplorer             `queryParam:"inline" union:"member"`
+	BlockMetricExploration       *BlockMetricExploration       `queryParam:"inline" union:"member"`
+	BlockFactTableExploration    *BlockFactTableExploration    `queryParam:"inline" union:"member"`
+	BlockDataSourceExploration   *BlockDataSourceExploration   `queryParam:"inline" union:"member"`
+	BlockFunnelExploration       *BlockFunnelExploration       `queryParam:"inline" union:"member"`
+	UnknownRaw                   json.RawMessage               `json:"-" union:"unknown"`
 
 	Type BlockType
 }
@@ -6156,6 +9155,42 @@ func CreateBlockExperimentMetric(experimentMetric BlockExperimentMetric) Block {
 	return Block{
 		BlockExperimentMetric: &experimentMetric,
 		Type:                  typ,
+	}
+}
+
+func CreateBlockMetricExperiments(metricExperiments BlockMetricExperiments) Block {
+	typ := BlockTypeMetricExperiments
+
+	return Block{
+		BlockMetricExperiments: &metricExperiments,
+		Type:                   typ,
+	}
+}
+
+func CreateBlockExperimentsScaledImpact(experimentsScaledImpact BlockExperimentsScaledImpact) Block {
+	typ := BlockTypeExperimentsScaledImpact
+
+	return Block{
+		BlockExperimentsScaledImpact: &experimentsScaledImpact,
+		Type:                         typ,
+	}
+}
+
+func CreateBlockExperimentsWinRate(experimentsWinRate BlockExperimentsWinRate) Block {
+	typ := BlockTypeExperimentsWinRate
+
+	return Block{
+		BlockExperimentsWinRate: &experimentsWinRate,
+		Type:                    typ,
+	}
+}
+
+func CreateBlockExperimentsStatus(experimentsStatus BlockExperimentsStatus) Block {
+	typ := BlockTypeExperimentsStatus
+
+	return Block{
+		BlockExperimentsStatus: &experimentsStatus,
+		Type:                   typ,
 	}
 }
 
@@ -6219,6 +9254,15 @@ func CreateBlockDataSourceExploration(dataSourceExploration BlockDataSourceExplo
 	return Block{
 		BlockDataSourceExploration: &dataSourceExploration,
 		Type:                       typ,
+	}
+}
+
+func CreateBlockFunnelExploration(funnelExploration BlockFunnelExploration) Block {
+	typ := BlockTypeFunnelExploration
+
+	return Block{
+		BlockFunnelExploration: &funnelExploration,
+		Type:                   typ,
 	}
 }
 
@@ -6292,6 +9336,42 @@ func (u *Block) UnmarshalJSON(data []byte) error {
 		u.BlockExperimentMetric = blockExperimentMetric
 		u.Type = BlockTypeExperimentMetric
 		return nil
+	case "metric-experiments":
+		blockMetricExperiments := new(BlockMetricExperiments)
+		if err := utils.UnmarshalJSON(data, &blockMetricExperiments, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == metric-experiments) type BlockMetricExperiments within Block: %w", string(data), err)
+		}
+
+		u.BlockMetricExperiments = blockMetricExperiments
+		u.Type = BlockTypeMetricExperiments
+		return nil
+	case "experiments-scaled-impact":
+		blockExperimentsScaledImpact := new(BlockExperimentsScaledImpact)
+		if err := utils.UnmarshalJSON(data, &blockExperimentsScaledImpact, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == experiments-scaled-impact) type BlockExperimentsScaledImpact within Block: %w", string(data), err)
+		}
+
+		u.BlockExperimentsScaledImpact = blockExperimentsScaledImpact
+		u.Type = BlockTypeExperimentsScaledImpact
+		return nil
+	case "experiments-win-rate":
+		blockExperimentsWinRate := new(BlockExperimentsWinRate)
+		if err := utils.UnmarshalJSON(data, &blockExperimentsWinRate, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == experiments-win-rate) type BlockExperimentsWinRate within Block: %w", string(data), err)
+		}
+
+		u.BlockExperimentsWinRate = blockExperimentsWinRate
+		u.Type = BlockTypeExperimentsWinRate
+		return nil
+	case "experiments-status":
+		blockExperimentsStatus := new(BlockExperimentsStatus)
+		if err := utils.UnmarshalJSON(data, &blockExperimentsStatus, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == experiments-status) type BlockExperimentsStatus within Block: %w", string(data), err)
+		}
+
+		u.BlockExperimentsStatus = blockExperimentsStatus
+		u.Type = BlockTypeExperimentsStatus
+		return nil
 	case "experiment-dimension":
 		blockExperimentDimension := new(BlockExperimentDimension)
 		if err := utils.UnmarshalJSON(data, &blockExperimentDimension, "", true, nil); err != nil {
@@ -6355,6 +9435,15 @@ func (u *Block) UnmarshalJSON(data []byte) error {
 		u.BlockDataSourceExploration = blockDataSourceExploration
 		u.Type = BlockTypeDataSourceExploration
 		return nil
+	case "funnel-exploration":
+		blockFunnelExploration := new(BlockFunnelExploration)
+		if err := utils.UnmarshalJSON(data, &blockFunnelExploration, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == funnel-exploration) type BlockFunnelExploration within Block: %w", string(data), err)
+		}
+
+		u.BlockFunnelExploration = blockFunnelExploration
+		u.Type = BlockTypeFunnelExploration
+		return nil
 	default:
 		u.UnknownRaw = json.RawMessage(data)
 		u.Type = BlockTypeUnknown
@@ -6378,6 +9467,22 @@ func (u Block) MarshalJSON() ([]byte, error) {
 
 	if u.BlockExperimentMetric != nil {
 		return utils.MarshalJSON(u.BlockExperimentMetric, "", true)
+	}
+
+	if u.BlockMetricExperiments != nil {
+		return utils.MarshalJSON(u.BlockMetricExperiments, "", true)
+	}
+
+	if u.BlockExperimentsScaledImpact != nil {
+		return utils.MarshalJSON(u.BlockExperimentsScaledImpact, "", true)
+	}
+
+	if u.BlockExperimentsWinRate != nil {
+		return utils.MarshalJSON(u.BlockExperimentsWinRate, "", true)
+	}
+
+	if u.BlockExperimentsStatus != nil {
+		return utils.MarshalJSON(u.BlockExperimentsStatus, "", true)
 	}
 
 	if u.BlockExperimentDimension != nil {
@@ -6406,6 +9511,10 @@ func (u Block) MarshalJSON() ([]byte, error) {
 
 	if u.BlockDataSourceExploration != nil {
 		return utils.MarshalJSON(u.BlockDataSourceExploration, "", true)
+	}
+
+	if u.BlockFunnelExploration != nil {
+		return utils.MarshalJSON(u.BlockFunnelExploration, "", true)
 	}
 
 	if u.UnknownRaw != nil {

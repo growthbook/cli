@@ -7,36 +7,36 @@ import (
 	"time"
 )
 
-type Column struct {
+type InformationSchemaTableColumn struct {
 	ColumnName string `json:"columnName"`
 	DataType   string `json:"dataType"`
 }
 
-func (c *Column) GetColumnName() string {
-	if c == nil {
+func (i *InformationSchemaTableColumn) GetColumnName() string {
+	if i == nil {
 		return ""
 	}
-	return c.ColumnName
+	return i.ColumnName
 }
 
-func (c *Column) GetDataType() string {
-	if c == nil {
+func (i *InformationSchemaTableColumn) GetDataType() string {
+	if i == nil {
 		return ""
 	}
-	return c.DataType
+	return i.DataType
 }
 
 type InformationSchemaTable struct {
-	ID                  string    `json:"id"`
-	DatasourceID        string    `json:"datasourceId"`
-	InformationSchemaID string    `json:"informationSchemaId"`
-	TableName           string    `json:"tableName"`
-	TableSchema         string    `json:"tableSchema"`
-	DatabaseName        string    `json:"databaseName"`
-	Columns             []Column  `json:"columns"`
-	RefreshMS           float64   `json:"refreshMS"`
-	DateCreated         time.Time `json:"dateCreated"`
-	DateUpdated         time.Time `json:"dateUpdated"`
+	ID                  string                         `json:"id"`
+	DatasourceID        string                         `json:"datasourceId"`
+	InformationSchemaID string                         `json:"informationSchemaId"`
+	TableName           string                         `json:"tableName"`
+	TableSchema         string                         `json:"tableSchema"`
+	DatabaseName        string                         `json:"databaseName"`
+	Columns             []InformationSchemaTableColumn `json:"columns"`
+	RefreshMS           float64                        `json:"refreshMS"`
+	DateCreated         time.Time                      `json:"dateCreated"`
+	DateUpdated         time.Time                      `json:"dateUpdated"`
 }
 
 func (i InformationSchemaTable) MarshalJSON() ([]byte, error) {
@@ -92,9 +92,9 @@ func (i *InformationSchemaTable) GetDatabaseName() string {
 	return i.DatabaseName
 }
 
-func (i *InformationSchemaTable) GetColumns() []Column {
+func (i *InformationSchemaTable) GetColumns() []InformationSchemaTableColumn {
 	if i == nil {
-		return []Column{}
+		return []InformationSchemaTableColumn{}
 	}
 	return i.Columns
 }

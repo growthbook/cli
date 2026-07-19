@@ -479,19 +479,19 @@ func (e *PostFeatureRevisionRuleAddScheduleType2) UnmarshalJSON(data []byte) err
 	}
 }
 
-type Unit string
+type PostFeatureRevisionRuleAddUnit string
 
 const (
-	UnitWeeks   Unit = "weeks"
-	UnitDays    Unit = "days"
-	UnitHours   Unit = "hours"
-	UnitMinutes Unit = "minutes"
+	PostFeatureRevisionRuleAddUnitWeeks   PostFeatureRevisionRuleAddUnit = "weeks"
+	PostFeatureRevisionRuleAddUnitDays    PostFeatureRevisionRuleAddUnit = "days"
+	PostFeatureRevisionRuleAddUnitHours   PostFeatureRevisionRuleAddUnit = "hours"
+	PostFeatureRevisionRuleAddUnitMinutes PostFeatureRevisionRuleAddUnit = "minutes"
 )
 
-func (e Unit) ToPointer() *Unit {
+func (e PostFeatureRevisionRuleAddUnit) ToPointer() *PostFeatureRevisionRuleAddUnit {
 	return &e
 }
-func (e *Unit) UnmarshalJSON(data []byte) error {
+func (e *PostFeatureRevisionRuleAddUnit) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -504,16 +504,16 @@ func (e *Unit) UnmarshalJSON(data []byte) error {
 	case "hours":
 		fallthrough
 	case "minutes":
-		*e = Unit(v)
+		*e = PostFeatureRevisionRuleAddUnit(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for Unit: %v", v)
+		return fmt.Errorf("invalid value for PostFeatureRevisionRuleAddUnit: %v", v)
 	}
 }
 
 type MaxDuration struct {
-	Amount float64 `json:"amount"`
-	Unit   Unit    `json:"unit"`
+	Amount float64                        `json:"amount"`
+	Unit   PostFeatureRevisionRuleAddUnit `json:"unit"`
 }
 
 func (m MaxDuration) MarshalJSON() ([]byte, error) {
@@ -534,9 +534,9 @@ func (m *MaxDuration) GetAmount() float64 {
 	return m.Amount
 }
 
-func (m *MaxDuration) GetUnit() Unit {
+func (m *MaxDuration) GetUnit() PostFeatureRevisionRuleAddUnit {
 	if m == nil {
-		return Unit("")
+		return PostFeatureRevisionRuleAddUnit("")
 	}
 	return m.Unit
 }

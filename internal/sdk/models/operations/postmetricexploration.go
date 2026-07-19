@@ -980,9 +980,48 @@ func (p *PostMetricExplorationRowValue) GetDenominator() *float64 {
 	return p.Denominator
 }
 
+type PostMetricExplorationStep struct {
+	Count                     float64  `json:"count"`
+	TimeFromPrevSumHrs        *float64 `json:"timeFromPrevSumHrs"`
+	TimeFromPrevSumSquaresHrs *float64 `json:"timeFromPrevSumSquaresHrs"`
+}
+
+func (p *PostMetricExplorationStep) GetCount() float64 {
+	if p == nil {
+		return 0.0
+	}
+	return p.Count
+}
+
+func (p *PostMetricExplorationStep) GetTimeFromPrevSumHrs() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.TimeFromPrevSumHrs
+}
+
+func (p *PostMetricExplorationStep) GetTimeFromPrevSumSquaresHrs() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.TimeFromPrevSumSquaresHrs
+}
+
 type PostMetricExplorationRow struct {
 	Dimensions []*string                       `json:"dimensions"`
-	Values     []PostMetricExplorationRowValue `json:"values"`
+	Values     []PostMetricExplorationRowValue `json:"values,omitzero"`
+	Steps      []PostMetricExplorationStep     `json:"steps,omitzero"`
+}
+
+func (p PostMetricExplorationRow) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostMetricExplorationRow) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (p *PostMetricExplorationRow) GetDimensions() []*string {
@@ -994,9 +1033,16 @@ func (p *PostMetricExplorationRow) GetDimensions() []*string {
 
 func (p *PostMetricExplorationRow) GetValues() []PostMetricExplorationRowValue {
 	if p == nil {
-		return []PostMetricExplorationRowValue{}
+		return nil
 	}
 	return p.Values
+}
+
+func (p *PostMetricExplorationRow) GetSteps() []PostMetricExplorationStep {
+	if p == nil {
+		return nil
+	}
+	return p.Steps
 }
 
 type PostMetricExplorationResult struct {

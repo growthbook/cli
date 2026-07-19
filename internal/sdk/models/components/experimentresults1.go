@@ -145,45 +145,48 @@ func (a *Analysis) GetChanceToBeatControl() *float64 {
 	return a.ChanceToBeatControl
 }
 
-type ExperimentResultsVariation struct {
+type ExperimentResultsVariation1 struct {
 	VariationID   string     `json:"variationId"`
 	VariationName *string    `json:"variationName,omitzero"`
 	Users         *float64   `json:"users,omitzero"`
 	Analyses      []Analysis `json:"analyses"`
 }
 
-func (e *ExperimentResultsVariation) GetVariationID() string {
+func (e *ExperimentResultsVariation1) GetVariationID() string {
 	if e == nil {
 		return ""
 	}
 	return e.VariationID
 }
 
-func (e *ExperimentResultsVariation) GetVariationName() *string {
+func (e *ExperimentResultsVariation1) GetVariationName() *string {
 	if e == nil {
 		return nil
 	}
 	return e.VariationName
 }
 
-func (e *ExperimentResultsVariation) GetUsers() *float64 {
+func (e *ExperimentResultsVariation1) GetUsers() *float64 {
 	if e == nil {
 		return nil
 	}
 	return e.Users
 }
 
-func (e *ExperimentResultsVariation) GetAnalyses() []Analysis {
+func (e *ExperimentResultsVariation1) GetAnalyses() []Analysis {
 	if e == nil {
 		return []Analysis{}
 	}
 	return e.Analyses
 }
 
+// #region class-body-experimentresultsvariation1
+// #endregion class-body-experimentresultsvariation1
+
 type ExperimentResultsMetric struct {
-	MetricID   string                       `json:"metricId"`
-	MetricName *string                      `json:"metricName,omitzero"`
-	Variations []ExperimentResultsVariation `json:"variations"`
+	MetricID   string                        `json:"metricId"`
+	MetricName *string                       `json:"metricName,omitzero"`
+	Variations []ExperimentResultsVariation1 `json:"variations"`
 }
 
 func (e *ExperimentResultsMetric) GetMetricID() string {
@@ -200,9 +203,9 @@ func (e *ExperimentResultsMetric) GetMetricName() *string {
 	return e.MetricName
 }
 
-func (e *ExperimentResultsMetric) GetVariations() []ExperimentResultsVariation {
+func (e *ExperimentResultsMetric) GetVariations() []ExperimentResultsVariation1 {
 	if e == nil {
-		return []ExperimentResultsVariation{}
+		return []ExperimentResultsVariation1{}
 	}
 	return e.Variations
 }
@@ -242,7 +245,7 @@ func (e *ExperimentResultsResult) GetMetrics() []ExperimentResultsMetric {
 	return e.Metrics
 }
 
-type ExperimentResults struct {
+type ExperimentResults1 struct {
 	ID           string                     `json:"id"`
 	DateUpdated  string                     `json:"dateUpdated"`
 	ExperimentID string                     `json:"experimentId"`
@@ -255,72 +258,75 @@ type ExperimentResults struct {
 	Results      []ExperimentResultsResult  `json:"results"`
 }
 
-func (e *ExperimentResults) GetID() string {
+func (e *ExperimentResults1) GetID() string {
 	if e == nil {
 		return ""
 	}
 	return e.ID
 }
 
-func (e *ExperimentResults) GetDateUpdated() string {
+func (e *ExperimentResults1) GetDateUpdated() string {
 	if e == nil {
 		return ""
 	}
 	return e.DateUpdated
 }
 
-func (e *ExperimentResults) GetExperimentID() string {
+func (e *ExperimentResults1) GetExperimentID() string {
 	if e == nil {
 		return ""
 	}
 	return e.ExperimentID
 }
 
-func (e *ExperimentResults) GetPhase() string {
+func (e *ExperimentResults1) GetPhase() string {
 	if e == nil {
 		return ""
 	}
 	return e.Phase
 }
 
-func (e *ExperimentResults) GetDateStart() string {
+func (e *ExperimentResults1) GetDateStart() string {
 	if e == nil {
 		return ""
 	}
 	return e.DateStart
 }
 
-func (e *ExperimentResults) GetDateEnd() string {
+func (e *ExperimentResults1) GetDateEnd() string {
 	if e == nil {
 		return ""
 	}
 	return e.DateEnd
 }
 
-func (e *ExperimentResults) GetDimension() ExperimentResultsDimension {
+func (e *ExperimentResults1) GetDimension() ExperimentResultsDimension {
 	if e == nil {
 		return ExperimentResultsDimension{}
 	}
 	return e.Dimension
 }
 
-func (e *ExperimentResults) GetSettings() ExperimentAnalysisSettings {
+func (e *ExperimentResults1) GetSettings() ExperimentAnalysisSettings {
 	if e == nil {
 		return ExperimentAnalysisSettings{}
 	}
 	return e.Settings
 }
 
-func (e *ExperimentResults) GetQueryIds() []string {
+func (e *ExperimentResults1) GetQueryIds() []string {
 	if e == nil {
 		return []string{}
 	}
 	return e.QueryIds
 }
 
-func (e *ExperimentResults) GetResults() []ExperimentResultsResult {
+func (e *ExperimentResults1) GetResults() []ExperimentResultsResult {
 	if e == nil {
 		return []ExperimentResultsResult{}
 	}
 	return e.Results
 }
+
+// #region class-body-experimentresults1
+// #endregion class-body-experimentresults1
