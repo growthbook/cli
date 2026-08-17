@@ -4,7 +4,7 @@ Partially update a single constant
 
 ### Synopsis
 
-Partially update a single constant
+Applies the change immediately and records it as a published revision, so it appears in history and fires revision webhooks. When the organization requires approvals, open a draft instead or pass `bypassApproval` with the bypass permission.
 
 ```
 growthbook constants update [flags]
@@ -19,16 +19,19 @@ growthbook constants update [flags]
 ### Options
 
 ```
-      --body string                            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -b, --bypass-approval bypassApprovalChecks   Set to true to skip the approval flow when the org requires approvals for this constant's project. Requires the bypassApprovalChecks permission (or the org-level REST bypass setting). When approvals aren't required, this flag has no effect.
-      --description string                     string value
-  -e, --environment-values string              Per-environment value overrides (environment id → value). When provided, this REPLACES the entire override map — send the complete set, not just the environments you want to change (omit the field to leave overrides unchanged).
-  -h, --help                                   help for update
-  -k, --key string                             The key of the constant [required]
-  -n, --name string                            string value
-      --owner string                           The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-  -p, --project string                         string value
-  -v, --value string                           string value
+      --body string                        Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -b, --bypass-approval                    Set to true to write directly to the live Constant without approval. The caller must have Bypass draft approvals access in the Constant's Project, unless the organization enables the REST API approval bypass. This field has no effect when approval is not required.
+      --description string                 string value
+  -e, --environment-values string          Per-environment value overrides (environment id → value). When provided, this REPLACES the entire override map — send the complete set, not just the environments you want to change (omit the field to leave overrides unchanged).
+  -h, --help                               help for update
+  -i, --ignore-warnings                    Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+  -k, --key string                         The key of the constant [required]
+  -n, --name string                        string value
+      --owner string                       The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
+  -p, --project string                     string value
+      --skip-hooks skipSchemaValidation    Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use skipSchemaValidation for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+      --skip-schema-validation skipHooks   Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use skipHooks for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+  -v, --value string                       string value
 ```
 
 ### Options inherited from parent commands
@@ -57,4 +60,4 @@ growthbook constants update [flags]
 
 ### SEE ALSO
 
-* [growthbook constants](growthbook_constants.md)	 - Reusable named values referenced from feature flag values as `@const:key` and resolved into the SDK payload at build time
+* [growthbook constants](growthbook_constants.md)	 - **Beta** — these endpoints are new and may change in backwards-incompatible ways

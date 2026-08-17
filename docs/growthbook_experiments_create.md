@@ -47,7 +47,8 @@ growthbook experiments create [flags]
       --hash-version float                           number value
   -h, --help                                         help for create
       --hypothesis string                            Hypothesis of the experiment
-  -i, --in-progress-conversions string               options: loose, strict
+      --ignore-warnings                              Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+      --in-progress-conversions string               options: loose, strict
   -l, --lookback-override string                     Controls the lookback override for the experiment. For type "window", value must be a non-negative number and valueUnit is required.
       --metric-overrides string                      Per-metric analysis overrides for this experiment. Replaces the entire stored array (does not patch individual entries).
       --metrics stringArray                          list of values
@@ -68,7 +69,7 @@ growthbook experiments create [flags]
       --share-level string                           options: public, organization
       --stats-engine string                          options: bayesian, frequentist
       --status string                                options: draft, running, stopped
-      --status-update-schedule startAt               Schedule a future start for a draft experiment. Only startAt is currently supported.
+      --status-update-schedule string                JSON object
       --tags stringArray                             list of values
       --template-id string                           ID of the [ExperimentTemplate](#tag/ExperimentTemplate_model) this experiment was created from. Template fields are applied by default and overridden by explicitly provided payload fields.
       --tracking-key string                          [required]

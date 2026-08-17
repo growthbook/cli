@@ -8,9 +8,7 @@ DEPRECATED: This will be removed in a future release, please migrate away from i
 
 **Deprecated.** Use [POST /v2/features/:id](#operation/updateFeatureV2) instead.
 
-Updates any combination of a feature's metadata (description, owner, tags, project), default value, environment settings (rules, kill switches, enabled state), prerequisites, holdout assignment, or JSON schema validation. All provided fields are merged into the existing feature and the result is immediately published as a new revision.
-
-Returns 403 if the API key lacks permission or if approval rules are enabled for an affected environment and the org setting "REST API always bypasses approval requirements" is off.
+Updates the Feature Flag and immediately publishes a new revision. The caller needs Edit access in the Feature Flag's Project and Publish access for every affected environment. When approval is required, use the revision endpoints instead, unless the caller can bypass draft approvals.
 
 ```
 growthbook features-v1 update [flags]
@@ -25,22 +23,27 @@ growthbook features-v1 update [flags]
 ### Options
 
 ```
-  -a, --archived               boolean flag
-  -b, --base-config string     The config backing this flag ("Config mode"), fixed at creation. Cannot be changed by an update — resend the current value or omit it; a different value (or null to detach) is rejected.
-      --body string            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -c, --custom-fields string   value
-      --default-value string   string value
-      --description string     Description of the feature
-  -e, --environments string    value
-  -h, --help                   help for update
-      --holdout null           Holdout to assign this feature to. Pass null to remove the feature from its current holdout. Omit the field entirely to leave the holdout unchanged.
-                               
-  -i, --id string              The id of the requested resource [required]
-  -j, --json-schema string     Use JSON schema to validate the payload of a JSON-type feature value (enterprise only).
-      --owner string           The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-      --prerequisites true     Feature IDs. Each feature must evaluate to true
-      --project string         An associated project ID
-  -t, --tags stringArray       List of associated tags. Will override tags completely with submitted list
+  -a, --archived                           boolean flag
+  -b, --base-config string                 The config backing this flag ("Config mode"), fixed at creation. Cannot be changed by an update — resend the current value or omit it; a different value (or null to detach) is rejected.
+      --body string                        Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -c, --custom-fields string               value
+      --default-value string               string value
+      --description string                 Description of the feature
+  -e, --environments string                value
+  -h, --help                               help for update
+      --holdout null                       Holdout to assign this feature to. Pass null to remove the feature from its current holdout. Omit the field entirely to leave the holdout unchanged.
+                                           
+      --id string                          The id of the requested resource [required]
+      --ignore-warnings                    Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+  -j, --json-schema string                 Use JSON schema to validate the payload of a JSON-type feature value (enterprise only).
+      --owner string                       The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
+      --prerequisites true                 Feature IDs. Each feature must evaluate to true
+      --project string                     An associated project ID
+      --skip-hooks skipSchemaValidation    Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use skipSchemaValidation for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+      --skip-schema-validation skipHooks   Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use skipHooks for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+      --tags stringArray                   List of associated tags. Will override tags completely with submitted list
+      --targeting-all-projects project     Make this feature discoverable in — and served to — every project, beyond its primary project. Governance/approvals stay with `project`.
+      --targeting-projects project         Secondary project IDs this feature is targeted in and served to, beyond its primary project. Governance/approvals stay with `project`.
 ```
 
 ### Options inherited from parent commands

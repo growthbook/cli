@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 type UnarchiveSavedGroupRequest struct {
@@ -22,6 +22,19 @@ func (u *UnarchiveSavedGroupRequest) GetID() string {
 // UnarchiveSavedGroupResponseBody - Resource created
 type UnarchiveSavedGroupResponseBody struct {
 	SavedGroup components.SavedGroup `json:"savedGroup"`
+	// Gates that would have blocked this publish but were bypassed by the caller's authority. Present only when at least one gate was bypassed.
+	BypassedGates []components.BypassedGates `json:"bypassedGates,omitzero"`
+}
+
+func (u UnarchiveSavedGroupResponseBody) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UnarchiveSavedGroupResponseBody) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (u *UnarchiveSavedGroupResponseBody) GetSavedGroup() components.SavedGroup {
@@ -29,6 +42,13 @@ func (u *UnarchiveSavedGroupResponseBody) GetSavedGroup() components.SavedGroup 
 		return components.SavedGroup{}
 	}
 	return u.SavedGroup
+}
+
+func (u *UnarchiveSavedGroupResponseBody) GetBypassedGates() []components.BypassedGates {
+	if u == nil {
+		return nil
+	}
+	return u.BypassedGates
 }
 
 type UnarchiveSavedGroupResponse struct {

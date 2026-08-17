@@ -3,10 +3,11 @@
 package components
 
 import (
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"time"
 )
 
+// FactTableColumnDatatype - The column's data type (can be an override of the warehouse-reported datatype, for JSON string columns for example).
 type FactTableColumnDatatype string
 
 const (
@@ -35,50 +36,26 @@ func (e *FactTableColumnDatatype) IsExact() bool {
 	return false
 }
 
-type NumberFormat string
+// DataTypeFromWarehouse - The warehouse-reported datatype.
+type DataTypeFromWarehouse string
 
 const (
-	NumberFormatUnknown         NumberFormat = ""
-	NumberFormatCurrency        NumberFormat = "currency"
-	NumberFormatTimeSeconds     NumberFormat = "time:seconds"
-	NumberFormatMemoryBytes     NumberFormat = "memory:bytes"
-	NumberFormatMemoryKilobytes NumberFormat = "memory:kilobytes"
+	DataTypeFromWarehouseNumber  DataTypeFromWarehouse = "number"
+	DataTypeFromWarehouseString  DataTypeFromWarehouse = "string"
+	DataTypeFromWarehouseDate    DataTypeFromWarehouse = "date"
+	DataTypeFromWarehouseBoolean DataTypeFromWarehouse = "boolean"
+	DataTypeFromWarehouseJSON    DataTypeFromWarehouse = "json"
+	DataTypeFromWarehouseBinary  DataTypeFromWarehouse = "binary"
+	DataTypeFromWarehouseOther   DataTypeFromWarehouse = "other"
+	DataTypeFromWarehouseUnknown DataTypeFromWarehouse = ""
 )
 
-func (e NumberFormat) ToPointer() *NumberFormat {
+func (e DataTypeFromWarehouse) ToPointer() *DataTypeFromWarehouse {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *NumberFormat) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "", "currency", "time:seconds", "memory:bytes", "memory:kilobytes":
-			return true
-		}
-	}
-	return false
-}
-
-type JSONFieldsDatatype string
-
-const (
-	JSONFieldsDatatypeNumber  JSONFieldsDatatype = "number"
-	JSONFieldsDatatypeString  JSONFieldsDatatype = "string"
-	JSONFieldsDatatypeDate    JSONFieldsDatatype = "date"
-	JSONFieldsDatatypeBoolean JSONFieldsDatatype = "boolean"
-	JSONFieldsDatatypeJSON    JSONFieldsDatatype = "json"
-	JSONFieldsDatatypeBinary  JSONFieldsDatatype = "binary"
-	JSONFieldsDatatypeOther   JSONFieldsDatatype = "other"
-	JSONFieldsDatatypeUnknown JSONFieldsDatatype = ""
-)
-
-func (e JSONFieldsDatatype) ToPointer() *JSONFieldsDatatype {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *JSONFieldsDatatype) IsExact() bool {
+func (e *DataTypeFromWarehouse) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "number", "string", "date", "boolean", "json", "binary", "other", "":
@@ -88,24 +65,80 @@ func (e *JSONFieldsDatatype) IsExact() bool {
 	return false
 }
 
-type JSONFields struct {
-	Datatype *JSONFieldsDatatype `json:"datatype,omitzero"`
+type FactTableColumnNumberFormat string
+
+const (
+	FactTableColumnNumberFormatUnknown         FactTableColumnNumberFormat = ""
+	FactTableColumnNumberFormatCurrency        FactTableColumnNumberFormat = "currency"
+	FactTableColumnNumberFormatTimeSeconds     FactTableColumnNumberFormat = "time:seconds"
+	FactTableColumnNumberFormatMemoryBytes     FactTableColumnNumberFormat = "memory:bytes"
+	FactTableColumnNumberFormatMemoryKilobytes FactTableColumnNumberFormat = "memory:kilobytes"
+)
+
+func (e FactTableColumnNumberFormat) ToPointer() *FactTableColumnNumberFormat {
+	return &e
 }
 
-func (j *JSONFields) GetDatatype() *JSONFieldsDatatype {
-	if j == nil {
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *FactTableColumnNumberFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "", "currency", "time:seconds", "memory:bytes", "memory:kilobytes":
+			return true
+		}
+	}
+	return false
+}
+
+type FactTableColumnJSONFieldsDatatype string
+
+const (
+	FactTableColumnJSONFieldsDatatypeNumber  FactTableColumnJSONFieldsDatatype = "number"
+	FactTableColumnJSONFieldsDatatypeString  FactTableColumnJSONFieldsDatatype = "string"
+	FactTableColumnJSONFieldsDatatypeDate    FactTableColumnJSONFieldsDatatype = "date"
+	FactTableColumnJSONFieldsDatatypeBoolean FactTableColumnJSONFieldsDatatype = "boolean"
+	FactTableColumnJSONFieldsDatatypeJSON    FactTableColumnJSONFieldsDatatype = "json"
+	FactTableColumnJSONFieldsDatatypeBinary  FactTableColumnJSONFieldsDatatype = "binary"
+	FactTableColumnJSONFieldsDatatypeOther   FactTableColumnJSONFieldsDatatype = "other"
+	FactTableColumnJSONFieldsDatatypeUnknown FactTableColumnJSONFieldsDatatype = ""
+)
+
+func (e FactTableColumnJSONFieldsDatatype) ToPointer() *FactTableColumnJSONFieldsDatatype {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *FactTableColumnJSONFieldsDatatype) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "number", "string", "date", "boolean", "json", "binary", "other", "":
+			return true
+		}
+	}
+	return false
+}
+
+type FactTableColumnJSONFields struct {
+	Datatype *FactTableColumnJSONFieldsDatatype `json:"datatype,omitzero"`
+}
+
+func (f *FactTableColumnJSONFields) GetDatatype() *FactTableColumnJSONFieldsDatatype {
+	if f == nil {
 		return nil
 	}
-	return j.Datatype
+	return f.Datatype
 }
 
 type FactTableColumn struct {
 	// The actual column name in the database/SQL query
-	Column       string                  `json:"column"`
-	Datatype     FactTableColumnDatatype `json:"datatype"`
-	NumberFormat *NumberFormat           `json:"numberFormat,omitzero"`
+	Column string `json:"column"`
+	// The column's data type (can be an override of the warehouse-reported datatype, for JSON string columns for example).
+	Datatype FactTableColumnDatatype `json:"datatype"`
+	// The warehouse-reported datatype.
+	DataTypeFromWarehouse *DataTypeFromWarehouse       `json:"dataTypeFromWarehouse,omitzero"`
+	NumberFormat          *FactTableColumnNumberFormat `json:"numberFormat,omitzero"`
 	// For JSON columns, defines the structure of nested fields
-	JSONFields map[string]JSONFields `json:"jsonFields,omitzero"`
+	JSONFields map[string]FactTableColumnJSONFields `json:"jsonFields,omitzero"`
 	// Display name for the column (can be different from the actual column name)
 	Name        *string `json:"name,omitzero"`
 	Description *string `json:"description,omitzero"`
@@ -117,9 +150,13 @@ type FactTableColumn struct {
 	// Specific slices to automatically analyze for this column.
 	AutoSlices []string `json:"autoSlices,omitzero"`
 	// Locked slices that are protected from automatic updates. These will always be included in the slice levels even if they're not in the top values query results.
-	LockedAutoSlices []string   `json:"lockedAutoSlices,omitzero"`
-	DateCreated      *time.Time `json:"dateCreated,omitzero"`
-	DateUpdated      *time.Time `json:"dateUpdated,omitzero"`
+	LockedAutoSlices []string `json:"lockedAutoSlices,omitzero"`
+	// Whether this is a virtual (computed) column defined by a SQL expression rather than detected from the fact table SQL. Can be set when creating a column, but a column's origin cannot be changed afterwards — sending a value that contradicts an existing column is rejected.
+	IsVirtual *bool `default:"false" json:"isVirtual"`
+	// For virtual columns, the SQL expression that computes the column value. Only valid on a virtual column; when omitted from an update, the existing expression is preserved.
+	SQL         *string    `json:"sql,omitzero"`
+	DateCreated *time.Time `json:"dateCreated,omitzero"`
+	DateUpdated *time.Time `json:"dateUpdated,omitzero"`
 }
 
 func (f FactTableColumn) MarshalJSON() ([]byte, error) {
@@ -147,14 +184,21 @@ func (f *FactTableColumn) GetDatatype() FactTableColumnDatatype {
 	return f.Datatype
 }
 
-func (f *FactTableColumn) GetNumberFormat() *NumberFormat {
+func (f *FactTableColumn) GetDataTypeFromWarehouse() *DataTypeFromWarehouse {
+	if f == nil {
+		return nil
+	}
+	return f.DataTypeFromWarehouse
+}
+
+func (f *FactTableColumn) GetNumberFormat() *FactTableColumnNumberFormat {
 	if f == nil {
 		return nil
 	}
 	return f.NumberFormat
 }
 
-func (f *FactTableColumn) GetJSONFields() map[string]JSONFields {
+func (f *FactTableColumn) GetJSONFields() map[string]FactTableColumnJSONFields {
 	if f == nil {
 		return nil
 	}
@@ -210,6 +254,20 @@ func (f *FactTableColumn) GetLockedAutoSlices() []string {
 	return f.LockedAutoSlices
 }
 
+func (f *FactTableColumn) GetIsVirtual() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.IsVirtual
+}
+
+func (f *FactTableColumn) GetSQL() *string {
+	if f == nil {
+		return nil
+	}
+	return f.SQL
+}
+
 func (f *FactTableColumn) GetDateCreated() *time.Time {
 	if f == nil {
 		return nil
@@ -222,113 +280,4 @@ func (f *FactTableColumn) GetDateUpdated() *time.Time {
 		return nil
 	}
 	return f.DateUpdated
-}
-
-type FactTableColumnInput struct {
-	// The actual column name in the database/SQL query
-	Column       string                  `json:"column"`
-	Datatype     FactTableColumnDatatype `json:"datatype"`
-	NumberFormat *NumberFormat           `json:"numberFormat,omitzero"`
-	// For JSON columns, defines the structure of nested fields
-	JSONFields map[string]JSONFields `json:"jsonFields,omitzero"`
-	// Display name for the column (can be different from the actual column name)
-	Name        *string `json:"name,omitzero"`
-	Description *string `json:"description,omitzero"`
-	// Whether this column should always be included as an inline filter in queries
-	AlwaysInlineFilter *bool `default:"false" json:"alwaysInlineFilter"`
-	Deleted            *bool `default:"false" json:"deleted"`
-	// Whether this column can be used for auto slice analysis. This is an enterprise feature.
-	IsAutoSliceColumn *bool `default:"false" json:"isAutoSliceColumn"`
-	// Specific slices to automatically analyze for this column.
-	AutoSlices []string `json:"autoSlices,omitzero"`
-	// Locked slices that are protected from automatic updates. These will always be included in the slice levels even if they're not in the top values query results.
-	LockedAutoSlices []string `json:"lockedAutoSlices,omitzero"`
-}
-
-func (f FactTableColumnInput) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FactTableColumnInput) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FactTableColumnInput) GetColumn() string {
-	if f == nil {
-		return ""
-	}
-	return f.Column
-}
-
-func (f *FactTableColumnInput) GetDatatype() FactTableColumnDatatype {
-	if f == nil {
-		return FactTableColumnDatatype("")
-	}
-	return f.Datatype
-}
-
-func (f *FactTableColumnInput) GetNumberFormat() *NumberFormat {
-	if f == nil {
-		return nil
-	}
-	return f.NumberFormat
-}
-
-func (f *FactTableColumnInput) GetJSONFields() map[string]JSONFields {
-	if f == nil {
-		return nil
-	}
-	return f.JSONFields
-}
-
-func (f *FactTableColumnInput) GetName() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Name
-}
-
-func (f *FactTableColumnInput) GetDescription() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Description
-}
-
-func (f *FactTableColumnInput) GetAlwaysInlineFilter() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.AlwaysInlineFilter
-}
-
-func (f *FactTableColumnInput) GetDeleted() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.Deleted
-}
-
-func (f *FactTableColumnInput) GetIsAutoSliceColumn() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.IsAutoSliceColumn
-}
-
-func (f *FactTableColumnInput) GetAutoSlices() []string {
-	if f == nil {
-		return nil
-	}
-	return f.AutoSlices
-}
-
-func (f *FactTableColumnInput) GetLockedAutoSlices() []string {
-	if f == nil {
-		return nil
-	}
-	return f.LockedAutoSlices
 }

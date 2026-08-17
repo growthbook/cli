@@ -4,13 +4,13 @@ package factmetrics
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/internal/client"
-	"github.com/growthbook/cli/internal/flagutil"
-	"github.com/growthbook/cli/internal/interactive"
-	"github.com/growthbook/cli/internal/output"
-	"github.com/growthbook/cli/internal/sdk"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/client"
+	"github.com/growthbook/cli/v2/internal/flagutil"
+	"github.com/growthbook/cli/v2/internal/interactive"
+	"github.com/growthbook/cli/v2/internal/output"
+	"github.com/growthbook/cli/v2/internal/sdk"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -20,11 +20,12 @@ var createCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "owner", FieldPath: "Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization."},
 	{FlagName: "projects", FieldPath: "Projects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
 	{FlagName: "tags", FieldPath: "Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
-	{FlagName: "metric-type", FieldPath: "MetricType", Kind: flagutil.FlagKindEnum, Required: true, EnumValues: []string{"proportion", "retention", "mean", "quantile", "ratio", "dailyParticipation"}, Description: "options: proportion, retention, mean, quantile, ratio, dailyParticipation [required]"},
-	{FlagName: "numerator", FieldPath: "Numerator", Kind: flagutil.FlagKindJSON, Required: true, Annotations: `json:"numerator"`, Description: "[required]"},
+	{FlagName: "metric-type", FieldPath: "MetricType", Kind: flagutil.FlagKindEnum, Required: true, EnumValues: []string{"proportion", "retention", "mean", "quantile", "ratio", "dailyParticipation", "funnel"}, Description: "options: proportion, retention, mean, quantile, ratio, dailyParticipation, funnel [required]"},
+	{FlagName: "numerator", FieldPath: "Numerator", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"numerator,omitempty"`, Description: "JSON object"},
 	{FlagName: "denominator", FieldPath: "Denominator", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"denominator,omitempty"`, Description: "Only when metricType is 'ratio'"},
 	{FlagName: "inverse", Shorthand: "i", FieldPath: "Inverse", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true for things like Bounce Rate, where you want the metric to decrease"},
 	{FlagName: "quantile-settings", FieldPath: "QuantileSettings", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"quantileSettings,omitempty"`, Description: "Controls the settings for quantile metrics (mandatory if metricType is \"quantile\")"},
+	{FlagName: "funnel-settings", Shorthand: "f", FieldPath: "FunnelSettings", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"funnelSettings,omitempty"`, Description: "Funnel metric settings (required when metricType is \"funnel\")"},
 	{FlagName: "capping-settings", Shorthand: "c", FieldPath: "CappingSettings", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"cappingSettings,omitempty"`, Description: "Controls how outliers are handled"},
 	{FlagName: "window-settings", Shorthand: "w", FieldPath: "WindowSettings", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"windowSettings,omitempty"`, Description: "Controls the conversion window for the metric"},
 	{FlagName: "prior-settings", FieldPath: "PriorSettings", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"priorSettings,omitempty"`, Description: "Controls the bayesian prior for the metric. If omitted, organization defaults will be used."},
@@ -46,7 +47,7 @@ func initCreateCmd(parent *cobra.Command) error {
 		Use:     "create",
 		Short:   "Create a single fact metric",
 		Long:    "Create a single fact metric",
-		Example: "  growthbook fact-metrics create --name <value> --metric-type dailyParticipation --numerator '{\"factTableId\":\"<id>\"}'",
+		Example: "  growthbook fact-metrics create --name <value> --metric-type dailyParticipation",
 		RunE:    runCreateCmd,
 	}
 	flagutil.RegisterFlags(cmd, createCmdMeta)

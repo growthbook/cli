@@ -5,10 +5,11 @@ package operations
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
+// PostConfigRevisionRevertStrategy - Whether to stage the revert as a draft or publish it immediately. Defaults to `draft`, or to `publish` when the org enables 'reverts bypass approval'.
 type PostConfigRevisionRevertStrategy string
 
 const (
@@ -36,9 +37,16 @@ func (e *PostConfigRevisionRevertStrategy) UnmarshalJSON(data []byte) error {
 }
 
 type PostConfigRevisionRevertRequestBody struct {
+	// Whether to stage the revert as a draft or publish it immediately. Defaults to `draft`, or to `publish` when the org enables 'reverts bypass approval'.
 	Strategy *PostConfigRevisionRevertStrategy `json:"strategy,omitzero"`
 	Title    *string                           `json:"title,omitzero"`
 	Comment  *string                           `json:"comment,omitzero"`
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
+	// Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	SkipSchemaValidation *bool `json:"skipSchemaValidation,omitzero"`
+	// Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	SkipHooks *bool `json:"skipHooks,omitzero"`
 }
 
 func (p *PostConfigRevisionRevertRequestBody) GetStrategy() *PostConfigRevisionRevertStrategy {
@@ -62,12 +70,33 @@ func (p *PostConfigRevisionRevertRequestBody) GetComment() *string {
 	return p.Comment
 }
 
+func (p *PostConfigRevisionRevertRequestBody) GetIgnoreWarnings() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.IgnoreWarnings
+}
+
+func (p *PostConfigRevisionRevertRequestBody) GetSkipSchemaValidation() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.SkipSchemaValidation
+}
+
+func (p *PostConfigRevisionRevertRequestBody) GetSkipHooks() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.SkipHooks
+}
+
 type PostConfigRevisionRevertRequest struct {
 	Key     string `pathParam:"style=simple,explode=false,name=key"`
 	Version string `pathParam:"style=simple,explode=false,name=version"`
-	// Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the `bypassApprovalChecks` permission on all projects); ignored otherwise. Validation is enforced by default.
+	// Deprecated — pass `skipSchemaValidation` in the request body instead.
 	SkipSchemaValidation *bool `queryParam:"style=form,explode=true,name=skipSchemaValidation"`
-	// Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has `blockPublishOnSchemaError` disabled (warn mode).
+	// Deprecated — pass `ignoreWarnings` in the request body instead.
 	IgnoreWarnings *bool                               `queryParam:"style=form,explode=true,name=ignoreWarnings"`
 	Body           PostConfigRevisionRevertRequestBody `request:"mediaType=application/json"`
 }
@@ -110,6 +139,19 @@ func (p *PostConfigRevisionRevertRequest) GetBody() PostConfigRevisionRevertRequ
 // PostConfigRevisionRevertResponseBody - Resource created
 type PostConfigRevisionRevertResponseBody struct {
 	Revision components.ConfigRevision `json:"revision"`
+	// Gates that would have blocked this publish but were bypassed by the caller's authority. Present only when at least one gate was bypassed.
+	BypassedGates []components.BypassedGates `json:"bypassedGates,omitzero"`
+}
+
+func (p PostConfigRevisionRevertResponseBody) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostConfigRevisionRevertResponseBody) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (p *PostConfigRevisionRevertResponseBody) GetRevision() components.ConfigRevision {
@@ -117,6 +159,13 @@ func (p *PostConfigRevisionRevertResponseBody) GetRevision() components.ConfigRe
 		return components.ConfigRevision{}
 	}
 	return p.Revision
+}
+
+func (p *PostConfigRevisionRevertResponseBody) GetBypassedGates() []components.BypassedGates {
+	if p == nil {
+		return nil
+	}
+	return p.BypassedGates
 }
 
 type PostConfigRevisionRevertResponse struct {

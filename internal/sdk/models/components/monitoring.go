@@ -3,7 +3,7 @@
 package components
 
 import (
-	"github.com/growthbook/cli/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
 )
 
 type MonitoringMonitoringMode string

@@ -6,8 +6,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"time"
 )
 
@@ -25,9 +25,11 @@ const (
 	ConfigRevisionActivityLogEntryActionMerged                   ConfigRevisionActivityLogEntryAction = "merged"
 	ConfigRevisionActivityLogEntryActionDiscarded                ConfigRevisionActivityLogEntryAction = "discarded"
 	ConfigRevisionActivityLogEntryActionReopened                 ConfigRevisionActivityLogEntryAction = "reopened"
+	ConfigRevisionActivityLogEntryActionRecalled                 ConfigRevisionActivityLogEntryAction = "recalled"
 	ConfigRevisionActivityLogEntryActionScheduledPublish         ConfigRevisionActivityLogEntryAction = "scheduled-publish"
 	ConfigRevisionActivityLogEntryActionScheduledPublishUpdated  ConfigRevisionActivityLogEntryAction = "scheduled-publish-updated"
 	ConfigRevisionActivityLogEntryActionScheduledPublishCanceled ConfigRevisionActivityLogEntryAction = "scheduled-publish-canceled"
+	ConfigRevisionActivityLogEntryActionMergeRecovered           ConfigRevisionActivityLogEntryAction = "merge-recovered"
 )
 
 func (e ConfigRevisionActivityLogEntryAction) ToPointer() *ConfigRevisionActivityLogEntryAction {
@@ -38,7 +40,7 @@ func (e ConfigRevisionActivityLogEntryAction) ToPointer() *ConfigRevisionActivit
 func (e *ConfigRevisionActivityLogEntryAction) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "created", "updated", "reviewed", "approved", "requested-changes", "commented", "review-requested", "review-retracted", "merged", "discarded", "reopened", "scheduled-publish", "scheduled-publish-updated", "scheduled-publish-canceled":
+		case "created", "updated", "reviewed", "approved", "requested-changes", "commented", "review-requested", "review-retracted", "merged", "discarded", "reopened", "recalled", "scheduled-publish", "scheduled-publish-updated", "scheduled-publish-canceled", "merge-recovered":
 			return true
 		}
 	}

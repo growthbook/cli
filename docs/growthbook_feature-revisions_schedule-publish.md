@@ -4,9 +4,9 @@ Schedule (or cancel) a deferred publish for a draft revision
 
 ### Synopsis
 
-Arms a deferred publish: the revision publishes automatically on/after `scheduledPublishAt` (and, when review is required, only once also approved). Send `scheduledPublishAt: null` to cancel the schedule.
+Schedules the draft to publish on or after `scheduledPublishAt`. When approval is required, publishing waits until the draft is also approved. Send `scheduledPublishAt: null` to cancel the schedule.
 
-Use `lockEdits` to freeze content edits to this draft while the schedule is pending (rebasing is still allowed), and `lockOthers` to block publishing other drafts of this feature until the schedule fires or is canceled. Requires publish permission; the publish executes with the caller's authority. An admin with bypass-approval permission can schedule even without approval — pass `bypassApproval: true` to mark it as an admin override, which locks the schedule to cancel-and-re-arm only.
+Set `lockEdits` to prevent content changes while the schedule is pending; rebasing remains allowed. Set `lockOthers` to prevent other drafts of this Feature Flag from being published until this schedule runs or is canceled. The caller needs Publish access, and that access is checked again when the schedule runs. A caller with Bypass draft approvals access can schedule an unapproved draft by sending `bypassApproval: true`. That schedule must be canceled and recreated before it can be changed.
 
 ```
 growthbook feature-revisions schedule-publish [flags]
@@ -21,14 +21,17 @@ growthbook feature-revisions schedule-publish [flags]
 ### Options
 
 ```
-      --body string                   Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -b, --bypass-approval               boolean flag
-  -h, --help                          help for schedule-publish
-  -i, --id string                     [required]
-      --lock-edits                    boolean flag
-      --lock-others                   boolean flag
-  -s, --scheduled-publish-at string   [required]
-  -v, --version-param string          [required]
+      --body string                                 Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -b, --bypass-approval                             boolean flag
+  -h, --help                                        help for schedule-publish
+      --id string                                   [required]
+      --ignore-warnings                             Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+      --lock-edits                                  boolean flag
+      --lock-others                                 boolean flag
+      --scheduled-publish-at 2026-01-31T09:00:00Z   When to publish, as an RFC3339 timestamp (e.g. 2026-01-31T09:00:00Z or `2026-01-31T02:00:00-07:00`), or `null` to cancel a pending schedule. [required]
+      --skip-hooks skipSchemaValidation             Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use skipSchemaValidation for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+      --skip-schema-validation skipHooks            Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use skipHooks for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+  -v, --version-param string                        [required]
 ```
 
 ### Options inherited from parent commands

@@ -4,7 +4,7 @@ Partially update a single saved group
 
 ### Synopsis
 
-Partially update a single saved group
+Applies the change immediately and records it as a published revision, so it appears in history and fires revision webhooks. When the organization requires approvals, open a draft instead or pass `bypassApproval` with the bypass permission.
 
 ```
 growthbook saved-groups update [flags]
@@ -19,15 +19,15 @@ growthbook saved-groups update [flags]
 ### Options
 
 ```
-      --body string                            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -b, --bypass-approval bypassApprovalChecks   Set to true to skip the approval flow when the org requires approvals on saved groups. Requires the bypassApprovalChecks permission on the saved group's existing projects. When the org does not require approvals, this flag has no effect.
-  -c, --condition string                       When type = 'condition', this is the JSON-encoded condition for the group
-  -h, --help                                   help for update
-  -i, --id string                              The id of the requested resource [required]
-  -n, --name string                            The display name of the Saved Group
-      --owner string                           The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-  -p, --projects stringArray                   list of values
-  -v, --values stringArray                     When type = 'list', this is the list of values for the attribute key
+      --body string            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -b, --bypass-approval        Set to true to update the live Saved Group without approval. The caller must have Bypass draft approvals access in every current and destination Project. This field has no effect when approval is not required.
+  -c, --condition string       When type = 'condition', this is the JSON-encoded condition for the group
+  -h, --help                   help for update
+  -i, --id string              The id of the requested resource [required]
+  -n, --name string            The display name of the Saved Group
+      --owner string           The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
+  -p, --projects stringArray   list of values
+  -v, --values stringArray     When type = 'list', this is the list of values for the attribute key
 ```
 
 ### Options inherited from parent commands

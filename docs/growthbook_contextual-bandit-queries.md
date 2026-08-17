@@ -43,8 +43,8 @@ growthbook contextual-bandit-queries [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
-* [growthbook contextual-bandit-queries create-contextual-bandit-query](growthbook_contextual-bandit-queries_create-contextual-bandit-query.md)	 - Create a single contextualBanditQuery
-* [growthbook contextual-bandit-queries delete-contextual-bandit-query](growthbook_contextual-bandit-queries_delete-contextual-bandit-query.md)	 - Delete a single contextualBanditQuery
-* [growthbook contextual-bandit-queries get-contextual-bandit-query](growthbook_contextual-bandit-queries_get-contextual-bandit-query.md)	 - Get a single contextualBanditQuery
+* [growthbook contextual-bandit-queries create](growthbook_contextual-bandit-queries_create.md)	 - Create a single contextualBanditQuery
+* [growthbook contextual-bandit-queries delete](growthbook_contextual-bandit-queries_delete.md)	 - Delete a single contextualBanditQuery
+* [growthbook contextual-bandit-queries get](growthbook_contextual-bandit-queries_get.md)	 - Get a single contextualBanditQuery
 * [growthbook contextual-bandit-queries list](growthbook_contextual-bandit-queries_list.md)	 - Get all contextualBanditQueries
-* [growthbook contextual-bandit-queries update-contextual-bandit-query](growthbook_contextual-bandit-queries_update-contextual-bandit-query.md)	 - Update a single contextualBanditQuery
+* [growthbook contextual-bandit-queries update](growthbook_contextual-bandit-queries_update.md)	 - Update a single contextualBanditQuery

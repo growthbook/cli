@@ -6,9 +6,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
-	"github.com/growthbook/cli/internal/sdk/types"
+	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/types"
 )
 
 type ResultScheduleRule6 struct {
@@ -186,6 +186,8 @@ type RuleSafeRollout struct {
 	ID              string                `json:"id"`
 	AllEnvironments bool                  `json:"allEnvironments"`
 	Environments    []string              `json:"environments,omitzero"`
+	AllProjects     *bool                 `json:"allProjects,omitzero"`
+	Projects        []string              `json:"projects,omitzero"`
 	Enabled         *bool                 `json:"enabled,omitzero"`
 	ScheduleRules   []ResultScheduleRule6 `json:"scheduleRules,omitzero"`
 	SavedGroups     []ResultSavedGroup6   `json:"savedGroups,omitzero"`
@@ -246,6 +248,20 @@ func (r *RuleSafeRollout) GetEnvironments() []string {
 		return nil
 	}
 	return r.Environments
+}
+
+func (r *RuleSafeRollout) GetAllProjects() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.AllProjects
+}
+
+func (r *RuleSafeRollout) GetProjects() []string {
+	if r == nil {
+		return nil
+	}
+	return r.Projects
 }
 
 func (r *RuleSafeRollout) GetEnabled() *bool {
@@ -520,6 +536,8 @@ type RuleContextualBanditRef struct {
 	ID              string                `json:"id"`
 	AllEnvironments bool                  `json:"allEnvironments"`
 	Environments    []string              `json:"environments,omitzero"`
+	AllProjects     *bool                 `json:"allProjects,omitzero"`
+	Projects        []string              `json:"projects,omitzero"`
 	Enabled         *bool                 `json:"enabled,omitzero"`
 	ScheduleRules   []ResultScheduleRule5 `json:"scheduleRules,omitzero"`
 	SavedGroups     []ResultSavedGroup5   `json:"savedGroups,omitzero"`
@@ -575,6 +593,20 @@ func (r *RuleContextualBanditRef) GetEnvironments() []string {
 		return nil
 	}
 	return r.Environments
+}
+
+func (r *RuleContextualBanditRef) GetAllProjects() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.AllProjects
+}
+
+func (r *RuleContextualBanditRef) GetProjects() []string {
+	if r == nil {
+		return nil
+	}
+	return r.Projects
 }
 
 func (r *RuleContextualBanditRef) GetEnabled() *bool {
@@ -814,6 +846,8 @@ type RuleExperimentRef struct {
 	ID              string                `json:"id"`
 	AllEnvironments bool                  `json:"allEnvironments"`
 	Environments    []string              `json:"environments,omitzero"`
+	AllProjects     *bool                 `json:"allProjects,omitzero"`
+	Projects        []string              `json:"projects,omitzero"`
 	Enabled         *bool                 `json:"enabled,omitzero"`
 	ScheduleRules   []ResultScheduleRule4 `json:"scheduleRules,omitzero"`
 	SavedGroups     []ResultSavedGroup4   `json:"savedGroups,omitzero"`
@@ -870,6 +904,20 @@ func (r *RuleExperimentRef) GetEnvironments() []string {
 		return nil
 	}
 	return r.Environments
+}
+
+func (r *RuleExperimentRef) GetAllProjects() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.AllProjects
+}
+
+func (r *RuleExperimentRef) GetProjects() []string {
+	if r == nil {
+		return nil
+	}
+	return r.Projects
 }
 
 func (r *RuleExperimentRef) GetEnabled() *bool {
@@ -1473,6 +1521,8 @@ type RuleExperiment struct {
 	ID              string                `json:"id"`
 	AllEnvironments bool                  `json:"allEnvironments"`
 	Environments    []string              `json:"environments,omitzero"`
+	AllProjects     *bool                 `json:"allProjects,omitzero"`
+	Projects        []string              `json:"projects,omitzero"`
 	Enabled         *bool                 `json:"enabled,omitzero"`
 	ScheduleRules   []ResultScheduleRule3 `json:"scheduleRules,omitzero"`
 	SavedGroups     []ResultSavedGroup3   `json:"savedGroups,omitzero"`
@@ -1560,6 +1610,20 @@ func (r *RuleExperiment) GetEnvironments() []string {
 		return nil
 	}
 	return r.Environments
+}
+
+func (r *RuleExperiment) GetAllProjects() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.AllProjects
+}
+
+func (r *RuleExperiment) GetProjects() []string {
+	if r == nil {
+		return nil
+	}
+	return r.Projects
 }
 
 func (r *RuleExperiment) GetEnabled() *bool {
@@ -1990,6 +2054,8 @@ type RuleRollout struct {
 	ID              string                `json:"id"`
 	AllEnvironments bool                  `json:"allEnvironments"`
 	Environments    []string              `json:"environments,omitzero"`
+	AllProjects     *bool                 `json:"allProjects,omitzero"`
+	Projects        []string              `json:"projects,omitzero"`
 	Enabled         *bool                 `json:"enabled,omitzero"`
 	ScheduleRules   []ResultScheduleRule2 `json:"scheduleRules,omitzero"`
 	SavedGroups     []ResultSavedGroup2   `json:"savedGroups,omitzero"`
@@ -2049,6 +2115,20 @@ func (r *RuleRollout) GetEnvironments() []string {
 		return nil
 	}
 	return r.Environments
+}
+
+func (r *RuleRollout) GetAllProjects() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.AllProjects
+}
+
+func (r *RuleRollout) GetProjects() []string {
+	if r == nil {
+		return nil
+	}
+	return r.Projects
 }
 
 func (r *RuleRollout) GetEnabled() *bool {
@@ -2283,6 +2363,8 @@ type RuleForce struct {
 	ID              string                `json:"id"`
 	AllEnvironments bool                  `json:"allEnvironments"`
 	Environments    []string              `json:"environments,omitzero"`
+	AllProjects     *bool                 `json:"allProjects,omitzero"`
+	Projects        []string              `json:"projects,omitzero"`
 	Enabled         *bool                 `json:"enabled,omitzero"`
 	ScheduleRules   []ResultScheduleRule1 `json:"scheduleRules,omitzero"`
 	SavedGroups     []ResultSavedGroup1   `json:"savedGroups,omitzero"`
@@ -2338,6 +2420,20 @@ func (r *RuleForce) GetEnvironments() []string {
 		return nil
 	}
 	return r.Environments
+}
+
+func (r *RuleForce) GetAllProjects() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.AllProjects
+}
+
+func (r *RuleForce) GetProjects() []string {
+	if r == nil {
+		return nil
+	}
+	return r.Projects
 }
 
 func (r *RuleForce) GetEnabled() *bool {

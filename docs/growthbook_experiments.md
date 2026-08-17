@@ -54,6 +54,7 @@ growthbook experiments [flags]
 * [growthbook experiments list-results](growthbook_experiments_list-results.md)	 - Get latest results for many experiments
 * [growthbook experiments modify-temporary-rollout](growthbook_experiments_modify-temporary-rollout.md)	 - Modify temporary rollout status for a stopped experiment
 * [growthbook experiments results](growthbook_experiments_results.md)	 - Get results for an experiment
+* [growthbook experiments set-schedule](growthbook_experiments_set-schedule.md)	 - Set an experiment's schedule and shipping automation
 * [growthbook experiments start](growthbook_experiments_start.md)	 - Start/Stage an experiment
 * [growthbook experiments stop](growthbook_experiments_stop.md)	 - Stop an experiment
 * [growthbook experiments update](growthbook_experiments_update.md)	 - Update a single experiment

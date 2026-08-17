@@ -4,13 +4,13 @@ package experiments
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/internal/client"
-	"github.com/growthbook/cli/internal/flagutil"
-	"github.com/growthbook/cli/internal/interactive"
-	"github.com/growthbook/cli/internal/output"
-	"github.com/growthbook/cli/internal/sdk"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/client"
+	"github.com/growthbook/cli/v2/internal/flagutil"
+	"github.com/growthbook/cli/v2/internal/interactive"
+	"github.com/growthbook/cli/v2/internal/output"
+	"github.com/growthbook/cli/v2/internal/sdk"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -44,7 +44,7 @@ var createCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "min-bucket-version", FieldPath: "MinBucketVersion", Kind: flagutil.FlagKindFloat64, Optional: true, Description: "number value"},
 	{FlagName: "released-variation-id", FieldPath: "ReleasedVariationID", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "exclude-from-payload", Shorthand: "e", FieldPath: "ExcludeFromPayload", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
-	{FlagName: "in-progress-conversions", Shorthand: "i", FieldPath: "InProgressConversions", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"loose", "strict"}, Description: "options: loose, strict"},
+	{FlagName: "in-progress-conversions", FieldPath: "InProgressConversions", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"loose", "strict"}, Description: "options: loose, strict"},
 	{FlagName: "attribution-model", FieldPath: "AttributionModel", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"firstExposure", "experimentDuration", "lookbackOverride"}, Description: "Setting attribution model to `\"experimentDuration\"` is the same as selecting \"Ignore Conversion Windows\" for the Conversion Window Override. Setting it to `\"lookbackOverride\"` requires a `lookbackOverride` object to be provided. (options: firstExposure, experimentDuration, lookbackOverride)"},
 	{FlagName: "lookback-override", Shorthand: "l", FieldPath: "LookbackOverride", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"lookbackOverride,omitempty"`, Description: "Controls the lookback override for the experiment. For type \"window\", value must be a non-negative number and valueUnit is required."},
 	{FlagName: "stats-engine", FieldPath: "StatsEngine", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"bayesian", "frequentist"}, Description: "options: bayesian, frequentist"},
@@ -67,7 +67,8 @@ var createCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "custom-fields", FieldPath: "CustomFields", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"customFields,omitempty"`, Description: "value"},
 	{FlagName: "custom-metric-slices", FieldPath: "CustomMetricSlices", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"customMetricSlices,omitempty"`, Description: "Custom slices that apply to ALL applicable metrics in the experiment"},
 	{FlagName: "precomputed-unit-dimension-ids", FieldPath: "PrecomputedUnitDimensionIds", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
-	{FlagName: "status-update-schedule", FieldPath: "StatusUpdateSchedule", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"statusUpdateSchedule,omitempty"`, Description: "Schedule a future start for a draft experiment. Only `startAt` is currently supported."},
+	{FlagName: "status-update-schedule", FieldPath: "StatusUpdateSchedule", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"statusUpdateSchedule,omitempty"`, Description: "JSON object"},
+	{FlagName: "ignore-warnings", FieldPath: "IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access."},
 }
 
 // initCreateCmd initializes the create command.

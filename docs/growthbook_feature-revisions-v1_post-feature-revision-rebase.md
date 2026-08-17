@@ -28,7 +28,8 @@ growthbook feature-revisions-v1 post-feature-revision-rebase [flags]
       --body string                   Request body as JSON (alternative to individual flags). Can also be provided via stdin.
   -c, --conflict-resolutions string   value
   -h, --help                          help for post-feature-revision-rebase
-  -i, --id string                     [required]
+      --id string                     [required]
+      --ignore-warnings               Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
   -v, --version-param string          [required]
 ```
 

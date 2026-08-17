@@ -3,8 +3,8 @@
 package components
 
 import (
-	"github.com/growthbook/cli/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"time"
 )
 
@@ -463,10 +463,58 @@ func (e *ExperimentCustomMetricSlice) GetSlices() []ExperimentSlice {
 	return e.Slices
 }
 
-// ExperimentStatusUpdateSchedule - Schedule a future start for a draft experiment. Only `startAt` is currently supported.
+type ExperimentUnit string
+
+const (
+	ExperimentUnitHours ExperimentUnit = "hours"
+	ExperimentUnitDays  ExperimentUnit = "days"
+)
+
+func (e ExperimentUnit) ToPointer() *ExperimentUnit {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ExperimentUnit) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "hours", "days":
+			return true
+		}
+	}
+	return false
+}
+
+// ExperimentStopAfter - Relative end offset. Deferred: resolved to a concrete `stopAt` at the experiment's actual start (or off `dateStarted` when already running).
+type ExperimentStopAfter struct {
+	Value int64          `json:"value"`
+	Unit  ExperimentUnit `json:"unit"`
+}
+
+func (e *ExperimentStopAfter) GetValue() int64 {
+	if e == nil {
+		return 0
+	}
+	return e.Value
+}
+
+func (e *ExperimentStopAfter) GetUnit() ExperimentUnit {
+	if e == nil {
+		return ExperimentUnit("")
+	}
+	return e.Unit
+}
+
+// ExperimentStatusUpdateSchedule - Scheduled start/end for an experiment. All fields optional; the end may be an absolute `stopAt` or a deferred relative `stopAfter`, but not both.
 type ExperimentStatusUpdateSchedule struct {
 	// ISO datetime when the experiment should start. Must be in the future. Setting or clearing this field invalidates any existing staged start (`nextScheduledStatusUpdate`); call POST /experiments/{id}/start to stage the new schedule.
-	StartAt time.Time `json:"startAt"`
+	StartAt *time.Time `json:"startAt,omitzero"`
+	// ISO datetime when the experiment should stop. Resolved from `stopAfter` at start when a relative end was set.
+	StopAt *time.Time `json:"stopAt,omitzero"`
+	// Relative end offset. Deferred: resolved to a concrete `stopAt` at the experiment's actual start (or off `dateStarted` when already running).
+	StopAfter *ExperimentStopAfter `json:"stopAfter,omitzero"`
+	// What happens at the scheduled end date. `notify` keeps the experiment running and just notifies (soft). `auto-ship` (requires the Decision Framework) ships the winning variation and stops; multi-winner ties break on `tiebreakerMetricId` (higher lift); with no clear winner, `fallback` either keeps running (`notify`) or ships `fallbackVariationId`. `force-ship` stops and rolls out `fallbackVariationId`. `stop` is a hard deadline that stops with no rollout. For `force-ship` and `stop`, the Decision Framework verdict (won/lost/inconclusive) is recorded as metadata when available.
+	ScheduledStopPlan *ScheduledStopPlan `json:"scheduledStopPlan,omitzero"`
 }
 
 func (e ExperimentStatusUpdateSchedule) MarshalJSON() ([]byte, error) {
@@ -480,17 +528,59 @@ func (e *ExperimentStatusUpdateSchedule) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (e *ExperimentStatusUpdateSchedule) GetStartAt() time.Time {
+func (e *ExperimentStatusUpdateSchedule) GetStartAt() *time.Time {
 	if e == nil {
-		return time.Time{}
+		return nil
 	}
 	return e.StartAt
 }
 
+func (e *ExperimentStatusUpdateSchedule) GetStopAt() *time.Time {
+	if e == nil {
+		return nil
+	}
+	return e.StopAt
+}
+
+func (e *ExperimentStatusUpdateSchedule) GetStopAfter() *ExperimentStopAfter {
+	if e == nil {
+		return nil
+	}
+	return e.StopAfter
+}
+
+func (e *ExperimentStatusUpdateSchedule) GetScheduledStopPlan() *ScheduledStopPlan {
+	if e == nil {
+		return nil
+	}
+	return e.ScheduledStopPlan
+}
+
+type ExperimentNextScheduledStatusUpdateType string
+
+const (
+	ExperimentNextScheduledStatusUpdateTypeStart ExperimentNextScheduledStatusUpdateType = "start"
+	ExperimentNextScheduledStatusUpdateTypeStop  ExperimentNextScheduledStatusUpdateType = "stop"
+)
+
+func (e ExperimentNextScheduledStatusUpdateType) ToPointer() *ExperimentNextScheduledStatusUpdateType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ExperimentNextScheduledStatusUpdateType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "start", "stop":
+			return true
+		}
+	}
+	return false
+}
+
 type ExperimentNextScheduledStatusUpdate struct {
-	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_ string    `const:"start" json:"type"`
-	Date  time.Time `json:"date"`
+	Type ExperimentNextScheduledStatusUpdateType `json:"type"`
+	Date time.Time                               `json:"date"`
 }
 
 func (e ExperimentNextScheduledStatusUpdate) MarshalJSON() ([]byte, error) {
@@ -504,8 +594,11 @@ func (e *ExperimentNextScheduledStatusUpdate) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (e *ExperimentNextScheduledStatusUpdate) GetType() string {
-	return "start"
+func (e *ExperimentNextScheduledStatusUpdate) GetType() ExperimentNextScheduledStatusUpdateType {
+	if e == nil {
+		return ExperimentNextScheduledStatusUpdateType("")
+	}
+	return e.Type
 }
 
 func (e *ExperimentNextScheduledStatusUpdate) GetDate() time.Time {

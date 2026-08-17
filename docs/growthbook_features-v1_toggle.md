@@ -8,9 +8,7 @@ DEPRECATED: This will be removed in a future release, please migrate away from i
 
 **Deprecated.** Use [POST /v2/features/:id/toggle](#operation/toggleFeatureV2) instead.
 
-Enables or disables a feature in one or more environments simultaneously. Accepts a map of environment name → boolean and immediately publishes the change.
-
-Returns 403 if the API key lacks permission or if approval rules are enabled for an affected environment and the org setting "REST API always bypasses approval requirements" is off.
+Enables or disables a Feature Flag in one or more environments and immediately publishes the change. The caller needs Publish access for every environment in the request. When approval is required, use a draft revision instead, unless the caller can bypass draft approvals.
 
 ```
 growthbook features-v1 toggle [flags]

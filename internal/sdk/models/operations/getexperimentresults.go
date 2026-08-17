@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 type GetExperimentResultsRequest struct {
@@ -37,8 +37,8 @@ func (g *GetExperimentResultsRequest) GetDimension() *string {
 
 // GetExperimentResultsResponseBody - Successful response
 type GetExperimentResultsResponseBody struct {
-	Experiment components.Experiment        `json:"experiment"`
-	Result     components.ExperimentResults `json:"result"`
+	Experiment components.Experiment         `json:"experiment"`
+	Result     components.ExperimentResults1 `json:"result"`
 }
 
 func (g *GetExperimentResultsResponseBody) GetExperiment() components.Experiment {
@@ -48,9 +48,9 @@ func (g *GetExperimentResultsResponseBody) GetExperiment() components.Experiment
 	return g.Experiment
 }
 
-func (g *GetExperimentResultsResponseBody) GetResult() components.ExperimentResults {
+func (g *GetExperimentResultsResponseBody) GetResult() components.ExperimentResults1 {
 	if g == nil {
-		return components.ExperimentResults{}
+		return components.ExperimentResults1{}
 	}
 	return g.Result
 }

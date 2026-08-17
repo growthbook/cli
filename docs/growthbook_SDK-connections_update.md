@@ -30,6 +30,7 @@ growthbook SDK-connections update [flags]
       --include-draft-experiment-refs                   When true, experiment-ref rules linked to draft experiments are included in feature definitions. Off by default.
       --include-draft-experiments                       boolean flag
       --include-experiment-names                        boolean flag
+      --include-experiment-schedule-in-metadata         boolean flag
       --include-project-id-in-metadata                  boolean flag
       --include-redirect-experiments                    boolean flag
       --include-rule-ids                                boolean flag

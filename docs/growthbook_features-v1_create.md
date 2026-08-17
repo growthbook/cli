@@ -21,21 +21,26 @@ growthbook features-v1 create [flags]
 ### Options
 
 ```
-  -a, --archived                        boolean flag
-  -b, --base-config valueType: "json"   Key of the config backing this flag ("Config mode"). Requires valueType: "json" and a live config; `defaultValue` and rule values become override patches on top. null or omitted for a plain flag.
-      --body string                     Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -c, --custom-fields string            value
-      --default-value valueType         Default value when feature is enabled. Type must match valueType. In Config mode (`baseConfig` set) this is the JSON override patch merged on top of the config. [required]
-      --description string              Description of the feature
-  -e, --environments string             A dictionary of environments that are enabled for this feature. Keys supply the names of environments. Environments belong to organization and are not specified will be disabled by default.
-  -h, --help                            help for create
-  -i, --id string                       A unique key name for the feature. Feature keys can only include letters, numbers, hyphens, and underscores. [required]
-  -j, --json-schema string              Use JSON schema to validate the payload of a JSON-type feature value (enterprise only).
-      --owner string                    The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. Optional when authenticating with a Personal Access Token (PAT): when omitted, the owner defaults to the PAT's user. Required when authenticating with an organization secret API key (which has no associated user): omitting it fails with a 400.
-      --prerequisites true              Feature IDs. Each feature must evaluate to true
-      --project string                  An associated project ID
-  -t, --tags stringArray                List of associated tags
-  -v, --value-type string               The data type of the feature payload. Boolean by default. (options: boolean, string, number, json) [required]
+  -a, --archived                           boolean flag
+  -b, --base-config valueType: "json"      Key of the config backing this flag ("Config mode"). Requires valueType: "json" and a live config; `defaultValue` and rule values become override patches on top. null or omitted for a plain flag.
+      --body string                        Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -c, --custom-fields string               value
+      --default-value valueType            Default value when feature is enabled. Type must match valueType. In Config mode (`baseConfig` set) this is the JSON override patch merged on top of the config. [required]
+      --description string                 Description of the feature
+  -e, --environments string                A dictionary of environments that are enabled for this feature. Keys supply the names of environments. Environments belong to organization and are not specified will be disabled by default.
+  -h, --help                               help for create
+      --id string                          A unique key name for the feature. Feature keys can only include letters, numbers, hyphens, and underscores. [required]
+      --ignore-warnings                    Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+  -j, --json-schema string                 Use JSON schema to validate the payload of a JSON-type feature value (enterprise only).
+      --owner string                       The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. Optional when authenticating with a Personal Access Token (PAT): when omitted, the owner defaults to the PAT's user. Required when authenticating with an organization secret API key (which has no associated user): omitting it fails with a 400.
+      --prerequisites true                 Feature IDs. Each feature must evaluate to true
+      --project string                     An associated project ID
+      --skip-hooks skipSchemaValidation    Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use skipSchemaValidation for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+      --skip-schema-validation skipHooks   Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use skipHooks for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+      --tags stringArray                   List of associated tags
+      --targeting-all-projects project     Make this feature discoverable in — and served to — every project, beyond its primary project. Governance/approvals stay with `project`.
+      --targeting-projects project         Secondary project IDs this feature is targeted in and served to, beyond its primary project. Governance/approvals stay with `project`.
+  -v, --value-type string                  The data type of the feature payload. Boolean by default. (options: boolean, string, number, json) [required]
 ```
 
 ### Options inherited from parent commands

@@ -4,13 +4,13 @@ package experiments
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/internal/client"
-	"github.com/growthbook/cli/internal/flagutil"
-	"github.com/growthbook/cli/internal/interactive"
-	"github.com/growthbook/cli/internal/output"
-	"github.com/growthbook/cli/internal/sdk"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/client"
+	"github.com/growthbook/cli/v2/internal/flagutil"
+	"github.com/growthbook/cli/v2/internal/interactive"
+	"github.com/growthbook/cli/v2/internal/output"
+	"github.com/growthbook/cli/v2/internal/sdk"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -71,6 +71,7 @@ var updateExperimentCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "custom-metric-slices", FieldPath: "Body.CustomMetricSlices", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"customMetricSlices,omitempty"`, Description: "Custom slices that apply to ALL applicable metrics in the experiment"},
 	{FlagName: "status-update-schedule", FieldPath: "Body.StatusUpdateSchedule", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"statusUpdateSchedule,omitempty"`, Description: "JSON object"},
 	{FlagName: "precomputed-unit-dimension-ids", FieldPath: "Body.PrecomputedUnitDimensionIds", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
+	{FlagName: "ignore-warnings", FieldPath: "Body.IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access."},
 }
 
 // initUpdateExperimentCmd initializes the update-experiment command.

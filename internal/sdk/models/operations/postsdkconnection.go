@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 type PostSDKConnectionRequest struct {
@@ -17,19 +17,20 @@ type PostSDKConnectionRequest struct {
 	IncludeVisualExperiments *bool    `json:"includeVisualExperiments,omitzero"`
 	IncludeDraftExperiments  *bool    `json:"includeDraftExperiments,omitzero"`
 	// When true, experiment-ref rules linked to draft experiments are included in feature definitions. Off by default.
-	IncludeDraftExperimentRefs    *bool    `json:"includeDraftExperimentRefs,omitzero"`
-	IncludeExperimentNames        *bool    `json:"includeExperimentNames,omitzero"`
-	IncludeRedirectExperiments    *bool    `json:"includeRedirectExperiments,omitzero"`
-	IncludeRuleIds                *bool    `json:"includeRuleIds,omitzero"`
-	IncludeProjectIDInMetadata    *bool    `json:"includeProjectIdInMetadata,omitzero"`
-	IncludeCustomFieldsInMetadata *bool    `json:"includeCustomFieldsInMetadata,omitzero"`
-	AllowedCustomFieldsInMetadata []string `json:"allowedCustomFieldsInMetadata,omitzero"`
-	IncludeTagsInMetadata         *bool    `json:"includeTagsInMetadata,omitzero"`
-	ProxyEnabled                  *bool    `json:"proxyEnabled,omitzero"`
-	ProxyHost                     *string  `json:"proxyHost,omitzero"`
-	HashSecureAttributes          *bool    `json:"hashSecureAttributes,omitzero"`
-	RemoteEvalEnabled             *bool    `json:"remoteEvalEnabled,omitzero"`
-	SavedGroupReferencesEnabled   *bool    `json:"savedGroupReferencesEnabled,omitzero"`
+	IncludeDraftExperimentRefs          *bool    `json:"includeDraftExperimentRefs,omitzero"`
+	IncludeExperimentNames              *bool    `json:"includeExperimentNames,omitzero"`
+	IncludeRedirectExperiments          *bool    `json:"includeRedirectExperiments,omitzero"`
+	IncludeRuleIds                      *bool    `json:"includeRuleIds,omitzero"`
+	IncludeProjectIDInMetadata          *bool    `json:"includeProjectIdInMetadata,omitzero"`
+	IncludeCustomFieldsInMetadata       *bool    `json:"includeCustomFieldsInMetadata,omitzero"`
+	AllowedCustomFieldsInMetadata       []string `json:"allowedCustomFieldsInMetadata,omitzero"`
+	IncludeTagsInMetadata               *bool    `json:"includeTagsInMetadata,omitzero"`
+	IncludeExperimentScheduleInMetadata *bool    `json:"includeExperimentScheduleInMetadata,omitzero"`
+	ProxyEnabled                        *bool    `json:"proxyEnabled,omitzero"`
+	ProxyHost                           *string  `json:"proxyHost,omitzero"`
+	HashSecureAttributes                *bool    `json:"hashSecureAttributes,omitzero"`
+	RemoteEvalEnabled                   *bool    `json:"remoteEvalEnabled,omitzero"`
+	SavedGroupReferencesEnabled         *bool    `json:"savedGroupReferencesEnabled,omitzero"`
 }
 
 func (p PostSDKConnectionRequest) MarshalJSON() ([]byte, error) {
@@ -153,6 +154,13 @@ func (p *PostSDKConnectionRequest) GetIncludeTagsInMetadata() *bool {
 		return nil
 	}
 	return p.IncludeTagsInMetadata
+}
+
+func (p *PostSDKConnectionRequest) GetIncludeExperimentScheduleInMetadata() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.IncludeExperimentScheduleInMetadata
 }
 
 func (p *PostSDKConnectionRequest) GetProxyEnabled() *bool {

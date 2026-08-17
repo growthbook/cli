@@ -4,13 +4,13 @@ package factmetrics
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/internal/client"
-	"github.com/growthbook/cli/internal/flagutil"
-	"github.com/growthbook/cli/internal/interactive"
-	"github.com/growthbook/cli/internal/output"
-	"github.com/growthbook/cli/internal/sdk"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/client"
+	"github.com/growthbook/cli/v2/internal/flagutil"
+	"github.com/growthbook/cli/v2/internal/interactive"
+	"github.com/growthbook/cli/v2/internal/output"
+	"github.com/growthbook/cli/v2/internal/sdk"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -21,11 +21,12 @@ var updateFactMetricCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "owner", FieldPath: "Body.Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization."},
 	{FlagName: "projects", FieldPath: "Body.Projects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
 	{FlagName: "tags", FieldPath: "Body.Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
-	{FlagName: "metric-type", FieldPath: "Body.MetricType", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"proportion", "retention", "mean", "quantile", "ratio", "dailyParticipation"}, Description: "options: proportion, retention, mean, quantile, ratio, dailyParticipation"},
+	{FlagName: "metric-type", FieldPath: "Body.MetricType", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"proportion", "retention", "mean", "quantile", "ratio", "dailyParticipation", "funnel"}, Description: "options: proportion, retention, mean, quantile, ratio, dailyParticipation, funnel"},
 	{FlagName: "numerator", FieldPath: "Body.Numerator", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"numerator,omitempty"`, Description: "JSON object"},
 	{FlagName: "denominator", FieldPath: "Body.Denominator", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"denominator,omitempty"`, Description: "Only when metricType is 'ratio'"},
 	{FlagName: "inverse", FieldPath: "Body.Inverse", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true for things like Bounce Rate, where you want the metric to decrease"},
 	{FlagName: "quantile-settings", FieldPath: "Body.QuantileSettings", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"quantileSettings,omitempty"`, Description: "Controls the settings for quantile metrics (mandatory if metricType is \"quantile\")"},
+	{FlagName: "funnel-settings", Shorthand: "f", FieldPath: "Body.FunnelSettings", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"funnelSettings,omitempty"`, Description: "Funnel metric settings (required when metricType is \"funnel\")"},
 	{FlagName: "capping-settings", Shorthand: "c", FieldPath: "Body.CappingSettings", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"cappingSettings,omitempty"`, Description: "Controls how outliers are handled"},
 	{FlagName: "window-settings", Shorthand: "w", FieldPath: "Body.WindowSettings", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"windowSettings,omitempty"`, Description: "Controls the conversion window for the metric"},
 	{FlagName: "prior-settings", FieldPath: "Body.PriorSettings", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"priorSettings,omitempty"`, Description: "Controls the bayesian prior for the metric. If omitted, organization defaults will be used."},

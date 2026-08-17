@@ -3,7 +3,7 @@
 package components
 
 import (
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"time"
 )
 
@@ -199,9 +199,9 @@ type Config struct {
 	Extensible *bool `json:"extensible,omitzero"`
 	// Cross-field validation rules (relational checks JSON Schema can't express, e.g. implications or comparing two fields), evaluated against the resolved value at publish.
 	Invariants []Invariant `json:"invariants,omitzero"`
-	// Whether this config is locked: frozen at a published revision. While locked no change can be published past that revision until it is unlocked (which requires the `bypassApprovalChecks` permission). Drafts may still be created and edited.
+	// Whether this Config is locked to a published revision. Drafts can still be created and edited while locked, but no change can be published until a user with Bypass draft approvals access unlocks it.
 	Locked *bool `json:"locked,omitzero"`
-	// Whether the experiment guard is enabled: publishing a change served to a running experiment soft-blocks (unless overridden with `?ignoreWarnings=true` or `bypassApprovalChecks`). Turning it off requires `bypassApprovalChecks`.
+	// Whether the experiment guard is enabled. When enabled, publishing a value used by a running experiment returns a warning that must be acknowledged with `ignoreWarnings: true`. Disabling the guard requires Bypass draft approvals access.
 	ExperimentGuard *bool `json:"experimentGuard,omitzero"`
 	// The pinned published revision (present only when `locked`). Fetch it via `GET /configs-revisions/:key/:version` for a value guaranteed not to disappear or mutate — use it to pin reproducible builds.
 	LockedRevision *LockedRevision `json:"lockedRevision,omitzero"`

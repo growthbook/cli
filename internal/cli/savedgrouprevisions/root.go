@@ -3,7 +3,7 @@
 package savedgrouprevisions
 
 import (
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -70,6 +70,22 @@ func InitSavedGroupRevisionsRoot(parent *cobra.Command) error {
 	}
 
 	if err := initSubmitReviewCmd(SavedGroupRevisionsCmd); err != nil {
+		return err
+	}
+
+	if err := initRecallReviewCmd(SavedGroupRevisionsCmd); err != nil {
+		return err
+	}
+
+	if err := initReopenCmd(SavedGroupRevisionsCmd); err != nil {
+		return err
+	}
+
+	if err := initSchedulePublishCmd(SavedGroupRevisionsCmd); err != nil {
+		return err
+	}
+
+	if err := initUndoReviewCmd(SavedGroupRevisionsCmd); err != nil {
 		return err
 	}
 

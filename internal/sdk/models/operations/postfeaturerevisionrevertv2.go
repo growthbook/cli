@@ -5,8 +5,8 @@ package operations
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 type PostFeatureRevisionRevertV2Strategy string
@@ -39,6 +39,12 @@ type PostFeatureRevisionRevertV2RequestBody struct {
 	Strategy *PostFeatureRevisionRevertV2Strategy `json:"strategy,omitzero"`
 	Comment  *string                              `json:"comment,omitzero"`
 	Title    *string                              `json:"title,omitzero"`
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
+	// Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	SkipSchemaValidation *bool `json:"skipSchemaValidation,omitzero"`
+	// Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	SkipHooks *bool `json:"skipHooks,omitzero"`
 }
 
 func (p *PostFeatureRevisionRevertV2RequestBody) GetStrategy() *PostFeatureRevisionRevertV2Strategy {
@@ -60,6 +66,27 @@ func (p *PostFeatureRevisionRevertV2RequestBody) GetTitle() *string {
 		return nil
 	}
 	return p.Title
+}
+
+func (p *PostFeatureRevisionRevertV2RequestBody) GetIgnoreWarnings() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.IgnoreWarnings
+}
+
+func (p *PostFeatureRevisionRevertV2RequestBody) GetSkipSchemaValidation() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.SkipSchemaValidation
+}
+
+func (p *PostFeatureRevisionRevertV2RequestBody) GetSkipHooks() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.SkipHooks
 }
 
 // #region class-body-postfeaturerevisionrevertv2requestbody
@@ -98,6 +125,19 @@ func (p *PostFeatureRevisionRevertV2Request) GetBody() PostFeatureRevisionRevert
 // PostFeatureRevisionRevertV2ResponseBody - Resource created
 type PostFeatureRevisionRevertV2ResponseBody struct {
 	Revision components.FeatureRevisionV2 `json:"revision"`
+	// Gates that would have blocked this publish but were bypassed by the caller's authority. Present only when at least one gate was bypassed.
+	BypassedGates []components.BypassedGates `json:"bypassedGates,omitzero"`
+}
+
+func (p PostFeatureRevisionRevertV2ResponseBody) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostFeatureRevisionRevertV2ResponseBody) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (p *PostFeatureRevisionRevertV2ResponseBody) GetRevision() components.FeatureRevisionV2 {
@@ -105,6 +145,13 @@ func (p *PostFeatureRevisionRevertV2ResponseBody) GetRevision() components.Featu
 		return components.FeatureRevisionV2{}
 	}
 	return p.Revision
+}
+
+func (p *PostFeatureRevisionRevertV2ResponseBody) GetBypassedGates() []components.BypassedGates {
+	if p == nil {
+		return nil
+	}
+	return p.BypassedGates
 }
 
 // #region class-body-postfeaturerevisionrevertv2responsebody

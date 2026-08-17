@@ -6,12 +6,12 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
-	"github.com/growthbook/cli/internal/sdk/models/sdkerrors"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/config"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/hooks"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/sdk/models/sdkerrors"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/config"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/hooks"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"github.com/spyzhov/ajson"
 	"net/http"
 	"net/url"
@@ -1941,7 +1941,7 @@ func (s *RampSchedules) EjectTargetRampSchedule(ctx context.Context, request ope
 // `holdConditions.requiresApproval` gate, this endpoint returns **409** by
 // default. Either call `/actions/approve-step` first (recommended), or pass
 // `force: true` to override the approval gate. `force: true` requires
-// `canBypassApprovalChecks` permission and is logged in the audit trail.
+// `FlagsBypassApprovals` permission and is logged in the audit trail.
 //
 // **Two common uses:**
 // - **Post-interval monitoring hold** (`decision: "hold"`, interval elapsed): the
@@ -2563,9 +2563,9 @@ func (s *RampSchedules) SetAutoUpdateRampSchedule(ctx context.Context, request o
 }
 
 // UpdateRampScheduleMonitoring - Update ramp monitoring configuration
-// Replaces the monitoring configuration. Metric IDs, snapshot cadence, and health-action thresholds (`srmAction`, `noTrafficAction`, etc.) can be updated at any time.
+// Replaces the monitoring configuration. Health-action thresholds (`srmAction`, `noTrafficAction`, etc.) can be updated at any time.
 //
-// `datasourceId` and `exposureQueryId` are locked once monitoring starts — stop and recreate the schedule to change the data source.
+// Once a linked SafeRollout has started, `datasourceId`, `exposureQueryId`, the metric IDs and the snapshot cadence are all locked — stop and recreate the schedule to change the data source.
 //
 // Changes to guardrail or signal metric IDs take effect on the next analysis run.
 func (s *RampSchedules) UpdateRampScheduleMonitoring(ctx context.Context, request operations.UpdateRampScheduleMonitoringRequest, opts ...operations.Option) (*operations.UpdateRampScheduleMonitoringResponse, error) {

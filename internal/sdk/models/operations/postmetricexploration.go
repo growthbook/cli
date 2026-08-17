@@ -6,9 +6,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"time"
 )
 
@@ -21,6 +21,8 @@ const (
 	PostMetricExplorationDimensionOperatorRequestLessThanEqual    PostMetricExplorationDimensionOperatorRequest = "<="
 	PostMetricExplorationDimensionOperatorRequestGreaterThan      PostMetricExplorationDimensionOperatorRequest = ">"
 	PostMetricExplorationDimensionOperatorRequestGreaterThanEqual PostMetricExplorationDimensionOperatorRequest = ">="
+	PostMetricExplorationDimensionOperatorRequestBetween          PostMetricExplorationDimensionOperatorRequest = "between"
+	PostMetricExplorationDimensionOperatorRequestNotBetween       PostMetricExplorationDimensionOperatorRequest = "not_between"
 	PostMetricExplorationDimensionOperatorRequestIn               PostMetricExplorationDimensionOperatorRequest = "in"
 	PostMetricExplorationDimensionOperatorRequestNotIn            PostMetricExplorationDimensionOperatorRequest = "not_in"
 	PostMetricExplorationDimensionOperatorRequestContains         PostMetricExplorationDimensionOperatorRequest = "contains"
@@ -55,6 +57,10 @@ func (e *PostMetricExplorationDimensionOperatorRequest) UnmarshalJSON(data []byt
 	case ">":
 		fallthrough
 	case ">=":
+		fallthrough
+	case "between":
+		fallthrough
+	case "not_between":
 		fallthrough
 	case "in":
 		fallthrough
@@ -505,12 +511,15 @@ func (e *PostMetricExplorationChartTypeRequest) UnmarshalJSON(data []byte) error
 type PostMetricExplorationPredefinedRequest string
 
 const (
-	PostMetricExplorationPredefinedRequestToday           PostMetricExplorationPredefinedRequest = "today"
-	PostMetricExplorationPredefinedRequestLast7Days       PostMetricExplorationPredefinedRequest = "last7Days"
-	PostMetricExplorationPredefinedRequestLast30Days      PostMetricExplorationPredefinedRequest = "last30Days"
-	PostMetricExplorationPredefinedRequestLast90Days      PostMetricExplorationPredefinedRequest = "last90Days"
-	PostMetricExplorationPredefinedRequestCustomLookback  PostMetricExplorationPredefinedRequest = "customLookback"
-	PostMetricExplorationPredefinedRequestCustomDateRange PostMetricExplorationPredefinedRequest = "customDateRange"
+	PostMetricExplorationPredefinedRequestToday            PostMetricExplorationPredefinedRequest = "today"
+	PostMetricExplorationPredefinedRequestYesterday        PostMetricExplorationPredefinedRequest = "yesterday"
+	PostMetricExplorationPredefinedRequestLast7Days        PostMetricExplorationPredefinedRequest = "last7Days"
+	PostMetricExplorationPredefinedRequestLast30Days       PostMetricExplorationPredefinedRequest = "last30Days"
+	PostMetricExplorationPredefinedRequestLast90Days       PostMetricExplorationPredefinedRequest = "last90Days"
+	PostMetricExplorationPredefinedRequestLast12Months     PostMetricExplorationPredefinedRequest = "last12Months"
+	PostMetricExplorationPredefinedRequestLastCalendarYear PostMetricExplorationPredefinedRequest = "lastCalendarYear"
+	PostMetricExplorationPredefinedRequestCustomLookback   PostMetricExplorationPredefinedRequest = "customLookback"
+	PostMetricExplorationPredefinedRequestCustomDateRange  PostMetricExplorationPredefinedRequest = "customDateRange"
 )
 
 func (e PostMetricExplorationPredefinedRequest) ToPointer() *PostMetricExplorationPredefinedRequest {
@@ -524,11 +533,17 @@ func (e *PostMetricExplorationPredefinedRequest) UnmarshalJSON(data []byte) erro
 	switch v {
 	case "today":
 		fallthrough
+	case "yesterday":
+		fallthrough
 	case "last7Days":
 		fallthrough
 	case "last30Days":
 		fallthrough
 	case "last90Days":
+		fallthrough
+	case "last12Months":
+		fallthrough
+	case "lastCalendarYear":
 		fallthrough
 	case "customLookback":
 		fallthrough
@@ -650,6 +665,8 @@ const (
 	PostMetricExplorationRowFilterOperatorRequestLessThanEqual    PostMetricExplorationRowFilterOperatorRequest = "<="
 	PostMetricExplorationRowFilterOperatorRequestGreaterThan      PostMetricExplorationRowFilterOperatorRequest = ">"
 	PostMetricExplorationRowFilterOperatorRequestGreaterThanEqual PostMetricExplorationRowFilterOperatorRequest = ">="
+	PostMetricExplorationRowFilterOperatorRequestBetween          PostMetricExplorationRowFilterOperatorRequest = "between"
+	PostMetricExplorationRowFilterOperatorRequestNotBetween       PostMetricExplorationRowFilterOperatorRequest = "not_between"
 	PostMetricExplorationRowFilterOperatorRequestIn               PostMetricExplorationRowFilterOperatorRequest = "in"
 	PostMetricExplorationRowFilterOperatorRequestNotIn            PostMetricExplorationRowFilterOperatorRequest = "not_in"
 	PostMetricExplorationRowFilterOperatorRequestContains         PostMetricExplorationRowFilterOperatorRequest = "contains"
@@ -684,6 +701,10 @@ func (e *PostMetricExplorationRowFilterOperatorRequest) UnmarshalJSON(data []byt
 	case ">":
 		fallthrough
 	case ">=":
+		fallthrough
+	case "between":
+		fallthrough
+	case "not_between":
 		fallthrough
 	case "in":
 		fallthrough
@@ -980,9 +1001,48 @@ func (p *PostMetricExplorationRowValue) GetDenominator() *float64 {
 	return p.Denominator
 }
 
+type PostMetricExplorationStep struct {
+	Count                     float64  `json:"count"`
+	TimeFromPrevSumHrs        *float64 `json:"timeFromPrevSumHrs"`
+	TimeFromPrevSumSquaresHrs *float64 `json:"timeFromPrevSumSquaresHrs"`
+}
+
+func (p *PostMetricExplorationStep) GetCount() float64 {
+	if p == nil {
+		return 0.0
+	}
+	return p.Count
+}
+
+func (p *PostMetricExplorationStep) GetTimeFromPrevSumHrs() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.TimeFromPrevSumHrs
+}
+
+func (p *PostMetricExplorationStep) GetTimeFromPrevSumSquaresHrs() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.TimeFromPrevSumSquaresHrs
+}
+
 type PostMetricExplorationRow struct {
 	Dimensions []*string                       `json:"dimensions"`
-	Values     []PostMetricExplorationRowValue `json:"values"`
+	Values     []PostMetricExplorationRowValue `json:"values,omitzero"`
+	Steps      []PostMetricExplorationStep     `json:"steps,omitzero"`
+}
+
+func (p PostMetricExplorationRow) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostMetricExplorationRow) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (p *PostMetricExplorationRow) GetDimensions() []*string {
@@ -994,9 +1054,16 @@ func (p *PostMetricExplorationRow) GetDimensions() []*string {
 
 func (p *PostMetricExplorationRow) GetValues() []PostMetricExplorationRowValue {
 	if p == nil {
-		return []PostMetricExplorationRowValue{}
+		return nil
 	}
 	return p.Values
+}
+
+func (p *PostMetricExplorationRow) GetSteps() []PostMetricExplorationStep {
+	if p == nil {
+		return nil
+	}
+	return p.Steps
 }
 
 type PostMetricExplorationResult struct {
@@ -1010,38 +1077,40 @@ func (p *PostMetricExplorationResult) GetRows() []PostMetricExplorationRow {
 	return p.Rows
 }
 
-type PostMetricExplorationDimensionOperatorResponse string
+type PostMetricExplorationExplorationDimensionOperator string
 
 const (
-	PostMetricExplorationDimensionOperatorResponseEqual            PostMetricExplorationDimensionOperatorResponse = "="
-	PostMetricExplorationDimensionOperatorResponseNotEqual         PostMetricExplorationDimensionOperatorResponse = "!="
-	PostMetricExplorationDimensionOperatorResponseLessThan         PostMetricExplorationDimensionOperatorResponse = "<"
-	PostMetricExplorationDimensionOperatorResponseLessThanEqual    PostMetricExplorationDimensionOperatorResponse = "<="
-	PostMetricExplorationDimensionOperatorResponseGreaterThan      PostMetricExplorationDimensionOperatorResponse = ">"
-	PostMetricExplorationDimensionOperatorResponseGreaterThanEqual PostMetricExplorationDimensionOperatorResponse = ">="
-	PostMetricExplorationDimensionOperatorResponseIn               PostMetricExplorationDimensionOperatorResponse = "in"
-	PostMetricExplorationDimensionOperatorResponseNotIn            PostMetricExplorationDimensionOperatorResponse = "not_in"
-	PostMetricExplorationDimensionOperatorResponseContains         PostMetricExplorationDimensionOperatorResponse = "contains"
-	PostMetricExplorationDimensionOperatorResponseNotContains      PostMetricExplorationDimensionOperatorResponse = "not_contains"
-	PostMetricExplorationDimensionOperatorResponseStartsWith       PostMetricExplorationDimensionOperatorResponse = "starts_with"
-	PostMetricExplorationDimensionOperatorResponseEndsWith         PostMetricExplorationDimensionOperatorResponse = "ends_with"
-	PostMetricExplorationDimensionOperatorResponseIsNull           PostMetricExplorationDimensionOperatorResponse = "is_null"
-	PostMetricExplorationDimensionOperatorResponseNotNull          PostMetricExplorationDimensionOperatorResponse = "not_null"
-	PostMetricExplorationDimensionOperatorResponseIsTrue           PostMetricExplorationDimensionOperatorResponse = "is_true"
-	PostMetricExplorationDimensionOperatorResponseIsFalse          PostMetricExplorationDimensionOperatorResponse = "is_false"
-	PostMetricExplorationDimensionOperatorResponseSQLExpr          PostMetricExplorationDimensionOperatorResponse = "sql_expr"
-	PostMetricExplorationDimensionOperatorResponseSavedFilter      PostMetricExplorationDimensionOperatorResponse = "saved_filter"
+	PostMetricExplorationExplorationDimensionOperatorEqual            PostMetricExplorationExplorationDimensionOperator = "="
+	PostMetricExplorationExplorationDimensionOperatorNotEqual         PostMetricExplorationExplorationDimensionOperator = "!="
+	PostMetricExplorationExplorationDimensionOperatorLessThan         PostMetricExplorationExplorationDimensionOperator = "<"
+	PostMetricExplorationExplorationDimensionOperatorLessThanEqual    PostMetricExplorationExplorationDimensionOperator = "<="
+	PostMetricExplorationExplorationDimensionOperatorGreaterThan      PostMetricExplorationExplorationDimensionOperator = ">"
+	PostMetricExplorationExplorationDimensionOperatorGreaterThanEqual PostMetricExplorationExplorationDimensionOperator = ">="
+	PostMetricExplorationExplorationDimensionOperatorBetween          PostMetricExplorationExplorationDimensionOperator = "between"
+	PostMetricExplorationExplorationDimensionOperatorNotBetween       PostMetricExplorationExplorationDimensionOperator = "not_between"
+	PostMetricExplorationExplorationDimensionOperatorIn               PostMetricExplorationExplorationDimensionOperator = "in"
+	PostMetricExplorationExplorationDimensionOperatorNotIn            PostMetricExplorationExplorationDimensionOperator = "not_in"
+	PostMetricExplorationExplorationDimensionOperatorContains         PostMetricExplorationExplorationDimensionOperator = "contains"
+	PostMetricExplorationExplorationDimensionOperatorNotContains      PostMetricExplorationExplorationDimensionOperator = "not_contains"
+	PostMetricExplorationExplorationDimensionOperatorStartsWith       PostMetricExplorationExplorationDimensionOperator = "starts_with"
+	PostMetricExplorationExplorationDimensionOperatorEndsWith         PostMetricExplorationExplorationDimensionOperator = "ends_with"
+	PostMetricExplorationExplorationDimensionOperatorIsNull           PostMetricExplorationExplorationDimensionOperator = "is_null"
+	PostMetricExplorationExplorationDimensionOperatorNotNull          PostMetricExplorationExplorationDimensionOperator = "not_null"
+	PostMetricExplorationExplorationDimensionOperatorIsTrue           PostMetricExplorationExplorationDimensionOperator = "is_true"
+	PostMetricExplorationExplorationDimensionOperatorIsFalse          PostMetricExplorationExplorationDimensionOperator = "is_false"
+	PostMetricExplorationExplorationDimensionOperatorSQLExpr          PostMetricExplorationExplorationDimensionOperator = "sql_expr"
+	PostMetricExplorationExplorationDimensionOperatorSavedFilter      PostMetricExplorationExplorationDimensionOperator = "saved_filter"
 )
 
-func (e PostMetricExplorationDimensionOperatorResponse) ToPointer() *PostMetricExplorationDimensionOperatorResponse {
+func (e PostMetricExplorationExplorationDimensionOperator) ToPointer() *PostMetricExplorationExplorationDimensionOperator {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PostMetricExplorationDimensionOperatorResponse) IsExact() bool {
+func (e *PostMetricExplorationExplorationDimensionOperator) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", "<", "<=", ">", ">=", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
 			return true
 		}
 	}
@@ -1049,9 +1118,9 @@ func (e *PostMetricExplorationDimensionOperatorResponse) IsExact() bool {
 }
 
 type PostMetricExplorationFilterResponse struct {
-	Operator PostMetricExplorationDimensionOperatorResponse `json:"operator"`
-	Column   *string                                        `json:"column,omitzero"`
-	Values   []string                                       `json:"values,omitzero"`
+	Operator PostMetricExplorationExplorationDimensionOperator `json:"operator"`
+	Column   *string                                           `json:"column,omitzero"`
+	Values   []string                                          `json:"values,omitzero"`
 }
 
 func (p PostMetricExplorationFilterResponse) MarshalJSON() ([]byte, error) {
@@ -1065,9 +1134,9 @@ func (p *PostMetricExplorationFilterResponse) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (p *PostMetricExplorationFilterResponse) GetOperator() PostMetricExplorationDimensionOperatorResponse {
+func (p *PostMetricExplorationFilterResponse) GetOperator() PostMetricExplorationExplorationDimensionOperator {
 	if p == nil {
-		return PostMetricExplorationDimensionOperatorResponse("")
+		return PostMetricExplorationExplorationDimensionOperator("")
 	}
 	return p.Operator
 }
@@ -1467,12 +1536,15 @@ func (e *PostMetricExplorationChartTypeResponse) IsExact() bool {
 type PostMetricExplorationPredefinedResponse string
 
 const (
-	PostMetricExplorationPredefinedResponseToday           PostMetricExplorationPredefinedResponse = "today"
-	PostMetricExplorationPredefinedResponseLast7Days       PostMetricExplorationPredefinedResponse = "last7Days"
-	PostMetricExplorationPredefinedResponseLast30Days      PostMetricExplorationPredefinedResponse = "last30Days"
-	PostMetricExplorationPredefinedResponseLast90Days      PostMetricExplorationPredefinedResponse = "last90Days"
-	PostMetricExplorationPredefinedResponseCustomLookback  PostMetricExplorationPredefinedResponse = "customLookback"
-	PostMetricExplorationPredefinedResponseCustomDateRange PostMetricExplorationPredefinedResponse = "customDateRange"
+	PostMetricExplorationPredefinedResponseToday            PostMetricExplorationPredefinedResponse = "today"
+	PostMetricExplorationPredefinedResponseYesterday        PostMetricExplorationPredefinedResponse = "yesterday"
+	PostMetricExplorationPredefinedResponseLast7Days        PostMetricExplorationPredefinedResponse = "last7Days"
+	PostMetricExplorationPredefinedResponseLast30Days       PostMetricExplorationPredefinedResponse = "last30Days"
+	PostMetricExplorationPredefinedResponseLast90Days       PostMetricExplorationPredefinedResponse = "last90Days"
+	PostMetricExplorationPredefinedResponseLast12Months     PostMetricExplorationPredefinedResponse = "last12Months"
+	PostMetricExplorationPredefinedResponseLastCalendarYear PostMetricExplorationPredefinedResponse = "lastCalendarYear"
+	PostMetricExplorationPredefinedResponseCustomLookback   PostMetricExplorationPredefinedResponse = "customLookback"
+	PostMetricExplorationPredefinedResponseCustomDateRange  PostMetricExplorationPredefinedResponse = "customDateRange"
 )
 
 func (e PostMetricExplorationPredefinedResponse) ToPointer() *PostMetricExplorationPredefinedResponse {
@@ -1483,7 +1555,7 @@ func (e PostMetricExplorationPredefinedResponse) ToPointer() *PostMetricExplorat
 func (e *PostMetricExplorationPredefinedResponse) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "today", "last7Days", "last30Days", "last90Days", "customLookback", "customDateRange":
+		case "today", "yesterday", "last7Days", "last30Days", "last90Days", "last12Months", "lastCalendarYear", "customLookback", "customDateRange":
 			return true
 		}
 	}
@@ -1579,38 +1651,40 @@ func (e *PostMetricExplorationShowAsResponse) IsExact() bool {
 	return false
 }
 
-type PostMetricExplorationRowFilterOperatorResponse string
+type PostMetricExplorationExplorationRowFilterOperator string
 
 const (
-	PostMetricExplorationRowFilterOperatorResponseEqual            PostMetricExplorationRowFilterOperatorResponse = "="
-	PostMetricExplorationRowFilterOperatorResponseNotEqual         PostMetricExplorationRowFilterOperatorResponse = "!="
-	PostMetricExplorationRowFilterOperatorResponseLessThan         PostMetricExplorationRowFilterOperatorResponse = "<"
-	PostMetricExplorationRowFilterOperatorResponseLessThanEqual    PostMetricExplorationRowFilterOperatorResponse = "<="
-	PostMetricExplorationRowFilterOperatorResponseGreaterThan      PostMetricExplorationRowFilterOperatorResponse = ">"
-	PostMetricExplorationRowFilterOperatorResponseGreaterThanEqual PostMetricExplorationRowFilterOperatorResponse = ">="
-	PostMetricExplorationRowFilterOperatorResponseIn               PostMetricExplorationRowFilterOperatorResponse = "in"
-	PostMetricExplorationRowFilterOperatorResponseNotIn            PostMetricExplorationRowFilterOperatorResponse = "not_in"
-	PostMetricExplorationRowFilterOperatorResponseContains         PostMetricExplorationRowFilterOperatorResponse = "contains"
-	PostMetricExplorationRowFilterOperatorResponseNotContains      PostMetricExplorationRowFilterOperatorResponse = "not_contains"
-	PostMetricExplorationRowFilterOperatorResponseStartsWith       PostMetricExplorationRowFilterOperatorResponse = "starts_with"
-	PostMetricExplorationRowFilterOperatorResponseEndsWith         PostMetricExplorationRowFilterOperatorResponse = "ends_with"
-	PostMetricExplorationRowFilterOperatorResponseIsNull           PostMetricExplorationRowFilterOperatorResponse = "is_null"
-	PostMetricExplorationRowFilterOperatorResponseNotNull          PostMetricExplorationRowFilterOperatorResponse = "not_null"
-	PostMetricExplorationRowFilterOperatorResponseIsTrue           PostMetricExplorationRowFilterOperatorResponse = "is_true"
-	PostMetricExplorationRowFilterOperatorResponseIsFalse          PostMetricExplorationRowFilterOperatorResponse = "is_false"
-	PostMetricExplorationRowFilterOperatorResponseSQLExpr          PostMetricExplorationRowFilterOperatorResponse = "sql_expr"
-	PostMetricExplorationRowFilterOperatorResponseSavedFilter      PostMetricExplorationRowFilterOperatorResponse = "saved_filter"
+	PostMetricExplorationExplorationRowFilterOperatorEqual            PostMetricExplorationExplorationRowFilterOperator = "="
+	PostMetricExplorationExplorationRowFilterOperatorNotEqual         PostMetricExplorationExplorationRowFilterOperator = "!="
+	PostMetricExplorationExplorationRowFilterOperatorLessThan         PostMetricExplorationExplorationRowFilterOperator = "<"
+	PostMetricExplorationExplorationRowFilterOperatorLessThanEqual    PostMetricExplorationExplorationRowFilterOperator = "<="
+	PostMetricExplorationExplorationRowFilterOperatorGreaterThan      PostMetricExplorationExplorationRowFilterOperator = ">"
+	PostMetricExplorationExplorationRowFilterOperatorGreaterThanEqual PostMetricExplorationExplorationRowFilterOperator = ">="
+	PostMetricExplorationExplorationRowFilterOperatorBetween          PostMetricExplorationExplorationRowFilterOperator = "between"
+	PostMetricExplorationExplorationRowFilterOperatorNotBetween       PostMetricExplorationExplorationRowFilterOperator = "not_between"
+	PostMetricExplorationExplorationRowFilterOperatorIn               PostMetricExplorationExplorationRowFilterOperator = "in"
+	PostMetricExplorationExplorationRowFilterOperatorNotIn            PostMetricExplorationExplorationRowFilterOperator = "not_in"
+	PostMetricExplorationExplorationRowFilterOperatorContains         PostMetricExplorationExplorationRowFilterOperator = "contains"
+	PostMetricExplorationExplorationRowFilterOperatorNotContains      PostMetricExplorationExplorationRowFilterOperator = "not_contains"
+	PostMetricExplorationExplorationRowFilterOperatorStartsWith       PostMetricExplorationExplorationRowFilterOperator = "starts_with"
+	PostMetricExplorationExplorationRowFilterOperatorEndsWith         PostMetricExplorationExplorationRowFilterOperator = "ends_with"
+	PostMetricExplorationExplorationRowFilterOperatorIsNull           PostMetricExplorationExplorationRowFilterOperator = "is_null"
+	PostMetricExplorationExplorationRowFilterOperatorNotNull          PostMetricExplorationExplorationRowFilterOperator = "not_null"
+	PostMetricExplorationExplorationRowFilterOperatorIsTrue           PostMetricExplorationExplorationRowFilterOperator = "is_true"
+	PostMetricExplorationExplorationRowFilterOperatorIsFalse          PostMetricExplorationExplorationRowFilterOperator = "is_false"
+	PostMetricExplorationExplorationRowFilterOperatorSQLExpr          PostMetricExplorationExplorationRowFilterOperator = "sql_expr"
+	PostMetricExplorationExplorationRowFilterOperatorSavedFilter      PostMetricExplorationExplorationRowFilterOperator = "saved_filter"
 )
 
-func (e PostMetricExplorationRowFilterOperatorResponse) ToPointer() *PostMetricExplorationRowFilterOperatorResponse {
+func (e PostMetricExplorationExplorationRowFilterOperator) ToPointer() *PostMetricExplorationExplorationRowFilterOperator {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PostMetricExplorationRowFilterOperatorResponse) IsExact() bool {
+func (e *PostMetricExplorationExplorationRowFilterOperator) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", "<", "<=", ">", ">=", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
 			return true
 		}
 	}
@@ -1618,9 +1692,9 @@ func (e *PostMetricExplorationRowFilterOperatorResponse) IsExact() bool {
 }
 
 type PostMetricExplorationRowFilterResponse struct {
-	Operator PostMetricExplorationRowFilterOperatorResponse `json:"operator"`
-	Column   *string                                        `json:"column,omitzero"`
-	Values   []string                                       `json:"values,omitzero"`
+	Operator PostMetricExplorationExplorationRowFilterOperator `json:"operator"`
+	Column   *string                                           `json:"column,omitzero"`
+	Values   []string                                          `json:"values,omitzero"`
 }
 
 func (p PostMetricExplorationRowFilterResponse) MarshalJSON() ([]byte, error) {
@@ -1634,9 +1708,9 @@ func (p *PostMetricExplorationRowFilterResponse) UnmarshalJSON(data []byte) erro
 	return nil
 }
 
-func (p *PostMetricExplorationRowFilterResponse) GetOperator() PostMetricExplorationRowFilterOperatorResponse {
+func (p *PostMetricExplorationRowFilterResponse) GetOperator() PostMetricExplorationExplorationRowFilterOperator {
 	if p == nil {
-		return PostMetricExplorationRowFilterOperatorResponse("")
+		return PostMetricExplorationExplorationRowFilterOperator("")
 	}
 	return p.Operator
 }

@@ -3,7 +3,7 @@
 package components
 
 import (
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 // FeatureRolloutRuleScheduleType - UI hint for which scheduling mode is active:
@@ -136,6 +136,10 @@ type FeatureRolloutRule struct {
 	RampScheduleID      *string                                 `json:"rampScheduleId,omitzero"`
 	SavedGroupTargeting []FeatureRolloutRuleSavedGroupTargeting `json:"savedGroupTargeting,omitzero"`
 	Prerequisites       []FeatureRolloutRulePrerequisite        `json:"prerequisites,omitzero"`
+	// When true (the default) the rule applies to every project the feature is delivered to. When false the rule is limited to `projects`.
+	AllProjects *bool `json:"allProjects,omitzero"`
+	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
+	Projects []string `json:"projects,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_ string `const:"rollout" json:"type"`
 	Value string `json:"value"`
@@ -221,6 +225,20 @@ func (f *FeatureRolloutRule) GetPrerequisites() []FeatureRolloutRulePrerequisite
 		return nil
 	}
 	return f.Prerequisites
+}
+
+func (f *FeatureRolloutRule) GetAllProjects() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.AllProjects
+}
+
+func (f *FeatureRolloutRule) GetProjects() []string {
+	if f == nil {
+		return nil
+	}
+	return f.Projects
 }
 
 func (f *FeatureRolloutRule) GetType() string {

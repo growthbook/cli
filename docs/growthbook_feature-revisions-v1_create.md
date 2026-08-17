@@ -26,7 +26,8 @@ growthbook feature-revisions-v1 create [flags]
       --body string                                Request body as JSON (alternative to individual flags). Can also be provided via stdin.
   -c, --comment string                             string value
   -h, --help                                       help for create
-  -i, --id string                                  [required]
+      --id string                                  [required]
+      --ignore-warnings                            Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
       --override-draft-limit maxConcurrentDrafts   If the organization caps concurrent drafts per feature (maxConcurrentDrafts setting), requests at or over the cap are rejected with a 409. Pass `true` to create the draft anyway.
   -t, --title string                               string value
 ```

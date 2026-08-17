@@ -4,9 +4,9 @@ Update ramp monitoring configuration
 
 ### Synopsis
 
-Replaces the monitoring configuration. Metric IDs, snapshot cadence, and health-action thresholds (`srmAction`, `noTrafficAction`, etc.) can be updated at any time.
+Replaces the monitoring configuration. Health-action thresholds (`srmAction`, `noTrafficAction`, etc.) can be updated at any time.
 
-`datasourceId` and `exposureQueryId` are locked once monitoring starts — stop and recreate the schedule to change the data source.
+Once a linked SafeRollout has started, `datasourceId`, `exposureQueryId`, the metric IDs and the snapshot cadence are all locked — stop and recreate the schedule to change the data source.
 
 Changes to guardrail or signal metric IDs take effect on the next analysis run.
 

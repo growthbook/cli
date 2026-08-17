@@ -3,13 +3,19 @@
 package operations
 
 import (
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 type RevertFeatureV2RequestBody struct {
 	Revision float64 `json:"revision"`
 	Comment  *string `json:"comment,omitzero"`
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
+	// Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	SkipSchemaValidation *bool `json:"skipSchemaValidation,omitzero"`
+	// Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	SkipHooks *bool `json:"skipHooks,omitzero"`
 }
 
 func (r *RevertFeatureV2RequestBody) GetRevision() float64 {
@@ -24,6 +30,27 @@ func (r *RevertFeatureV2RequestBody) GetComment() *string {
 		return nil
 	}
 	return r.Comment
+}
+
+func (r *RevertFeatureV2RequestBody) GetIgnoreWarnings() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.IgnoreWarnings
+}
+
+func (r *RevertFeatureV2RequestBody) GetSkipSchemaValidation() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.SkipSchemaValidation
+}
+
+func (r *RevertFeatureV2RequestBody) GetSkipHooks() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.SkipHooks
 }
 
 // #region class-body-revertfeaturev2requestbody
@@ -55,6 +82,19 @@ func (r *RevertFeatureV2Request) GetBody() RevertFeatureV2RequestBody {
 // RevertFeatureV2ResponseBody - Resource created
 type RevertFeatureV2ResponseBody struct {
 	Feature components.FeatureV2 `json:"feature"`
+	// Gates that would have blocked this publish but were bypassed by the caller's authority. Present only when at least one gate was bypassed.
+	BypassedGates []components.BypassedGates `json:"bypassedGates,omitzero"`
+}
+
+func (r RevertFeatureV2ResponseBody) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RevertFeatureV2ResponseBody) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (r *RevertFeatureV2ResponseBody) GetFeature() components.FeatureV2 {
@@ -62,6 +102,13 @@ func (r *RevertFeatureV2ResponseBody) GetFeature() components.FeatureV2 {
 		return components.FeatureV2{}
 	}
 	return r.Feature
+}
+
+func (r *RevertFeatureV2ResponseBody) GetBypassedGates() []components.BypassedGates {
+	if r == nil {
+		return nil
+	}
+	return r.BypassedGates
 }
 
 // #region class-body-revertfeaturev2responsebody

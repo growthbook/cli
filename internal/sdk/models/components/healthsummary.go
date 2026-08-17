@@ -3,7 +3,7 @@
 package components
 
 import (
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 // HealthSummaryDecision - Current evaluator decision for the active step. Incorporates all hold conditions (timing, approval, min sample, metric health). When monitoring data is not yet available, the evaluator returns `hold` with a descriptive `decisionReason`.

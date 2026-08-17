@@ -5,8 +5,8 @@ package operations
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 // PostExperimentStopResults - The experiment conclusion status.
@@ -57,6 +57,8 @@ type PostExperimentStopRequestBody struct {
 	Reason *string `json:"reason,omitzero"`
 	// Optional ISO datetime for ending the latest phase. Defaults to the current date and time.
 	DateEnded *string `json:"dateEnded,omitzero"`
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
 }
 
 func (p *PostExperimentStopRequestBody) GetResults() PostExperimentStopResults {
@@ -106,6 +108,13 @@ func (p *PostExperimentStopRequestBody) GetDateEnded() *string {
 		return nil
 	}
 	return p.DateEnded
+}
+
+func (p *PostExperimentStopRequestBody) GetIgnoreWarnings() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.IgnoreWarnings
 }
 
 type PostExperimentStopRequest struct {

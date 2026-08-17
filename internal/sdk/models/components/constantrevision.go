@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"time"
 )
 
@@ -510,22 +510,40 @@ func (u ConstantRevisionProposedChangeUnion) MarshalJSON() ([]byte, error) {
 }
 
 type ConstantRevision struct {
-	ID               string                                `json:"id"`
-	Version          *int64                                `json:"version,omitzero"`
-	Title            *string                               `json:"title,omitzero"`
-	Status           ConstantRevisionStatus                `json:"status"`
-	AuthorID         string                                `json:"authorId"`
-	AuthorEmail      *string                               `json:"authorEmail,omitzero"`
-	Contributors     []string                              `json:"contributors,omitzero"`
-	RevertedFrom     *string                               `json:"revertedFrom,omitzero"`
-	Reviews          []ConstantRevisionReview              `json:"reviews"`
-	ActivityLog      []ConstantRevisionActivityLogEntry    `json:"activityLog"`
-	Resolution       *ConstantRevisionResolution           `json:"resolution,omitzero"`
-	DateCreated      time.Time                             `json:"dateCreated"`
-	DateUpdated      time.Time                             `json:"dateUpdated"`
-	BaseConstant     Constant                              `json:"baseConstant"`
-	ProposedConstant Constant                              `json:"proposedConstant"`
-	ProposedChanges  []ConstantRevisionProposedChangeUnion `json:"proposedChanges"`
+	ID           string                             `json:"id"`
+	Version      *int64                             `json:"version,omitzero"`
+	Title        *string                            `json:"title,omitzero"`
+	Status       ConstantRevisionStatus             `json:"status"`
+	AuthorID     string                             `json:"authorId"`
+	AuthorEmail  *string                            `json:"authorEmail,omitzero"`
+	Contributors []string                           `json:"contributors,omitzero"`
+	RevertedFrom *string                            `json:"revertedFrom,omitzero"`
+	Reviews      []ConstantRevisionReview           `json:"reviews"`
+	ActivityLog  []ConstantRevisionActivityLogEntry `json:"activityLog"`
+	// Publish automatically the moment this revision is approved.
+	AutoPublishOnApproval *bool `json:"autoPublishOnApproval,omitzero"`
+	// User the deferred publish will run as. Its authority is re-checked when the publish fires.
+	AutoPublishEnabledBy *string `json:"autoPublishEnabledBy,omitzero"`
+	// When the deferred publish fires. Absent when the revision publishes on approval instead, or is not armed at all.
+	ScheduledPublishAt *time.Time `json:"scheduledPublishAt,omitzero"`
+	// Content edits to this revision are frozen until it fires.
+	ScheduledPublishLockEdits *bool `json:"scheduledPublishLockEdits,omitzero"`
+	// Other revisions of the same resource cannot publish until this one fires or is cancelled.
+	ScheduledPublishLockOthers *bool `json:"scheduledPublishLockOthers,omitzero"`
+	// Armed by a caller who bypassed the approval requirement. Such a schedule must be cancelled and re-armed rather than edited.
+	ScheduledPublishBypassApproval *bool `json:"scheduledPublishBypassApproval,omitzero"`
+	// How many times the poller has tried to publish this revision.
+	ScheduledPublishAttempts *int64 `json:"scheduledPublishAttempts,omitzero"`
+	// Why the most recent deferred-publish attempt failed.
+	ScheduledPublishLastError *string `json:"scheduledPublishLastError,omitzero"`
+	// When the poller stopped retrying. Giving up CLEARS the schedule and disarms auto-publish, so nothing fires again until the revision is re-armed. The draft is left open, with `scheduledPublishLastError` preserved for context.
+	ScheduledPublishGaveUpAt *time.Time                            `json:"scheduledPublishGaveUpAt,omitzero"`
+	Resolution               *ConstantRevisionResolution           `json:"resolution,omitzero"`
+	DateCreated              time.Time                             `json:"dateCreated"`
+	DateUpdated              time.Time                             `json:"dateUpdated"`
+	BaseConstant             Constant                              `json:"baseConstant"`
+	ProposedConstant         Constant                              `json:"proposedConstant"`
+	ProposedChanges          []ConstantRevisionProposedChangeUnion `json:"proposedChanges"`
 }
 
 func (c ConstantRevision) MarshalJSON() ([]byte, error) {
@@ -607,6 +625,69 @@ func (c *ConstantRevision) GetActivityLog() []ConstantRevisionActivityLogEntry {
 		return []ConstantRevisionActivityLogEntry{}
 	}
 	return c.ActivityLog
+}
+
+func (c *ConstantRevision) GetAutoPublishOnApproval() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.AutoPublishOnApproval
+}
+
+func (c *ConstantRevision) GetAutoPublishEnabledBy() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AutoPublishEnabledBy
+}
+
+func (c *ConstantRevision) GetScheduledPublishAt() *time.Time {
+	if c == nil {
+		return nil
+	}
+	return c.ScheduledPublishAt
+}
+
+func (c *ConstantRevision) GetScheduledPublishLockEdits() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.ScheduledPublishLockEdits
+}
+
+func (c *ConstantRevision) GetScheduledPublishLockOthers() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.ScheduledPublishLockOthers
+}
+
+func (c *ConstantRevision) GetScheduledPublishBypassApproval() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.ScheduledPublishBypassApproval
+}
+
+func (c *ConstantRevision) GetScheduledPublishAttempts() *int64 {
+	if c == nil {
+		return nil
+	}
+	return c.ScheduledPublishAttempts
+}
+
+func (c *ConstantRevision) GetScheduledPublishLastError() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ScheduledPublishLastError
+}
+
+func (c *ConstantRevision) GetScheduledPublishGaveUpAt() *time.Time {
+	if c == nil {
+		return nil
+	}
+	return c.ScheduledPublishGaveUpAt
 }
 
 func (c *ConstantRevision) GetResolution() *ConstantRevisionResolution {

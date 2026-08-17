@@ -58,4 +58,4 @@ growthbook constant-revisions list [flags]
 
 ### SEE ALSO
 
-* [growthbook constant-revisions](growthbook_constant-revisions.md)	 - Draft revisions for constants, including pending changes, approvals, and lifecycle (publish, discard, revert)
+* [growthbook constant-revisions](growthbook_constant-revisions.md)	 - **Beta** — these endpoints are new and may change in backwards-incompatible ways

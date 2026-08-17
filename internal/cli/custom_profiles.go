@@ -7,7 +7,7 @@ package cli
 import (
 	"fmt"
 
-	"github.com/growthbook/cli/internal/customcfg"
+	"github.com/growthbook/cli/v2/internal/customcfg"
 	"github.com/spf13/cobra"
 )
 

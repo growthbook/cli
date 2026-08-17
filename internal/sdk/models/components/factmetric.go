@@ -3,7 +3,8 @@
 package components
 
 import (
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"time"
 )
 
@@ -16,6 +17,7 @@ const (
 	FactMetricMetricTypeQuantile           FactMetricMetricType = "quantile"
 	FactMetricMetricTypeRatio              FactMetricMetricType = "ratio"
 	FactMetricMetricTypeDailyParticipation FactMetricMetricType = "dailyParticipation"
+	FactMetricMetricTypeFunnel             FactMetricMetricType = "funnel"
 )
 
 func (e FactMetricMetricType) ToPointer() *FactMetricMetricType {
@@ -26,7 +28,7 @@ func (e FactMetricMetricType) ToPointer() *FactMetricMetricType {
 func (e *FactMetricMetricType) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "proportion", "retention", "mean", "quantile", "ratio", "dailyParticipation":
+		case "proportion", "retention", "mean", "quantile", "ratio", "dailyParticipation", "funnel":
 			return true
 		}
 	}
@@ -67,6 +69,8 @@ const (
 	NumeratorOperatorLessThan         NumeratorOperator = "<"
 	NumeratorOperatorGreaterThanEqual NumeratorOperator = ">="
 	NumeratorOperatorLessThanEqual    NumeratorOperator = "<="
+	NumeratorOperatorBetween          NumeratorOperator = "between"
+	NumeratorOperatorNotBetween       NumeratorOperator = "not_between"
 	NumeratorOperatorIn               NumeratorOperator = "in"
 	NumeratorOperatorNotIn            NumeratorOperator = "not_in"
 	NumeratorOperatorIsNull           NumeratorOperator = "is_null"
@@ -89,7 +93,7 @@ func (e NumeratorOperator) ToPointer() *NumeratorOperator {
 func (e *NumeratorOperator) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", ">", "<", ">=", "<=", "in", "not_in", "is_null", "not_null", "is_true", "is_false", "contains", "not_contains", "starts_with", "ends_with", "sql_expr", "saved_filter":
+		case "=", "!=", ">", "<", ">=", "<=", "between", "not_between", "in", "not_in", "is_null", "not_null", "is_true", "is_false", "contains", "not_contains", "starts_with", "ends_with", "sql_expr", "saved_filter":
 			return true
 		}
 	}
@@ -98,7 +102,7 @@ func (e *NumeratorOperator) IsExact() bool {
 
 type NumeratorRowFilter struct {
 	Operator NumeratorOperator `json:"operator"`
-	// Not required for is_null, not_null, is_true, is_false operators.
+	// Not required for is_null, not_null, is_true, is_false operators. The between and not_between operators take at most two values, a lower and an upper bound in that order; leave a bound as an empty string for an open-ended range.
 	Values []string `json:"values,omitzero"`
 	// Required for all operators except sql_expr and saved_filter.
 	Column *string `json:"column,omitzero"`
@@ -232,6 +236,8 @@ const (
 	DenominatorOperatorLessThan         DenominatorOperator = "<"
 	DenominatorOperatorGreaterThanEqual DenominatorOperator = ">="
 	DenominatorOperatorLessThanEqual    DenominatorOperator = "<="
+	DenominatorOperatorBetween          DenominatorOperator = "between"
+	DenominatorOperatorNotBetween       DenominatorOperator = "not_between"
 	DenominatorOperatorIn               DenominatorOperator = "in"
 	DenominatorOperatorNotIn            DenominatorOperator = "not_in"
 	DenominatorOperatorIsNull           DenominatorOperator = "is_null"
@@ -254,7 +260,7 @@ func (e DenominatorOperator) ToPointer() *DenominatorOperator {
 func (e *DenominatorOperator) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", ">", "<", ">=", "<=", "in", "not_in", "is_null", "not_null", "is_true", "is_false", "contains", "not_contains", "starts_with", "ends_with", "sql_expr", "saved_filter":
+		case "=", "!=", ">", "<", ">=", "<=", "between", "not_between", "in", "not_in", "is_null", "not_null", "is_true", "is_false", "contains", "not_contains", "starts_with", "ends_with", "sql_expr", "saved_filter":
 			return true
 		}
 	}
@@ -263,7 +269,7 @@ func (e *DenominatorOperator) IsExact() bool {
 
 type DenominatorRowFilter struct {
 	Operator DenominatorOperator `json:"operator"`
-	// Not required for is_null, not_null, is_true, is_false operators.
+	// Not required for is_null, not_null, is_true, is_false operators. The between and not_between operators take at most two values, a lower and an upper bound in that order; leave a bound as an empty string for an open-ended range.
 	Values []string `json:"values,omitzero"`
 	// Required for all operators except sql_expr and saved_filter.
 	Column *string `json:"column,omitzero"`
@@ -423,6 +429,243 @@ func (q *QuantileSettings) GetQuantileEventCountColumn() *string {
 		return nil
 	}
 	return q.QuantileEventCountColumn
+}
+
+type FunnelSettingsOperator string
+
+const (
+	FunnelSettingsOperatorEqual            FunnelSettingsOperator = "="
+	FunnelSettingsOperatorNotEqual         FunnelSettingsOperator = "!="
+	FunnelSettingsOperatorGreaterThan      FunnelSettingsOperator = ">"
+	FunnelSettingsOperatorLessThan         FunnelSettingsOperator = "<"
+	FunnelSettingsOperatorGreaterThanEqual FunnelSettingsOperator = ">="
+	FunnelSettingsOperatorLessThanEqual    FunnelSettingsOperator = "<="
+	FunnelSettingsOperatorBetween          FunnelSettingsOperator = "between"
+	FunnelSettingsOperatorNotBetween       FunnelSettingsOperator = "not_between"
+	FunnelSettingsOperatorIn               FunnelSettingsOperator = "in"
+	FunnelSettingsOperatorNotIn            FunnelSettingsOperator = "not_in"
+	FunnelSettingsOperatorIsNull           FunnelSettingsOperator = "is_null"
+	FunnelSettingsOperatorNotNull          FunnelSettingsOperator = "not_null"
+	FunnelSettingsOperatorIsTrue           FunnelSettingsOperator = "is_true"
+	FunnelSettingsOperatorIsFalse          FunnelSettingsOperator = "is_false"
+	FunnelSettingsOperatorContains         FunnelSettingsOperator = "contains"
+	FunnelSettingsOperatorNotContains      FunnelSettingsOperator = "not_contains"
+	FunnelSettingsOperatorStartsWith       FunnelSettingsOperator = "starts_with"
+	FunnelSettingsOperatorEndsWith         FunnelSettingsOperator = "ends_with"
+	FunnelSettingsOperatorSQLExpr          FunnelSettingsOperator = "sql_expr"
+	FunnelSettingsOperatorSavedFilter      FunnelSettingsOperator = "saved_filter"
+)
+
+func (e FunnelSettingsOperator) ToPointer() *FunnelSettingsOperator {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *FunnelSettingsOperator) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "=", "!=", ">", "<", ">=", "<=", "between", "not_between", "in", "not_in", "is_null", "not_null", "is_true", "is_false", "contains", "not_contains", "starts_with", "ends_with", "sql_expr", "saved_filter":
+			return true
+		}
+	}
+	return false
+}
+
+type FunnelSettingsRowFilter struct {
+	Operator FunnelSettingsOperator `json:"operator"`
+	// Not required for is_null, not_null, is_true, is_false operators. The between and not_between operators take at most two values, a lower and an upper bound in that order; leave a bound as an empty string for an open-ended range.
+	Values []string `json:"values,omitzero"`
+	// Required for all operators except sql_expr and saved_filter.
+	Column *string `json:"column,omitzero"`
+}
+
+func (f FunnelSettingsRowFilter) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
+}
+
+func (f *FunnelSettingsRowFilter) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (f *FunnelSettingsRowFilter) GetOperator() FunnelSettingsOperator {
+	if f == nil {
+		return FunnelSettingsOperator("")
+	}
+	return f.Operator
+}
+
+func (f *FunnelSettingsRowFilter) GetValues() []string {
+	if f == nil {
+		return nil
+	}
+	return f.Values
+}
+
+func (f *FunnelSettingsRowFilter) GetColumn() *string {
+	if f == nil {
+		return nil
+	}
+	return f.Column
+}
+
+type FactMetricUnit string
+
+const (
+	FactMetricUnitWeeks   FactMetricUnit = "weeks"
+	FactMetricUnitDays    FactMetricUnit = "days"
+	FactMetricUnitHours   FactMetricUnit = "hours"
+	FactMetricUnitMinutes FactMetricUnit = "minutes"
+)
+
+func (e FactMetricUnit) ToPointer() *FactMetricUnit {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *FactMetricUnit) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "weeks", "days", "hours", "minutes":
+			return true
+		}
+	}
+	return false
+}
+
+// FactMetricConversionWindow - Bounds how long after the nearest prior required step (or exposure, for the first step / after only-optional priors of an experiment funnel metric) this step's event can occur.
+type FactMetricConversionWindow struct {
+	Unit  FactMetricUnit `json:"unit"`
+	Value float64        `json:"value"`
+}
+
+func (f *FactMetricConversionWindow) GetUnit() FactMetricUnit {
+	if f == nil {
+		return FactMetricUnit("")
+	}
+	return f.Unit
+}
+
+func (f *FactMetricConversionWindow) GetValue() float64 {
+	if f == nil {
+		return 0.0
+	}
+	return f.Value
+}
+
+type FactMetricStep struct {
+	// Display name for the funnel step
+	Name string `json:"name"`
+	// The fact table this step draws events from
+	FactTableID string `json:"factTableId"`
+	// Filters that decide whether an event row counts as this step
+	RowFilters []FunnelSettingsRowFilter `json:"rowFilters"`
+	// When true, this step still counts for its own conversion but does not anchor later steps. Later steps window off the nearest prior required step (or exposure, for experiment funnel metrics, when every prior step is optional).
+	Optional         bool                                                          `json:"optional"`
+	ConversionWindow optionalnullable.OptionalNullable[FactMetricConversionWindow] `json:"conversionWindow,omitzero"`
+}
+
+func (f FactMetricStep) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
+}
+
+func (f *FactMetricStep) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (f *FactMetricStep) GetName() string {
+	if f == nil {
+		return ""
+	}
+	return f.Name
+}
+
+func (f *FactMetricStep) GetFactTableID() string {
+	if f == nil {
+		return ""
+	}
+	return f.FactTableID
+}
+
+func (f *FactMetricStep) GetRowFilters() []FunnelSettingsRowFilter {
+	if f == nil {
+		return []FunnelSettingsRowFilter{}
+	}
+	return f.RowFilters
+}
+
+func (f *FactMetricStep) GetOptional() bool {
+	if f == nil {
+		return false
+	}
+	return f.Optional
+}
+
+func (f *FactMetricStep) GetConversionWindow() optionalnullable.OptionalNullable[FactMetricConversionWindow] {
+	if f == nil {
+		return nil
+	}
+	return f.ConversionWindow
+}
+
+// Ordering - Step ordering mode. Only 'sequential' is supported in v1.
+type Ordering string
+
+const (
+	OrderingSequential Ordering = "sequential"
+	OrderingStrict     Ordering = "strict"
+	OrderingUnordered  Ordering = "unordered"
+)
+
+func (e Ordering) ToPointer() *Ordering {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *Ordering) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "sequential", "strict", "unordered":
+			return true
+		}
+	}
+	return false
+}
+
+// FunnelSettings - Funnel metric settings (required when metricType is "funnel")
+type FunnelSettings struct {
+	// Ordered list of funnel steps. Minimum 2 steps required.
+	Steps []FactMetricStep `json:"steps"`
+	// Step ordering mode. Only 'sequential' is supported in v1.
+	Ordering *Ordering `json:"ordering,omitzero"`
+	// Out-of-order tolerance between adjacent steps in seconds. Defaults to 0.
+	ConcurrencyWindowSeconds *int64 `json:"concurrencyWindowSeconds,omitzero"`
+}
+
+func (f *FunnelSettings) GetSteps() []FactMetricStep {
+	if f == nil {
+		return []FactMetricStep{}
+	}
+	return f.Steps
+}
+
+func (f *FunnelSettings) GetOrdering() *Ordering {
+	if f == nil {
+		return nil
+	}
+	return f.Ordering
+}
+
+func (f *FunnelSettings) GetConcurrencyWindowSeconds() *int64 {
+	if f == nil {
+		return nil
+	}
+	return f.ConcurrencyWindowSeconds
 }
 
 type FactMetricCappingSettingsType string
@@ -701,12 +944,14 @@ type FactMetric struct {
 	Tags        []string             `json:"tags"`
 	Datasource  string               `json:"datasource"`
 	MetricType  FactMetricMetricType `json:"metricType"`
-	Numerator   Numerator            `json:"numerator"`
+	Numerator   *Numerator           `json:"numerator,omitzero"`
 	Denominator *Denominator         `json:"denominator,omitzero"`
 	// Set to true for things like Bounce Rate, where you want the metric to decrease
 	Inverse bool `json:"inverse"`
 	// Controls the settings for quantile metrics (mandatory if metricType is "quantile")
 	QuantileSettings *QuantileSettings `json:"quantileSettings,omitzero"`
+	// Funnel metric settings (required when metricType is "funnel")
+	FunnelSettings *FunnelSettings `json:"funnelSettings,omitzero"`
 	// Controls how outliers are handled
 	CappingSettings FactMetricCappingSettings `json:"cappingSettings"`
 	// Controls the conversion window for the metric
@@ -806,9 +1051,9 @@ func (f *FactMetric) GetMetricType() FactMetricMetricType {
 	return f.MetricType
 }
 
-func (f *FactMetric) GetNumerator() Numerator {
+func (f *FactMetric) GetNumerator() *Numerator {
 	if f == nil {
-		return Numerator{}
+		return nil
 	}
 	return f.Numerator
 }
@@ -832,6 +1077,13 @@ func (f *FactMetric) GetQuantileSettings() *QuantileSettings {
 		return nil
 	}
 	return f.QuantileSettings
+}
+
+func (f *FactMetric) GetFunnelSettings() *FunnelSettings {
+	if f == nil {
+		return nil
+	}
+	return f.FunnelSettings
 }
 
 func (f *FactMetric) GetCappingSettings() FactMetricCappingSettings {

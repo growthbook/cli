@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 type GetContextualBanditResultsRequest struct {
@@ -157,6 +157,55 @@ func (o *Overall) GetVariations() []OverallVariation {
 	return o.Variations
 }
 
+type GetContextualBanditResultsOperator string
+
+const (
+	GetContextualBanditResultsOperatorIn    GetContextualBanditResultsOperator = "in"
+	GetContextualBanditResultsOperatorNotIn GetContextualBanditResultsOperator = "not in"
+)
+
+func (e GetContextualBanditResultsOperator) ToPointer() *GetContextualBanditResultsOperator {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *GetContextualBanditResultsOperator) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "in", "not in":
+			return true
+		}
+	}
+	return false
+}
+
+type Clause struct {
+	Attribute string                             `json:"attribute"`
+	Levels    []string                           `json:"levels"`
+	Operator  GetContextualBanditResultsOperator `json:"operator"`
+}
+
+func (c *Clause) GetAttribute() string {
+	if c == nil {
+		return ""
+	}
+	return c.Attribute
+}
+
+func (c *Clause) GetLevels() []string {
+	if c == nil {
+		return []string{}
+	}
+	return c.Levels
+}
+
+func (c *Clause) GetOperator() GetContextualBanditResultsOperator {
+	if c == nil {
+		return GetContextualBanditResultsOperator("")
+	}
+	return c.Operator
+}
+
 type LeafVariation struct {
 	VariationID        string   `json:"variationId"`
 	VariationName      *string  `json:"variationName,omitzero"`
@@ -282,6 +331,7 @@ type Leaf struct {
 	LeafID        int64                               `json:"leafId"`
 	UpdateMessage *string                             `json:"updateMessage"`
 	Error         *string                             `json:"error"`
+	Clauses       []Clause                            `json:"clauses"`
 	Variations    []LeafVariation                     `json:"variations"`
 	Contexts      []GetContextualBanditResultsContext `json:"contexts"`
 }
@@ -305,6 +355,13 @@ func (l *Leaf) GetError() *string {
 		return nil
 	}
 	return l.Error
+}
+
+func (l *Leaf) GetClauses() []Clause {
+	if l == nil {
+		return []Clause{}
+	}
+	return l.Clauses
 }
 
 func (l *Leaf) GetVariations() []LeafVariation {

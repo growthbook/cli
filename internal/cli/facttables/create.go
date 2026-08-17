@@ -4,13 +4,13 @@ package facttables
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/internal/client"
-	"github.com/growthbook/cli/internal/flagutil"
-	"github.com/growthbook/cli/internal/interactive"
-	"github.com/growthbook/cli/internal/output"
-	"github.com/growthbook/cli/internal/sdk"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/client"
+	"github.com/growthbook/cli/v2/internal/flagutil"
+	"github.com/growthbook/cli/v2/internal/interactive"
+	"github.com/growthbook/cli/v2/internal/output"
+	"github.com/growthbook/cli/v2/internal/sdk"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -25,6 +25,7 @@ var createCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "aggregated-fact-table-settings", Shorthand: "a", FieldPath: "AggregatedFactTableSettings", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"aggregatedFactTableSettings,omitempty"`, Description: "Settings for maintaining shared daily aggregated tables (a subset of userIdTypes plus the daily update time and restate lookback window) used to speed up CUPED. Requires the data pipeline (pipeline-mode) feature."},
 	{FlagName: "sql", Shorthand: "s", FieldPath: "SQL", Kind: flagutil.FlagKindString, Required: true, Description: "The SQL query for this fact table [required]"},
 	{FlagName: "event-name", Shorthand: "e", FieldPath: "EventName", Kind: flagutil.FlagKindString, Optional: true, Description: "The event name used in SQL template variables"},
+	{FlagName: "columns", Shorthand: "c", FieldPath: "Columns", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"columns,omitempty"`, Description: "Optional array of column definitions to store for this fact table. Supplied columns are stored as-is. Omit `datatype` (or send \"\") on a column to have it auto-detected from the SQL."},
 	{FlagName: "managed-by", Shorthand: "m", FieldPath: "ManagedBy", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"", "api", "admin"}, Description: "Set this to \"api\" to disable editing in the GrowthBook UI (options: , api, admin)"},
 }
 

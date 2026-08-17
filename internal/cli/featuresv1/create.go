@@ -4,30 +4,35 @@ package featuresv1
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/internal/client"
-	"github.com/growthbook/cli/internal/flagutil"
-	"github.com/growthbook/cli/internal/interactive"
-	"github.com/growthbook/cli/internal/output"
-	"github.com/growthbook/cli/internal/sdk"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/client"
+	"github.com/growthbook/cli/v2/internal/flagutil"
+	"github.com/growthbook/cli/v2/internal/interactive"
+	"github.com/growthbook/cli/v2/internal/output"
+	"github.com/growthbook/cli/v2/internal/sdk"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
 var createCmdMeta = []flagutil.FlagMeta{
-	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "A unique key name for the feature. Feature keys can only include letters, numbers, hyphens, and underscores. [required]"},
+	{FlagName: "id", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "A unique key name for the feature. Feature keys can only include letters, numbers, hyphens, and underscores. [required]"},
 	{FlagName: "archived", Shorthand: "a", FieldPath: "Archived", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "description", FieldPath: "Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Description of the feature"},
 	{FlagName: "owner", FieldPath: "Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. Optional when authenticating with a Personal Access Token (PAT): when omitted, the owner defaults to the PAT's user. Required when authenticating with an organization secret API key (which has no associated user): omitting it fails with a 400."},
 	{FlagName: "project", FieldPath: "Project", Kind: flagutil.FlagKindString, Optional: true, Description: "An associated project ID"},
+	{FlagName: "targeting-all-projects", FieldPath: "TargetingAllProjects", Kind: flagutil.FlagKindBool, Optional: true, Description: "Make this feature discoverable in — and served to — every project, beyond its primary `project`. Governance/approvals stay with `project`."},
+	{FlagName: "targeting-projects", FieldPath: "TargetingProjects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Secondary project IDs this feature is targeted in and served to, beyond its primary `project`. Governance/approvals stay with `project`."},
 	{FlagName: "value-type", Shorthand: "v", FieldPath: "ValueType", Kind: flagutil.FlagKindEnum, Required: true, EnumValues: []string{"boolean", "string", "number", "json"}, Description: "The data type of the feature payload. Boolean by default. (options: boolean, string, number, json) [required]"},
 	{FlagName: "default-value", FieldPath: "DefaultValue", Kind: flagutil.FlagKindString, Required: true, Description: "Default value when feature is enabled. Type must match `valueType`. In Config mode (`baseConfig` set) this is the JSON override patch merged on top of the config. [required]"},
 	{FlagName: "base-config", Shorthand: "b", FieldPath: "BaseConfig", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"baseConfig,omitempty"`, Description: "Key of the config backing this flag (\"Config mode\"). Requires `valueType: \"json\"` and a live config; `defaultValue` and rule values become override patches on top. null or omitted for a plain flag."},
-	{FlagName: "tags", Shorthand: "t", FieldPath: "Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "List of associated tags"},
+	{FlagName: "tags", FieldPath: "Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "List of associated tags"},
 	{FlagName: "environments", Shorthand: "e", FieldPath: "Environments", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"environments,omitempty"`, Description: "A dictionary of environments that are enabled for this feature. Keys supply the names of environments. Environments belong to organization and are not specified will be disabled by default."},
 	{FlagName: "prerequisites", FieldPath: "Prerequisites", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Feature IDs. Each feature must evaluate to `true`"},
 	{FlagName: "json-schema", Shorthand: "j", FieldPath: "JSONSchema", Kind: flagutil.FlagKindString, Optional: true, Description: "Use JSON schema to validate the payload of a JSON-type feature value (enterprise only)."},
 	{FlagName: "custom-fields", Shorthand: "c", FieldPath: "CustomFields", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"customFields,omitempty"`, Description: "value"},
+	{FlagName: "ignore-warnings", FieldPath: "IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access."},
+	{FlagName: "skip-schema-validation", FieldPath: "SkipSchemaValidation", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored."},
+	{FlagName: "skip-hooks", FieldPath: "SkipHooks", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored."},
 }
 
 // initCreateCmd initializes the create command.

@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 type UpdateConstantRequestBody struct {
@@ -16,8 +16,14 @@ type UpdateConstantRequestBody struct {
 	Project           *string           `json:"project,omitzero"`
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
 	Owner *string `json:"owner,omitzero"`
-	// Set to true to skip the approval flow when the org requires approvals for this constant's project. Requires the `bypassApprovalChecks` permission (or the org-level REST bypass setting). When approvals aren't required, this flag has no effect.
+	// Set to true to write directly to the live Constant without approval. The caller must have Bypass draft approvals access in the Constant's Project, unless the organization enables the REST API approval bypass. This field has no effect when approval is not required.
 	BypassApproval *bool `json:"bypassApproval,omitzero"`
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
+	// Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	SkipSchemaValidation *bool `json:"skipSchemaValidation,omitzero"`
+	// Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	SkipHooks *bool `json:"skipHooks,omitzero"`
 }
 
 func (u UpdateConstantRequestBody) MarshalJSON() ([]byte, error) {
@@ -80,6 +86,27 @@ func (u *UpdateConstantRequestBody) GetBypassApproval() *bool {
 	return u.BypassApproval
 }
 
+func (u *UpdateConstantRequestBody) GetIgnoreWarnings() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.IgnoreWarnings
+}
+
+func (u *UpdateConstantRequestBody) GetSkipSchemaValidation() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.SkipSchemaValidation
+}
+
+func (u *UpdateConstantRequestBody) GetSkipHooks() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.SkipHooks
+}
+
 type UpdateConstantRequest struct {
 	// The key of the constant
 	Key  string                    `pathParam:"style=simple,explode=false,name=key"`
@@ -103,6 +130,19 @@ func (u *UpdateConstantRequest) GetBody() UpdateConstantRequestBody {
 // UpdateConstantResponseBody - Resource created
 type UpdateConstantResponseBody struct {
 	Constant components.Constant `json:"constant"`
+	// Gates that would have blocked this publish but were bypassed by the caller's authority. Present only when at least one gate was bypassed.
+	BypassedGates []components.BypassedGates `json:"bypassedGates,omitzero"`
+}
+
+func (u UpdateConstantResponseBody) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdateConstantResponseBody) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (u *UpdateConstantResponseBody) GetConstant() components.Constant {
@@ -110,6 +150,13 @@ func (u *UpdateConstantResponseBody) GetConstant() components.Constant {
 		return components.Constant{}
 	}
 	return u.Constant
+}
+
+func (u *UpdateConstantResponseBody) GetBypassedGates() []components.BypassedGates {
+	if u == nil {
+		return nil
+	}
+	return u.BypassedGates
 }
 
 type UpdateConstantResponse struct {

@@ -24,7 +24,8 @@ growthbook feature-revisions set-metadata [flags]
       --custom-fields string   value
       --description string     string value
   -h, --help                   help for set-metadata
-  -i, --id string              [required]
+      --id string              [required]
+      --ignore-warnings        Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
   -j, --json-schema string     JSON object
   -n, --never-stale            boolean flag
       --owner string           The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.

@@ -5,8 +5,9 @@ package operations
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 type UpdateFactMetricMetricType string
@@ -18,6 +19,7 @@ const (
 	UpdateFactMetricMetricTypeQuantile           UpdateFactMetricMetricType = "quantile"
 	UpdateFactMetricMetricTypeRatio              UpdateFactMetricMetricType = "ratio"
 	UpdateFactMetricMetricTypeDailyParticipation UpdateFactMetricMetricType = "dailyParticipation"
+	UpdateFactMetricMetricTypeFunnel             UpdateFactMetricMetricType = "funnel"
 )
 
 func (e UpdateFactMetricMetricType) ToPointer() *UpdateFactMetricMetricType {
@@ -40,6 +42,8 @@ func (e *UpdateFactMetricMetricType) UnmarshalJSON(data []byte) error {
 	case "ratio":
 		fallthrough
 	case "dailyParticipation":
+		fallthrough
+	case "funnel":
 		*e = UpdateFactMetricMetricType(v)
 		return nil
 	default:
@@ -92,6 +96,8 @@ const (
 	UpdateFactMetricNumeratorOperatorLessThan         UpdateFactMetricNumeratorOperator = "<"
 	UpdateFactMetricNumeratorOperatorGreaterThanEqual UpdateFactMetricNumeratorOperator = ">="
 	UpdateFactMetricNumeratorOperatorLessThanEqual    UpdateFactMetricNumeratorOperator = "<="
+	UpdateFactMetricNumeratorOperatorBetween          UpdateFactMetricNumeratorOperator = "between"
+	UpdateFactMetricNumeratorOperatorNotBetween       UpdateFactMetricNumeratorOperator = "not_between"
 	UpdateFactMetricNumeratorOperatorIn               UpdateFactMetricNumeratorOperator = "in"
 	UpdateFactMetricNumeratorOperatorNotIn            UpdateFactMetricNumeratorOperator = "not_in"
 	UpdateFactMetricNumeratorOperatorIsNull           UpdateFactMetricNumeratorOperator = "is_null"
@@ -127,6 +133,10 @@ func (e *UpdateFactMetricNumeratorOperator) UnmarshalJSON(data []byte) error {
 		fallthrough
 	case "<=":
 		fallthrough
+	case "between":
+		fallthrough
+	case "not_between":
+		fallthrough
 	case "in":
 		fallthrough
 	case "not_in":
@@ -159,7 +169,7 @@ func (e *UpdateFactMetricNumeratorOperator) UnmarshalJSON(data []byte) error {
 
 type UpdateFactMetricNumeratorRowFilter struct {
 	Operator UpdateFactMetricNumeratorOperator `json:"operator"`
-	// Not required for is_null, not_null, is_true, is_false operators.
+	// Not required for is_null, not_null, is_true, is_false operators. The between and not_between operators take at most two values, a lower and an upper bound in that order; leave a bound as an empty string for an open-ended range.
 	Values []string `json:"values,omitzero"`
 	// Required for all operators except sql_expr and saved_filter.
 	Column *string `json:"column,omitzero"`
@@ -331,6 +341,8 @@ const (
 	UpdateFactMetricDenominatorOperatorLessThan         UpdateFactMetricDenominatorOperator = "<"
 	UpdateFactMetricDenominatorOperatorGreaterThanEqual UpdateFactMetricDenominatorOperator = ">="
 	UpdateFactMetricDenominatorOperatorLessThanEqual    UpdateFactMetricDenominatorOperator = "<="
+	UpdateFactMetricDenominatorOperatorBetween          UpdateFactMetricDenominatorOperator = "between"
+	UpdateFactMetricDenominatorOperatorNotBetween       UpdateFactMetricDenominatorOperator = "not_between"
 	UpdateFactMetricDenominatorOperatorIn               UpdateFactMetricDenominatorOperator = "in"
 	UpdateFactMetricDenominatorOperatorNotIn            UpdateFactMetricDenominatorOperator = "not_in"
 	UpdateFactMetricDenominatorOperatorIsNull           UpdateFactMetricDenominatorOperator = "is_null"
@@ -366,6 +378,10 @@ func (e *UpdateFactMetricDenominatorOperator) UnmarshalJSON(data []byte) error {
 		fallthrough
 	case "<=":
 		fallthrough
+	case "between":
+		fallthrough
+	case "not_between":
+		fallthrough
 	case "in":
 		fallthrough
 	case "not_in":
@@ -398,7 +414,7 @@ func (e *UpdateFactMetricDenominatorOperator) UnmarshalJSON(data []byte) error {
 
 type UpdateFactMetricDenominatorRowFilter struct {
 	Operator UpdateFactMetricDenominatorOperator `json:"operator"`
-	// Not required for is_null, not_null, is_true, is_false operators.
+	// Not required for is_null, not_null, is_true, is_false operators. The between and not_between operators take at most two values, a lower and an upper bound in that order; leave a bound as an empty string for an open-ended range.
 	Values []string `json:"values,omitzero"`
 	// Required for all operators except sql_expr and saved_filter.
 	Column *string `json:"column,omitzero"`
@@ -573,6 +589,291 @@ func (u *UpdateFactMetricQuantileSettings) GetQuantileEventCountColumn() *string
 		return nil
 	}
 	return u.QuantileEventCountColumn
+}
+
+type UpdateFactMetricOperatorSequential string
+
+const (
+	UpdateFactMetricOperatorSequentialEqual            UpdateFactMetricOperatorSequential = "="
+	UpdateFactMetricOperatorSequentialNotEqual         UpdateFactMetricOperatorSequential = "!="
+	UpdateFactMetricOperatorSequentialGreaterThan      UpdateFactMetricOperatorSequential = ">"
+	UpdateFactMetricOperatorSequentialLessThan         UpdateFactMetricOperatorSequential = "<"
+	UpdateFactMetricOperatorSequentialGreaterThanEqual UpdateFactMetricOperatorSequential = ">="
+	UpdateFactMetricOperatorSequentialLessThanEqual    UpdateFactMetricOperatorSequential = "<="
+	UpdateFactMetricOperatorSequentialBetween          UpdateFactMetricOperatorSequential = "between"
+	UpdateFactMetricOperatorSequentialNotBetween       UpdateFactMetricOperatorSequential = "not_between"
+	UpdateFactMetricOperatorSequentialIn               UpdateFactMetricOperatorSequential = "in"
+	UpdateFactMetricOperatorSequentialNotIn            UpdateFactMetricOperatorSequential = "not_in"
+	UpdateFactMetricOperatorSequentialIsNull           UpdateFactMetricOperatorSequential = "is_null"
+	UpdateFactMetricOperatorSequentialNotNull          UpdateFactMetricOperatorSequential = "not_null"
+	UpdateFactMetricOperatorSequentialIsTrue           UpdateFactMetricOperatorSequential = "is_true"
+	UpdateFactMetricOperatorSequentialIsFalse          UpdateFactMetricOperatorSequential = "is_false"
+	UpdateFactMetricOperatorSequentialContains         UpdateFactMetricOperatorSequential = "contains"
+	UpdateFactMetricOperatorSequentialNotContains      UpdateFactMetricOperatorSequential = "not_contains"
+	UpdateFactMetricOperatorSequentialStartsWith       UpdateFactMetricOperatorSequential = "starts_with"
+	UpdateFactMetricOperatorSequentialEndsWith         UpdateFactMetricOperatorSequential = "ends_with"
+	UpdateFactMetricOperatorSequentialSQLExpr          UpdateFactMetricOperatorSequential = "sql_expr"
+	UpdateFactMetricOperatorSequentialSavedFilter      UpdateFactMetricOperatorSequential = "saved_filter"
+)
+
+func (e UpdateFactMetricOperatorSequential) ToPointer() *UpdateFactMetricOperatorSequential {
+	return &e
+}
+func (e *UpdateFactMetricOperatorSequential) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "=":
+		fallthrough
+	case "!=":
+		fallthrough
+	case ">":
+		fallthrough
+	case "<":
+		fallthrough
+	case ">=":
+		fallthrough
+	case "<=":
+		fallthrough
+	case "between":
+		fallthrough
+	case "not_between":
+		fallthrough
+	case "in":
+		fallthrough
+	case "not_in":
+		fallthrough
+	case "is_null":
+		fallthrough
+	case "not_null":
+		fallthrough
+	case "is_true":
+		fallthrough
+	case "is_false":
+		fallthrough
+	case "contains":
+		fallthrough
+	case "not_contains":
+		fallthrough
+	case "starts_with":
+		fallthrough
+	case "ends_with":
+		fallthrough
+	case "sql_expr":
+		fallthrough
+	case "saved_filter":
+		*e = UpdateFactMetricOperatorSequential(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for UpdateFactMetricOperatorSequential: %v", v)
+	}
+}
+
+type UpdateFactMetricRowFilterSequential struct {
+	Operator UpdateFactMetricOperatorSequential `json:"operator"`
+	// Not required for is_null, not_null, is_true, is_false operators. The between and not_between operators take at most two values, a lower and an upper bound in that order; leave a bound as an empty string for an open-ended range.
+	Values []string `json:"values,omitzero"`
+	// Required for all operators except sql_expr and saved_filter.
+	Column *string `json:"column,omitzero"`
+}
+
+func (u UpdateFactMetricRowFilterSequential) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdateFactMetricRowFilterSequential) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *UpdateFactMetricRowFilterSequential) GetOperator() UpdateFactMetricOperatorSequential {
+	if u == nil {
+		return UpdateFactMetricOperatorSequential("")
+	}
+	return u.Operator
+}
+
+func (u *UpdateFactMetricRowFilterSequential) GetValues() []string {
+	if u == nil {
+		return nil
+	}
+	return u.Values
+}
+
+func (u *UpdateFactMetricRowFilterSequential) GetColumn() *string {
+	if u == nil {
+		return nil
+	}
+	return u.Column
+}
+
+type UpdateFactMetricUnit string
+
+const (
+	UpdateFactMetricUnitWeeks   UpdateFactMetricUnit = "weeks"
+	UpdateFactMetricUnitDays    UpdateFactMetricUnit = "days"
+	UpdateFactMetricUnitHours   UpdateFactMetricUnit = "hours"
+	UpdateFactMetricUnitMinutes UpdateFactMetricUnit = "minutes"
+)
+
+func (e UpdateFactMetricUnit) ToPointer() *UpdateFactMetricUnit {
+	return &e
+}
+func (e *UpdateFactMetricUnit) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "weeks":
+		fallthrough
+	case "days":
+		fallthrough
+	case "hours":
+		fallthrough
+	case "minutes":
+		*e = UpdateFactMetricUnit(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for UpdateFactMetricUnit: %v", v)
+	}
+}
+
+// UpdateFactMetricConversionWindow - Bounds how long after the nearest prior required step (or exposure, for the first step / after only-optional priors of an experiment funnel metric) this step's event can occur.
+type UpdateFactMetricConversionWindow struct {
+	Unit  UpdateFactMetricUnit `json:"unit"`
+	Value float64              `json:"value"`
+}
+
+func (u *UpdateFactMetricConversionWindow) GetUnit() UpdateFactMetricUnit {
+	if u == nil {
+		return UpdateFactMetricUnit("")
+	}
+	return u.Unit
+}
+
+func (u *UpdateFactMetricConversionWindow) GetValue() float64 {
+	if u == nil {
+		return 0.0
+	}
+	return u.Value
+}
+
+type UpdateFactMetricStep struct {
+	// Display name for the funnel step
+	Name string `json:"name"`
+	// The fact table this step draws events from
+	FactTableID string `json:"factTableId"`
+	// Filters that decide whether an event row counts as this step
+	RowFilters []UpdateFactMetricRowFilterSequential `json:"rowFilters"`
+	// When true, this step still counts for its own conversion but does not anchor later steps. Later steps window off the nearest prior required step (or exposure, for experiment funnel metrics, when every prior step is optional).
+	Optional         bool                                                                `json:"optional"`
+	ConversionWindow optionalnullable.OptionalNullable[UpdateFactMetricConversionWindow] `json:"conversionWindow,omitzero"`
+}
+
+func (u UpdateFactMetricStep) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdateFactMetricStep) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *UpdateFactMetricStep) GetName() string {
+	if u == nil {
+		return ""
+	}
+	return u.Name
+}
+
+func (u *UpdateFactMetricStep) GetFactTableID() string {
+	if u == nil {
+		return ""
+	}
+	return u.FactTableID
+}
+
+func (u *UpdateFactMetricStep) GetRowFilters() []UpdateFactMetricRowFilterSequential {
+	if u == nil {
+		return []UpdateFactMetricRowFilterSequential{}
+	}
+	return u.RowFilters
+}
+
+func (u *UpdateFactMetricStep) GetOptional() bool {
+	if u == nil {
+		return false
+	}
+	return u.Optional
+}
+
+func (u *UpdateFactMetricStep) GetConversionWindow() optionalnullable.OptionalNullable[UpdateFactMetricConversionWindow] {
+	if u == nil {
+		return nil
+	}
+	return u.ConversionWindow
+}
+
+// UpdateFactMetricOrdering - Step ordering mode. Only 'sequential' is supported in v1.
+type UpdateFactMetricOrdering string
+
+const (
+	UpdateFactMetricOrderingSequential UpdateFactMetricOrdering = "sequential"
+)
+
+func (e UpdateFactMetricOrdering) ToPointer() *UpdateFactMetricOrdering {
+	return &e
+}
+func (e *UpdateFactMetricOrdering) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "sequential":
+		*e = UpdateFactMetricOrdering(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for UpdateFactMetricOrdering: %v", v)
+	}
+}
+
+// UpdateFactMetricFunnelSettings - Funnel metric settings (required when metricType is "funnel")
+type UpdateFactMetricFunnelSettings struct {
+	// Ordered list of funnel steps. Minimum 2 steps required.
+	Steps []UpdateFactMetricStep `json:"steps"`
+	// Step ordering mode. Only 'sequential' is supported in v1.
+	Ordering *UpdateFactMetricOrdering `json:"ordering,omitzero"`
+	// Out-of-order tolerance between adjacent steps in seconds. Defaults to 0.
+	ConcurrencyWindowSeconds *int64 `json:"concurrencyWindowSeconds,omitzero"`
+}
+
+func (u *UpdateFactMetricFunnelSettings) GetSteps() []UpdateFactMetricStep {
+	if u == nil {
+		return []UpdateFactMetricStep{}
+	}
+	return u.Steps
+}
+
+func (u *UpdateFactMetricFunnelSettings) GetOrdering() *UpdateFactMetricOrdering {
+	if u == nil {
+		return nil
+	}
+	return u.Ordering
+}
+
+func (u *UpdateFactMetricFunnelSettings) GetConcurrencyWindowSeconds() *int64 {
+	if u == nil {
+		return nil
+	}
+	return u.ConcurrencyWindowSeconds
 }
 
 type UpdateFactMetricCappingSettingsType string
@@ -892,17 +1193,19 @@ type UpdateFactMetricRequestBody struct {
 	Name        *string `json:"name,omitzero"`
 	Description *string `json:"description,omitzero"`
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-	Owner      *string                     `json:"owner,omitzero"`
-	Projects   []string                    `json:"projects,omitzero"`
-	Tags       []string                    `json:"tags,omitzero"`
-	MetricType *UpdateFactMetricMetricType `json:"metricType,omitzero"`
-	Numerator  *UpdateFactMetricNumerator  `json:"numerator,omitzero"`
+	Owner      *string                                                      `json:"owner,omitzero"`
+	Projects   []string                                                     `json:"projects,omitzero"`
+	Tags       []string                                                     `json:"tags,omitzero"`
+	MetricType *UpdateFactMetricMetricType                                  `json:"metricType,omitzero"`
+	Numerator  optionalnullable.OptionalNullable[UpdateFactMetricNumerator] `json:"numerator,omitzero"`
 	// Only when metricType is 'ratio'
 	Denominator *UpdateFactMetricDenominator `json:"denominator,omitzero"`
 	// Set to true for things like Bounce Rate, where you want the metric to decrease
 	Inverse *bool `json:"inverse,omitzero"`
 	// Controls the settings for quantile metrics (mandatory if metricType is "quantile")
 	QuantileSettings *UpdateFactMetricQuantileSettings `json:"quantileSettings,omitzero"`
+	// Funnel metric settings (required when metricType is "funnel")
+	FunnelSettings *UpdateFactMetricFunnelSettings `json:"funnelSettings,omitzero"`
 	// Controls how outliers are handled
 	CappingSettings *UpdateFactMetricCappingSettings `json:"cappingSettings,omitzero"`
 	// Controls the conversion window for the metric
@@ -987,7 +1290,7 @@ func (u *UpdateFactMetricRequestBody) GetMetricType() *UpdateFactMetricMetricTyp
 	return u.MetricType
 }
 
-func (u *UpdateFactMetricRequestBody) GetNumerator() *UpdateFactMetricNumerator {
+func (u *UpdateFactMetricRequestBody) GetNumerator() optionalnullable.OptionalNullable[UpdateFactMetricNumerator] {
 	if u == nil {
 		return nil
 	}
@@ -1013,6 +1316,13 @@ func (u *UpdateFactMetricRequestBody) GetQuantileSettings() *UpdateFactMetricQua
 		return nil
 	}
 	return u.QuantileSettings
+}
+
+func (u *UpdateFactMetricRequestBody) GetFunnelSettings() *UpdateFactMetricFunnelSettings {
+	if u == nil {
+		return nil
+	}
+	return u.FunnelSettings
 }
 
 func (u *UpdateFactMetricRequestBody) GetCappingSettings() *UpdateFactMetricCappingSettings {

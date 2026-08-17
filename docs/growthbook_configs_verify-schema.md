@@ -62,4 +62,4 @@ growthbook configs verify-schema [flags]
 
 ### SEE ALSO
 
-* [growthbook configs](growthbook_configs.md)	 - Reusable, typed, inheritable JSON objects referenced from feature flag values as `@config:key`
+* [growthbook configs](growthbook_configs.md)	 - **Beta** — these endpoints are new and may change in backwards-incompatible ways

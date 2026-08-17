@@ -3,13 +3,44 @@
 package operations
 
 import (
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
+
+type UnarchiveConstantRequestBody struct {
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
+	// Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	SkipSchemaValidation *bool `json:"skipSchemaValidation,omitzero"`
+	// Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	SkipHooks *bool `json:"skipHooks,omitzero"`
+}
+
+func (u *UnarchiveConstantRequestBody) GetIgnoreWarnings() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.IgnoreWarnings
+}
+
+func (u *UnarchiveConstantRequestBody) GetSkipSchemaValidation() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.SkipSchemaValidation
+}
+
+func (u *UnarchiveConstantRequestBody) GetSkipHooks() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.SkipHooks
+}
 
 type UnarchiveConstantRequest struct {
 	// The key of the constant
-	Key string `pathParam:"style=simple,explode=false,name=key"`
+	Key  string                       `pathParam:"style=simple,explode=false,name=key"`
+	Body UnarchiveConstantRequestBody `request:"mediaType=application/json"`
 }
 
 func (u *UnarchiveConstantRequest) GetKey() string {
@@ -19,9 +50,29 @@ func (u *UnarchiveConstantRequest) GetKey() string {
 	return u.Key
 }
 
+func (u *UnarchiveConstantRequest) GetBody() UnarchiveConstantRequestBody {
+	if u == nil {
+		return UnarchiveConstantRequestBody{}
+	}
+	return u.Body
+}
+
 // UnarchiveConstantResponseBody - Resource created
 type UnarchiveConstantResponseBody struct {
 	Constant components.Constant `json:"constant"`
+	// Gates that would have blocked this publish but were bypassed by the caller's authority. Present only when at least one gate was bypassed.
+	BypassedGates []components.BypassedGates `json:"bypassedGates,omitzero"`
+}
+
+func (u UnarchiveConstantResponseBody) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UnarchiveConstantResponseBody) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (u *UnarchiveConstantResponseBody) GetConstant() components.Constant {
@@ -29,6 +80,13 @@ func (u *UnarchiveConstantResponseBody) GetConstant() components.Constant {
 		return components.Constant{}
 	}
 	return u.Constant
+}
+
+func (u *UnarchiveConstantResponseBody) GetBypassedGates() []components.BypassedGates {
+	if u == nil {
+		return nil
+	}
+	return u.BypassedGates
 }
 
 type UnarchiveConstantResponse struct {

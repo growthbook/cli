@@ -4,7 +4,7 @@ Toggle a feature in one or more environments
 
 ### Synopsis
 
-Enables or disables a feature in one or more environments simultaneously. Accepts a map of environment name → boolean.
+Enables or disables a Feature Flag in one or more environments and immediately publishes the change. The caller needs Publish access for every environment in the request. When approval is required, use a draft revision instead, unless the caller can bypass draft approvals.
 
 ```
 growthbook features toggle [flags]

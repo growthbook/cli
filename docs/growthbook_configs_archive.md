@@ -4,7 +4,7 @@ Archive a single config
 
 ### Synopsis
 
-Archives a config. A child config (including an environment/project override) is archived outright when its live value is an empty patch or nothing serves it; when it IS actively serving a value, this returns a 422 soft warning — re-submit with `?ignoreWarnings=true` to proceed. A root config that is still referenced by a feature or another config cannot be archived (400).
+Archives a config. A child config (including an environment/project override) is archived outright when its live value is an empty patch or nothing serves it. When archiving would strip a value that live features or other configs still consume, the request returns a 422 listing the blocking gates — re-submit with `"ignoreWarnings": true` in the request body to acknowledge and proceed. A locked config, or one whose org requires approval, returns its own gate (unlock or route the change through a draft revision).
 
 ```
 growthbook configs archive [flags]
@@ -19,9 +19,13 @@ growthbook configs archive [flags]
 ### Options
 
 ```
-  -h, --help              help for archive
-  -i, --ignore-warnings   Proceed despite the soft warning raised when archiving a config that is actively serving a value — archiving reverts anything resolving it (features, or the environments an override applies to) back to the base. Not needed when the config's live value is an empty patch or nothing uses it.
-  -k, --key string        The key of the config [required]
+      --body string                                   Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --body-param.ignore-warnings                    Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+      --body-param.skip-hooks skipSchemaValidation    Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use skipSchemaValidation for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+      --body-param.skip-schema-validation skipHooks   Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use skipHooks for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+  -h, --help                                          help for archive
+  -i, --ignore-warnings ignoreWarnings                Deprecated — pass ignoreWarnings in the request body instead.
+  -k, --key string                                    The key of the config [required]
 ```
 
 ### Options inherited from parent commands
@@ -50,4 +54,4 @@ growthbook configs archive [flags]
 
 ### SEE ALSO
 
-* [growthbook configs](growthbook_configs.md)	 - Reusable, typed, inheritable JSON objects referenced from feature flag values as `@config:key`
+* [growthbook configs](growthbook_configs.md)	 - **Beta** — these endpoints are new and may change in backwards-incompatible ways

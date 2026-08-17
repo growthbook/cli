@@ -6,12 +6,12 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
-	"github.com/growthbook/cli/internal/sdk/models/sdkerrors"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/config"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/hooks"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/sdk/models/sdkerrors"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/config"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/hooks"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"github.com/spyzhov/ajson"
 	"net/http"
 	"net/url"
@@ -541,9 +541,7 @@ func (s *FeaturesV1) Get(ctx context.Context, request operations.GetFeatureReque
 // Update - Partially update a feature
 // **Deprecated.** Use [POST /v2/features/:id](#operation/updateFeatureV2) instead.
 //
-// Updates any combination of a feature's metadata (description, owner, tags, project), default value, environment settings (rules, kill switches, enabled state), prerequisites, holdout assignment, or JSON schema validation. All provided fields are merged into the existing feature and the result is immediately published as a new revision.
-//
-// Returns 403 if the API key lacks permission or if approval rules are enabled for an affected environment and the org setting "REST API always bypasses approval requirements" is off.
+// Updates the Feature Flag and immediately publishes a new revision. The caller needs Edit access in the Feature Flag's Project and Publish access for every affected environment. When approval is required, use the revision endpoints instead, unless the caller can bypass draft approvals.
 //
 // Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 func (s *FeaturesV1) Update(ctx context.Context, request operations.UpdateFeatureRequest, opts ...operations.Option) (*operations.UpdateFeatureResponse, error) {
@@ -699,9 +697,7 @@ func (s *FeaturesV1) Update(ctx context.Context, request operations.UpdateFeatur
 // Delete - Deletes a single feature
 // **Deprecated.** Use [DELETE /v2/features/:id](#operation/deleteFeatureV2) instead.
 //
-// Permanently deletes a feature and all of its revisions.
-//
-// Archived features can be deleted freely. Deleting a live (non-archived) feature returns 403 unless the org setting "REST API always bypasses approval requirements" is enabled, or the API key lacks delete permission.
+// Permanently deletes a Feature Flag and all of its revisions. The caller needs Archive & delete access. Deleting a live Feature Flag also requires Publish access for every environment where it is enabled and the organization setting "REST API always bypasses approval requirements". Otherwise, archive the Feature Flag before deleting it.
 //
 // Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 func (s *FeaturesV1) Delete(ctx context.Context, request operations.DeleteFeatureRequest, opts ...operations.Option) (*operations.DeleteFeatureResponse, error) {
@@ -850,9 +846,7 @@ func (s *FeaturesV1) Delete(ctx context.Context, request operations.DeleteFeatur
 // Toggle a feature in one or more environments
 // **Deprecated.** Use [POST /v2/features/:id/toggle](#operation/toggleFeatureV2) instead.
 //
-// Enables or disables a feature in one or more environments simultaneously. Accepts a map of environment name → boolean and immediately publishes the change.
-//
-// Returns 403 if the API key lacks permission or if approval rules are enabled for an affected environment and the org setting "REST API always bypasses approval requirements" is off.
+// Enables or disables a Feature Flag in one or more environments and immediately publishes the change. The caller needs Publish access for every environment in the request. When approval is required, use a draft revision instead, unless the caller can bypass draft approvals.
 //
 // Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 func (s *FeaturesV1) Toggle(ctx context.Context, request operations.ToggleFeatureRequest, opts ...operations.Option) (*operations.ToggleFeatureResponse, error) {
@@ -1008,11 +1002,9 @@ func (s *FeaturesV1) Toggle(ctx context.Context, request operations.ToggleFeatur
 // Revert a feature to a specific revision
 // **Deprecated.** Use [POST /v2/features/:id/revert](#operation/revertFeatureV2) instead.
 //
-// Creates a new revision whose rules and values match a previously-published revision, then immediately publishes it. This leaves a clear audit trail of the revert action in the revision history.
+// Restores a previously published revision and immediately publishes the result as a new revision. The caller needs Revert access for every affected environment. When approval is required, the request is allowed only if the caller holds the `FlagsBypassApprovals` policy, or the organization enables either "REST API always bypasses approval requirements" or "Allow reverts without approval".
 //
-// Returns 403 if the API key lacks permission, or if approval rules are enabled for an affected environment and neither the "REST API always bypasses approval requirements" nor the "Allow reverts without approval" org setting is enabled.
-//
-// Returns 422 with a list of `warnings` if the restored values no longer validate against the feature's current value type or JSON schema. Re-submit with `?ignoreWarnings=true` to revert anyway.
+// If the restored values no longer match the Feature Flag's current value type or JSON schema, the API returns 422 with `warnings`. Send `"ignoreWarnings": true` to acknowledge those warnings and continue.
 //
 // Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 func (s *FeaturesV1) Revert(ctx context.Context, request operations.RevertFeatureRequest, opts ...operations.Option) (*operations.RevertFeatureResponse, error) {

@@ -1,10 +1,12 @@
 ## growthbook constants
 
-Reusable named values referenced from feature flag values as `@const:key` and resolved into the SDK payload at build time
+**Beta** — these endpoints are new and may change in backwards-incompatible ways
 
 ### Synopsis
 
-Reusable named values referenced from feature flag values as `@const:key` and resolved into the SDK payload at build time. String constants are interpolated via `{ { @const:key } }`; JSON (object) constants are composed via an `$extends` array.
+**Beta** — these endpoints are new and may change in backwards-incompatible ways.
+
+Reusable named values referenced from feature flag values as `@const:key` and resolved into the SDK payload at build time. String constants are interpolated via `{ { @const:key } }`; JSON (object) constants are composed via an `$extends` array. A constant's own keys **replace** what its `$extends` bases provide, wholesale — constants are atomic building blocks. (Config and feature values compose as deep, targeted patches instead.)
 
 ```
 growthbook constants [flags]

@@ -3,27 +3,13 @@
 package operations
 
 import (
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
-type StopContextualBanditRequestBody struct {
-}
-
 type StopContextualBanditRequest struct {
-	ID   string                           `pathParam:"style=simple,explode=false,name=id"`
-	Body *StopContextualBanditRequestBody `request:"mediaType=application/json"`
-}
-
-func (s StopContextualBanditRequest) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *StopContextualBanditRequest) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
-		return err
-	}
-	return nil
+	// The Contextual Bandit id
+	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
 func (s *StopContextualBanditRequest) GetID() string {
@@ -31,13 +17,6 @@ func (s *StopContextualBanditRequest) GetID() string {
 		return ""
 	}
 	return s.ID
-}
-
-func (s *StopContextualBanditRequest) GetBody() *StopContextualBanditRequestBody {
-	if s == nil {
-		return nil
-	}
-	return s.Body
 }
 
 // StopContextualBanditResponseBody - Resource created

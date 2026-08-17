@@ -6,9 +6,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"time"
 )
 
@@ -1006,10 +1006,61 @@ func (p *PostExperimentCustomMetricSlice) GetSlices() []PostExperimentSlice {
 	return p.Slices
 }
 
-// PostExperimentStatusUpdateSchedule - Schedule a future start for a draft experiment. Only `startAt` is currently supported.
+type PostExperimentUnit string
+
+const (
+	PostExperimentUnitHours PostExperimentUnit = "hours"
+	PostExperimentUnitDays  PostExperimentUnit = "days"
+)
+
+func (e PostExperimentUnit) ToPointer() *PostExperimentUnit {
+	return &e
+}
+func (e *PostExperimentUnit) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "hours":
+		fallthrough
+	case "days":
+		*e = PostExperimentUnit(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PostExperimentUnit: %v", v)
+	}
+}
+
+// PostExperimentStopAfter - Relative end offset. Deferred: resolved to a concrete `stopAt` at the experiment's actual start (or off `dateStarted` when already running).
+type PostExperimentStopAfter struct {
+	Value int64              `json:"value"`
+	Unit  PostExperimentUnit `json:"unit"`
+}
+
+func (p *PostExperimentStopAfter) GetValue() int64 {
+	if p == nil {
+		return 0
+	}
+	return p.Value
+}
+
+func (p *PostExperimentStopAfter) GetUnit() PostExperimentUnit {
+	if p == nil {
+		return PostExperimentUnit("")
+	}
+	return p.Unit
+}
+
 type PostExperimentStatusUpdateSchedule struct {
 	// ISO datetime when the experiment should start. Must be in the future. Setting or clearing this field invalidates any existing staged start (`nextScheduledStatusUpdate`); call POST /experiments/{id}/start to stage the new schedule.
-	StartAt time.Time `json:"startAt"`
+	StartAt *time.Time `json:"startAt,omitzero"`
+	// ISO datetime when the experiment should stop. Resolved from `stopAfter` at start when a relative end was set.
+	StopAt *time.Time `json:"stopAt,omitzero"`
+	// Relative end offset. Deferred: resolved to a concrete `stopAt` at the experiment's actual start (or off `dateStarted` when already running).
+	StopAfter *PostExperimentStopAfter `json:"stopAfter,omitzero"`
+	// What happens at the scheduled end date. `notify` keeps the experiment running and just notifies (soft). `auto-ship` (requires the Decision Framework) ships the winning variation and stops; multi-winner ties break on `tiebreakerMetricId` (higher lift); with no clear winner, `fallback` either keeps running (`notify`) or ships `fallbackVariationId`. `force-ship` stops and rolls out `fallbackVariationId`. `stop` is a hard deadline that stops with no rollout. For `force-ship` and `stop`, the Decision Framework verdict (won/lost/inconclusive) is recorded as metadata when available.
+	ScheduledStopPlan *components.ScheduledStopPlan `json:"scheduledStopPlan,omitzero"`
 }
 
 func (p PostExperimentStatusUpdateSchedule) MarshalJSON() ([]byte, error) {
@@ -1023,11 +1074,32 @@ func (p *PostExperimentStatusUpdateSchedule) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (p *PostExperimentStatusUpdateSchedule) GetStartAt() time.Time {
+func (p *PostExperimentStatusUpdateSchedule) GetStartAt() *time.Time {
 	if p == nil {
-		return time.Time{}
+		return nil
 	}
 	return p.StartAt
+}
+
+func (p *PostExperimentStatusUpdateSchedule) GetStopAt() *time.Time {
+	if p == nil {
+		return nil
+	}
+	return p.StopAt
+}
+
+func (p *PostExperimentStatusUpdateSchedule) GetStopAfter() *PostExperimentStopAfter {
+	if p == nil {
+		return nil
+	}
+	return p.StopAfter
+}
+
+func (p *PostExperimentStatusUpdateSchedule) GetScheduledStopPlan() *components.ScheduledStopPlan {
+	if p == nil {
+		return nil
+	}
+	return p.ScheduledStopPlan
 }
 
 type PostExperimentRequest struct {
@@ -1102,10 +1174,11 @@ type PostExperimentRequest struct {
 	DefaultDashboardID *string           `json:"defaultDashboardId,omitzero"`
 	CustomFields       map[string]string `json:"customFields,omitzero"`
 	// Custom slices that apply to ALL applicable metrics in the experiment
-	CustomMetricSlices          []PostExperimentCustomMetricSlice `json:"customMetricSlices,omitzero"`
-	PrecomputedUnitDimensionIds []string                          `json:"precomputedUnitDimensionIds,omitzero"`
-	// Schedule a future start for a draft experiment. Only `startAt` is currently supported.
-	StatusUpdateSchedule *PostExperimentStatusUpdateSchedule `json:"statusUpdateSchedule,omitzero"`
+	CustomMetricSlices          []PostExperimentCustomMetricSlice   `json:"customMetricSlices,omitzero"`
+	PrecomputedUnitDimensionIds []string                            `json:"precomputedUnitDimensionIds,omitzero"`
+	StatusUpdateSchedule        *PostExperimentStatusUpdateSchedule `json:"statusUpdateSchedule,omitzero"`
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
 }
 
 func (p PostExperimentRequest) MarshalJSON() ([]byte, error) {
@@ -1488,6 +1561,13 @@ func (p *PostExperimentRequest) GetStatusUpdateSchedule() *PostExperimentStatusU
 		return nil
 	}
 	return p.StatusUpdateSchedule
+}
+
+func (p *PostExperimentRequest) GetIgnoreWarnings() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.IgnoreWarnings
 }
 
 // PostExperimentResponseBody - Resource created

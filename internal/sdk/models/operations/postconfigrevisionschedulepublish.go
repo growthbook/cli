@@ -3,18 +3,37 @@
 package operations
 
 import (
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
+	"time"
 )
 
 type PostConfigRevisionSchedulePublishRequestBody struct {
-	ScheduledPublishAt *string `json:"scheduledPublishAt"`
-	LockEdits          *bool   `json:"lockEdits,omitzero"`
-	LockOthers         *bool   `json:"lockOthers,omitzero"`
-	BypassApproval     *bool   `json:"bypassApproval,omitzero"`
+	// When to publish, as an RFC3339 timestamp (e.g. `2026-01-31T09:00:00Z` or `2026-01-31T02:00:00-07:00`), or `null` to cancel a pending schedule.
+	ScheduledPublishAt *time.Time `json:"scheduledPublishAt"`
+	LockEdits          *bool      `json:"lockEdits,omitzero"`
+	LockOthers         *bool      `json:"lockOthers,omitzero"`
+	BypassApproval     *bool      `json:"bypassApproval,omitzero"`
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
+	// Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	SkipSchemaValidation *bool `json:"skipSchemaValidation,omitzero"`
+	// Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	SkipHooks *bool `json:"skipHooks,omitzero"`
 }
 
-func (p *PostConfigRevisionSchedulePublishRequestBody) GetScheduledPublishAt() *string {
+func (p PostConfigRevisionSchedulePublishRequestBody) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostConfigRevisionSchedulePublishRequestBody) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PostConfigRevisionSchedulePublishRequestBody) GetScheduledPublishAt() *time.Time {
 	if p == nil {
 		return nil
 	}
@@ -40,6 +59,27 @@ func (p *PostConfigRevisionSchedulePublishRequestBody) GetBypassApproval() *bool
 		return nil
 	}
 	return p.BypassApproval
+}
+
+func (p *PostConfigRevisionSchedulePublishRequestBody) GetIgnoreWarnings() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.IgnoreWarnings
+}
+
+func (p *PostConfigRevisionSchedulePublishRequestBody) GetSkipSchemaValidation() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.SkipSchemaValidation
+}
+
+func (p *PostConfigRevisionSchedulePublishRequestBody) GetSkipHooks() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.SkipHooks
 }
 
 type PostConfigRevisionSchedulePublishRequest struct {

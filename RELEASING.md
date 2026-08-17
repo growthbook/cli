@@ -22,13 +22,17 @@ auto-tag: push v<version>   (.github/workflows/auto-tag.yaml, via RELEASE_TAG_PA
 release: GoReleaser builds binaries + GitHub Release, then npm shim publishes   (release.yaml)
 ```
 
+> **The auto-tag step is dormant today** — `RELEASE_AUTOMATION` is unset, so merging a
+> generation PR stops the pipeline there. Push the `v<version>` tag by hand to release; see
+> [Manual / prerelease releases](#manual--prerelease-releases).
+
 The **git tag `v<version>` is the single source of truth** for what gets published.
 Everything downstream (binary version, npm version, dist-tag) is derived from it.
 
 ## Versioning
 
 - **Independent semver, starting at 1.0.0.** The CLI version is *not* tied to the
-  GrowthBook app version (the app is 4.x; the CLI is 1.x). They version separately.
+  GrowthBook app version (the app is 5.x; the CLI is 1.x). They version separately.
 - **The bump tracks the spec**, classified automatically by Speakeasy:
   - **major** — a breaking change (endpoint/field removed or renamed, a new required
     input, a type change).
@@ -102,7 +106,9 @@ Speakeasy's version bump correct?**
    - or locally: `speakeasy bump major` (or `minor`/`patch`/`-v X.Y.Z`), then commit.
 
    The override replaces the bot's PR; review the new one.
-4. **Approve + merge.** Merging is what triggers the tag and publish — so only merge when
+4. **Update [CHANGELOG.md](CHANGELOG.md)** — see below. The bot never writes it, so if you don't,
+   nobody does.
+5. **Approve + merge.** Merging is what triggers the tag and publish — so only merge when
    you're ready for that version to ship.
 
 If a change *should* have been breaking but the spec was written in a backward-compatible
@@ -126,6 +132,72 @@ Beyond the version bump, generation PRs can silently regress two hand-maintained
   override is added. When the spec diff shows a new operation in such a group, add the
   override in the same PR.
 
+### The changelog
+
+[CHANGELOG.md](CHANGELOG.md) is **hand-curated and reviewer-owned.** Generation PRs are
+bot-authored, so no entry appears unless a human adds one during review. It is not generated and
+not tracked in `gen.lock`, so `speakeasy run` will never touch it.
+
+Add entries to the `## [Unreleased]` section **in the generation PR itself**, so the change and its
+description land together. At release time, rename that heading to the version and date
+(`## [2.1.0] - 2026-09-01`) and open a fresh `## [Unreleased]`.
+
+Record what a **user** would notice, not generated-code churn:
+
+- Commands or flags **added, renamed, or removed** (a rename table is worth the space — see the
+  2.0.0 entry).
+- Changed request/response shapes that alter flags or output.
+- Install or distribution changes (e.g. the `/vN` `go install` path at a major).
+
+Two cases are **mandatory**, because the whole point of the bump is to warn people:
+
+- **Any breaking change**, with the migration spelled out. `--merge-now` being removed is only
+  actionable if the entry says so.
+- **Re-pointing a base command group to a newer endpoint version** (e.g. `features` → v3). Scripts
+  calling the bare command silently start receiving a different response shape, so this needs an
+  explicit callout telling users to pin the prior major or move to the `-vN` command.
+
+Skip pure codegen/dependency bumps — if a patch release changes nothing a user can observe, it
+needs no entry. (That matches the upgrade prompt, which is silent on patch bumps.)
+
+GoReleaser builds GitHub release notes from commits independently; the changelog is the curated
+human-facing view, not a duplicate of that.
+
+### A major bump also changes the Go module path
+
+At major ≥ 2 the module becomes `github.com/growthbook/cli/vN`, and Speakeasy rewrites imports
+**only in the code it generates**. Three of our own layers must be migrated by hand in the same PR
+or generation fails — or, worse, succeeds while quietly broken:
+
+1. **The three patches that embed the module path.**
+   `cmd/growthbook/main.go.patch` and `internal/cli/whoami.go.patch` fail loudly (import lines sit
+   in their hunk *context*). `.speakeasy/patches/.goreleaser.yaml.patch` **applies cleanly but
+   silently stops working** — `go build` ignores an `-X` flag whose symbol path doesn't resolve, so
+   released binaries would report an empty version and the update advisory would go dead. Grep
+   *every* patch for the module path, not just the ones that conflicted.
+2. **The seven hand-written files** Speakeasy never touches:
+   `internal/cli/custom_{generatetypes,profiles,startup,whoami}.go` and
+   `internal/customcfg/{customcfg,customcfg_test,updatecheck}.go`.
+3. **`npm/README.md`'s `go install` line.** (The one in the top-level `README.md` *is* regenerated.)
+
+Anchor the substitution on the quoted import prefix (`"github.com/growthbook/cli/internal/`) or on
+`-X ` — a blind replace corrupts the `…/cli/blob/main/MIGRATION.md` URL in `customcfg.go`.
+
+To confirm the ldflags actually resolve, drop a temporary test in `internal/customcfg` that logs
+`Version`/`SpecDate`, run it under `go test -ldflags "-X <module>/internal/customcfg.Version=X"`,
+and check it prints `X` rather than `dev`.
+
+> Speakeasy ≤ 1.791.0 half-applied the `/vN` suffix itself and could not produce a compiling CLI at
+> major ≥ 2; fixed in **1.791.1**. Keep the generator at ≥ 1.791.1 for any major.
+
+### Verify the generator version actually changed
+
+After editing `speakeasyVersion` in `workflow.yaml`, check that **`.speakeasy/workflow.lock`**
+records the new version. A failed self-download is a non-fatal warning
+(`Failed to download ... unable to rename running executable`) and generation **silently continues
+on the previously pinned version** — which looks exactly like "the new version didn't fix it". If
+it happens, download the release zip and copy the binary to `~/.speakeasy/<version>/bin/speakeasy`.
+
 ## Mechanics (files involved)
 
 | Concern | Where |
@@ -143,17 +215,17 @@ Beyond the version bump, generation PRs can silently regress two hand-maintained
 | _(none for npm)_ | — | npm publishes via **OIDC trusted publishing** — no token. `release.yaml` grants `id-token: write`; the npm↔GitHub trust relationship is configured on npmjs.com. |
 | `RELEASE_TAG_PAT` | secret | push the tag from `auto-tag.yaml` so `release.yaml` fires (see gotcha) |
 | `SPEAKEASY_API_KEY` | secret | generation |
-| `RELEASE_AUTOMATION` | variable | set to `true` to arm `auto-tag.yaml` (off during `@next` staging) |
+| `RELEASE_AUTOMATION` | variable | set to `true` to arm `auto-tag.yaml` (**currently unset** — tags are pushed by hand) |
 
 > **npm OIDC notes:** trusted publishing needs npm ≥ 11.5.1 (newer than Node 20's bundled npm), so
 > the publish step runs `npm install -g npm@latest` first. The npm trust relationship is scoped to a
-> specific workflow — **when we move to the `auto-tag` → `release` flow at GA, the trust config must
-> be updated** to match (owner action).
+> specific workflow — **before arming `RELEASE_AUTOMATION`, confirm the trust config matches the
+> `auto-tag` → `release` flow** (owner action).
 
 ## Manual / prerelease releases
 
-Automatic versioning emits **stable** semver, so prereleases are cut by hand. This is the
-path during `@next` staging (keep `RELEASE_AUTOMATION` unset so auto-tag stays dormant):
+Automatic versioning emits **stable** semver, so prereleases are cut by hand. **This is also the
+current release path for stable versions**, because `RELEASE_AUTOMATION` is not yet armed:
 
 ```bash
 git tag v1.0.0-next.0
@@ -165,14 +237,18 @@ npm view growthbook dist-tags          # confirm
 A human-pushed tag triggers `release.yaml` directly (no PAT needed — the recursion block
 below only applies to tags pushed *by a workflow*).
 
-At GA cutover: push the current version as a **plain tag** (no `-next` suffix), which
-publishes to `latest`; then deprecate the old line:
-`npm deprecate 'growthbook@<0.3' "v1 is a rewrite; see MIGRATION.md"`.
+Push a **plain tag** (no `-next` suffix) to publish to `latest`. Promoting a validated
+prerelease to stable on the same commit is supported: `GORELEASER_CURRENT_TAG` pins the pushed
+ref, so a co-located `v1.2.3-next.N` tag no longer confuses GoReleaser's tag resolution.
 
-> **Until `RELEASE_AUTOMATION` is armed, this manual flow is also the post-GA release
-> path: merging a generation PR does NOT ship anything — after merge, hand-push the
-> `v<version>` tag matching the PR's version bump.** Arming the automation is tracked as a
-> post-GA improvement.
+> **`RELEASE_AUTOMATION` is not armed, so this manual flow is the current release path:
+> merging a generation PR does NOT ship anything — after merge, hand-push the `v<version>`
+> tag matching the PR's version bump.** Arming the automation is tracked as a post-GA
+> improvement.
+
+> **Never delete a published release's git tag** to resolve a collision — deleting it flips the
+> GitHub Release to draft and 404s its `releases/download/<tag>/…` assets, which breaks the npm
+> shim's postinstall for anyone on that dist-tag. Cut a fresh commit and tag that instead.
 
 ## Gotchas
 

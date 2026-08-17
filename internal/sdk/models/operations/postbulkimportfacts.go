@@ -5,8 +5,8 @@ package operations
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 // FactTableManagedBy - Set this to "api" to disable editing in the GrowthBook UI
@@ -57,6 +57,8 @@ type FactTableData struct {
 	SQL string `json:"sql"`
 	// The event name used in SQL template variables
 	EventName *string `json:"eventName,omitzero"`
+	// Optional array of column definitions for this fact table. On create, columns are stored as-is. On update, columns upsert by `column`: existing columns are patched, new columns are created, and columns not included are left unchanged. Omit `datatype` to leave an existing column's type untouched; send "" to reset it for auto-detection; new columns are auto-detected when `datatype` is omitted or "". Datatype-dependent properties (e.g. `alwaysInlineFilter`) are validated once the datatype is known. Slice-related properties require an enterprise license.
+	Columns []components.FactTableColumnInput `json:"columns,omitzero"`
 	// Set this to "api" to disable editing in the GrowthBook UI
 	ManagedBy *FactTableManagedBy `json:"managedBy,omitzero"`
 }
@@ -133,6 +135,13 @@ func (f *FactTableData) GetEventName() *string {
 		return nil
 	}
 	return f.EventName
+}
+
+func (f *FactTableData) GetColumns() []components.FactTableColumnInput {
+	if f == nil {
+		return nil
+	}
+	return f.Columns
 }
 
 func (f *FactTableData) GetManagedBy() *FactTableManagedBy {
@@ -336,6 +345,8 @@ const (
 	PostBulkImportFactsNumeratorOperatorLessThan         PostBulkImportFactsNumeratorOperator = "<"
 	PostBulkImportFactsNumeratorOperatorGreaterThanEqual PostBulkImportFactsNumeratorOperator = ">="
 	PostBulkImportFactsNumeratorOperatorLessThanEqual    PostBulkImportFactsNumeratorOperator = "<="
+	PostBulkImportFactsNumeratorOperatorBetween          PostBulkImportFactsNumeratorOperator = "between"
+	PostBulkImportFactsNumeratorOperatorNotBetween       PostBulkImportFactsNumeratorOperator = "not_between"
 	PostBulkImportFactsNumeratorOperatorIn               PostBulkImportFactsNumeratorOperator = "in"
 	PostBulkImportFactsNumeratorOperatorNotIn            PostBulkImportFactsNumeratorOperator = "not_in"
 	PostBulkImportFactsNumeratorOperatorIsNull           PostBulkImportFactsNumeratorOperator = "is_null"
@@ -371,6 +382,10 @@ func (e *PostBulkImportFactsNumeratorOperator) UnmarshalJSON(data []byte) error 
 		fallthrough
 	case "<=":
 		fallthrough
+	case "between":
+		fallthrough
+	case "not_between":
+		fallthrough
 	case "in":
 		fallthrough
 	case "not_in":
@@ -403,7 +418,7 @@ func (e *PostBulkImportFactsNumeratorOperator) UnmarshalJSON(data []byte) error 
 
 type PostBulkImportFactsNumeratorRowFilter struct {
 	Operator PostBulkImportFactsNumeratorOperator `json:"operator"`
-	// Not required for is_null, not_null, is_true, is_false operators.
+	// Not required for is_null, not_null, is_true, is_false operators. The between and not_between operators take at most two values, a lower and an upper bound in that order; leave a bound as an empty string for an open-ended range.
 	Values []string `json:"values,omitzero"`
 	// Required for all operators except sql_expr and saved_filter.
 	Column *string `json:"column,omitzero"`
@@ -575,6 +590,8 @@ const (
 	PostBulkImportFactsDenominatorOperatorLessThan         PostBulkImportFactsDenominatorOperator = "<"
 	PostBulkImportFactsDenominatorOperatorGreaterThanEqual PostBulkImportFactsDenominatorOperator = ">="
 	PostBulkImportFactsDenominatorOperatorLessThanEqual    PostBulkImportFactsDenominatorOperator = "<="
+	PostBulkImportFactsDenominatorOperatorBetween          PostBulkImportFactsDenominatorOperator = "between"
+	PostBulkImportFactsDenominatorOperatorNotBetween       PostBulkImportFactsDenominatorOperator = "not_between"
 	PostBulkImportFactsDenominatorOperatorIn               PostBulkImportFactsDenominatorOperator = "in"
 	PostBulkImportFactsDenominatorOperatorNotIn            PostBulkImportFactsDenominatorOperator = "not_in"
 	PostBulkImportFactsDenominatorOperatorIsNull           PostBulkImportFactsDenominatorOperator = "is_null"
@@ -610,6 +627,10 @@ func (e *PostBulkImportFactsDenominatorOperator) UnmarshalJSON(data []byte) erro
 		fallthrough
 	case "<=":
 		fallthrough
+	case "between":
+		fallthrough
+	case "not_between":
+		fallthrough
 	case "in":
 		fallthrough
 	case "not_in":
@@ -642,7 +663,7 @@ func (e *PostBulkImportFactsDenominatorOperator) UnmarshalJSON(data []byte) erro
 
 type PostBulkImportFactsDenominatorRowFilter struct {
 	Operator PostBulkImportFactsDenominatorOperator `json:"operator"`
-	// Not required for is_null, not_null, is_true, is_false operators.
+	// Not required for is_null, not_null, is_true, is_false operators. The between and not_between operators take at most two values, a lower and an upper bound in that order; leave a bound as an empty string for an open-ended range.
 	Values []string `json:"values,omitzero"`
 	// Required for all operators except sql_expr and saved_filter.
 	Column *string `json:"column,omitzero"`

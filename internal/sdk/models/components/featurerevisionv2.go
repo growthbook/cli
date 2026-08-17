@@ -6,9 +6,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
-	"github.com/growthbook/cli/internal/sdk/types"
+	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/types"
 	"time"
 )
 
@@ -2337,6 +2337,8 @@ func (r *Review) GetTimestamp() time.Time {
 }
 
 type FeatureRevisionV2 struct {
+	// Stable revision id. Newer revisions carry opaque ids; older ones a derived `frev_<version>_<featureId>` form. Both work wherever revision ids are accepted.
+	ID string `json:"id"`
 	// The feature this revision belongs to
 	FeatureID   string    `json:"featureId"`
 	BaseVersion int64     `json:"baseVersion"`
@@ -2373,10 +2375,16 @@ type FeatureRevisionV2 struct {
 	ScheduledPublishLockEdits *bool `json:"scheduledPublishLockEdits,omitzero"`
 	// When true, publishing other drafts of this feature is blocked while the schedule is pending.
 	ScheduledPublishLockOthers *bool `json:"scheduledPublishLockOthers,omitzero"`
-	// When true, this schedule was armed by an admin via the bypass-approval override. It cannot be edited inline (only canceled and re-armed) and anyone with publish authority may cancel it.
+	// Whether the schedule was created for an unapproved draft by a caller with Bypass draft approvals access. This kind of schedule cannot be edited; cancel it and create a new schedule instead. Anyone with Publish access can cancel it.
 	ScheduledPublishBypassApproval *bool `json:"scheduledPublishBypassApproval,omitzero"`
 	// Set when a due scheduled publish keeps failing (e.g. still awaiting approval, merge conflict). Indicates the schedule is stuck and retrying.
 	ScheduledPublishLastError *string `json:"scheduledPublishLastError,omitzero"`
+	// User the deferred publish will run as. Its authority is re-checked when the publish fires.
+	AutoPublishEnabledBy *string `json:"autoPublishEnabledBy,omitzero"`
+	// How many times the poller has tried to publish this revision. Read with `scheduledPublishGaveUpAt` to tell a schedule that is still retrying from one that has been parked.
+	ScheduledPublishAttempts *int64 `json:"scheduledPublishAttempts,omitzero"`
+	// When the poller stopped retrying. Giving up CLEARS the schedule and disarms auto-publish, so nothing fires again until the revision is re-armed. The draft is left open, with `scheduledPublishLastError` preserved for context.
+	ScheduledPublishGaveUpAt *time.Time `json:"scheduledPublishGaveUpAt,omitzero"`
 	// Reviewer verdicts for the current review cycle (one entry per reviewer). Verdicts flip to their -stale variants when draft content changes after submission; the list is cleared when a new review cycle starts. Absent on revisions that predate this field.
 	Reviews []Review `json:"reviews,omitzero"`
 }
@@ -2390,6 +2398,13 @@ func (f *FeatureRevisionV2) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (f *FeatureRevisionV2) GetID() string {
+	if f == nil {
+		return ""
+	}
+	return f.ID
 }
 
 func (f *FeatureRevisionV2) GetFeatureID() string {
@@ -2551,6 +2566,27 @@ func (f *FeatureRevisionV2) GetScheduledPublishLastError() *string {
 		return nil
 	}
 	return f.ScheduledPublishLastError
+}
+
+func (f *FeatureRevisionV2) GetAutoPublishEnabledBy() *string {
+	if f == nil {
+		return nil
+	}
+	return f.AutoPublishEnabledBy
+}
+
+func (f *FeatureRevisionV2) GetScheduledPublishAttempts() *int64 {
+	if f == nil {
+		return nil
+	}
+	return f.ScheduledPublishAttempts
+}
+
+func (f *FeatureRevisionV2) GetScheduledPublishGaveUpAt() *time.Time {
+	if f == nil {
+		return nil
+	}
+	return f.ScheduledPublishGaveUpAt
 }
 
 func (f *FeatureRevisionV2) GetReviews() []Review {

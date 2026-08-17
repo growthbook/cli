@@ -6,8 +6,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"time"
 )
 
@@ -25,9 +25,11 @@ const (
 	ConstantRevisionActivityLogEntryActionMerged                   ConstantRevisionActivityLogEntryAction = "merged"
 	ConstantRevisionActivityLogEntryActionDiscarded                ConstantRevisionActivityLogEntryAction = "discarded"
 	ConstantRevisionActivityLogEntryActionReopened                 ConstantRevisionActivityLogEntryAction = "reopened"
+	ConstantRevisionActivityLogEntryActionRecalled                 ConstantRevisionActivityLogEntryAction = "recalled"
 	ConstantRevisionActivityLogEntryActionScheduledPublish         ConstantRevisionActivityLogEntryAction = "scheduled-publish"
 	ConstantRevisionActivityLogEntryActionScheduledPublishUpdated  ConstantRevisionActivityLogEntryAction = "scheduled-publish-updated"
 	ConstantRevisionActivityLogEntryActionScheduledPublishCanceled ConstantRevisionActivityLogEntryAction = "scheduled-publish-canceled"
+	ConstantRevisionActivityLogEntryActionMergeRecovered           ConstantRevisionActivityLogEntryAction = "merge-recovered"
 )
 
 func (e ConstantRevisionActivityLogEntryAction) ToPointer() *ConstantRevisionActivityLogEntryAction {
@@ -38,7 +40,7 @@ func (e ConstantRevisionActivityLogEntryAction) ToPointer() *ConstantRevisionAct
 func (e *ConstantRevisionActivityLogEntryAction) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "created", "updated", "reviewed", "approved", "requested-changes", "commented", "review-requested", "review-retracted", "merged", "discarded", "reopened", "scheduled-publish", "scheduled-publish-updated", "scheduled-publish-canceled":
+		case "created", "updated", "reviewed", "approved", "requested-changes", "commented", "review-requested", "review-retracted", "merged", "discarded", "reopened", "recalled", "scheduled-publish", "scheduled-publish-updated", "scheduled-publish-canceled", "merge-recovered":
 			return true
 		}
 	}

@@ -4,7 +4,7 @@ Unarchive a single saved group
 
 ### Synopsis
 
-Unarchive a single saved group
+Unarchives a Saved Group. When approval is required, create and publish an unarchive revision instead, or use a caller with Bypass draft approvals access. A successful response lists any skipped gates in `bypassedGates`.
 
 ```
 growthbook saved-groups unarchive [flags]

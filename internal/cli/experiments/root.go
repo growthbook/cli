@@ -3,7 +3,7 @@
 package experiments
 
 import (
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -57,6 +57,10 @@ func InitExperimentsRoot(parent *cobra.Command) error {
 	}
 
 	if err := initStopCmd(ExperimentsCmd); err != nil {
+		return err
+	}
+
+	if err := initSetScheduleCmd(ExperimentsCmd); err != nil {
 		return err
 	}
 

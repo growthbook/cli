@@ -4,8 +4,8 @@ package sdkerrors
 
 import (
 	"encoding/json"
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
 )
 
 // UpdateExperimentPendingDraftPublishFailedError - One or more linked feature drafts could not be published

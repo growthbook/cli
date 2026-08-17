@@ -53,7 +53,7 @@ the previous v1 surface is still available under `features-v1` (deprecated).
 **stderr** (never stdout, so piped JSON stays clean). Prefer the plain `features` group, which
 targets the v2 API. When a future API version lands, `features` advances to it and the prior
 version becomes the next `features-vN`. Re-pointing the base command that way is a **breaking
-change**: it ships as a **major version** with the change called out in the changelog, so you can
+change**: it ships as a **major version** with the change called out in the [changelog](CHANGELOG.md), so you can
 pin the prior major (or switch to the explicit `features-vN` command) on your own schedule.
 
 ## `generate-types`

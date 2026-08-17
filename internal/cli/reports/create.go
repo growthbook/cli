@@ -4,13 +4,13 @@ package reports
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/internal/client"
-	"github.com/growthbook/cli/internal/flagutil"
-	"github.com/growthbook/cli/internal/interactive"
-	"github.com/growthbook/cli/internal/output"
-	"github.com/growthbook/cli/internal/sdk"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/client"
+	"github.com/growthbook/cli/v2/internal/flagutil"
+	"github.com/growthbook/cli/v2/internal/interactive"
+	"github.com/growthbook/cli/v2/internal/output"
+	"github.com/growthbook/cli/v2/internal/sdk"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -18,6 +18,7 @@ var createCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "experiment-id", Shorthand: "e", FieldPath: "ExperimentID", Kind: flagutil.FlagKindString, Required: true, Description: "The experiment to create a report for [required]"},
 	{FlagName: "title", Shorthand: "t", FieldPath: "Title", Kind: flagutil.FlagKindString, Optional: true, Description: "Report title (defaults to experiment name)"},
 	{FlagName: "description", FieldPath: "Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Report description"},
+	{FlagName: "owner", FieldPath: "Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the user associated with the request's Personal Access Token (PAT), if one is being used."},
 	{FlagName: "stats-engine", FieldPath: "StatsEngine", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"bayesian", "frequentist"}, Description: "Stats engine override (options: bayesian, frequentist)"},
 	{FlagName: "goal-metrics", FieldPath: "GoalMetrics", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Goal metric IDs (defaults to experiment's goal metrics)"},
 	{FlagName: "secondary-metrics", FieldPath: "SecondaryMetrics", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Secondary metric IDs (defaults to experiment's secondary metrics)"},

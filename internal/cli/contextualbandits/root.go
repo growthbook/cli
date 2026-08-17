@@ -3,7 +3,7 @@
 package contextualbandits
 
 import (
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -21,35 +21,43 @@ func InitContextualBanditsRoot(parent *cobra.Command) error {
 		Aliases: []string{"cb"},
 	}
 
-	if err := initGetContextualBanditCurrentWeightsCmd(ContextualBanditsCmd); err != nil {
+	if err := initGetCurrentWeightsCmd(ContextualBanditsCmd); err != nil {
 		return err
 	}
 
-	if err := initListContextualBanditSnapshotsCmd(ContextualBanditsCmd); err != nil {
+	if err := initListSnapshotsCmd(ContextualBanditsCmd); err != nil {
 		return err
 	}
 
-	if err := initGetContextualBanditSnapshotCmd(ContextualBanditsCmd); err != nil {
+	if err := initGetSnapshotCmd(ContextualBanditsCmd); err != nil {
 		return err
 	}
 
-	if err := initListContextualBanditEventsCmd(ContextualBanditsCmd); err != nil {
+	if err := initListEventsCmd(ContextualBanditsCmd); err != nil {
 		return err
 	}
 
-	if err := initGetContextualBanditEventCmd(ContextualBanditsCmd); err != nil {
+	if err := initGetEventCmd(ContextualBanditsCmd); err != nil {
 		return err
 	}
 
-	if err := initGetContextualBanditResultsCmd(ContextualBanditsCmd); err != nil {
+	if err := initGetResultsCmd(ContextualBanditsCmd); err != nil {
 		return err
 	}
 
-	if err := initGetContextualBanditLinkedFeaturesCmd(ContextualBanditsCmd); err != nil {
+	if err := initListLinkedFeaturesCmd(ContextualBanditsCmd); err != nil {
 		return err
 	}
 
-	if err := initDeleteContextualBanditLinkedFeatureCmd(ContextualBanditsCmd); err != nil {
+	if err := initAddLinkedFeatureCmd(ContextualBanditsCmd); err != nil {
+		return err
+	}
+
+	if err := initUpdateLinkedFeatureCmd(ContextualBanditsCmd); err != nil {
+		return err
+	}
+
+	if err := initDeleteLinkedFeatureCmd(ContextualBanditsCmd); err != nil {
 		return err
 	}
 
@@ -78,6 +86,10 @@ func InitContextualBanditsRoot(parent *cobra.Command) error {
 	}
 
 	if err := initRefreshContextualBanditCmd(ContextualBanditsCmd); err != nil {
+		return err
+	}
+
+	if err := initCancelContextualBanditCmd(ContextualBanditsCmd); err != nil {
 		return err
 	}
 

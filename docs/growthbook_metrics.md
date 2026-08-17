@@ -47,4 +47,5 @@ growthbook metrics [flags]
 * [growthbook metrics delete](growthbook_metrics_delete.md)	 - Deletes a metric
 * [growthbook metrics get](growthbook_metrics_get.md)	 - Get a single metric
 * [growthbook metrics list](growthbook_metrics_list.md)	 - Get all metrics
+* [growthbook metrics list-experiments](growthbook_metrics_list-experiments.md)	 - Get results for all experiments that use a metric
 * [growthbook metrics update](growthbook_metrics_update.md)	 - Update a metric

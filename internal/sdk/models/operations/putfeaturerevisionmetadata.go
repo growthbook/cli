@@ -5,8 +5,8 @@ package operations
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 type PutFeatureRevisionMetadataSchemaType string
@@ -309,6 +309,8 @@ type PutFeatureRevisionMetadataRequestBody struct {
 	NeverStale   *bool                                 `json:"neverStale,omitzero"`
 	CustomFields map[string]any                        `json:"customFields,omitzero"`
 	JSONSchema   *PutFeatureRevisionMetadataJSONSchema `json:"jsonSchema,omitzero"`
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
 }
 
 func (p PutFeatureRevisionMetadataRequestBody) MarshalJSON() ([]byte, error) {
@@ -383,6 +385,13 @@ func (p *PutFeatureRevisionMetadataRequestBody) GetJSONSchema() *PutFeatureRevis
 		return nil
 	}
 	return p.JSONSchema
+}
+
+func (p *PutFeatureRevisionMetadataRequestBody) GetIgnoreWarnings() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.IgnoreWarnings
 }
 
 type PutFeatureRevisionMetadataRequest struct {

@@ -6,8 +6,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"time"
 )
 
@@ -25,9 +25,11 @@ const (
 	SavedGroupRevisionActivityLogEntryActionMerged                   SavedGroupRevisionActivityLogEntryAction = "merged"
 	SavedGroupRevisionActivityLogEntryActionDiscarded                SavedGroupRevisionActivityLogEntryAction = "discarded"
 	SavedGroupRevisionActivityLogEntryActionReopened                 SavedGroupRevisionActivityLogEntryAction = "reopened"
+	SavedGroupRevisionActivityLogEntryActionRecalled                 SavedGroupRevisionActivityLogEntryAction = "recalled"
 	SavedGroupRevisionActivityLogEntryActionScheduledPublish         SavedGroupRevisionActivityLogEntryAction = "scheduled-publish"
 	SavedGroupRevisionActivityLogEntryActionScheduledPublishUpdated  SavedGroupRevisionActivityLogEntryAction = "scheduled-publish-updated"
 	SavedGroupRevisionActivityLogEntryActionScheduledPublishCanceled SavedGroupRevisionActivityLogEntryAction = "scheduled-publish-canceled"
+	SavedGroupRevisionActivityLogEntryActionMergeRecovered           SavedGroupRevisionActivityLogEntryAction = "merge-recovered"
 )
 
 func (e SavedGroupRevisionActivityLogEntryAction) ToPointer() *SavedGroupRevisionActivityLogEntryAction {
@@ -38,7 +40,7 @@ func (e SavedGroupRevisionActivityLogEntryAction) ToPointer() *SavedGroupRevisio
 func (e *SavedGroupRevisionActivityLogEntryAction) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "created", "updated", "reviewed", "approved", "requested-changes", "commented", "review-requested", "review-retracted", "merged", "discarded", "reopened", "scheduled-publish", "scheduled-publish-updated", "scheduled-publish-canceled":
+		case "created", "updated", "reviewed", "approved", "requested-changes", "commented", "review-requested", "review-retracted", "merged", "discarded", "reopened", "recalled", "scheduled-publish", "scheduled-publish-updated", "scheduled-publish-canceled", "merge-recovered":
 			return true
 		}
 	}

@@ -6,9 +6,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 // PostFeatureValueType - The data type of the feature payload. Boolean by default.
@@ -155,9 +155,13 @@ func (p *PostFeatureValue) GetName() *string {
 }
 
 type PostFeatureRuleExperiment struct {
-	Description *string `json:"description,omitzero"`
-	Condition   string  `json:"condition"`
-	ID          *string `json:"id,omitzero"`
+	// When true (default), the rule applies to every project the feature is delivered to. When false, `projects` scopes it.
+	AllProjects *bool `json:"allProjects,omitzero"`
+	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
+	Projects    []string `json:"projects,omitzero"`
+	Description *string  `json:"description,omitzero"`
+	Condition   string   `json:"condition"`
+	ID          *string  `json:"id,omitzero"`
 	// Enabled by default
 	Enabled *bool `json:"enabled,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
@@ -188,6 +192,20 @@ func (p *PostFeatureRuleExperiment) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (p *PostFeatureRuleExperiment) GetAllProjects() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AllProjects
+}
+
+func (p *PostFeatureRuleExperiment) GetProjects() []string {
+	if p == nil {
+		return nil
+	}
+	return p.Projects
 }
 
 func (p *PostFeatureRuleExperiment) GetDescription() *string {
@@ -433,8 +451,12 @@ func (p *PostFeatureVariation) GetVariationID() string {
 }
 
 type PostFeatureRuleExperimentRef struct {
-	Description *string `json:"description,omitzero"`
-	ID          *string `json:"id,omitzero"`
+	// When true (default), the rule applies to every project the feature is delivered to. When false, `projects` scopes it.
+	AllProjects *bool `json:"allProjects,omitzero"`
+	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
+	Projects    []string `json:"projects,omitzero"`
+	Description *string  `json:"description,omitzero"`
+	ID          *string  `json:"id,omitzero"`
 	// Enabled by default
 	Enabled *bool `json:"enabled,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
@@ -458,6 +480,20 @@ func (p *PostFeatureRuleExperimentRef) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (p *PostFeatureRuleExperimentRef) GetAllProjects() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AllProjects
+}
+
+func (p *PostFeatureRuleExperimentRef) GetProjects() []string {
+	if p == nil {
+		return nil
+	}
+	return p.Projects
 }
 
 func (p *PostFeatureRuleExperimentRef) GetDescription() *string {
@@ -631,7 +667,11 @@ func (p *PostFeaturePrerequisite2) GetCondition() string {
 // #endregion class-body-postfeatureprerequisite2
 
 type PostFeatureRuleRollout struct {
-	Description *string `json:"description,omitzero"`
+	// When true (default), the rule applies to every project the feature is delivered to. When false, `projects` scopes it.
+	AllProjects *bool `json:"allProjects,omitzero"`
+	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
+	Projects    []string `json:"projects,omitzero"`
+	Description *string  `json:"description,omitzero"`
 	// Applied to everyone by default.
 	Condition           *string                           `json:"condition,omitzero"`
 	SavedGroupTargeting []PostFeatureSavedGroupTargeting2 `json:"savedGroupTargeting,omitzero"`
@@ -662,6 +702,20 @@ func (p *PostFeatureRuleRollout) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (p *PostFeatureRuleRollout) GetAllProjects() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AllProjects
+}
+
+func (p *PostFeatureRuleRollout) GetProjects() []string {
+	if p == nil {
+		return nil
+	}
+	return p.Projects
 }
 
 func (p *PostFeatureRuleRollout) GetDescription() *string {
@@ -856,7 +910,11 @@ func (p *PostFeaturePrerequisite1) GetCondition() string {
 // #endregion class-body-postfeatureprerequisite1
 
 type PostFeatureRuleForce struct {
-	Description *string `json:"description,omitzero"`
+	// When true (default), the rule applies to every project the feature is delivered to. When false, `projects` scopes it.
+	AllProjects *bool `json:"allProjects,omitzero"`
+	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
+	Projects    []string `json:"projects,omitzero"`
+	Description *string  `json:"description,omitzero"`
 	// Applied to everyone by default.
 	Condition           *string                           `json:"condition,omitzero"`
 	SavedGroupTargeting []PostFeatureSavedGroupTargeting1 `json:"savedGroupTargeting,omitzero"`
@@ -881,6 +939,20 @@ func (p *PostFeatureRuleForce) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (p *PostFeatureRuleForce) GetAllProjects() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AllProjects
+}
+
+func (p *PostFeatureRuleForce) GetProjects() []string {
+	if p == nil {
+		return nil
+	}
+	return p.Projects
 }
 
 func (p *PostFeatureRuleForce) GetDescription() *string {
@@ -1188,9 +1260,13 @@ func (p *PostFeatureDraftValue) GetName() *string {
 }
 
 type PostFeatureRuleDraftExperiment struct {
-	Description *string `json:"description,omitzero"`
-	Condition   string  `json:"condition"`
-	ID          *string `json:"id,omitzero"`
+	// When true (default), the rule applies to every project the feature is delivered to. When false, `projects` scopes it.
+	AllProjects *bool `json:"allProjects,omitzero"`
+	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
+	Projects    []string `json:"projects,omitzero"`
+	Description *string  `json:"description,omitzero"`
+	Condition   string   `json:"condition"`
+	ID          *string  `json:"id,omitzero"`
 	// Enabled by default
 	Enabled *bool `json:"enabled,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
@@ -1221,6 +1297,20 @@ func (p *PostFeatureRuleDraftExperiment) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetAllProjects() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AllProjects
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetProjects() []string {
+	if p == nil {
+		return nil
+	}
+	return p.Projects
 }
 
 func (p *PostFeatureRuleDraftExperiment) GetDescription() *string {
@@ -1466,8 +1556,12 @@ func (p *PostFeatureDraftVariation) GetVariationID() string {
 }
 
 type PostFeatureRuleDraftExperimentRef struct {
-	Description *string `json:"description,omitzero"`
-	ID          *string `json:"id,omitzero"`
+	// When true (default), the rule applies to every project the feature is delivered to. When false, `projects` scopes it.
+	AllProjects *bool `json:"allProjects,omitzero"`
+	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
+	Projects    []string `json:"projects,omitzero"`
+	Description *string  `json:"description,omitzero"`
+	ID          *string  `json:"id,omitzero"`
 	// Enabled by default
 	Enabled *bool `json:"enabled,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
@@ -1491,6 +1585,20 @@ func (p *PostFeatureRuleDraftExperimentRef) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (p *PostFeatureRuleDraftExperimentRef) GetAllProjects() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AllProjects
+}
+
+func (p *PostFeatureRuleDraftExperimentRef) GetProjects() []string {
+	if p == nil {
+		return nil
+	}
+	return p.Projects
 }
 
 func (p *PostFeatureRuleDraftExperimentRef) GetDescription() *string {
@@ -1664,7 +1772,11 @@ func (p *PostFeatureDraftPrerequisite2) GetCondition() string {
 // #endregion class-body-postfeaturedraftprerequisite2
 
 type PostFeatureRuleDraftRollout struct {
-	Description *string `json:"description,omitzero"`
+	// When true (default), the rule applies to every project the feature is delivered to. When false, `projects` scopes it.
+	AllProjects *bool `json:"allProjects,omitzero"`
+	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
+	Projects    []string `json:"projects,omitzero"`
+	Description *string  `json:"description,omitzero"`
 	// Applied to everyone by default.
 	Condition           *string                                `json:"condition,omitzero"`
 	SavedGroupTargeting []PostFeatureDraftSavedGroupTargeting2 `json:"savedGroupTargeting,omitzero"`
@@ -1695,6 +1807,20 @@ func (p *PostFeatureRuleDraftRollout) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (p *PostFeatureRuleDraftRollout) GetAllProjects() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AllProjects
+}
+
+func (p *PostFeatureRuleDraftRollout) GetProjects() []string {
+	if p == nil {
+		return nil
+	}
+	return p.Projects
 }
 
 func (p *PostFeatureRuleDraftRollout) GetDescription() *string {
@@ -1889,7 +2015,11 @@ func (p *PostFeatureDraftPrerequisite1) GetCondition() string {
 // #endregion class-body-postfeaturedraftprerequisite1
 
 type PostFeatureRuleDraftForce struct {
-	Description *string `json:"description,omitzero"`
+	// When true (default), the rule applies to every project the feature is delivered to. When false, `projects` scopes it.
+	AllProjects *bool `json:"allProjects,omitzero"`
+	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
+	Projects    []string `json:"projects,omitzero"`
+	Description *string  `json:"description,omitzero"`
 	// Applied to everyone by default.
 	Condition           *string                                `json:"condition,omitzero"`
 	SavedGroupTargeting []PostFeatureDraftSavedGroupTargeting1 `json:"savedGroupTargeting,omitzero"`
@@ -1914,6 +2044,20 @@ func (p *PostFeatureRuleDraftForce) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (p *PostFeatureRuleDraftForce) GetAllProjects() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AllProjects
+}
+
+func (p *PostFeatureRuleDraftForce) GetProjects() []string {
+	if p == nil {
+		return nil
+	}
+	return p.Projects
 }
 
 func (p *PostFeatureRuleDraftForce) GetDescription() *string {
@@ -2197,6 +2341,10 @@ type PostFeatureRequest struct {
 	Owner *string `json:"owner,omitzero"`
 	// An associated project ID
 	Project *string `json:"project,omitzero"`
+	// Make this feature discoverable in — and served to — every project, beyond its primary `project`. Governance/approvals stay with `project`.
+	TargetingAllProjects *bool `json:"targetingAllProjects,omitzero"`
+	// Secondary project IDs this feature is targeted in and served to, beyond its primary `project`. Governance/approvals stay with `project`.
+	TargetingProjects []string `json:"targetingProjects,omitzero"`
 	// The data type of the feature payload. Boolean by default.
 	ValueType PostFeatureValueType `json:"valueType"`
 	// Default value when feature is enabled. Type must match `valueType`. In Config mode (`baseConfig` set) this is the JSON override patch merged on top of the config.
@@ -2212,6 +2360,12 @@ type PostFeatureRequest struct {
 	// Use JSON schema to validate the payload of a JSON-type feature value (enterprise only).
 	JSONSchema   *string           `json:"jsonSchema,omitzero"`
 	CustomFields map[string]string `json:"customFields,omitzero"`
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
+	// Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	SkipSchemaValidation *bool `json:"skipSchemaValidation,omitzero"`
+	// Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	SkipHooks *bool `json:"skipHooks,omitzero"`
 }
 
 func (p PostFeatureRequest) MarshalJSON() ([]byte, error) {
@@ -2258,6 +2412,20 @@ func (p *PostFeatureRequest) GetProject() *string {
 		return nil
 	}
 	return p.Project
+}
+
+func (p *PostFeatureRequest) GetTargetingAllProjects() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.TargetingAllProjects
+}
+
+func (p *PostFeatureRequest) GetTargetingProjects() []string {
+	if p == nil {
+		return nil
+	}
+	return p.TargetingProjects
 }
 
 func (p *PostFeatureRequest) GetValueType() PostFeatureValueType {
@@ -2314,6 +2482,27 @@ func (p *PostFeatureRequest) GetCustomFields() map[string]string {
 		return nil
 	}
 	return p.CustomFields
+}
+
+func (p *PostFeatureRequest) GetIgnoreWarnings() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.IgnoreWarnings
+}
+
+func (p *PostFeatureRequest) GetSkipSchemaValidation() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.SkipSchemaValidation
+}
+
+func (p *PostFeatureRequest) GetSkipHooks() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.SkipHooks
 }
 
 // PostFeatureResponseBody - Resource created

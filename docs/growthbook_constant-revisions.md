@@ -1,8 +1,10 @@
 ## growthbook constant-revisions
 
-Draft revisions for constants, including pending changes, approvals, and lifecycle (publish, discard, revert)
+**Beta** — these endpoints are new and may change in backwards-incompatible ways
 
 ### Synopsis
+
+**Beta** — these endpoints are new and may change in backwards-incompatible ways.
 
 Draft revisions for constants, including pending changes, approvals, and lifecycle (publish, discard, revert). Pass `version: "new"` on edit endpoints to auto-create a draft.
 
@@ -53,8 +55,12 @@ growthbook constant-revisions [flags]
 * [growthbook constant-revisions merge-status](growthbook_constant-revisions_merge-status.md)	 - Get merge status for a draft revision
 * [growthbook constant-revisions publish](growthbook_constant-revisions_publish.md)	 - Publish a draft revision
 * [growthbook constant-revisions rebase](growthbook_constant-revisions_rebase.md)	 - Rebase a draft revision onto the current live constant
+* [growthbook constant-revisions recall-review](growthbook_constant-revisions_recall-review.md)	 - Recall a review request
+* [growthbook constant-revisions reopen](growthbook_constant-revisions_reopen.md)	 - Reopen a discarded revision
 * [growthbook constant-revisions request-review](growthbook_constant-revisions_request-review.md)	 - Request review for a draft revision
 * [growthbook constant-revisions revert](growthbook_constant-revisions_revert.md)	 - Revert the constant to a prior revision
+* [growthbook constant-revisions schedule-publish](growthbook_constant-revisions_schedule-publish.md)	 - Schedule (or cancel) a deferred publish
 * [growthbook constant-revisions set-metadata](growthbook_constant-revisions_set-metadata.md)	 - Update constant metadata in a draft revision
 * [growthbook constant-revisions set-value](growthbook_constant-revisions_set-value.md)	 - Update the value of a constant draft revision
 * [growthbook constant-revisions submit-review](growthbook_constant-revisions_submit-review.md)	 - Submit a review on a draft revision
+* [growthbook constant-revisions undo-review](growthbook_constant-revisions_undo-review.md)	 - Retract your own review verdict

@@ -836,6 +836,80 @@ actions:
     update: { x-speakeasy-name-override: run-fact-table }
   - target: $..[?(@.operationId=="postMetricExploration")]
     update: { x-speakeasy-name-override: run-metric }
+  - target: $..[?(@.operationId=="postFunnelExploration")]
+    update: { x-speakeasy-name-override: run-funnel }
+  # metrics (the group already says "metrics"; don't echo it in the leaf)
+  - target: $..[?(@.operationId=="listMetricExperiments")]
+    update: { x-speakeasy-name-override: list-experiments }
+  # releases
+  - target: $..[?(@.operationId=="postReleasePublishRevisions")]
+    update: { x-speakeasy-name-override: publish-revisions }
+  # New revision-workflow ops (2026-08 spec). Same clean verbs the sibling
+  # revision groups already use — feature-revisions has recall-review / reopen /
+  # schedule-publish / undo-review, so these must match or the families diverge.
+  - target: $..[?(@.operationId=="postConfigRevisionUndoReview")]
+    update: { x-speakeasy-name-override: undo-review }
+  - target: $..[?(@.operationId=="postConstantRevisionRecallReview")]
+    update: { x-speakeasy-name-override: recall-review }
+  - target: $..[?(@.operationId=="postConstantRevisionReopen")]
+    update: { x-speakeasy-name-override: reopen }
+  - target: $..[?(@.operationId=="postConstantRevisionSchedulePublish")]
+    update: { x-speakeasy-name-override: schedule-publish }
+  - target: $..[?(@.operationId=="postConstantRevisionUndoReview")]
+    update: { x-speakeasy-name-override: undo-review }
+  - target: $..[?(@.operationId=="postSavedGroupRevisionRecallReview")]
+    update: { x-speakeasy-name-override: recall-review }
+  - target: $..[?(@.operationId=="postSavedGroupRevisionReopen")]
+    update: { x-speakeasy-name-override: reopen }
+  - target: $..[?(@.operationId=="postSavedGroupRevisionSchedulePublish")]
+    update: { x-speakeasy-name-override: schedule-publish }
+  - target: $..[?(@.operationId=="postSavedGroupRevisionUndoReview")]
+    update: { x-speakeasy-name-override: undo-review }
+  # fact-tables virtual columns — mirrors the existing filter sub-resource verbs
+  # (create-filter / update-filter / delete-filter).
+  - target: $..[?(@.operationId=="postFactTableVirtualColumn")]
+    update: { x-speakeasy-name-override: create-virtual-column }
+  - target: $..[?(@.operationId=="updateFactTableVirtualColumn")]
+    update: { x-speakeasy-name-override: update-virtual-column }
+  - target: $..[?(@.operationId=="deleteFactTableVirtualColumn")]
+    update: { x-speakeasy-name-override: delete-virtual-column }
+  # experiments
+  - target: $..[?(@.operationId=="putExperimentSchedule")]
+    update: { x-speakeasy-name-override: set-schedule }
+  # contextual-bandits + contextual-bandit-queries: both families were missed by the
+  # GA verb sweep (PRs #32/#35) and still echo the group name in every leaf
+  # ("contextual-bandit-queries create-contextual-bandit-query"). Renaming 12 already-
+  # published commands is breaking, so it rides the 2.0.0 major — the only window that
+  # doesn't cost an extra one. Sub-resource verbs mirror fact-tables' filters
+  # (create-filter / list-filters / …); collections read as list-*.
+  - target: $..[?(@.operationId=="getContextualBanditCurrentWeights")]
+    update: { x-speakeasy-name-override: get-current-weights }
+  - target: $..[?(@.operationId=="getContextualBanditEvent")]
+    update: { x-speakeasy-name-override: get-event }
+  - target: $..[?(@.operationId=="listContextualBanditEvents")]
+    update: { x-speakeasy-name-override: list-events }
+  - target: $..[?(@.operationId=="getContextualBanditSnapshot")]
+    update: { x-speakeasy-name-override: get-snapshot }
+  - target: $..[?(@.operationId=="listContextualBanditSnapshots")]
+    update: { x-speakeasy-name-override: list-snapshots }
+  - target: $..[?(@.operationId=="getContextualBanditResults")]
+    update: { x-speakeasy-name-override: get-results }
+  - target: $..[?(@.operationId=="getContextualBanditLinkedFeatures")]
+    update: { x-speakeasy-name-override: list-linked-features }
+  - target: $..[?(@.operationId=="addContextualBanditLinkedFeature")]
+    update: { x-speakeasy-name-override: add-linked-feature }
+  - target: $..[?(@.operationId=="updateContextualBanditLinkedFeature")]
+    update: { x-speakeasy-name-override: update-linked-feature }
+  - target: $..[?(@.operationId=="deleteContextualBanditLinkedFeature")]
+    update: { x-speakeasy-name-override: delete-linked-feature }
+  - target: $..[?(@.operationId=="createContextualBanditQuery")]
+    update: { x-speakeasy-name-override: create }
+  - target: $..[?(@.operationId=="getContextualBanditQuery")]
+    update: { x-speakeasy-name-override: get }
+  - target: $..[?(@.operationId=="updateContextualBanditQuery")]
+    update: { x-speakeasy-name-override: update }
+  - target: $..[?(@.operationId=="deleteContextualBanditQuery")]
+    update: { x-speakeasy-name-override: delete }
   # code-references
   - target: $..[?(@.operationId=="getCodeRefs")]
     update: { x-speakeasy-name-override: get-for-feature }

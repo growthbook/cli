@@ -4,11 +4,11 @@ package client
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/internal/config"
-	"github.com/growthbook/cli/internal/flagutil"
-	"github.com/growthbook/cli/internal/sdk"
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/testclient"
+	"github.com/growthbook/cli/v2/internal/config"
+	"github.com/growthbook/cli/v2/internal/flagutil"
+	"github.com/growthbook/cli/v2/internal/sdk"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/testclient"
 	"github.com/spf13/cobra"
 	"net/http"
 	"strconv"

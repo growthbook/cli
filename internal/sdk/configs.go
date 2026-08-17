@@ -6,17 +6,19 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
-	"github.com/growthbook/cli/internal/sdk/models/sdkerrors"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/config"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/hooks"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/sdk/models/sdkerrors"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/config"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/hooks"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"net/http"
 	"net/url"
 )
 
-// Configs - Reusable, typed, inheritable JSON objects referenced from feature flag values as `@config:key`. A config carries a field `schema` (with TypeScript/JSON Schema import-export) and a lineage `parent`; it resolves like a `json` constant, composed via `$extends`. Inheritance is expressed via `parent`, never an in-value `@config:` entry. Schema fields colliding with a published ancestor's key follow 'base wins': identical re-declarations are stripped with a warning, differing ones are rejected.
+// Configs - **Beta** — these endpoints are new and may change in backwards-incompatible ways.
+//
+// Reusable, typed, inheritable JSON objects referenced from feature flag values as `@config:key`. A config carries a field `schema` (with TypeScript/JSON Schema import-export) and a lineage `parent`. Inheritance is expressed via `parent`, never an in-value `@config:` entry. Values layer as a **deep, targeted patch**: a child (or a config-backed feature value) restates only the leaves it changes and inherits the rest — unlike a constant's `$extends`, whose own keys replace wholesale. Schema fields colliding with a published ancestor's key follow 'base wins': identical re-declarations are stripped with a warning, differing ones are rejected.
 type Configs struct {
 	rootSDK          *Growthbook
 	sdkConfiguration config.SDKConfiguration
@@ -1211,6 +1213,7 @@ func (s *Configs) GetConfig(ctx context.Context, request operations.GetConfigReq
 }
 
 // UpdateConfig - Partially update a single config
+// Applies the change immediately and records it as a published revision, so it appears in history and fires revision webhooks. When the organization requires approvals, open a draft instead or pass `bypassApproval` with the bypass permission.
 func (s *Configs) UpdateConfig(ctx context.Context, request operations.UpdateConfigRequest, opts ...operations.Option) (*operations.UpdateConfigResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -1510,7 +1513,7 @@ func (s *Configs) DeleteConfig(ctx context.Context, request operations.DeleteCon
 }
 
 // ArchiveConfig - Archive a single config
-// Archives a config. A child config (including an environment/project override) is archived outright when its live value is an empty patch or nothing serves it; when it IS actively serving a value, this returns a 422 soft warning — re-submit with `?ignoreWarnings=true` to proceed. A root config that is still referenced by a feature or another config cannot be archived (400).
+// Archives a config. A child config (including an environment/project override) is archived outright when its live value is an empty patch or nothing serves it. When archiving would strip a value that live features or other configs still consume, the request returns a 422 listing the blocking gates — re-submit with `"ignoreWarnings": true` in the request body to acknowledge and proceed. A locked config, or one whose org requires approval, returns its own gate (unlock or route the change through a draft revision).
 func (s *Configs) ArchiveConfig(ctx context.Context, request operations.ArchiveConfigRequest, opts ...operations.Option) (*operations.ArchiveConfigResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -1543,6 +1546,10 @@ func (s *Configs) ArchiveConfig(ctx context.Context, request operations.ArchiveC
 		OperationID:      "archiveConfig",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
+	if err != nil {
+		return nil, err
+	}
 
 	timeout := o.Timeout
 	if timeout == nil {
@@ -1555,12 +1562,15 @@ func (s *Configs) ArchiveConfig(ctx context.Context, request operations.ArchiveC
 		defer cancel()
 	}
 
-	req, err := http.NewRequestWithContext(ctx, "POST", opURL, nil)
+	req, err := http.NewRequestWithContext(ctx, "POST", opURL, bodyReader)
 	if err != nil {
 		return nil, fmt.Errorf("error creating request: %w", err)
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
+	if reqContentType != "" {
+		req.Header.Set("Content-Type", reqContentType)
+	}
 
 	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
 		return nil, fmt.Errorf("error populating query params: %w", err)
@@ -1691,6 +1701,10 @@ func (s *Configs) UnarchiveConfig(ctx context.Context, request operations.Unarch
 		OperationID:      "unarchiveConfig",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
+	if err != nil {
+		return nil, err
+	}
 
 	timeout := o.Timeout
 	if timeout == nil {
@@ -1703,12 +1717,15 @@ func (s *Configs) UnarchiveConfig(ctx context.Context, request operations.Unarch
 		defer cancel()
 	}
 
-	req, err := http.NewRequestWithContext(ctx, "POST", opURL, nil)
+	req, err := http.NewRequestWithContext(ctx, "POST", opURL, bodyReader)
 	if err != nil {
 		return nil, fmt.Errorf("error creating request: %w", err)
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
+	if reqContentType != "" {
+		req.Header.Set("Content-Type", reqContentType)
+	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
@@ -1803,7 +1820,7 @@ func (s *Configs) UnarchiveConfig(ctx context.Context, request operations.Unarch
 }
 
 // LockConfig - Lock a config at its current published revision
-// Freezes the config at its current published (merged) revision. While locked, no change can be published past that revision — publish, revert-to-publish, direct update, scheduled publish, and archive are all blocked (drafts may still be created and edited). The pinned revision is returned as `lockedRevision` for reproducible build pinning. Unlocking requires the `bypassApprovalChecks` permission.
+// Locks the Config to its current published revision. Drafts can still be created and edited, but direct updates, publishes, scheduled publishes, reverts, and archives are blocked. The response returns the pinned revision in `lockedRevision`. Unlocking requires Bypass draft approvals access.
 func (s *Configs) LockConfig(ctx context.Context, request operations.LockConfigRequest, opts ...operations.Option) (*operations.LockConfigResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -1955,7 +1972,7 @@ func (s *Configs) LockConfig(ctx context.Context, request operations.LockConfigR
 }
 
 // UnlockConfig - Unlock a config
-// Clears the lock so changes can be published again. Requires the `bypassApprovalChecks` permission on the config's project.
+// Removes the Config lock so changes can be published again. The caller must have Bypass draft approvals access in the Config's Project.
 func (s *Configs) UnlockConfig(ctx context.Context, request operations.UnlockConfigRequest, opts ...operations.Option) (*operations.UnlockConfigResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{

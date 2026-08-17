@@ -31,7 +31,7 @@ should set them together.
 ### Notes / future hardening
 
 Prebuilt binaries are provided for linux, darwin, and windows on x64/arm64. Other
-platforms should `go install github.com/growthbook/cli/cmd/growthbook@latest`.
+platforms should `go install github.com/growthbook/cli/v2/cmd/growthbook@latest`.
 
 A future option is the per-platform `optionalDependencies` pattern (à la esbuild):
 publish `@growthbook/cli-<os>-<arch>` packages carrying the raw binary so npm

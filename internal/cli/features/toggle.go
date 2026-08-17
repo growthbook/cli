@@ -4,13 +4,13 @@ package features
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/internal/client"
-	"github.com/growthbook/cli/internal/flagutil"
-	"github.com/growthbook/cli/internal/interactive"
-	"github.com/growthbook/cli/internal/output"
-	"github.com/growthbook/cli/internal/sdk"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/client"
+	"github.com/growthbook/cli/v2/internal/flagutil"
+	"github.com/growthbook/cli/v2/internal/interactive"
+	"github.com/growthbook/cli/v2/internal/output"
+	"github.com/growthbook/cli/v2/internal/sdk"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -25,7 +25,7 @@ func initToggleCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "toggle",
 		Short:   "Toggle a feature in one or more environments",
-		Long:    "Enables or disables a feature in one or more environments simultaneously. Accepts a map of environment name → boolean.",
+		Long:    "Enables or disables a Feature Flag in one or more environments and immediately publishes the change. The caller needs Publish access for every environment in the request. When approval is required, use a draft revision instead, unless the caller can bypass draft approvals.",
 		Example: "  growthbook features toggle --id <id> --environments '{\"key\":\"<value>\",\"key1\":false}'",
 		RunE:    runToggleCmd,
 	}

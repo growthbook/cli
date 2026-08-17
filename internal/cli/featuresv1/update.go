@@ -4,30 +4,35 @@ package featuresv1
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/internal/client"
-	"github.com/growthbook/cli/internal/flagutil"
-	"github.com/growthbook/cli/internal/interactive"
-	"github.com/growthbook/cli/internal/output"
-	"github.com/growthbook/cli/internal/sdk"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/client"
+	"github.com/growthbook/cli/v2/internal/flagutil"
+	"github.com/growthbook/cli/v2/internal/interactive"
+	"github.com/growthbook/cli/v2/internal/output"
+	"github.com/growthbook/cli/v2/internal/sdk"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
 var updateCmdMeta = []flagutil.FlagMeta{
-	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The id of the requested resource [required]"},
+	{FlagName: "id", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The id of the requested resource [required]"},
 	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Description of the feature"},
 	{FlagName: "archived", Shorthand: "a", FieldPath: "Body.Archived", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "project", FieldPath: "Body.Project", Kind: flagutil.FlagKindString, Optional: true, Description: "An associated project ID"},
+	{FlagName: "targeting-all-projects", FieldPath: "Body.TargetingAllProjects", Kind: flagutil.FlagKindBool, Optional: true, Description: "Make this feature discoverable in — and served to — every project, beyond its primary `project`. Governance/approvals stay with `project`."},
+	{FlagName: "targeting-projects", FieldPath: "Body.TargetingProjects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Secondary project IDs this feature is targeted in and served to, beyond its primary `project`. Governance/approvals stay with `project`."},
 	{FlagName: "owner", FieldPath: "Body.Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization."},
 	{FlagName: "default-value", FieldPath: "Body.DefaultValue", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "base-config", Shorthand: "b", FieldPath: "Body.BaseConfig", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"baseConfig,omitempty"`, Description: "The config backing this flag (\"Config mode\"), fixed at creation. Cannot be changed by an update — resend the current value or omit it; a different value (or null to detach) is rejected."},
-	{FlagName: "tags", Shorthand: "t", FieldPath: "Body.Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "List of associated tags. Will override tags completely with submitted list"},
+	{FlagName: "tags", FieldPath: "Body.Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "List of associated tags. Will override tags completely with submitted list"},
 	{FlagName: "environments", Shorthand: "e", FieldPath: "Body.Environments", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"environments,omitempty"`, Description: "value"},
 	{FlagName: "prerequisites", FieldPath: "Body.Prerequisites", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Feature IDs. Each feature must evaluate to `true`"},
 	{FlagName: "json-schema", Shorthand: "j", FieldPath: "Body.JSONSchema", Kind: flagutil.FlagKindString, Optional: true, Description: "Use JSON schema to validate the payload of a JSON-type feature value (enterprise only)."},
 	{FlagName: "custom-fields", Shorthand: "c", FieldPath: "Body.CustomFields", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"customFields,omitempty"`, Description: "value"},
 	{FlagName: "holdout", FieldPath: "Body.Holdout", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"holdout,omitempty"`, Description: "Holdout to assign this feature to. Pass `null` to remove the feature from its current holdout. Omit the field entirely to leave the holdout unchanged.\n"},
+	{FlagName: "ignore-warnings", FieldPath: "Body.IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access."},
+	{FlagName: "skip-schema-validation", FieldPath: "Body.SkipSchemaValidation", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored."},
+	{FlagName: "skip-hooks", FieldPath: "Body.SkipHooks", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored."},
 }
 
 // initUpdateCmd initializes the update command.
@@ -35,7 +40,7 @@ func initUpdateCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "update",
 		Short:   "Partially update a feature",
-		Long:    "DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible\n\n**Deprecated.** Use [POST /v2/features/:id](#operation/updateFeatureV2) instead.\n\nUpdates any combination of a feature's metadata (description, owner, tags, project), default value, environment settings (rules, kill switches, enabled state), prerequisites, holdout assignment, or JSON schema validation. All provided fields are merged into the existing feature and the result is immediately published as a new revision.\n\nReturns 403 if the API key lacks permission or if approval rules are enabled for an affected environment and the org setting \"REST API always bypasses approval requirements\" is off.",
+		Long:    "DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible\n\n**Deprecated.** Use [POST /v2/features/:id](#operation/updateFeatureV2) instead.\n\nUpdates the Feature Flag and immediately publishes a new revision. The caller needs Edit access in the Feature Flag's Project and Publish access for every affected environment. When approval is required, use the revision endpoints instead, unless the caller can bypass draft approvals.",
 		Example: "  growthbook features-v1 update --id <id>",
 		RunE:    runUpdateCmd,
 	}

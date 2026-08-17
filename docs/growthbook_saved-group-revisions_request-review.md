@@ -24,6 +24,7 @@ growthbook saved-group-revisions request-review [flags]
   -a, --auto-publish-on-approval   boolean flag
       --body string                Request body as JSON (alternative to individual flags). Can also be provided via stdin.
   -h, --help                       help for request-review
+  -i, --ignore-warnings            Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
   -s, --saved-group-id string      [required]
   -v, --version-param string       [required]
 ```

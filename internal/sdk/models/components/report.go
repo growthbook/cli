@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"time"
 )
 
@@ -891,6 +891,10 @@ type Report struct {
 	// Public URL for viewing the report. Only present when `shareLevel` is `public`.
 	ShareURL     *string `json:"shareUrl,omitzero"`
 	ExperimentID *string `json:"experimentId,omitzero"`
+	// The userId of the report owner. Absent for reports created before owner attribution existed.
+	Owner *string `json:"owner,omitzero"`
+	// The email address of the owner, when the owner can be resolved to a known user.
+	OwnerEmail *string `json:"ownerEmail,omitzero"`
 	// Snapshot ID (experiment-snapshot type only)
 	SnapshotID *string `json:"snapshotId,omitzero"`
 	// Status of the latest snapshot (poll this after refresh)
@@ -899,7 +903,7 @@ type Report struct {
 	SnapshotError      *string                 `json:"snapshotError,omitzero"`
 	AnalysisSettings   *ReportAnalysisSettings `json:"analysisSettings,omitzero"`
 	ExperimentMetadata *ExperimentMetadata     `json:"experimentMetadata,omitzero"`
-	Results            *ExperimentResults      `json:"results,omitzero"`
+	Results            *ExperimentResults1     `json:"results,omitzero"`
 }
 
 func (r Report) MarshalJSON() ([]byte, error) {
@@ -983,6 +987,20 @@ func (r *Report) GetExperimentID() *string {
 	return r.ExperimentID
 }
 
+func (r *Report) GetOwner() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Owner
+}
+
+func (r *Report) GetOwnerEmail() *string {
+	if r == nil {
+		return nil
+	}
+	return r.OwnerEmail
+}
+
 func (r *Report) GetSnapshotID() *string {
 	if r == nil {
 		return nil
@@ -1018,7 +1036,7 @@ func (r *Report) GetExperimentMetadata() *ExperimentMetadata {
 	return r.ExperimentMetadata
 }
 
-func (r *Report) GetResults() *ExperimentResults {
+func (r *Report) GetResults() *ExperimentResults1 {
 	if r == nil {
 		return nil
 	}
