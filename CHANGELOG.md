@@ -2,7 +2,12 @@
 
 ## [Unreleased]
 
-_Planned release: **2.0.0**._
+## [2.0.0] - 2026-08-17
+
+Upgrading from 1.x requires two changes: drop `--merge-now`, and update any renamed
+`contextual-bandits` / `contextual-bandit-queries` commands. Both fail loudly (unknown
+flag / unknown command) rather than silently misbehaving, so a dry run of your scripts
+will surface everything that needs attention.
 
 ### Removed
 
