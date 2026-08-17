@@ -3,9 +3,9 @@
 package operations
 
 import (
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"time"
 )
 

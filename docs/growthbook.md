@@ -47,11 +47,11 @@ growthbook [flags]
 * [growthbook attributes](growthbook_attributes.md)	 - Used when targeting feature flags and experiments
 * [growthbook auth](growthbook_auth.md)	 - Manage authentication credentials
 * [growthbook code-references](growthbook_code-references.md)	 - Intended for use with our code reference CI utility, [`gb-find-code-refs`](https://github
-* [growthbook config-revisions](growthbook_config-revisions.md)	 - Draft revisions for configs, including value and schema edits, schema import (JSON Schema / TypeScript / inferred), approvals, and lifecycle (publish, discard, revert)
-* [growthbook configs](growthbook_configs.md)	 - Reusable, typed, inheritable JSON objects referenced from feature flag values as `@config:key`
+* [growthbook config-revisions](growthbook_config-revisions.md)	 - **Beta** — these endpoints are new and may change in backwards-incompatible ways
+* [growthbook configs](growthbook_configs.md)	 - **Beta** — these endpoints are new and may change in backwards-incompatible ways
 * [growthbook configure](growthbook_configure.md)	 - Configure authentication credentials and preferences
-* [growthbook constant-revisions](growthbook_constant-revisions.md)	 - Draft revisions for constants, including pending changes, approvals, and lifecycle (publish, discard, revert)
-* [growthbook constants](growthbook_constants.md)	 - Reusable named values referenced from feature flag values as `@const:key` and resolved into the SDK payload at build time
+* [growthbook constant-revisions](growthbook_constant-revisions.md)	 - **Beta** — these endpoints are new and may change in backwards-incompatible ways
+* [growthbook constants](growthbook_constants.md)	 - **Beta** — these endpoints are new and may change in backwards-incompatible ways
 * [growthbook contextual-bandit-queries](growthbook_contextual-bandit-queries.md)	 - Operations for contextual-bandit-queries
 * [growthbook contextual-bandits](growthbook_contextual-bandits.md)	 - Operations for contextual-bandits
 * [growthbook copy-transform](growthbook_copy-transform.md)	 - Copy Transform
@@ -72,6 +72,7 @@ growthbook [flags]
 * [growthbook features-v1](growthbook_features-v1.md)	 - Control your feature flags programatically
 * [growthbook generate-types](growthbook_generate-types.md)	 - Generate TypeScript types for all your features
 * [growthbook get-SDK-payload](growthbook_get-SDK-payload.md)	 - Get a SDK payload
+* [growthbook learnings](growthbook_learnings.md)	 - Saved learnings captured across experiments, including AI-discovered patterns
 * [growthbook members](growthbook_members.md)	 - Members are users who have been invited to an organization
 * [growthbook meta](growthbook_meta.md)	 - Server metadata, including the running build's version and commit for version-skew checks
 * [growthbook metric-groups](growthbook_metric-groups.md)	 - Operations for metric-groups
@@ -83,6 +84,7 @@ growthbook [flags]
 * [growthbook queries](growthbook_queries.md)	 - Retrieve queries used in experiments to calculate results
 * [growthbook ramp-schedule-templates](growthbook_ramp-schedule-templates.md)	 - Reusable step configurations for ramp schedules
 * [growthbook ramp-schedules](growthbook_ramp-schedules.md)	 - Multi-step rollout schedules that gradually increase feature rule traffic over time, with optional real-time monitoring
+* [growthbook releases](growthbook_releases.md)	 - **Beta** — these endpoints are new and may change in backwards-incompatible ways
 * [growthbook reports](growthbook_reports.md)	 - Custom analysis reports built on top of experiment snapshots
 * [growthbook saved-group-revisions](growthbook_saved-group-revisions.md)	 - Draft revisions for saved groups, including pending changes, approvals, and lifecycle (publish, discard, revert)
 * [growthbook saved-groups](growthbook_saved-groups.md)	 - Defined sets of attribute values which can be used with feature rules for targeting features at particular users

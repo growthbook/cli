@@ -22,8 +22,9 @@ growthbook saved-group-revisions revert [flags]
       --body string             Request body as JSON (alternative to individual flags). Can also be provided via stdin.
   -c, --comment string          string value
   -h, --help                    help for revert
+  -i, --ignore-warnings         Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
       --saved-group-id string   [required]
-      --strategy string         options: draft, publish
+      --strategy draft          Whether to stage the revert as a draft or publish it immediately. Defaults to draft, or to `publish` when the org enables 'reverts bypass approval'. (options: draft, publish)
   -t, --title string            string value
   -v, --version-param string    [required]
 ```

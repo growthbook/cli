@@ -1,10 +1,12 @@
 ## growthbook config-revisions
 
-Draft revisions for configs, including value and schema edits, schema import (JSON Schema / TypeScript / inferred), approvals, and lifecycle (publish, discard, revert)
+**Beta** — these endpoints are new and may change in backwards-incompatible ways
 
 ### Synopsis
 
-Draft revisions for configs, including value and schema edits, schema import (JSON Schema / TypeScript / inferred), approvals, and lifecycle (publish, discard, revert). Publishing a schema change cascades the "base wins" normalization to descendant configs; a publish that removes or retypes fields descendants still use soft-blocks with a 422 unless `?ignoreWarnings=true`. Pass `version: "new"` on edit endpoints to auto-create a draft.
+**Beta** — these endpoints are new and may change in backwards-incompatible ways.
+
+Draft revisions for configs, including value and schema edits, schema import (JSON Schema / TypeScript / inferred), approvals, and lifecycle (publish, discard, revert). Publishing a schema change cascades the "base wins" normalization to descendant configs; a publish that removes or retypes fields descendants still use soft-blocks with a 422 unless the request body sets `ignoreWarnings: true`. Pass `version: "new"` on edit endpoints to auto-create a draft.
 
 ```
 growthbook config-revisions [flags]
@@ -64,3 +66,4 @@ growthbook config-revisions [flags]
 * [growthbook config-revisions set-schema](growthbook_config-revisions_set-schema.md)	 - Update or import the schema of a config draft revision
 * [growthbook config-revisions set-value](growthbook_config-revisions_set-value.md)	 - Update the value of a config draft revision
 * [growthbook config-revisions submit-review](growthbook_config-revisions_submit-review.md)	 - Submit a review on a draft revision
+* [growthbook config-revisions undo-review](growthbook_config-revisions_undo-review.md)	 - Retract your own review verdict

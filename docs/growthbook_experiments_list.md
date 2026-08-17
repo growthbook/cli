@@ -19,16 +19,26 @@ growthbook experiments list [flags]
 ### Options
 
 ```
-  -a, --all                         Automatically paginate and fetch all results (streams NDJSON for JSON output)
-      --datasource-id string        Filter by Data Source
-  -e, --experiment-id trackingKey   Filter the returned list by the experiment tracking key (not the internal experiment ID). Note, this was deprecated to help reduce confusion, consider using trackingKey instead, which is functionally identical. You cannot use both params at the same time.
-  -h, --help                        help for list
-  -l, --limit int                   The number of items to return (default 10)
-      --max-pages int               Maximum number of pages to fetch when using --all (0 = no limit)
-      --offset int                  How many items to skip (use in conjunction with limit for pagination)
-  -p, --project-id string           Filter by project id
-  -s, --status string               options: draft, running, stopped
-  -t, --tracking-key string         Filter by experiment tracking key
+  -a, --all                             Automatically paginate and fetch all results (streams NDJSON for JSON output)
+      --archived true                   Filter by archived status. Set to true to return only archived experiments, `false` to exclude them. If omitted, both archived and non-archived experiments are returned.
+  -b, --bandits string                  When true, return only multi-armed bandits; when false, exclude them (options: true, false)
+      --datasource-id string            Filter by Data Source
+  -e, --experiment-id trackingKey       Filter the returned list by the experiment tracking key (not the internal experiment ID). Note, this was deprecated to help reduce confusion, consider using trackingKey instead, which is functionally identical. You cannot use both params at the same time.
+  -h, --help                            help for list
+  -i, --implementation-type bandits     Filter by comma-separated implementation types (feature, visualChange, redirect) — the kinds of changes linked to the experiment. To filter standard experiments vs bandits, use bandits instead
+  -l, --limit int                       The number of items to return (default 10)
+      --max-pages int                   Maximum number of pages to fetch when using --all (0 = no limit)
+  -m, --metric-id string                Filter by comma-separated metric ids. Matches experiments that use a metric as a goal, secondary, or guardrail metric
+      --offset int                      How many items to skip (use in conjunction with limit for pagination)
+      --owner string                    Filter by comma-separated owner ids, names, or emails
+  -p, --project-id string               Filter by project id
+      --q status:running tag:checkout   Raw experiment search/filter string (same syntax as the app's experiment list filters, e.g. status:running tag:checkout). Negation (`!`) and operators (`~`, `^`, `>`, `<`, `=`) are not supported and return a 400
+  -r, --result stringArray              Filter by comma-separated results (won, lost, inconclusive, dnf). Matches the experiment's recorded result — set when an experiment is stopped and retained if it's later restarted, so running experiments can match too
+      --sort-by string                  Field to sort the results by (options: dateCreated, dateUpdated, name) (default "dateCreated")
+      --sort-order sortBy               Sort direction (used with sortBy) (options: asc, desc) (default "asc")
+      --status string                   options: draft, running, stopped
+      --tag string                      Filter by comma-separated tags
+      --tracking-key string             Filter by experiment tracking key
 ```
 
 ### Options inherited from parent commands

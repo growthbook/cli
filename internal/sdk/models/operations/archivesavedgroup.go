@@ -3,13 +3,26 @@
 package operations
 
 import (
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
+
+type ArchiveSavedGroupRequestBody struct {
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
+}
+
+func (a *ArchiveSavedGroupRequestBody) GetIgnoreWarnings() *bool {
+	if a == nil {
+		return nil
+	}
+	return a.IgnoreWarnings
+}
 
 type ArchiveSavedGroupRequest struct {
 	// The id of the requested resource
-	ID string `pathParam:"style=simple,explode=false,name=id"`
+	ID   string                       `pathParam:"style=simple,explode=false,name=id"`
+	Body ArchiveSavedGroupRequestBody `request:"mediaType=application/json"`
 }
 
 func (a *ArchiveSavedGroupRequest) GetID() string {
@@ -19,9 +32,29 @@ func (a *ArchiveSavedGroupRequest) GetID() string {
 	return a.ID
 }
 
+func (a *ArchiveSavedGroupRequest) GetBody() ArchiveSavedGroupRequestBody {
+	if a == nil {
+		return ArchiveSavedGroupRequestBody{}
+	}
+	return a.Body
+}
+
 // ArchiveSavedGroupResponseBody - Resource created
 type ArchiveSavedGroupResponseBody struct {
 	SavedGroup components.SavedGroup `json:"savedGroup"`
+	// Gates that would have blocked this publish but were bypassed by the caller's authority. Present only when at least one gate was bypassed.
+	BypassedGates []components.BypassedGates `json:"bypassedGates,omitzero"`
+}
+
+func (a ArchiveSavedGroupResponseBody) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *ArchiveSavedGroupResponseBody) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (a *ArchiveSavedGroupResponseBody) GetSavedGroup() components.SavedGroup {
@@ -29,6 +62,13 @@ func (a *ArchiveSavedGroupResponseBody) GetSavedGroup() components.SavedGroup {
 		return components.SavedGroup{}
 	}
 	return a.SavedGroup
+}
+
+func (a *ArchiveSavedGroupResponseBody) GetBypassedGates() []components.BypassedGates {
+	if a == nil {
+		return nil
+	}
+	return a.BypassedGates
 }
 
 type ArchiveSavedGroupResponse struct {

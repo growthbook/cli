@@ -3,14 +3,16 @@
 package operations
 
 import (
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 type PutFeatureRevisionArchiveRequestBody struct {
 	Archived        bool    `json:"archived"`
 	RevisionTitle   *string `json:"revisionTitle,omitzero"`
 	RevisionComment *string `json:"revisionComment,omitzero"`
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
 }
 
 func (p *PutFeatureRevisionArchiveRequestBody) GetArchived() bool {
@@ -32,6 +34,13 @@ func (p *PutFeatureRevisionArchiveRequestBody) GetRevisionComment() *string {
 		return nil
 	}
 	return p.RevisionComment
+}
+
+func (p *PutFeatureRevisionArchiveRequestBody) GetIgnoreWarnings() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.IgnoreWarnings
 }
 
 type PutFeatureRevisionArchiveRequest struct {

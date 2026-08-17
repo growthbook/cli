@@ -6,7 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/retry"
+	"github.com/growthbook/cli/v2/internal/sdk/retry"
 	"io"
 	"math"
 	"math/rand"

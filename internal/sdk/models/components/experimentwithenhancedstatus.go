@@ -3,8 +3,8 @@
 package components
 
 import (
-	"github.com/growthbook/cli/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"time"
 )
 
@@ -463,10 +463,58 @@ func (e *ExperimentWithEnhancedStatusCustomMetricSlice) GetSlices() []Experiment
 	return e.Slices
 }
 
-// ExperimentWithEnhancedStatusStatusUpdateSchedule - Schedule a future start for a draft experiment. Only `startAt` is currently supported.
+type ExperimentWithEnhancedStatusUnit string
+
+const (
+	ExperimentWithEnhancedStatusUnitHours ExperimentWithEnhancedStatusUnit = "hours"
+	ExperimentWithEnhancedStatusUnitDays  ExperimentWithEnhancedStatusUnit = "days"
+)
+
+func (e ExperimentWithEnhancedStatusUnit) ToPointer() *ExperimentWithEnhancedStatusUnit {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ExperimentWithEnhancedStatusUnit) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "hours", "days":
+			return true
+		}
+	}
+	return false
+}
+
+// ExperimentWithEnhancedStatusStopAfter - Relative end offset. Deferred: resolved to a concrete `stopAt` at the experiment's actual start (or off `dateStarted` when already running).
+type ExperimentWithEnhancedStatusStopAfter struct {
+	Value int64                            `json:"value"`
+	Unit  ExperimentWithEnhancedStatusUnit `json:"unit"`
+}
+
+func (e *ExperimentWithEnhancedStatusStopAfter) GetValue() int64 {
+	if e == nil {
+		return 0
+	}
+	return e.Value
+}
+
+func (e *ExperimentWithEnhancedStatusStopAfter) GetUnit() ExperimentWithEnhancedStatusUnit {
+	if e == nil {
+		return ExperimentWithEnhancedStatusUnit("")
+	}
+	return e.Unit
+}
+
+// ExperimentWithEnhancedStatusStatusUpdateSchedule - Scheduled start/end for an experiment. All fields optional; the end may be an absolute `stopAt` or a deferred relative `stopAfter`, but not both.
 type ExperimentWithEnhancedStatusStatusUpdateSchedule struct {
 	// ISO datetime when the experiment should start. Must be in the future. Setting or clearing this field invalidates any existing staged start (`nextScheduledStatusUpdate`); call POST /experiments/{id}/start to stage the new schedule.
-	StartAt time.Time `json:"startAt"`
+	StartAt *time.Time `json:"startAt,omitzero"`
+	// ISO datetime when the experiment should stop. Resolved from `stopAfter` at start when a relative end was set.
+	StopAt *time.Time `json:"stopAt,omitzero"`
+	// Relative end offset. Deferred: resolved to a concrete `stopAt` at the experiment's actual start (or off `dateStarted` when already running).
+	StopAfter *ExperimentWithEnhancedStatusStopAfter `json:"stopAfter,omitzero"`
+	// What happens at the scheduled end date. `notify` keeps the experiment running and just notifies (soft). `auto-ship` (requires the Decision Framework) ships the winning variation and stops; multi-winner ties break on `tiebreakerMetricId` (higher lift); with no clear winner, `fallback` either keeps running (`notify`) or ships `fallbackVariationId`. `force-ship` stops and rolls out `fallbackVariationId`. `stop` is a hard deadline that stops with no rollout. For `force-ship` and `stop`, the Decision Framework verdict (won/lost/inconclusive) is recorded as metadata when available.
+	ScheduledStopPlan *ScheduledStopPlan `json:"scheduledStopPlan,omitzero"`
 }
 
 func (e ExperimentWithEnhancedStatusStatusUpdateSchedule) MarshalJSON() ([]byte, error) {
@@ -480,17 +528,59 @@ func (e *ExperimentWithEnhancedStatusStatusUpdateSchedule) UnmarshalJSON(data []
 	return nil
 }
 
-func (e *ExperimentWithEnhancedStatusStatusUpdateSchedule) GetStartAt() time.Time {
+func (e *ExperimentWithEnhancedStatusStatusUpdateSchedule) GetStartAt() *time.Time {
 	if e == nil {
-		return time.Time{}
+		return nil
 	}
 	return e.StartAt
 }
 
+func (e *ExperimentWithEnhancedStatusStatusUpdateSchedule) GetStopAt() *time.Time {
+	if e == nil {
+		return nil
+	}
+	return e.StopAt
+}
+
+func (e *ExperimentWithEnhancedStatusStatusUpdateSchedule) GetStopAfter() *ExperimentWithEnhancedStatusStopAfter {
+	if e == nil {
+		return nil
+	}
+	return e.StopAfter
+}
+
+func (e *ExperimentWithEnhancedStatusStatusUpdateSchedule) GetScheduledStopPlan() *ScheduledStopPlan {
+	if e == nil {
+		return nil
+	}
+	return e.ScheduledStopPlan
+}
+
+type ExperimentWithEnhancedStatusNextScheduledStatusUpdateType string
+
+const (
+	ExperimentWithEnhancedStatusNextScheduledStatusUpdateTypeStart ExperimentWithEnhancedStatusNextScheduledStatusUpdateType = "start"
+	ExperimentWithEnhancedStatusNextScheduledStatusUpdateTypeStop  ExperimentWithEnhancedStatusNextScheduledStatusUpdateType = "stop"
+)
+
+func (e ExperimentWithEnhancedStatusNextScheduledStatusUpdateType) ToPointer() *ExperimentWithEnhancedStatusNextScheduledStatusUpdateType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ExperimentWithEnhancedStatusNextScheduledStatusUpdateType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "start", "stop":
+			return true
+		}
+	}
+	return false
+}
+
 type ExperimentWithEnhancedStatusNextScheduledStatusUpdate struct {
-	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_ string    `const:"start" json:"type"`
-	Date  time.Time `json:"date"`
+	Type ExperimentWithEnhancedStatusNextScheduledStatusUpdateType `json:"type"`
+	Date time.Time                                                 `json:"date"`
 }
 
 func (e ExperimentWithEnhancedStatusNextScheduledStatusUpdate) MarshalJSON() ([]byte, error) {
@@ -504,8 +594,11 @@ func (e *ExperimentWithEnhancedStatusNextScheduledStatusUpdate) UnmarshalJSON(da
 	return nil
 }
 
-func (e *ExperimentWithEnhancedStatusNextScheduledStatusUpdate) GetType() string {
-	return "start"
+func (e *ExperimentWithEnhancedStatusNextScheduledStatusUpdate) GetType() ExperimentWithEnhancedStatusNextScheduledStatusUpdateType {
+	if e == nil {
+		return ExperimentWithEnhancedStatusNextScheduledStatusUpdateType("")
+	}
+	return e.Type
 }
 
 func (e *ExperimentWithEnhancedStatusNextScheduledStatusUpdate) GetDate() time.Time {

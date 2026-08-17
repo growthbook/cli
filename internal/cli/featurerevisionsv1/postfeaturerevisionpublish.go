@@ -4,21 +4,24 @@ package featurerevisionsv1
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/internal/client"
-	"github.com/growthbook/cli/internal/flagutil"
-	"github.com/growthbook/cli/internal/interactive"
-	"github.com/growthbook/cli/internal/output"
-	"github.com/growthbook/cli/internal/sdk"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/client"
+	"github.com/growthbook/cli/v2/internal/flagutil"
+	"github.com/growthbook/cli/v2/internal/interactive"
+	"github.com/growthbook/cli/v2/internal/output"
+	"github.com/growthbook/cli/v2/internal/sdk"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
 var postFeatureRevisionPublishCmdMeta = []flagutil.FlagMeta{
-	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
+	{FlagName: "id", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "comment", Shorthand: "c", FieldPath: "Body.Comment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "merge-now", Shorthand: "m", FieldPath: "Body.MergeNow", Kind: flagutil.FlagKindBool, Optional: true, Description: "When the org enforces same-base merges and the revision is behind the live version, set to true to force-merge the stale draft instead of rebasing first. This only takes effect for callers with bypass-approval permission; otherwise it is ignored and the revision must be rebased."},
+	{FlagName: "bypass-approval", Shorthand: "b", FieldPath: "Body.BypassApproval", Kind: flagutil.FlagKindBool, Optional: true, Description: "Deprecated and ignored. Approval is bypassed automatically when the caller has Bypass draft approvals access for this resource or when the organization enables the REST API approval bypass. Otherwise, the revision must be approved before it can be published."},
+	{FlagName: "ignore-warnings", FieldPath: "Body.IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access."},
+	{FlagName: "skip-schema-validation", FieldPath: "Body.SkipSchemaValidation", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored."},
+	{FlagName: "skip-hooks", FieldPath: "Body.SkipHooks", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored."},
 }
 
 // initPostFeatureRevisionPublishCmd initializes the post-feature-revision-publish command.
@@ -26,7 +29,7 @@ func initPostFeatureRevisionPublishCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "post-feature-revision-publish",
 		Short:   "Publish a draft revision",
-		Long:    "DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible\n\n**Deprecated.** Use [POST /v2/features/:id/revisions/:version/publish](#operation/postFeatureRevisionPublishV2) instead.\n\nImmediately publishes a draft revision, making it the live version of the feature. Blocked if the org requires approvals and `bypassApprovalChecks` is off.",
+		Long:    "DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible\n\n**Deprecated.** Use [POST /v2/features/:id/revisions/:version/publish](#operation/postFeatureRevisionPublishV2) instead.\n\nPublishes the draft and makes its changes live. The caller needs Publish access for every affected environment. When approval is required, the draft must be approved unless the caller has Bypass draft approvals access.",
 		Example: "  growthbook feature-revisions-v1 post-feature-revision-publish --id <id> --version-param 886000",
 		RunE:    runPostFeatureRevisionPublishCmd,
 		Aliases: []string{"pfrp"},

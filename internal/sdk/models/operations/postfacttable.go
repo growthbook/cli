@@ -5,8 +5,8 @@ package operations
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 type PostFactTableUpdateTime struct {
@@ -114,6 +114,8 @@ type PostFactTableRequest struct {
 	SQL string `json:"sql"`
 	// The event name used in SQL template variables
 	EventName *string `json:"eventName,omitzero"`
+	// Optional array of column definitions to store for this fact table. Supplied columns are stored as-is. Omit `datatype` (or send "") on a column to have it auto-detected from the SQL.
+	Columns []components.FactTableColumnInput `json:"columns,omitzero"`
 	// Set this to "api" to disable editing in the GrowthBook UI
 	ManagedBy *PostFactTableManagedBy `json:"managedBy,omitzero"`
 }
@@ -197,6 +199,13 @@ func (p *PostFactTableRequest) GetEventName() *string {
 		return nil
 	}
 	return p.EventName
+}
+
+func (p *PostFactTableRequest) GetColumns() []components.FactTableColumnInput {
+	if p == nil {
+		return nil
+	}
+	return p.Columns
 }
 
 func (p *PostFactTableRequest) GetManagedBy() *PostFactTableManagedBy {

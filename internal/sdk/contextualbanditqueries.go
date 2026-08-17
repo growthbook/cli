@@ -6,12 +6,12 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
-	"github.com/growthbook/cli/internal/sdk/models/sdkerrors"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/config"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/hooks"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/sdk/models/sdkerrors"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/config"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/hooks"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"net/http"
 	"net/url"
 )
@@ -30,8 +30,8 @@ func newContextualBanditQueries(rootSDK *Growthbook, sdkConfig config.SDKConfigu
 	}
 }
 
-// GetContextualBanditQuery - Get a single contextualBanditQuery
-func (s *ContextualBanditQueries) GetContextualBanditQuery(ctx context.Context, request operations.GetContextualBanditQueryRequest, opts ...operations.Option) (*operations.GetContextualBanditQueryResponse, error) {
+// Get a single contextualBanditQuery
+func (s *ContextualBanditQueries) Get(ctx context.Context, request operations.GetContextualBanditQueryRequest, opts ...operations.Option) (*operations.GetContextualBanditQueryResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -174,8 +174,8 @@ func (s *ContextualBanditQueries) GetContextualBanditQuery(ctx context.Context, 
 
 }
 
-// DeleteContextualBanditQuery - Delete a single contextualBanditQuery
-func (s *ContextualBanditQueries) DeleteContextualBanditQuery(ctx context.Context, request operations.DeleteContextualBanditQueryRequest, opts ...operations.Option) (*operations.DeleteContextualBanditQueryResponse, error) {
+// Delete a single contextualBanditQuery
+func (s *ContextualBanditQueries) Delete(ctx context.Context, request operations.DeleteContextualBanditQueryRequest, opts ...operations.Option) (*operations.DeleteContextualBanditQueryResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -318,8 +318,8 @@ func (s *ContextualBanditQueries) DeleteContextualBanditQuery(ctx context.Contex
 
 }
 
-// UpdateContextualBanditQuery - Update a single contextualBanditQuery
-func (s *ContextualBanditQueries) UpdateContextualBanditQuery(ctx context.Context, request operations.UpdateContextualBanditQueryRequest, opts ...operations.Option) (*operations.UpdateContextualBanditQueryResponse, error) {
+// Update a single contextualBanditQuery
+func (s *ContextualBanditQueries) Update(ctx context.Context, request operations.UpdateContextualBanditQueryRequest, opts ...operations.Option) (*operations.UpdateContextualBanditQueryResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -469,8 +469,8 @@ func (s *ContextualBanditQueries) UpdateContextualBanditQuery(ctx context.Contex
 
 }
 
-// CreateContextualBanditQuery - Create a single contextualBanditQuery
-func (s *ContextualBanditQueries) CreateContextualBanditQuery(ctx context.Context, request operations.CreateContextualBanditQueryRequest, opts ...operations.Option) (*operations.CreateContextualBanditQueryResponse, error) {
+// Create a single contextualBanditQuery
+func (s *ContextualBanditQueries) Create(ctx context.Context, request operations.CreateContextualBanditQueryRequest, opts ...operations.Option) (*operations.CreateContextualBanditQueryResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

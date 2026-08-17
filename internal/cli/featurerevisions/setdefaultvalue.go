@@ -4,25 +4,28 @@ package featurerevisions
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/internal/client"
-	"github.com/growthbook/cli/internal/flagutil"
-	"github.com/growthbook/cli/internal/interactive"
-	"github.com/growthbook/cli/internal/output"
-	"github.com/growthbook/cli/internal/sdk"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/client"
+	"github.com/growthbook/cli/v2/internal/flagutil"
+	"github.com/growthbook/cli/v2/internal/interactive"
+	"github.com/growthbook/cli/v2/internal/output"
+	"github.com/growthbook/cli/v2/internal/sdk"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
 var setDefaultValueCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "skip-schema-validation", Shorthand: "s", FieldPath: "SkipSchemaValidation", Kind: flagutil.FlagKindBool, Optional: true, Description: "Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the `bypassApprovalChecks` permission on all projects); ignored otherwise. Validation is enforced by default."},
-	{FlagName: "ignore-warnings", FieldPath: "IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has `blockPublishOnSchemaError` disabled (warn mode)."},
-	{FlagName: "default-value", FieldPath: "Body.DefaultValue", Kind: flagutil.FlagKindString, Required: true, Description: "New default value. In Config mode (feature has `baseConfig`), the default must be exactly a config with no overrides: send `\"{}\"` to use `baseConfig`, or set `defaultValueConfig` to point at a descendant. [required]"},
-	{FlagName: "default-value-config", FieldPath: "Body.DefaultValueConfig", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"defaultValueConfig,omitempty"`, Description: "Key of a config within the feature's `baseConfig` family that the default value resolves to (the base itself or a descendant). The default is exactly that config with no overrides; pass `null` to use `baseConfig`. Do not embed `@config:` in `defaultValue` — use this field."},
-	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "Title for a newly created draft. Only used when version is \"new\"; ignored for existing revisions."},
-	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "Comment for a newly created draft. Only used when version is \"new\"; ignored for existing revisions."},
+	{FlagName: "skip-schema-validation", Shorthand: "s", FieldPath: "SkipSchemaValidation", Kind: flagutil.FlagKindBool, Optional: true, Description: "Deprecated — pass `skipSchemaValidation` in the request body instead."},
+	{FlagName: "ignore-warnings", FieldPath: "IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Deprecated — pass `ignoreWarnings` in the request body instead."},
+	{FlagName: "body-param.default-value", FieldPath: "Body.DefaultValue", Kind: flagutil.FlagKindString, Required: true, Description: "New default value. In Config mode (feature has `baseConfig`), the default must be exactly a config with no overrides: send `\"{}\"` to use `baseConfig`, or set `defaultValueConfig` to point at a descendant. [required]"},
+	{FlagName: "body-param.default-value-config", FieldPath: "Body.DefaultValueConfig", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"defaultValueConfig,omitempty"`, Description: "Key of a config within the feature's `baseConfig` family that the default value resolves to (the base itself or a descendant). The default is exactly that config with no overrides; pass `null` to use `baseConfig`. Do not embed `@config:` in `defaultValue` — use this field."},
+	{FlagName: "body-param.revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "Title for a newly created draft. Only used when version is \"new\"; ignored for existing revisions."},
+	{FlagName: "body-param.revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "Comment for a newly created draft. Only used when version is \"new\"; ignored for existing revisions."},
+	{FlagName: "body-param.ignore-warnings", FieldPath: "Body.IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access."},
+	{FlagName: "body-param.skip-schema-validation", FieldPath: "Body.SkipSchemaValidation", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored."},
+	{FlagName: "body-param.skip-hooks", FieldPath: "Body.SkipHooks", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored."},
 }
 
 // initSetDefaultValueCmd initializes the set-default-value command.
@@ -31,7 +34,7 @@ func initSetDefaultValueCmd(parent *cobra.Command) error {
 		Use:     "set-default-value",
 		Short:   "Set the default value in a draft revision",
 		Long:    "Set the default value in a draft revision",
-		Example: "  growthbook feature-revisions set-default-value --id <id> --version-param <value> --default-value <value>",
+		Example: "  growthbook feature-revisions set-default-value --id <id> --version-param <value> --body-param.default-value <value>",
 		RunE:    runSetDefaultValueCmd,
 		Aliases: []string{"sdv"},
 	}

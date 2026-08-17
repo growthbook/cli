@@ -22,6 +22,7 @@ growthbook saved-group-revisions archive [flags]
   -a, --archived                  [required]
       --body string               Request body as JSON (alternative to individual flags). Can also be provided via stdin.
   -h, --help                      help for archive
+  -i, --ignore-warnings           Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
       --revision-comment string   string value
       --revision-title string     string value
   -s, --saved-group-id string     [required]

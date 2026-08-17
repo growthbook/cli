@@ -22,7 +22,8 @@ growthbook experiments modify-temporary-rollout [flags]
       --body string                    Request body as JSON (alternative to individual flags). Can also be provided via stdin.
   -e, --enable-temporary-rollout       If true, keep the stopped experiment in SDK payload and force traffic to the winner variation. If false, end temporary rollout and remove from SDK payload. [required]
   -h, --help                           help for modify-temporary-rollout
-  -i, --id string                      The id of the requested resource [required]
+      --id string                      The id of the requested resource [required]
+      --ignore-warnings                Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
   -r, --released-variation-id string   Variation ID (e.g. var_abc123) to release to 100% of traffic eligible for this experiment. Required if enableTemporaryRollout is true.
 ```
 

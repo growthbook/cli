@@ -6,9 +6,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 // CreateDashboardEditLevel - Dashboards that are "published" are editable by organization members with appropriate permissions
@@ -204,12 +204,15 @@ func (u CreateDashboardUpdateScheduleUnion) MarshalJSON() ([]byte, error) {
 type CreateDashboardGlobalControlsPredefined string
 
 const (
-	CreateDashboardGlobalControlsPredefinedToday           CreateDashboardGlobalControlsPredefined = "today"
-	CreateDashboardGlobalControlsPredefinedLast7Days       CreateDashboardGlobalControlsPredefined = "last7Days"
-	CreateDashboardGlobalControlsPredefinedLast30Days      CreateDashboardGlobalControlsPredefined = "last30Days"
-	CreateDashboardGlobalControlsPredefinedLast90Days      CreateDashboardGlobalControlsPredefined = "last90Days"
-	CreateDashboardGlobalControlsPredefinedCustomLookback  CreateDashboardGlobalControlsPredefined = "customLookback"
-	CreateDashboardGlobalControlsPredefinedCustomDateRange CreateDashboardGlobalControlsPredefined = "customDateRange"
+	CreateDashboardGlobalControlsPredefinedToday            CreateDashboardGlobalControlsPredefined = "today"
+	CreateDashboardGlobalControlsPredefinedYesterday        CreateDashboardGlobalControlsPredefined = "yesterday"
+	CreateDashboardGlobalControlsPredefinedLast7Days        CreateDashboardGlobalControlsPredefined = "last7Days"
+	CreateDashboardGlobalControlsPredefinedLast30Days       CreateDashboardGlobalControlsPredefined = "last30Days"
+	CreateDashboardGlobalControlsPredefinedLast90Days       CreateDashboardGlobalControlsPredefined = "last90Days"
+	CreateDashboardGlobalControlsPredefinedLast12Months     CreateDashboardGlobalControlsPredefined = "last12Months"
+	CreateDashboardGlobalControlsPredefinedLastCalendarYear CreateDashboardGlobalControlsPredefined = "lastCalendarYear"
+	CreateDashboardGlobalControlsPredefinedCustomLookback   CreateDashboardGlobalControlsPredefined = "customLookback"
+	CreateDashboardGlobalControlsPredefinedCustomDateRange  CreateDashboardGlobalControlsPredefined = "customDateRange"
 )
 
 func (e CreateDashboardGlobalControlsPredefined) ToPointer() *CreateDashboardGlobalControlsPredefined {
@@ -223,11 +226,17 @@ func (e *CreateDashboardGlobalControlsPredefined) UnmarshalJSON(data []byte) err
 	switch v {
 	case "today":
 		fallthrough
+	case "yesterday":
+		fallthrough
 	case "last7Days":
 		fallthrough
 	case "last30Days":
 		fallthrough
 	case "last90Days":
+		fallthrough
+	case "last12Months":
+		fallthrough
+	case "lastCalendarYear":
 		fallthrough
 	case "customLookback":
 		fallthrough
@@ -382,7 +391,7 @@ func (c *CreateDashboardGlobalControls) GetDateGranularity() *CreateDashboardGlo
 	return c.DateGranularity
 }
 
-type CreateDashboardLayout11 struct {
+type CreateDashboardLayout15 struct {
 	X      int64 `json:"x"`
 	Y      int64 `json:"y"`
 	W      int64 `json:"w"`
@@ -390,70 +399,108 @@ type CreateDashboardLayout11 struct {
 	Static *bool `json:"static,omitzero"`
 }
 
-func (c CreateDashboardLayout11) MarshalJSON() ([]byte, error) {
+func (c CreateDashboardLayout15) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateDashboardLayout11) UnmarshalJSON(data []byte) error {
+func (c *CreateDashboardLayout15) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateDashboardLayout11) GetX() int64 {
+func (c *CreateDashboardLayout15) GetX() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.X
 }
 
-func (c *CreateDashboardLayout11) GetY() int64 {
+func (c *CreateDashboardLayout15) GetY() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.Y
 }
 
-func (c *CreateDashboardLayout11) GetW() int64 {
+func (c *CreateDashboardLayout15) GetW() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.W
 }
 
-func (c *CreateDashboardLayout11) GetH() int64 {
+func (c *CreateDashboardLayout15) GetH() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.H
 }
 
-func (c *CreateDashboardLayout11) GetStatic() *bool {
+func (c *CreateDashboardLayout15) GetStatic() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Static
 }
 
-// #region class-body-createdashboardlayout11
-// #endregion class-body-createdashboardlayout11
+// #region class-body-createdashboardlayout15
+// #endregion class-body-createdashboardlayout15
 
-type CreateDashboardPreviousTimeFramePredefined4 string
+type CreateDashboardMode7 string
 
 const (
-	CreateDashboardPreviousTimeFramePredefined4Today           CreateDashboardPreviousTimeFramePredefined4 = "today"
-	CreateDashboardPreviousTimeFramePredefined4Last7Days       CreateDashboardPreviousTimeFramePredefined4 = "last7Days"
-	CreateDashboardPreviousTimeFramePredefined4Last30Days      CreateDashboardPreviousTimeFramePredefined4 = "last30Days"
-	CreateDashboardPreviousTimeFramePredefined4Last90Days      CreateDashboardPreviousTimeFramePredefined4 = "last90Days"
-	CreateDashboardPreviousTimeFramePredefined4CustomLookback  CreateDashboardPreviousTimeFramePredefined4 = "customLookback"
-	CreateDashboardPreviousTimeFramePredefined4CustomDateRange CreateDashboardPreviousTimeFramePredefined4 = "customDateRange"
+	CreateDashboardMode7PreviousPeriod               CreateDashboardMode7 = "previousPeriod"
+	CreateDashboardMode7PreviousPeriodMatchDayOfWeek CreateDashboardMode7 = "previousPeriodMatchDayOfWeek"
+	CreateDashboardMode7PreviousYear                 CreateDashboardMode7 = "previousYear"
+	CreateDashboardMode7PreviousYearMatchDayOfWeek   CreateDashboardMode7 = "previousYearMatchDayOfWeek"
+	CreateDashboardMode7Custom                       CreateDashboardMode7 = "custom"
 )
 
-func (e CreateDashboardPreviousTimeFramePredefined4) ToPointer() *CreateDashboardPreviousTimeFramePredefined4 {
+func (e CreateDashboardMode7) ToPointer() *CreateDashboardMode7 {
 	return &e
 }
-func (e *CreateDashboardPreviousTimeFramePredefined4) UnmarshalJSON(data []byte) error {
+func (e *CreateDashboardMode7) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "previousPeriod":
+		fallthrough
+	case "previousPeriodMatchDayOfWeek":
+		fallthrough
+	case "previousYear":
+		fallthrough
+	case "previousYearMatchDayOfWeek":
+		fallthrough
+	case "custom":
+		*e = CreateDashboardMode7(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateDashboardMode7: %v", v)
+	}
+}
+
+type CreateDashboardPreviousTimeFramePredefined7 string
+
+const (
+	CreateDashboardPreviousTimeFramePredefined7Today            CreateDashboardPreviousTimeFramePredefined7 = "today"
+	CreateDashboardPreviousTimeFramePredefined7Yesterday        CreateDashboardPreviousTimeFramePredefined7 = "yesterday"
+	CreateDashboardPreviousTimeFramePredefined7Last7Days        CreateDashboardPreviousTimeFramePredefined7 = "last7Days"
+	CreateDashboardPreviousTimeFramePredefined7Last30Days       CreateDashboardPreviousTimeFramePredefined7 = "last30Days"
+	CreateDashboardPreviousTimeFramePredefined7Last90Days       CreateDashboardPreviousTimeFramePredefined7 = "last90Days"
+	CreateDashboardPreviousTimeFramePredefined7Last12Months     CreateDashboardPreviousTimeFramePredefined7 = "last12Months"
+	CreateDashboardPreviousTimeFramePredefined7LastCalendarYear CreateDashboardPreviousTimeFramePredefined7 = "lastCalendarYear"
+	CreateDashboardPreviousTimeFramePredefined7CustomLookback   CreateDashboardPreviousTimeFramePredefined7 = "customLookback"
+	CreateDashboardPreviousTimeFramePredefined7CustomDateRange  CreateDashboardPreviousTimeFramePredefined7 = "customDateRange"
+)
+
+func (e CreateDashboardPreviousTimeFramePredefined7) ToPointer() *CreateDashboardPreviousTimeFramePredefined7 {
+	return &e
+}
+func (e *CreateDashboardPreviousTimeFramePredefined7) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -461,35 +508,41 @@ func (e *CreateDashboardPreviousTimeFramePredefined4) UnmarshalJSON(data []byte)
 	switch v {
 	case "today":
 		fallthrough
+	case "yesterday":
+		fallthrough
 	case "last7Days":
 		fallthrough
 	case "last30Days":
 		fallthrough
 	case "last90Days":
 		fallthrough
+	case "last12Months":
+		fallthrough
+	case "lastCalendarYear":
+		fallthrough
 	case "customLookback":
 		fallthrough
 	case "customDateRange":
-		*e = CreateDashboardPreviousTimeFramePredefined4(v)
+		*e = CreateDashboardPreviousTimeFramePredefined7(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateDashboardPreviousTimeFramePredefined4: %v", v)
+		return fmt.Errorf("invalid value for CreateDashboardPreviousTimeFramePredefined7: %v", v)
 	}
 }
 
-type CreateDashboardPreviousTimeFrameLookbackUnit4 string
+type CreateDashboardPreviousTimeFrameLookbackUnit7 string
 
 const (
-	CreateDashboardPreviousTimeFrameLookbackUnit4Hour  CreateDashboardPreviousTimeFrameLookbackUnit4 = "hour"
-	CreateDashboardPreviousTimeFrameLookbackUnit4Day   CreateDashboardPreviousTimeFrameLookbackUnit4 = "day"
-	CreateDashboardPreviousTimeFrameLookbackUnit4Week  CreateDashboardPreviousTimeFrameLookbackUnit4 = "week"
-	CreateDashboardPreviousTimeFrameLookbackUnit4Month CreateDashboardPreviousTimeFrameLookbackUnit4 = "month"
+	CreateDashboardPreviousTimeFrameLookbackUnit7Hour  CreateDashboardPreviousTimeFrameLookbackUnit7 = "hour"
+	CreateDashboardPreviousTimeFrameLookbackUnit7Day   CreateDashboardPreviousTimeFrameLookbackUnit7 = "day"
+	CreateDashboardPreviousTimeFrameLookbackUnit7Week  CreateDashboardPreviousTimeFrameLookbackUnit7 = "week"
+	CreateDashboardPreviousTimeFrameLookbackUnit7Month CreateDashboardPreviousTimeFrameLookbackUnit7 = "month"
 )
 
-func (e CreateDashboardPreviousTimeFrameLookbackUnit4) ToPointer() *CreateDashboardPreviousTimeFrameLookbackUnit4 {
+func (e CreateDashboardPreviousTimeFrameLookbackUnit7) ToPointer() *CreateDashboardPreviousTimeFrameLookbackUnit7 {
 	return &e
 }
-func (e *CreateDashboardPreviousTimeFrameLookbackUnit4) UnmarshalJSON(data []byte) error {
+func (e *CreateDashboardPreviousTimeFrameLookbackUnit7) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -502,102 +555,110 @@ func (e *CreateDashboardPreviousTimeFrameLookbackUnit4) UnmarshalJSON(data []byt
 	case "week":
 		fallthrough
 	case "month":
-		*e = CreateDashboardPreviousTimeFrameLookbackUnit4(v)
+		*e = CreateDashboardPreviousTimeFrameLookbackUnit7(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateDashboardPreviousTimeFrameLookbackUnit4: %v", v)
+		return fmt.Errorf("invalid value for CreateDashboardPreviousTimeFrameLookbackUnit7: %v", v)
 	}
 }
 
-type CreateDashboardPreviousTimeFrame4 struct {
-	Predefined    CreateDashboardPreviousTimeFramePredefined4                                      `json:"predefined"`
+type CreateDashboardPreviousTimeFrame7 struct {
+	Predefined    CreateDashboardPreviousTimeFramePredefined7                                      `json:"predefined"`
 	LookbackValue optionalnullable.OptionalNullable[float64]                                       `json:"lookbackValue,omitzero"`
-	LookbackUnit  optionalnullable.OptionalNullable[CreateDashboardPreviousTimeFrameLookbackUnit4] `json:"lookbackUnit,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[CreateDashboardPreviousTimeFrameLookbackUnit7] `json:"lookbackUnit,omitzero"`
 	StartDate     optionalnullable.OptionalNullable[string]                                        `json:"startDate,omitzero"`
 	EndDate       optionalnullable.OptionalNullable[string]                                        `json:"endDate,omitzero"`
 }
 
-func (c CreateDashboardPreviousTimeFrame4) MarshalJSON() ([]byte, error) {
+func (c CreateDashboardPreviousTimeFrame7) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateDashboardPreviousTimeFrame4) UnmarshalJSON(data []byte) error {
+func (c *CreateDashboardPreviousTimeFrame7) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateDashboardPreviousTimeFrame4) GetPredefined() CreateDashboardPreviousTimeFramePredefined4 {
+func (c *CreateDashboardPreviousTimeFrame7) GetPredefined() CreateDashboardPreviousTimeFramePredefined7 {
 	if c == nil {
-		return CreateDashboardPreviousTimeFramePredefined4("")
+		return CreateDashboardPreviousTimeFramePredefined7("")
 	}
 	return c.Predefined
 }
 
-func (c *CreateDashboardPreviousTimeFrame4) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+func (c *CreateDashboardPreviousTimeFrame7) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
 	if c == nil {
 		return nil
 	}
 	return c.LookbackValue
 }
 
-func (c *CreateDashboardPreviousTimeFrame4) GetLookbackUnit() optionalnullable.OptionalNullable[CreateDashboardPreviousTimeFrameLookbackUnit4] {
+func (c *CreateDashboardPreviousTimeFrame7) GetLookbackUnit() optionalnullable.OptionalNullable[CreateDashboardPreviousTimeFrameLookbackUnit7] {
 	if c == nil {
 		return nil
 	}
 	return c.LookbackUnit
 }
 
-func (c *CreateDashboardPreviousTimeFrame4) GetStartDate() optionalnullable.OptionalNullable[string] {
+func (c *CreateDashboardPreviousTimeFrame7) GetStartDate() optionalnullable.OptionalNullable[string] {
 	if c == nil {
 		return nil
 	}
 	return c.StartDate
 }
 
-func (c *CreateDashboardPreviousTimeFrame4) GetEndDate() optionalnullable.OptionalNullable[string] {
+func (c *CreateDashboardPreviousTimeFrame7) GetEndDate() optionalnullable.OptionalNullable[string] {
 	if c == nil {
 		return nil
 	}
 	return c.EndDate
 }
 
-// #region class-body-createdashboardprevioustimeframe4
-// #endregion class-body-createdashboardprevioustimeframe4
+// #region class-body-createdashboardprevioustimeframe7
+// #endregion class-body-createdashboardprevioustimeframe7
 
-type CreateDashboardComparison4 struct {
+type CreateDashboardComparison7 struct {
 	Enabled           bool                               `json:"enabled"`
-	PreviousTimeFrame *CreateDashboardPreviousTimeFrame4 `json:"previousTimeFrame,omitzero"`
+	Mode              *CreateDashboardMode7              `json:"mode,omitzero"`
+	PreviousTimeFrame *CreateDashboardPreviousTimeFrame7 `json:"previousTimeFrame,omitzero"`
 }
 
-func (c CreateDashboardComparison4) MarshalJSON() ([]byte, error) {
+func (c CreateDashboardComparison7) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateDashboardComparison4) UnmarshalJSON(data []byte) error {
+func (c *CreateDashboardComparison7) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateDashboardComparison4) GetEnabled() bool {
+func (c *CreateDashboardComparison7) GetEnabled() bool {
 	if c == nil {
 		return false
 	}
 	return c.Enabled
 }
 
-func (c *CreateDashboardComparison4) GetPreviousTimeFrame() *CreateDashboardPreviousTimeFrame4 {
+func (c *CreateDashboardComparison7) GetMode() *CreateDashboardMode7 {
+	if c == nil {
+		return nil
+	}
+	return c.Mode
+}
+
+func (c *CreateDashboardComparison7) GetPreviousTimeFrame() *CreateDashboardPreviousTimeFrame7 {
 	if c == nil {
 		return nil
 	}
 	return c.PreviousTimeFrame
 }
 
-// #region class-body-createdashboardcomparison4
-// #endregion class-body-createdashboardcomparison4
+// #region class-body-createdashboardcomparison7
+// #endregion class-body-createdashboardcomparison7
 
 type CreateDashboardGlobalControlSettings3 struct {
 	DateRange *bool `json:"dateRange,omitzero"`
@@ -633,6 +694,8 @@ const (
 	CreateDashboardDimensionOperatorDataSourceLessThanEqual    CreateDashboardDimensionOperatorDataSource = "<="
 	CreateDashboardDimensionOperatorDataSourceGreaterThan      CreateDashboardDimensionOperatorDataSource = ">"
 	CreateDashboardDimensionOperatorDataSourceGreaterThanEqual CreateDashboardDimensionOperatorDataSource = ">="
+	CreateDashboardDimensionOperatorDataSourceBetween          CreateDashboardDimensionOperatorDataSource = "between"
+	CreateDashboardDimensionOperatorDataSourceNotBetween       CreateDashboardDimensionOperatorDataSource = "not_between"
 	CreateDashboardDimensionOperatorDataSourceIn               CreateDashboardDimensionOperatorDataSource = "in"
 	CreateDashboardDimensionOperatorDataSourceNotIn            CreateDashboardDimensionOperatorDataSource = "not_in"
 	CreateDashboardDimensionOperatorDataSourceContains         CreateDashboardDimensionOperatorDataSource = "contains"
@@ -667,6 +730,10 @@ func (e *CreateDashboardDimensionOperatorDataSource) UnmarshalJSON(data []byte) 
 	case ">":
 		fallthrough
 	case ">=":
+		fallthrough
+	case "between":
+		fallthrough
+	case "not_between":
 		fallthrough
 	case "in":
 		fallthrough
@@ -1117,12 +1184,15 @@ func (e *CreateDashboardChartTypeDataSource) UnmarshalJSON(data []byte) error {
 type CreateDashboardPredefinedDataSource string
 
 const (
-	CreateDashboardPredefinedDataSourceToday           CreateDashboardPredefinedDataSource = "today"
-	CreateDashboardPredefinedDataSourceLast7Days       CreateDashboardPredefinedDataSource = "last7Days"
-	CreateDashboardPredefinedDataSourceLast30Days      CreateDashboardPredefinedDataSource = "last30Days"
-	CreateDashboardPredefinedDataSourceLast90Days      CreateDashboardPredefinedDataSource = "last90Days"
-	CreateDashboardPredefinedDataSourceCustomLookback  CreateDashboardPredefinedDataSource = "customLookback"
-	CreateDashboardPredefinedDataSourceCustomDateRange CreateDashboardPredefinedDataSource = "customDateRange"
+	CreateDashboardPredefinedDataSourceToday            CreateDashboardPredefinedDataSource = "today"
+	CreateDashboardPredefinedDataSourceYesterday        CreateDashboardPredefinedDataSource = "yesterday"
+	CreateDashboardPredefinedDataSourceLast7Days        CreateDashboardPredefinedDataSource = "last7Days"
+	CreateDashboardPredefinedDataSourceLast30Days       CreateDashboardPredefinedDataSource = "last30Days"
+	CreateDashboardPredefinedDataSourceLast90Days       CreateDashboardPredefinedDataSource = "last90Days"
+	CreateDashboardPredefinedDataSourceLast12Months     CreateDashboardPredefinedDataSource = "last12Months"
+	CreateDashboardPredefinedDataSourceLastCalendarYear CreateDashboardPredefinedDataSource = "lastCalendarYear"
+	CreateDashboardPredefinedDataSourceCustomLookback   CreateDashboardPredefinedDataSource = "customLookback"
+	CreateDashboardPredefinedDataSourceCustomDateRange  CreateDashboardPredefinedDataSource = "customDateRange"
 )
 
 func (e CreateDashboardPredefinedDataSource) ToPointer() *CreateDashboardPredefinedDataSource {
@@ -1136,11 +1206,17 @@ func (e *CreateDashboardPredefinedDataSource) UnmarshalJSON(data []byte) error {
 	switch v {
 	case "today":
 		fallthrough
+	case "yesterday":
+		fallthrough
 	case "last7Days":
 		fallthrough
 	case "last30Days":
 		fallthrough
 	case "last90Days":
+		fallthrough
+	case "last12Months":
+		fallthrough
+	case "lastCalendarYear":
 		fallthrough
 	case "customLookback":
 		fallthrough
@@ -1308,6 +1384,8 @@ const (
 	CreateDashboardRowFilterOperatorDataSourceLessThanEqual    CreateDashboardRowFilterOperatorDataSource = "<="
 	CreateDashboardRowFilterOperatorDataSourceGreaterThan      CreateDashboardRowFilterOperatorDataSource = ">"
 	CreateDashboardRowFilterOperatorDataSourceGreaterThanEqual CreateDashboardRowFilterOperatorDataSource = ">="
+	CreateDashboardRowFilterOperatorDataSourceBetween          CreateDashboardRowFilterOperatorDataSource = "between"
+	CreateDashboardRowFilterOperatorDataSourceNotBetween       CreateDashboardRowFilterOperatorDataSource = "not_between"
 	CreateDashboardRowFilterOperatorDataSourceIn               CreateDashboardRowFilterOperatorDataSource = "in"
 	CreateDashboardRowFilterOperatorDataSourceNotIn            CreateDashboardRowFilterOperatorDataSource = "not_in"
 	CreateDashboardRowFilterOperatorDataSourceContains         CreateDashboardRowFilterOperatorDataSource = "contains"
@@ -1342,6 +1420,10 @@ func (e *CreateDashboardRowFilterOperatorDataSource) UnmarshalJSON(data []byte) 
 	case ">":
 		fallthrough
 	case ">=":
+		fallthrough
+	case "between":
+		fallthrough
+	case "not_between":
 		fallthrough
 	case "in":
 		fallthrough
@@ -1635,9 +1717,9 @@ type CreateDashboardBlockDataSourceExploration struct {
 	Title                        string                                 `json:"title"`
 	Description                  string                                 `json:"description"`
 	SnapshotID                   *string                                `json:"snapshotId,omitzero"`
-	Layout                       *CreateDashboardLayout11               `json:"layout,omitzero"`
+	Layout                       *CreateDashboardLayout15               `json:"layout,omitzero"`
 	ExplorerAnalysisID           string                                 `json:"explorerAnalysisId"`
-	Comparison                   *CreateDashboardComparison4            `json:"comparison,omitzero"`
+	Comparison                   *CreateDashboardComparison7            `json:"comparison,omitzero"`
 	ComparisonExplorerAnalysisID *string                                `json:"comparisonExplorerAnalysisId,omitzero"`
 	GlobalControlSettings        *CreateDashboardGlobalControlSettings3 `json:"globalControlSettings,omitzero"`
 	Config                       CreateDashboardConfigDataSource        `json:"config"`
@@ -1679,7 +1761,7 @@ func (c *CreateDashboardBlockDataSourceExploration) GetSnapshotID() *string {
 	return c.SnapshotID
 }
 
-func (c *CreateDashboardBlockDataSourceExploration) GetLayout() *CreateDashboardLayout11 {
+func (c *CreateDashboardBlockDataSourceExploration) GetLayout() *CreateDashboardLayout15 {
 	if c == nil {
 		return nil
 	}
@@ -1693,7 +1775,7 @@ func (c *CreateDashboardBlockDataSourceExploration) GetExplorerAnalysisID() stri
 	return c.ExplorerAnalysisID
 }
 
-func (c *CreateDashboardBlockDataSourceExploration) GetComparison() *CreateDashboardComparison4 {
+func (c *CreateDashboardBlockDataSourceExploration) GetComparison() *CreateDashboardComparison7 {
 	if c == nil {
 		return nil
 	}
@@ -1721,7 +1803,7 @@ func (c *CreateDashboardBlockDataSourceExploration) GetConfig() CreateDashboardC
 	return c.Config
 }
 
-type CreateDashboardLayout10 struct {
+type CreateDashboardLayout14 struct {
 	X      int64 `json:"x"`
 	Y      int64 `json:"y"`
 	W      int64 `json:"w"`
@@ -1729,70 +1811,108 @@ type CreateDashboardLayout10 struct {
 	Static *bool `json:"static,omitzero"`
 }
 
-func (c CreateDashboardLayout10) MarshalJSON() ([]byte, error) {
+func (c CreateDashboardLayout14) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateDashboardLayout10) UnmarshalJSON(data []byte) error {
+func (c *CreateDashboardLayout14) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateDashboardLayout10) GetX() int64 {
+func (c *CreateDashboardLayout14) GetX() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.X
 }
 
-func (c *CreateDashboardLayout10) GetY() int64 {
+func (c *CreateDashboardLayout14) GetY() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.Y
 }
 
-func (c *CreateDashboardLayout10) GetW() int64 {
+func (c *CreateDashboardLayout14) GetW() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.W
 }
 
-func (c *CreateDashboardLayout10) GetH() int64 {
+func (c *CreateDashboardLayout14) GetH() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.H
 }
 
-func (c *CreateDashboardLayout10) GetStatic() *bool {
+func (c *CreateDashboardLayout14) GetStatic() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Static
 }
 
-// #region class-body-createdashboardlayout10
-// #endregion class-body-createdashboardlayout10
+// #region class-body-createdashboardlayout14
+// #endregion class-body-createdashboardlayout14
 
-type CreateDashboardPreviousTimeFramePredefined3 string
+type CreateDashboardMode6 string
 
 const (
-	CreateDashboardPreviousTimeFramePredefined3Today           CreateDashboardPreviousTimeFramePredefined3 = "today"
-	CreateDashboardPreviousTimeFramePredefined3Last7Days       CreateDashboardPreviousTimeFramePredefined3 = "last7Days"
-	CreateDashboardPreviousTimeFramePredefined3Last30Days      CreateDashboardPreviousTimeFramePredefined3 = "last30Days"
-	CreateDashboardPreviousTimeFramePredefined3Last90Days      CreateDashboardPreviousTimeFramePredefined3 = "last90Days"
-	CreateDashboardPreviousTimeFramePredefined3CustomLookback  CreateDashboardPreviousTimeFramePredefined3 = "customLookback"
-	CreateDashboardPreviousTimeFramePredefined3CustomDateRange CreateDashboardPreviousTimeFramePredefined3 = "customDateRange"
+	CreateDashboardMode6PreviousPeriod               CreateDashboardMode6 = "previousPeriod"
+	CreateDashboardMode6PreviousPeriodMatchDayOfWeek CreateDashboardMode6 = "previousPeriodMatchDayOfWeek"
+	CreateDashboardMode6PreviousYear                 CreateDashboardMode6 = "previousYear"
+	CreateDashboardMode6PreviousYearMatchDayOfWeek   CreateDashboardMode6 = "previousYearMatchDayOfWeek"
+	CreateDashboardMode6Custom                       CreateDashboardMode6 = "custom"
 )
 
-func (e CreateDashboardPreviousTimeFramePredefined3) ToPointer() *CreateDashboardPreviousTimeFramePredefined3 {
+func (e CreateDashboardMode6) ToPointer() *CreateDashboardMode6 {
 	return &e
 }
-func (e *CreateDashboardPreviousTimeFramePredefined3) UnmarshalJSON(data []byte) error {
+func (e *CreateDashboardMode6) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "previousPeriod":
+		fallthrough
+	case "previousPeriodMatchDayOfWeek":
+		fallthrough
+	case "previousYear":
+		fallthrough
+	case "previousYearMatchDayOfWeek":
+		fallthrough
+	case "custom":
+		*e = CreateDashboardMode6(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateDashboardMode6: %v", v)
+	}
+}
+
+type CreateDashboardPreviousTimeFramePredefined6 string
+
+const (
+	CreateDashboardPreviousTimeFramePredefined6Today            CreateDashboardPreviousTimeFramePredefined6 = "today"
+	CreateDashboardPreviousTimeFramePredefined6Yesterday        CreateDashboardPreviousTimeFramePredefined6 = "yesterday"
+	CreateDashboardPreviousTimeFramePredefined6Last7Days        CreateDashboardPreviousTimeFramePredefined6 = "last7Days"
+	CreateDashboardPreviousTimeFramePredefined6Last30Days       CreateDashboardPreviousTimeFramePredefined6 = "last30Days"
+	CreateDashboardPreviousTimeFramePredefined6Last90Days       CreateDashboardPreviousTimeFramePredefined6 = "last90Days"
+	CreateDashboardPreviousTimeFramePredefined6Last12Months     CreateDashboardPreviousTimeFramePredefined6 = "last12Months"
+	CreateDashboardPreviousTimeFramePredefined6LastCalendarYear CreateDashboardPreviousTimeFramePredefined6 = "lastCalendarYear"
+	CreateDashboardPreviousTimeFramePredefined6CustomLookback   CreateDashboardPreviousTimeFramePredefined6 = "customLookback"
+	CreateDashboardPreviousTimeFramePredefined6CustomDateRange  CreateDashboardPreviousTimeFramePredefined6 = "customDateRange"
+)
+
+func (e CreateDashboardPreviousTimeFramePredefined6) ToPointer() *CreateDashboardPreviousTimeFramePredefined6 {
+	return &e
+}
+func (e *CreateDashboardPreviousTimeFramePredefined6) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -1800,35 +1920,41 @@ func (e *CreateDashboardPreviousTimeFramePredefined3) UnmarshalJSON(data []byte)
 	switch v {
 	case "today":
 		fallthrough
+	case "yesterday":
+		fallthrough
 	case "last7Days":
 		fallthrough
 	case "last30Days":
 		fallthrough
 	case "last90Days":
 		fallthrough
+	case "last12Months":
+		fallthrough
+	case "lastCalendarYear":
+		fallthrough
 	case "customLookback":
 		fallthrough
 	case "customDateRange":
-		*e = CreateDashboardPreviousTimeFramePredefined3(v)
+		*e = CreateDashboardPreviousTimeFramePredefined6(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateDashboardPreviousTimeFramePredefined3: %v", v)
+		return fmt.Errorf("invalid value for CreateDashboardPreviousTimeFramePredefined6: %v", v)
 	}
 }
 
-type CreateDashboardPreviousTimeFrameLookbackUnit3 string
+type CreateDashboardPreviousTimeFrameLookbackUnit6 string
 
 const (
-	CreateDashboardPreviousTimeFrameLookbackUnit3Hour  CreateDashboardPreviousTimeFrameLookbackUnit3 = "hour"
-	CreateDashboardPreviousTimeFrameLookbackUnit3Day   CreateDashboardPreviousTimeFrameLookbackUnit3 = "day"
-	CreateDashboardPreviousTimeFrameLookbackUnit3Week  CreateDashboardPreviousTimeFrameLookbackUnit3 = "week"
-	CreateDashboardPreviousTimeFrameLookbackUnit3Month CreateDashboardPreviousTimeFrameLookbackUnit3 = "month"
+	CreateDashboardPreviousTimeFrameLookbackUnit6Hour  CreateDashboardPreviousTimeFrameLookbackUnit6 = "hour"
+	CreateDashboardPreviousTimeFrameLookbackUnit6Day   CreateDashboardPreviousTimeFrameLookbackUnit6 = "day"
+	CreateDashboardPreviousTimeFrameLookbackUnit6Week  CreateDashboardPreviousTimeFrameLookbackUnit6 = "week"
+	CreateDashboardPreviousTimeFrameLookbackUnit6Month CreateDashboardPreviousTimeFrameLookbackUnit6 = "month"
 )
 
-func (e CreateDashboardPreviousTimeFrameLookbackUnit3) ToPointer() *CreateDashboardPreviousTimeFrameLookbackUnit3 {
+func (e CreateDashboardPreviousTimeFrameLookbackUnit6) ToPointer() *CreateDashboardPreviousTimeFrameLookbackUnit6 {
 	return &e
 }
-func (e *CreateDashboardPreviousTimeFrameLookbackUnit3) UnmarshalJSON(data []byte) error {
+func (e *CreateDashboardPreviousTimeFrameLookbackUnit6) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -1841,102 +1967,110 @@ func (e *CreateDashboardPreviousTimeFrameLookbackUnit3) UnmarshalJSON(data []byt
 	case "week":
 		fallthrough
 	case "month":
-		*e = CreateDashboardPreviousTimeFrameLookbackUnit3(v)
+		*e = CreateDashboardPreviousTimeFrameLookbackUnit6(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateDashboardPreviousTimeFrameLookbackUnit3: %v", v)
+		return fmt.Errorf("invalid value for CreateDashboardPreviousTimeFrameLookbackUnit6: %v", v)
 	}
 }
 
-type CreateDashboardPreviousTimeFrame3 struct {
-	Predefined    CreateDashboardPreviousTimeFramePredefined3                                      `json:"predefined"`
+type CreateDashboardPreviousTimeFrame6 struct {
+	Predefined    CreateDashboardPreviousTimeFramePredefined6                                      `json:"predefined"`
 	LookbackValue optionalnullable.OptionalNullable[float64]                                       `json:"lookbackValue,omitzero"`
-	LookbackUnit  optionalnullable.OptionalNullable[CreateDashboardPreviousTimeFrameLookbackUnit3] `json:"lookbackUnit,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[CreateDashboardPreviousTimeFrameLookbackUnit6] `json:"lookbackUnit,omitzero"`
 	StartDate     optionalnullable.OptionalNullable[string]                                        `json:"startDate,omitzero"`
 	EndDate       optionalnullable.OptionalNullable[string]                                        `json:"endDate,omitzero"`
 }
 
-func (c CreateDashboardPreviousTimeFrame3) MarshalJSON() ([]byte, error) {
+func (c CreateDashboardPreviousTimeFrame6) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateDashboardPreviousTimeFrame3) UnmarshalJSON(data []byte) error {
+func (c *CreateDashboardPreviousTimeFrame6) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateDashboardPreviousTimeFrame3) GetPredefined() CreateDashboardPreviousTimeFramePredefined3 {
+func (c *CreateDashboardPreviousTimeFrame6) GetPredefined() CreateDashboardPreviousTimeFramePredefined6 {
 	if c == nil {
-		return CreateDashboardPreviousTimeFramePredefined3("")
+		return CreateDashboardPreviousTimeFramePredefined6("")
 	}
 	return c.Predefined
 }
 
-func (c *CreateDashboardPreviousTimeFrame3) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+func (c *CreateDashboardPreviousTimeFrame6) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
 	if c == nil {
 		return nil
 	}
 	return c.LookbackValue
 }
 
-func (c *CreateDashboardPreviousTimeFrame3) GetLookbackUnit() optionalnullable.OptionalNullable[CreateDashboardPreviousTimeFrameLookbackUnit3] {
+func (c *CreateDashboardPreviousTimeFrame6) GetLookbackUnit() optionalnullable.OptionalNullable[CreateDashboardPreviousTimeFrameLookbackUnit6] {
 	if c == nil {
 		return nil
 	}
 	return c.LookbackUnit
 }
 
-func (c *CreateDashboardPreviousTimeFrame3) GetStartDate() optionalnullable.OptionalNullable[string] {
+func (c *CreateDashboardPreviousTimeFrame6) GetStartDate() optionalnullable.OptionalNullable[string] {
 	if c == nil {
 		return nil
 	}
 	return c.StartDate
 }
 
-func (c *CreateDashboardPreviousTimeFrame3) GetEndDate() optionalnullable.OptionalNullable[string] {
+func (c *CreateDashboardPreviousTimeFrame6) GetEndDate() optionalnullable.OptionalNullable[string] {
 	if c == nil {
 		return nil
 	}
 	return c.EndDate
 }
 
-// #region class-body-createdashboardprevioustimeframe3
-// #endregion class-body-createdashboardprevioustimeframe3
+// #region class-body-createdashboardprevioustimeframe6
+// #endregion class-body-createdashboardprevioustimeframe6
 
-type CreateDashboardComparison3 struct {
+type CreateDashboardComparison6 struct {
 	Enabled           bool                               `json:"enabled"`
-	PreviousTimeFrame *CreateDashboardPreviousTimeFrame3 `json:"previousTimeFrame,omitzero"`
+	Mode              *CreateDashboardMode6              `json:"mode,omitzero"`
+	PreviousTimeFrame *CreateDashboardPreviousTimeFrame6 `json:"previousTimeFrame,omitzero"`
 }
 
-func (c CreateDashboardComparison3) MarshalJSON() ([]byte, error) {
+func (c CreateDashboardComparison6) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateDashboardComparison3) UnmarshalJSON(data []byte) error {
+func (c *CreateDashboardComparison6) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateDashboardComparison3) GetEnabled() bool {
+func (c *CreateDashboardComparison6) GetEnabled() bool {
 	if c == nil {
 		return false
 	}
 	return c.Enabled
 }
 
-func (c *CreateDashboardComparison3) GetPreviousTimeFrame() *CreateDashboardPreviousTimeFrame3 {
+func (c *CreateDashboardComparison6) GetMode() *CreateDashboardMode6 {
+	if c == nil {
+		return nil
+	}
+	return c.Mode
+}
+
+func (c *CreateDashboardComparison6) GetPreviousTimeFrame() *CreateDashboardPreviousTimeFrame6 {
 	if c == nil {
 		return nil
 	}
 	return c.PreviousTimeFrame
 }
 
-// #region class-body-createdashboardcomparison3
-// #endregion class-body-createdashboardcomparison3
+// #region class-body-createdashboardcomparison6
+// #endregion class-body-createdashboardcomparison6
 
 type CreateDashboardGlobalControlSettings2 struct {
 	DateRange *bool `json:"dateRange,omitzero"`
@@ -1972,6 +2106,8 @@ const (
 	CreateDashboardDimensionOperatorFactTableLessThanEqual    CreateDashboardDimensionOperatorFactTable = "<="
 	CreateDashboardDimensionOperatorFactTableGreaterThan      CreateDashboardDimensionOperatorFactTable = ">"
 	CreateDashboardDimensionOperatorFactTableGreaterThanEqual CreateDashboardDimensionOperatorFactTable = ">="
+	CreateDashboardDimensionOperatorFactTableBetween          CreateDashboardDimensionOperatorFactTable = "between"
+	CreateDashboardDimensionOperatorFactTableNotBetween       CreateDashboardDimensionOperatorFactTable = "not_between"
 	CreateDashboardDimensionOperatorFactTableIn               CreateDashboardDimensionOperatorFactTable = "in"
 	CreateDashboardDimensionOperatorFactTableNotIn            CreateDashboardDimensionOperatorFactTable = "not_in"
 	CreateDashboardDimensionOperatorFactTableContains         CreateDashboardDimensionOperatorFactTable = "contains"
@@ -2006,6 +2142,10 @@ func (e *CreateDashboardDimensionOperatorFactTable) UnmarshalJSON(data []byte) e
 	case ">":
 		fallthrough
 	case ">=":
+		fallthrough
+	case "between":
+		fallthrough
+	case "not_between":
 		fallthrough
 	case "in":
 		fallthrough
@@ -2456,12 +2596,15 @@ func (e *CreateDashboardChartTypeFactTable) UnmarshalJSON(data []byte) error {
 type CreateDashboardPredefinedFactTable string
 
 const (
-	CreateDashboardPredefinedFactTableToday           CreateDashboardPredefinedFactTable = "today"
-	CreateDashboardPredefinedFactTableLast7Days       CreateDashboardPredefinedFactTable = "last7Days"
-	CreateDashboardPredefinedFactTableLast30Days      CreateDashboardPredefinedFactTable = "last30Days"
-	CreateDashboardPredefinedFactTableLast90Days      CreateDashboardPredefinedFactTable = "last90Days"
-	CreateDashboardPredefinedFactTableCustomLookback  CreateDashboardPredefinedFactTable = "customLookback"
-	CreateDashboardPredefinedFactTableCustomDateRange CreateDashboardPredefinedFactTable = "customDateRange"
+	CreateDashboardPredefinedFactTableToday            CreateDashboardPredefinedFactTable = "today"
+	CreateDashboardPredefinedFactTableYesterday        CreateDashboardPredefinedFactTable = "yesterday"
+	CreateDashboardPredefinedFactTableLast7Days        CreateDashboardPredefinedFactTable = "last7Days"
+	CreateDashboardPredefinedFactTableLast30Days       CreateDashboardPredefinedFactTable = "last30Days"
+	CreateDashboardPredefinedFactTableLast90Days       CreateDashboardPredefinedFactTable = "last90Days"
+	CreateDashboardPredefinedFactTableLast12Months     CreateDashboardPredefinedFactTable = "last12Months"
+	CreateDashboardPredefinedFactTableLastCalendarYear CreateDashboardPredefinedFactTable = "lastCalendarYear"
+	CreateDashboardPredefinedFactTableCustomLookback   CreateDashboardPredefinedFactTable = "customLookback"
+	CreateDashboardPredefinedFactTableCustomDateRange  CreateDashboardPredefinedFactTable = "customDateRange"
 )
 
 func (e CreateDashboardPredefinedFactTable) ToPointer() *CreateDashboardPredefinedFactTable {
@@ -2475,11 +2618,17 @@ func (e *CreateDashboardPredefinedFactTable) UnmarshalJSON(data []byte) error {
 	switch v {
 	case "today":
 		fallthrough
+	case "yesterday":
+		fallthrough
 	case "last7Days":
 		fallthrough
 	case "last30Days":
 		fallthrough
 	case "last90Days":
+		fallthrough
+	case "last12Months":
+		fallthrough
+	case "lastCalendarYear":
 		fallthrough
 	case "customLookback":
 		fallthrough
@@ -2612,6 +2761,8 @@ const (
 	CreateDashboardRowFilterOperatorFactTableLessThanEqual    CreateDashboardRowFilterOperatorFactTable = "<="
 	CreateDashboardRowFilterOperatorFactTableGreaterThan      CreateDashboardRowFilterOperatorFactTable = ">"
 	CreateDashboardRowFilterOperatorFactTableGreaterThanEqual CreateDashboardRowFilterOperatorFactTable = ">="
+	CreateDashboardRowFilterOperatorFactTableBetween          CreateDashboardRowFilterOperatorFactTable = "between"
+	CreateDashboardRowFilterOperatorFactTableNotBetween       CreateDashboardRowFilterOperatorFactTable = "not_between"
 	CreateDashboardRowFilterOperatorFactTableIn               CreateDashboardRowFilterOperatorFactTable = "in"
 	CreateDashboardRowFilterOperatorFactTableNotIn            CreateDashboardRowFilterOperatorFactTable = "not_in"
 	CreateDashboardRowFilterOperatorFactTableContains         CreateDashboardRowFilterOperatorFactTable = "contains"
@@ -2646,6 +2797,10 @@ func (e *CreateDashboardRowFilterOperatorFactTable) UnmarshalJSON(data []byte) e
 	case ">":
 		fallthrough
 	case ">=":
+		fallthrough
+	case "between":
+		fallthrough
+	case "not_between":
 		fallthrough
 	case "in":
 		fallthrough
@@ -2915,9 +3070,9 @@ type CreateDashboardBlockFactTableExploration struct {
 	Title                        string                                 `json:"title"`
 	Description                  string                                 `json:"description"`
 	SnapshotID                   *string                                `json:"snapshotId,omitzero"`
-	Layout                       *CreateDashboardLayout10               `json:"layout,omitzero"`
+	Layout                       *CreateDashboardLayout14               `json:"layout,omitzero"`
 	ExplorerAnalysisID           string                                 `json:"explorerAnalysisId"`
-	Comparison                   *CreateDashboardComparison3            `json:"comparison,omitzero"`
+	Comparison                   *CreateDashboardComparison6            `json:"comparison,omitzero"`
 	ComparisonExplorerAnalysisID *string                                `json:"comparisonExplorerAnalysisId,omitzero"`
 	GlobalControlSettings        *CreateDashboardGlobalControlSettings2 `json:"globalControlSettings,omitzero"`
 	Config                       CreateDashboardConfigFactTable         `json:"config"`
@@ -2959,7 +3114,7 @@ func (c *CreateDashboardBlockFactTableExploration) GetSnapshotID() *string {
 	return c.SnapshotID
 }
 
-func (c *CreateDashboardBlockFactTableExploration) GetLayout() *CreateDashboardLayout10 {
+func (c *CreateDashboardBlockFactTableExploration) GetLayout() *CreateDashboardLayout14 {
 	if c == nil {
 		return nil
 	}
@@ -2973,7 +3128,7 @@ func (c *CreateDashboardBlockFactTableExploration) GetExplorerAnalysisID() strin
 	return c.ExplorerAnalysisID
 }
 
-func (c *CreateDashboardBlockFactTableExploration) GetComparison() *CreateDashboardComparison3 {
+func (c *CreateDashboardBlockFactTableExploration) GetComparison() *CreateDashboardComparison6 {
 	if c == nil {
 		return nil
 	}
@@ -3001,7 +3156,7 @@ func (c *CreateDashboardBlockFactTableExploration) GetConfig() CreateDashboardCo
 	return c.Config
 }
 
-type CreateDashboardLayout9 struct {
+type CreateDashboardLayout13 struct {
 	X      int64 `json:"x"`
 	Y      int64 `json:"y"`
 	W      int64 `json:"w"`
@@ -3009,70 +3164,108 @@ type CreateDashboardLayout9 struct {
 	Static *bool `json:"static,omitzero"`
 }
 
-func (c CreateDashboardLayout9) MarshalJSON() ([]byte, error) {
+func (c CreateDashboardLayout13) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateDashboardLayout9) UnmarshalJSON(data []byte) error {
+func (c *CreateDashboardLayout13) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateDashboardLayout9) GetX() int64 {
+func (c *CreateDashboardLayout13) GetX() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.X
 }
 
-func (c *CreateDashboardLayout9) GetY() int64 {
+func (c *CreateDashboardLayout13) GetY() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.Y
 }
 
-func (c *CreateDashboardLayout9) GetW() int64 {
+func (c *CreateDashboardLayout13) GetW() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.W
 }
 
-func (c *CreateDashboardLayout9) GetH() int64 {
+func (c *CreateDashboardLayout13) GetH() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.H
 }
 
-func (c *CreateDashboardLayout9) GetStatic() *bool {
+func (c *CreateDashboardLayout13) GetStatic() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Static
 }
 
-// #region class-body-createdashboardlayout9
-// #endregion class-body-createdashboardlayout9
+// #region class-body-createdashboardlayout13
+// #endregion class-body-createdashboardlayout13
 
-type CreateDashboardPreviousTimeFramePredefined2 string
+type CreateDashboardMode5 string
 
 const (
-	CreateDashboardPreviousTimeFramePredefined2Today           CreateDashboardPreviousTimeFramePredefined2 = "today"
-	CreateDashboardPreviousTimeFramePredefined2Last7Days       CreateDashboardPreviousTimeFramePredefined2 = "last7Days"
-	CreateDashboardPreviousTimeFramePredefined2Last30Days      CreateDashboardPreviousTimeFramePredefined2 = "last30Days"
-	CreateDashboardPreviousTimeFramePredefined2Last90Days      CreateDashboardPreviousTimeFramePredefined2 = "last90Days"
-	CreateDashboardPreviousTimeFramePredefined2CustomLookback  CreateDashboardPreviousTimeFramePredefined2 = "customLookback"
-	CreateDashboardPreviousTimeFramePredefined2CustomDateRange CreateDashboardPreviousTimeFramePredefined2 = "customDateRange"
+	CreateDashboardMode5PreviousPeriod               CreateDashboardMode5 = "previousPeriod"
+	CreateDashboardMode5PreviousPeriodMatchDayOfWeek CreateDashboardMode5 = "previousPeriodMatchDayOfWeek"
+	CreateDashboardMode5PreviousYear                 CreateDashboardMode5 = "previousYear"
+	CreateDashboardMode5PreviousYearMatchDayOfWeek   CreateDashboardMode5 = "previousYearMatchDayOfWeek"
+	CreateDashboardMode5Custom                       CreateDashboardMode5 = "custom"
 )
 
-func (e CreateDashboardPreviousTimeFramePredefined2) ToPointer() *CreateDashboardPreviousTimeFramePredefined2 {
+func (e CreateDashboardMode5) ToPointer() *CreateDashboardMode5 {
 	return &e
 }
-func (e *CreateDashboardPreviousTimeFramePredefined2) UnmarshalJSON(data []byte) error {
+func (e *CreateDashboardMode5) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "previousPeriod":
+		fallthrough
+	case "previousPeriodMatchDayOfWeek":
+		fallthrough
+	case "previousYear":
+		fallthrough
+	case "previousYearMatchDayOfWeek":
+		fallthrough
+	case "custom":
+		*e = CreateDashboardMode5(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateDashboardMode5: %v", v)
+	}
+}
+
+type CreateDashboardPreviousTimeFramePredefined5 string
+
+const (
+	CreateDashboardPreviousTimeFramePredefined5Today            CreateDashboardPreviousTimeFramePredefined5 = "today"
+	CreateDashboardPreviousTimeFramePredefined5Yesterday        CreateDashboardPreviousTimeFramePredefined5 = "yesterday"
+	CreateDashboardPreviousTimeFramePredefined5Last7Days        CreateDashboardPreviousTimeFramePredefined5 = "last7Days"
+	CreateDashboardPreviousTimeFramePredefined5Last30Days       CreateDashboardPreviousTimeFramePredefined5 = "last30Days"
+	CreateDashboardPreviousTimeFramePredefined5Last90Days       CreateDashboardPreviousTimeFramePredefined5 = "last90Days"
+	CreateDashboardPreviousTimeFramePredefined5Last12Months     CreateDashboardPreviousTimeFramePredefined5 = "last12Months"
+	CreateDashboardPreviousTimeFramePredefined5LastCalendarYear CreateDashboardPreviousTimeFramePredefined5 = "lastCalendarYear"
+	CreateDashboardPreviousTimeFramePredefined5CustomLookback   CreateDashboardPreviousTimeFramePredefined5 = "customLookback"
+	CreateDashboardPreviousTimeFramePredefined5CustomDateRange  CreateDashboardPreviousTimeFramePredefined5 = "customDateRange"
+)
+
+func (e CreateDashboardPreviousTimeFramePredefined5) ToPointer() *CreateDashboardPreviousTimeFramePredefined5 {
+	return &e
+}
+func (e *CreateDashboardPreviousTimeFramePredefined5) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -3080,35 +3273,41 @@ func (e *CreateDashboardPreviousTimeFramePredefined2) UnmarshalJSON(data []byte)
 	switch v {
 	case "today":
 		fallthrough
+	case "yesterday":
+		fallthrough
 	case "last7Days":
 		fallthrough
 	case "last30Days":
 		fallthrough
 	case "last90Days":
 		fallthrough
+	case "last12Months":
+		fallthrough
+	case "lastCalendarYear":
+		fallthrough
 	case "customLookback":
 		fallthrough
 	case "customDateRange":
-		*e = CreateDashboardPreviousTimeFramePredefined2(v)
+		*e = CreateDashboardPreviousTimeFramePredefined5(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateDashboardPreviousTimeFramePredefined2: %v", v)
+		return fmt.Errorf("invalid value for CreateDashboardPreviousTimeFramePredefined5: %v", v)
 	}
 }
 
-type CreateDashboardPreviousTimeFrameLookbackUnit2 string
+type CreateDashboardPreviousTimeFrameLookbackUnit5 string
 
 const (
-	CreateDashboardPreviousTimeFrameLookbackUnit2Hour  CreateDashboardPreviousTimeFrameLookbackUnit2 = "hour"
-	CreateDashboardPreviousTimeFrameLookbackUnit2Day   CreateDashboardPreviousTimeFrameLookbackUnit2 = "day"
-	CreateDashboardPreviousTimeFrameLookbackUnit2Week  CreateDashboardPreviousTimeFrameLookbackUnit2 = "week"
-	CreateDashboardPreviousTimeFrameLookbackUnit2Month CreateDashboardPreviousTimeFrameLookbackUnit2 = "month"
+	CreateDashboardPreviousTimeFrameLookbackUnit5Hour  CreateDashboardPreviousTimeFrameLookbackUnit5 = "hour"
+	CreateDashboardPreviousTimeFrameLookbackUnit5Day   CreateDashboardPreviousTimeFrameLookbackUnit5 = "day"
+	CreateDashboardPreviousTimeFrameLookbackUnit5Week  CreateDashboardPreviousTimeFrameLookbackUnit5 = "week"
+	CreateDashboardPreviousTimeFrameLookbackUnit5Month CreateDashboardPreviousTimeFrameLookbackUnit5 = "month"
 )
 
-func (e CreateDashboardPreviousTimeFrameLookbackUnit2) ToPointer() *CreateDashboardPreviousTimeFrameLookbackUnit2 {
+func (e CreateDashboardPreviousTimeFrameLookbackUnit5) ToPointer() *CreateDashboardPreviousTimeFrameLookbackUnit5 {
 	return &e
 }
-func (e *CreateDashboardPreviousTimeFrameLookbackUnit2) UnmarshalJSON(data []byte) error {
+func (e *CreateDashboardPreviousTimeFrameLookbackUnit5) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -3121,102 +3320,110 @@ func (e *CreateDashboardPreviousTimeFrameLookbackUnit2) UnmarshalJSON(data []byt
 	case "week":
 		fallthrough
 	case "month":
-		*e = CreateDashboardPreviousTimeFrameLookbackUnit2(v)
+		*e = CreateDashboardPreviousTimeFrameLookbackUnit5(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateDashboardPreviousTimeFrameLookbackUnit2: %v", v)
+		return fmt.Errorf("invalid value for CreateDashboardPreviousTimeFrameLookbackUnit5: %v", v)
 	}
 }
 
-type CreateDashboardPreviousTimeFrame2 struct {
-	Predefined    CreateDashboardPreviousTimeFramePredefined2                                      `json:"predefined"`
+type CreateDashboardPreviousTimeFrame5 struct {
+	Predefined    CreateDashboardPreviousTimeFramePredefined5                                      `json:"predefined"`
 	LookbackValue optionalnullable.OptionalNullable[float64]                                       `json:"lookbackValue,omitzero"`
-	LookbackUnit  optionalnullable.OptionalNullable[CreateDashboardPreviousTimeFrameLookbackUnit2] `json:"lookbackUnit,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[CreateDashboardPreviousTimeFrameLookbackUnit5] `json:"lookbackUnit,omitzero"`
 	StartDate     optionalnullable.OptionalNullable[string]                                        `json:"startDate,omitzero"`
 	EndDate       optionalnullable.OptionalNullable[string]                                        `json:"endDate,omitzero"`
 }
 
-func (c CreateDashboardPreviousTimeFrame2) MarshalJSON() ([]byte, error) {
+func (c CreateDashboardPreviousTimeFrame5) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateDashboardPreviousTimeFrame2) UnmarshalJSON(data []byte) error {
+func (c *CreateDashboardPreviousTimeFrame5) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateDashboardPreviousTimeFrame2) GetPredefined() CreateDashboardPreviousTimeFramePredefined2 {
+func (c *CreateDashboardPreviousTimeFrame5) GetPredefined() CreateDashboardPreviousTimeFramePredefined5 {
 	if c == nil {
-		return CreateDashboardPreviousTimeFramePredefined2("")
+		return CreateDashboardPreviousTimeFramePredefined5("")
 	}
 	return c.Predefined
 }
 
-func (c *CreateDashboardPreviousTimeFrame2) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+func (c *CreateDashboardPreviousTimeFrame5) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
 	if c == nil {
 		return nil
 	}
 	return c.LookbackValue
 }
 
-func (c *CreateDashboardPreviousTimeFrame2) GetLookbackUnit() optionalnullable.OptionalNullable[CreateDashboardPreviousTimeFrameLookbackUnit2] {
+func (c *CreateDashboardPreviousTimeFrame5) GetLookbackUnit() optionalnullable.OptionalNullable[CreateDashboardPreviousTimeFrameLookbackUnit5] {
 	if c == nil {
 		return nil
 	}
 	return c.LookbackUnit
 }
 
-func (c *CreateDashboardPreviousTimeFrame2) GetStartDate() optionalnullable.OptionalNullable[string] {
+func (c *CreateDashboardPreviousTimeFrame5) GetStartDate() optionalnullable.OptionalNullable[string] {
 	if c == nil {
 		return nil
 	}
 	return c.StartDate
 }
 
-func (c *CreateDashboardPreviousTimeFrame2) GetEndDate() optionalnullable.OptionalNullable[string] {
+func (c *CreateDashboardPreviousTimeFrame5) GetEndDate() optionalnullable.OptionalNullable[string] {
 	if c == nil {
 		return nil
 	}
 	return c.EndDate
 }
 
-// #region class-body-createdashboardprevioustimeframe2
-// #endregion class-body-createdashboardprevioustimeframe2
+// #region class-body-createdashboardprevioustimeframe5
+// #endregion class-body-createdashboardprevioustimeframe5
 
-type CreateDashboardComparison2 struct {
+type CreateDashboardComparison5 struct {
 	Enabled           bool                               `json:"enabled"`
-	PreviousTimeFrame *CreateDashboardPreviousTimeFrame2 `json:"previousTimeFrame,omitzero"`
+	Mode              *CreateDashboardMode5              `json:"mode,omitzero"`
+	PreviousTimeFrame *CreateDashboardPreviousTimeFrame5 `json:"previousTimeFrame,omitzero"`
 }
 
-func (c CreateDashboardComparison2) MarshalJSON() ([]byte, error) {
+func (c CreateDashboardComparison5) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateDashboardComparison2) UnmarshalJSON(data []byte) error {
+func (c *CreateDashboardComparison5) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateDashboardComparison2) GetEnabled() bool {
+func (c *CreateDashboardComparison5) GetEnabled() bool {
 	if c == nil {
 		return false
 	}
 	return c.Enabled
 }
 
-func (c *CreateDashboardComparison2) GetPreviousTimeFrame() *CreateDashboardPreviousTimeFrame2 {
+func (c *CreateDashboardComparison5) GetMode() *CreateDashboardMode5 {
+	if c == nil {
+		return nil
+	}
+	return c.Mode
+}
+
+func (c *CreateDashboardComparison5) GetPreviousTimeFrame() *CreateDashboardPreviousTimeFrame5 {
 	if c == nil {
 		return nil
 	}
 	return c.PreviousTimeFrame
 }
 
-// #region class-body-createdashboardcomparison2
-// #endregion class-body-createdashboardcomparison2
+// #region class-body-createdashboardcomparison5
+// #endregion class-body-createdashboardcomparison5
 
 type CreateDashboardGlobalControlSettings1 struct {
 	DateRange *bool `json:"dateRange,omitzero"`
@@ -3252,6 +3459,8 @@ const (
 	CreateDashboardDimensionOperatorMetricLessThanEqual    CreateDashboardDimensionOperatorMetric = "<="
 	CreateDashboardDimensionOperatorMetricGreaterThan      CreateDashboardDimensionOperatorMetric = ">"
 	CreateDashboardDimensionOperatorMetricGreaterThanEqual CreateDashboardDimensionOperatorMetric = ">="
+	CreateDashboardDimensionOperatorMetricBetween          CreateDashboardDimensionOperatorMetric = "between"
+	CreateDashboardDimensionOperatorMetricNotBetween       CreateDashboardDimensionOperatorMetric = "not_between"
 	CreateDashboardDimensionOperatorMetricIn               CreateDashboardDimensionOperatorMetric = "in"
 	CreateDashboardDimensionOperatorMetricNotIn            CreateDashboardDimensionOperatorMetric = "not_in"
 	CreateDashboardDimensionOperatorMetricContains         CreateDashboardDimensionOperatorMetric = "contains"
@@ -3286,6 +3495,10 @@ func (e *CreateDashboardDimensionOperatorMetric) UnmarshalJSON(data []byte) erro
 	case ">":
 		fallthrough
 	case ">=":
+		fallthrough
+	case "between":
+		fallthrough
+	case "not_between":
 		fallthrough
 	case "in":
 		fallthrough
@@ -3736,12 +3949,15 @@ func (e *CreateDashboardChartTypeMetric) UnmarshalJSON(data []byte) error {
 type CreateDashboardPredefinedMetric string
 
 const (
-	CreateDashboardPredefinedMetricToday           CreateDashboardPredefinedMetric = "today"
-	CreateDashboardPredefinedMetricLast7Days       CreateDashboardPredefinedMetric = "last7Days"
-	CreateDashboardPredefinedMetricLast30Days      CreateDashboardPredefinedMetric = "last30Days"
-	CreateDashboardPredefinedMetricLast90Days      CreateDashboardPredefinedMetric = "last90Days"
-	CreateDashboardPredefinedMetricCustomLookback  CreateDashboardPredefinedMetric = "customLookback"
-	CreateDashboardPredefinedMetricCustomDateRange CreateDashboardPredefinedMetric = "customDateRange"
+	CreateDashboardPredefinedMetricToday            CreateDashboardPredefinedMetric = "today"
+	CreateDashboardPredefinedMetricYesterday        CreateDashboardPredefinedMetric = "yesterday"
+	CreateDashboardPredefinedMetricLast7Days        CreateDashboardPredefinedMetric = "last7Days"
+	CreateDashboardPredefinedMetricLast30Days       CreateDashboardPredefinedMetric = "last30Days"
+	CreateDashboardPredefinedMetricLast90Days       CreateDashboardPredefinedMetric = "last90Days"
+	CreateDashboardPredefinedMetricLast12Months     CreateDashboardPredefinedMetric = "last12Months"
+	CreateDashboardPredefinedMetricLastCalendarYear CreateDashboardPredefinedMetric = "lastCalendarYear"
+	CreateDashboardPredefinedMetricCustomLookback   CreateDashboardPredefinedMetric = "customLookback"
+	CreateDashboardPredefinedMetricCustomDateRange  CreateDashboardPredefinedMetric = "customDateRange"
 )
 
 func (e CreateDashboardPredefinedMetric) ToPointer() *CreateDashboardPredefinedMetric {
@@ -3755,11 +3971,17 @@ func (e *CreateDashboardPredefinedMetric) UnmarshalJSON(data []byte) error {
 	switch v {
 	case "today":
 		fallthrough
+	case "yesterday":
+		fallthrough
 	case "last7Days":
 		fallthrough
 	case "last30Days":
 		fallthrough
 	case "last90Days":
+		fallthrough
+	case "last12Months":
+		fallthrough
+	case "lastCalendarYear":
 		fallthrough
 	case "customLookback":
 		fallthrough
@@ -3892,6 +4114,8 @@ const (
 	CreateDashboardRowFilterOperatorMetricLessThanEqual    CreateDashboardRowFilterOperatorMetric = "<="
 	CreateDashboardRowFilterOperatorMetricGreaterThan      CreateDashboardRowFilterOperatorMetric = ">"
 	CreateDashboardRowFilterOperatorMetricGreaterThanEqual CreateDashboardRowFilterOperatorMetric = ">="
+	CreateDashboardRowFilterOperatorMetricBetween          CreateDashboardRowFilterOperatorMetric = "between"
+	CreateDashboardRowFilterOperatorMetricNotBetween       CreateDashboardRowFilterOperatorMetric = "not_between"
 	CreateDashboardRowFilterOperatorMetricIn               CreateDashboardRowFilterOperatorMetric = "in"
 	CreateDashboardRowFilterOperatorMetricNotIn            CreateDashboardRowFilterOperatorMetric = "not_in"
 	CreateDashboardRowFilterOperatorMetricContains         CreateDashboardRowFilterOperatorMetric = "contains"
@@ -3926,6 +4150,10 @@ func (e *CreateDashboardRowFilterOperatorMetric) UnmarshalJSON(data []byte) erro
 	case ">":
 		fallthrough
 	case ">=":
+		fallthrough
+	case "between":
+		fallthrough
+	case "not_between":
 		fallthrough
 	case "in":
 		fallthrough
@@ -4158,9 +4386,9 @@ type CreateDashboardBlockMetricExploration struct {
 	Title                        string                                 `json:"title"`
 	Description                  string                                 `json:"description"`
 	SnapshotID                   *string                                `json:"snapshotId,omitzero"`
-	Layout                       *CreateDashboardLayout9                `json:"layout,omitzero"`
+	Layout                       *CreateDashboardLayout13               `json:"layout,omitzero"`
 	ExplorerAnalysisID           string                                 `json:"explorerAnalysisId"`
-	Comparison                   *CreateDashboardComparison2            `json:"comparison,omitzero"`
+	Comparison                   *CreateDashboardComparison5            `json:"comparison,omitzero"`
 	ComparisonExplorerAnalysisID *string                                `json:"comparisonExplorerAnalysisId,omitzero"`
 	GlobalControlSettings        *CreateDashboardGlobalControlSettings1 `json:"globalControlSettings,omitzero"`
 	Config                       CreateDashboardConfigMetric            `json:"config"`
@@ -4202,7 +4430,7 @@ func (c *CreateDashboardBlockMetricExploration) GetSnapshotID() *string {
 	return c.SnapshotID
 }
 
-func (c *CreateDashboardBlockMetricExploration) GetLayout() *CreateDashboardLayout9 {
+func (c *CreateDashboardBlockMetricExploration) GetLayout() *CreateDashboardLayout13 {
 	if c == nil {
 		return nil
 	}
@@ -4216,7 +4444,7 @@ func (c *CreateDashboardBlockMetricExploration) GetExplorerAnalysisID() string {
 	return c.ExplorerAnalysisID
 }
 
-func (c *CreateDashboardBlockMetricExploration) GetComparison() *CreateDashboardComparison2 {
+func (c *CreateDashboardBlockMetricExploration) GetComparison() *CreateDashboardComparison5 {
 	if c == nil {
 		return nil
 	}
@@ -4244,7 +4472,7 @@ func (c *CreateDashboardBlockMetricExploration) GetConfig() CreateDashboardConfi
 	return c.Config
 }
 
-type CreateDashboardLayout8 struct {
+type CreateDashboardLayout12 struct {
 	X      int64 `json:"x"`
 	Y      int64 `json:"y"`
 	W      int64 `json:"w"`
@@ -4252,54 +4480,54 @@ type CreateDashboardLayout8 struct {
 	Static *bool `json:"static,omitzero"`
 }
 
-func (c CreateDashboardLayout8) MarshalJSON() ([]byte, error) {
+func (c CreateDashboardLayout12) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateDashboardLayout8) UnmarshalJSON(data []byte) error {
+func (c *CreateDashboardLayout12) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateDashboardLayout8) GetX() int64 {
+func (c *CreateDashboardLayout12) GetX() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.X
 }
 
-func (c *CreateDashboardLayout8) GetY() int64 {
+func (c *CreateDashboardLayout12) GetY() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.Y
 }
 
-func (c *CreateDashboardLayout8) GetW() int64 {
+func (c *CreateDashboardLayout12) GetW() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.W
 }
 
-func (c *CreateDashboardLayout8) GetH() int64 {
+func (c *CreateDashboardLayout12) GetH() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.H
 }
 
-func (c *CreateDashboardLayout8) GetStatic() *bool {
+func (c *CreateDashboardLayout12) GetStatic() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Static
 }
 
-// #region class-body-createdashboardlayout8
-// #endregion class-body-createdashboardlayout8
+// #region class-body-createdashboardlayout12
+// #endregion class-body-createdashboardlayout12
 
 type CreateDashboardVisualizationType string
 
@@ -4356,21 +4584,59 @@ func (e *CreateDashboardValueType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type CreateDashboardPreviousTimeFramePredefined1 string
+type CreateDashboardMode4 string
 
 const (
-	CreateDashboardPreviousTimeFramePredefined1Today           CreateDashboardPreviousTimeFramePredefined1 = "today"
-	CreateDashboardPreviousTimeFramePredefined1Last7Days       CreateDashboardPreviousTimeFramePredefined1 = "last7Days"
-	CreateDashboardPreviousTimeFramePredefined1Last30Days      CreateDashboardPreviousTimeFramePredefined1 = "last30Days"
-	CreateDashboardPreviousTimeFramePredefined1Last90Days      CreateDashboardPreviousTimeFramePredefined1 = "last90Days"
-	CreateDashboardPreviousTimeFramePredefined1CustomLookback  CreateDashboardPreviousTimeFramePredefined1 = "customLookback"
-	CreateDashboardPreviousTimeFramePredefined1CustomDateRange CreateDashboardPreviousTimeFramePredefined1 = "customDateRange"
+	CreateDashboardMode4PreviousPeriod               CreateDashboardMode4 = "previousPeriod"
+	CreateDashboardMode4PreviousPeriodMatchDayOfWeek CreateDashboardMode4 = "previousPeriodMatchDayOfWeek"
+	CreateDashboardMode4PreviousYear                 CreateDashboardMode4 = "previousYear"
+	CreateDashboardMode4PreviousYearMatchDayOfWeek   CreateDashboardMode4 = "previousYearMatchDayOfWeek"
+	CreateDashboardMode4Custom                       CreateDashboardMode4 = "custom"
 )
 
-func (e CreateDashboardPreviousTimeFramePredefined1) ToPointer() *CreateDashboardPreviousTimeFramePredefined1 {
+func (e CreateDashboardMode4) ToPointer() *CreateDashboardMode4 {
 	return &e
 }
-func (e *CreateDashboardPreviousTimeFramePredefined1) UnmarshalJSON(data []byte) error {
+func (e *CreateDashboardMode4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "previousPeriod":
+		fallthrough
+	case "previousPeriodMatchDayOfWeek":
+		fallthrough
+	case "previousYear":
+		fallthrough
+	case "previousYearMatchDayOfWeek":
+		fallthrough
+	case "custom":
+		*e = CreateDashboardMode4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateDashboardMode4: %v", v)
+	}
+}
+
+type CreateDashboardPreviousTimeFramePredefined4 string
+
+const (
+	CreateDashboardPreviousTimeFramePredefined4Today            CreateDashboardPreviousTimeFramePredefined4 = "today"
+	CreateDashboardPreviousTimeFramePredefined4Yesterday        CreateDashboardPreviousTimeFramePredefined4 = "yesterday"
+	CreateDashboardPreviousTimeFramePredefined4Last7Days        CreateDashboardPreviousTimeFramePredefined4 = "last7Days"
+	CreateDashboardPreviousTimeFramePredefined4Last30Days       CreateDashboardPreviousTimeFramePredefined4 = "last30Days"
+	CreateDashboardPreviousTimeFramePredefined4Last90Days       CreateDashboardPreviousTimeFramePredefined4 = "last90Days"
+	CreateDashboardPreviousTimeFramePredefined4Last12Months     CreateDashboardPreviousTimeFramePredefined4 = "last12Months"
+	CreateDashboardPreviousTimeFramePredefined4LastCalendarYear CreateDashboardPreviousTimeFramePredefined4 = "lastCalendarYear"
+	CreateDashboardPreviousTimeFramePredefined4CustomLookback   CreateDashboardPreviousTimeFramePredefined4 = "customLookback"
+	CreateDashboardPreviousTimeFramePredefined4CustomDateRange  CreateDashboardPreviousTimeFramePredefined4 = "customDateRange"
+)
+
+func (e CreateDashboardPreviousTimeFramePredefined4) ToPointer() *CreateDashboardPreviousTimeFramePredefined4 {
+	return &e
+}
+func (e *CreateDashboardPreviousTimeFramePredefined4) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -4378,35 +4644,41 @@ func (e *CreateDashboardPreviousTimeFramePredefined1) UnmarshalJSON(data []byte)
 	switch v {
 	case "today":
 		fallthrough
+	case "yesterday":
+		fallthrough
 	case "last7Days":
 		fallthrough
 	case "last30Days":
 		fallthrough
 	case "last90Days":
 		fallthrough
+	case "last12Months":
+		fallthrough
+	case "lastCalendarYear":
+		fallthrough
 	case "customLookback":
 		fallthrough
 	case "customDateRange":
-		*e = CreateDashboardPreviousTimeFramePredefined1(v)
+		*e = CreateDashboardPreviousTimeFramePredefined4(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateDashboardPreviousTimeFramePredefined1: %v", v)
+		return fmt.Errorf("invalid value for CreateDashboardPreviousTimeFramePredefined4: %v", v)
 	}
 }
 
-type CreateDashboardPreviousTimeFrameLookbackUnit1 string
+type CreateDashboardPreviousTimeFrameLookbackUnit4 string
 
 const (
-	CreateDashboardPreviousTimeFrameLookbackUnit1Hour  CreateDashboardPreviousTimeFrameLookbackUnit1 = "hour"
-	CreateDashboardPreviousTimeFrameLookbackUnit1Day   CreateDashboardPreviousTimeFrameLookbackUnit1 = "day"
-	CreateDashboardPreviousTimeFrameLookbackUnit1Week  CreateDashboardPreviousTimeFrameLookbackUnit1 = "week"
-	CreateDashboardPreviousTimeFrameLookbackUnit1Month CreateDashboardPreviousTimeFrameLookbackUnit1 = "month"
+	CreateDashboardPreviousTimeFrameLookbackUnit4Hour  CreateDashboardPreviousTimeFrameLookbackUnit4 = "hour"
+	CreateDashboardPreviousTimeFrameLookbackUnit4Day   CreateDashboardPreviousTimeFrameLookbackUnit4 = "day"
+	CreateDashboardPreviousTimeFrameLookbackUnit4Week  CreateDashboardPreviousTimeFrameLookbackUnit4 = "week"
+	CreateDashboardPreviousTimeFrameLookbackUnit4Month CreateDashboardPreviousTimeFrameLookbackUnit4 = "month"
 )
 
-func (e CreateDashboardPreviousTimeFrameLookbackUnit1) ToPointer() *CreateDashboardPreviousTimeFrameLookbackUnit1 {
+func (e CreateDashboardPreviousTimeFrameLookbackUnit4) ToPointer() *CreateDashboardPreviousTimeFrameLookbackUnit4 {
 	return &e
 }
-func (e *CreateDashboardPreviousTimeFrameLookbackUnit1) UnmarshalJSON(data []byte) error {
+func (e *CreateDashboardPreviousTimeFrameLookbackUnit4) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -4419,102 +4691,110 @@ func (e *CreateDashboardPreviousTimeFrameLookbackUnit1) UnmarshalJSON(data []byt
 	case "week":
 		fallthrough
 	case "month":
-		*e = CreateDashboardPreviousTimeFrameLookbackUnit1(v)
+		*e = CreateDashboardPreviousTimeFrameLookbackUnit4(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateDashboardPreviousTimeFrameLookbackUnit1: %v", v)
+		return fmt.Errorf("invalid value for CreateDashboardPreviousTimeFrameLookbackUnit4: %v", v)
 	}
 }
 
-type CreateDashboardPreviousTimeFrame1 struct {
-	Predefined    CreateDashboardPreviousTimeFramePredefined1                                      `json:"predefined"`
+type CreateDashboardPreviousTimeFrame4 struct {
+	Predefined    CreateDashboardPreviousTimeFramePredefined4                                      `json:"predefined"`
 	LookbackValue optionalnullable.OptionalNullable[float64]                                       `json:"lookbackValue,omitzero"`
-	LookbackUnit  optionalnullable.OptionalNullable[CreateDashboardPreviousTimeFrameLookbackUnit1] `json:"lookbackUnit,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[CreateDashboardPreviousTimeFrameLookbackUnit4] `json:"lookbackUnit,omitzero"`
 	StartDate     optionalnullable.OptionalNullable[string]                                        `json:"startDate,omitzero"`
 	EndDate       optionalnullable.OptionalNullable[string]                                        `json:"endDate,omitzero"`
 }
 
-func (c CreateDashboardPreviousTimeFrame1) MarshalJSON() ([]byte, error) {
+func (c CreateDashboardPreviousTimeFrame4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateDashboardPreviousTimeFrame1) UnmarshalJSON(data []byte) error {
+func (c *CreateDashboardPreviousTimeFrame4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateDashboardPreviousTimeFrame1) GetPredefined() CreateDashboardPreviousTimeFramePredefined1 {
+func (c *CreateDashboardPreviousTimeFrame4) GetPredefined() CreateDashboardPreviousTimeFramePredefined4 {
 	if c == nil {
-		return CreateDashboardPreviousTimeFramePredefined1("")
+		return CreateDashboardPreviousTimeFramePredefined4("")
 	}
 	return c.Predefined
 }
 
-func (c *CreateDashboardPreviousTimeFrame1) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+func (c *CreateDashboardPreviousTimeFrame4) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
 	if c == nil {
 		return nil
 	}
 	return c.LookbackValue
 }
 
-func (c *CreateDashboardPreviousTimeFrame1) GetLookbackUnit() optionalnullable.OptionalNullable[CreateDashboardPreviousTimeFrameLookbackUnit1] {
+func (c *CreateDashboardPreviousTimeFrame4) GetLookbackUnit() optionalnullable.OptionalNullable[CreateDashboardPreviousTimeFrameLookbackUnit4] {
 	if c == nil {
 		return nil
 	}
 	return c.LookbackUnit
 }
 
-func (c *CreateDashboardPreviousTimeFrame1) GetStartDate() optionalnullable.OptionalNullable[string] {
+func (c *CreateDashboardPreviousTimeFrame4) GetStartDate() optionalnullable.OptionalNullable[string] {
 	if c == nil {
 		return nil
 	}
 	return c.StartDate
 }
 
-func (c *CreateDashboardPreviousTimeFrame1) GetEndDate() optionalnullable.OptionalNullable[string] {
+func (c *CreateDashboardPreviousTimeFrame4) GetEndDate() optionalnullable.OptionalNullable[string] {
 	if c == nil {
 		return nil
 	}
 	return c.EndDate
 }
 
-// #region class-body-createdashboardprevioustimeframe1
-// #endregion class-body-createdashboardprevioustimeframe1
+// #region class-body-createdashboardprevioustimeframe4
+// #endregion class-body-createdashboardprevioustimeframe4
 
-type CreateDashboardComparison1 struct {
+type CreateDashboardComparison4 struct {
 	Enabled           bool                               `json:"enabled"`
-	PreviousTimeFrame *CreateDashboardPreviousTimeFrame1 `json:"previousTimeFrame,omitzero"`
+	Mode              *CreateDashboardMode4              `json:"mode,omitzero"`
+	PreviousTimeFrame *CreateDashboardPreviousTimeFrame4 `json:"previousTimeFrame,omitzero"`
 }
 
-func (c CreateDashboardComparison1) MarshalJSON() ([]byte, error) {
+func (c CreateDashboardComparison4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateDashboardComparison1) UnmarshalJSON(data []byte) error {
+func (c *CreateDashboardComparison4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateDashboardComparison1) GetEnabled() bool {
+func (c *CreateDashboardComparison4) GetEnabled() bool {
 	if c == nil {
 		return false
 	}
 	return c.Enabled
 }
 
-func (c *CreateDashboardComparison1) GetPreviousTimeFrame() *CreateDashboardPreviousTimeFrame1 {
+func (c *CreateDashboardComparison4) GetMode() *CreateDashboardMode4 {
+	if c == nil {
+		return nil
+	}
+	return c.Mode
+}
+
+func (c *CreateDashboardComparison4) GetPreviousTimeFrame() *CreateDashboardPreviousTimeFrame4 {
 	if c == nil {
 		return nil
 	}
 	return c.PreviousTimeFrame
 }
 
-// #region class-body-createdashboardcomparison1
-// #endregion class-body-createdashboardcomparison1
+// #region class-body-createdashboardcomparison4
+// #endregion class-body-createdashboardcomparison4
 
 type CreateDashboardPopulationType string
 
@@ -4635,12 +4915,12 @@ type CreateDashboardBlockMetricExplorer struct {
 	Title                      string                           `json:"title"`
 	Description                string                           `json:"description"`
 	SnapshotID                 *string                          `json:"snapshotId,omitzero"`
-	Layout                     *CreateDashboardLayout8          `json:"layout,omitzero"`
+	Layout                     *CreateDashboardLayout12         `json:"layout,omitzero"`
 	FactMetricID               string                           `json:"factMetricId"`
 	VisualizationType          CreateDashboardVisualizationType `json:"visualizationType"`
 	ValueType                  CreateDashboardValueType         `json:"valueType"`
 	MetricAnalysisID           string                           `json:"metricAnalysisId"`
-	Comparison                 *CreateDashboardComparison1      `json:"comparison,omitzero"`
+	Comparison                 *CreateDashboardComparison4      `json:"comparison,omitzero"`
 	ComparisonMetricAnalysisID *string                          `json:"comparisonMetricAnalysisId,omitzero"`
 	AnalysisSettings           CreateDashboardAnalysisSettings  `json:"analysisSettings"`
 }
@@ -4681,7 +4961,7 @@ func (c *CreateDashboardBlockMetricExplorer) GetSnapshotID() *string {
 	return c.SnapshotID
 }
 
-func (c *CreateDashboardBlockMetricExplorer) GetLayout() *CreateDashboardLayout8 {
+func (c *CreateDashboardBlockMetricExplorer) GetLayout() *CreateDashboardLayout12 {
 	if c == nil {
 		return nil
 	}
@@ -4716,7 +4996,7 @@ func (c *CreateDashboardBlockMetricExplorer) GetMetricAnalysisID() string {
 	return c.MetricAnalysisID
 }
 
-func (c *CreateDashboardBlockMetricExplorer) GetComparison() *CreateDashboardComparison1 {
+func (c *CreateDashboardBlockMetricExplorer) GetComparison() *CreateDashboardComparison4 {
 	if c == nil {
 		return nil
 	}
@@ -4737,7 +5017,7 @@ func (c *CreateDashboardBlockMetricExplorer) GetAnalysisSettings() CreateDashboa
 	return c.AnalysisSettings
 }
 
-type CreateDashboardLayout7 struct {
+type CreateDashboardLayout11 struct {
 	X      int64 `json:"x"`
 	Y      int64 `json:"y"`
 	W      int64 `json:"w"`
@@ -4745,65 +5025,65 @@ type CreateDashboardLayout7 struct {
 	Static *bool `json:"static,omitzero"`
 }
 
-func (c CreateDashboardLayout7) MarshalJSON() ([]byte, error) {
+func (c CreateDashboardLayout11) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateDashboardLayout7) UnmarshalJSON(data []byte) error {
+func (c *CreateDashboardLayout11) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateDashboardLayout7) GetX() int64 {
+func (c *CreateDashboardLayout11) GetX() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.X
 }
 
-func (c *CreateDashboardLayout7) GetY() int64 {
+func (c *CreateDashboardLayout11) GetY() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.Y
 }
 
-func (c *CreateDashboardLayout7) GetW() int64 {
+func (c *CreateDashboardLayout11) GetW() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.W
 }
 
-func (c *CreateDashboardLayout7) GetH() int64 {
+func (c *CreateDashboardLayout11) GetH() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.H
 }
 
-func (c *CreateDashboardLayout7) GetStatic() *bool {
+func (c *CreateDashboardLayout11) GetStatic() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Static
 }
 
-// #region class-body-createdashboardlayout7
-// #endregion class-body-createdashboardlayout7
+// #region class-body-createdashboardlayout11
+// #endregion class-body-createdashboardlayout11
 
 type CreateDashboardBlockSQLExplorer struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_              string                  `const:"sql-explorer" json:"type"`
-	Title              string                  `json:"title"`
-	Description        string                  `json:"description"`
-	SnapshotID         *string                 `json:"snapshotId,omitzero"`
-	Layout             *CreateDashboardLayout7 `json:"layout,omitzero"`
-	SavedQueryID       string                  `json:"savedQueryId"`
-	DataVizConfigIndex *float64                `json:"dataVizConfigIndex,omitzero"`
-	BlockConfig        []string                `json:"blockConfig"`
+	type_              string                   `const:"sql-explorer" json:"type"`
+	Title              string                   `json:"title"`
+	Description        string                   `json:"description"`
+	SnapshotID         *string                  `json:"snapshotId,omitzero"`
+	Layout             *CreateDashboardLayout11 `json:"layout,omitzero"`
+	SavedQueryID       string                   `json:"savedQueryId"`
+	DataVizConfigIndex *float64                 `json:"dataVizConfigIndex,omitzero"`
+	BlockConfig        []string                 `json:"blockConfig"`
 }
 
 func (c CreateDashboardBlockSQLExplorer) MarshalJSON() ([]byte, error) {
@@ -4842,7 +5122,7 @@ func (c *CreateDashboardBlockSQLExplorer) GetSnapshotID() *string {
 	return c.SnapshotID
 }
 
-func (c *CreateDashboardBlockSQLExplorer) GetLayout() *CreateDashboardLayout7 {
+func (c *CreateDashboardBlockSQLExplorer) GetLayout() *CreateDashboardLayout11 {
 	if c == nil {
 		return nil
 	}
@@ -4870,7 +5150,7 @@ func (c *CreateDashboardBlockSQLExplorer) GetBlockConfig() []string {
 	return c.BlockConfig
 }
 
-type CreateDashboardLayout6 struct {
+type CreateDashboardLayout10 struct {
 	X      int64 `json:"x"`
 	Y      int64 `json:"y"`
 	W      int64 `json:"w"`
@@ -4878,65 +5158,65 @@ type CreateDashboardLayout6 struct {
 	Static *bool `json:"static,omitzero"`
 }
 
-func (c CreateDashboardLayout6) MarshalJSON() ([]byte, error) {
+func (c CreateDashboardLayout10) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateDashboardLayout6) UnmarshalJSON(data []byte) error {
+func (c *CreateDashboardLayout10) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateDashboardLayout6) GetX() int64 {
+func (c *CreateDashboardLayout10) GetX() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.X
 }
 
-func (c *CreateDashboardLayout6) GetY() int64 {
+func (c *CreateDashboardLayout10) GetY() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.Y
 }
 
-func (c *CreateDashboardLayout6) GetW() int64 {
+func (c *CreateDashboardLayout10) GetW() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.W
 }
 
-func (c *CreateDashboardLayout6) GetH() int64 {
+func (c *CreateDashboardLayout10) GetH() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.H
 }
 
-func (c *CreateDashboardLayout6) GetStatic() *bool {
+func (c *CreateDashboardLayout10) GetStatic() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Static
 }
 
-// #region class-body-createdashboardlayout6
-// #endregion class-body-createdashboardlayout6
+// #region class-body-createdashboardlayout10
+// #endregion class-body-createdashboardlayout10
 
 type CreateDashboardBlockExperimentTraffic struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_          string                  `const:"experiment-traffic" json:"type"`
-	Title          string                  `json:"title"`
-	Description    string                  `json:"description"`
-	SnapshotID     *string                 `json:"snapshotId,omitzero"`
-	Layout         *CreateDashboardLayout6 `json:"layout,omitzero"`
-	ExperimentID   string                  `json:"experimentId"`
-	ShowTable      bool                    `json:"showTable"`
-	ShowTimeseries bool                    `json:"showTimeseries"`
+	type_          string                   `const:"experiment-traffic" json:"type"`
+	Title          string                   `json:"title"`
+	Description    string                   `json:"description"`
+	SnapshotID     *string                  `json:"snapshotId,omitzero"`
+	Layout         *CreateDashboardLayout10 `json:"layout,omitzero"`
+	ExperimentID   string                   `json:"experimentId"`
+	ShowTable      bool                     `json:"showTable"`
+	ShowTimeseries bool                     `json:"showTimeseries"`
 }
 
 func (c CreateDashboardBlockExperimentTraffic) MarshalJSON() ([]byte, error) {
@@ -4975,7 +5255,7 @@ func (c *CreateDashboardBlockExperimentTraffic) GetSnapshotID() *string {
 	return c.SnapshotID
 }
 
-func (c *CreateDashboardBlockExperimentTraffic) GetLayout() *CreateDashboardLayout6 {
+func (c *CreateDashboardBlockExperimentTraffic) GetLayout() *CreateDashboardLayout10 {
 	if c == nil {
 		return nil
 	}
@@ -5003,7 +5283,7 @@ func (c *CreateDashboardBlockExperimentTraffic) GetShowTimeseries() bool {
 	return c.ShowTimeseries
 }
 
-type CreateDashboardLayout5 struct {
+type CreateDashboardLayout9 struct {
 	X      int64 `json:"x"`
 	Y      int64 `json:"y"`
 	W      int64 `json:"w"`
@@ -5011,67 +5291,67 @@ type CreateDashboardLayout5 struct {
 	Static *bool `json:"static,omitzero"`
 }
 
-func (c CreateDashboardLayout5) MarshalJSON() ([]byte, error) {
+func (c CreateDashboardLayout9) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateDashboardLayout5) UnmarshalJSON(data []byte) error {
+func (c *CreateDashboardLayout9) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateDashboardLayout5) GetX() int64 {
+func (c *CreateDashboardLayout9) GetX() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.X
 }
 
-func (c *CreateDashboardLayout5) GetY() int64 {
+func (c *CreateDashboardLayout9) GetY() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.Y
 }
 
-func (c *CreateDashboardLayout5) GetW() int64 {
+func (c *CreateDashboardLayout9) GetW() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.W
 }
 
-func (c *CreateDashboardLayout5) GetH() int64 {
+func (c *CreateDashboardLayout9) GetH() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.H
 }
 
-func (c *CreateDashboardLayout5) GetStatic() *bool {
+func (c *CreateDashboardLayout9) GetStatic() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Static
 }
 
-// #region class-body-createdashboardlayout5
-// #endregion class-body-createdashboardlayout5
+// #region class-body-createdashboardlayout9
+// #endregion class-body-createdashboardlayout9
 
-type CreateDashboardDifferenceType3 string
+type CreateDashboardDifferenceType4 string
 
 const (
-	CreateDashboardDifferenceType3Absolute CreateDashboardDifferenceType3 = "absolute"
-	CreateDashboardDifferenceType3Relative CreateDashboardDifferenceType3 = "relative"
-	CreateDashboardDifferenceType3Scaled   CreateDashboardDifferenceType3 = "scaled"
+	CreateDashboardDifferenceType4Absolute CreateDashboardDifferenceType4 = "absolute"
+	CreateDashboardDifferenceType4Relative CreateDashboardDifferenceType4 = "relative"
+	CreateDashboardDifferenceType4Scaled   CreateDashboardDifferenceType4 = "scaled"
 )
 
-func (e CreateDashboardDifferenceType3) ToPointer() *CreateDashboardDifferenceType3 {
+func (e CreateDashboardDifferenceType4) ToPointer() *CreateDashboardDifferenceType4 {
 	return &e
 }
-func (e *CreateDashboardDifferenceType3) UnmarshalJSON(data []byte) error {
+func (e *CreateDashboardDifferenceType4) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -5082,10 +5362,10 @@ func (e *CreateDashboardDifferenceType3) UnmarshalJSON(data []byte) error {
 	case "relative":
 		fallthrough
 	case "scaled":
-		*e = CreateDashboardDifferenceType3(v)
+		*e = CreateDashboardDifferenceType4(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateDashboardDifferenceType3: %v", v)
+		return fmt.Errorf("invalid value for CreateDashboardDifferenceType4: %v", v)
 	}
 }
 
@@ -5153,12 +5433,12 @@ type CreateDashboardBlockExperimentTimeSeries struct {
 	Title           string                         `json:"title"`
 	Description     string                         `json:"description"`
 	SnapshotID      string                         `json:"snapshotId"`
-	Layout          *CreateDashboardLayout5        `json:"layout,omitzero"`
+	Layout          *CreateDashboardLayout9        `json:"layout,omitzero"`
 	ExperimentID    string                         `json:"experimentId"`
 	MetricID        *string                        `json:"metricId,omitzero"`
 	MetricIds       []string                       `json:"metricIds"`
 	VariationIds    []string                       `json:"variationIds"`
-	DifferenceType  CreateDashboardDifferenceType3 `json:"differenceType"`
+	DifferenceType  CreateDashboardDifferenceType4 `json:"differenceType"`
 	SliceTagsFilter []string                       `json:"sliceTagsFilter"`
 	MetricTagFilter []string                       `json:"metricTagFilter"`
 	SortBy          *CreateDashboardSortBy3        `json:"sortBy"`
@@ -5201,7 +5481,7 @@ func (c *CreateDashboardBlockExperimentTimeSeries) GetSnapshotID() string {
 	return c.SnapshotID
 }
 
-func (c *CreateDashboardBlockExperimentTimeSeries) GetLayout() *CreateDashboardLayout5 {
+func (c *CreateDashboardBlockExperimentTimeSeries) GetLayout() *CreateDashboardLayout9 {
 	if c == nil {
 		return nil
 	}
@@ -5236,9 +5516,9 @@ func (c *CreateDashboardBlockExperimentTimeSeries) GetVariationIds() []string {
 	return c.VariationIds
 }
 
-func (c *CreateDashboardBlockExperimentTimeSeries) GetDifferenceType() CreateDashboardDifferenceType3 {
+func (c *CreateDashboardBlockExperimentTimeSeries) GetDifferenceType() CreateDashboardDifferenceType4 {
 	if c == nil {
-		return CreateDashboardDifferenceType3("")
+		return CreateDashboardDifferenceType4("")
 	}
 	return c.DifferenceType
 }
@@ -5271,7 +5551,7 @@ func (c *CreateDashboardBlockExperimentTimeSeries) GetSortDirection() *CreateDas
 	return c.SortDirection
 }
 
-type CreateDashboardLayout4 struct {
+type CreateDashboardLayout8 struct {
 	X      int64 `json:"x"`
 	Y      int64 `json:"y"`
 	W      int64 `json:"w"`
@@ -5279,67 +5559,67 @@ type CreateDashboardLayout4 struct {
 	Static *bool `json:"static,omitzero"`
 }
 
-func (c CreateDashboardLayout4) MarshalJSON() ([]byte, error) {
+func (c CreateDashboardLayout8) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateDashboardLayout4) UnmarshalJSON(data []byte) error {
+func (c *CreateDashboardLayout8) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateDashboardLayout4) GetX() int64 {
+func (c *CreateDashboardLayout8) GetX() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.X
 }
 
-func (c *CreateDashboardLayout4) GetY() int64 {
+func (c *CreateDashboardLayout8) GetY() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.Y
 }
 
-func (c *CreateDashboardLayout4) GetW() int64 {
+func (c *CreateDashboardLayout8) GetW() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.W
 }
 
-func (c *CreateDashboardLayout4) GetH() int64 {
+func (c *CreateDashboardLayout8) GetH() int64 {
 	if c == nil {
 		return 0
 	}
 	return c.H
 }
 
-func (c *CreateDashboardLayout4) GetStatic() *bool {
+func (c *CreateDashboardLayout8) GetStatic() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Static
 }
 
-// #region class-body-createdashboardlayout4
-// #endregion class-body-createdashboardlayout4
+// #region class-body-createdashboardlayout8
+// #endregion class-body-createdashboardlayout8
 
-type CreateDashboardDifferenceType2 string
+type CreateDashboardDifferenceType3 string
 
 const (
-	CreateDashboardDifferenceType2Absolute CreateDashboardDifferenceType2 = "absolute"
-	CreateDashboardDifferenceType2Relative CreateDashboardDifferenceType2 = "relative"
-	CreateDashboardDifferenceType2Scaled   CreateDashboardDifferenceType2 = "scaled"
+	CreateDashboardDifferenceType3Absolute CreateDashboardDifferenceType3 = "absolute"
+	CreateDashboardDifferenceType3Relative CreateDashboardDifferenceType3 = "relative"
+	CreateDashboardDifferenceType3Scaled   CreateDashboardDifferenceType3 = "scaled"
 )
 
-func (e CreateDashboardDifferenceType2) ToPointer() *CreateDashboardDifferenceType2 {
+func (e CreateDashboardDifferenceType3) ToPointer() *CreateDashboardDifferenceType3 {
 	return &e
 }
-func (e *CreateDashboardDifferenceType2) UnmarshalJSON(data []byte) error {
+func (e *CreateDashboardDifferenceType3) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -5350,10 +5630,10 @@ func (e *CreateDashboardDifferenceType2) UnmarshalJSON(data []byte) error {
 	case "relative":
 		fallthrough
 	case "scaled":
-		*e = CreateDashboardDifferenceType2(v)
+		*e = CreateDashboardDifferenceType3(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateDashboardDifferenceType2: %v", v)
+		return fmt.Errorf("invalid value for CreateDashboardDifferenceType3: %v", v)
 	}
 }
 
@@ -5459,14 +5739,14 @@ type CreateDashboardBlockExperimentDimension struct {
 	Title           string                          `json:"title"`
 	Description     string                          `json:"description"`
 	SnapshotID      string                          `json:"snapshotId"`
-	Layout          *CreateDashboardLayout4         `json:"layout,omitzero"`
+	Layout          *CreateDashboardLayout8         `json:"layout,omitzero"`
 	ExperimentID    string                          `json:"experimentId"`
 	DimensionID     string                          `json:"dimensionId"`
 	DimensionValues []string                        `json:"dimensionValues"`
 	MetricIds       []string                        `json:"metricIds"`
 	VariationIds    []string                        `json:"variationIds"`
 	BaselineRow     float64                         `json:"baselineRow"`
-	DifferenceType  CreateDashboardDifferenceType2  `json:"differenceType"`
+	DifferenceType  CreateDashboardDifferenceType3  `json:"differenceType"`
 	ColumnsFilter   []CreateDashboardColumnsFilter2 `json:"columnsFilter"`
 	MetricTagFilter []string                        `json:"metricTagFilter"`
 	SortBy          *CreateDashboardSortBy2         `json:"sortBy"`
@@ -5509,7 +5789,7 @@ func (c *CreateDashboardBlockExperimentDimension) GetSnapshotID() string {
 	return c.SnapshotID
 }
 
-func (c *CreateDashboardBlockExperimentDimension) GetLayout() *CreateDashboardLayout4 {
+func (c *CreateDashboardBlockExperimentDimension) GetLayout() *CreateDashboardLayout8 {
 	if c == nil {
 		return nil
 	}
@@ -5558,9 +5838,9 @@ func (c *CreateDashboardBlockExperimentDimension) GetBaselineRow() float64 {
 	return c.BaselineRow
 }
 
-func (c *CreateDashboardBlockExperimentDimension) GetDifferenceType() CreateDashboardDifferenceType2 {
+func (c *CreateDashboardBlockExperimentDimension) GetDifferenceType() CreateDashboardDifferenceType3 {
 	if c == nil {
-		return CreateDashboardDifferenceType2("")
+		return CreateDashboardDifferenceType3("")
 	}
 	return c.DifferenceType
 }
@@ -5591,6 +5871,2033 @@ func (c *CreateDashboardBlockExperimentDimension) GetSortDirection() *CreateDash
 		return nil
 	}
 	return c.SortDirection
+}
+
+type CreateDashboardLayout7 struct {
+	X      int64 `json:"x"`
+	Y      int64 `json:"y"`
+	W      int64 `json:"w"`
+	H      int64 `json:"h"`
+	Static *bool `json:"static,omitzero"`
+}
+
+func (c CreateDashboardLayout7) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateDashboardLayout7) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateDashboardLayout7) GetX() int64 {
+	if c == nil {
+		return 0
+	}
+	return c.X
+}
+
+func (c *CreateDashboardLayout7) GetY() int64 {
+	if c == nil {
+		return 0
+	}
+	return c.Y
+}
+
+func (c *CreateDashboardLayout7) GetW() int64 {
+	if c == nil {
+		return 0
+	}
+	return c.W
+}
+
+func (c *CreateDashboardLayout7) GetH() int64 {
+	if c == nil {
+		return 0
+	}
+	return c.H
+}
+
+func (c *CreateDashboardLayout7) GetStatic() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Static
+}
+
+// #region class-body-createdashboardlayout7
+// #endregion class-body-createdashboardlayout7
+
+type CreateDashboardBlockDateRangePredefined3 string
+
+const (
+	CreateDashboardBlockDateRangePredefined3Today            CreateDashboardBlockDateRangePredefined3 = "today"
+	CreateDashboardBlockDateRangePredefined3Yesterday        CreateDashboardBlockDateRangePredefined3 = "yesterday"
+	CreateDashboardBlockDateRangePredefined3Last7Days        CreateDashboardBlockDateRangePredefined3 = "last7Days"
+	CreateDashboardBlockDateRangePredefined3Last30Days       CreateDashboardBlockDateRangePredefined3 = "last30Days"
+	CreateDashboardBlockDateRangePredefined3Last90Days       CreateDashboardBlockDateRangePredefined3 = "last90Days"
+	CreateDashboardBlockDateRangePredefined3Last12Months     CreateDashboardBlockDateRangePredefined3 = "last12Months"
+	CreateDashboardBlockDateRangePredefined3LastCalendarYear CreateDashboardBlockDateRangePredefined3 = "lastCalendarYear"
+	CreateDashboardBlockDateRangePredefined3CustomLookback   CreateDashboardBlockDateRangePredefined3 = "customLookback"
+	CreateDashboardBlockDateRangePredefined3CustomDateRange  CreateDashboardBlockDateRangePredefined3 = "customDateRange"
+)
+
+func (e CreateDashboardBlockDateRangePredefined3) ToPointer() *CreateDashboardBlockDateRangePredefined3 {
+	return &e
+}
+func (e *CreateDashboardBlockDateRangePredefined3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "today":
+		fallthrough
+	case "yesterday":
+		fallthrough
+	case "last7Days":
+		fallthrough
+	case "last30Days":
+		fallthrough
+	case "last90Days":
+		fallthrough
+	case "last12Months":
+		fallthrough
+	case "lastCalendarYear":
+		fallthrough
+	case "customLookback":
+		fallthrough
+	case "customDateRange":
+		*e = CreateDashboardBlockDateRangePredefined3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateDashboardBlockDateRangePredefined3: %v", v)
+	}
+}
+
+type CreateDashboardBlockDateRangeLookbackUnit3 string
+
+const (
+	CreateDashboardBlockDateRangeLookbackUnit3Hour  CreateDashboardBlockDateRangeLookbackUnit3 = "hour"
+	CreateDashboardBlockDateRangeLookbackUnit3Day   CreateDashboardBlockDateRangeLookbackUnit3 = "day"
+	CreateDashboardBlockDateRangeLookbackUnit3Week  CreateDashboardBlockDateRangeLookbackUnit3 = "week"
+	CreateDashboardBlockDateRangeLookbackUnit3Month CreateDashboardBlockDateRangeLookbackUnit3 = "month"
+)
+
+func (e CreateDashboardBlockDateRangeLookbackUnit3) ToPointer() *CreateDashboardBlockDateRangeLookbackUnit3 {
+	return &e
+}
+func (e *CreateDashboardBlockDateRangeLookbackUnit3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "hour":
+		fallthrough
+	case "day":
+		fallthrough
+	case "week":
+		fallthrough
+	case "month":
+		*e = CreateDashboardBlockDateRangeLookbackUnit3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateDashboardBlockDateRangeLookbackUnit3: %v", v)
+	}
+}
+
+type CreateDashboardBlockDateRange3 struct {
+	Predefined    CreateDashboardBlockDateRangePredefined3                                      `json:"predefined"`
+	LookbackValue optionalnullable.OptionalNullable[float64]                                    `json:"lookbackValue,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[CreateDashboardBlockDateRangeLookbackUnit3] `json:"lookbackUnit,omitzero"`
+	StartDate     optionalnullable.OptionalNullable[string]                                     `json:"startDate,omitzero"`
+	EndDate       optionalnullable.OptionalNullable[string]                                     `json:"endDate,omitzero"`
+}
+
+func (c CreateDashboardBlockDateRange3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateDashboardBlockDateRange3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateDashboardBlockDateRange3) GetPredefined() CreateDashboardBlockDateRangePredefined3 {
+	if c == nil {
+		return CreateDashboardBlockDateRangePredefined3("")
+	}
+	return c.Predefined
+}
+
+func (c *CreateDashboardBlockDateRange3) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+	if c == nil {
+		return nil
+	}
+	return c.LookbackValue
+}
+
+func (c *CreateDashboardBlockDateRange3) GetLookbackUnit() optionalnullable.OptionalNullable[CreateDashboardBlockDateRangeLookbackUnit3] {
+	if c == nil {
+		return nil
+	}
+	return c.LookbackUnit
+}
+
+func (c *CreateDashboardBlockDateRange3) GetStartDate() optionalnullable.OptionalNullable[string] {
+	if c == nil {
+		return nil
+	}
+	return c.StartDate
+}
+
+func (c *CreateDashboardBlockDateRange3) GetEndDate() optionalnullable.OptionalNullable[string] {
+	if c == nil {
+		return nil
+	}
+	return c.EndDate
+}
+
+// #region class-body-createdashboardblockdaterange3
+// #endregion class-body-createdashboardblockdaterange3
+
+type CreateDashboardMode3 string
+
+const (
+	CreateDashboardMode3PreviousPeriod               CreateDashboardMode3 = "previousPeriod"
+	CreateDashboardMode3PreviousPeriodMatchDayOfWeek CreateDashboardMode3 = "previousPeriodMatchDayOfWeek"
+	CreateDashboardMode3PreviousYear                 CreateDashboardMode3 = "previousYear"
+	CreateDashboardMode3PreviousYearMatchDayOfWeek   CreateDashboardMode3 = "previousYearMatchDayOfWeek"
+	CreateDashboardMode3Custom                       CreateDashboardMode3 = "custom"
+)
+
+func (e CreateDashboardMode3) ToPointer() *CreateDashboardMode3 {
+	return &e
+}
+func (e *CreateDashboardMode3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "previousPeriod":
+		fallthrough
+	case "previousPeriodMatchDayOfWeek":
+		fallthrough
+	case "previousYear":
+		fallthrough
+	case "previousYearMatchDayOfWeek":
+		fallthrough
+	case "custom":
+		*e = CreateDashboardMode3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateDashboardMode3: %v", v)
+	}
+}
+
+type CreateDashboardPreviousTimeFramePredefined3 string
+
+const (
+	CreateDashboardPreviousTimeFramePredefined3Today            CreateDashboardPreviousTimeFramePredefined3 = "today"
+	CreateDashboardPreviousTimeFramePredefined3Yesterday        CreateDashboardPreviousTimeFramePredefined3 = "yesterday"
+	CreateDashboardPreviousTimeFramePredefined3Last7Days        CreateDashboardPreviousTimeFramePredefined3 = "last7Days"
+	CreateDashboardPreviousTimeFramePredefined3Last30Days       CreateDashboardPreviousTimeFramePredefined3 = "last30Days"
+	CreateDashboardPreviousTimeFramePredefined3Last90Days       CreateDashboardPreviousTimeFramePredefined3 = "last90Days"
+	CreateDashboardPreviousTimeFramePredefined3Last12Months     CreateDashboardPreviousTimeFramePredefined3 = "last12Months"
+	CreateDashboardPreviousTimeFramePredefined3LastCalendarYear CreateDashboardPreviousTimeFramePredefined3 = "lastCalendarYear"
+	CreateDashboardPreviousTimeFramePredefined3CustomLookback   CreateDashboardPreviousTimeFramePredefined3 = "customLookback"
+	CreateDashboardPreviousTimeFramePredefined3CustomDateRange  CreateDashboardPreviousTimeFramePredefined3 = "customDateRange"
+)
+
+func (e CreateDashboardPreviousTimeFramePredefined3) ToPointer() *CreateDashboardPreviousTimeFramePredefined3 {
+	return &e
+}
+func (e *CreateDashboardPreviousTimeFramePredefined3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "today":
+		fallthrough
+	case "yesterday":
+		fallthrough
+	case "last7Days":
+		fallthrough
+	case "last30Days":
+		fallthrough
+	case "last90Days":
+		fallthrough
+	case "last12Months":
+		fallthrough
+	case "lastCalendarYear":
+		fallthrough
+	case "customLookback":
+		fallthrough
+	case "customDateRange":
+		*e = CreateDashboardPreviousTimeFramePredefined3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateDashboardPreviousTimeFramePredefined3: %v", v)
+	}
+}
+
+type CreateDashboardPreviousTimeFrameLookbackUnit3 string
+
+const (
+	CreateDashboardPreviousTimeFrameLookbackUnit3Hour  CreateDashboardPreviousTimeFrameLookbackUnit3 = "hour"
+	CreateDashboardPreviousTimeFrameLookbackUnit3Day   CreateDashboardPreviousTimeFrameLookbackUnit3 = "day"
+	CreateDashboardPreviousTimeFrameLookbackUnit3Week  CreateDashboardPreviousTimeFrameLookbackUnit3 = "week"
+	CreateDashboardPreviousTimeFrameLookbackUnit3Month CreateDashboardPreviousTimeFrameLookbackUnit3 = "month"
+)
+
+func (e CreateDashboardPreviousTimeFrameLookbackUnit3) ToPointer() *CreateDashboardPreviousTimeFrameLookbackUnit3 {
+	return &e
+}
+func (e *CreateDashboardPreviousTimeFrameLookbackUnit3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "hour":
+		fallthrough
+	case "day":
+		fallthrough
+	case "week":
+		fallthrough
+	case "month":
+		*e = CreateDashboardPreviousTimeFrameLookbackUnit3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateDashboardPreviousTimeFrameLookbackUnit3: %v", v)
+	}
+}
+
+type CreateDashboardPreviousTimeFrame3 struct {
+	Predefined    CreateDashboardPreviousTimeFramePredefined3                                      `json:"predefined"`
+	LookbackValue optionalnullable.OptionalNullable[float64]                                       `json:"lookbackValue,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[CreateDashboardPreviousTimeFrameLookbackUnit3] `json:"lookbackUnit,omitzero"`
+	StartDate     optionalnullable.OptionalNullable[string]                                        `json:"startDate,omitzero"`
+	EndDate       optionalnullable.OptionalNullable[string]                                        `json:"endDate,omitzero"`
+}
+
+func (c CreateDashboardPreviousTimeFrame3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateDashboardPreviousTimeFrame3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateDashboardPreviousTimeFrame3) GetPredefined() CreateDashboardPreviousTimeFramePredefined3 {
+	if c == nil {
+		return CreateDashboardPreviousTimeFramePredefined3("")
+	}
+	return c.Predefined
+}
+
+func (c *CreateDashboardPreviousTimeFrame3) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+	if c == nil {
+		return nil
+	}
+	return c.LookbackValue
+}
+
+func (c *CreateDashboardPreviousTimeFrame3) GetLookbackUnit() optionalnullable.OptionalNullable[CreateDashboardPreviousTimeFrameLookbackUnit3] {
+	if c == nil {
+		return nil
+	}
+	return c.LookbackUnit
+}
+
+func (c *CreateDashboardPreviousTimeFrame3) GetStartDate() optionalnullable.OptionalNullable[string] {
+	if c == nil {
+		return nil
+	}
+	return c.StartDate
+}
+
+func (c *CreateDashboardPreviousTimeFrame3) GetEndDate() optionalnullable.OptionalNullable[string] {
+	if c == nil {
+		return nil
+	}
+	return c.EndDate
+}
+
+// #region class-body-createdashboardprevioustimeframe3
+// #endregion class-body-createdashboardprevioustimeframe3
+
+type CreateDashboardComparison3 struct {
+	Enabled           bool                               `json:"enabled"`
+	Mode              *CreateDashboardMode3              `json:"mode,omitzero"`
+	PreviousTimeFrame *CreateDashboardPreviousTimeFrame3 `json:"previousTimeFrame,omitzero"`
+}
+
+func (c CreateDashboardComparison3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateDashboardComparison3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateDashboardComparison3) GetEnabled() bool {
+	if c == nil {
+		return false
+	}
+	return c.Enabled
+}
+
+func (c *CreateDashboardComparison3) GetMode() *CreateDashboardMode3 {
+	if c == nil {
+		return nil
+	}
+	return c.Mode
+}
+
+func (c *CreateDashboardComparison3) GetPreviousTimeFrame() *CreateDashboardPreviousTimeFrame3 {
+	if c == nil {
+		return nil
+	}
+	return c.PreviousTimeFrame
+}
+
+// #region class-body-createdashboardcomparison3
+// #endregion class-body-createdashboardcomparison3
+
+type CreateDashboardBlockDateGranularity string
+
+const (
+	CreateDashboardBlockDateGranularityAuto  CreateDashboardBlockDateGranularity = "auto"
+	CreateDashboardBlockDateGranularityHour  CreateDashboardBlockDateGranularity = "hour"
+	CreateDashboardBlockDateGranularityDay   CreateDashboardBlockDateGranularity = "day"
+	CreateDashboardBlockDateGranularityWeek  CreateDashboardBlockDateGranularity = "week"
+	CreateDashboardBlockDateGranularityMonth CreateDashboardBlockDateGranularity = "month"
+	CreateDashboardBlockDateGranularityYear  CreateDashboardBlockDateGranularity = "year"
+)
+
+func (e CreateDashboardBlockDateGranularity) ToPointer() *CreateDashboardBlockDateGranularity {
+	return &e
+}
+func (e *CreateDashboardBlockDateGranularity) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "auto":
+		fallthrough
+	case "hour":
+		fallthrough
+	case "day":
+		fallthrough
+	case "week":
+		fallthrough
+	case "month":
+		fallthrough
+	case "year":
+		*e = CreateDashboardBlockDateGranularity(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateDashboardBlockDateGranularity: %v", v)
+	}
+}
+
+type CreateDashboardBlockExperimentsStatus struct {
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	type_                  string                               `const:"experiments-status" json:"type"`
+	Title                  string                               `json:"title"`
+	Description            string                               `json:"description"`
+	SnapshotID             *string                              `json:"snapshotId,omitzero"`
+	Layout                 *CreateDashboardLayout7              `json:"layout,omitzero"`
+	DateRange              CreateDashboardBlockDateRange3       `json:"dateRange"`
+	Projects               []string                             `json:"projects"`
+	ExperimentSearchString *string                              `json:"experimentSearchString,omitzero"`
+	Comparison             *CreateDashboardComparison3          `json:"comparison,omitzero"`
+	DateGranularity        *CreateDashboardBlockDateGranularity `json:"dateGranularity,omitzero"`
+}
+
+func (c CreateDashboardBlockExperimentsStatus) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateDashboardBlockExperimentsStatus) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateDashboardBlockExperimentsStatus) GetType() string {
+	return "experiments-status"
+}
+
+func (c *CreateDashboardBlockExperimentsStatus) GetTitle() string {
+	if c == nil {
+		return ""
+	}
+	return c.Title
+}
+
+func (c *CreateDashboardBlockExperimentsStatus) GetDescription() string {
+	if c == nil {
+		return ""
+	}
+	return c.Description
+}
+
+func (c *CreateDashboardBlockExperimentsStatus) GetSnapshotID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.SnapshotID
+}
+
+func (c *CreateDashboardBlockExperimentsStatus) GetLayout() *CreateDashboardLayout7 {
+	if c == nil {
+		return nil
+	}
+	return c.Layout
+}
+
+func (c *CreateDashboardBlockExperimentsStatus) GetDateRange() CreateDashboardBlockDateRange3 {
+	if c == nil {
+		return CreateDashboardBlockDateRange3{}
+	}
+	return c.DateRange
+}
+
+func (c *CreateDashboardBlockExperimentsStatus) GetProjects() []string {
+	if c == nil {
+		return []string{}
+	}
+	return c.Projects
+}
+
+func (c *CreateDashboardBlockExperimentsStatus) GetExperimentSearchString() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ExperimentSearchString
+}
+
+func (c *CreateDashboardBlockExperimentsStatus) GetComparison() *CreateDashboardComparison3 {
+	if c == nil {
+		return nil
+	}
+	return c.Comparison
+}
+
+func (c *CreateDashboardBlockExperimentsStatus) GetDateGranularity() *CreateDashboardBlockDateGranularity {
+	if c == nil {
+		return nil
+	}
+	return c.DateGranularity
+}
+
+type CreateDashboardLayout6 struct {
+	X      int64 `json:"x"`
+	Y      int64 `json:"y"`
+	W      int64 `json:"w"`
+	H      int64 `json:"h"`
+	Static *bool `json:"static,omitzero"`
+}
+
+func (c CreateDashboardLayout6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateDashboardLayout6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateDashboardLayout6) GetX() int64 {
+	if c == nil {
+		return 0
+	}
+	return c.X
+}
+
+func (c *CreateDashboardLayout6) GetY() int64 {
+	if c == nil {
+		return 0
+	}
+	return c.Y
+}
+
+func (c *CreateDashboardLayout6) GetW() int64 {
+	if c == nil {
+		return 0
+	}
+	return c.W
+}
+
+func (c *CreateDashboardLayout6) GetH() int64 {
+	if c == nil {
+		return 0
+	}
+	return c.H
+}
+
+func (c *CreateDashboardLayout6) GetStatic() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Static
+}
+
+// #region class-body-createdashboardlayout6
+// #endregion class-body-createdashboardlayout6
+
+type CreateDashboardBlockDateRangePredefined2 string
+
+const (
+	CreateDashboardBlockDateRangePredefined2Today            CreateDashboardBlockDateRangePredefined2 = "today"
+	CreateDashboardBlockDateRangePredefined2Yesterday        CreateDashboardBlockDateRangePredefined2 = "yesterday"
+	CreateDashboardBlockDateRangePredefined2Last7Days        CreateDashboardBlockDateRangePredefined2 = "last7Days"
+	CreateDashboardBlockDateRangePredefined2Last30Days       CreateDashboardBlockDateRangePredefined2 = "last30Days"
+	CreateDashboardBlockDateRangePredefined2Last90Days       CreateDashboardBlockDateRangePredefined2 = "last90Days"
+	CreateDashboardBlockDateRangePredefined2Last12Months     CreateDashboardBlockDateRangePredefined2 = "last12Months"
+	CreateDashboardBlockDateRangePredefined2LastCalendarYear CreateDashboardBlockDateRangePredefined2 = "lastCalendarYear"
+	CreateDashboardBlockDateRangePredefined2CustomLookback   CreateDashboardBlockDateRangePredefined2 = "customLookback"
+	CreateDashboardBlockDateRangePredefined2CustomDateRange  CreateDashboardBlockDateRangePredefined2 = "customDateRange"
+)
+
+func (e CreateDashboardBlockDateRangePredefined2) ToPointer() *CreateDashboardBlockDateRangePredefined2 {
+	return &e
+}
+func (e *CreateDashboardBlockDateRangePredefined2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "today":
+		fallthrough
+	case "yesterday":
+		fallthrough
+	case "last7Days":
+		fallthrough
+	case "last30Days":
+		fallthrough
+	case "last90Days":
+		fallthrough
+	case "last12Months":
+		fallthrough
+	case "lastCalendarYear":
+		fallthrough
+	case "customLookback":
+		fallthrough
+	case "customDateRange":
+		*e = CreateDashboardBlockDateRangePredefined2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateDashboardBlockDateRangePredefined2: %v", v)
+	}
+}
+
+type CreateDashboardBlockDateRangeLookbackUnit2 string
+
+const (
+	CreateDashboardBlockDateRangeLookbackUnit2Hour  CreateDashboardBlockDateRangeLookbackUnit2 = "hour"
+	CreateDashboardBlockDateRangeLookbackUnit2Day   CreateDashboardBlockDateRangeLookbackUnit2 = "day"
+	CreateDashboardBlockDateRangeLookbackUnit2Week  CreateDashboardBlockDateRangeLookbackUnit2 = "week"
+	CreateDashboardBlockDateRangeLookbackUnit2Month CreateDashboardBlockDateRangeLookbackUnit2 = "month"
+)
+
+func (e CreateDashboardBlockDateRangeLookbackUnit2) ToPointer() *CreateDashboardBlockDateRangeLookbackUnit2 {
+	return &e
+}
+func (e *CreateDashboardBlockDateRangeLookbackUnit2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "hour":
+		fallthrough
+	case "day":
+		fallthrough
+	case "week":
+		fallthrough
+	case "month":
+		*e = CreateDashboardBlockDateRangeLookbackUnit2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateDashboardBlockDateRangeLookbackUnit2: %v", v)
+	}
+}
+
+type CreateDashboardBlockDateRange2 struct {
+	Predefined    CreateDashboardBlockDateRangePredefined2                                      `json:"predefined"`
+	LookbackValue optionalnullable.OptionalNullable[float64]                                    `json:"lookbackValue,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[CreateDashboardBlockDateRangeLookbackUnit2] `json:"lookbackUnit,omitzero"`
+	StartDate     optionalnullable.OptionalNullable[string]                                     `json:"startDate,omitzero"`
+	EndDate       optionalnullable.OptionalNullable[string]                                     `json:"endDate,omitzero"`
+}
+
+func (c CreateDashboardBlockDateRange2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateDashboardBlockDateRange2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateDashboardBlockDateRange2) GetPredefined() CreateDashboardBlockDateRangePredefined2 {
+	if c == nil {
+		return CreateDashboardBlockDateRangePredefined2("")
+	}
+	return c.Predefined
+}
+
+func (c *CreateDashboardBlockDateRange2) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+	if c == nil {
+		return nil
+	}
+	return c.LookbackValue
+}
+
+func (c *CreateDashboardBlockDateRange2) GetLookbackUnit() optionalnullable.OptionalNullable[CreateDashboardBlockDateRangeLookbackUnit2] {
+	if c == nil {
+		return nil
+	}
+	return c.LookbackUnit
+}
+
+func (c *CreateDashboardBlockDateRange2) GetStartDate() optionalnullable.OptionalNullable[string] {
+	if c == nil {
+		return nil
+	}
+	return c.StartDate
+}
+
+func (c *CreateDashboardBlockDateRange2) GetEndDate() optionalnullable.OptionalNullable[string] {
+	if c == nil {
+		return nil
+	}
+	return c.EndDate
+}
+
+// #region class-body-createdashboardblockdaterange2
+// #endregion class-body-createdashboardblockdaterange2
+
+type CreateDashboardMode2 string
+
+const (
+	CreateDashboardMode2PreviousPeriod               CreateDashboardMode2 = "previousPeriod"
+	CreateDashboardMode2PreviousPeriodMatchDayOfWeek CreateDashboardMode2 = "previousPeriodMatchDayOfWeek"
+	CreateDashboardMode2PreviousYear                 CreateDashboardMode2 = "previousYear"
+	CreateDashboardMode2PreviousYearMatchDayOfWeek   CreateDashboardMode2 = "previousYearMatchDayOfWeek"
+	CreateDashboardMode2Custom                       CreateDashboardMode2 = "custom"
+)
+
+func (e CreateDashboardMode2) ToPointer() *CreateDashboardMode2 {
+	return &e
+}
+func (e *CreateDashboardMode2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "previousPeriod":
+		fallthrough
+	case "previousPeriodMatchDayOfWeek":
+		fallthrough
+	case "previousYear":
+		fallthrough
+	case "previousYearMatchDayOfWeek":
+		fallthrough
+	case "custom":
+		*e = CreateDashboardMode2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateDashboardMode2: %v", v)
+	}
+}
+
+type CreateDashboardPreviousTimeFramePredefined2 string
+
+const (
+	CreateDashboardPreviousTimeFramePredefined2Today            CreateDashboardPreviousTimeFramePredefined2 = "today"
+	CreateDashboardPreviousTimeFramePredefined2Yesterday        CreateDashboardPreviousTimeFramePredefined2 = "yesterday"
+	CreateDashboardPreviousTimeFramePredefined2Last7Days        CreateDashboardPreviousTimeFramePredefined2 = "last7Days"
+	CreateDashboardPreviousTimeFramePredefined2Last30Days       CreateDashboardPreviousTimeFramePredefined2 = "last30Days"
+	CreateDashboardPreviousTimeFramePredefined2Last90Days       CreateDashboardPreviousTimeFramePredefined2 = "last90Days"
+	CreateDashboardPreviousTimeFramePredefined2Last12Months     CreateDashboardPreviousTimeFramePredefined2 = "last12Months"
+	CreateDashboardPreviousTimeFramePredefined2LastCalendarYear CreateDashboardPreviousTimeFramePredefined2 = "lastCalendarYear"
+	CreateDashboardPreviousTimeFramePredefined2CustomLookback   CreateDashboardPreviousTimeFramePredefined2 = "customLookback"
+	CreateDashboardPreviousTimeFramePredefined2CustomDateRange  CreateDashboardPreviousTimeFramePredefined2 = "customDateRange"
+)
+
+func (e CreateDashboardPreviousTimeFramePredefined2) ToPointer() *CreateDashboardPreviousTimeFramePredefined2 {
+	return &e
+}
+func (e *CreateDashboardPreviousTimeFramePredefined2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "today":
+		fallthrough
+	case "yesterday":
+		fallthrough
+	case "last7Days":
+		fallthrough
+	case "last30Days":
+		fallthrough
+	case "last90Days":
+		fallthrough
+	case "last12Months":
+		fallthrough
+	case "lastCalendarYear":
+		fallthrough
+	case "customLookback":
+		fallthrough
+	case "customDateRange":
+		*e = CreateDashboardPreviousTimeFramePredefined2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateDashboardPreviousTimeFramePredefined2: %v", v)
+	}
+}
+
+type CreateDashboardPreviousTimeFrameLookbackUnit2 string
+
+const (
+	CreateDashboardPreviousTimeFrameLookbackUnit2Hour  CreateDashboardPreviousTimeFrameLookbackUnit2 = "hour"
+	CreateDashboardPreviousTimeFrameLookbackUnit2Day   CreateDashboardPreviousTimeFrameLookbackUnit2 = "day"
+	CreateDashboardPreviousTimeFrameLookbackUnit2Week  CreateDashboardPreviousTimeFrameLookbackUnit2 = "week"
+	CreateDashboardPreviousTimeFrameLookbackUnit2Month CreateDashboardPreviousTimeFrameLookbackUnit2 = "month"
+)
+
+func (e CreateDashboardPreviousTimeFrameLookbackUnit2) ToPointer() *CreateDashboardPreviousTimeFrameLookbackUnit2 {
+	return &e
+}
+func (e *CreateDashboardPreviousTimeFrameLookbackUnit2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "hour":
+		fallthrough
+	case "day":
+		fallthrough
+	case "week":
+		fallthrough
+	case "month":
+		*e = CreateDashboardPreviousTimeFrameLookbackUnit2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateDashboardPreviousTimeFrameLookbackUnit2: %v", v)
+	}
+}
+
+type CreateDashboardPreviousTimeFrame2 struct {
+	Predefined    CreateDashboardPreviousTimeFramePredefined2                                      `json:"predefined"`
+	LookbackValue optionalnullable.OptionalNullable[float64]                                       `json:"lookbackValue,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[CreateDashboardPreviousTimeFrameLookbackUnit2] `json:"lookbackUnit,omitzero"`
+	StartDate     optionalnullable.OptionalNullable[string]                                        `json:"startDate,omitzero"`
+	EndDate       optionalnullable.OptionalNullable[string]                                        `json:"endDate,omitzero"`
+}
+
+func (c CreateDashboardPreviousTimeFrame2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateDashboardPreviousTimeFrame2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateDashboardPreviousTimeFrame2) GetPredefined() CreateDashboardPreviousTimeFramePredefined2 {
+	if c == nil {
+		return CreateDashboardPreviousTimeFramePredefined2("")
+	}
+	return c.Predefined
+}
+
+func (c *CreateDashboardPreviousTimeFrame2) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+	if c == nil {
+		return nil
+	}
+	return c.LookbackValue
+}
+
+func (c *CreateDashboardPreviousTimeFrame2) GetLookbackUnit() optionalnullable.OptionalNullable[CreateDashboardPreviousTimeFrameLookbackUnit2] {
+	if c == nil {
+		return nil
+	}
+	return c.LookbackUnit
+}
+
+func (c *CreateDashboardPreviousTimeFrame2) GetStartDate() optionalnullable.OptionalNullable[string] {
+	if c == nil {
+		return nil
+	}
+	return c.StartDate
+}
+
+func (c *CreateDashboardPreviousTimeFrame2) GetEndDate() optionalnullable.OptionalNullable[string] {
+	if c == nil {
+		return nil
+	}
+	return c.EndDate
+}
+
+// #region class-body-createdashboardprevioustimeframe2
+// #endregion class-body-createdashboardprevioustimeframe2
+
+type CreateDashboardComparison2 struct {
+	Enabled           bool                               `json:"enabled"`
+	Mode              *CreateDashboardMode2              `json:"mode,omitzero"`
+	PreviousTimeFrame *CreateDashboardPreviousTimeFrame2 `json:"previousTimeFrame,omitzero"`
+}
+
+func (c CreateDashboardComparison2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateDashboardComparison2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateDashboardComparison2) GetEnabled() bool {
+	if c == nil {
+		return false
+	}
+	return c.Enabled
+}
+
+func (c *CreateDashboardComparison2) GetMode() *CreateDashboardMode2 {
+	if c == nil {
+		return nil
+	}
+	return c.Mode
+}
+
+func (c *CreateDashboardComparison2) GetPreviousTimeFrame() *CreateDashboardPreviousTimeFrame2 {
+	if c == nil {
+		return nil
+	}
+	return c.PreviousTimeFrame
+}
+
+// #region class-body-createdashboardcomparison2
+// #endregion class-body-createdashboardcomparison2
+
+type CreateDashboardBlockExperimentsWinRate struct {
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	type_                  string                         `const:"experiments-win-rate" json:"type"`
+	Title                  string                         `json:"title"`
+	Description            string                         `json:"description"`
+	SnapshotID             *string                        `json:"snapshotId,omitzero"`
+	Layout                 *CreateDashboardLayout6        `json:"layout,omitzero"`
+	DateRange              CreateDashboardBlockDateRange2 `json:"dateRange"`
+	Projects               []string                       `json:"projects"`
+	ExperimentSearchString *string                        `json:"experimentSearchString,omitzero"`
+	Comparison             *CreateDashboardComparison2    `json:"comparison,omitzero"`
+	ShowProjectBreakdown   bool                           `json:"showProjectBreakdown"`
+}
+
+func (c CreateDashboardBlockExperimentsWinRate) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateDashboardBlockExperimentsWinRate) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateDashboardBlockExperimentsWinRate) GetType() string {
+	return "experiments-win-rate"
+}
+
+func (c *CreateDashboardBlockExperimentsWinRate) GetTitle() string {
+	if c == nil {
+		return ""
+	}
+	return c.Title
+}
+
+func (c *CreateDashboardBlockExperimentsWinRate) GetDescription() string {
+	if c == nil {
+		return ""
+	}
+	return c.Description
+}
+
+func (c *CreateDashboardBlockExperimentsWinRate) GetSnapshotID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.SnapshotID
+}
+
+func (c *CreateDashboardBlockExperimentsWinRate) GetLayout() *CreateDashboardLayout6 {
+	if c == nil {
+		return nil
+	}
+	return c.Layout
+}
+
+func (c *CreateDashboardBlockExperimentsWinRate) GetDateRange() CreateDashboardBlockDateRange2 {
+	if c == nil {
+		return CreateDashboardBlockDateRange2{}
+	}
+	return c.DateRange
+}
+
+func (c *CreateDashboardBlockExperimentsWinRate) GetProjects() []string {
+	if c == nil {
+		return []string{}
+	}
+	return c.Projects
+}
+
+func (c *CreateDashboardBlockExperimentsWinRate) GetExperimentSearchString() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ExperimentSearchString
+}
+
+func (c *CreateDashboardBlockExperimentsWinRate) GetComparison() *CreateDashboardComparison2 {
+	if c == nil {
+		return nil
+	}
+	return c.Comparison
+}
+
+func (c *CreateDashboardBlockExperimentsWinRate) GetShowProjectBreakdown() bool {
+	if c == nil {
+		return false
+	}
+	return c.ShowProjectBreakdown
+}
+
+type CreateDashboardLayout5 struct {
+	X      int64 `json:"x"`
+	Y      int64 `json:"y"`
+	W      int64 `json:"w"`
+	H      int64 `json:"h"`
+	Static *bool `json:"static,omitzero"`
+}
+
+func (c CreateDashboardLayout5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateDashboardLayout5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateDashboardLayout5) GetX() int64 {
+	if c == nil {
+		return 0
+	}
+	return c.X
+}
+
+func (c *CreateDashboardLayout5) GetY() int64 {
+	if c == nil {
+		return 0
+	}
+	return c.Y
+}
+
+func (c *CreateDashboardLayout5) GetW() int64 {
+	if c == nil {
+		return 0
+	}
+	return c.W
+}
+
+func (c *CreateDashboardLayout5) GetH() int64 {
+	if c == nil {
+		return 0
+	}
+	return c.H
+}
+
+func (c *CreateDashboardLayout5) GetStatic() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Static
+}
+
+// #region class-body-createdashboardlayout5
+// #endregion class-body-createdashboardlayout5
+
+type CreateDashboardBlockDateRangePredefined1 string
+
+const (
+	CreateDashboardBlockDateRangePredefined1Today            CreateDashboardBlockDateRangePredefined1 = "today"
+	CreateDashboardBlockDateRangePredefined1Yesterday        CreateDashboardBlockDateRangePredefined1 = "yesterday"
+	CreateDashboardBlockDateRangePredefined1Last7Days        CreateDashboardBlockDateRangePredefined1 = "last7Days"
+	CreateDashboardBlockDateRangePredefined1Last30Days       CreateDashboardBlockDateRangePredefined1 = "last30Days"
+	CreateDashboardBlockDateRangePredefined1Last90Days       CreateDashboardBlockDateRangePredefined1 = "last90Days"
+	CreateDashboardBlockDateRangePredefined1Last12Months     CreateDashboardBlockDateRangePredefined1 = "last12Months"
+	CreateDashboardBlockDateRangePredefined1LastCalendarYear CreateDashboardBlockDateRangePredefined1 = "lastCalendarYear"
+	CreateDashboardBlockDateRangePredefined1CustomLookback   CreateDashboardBlockDateRangePredefined1 = "customLookback"
+	CreateDashboardBlockDateRangePredefined1CustomDateRange  CreateDashboardBlockDateRangePredefined1 = "customDateRange"
+)
+
+func (e CreateDashboardBlockDateRangePredefined1) ToPointer() *CreateDashboardBlockDateRangePredefined1 {
+	return &e
+}
+func (e *CreateDashboardBlockDateRangePredefined1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "today":
+		fallthrough
+	case "yesterday":
+		fallthrough
+	case "last7Days":
+		fallthrough
+	case "last30Days":
+		fallthrough
+	case "last90Days":
+		fallthrough
+	case "last12Months":
+		fallthrough
+	case "lastCalendarYear":
+		fallthrough
+	case "customLookback":
+		fallthrough
+	case "customDateRange":
+		*e = CreateDashboardBlockDateRangePredefined1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateDashboardBlockDateRangePredefined1: %v", v)
+	}
+}
+
+type CreateDashboardBlockDateRangeLookbackUnit1 string
+
+const (
+	CreateDashboardBlockDateRangeLookbackUnit1Hour  CreateDashboardBlockDateRangeLookbackUnit1 = "hour"
+	CreateDashboardBlockDateRangeLookbackUnit1Day   CreateDashboardBlockDateRangeLookbackUnit1 = "day"
+	CreateDashboardBlockDateRangeLookbackUnit1Week  CreateDashboardBlockDateRangeLookbackUnit1 = "week"
+	CreateDashboardBlockDateRangeLookbackUnit1Month CreateDashboardBlockDateRangeLookbackUnit1 = "month"
+)
+
+func (e CreateDashboardBlockDateRangeLookbackUnit1) ToPointer() *CreateDashboardBlockDateRangeLookbackUnit1 {
+	return &e
+}
+func (e *CreateDashboardBlockDateRangeLookbackUnit1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "hour":
+		fallthrough
+	case "day":
+		fallthrough
+	case "week":
+		fallthrough
+	case "month":
+		*e = CreateDashboardBlockDateRangeLookbackUnit1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateDashboardBlockDateRangeLookbackUnit1: %v", v)
+	}
+}
+
+type CreateDashboardBlockDateRange1 struct {
+	Predefined    CreateDashboardBlockDateRangePredefined1                                      `json:"predefined"`
+	LookbackValue optionalnullable.OptionalNullable[float64]                                    `json:"lookbackValue,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[CreateDashboardBlockDateRangeLookbackUnit1] `json:"lookbackUnit,omitzero"`
+	StartDate     optionalnullable.OptionalNullable[string]                                     `json:"startDate,omitzero"`
+	EndDate       optionalnullable.OptionalNullable[string]                                     `json:"endDate,omitzero"`
+}
+
+func (c CreateDashboardBlockDateRange1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateDashboardBlockDateRange1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateDashboardBlockDateRange1) GetPredefined() CreateDashboardBlockDateRangePredefined1 {
+	if c == nil {
+		return CreateDashboardBlockDateRangePredefined1("")
+	}
+	return c.Predefined
+}
+
+func (c *CreateDashboardBlockDateRange1) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+	if c == nil {
+		return nil
+	}
+	return c.LookbackValue
+}
+
+func (c *CreateDashboardBlockDateRange1) GetLookbackUnit() optionalnullable.OptionalNullable[CreateDashboardBlockDateRangeLookbackUnit1] {
+	if c == nil {
+		return nil
+	}
+	return c.LookbackUnit
+}
+
+func (c *CreateDashboardBlockDateRange1) GetStartDate() optionalnullable.OptionalNullable[string] {
+	if c == nil {
+		return nil
+	}
+	return c.StartDate
+}
+
+func (c *CreateDashboardBlockDateRange1) GetEndDate() optionalnullable.OptionalNullable[string] {
+	if c == nil {
+		return nil
+	}
+	return c.EndDate
+}
+
+// #region class-body-createdashboardblockdaterange1
+// #endregion class-body-createdashboardblockdaterange1
+
+type CreateDashboardMode1 string
+
+const (
+	CreateDashboardMode1PreviousPeriod               CreateDashboardMode1 = "previousPeriod"
+	CreateDashboardMode1PreviousPeriodMatchDayOfWeek CreateDashboardMode1 = "previousPeriodMatchDayOfWeek"
+	CreateDashboardMode1PreviousYear                 CreateDashboardMode1 = "previousYear"
+	CreateDashboardMode1PreviousYearMatchDayOfWeek   CreateDashboardMode1 = "previousYearMatchDayOfWeek"
+	CreateDashboardMode1Custom                       CreateDashboardMode1 = "custom"
+)
+
+func (e CreateDashboardMode1) ToPointer() *CreateDashboardMode1 {
+	return &e
+}
+func (e *CreateDashboardMode1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "previousPeriod":
+		fallthrough
+	case "previousPeriodMatchDayOfWeek":
+		fallthrough
+	case "previousYear":
+		fallthrough
+	case "previousYearMatchDayOfWeek":
+		fallthrough
+	case "custom":
+		*e = CreateDashboardMode1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateDashboardMode1: %v", v)
+	}
+}
+
+type CreateDashboardPreviousTimeFramePredefined1 string
+
+const (
+	CreateDashboardPreviousTimeFramePredefined1Today            CreateDashboardPreviousTimeFramePredefined1 = "today"
+	CreateDashboardPreviousTimeFramePredefined1Yesterday        CreateDashboardPreviousTimeFramePredefined1 = "yesterday"
+	CreateDashboardPreviousTimeFramePredefined1Last7Days        CreateDashboardPreviousTimeFramePredefined1 = "last7Days"
+	CreateDashboardPreviousTimeFramePredefined1Last30Days       CreateDashboardPreviousTimeFramePredefined1 = "last30Days"
+	CreateDashboardPreviousTimeFramePredefined1Last90Days       CreateDashboardPreviousTimeFramePredefined1 = "last90Days"
+	CreateDashboardPreviousTimeFramePredefined1Last12Months     CreateDashboardPreviousTimeFramePredefined1 = "last12Months"
+	CreateDashboardPreviousTimeFramePredefined1LastCalendarYear CreateDashboardPreviousTimeFramePredefined1 = "lastCalendarYear"
+	CreateDashboardPreviousTimeFramePredefined1CustomLookback   CreateDashboardPreviousTimeFramePredefined1 = "customLookback"
+	CreateDashboardPreviousTimeFramePredefined1CustomDateRange  CreateDashboardPreviousTimeFramePredefined1 = "customDateRange"
+)
+
+func (e CreateDashboardPreviousTimeFramePredefined1) ToPointer() *CreateDashboardPreviousTimeFramePredefined1 {
+	return &e
+}
+func (e *CreateDashboardPreviousTimeFramePredefined1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "today":
+		fallthrough
+	case "yesterday":
+		fallthrough
+	case "last7Days":
+		fallthrough
+	case "last30Days":
+		fallthrough
+	case "last90Days":
+		fallthrough
+	case "last12Months":
+		fallthrough
+	case "lastCalendarYear":
+		fallthrough
+	case "customLookback":
+		fallthrough
+	case "customDateRange":
+		*e = CreateDashboardPreviousTimeFramePredefined1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateDashboardPreviousTimeFramePredefined1: %v", v)
+	}
+}
+
+type CreateDashboardPreviousTimeFrameLookbackUnit1 string
+
+const (
+	CreateDashboardPreviousTimeFrameLookbackUnit1Hour  CreateDashboardPreviousTimeFrameLookbackUnit1 = "hour"
+	CreateDashboardPreviousTimeFrameLookbackUnit1Day   CreateDashboardPreviousTimeFrameLookbackUnit1 = "day"
+	CreateDashboardPreviousTimeFrameLookbackUnit1Week  CreateDashboardPreviousTimeFrameLookbackUnit1 = "week"
+	CreateDashboardPreviousTimeFrameLookbackUnit1Month CreateDashboardPreviousTimeFrameLookbackUnit1 = "month"
+)
+
+func (e CreateDashboardPreviousTimeFrameLookbackUnit1) ToPointer() *CreateDashboardPreviousTimeFrameLookbackUnit1 {
+	return &e
+}
+func (e *CreateDashboardPreviousTimeFrameLookbackUnit1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "hour":
+		fallthrough
+	case "day":
+		fallthrough
+	case "week":
+		fallthrough
+	case "month":
+		*e = CreateDashboardPreviousTimeFrameLookbackUnit1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateDashboardPreviousTimeFrameLookbackUnit1: %v", v)
+	}
+}
+
+type CreateDashboardPreviousTimeFrame1 struct {
+	Predefined    CreateDashboardPreviousTimeFramePredefined1                                      `json:"predefined"`
+	LookbackValue optionalnullable.OptionalNullable[float64]                                       `json:"lookbackValue,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[CreateDashboardPreviousTimeFrameLookbackUnit1] `json:"lookbackUnit,omitzero"`
+	StartDate     optionalnullable.OptionalNullable[string]                                        `json:"startDate,omitzero"`
+	EndDate       optionalnullable.OptionalNullable[string]                                        `json:"endDate,omitzero"`
+}
+
+func (c CreateDashboardPreviousTimeFrame1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateDashboardPreviousTimeFrame1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateDashboardPreviousTimeFrame1) GetPredefined() CreateDashboardPreviousTimeFramePredefined1 {
+	if c == nil {
+		return CreateDashboardPreviousTimeFramePredefined1("")
+	}
+	return c.Predefined
+}
+
+func (c *CreateDashboardPreviousTimeFrame1) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+	if c == nil {
+		return nil
+	}
+	return c.LookbackValue
+}
+
+func (c *CreateDashboardPreviousTimeFrame1) GetLookbackUnit() optionalnullable.OptionalNullable[CreateDashboardPreviousTimeFrameLookbackUnit1] {
+	if c == nil {
+		return nil
+	}
+	return c.LookbackUnit
+}
+
+func (c *CreateDashboardPreviousTimeFrame1) GetStartDate() optionalnullable.OptionalNullable[string] {
+	if c == nil {
+		return nil
+	}
+	return c.StartDate
+}
+
+func (c *CreateDashboardPreviousTimeFrame1) GetEndDate() optionalnullable.OptionalNullable[string] {
+	if c == nil {
+		return nil
+	}
+	return c.EndDate
+}
+
+// #region class-body-createdashboardprevioustimeframe1
+// #endregion class-body-createdashboardprevioustimeframe1
+
+type CreateDashboardComparison1 struct {
+	Enabled           bool                               `json:"enabled"`
+	Mode              *CreateDashboardMode1              `json:"mode,omitzero"`
+	PreviousTimeFrame *CreateDashboardPreviousTimeFrame1 `json:"previousTimeFrame,omitzero"`
+}
+
+func (c CreateDashboardComparison1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateDashboardComparison1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateDashboardComparison1) GetEnabled() bool {
+	if c == nil {
+		return false
+	}
+	return c.Enabled
+}
+
+func (c *CreateDashboardComparison1) GetMode() *CreateDashboardMode1 {
+	if c == nil {
+		return nil
+	}
+	return c.Mode
+}
+
+func (c *CreateDashboardComparison1) GetPreviousTimeFrame() *CreateDashboardPreviousTimeFrame1 {
+	if c == nil {
+		return nil
+	}
+	return c.PreviousTimeFrame
+}
+
+// #region class-body-createdashboardcomparison1
+// #endregion class-body-createdashboardcomparison1
+
+type CreateDashboardBlockExperimentsScaledImpact struct {
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	type_                  string                         `const:"experiments-scaled-impact" json:"type"`
+	Title                  string                         `json:"title"`
+	Description            string                         `json:"description"`
+	SnapshotID             *string                        `json:"snapshotId,omitzero"`
+	Layout                 *CreateDashboardLayout5        `json:"layout,omitzero"`
+	DateRange              CreateDashboardBlockDateRange1 `json:"dateRange"`
+	Projects               []string                       `json:"projects"`
+	ExperimentSearchString *string                        `json:"experimentSearchString,omitzero"`
+	Comparison             *CreateDashboardComparison1    `json:"comparison,omitzero"`
+	MetricID               string                         `json:"metricId"`
+}
+
+func (c CreateDashboardBlockExperimentsScaledImpact) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateDashboardBlockExperimentsScaledImpact) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateDashboardBlockExperimentsScaledImpact) GetType() string {
+	return "experiments-scaled-impact"
+}
+
+func (c *CreateDashboardBlockExperimentsScaledImpact) GetTitle() string {
+	if c == nil {
+		return ""
+	}
+	return c.Title
+}
+
+func (c *CreateDashboardBlockExperimentsScaledImpact) GetDescription() string {
+	if c == nil {
+		return ""
+	}
+	return c.Description
+}
+
+func (c *CreateDashboardBlockExperimentsScaledImpact) GetSnapshotID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.SnapshotID
+}
+
+func (c *CreateDashboardBlockExperimentsScaledImpact) GetLayout() *CreateDashboardLayout5 {
+	if c == nil {
+		return nil
+	}
+	return c.Layout
+}
+
+func (c *CreateDashboardBlockExperimentsScaledImpact) GetDateRange() CreateDashboardBlockDateRange1 {
+	if c == nil {
+		return CreateDashboardBlockDateRange1{}
+	}
+	return c.DateRange
+}
+
+func (c *CreateDashboardBlockExperimentsScaledImpact) GetProjects() []string {
+	if c == nil {
+		return []string{}
+	}
+	return c.Projects
+}
+
+func (c *CreateDashboardBlockExperimentsScaledImpact) GetExperimentSearchString() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ExperimentSearchString
+}
+
+func (c *CreateDashboardBlockExperimentsScaledImpact) GetComparison() *CreateDashboardComparison1 {
+	if c == nil {
+		return nil
+	}
+	return c.Comparison
+}
+
+func (c *CreateDashboardBlockExperimentsScaledImpact) GetMetricID() string {
+	if c == nil {
+		return ""
+	}
+	return c.MetricID
+}
+
+type CreateDashboardLayout4 struct {
+	X      int64 `json:"x"`
+	Y      int64 `json:"y"`
+	W      int64 `json:"w"`
+	H      int64 `json:"h"`
+	Static *bool `json:"static,omitzero"`
+}
+
+func (c CreateDashboardLayout4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateDashboardLayout4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateDashboardLayout4) GetX() int64 {
+	if c == nil {
+		return 0
+	}
+	return c.X
+}
+
+func (c *CreateDashboardLayout4) GetY() int64 {
+	if c == nil {
+		return 0
+	}
+	return c.Y
+}
+
+func (c *CreateDashboardLayout4) GetW() int64 {
+	if c == nil {
+		return 0
+	}
+	return c.W
+}
+
+func (c *CreateDashboardLayout4) GetH() int64 {
+	if c == nil {
+		return 0
+	}
+	return c.H
+}
+
+func (c *CreateDashboardLayout4) GetStatic() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Static
+}
+
+// #region class-body-createdashboardlayout4
+// #endregion class-body-createdashboardlayout4
+
+type CreateDashboardDifferenceType2 string
+
+const (
+	CreateDashboardDifferenceType2Absolute CreateDashboardDifferenceType2 = "absolute"
+	CreateDashboardDifferenceType2Relative CreateDashboardDifferenceType2 = "relative"
+	CreateDashboardDifferenceType2Scaled   CreateDashboardDifferenceType2 = "scaled"
+)
+
+func (e CreateDashboardDifferenceType2) ToPointer() *CreateDashboardDifferenceType2 {
+	return &e
+}
+func (e *CreateDashboardDifferenceType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "absolute":
+		fallthrough
+	case "relative":
+		fallthrough
+	case "scaled":
+		*e = CreateDashboardDifferenceType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateDashboardDifferenceType2: %v", v)
+	}
+}
+
+type CreateDashboardStartDateRangePredefined string
+
+const (
+	CreateDashboardStartDateRangePredefinedToday            CreateDashboardStartDateRangePredefined = "today"
+	CreateDashboardStartDateRangePredefinedYesterday        CreateDashboardStartDateRangePredefined = "yesterday"
+	CreateDashboardStartDateRangePredefinedLast7Days        CreateDashboardStartDateRangePredefined = "last7Days"
+	CreateDashboardStartDateRangePredefinedLast30Days       CreateDashboardStartDateRangePredefined = "last30Days"
+	CreateDashboardStartDateRangePredefinedLast90Days       CreateDashboardStartDateRangePredefined = "last90Days"
+	CreateDashboardStartDateRangePredefinedLast12Months     CreateDashboardStartDateRangePredefined = "last12Months"
+	CreateDashboardStartDateRangePredefinedLastCalendarYear CreateDashboardStartDateRangePredefined = "lastCalendarYear"
+	CreateDashboardStartDateRangePredefinedCustomLookback   CreateDashboardStartDateRangePredefined = "customLookback"
+	CreateDashboardStartDateRangePredefinedCustomDateRange  CreateDashboardStartDateRangePredefined = "customDateRange"
+)
+
+func (e CreateDashboardStartDateRangePredefined) ToPointer() *CreateDashboardStartDateRangePredefined {
+	return &e
+}
+func (e *CreateDashboardStartDateRangePredefined) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "today":
+		fallthrough
+	case "yesterday":
+		fallthrough
+	case "last7Days":
+		fallthrough
+	case "last30Days":
+		fallthrough
+	case "last90Days":
+		fallthrough
+	case "last12Months":
+		fallthrough
+	case "lastCalendarYear":
+		fallthrough
+	case "customLookback":
+		fallthrough
+	case "customDateRange":
+		*e = CreateDashboardStartDateRangePredefined(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateDashboardStartDateRangePredefined: %v", v)
+	}
+}
+
+type CreateDashboardStartDateRangeLookbackUnit string
+
+const (
+	CreateDashboardStartDateRangeLookbackUnitHour  CreateDashboardStartDateRangeLookbackUnit = "hour"
+	CreateDashboardStartDateRangeLookbackUnitDay   CreateDashboardStartDateRangeLookbackUnit = "day"
+	CreateDashboardStartDateRangeLookbackUnitWeek  CreateDashboardStartDateRangeLookbackUnit = "week"
+	CreateDashboardStartDateRangeLookbackUnitMonth CreateDashboardStartDateRangeLookbackUnit = "month"
+)
+
+func (e CreateDashboardStartDateRangeLookbackUnit) ToPointer() *CreateDashboardStartDateRangeLookbackUnit {
+	return &e
+}
+func (e *CreateDashboardStartDateRangeLookbackUnit) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "hour":
+		fallthrough
+	case "day":
+		fallthrough
+	case "week":
+		fallthrough
+	case "month":
+		*e = CreateDashboardStartDateRangeLookbackUnit(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateDashboardStartDateRangeLookbackUnit: %v", v)
+	}
+}
+
+type CreateDashboardStartDateRange struct {
+	Predefined    CreateDashboardStartDateRangePredefined                                      `json:"predefined"`
+	LookbackValue optionalnullable.OptionalNullable[float64]                                   `json:"lookbackValue,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[CreateDashboardStartDateRangeLookbackUnit] `json:"lookbackUnit,omitzero"`
+	StartDate     optionalnullable.OptionalNullable[string]                                    `json:"startDate,omitzero"`
+	EndDate       optionalnullable.OptionalNullable[string]                                    `json:"endDate,omitzero"`
+}
+
+func (c CreateDashboardStartDateRange) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateDashboardStartDateRange) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateDashboardStartDateRange) GetPredefined() CreateDashboardStartDateRangePredefined {
+	if c == nil {
+		return CreateDashboardStartDateRangePredefined("")
+	}
+	return c.Predefined
+}
+
+func (c *CreateDashboardStartDateRange) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+	if c == nil {
+		return nil
+	}
+	return c.LookbackValue
+}
+
+func (c *CreateDashboardStartDateRange) GetLookbackUnit() optionalnullable.OptionalNullable[CreateDashboardStartDateRangeLookbackUnit] {
+	if c == nil {
+		return nil
+	}
+	return c.LookbackUnit
+}
+
+func (c *CreateDashboardStartDateRange) GetStartDate() optionalnullable.OptionalNullable[string] {
+	if c == nil {
+		return nil
+	}
+	return c.StartDate
+}
+
+func (c *CreateDashboardStartDateRange) GetEndDate() optionalnullable.OptionalNullable[string] {
+	if c == nil {
+		return nil
+	}
+	return c.EndDate
+}
+
+type CreateDashboardEndDateRangePredefined string
+
+const (
+	CreateDashboardEndDateRangePredefinedToday            CreateDashboardEndDateRangePredefined = "today"
+	CreateDashboardEndDateRangePredefinedYesterday        CreateDashboardEndDateRangePredefined = "yesterday"
+	CreateDashboardEndDateRangePredefinedLast7Days        CreateDashboardEndDateRangePredefined = "last7Days"
+	CreateDashboardEndDateRangePredefinedLast30Days       CreateDashboardEndDateRangePredefined = "last30Days"
+	CreateDashboardEndDateRangePredefinedLast90Days       CreateDashboardEndDateRangePredefined = "last90Days"
+	CreateDashboardEndDateRangePredefinedLast12Months     CreateDashboardEndDateRangePredefined = "last12Months"
+	CreateDashboardEndDateRangePredefinedLastCalendarYear CreateDashboardEndDateRangePredefined = "lastCalendarYear"
+	CreateDashboardEndDateRangePredefinedCustomLookback   CreateDashboardEndDateRangePredefined = "customLookback"
+	CreateDashboardEndDateRangePredefinedCustomDateRange  CreateDashboardEndDateRangePredefined = "customDateRange"
+)
+
+func (e CreateDashboardEndDateRangePredefined) ToPointer() *CreateDashboardEndDateRangePredefined {
+	return &e
+}
+func (e *CreateDashboardEndDateRangePredefined) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "today":
+		fallthrough
+	case "yesterday":
+		fallthrough
+	case "last7Days":
+		fallthrough
+	case "last30Days":
+		fallthrough
+	case "last90Days":
+		fallthrough
+	case "last12Months":
+		fallthrough
+	case "lastCalendarYear":
+		fallthrough
+	case "customLookback":
+		fallthrough
+	case "customDateRange":
+		*e = CreateDashboardEndDateRangePredefined(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateDashboardEndDateRangePredefined: %v", v)
+	}
+}
+
+type CreateDashboardEndDateRangeLookbackUnit string
+
+const (
+	CreateDashboardEndDateRangeLookbackUnitHour  CreateDashboardEndDateRangeLookbackUnit = "hour"
+	CreateDashboardEndDateRangeLookbackUnitDay   CreateDashboardEndDateRangeLookbackUnit = "day"
+	CreateDashboardEndDateRangeLookbackUnitWeek  CreateDashboardEndDateRangeLookbackUnit = "week"
+	CreateDashboardEndDateRangeLookbackUnitMonth CreateDashboardEndDateRangeLookbackUnit = "month"
+)
+
+func (e CreateDashboardEndDateRangeLookbackUnit) ToPointer() *CreateDashboardEndDateRangeLookbackUnit {
+	return &e
+}
+func (e *CreateDashboardEndDateRangeLookbackUnit) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "hour":
+		fallthrough
+	case "day":
+		fallthrough
+	case "week":
+		fallthrough
+	case "month":
+		*e = CreateDashboardEndDateRangeLookbackUnit(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateDashboardEndDateRangeLookbackUnit: %v", v)
+	}
+}
+
+type CreateDashboardEndDateRange struct {
+	Predefined    CreateDashboardEndDateRangePredefined                                      `json:"predefined"`
+	LookbackValue optionalnullable.OptionalNullable[float64]                                 `json:"lookbackValue,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[CreateDashboardEndDateRangeLookbackUnit] `json:"lookbackUnit,omitzero"`
+	StartDate     optionalnullable.OptionalNullable[string]                                  `json:"startDate,omitzero"`
+	EndDate       optionalnullable.OptionalNullable[string]                                  `json:"endDate,omitzero"`
+}
+
+func (c CreateDashboardEndDateRange) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateDashboardEndDateRange) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateDashboardEndDateRange) GetPredefined() CreateDashboardEndDateRangePredefined {
+	if c == nil {
+		return CreateDashboardEndDateRangePredefined("")
+	}
+	return c.Predefined
+}
+
+func (c *CreateDashboardEndDateRange) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+	if c == nil {
+		return nil
+	}
+	return c.LookbackValue
+}
+
+func (c *CreateDashboardEndDateRange) GetLookbackUnit() optionalnullable.OptionalNullable[CreateDashboardEndDateRangeLookbackUnit] {
+	if c == nil {
+		return nil
+	}
+	return c.LookbackUnit
+}
+
+func (c *CreateDashboardEndDateRange) GetStartDate() optionalnullable.OptionalNullable[string] {
+	if c == nil {
+		return nil
+	}
+	return c.StartDate
+}
+
+func (c *CreateDashboardEndDateRange) GetEndDate() optionalnullable.OptionalNullable[string] {
+	if c == nil {
+		return nil
+	}
+	return c.EndDate
+}
+
+type CreateDashboardColumn struct {
+	ID      string `json:"id"`
+	Visible bool   `json:"visible"`
+}
+
+func (c CreateDashboardColumn) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateDashboardColumn) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateDashboardColumn) GetID() string {
+	if c == nil {
+		return ""
+	}
+	return c.ID
+}
+
+func (c *CreateDashboardColumn) GetVisible() bool {
+	if c == nil {
+		return false
+	}
+	return c.Visible
+}
+
+type CreateDashboardBlockMetricExperiments struct {
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	type_                  string                         `const:"metric-experiments" json:"type"`
+	Title                  string                         `json:"title"`
+	Description            string                         `json:"description"`
+	SnapshotID             *string                        `json:"snapshotId,omitzero"`
+	Layout                 *CreateDashboardLayout4        `json:"layout,omitzero"`
+	MetricID               string                         `json:"metricId"`
+	Projects               []string                       `json:"projects"`
+	ExperimentSearchString string                         `json:"experimentSearchString"`
+	DifferenceType         CreateDashboardDifferenceType2 `json:"differenceType"`
+	Bandits                bool                           `json:"bandits"`
+	StartDateRange         *CreateDashboardStartDateRange `json:"startDateRange,omitzero"`
+	EndDateRange           *CreateDashboardEndDateRange   `json:"endDateRange,omitzero"`
+	Columns                []CreateDashboardColumn        `json:"columns,omitzero"`
+}
+
+func (c CreateDashboardBlockMetricExperiments) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateDashboardBlockMetricExperiments) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateDashboardBlockMetricExperiments) GetType() string {
+	return "metric-experiments"
+}
+
+func (c *CreateDashboardBlockMetricExperiments) GetTitle() string {
+	if c == nil {
+		return ""
+	}
+	return c.Title
+}
+
+func (c *CreateDashboardBlockMetricExperiments) GetDescription() string {
+	if c == nil {
+		return ""
+	}
+	return c.Description
+}
+
+func (c *CreateDashboardBlockMetricExperiments) GetSnapshotID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.SnapshotID
+}
+
+func (c *CreateDashboardBlockMetricExperiments) GetLayout() *CreateDashboardLayout4 {
+	if c == nil {
+		return nil
+	}
+	return c.Layout
+}
+
+func (c *CreateDashboardBlockMetricExperiments) GetMetricID() string {
+	if c == nil {
+		return ""
+	}
+	return c.MetricID
+}
+
+func (c *CreateDashboardBlockMetricExperiments) GetProjects() []string {
+	if c == nil {
+		return []string{}
+	}
+	return c.Projects
+}
+
+func (c *CreateDashboardBlockMetricExperiments) GetExperimentSearchString() string {
+	if c == nil {
+		return ""
+	}
+	return c.ExperimentSearchString
+}
+
+func (c *CreateDashboardBlockMetricExperiments) GetDifferenceType() CreateDashboardDifferenceType2 {
+	if c == nil {
+		return CreateDashboardDifferenceType2("")
+	}
+	return c.DifferenceType
+}
+
+func (c *CreateDashboardBlockMetricExperiments) GetBandits() bool {
+	if c == nil {
+		return false
+	}
+	return c.Bandits
+}
+
+func (c *CreateDashboardBlockMetricExperiments) GetStartDateRange() *CreateDashboardStartDateRange {
+	if c == nil {
+		return nil
+	}
+	return c.StartDateRange
+}
+
+func (c *CreateDashboardBlockMetricExperiments) GetEndDateRange() *CreateDashboardEndDateRange {
+	if c == nil {
+		return nil
+	}
+	return c.EndDateRange
+}
+
+func (c *CreateDashboardBlockMetricExperiments) GetColumns() []CreateDashboardColumn {
+	if c == nil {
+		return nil
+	}
+	return c.Columns
 }
 
 type CreateDashboardLayout3 struct {
@@ -6176,31 +8483,39 @@ func (c *CreateDashboardBlockMarkdown) GetContent() string {
 type CreateDashboardBlockUnionType string
 
 const (
-	CreateDashboardBlockUnionTypeMarkdown              CreateDashboardBlockUnionType = "markdown"
-	CreateDashboardBlockUnionTypeExperimentMetadata    CreateDashboardBlockUnionType = "experiment-metadata"
-	CreateDashboardBlockUnionTypeExperimentMetric      CreateDashboardBlockUnionType = "experiment-metric"
-	CreateDashboardBlockUnionTypeExperimentDimension   CreateDashboardBlockUnionType = "experiment-dimension"
-	CreateDashboardBlockUnionTypeExperimentTimeSeries  CreateDashboardBlockUnionType = "experiment-time-series"
-	CreateDashboardBlockUnionTypeExperimentTraffic     CreateDashboardBlockUnionType = "experiment-traffic"
-	CreateDashboardBlockUnionTypeSQLExplorer           CreateDashboardBlockUnionType = "sql-explorer"
-	CreateDashboardBlockUnionTypeMetricExplorer        CreateDashboardBlockUnionType = "metric-explorer"
-	CreateDashboardBlockUnionTypeMetricExploration     CreateDashboardBlockUnionType = "metric-exploration"
-	CreateDashboardBlockUnionTypeFactTableExploration  CreateDashboardBlockUnionType = "fact-table-exploration"
-	CreateDashboardBlockUnionTypeDataSourceExploration CreateDashboardBlockUnionType = "data-source-exploration"
+	CreateDashboardBlockUnionTypeMarkdown                CreateDashboardBlockUnionType = "markdown"
+	CreateDashboardBlockUnionTypeExperimentMetadata      CreateDashboardBlockUnionType = "experiment-metadata"
+	CreateDashboardBlockUnionTypeExperimentMetric        CreateDashboardBlockUnionType = "experiment-metric"
+	CreateDashboardBlockUnionTypeMetricExperiments       CreateDashboardBlockUnionType = "metric-experiments"
+	CreateDashboardBlockUnionTypeExperimentsScaledImpact CreateDashboardBlockUnionType = "experiments-scaled-impact"
+	CreateDashboardBlockUnionTypeExperimentsWinRate      CreateDashboardBlockUnionType = "experiments-win-rate"
+	CreateDashboardBlockUnionTypeExperimentsStatus       CreateDashboardBlockUnionType = "experiments-status"
+	CreateDashboardBlockUnionTypeExperimentDimension     CreateDashboardBlockUnionType = "experiment-dimension"
+	CreateDashboardBlockUnionTypeExperimentTimeSeries    CreateDashboardBlockUnionType = "experiment-time-series"
+	CreateDashboardBlockUnionTypeExperimentTraffic       CreateDashboardBlockUnionType = "experiment-traffic"
+	CreateDashboardBlockUnionTypeSQLExplorer             CreateDashboardBlockUnionType = "sql-explorer"
+	CreateDashboardBlockUnionTypeMetricExplorer          CreateDashboardBlockUnionType = "metric-explorer"
+	CreateDashboardBlockUnionTypeMetricExploration       CreateDashboardBlockUnionType = "metric-exploration"
+	CreateDashboardBlockUnionTypeFactTableExploration    CreateDashboardBlockUnionType = "fact-table-exploration"
+	CreateDashboardBlockUnionTypeDataSourceExploration   CreateDashboardBlockUnionType = "data-source-exploration"
 )
 
 type CreateDashboardBlockUnion struct {
-	CreateDashboardBlockMarkdown              *CreateDashboardBlockMarkdown              `queryParam:"inline" union:"member"`
-	CreateDashboardBlockExperimentMetadata    *CreateDashboardBlockExperimentMetadata    `queryParam:"inline" union:"member"`
-	CreateDashboardBlockExperimentMetric      *CreateDashboardBlockExperimentMetric      `queryParam:"inline" union:"member"`
-	CreateDashboardBlockExperimentDimension   *CreateDashboardBlockExperimentDimension   `queryParam:"inline" union:"member"`
-	CreateDashboardBlockExperimentTimeSeries  *CreateDashboardBlockExperimentTimeSeries  `queryParam:"inline" union:"member"`
-	CreateDashboardBlockExperimentTraffic     *CreateDashboardBlockExperimentTraffic     `queryParam:"inline" union:"member"`
-	CreateDashboardBlockSQLExplorer           *CreateDashboardBlockSQLExplorer           `queryParam:"inline" union:"member"`
-	CreateDashboardBlockMetricExplorer        *CreateDashboardBlockMetricExplorer        `queryParam:"inline" union:"member"`
-	CreateDashboardBlockMetricExploration     *CreateDashboardBlockMetricExploration     `queryParam:"inline" union:"member"`
-	CreateDashboardBlockFactTableExploration  *CreateDashboardBlockFactTableExploration  `queryParam:"inline" union:"member"`
-	CreateDashboardBlockDataSourceExploration *CreateDashboardBlockDataSourceExploration `queryParam:"inline" union:"member"`
+	CreateDashboardBlockMarkdown                *CreateDashboardBlockMarkdown                `queryParam:"inline" union:"member"`
+	CreateDashboardBlockExperimentMetadata      *CreateDashboardBlockExperimentMetadata      `queryParam:"inline" union:"member"`
+	CreateDashboardBlockExperimentMetric        *CreateDashboardBlockExperimentMetric        `queryParam:"inline" union:"member"`
+	CreateDashboardBlockMetricExperiments       *CreateDashboardBlockMetricExperiments       `queryParam:"inline" union:"member"`
+	CreateDashboardBlockExperimentsScaledImpact *CreateDashboardBlockExperimentsScaledImpact `queryParam:"inline" union:"member"`
+	CreateDashboardBlockExperimentsWinRate      *CreateDashboardBlockExperimentsWinRate      `queryParam:"inline" union:"member"`
+	CreateDashboardBlockExperimentsStatus       *CreateDashboardBlockExperimentsStatus       `queryParam:"inline" union:"member"`
+	CreateDashboardBlockExperimentDimension     *CreateDashboardBlockExperimentDimension     `queryParam:"inline" union:"member"`
+	CreateDashboardBlockExperimentTimeSeries    *CreateDashboardBlockExperimentTimeSeries    `queryParam:"inline" union:"member"`
+	CreateDashboardBlockExperimentTraffic       *CreateDashboardBlockExperimentTraffic       `queryParam:"inline" union:"member"`
+	CreateDashboardBlockSQLExplorer             *CreateDashboardBlockSQLExplorer             `queryParam:"inline" union:"member"`
+	CreateDashboardBlockMetricExplorer          *CreateDashboardBlockMetricExplorer          `queryParam:"inline" union:"member"`
+	CreateDashboardBlockMetricExploration       *CreateDashboardBlockMetricExploration       `queryParam:"inline" union:"member"`
+	CreateDashboardBlockFactTableExploration    *CreateDashboardBlockFactTableExploration    `queryParam:"inline" union:"member"`
+	CreateDashboardBlockDataSourceExploration   *CreateDashboardBlockDataSourceExploration   `queryParam:"inline" union:"member"`
 
 	Type CreateDashboardBlockUnionType
 }
@@ -6229,6 +8544,42 @@ func CreateCreateDashboardBlockUnionExperimentMetric(experimentMetric CreateDash
 	return CreateDashboardBlockUnion{
 		CreateDashboardBlockExperimentMetric: &experimentMetric,
 		Type:                                 typ,
+	}
+}
+
+func CreateCreateDashboardBlockUnionMetricExperiments(metricExperiments CreateDashboardBlockMetricExperiments) CreateDashboardBlockUnion {
+	typ := CreateDashboardBlockUnionTypeMetricExperiments
+
+	return CreateDashboardBlockUnion{
+		CreateDashboardBlockMetricExperiments: &metricExperiments,
+		Type:                                  typ,
+	}
+}
+
+func CreateCreateDashboardBlockUnionExperimentsScaledImpact(experimentsScaledImpact CreateDashboardBlockExperimentsScaledImpact) CreateDashboardBlockUnion {
+	typ := CreateDashboardBlockUnionTypeExperimentsScaledImpact
+
+	return CreateDashboardBlockUnion{
+		CreateDashboardBlockExperimentsScaledImpact: &experimentsScaledImpact,
+		Type: typ,
+	}
+}
+
+func CreateCreateDashboardBlockUnionExperimentsWinRate(experimentsWinRate CreateDashboardBlockExperimentsWinRate) CreateDashboardBlockUnion {
+	typ := CreateDashboardBlockUnionTypeExperimentsWinRate
+
+	return CreateDashboardBlockUnion{
+		CreateDashboardBlockExperimentsWinRate: &experimentsWinRate,
+		Type:                                   typ,
+	}
+}
+
+func CreateCreateDashboardBlockUnionExperimentsStatus(experimentsStatus CreateDashboardBlockExperimentsStatus) CreateDashboardBlockUnion {
+	typ := CreateDashboardBlockUnionTypeExperimentsStatus
+
+	return CreateDashboardBlockUnion{
+		CreateDashboardBlockExperimentsStatus: &experimentsStatus,
+		Type:                                  typ,
 	}
 }
 
@@ -6343,6 +8694,42 @@ func (u *CreateDashboardBlockUnion) UnmarshalJSON(data []byte) error {
 		u.CreateDashboardBlockExperimentMetric = createDashboardBlockExperimentMetric
 		u.Type = CreateDashboardBlockUnionTypeExperimentMetric
 		return nil
+	case "metric-experiments":
+		createDashboardBlockMetricExperiments := new(CreateDashboardBlockMetricExperiments)
+		if err := utils.UnmarshalJSON(data, &createDashboardBlockMetricExperiments, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == metric-experiments) type CreateDashboardBlockMetricExperiments within CreateDashboardBlockUnion: %w", string(data), err)
+		}
+
+		u.CreateDashboardBlockMetricExperiments = createDashboardBlockMetricExperiments
+		u.Type = CreateDashboardBlockUnionTypeMetricExperiments
+		return nil
+	case "experiments-scaled-impact":
+		createDashboardBlockExperimentsScaledImpact := new(CreateDashboardBlockExperimentsScaledImpact)
+		if err := utils.UnmarshalJSON(data, &createDashboardBlockExperimentsScaledImpact, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == experiments-scaled-impact) type CreateDashboardBlockExperimentsScaledImpact within CreateDashboardBlockUnion: %w", string(data), err)
+		}
+
+		u.CreateDashboardBlockExperimentsScaledImpact = createDashboardBlockExperimentsScaledImpact
+		u.Type = CreateDashboardBlockUnionTypeExperimentsScaledImpact
+		return nil
+	case "experiments-win-rate":
+		createDashboardBlockExperimentsWinRate := new(CreateDashboardBlockExperimentsWinRate)
+		if err := utils.UnmarshalJSON(data, &createDashboardBlockExperimentsWinRate, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == experiments-win-rate) type CreateDashboardBlockExperimentsWinRate within CreateDashboardBlockUnion: %w", string(data), err)
+		}
+
+		u.CreateDashboardBlockExperimentsWinRate = createDashboardBlockExperimentsWinRate
+		u.Type = CreateDashboardBlockUnionTypeExperimentsWinRate
+		return nil
+	case "experiments-status":
+		createDashboardBlockExperimentsStatus := new(CreateDashboardBlockExperimentsStatus)
+		if err := utils.UnmarshalJSON(data, &createDashboardBlockExperimentsStatus, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == experiments-status) type CreateDashboardBlockExperimentsStatus within CreateDashboardBlockUnion: %w", string(data), err)
+		}
+
+		u.CreateDashboardBlockExperimentsStatus = createDashboardBlockExperimentsStatus
+		u.Type = CreateDashboardBlockUnionTypeExperimentsStatus
+		return nil
 	case "experiment-dimension":
 		createDashboardBlockExperimentDimension := new(CreateDashboardBlockExperimentDimension)
 		if err := utils.UnmarshalJSON(data, &createDashboardBlockExperimentDimension, "", true, nil); err != nil {
@@ -6431,6 +8818,22 @@ func (u CreateDashboardBlockUnion) MarshalJSON() ([]byte, error) {
 
 	if u.CreateDashboardBlockExperimentMetric != nil {
 		return utils.MarshalJSON(u.CreateDashboardBlockExperimentMetric, "", true)
+	}
+
+	if u.CreateDashboardBlockMetricExperiments != nil {
+		return utils.MarshalJSON(u.CreateDashboardBlockMetricExperiments, "", true)
+	}
+
+	if u.CreateDashboardBlockExperimentsScaledImpact != nil {
+		return utils.MarshalJSON(u.CreateDashboardBlockExperimentsScaledImpact, "", true)
+	}
+
+	if u.CreateDashboardBlockExperimentsWinRate != nil {
+		return utils.MarshalJSON(u.CreateDashboardBlockExperimentsWinRate, "", true)
+	}
+
+	if u.CreateDashboardBlockExperimentsStatus != nil {
+		return utils.MarshalJSON(u.CreateDashboardBlockExperimentsStatus, "", true)
 	}
 
 	if u.CreateDashboardBlockExperimentDimension != nil {

@@ -3,11 +3,13 @@
 package components
 
 import (
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"time"
 )
 
 type FeatureRevisionSummary struct {
+	// Stable id of the feature's live revision.
+	ID      *string   `json:"id,omitzero"`
 	Version int64     `json:"version"`
 	Comment string    `json:"comment"`
 	Date    time.Time `json:"date"`
@@ -26,6 +28,13 @@ func (f *FeatureRevisionSummary) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (f *FeatureRevisionSummary) GetID() *string {
+	if f == nil {
+		return nil
+	}
+	return f.ID
 }
 
 func (f *FeatureRevisionSummary) GetVersion() int64 {

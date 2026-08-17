@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 type UpdateSavedGroupRequestBody struct {
@@ -17,7 +17,7 @@ type UpdateSavedGroupRequestBody struct {
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
 	Owner    *string  `json:"owner,omitzero"`
 	Projects []string `json:"projects,omitzero"`
-	// Set to true to skip the approval flow when the org requires approvals on saved groups. Requires the `bypassApprovalChecks` permission on the saved group's existing projects. When the org does not require approvals, this flag has no effect.
+	// Set to true to update the live Saved Group without approval. The caller must have Bypass draft approvals access in every current and destination Project. This field has no effect when approval is not required.
 	BypassApproval *bool `json:"bypassApproval,omitzero"`
 }
 
@@ -97,6 +97,19 @@ func (u *UpdateSavedGroupRequest) GetBody() UpdateSavedGroupRequestBody {
 // UpdateSavedGroupResponseBody - Resource created
 type UpdateSavedGroupResponseBody struct {
 	SavedGroup components.SavedGroup `json:"savedGroup"`
+	// Gates that would have blocked this publish but were bypassed by the caller's authority. Present only when at least one gate was bypassed.
+	BypassedGates []components.BypassedGates `json:"bypassedGates,omitzero"`
+}
+
+func (u UpdateSavedGroupResponseBody) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdateSavedGroupResponseBody) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (u *UpdateSavedGroupResponseBody) GetSavedGroup() components.SavedGroup {
@@ -104,6 +117,13 @@ func (u *UpdateSavedGroupResponseBody) GetSavedGroup() components.SavedGroup {
 		return components.SavedGroup{}
 	}
 	return u.SavedGroup
+}
+
+func (u *UpdateSavedGroupResponseBody) GetBypassedGates() []components.BypassedGates {
+	if u == nil {
+		return nil
+	}
+	return u.BypassedGates
 }
 
 type UpdateSavedGroupResponse struct {

@@ -22,7 +22,7 @@ growthbook fact-tables update [flags]
       --aggregated-fact-table-settings string   Settings for maintaining shared daily aggregated tables (a subset of userIdTypes plus the daily update time and restate lookback window) used to speed up CUPED. Requires the data pipeline (pipeline-mode) feature.
       --archived                                boolean flag
       --body string                             Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --columns string                          Optional array of columns that you want to update. Only allows updating properties of existing columns. Cannot create new columns or delete existing ones. Columns cannot be added or deleted; column structure is determined by SQL parsing. Slice-related properties require an enterprise license.
+      --columns column                          Optional array of columns to upsert by column: existing columns are patched, new columns are created, and columns not included are left unchanged. Omit `datatype` to leave an existing column's type untouched; send "" to reset it for auto-detection; new columns are auto-detected when `datatype` is omitted or "". Slice-related properties require an enterprise license.
       --columns-error string                    Error message if there was an issue parsing the SQL schema
       --description string                      Description of the fact table
   -e, --event-name string                       The event name used in SQL template variables

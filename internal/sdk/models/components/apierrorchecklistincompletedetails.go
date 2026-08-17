@@ -3,7 +3,7 @@
 package components
 
 import (
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 type APIErrorChecklistIncompleteDetailsStatus string
@@ -29,11 +29,12 @@ func (e *APIErrorChecklistIncompleteDetailsStatus) IsExact() bool {
 }
 
 type RemainingChecklistItem struct {
-	Key      string                                   `json:"key"`
-	Required bool                                     `json:"required"`
-	Status   APIErrorChecklistIncompleteDetailsStatus `json:"status"`
-	Manual   bool                                     `json:"manual"`
-	Reason   string                                   `json:"reason"`
+	Key       string                                   `json:"key"`
+	Required  bool                                     `json:"required"`
+	Status    APIErrorChecklistIncompleteDetailsStatus `json:"status"`
+	Manual    bool                                     `json:"manual"`
+	Reason    string                                   `json:"reason"`
+	HardBlock *bool                                    `json:"hardBlock,omitzero"`
 }
 
 func (r RemainingChecklistItem) MarshalJSON() ([]byte, error) {
@@ -80,6 +81,13 @@ func (r *RemainingChecklistItem) GetReason() string {
 		return ""
 	}
 	return r.Reason
+}
+
+func (r *RemainingChecklistItem) GetHardBlock() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.HardBlock
 }
 
 type APIErrorChecklistIncompleteDetails struct {

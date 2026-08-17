@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 type PostConfigScopedOverride struct {
@@ -102,6 +102,12 @@ type PostConfigRequestBody struct {
 	ExperimentGuard *bool `json:"experimentGuard,omitzero"`
 	// Cross-field validation rules. Each rule's expression is a mongo condition (mongrule). Stored on the config schema and enforced at publish.
 	Invariants []PostConfigInvariant `json:"invariants,omitzero"`
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
+	// Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	SkipSchemaValidation *bool `json:"skipSchemaValidation,omitzero"`
+	// Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	SkipHooks *bool `json:"skipHooks,omitzero"`
 }
 
 func (p PostConfigRequestBody) MarshalJSON() ([]byte, error) {
@@ -255,10 +261,31 @@ func (p *PostConfigRequestBody) GetInvariants() []PostConfigInvariant {
 	return p.Invariants
 }
 
+func (p *PostConfigRequestBody) GetIgnoreWarnings() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.IgnoreWarnings
+}
+
+func (p *PostConfigRequestBody) GetSkipSchemaValidation() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.SkipSchemaValidation
+}
+
+func (p *PostConfigRequestBody) GetSkipHooks() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.SkipHooks
+}
+
 type PostConfigRequest struct {
-	// Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the `bypassApprovalChecks` permission on all projects); ignored otherwise. Validation is enforced by default.
+	// Deprecated — pass `skipSchemaValidation` in the request body instead.
 	SkipSchemaValidation *bool `queryParam:"style=form,explode=true,name=skipSchemaValidation"`
-	// Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has `blockPublishOnSchemaError` disabled (warn mode).
+	// Deprecated — pass `ignoreWarnings` in the request body instead.
 	IgnoreWarnings *bool                 `queryParam:"style=form,explode=true,name=ignoreWarnings"`
 	Body           PostConfigRequestBody `request:"mediaType=application/json"`
 }
@@ -288,6 +315,8 @@ func (p *PostConfigRequest) GetBody() PostConfigRequestBody {
 type PostConfigResponseBody struct {
 	Config   components.Config                `json:"config"`
 	Warnings []components.ConfigSchemaWarning `json:"warnings,omitzero"`
+	// Steps that failed AFTER the value publish committed (e.g. an experiment-guard toggle in the same request). The publish stands; retry only the named step.
+	PostPublishWarnings []string `json:"postPublishWarnings,omitzero"`
 }
 
 func (p PostConfigResponseBody) MarshalJSON() ([]byte, error) {
@@ -313,6 +342,13 @@ func (p *PostConfigResponseBody) GetWarnings() []components.ConfigSchemaWarning 
 		return nil
 	}
 	return p.Warnings
+}
+
+func (p *PostConfigResponseBody) GetPostPublishWarnings() []string {
+	if p == nil {
+		return nil
+	}
+	return p.PostPublishWarnings
 }
 
 type PostConfigResponse struct {

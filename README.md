@@ -17,7 +17,7 @@ Prefer a standalone binary with no Node.js dependency? An install script, `go in
 
 ## Versioning and stability
 
-This CLI follows [semantic versioning](https://semver.org): breaking changes ship only in a **major** release and are called out in the changelog. Additive changes (new commands, flags, or response fields) are **minor** releases; fixes are **patch** releases. We recommend pinning to a version you have tested.
+This CLI follows [semantic versioning](https://semver.org): breaking changes ship only in a **major** release and are called out in the [changelog](CHANGELOG.md). Additive changes (new commands, flags, or response fields) are **minor** releases; fixes are **patch** releases. We recommend pinning to a version you have tested.
 
 The CLI checks for a newer release at most once a day and prints a one-line notice to stderr (never stdout) when one is available and compatible with your server. Disable it with `--no-update-check` or `GBCLI_NO_UPDATE_CHECK=1`; it is also off automatically in CI and non-interactive shells.
 
@@ -82,7 +82,7 @@ iwr -useb https://raw.githubusercontent.com/growthbook/cli/main/scripts/install.
 Alternatively, install directly via Go:
 
 ```bash
-go install github.com/growthbook/cli/cmd/growthbook@latest
+go install github.com/growthbook/cli/v2/cmd/growthbook@latest
 ```
 
 ### Manual Download
@@ -332,6 +332,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`start`](docs/growthbook_experiments_start.md) - Start/Stage an experiment
 * [`complete-start-checklist`](docs/growthbook_experiments_complete-start-checklist.md) - Mark manual pre-launch checklist items complete
 * [`stop`](docs/growthbook_experiments_stop.md) - Stop an experiment
+* [`set-schedule`](docs/growthbook_experiments_set-schedule.md) - Set an experiment's schedule and shipping automation
 * [`modify-temporary-rollout`](docs/growthbook_experiments_modify-temporary-rollout.md) - Modify temporary rollout status for a stopped experiment
 * [`create-snapshot`](docs/growthbook_experiments_create-snapshot.md) - Create Experiment Snapshot
 * [`upload-variation-screenshot`](docs/growthbook_experiments_upload-variation-screenshot.md) - Upload a variation screenshot
@@ -354,14 +355,16 @@ growthbook generate-types --project prj_123                 # limit to one proje
 
 ### [contextual-bandits](docs/growthbook_contextual-bandits.md)
 
-* [`get-contextual-bandit-current-weights`](docs/growthbook_contextual-bandits_get-contextual-bandit-current-weights.md) - Get current Contextual Bandit leaf weights and latest event
-* [`list-contextual-bandit-snapshots`](docs/growthbook_contextual-bandits_list-contextual-bandit-snapshots.md) - List Contextual Bandit snapshots
-* [`get-contextual-bandit-snapshot`](docs/growthbook_contextual-bandits_get-contextual-bandit-snapshot.md) - Get a single Contextual Bandit snapshot
-* [`list-contextual-bandit-events`](docs/growthbook_contextual-bandits_list-contextual-bandit-events.md) - List Contextual Bandit weight-update events
-* [`get-contextual-bandit-event`](docs/growthbook_contextual-bandits_get-contextual-bandit-event.md) - Get a single Contextual Bandit weight-update event
-* [`get-contextual-bandit-results`](docs/growthbook_contextual-bandits_get-contextual-bandit-results.md) - Get latest Contextual Bandit results
-* [`get-contextual-bandit-linked-features`](docs/growthbook_contextual-bandits_get-contextual-bandit-linked-features.md) - Get features linked to a Contextual Bandit
-* [`delete-contextual-bandit-linked-feature`](docs/growthbook_contextual-bandits_delete-contextual-bandit-linked-feature.md) - Unlink a feature from a Contextual Bandit
+* [`get-current-weights`](docs/growthbook_contextual-bandits_get-current-weights.md) - Get current Contextual Bandit leaf weights and latest event
+* [`list-snapshots`](docs/growthbook_contextual-bandits_list-snapshots.md) - List Contextual Bandit snapshots
+* [`get-snapshot`](docs/growthbook_contextual-bandits_get-snapshot.md) - Get a single Contextual Bandit snapshot
+* [`list-events`](docs/growthbook_contextual-bandits_list-events.md) - List Contextual Bandit weight-update events
+* [`get-event`](docs/growthbook_contextual-bandits_get-event.md) - Get a single Contextual Bandit weight-update event
+* [`get-results`](docs/growthbook_contextual-bandits_get-results.md) - Get latest Contextual Bandit results
+* [`list-linked-features`](docs/growthbook_contextual-bandits_list-linked-features.md) - Get features linked to a Contextual Bandit
+* [`add-linked-feature`](docs/growthbook_contextual-bandits_add-linked-feature.md) - Link a feature to a Contextual Bandit
+* [`update-linked-feature`](docs/growthbook_contextual-bandits_update-linked-feature.md) - Replace a Contextual Bandit's rule on a linked feature
+* [`delete-linked-feature`](docs/growthbook_contextual-bandits_delete-linked-feature.md) - Unlink a feature from a Contextual Bandit
 * [`get`](docs/growthbook_contextual-bandits_get.md) - Get a single contextualBandit
 * [`update`](docs/growthbook_contextual-bandits_update.md) - Update a single contextualBandit
 * [`create`](docs/growthbook_contextual-bandits_create.md) - Create a single contextualBandit
@@ -369,6 +372,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`start`](docs/growthbook_contextual-bandits_start.md) - Start a Contextual Bandit
 * [`stop`](docs/growthbook_contextual-bandits_stop.md) - Stop a Contextual Bandit
 * [`refresh`](docs/growthbook_contextual-bandits_refresh.md) - Trigger a Contextual Bandit snapshot refresh
+* [`cancel`](docs/growthbook_contextual-bandits_cancel.md) - Cancel a running Contextual Bandit snapshot refresh
 
 ### [metrics](docs/growthbook_metrics.md)
 
@@ -377,6 +381,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`get`](docs/growthbook_metrics_get.md) - Get a single metric
 * [`update`](docs/growthbook_metrics_update.md) - Update a metric
 * [`delete`](docs/growthbook_metrics_delete.md) - Deletes a metric
+* [`list-experiments`](docs/growthbook_metrics_list-experiments.md) - Get results for all experiments that use a metric
 
 ### [usage-metrics](docs/growthbook_usage-metrics.md)
 
@@ -462,6 +467,10 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`remove-items`](docs/growthbook_saved-group-revisions_remove-items.md) - Remove items from a list saved group draft revision
 * [`request-review`](docs/growthbook_saved-group-revisions_request-review.md) - Request review for a draft revision
 * [`submit-review`](docs/growthbook_saved-group-revisions_submit-review.md) - Submit a review on a draft revision
+* [`recall-review`](docs/growthbook_saved-group-revisions_recall-review.md) - Recall a review request
+* [`reopen`](docs/growthbook_saved-group-revisions_reopen.md) - Reopen a discarded revision
+* [`schedule-publish`](docs/growthbook_saved-group-revisions_schedule-publish.md) - Schedule (or cancel) a deferred publish
+* [`undo-review`](docs/growthbook_saved-group-revisions_undo-review.md) - Retract your own review verdict
 * [`merge-status`](docs/growthbook_saved-group-revisions_merge-status.md) - Get merge status for a draft revision
 * [`rebase`](docs/growthbook_saved-group-revisions_rebase.md) - Rebase a draft revision onto the current live saved group
 * [`publish`](docs/growthbook_saved-group-revisions_publish.md) - Publish a draft revision
@@ -491,6 +500,10 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`archive`](docs/growthbook_constant-revisions_archive.md) - Stage an archive/unarchive in a draft revision
 * [`request-review`](docs/growthbook_constant-revisions_request-review.md) - Request review for a draft revision
 * [`submit-review`](docs/growthbook_constant-revisions_submit-review.md) - Submit a review on a draft revision
+* [`recall-review`](docs/growthbook_constant-revisions_recall-review.md) - Recall a review request
+* [`reopen`](docs/growthbook_constant-revisions_reopen.md) - Reopen a discarded revision
+* [`schedule-publish`](docs/growthbook_constant-revisions_schedule-publish.md) - Schedule (or cancel) a deferred publish
+* [`undo-review`](docs/growthbook_constant-revisions_undo-review.md) - Retract your own review verdict
 * [`merge-status`](docs/growthbook_constant-revisions_merge-status.md) - Get merge status for a draft revision
 * [`rebase`](docs/growthbook_constant-revisions_rebase.md) - Rebase a draft revision onto the current live constant
 * [`publish`](docs/growthbook_constant-revisions_publish.md) - Publish a draft revision
@@ -529,6 +542,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`archive`](docs/growthbook_config-revisions_archive.md) - Stage an archive/unarchive in a draft revision
 * [`request-review`](docs/growthbook_config-revisions_request-review.md) - Request review for a draft revision
 * [`submit-review`](docs/growthbook_config-revisions_submit-review.md) - Submit a review on a draft revision
+* [`undo-review`](docs/growthbook_config-revisions_undo-review.md) - Retract your own review verdict
 * [`recall-review`](docs/growthbook_config-revisions_recall-review.md) - Recall a review request
 * [`reopen`](docs/growthbook_config-revisions_reopen.md) - Reopen a discarded revision
 * [`schedule-publish`](docs/growthbook_config-revisions_schedule-publish.md) - Schedule (or cancel) a deferred publish
@@ -537,6 +551,10 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`publish`](docs/growthbook_config-revisions_publish.md) - Publish a draft revision
 * [`discard`](docs/growthbook_config-revisions_discard.md) - Discard a draft revision
 * [`revert`](docs/growthbook_config-revisions_revert.md) - Revert the config to a prior revision
+
+### [releases](docs/growthbook_releases.md)
+
+* [`publish-revisions`](docs/growthbook_releases_publish-revisions.md) - Atomically publish revisions across multiple entities
 
 ### [custom-hooks](docs/growthbook_custom-hooks.md)
 
@@ -567,6 +585,9 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`get-filter`](docs/growthbook_fact-tables_get-filter.md) - Get a single fact filter
 * [`update-filter`](docs/growthbook_fact-tables_update-filter.md) - Update a single fact table filter
 * [`delete-filter`](docs/growthbook_fact-tables_delete-filter.md) - Deletes a single fact table filter
+* [`create-virtual-column`](docs/growthbook_fact-tables_create-virtual-column.md) - Create a virtual (computed) column on a fact table
+* [`update-virtual-column`](docs/growthbook_fact-tables_update-virtual-column.md) - Update a virtual (computed) column on a fact table
+* [`delete-virtual-column`](docs/growthbook_fact-tables_delete-virtual-column.md) - Delete a virtual (computed) column from a fact table
 * [`get-aggregated`](docs/growthbook_fact-tables_get-aggregated.md) - Get the materialization status of a fact table's shared daily aggregated tables
 * [`refresh-aggregated`](docs/growthbook_fact-tables_refresh-aggregated.md) - Force a refresh or full restate of a fact table's shared daily aggregated tables
 * [`list-aggregated-table-runs`](docs/growthbook_fact-tables_list-aggregated-table-runs.md) - List aggregated table runs
@@ -662,10 +683,10 @@ growthbook generate-types --project prj_123                 # limit to one proje
 
 ### [contextual-bandit-queries](docs/growthbook_contextual-bandit-queries.md)
 
-* [`get-contextual-bandit-query`](docs/growthbook_contextual-bandit-queries_get-contextual-bandit-query.md) - Get a single contextualBanditQuery
-* [`delete-contextual-bandit-query`](docs/growthbook_contextual-bandit-queries_delete-contextual-bandit-query.md) - Delete a single contextualBanditQuery
-* [`update-contextual-bandit-query`](docs/growthbook_contextual-bandit-queries_update-contextual-bandit-query.md) - Update a single contextualBanditQuery
-* [`create-contextual-bandit-query`](docs/growthbook_contextual-bandit-queries_create-contextual-bandit-query.md) - Create a single contextualBanditQuery
+* [`get`](docs/growthbook_contextual-bandit-queries_get.md) - Get a single contextualBanditQuery
+* [`delete`](docs/growthbook_contextual-bandit-queries_delete.md) - Delete a single contextualBanditQuery
+* [`update`](docs/growthbook_contextual-bandit-queries_update.md) - Update a single contextualBanditQuery
+* [`create`](docs/growthbook_contextual-bandit-queries_create.md) - Create a single contextualBanditQuery
 * [`list`](docs/growthbook_contextual-bandit-queries_list.md) - Get all contextualBanditQueries
 
 ### [custom-fields](docs/growthbook_custom-fields.md)
@@ -708,6 +729,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`run-metric`](docs/growthbook_analytics-explorations_run-metric.md) - Create a Metric based visualization
 * [`run-fact-table`](docs/growthbook_analytics-explorations_run-fact-table.md) - Run a Fact Table based visualization
 * [`run-data-source`](docs/growthbook_analytics-explorations_run-data-source.md) - Create a Data Source based visualization
+* [`run-funnel`](docs/growthbook_analytics-explorations_run-funnel.md) - Run a Funnel based visualization
 
 ### [ramp-schedule-templates](docs/growthbook_ramp-schedule-templates.md)
 
@@ -716,6 +738,15 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`update`](docs/growthbook_ramp-schedule-templates_update.md) - Update a single rampScheduleTemplate
 * [`create`](docs/growthbook_ramp-schedule-templates_create.md) - Create a single rampScheduleTemplate
 * [`list`](docs/growthbook_ramp-schedule-templates_list.md) - Get all rampScheduleTemplates
+
+### [learnings](docs/growthbook_learnings.md)
+
+* [`get`](docs/growthbook_learnings_get.md) - Get a single learning
+* [`delete`](docs/growthbook_learnings_delete.md) - Delete a single learning
+* [`update`](docs/growthbook_learnings_update.md) - Update a single learning
+* [`create`](docs/growthbook_learnings_create.md) - Create a single learning
+* [`list`](docs/growthbook_learnings_list.md) - Get all learnings
+* [`search`](docs/growthbook_learnings_search.md) - Search saved Learnings by meaning rather than keyword
 
 </details>
 <!-- End Available Commands [operations] -->

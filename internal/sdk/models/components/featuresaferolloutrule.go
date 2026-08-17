@@ -3,7 +3,7 @@
 package components
 
 import (
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 // FeatureSafeRolloutRuleScheduleType - UI hint for which scheduling mode is active:
@@ -160,6 +160,10 @@ type FeatureSafeRolloutRule struct {
 	RampScheduleID      *string                                     `json:"rampScheduleId,omitzero"`
 	SavedGroupTargeting []FeatureSafeRolloutRuleSavedGroupTargeting `json:"savedGroupTargeting,omitzero"`
 	Prerequisites       []FeatureSafeRolloutRulePrerequisite        `json:"prerequisites,omitzero"`
+	// When true (the default) the rule applies to every project the feature is delivered to. When false the rule is limited to `projects`.
+	AllProjects *bool `json:"allProjects,omitzero"`
+	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
+	Projects []string `json:"projects,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_          string                        `const:"safe-rollout" json:"type"`
 	ControlValue   string                        `json:"controlValue"`
@@ -243,6 +247,20 @@ func (f *FeatureSafeRolloutRule) GetPrerequisites() []FeatureSafeRolloutRulePrer
 		return nil
 	}
 	return f.Prerequisites
+}
+
+func (f *FeatureSafeRolloutRule) GetAllProjects() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.AllProjects
+}
+
+func (f *FeatureSafeRolloutRule) GetProjects() []string {
+	if f == nil {
+		return nil
+	}
+	return f.Projects
 }
 
 func (f *FeatureSafeRolloutRule) GetType() string {

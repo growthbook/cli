@@ -12,7 +12,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/growthbook/cli/internal/flagutil"
+	"github.com/growthbook/cli/v2/internal/flagutil"
 )
 
 var (

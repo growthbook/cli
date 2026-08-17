@@ -3,8 +3,8 @@
 package components
 
 import (
-	"github.com/growthbook/cli/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"time"
 )
 
@@ -33,6 +33,8 @@ func (e *FeatureWithRevisionsV1ValueType) IsExact() bool {
 }
 
 type FeatureWithRevisionsV1Revision struct {
+	// Stable id of the feature's live revision.
+	ID          *string   `json:"id,omitzero"`
 	Version     int64     `json:"version"`
 	Comment     string    `json:"comment"`
 	Date        time.Time `json:"date"`
@@ -49,6 +51,13 @@ func (f *FeatureWithRevisionsV1Revision) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (f *FeatureWithRevisionsV1Revision) GetID() *string {
+	if f == nil {
+		return nil
+	}
+	return f.ID
 }
 
 func (f *FeatureWithRevisionsV1Revision) GetVersion() int64 {
@@ -122,10 +131,12 @@ type FeatureWithRevisionsV1 struct {
 	// The userId of the owner (or raw owner name/email for legacy records)
 	Owner string `json:"owner"`
 	// The email address of the owner, when the owner can be resolved to a known user.
-	OwnerEmail   *string                         `json:"ownerEmail,omitzero"`
-	Project      string                          `json:"project"`
-	ValueType    FeatureWithRevisionsV1ValueType `json:"valueType"`
-	DefaultValue string                          `json:"defaultValue"`
+	OwnerEmail           *string                         `json:"ownerEmail,omitzero"`
+	Project              string                          `json:"project"`
+	TargetingAllProjects *bool                           `json:"targetingAllProjects,omitzero"`
+	TargetingProjects    []string                        `json:"targetingProjects,omitzero"`
+	ValueType            FeatureWithRevisionsV1ValueType `json:"valueType"`
+	DefaultValue         string                          `json:"defaultValue"`
 	// Key of the config backing this flag ("Config mode"), or null. The config supplies the base JSON and schema. The internal `@config:` directive is scrubbed from values; `@const:` references are preserved. (v2 additionally exposes per-rule config fields.)
 	BaseConfig optionalnullable.OptionalNullable[string] `json:"baseConfig,omitzero"`
 	// Config within `baseConfig`'s family that the default value resolves to (a descendant), or null when the default uses `baseConfig` directly.
@@ -205,6 +216,20 @@ func (f *FeatureWithRevisionsV1) GetProject() string {
 		return ""
 	}
 	return f.Project
+}
+
+func (f *FeatureWithRevisionsV1) GetTargetingAllProjects() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.TargetingAllProjects
+}
+
+func (f *FeatureWithRevisionsV1) GetTargetingProjects() []string {
+	if f == nil {
+		return nil
+	}
+	return f.TargetingProjects
 }
 
 func (f *FeatureWithRevisionsV1) GetValueType() FeatureWithRevisionsV1ValueType {

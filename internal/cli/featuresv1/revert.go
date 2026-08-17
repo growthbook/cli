@@ -4,20 +4,23 @@ package featuresv1
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/internal/client"
-	"github.com/growthbook/cli/internal/flagutil"
-	"github.com/growthbook/cli/internal/interactive"
-	"github.com/growthbook/cli/internal/output"
-	"github.com/growthbook/cli/internal/sdk"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/client"
+	"github.com/growthbook/cli/v2/internal/flagutil"
+	"github.com/growthbook/cli/v2/internal/interactive"
+	"github.com/growthbook/cli/v2/internal/output"
+	"github.com/growthbook/cli/v2/internal/sdk"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
 var revertCmdMeta = []flagutil.FlagMeta{
-	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The id of the requested resource [required]"},
+	{FlagName: "id", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The id of the requested resource [required]"},
 	{FlagName: "revision", Shorthand: "r", FieldPath: "Body.Revision", Kind: flagutil.FlagKindFloat64, Required: true, Description: "[required]"},
 	{FlagName: "comment", Shorthand: "c", FieldPath: "Body.Comment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "ignore-warnings", FieldPath: "Body.IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access."},
+	{FlagName: "skip-schema-validation", FieldPath: "Body.SkipSchemaValidation", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored."},
+	{FlagName: "skip-hooks", FieldPath: "Body.SkipHooks", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored."},
 }
 
 // initRevertCmd initializes the revert command.
@@ -25,7 +28,7 @@ func initRevertCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "revert",
 		Short:   "Revert a feature to a specific revision",
-		Long:    "DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible\n\n**Deprecated.** Use [POST /v2/features/:id/revert](#operation/revertFeatureV2) instead.\n\nCreates a new revision whose rules and values match a previously-published revision, then immediately publishes it. This leaves a clear audit trail of the revert action in the revision history.\n\nReturns 403 if the API key lacks permission, or if approval rules are enabled for an affected environment and neither the \"REST API always bypasses approval requirements\" nor the \"Allow reverts without approval\" org setting is enabled.\n\nReturns 422 with a list of `warnings` if the restored values no longer validate against the feature's current value type or JSON schema. Re-submit with `?ignoreWarnings=true` to revert anyway.",
+		Long:    "DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible\n\n**Deprecated.** Use [POST /v2/features/:id/revert](#operation/revertFeatureV2) instead.\n\nRestores a previously published revision and immediately publishes the result as a new revision. The caller needs Revert access for every affected environment. When approval is required, the request is allowed only if the caller holds the `FlagsBypassApprovals` policy, or the organization enables either \"REST API always bypasses approval requirements\" or \"Allow reverts without approval\".\n\nIf the restored values no longer match the Feature Flag's current value type or JSON schema, the API returns 422 with `warnings`. Send `\"ignoreWarnings\": true` to acknowledge those warnings and continue.",
 		Example: "  growthbook features-v1 revert --id <id> --revision 1155.7",
 		RunE:    runRevertCmd,
 	}

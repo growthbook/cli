@@ -4,7 +4,7 @@ Unlock a config
 
 ### Synopsis
 
-Clears the lock so changes can be published again. Requires the `bypassApprovalChecks` permission on the config's project.
+Removes the Config lock so changes can be published again. The caller must have Bypass draft approvals access in the Config's Project.
 
 ```
 growthbook configs unlock [flags]
@@ -49,4 +49,4 @@ growthbook configs unlock [flags]
 
 ### SEE ALSO
 
-* [growthbook configs](growthbook_configs.md)	 - Reusable, typed, inheritable JSON objects referenced from feature flag values as `@config:key`
+* [growthbook configs](growthbook_configs.md)	 - **Beta** — these endpoints are new and may change in backwards-incompatible ways

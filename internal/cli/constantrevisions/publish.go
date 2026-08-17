@@ -4,20 +4,23 @@ package constantrevisions
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/internal/client"
-	"github.com/growthbook/cli/internal/flagutil"
-	"github.com/growthbook/cli/internal/interactive"
-	"github.com/growthbook/cli/internal/output"
-	"github.com/growthbook/cli/internal/sdk"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/client"
+	"github.com/growthbook/cli/v2/internal/flagutil"
+	"github.com/growthbook/cli/v2/internal/interactive"
+	"github.com/growthbook/cli/v2/internal/output"
+	"github.com/growthbook/cli/v2/internal/sdk"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
 var publishCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "key", Shorthand: "k", FieldPath: "Key", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "merge-now", Shorthand: "m", FieldPath: "Body.MergeNow", Kind: flagutil.FlagKindBool, Optional: true, Description: "When the org enforces same-base merges and the constant changed since this revision was created, set to true to force-merge the stale revision instead of rebasing first. This only takes effect for callers with bypass-approval permission; otherwise it is ignored and the revision must be rebased."},
+	{FlagName: "bypass-approval", Shorthand: "b", FieldPath: "Body.BypassApproval", Kind: flagutil.FlagKindBool, Optional: true, Description: "Deprecated and ignored. Approval is bypassed automatically when the caller has Bypass draft approvals access for this resource or when the organization enables the REST API approval bypass. Otherwise, the revision must be approved before it can be published."},
+	{FlagName: "ignore-warnings", Shorthand: "i", FieldPath: "Body.IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access."},
+	{FlagName: "skip-schema-validation", FieldPath: "Body.SkipSchemaValidation", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored."},
+	{FlagName: "skip-hooks", FieldPath: "Body.SkipHooks", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored."},
 }
 
 // initPublishCmd initializes the publish command.
@@ -25,7 +28,7 @@ func initPublishCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "publish",
 		Short:   "Publish a draft revision",
-		Long:    "Publishes a draft revision, making it the live state of the constant. Blocked if the org requires approvals and the revision is not approved (callers with the bypass-approval permission may still publish).",
+		Long:    "Publishes the draft and makes its changes live. The caller needs Publish access for the affected environments. When approval is required, the draft must be approved unless the caller has Bypass draft approvals access. If the organization requires rebasing, an out-of-date draft must be rebased first; an authorized caller can instead send `ignoreWarnings: true` to force-publish it. A 422 response lists every blocking gate and the available resolution.",
 		Example: "  growthbook constant-revisions publish --key <key> --version-param <value>",
 		RunE:    runPublishCmd,
 	}

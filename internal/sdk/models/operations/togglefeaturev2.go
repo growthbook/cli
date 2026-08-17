@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 type ToggleFeatureV2RequestBody struct {
@@ -55,6 +55,19 @@ func (t *ToggleFeatureV2Request) GetBody() ToggleFeatureV2RequestBody {
 // ToggleFeatureV2ResponseBody - Resource created
 type ToggleFeatureV2ResponseBody struct {
 	Feature components.FeatureV2 `json:"feature"`
+	// Gates that would have blocked this publish but were bypassed by the caller's authority. Present only when at least one gate was bypassed.
+	BypassedGates []components.BypassedGates `json:"bypassedGates,omitzero"`
+}
+
+func (t ToggleFeatureV2ResponseBody) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(t, "", false)
+}
+
+func (t *ToggleFeatureV2ResponseBody) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &t, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (t *ToggleFeatureV2ResponseBody) GetFeature() components.FeatureV2 {
@@ -62,6 +75,13 @@ func (t *ToggleFeatureV2ResponseBody) GetFeature() components.FeatureV2 {
 		return components.FeatureV2{}
 	}
 	return t.Feature
+}
+
+func (t *ToggleFeatureV2ResponseBody) GetBypassedGates() []components.BypassedGates {
+	if t == nil {
+		return nil
+	}
+	return t.BypassedGates
 }
 
 // #region class-body-togglefeaturev2responsebody

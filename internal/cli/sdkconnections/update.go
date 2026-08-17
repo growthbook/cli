@@ -4,13 +4,13 @@ package sdkconnections
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/internal/client"
-	"github.com/growthbook/cli/internal/flagutil"
-	"github.com/growthbook/cli/internal/interactive"
-	"github.com/growthbook/cli/internal/output"
-	"github.com/growthbook/cli/internal/sdk"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/client"
+	"github.com/growthbook/cli/v2/internal/flagutil"
+	"github.com/growthbook/cli/v2/internal/interactive"
+	"github.com/growthbook/cli/v2/internal/output"
+	"github.com/growthbook/cli/v2/internal/sdk"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -32,6 +32,7 @@ var updateCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "include-custom-fields-in-metadata", FieldPath: "Body.IncludeCustomFieldsInMetadata", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "allowed-custom-fields-in-metadata", Shorthand: "a", FieldPath: "Body.AllowedCustomFieldsInMetadata", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
 	{FlagName: "include-tags-in-metadata", FieldPath: "Body.IncludeTagsInMetadata", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
+	{FlagName: "include-experiment-schedule-in-metadata", FieldPath: "Body.IncludeExperimentScheduleInMetadata", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "proxy-enabled", FieldPath: "Body.ProxyEnabled", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "proxy-host", FieldPath: "Body.ProxyHost", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "hash-secure-attributes", FieldPath: "Body.HashSecureAttributes", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},

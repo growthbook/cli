@@ -3,9 +3,9 @@
 package operations
 
 import (
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 type PutFeatureRevisionDefaultValueV2RequestBody struct {
@@ -17,6 +17,12 @@ type PutFeatureRevisionDefaultValueV2RequestBody struct {
 	RevisionTitle *string `json:"revisionTitle,omitzero"`
 	// Comment for a newly created draft. Only used when version is "new"; ignored for existing revisions.
 	RevisionComment *string `json:"revisionComment,omitzero"`
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
+	// Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	SkipSchemaValidation *bool `json:"skipSchemaValidation,omitzero"`
+	// Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	SkipHooks *bool `json:"skipHooks,omitzero"`
 }
 
 func (p *PutFeatureRevisionDefaultValueV2RequestBody) GetDefaultValue() string {
@@ -47,15 +53,36 @@ func (p *PutFeatureRevisionDefaultValueV2RequestBody) GetRevisionComment() *stri
 	return p.RevisionComment
 }
 
+func (p *PutFeatureRevisionDefaultValueV2RequestBody) GetIgnoreWarnings() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.IgnoreWarnings
+}
+
+func (p *PutFeatureRevisionDefaultValueV2RequestBody) GetSkipSchemaValidation() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.SkipSchemaValidation
+}
+
+func (p *PutFeatureRevisionDefaultValueV2RequestBody) GetSkipHooks() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.SkipHooks
+}
+
 // #region class-body-putfeaturerevisiondefaultvaluev2requestbody
 // #endregion class-body-putfeaturerevisiondefaultvaluev2requestbody
 
 type PutFeatureRevisionDefaultValueV2Request struct {
 	ID      string `pathParam:"style=simple,explode=false,name=id"`
 	Version string `pathParam:"style=simple,explode=false,name=version"`
-	// Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the `bypassApprovalChecks` permission on all projects); ignored otherwise. Validation is enforced by default.
+	// Deprecated — pass `skipSchemaValidation` in the request body instead.
 	SkipSchemaValidation *bool `queryParam:"style=form,explode=true,name=skipSchemaValidation"`
-	// Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has `blockPublishOnSchemaError` disabled (warn mode).
+	// Deprecated — pass `ignoreWarnings` in the request body instead.
 	IgnoreWarnings *bool                                       `queryParam:"style=form,explode=true,name=ignoreWarnings"`
 	Body           PutFeatureRevisionDefaultValueV2RequestBody `request:"mediaType=application/json"`
 }

@@ -3,7 +3,7 @@
 package components
 
 import (
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 // FeatureExperimentRuleScheduleType - UI hint for which scheduling mode is active:
@@ -212,6 +212,10 @@ type FeatureExperimentRule struct {
 	RampScheduleID      *string                                    `json:"rampScheduleId,omitzero"`
 	SavedGroupTargeting []FeatureExperimentRuleSavedGroupTargeting `json:"savedGroupTargeting,omitzero"`
 	Prerequisites       []FeatureExperimentRulePrerequisite        `json:"prerequisites,omitzero"`
+	// When true (the default) the rule applies to every project the feature is delivered to. When false the rule is limited to `projects`.
+	AllProjects *bool `json:"allProjects,omitzero"`
+	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
+	Projects []string `json:"projects,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_                  string                          `const:"experiment" json:"type"`
 	TrackingKey            *string                         `json:"trackingKey,omitzero"`
@@ -298,6 +302,20 @@ func (f *FeatureExperimentRule) GetPrerequisites() []FeatureExperimentRulePrereq
 		return nil
 	}
 	return f.Prerequisites
+}
+
+func (f *FeatureExperimentRule) GetAllProjects() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.AllProjects
+}
+
+func (f *FeatureExperimentRule) GetProjects() []string {
+	if f == nil {
+		return nil
+	}
+	return f.Projects
 }
 
 func (f *FeatureExperimentRule) GetType() string {

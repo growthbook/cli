@@ -4,43 +4,46 @@ package configrevisions
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/internal/client"
-	"github.com/growthbook/cli/internal/flagutil"
-	"github.com/growthbook/cli/internal/interactive"
-	"github.com/growthbook/cli/internal/output"
-	"github.com/growthbook/cli/internal/sdk"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/client"
+	"github.com/growthbook/cli/v2/internal/flagutil"
+	"github.com/growthbook/cli/v2/internal/interactive"
+	"github.com/growthbook/cli/v2/internal/output"
+	"github.com/growthbook/cli/v2/internal/sdk"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
 var setSchemaCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "key", Shorthand: "k", FieldPath: "Key", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "skip-schema-validation", FieldPath: "SkipSchemaValidation", Kind: flagutil.FlagKindBool, Optional: true, Description: "Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the `bypassApprovalChecks` permission on all projects); ignored otherwise. Validation is enforced by default."},
-	{FlagName: "ignore-warnings", FieldPath: "IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has `blockPublishOnSchemaError` disabled (warn mode)."},
-	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "schema", FieldPath: "Body.Schema", Kind: flagutil.FlagKindUnion, Union: &flagutil.UnionMeta{Discriminated: true, DiscriminatorKey: "Type", Optional: true, TypeDescription: "JSON value (variants: json-schema: { value: object }, typescript: { value: string }, protobuf: { value: string }, python: { value: string }, go: { value: string }, rust: { value: string })", Variants: []flagutil.UnionVariantMeta{
-		{DiscriminatorValue: "json-schema", FlagName: "schema.json-schema", FieldName: "ConfigSchemaSourceJSONSchema", CanExpand: false, Description: "ConfigSchemaSource_JSONSchema variant as JSON"},
-		{DiscriminatorValue: "typescript", FlagName: "schema.typescript", FieldName: "ConfigSchemaSourceTypescript", CanExpand: true, Description: "ConfigSchemaSource_Typescript variant as JSON", Fields: []flagutil.FlagMeta{
-			{FlagName: "schema.typescript.value", FieldPath: "Value", Kind: flagutil.FlagKindString, Required: true, Description: "TypeScript source — an interface or object type. [required]"},
+	{FlagName: "skip-schema-validation", Shorthand: "s", FieldPath: "SkipSchemaValidation", Kind: flagutil.FlagKindBool, Optional: true, Description: "Deprecated — pass `skipSchemaValidation` in the request body instead."},
+	{FlagName: "ignore-warnings", Shorthand: "i", FieldPath: "IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Deprecated — pass `ignoreWarnings` in the request body instead."},
+	{FlagName: "body-param.revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "body-param.revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "body-param.schema", FieldPath: "Body.Schema", Kind: flagutil.FlagKindUnion, Union: &flagutil.UnionMeta{Discriminated: true, DiscriminatorKey: "Type", Optional: true, TypeDescription: "JSON value (variants: json-schema: { value: object }, typescript: { value: string }, protobuf: { value: string }, python: { value: string }, go: { value: string }, rust: { value: string })", Variants: []flagutil.UnionVariantMeta{
+		{DiscriminatorValue: "json-schema", FlagName: "body-param.schema.json-schema", FieldName: "ConfigSchemaSourceJSONSchema", CanExpand: false, Description: "ConfigSchemaSource_JSONSchema variant as JSON"},
+		{DiscriminatorValue: "typescript", FlagName: "body-param.schema.typescript", FieldName: "ConfigSchemaSourceTypescript", CanExpand: true, Description: "ConfigSchemaSource_Typescript variant as JSON", Fields: []flagutil.FlagMeta{
+			{FlagName: "body-param.schema.typescript.value", FieldPath: "Value", Kind: flagutil.FlagKindString, Required: true, Description: "TypeScript source — an interface or object type. [required]"},
 		}},
-		{DiscriminatorValue: "protobuf", FlagName: "schema.protobuf", FieldName: "ConfigSchemaSourceProtobuf", CanExpand: true, Description: "ConfigSchemaSource_Protobuf variant as JSON", Fields: []flagutil.FlagMeta{
-			{FlagName: "schema.protobuf.value", FieldPath: "Value", Kind: flagutil.FlagKindString, Required: true, Description: "Protobuf (proto3) source — a `message` definition. [required]"},
+		{DiscriminatorValue: "protobuf", FlagName: "body-param.schema.protobuf", FieldName: "ConfigSchemaSourceProtobuf", CanExpand: true, Description: "ConfigSchemaSource_Protobuf variant as JSON", Fields: []flagutil.FlagMeta{
+			{FlagName: "body-param.schema.protobuf.value", FieldPath: "Value", Kind: flagutil.FlagKindString, Required: true, Description: "Protobuf (proto3) source — a `message` definition. [required]"},
 		}},
-		{DiscriminatorValue: "python", FlagName: "schema.python", FieldName: "ConfigSchemaSourcePython", CanExpand: true, Description: "ConfigSchemaSource_Python variant as JSON", Fields: []flagutil.FlagMeta{
-			{FlagName: "schema.python.value", FieldPath: "Value", Kind: flagutil.FlagKindString, Required: true, Description: "Python source — a Pydantic `BaseModel` class. [required]"},
+		{DiscriminatorValue: "python", FlagName: "body-param.schema.python", FieldName: "ConfigSchemaSourcePython", CanExpand: true, Description: "ConfigSchemaSource_Python variant as JSON", Fields: []flagutil.FlagMeta{
+			{FlagName: "body-param.schema.python.value", FieldPath: "Value", Kind: flagutil.FlagKindString, Required: true, Description: "Python source — a Pydantic `BaseModel` class. [required]"},
 		}},
-		{DiscriminatorValue: "go", FlagName: "schema.go", FieldName: "ConfigSchemaSourceGo", CanExpand: true, Description: "ConfigSchemaSource_Go variant as JSON", Fields: []flagutil.FlagMeta{
-			{FlagName: "schema.go.value", FieldPath: "Value", Kind: flagutil.FlagKindString, Required: true, Description: "Go source — a `struct` definition. [required]"},
+		{DiscriminatorValue: "go", FlagName: "body-param.schema.go", FieldName: "ConfigSchemaSourceGo", CanExpand: true, Description: "ConfigSchemaSource_Go variant as JSON", Fields: []flagutil.FlagMeta{
+			{FlagName: "body-param.schema.go.value", FieldPath: "Value", Kind: flagutil.FlagKindString, Required: true, Description: "Go source — a `struct` definition. [required]"},
 		}},
-		{DiscriminatorValue: "rust", FlagName: "schema.rust", FieldName: "ConfigSchemaSourceRust", CanExpand: true, Description: "ConfigSchemaSource_Rust variant as JSON", Fields: []flagutil.FlagMeta{
-			{FlagName: "schema.rust.value", FieldPath: "Value", Kind: flagutil.FlagKindString, Required: true, Description: "Rust source — a serde `struct` definition. [required]"},
+		{DiscriminatorValue: "rust", FlagName: "body-param.schema.rust", FieldName: "ConfigSchemaSourceRust", CanExpand: true, Description: "ConfigSchemaSource_Rust variant as JSON", Fields: []flagutil.FlagMeta{
+			{FlagName: "body-param.schema.rust.value", FieldPath: "Value", Kind: flagutil.FlagKindString, Required: true, Description: "Rust source — a serde `struct` definition. [required]"},
 		}},
 	}}},
-	{FlagName: "infer", FieldPath: "Body.Infer", Kind: flagutil.FlagKindBool, Optional: true, Description: "Derive the schema from the draft's value instead."},
-	{FlagName: "additional-properties", Shorthand: "a", FieldPath: "Body.AdditionalProperties", Kind: flagutil.FlagKindBool, Optional: true, Description: "Whether the resulting object schema permits extra keys (family extensibility)."},
+	{FlagName: "body-param.infer", FieldPath: "Body.Infer", Kind: flagutil.FlagKindBool, Optional: true, Description: "Derive the schema from the draft's value instead."},
+	{FlagName: "body-param.additional-properties", FieldPath: "Body.AdditionalProperties", Kind: flagutil.FlagKindBool, Optional: true, Description: "Whether the resulting object schema permits extra keys (family extensibility)."},
+	{FlagName: "body-param.ignore-warnings", FieldPath: "Body.IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access."},
+	{FlagName: "body-param.skip-schema-validation", FieldPath: "Body.SkipSchemaValidation", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored."},
+	{FlagName: "body-param.skip-hooks", FieldPath: "Body.SkipHooks", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored."},
 }
 
 // initSetSchemaCmd initializes the set-schema command.

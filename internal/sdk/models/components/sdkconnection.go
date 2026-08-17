@@ -3,7 +3,7 @@
 package components
 
 import (
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"time"
 )
 
@@ -24,22 +24,23 @@ type SDKConnection struct {
 	IncludeVisualExperiments *bool    `json:"includeVisualExperiments,omitzero"`
 	IncludeDraftExperiments  *bool    `json:"includeDraftExperiments,omitzero"`
 	// When true, experiment-ref rules linked to draft experiments are included in feature definitions. Off by default.
-	IncludeDraftExperimentRefs    *bool    `json:"includeDraftExperimentRefs,omitzero"`
-	IncludeExperimentNames        *bool    `json:"includeExperimentNames,omitzero"`
-	IncludeRedirectExperiments    *bool    `json:"includeRedirectExperiments,omitzero"`
-	IncludeRuleIds                *bool    `json:"includeRuleIds,omitzero"`
-	IncludeProjectIDInMetadata    *bool    `json:"includeProjectIdInMetadata,omitzero"`
-	IncludeCustomFieldsInMetadata *bool    `json:"includeCustomFieldsInMetadata,omitzero"`
-	AllowedCustomFieldsInMetadata []string `json:"allowedCustomFieldsInMetadata,omitzero"`
-	IncludeTagsInMetadata         *bool    `json:"includeTagsInMetadata,omitzero"`
-	Key                           string   `json:"key"`
-	ProxyEnabled                  bool     `json:"proxyEnabled"`
-	ProxyHost                     string   `json:"proxyHost"`
-	ProxySigningKey               string   `json:"proxySigningKey"`
-	SseEnabled                    *bool    `json:"sseEnabled,omitzero"`
-	HashSecureAttributes          *bool    `json:"hashSecureAttributes,omitzero"`
-	RemoteEvalEnabled             *bool    `json:"remoteEvalEnabled,omitzero"`
-	SavedGroupReferencesEnabled   *bool    `json:"savedGroupReferencesEnabled,omitzero"`
+	IncludeDraftExperimentRefs          *bool    `json:"includeDraftExperimentRefs,omitzero"`
+	IncludeExperimentNames              *bool    `json:"includeExperimentNames,omitzero"`
+	IncludeRedirectExperiments          *bool    `json:"includeRedirectExperiments,omitzero"`
+	IncludeRuleIds                      *bool    `json:"includeRuleIds,omitzero"`
+	IncludeProjectIDInMetadata          *bool    `json:"includeProjectIdInMetadata,omitzero"`
+	IncludeCustomFieldsInMetadata       *bool    `json:"includeCustomFieldsInMetadata,omitzero"`
+	AllowedCustomFieldsInMetadata       []string `json:"allowedCustomFieldsInMetadata,omitzero"`
+	IncludeTagsInMetadata               *bool    `json:"includeTagsInMetadata,omitzero"`
+	IncludeExperimentScheduleInMetadata *bool    `json:"includeExperimentScheduleInMetadata,omitzero"`
+	Key                                 string   `json:"key"`
+	ProxyEnabled                        bool     `json:"proxyEnabled"`
+	ProxyHost                           string   `json:"proxyHost"`
+	ProxySigningKey                     string   `json:"proxySigningKey"`
+	SseEnabled                          *bool    `json:"sseEnabled,omitzero"`
+	HashSecureAttributes                *bool    `json:"hashSecureAttributes,omitzero"`
+	RemoteEvalEnabled                   *bool    `json:"remoteEvalEnabled,omitzero"`
+	SavedGroupReferencesEnabled         *bool    `json:"savedGroupReferencesEnabled,omitzero"`
 }
 
 func (s SDKConnection) MarshalJSON() ([]byte, error) {
@@ -205,6 +206,13 @@ func (s *SDKConnection) GetIncludeTagsInMetadata() *bool {
 		return nil
 	}
 	return s.IncludeTagsInMetadata
+}
+
+func (s *SDKConnection) GetIncludeExperimentScheduleInMetadata() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.IncludeExperimentScheduleInMetadata
 }
 
 func (s *SDKConnection) GetKey() string {

@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 type ListFactMetricsRequest struct {
@@ -16,7 +16,7 @@ type ListFactMetricsRequest struct {
 	DatasourceID *string `queryParam:"style=form,explode=true,name=datasourceId"`
 	// Filter by project id
 	ProjectID *string `queryParam:"style=form,explode=true,name=projectId"`
-	// Filter by Fact Table Id (for ratio metrics, we only look at the numerator)
+	// Filter by Fact Table Id (for ratio metrics, only the numerator is considered)
 	FactTableID *string `queryParam:"style=form,explode=true,name=factTableId"`
 }
 

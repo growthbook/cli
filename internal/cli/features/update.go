@@ -4,34 +4,39 @@ package features
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/internal/client"
-	"github.com/growthbook/cli/internal/flagutil"
-	"github.com/growthbook/cli/internal/interactive"
-	"github.com/growthbook/cli/internal/output"
-	"github.com/growthbook/cli/internal/sdk"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/client"
+	"github.com/growthbook/cli/v2/internal/flagutil"
+	"github.com/growthbook/cli/v2/internal/interactive"
+	"github.com/growthbook/cli/v2/internal/output"
+	"github.com/growthbook/cli/v2/internal/sdk"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
 var updateCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The id of the requested resource [required]"},
-	{FlagName: "skip-schema-validation", Shorthand: "s", FieldPath: "SkipSchemaValidation", Kind: flagutil.FlagKindBool, Optional: true, Description: "Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the `bypassApprovalChecks` permission on all projects); ignored otherwise. Validation is enforced by default."},
-	{FlagName: "ignore-warnings", FieldPath: "IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has `blockPublishOnSchemaError` disabled (warn mode)."},
-	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Description of the feature"},
-	{FlagName: "archived", Shorthand: "a", FieldPath: "Body.Archived", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
-	{FlagName: "project", FieldPath: "Body.Project", Kind: flagutil.FlagKindString, Optional: true, Description: "An associated project ID"},
-	{FlagName: "owner", FieldPath: "Body.Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization."},
-	{FlagName: "default-value", FieldPath: "Body.DefaultValue", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "base-config", Shorthand: "b", FieldPath: "Body.BaseConfig", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"baseConfig,omitempty"`, Description: "The config backing this flag, fixed at creation. Cannot be changed by an update — resend the current value or omit it; a different value is rejected."},
-	{FlagName: "default-value-config", FieldPath: "Body.DefaultValueConfig", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"defaultValueConfig,omitempty"`, Description: "Optional. A config within `baseConfig`'s family that the default value resolves to instead of `baseConfig` itself. null or omitted means the default is `baseConfig`. The default is exactly this config and carries no overrides of its own."},
-	{FlagName: "tags", Shorthand: "t", FieldPath: "Body.Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "List of associated tags. Will override tags completely with submitted list"},
-	{FlagName: "rules", Shorthand: "r", FieldPath: "Body.Rules", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"rules,omitempty"`, Description: "Replaces all feature rules atomically. Behavior differs from v1: v1 PUT applies per-environment patches, v2 PUT swaps the entire `rules` array in one revision. To preserve existing rules during a partial edit, GET the feature first, mutate the returned `rules` array, and PUT the full array back. Safe-rollout rules round-trip via their `safeRolloutId` (creation requires `POST /v2/features/:id/revisions/:version/rules`)."},
-	{FlagName: "environments", Shorthand: "e", FieldPath: "Body.Environments", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"environments,omitempty"`, Description: "Per-environment enabled state. V2 rules are specified on the top-level `rules` field."},
-	{FlagName: "prerequisites", FieldPath: "Body.Prerequisites", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Feature IDs. Each feature must evaluate to `true`"},
-	{FlagName: "json-schema", Shorthand: "j", FieldPath: "Body.JSONSchema", Kind: flagutil.FlagKindString, Optional: true, Description: "Use JSON schema to validate the payload of a JSON-type feature value (enterprise only)."},
-	{FlagName: "custom-fields", Shorthand: "c", FieldPath: "Body.CustomFields", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"customFields,omitempty"`, Description: "value"},
-	{FlagName: "holdout", FieldPath: "Body.Holdout", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"holdout,omitempty"`, Description: "Holdout to assign this feature to. Pass `null` to remove the feature from its current holdout. Omit the field entirely to leave the holdout unchanged.\n"},
+	{FlagName: "skip-schema-validation", Shorthand: "s", FieldPath: "SkipSchemaValidation", Kind: flagutil.FlagKindBool, Optional: true, Description: "Deprecated — pass `skipSchemaValidation` in the request body instead."},
+	{FlagName: "ignore-warnings", FieldPath: "IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Deprecated — pass `ignoreWarnings` in the request body instead."},
+	{FlagName: "body-param.description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Description of the feature"},
+	{FlagName: "body-param.archived", FieldPath: "Body.Archived", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
+	{FlagName: "body-param.project", FieldPath: "Body.Project", Kind: flagutil.FlagKindString, Optional: true, Description: "An associated project ID"},
+	{FlagName: "body-param.targeting-all-projects", FieldPath: "Body.TargetingAllProjects", Kind: flagutil.FlagKindBool, Optional: true, Description: "Make this feature discoverable in — and served to — every project, beyond its primary `project`. Governance/approvals stay with `project`."},
+	{FlagName: "body-param.targeting-projects", FieldPath: "Body.TargetingProjects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Secondary project IDs this feature is targeted in and served to, beyond its primary `project`. Governance/approvals stay with `project`."},
+	{FlagName: "body-param.owner", FieldPath: "Body.Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization."},
+	{FlagName: "body-param.default-value", FieldPath: "Body.DefaultValue", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "body-param.base-config", FieldPath: "Body.BaseConfig", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"baseConfig,omitempty"`, Description: "The config backing this flag, fixed at creation. Cannot be changed by an update — resend the current value or omit it; a different value is rejected."},
+	{FlagName: "body-param.default-value-config", FieldPath: "Body.DefaultValueConfig", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"defaultValueConfig,omitempty"`, Description: "Optional. A config within `baseConfig`'s family that the default value resolves to instead of `baseConfig` itself. null or omitted means the default is `baseConfig`. The default is exactly this config and carries no overrides of its own."},
+	{FlagName: "body-param.tags", FieldPath: "Body.Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "List of associated tags. Will override tags completely with submitted list"},
+	{FlagName: "body-param.rules", FieldPath: "Body.Rules", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"rules,omitempty"`, Description: "Replaces all feature rules atomically. Behavior differs from v1: v1 PUT applies per-environment patches, v2 PUT swaps the entire `rules` array in one revision. To preserve existing rules during a partial edit, GET the feature first, mutate the returned `rules` array, and PUT the full array back. Safe-rollout rules round-trip via their `safeRolloutId` (creation requires `POST /v2/features/:id/revisions/:version/rules`)."},
+	{FlagName: "body-param.environments", FieldPath: "Body.Environments", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"environments,omitempty"`, Description: "Per-environment enabled state. V2 rules are specified on the top-level `rules` field."},
+	{FlagName: "body-param.prerequisites", FieldPath: "Body.Prerequisites", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Feature IDs. Each feature must evaluate to `true`"},
+	{FlagName: "body-param.json-schema", FieldPath: "Body.JSONSchema", Kind: flagutil.FlagKindString, Optional: true, Description: "Use JSON schema to validate the payload of a JSON-type feature value (enterprise only)."},
+	{FlagName: "body-param.custom-fields", FieldPath: "Body.CustomFields", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"customFields,omitempty"`, Description: "value"},
+	{FlagName: "body-param.holdout", FieldPath: "Body.Holdout", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"holdout,omitempty"`, Description: "Holdout to assign this feature to. Pass `null` to remove the feature from its current holdout. Omit the field entirely to leave the holdout unchanged.\n"},
+	{FlagName: "body-param.ignore-warnings", FieldPath: "Body.IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access."},
+	{FlagName: "body-param.skip-schema-validation", FieldPath: "Body.SkipSchemaValidation", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored."},
+	{FlagName: "body-param.skip-hooks", FieldPath: "Body.SkipHooks", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored."},
 }
 
 // initUpdateCmd initializes the update command.
@@ -39,7 +44,7 @@ func initUpdateCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "update",
 		Short:   "Partially update a feature",
-		Long:    "Updates any combination of a feature's metadata, default value, environment state, and rules. Other top-level fields are patch-merged: omit a field to leave it unchanged. The `rules` field, when supplied, replaces the entire `rules` array atomically in a single revision (v1 PUT applied per-environment patches; v2 swaps the full flat array). To preserve existing rules during a partial edit, GET the feature first, mutate the returned `rules` array, and PUT the full array back. Safe-rollout rules round-trip via their `safeRolloutId`; use `POST /v2/features/:id/revisions/:version/rules` to create new ones. Returns 403 if approval rules are enabled for an affected environment and the bypass setting is off.",
+		Long:    "Updates the Feature Flag and immediately publishes a new revision. The caller needs Edit access in the Feature Flag's Project and Publish access for every affected environment. When approval is required, use the revision endpoints instead, unless the caller can bypass draft approvals.\n\nOther top-level fields are patch-merged: omit a field to leave it unchanged. The `rules` field, when supplied, replaces the entire `rules` array in one operation. To preserve existing rules, fetch the Feature Flag, update the returned `rules` array, and send the complete array back. Safe-rollout rules round-trip through `safeRolloutId`; use `POST /v2/features/:id/revisions/:version/rules` to create new ones.",
 		Example: "  growthbook features update --id <id>",
 		RunE:    runUpdateCmd,
 	}

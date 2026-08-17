@@ -23,7 +23,8 @@ growthbook feature-revisions toggle [flags]
       --enabled                   [required]
       --environment string        [required]
   -h, --help                      help for toggle
-  -i, --id string                 [required]
+      --id string                 [required]
+      --ignore-warnings           Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
       --revision-comment string   Comment for a newly created draft. Only used when version is "new"; ignored for existing revisions.
       --revision-title string     Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
   -v, --version-param string      [required]

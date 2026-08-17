@@ -3,8 +3,8 @@
 package components
 
 import (
-	"github.com/growthbook/cli/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"time"
 )
 
@@ -324,6 +324,8 @@ type ContextualBandit struct {
 	ConversionWindowUnit    optionalnullable.OptionalNullable[ConversionWindowUnit] `json:"conversionWindowUnit,omitzero"`
 	Stage                   *Stage                                                  `json:"stage,omitzero"`
 	StageDateStarted        *time.Time                                              `json:"stageDateStarted,omitzero"`
+	AutoSnapshots           *bool                                                   `json:"autoSnapshots,omitzero"`
+	NextSnapshotAttempt     *time.Time                                              `json:"nextSnapshotAttempt,omitzero"`
 }
 
 func (c ContextualBandit) MarshalJSON() ([]byte, error) {
@@ -615,4 +617,18 @@ func (c *ContextualBandit) GetStageDateStarted() *time.Time {
 		return nil
 	}
 	return c.StageDateStarted
+}
+
+func (c *ContextualBandit) GetAutoSnapshots() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.AutoSnapshots
+}
+
+func (c *ContextualBandit) GetNextSnapshotAttempt() *time.Time {
+	if c == nil {
+		return nil
+	}
+	return c.NextSnapshotAttempt
 }

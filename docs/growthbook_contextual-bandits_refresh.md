@@ -19,10 +19,8 @@ growthbook contextual-bandits refresh [flags]
 ### Options
 
 ```
-      --body string         Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -b, --body-param string   JSON object
-  -h, --help                help for refresh
-  -i, --id string           [required]
+  -h, --help        help for refresh
+  -i, --id string   The Contextual Bandit id [required]
 ```
 
 ### Options inherited from parent commands

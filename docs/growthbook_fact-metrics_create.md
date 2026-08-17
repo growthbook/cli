@@ -13,7 +13,7 @@ growthbook fact-metrics create [flags]
 ### Examples
 
 ```
-  growthbook fact-metrics create --name <value> --metric-type dailyParticipation --numerator '{"factTableId":"<id>"}'
+  growthbook fact-metrics create --name <value> --metric-type dailyParticipation
 ```
 
 ### Options
@@ -24,16 +24,17 @@ growthbook fact-metrics create [flags]
       --denominator string                           Only when metricType is 'ratio'
       --description string                           string value
       --display-as-percentage                        If true and the metric is a ratio or dailyParticipation metric, variation means will be displayed as a percentage. Defaults to true for dailyParticipation metrics and false for ratio metrics.
+  -f, --funnel-settings string                       Funnel metric settings (required when metricType is "funnel")
   -h, --help                                         help for create
   -i, --inverse                                      Set to true for things like Bounce Rate, where you want the metric to decrease
       --managed-by string                            Set this to "api" to disable editing in the GrowthBook UI (options: , api, admin)
       --max-percent-change float                     Maximum percent change to consider uplift significant, as a proportion (e.g. put 0.5 for 50%)
       --metric-auto-slices stringArray               Array of slice column names that will be automatically included in metric analysis. This is an enterprise feature.
-      --metric-type string                           options: proportion, retention, mean, quantile, ratio, dailyParticipation [required]
+      --metric-type string                           options: proportion, retention, mean, quantile, ratio, dailyParticipation, funnel [required]
       --min-percent-change float                     Minimum percent change to consider uplift significant, as a proportion (e.g. put 0.005 for 0.5%)
       --min-sample-size float                        number value
       --name string                                  [required]
-      --numerator string                             [required]
+      --numerator string                             JSON object
       --owner string                                 The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
       --prior-settings string                        Controls the bayesian prior for the metric. If omitted, organization defaults will be used.
       --projects stringArray                         list of values

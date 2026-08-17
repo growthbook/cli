@@ -6,10 +6,10 @@
 package cli
 
 import (
-	"github.com/growthbook/cli/internal/customcfg"
-	"github.com/growthbook/cli/internal/flagutil"
-	"github.com/growthbook/cli/internal/output"
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/customcfg"
+	"github.com/growthbook/cli/v2/internal/flagutil"
+	"github.com/growthbook/cli/v2/internal/output"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 

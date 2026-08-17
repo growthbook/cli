@@ -4,7 +4,7 @@ package config
 
 import (
 	"context"
-	"github.com/growthbook/cli/internal/sdk/retry"
+	"github.com/growthbook/cli/v2/internal/sdk/retry"
 	"net/http"
 	"time"
 )

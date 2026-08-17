@@ -5,9 +5,9 @@ package operations
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 type UpdateFactTableUpdateTime struct {
@@ -113,7 +113,7 @@ type UpdateFactTableRequestBody struct {
 	SQL *string `json:"sql,omitzero"`
 	// The event name used in SQL template variables
 	EventName *string `json:"eventName,omitzero"`
-	// Optional array of columns that you want to update. Only allows updating properties of existing columns. Cannot create new columns or delete existing ones. Columns cannot be added or deleted; column structure is determined by SQL parsing. Slice-related properties require an enterprise license.
+	// Optional array of columns to upsert by `column`: existing columns are patched, new columns are created, and columns not included are left unchanged. Omit `datatype` to leave an existing column's type untouched; send "" to reset it for auto-detection; new columns are auto-detected when `datatype` is omitted or "". Slice-related properties require an enterprise license.
 	Columns []components.FactTableColumnInput `json:"columns,omitzero"`
 	// Error message if there was an issue parsing the SQL schema
 	ColumnsError optionalnullable.OptionalNullable[string] `json:"columnsError,omitzero"`

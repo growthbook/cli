@@ -3,7 +3,7 @@
 package facttables
 
 import (
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -58,6 +58,18 @@ func InitFactTablesRoot(parent *cobra.Command) error {
 	}
 
 	if err := initDeleteFilterCmd(FactTablesCmd); err != nil {
+		return err
+	}
+
+	if err := initCreateVirtualColumnCmd(FactTablesCmd); err != nil {
+		return err
+	}
+
+	if err := initUpdateVirtualColumnCmd(FactTablesCmd); err != nil {
+		return err
+	}
+
+	if err := initDeleteVirtualColumnCmd(FactTablesCmd); err != nil {
 		return err
 	}
 

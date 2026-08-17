@@ -2,19 +2,19 @@
 
 package sdk
 
-// Generated from OpenAPI doc version 4.4.0 and generator version 2.904.2
+// Generated from OpenAPI doc version 5.0.0 and generator version 2.930.0
 
 import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
-	"github.com/growthbook/cli/internal/sdk/models/sdkerrors"
-	"github.com/growthbook/cli/internal/sdk/retry"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/config"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/hooks"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/sdk/models/sdkerrors"
+	"github.com/growthbook/cli/v2/internal/sdk/retry"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/config"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/hooks"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"net/http"
 	"net/url"
 	"time"
@@ -109,14 +109,26 @@ type Growthbook struct {
 	//
 	// Most callers can interact with these endpoints via shorthand actions (`/items/add`, `/items/remove`, single-field PUTs) instead of authoring JSON Patch ops directly. Pass `version: "new"` on edit endpoints to auto-create a draft.
 	SavedGroupRevisions *SavedGroupRevisions
-	// Reusable named values referenced from feature flag values as `@const:key` and resolved into the SDK payload at build time. String constants are interpolated via `{{ @const:key }}`; JSON (object) constants are composed via an `$extends` array.
+	// **Beta** — these endpoints are new and may change in backwards-incompatible ways.
+	//
+	// Reusable named values referenced from feature flag values as `@const:key` and resolved into the SDK payload at build time. String constants are interpolated via `{{ @const:key }}`; JSON (object) constants are composed via an `$extends` array. A constant's own keys **replace** what its `$extends` bases provide, wholesale — constants are atomic building blocks. (Config and feature values compose as deep, targeted patches instead.)
 	Constants *Constants
+	// **Beta** — these endpoints are new and may change in backwards-incompatible ways.
+	//
 	// Draft revisions for constants, including pending changes, approvals, and lifecycle (publish, discard, revert). Pass `version: "new"` on edit endpoints to auto-create a draft.
 	ConstantRevisions *ConstantRevisions
-	// Reusable, typed, inheritable JSON objects referenced from feature flag values as `@config:key`. A config carries a field `schema` (with TypeScript/JSON Schema import-export) and a lineage `parent`; it resolves like a `json` constant, composed via `$extends`. Inheritance is expressed via `parent`, never an in-value `@config:` entry. Schema fields colliding with a published ancestor's key follow 'base wins': identical re-declarations are stripped with a warning, differing ones are rejected.
+	// **Beta** — these endpoints are new and may change in backwards-incompatible ways.
+	//
+	// Reusable, typed, inheritable JSON objects referenced from feature flag values as `@config:key`. A config carries a field `schema` (with TypeScript/JSON Schema import-export) and a lineage `parent`. Inheritance is expressed via `parent`, never an in-value `@config:` entry. Values layer as a **deep, targeted patch**: a child (or a config-backed feature value) restates only the leaves it changes and inherits the rest — unlike a constant's `$extends`, whose own keys replace wholesale. Schema fields colliding with a published ancestor's key follow 'base wins': identical re-declarations are stripped with a warning, differing ones are rejected.
 	Configs *Configs
-	// Draft revisions for configs, including value and schema edits, schema import (JSON Schema / TypeScript / inferred), approvals, and lifecycle (publish, discard, revert). Publishing a schema change cascades the "base wins" normalization to descendant configs; a publish that removes or retypes fields descendants still use soft-blocks with a 422 unless `?ignoreWarnings=true`. Pass `version: "new"` on edit endpoints to auto-create a draft.
+	// **Beta** — these endpoints are new and may change in backwards-incompatible ways.
+	//
+	// Draft revisions for configs, including value and schema edits, schema import (JSON Schema / TypeScript / inferred), approvals, and lifecycle (publish, discard, revert). Publishing a schema change cascades the "base wins" normalization to descendant configs; a publish that removes or retypes fields descendants still use soft-blocks with a 422 unless the request body sets `ignoreWarnings: true`. Pass `version: "new"` on edit endpoints to auto-create a draft.
 	ConfigRevisions *ConfigRevisions
+	// **Beta** — these endpoints are new and may change in backwards-incompatible ways.
+	//
+	// Coordinated multi-entity publishing: publish a set of revisions across Feature Flags, Saved Groups, configs, and constants as one all-or-nothing operation, validated against the combined end-state instead of each in-between state. Requires the `releases` commercial feature.
+	Releases *Releases
 	// Sandboxed JavaScript validation hooks that run when features, configs, or their revisions are saved or published. Throwing an Error blocks the save; `addWarning(msg)` raises a soft warning. Hooks are scoped by projects, or pinned to a single feature/config via `entityType`/`entityId`; a config-scoped hook also runs for every config inheriting from it (its whole descendant lineage). Scope can be retargeted on update (or cleared with nulls). Requires an enterprise plan; not available on GrowthBook Cloud.
 	CustomHooks *CustomHooks
 	// Organizations are used for multi-org deployments where different teams can run their own isolated feature flags and experiments. These endpoints are only via a super-admin's Personal Access Token.
@@ -150,6 +162,8 @@ type Growthbook struct {
 	AnalyticsExplorations   *AnalyticsExplorations
 	// Reusable step configurations for ramp schedules.
 	RampScheduleTemplates *RampScheduleTemplates
+	// Saved learnings captured across experiments, including AI-discovered patterns.
+	Learnings *Learnings
 
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
@@ -240,7 +254,7 @@ func New(opts ...SDKOption) *Growthbook {
 	sdk := &Growthbook{
 		SDKVersion: "0.0.1",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/go 0.0.1 2.904.2 4.4.0 github.com/growthbook/cli/internal/sdk",
+			UserAgent:  "speakeasy-sdk/go 0.0.1 2.930.0 5.0.0 github.com/growthbook/cli/v2/internal/sdk",
 			ServerList: ServerList,
 			ServerVariables: []map[string]string{
 				{},
@@ -286,6 +300,7 @@ func New(opts ...SDKOption) *Growthbook {
 	sdk.ConstantRevisions = newConstantRevisions(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Configs = newConfigs(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.ConfigRevisions = newConfigRevisions(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Releases = newReleases(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.CustomHooks = newCustomHooks(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Organizations = newOrganizations(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.FactTables = newFactTables(sdk, sdk.sdkConfiguration, sdk.hooks)
@@ -306,6 +321,7 @@ func New(opts ...SDKOption) *Growthbook {
 	sdk.ExperimentTemplates = newExperimentTemplates(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.AnalyticsExplorations = newAnalyticsExplorations(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.RampScheduleTemplates = newRampScheduleTemplates(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Learnings = newLearnings(sdk, sdk.sdkConfiguration, sdk.hooks)
 
 	return sdk
 }

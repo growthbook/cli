@@ -18,8 +18,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
-	"github.com/growthbook/cli/internal/sdk/types"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/types"
 )
 
 // FlagKind describes what kind of value a flag carries.
@@ -74,7 +74,7 @@ type FlagMeta struct {
 	// Flag behavior
 	Optional   bool // true if Go field is a pointer type
 	Required   bool // true if user must provide this flag
-	HasDefault bool // true if optional+has-default (always wrap in pointer, even when unchanged)
+	HasDefault bool // true if optional+has-default (apply cobra default when flag unchanged and no body/stdin)
 
 	// Validation
 	EnumValues []string // valid values for enum validation; nil if not enum
@@ -276,7 +276,7 @@ func BuildRequest[T any](cmd *cobra.Command, meta []FlagMeta, bodyFieldPath stri
 	// When body provided via --body flag or stdin, relax Required checks for body fields
 	// so builders don't error for fields already populated
 	if bodyPrePopulated {
-		meta = relaxRequiredForBodyFields(meta, bodyFieldPath)
+		meta = relaxRequiredForBodyFields(meta, bodyFieldPath, true)
 	}
 
 	// When the entire struct IS the body (bodyFieldPath == "") and no body was
@@ -292,7 +292,7 @@ func BuildRequest[T any](cmd *cobra.Command, meta []FlagMeta, bodyFieldPath stri
 			}
 		}
 		if !anyChanged {
-			meta = relaxRequiredForBodyFields(meta, "")
+			meta = relaxRequiredForBodyFields(meta, "", false)
 		}
 	}
 
@@ -371,15 +371,15 @@ func unmarshalIntoField(field reflect.Value, data []byte) error {
 	return nil
 }
 
-// relaxRequiredForBodyFields returns a copy of meta with Required=false
-// for fields that belong to the body. This prevents required-field errors
-// when stdin already populated those fields.
-func relaxRequiredForBodyFields(meta []FlagMeta, bodyFieldPath string) []FlagMeta {
+func relaxRequiredForBodyFields(meta []FlagMeta, bodyFieldPath string, clearDefaults bool) []FlagMeta {
 	result := make([]FlagMeta, len(meta))
 	copy(result, meta)
 	for i := range result {
 		if isBodyFieldPath(result[i].FieldPath, bodyFieldPath) {
 			result[i].Required = false
+			if clearDefaults {
+				result[i].HasDefault = false
+			}
 			// Also relax union fields so buildUnionField doesn't error
 			if result[i].Union != nil {
 				unionCopy := *result[i].Union

@@ -4,7 +4,7 @@ Publish a draft revision
 
 ### Synopsis
 
-Publishes a draft revision, making it the live state of the saved group. Blocked if the org requires approvals and the revision is not approved (callers with the bypass-approval permission may still publish).
+Publishes the draft and applies its changes to the live Saved Group. The caller needs Publish access in every assigned Project. When approval is required, the draft must be approved unless the caller has Bypass draft approvals access. If the organization requires rebasing, an out-of-date draft must be rebased first; an authorized caller can instead send `ignoreWarnings: true` to force-publish it. A 422 response lists every blocking gate and the available resolution.
 
 ```
 growthbook saved-group-revisions publish [flags]
@@ -20,8 +20,9 @@ growthbook saved-group-revisions publish [flags]
 
 ```
       --body string             Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -b, --bypass-approval         Deprecated and ignored. Approval is bypassed automatically when the caller has Bypass draft approvals access for this resource or when the organization enables the REST API approval bypass. Otherwise, the revision must be approved before it can be published.
   -h, --help                    help for publish
-  -m, --merge-now               When the org enforces same-base merges and the saved group changed since this revision was created, set to true to force-merge the stale revision instead of rebasing first. This only takes effect for callers with bypass-approval permission; otherwise it is ignored and the revision must be rebased.
+  -i, --ignore-warnings         Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
   -s, --saved-group-id string   [required]
   -v, --version-param string    [required]
 ```

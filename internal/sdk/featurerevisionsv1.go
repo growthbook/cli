@@ -6,12 +6,12 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
-	"github.com/growthbook/cli/internal/sdk/models/sdkerrors"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/config"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/hooks"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/sdk/models/sdkerrors"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/config"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/hooks"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"github.com/spyzhov/ajson"
 	"net/http"
 	"net/url"
@@ -3388,7 +3388,7 @@ func (s *FeatureRevisionsV1) PostFeatureRevisionRebase(ctx context.Context, requ
 // PostFeatureRevisionPublish - Publish a draft revision
 // **Deprecated.** Use [POST /v2/features/:id/revisions/:version/publish](#operation/postFeatureRevisionPublishV2) instead.
 //
-// Immediately publishes a draft revision, making it the live version of the feature. Blocked if the org requires approvals and `bypassApprovalChecks` is off.
+// Publishes the draft and makes its changes live. The caller needs Publish access for every affected environment. When approval is required, the draft must be approved unless the caller has Bypass draft approvals access.
 //
 // Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 func (s *FeatureRevisionsV1) PostFeatureRevisionPublish(ctx context.Context, request operations.PostFeatureRevisionPublishRequest, opts ...operations.Option) (*operations.PostFeatureRevisionPublishResponse, error) {

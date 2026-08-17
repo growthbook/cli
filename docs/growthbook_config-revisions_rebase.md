@@ -4,7 +4,7 @@ Rebase a draft revision onto the current live config
 
 ### Synopsis
 
-Updates the draft's base snapshot to the current live state, applying the draft's changes on top. Supply `conflictResolutions` to resolve any conflicting fields. Strategies are `overwrite` (use the draft's value) or `discard` (keep the live value).
+Updates the draft's base snapshot to the current live state, applying the draft's changes on top. Supply `conflictResolutions` to resolve any conflicting fields. Strategies are `overwrite` (use the draft's value), `discard` (keep the live value), or `union` (merge arrays without duplicates — for array fields like `extends`; pass a `customValues` entry to supply the resolved array yourself).
 
 ```
 growthbook config-revisions rebase [flags]
@@ -20,7 +20,8 @@ growthbook config-revisions rebase [flags]
 
 ```
       --body string                   Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -c, --conflict-resolutions string   value
+      --conflict-resolutions string   value
+      --custom-values union           Custom values to use for union strategy fields. Keyed by field name.
   -h, --help                          help for rebase
   -k, --key string                    [required]
   -v, --version-param string          [required]
@@ -52,4 +53,4 @@ growthbook config-revisions rebase [flags]
 
 ### SEE ALSO
 
-* [growthbook config-revisions](growthbook_config-revisions.md)	 - Draft revisions for configs, including value and schema edits, schema import (JSON Schema / TypeScript / inferred), approvals, and lifecycle (publish, discard, revert)
+* [growthbook config-revisions](growthbook_config-revisions.md)	 - **Beta** — these endpoints are new and may change in backwards-incompatible ways

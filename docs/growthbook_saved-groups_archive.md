@@ -4,7 +4,7 @@ Archive a single saved group
 
 ### Synopsis
 
-Archive a single saved group
+Archives a Saved Group. If it is still referenced by a Feature Flag, experiment, or another Saved Group, the API returns 422 with the affected references. Send `"ignoreWarnings": true` to acknowledge those references and continue. When approval is required, create and publish an archive revision instead, or use a caller with Bypass draft approvals access. A successful response lists any skipped gates in `bypassedGates`.
 
 ```
 growthbook saved-groups archive [flags]
@@ -19,8 +19,10 @@ growthbook saved-groups archive [flags]
 ### Options
 
 ```
-  -h, --help        help for archive
-  -i, --id string   The id of the requested resource [required]
+      --body string       Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -h, --help              help for archive
+      --id string         The id of the requested resource [required]
+      --ignore-warnings   Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
 ```
 
 ### Options inherited from parent commands

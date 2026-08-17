@@ -5,8 +5,8 @@ package operations
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 type PostExperimentModifyTemporaryRolloutRequestBody struct {
@@ -14,6 +14,8 @@ type PostExperimentModifyTemporaryRolloutRequestBody struct {
 	EnableTemporaryRollout bool `json:"enableTemporaryRollout"`
 	// Variation ID (e.g. var_abc123) to release to 100% of traffic eligible for this experiment. Required if enableTemporaryRollout is true.
 	ReleasedVariationID *string `json:"releasedVariationId,omitzero"`
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
 }
 
 func (p *PostExperimentModifyTemporaryRolloutRequestBody) GetEnableTemporaryRollout() bool {
@@ -28,6 +30,13 @@ func (p *PostExperimentModifyTemporaryRolloutRequestBody) GetReleasedVariationID
 		return nil
 	}
 	return p.ReleasedVariationID
+}
+
+func (p *PostExperimentModifyTemporaryRolloutRequestBody) GetIgnoreWarnings() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.IgnoreWarnings
 }
 
 type PostExperimentModifyTemporaryRolloutRequest struct {

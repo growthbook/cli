@@ -4,13 +4,13 @@ package configs
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/internal/client"
-	"github.com/growthbook/cli/internal/flagutil"
-	"github.com/growthbook/cli/internal/interactive"
-	"github.com/growthbook/cli/internal/output"
-	"github.com/growthbook/cli/internal/sdk"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/client"
+	"github.com/growthbook/cli/v2/internal/flagutil"
+	"github.com/growthbook/cli/v2/internal/interactive"
+	"github.com/growthbook/cli/v2/internal/output"
+	"github.com/growthbook/cli/v2/internal/sdk"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -24,7 +24,7 @@ func initLockConfigCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "lock",
 		Short:   "Lock a config at its current published revision",
-		Long:    "Freezes the config at its current published (merged) revision. While locked, no change can be published past that revision — publish, revert-to-publish, direct update, scheduled publish, and archive are all blocked (drafts may still be created and edited). The pinned revision is returned as `lockedRevision` for reproducible build pinning. Unlocking requires the `bypassApprovalChecks` permission.",
+		Long:    "Locks the Config to its current published revision. Drafts can still be created and edited, but direct updates, publishes, scheduled publishes, reverts, and archives are blocked. The response returns the pinned revision in `lockedRevision`. Unlocking requires Bypass draft approvals access.",
 		Example: "  growthbook configs lock --key <key>",
 		RunE:    runLockConfigCmd,
 	}

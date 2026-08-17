@@ -4,19 +4,18 @@ package contextualbandits
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/internal/client"
-	"github.com/growthbook/cli/internal/flagutil"
-	"github.com/growthbook/cli/internal/interactive"
-	"github.com/growthbook/cli/internal/output"
-	"github.com/growthbook/cli/internal/sdk"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/client"
+	"github.com/growthbook/cli/v2/internal/flagutil"
+	"github.com/growthbook/cli/v2/internal/interactive"
+	"github.com/growthbook/cli/v2/internal/output"
+	"github.com/growthbook/cli/v2/internal/sdk"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
 var stopContextualBanditCmdMeta = []flagutil.FlagMeta{
-	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "body-param", Shorthand: "b", FieldPath: "Body", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `request:"mediaType=application/json"`, Description: "JSON object"},
+	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The Contextual Bandit id [required]"},
 }
 
 // initStopContextualBanditCmd initializes the stop-contextual-bandit command.
@@ -32,7 +31,6 @@ func initStopContextualBanditCmd(parent *cobra.Command) error {
 	if err := flagutil.ValidateMeta[operations.StopContextualBanditRequest](stopContextualBanditCmdMeta); err != nil {
 		return fmt.Errorf("invalid metadata for stop-contextual-bandit: %w", err)
 	}
-	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
 	parent.AddCommand(cmd)
 	return nil
 }
@@ -47,7 +45,7 @@ func runStopContextualBanditCmd(cmd *cobra.Command, args []string) error {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.StopContextualBanditRequest](cmd, stopContextualBanditCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.StopContextualBanditRequest](cmd, stopContextualBanditCmdMeta, "", "")
 	if err != nil {
 		return err
 	}

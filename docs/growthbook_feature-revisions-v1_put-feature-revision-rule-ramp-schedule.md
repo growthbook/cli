@@ -28,7 +28,8 @@ growthbook feature-revisions-v1 put-feature-revision-rule-ramp-schedule [flags]
       --end-actions string               list of values
       --environment string               string value
   -h, --help                             help for put-feature-revision-rule-ramp-schedule
-  -i, --id string                        [required]
+      --id string                        [required]
+      --ignore-warnings                  Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
   -l, --lockdown-config string           JSON object
   -m, --monitoring-config string         JSON object
   -n, --name string                      string value

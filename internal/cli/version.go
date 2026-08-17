@@ -4,7 +4,7 @@ package cli
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -13,7 +13,7 @@ import (
 // which propagates the value here (see cmd/growthbook/main.go):
 //
 //	go build -ldflags "-X main.version=x.y.z" ./cmd/growthbook
-var Version = "1.0.0"
+var Version = "2.0.0"
 
 // BuildTime is optionally set at build time via ldflags targeting the main package.
 var BuildTime string

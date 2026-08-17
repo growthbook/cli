@@ -4,9 +4,7 @@ Deletes a single feature
 
 ### Synopsis
 
-Permanently deletes a feature and all of its revisions.
-
-Archived features can be deleted freely. Deleting a live (non-archived) feature returns 403 unless the org setting "REST API always bypasses approval requirements" is enabled.
+Permanently deletes a Feature Flag and all of its revisions. The caller needs Archive & delete access. Deleting a live Feature Flag also requires Publish access for every environment where it is enabled and the organization setting "REST API always bypasses approval requirements". Otherwise, archive the Feature Flag before deleting it.
 
 ```
 growthbook features delete [flags]

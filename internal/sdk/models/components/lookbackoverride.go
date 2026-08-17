@@ -5,7 +5,7 @@ package components
 import (
 	"encoding/json"
 	"errors"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"time"
 )
 

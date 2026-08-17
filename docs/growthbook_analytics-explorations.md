@@ -45,4 +45,5 @@ growthbook analytics-explorations [flags]
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
 * [growthbook analytics-explorations run-data-source](growthbook_analytics-explorations_run-data-source.md)	 - Create a Data Source based visualization
 * [growthbook analytics-explorations run-fact-table](growthbook_analytics-explorations_run-fact-table.md)	 - Run a Fact Table based visualization
+* [growthbook analytics-explorations run-funnel](growthbook_analytics-explorations_run-funnel.md)	 - Run a Funnel based visualization
 * [growthbook analytics-explorations run-metric](growthbook_analytics-explorations_run-metric.md)	 - Create a Metric based visualization

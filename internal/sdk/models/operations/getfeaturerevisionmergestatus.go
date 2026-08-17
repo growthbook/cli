@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"time"
 )
 
@@ -35,7 +35,7 @@ type GetFeatureRevisionMergeStatusResponseBody struct {
 	// The draft's last-modified timestamp at merge time.
 	DraftDateUpdated time.Time              `json:"draftDateUpdated"`
 	Conflicts        []components.Conflicts `json:"conflicts"`
-	// True when publishing this draft is blocked until it is rebased — either the merge has conflicts, or the draft is behind live (or its approval went stale) while the organization enforces rebase-before-publish. When true with no conflicts, callers with bypass-approval permission can still publish with `mergeNow: true`; others must rebase first.
+	// Whether the draft must be rebased before it can be published. This is true when the merge has conflicts, or when the organization requires rebasing and the draft or its approval is out of date. If there are no conflicts, a caller with Bypass draft approvals access can send `ignoreWarnings: true` to force-publish instead.
 	RebaseRequired bool               `json:"rebaseRequired"`
 	Result         *components.Result `json:"result,omitzero"`
 }

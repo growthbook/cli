@@ -4,13 +4,13 @@ package rampschedules
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/internal/client"
-	"github.com/growthbook/cli/internal/flagutil"
-	"github.com/growthbook/cli/internal/interactive"
-	"github.com/growthbook/cli/internal/output"
-	"github.com/growthbook/cli/internal/sdk"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/client"
+	"github.com/growthbook/cli/v2/internal/flagutil"
+	"github.com/growthbook/cli/v2/internal/interactive"
+	"github.com/growthbook/cli/v2/internal/output"
+	"github.com/growthbook/cli/v2/internal/sdk"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -34,7 +34,7 @@ func initUpdateRampScheduleMonitoringCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "update-ramp-schedule-monitoring",
 		Short:   "Update ramp monitoring configuration",
-		Long:    "Replaces the monitoring configuration. Metric IDs, snapshot cadence, and health-action thresholds (`srmAction`, `noTrafficAction`, etc.) can be updated at any time.\n\n`datasourceId` and `exposureQueryId` are locked once monitoring starts — stop and recreate the schedule to change the data source.\n\nChanges to guardrail or signal metric IDs take effect on the next analysis run.",
+		Long:    "Replaces the monitoring configuration. Health-action thresholds (`srmAction`, `noTrafficAction`, etc.) can be updated at any time.\n\nOnce a linked SafeRollout has started, `datasourceId`, `exposureQueryId`, the metric IDs and the snapshot cadence are all locked — stop and recreate the schedule to change the data source.\n\nChanges to guardrail or signal metric IDs take effect on the next analysis run.",
 		Example: "  growthbook ramp-schedules update-ramp-schedule-monitoring --id <id> --datasource-id <id> --exposure-query-id <id> --guardrail-metric-ids '[\"<value 1>\",\"<value 2>\",\"<value 3>\"]'",
 		RunE:    runUpdateRampScheduleMonitoringCmd,
 		Aliases: []string{"ursm"},

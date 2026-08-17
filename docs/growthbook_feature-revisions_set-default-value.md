@@ -13,21 +13,24 @@ growthbook feature-revisions set-default-value [flags]
 ### Examples
 
 ```
-  growthbook feature-revisions set-default-value --id <id> --version-param <value> --default-value <value>
+  growthbook feature-revisions set-default-value --id <id> --version-param <value> --body-param.default-value <value>
 ```
 
 ### Options
 
 ```
       --body string                                   Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --default-value baseConfig                      New default value. In Config mode (feature has baseConfig), the default must be exactly a config with no overrides: send `"{}"` to use `baseConfig`, or set `defaultValueConfig` to point at a descendant. [required]
-      --default-value-config baseConfig               Key of a config within the feature's baseConfig family that the default value resolves to (the base itself or a descendant). The default is exactly that config with no overrides; pass `null` to use `baseConfig`. Do not embed `@config:` in `defaultValue` — use this field.
+      --body-param.default-value baseConfig           New default value. In Config mode (feature has baseConfig), the default must be exactly a config with no overrides: send `"{}"` to use `baseConfig`, or set `defaultValueConfig` to point at a descendant. [required]
+      --body-param.default-value-config baseConfig    Key of a config within the feature's baseConfig family that the default value resolves to (the base itself or a descendant). The default is exactly that config with no overrides; pass `null` to use `baseConfig`. Do not embed `@config:` in `defaultValue` — use this field.
+      --body-param.ignore-warnings                    Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+      --body-param.revision-comment string            Comment for a newly created draft. Only used when version is "new"; ignored for existing revisions.
+      --body-param.revision-title string              Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
+      --body-param.skip-hooks skipSchemaValidation    Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use skipSchemaValidation for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+      --body-param.skip-schema-validation skipHooks   Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use skipHooks for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
   -h, --help                                          help for set-default-value
       --id string                                     [required]
-      --ignore-warnings blockPublishOnSchemaError     Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has blockPublishOnSchemaError disabled (warn mode).
-      --revision-comment string                       Comment for a newly created draft. Only used when version is "new"; ignored for existing revisions.
-      --revision-title string                         Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
-  -s, --skip-schema-validation bypassApprovalChecks   Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the bypassApprovalChecks permission on all projects); ignored otherwise. Validation is enforced by default.
+      --ignore-warnings ignoreWarnings                Deprecated — pass ignoreWarnings in the request body instead.
+  -s, --skip-schema-validation skipSchemaValidation   Deprecated — pass skipSchemaValidation in the request body instead.
   -v, --version-param string                          [required]
 ```
 

@@ -46,8 +46,10 @@ growthbook fact-tables [flags]
 * [growthbook fact-tables bulk-import](growthbook_fact-tables_bulk-import.md)	 - Bulk import fact tables, filters, and metrics
 * [growthbook fact-tables create](growthbook_fact-tables_create.md)	 - Create a single fact table
 * [growthbook fact-tables create-filter](growthbook_fact-tables_create-filter.md)	 - Create a single fact table filter
+* [growthbook fact-tables create-virtual-column](growthbook_fact-tables_create-virtual-column.md)	 - Create a virtual (computed) column on a fact table
 * [growthbook fact-tables delete](growthbook_fact-tables_delete.md)	 - Deletes a single fact table
 * [growthbook fact-tables delete-filter](growthbook_fact-tables_delete-filter.md)	 - Deletes a single fact table filter
+* [growthbook fact-tables delete-virtual-column](growthbook_fact-tables_delete-virtual-column.md)	 - Delete a virtual (computed) column from a fact table
 * [growthbook fact-tables get](growthbook_fact-tables_get.md)	 - Get a single fact table
 * [growthbook fact-tables get-aggregated](growthbook_fact-tables_get-aggregated.md)	 - Get the materialization status of a fact table's shared daily aggregated tables
 * [growthbook fact-tables get-aggregated-table-run](growthbook_fact-tables_get-aggregated-table-run.md)	 - Get a single aggregated table run
@@ -58,3 +60,4 @@ growthbook fact-tables [flags]
 * [growthbook fact-tables refresh-aggregated](growthbook_fact-tables_refresh-aggregated.md)	 - Force a refresh or full restate of a fact table's shared daily aggregated tables
 * [growthbook fact-tables update](growthbook_fact-tables_update.md)	 - Update a single fact table
 * [growthbook fact-tables update-filter](growthbook_fact-tables_update-filter.md)	 - Update a single fact table filter
+* [growthbook fact-tables update-virtual-column](growthbook_fact-tables_update-virtual-column.md)	 - Update a virtual (computed) column on a fact table

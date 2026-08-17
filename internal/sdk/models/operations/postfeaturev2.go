@@ -6,9 +6,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"time"
 )
 
@@ -229,6 +229,10 @@ type PostFeatureV2RuleSafeRollout struct {
 	AllEnvironments *bool `json:"allEnvironments,omitzero"`
 	// Specific environment IDs this rule applies to. Required when allEnvironments is false.
 	Environments []string `json:"environments,omitzero"`
+	// When true (the default) the rule applies to every project the feature is delivered to. Set false and supply `projects` to scope the rule.
+	AllProjects *bool `json:"allProjects,omitzero"`
+	// Specific project IDs this rule applies to. Used when allProjects is false. An empty array scopes the rule to no project.
+	Projects []string `json:"projects,omitzero"`
 }
 
 func (p PostFeatureV2RuleSafeRollout) MarshalJSON() ([]byte, error) {
@@ -356,6 +360,20 @@ func (p *PostFeatureV2RuleSafeRollout) GetEnvironments() []string {
 		return nil
 	}
 	return p.Environments
+}
+
+func (p *PostFeatureV2RuleSafeRollout) GetAllProjects() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AllProjects
+}
+
+func (p *PostFeatureV2RuleSafeRollout) GetProjects() []string {
+	if p == nil {
+		return nil
+	}
+	return p.Projects
 }
 
 // #region class-body-postfeaturev2rulesaferollout
@@ -551,6 +569,10 @@ type PostFeatureV2RuleExperimentRef struct {
 	AllEnvironments *bool `json:"allEnvironments,omitzero"`
 	// Specific environment IDs this rule applies to. Required when allEnvironments is false.
 	Environments []string `json:"environments,omitzero"`
+	// When true (the default) the rule applies to every project the feature is delivered to. Set false and supply `projects` to scope the rule.
+	AllProjects *bool `json:"allProjects,omitzero"`
+	// Specific project IDs this rule applies to. Used when allProjects is false. An empty array scopes the rule to no project.
+	Projects []string `json:"projects,omitzero"`
 }
 
 func (p PostFeatureV2RuleExperimentRef) MarshalJSON() ([]byte, error) {
@@ -650,6 +672,20 @@ func (p *PostFeatureV2RuleExperimentRef) GetEnvironments() []string {
 		return nil
 	}
 	return p.Environments
+}
+
+func (p *PostFeatureV2RuleExperimentRef) GetAllProjects() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AllProjects
+}
+
+func (p *PostFeatureV2RuleExperimentRef) GetProjects() []string {
+	if p == nil {
+		return nil
+	}
+	return p.Projects
 }
 
 // #region class-body-postfeaturev2ruleexperimentref
@@ -799,14 +835,20 @@ type PostFeatureV2RuleRollout struct {
 	// Key of a config to back this value. When set, `value` is a JSON override patch merged on top of the config; omit or null for a plain value.
 	Config optionalnullable.OptionalNullable[string] `json:"config,omitzero"`
 	// JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
-	Sparse        *bool    `json:"sparse,omitzero"`
-	Coverage      float64  `json:"coverage"`
-	HashAttribute string   `json:"hashAttribute"`
-	HashVersion   *float64 `json:"hashVersion,omitzero"`
+	Sparse        *bool   `json:"sparse,omitzero"`
+	Coverage      float64 `json:"coverage"`
+	HashAttribute string  `json:"hashAttribute"`
+	// Optional seed for the hash function; defaults to the rule id
+	Seed        *string  `json:"seed,omitzero"`
+	HashVersion *float64 `json:"hashVersion,omitzero"`
 	// When true the rule applies to all environments (default).
 	AllEnvironments *bool `json:"allEnvironments,omitzero"`
 	// Specific environment IDs this rule applies to. Required when allEnvironments is false.
 	Environments []string `json:"environments,omitzero"`
+	// When true (the default) the rule applies to every project the feature is delivered to. Set false and supply `projects` to scope the rule.
+	AllProjects *bool `json:"allProjects,omitzero"`
+	// Specific project IDs this rule applies to. Used when allProjects is false. An empty array scopes the rule to no project.
+	Projects []string `json:"projects,omitzero"`
 }
 
 func (p PostFeatureV2RuleRollout) MarshalJSON() ([]byte, error) {
@@ -908,6 +950,13 @@ func (p *PostFeatureV2RuleRollout) GetHashAttribute() string {
 	return p.HashAttribute
 }
 
+func (p *PostFeatureV2RuleRollout) GetSeed() *string {
+	if p == nil {
+		return nil
+	}
+	return p.Seed
+}
+
 func (p *PostFeatureV2RuleRollout) GetHashVersion() *float64 {
 	if p == nil {
 		return nil
@@ -927,6 +976,20 @@ func (p *PostFeatureV2RuleRollout) GetEnvironments() []string {
 		return nil
 	}
 	return p.Environments
+}
+
+func (p *PostFeatureV2RuleRollout) GetAllProjects() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AllProjects
+}
+
+func (p *PostFeatureV2RuleRollout) GetProjects() []string {
+	if p == nil {
+		return nil
+	}
+	return p.Projects
 }
 
 // #region class-body-postfeaturev2rulerollout
@@ -1081,6 +1144,10 @@ type PostFeatureV2RuleForce struct {
 	AllEnvironments *bool `json:"allEnvironments,omitzero"`
 	// Specific environment IDs this rule applies to. Required when allEnvironments is false.
 	Environments []string `json:"environments,omitzero"`
+	// When true (the default) the rule applies to every project the feature is delivered to. Set false and supply `projects` to scope the rule.
+	AllProjects *bool `json:"allProjects,omitzero"`
+	// Specific project IDs this rule applies to. Used when allProjects is false. An empty array scopes the rule to no project.
+	Projects []string `json:"projects,omitzero"`
 }
 
 func (p PostFeatureV2RuleForce) MarshalJSON() ([]byte, error) {
@@ -1180,6 +1247,20 @@ func (p *PostFeatureV2RuleForce) GetEnvironments() []string {
 		return nil
 	}
 	return p.Environments
+}
+
+func (p *PostFeatureV2RuleForce) GetAllProjects() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AllProjects
+}
+
+func (p *PostFeatureV2RuleForce) GetProjects() []string {
+	if p == nil {
+		return nil
+	}
+	return p.Projects
 }
 
 // #region class-body-postfeaturev2ruleforce
@@ -1336,6 +1417,10 @@ type PostFeatureV2RequestBody struct {
 	Owner *string `json:"owner,omitzero"`
 	// An associated project ID
 	Project *string `json:"project,omitzero"`
+	// Make this feature discoverable in — and served to — every project, beyond its primary `project`. Governance/approvals stay with `project`.
+	TargetingAllProjects *bool `json:"targetingAllProjects,omitzero"`
+	// Secondary project IDs this feature is targeted in and served to, beyond its primary `project`. Governance/approvals stay with `project`.
+	TargetingProjects []string `json:"targetingProjects,omitzero"`
 	// The data type of the feature payload. Boolean by default.
 	ValueType PostFeatureV2ValueType `json:"valueType"`
 	// Default value when feature is enabled. Type must match `valueType`. In Config mode (`baseConfig` set) the default must be exactly a config with no overrides: send `"{}"` to use `baseConfig`, or set `defaultValueConfig` to point at a descendant.
@@ -1355,6 +1440,12 @@ type PostFeatureV2RequestBody struct {
 	// Use JSON schema to validate the payload of a JSON-type feature value (enterprise only).
 	JSONSchema   *string           `json:"jsonSchema,omitzero"`
 	CustomFields map[string]string `json:"customFields,omitzero"`
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
+	// Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	SkipSchemaValidation *bool `json:"skipSchemaValidation,omitzero"`
+	// Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	SkipHooks *bool `json:"skipHooks,omitzero"`
 }
 
 func (p PostFeatureV2RequestBody) MarshalJSON() ([]byte, error) {
@@ -1401,6 +1492,20 @@ func (p *PostFeatureV2RequestBody) GetProject() *string {
 		return nil
 	}
 	return p.Project
+}
+
+func (p *PostFeatureV2RequestBody) GetTargetingAllProjects() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.TargetingAllProjects
+}
+
+func (p *PostFeatureV2RequestBody) GetTargetingProjects() []string {
+	if p == nil {
+		return nil
+	}
+	return p.TargetingProjects
 }
 
 func (p *PostFeatureV2RequestBody) GetValueType() PostFeatureV2ValueType {
@@ -1473,13 +1578,34 @@ func (p *PostFeatureV2RequestBody) GetCustomFields() map[string]string {
 	return p.CustomFields
 }
 
+func (p *PostFeatureV2RequestBody) GetIgnoreWarnings() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.IgnoreWarnings
+}
+
+func (p *PostFeatureV2RequestBody) GetSkipSchemaValidation() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.SkipSchemaValidation
+}
+
+func (p *PostFeatureV2RequestBody) GetSkipHooks() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.SkipHooks
+}
+
 // #region class-body-postfeaturev2requestbody
 // #endregion class-body-postfeaturev2requestbody
 
 type PostFeatureV2Request struct {
-	// Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the `bypassApprovalChecks` permission on all projects); ignored otherwise. Validation is enforced by default.
+	// Deprecated — pass `skipSchemaValidation` in the request body instead.
 	SkipSchemaValidation *bool `queryParam:"style=form,explode=true,name=skipSchemaValidation"`
-	// Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has `blockPublishOnSchemaError` disabled (warn mode).
+	// Deprecated — pass `ignoreWarnings` in the request body instead.
 	IgnoreWarnings *bool                    `queryParam:"style=form,explode=true,name=ignoreWarnings"`
 	Body           PostFeatureV2RequestBody `request:"mediaType=application/json"`
 }

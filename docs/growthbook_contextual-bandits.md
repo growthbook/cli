@@ -43,18 +43,21 @@ growthbook contextual-bandits [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
+* [growthbook contextual-bandits add-linked-feature](growthbook_contextual-bandits_add-linked-feature.md)	 - Link a feature to a Contextual Bandit
+* [growthbook contextual-bandits cancel](growthbook_contextual-bandits_cancel.md)	 - Cancel a running Contextual Bandit snapshot refresh
 * [growthbook contextual-bandits create](growthbook_contextual-bandits_create.md)	 - Create a single contextualBandit
-* [growthbook contextual-bandits delete-contextual-bandit-linked-feature](growthbook_contextual-bandits_delete-contextual-bandit-linked-feature.md)	 - Unlink a feature from a Contextual Bandit
+* [growthbook contextual-bandits delete-linked-feature](growthbook_contextual-bandits_delete-linked-feature.md)	 - Unlink a feature from a Contextual Bandit
 * [growthbook contextual-bandits get](growthbook_contextual-bandits_get.md)	 - Get a single contextualBandit
-* [growthbook contextual-bandits get-contextual-bandit-current-weights](growthbook_contextual-bandits_get-contextual-bandit-current-weights.md)	 - Get current Contextual Bandit leaf weights and latest event
-* [growthbook contextual-bandits get-contextual-bandit-event](growthbook_contextual-bandits_get-contextual-bandit-event.md)	 - Get a single Contextual Bandit weight-update event
-* [growthbook contextual-bandits get-contextual-bandit-linked-features](growthbook_contextual-bandits_get-contextual-bandit-linked-features.md)	 - Get features linked to a Contextual Bandit
-* [growthbook contextual-bandits get-contextual-bandit-results](growthbook_contextual-bandits_get-contextual-bandit-results.md)	 - Get latest Contextual Bandit results
-* [growthbook contextual-bandits get-contextual-bandit-snapshot](growthbook_contextual-bandits_get-contextual-bandit-snapshot.md)	 - Get a single Contextual Bandit snapshot
+* [growthbook contextual-bandits get-current-weights](growthbook_contextual-bandits_get-current-weights.md)	 - Get current Contextual Bandit leaf weights and latest event
+* [growthbook contextual-bandits get-event](growthbook_contextual-bandits_get-event.md)	 - Get a single Contextual Bandit weight-update event
+* [growthbook contextual-bandits get-results](growthbook_contextual-bandits_get-results.md)	 - Get latest Contextual Bandit results
+* [growthbook contextual-bandits get-snapshot](growthbook_contextual-bandits_get-snapshot.md)	 - Get a single Contextual Bandit snapshot
 * [growthbook contextual-bandits list](growthbook_contextual-bandits_list.md)	 - Get all contextualBandits
-* [growthbook contextual-bandits list-contextual-bandit-events](growthbook_contextual-bandits_list-contextual-bandit-events.md)	 - List Contextual Bandit weight-update events
-* [growthbook contextual-bandits list-contextual-bandit-snapshots](growthbook_contextual-bandits_list-contextual-bandit-snapshots.md)	 - List Contextual Bandit snapshots
+* [growthbook contextual-bandits list-events](growthbook_contextual-bandits_list-events.md)	 - List Contextual Bandit weight-update events
+* [growthbook contextual-bandits list-linked-features](growthbook_contextual-bandits_list-linked-features.md)	 - Get features linked to a Contextual Bandit
+* [growthbook contextual-bandits list-snapshots](growthbook_contextual-bandits_list-snapshots.md)	 - List Contextual Bandit snapshots
 * [growthbook contextual-bandits refresh](growthbook_contextual-bandits_refresh.md)	 - Trigger a Contextual Bandit snapshot refresh
 * [growthbook contextual-bandits start](growthbook_contextual-bandits_start.md)	 - Start a Contextual Bandit
 * [growthbook contextual-bandits stop](growthbook_contextual-bandits_stop.md)	 - Stop a Contextual Bandit
 * [growthbook contextual-bandits update](growthbook_contextual-bandits_update.md)	 - Update a single contextualBandit
+* [growthbook contextual-bandits update-linked-feature](growthbook_contextual-bandits_update-linked-feature.md)	 - Replace a Contextual Bandit's rule on a linked feature

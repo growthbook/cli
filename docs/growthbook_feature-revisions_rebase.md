@@ -24,7 +24,8 @@ growthbook feature-revisions rebase [flags]
       --expected-draft-date-updated draftDateUpdated   Optimistic-concurrency guard for the draft side: the draft's draftDateUpdated timestamp as returned by merge-status or rebase preview. If the draft has been modified since (e.g. by a co-author), the request fails with `409` instead of applying resolutions against changed draft content.
       --expected-live-version 409                      Optimistic-concurrency guard: the live version the resolutions were authored against (as returned by merge-status or rebase preview). If live has since moved, the request fails with 409 instead of applying resolutions to different conflicts.
   -h, --help                                           help for rebase
-  -i, --id string                                      [required]
+      --id string                                      [required]
+      --ignore-warnings                                Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
   -v, --version-param string                           [required]
 ```
 

@@ -3,15 +3,15 @@
 package configrevisions
 
 import (
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
 func InitConfigRevisionsRoot(parent *cobra.Command) error {
 	var ConfigRevisionsCmd = &cobra.Command{
 		Use:   "config-revisions",
-		Short: "Draft revisions for configs, including value and schema edits, schema import (JSON Schema / TypeScript / inferred), approvals, and lifecycle (publish, discard, revert)",
-		Long:  "Draft revisions for configs, including value and schema edits, schema import (JSON Schema / TypeScript / inferred), approvals, and lifecycle (publish, discard, revert). Publishing a schema change cascades the \"base wins\" normalization to descendant configs; a publish that removes or retypes fields descendants still use soft-blocks with a 422 unless `?ignoreWarnings=true`. Pass `version: \"new\"` on edit endpoints to auto-create a draft.",
+		Short: "**Beta** — these endpoints are new and may change in backwards-incompatible ways",
+		Long:  "**Beta** — these endpoints are new and may change in backwards-incompatible ways.\n\nDraft revisions for configs, including value and schema edits, schema import (JSON Schema / TypeScript / inferred), approvals, and lifecycle (publish, discard, revert). Publishing a schema change cascades the \"base wins\" normalization to descendant configs; a publish that removes or retypes fields descendants still use soft-blocks with a 422 unless the request body sets `ignoreWarnings: true`. Pass `version: \"new\"` on edit endpoints to auto-create a draft.",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if usage.UsageRequested(cmd) {
 				return usage.EmitSchema(cmd, cmd.OutOrStdout())
@@ -70,6 +70,10 @@ func InitConfigRevisionsRoot(parent *cobra.Command) error {
 	}
 
 	if err := initSubmitReviewCmd(ConfigRevisionsCmd); err != nil {
+		return err
+	}
+
+	if err := initUndoReviewCmd(ConfigRevisionsCmd); err != nil {
 		return err
 	}
 

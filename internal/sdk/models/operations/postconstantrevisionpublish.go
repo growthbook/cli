@@ -3,20 +3,47 @@
 package operations
 
 import (
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 type PostConstantRevisionPublishRequestBody struct {
-	// When the org enforces same-base merges and the constant changed since this revision was created, set to true to force-merge the stale revision instead of rebasing first. This only takes effect for callers with bypass-approval permission; otherwise it is ignored and the revision must be rebased.
-	MergeNow *bool `json:"mergeNow,omitzero"`
+	// Deprecated and ignored. Approval is bypassed automatically when the caller has Bypass draft approvals access for this resource or when the organization enables the REST API approval bypass. Otherwise, the revision must be approved before it can be published.
+	BypassApproval *bool `json:"bypassApproval,omitzero"`
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
+	// Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	SkipSchemaValidation *bool `json:"skipSchemaValidation,omitzero"`
+	// Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	SkipHooks *bool `json:"skipHooks,omitzero"`
 }
 
-func (p *PostConstantRevisionPublishRequestBody) GetMergeNow() *bool {
+func (p *PostConstantRevisionPublishRequestBody) GetBypassApproval() *bool {
 	if p == nil {
 		return nil
 	}
-	return p.MergeNow
+	return p.BypassApproval
+}
+
+func (p *PostConstantRevisionPublishRequestBody) GetIgnoreWarnings() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.IgnoreWarnings
+}
+
+func (p *PostConstantRevisionPublishRequestBody) GetSkipSchemaValidation() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.SkipSchemaValidation
+}
+
+func (p *PostConstantRevisionPublishRequestBody) GetSkipHooks() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.SkipHooks
 }
 
 type PostConstantRevisionPublishRequest struct {
@@ -49,6 +76,19 @@ func (p *PostConstantRevisionPublishRequest) GetBody() PostConstantRevisionPubli
 // PostConstantRevisionPublishResponseBody - Resource created
 type PostConstantRevisionPublishResponseBody struct {
 	Revision components.ConstantRevision `json:"revision"`
+	// Gates that would have blocked this publish but were bypassed by the caller's authority. Present only when at least one gate was bypassed.
+	BypassedGates []components.BypassedGates `json:"bypassedGates,omitzero"`
+}
+
+func (p PostConstantRevisionPublishResponseBody) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostConstantRevisionPublishResponseBody) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (p *PostConstantRevisionPublishResponseBody) GetRevision() components.ConstantRevision {
@@ -56,6 +96,13 @@ func (p *PostConstantRevisionPublishResponseBody) GetRevision() components.Const
 		return components.ConstantRevision{}
 	}
 	return p.Revision
+}
+
+func (p *PostConstantRevisionPublishResponseBody) GetBypassedGates() []components.BypassedGates {
+	if p == nil {
+		return nil
+	}
+	return p.BypassedGates
 }
 
 type PostConstantRevisionPublishResponse struct {

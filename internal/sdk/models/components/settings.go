@@ -5,8 +5,8 @@ package components
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 type NorthStar struct {
@@ -331,6 +331,47 @@ func (r *RequireReview) GetAutopublishOnApproval() *bool {
 	return r.AutopublishOnApproval
 }
 
+type SettingsMode string
+
+const (
+	SettingsModeStrict SettingsMode = "strict"
+	SettingsModeLoose  SettingsMode = "loose"
+)
+
+func (e SettingsMode) ToPointer() *SettingsMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SettingsMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "strict", "loose":
+			return true
+		}
+	}
+	return false
+}
+
+type TargetingReviewMode struct {
+	Projects []string     `json:"projects"`
+	Mode     SettingsMode `json:"mode"`
+}
+
+func (t *TargetingReviewMode) GetProjects() []string {
+	if t == nil {
+		return []string{}
+	}
+	return t.Projects
+}
+
+func (t *TargetingReviewMode) GetMode() SettingsMode {
+	if t == nil {
+		return SettingsMode("")
+	}
+	return t.Mode
+}
+
 type SettingsBanditScheduleUnit string
 
 const (
@@ -424,6 +465,7 @@ type Settings struct {
 	KillswitchConfirmation           bool                                       `json:"killswitchConfirmation"`
 	FeatureKillSwitchBehavior        *FeatureKillSwitchBehavior                 `json:"featureKillSwitchBehavior,omitzero"`
 	RequireReviews                   []RequireReview                            `json:"requireReviews"`
+	TargetingReviewMode              []TargetingReviewMode                      `json:"targetingReviewMode,omitzero"`
 	RestAPIBypassesReviews           *bool                                      `json:"restApiBypassesReviews,omitzero"`
 	RequireRebaseBeforePublish       *bool                                      `json:"requireRebaseBeforePublish,omitzero"`
 	RevertsBypassApproval            *bool                                      `json:"revertsBypassApproval,omitzero"`
@@ -441,6 +483,17 @@ type Settings struct {
 	MaxMetricSliceLevels             *float64                                   `json:"maxMetricSliceLevels,omitzero"`
 	TopValuesLookbackValue           *float64                                   `json:"topValuesLookbackValue,omitzero"`
 	TopValuesLookbackUnit            *TopValuesLookbackUnit                     `json:"topValuesLookbackUnit,omitzero"`
+}
+
+func (s Settings) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *Settings) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (s *Settings) GetConfidenceLevel() float64 {
@@ -616,6 +669,13 @@ func (s *Settings) GetRequireReviews() []RequireReview {
 		return []RequireReview{}
 	}
 	return s.RequireReviews
+}
+
+func (s *Settings) GetTargetingReviewMode() []TargetingReviewMode {
+	if s == nil {
+		return nil
+	}
+	return s.TargetingReviewMode
 }
 
 func (s *Settings) GetRestAPIBypassesReviews() *bool {

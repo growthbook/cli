@@ -21,6 +21,7 @@ growthbook fact-tables create [flags]
 ```
   -a, --aggregated-fact-table-settings string   Settings for maintaining shared daily aggregated tables (a subset of userIdTypes plus the daily update time and restate lookback window) used to speed up CUPED. Requires the data pipeline (pipeline-mode) feature.
       --body string                             Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -c, --columns datatype                        Optional array of column definitions to store for this fact table. Supplied columns are stored as-is. Omit datatype (or send "") on a column to have it auto-detected from the SQL.
       --datasource string                       The datasource id [required]
       --description string                      Description of the fact table
   -e, --event-name string                       The event name used in SQL template variables

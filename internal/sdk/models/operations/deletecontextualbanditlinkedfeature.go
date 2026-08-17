@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 type DeleteContextualBanditLinkedFeatureRequest struct {
@@ -12,6 +12,10 @@ type DeleteContextualBanditLinkedFeatureRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// The linked feature id
 	FeatureID string `pathParam:"style=simple,explode=false,name=featureId"`
+	// Publish the resulting revision immediately instead of leaving it as a draft.
+	AutoPublish any `queryParam:"style=form,explode=true,name=autoPublish"`
+	// Remove the rule from this existing draft revision instead of live. Required when the rule hasn't been published yet — omitting it targets the live revision, which has nothing to remove.
+	DraftVersion *int64 `queryParam:"style=form,explode=true,name=draftVersion"`
 }
 
 func (d *DeleteContextualBanditLinkedFeatureRequest) GetID() string {
@@ -28,8 +32,54 @@ func (d *DeleteContextualBanditLinkedFeatureRequest) GetFeatureID() string {
 	return d.FeatureID
 }
 
+func (d *DeleteContextualBanditLinkedFeatureRequest) GetAutoPublish() any {
+	if d == nil {
+		return nil
+	}
+	return d.AutoPublish
+}
+
+func (d *DeleteContextualBanditLinkedFeatureRequest) GetDraftVersion() *int64 {
+	if d == nil {
+		return nil
+	}
+	return d.DraftVersion
+}
+
 // DeleteContextualBanditLinkedFeatureResponseBody - Resource deleted
 type DeleteContextualBanditLinkedFeatureResponseBody struct {
+	FeatureID       string   `json:"featureId"`
+	RemovedRuleIds  []string `json:"removedRuleIds"`
+	RevisionVersion *float64 `json:"revisionVersion"`
+	Published       bool     `json:"published"`
+}
+
+func (d *DeleteContextualBanditLinkedFeatureResponseBody) GetFeatureID() string {
+	if d == nil {
+		return ""
+	}
+	return d.FeatureID
+}
+
+func (d *DeleteContextualBanditLinkedFeatureResponseBody) GetRemovedRuleIds() []string {
+	if d == nil {
+		return []string{}
+	}
+	return d.RemovedRuleIds
+}
+
+func (d *DeleteContextualBanditLinkedFeatureResponseBody) GetRevisionVersion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.RevisionVersion
+}
+
+func (d *DeleteContextualBanditLinkedFeatureResponseBody) GetPublished() bool {
+	if d == nil {
+		return false
+	}
+	return d.Published
 }
 
 type DeleteContextualBanditLinkedFeatureResponse struct {

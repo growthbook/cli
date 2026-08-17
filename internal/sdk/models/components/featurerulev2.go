@@ -6,8 +6,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 // ScheduleTypeSafeRollout - UI hint for which scheduling mode is active:
@@ -187,6 +187,10 @@ type FeatureRuleV2FeatureSafeRolloutRule struct {
 	RampScheduleID      *string                          `json:"rampScheduleId,omitzero"`
 	SavedGroupTargeting []SavedGroupTargetingSafeRollout `json:"savedGroupTargeting,omitzero"`
 	Prerequisites       []PrerequisiteSafeRollout        `json:"prerequisites,omitzero"`
+	// When true (the default) the rule applies to every project the feature is delivered to. When false the rule is limited to `projects`.
+	AllProjects *bool `json:"allProjects,omitzero"`
+	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
+	Projects []string `json:"projects,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_          string               `const:"safe-rollout" json:"type"`
 	ControlValue   string               `json:"controlValue"`
@@ -276,6 +280,20 @@ func (f *FeatureRuleV2FeatureSafeRolloutRule) GetPrerequisites() []PrerequisiteS
 		return nil
 	}
 	return f.Prerequisites
+}
+
+func (f *FeatureRuleV2FeatureSafeRolloutRule) GetAllProjects() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.AllProjects
+}
+
+func (f *FeatureRuleV2FeatureSafeRolloutRule) GetProjects() []string {
+	if f == nil {
+		return nil
+	}
+	return f.Projects
 }
 
 func (f *FeatureRuleV2FeatureSafeRolloutRule) GetType() string {
@@ -554,6 +572,10 @@ type FeatureRuleV2ContextualBanditRef struct {
 	RampScheduleID      *string                             `json:"rampScheduleId,omitzero"`
 	SavedGroupTargeting []FeatureRuleV2SavedGroupTargeting4 `json:"savedGroupTargeting,omitzero"`
 	Prerequisites       []FeatureRuleV2Prerequisite4        `json:"prerequisites,omitzero"`
+	// When true (the default) the rule applies to every project the feature is delivered to. When false the rule is limited to `projects`.
+	AllProjects *bool `json:"allProjects,omitzero"`
+	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
+	Projects []string `json:"projects,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_              string                    `const:"contextual-bandit-ref" json:"type"`
 	Variations         []FeatureRuleV2Variation2 `json:"variations"`
@@ -638,6 +660,20 @@ func (f *FeatureRuleV2ContextualBanditRef) GetPrerequisites() []FeatureRuleV2Pre
 		return nil
 	}
 	return f.Prerequisites
+}
+
+func (f *FeatureRuleV2ContextualBanditRef) GetAllProjects() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.AllProjects
+}
+
+func (f *FeatureRuleV2ContextualBanditRef) GetProjects() []string {
+	if f == nil {
+		return nil
+	}
+	return f.Projects
 }
 
 func (f *FeatureRuleV2ContextualBanditRef) GetType() string {
@@ -881,6 +917,10 @@ type FeatureRuleV2ExperimentRef struct {
 	RampScheduleID      *string                             `json:"rampScheduleId,omitzero"`
 	SavedGroupTargeting []FeatureRuleV2SavedGroupTargeting3 `json:"savedGroupTargeting,omitzero"`
 	Prerequisites       []FeatureRuleV2Prerequisite3        `json:"prerequisites,omitzero"`
+	// When true (the default) the rule applies to every project the feature is delivered to. When false the rule is limited to `projects`.
+	AllProjects *bool `json:"allProjects,omitzero"`
+	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
+	Projects []string `json:"projects,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_        string                    `const:"experiment-ref" json:"type"`
 	Variations   []FeatureRuleV2Variation1 `json:"variations"`
@@ -967,6 +1007,20 @@ func (f *FeatureRuleV2ExperimentRef) GetPrerequisites() []FeatureRuleV2Prerequis
 		return nil
 	}
 	return f.Prerequisites
+}
+
+func (f *FeatureRuleV2ExperimentRef) GetAllProjects() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.AllProjects
+}
+
+func (f *FeatureRuleV2ExperimentRef) GetProjects() []string {
+	if f == nil {
+		return nil
+	}
+	return f.Projects
 }
 
 func (f *FeatureRuleV2ExperimentRef) GetType() string {
@@ -1259,6 +1313,10 @@ type FeatureRuleV2FeatureExperimentRule struct {
 	RampScheduleID      *string                                      `json:"rampScheduleId,omitzero"`
 	SavedGroupTargeting []FeatureRuleV2SavedGroupTargetingExperiment `json:"savedGroupTargeting,omitzero"`
 	Prerequisites       []FeatureRuleV2PrerequisiteExperiment        `json:"prerequisites,omitzero"`
+	// When true (the default) the rule applies to every project the feature is delivered to. When false the rule is limited to `projects`.
+	AllProjects *bool `json:"allProjects,omitzero"`
+	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
+	Projects []string `json:"projects,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_                  string                  `const:"experiment" json:"type"`
 	TrackingKey            *string                 `json:"trackingKey,omitzero"`
@@ -1351,6 +1409,20 @@ func (f *FeatureRuleV2FeatureExperimentRule) GetPrerequisites() []FeatureRuleV2P
 		return nil
 	}
 	return f.Prerequisites
+}
+
+func (f *FeatureRuleV2FeatureExperimentRule) GetAllProjects() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.AllProjects
+}
+
+func (f *FeatureRuleV2FeatureExperimentRule) GetProjects() []string {
+	if f == nil {
+		return nil
+	}
+	return f.Projects
 }
 
 func (f *FeatureRuleV2FeatureExperimentRule) GetType() string {
@@ -1603,6 +1675,10 @@ type FeatureRuleV2Rollout struct {
 	RampScheduleID      *string                             `json:"rampScheduleId,omitzero"`
 	SavedGroupTargeting []FeatureRuleV2SavedGroupTargeting2 `json:"savedGroupTargeting,omitzero"`
 	Prerequisites       []FeatureRuleV2Prerequisite2        `json:"prerequisites,omitzero"`
+	// When true (the default) the rule applies to every project the feature is delivered to. When false the rule is limited to `projects`.
+	AllProjects *bool `json:"allProjects,omitzero"`
+	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
+	Projects []string `json:"projects,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_ string `const:"rollout" json:"type"`
 	Value string `json:"value"`
@@ -1696,6 +1772,20 @@ func (f *FeatureRuleV2Rollout) GetPrerequisites() []FeatureRuleV2Prerequisite2 {
 		return nil
 	}
 	return f.Prerequisites
+}
+
+func (f *FeatureRuleV2Rollout) GetAllProjects() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.AllProjects
+}
+
+func (f *FeatureRuleV2Rollout) GetProjects() []string {
+	if f == nil {
+		return nil
+	}
+	return f.Projects
 }
 
 func (f *FeatureRuleV2Rollout) GetType() string {
@@ -1934,6 +2024,10 @@ type FeatureRuleV2Force struct {
 	RampScheduleID      *string                             `json:"rampScheduleId,omitzero"`
 	SavedGroupTargeting []FeatureRuleV2SavedGroupTargeting1 `json:"savedGroupTargeting,omitzero"`
 	Prerequisites       []FeatureRuleV2Prerequisite1        `json:"prerequisites,omitzero"`
+	// When true (the default) the rule applies to every project the feature is delivered to. When false the rule is limited to `projects`.
+	AllProjects *bool `json:"allProjects,omitzero"`
+	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
+	Projects []string `json:"projects,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_ string `const:"force" json:"type"`
 	Value string `json:"value"`
@@ -2021,6 +2115,20 @@ func (f *FeatureRuleV2Force) GetPrerequisites() []FeatureRuleV2Prerequisite1 {
 		return nil
 	}
 	return f.Prerequisites
+}
+
+func (f *FeatureRuleV2Force) GetAllProjects() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.AllProjects
+}
+
+func (f *FeatureRuleV2Force) GetProjects() []string {
+	if f == nil {
+		return nil
+	}
+	return f.Projects
 }
 
 func (f *FeatureRuleV2Force) GetType() string {

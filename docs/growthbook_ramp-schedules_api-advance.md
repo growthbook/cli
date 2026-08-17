@@ -13,7 +13,7 @@ anchors recalculated) before the step moves.
 `holdConditions.requiresApproval` gate, this endpoint returns **409** by
 default. Either call `/actions/approve-step` first (recommended), or pass
 `force: true` to override the approval gate. `force: true` requires
-`canBypassApprovalChecks` permission and is logged in the audit trail.
+`FlagsBypassApprovals` permission and is logged in the audit trail.
 
 **Two common uses:**
 - **Post-interval monitoring hold** (`decision: "hold"`, interval elapsed): the
@@ -55,11 +55,11 @@ growthbook ramp-schedules api-advance [flags]
 ### Options
 
 ```
-      --body string                     Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -f, --force canBypassApprovalChecks   Bypass a pending approval gate on the current step. Requires admin-level (canBypassApprovalChecks) permission. When omitted or `false`, a 409 is returned if the step has an unsatisfied `holdConditions.requiresApproval` gate.
-  -h, --help                            help for api-advance
-  -i, --id string                       [required]
-  -r, --reason string                   Reason for advancing
+      --body string                  Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -f, --force FlagsBypassApprovals   Bypass a pending approval gate on the current step. Requires admin-level (FlagsBypassApprovals) permission. When omitted or `false`, a 409 is returned if the step has an unsatisfied `holdConditions.requiresApproval` gate.
+  -h, --help                         help for api-advance
+  -i, --id string                    [required]
+  -r, --reason string                Reason for advancing
 ```
 
 ### Options inherited from parent commands

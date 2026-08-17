@@ -5,8 +5,9 @@ package operations
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 type PostFactMetricMetricType string
@@ -18,6 +19,7 @@ const (
 	PostFactMetricMetricTypeQuantile           PostFactMetricMetricType = "quantile"
 	PostFactMetricMetricTypeRatio              PostFactMetricMetricType = "ratio"
 	PostFactMetricMetricTypeDailyParticipation PostFactMetricMetricType = "dailyParticipation"
+	PostFactMetricMetricTypeFunnel             PostFactMetricMetricType = "funnel"
 )
 
 func (e PostFactMetricMetricType) ToPointer() *PostFactMetricMetricType {
@@ -40,6 +42,8 @@ func (e *PostFactMetricMetricType) UnmarshalJSON(data []byte) error {
 	case "ratio":
 		fallthrough
 	case "dailyParticipation":
+		fallthrough
+	case "funnel":
 		*e = PostFactMetricMetricType(v)
 		return nil
 	default:
@@ -92,6 +96,8 @@ const (
 	PostFactMetricNumeratorOperatorLessThan         PostFactMetricNumeratorOperator = "<"
 	PostFactMetricNumeratorOperatorGreaterThanEqual PostFactMetricNumeratorOperator = ">="
 	PostFactMetricNumeratorOperatorLessThanEqual    PostFactMetricNumeratorOperator = "<="
+	PostFactMetricNumeratorOperatorBetween          PostFactMetricNumeratorOperator = "between"
+	PostFactMetricNumeratorOperatorNotBetween       PostFactMetricNumeratorOperator = "not_between"
 	PostFactMetricNumeratorOperatorIn               PostFactMetricNumeratorOperator = "in"
 	PostFactMetricNumeratorOperatorNotIn            PostFactMetricNumeratorOperator = "not_in"
 	PostFactMetricNumeratorOperatorIsNull           PostFactMetricNumeratorOperator = "is_null"
@@ -127,6 +133,10 @@ func (e *PostFactMetricNumeratorOperator) UnmarshalJSON(data []byte) error {
 		fallthrough
 	case "<=":
 		fallthrough
+	case "between":
+		fallthrough
+	case "not_between":
+		fallthrough
 	case "in":
 		fallthrough
 	case "not_in":
@@ -159,7 +169,7 @@ func (e *PostFactMetricNumeratorOperator) UnmarshalJSON(data []byte) error {
 
 type PostFactMetricNumeratorRowFilter struct {
 	Operator PostFactMetricNumeratorOperator `json:"operator"`
-	// Not required for is_null, not_null, is_true, is_false operators.
+	// Not required for is_null, not_null, is_true, is_false operators. The between and not_between operators take at most two values, a lower and an upper bound in that order; leave a bound as an empty string for an open-ended range.
 	Values []string `json:"values,omitzero"`
 	// Required for all operators except sql_expr and saved_filter.
 	Column *string `json:"column,omitzero"`
@@ -331,6 +341,8 @@ const (
 	PostFactMetricDenominatorOperatorLessThan         PostFactMetricDenominatorOperator = "<"
 	PostFactMetricDenominatorOperatorGreaterThanEqual PostFactMetricDenominatorOperator = ">="
 	PostFactMetricDenominatorOperatorLessThanEqual    PostFactMetricDenominatorOperator = "<="
+	PostFactMetricDenominatorOperatorBetween          PostFactMetricDenominatorOperator = "between"
+	PostFactMetricDenominatorOperatorNotBetween       PostFactMetricDenominatorOperator = "not_between"
 	PostFactMetricDenominatorOperatorIn               PostFactMetricDenominatorOperator = "in"
 	PostFactMetricDenominatorOperatorNotIn            PostFactMetricDenominatorOperator = "not_in"
 	PostFactMetricDenominatorOperatorIsNull           PostFactMetricDenominatorOperator = "is_null"
@@ -366,6 +378,10 @@ func (e *PostFactMetricDenominatorOperator) UnmarshalJSON(data []byte) error {
 		fallthrough
 	case "<=":
 		fallthrough
+	case "between":
+		fallthrough
+	case "not_between":
+		fallthrough
 	case "in":
 		fallthrough
 	case "not_in":
@@ -398,7 +414,7 @@ func (e *PostFactMetricDenominatorOperator) UnmarshalJSON(data []byte) error {
 
 type PostFactMetricDenominatorRowFilter struct {
 	Operator PostFactMetricDenominatorOperator `json:"operator"`
-	// Not required for is_null, not_null, is_true, is_false operators.
+	// Not required for is_null, not_null, is_true, is_false operators. The between and not_between operators take at most two values, a lower and an upper bound in that order; leave a bound as an empty string for an open-ended range.
 	Values []string `json:"values,omitzero"`
 	// Required for all operators except sql_expr and saved_filter.
 	Column *string `json:"column,omitzero"`
@@ -573,6 +589,291 @@ func (p *PostFactMetricQuantileSettings) GetQuantileEventCountColumn() *string {
 		return nil
 	}
 	return p.QuantileEventCountColumn
+}
+
+type PostFactMetricOperatorSequential string
+
+const (
+	PostFactMetricOperatorSequentialEqual            PostFactMetricOperatorSequential = "="
+	PostFactMetricOperatorSequentialNotEqual         PostFactMetricOperatorSequential = "!="
+	PostFactMetricOperatorSequentialGreaterThan      PostFactMetricOperatorSequential = ">"
+	PostFactMetricOperatorSequentialLessThan         PostFactMetricOperatorSequential = "<"
+	PostFactMetricOperatorSequentialGreaterThanEqual PostFactMetricOperatorSequential = ">="
+	PostFactMetricOperatorSequentialLessThanEqual    PostFactMetricOperatorSequential = "<="
+	PostFactMetricOperatorSequentialBetween          PostFactMetricOperatorSequential = "between"
+	PostFactMetricOperatorSequentialNotBetween       PostFactMetricOperatorSequential = "not_between"
+	PostFactMetricOperatorSequentialIn               PostFactMetricOperatorSequential = "in"
+	PostFactMetricOperatorSequentialNotIn            PostFactMetricOperatorSequential = "not_in"
+	PostFactMetricOperatorSequentialIsNull           PostFactMetricOperatorSequential = "is_null"
+	PostFactMetricOperatorSequentialNotNull          PostFactMetricOperatorSequential = "not_null"
+	PostFactMetricOperatorSequentialIsTrue           PostFactMetricOperatorSequential = "is_true"
+	PostFactMetricOperatorSequentialIsFalse          PostFactMetricOperatorSequential = "is_false"
+	PostFactMetricOperatorSequentialContains         PostFactMetricOperatorSequential = "contains"
+	PostFactMetricOperatorSequentialNotContains      PostFactMetricOperatorSequential = "not_contains"
+	PostFactMetricOperatorSequentialStartsWith       PostFactMetricOperatorSequential = "starts_with"
+	PostFactMetricOperatorSequentialEndsWith         PostFactMetricOperatorSequential = "ends_with"
+	PostFactMetricOperatorSequentialSQLExpr          PostFactMetricOperatorSequential = "sql_expr"
+	PostFactMetricOperatorSequentialSavedFilter      PostFactMetricOperatorSequential = "saved_filter"
+)
+
+func (e PostFactMetricOperatorSequential) ToPointer() *PostFactMetricOperatorSequential {
+	return &e
+}
+func (e *PostFactMetricOperatorSequential) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "=":
+		fallthrough
+	case "!=":
+		fallthrough
+	case ">":
+		fallthrough
+	case "<":
+		fallthrough
+	case ">=":
+		fallthrough
+	case "<=":
+		fallthrough
+	case "between":
+		fallthrough
+	case "not_between":
+		fallthrough
+	case "in":
+		fallthrough
+	case "not_in":
+		fallthrough
+	case "is_null":
+		fallthrough
+	case "not_null":
+		fallthrough
+	case "is_true":
+		fallthrough
+	case "is_false":
+		fallthrough
+	case "contains":
+		fallthrough
+	case "not_contains":
+		fallthrough
+	case "starts_with":
+		fallthrough
+	case "ends_with":
+		fallthrough
+	case "sql_expr":
+		fallthrough
+	case "saved_filter":
+		*e = PostFactMetricOperatorSequential(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PostFactMetricOperatorSequential: %v", v)
+	}
+}
+
+type PostFactMetricRowFilterSequential struct {
+	Operator PostFactMetricOperatorSequential `json:"operator"`
+	// Not required for is_null, not_null, is_true, is_false operators. The between and not_between operators take at most two values, a lower and an upper bound in that order; leave a bound as an empty string for an open-ended range.
+	Values []string `json:"values,omitzero"`
+	// Required for all operators except sql_expr and saved_filter.
+	Column *string `json:"column,omitzero"`
+}
+
+func (p PostFactMetricRowFilterSequential) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostFactMetricRowFilterSequential) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PostFactMetricRowFilterSequential) GetOperator() PostFactMetricOperatorSequential {
+	if p == nil {
+		return PostFactMetricOperatorSequential("")
+	}
+	return p.Operator
+}
+
+func (p *PostFactMetricRowFilterSequential) GetValues() []string {
+	if p == nil {
+		return nil
+	}
+	return p.Values
+}
+
+func (p *PostFactMetricRowFilterSequential) GetColumn() *string {
+	if p == nil {
+		return nil
+	}
+	return p.Column
+}
+
+type PostFactMetricUnit string
+
+const (
+	PostFactMetricUnitWeeks   PostFactMetricUnit = "weeks"
+	PostFactMetricUnitDays    PostFactMetricUnit = "days"
+	PostFactMetricUnitHours   PostFactMetricUnit = "hours"
+	PostFactMetricUnitMinutes PostFactMetricUnit = "minutes"
+)
+
+func (e PostFactMetricUnit) ToPointer() *PostFactMetricUnit {
+	return &e
+}
+func (e *PostFactMetricUnit) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "weeks":
+		fallthrough
+	case "days":
+		fallthrough
+	case "hours":
+		fallthrough
+	case "minutes":
+		*e = PostFactMetricUnit(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PostFactMetricUnit: %v", v)
+	}
+}
+
+// PostFactMetricConversionWindow - Bounds how long after the nearest prior required step (or exposure, for the first step / after only-optional priors of an experiment funnel metric) this step's event can occur.
+type PostFactMetricConversionWindow struct {
+	Unit  PostFactMetricUnit `json:"unit"`
+	Value float64            `json:"value"`
+}
+
+func (p *PostFactMetricConversionWindow) GetUnit() PostFactMetricUnit {
+	if p == nil {
+		return PostFactMetricUnit("")
+	}
+	return p.Unit
+}
+
+func (p *PostFactMetricConversionWindow) GetValue() float64 {
+	if p == nil {
+		return 0.0
+	}
+	return p.Value
+}
+
+type PostFactMetricStep struct {
+	// Display name for the funnel step
+	Name string `json:"name"`
+	// The fact table this step draws events from
+	FactTableID string `json:"factTableId"`
+	// Filters that decide whether an event row counts as this step
+	RowFilters []PostFactMetricRowFilterSequential `json:"rowFilters"`
+	// When true, this step still counts for its own conversion but does not anchor later steps. Later steps window off the nearest prior required step (or exposure, for experiment funnel metrics, when every prior step is optional).
+	Optional         bool                                                              `json:"optional"`
+	ConversionWindow optionalnullable.OptionalNullable[PostFactMetricConversionWindow] `json:"conversionWindow,omitzero"`
+}
+
+func (p PostFactMetricStep) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostFactMetricStep) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PostFactMetricStep) GetName() string {
+	if p == nil {
+		return ""
+	}
+	return p.Name
+}
+
+func (p *PostFactMetricStep) GetFactTableID() string {
+	if p == nil {
+		return ""
+	}
+	return p.FactTableID
+}
+
+func (p *PostFactMetricStep) GetRowFilters() []PostFactMetricRowFilterSequential {
+	if p == nil {
+		return []PostFactMetricRowFilterSequential{}
+	}
+	return p.RowFilters
+}
+
+func (p *PostFactMetricStep) GetOptional() bool {
+	if p == nil {
+		return false
+	}
+	return p.Optional
+}
+
+func (p *PostFactMetricStep) GetConversionWindow() optionalnullable.OptionalNullable[PostFactMetricConversionWindow] {
+	if p == nil {
+		return nil
+	}
+	return p.ConversionWindow
+}
+
+// PostFactMetricOrdering - Step ordering mode. Only 'sequential' is supported in v1.
+type PostFactMetricOrdering string
+
+const (
+	PostFactMetricOrderingSequential PostFactMetricOrdering = "sequential"
+)
+
+func (e PostFactMetricOrdering) ToPointer() *PostFactMetricOrdering {
+	return &e
+}
+func (e *PostFactMetricOrdering) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "sequential":
+		*e = PostFactMetricOrdering(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PostFactMetricOrdering: %v", v)
+	}
+}
+
+// PostFactMetricFunnelSettings - Funnel metric settings (required when metricType is "funnel")
+type PostFactMetricFunnelSettings struct {
+	// Ordered list of funnel steps. Minimum 2 steps required.
+	Steps []PostFactMetricStep `json:"steps"`
+	// Step ordering mode. Only 'sequential' is supported in v1.
+	Ordering *PostFactMetricOrdering `json:"ordering,omitzero"`
+	// Out-of-order tolerance between adjacent steps in seconds. Defaults to 0.
+	ConcurrencyWindowSeconds *int64 `json:"concurrencyWindowSeconds,omitzero"`
+}
+
+func (p *PostFactMetricFunnelSettings) GetSteps() []PostFactMetricStep {
+	if p == nil {
+		return []PostFactMetricStep{}
+	}
+	return p.Steps
+}
+
+func (p *PostFactMetricFunnelSettings) GetOrdering() *PostFactMetricOrdering {
+	if p == nil {
+		return nil
+	}
+	return p.Ordering
+}
+
+func (p *PostFactMetricFunnelSettings) GetConcurrencyWindowSeconds() *int64 {
+	if p == nil {
+		return nil
+	}
+	return p.ConcurrencyWindowSeconds
 }
 
 type PostFactMetricCappingSettingsType string
@@ -892,17 +1193,19 @@ type PostFactMetricRequest struct {
 	Name        string  `json:"name"`
 	Description *string `json:"description,omitzero"`
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-	Owner      *string                  `json:"owner,omitzero"`
-	Projects   []string                 `json:"projects,omitzero"`
-	Tags       []string                 `json:"tags,omitzero"`
-	MetricType PostFactMetricMetricType `json:"metricType"`
-	Numerator  PostFactMetricNumerator  `json:"numerator"`
+	Owner      *string                                                    `json:"owner,omitzero"`
+	Projects   []string                                                   `json:"projects,omitzero"`
+	Tags       []string                                                   `json:"tags,omitzero"`
+	MetricType PostFactMetricMetricType                                   `json:"metricType"`
+	Numerator  optionalnullable.OptionalNullable[PostFactMetricNumerator] `json:"numerator,omitzero"`
 	// Only when metricType is 'ratio'
 	Denominator *PostFactMetricDenominator `json:"denominator,omitzero"`
 	// Set to true for things like Bounce Rate, where you want the metric to decrease
 	Inverse *bool `json:"inverse,omitzero"`
 	// Controls the settings for quantile metrics (mandatory if metricType is "quantile")
 	QuantileSettings *PostFactMetricQuantileSettings `json:"quantileSettings,omitzero"`
+	// Funnel metric settings (required when metricType is "funnel")
+	FunnelSettings *PostFactMetricFunnelSettings `json:"funnelSettings,omitzero"`
 	// Controls how outliers are handled
 	CappingSettings *PostFactMetricCappingSettings `json:"cappingSettings,omitzero"`
 	// Controls the conversion window for the metric
@@ -987,9 +1290,9 @@ func (p *PostFactMetricRequest) GetMetricType() PostFactMetricMetricType {
 	return p.MetricType
 }
 
-func (p *PostFactMetricRequest) GetNumerator() PostFactMetricNumerator {
+func (p *PostFactMetricRequest) GetNumerator() optionalnullable.OptionalNullable[PostFactMetricNumerator] {
 	if p == nil {
-		return PostFactMetricNumerator{}
+		return nil
 	}
 	return p.Numerator
 }
@@ -1013,6 +1316,13 @@ func (p *PostFactMetricRequest) GetQuantileSettings() *PostFactMetricQuantileSet
 		return nil
 	}
 	return p.QuantileSettings
+}
+
+func (p *PostFactMetricRequest) GetFunnelSettings() *PostFactMetricFunnelSettings {
+	if p == nil {
+		return nil
+	}
+	return p.FunnelSettings
 }
 
 func (p *PostFactMetricRequest) GetCappingSettings() *PostFactMetricCappingSettings {

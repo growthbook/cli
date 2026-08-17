@@ -4,13 +4,13 @@ package experiments
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/internal/client"
-	"github.com/growthbook/cli/internal/flagutil"
-	"github.com/growthbook/cli/internal/interactive"
-	"github.com/growthbook/cli/internal/output"
-	"github.com/growthbook/cli/internal/sdk"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/client"
+	"github.com/growthbook/cli/v2/internal/flagutil"
+	"github.com/growthbook/cli/v2/internal/interactive"
+	"github.com/growthbook/cli/v2/internal/output"
+	"github.com/growthbook/cli/v2/internal/sdk"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -19,9 +19,19 @@ var listExperimentsCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "offset", FieldPath: "Offset", Kind: flagutil.FlagKindInt64, Optional: true, HasDefault: true, Description: "How many items to skip (use in conjunction with limit for pagination)"},
 	{FlagName: "project-id", Shorthand: "p", FieldPath: "ProjectID", Kind: flagutil.FlagKindString, Optional: true, Description: "Filter by project id"},
 	{FlagName: "datasource-id", FieldPath: "DatasourceID", Kind: flagutil.FlagKindString, Optional: true, Description: "Filter by Data Source"},
-	{FlagName: "tracking-key", Shorthand: "t", FieldPath: "TrackingKey", Kind: flagutil.FlagKindString, Optional: true, Description: "Filter by experiment tracking key"},
+	{FlagName: "tracking-key", FieldPath: "TrackingKey", Kind: flagutil.FlagKindString, Optional: true, Description: "Filter by experiment tracking key"},
 	{FlagName: "experiment-id", Shorthand: "e", FieldPath: "ExperimentID", Kind: flagutil.FlagKindString, Optional: true, Description: "Filter the returned list by the experiment tracking key (not the internal experiment ID). Note, this was deprecated to help reduce confusion, consider using `trackingKey` instead, which is functionally identical. You cannot use both params at the same time."},
-	{FlagName: "status", Shorthand: "s", FieldPath: "Status", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"draft", "running", "stopped"}, Description: "options: draft, running, stopped"},
+	{FlagName: "status", FieldPath: "Status", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"draft", "running", "stopped"}, Description: "options: draft, running, stopped"},
+	{FlagName: "q", FieldPath: "Q", Kind: flagutil.FlagKindString, Optional: true, Description: "Raw experiment search/filter string (same syntax as the app's experiment list filters, e.g. `status:running tag:checkout`). Negation (`!`) and operators (`~`, `^`, `>`, `<`, `=`) are not supported and return a 400"},
+	{FlagName: "owner", FieldPath: "Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "Filter by comma-separated owner ids, names, or emails"},
+	{FlagName: "result", Shorthand: "r", FieldPath: "Result", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Filter by comma-separated results (won, lost, inconclusive, dnf). Matches the experiment's recorded result — set when an experiment is stopped and retained if it's later restarted, so running experiments can match too"},
+	{FlagName: "tag", FieldPath: "Tag", Kind: flagutil.FlagKindString, Optional: true, Description: "Filter by comma-separated tags"},
+	{FlagName: "implementation-type", Shorthand: "i", FieldPath: "ImplementationType", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Filter by comma-separated implementation types (feature, visualChange, redirect) — the kinds of changes linked to the experiment. To filter standard experiments vs bandits, use `bandits` instead"},
+	{FlagName: "metric-id", Shorthand: "m", FieldPath: "MetricID", Kind: flagutil.FlagKindString, Optional: true, Description: "Filter by comma-separated metric ids. Matches experiments that use a metric as a goal, secondary, or guardrail metric"},
+	{FlagName: "bandits", Shorthand: "b", FieldPath: "Bandits", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"true", "false"}, Description: "When true, return only multi-armed bandits; when false, exclude them (options: true, false)"},
+	{FlagName: "archived", FieldPath: "Archived", Kind: flagutil.FlagKindBool, Optional: true, Description: "Filter by archived status. Set to `true` to return only archived experiments, `false` to exclude them. If omitted, both archived and non-archived experiments are returned."},
+	{FlagName: "sort-by", FieldPath: "SortBy", Kind: flagutil.FlagKindEnum, Optional: true, HasDefault: true, DefaultStr: "dateCreated", EnumValues: []string{"dateCreated", "dateUpdated", "name"}, Description: "Field to sort the results by (options: dateCreated, dateUpdated, name)"},
+	{FlagName: "sort-order", FieldPath: "SortOrder", Kind: flagutil.FlagKindEnum, Optional: true, HasDefault: true, DefaultStr: "asc", EnumValues: []string{"asc", "desc"}, Description: "Sort direction (used with `sortBy`) (options: asc, desc)"},
 }
 
 // initListExperimentsCmd initializes the list-experiments command.

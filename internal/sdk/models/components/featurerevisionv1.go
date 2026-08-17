@@ -6,9 +6,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
-	"github.com/growthbook/cli/internal/sdk/types"
+	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/types"
 	"time"
 )
 
@@ -2281,6 +2281,8 @@ func (u FeatureRevisionV1RampActionUnion) MarshalJSON() ([]byte, error) {
 }
 
 type FeatureRevisionV1 struct {
+	// Stable revision id. Newer revisions carry opaque ids; older ones a derived `frev_<version>_<featureId>` form. Both work wherever revision ids are accepted.
+	ID string `json:"id"`
 	// The feature this revision belongs to
 	FeatureID   string    `json:"featureId"`
 	BaseVersion int64     `json:"baseVersion"`
@@ -2315,6 +2317,13 @@ func (f *FeatureRevisionV1) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (f *FeatureRevisionV1) GetID() string {
+	if f == nil {
+		return ""
+	}
+	return f.ID
 }
 
 func (f *FeatureRevisionV1) GetFeatureID() string {

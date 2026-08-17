@@ -25,13 +25,14 @@ growthbook fact-metrics update [flags]
       --denominator string                           Only when metricType is 'ratio'
       --description string                           string value
       --display-as-percentage                        If true and the metric is a ratio or dailyParticipation metric, variation means will be displayed as a percentage. Defaults to true for dailyParticipation metrics and false for ratio metrics.
+  -f, --funnel-settings string                       Funnel metric settings (required when metricType is "funnel")
   -h, --help                                         help for update
       --id string                                    The id of the requested resource [required]
       --inverse                                      Set to true for things like Bounce Rate, where you want the metric to decrease
       --managed-by string                            Set this to "api" to disable editing in the GrowthBook UI (options: , api, admin)
       --max-percent-change float                     Maximum percent change to consider uplift significant, as a proportion (e.g. put 0.5 for 50%)
       --metric-auto-slices stringArray               Array of slice column names that will be automatically included in metric analysis. This is an enterprise feature.
-      --metric-type string                           options: proportion, retention, mean, quantile, ratio, dailyParticipation
+      --metric-type string                           options: proportion, retention, mean, quantile, ratio, dailyParticipation, funnel
       --min-percent-change float                     Minimum percent change to consider uplift significant, as a proportion (e.g. put 0.005 for 0.5%)
       --min-sample-size float                        number value
       --name string                                  string value

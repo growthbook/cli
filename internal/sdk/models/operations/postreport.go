@@ -6,8 +6,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"time"
 )
 
@@ -477,6 +477,8 @@ type PostReportRequest struct {
 	Title *string `json:"title,omitzero"`
 	// Report description
 	Description *string `json:"description,omitzero"`
+	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the user associated with the request's Personal Access Token (PAT), if one is being used.
+	Owner *string `json:"owner,omitzero"`
 	// Stats engine override
 	StatsEngine *PostReportStatsEngine `json:"statsEngine,omitzero"`
 	// Goal metric IDs (defaults to experiment's goal metrics)
@@ -549,6 +551,13 @@ func (p *PostReportRequest) GetDescription() *string {
 		return nil
 	}
 	return p.Description
+}
+
+func (p *PostReportRequest) GetOwner() *string {
+	if p == nil {
+		return nil
+	}
+	return p.Owner
 }
 
 func (p *PostReportRequest) GetStatsEngine() *PostReportStatsEngine {

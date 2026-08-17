@@ -6,9 +6,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"time"
 )
 
@@ -196,6 +196,10 @@ type UpdateFeatureV2RuleSafeRollout struct {
 	AllEnvironments *bool `json:"allEnvironments,omitzero"`
 	// Specific environment IDs this rule applies to. Required when allEnvironments is false.
 	Environments []string `json:"environments,omitzero"`
+	// When true (the default) the rule applies to every project the feature is delivered to. Set false and supply `projects` to scope the rule.
+	AllProjects *bool `json:"allProjects,omitzero"`
+	// Specific project IDs this rule applies to. Used when allProjects is false. An empty array scopes the rule to no project.
+	Projects []string `json:"projects,omitzero"`
 }
 
 func (u UpdateFeatureV2RuleSafeRollout) MarshalJSON() ([]byte, error) {
@@ -323,6 +327,20 @@ func (u *UpdateFeatureV2RuleSafeRollout) GetEnvironments() []string {
 		return nil
 	}
 	return u.Environments
+}
+
+func (u *UpdateFeatureV2RuleSafeRollout) GetAllProjects() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.AllProjects
+}
+
+func (u *UpdateFeatureV2RuleSafeRollout) GetProjects() []string {
+	if u == nil {
+		return nil
+	}
+	return u.Projects
 }
 
 // #region class-body-updatefeaturev2rulesaferollout
@@ -518,6 +536,10 @@ type UpdateFeatureV2RuleExperimentRef struct {
 	AllEnvironments *bool `json:"allEnvironments,omitzero"`
 	// Specific environment IDs this rule applies to. Required when allEnvironments is false.
 	Environments []string `json:"environments,omitzero"`
+	// When true (the default) the rule applies to every project the feature is delivered to. Set false and supply `projects` to scope the rule.
+	AllProjects *bool `json:"allProjects,omitzero"`
+	// Specific project IDs this rule applies to. Used when allProjects is false. An empty array scopes the rule to no project.
+	Projects []string `json:"projects,omitzero"`
 }
 
 func (u UpdateFeatureV2RuleExperimentRef) MarshalJSON() ([]byte, error) {
@@ -617,6 +639,20 @@ func (u *UpdateFeatureV2RuleExperimentRef) GetEnvironments() []string {
 		return nil
 	}
 	return u.Environments
+}
+
+func (u *UpdateFeatureV2RuleExperimentRef) GetAllProjects() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.AllProjects
+}
+
+func (u *UpdateFeatureV2RuleExperimentRef) GetProjects() []string {
+	if u == nil {
+		return nil
+	}
+	return u.Projects
 }
 
 // #region class-body-updatefeaturev2ruleexperimentref
@@ -766,14 +802,20 @@ type UpdateFeatureV2RuleRollout struct {
 	// Key of a config to back this value. When set, `value` is a JSON override patch merged on top of the config; omit or null for a plain value.
 	Config optionalnullable.OptionalNullable[string] `json:"config,omitzero"`
 	// JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
-	Sparse        *bool    `json:"sparse,omitzero"`
-	Coverage      float64  `json:"coverage"`
-	HashAttribute string   `json:"hashAttribute"`
-	HashVersion   *float64 `json:"hashVersion,omitzero"`
+	Sparse        *bool   `json:"sparse,omitzero"`
+	Coverage      float64 `json:"coverage"`
+	HashAttribute string  `json:"hashAttribute"`
+	// Optional seed for the hash function; defaults to the rule id
+	Seed        *string  `json:"seed,omitzero"`
+	HashVersion *float64 `json:"hashVersion,omitzero"`
 	// When true the rule applies to all environments (default).
 	AllEnvironments *bool `json:"allEnvironments,omitzero"`
 	// Specific environment IDs this rule applies to. Required when allEnvironments is false.
 	Environments []string `json:"environments,omitzero"`
+	// When true (the default) the rule applies to every project the feature is delivered to. Set false and supply `projects` to scope the rule.
+	AllProjects *bool `json:"allProjects,omitzero"`
+	// Specific project IDs this rule applies to. Used when allProjects is false. An empty array scopes the rule to no project.
+	Projects []string `json:"projects,omitzero"`
 }
 
 func (u UpdateFeatureV2RuleRollout) MarshalJSON() ([]byte, error) {
@@ -875,6 +917,13 @@ func (u *UpdateFeatureV2RuleRollout) GetHashAttribute() string {
 	return u.HashAttribute
 }
 
+func (u *UpdateFeatureV2RuleRollout) GetSeed() *string {
+	if u == nil {
+		return nil
+	}
+	return u.Seed
+}
+
 func (u *UpdateFeatureV2RuleRollout) GetHashVersion() *float64 {
 	if u == nil {
 		return nil
@@ -894,6 +943,20 @@ func (u *UpdateFeatureV2RuleRollout) GetEnvironments() []string {
 		return nil
 	}
 	return u.Environments
+}
+
+func (u *UpdateFeatureV2RuleRollout) GetAllProjects() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.AllProjects
+}
+
+func (u *UpdateFeatureV2RuleRollout) GetProjects() []string {
+	if u == nil {
+		return nil
+	}
+	return u.Projects
 }
 
 // #region class-body-updatefeaturev2rulerollout
@@ -1048,6 +1111,10 @@ type UpdateFeatureV2RuleForce struct {
 	AllEnvironments *bool `json:"allEnvironments,omitzero"`
 	// Specific environment IDs this rule applies to. Required when allEnvironments is false.
 	Environments []string `json:"environments,omitzero"`
+	// When true (the default) the rule applies to every project the feature is delivered to. Set false and supply `projects` to scope the rule.
+	AllProjects *bool `json:"allProjects,omitzero"`
+	// Specific project IDs this rule applies to. Used when allProjects is false. An empty array scopes the rule to no project.
+	Projects []string `json:"projects,omitzero"`
 }
 
 func (u UpdateFeatureV2RuleForce) MarshalJSON() ([]byte, error) {
@@ -1147,6 +1214,20 @@ func (u *UpdateFeatureV2RuleForce) GetEnvironments() []string {
 		return nil
 	}
 	return u.Environments
+}
+
+func (u *UpdateFeatureV2RuleForce) GetAllProjects() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.AllProjects
+}
+
+func (u *UpdateFeatureV2RuleForce) GetProjects() []string {
+	if u == nil {
+		return nil
+	}
+	return u.Projects
 }
 
 // #region class-body-updatefeaturev2ruleforce
@@ -1323,6 +1404,10 @@ type UpdateFeatureV2RequestBody struct {
 	Archived    *bool   `json:"archived,omitzero"`
 	// An associated project ID
 	Project *string `json:"project,omitzero"`
+	// Make this feature discoverable in — and served to — every project, beyond its primary `project`. Governance/approvals stay with `project`.
+	TargetingAllProjects *bool `json:"targetingAllProjects,omitzero"`
+	// Secondary project IDs this feature is targeted in and served to, beyond its primary `project`. Governance/approvals stay with `project`.
+	TargetingProjects []string `json:"targetingProjects,omitzero"`
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
 	Owner        *string `json:"owner,omitzero"`
 	DefaultValue *string `json:"defaultValue,omitzero"`
@@ -1344,6 +1429,12 @@ type UpdateFeatureV2RequestBody struct {
 	// Holdout to assign this feature to. Pass `null` to remove the feature from its current holdout. Omit the field entirely to leave the holdout unchanged.
 	//
 	Holdout optionalnullable.OptionalNullable[UpdateFeatureV2Holdout] `json:"holdout,omitzero"`
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
+	// Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	SkipSchemaValidation *bool `json:"skipSchemaValidation,omitzero"`
+	// Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	SkipHooks *bool `json:"skipHooks,omitzero"`
 }
 
 func (u UpdateFeatureV2RequestBody) MarshalJSON() ([]byte, error) {
@@ -1376,6 +1467,20 @@ func (u *UpdateFeatureV2RequestBody) GetProject() *string {
 		return nil
 	}
 	return u.Project
+}
+
+func (u *UpdateFeatureV2RequestBody) GetTargetingAllProjects() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.TargetingAllProjects
+}
+
+func (u *UpdateFeatureV2RequestBody) GetTargetingProjects() []string {
+	if u == nil {
+		return nil
+	}
+	return u.TargetingProjects
 }
 
 func (u *UpdateFeatureV2RequestBody) GetOwner() *string {
@@ -1455,15 +1560,36 @@ func (u *UpdateFeatureV2RequestBody) GetHoldout() optionalnullable.OptionalNulla
 	return u.Holdout
 }
 
+func (u *UpdateFeatureV2RequestBody) GetIgnoreWarnings() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.IgnoreWarnings
+}
+
+func (u *UpdateFeatureV2RequestBody) GetSkipSchemaValidation() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.SkipSchemaValidation
+}
+
+func (u *UpdateFeatureV2RequestBody) GetSkipHooks() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.SkipHooks
+}
+
 // #region class-body-updatefeaturev2requestbody
 // #endregion class-body-updatefeaturev2requestbody
 
 type UpdateFeatureV2Request struct {
 	// The id of the requested resource
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the `bypassApprovalChecks` permission on all projects); ignored otherwise. Validation is enforced by default.
+	// Deprecated — pass `skipSchemaValidation` in the request body instead.
 	SkipSchemaValidation *bool `queryParam:"style=form,explode=true,name=skipSchemaValidation"`
-	// Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has `blockPublishOnSchemaError` disabled (warn mode).
+	// Deprecated — pass `ignoreWarnings` in the request body instead.
 	IgnoreWarnings *bool                      `queryParam:"style=form,explode=true,name=ignoreWarnings"`
 	Body           UpdateFeatureV2RequestBody `request:"mediaType=application/json"`
 }
@@ -1502,6 +1628,19 @@ func (u *UpdateFeatureV2Request) GetBody() UpdateFeatureV2RequestBody {
 // UpdateFeatureV2ResponseBody - Resource created
 type UpdateFeatureV2ResponseBody struct {
 	Feature components.FeatureV2 `json:"feature"`
+	// Gates that would have blocked this publish but were bypassed by the caller's authority. Present only when at least one gate was bypassed.
+	BypassedGates []components.BypassedGates `json:"bypassedGates,omitzero"`
+}
+
+func (u UpdateFeatureV2ResponseBody) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdateFeatureV2ResponseBody) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (u *UpdateFeatureV2ResponseBody) GetFeature() components.FeatureV2 {
@@ -1509,6 +1648,13 @@ func (u *UpdateFeatureV2ResponseBody) GetFeature() components.FeatureV2 {
 		return components.FeatureV2{}
 	}
 	return u.Feature
+}
+
+func (u *UpdateFeatureV2ResponseBody) GetBypassedGates() []components.BypassedGates {
+	if u == nil {
+		return nil
+	}
+	return u.BypassedGates
 }
 
 // #region class-body-updatefeaturev2responsebody

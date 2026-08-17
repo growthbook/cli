@@ -30,9 +30,9 @@ builds:
       # Update/compat advisory build metadata (internal/customcfg). Version is
       # required for the semver check; SpecDate (the spec's commit date, computed
       # in CI) is the orderable compatibility signal.
-      - -X github.com/growthbook/cli/internal/customcfg.Version={{.Version}}
-      - -X github.com/growthbook/cli/internal/customcfg.Commit={{.ShortCommit}}
-      - -X github.com/growthbook/cli/internal/customcfg.SpecDate={{.Env.GB_SPEC_DATE}}
+      - -X github.com/growthbook/cli/v2/internal/customcfg.Version={{.Version}}
+      - -X github.com/growthbook/cli/v2/internal/customcfg.Commit={{.ShortCommit}}
+      - -X github.com/growthbook/cli/v2/internal/customcfg.SpecDate={{.Env.GB_SPEC_DATE}}
 
 archives:
   - id: growthbook

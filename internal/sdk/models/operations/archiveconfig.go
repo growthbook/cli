@@ -3,15 +3,46 @@
 package operations
 
 import (
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
+
+type ArchiveConfigRequestBody struct {
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
+	// Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	SkipSchemaValidation *bool `json:"skipSchemaValidation,omitzero"`
+	// Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	SkipHooks *bool `json:"skipHooks,omitzero"`
+}
+
+func (a *ArchiveConfigRequestBody) GetIgnoreWarnings() *bool {
+	if a == nil {
+		return nil
+	}
+	return a.IgnoreWarnings
+}
+
+func (a *ArchiveConfigRequestBody) GetSkipSchemaValidation() *bool {
+	if a == nil {
+		return nil
+	}
+	return a.SkipSchemaValidation
+}
+
+func (a *ArchiveConfigRequestBody) GetSkipHooks() *bool {
+	if a == nil {
+		return nil
+	}
+	return a.SkipHooks
+}
 
 type ArchiveConfigRequest struct {
 	// The key of the config
 	Key string `pathParam:"style=simple,explode=false,name=key"`
-	// Proceed despite the soft warning raised when archiving a config that is actively serving a value — archiving reverts anything resolving it (features, or the environments an override applies to) back to the base. Not needed when the config's live value is an empty patch or nothing uses it.
-	IgnoreWarnings *bool `queryParam:"style=form,explode=true,name=ignoreWarnings"`
+	// Deprecated — pass `ignoreWarnings` in the request body instead.
+	IgnoreWarnings *bool                    `queryParam:"style=form,explode=true,name=ignoreWarnings"`
+	Body           ArchiveConfigRequestBody `request:"mediaType=application/json"`
 }
 
 func (a *ArchiveConfigRequest) GetKey() string {
@@ -28,9 +59,29 @@ func (a *ArchiveConfigRequest) GetIgnoreWarnings() *bool {
 	return a.IgnoreWarnings
 }
 
+func (a *ArchiveConfigRequest) GetBody() ArchiveConfigRequestBody {
+	if a == nil {
+		return ArchiveConfigRequestBody{}
+	}
+	return a.Body
+}
+
 // ArchiveConfigResponseBody - Resource created
 type ArchiveConfigResponseBody struct {
 	Config components.Config `json:"config"`
+	// Gates that would have blocked this publish but were bypassed by the caller's authority. Present only when at least one gate was bypassed.
+	BypassedGates []components.BypassedGates `json:"bypassedGates,omitzero"`
+}
+
+func (a ArchiveConfigResponseBody) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *ArchiveConfigResponseBody) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (a *ArchiveConfigResponseBody) GetConfig() components.Config {
@@ -38,6 +89,13 @@ func (a *ArchiveConfigResponseBody) GetConfig() components.Config {
 		return components.Config{}
 	}
 	return a.Config
+}
+
+func (a *ArchiveConfigResponseBody) GetBypassedGates() []components.BypassedGates {
+	if a == nil {
+		return nil
+	}
+	return a.BypassedGates
 }
 
 type ArchiveConfigResponse struct {

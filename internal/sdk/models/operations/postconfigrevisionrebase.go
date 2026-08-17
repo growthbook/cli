@@ -5,8 +5,8 @@ package operations
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 type PostConfigRevisionRebaseConflictResolutions string
@@ -14,6 +14,7 @@ type PostConfigRevisionRebaseConflictResolutions string
 const (
 	PostConfigRevisionRebaseConflictResolutionsOverwrite PostConfigRevisionRebaseConflictResolutions = "overwrite"
 	PostConfigRevisionRebaseConflictResolutionsDiscard   PostConfigRevisionRebaseConflictResolutions = "discard"
+	PostConfigRevisionRebaseConflictResolutionsUnion     PostConfigRevisionRebaseConflictResolutions = "union"
 )
 
 func (e PostConfigRevisionRebaseConflictResolutions) ToPointer() *PostConfigRevisionRebaseConflictResolutions {
@@ -28,6 +29,8 @@ func (e *PostConfigRevisionRebaseConflictResolutions) UnmarshalJSON(data []byte)
 	case "overwrite":
 		fallthrough
 	case "discard":
+		fallthrough
+	case "union":
 		*e = PostConfigRevisionRebaseConflictResolutions(v)
 		return nil
 	default:
@@ -37,6 +40,8 @@ func (e *PostConfigRevisionRebaseConflictResolutions) UnmarshalJSON(data []byte)
 
 type PostConfigRevisionRebaseRequestBody struct {
 	ConflictResolutions map[string]PostConfigRevisionRebaseConflictResolutions `json:"conflictResolutions,omitzero"`
+	// Custom values to use for `union` strategy fields. Keyed by field name.
+	CustomValues map[string][]any `json:"customValues,omitzero"`
 }
 
 func (p PostConfigRevisionRebaseRequestBody) MarshalJSON() ([]byte, error) {
@@ -55,6 +60,13 @@ func (p *PostConfigRevisionRebaseRequestBody) GetConflictResolutions() map[strin
 		return nil
 	}
 	return p.ConflictResolutions
+}
+
+func (p *PostConfigRevisionRebaseRequestBody) GetCustomValues() map[string][]any {
+	if p == nil {
+		return nil
+	}
+	return p.CustomValues
 }
 
 type PostConfigRevisionRebaseRequest struct {

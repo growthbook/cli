@@ -6,10 +6,10 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
-	"github.com/growthbook/cli/internal/sdk/types"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/types"
 	"time"
 )
 
@@ -479,19 +479,19 @@ func (e *PostFeatureRevisionRuleAddScheduleType2) UnmarshalJSON(data []byte) err
 	}
 }
 
-type Unit string
+type PostFeatureRevisionRuleAddUnit string
 
 const (
-	UnitWeeks   Unit = "weeks"
-	UnitDays    Unit = "days"
-	UnitHours   Unit = "hours"
-	UnitMinutes Unit = "minutes"
+	PostFeatureRevisionRuleAddUnitWeeks   PostFeatureRevisionRuleAddUnit = "weeks"
+	PostFeatureRevisionRuleAddUnitDays    PostFeatureRevisionRuleAddUnit = "days"
+	PostFeatureRevisionRuleAddUnitHours   PostFeatureRevisionRuleAddUnit = "hours"
+	PostFeatureRevisionRuleAddUnitMinutes PostFeatureRevisionRuleAddUnit = "minutes"
 )
 
-func (e Unit) ToPointer() *Unit {
+func (e PostFeatureRevisionRuleAddUnit) ToPointer() *PostFeatureRevisionRuleAddUnit {
 	return &e
 }
-func (e *Unit) UnmarshalJSON(data []byte) error {
+func (e *PostFeatureRevisionRuleAddUnit) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -504,16 +504,16 @@ func (e *Unit) UnmarshalJSON(data []byte) error {
 	case "hours":
 		fallthrough
 	case "minutes":
-		*e = Unit(v)
+		*e = PostFeatureRevisionRuleAddUnit(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for Unit: %v", v)
+		return fmt.Errorf("invalid value for PostFeatureRevisionRuleAddUnit: %v", v)
 	}
 }
 
 type MaxDuration struct {
-	Amount float64 `json:"amount"`
-	Unit   Unit    `json:"unit"`
+	Amount float64                        `json:"amount"`
+	Unit   PostFeatureRevisionRuleAddUnit `json:"unit"`
 }
 
 func (m MaxDuration) MarshalJSON() ([]byte, error) {
@@ -534,9 +534,9 @@ func (m *MaxDuration) GetAmount() float64 {
 	return m.Amount
 }
 
-func (m *MaxDuration) GetUnit() Unit {
+func (m *MaxDuration) GetUnit() PostFeatureRevisionRuleAddUnit {
 	if m == nil {
-		return Unit("")
+		return PostFeatureRevisionRuleAddUnit("")
 	}
 	return m.Unit
 }
@@ -2047,6 +2047,12 @@ type PostFeatureRevisionRuleAddRequestBody struct {
 	Schedule        *PostFeatureRevisionRuleAddSchedule     `json:"schedule,omitzero"`
 	RevisionTitle   *string                                 `json:"revisionTitle,omitzero"`
 	RevisionComment *string                                 `json:"revisionComment,omitzero"`
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
+	// Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	SkipSchemaValidation *bool `json:"skipSchemaValidation,omitzero"`
+	// Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	SkipHooks *bool `json:"skipHooks,omitzero"`
 }
 
 func (p PostFeatureRevisionRuleAddRequestBody) MarshalJSON() ([]byte, error) {
@@ -2100,6 +2106,27 @@ func (p *PostFeatureRevisionRuleAddRequestBody) GetRevisionComment() *string {
 		return nil
 	}
 	return p.RevisionComment
+}
+
+func (p *PostFeatureRevisionRuleAddRequestBody) GetIgnoreWarnings() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.IgnoreWarnings
+}
+
+func (p *PostFeatureRevisionRuleAddRequestBody) GetSkipSchemaValidation() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.SkipSchemaValidation
+}
+
+func (p *PostFeatureRevisionRuleAddRequestBody) GetSkipHooks() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.SkipHooks
 }
 
 type PostFeatureRevisionRuleAddRequest struct {

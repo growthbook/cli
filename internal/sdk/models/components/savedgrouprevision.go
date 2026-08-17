@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"time"
 )
 
@@ -510,22 +510,40 @@ func (u SavedGroupRevisionProposedChangeUnion) MarshalJSON() ([]byte, error) {
 }
 
 type SavedGroupRevision struct {
-	ID                 string                                  `json:"id"`
-	Version            *int64                                  `json:"version,omitzero"`
-	Title              *string                                 `json:"title,omitzero"`
-	Status             SavedGroupRevisionStatus                `json:"status"`
-	AuthorID           string                                  `json:"authorId"`
-	AuthorEmail        *string                                 `json:"authorEmail,omitzero"`
-	Contributors       []string                                `json:"contributors,omitzero"`
-	RevertedFrom       *string                                 `json:"revertedFrom,omitzero"`
-	Reviews            []SavedGroupRevisionReview              `json:"reviews"`
-	ActivityLog        []SavedGroupRevisionActivityLogEntry    `json:"activityLog"`
-	Resolution         *SavedGroupRevisionResolution           `json:"resolution,omitzero"`
-	DateCreated        time.Time                               `json:"dateCreated"`
-	DateUpdated        time.Time                               `json:"dateUpdated"`
-	BaseSavedGroup     SavedGroup                              `json:"baseSavedGroup"`
-	ProposedSavedGroup SavedGroup                              `json:"proposedSavedGroup"`
-	ProposedChanges    []SavedGroupRevisionProposedChangeUnion `json:"proposedChanges"`
+	ID           string                               `json:"id"`
+	Version      *int64                               `json:"version,omitzero"`
+	Title        *string                              `json:"title,omitzero"`
+	Status       SavedGroupRevisionStatus             `json:"status"`
+	AuthorID     string                               `json:"authorId"`
+	AuthorEmail  *string                              `json:"authorEmail,omitzero"`
+	Contributors []string                             `json:"contributors,omitzero"`
+	RevertedFrom *string                              `json:"revertedFrom,omitzero"`
+	Reviews      []SavedGroupRevisionReview           `json:"reviews"`
+	ActivityLog  []SavedGroupRevisionActivityLogEntry `json:"activityLog"`
+	// Publish automatically the moment this revision is approved.
+	AutoPublishOnApproval *bool `json:"autoPublishOnApproval,omitzero"`
+	// User the deferred publish will run as. Its authority is re-checked when the publish fires.
+	AutoPublishEnabledBy *string `json:"autoPublishEnabledBy,omitzero"`
+	// When the deferred publish fires. Absent when the revision publishes on approval instead, or is not armed at all.
+	ScheduledPublishAt *time.Time `json:"scheduledPublishAt,omitzero"`
+	// Content edits to this revision are frozen until it fires.
+	ScheduledPublishLockEdits *bool `json:"scheduledPublishLockEdits,omitzero"`
+	// Other revisions of the same resource cannot publish until this one fires or is cancelled.
+	ScheduledPublishLockOthers *bool `json:"scheduledPublishLockOthers,omitzero"`
+	// Armed by a caller who bypassed the approval requirement. Such a schedule must be cancelled and re-armed rather than edited.
+	ScheduledPublishBypassApproval *bool `json:"scheduledPublishBypassApproval,omitzero"`
+	// How many times the poller has tried to publish this revision.
+	ScheduledPublishAttempts *int64 `json:"scheduledPublishAttempts,omitzero"`
+	// Why the most recent deferred-publish attempt failed.
+	ScheduledPublishLastError *string `json:"scheduledPublishLastError,omitzero"`
+	// When the poller stopped retrying. Giving up CLEARS the schedule and disarms auto-publish, so nothing fires again until the revision is re-armed. The draft is left open, with `scheduledPublishLastError` preserved for context.
+	ScheduledPublishGaveUpAt *time.Time                              `json:"scheduledPublishGaveUpAt,omitzero"`
+	Resolution               *SavedGroupRevisionResolution           `json:"resolution,omitzero"`
+	DateCreated              time.Time                               `json:"dateCreated"`
+	DateUpdated              time.Time                               `json:"dateUpdated"`
+	BaseSavedGroup           SavedGroup                              `json:"baseSavedGroup"`
+	ProposedSavedGroup       SavedGroup                              `json:"proposedSavedGroup"`
+	ProposedChanges          []SavedGroupRevisionProposedChangeUnion `json:"proposedChanges"`
 }
 
 func (s SavedGroupRevision) MarshalJSON() ([]byte, error) {
@@ -607,6 +625,69 @@ func (s *SavedGroupRevision) GetActivityLog() []SavedGroupRevisionActivityLogEnt
 		return []SavedGroupRevisionActivityLogEntry{}
 	}
 	return s.ActivityLog
+}
+
+func (s *SavedGroupRevision) GetAutoPublishOnApproval() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.AutoPublishOnApproval
+}
+
+func (s *SavedGroupRevision) GetAutoPublishEnabledBy() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AutoPublishEnabledBy
+}
+
+func (s *SavedGroupRevision) GetScheduledPublishAt() *time.Time {
+	if s == nil {
+		return nil
+	}
+	return s.ScheduledPublishAt
+}
+
+func (s *SavedGroupRevision) GetScheduledPublishLockEdits() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.ScheduledPublishLockEdits
+}
+
+func (s *SavedGroupRevision) GetScheduledPublishLockOthers() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.ScheduledPublishLockOthers
+}
+
+func (s *SavedGroupRevision) GetScheduledPublishBypassApproval() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.ScheduledPublishBypassApproval
+}
+
+func (s *SavedGroupRevision) GetScheduledPublishAttempts() *int64 {
+	if s == nil {
+		return nil
+	}
+	return s.ScheduledPublishAttempts
+}
+
+func (s *SavedGroupRevision) GetScheduledPublishLastError() *string {
+	if s == nil {
+		return nil
+	}
+	return s.ScheduledPublishLastError
+}
+
+func (s *SavedGroupRevision) GetScheduledPublishGaveUpAt() *time.Time {
+	if s == nil {
+		return nil
+	}
+	return s.ScheduledPublishGaveUpAt
 }
 
 func (s *SavedGroupRevision) GetResolution() *SavedGroupRevisionResolution {

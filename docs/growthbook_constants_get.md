@@ -49,4 +49,4 @@ growthbook constants get [flags]
 
 ### SEE ALSO
 
-* [growthbook constants](growthbook_constants.md)	 - Reusable named values referenced from feature flag values as `@const:key` and resolved into the SDK payload at build time
+* [growthbook constants](growthbook_constants.md)	 - **Beta** — these endpoints are new and may change in backwards-incompatible ways

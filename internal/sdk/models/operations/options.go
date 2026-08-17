@@ -4,8 +4,8 @@ package operations
 
 import (
 	"errors"
-	"github.com/growthbook/cli/internal/sdk/retry"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/retry"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"time"
 )
 

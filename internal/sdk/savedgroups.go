@@ -6,12 +6,12 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
-	"github.com/growthbook/cli/internal/sdk/models/sdkerrors"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/config"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/hooks"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/sdk/models/sdkerrors"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/config"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/hooks"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"github.com/spyzhov/ajson"
 	"net/http"
 	"net/url"
@@ -521,6 +521,7 @@ func (s *SavedGroups) GetSavedGroup(ctx context.Context, request operations.GetS
 }
 
 // UpdateSavedGroup - Partially update a single saved group
+// Applies the change immediately and records it as a published revision, so it appears in history and fires revision webhooks. When the organization requires approvals, open a draft instead or pass `bypassApproval` with the bypass permission.
 func (s *SavedGroups) UpdateSavedGroup(ctx context.Context, request operations.UpdateSavedGroupRequest, opts ...operations.Option) (*operations.UpdateSavedGroupResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -816,6 +817,7 @@ func (s *SavedGroups) DeleteSavedGroup(ctx context.Context, request operations.D
 }
 
 // ArchiveSavedGroup - Archive a single saved group
+// Archives a Saved Group. If it is still referenced by a Feature Flag, experiment, or another Saved Group, the API returns 422 with the affected references. Send `"ignoreWarnings": true` to acknowledge those references and continue. When approval is required, create and publish an archive revision instead, or use a caller with Bypass draft approvals access. A successful response lists any skipped gates in `bypassedGates`.
 func (s *SavedGroups) ArchiveSavedGroup(ctx context.Context, request operations.ArchiveSavedGroupRequest, opts ...operations.Option) (*operations.ArchiveSavedGroupResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -848,6 +850,10 @@ func (s *SavedGroups) ArchiveSavedGroup(ctx context.Context, request operations.
 		OperationID:      "archiveSavedGroup",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
+	if err != nil {
+		return nil, err
+	}
 
 	timeout := o.Timeout
 	if timeout == nil {
@@ -860,12 +866,15 @@ func (s *SavedGroups) ArchiveSavedGroup(ctx context.Context, request operations.
 		defer cancel()
 	}
 
-	req, err := http.NewRequestWithContext(ctx, "POST", opURL, nil)
+	req, err := http.NewRequestWithContext(ctx, "POST", opURL, bodyReader)
 	if err != nil {
 		return nil, fmt.Errorf("error creating request: %w", err)
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
+	if reqContentType != "" {
+		req.Header.Set("Content-Type", reqContentType)
+	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
@@ -960,6 +969,7 @@ func (s *SavedGroups) ArchiveSavedGroup(ctx context.Context, request operations.
 }
 
 // UnarchiveSavedGroup - Unarchive a single saved group
+// Unarchives a Saved Group. When approval is required, create and publish an unarchive revision instead, or use a caller with Bypass draft approvals access. A successful response lists any skipped gates in `bypassedGates`.
 func (s *SavedGroups) UnarchiveSavedGroup(ctx context.Context, request operations.UnarchiveSavedGroupRequest, opts ...operations.Option) (*operations.UnarchiveSavedGroupResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{

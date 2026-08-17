@@ -3,7 +3,7 @@
 package contextualbanditqueries
 
 import (
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -21,19 +21,19 @@ func InitContextualBanditQueriesRoot(parent *cobra.Command) error {
 		Aliases: []string{"cbq"},
 	}
 
-	if err := initGetContextualBanditQueryCmd(ContextualBanditQueriesCmd); err != nil {
+	if err := initGetCmd(ContextualBanditQueriesCmd); err != nil {
 		return err
 	}
 
-	if err := initDeleteContextualBanditQueryCmd(ContextualBanditQueriesCmd); err != nil {
+	if err := initDeleteCmd(ContextualBanditQueriesCmd); err != nil {
 		return err
 	}
 
-	if err := initUpdateContextualBanditQueryCmd(ContextualBanditQueriesCmd); err != nil {
+	if err := initUpdateCmd(ContextualBanditQueriesCmd); err != nil {
 		return err
 	}
 
-	if err := initCreateContextualBanditQueryCmd(ContextualBanditQueriesCmd); err != nil {
+	if err := initCreateCmd(ContextualBanditQueriesCmd); err != nil {
 		return err
 	}
 

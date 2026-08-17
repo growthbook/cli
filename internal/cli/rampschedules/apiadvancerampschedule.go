@@ -4,20 +4,20 @@ package rampschedules
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/internal/client"
-	"github.com/growthbook/cli/internal/flagutil"
-	"github.com/growthbook/cli/internal/interactive"
-	"github.com/growthbook/cli/internal/output"
-	"github.com/growthbook/cli/internal/sdk"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/client"
+	"github.com/growthbook/cli/v2/internal/flagutil"
+	"github.com/growthbook/cli/v2/internal/interactive"
+	"github.com/growthbook/cli/v2/internal/output"
+	"github.com/growthbook/cli/v2/internal/sdk"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
 var apiAdvanceRampScheduleCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "reason", Shorthand: "r", FieldPath: "Body.Reason", Kind: flagutil.FlagKindString, Optional: true, Description: "Reason for advancing"},
-	{FlagName: "force", Shorthand: "f", FieldPath: "Body.Force", Kind: flagutil.FlagKindBool, Optional: true, Description: "Bypass a pending approval gate on the current step. Requires admin-level (`canBypassApprovalChecks`) permission. When omitted or `false`, a 409 is returned if the step has an unsatisfied `holdConditions.requiresApproval` gate."},
+	{FlagName: "force", Shorthand: "f", FieldPath: "Body.Force", Kind: flagutil.FlagKindBool, Optional: true, Description: "Bypass a pending approval gate on the current step. Requires admin-level (`FlagsBypassApprovals`) permission. When omitted or `false`, a 409 is returned if the step has an unsatisfied `holdConditions.requiresApproval` gate."},
 }
 
 // initApiAdvanceRampScheduleCmd initializes the api-advance-ramp-schedule command.
@@ -25,7 +25,7 @@ func initApiAdvanceRampScheduleCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "api-advance",
 		Short:   "Advance to the next step, overriding any holds",
-		Long:    "Moves the schedule to the next step, bypassing **all** hold conditions —\ninterval, min sample size, and monitoring signal holds. Accepts `running`\nor `paused` status; if paused, the schedule is implicitly resumed (timing\nanchors recalculated) before the step moves.\n\n**Approval gate**: if the current step has an unsatisfied\n`holdConditions.requiresApproval` gate, this endpoint returns **409** by\ndefault. Either call `/actions/approve-step` first (recommended), or pass\n`force: true` to override the approval gate. `force: true` requires\n`canBypassApprovalChecks` permission and is logged in the audit trail.\n\n**Two common uses:**\n- **Post-interval monitoring hold** (`decision: \"hold\"`, interval elapsed): the\n\n\n\n  step timer has completed but a signal or guardrail is flagging concern. Use\n  this after reviewing the `/status` health summary and deciding to accept the\n  risk and proceed.\n- **Hard override**: skip a step regardless of where it is in its interval or\n\n\n\n  hold conditions (CI gate, external deployment pipeline).\n\nWhen to use other actions instead:\n- **`/actions/resume`** — restores a paused schedule without moving the step.\n- **`/actions/approve-step`** — clears only the approval gate; other conditions\n\n\n\n  still resolve naturally.\n- **`/actions/rollback`** — preferred response when `decision: \"rollback\"` or\n\n\n\n  signals include `guardrail-failing`.",
+		Long:    "Moves the schedule to the next step, bypassing **all** hold conditions —\ninterval, min sample size, and monitoring signal holds. Accepts `running`\nor `paused` status; if paused, the schedule is implicitly resumed (timing\nanchors recalculated) before the step moves.\n\n**Approval gate**: if the current step has an unsatisfied\n`holdConditions.requiresApproval` gate, this endpoint returns **409** by\ndefault. Either call `/actions/approve-step` first (recommended), or pass\n`force: true` to override the approval gate. `force: true` requires\n`FlagsBypassApprovals` permission and is logged in the audit trail.\n\n**Two common uses:**\n- **Post-interval monitoring hold** (`decision: \"hold\"`, interval elapsed): the\n\n\n\n  step timer has completed but a signal or guardrail is flagging concern. Use\n  this after reviewing the `/status` health summary and deciding to accept the\n  risk and proceed.\n- **Hard override**: skip a step regardless of where it is in its interval or\n\n\n\n  hold conditions (CI gate, external deployment pipeline).\n\nWhen to use other actions instead:\n- **`/actions/resume`** — restores a paused schedule without moving the step.\n- **`/actions/approve-step`** — clears only the approval gate; other conditions\n\n\n\n  still resolve naturally.\n- **`/actions/rollback`** — preferred response when `decision: \"rollback\"` or\n\n\n\n  signals include `guardrail-failing`.",
 		Example: "  growthbook ramp-schedules api-advance --id <id>",
 		RunE:    runApiAdvanceRampScheduleCmd,
 		Aliases: []string{"aa"},

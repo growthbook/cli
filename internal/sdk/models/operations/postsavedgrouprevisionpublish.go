@@ -3,20 +3,29 @@
 package operations
 
 import (
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 type PostSavedGroupRevisionPublishRequestBody struct {
-	// When the org enforces same-base merges and the saved group changed since this revision was created, set to true to force-merge the stale revision instead of rebasing first. This only takes effect for callers with bypass-approval permission; otherwise it is ignored and the revision must be rebased.
-	MergeNow *bool `json:"mergeNow,omitzero"`
+	// Deprecated and ignored. Approval is bypassed automatically when the caller has Bypass draft approvals access for this resource or when the organization enables the REST API approval bypass. Otherwise, the revision must be approved before it can be published.
+	BypassApproval *bool `json:"bypassApproval,omitzero"`
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
 }
 
-func (p *PostSavedGroupRevisionPublishRequestBody) GetMergeNow() *bool {
+func (p *PostSavedGroupRevisionPublishRequestBody) GetBypassApproval() *bool {
 	if p == nil {
 		return nil
 	}
-	return p.MergeNow
+	return p.BypassApproval
+}
+
+func (p *PostSavedGroupRevisionPublishRequestBody) GetIgnoreWarnings() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.IgnoreWarnings
 }
 
 type PostSavedGroupRevisionPublishRequest struct {
@@ -49,6 +58,19 @@ func (p *PostSavedGroupRevisionPublishRequest) GetBody() PostSavedGroupRevisionP
 // PostSavedGroupRevisionPublishResponseBody - Resource created
 type PostSavedGroupRevisionPublishResponseBody struct {
 	Revision components.SavedGroupRevision `json:"revision"`
+	// Gates that would have blocked this publish but were bypassed by the caller's authority. Present only when at least one gate was bypassed.
+	BypassedGates []components.BypassedGates `json:"bypassedGates,omitzero"`
+}
+
+func (p PostSavedGroupRevisionPublishResponseBody) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostSavedGroupRevisionPublishResponseBody) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (p *PostSavedGroupRevisionPublishResponseBody) GetRevision() components.SavedGroupRevision {
@@ -56,6 +78,13 @@ func (p *PostSavedGroupRevisionPublishResponseBody) GetRevision() components.Sav
 		return components.SavedGroupRevision{}
 	}
 	return p.Revision
+}
+
+func (p *PostSavedGroupRevisionPublishResponseBody) GetBypassedGates() []components.BypassedGates {
+	if p == nil {
+		return nil
+	}
+	return p.BypassedGates
 }
 
 type PostSavedGroupRevisionPublishResponse struct {

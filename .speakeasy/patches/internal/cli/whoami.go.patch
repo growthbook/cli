@@ -4,9 +4,9 @@ diff --git a/internal/cli/whoami.go b/internal/cli/whoami.go
 @@ -5,6 +5,7 @@ package cli
  import (
  	"fmt"
- 	"github.com/growthbook/cli/internal/config"
-+	"github.com/growthbook/cli/internal/customcfg"
- 	"github.com/growthbook/cli/internal/usage"
+ 	"github.com/growthbook/cli/v2/internal/config"
++	"github.com/growthbook/cli/v2/internal/customcfg"
+ 	"github.com/growthbook/cli/v2/internal/usage"
  	"github.com/spf13/cobra"
  )
 @@ -40,6 +41,8 @@ func runWhoamiCmd(cmd *cobra.Command, args []string) error {

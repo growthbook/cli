@@ -4,8 +4,8 @@ package cli
 import (
 	"strconv"
 
-	"github.com/growthbook/cli/internal/flagutil"
-	"github.com/growthbook/cli/internal/sdk"
+	"github.com/growthbook/cli/v2/internal/flagutil"
+	"github.com/growthbook/cli/v2/internal/sdk"
 	"github.com/spf13/cobra"
 )
 

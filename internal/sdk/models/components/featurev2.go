@@ -3,8 +3,8 @@
 package components
 
 import (
-	"github.com/growthbook/cli/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 	"time"
 )
 
@@ -63,10 +63,12 @@ type FeatureV2 struct {
 	Archived    bool      `json:"archived"`
 	Description string    `json:"description"`
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-	Owner        string             `json:"owner"`
-	Project      string             `json:"project"`
-	ValueType    FeatureV2ValueType `json:"valueType"`
-	DefaultValue string             `json:"defaultValue"`
+	Owner                string             `json:"owner"`
+	Project              string             `json:"project"`
+	TargetingAllProjects *bool              `json:"targetingAllProjects,omitzero"`
+	TargetingProjects    []string           `json:"targetingProjects,omitzero"`
+	ValueType            FeatureV2ValueType `json:"valueType"`
+	DefaultValue         string             `json:"defaultValue"`
 	// Key of the config backing this flag ("Config mode"). Requires `valueType: "json"` and a live config. The config supplies the base JSON and schema; `defaultValue` and rule values are override patches on top. null or omitted for a plain flag.
 	BaseConfig optionalnullable.OptionalNullable[string] `json:"baseConfig,omitzero"`
 	// Optional. A config within `baseConfig`'s family that the default value resolves to instead of `baseConfig` itself. null or omitted means the default is `baseConfig`. The default is exactly this config and carries no overrides of its own.
@@ -141,6 +143,20 @@ func (f *FeatureV2) GetProject() string {
 		return ""
 	}
 	return f.Project
+}
+
+func (f *FeatureV2) GetTargetingAllProjects() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.TargetingAllProjects
+}
+
+func (f *FeatureV2) GetTargetingProjects() []string {
+	if f == nil {
+		return nil
+	}
+	return f.TargetingProjects
 }
 
 func (f *FeatureV2) GetValueType() FeatureV2ValueType {

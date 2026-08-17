@@ -4,13 +4,13 @@ package factmetrics
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/internal/client"
-	"github.com/growthbook/cli/internal/flagutil"
-	"github.com/growthbook/cli/internal/interactive"
-	"github.com/growthbook/cli/internal/output"
-	"github.com/growthbook/cli/internal/sdk"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/client"
+	"github.com/growthbook/cli/v2/internal/flagutil"
+	"github.com/growthbook/cli/v2/internal/interactive"
+	"github.com/growthbook/cli/v2/internal/output"
+	"github.com/growthbook/cli/v2/internal/sdk"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -19,7 +19,7 @@ var listFactMetricsCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "offset", FieldPath: "Offset", Kind: flagutil.FlagKindInt64, Optional: true, HasDefault: true, Description: "How many items to skip (use in conjunction with limit for pagination)"},
 	{FlagName: "datasource-id", FieldPath: "DatasourceID", Kind: flagutil.FlagKindString, Optional: true, Description: "Filter by Data Source"},
 	{FlagName: "project-id", Shorthand: "p", FieldPath: "ProjectID", Kind: flagutil.FlagKindString, Optional: true, Description: "Filter by project id"},
-	{FlagName: "fact-table-id", Shorthand: "f", FieldPath: "FactTableID", Kind: flagutil.FlagKindString, Optional: true, Description: "Filter by Fact Table Id (for ratio metrics, we only look at the numerator)"},
+	{FlagName: "fact-table-id", Shorthand: "f", FieldPath: "FactTableID", Kind: flagutil.FlagKindString, Optional: true, Description: "Filter by Fact Table Id (for ratio metrics, only the numerator is considered)"},
 }
 
 // initListFactMetricsCmd initializes the list-fact-metrics command.

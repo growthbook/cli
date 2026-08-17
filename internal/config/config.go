@@ -18,7 +18,7 @@ import (
 	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v3"
 
-	"github.com/growthbook/cli/internal/flagutil"
+	"github.com/growthbook/cli/v2/internal/flagutil"
 )
 
 // ConfigVersion is the current config file schema version.

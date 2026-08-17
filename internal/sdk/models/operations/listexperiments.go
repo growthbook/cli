@@ -5,8 +5,8 @@ package operations
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 type ListExperimentsStatus string
@@ -52,6 +52,26 @@ type ListExperimentsRequest struct {
 	// Filter the returned list by the experiment tracking key (not the internal experiment ID). Note, this was deprecated to help reduce confusion, consider using `trackingKey` instead, which is functionally identical. You cannot use both params at the same time.
 	ExperimentID *string                `queryParam:"style=form,explode=true,name=experimentId"`
 	Status       *ListExperimentsStatus `queryParam:"style=form,explode=true,name=status"`
+	// Raw experiment search/filter string (same syntax as the app's experiment list filters, e.g. `status:running tag:checkout`). Negation (`!`) and operators (`~`, `^`, `>`, `<`, `=`) are not supported and return a 400
+	Q *string `queryParam:"style=form,explode=true,name=q"`
+	// Filter by comma-separated owner ids, names, or emails
+	Owner *string `queryParam:"style=form,explode=true,name=owner"`
+	// Filter by comma-separated results (won, lost, inconclusive, dnf). Matches the experiment's recorded result — set when an experiment is stopped and retained if it's later restarted, so running experiments can match too
+	Result []components.ResultEnum `queryParam:"style=form,explode=false,name=result"`
+	// Filter by comma-separated tags
+	Tag *string `queryParam:"style=form,explode=true,name=tag"`
+	// Filter by comma-separated implementation types (feature, visualChange, redirect) — the kinds of changes linked to the experiment. To filter standard experiments vs bandits, use `bandits` instead
+	ImplementationType []components.ImplementationType `queryParam:"style=form,explode=false,name=implementationType"`
+	// Filter by comma-separated metric ids. Matches experiments that use a metric as a goal, secondary, or guardrail metric
+	MetricID *string `queryParam:"style=form,explode=true,name=metricId"`
+	// When true, return only multi-armed bandits; when false, exclude them
+	Bandits *components.Bandits `queryParam:"style=form,explode=true,name=bandits"`
+	// Filter by archived status. Set to `true` to return only archived experiments, `false` to exclude them. If omitted, both archived and non-archived experiments are returned.
+	Archived *bool `queryParam:"style=form,explode=true,name=archived"`
+	// Field to sort the results by
+	SortBy *components.SortByParameter `default:"dateCreated" queryParam:"style=form,explode=true,name=sortBy"`
+	// Sort direction (used with `sortBy`)
+	SortOrder *components.SortOrder `default:"asc" queryParam:"style=form,explode=true,name=sortOrder"`
 }
 
 func (l ListExperimentsRequest) MarshalJSON() ([]byte, error) {
@@ -112,6 +132,76 @@ func (l *ListExperimentsRequest) GetStatus() *ListExperimentsStatus {
 		return nil
 	}
 	return l.Status
+}
+
+func (l *ListExperimentsRequest) GetQ() *string {
+	if l == nil {
+		return nil
+	}
+	return l.Q
+}
+
+func (l *ListExperimentsRequest) GetOwner() *string {
+	if l == nil {
+		return nil
+	}
+	return l.Owner
+}
+
+func (l *ListExperimentsRequest) GetResult() []components.ResultEnum {
+	if l == nil {
+		return nil
+	}
+	return l.Result
+}
+
+func (l *ListExperimentsRequest) GetTag() *string {
+	if l == nil {
+		return nil
+	}
+	return l.Tag
+}
+
+func (l *ListExperimentsRequest) GetImplementationType() []components.ImplementationType {
+	if l == nil {
+		return nil
+	}
+	return l.ImplementationType
+}
+
+func (l *ListExperimentsRequest) GetMetricID() *string {
+	if l == nil {
+		return nil
+	}
+	return l.MetricID
+}
+
+func (l *ListExperimentsRequest) GetBandits() *components.Bandits {
+	if l == nil {
+		return nil
+	}
+	return l.Bandits
+}
+
+func (l *ListExperimentsRequest) GetArchived() *bool {
+	if l == nil {
+		return nil
+	}
+	return l.Archived
+}
+
+func (l *ListExperimentsRequest) GetSortBy() *components.SortByParameter {
+	if l == nil {
+		return nil
+	}
+	return l.SortBy
+}
+
+func (l *ListExperimentsRequest) GetSortOrder() *components.SortOrder {
+	if l == nil {
+		return nil
+	}
+	return l.SortOrder
 }
 
 // ListExperimentsResponseBody - Successful response

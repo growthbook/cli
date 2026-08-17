@@ -3,7 +3,7 @@
 package analyticsexplorations
 
 import (
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -30,6 +30,10 @@ func InitAnalyticsExplorationsRoot(parent *cobra.Command) error {
 	}
 
 	if err := initRunDataSourceCmd(AnalyticsExplorationsCmd); err != nil {
+		return err
+	}
+
+	if err := initRunFunnelCmd(AnalyticsExplorationsCmd); err != nil {
 		return err
 	}
 

@@ -30,6 +30,8 @@ type ChecklistItems struct {
 	Status   ChecklistItemsStatus `json:"status"`
 	Manual   bool                 `json:"manual"`
 	Reason   string               `json:"reason"`
+	// When true, this item cannot be bypassed with `skipChecklist` — the experiment cannot be started until it is resolved.
+	HardBlock *bool `json:"hardBlock,omitzero"`
 }
 
 func (c *ChecklistItems) GetKey() string {
@@ -65,4 +67,11 @@ func (c *ChecklistItems) GetReason() string {
 		return ""
 	}
 	return c.Reason
+}
+
+func (c *ChecklistItems) GetHardBlock() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.HardBlock
 }

@@ -3,15 +3,15 @@
 package constantrevisions
 
 import (
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
 func InitConstantRevisionsRoot(parent *cobra.Command) error {
 	var ConstantRevisionsCmd = &cobra.Command{
 		Use:   "constant-revisions",
-		Short: "Draft revisions for constants, including pending changes, approvals, and lifecycle (publish, discard, revert)",
-		Long:  "Draft revisions for constants, including pending changes, approvals, and lifecycle (publish, discard, revert). Pass `version: \"new\"` on edit endpoints to auto-create a draft.",
+		Short: "**Beta** — these endpoints are new and may change in backwards-incompatible ways",
+		Long:  "**Beta** — these endpoints are new and may change in backwards-incompatible ways.\n\nDraft revisions for constants, including pending changes, approvals, and lifecycle (publish, discard, revert). Pass `version: \"new\"` on edit endpoints to auto-create a draft.",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if usage.UsageRequested(cmd) {
 				return usage.EmitSchema(cmd, cmd.OutOrStdout())
@@ -58,6 +58,22 @@ func InitConstantRevisionsRoot(parent *cobra.Command) error {
 	}
 
 	if err := initSubmitReviewCmd(ConstantRevisionsCmd); err != nil {
+		return err
+	}
+
+	if err := initRecallReviewCmd(ConstantRevisionsCmd); err != nil {
+		return err
+	}
+
+	if err := initReopenCmd(ConstantRevisionsCmd); err != nil {
+		return err
+	}
+
+	if err := initSchedulePublishCmd(ConstantRevisionsCmd); err != nil {
+		return err
+	}
+
+	if err := initUndoReviewCmd(ConstantRevisionsCmd); err != nil {
 		return err
 	}
 

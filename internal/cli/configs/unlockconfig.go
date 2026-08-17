@@ -4,13 +4,13 @@ package configs
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/internal/client"
-	"github.com/growthbook/cli/internal/flagutil"
-	"github.com/growthbook/cli/internal/interactive"
-	"github.com/growthbook/cli/internal/output"
-	"github.com/growthbook/cli/internal/sdk"
-	"github.com/growthbook/cli/internal/sdk/models/operations"
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/client"
+	"github.com/growthbook/cli/v2/internal/flagutil"
+	"github.com/growthbook/cli/v2/internal/interactive"
+	"github.com/growthbook/cli/v2/internal/output"
+	"github.com/growthbook/cli/v2/internal/sdk"
+	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -23,7 +23,7 @@ func initUnlockConfigCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "unlock",
 		Short:   "Unlock a config",
-		Long:    "Clears the lock so changes can be published again. Requires the `bypassApprovalChecks` permission on the config's project.",
+		Long:    "Removes the Config lock so changes can be published again. The caller must have Bypass draft approvals access in the Config's Project.",
 		Example: "  growthbook configs unlock --key <key>",
 		RunE:    runUnlockConfigCmd,
 	}

@@ -49,6 +49,7 @@ growthbook experiments update [flags]
   -h, --help                                         help for update
       --hypothesis string                            Hypothesis of the experiment
       --id string                                    The id of the requested resource [required]
+      --ignore-warnings                              Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
       --in-progress-conversions string               options: loose, strict
   -l, --lookback-override string                     Controls the lookback override for the experiment. For type "window", value must be a non-negative number and valueUnit is required.
       --metric-overrides string                      Per-metric analysis overrides for this experiment. Replaces the entire stored array (does not patch individual entries).

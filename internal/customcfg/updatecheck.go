@@ -25,7 +25,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/growthbook/cli/internal/config"
+	"github.com/growthbook/cli/v2/internal/config"
 	"github.com/spf13/cobra"
 	"golang.org/x/term"
 )

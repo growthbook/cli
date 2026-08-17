@@ -3,7 +3,7 @@
 package metrics
 
 import (
-	"github.com/growthbook/cli/internal/usage"
+	"github.com/growthbook/cli/v2/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -37,6 +37,10 @@ func InitMetricsRoot(parent *cobra.Command) error {
 	}
 
 	if err := initDeleteMetricCmd(MetricsCmd); err != nil {
+		return err
+	}
+
+	if err := initListExperimentsCmd(MetricsCmd); err != nil {
 		return err
 	}
 

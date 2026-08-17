@@ -3,14 +3,20 @@
 package operations
 
 import (
-	"github.com/growthbook/cli/internal/sdk/models/components"
-	"github.com/growthbook/cli/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
 type PostFeatureRevisionPublishV2RequestBody struct {
 	Comment *string `json:"comment,omitzero"`
-	// When the org enforces same-base merges and the revision is behind the live version, set to true to force-merge the stale draft instead of rebasing first. This only takes effect for callers with bypass-approval permission; otherwise it is ignored and the revision must be rebased.
-	MergeNow *bool `json:"mergeNow,omitzero"`
+	// Deprecated and ignored. Approval is bypassed automatically when the caller has Bypass draft approvals access for this resource or when the organization enables the REST API approval bypass. Otherwise, the revision must be approved before it can be published.
+	BypassApproval *bool `json:"bypassApproval,omitzero"`
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
+	// Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	SkipSchemaValidation *bool `json:"skipSchemaValidation,omitzero"`
+	// Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	SkipHooks *bool `json:"skipHooks,omitzero"`
 }
 
 func (p *PostFeatureRevisionPublishV2RequestBody) GetComment() *string {
@@ -20,11 +26,32 @@ func (p *PostFeatureRevisionPublishV2RequestBody) GetComment() *string {
 	return p.Comment
 }
 
-func (p *PostFeatureRevisionPublishV2RequestBody) GetMergeNow() *bool {
+func (p *PostFeatureRevisionPublishV2RequestBody) GetBypassApproval() *bool {
 	if p == nil {
 		return nil
 	}
-	return p.MergeNow
+	return p.BypassApproval
+}
+
+func (p *PostFeatureRevisionPublishV2RequestBody) GetIgnoreWarnings() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.IgnoreWarnings
+}
+
+func (p *PostFeatureRevisionPublishV2RequestBody) GetSkipSchemaValidation() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.SkipSchemaValidation
+}
+
+func (p *PostFeatureRevisionPublishV2RequestBody) GetSkipHooks() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.SkipHooks
 }
 
 // #region class-body-postfeaturerevisionpublishv2requestbody
@@ -33,9 +60,9 @@ func (p *PostFeatureRevisionPublishV2RequestBody) GetMergeNow() *bool {
 type PostFeatureRevisionPublishV2Request struct {
 	ID      string `pathParam:"style=simple,explode=false,name=id"`
 	Version string `pathParam:"style=simple,explode=false,name=version"`
-	// Skip JSON-schema validation of the value(s) being written. Only honored for callers with org-wide bypass authority (the `bypassApprovalChecks` permission on all projects); ignored otherwise. Validation is enforced by default.
+	// Deprecated — pass `skipSchemaValidation` in the request body instead.
 	SkipSchemaValidation *bool `queryParam:"style=form,explode=true,name=skipSchemaValidation"`
-	// Proceed despite soft validation warnings — e.g. publishing values that don't match the schema when the org has `blockPublishOnSchemaError` disabled (warn mode).
+	// Deprecated — pass `ignoreWarnings` in the request body instead.
 	IgnoreWarnings *bool                                   `queryParam:"style=form,explode=true,name=ignoreWarnings"`
 	Body           PostFeatureRevisionPublishV2RequestBody `request:"mediaType=application/json"`
 }
@@ -81,6 +108,19 @@ func (p *PostFeatureRevisionPublishV2Request) GetBody() PostFeatureRevisionPubli
 // PostFeatureRevisionPublishV2ResponseBody - Resource created
 type PostFeatureRevisionPublishV2ResponseBody struct {
 	Revision components.FeatureRevisionV2 `json:"revision"`
+	// Gates that would have blocked this publish but were bypassed by the caller's authority. Present only when at least one gate was bypassed.
+	BypassedGates []components.BypassedGates `json:"bypassedGates,omitzero"`
+}
+
+func (p PostFeatureRevisionPublishV2ResponseBody) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostFeatureRevisionPublishV2ResponseBody) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (p *PostFeatureRevisionPublishV2ResponseBody) GetRevision() components.FeatureRevisionV2 {
@@ -88,6 +128,13 @@ func (p *PostFeatureRevisionPublishV2ResponseBody) GetRevision() components.Feat
 		return components.FeatureRevisionV2{}
 	}
 	return p.Revision
+}
+
+func (p *PostFeatureRevisionPublishV2ResponseBody) GetBypassedGates() []components.BypassedGates {
+	if p == nil {
+		return nil
+	}
+	return p.BypassedGates
 }
 
 // #region class-body-postfeaturerevisionpublishv2responsebody
