@@ -124,13 +124,9 @@ func (p *PutConfigRevisionMetadataRequestBody) GetSkipHooks() *bool {
 }
 
 type PutConfigRevisionMetadataRequest struct {
-	Key     string `pathParam:"style=simple,explode=false,name=key"`
-	Version string `pathParam:"style=simple,explode=false,name=version"`
-	// Deprecated — pass `skipSchemaValidation` in the request body instead.
-	SkipSchemaValidation *bool `queryParam:"style=form,explode=true,name=skipSchemaValidation"`
-	// Deprecated — pass `ignoreWarnings` in the request body instead.
-	IgnoreWarnings *bool                                `queryParam:"style=form,explode=true,name=ignoreWarnings"`
-	Body           PutConfigRevisionMetadataRequestBody `request:"mediaType=application/json"`
+	Key     string                               `pathParam:"style=simple,explode=false,name=key"`
+	Version string                               `pathParam:"style=simple,explode=false,name=version"`
+	Body    PutConfigRevisionMetadataRequestBody `request:"mediaType=application/json"`
 }
 
 func (p *PutConfigRevisionMetadataRequest) GetKey() string {
@@ -145,20 +141,6 @@ func (p *PutConfigRevisionMetadataRequest) GetVersion() string {
 		return ""
 	}
 	return p.Version
-}
-
-func (p *PutConfigRevisionMetadataRequest) GetSkipSchemaValidation() *bool {
-	if p == nil {
-		return nil
-	}
-	return p.SkipSchemaValidation
-}
-
-func (p *PutConfigRevisionMetadataRequest) GetIgnoreWarnings() *bool {
-	if p == nil {
-		return nil
-	}
-	return p.IgnoreWarnings
 }
 
 func (p *PutConfigRevisionMetadataRequest) GetBody() PutConfigRevisionMetadataRequestBody {

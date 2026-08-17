@@ -77,7 +77,7 @@ func (p *PostConfigInvariant) GetMessage() *string {
 	return p.Message
 }
 
-type PostConfigRequestBody struct {
+type PostConfigRequest struct {
 	// Stable reference handle (lowercase slug, unique per org), referenced as `@config:key`
 	Key string `json:"key"`
 	// The display name of the config
@@ -110,191 +110,155 @@ type PostConfigRequestBody struct {
 	SkipHooks *bool `json:"skipHooks,omitzero"`
 }
 
-func (p PostConfigRequestBody) MarshalJSON() ([]byte, error) {
+func (p PostConfigRequest) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(p, "", false)
 }
 
-func (p *PostConfigRequestBody) UnmarshalJSON(data []byte) error {
+func (p *PostConfigRequest) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PostConfigRequestBody) GetKey() string {
+func (p *PostConfigRequest) GetKey() string {
 	if p == nil {
 		return ""
 	}
 	return p.Key
 }
 
-func (p *PostConfigRequestBody) GetName() string {
+func (p *PostConfigRequest) GetName() string {
 	if p == nil {
 		return ""
 	}
 	return p.Name
 }
 
-func (p *PostConfigRequestBody) GetParent() *string {
+func (p *PostConfigRequest) GetParent() *string {
 	if p == nil {
 		return nil
 	}
 	return p.Parent
 }
 
-func (p *PostConfigRequestBody) GetExtends() []string {
+func (p *PostConfigRequest) GetExtends() []string {
 	if p == nil {
 		return nil
 	}
 	return p.Extends
 }
 
-func (p *PostConfigRequestBody) GetValue() map[string]any {
+func (p *PostConfigRequest) GetValue() map[string]any {
 	if p == nil {
 		return nil
 	}
 	return p.Value
 }
 
-func (p *PostConfigRequestBody) GetScopedOverrides() []PostConfigScopedOverride {
+func (p *PostConfigRequest) GetScopedOverrides() []PostConfigScopedOverride {
 	if p == nil {
 		return nil
 	}
 	return p.ScopedOverrides
 }
 
-func (p *PostConfigRequestBody) GetDescription() *string {
+func (p *PostConfigRequest) GetDescription() *string {
 	if p == nil {
 		return nil
 	}
 	return p.Description
 }
 
-func (p *PostConfigRequestBody) GetProject() *string {
+func (p *PostConfigRequest) GetProject() *string {
 	if p == nil {
 		return nil
 	}
 	return p.Project
 }
 
-func (p *PostConfigRequestBody) GetOwner() *string {
+func (p *PostConfigRequest) GetOwner() *string {
 	if p == nil {
 		return nil
 	}
 	return p.Owner
 }
 
-func (p *PostConfigRequestBody) GetSchema() *components.ConfigSchemaSource {
+func (p *PostConfigRequest) GetSchema() *components.ConfigSchemaSource {
 	if p == nil {
 		return nil
 	}
 	return p.Schema
 }
 
-func (p *PostConfigRequestBody) GetSchemaJSONSchema() *components.ConfigSchemaSourceJSONSchema {
+func (p *PostConfigRequest) GetSchemaJSONSchema() *components.ConfigSchemaSourceJSONSchema {
 	if v := p.GetSchema(); v != nil {
 		return v.ConfigSchemaSourceJSONSchema
 	}
 	return nil
 }
 
-func (p *PostConfigRequestBody) GetSchemaTypescript() *components.ConfigSchemaSourceTypescript {
+func (p *PostConfigRequest) GetSchemaTypescript() *components.ConfigSchemaSourceTypescript {
 	if v := p.GetSchema(); v != nil {
 		return v.ConfigSchemaSourceTypescript
 	}
 	return nil
 }
 
-func (p *PostConfigRequestBody) GetSchemaProtobuf() *components.ConfigSchemaSourceProtobuf {
+func (p *PostConfigRequest) GetSchemaProtobuf() *components.ConfigSchemaSourceProtobuf {
 	if v := p.GetSchema(); v != nil {
 		return v.ConfigSchemaSourceProtobuf
 	}
 	return nil
 }
 
-func (p *PostConfigRequestBody) GetSchemaPython() *components.ConfigSchemaSourcePython {
+func (p *PostConfigRequest) GetSchemaPython() *components.ConfigSchemaSourcePython {
 	if v := p.GetSchema(); v != nil {
 		return v.ConfigSchemaSourcePython
 	}
 	return nil
 }
 
-func (p *PostConfigRequestBody) GetSchemaGo() *components.ConfigSchemaSourceGo {
+func (p *PostConfigRequest) GetSchemaGo() *components.ConfigSchemaSourceGo {
 	if v := p.GetSchema(); v != nil {
 		return v.ConfigSchemaSourceGo
 	}
 	return nil
 }
 
-func (p *PostConfigRequestBody) GetSchemaRust() *components.ConfigSchemaSourceRust {
+func (p *PostConfigRequest) GetSchemaRust() *components.ConfigSchemaSourceRust {
 	if v := p.GetSchema(); v != nil {
 		return v.ConfigSchemaSourceRust
 	}
 	return nil
 }
 
-func (p *PostConfigRequestBody) GetSource() *string {
+func (p *PostConfigRequest) GetSource() *string {
 	if p == nil {
 		return nil
 	}
 	return p.Source
 }
 
-func (p *PostConfigRequestBody) GetExtensible() *bool {
+func (p *PostConfigRequest) GetExtensible() *bool {
 	if p == nil {
 		return nil
 	}
 	return p.Extensible
 }
 
-func (p *PostConfigRequestBody) GetExperimentGuard() *bool {
+func (p *PostConfigRequest) GetExperimentGuard() *bool {
 	if p == nil {
 		return nil
 	}
 	return p.ExperimentGuard
 }
 
-func (p *PostConfigRequestBody) GetInvariants() []PostConfigInvariant {
+func (p *PostConfigRequest) GetInvariants() []PostConfigInvariant {
 	if p == nil {
 		return nil
 	}
 	return p.Invariants
-}
-
-func (p *PostConfigRequestBody) GetIgnoreWarnings() *bool {
-	if p == nil {
-		return nil
-	}
-	return p.IgnoreWarnings
-}
-
-func (p *PostConfigRequestBody) GetSkipSchemaValidation() *bool {
-	if p == nil {
-		return nil
-	}
-	return p.SkipSchemaValidation
-}
-
-func (p *PostConfigRequestBody) GetSkipHooks() *bool {
-	if p == nil {
-		return nil
-	}
-	return p.SkipHooks
-}
-
-type PostConfigRequest struct {
-	// Deprecated — pass `skipSchemaValidation` in the request body instead.
-	SkipSchemaValidation *bool `queryParam:"style=form,explode=true,name=skipSchemaValidation"`
-	// Deprecated — pass `ignoreWarnings` in the request body instead.
-	IgnoreWarnings *bool                 `queryParam:"style=form,explode=true,name=ignoreWarnings"`
-	Body           PostConfigRequestBody `request:"mediaType=application/json"`
-}
-
-func (p *PostConfigRequest) GetSkipSchemaValidation() *bool {
-	if p == nil {
-		return nil
-	}
-	return p.SkipSchemaValidation
 }
 
 func (p *PostConfigRequest) GetIgnoreWarnings() *bool {
@@ -304,11 +268,18 @@ func (p *PostConfigRequest) GetIgnoreWarnings() *bool {
 	return p.IgnoreWarnings
 }
 
-func (p *PostConfigRequest) GetBody() PostConfigRequestBody {
+func (p *PostConfigRequest) GetSkipSchemaValidation() *bool {
 	if p == nil {
-		return PostConfigRequestBody{}
+		return nil
 	}
-	return p.Body
+	return p.SkipSchemaValidation
+}
+
+func (p *PostConfigRequest) GetSkipHooks() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.SkipHooks
 }
 
 // PostConfigResponseBody - Resource created

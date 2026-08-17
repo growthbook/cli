@@ -17,33 +17,31 @@ import (
 var setProjectionCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "key", Shorthand: "k", FieldPath: "Key", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "skip-schema-validation", Shorthand: "s", FieldPath: "SkipSchemaValidation", Kind: flagutil.FlagKindBool, Optional: true, Description: "Deprecated — pass `skipSchemaValidation` in the request body instead."},
-	{FlagName: "ignore-warnings", Shorthand: "i", FieldPath: "IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Deprecated — pass `ignoreWarnings` in the request body instead."},
-	{FlagName: "body-param.revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "body-param.revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "body-param.source", FieldPath: "Body.Source", Kind: flagutil.FlagKindString, Required: true, Description: "Identifier of the consuming codebase/service this projection belongs to. [required]"},
-	{FlagName: "body-param.schema", FieldPath: "Body.Schema", Kind: flagutil.FlagKindUnion, Union: &flagutil.UnionMeta{Discriminated: true, DiscriminatorKey: "Type", TypeDescription: "JSON value (variants: json-schema: { value: object }, typescript: { value: string }, protobuf: { value: string }, python: { value: string }, go: { value: string }, rust: { value: string })", Variants: []flagutil.UnionVariantMeta{
-		{DiscriminatorValue: "json-schema", FlagName: "body-param.schema.json-schema", FieldName: "ConfigSchemaSourceJSONSchema", CanExpand: false, Description: "ConfigSchemaSource_JSONSchema variant as JSON"},
-		{DiscriminatorValue: "typescript", FlagName: "body-param.schema.typescript", FieldName: "ConfigSchemaSourceTypescript", CanExpand: true, Description: "ConfigSchemaSource_Typescript variant as JSON", Fields: []flagutil.FlagMeta{
-			{FlagName: "body-param.schema.typescript.value", FieldPath: "Value", Kind: flagutil.FlagKindString, Required: true, Description: "TypeScript source — an interface or object type. [required]"},
+	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "source", FieldPath: "Body.Source", Kind: flagutil.FlagKindString, Required: true, Description: "Identifier of the consuming codebase/service this projection belongs to. [required]"},
+	{FlagName: "schema", FieldPath: "Body.Schema", Kind: flagutil.FlagKindUnion, Union: &flagutil.UnionMeta{Discriminated: true, DiscriminatorKey: "Type", TypeDescription: "JSON value (variants: json-schema: { value: object }, typescript: { value: string }, protobuf: { value: string }, python: { value: string }, go: { value: string }, rust: { value: string })", Variants: []flagutil.UnionVariantMeta{
+		{DiscriminatorValue: "json-schema", FlagName: "schema.json-schema", FieldName: "ConfigSchemaSourceJSONSchema", CanExpand: false, Description: "ConfigSchemaSource_JSONSchema variant as JSON"},
+		{DiscriminatorValue: "typescript", FlagName: "schema.typescript", FieldName: "ConfigSchemaSourceTypescript", CanExpand: true, Description: "ConfigSchemaSource_Typescript variant as JSON", Fields: []flagutil.FlagMeta{
+			{FlagName: "schema.typescript.value", FieldPath: "Value", Kind: flagutil.FlagKindString, Required: true, Description: "TypeScript source — an interface or object type. [required]"},
 		}},
-		{DiscriminatorValue: "protobuf", FlagName: "body-param.schema.protobuf", FieldName: "ConfigSchemaSourceProtobuf", CanExpand: true, Description: "ConfigSchemaSource_Protobuf variant as JSON", Fields: []flagutil.FlagMeta{
-			{FlagName: "body-param.schema.protobuf.value", FieldPath: "Value", Kind: flagutil.FlagKindString, Required: true, Description: "Protobuf (proto3) source — a `message` definition. [required]"},
+		{DiscriminatorValue: "protobuf", FlagName: "schema.protobuf", FieldName: "ConfigSchemaSourceProtobuf", CanExpand: true, Description: "ConfigSchemaSource_Protobuf variant as JSON", Fields: []flagutil.FlagMeta{
+			{FlagName: "schema.protobuf.value", FieldPath: "Value", Kind: flagutil.FlagKindString, Required: true, Description: "Protobuf (proto3) source — a `message` definition. [required]"},
 		}},
-		{DiscriminatorValue: "python", FlagName: "body-param.schema.python", FieldName: "ConfigSchemaSourcePython", CanExpand: true, Description: "ConfigSchemaSource_Python variant as JSON", Fields: []flagutil.FlagMeta{
-			{FlagName: "body-param.schema.python.value", FieldPath: "Value", Kind: flagutil.FlagKindString, Required: true, Description: "Python source — a Pydantic `BaseModel` class. [required]"},
+		{DiscriminatorValue: "python", FlagName: "schema.python", FieldName: "ConfigSchemaSourcePython", CanExpand: true, Description: "ConfigSchemaSource_Python variant as JSON", Fields: []flagutil.FlagMeta{
+			{FlagName: "schema.python.value", FieldPath: "Value", Kind: flagutil.FlagKindString, Required: true, Description: "Python source — a Pydantic `BaseModel` class. [required]"},
 		}},
-		{DiscriminatorValue: "go", FlagName: "body-param.schema.go", FieldName: "ConfigSchemaSourceGo", CanExpand: true, Description: "ConfigSchemaSource_Go variant as JSON", Fields: []flagutil.FlagMeta{
-			{FlagName: "body-param.schema.go.value", FieldPath: "Value", Kind: flagutil.FlagKindString, Required: true, Description: "Go source — a `struct` definition. [required]"},
+		{DiscriminatorValue: "go", FlagName: "schema.go", FieldName: "ConfigSchemaSourceGo", CanExpand: true, Description: "ConfigSchemaSource_Go variant as JSON", Fields: []flagutil.FlagMeta{
+			{FlagName: "schema.go.value", FieldPath: "Value", Kind: flagutil.FlagKindString, Required: true, Description: "Go source — a `struct` definition. [required]"},
 		}},
-		{DiscriminatorValue: "rust", FlagName: "body-param.schema.rust", FieldName: "ConfigSchemaSourceRust", CanExpand: true, Description: "ConfigSchemaSource_Rust variant as JSON", Fields: []flagutil.FlagMeta{
-			{FlagName: "body-param.schema.rust.value", FieldPath: "Value", Kind: flagutil.FlagKindString, Required: true, Description: "Rust source — a serde `struct` definition. [required]"},
+		{DiscriminatorValue: "rust", FlagName: "schema.rust", FieldName: "ConfigSchemaSourceRust", CanExpand: true, Description: "ConfigSchemaSource_Rust variant as JSON", Fields: []flagutil.FlagMeta{
+			{FlagName: "schema.rust.value", FieldPath: "Value", Kind: flagutil.FlagKindString, Required: true, Description: "Rust source — a serde `struct` definition. [required]"},
 		}},
 	}}},
-	{FlagName: "body-param.additional-properties", FieldPath: "Body.AdditionalProperties", Kind: flagutil.FlagKindBool, Optional: true, Description: "Whether the resulting object schema permits extra keys (family extensibility)."},
-	{FlagName: "body-param.ignore-warnings", FieldPath: "Body.IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access."},
-	{FlagName: "body-param.skip-schema-validation", FieldPath: "Body.SkipSchemaValidation", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored."},
-	{FlagName: "body-param.skip-hooks", FieldPath: "Body.SkipHooks", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored."},
+	{FlagName: "additional-properties", Shorthand: "a", FieldPath: "Body.AdditionalProperties", Kind: flagutil.FlagKindBool, Optional: true, Description: "Whether the resulting object schema permits extra keys (family extensibility)."},
+	{FlagName: "ignore-warnings", Shorthand: "i", FieldPath: "Body.IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access."},
+	{FlagName: "skip-schema-validation", FieldPath: "Body.SkipSchemaValidation", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored."},
+	{FlagName: "skip-hooks", FieldPath: "Body.SkipHooks", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored."},
 }
 
 // initSetProjectionCmd initializes the set-projection command.
@@ -52,7 +50,7 @@ func initSetProjectionCmd(parent *cobra.Command) error {
 		Use:     "set-projection",
 		Short:   "Set (or update) a config's per-source render projection on a draft",
 		Long:    "Stages a per-source render projection on the draft, AND the schema it implies. Provide a named `schema` source (`{ type: \"typescript\" | \"protobuf\" | \"python\" | \"go\" | \"rust\" | \"json-schema\", value }`) for the consuming codebase identified by `source`: GrowthBook derives the config's canonical schema from it (so the change projects into the Config) and captures that source's named-type structure under `renderProjections[source]`. Both are staged on the draft and published through the normal flow. Pass `version: \"new\"` to auto-create a draft. Lossy conversions degrade with `warnings`.",
-		Example: "  growthbook config-revisions set-projection --key <key> --version-param <value> --body-param.source <value> --body-param.schema '{\"type\":\"rust\",\"value\":\"<value>\"}'",
+		Example: "  growthbook config-revisions set-projection --key <key> --version-param <value> --source <value> --schema '{\"type\":\"rust\",\"value\":\"<value>\"}'",
 		RunE:    runSetProjectionCmd,
 		Aliases: []string{"spr"},
 	}

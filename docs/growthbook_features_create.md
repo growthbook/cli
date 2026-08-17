@@ -38,36 +38,34 @@ growthbook features create [flags]
 ### Examples
 
 ```
-  growthbook features create --body-param.id <id> --body-param.value-type number --body-param.default-value <value>
+  growthbook features create --id <id> --value-type number --default-value <value>
 ```
 
 ### Options
 
 ```
-      --body string                                   Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --body-param.archived                           boolean flag
-      --body-param.base-config valueType: "json"      Key of the config backing this flag ("Config mode"). Requires valueType: "json" and a live config. The config supplies the base JSON and schema; `defaultValue` and rule values are override patches on top. null or omitted for a plain flag.
-      --body-param.custom-fields string               value
-      --body-param.default-value valueType            Default value when feature is enabled. Type must match valueType. In Config mode (`baseConfig` set) the default must be exactly a config with no overrides: send `"{}"` to use `baseConfig`, or set `defaultValueConfig` to point at a descendant. [required]
-      --body-param.default-value-config baseConfig    Optional. A config within baseConfig's family that the default value resolves to instead of `baseConfig` itself. null or omitted means the default is `baseConfig`. The default is exactly this config and carries no overrides of its own.
-      --body-param.description string                 Description of the feature
-      --body-param.environments rules                 Per-environment enabled state. V2 rules are specified on the top-level rules field.
-      --body-param.id string                          A unique key name for the feature. Feature keys can only include letters, numbers, hyphens, and underscores. [required]
-      --body-param.ignore-warnings                    Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
-      --body-param.json-schema string                 Use JSON schema to validate the payload of a JSON-type feature value (enterprise only).
-      --body-param.owner string                       The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. Optional when authenticating with a Personal Access Token (PAT): when omitted, the owner defaults to the PAT's user. Required when authenticating with an organization secret API key (which has no associated user): omitting it fails with a 400.
-      --body-param.prerequisites true                 Feature IDs. Each feature must evaluate to true
-      --body-param.project string                     An associated project ID
-      --body-param.rules allEnvironments              Feature rules. Each rule carries its own environment scope via allEnvironments / `environments`.
-      --body-param.skip-hooks skipSchemaValidation    Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use skipSchemaValidation for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
-      --body-param.skip-schema-validation skipHooks   Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use skipHooks for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
-      --body-param.tags stringArray                   List of associated tags
-      --body-param.targeting-all-projects project     Make this feature discoverable in — and served to — every project, beyond its primary project. Governance/approvals stay with `project`.
-      --body-param.targeting-projects project         Secondary project IDs this feature is targeted in and served to, beyond its primary project. Governance/approvals stay with `project`.
-      --body-param.value-type string                  The data type of the feature payload. Boolean by default. (options: boolean, string, number, json) [required]
-  -h, --help                                          help for create
-  -i, --ignore-warnings ignoreWarnings                Deprecated — pass ignoreWarnings in the request body instead.
-  -s, --skip-schema-validation skipSchemaValidation   Deprecated — pass skipSchemaValidation in the request body instead.
+  -a, --archived                           boolean flag
+  -b, --base-config valueType: "json"      Key of the config backing this flag ("Config mode"). Requires valueType: "json" and a live config. The config supplies the base JSON and schema; `defaultValue` and rule values are override patches on top. null or omitted for a plain flag.
+      --body string                        Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -c, --custom-fields string               value
+      --default-value valueType            Default value when feature is enabled. Type must match valueType. In Config mode (`baseConfig` set) the default must be exactly a config with no overrides: send `"{}"` to use `baseConfig`, or set `defaultValueConfig` to point at a descendant. [required]
+      --default-value-config baseConfig    Optional. A config within baseConfig's family that the default value resolves to instead of `baseConfig` itself. null or omitted means the default is `baseConfig`. The default is exactly this config and carries no overrides of its own.
+      --description string                 Description of the feature
+  -e, --environments rules                 Per-environment enabled state. V2 rules are specified on the top-level rules field.
+  -h, --help                               help for create
+      --id string                          A unique key name for the feature. Feature keys can only include letters, numbers, hyphens, and underscores. [required]
+      --ignore-warnings                    Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+  -j, --json-schema string                 Use JSON schema to validate the payload of a JSON-type feature value (enterprise only).
+      --owner string                       The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. Optional when authenticating with a Personal Access Token (PAT): when omitted, the owner defaults to the PAT's user. Required when authenticating with an organization secret API key (which has no associated user): omitting it fails with a 400.
+      --prerequisites true                 Feature IDs. Each feature must evaluate to true
+      --project string                     An associated project ID
+  -r, --rules allEnvironments              Feature rules. Each rule carries its own environment scope via allEnvironments / `environments`.
+      --skip-hooks skipSchemaValidation    Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use skipSchemaValidation for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+      --skip-schema-validation skipHooks   Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use skipHooks for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+      --tags stringArray                   List of associated tags
+      --targeting-all-projects project     Make this feature discoverable in — and served to — every project, beyond its primary project. Governance/approvals stay with `project`.
+      --targeting-projects project         Secondary project IDs this feature is targeted in and served to, beyond its primary project. Governance/approvals stay with `project`.
+  -v, --value-type string                  The data type of the feature payload. Boolean by default. (options: boolean, string, number, json) [required]
 ```
 
 ### Options inherited from parent commands

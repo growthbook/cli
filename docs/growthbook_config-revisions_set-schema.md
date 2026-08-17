@@ -23,31 +23,29 @@ growthbook config-revisions set-schema [flags]
 ### Options
 
 ```
-      --body string                                   Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --body-param.additional-properties              Whether the resulting object schema permits extra keys (family extensibility).
-      --body-param.ignore-warnings                    Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
-      --body-param.infer                              Derive the schema from the draft's value instead.
-      --body-param.revision-comment string            string value
-      --body-param.revision-title string              string value
-      --body-param.schema string                      JSON value (variants: json-schema: { value: object }, typescript: { value: string }, protobuf: { value: string }, python: { value: string }, go: { value: string }, rust: { value: string })
-      --body-param.schema.go string                   ConfigSchemaSource_Go variant as JSON
-      --body-param.schema.go.value struct             Go source — a struct definition. [required]
-      --body-param.schema.json-schema string          ConfigSchemaSource_JSONSchema variant as JSON
-      --body-param.schema.protobuf string             ConfigSchemaSource_Protobuf variant as JSON
-      --body-param.schema.protobuf.value message      Protobuf (proto3) source — a message definition. [required]
-      --body-param.schema.python string               ConfigSchemaSource_Python variant as JSON
-      --body-param.schema.python.value BaseModel      Python source — a Pydantic BaseModel class. [required]
-      --body-param.schema.rust string                 ConfigSchemaSource_Rust variant as JSON
-      --body-param.schema.rust.value struct           Rust source — a serde struct definition. [required]
-      --body-param.schema.typescript string           ConfigSchemaSource_Typescript variant as JSON
-      --body-param.schema.typescript.value string     TypeScript source — an interface or object type. [required]
-      --body-param.skip-hooks skipSchemaValidation    Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use skipSchemaValidation for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
-      --body-param.skip-schema-validation skipHooks   Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use skipHooks for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
-  -h, --help                                          help for set-schema
-  -i, --ignore-warnings ignoreWarnings                Deprecated — pass ignoreWarnings in the request body instead.
-  -k, --key string                                    [required]
-  -s, --skip-schema-validation skipSchemaValidation   Deprecated — pass skipSchemaValidation in the request body instead.
-  -v, --version-param string                          [required]
+  -a, --additional-properties              Whether the resulting object schema permits extra keys (family extensibility).
+      --body string                        Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -h, --help                               help for set-schema
+      --ignore-warnings                    Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+      --infer                              Derive the schema from the draft's value instead.
+  -k, --key string                         [required]
+      --revision-comment string            string value
+      --revision-title string              string value
+      --schema string                      JSON value (variants: json-schema: { value: object }, typescript: { value: string }, protobuf: { value: string }, python: { value: string }, go: { value: string }, rust: { value: string })
+      --schema.go string                   ConfigSchemaSource_Go variant as JSON
+      --schema.go.value struct             Go source — a struct definition. [required]
+      --schema.json-schema string          ConfigSchemaSource_JSONSchema variant as JSON
+      --schema.protobuf string             ConfigSchemaSource_Protobuf variant as JSON
+      --schema.protobuf.value message      Protobuf (proto3) source — a message definition. [required]
+      --schema.python string               ConfigSchemaSource_Python variant as JSON
+      --schema.python.value BaseModel      Python source — a Pydantic BaseModel class. [required]
+      --schema.rust string                 ConfigSchemaSource_Rust variant as JSON
+      --schema.rust.value struct           Rust source — a serde struct definition. [required]
+      --schema.typescript string           ConfigSchemaSource_Typescript variant as JSON
+      --schema.typescript.value string     TypeScript source — an interface or object type. [required]
+      --skip-hooks skipSchemaValidation    Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use skipSchemaValidation for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+      --skip-schema-validation skipHooks   Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use skipHooks for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+  -v, --version-param string               [required]
 ```
 
 ### Options inherited from parent commands

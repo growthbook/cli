@@ -1136,13 +1136,9 @@ func (p *PostFeatureRevisionRuleAddV2RequestBody) GetSkipHooks() *bool {
 // #endregion class-body-postfeaturerevisionruleaddv2requestbody
 
 type PostFeatureRevisionRuleAddV2Request struct {
-	ID      string `pathParam:"style=simple,explode=false,name=id"`
-	Version string `pathParam:"style=simple,explode=false,name=version"`
-	// Deprecated — pass `skipSchemaValidation` in the request body instead.
-	SkipSchemaValidation *bool `queryParam:"style=form,explode=true,name=skipSchemaValidation"`
-	// Deprecated — pass `ignoreWarnings` in the request body instead.
-	IgnoreWarnings *bool                                   `queryParam:"style=form,explode=true,name=ignoreWarnings"`
-	Body           PostFeatureRevisionRuleAddV2RequestBody `request:"mediaType=application/json"`
+	ID      string                                  `pathParam:"style=simple,explode=false,name=id"`
+	Version string                                  `pathParam:"style=simple,explode=false,name=version"`
+	Body    PostFeatureRevisionRuleAddV2RequestBody `request:"mediaType=application/json"`
 }
 
 func (p *PostFeatureRevisionRuleAddV2Request) GetID() string {
@@ -1157,20 +1153,6 @@ func (p *PostFeatureRevisionRuleAddV2Request) GetVersion() string {
 		return ""
 	}
 	return p.Version
-}
-
-func (p *PostFeatureRevisionRuleAddV2Request) GetSkipSchemaValidation() *bool {
-	if p == nil {
-		return nil
-	}
-	return p.SkipSchemaValidation
-}
-
-func (p *PostFeatureRevisionRuleAddV2Request) GetIgnoreWarnings() *bool {
-	if p == nil {
-		return nil
-	}
-	return p.IgnoreWarnings
 }
 
 func (p *PostFeatureRevisionRuleAddV2Request) GetBody() PostFeatureRevisionRuleAddV2RequestBody {
