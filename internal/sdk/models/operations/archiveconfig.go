@@ -39,10 +39,8 @@ func (a *ArchiveConfigRequestBody) GetSkipHooks() *bool {
 
 type ArchiveConfigRequest struct {
 	// The key of the config
-	Key string `pathParam:"style=simple,explode=false,name=key"`
-	// Deprecated — pass `ignoreWarnings` in the request body instead.
-	IgnoreWarnings *bool                    `queryParam:"style=form,explode=true,name=ignoreWarnings"`
-	Body           ArchiveConfigRequestBody `request:"mediaType=application/json"`
+	Key  string                   `pathParam:"style=simple,explode=false,name=key"`
+	Body ArchiveConfigRequestBody `request:"mediaType=application/json"`
 }
 
 func (a *ArchiveConfigRequest) GetKey() string {
@@ -50,13 +48,6 @@ func (a *ArchiveConfigRequest) GetKey() string {
 		return ""
 	}
 	return a.Key
-}
-
-func (a *ArchiveConfigRequest) GetIgnoreWarnings() *bool {
-	if a == nil {
-		return nil
-	}
-	return a.IgnoreWarnings
 }
 
 func (a *ArchiveConfigRequest) GetBody() ArchiveConfigRequestBody {

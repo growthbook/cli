@@ -1407,7 +1407,7 @@ func (p *PostFeatureV2Environments) GetEnabled() *bool {
 // #region class-body-postfeaturev2environments
 // #endregion class-body-postfeaturev2environments
 
-type PostFeatureV2RequestBody struct {
+type PostFeatureV2Request struct {
 	// A unique key name for the feature. Feature keys can only include letters, numbers, hyphens, and underscores.
 	ID       string `json:"id"`
 	Archived *bool  `json:"archived,omitzero"`
@@ -1448,173 +1448,134 @@ type PostFeatureV2RequestBody struct {
 	SkipHooks *bool `json:"skipHooks,omitzero"`
 }
 
-func (p PostFeatureV2RequestBody) MarshalJSON() ([]byte, error) {
+func (p PostFeatureV2Request) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(p, "", false)
 }
 
-func (p *PostFeatureV2RequestBody) UnmarshalJSON(data []byte) error {
+func (p *PostFeatureV2Request) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PostFeatureV2RequestBody) GetID() string {
+func (p *PostFeatureV2Request) GetID() string {
 	if p == nil {
 		return ""
 	}
 	return p.ID
 }
 
-func (p *PostFeatureV2RequestBody) GetArchived() *bool {
+func (p *PostFeatureV2Request) GetArchived() *bool {
 	if p == nil {
 		return nil
 	}
 	return p.Archived
 }
 
-func (p *PostFeatureV2RequestBody) GetDescription() *string {
+func (p *PostFeatureV2Request) GetDescription() *string {
 	if p == nil {
 		return nil
 	}
 	return p.Description
 }
 
-func (p *PostFeatureV2RequestBody) GetOwner() *string {
+func (p *PostFeatureV2Request) GetOwner() *string {
 	if p == nil {
 		return nil
 	}
 	return p.Owner
 }
 
-func (p *PostFeatureV2RequestBody) GetProject() *string {
+func (p *PostFeatureV2Request) GetProject() *string {
 	if p == nil {
 		return nil
 	}
 	return p.Project
 }
 
-func (p *PostFeatureV2RequestBody) GetTargetingAllProjects() *bool {
+func (p *PostFeatureV2Request) GetTargetingAllProjects() *bool {
 	if p == nil {
 		return nil
 	}
 	return p.TargetingAllProjects
 }
 
-func (p *PostFeatureV2RequestBody) GetTargetingProjects() []string {
+func (p *PostFeatureV2Request) GetTargetingProjects() []string {
 	if p == nil {
 		return nil
 	}
 	return p.TargetingProjects
 }
 
-func (p *PostFeatureV2RequestBody) GetValueType() PostFeatureV2ValueType {
+func (p *PostFeatureV2Request) GetValueType() PostFeatureV2ValueType {
 	if p == nil {
 		return PostFeatureV2ValueType("")
 	}
 	return p.ValueType
 }
 
-func (p *PostFeatureV2RequestBody) GetDefaultValue() string {
+func (p *PostFeatureV2Request) GetDefaultValue() string {
 	if p == nil {
 		return ""
 	}
 	return p.DefaultValue
 }
 
-func (p *PostFeatureV2RequestBody) GetBaseConfig() optionalnullable.OptionalNullable[string] {
+func (p *PostFeatureV2Request) GetBaseConfig() optionalnullable.OptionalNullable[string] {
 	if p == nil {
 		return nil
 	}
 	return p.BaseConfig
 }
 
-func (p *PostFeatureV2RequestBody) GetDefaultValueConfig() optionalnullable.OptionalNullable[string] {
+func (p *PostFeatureV2Request) GetDefaultValueConfig() optionalnullable.OptionalNullable[string] {
 	if p == nil {
 		return nil
 	}
 	return p.DefaultValueConfig
 }
 
-func (p *PostFeatureV2RequestBody) GetTags() []string {
+func (p *PostFeatureV2Request) GetTags() []string {
 	if p == nil {
 		return nil
 	}
 	return p.Tags
 }
 
-func (p *PostFeatureV2RequestBody) GetRules() []PostFeatureV2RuleUnion {
+func (p *PostFeatureV2Request) GetRules() []PostFeatureV2RuleUnion {
 	if p == nil {
 		return nil
 	}
 	return p.Rules
 }
 
-func (p *PostFeatureV2RequestBody) GetEnvironments() map[string]PostFeatureV2Environments {
+func (p *PostFeatureV2Request) GetEnvironments() map[string]PostFeatureV2Environments {
 	if p == nil {
 		return nil
 	}
 	return p.Environments
 }
 
-func (p *PostFeatureV2RequestBody) GetPrerequisites() []string {
+func (p *PostFeatureV2Request) GetPrerequisites() []string {
 	if p == nil {
 		return nil
 	}
 	return p.Prerequisites
 }
 
-func (p *PostFeatureV2RequestBody) GetJSONSchema() *string {
+func (p *PostFeatureV2Request) GetJSONSchema() *string {
 	if p == nil {
 		return nil
 	}
 	return p.JSONSchema
 }
 
-func (p *PostFeatureV2RequestBody) GetCustomFields() map[string]string {
+func (p *PostFeatureV2Request) GetCustomFields() map[string]string {
 	if p == nil {
 		return nil
 	}
 	return p.CustomFields
-}
-
-func (p *PostFeatureV2RequestBody) GetIgnoreWarnings() *bool {
-	if p == nil {
-		return nil
-	}
-	return p.IgnoreWarnings
-}
-
-func (p *PostFeatureV2RequestBody) GetSkipSchemaValidation() *bool {
-	if p == nil {
-		return nil
-	}
-	return p.SkipSchemaValidation
-}
-
-func (p *PostFeatureV2RequestBody) GetSkipHooks() *bool {
-	if p == nil {
-		return nil
-	}
-	return p.SkipHooks
-}
-
-// #region class-body-postfeaturev2requestbody
-// #endregion class-body-postfeaturev2requestbody
-
-type PostFeatureV2Request struct {
-	// Deprecated — pass `skipSchemaValidation` in the request body instead.
-	SkipSchemaValidation *bool `queryParam:"style=form,explode=true,name=skipSchemaValidation"`
-	// Deprecated — pass `ignoreWarnings` in the request body instead.
-	IgnoreWarnings *bool                    `queryParam:"style=form,explode=true,name=ignoreWarnings"`
-	Body           PostFeatureV2RequestBody `request:"mediaType=application/json"`
-}
-
-func (p *PostFeatureV2Request) GetSkipSchemaValidation() *bool {
-	if p == nil {
-		return nil
-	}
-	return p.SkipSchemaValidation
 }
 
 func (p *PostFeatureV2Request) GetIgnoreWarnings() *bool {
@@ -1624,11 +1585,18 @@ func (p *PostFeatureV2Request) GetIgnoreWarnings() *bool {
 	return p.IgnoreWarnings
 }
 
-func (p *PostFeatureV2Request) GetBody() PostFeatureV2RequestBody {
+func (p *PostFeatureV2Request) GetSkipSchemaValidation() *bool {
 	if p == nil {
-		return PostFeatureV2RequestBody{}
+		return nil
 	}
-	return p.Body
+	return p.SkipSchemaValidation
+}
+
+func (p *PostFeatureV2Request) GetSkipHooks() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.SkipHooks
 }
 
 // #region class-body-postfeaturev2request

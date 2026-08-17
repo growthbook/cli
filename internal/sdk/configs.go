@@ -214,7 +214,7 @@ func (s *Configs) Create(ctx context.Context, request operations.PostConfigReque
 		OperationID:      "postConfig",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Body", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Request", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -238,10 +238,6 @@ func (s *Configs) Create(ctx context.Context, request operations.PostConfigReque
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
 	if reqContentType != "" {
 		req.Header.Set("Content-Type", reqContentType)
-	}
-
-	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
 	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
@@ -1272,10 +1268,6 @@ func (s *Configs) UpdateConfig(ctx context.Context, request operations.UpdateCon
 		req.Header.Set("Content-Type", reqContentType)
 	}
 
-	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
-	}
-
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
 	}
@@ -1570,10 +1562,6 @@ func (s *Configs) ArchiveConfig(ctx context.Context, request operations.ArchiveC
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
 	if reqContentType != "" {
 		req.Header.Set("Content-Type", reqContentType)
-	}
-
-	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
 	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {

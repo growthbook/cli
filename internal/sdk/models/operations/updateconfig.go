@@ -283,12 +283,8 @@ func (u *UpdateConfigRequestBody) GetSkipHooks() *bool {
 
 type UpdateConfigRequest struct {
 	// The key of the config
-	Key string `pathParam:"style=simple,explode=false,name=key"`
-	// Deprecated — pass `skipSchemaValidation` in the request body instead.
-	SkipSchemaValidation *bool `queryParam:"style=form,explode=true,name=skipSchemaValidation"`
-	// Deprecated — pass `ignoreWarnings` in the request body instead.
-	IgnoreWarnings *bool                   `queryParam:"style=form,explode=true,name=ignoreWarnings"`
-	Body           UpdateConfigRequestBody `request:"mediaType=application/json"`
+	Key  string                  `pathParam:"style=simple,explode=false,name=key"`
+	Body UpdateConfigRequestBody `request:"mediaType=application/json"`
 }
 
 func (u *UpdateConfigRequest) GetKey() string {
@@ -296,20 +292,6 @@ func (u *UpdateConfigRequest) GetKey() string {
 		return ""
 	}
 	return u.Key
-}
-
-func (u *UpdateConfigRequest) GetSkipSchemaValidation() *bool {
-	if u == nil {
-		return nil
-	}
-	return u.SkipSchemaValidation
-}
-
-func (u *UpdateConfigRequest) GetIgnoreWarnings() *bool {
-	if u == nil {
-		return nil
-	}
-	return u.IgnoreWarnings
 }
 
 func (u *UpdateConfigRequest) GetBody() UpdateConfigRequestBody {

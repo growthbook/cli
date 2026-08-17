@@ -83,13 +83,9 @@ func (p *PutConfigRevisionValueRequestBody) GetSkipHooks() *bool {
 }
 
 type PutConfigRevisionValueRequest struct {
-	Key     string `pathParam:"style=simple,explode=false,name=key"`
-	Version string `pathParam:"style=simple,explode=false,name=version"`
-	// Deprecated — pass `skipSchemaValidation` in the request body instead.
-	SkipSchemaValidation *bool `queryParam:"style=form,explode=true,name=skipSchemaValidation"`
-	// Deprecated — pass `ignoreWarnings` in the request body instead.
-	IgnoreWarnings *bool                             `queryParam:"style=form,explode=true,name=ignoreWarnings"`
-	Body           PutConfigRevisionValueRequestBody `request:"mediaType=application/json"`
+	Key     string                            `pathParam:"style=simple,explode=false,name=key"`
+	Version string                            `pathParam:"style=simple,explode=false,name=version"`
+	Body    PutConfigRevisionValueRequestBody `request:"mediaType=application/json"`
 }
 
 func (p *PutConfigRevisionValueRequest) GetKey() string {
@@ -104,20 +100,6 @@ func (p *PutConfigRevisionValueRequest) GetVersion() string {
 		return ""
 	}
 	return p.Version
-}
-
-func (p *PutConfigRevisionValueRequest) GetSkipSchemaValidation() *bool {
-	if p == nil {
-		return nil
-	}
-	return p.SkipSchemaValidation
-}
-
-func (p *PutConfigRevisionValueRequest) GetIgnoreWarnings() *bool {
-	if p == nil {
-		return nil
-	}
-	return p.IgnoreWarnings
 }
 
 func (p *PutConfigRevisionValueRequest) GetBody() PutConfigRevisionValueRequestBody {

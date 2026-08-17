@@ -2,12 +2,39 @@
 
 ## [Unreleased]
 
+## [2.0.1] - 2026-08-17
+
+A narrow fix: 2.0.0 unintentionally renamed the request-body flags, and this restores their
+original names. **It does not undo anything else in 2.0.0** — the removals and command renames in
+that release still apply, so read the 2.0.0 notes below when upgrading from 1.x.
+
+If you have not already migrated scripts to `--body-param.*`, this release needs no action from
+you.
+
+### Fixed
+
+- **`--body-param.` prefixes are gone; request-body flags use their plain names again**
+  (`--body-param.description` is `--description` once more). 2.0.0 renamed 142 flags across 15
+  commands as an unintended side effect: the API deprecated the `ignoreWarnings` and
+  `skipSchemaValidation` *query* parameters in favour of body fields of the same name, and that
+  name collision made the generator prefix the entire request body. Dropping the deprecated query
+  parameters removes the collision.
+
+  `--ignore-warnings` and `--skip-schema-validation` still work on the same commands — they now
+  set the body field, which is where the API wants them.
+
+  If you already migrated to `--body-param.*`, revert to the plain names.
+
 ## [2.0.0] - 2026-08-17
 
-Upgrading from 1.x requires two changes: drop `--merge-now`, and update any renamed
-`contextual-bandits` / `contextual-bandit-queries` commands. Both fail loudly (unknown
-flag / unknown command) rather than silently misbehaving, so a dry run of your scripts
-will surface everything that needs attention.
+Upgrading from 1.x: drop `--merge-now`, and update any renamed `contextual-bandits` /
+`contextual-bandit-queries` commands. Both fail loudly — unknown flag or unknown command —
+rather than silently misbehaving, so a dry run of your scripts will surface what needs
+attention.
+
+> **Upgrading to 2.0.1 or later?** Skip the `--body-param.` rename described under "Changed"
+> below — it was an unintended side effect and 2.0.1 reverts it. Keep using the plain flag
+> names. The rest of this release still applies.
 
 ### Removed
 
@@ -17,7 +44,29 @@ will surface everything that needs attention.
   supports it as part of publish hardening. Scripts passing it will fail with an unknown-flag
   error rather than silently not merging.
 
+- **`contextual-bandits start` / `stop` / `refresh` no longer accept a request body** — the
+  `--body` and `--body-param` flags are gone. These commands now take only `--id`.
+
 ### Changed
+
+- **Request-body flags are now prefixed `--body-param.`** on the commands that take a
+  structured body. For example `growthbook configs update --description X` becomes
+  `growthbook configs update --body-param.description X`.
+
+  > **Reverted in 2.0.1** — this was an unintended side effect, not a deliberate change.
+  > Upgrade to 2.0.1 and keep using the plain flag names.
+
+  Affected commands:
+
+  `features create`, `features update`, `configs create`, `configs update`,
+  `configs archive`, `config-revisions publish`, `config-revisions revert`,
+  `config-revisions set-metadata`, `config-revisions set-projection`,
+  `config-revisions set-schema`, `config-revisions set-value`,
+  `feature-revisions add-rule`, `feature-revisions update-rule`,
+  `feature-revisions publish`, `feature-revisions set-default-value`.
+
+  Passing raw JSON via `--body` is unaffected, and remains the most stable way to script
+  these commands.
 
 - **`contextual-bandits` and `contextual-bandit-queries` commands renamed** to drop the redundant
   group name from every subcommand. These groups were missed by the 1.0.0 naming cleanup; this

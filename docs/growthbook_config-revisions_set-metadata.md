@@ -19,24 +19,22 @@ growthbook config-revisions set-metadata [flags]
 ### Options
 
 ```
-      --body string                                   Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --body-param.description string                 string value
-      --body-param.extends parent                     Replace the composition mixins layered on top of parent, in precedence order (later overrides earlier; all override `parent`; own keys win last). Send the complete set; an empty array clears all mixins.
-      --body-param.extensible                         boolean flag
-      --body-param.ignore-warnings                    Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
-      --body-param.name string                        string value
-      --body-param.owner string                       The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-      --body-param.parent key                         Change the lineage parent (the key to inherit from). Empty string detaches from the parent.
-      --body-param.project string                     string value
-      --body-param.revision-comment string            string value
-      --body-param.revision-title string              string value
-      --body-param.skip-hooks skipSchemaValidation    Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use skipSchemaValidation for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
-      --body-param.skip-schema-validation skipHooks   Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use skipHooks for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
-  -h, --help                                          help for set-metadata
-  -i, --ignore-warnings ignoreWarnings                Deprecated — pass ignoreWarnings in the request body instead.
-  -k, --key string                                    [required]
-  -s, --skip-schema-validation skipSchemaValidation   Deprecated — pass skipSchemaValidation in the request body instead.
-  -v, --version-param string                          [required]
+      --body string                        Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --description string                 string value
+      --extends parent                     Replace the composition mixins layered on top of parent, in precedence order (later overrides earlier; all override `parent`; own keys win last). Send the complete set; an empty array clears all mixins.
+      --extensible                         boolean flag
+  -h, --help                               help for set-metadata
+  -i, --ignore-warnings                    Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+  -k, --key string                         [required]
+  -n, --name string                        string value
+      --owner string                       The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
+      --parent key                         Change the lineage parent (the key to inherit from). Empty string detaches from the parent.
+      --project string                     string value
+      --revision-comment string            string value
+      --revision-title string              string value
+      --skip-hooks skipSchemaValidation    Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use skipSchemaValidation for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+      --skip-schema-validation skipHooks   Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use skipHooks for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+  -v, --version-param string               [required]
 ```
 
 ### Options inherited from parent commands

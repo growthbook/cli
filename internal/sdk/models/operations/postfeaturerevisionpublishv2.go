@@ -58,13 +58,9 @@ func (p *PostFeatureRevisionPublishV2RequestBody) GetSkipHooks() *bool {
 // #endregion class-body-postfeaturerevisionpublishv2requestbody
 
 type PostFeatureRevisionPublishV2Request struct {
-	ID      string `pathParam:"style=simple,explode=false,name=id"`
-	Version string `pathParam:"style=simple,explode=false,name=version"`
-	// Deprecated — pass `skipSchemaValidation` in the request body instead.
-	SkipSchemaValidation *bool `queryParam:"style=form,explode=true,name=skipSchemaValidation"`
-	// Deprecated — pass `ignoreWarnings` in the request body instead.
-	IgnoreWarnings *bool                                   `queryParam:"style=form,explode=true,name=ignoreWarnings"`
-	Body           PostFeatureRevisionPublishV2RequestBody `request:"mediaType=application/json"`
+	ID      string                                  `pathParam:"style=simple,explode=false,name=id"`
+	Version string                                  `pathParam:"style=simple,explode=false,name=version"`
+	Body    PostFeatureRevisionPublishV2RequestBody `request:"mediaType=application/json"`
 }
 
 func (p *PostFeatureRevisionPublishV2Request) GetID() string {
@@ -79,20 +75,6 @@ func (p *PostFeatureRevisionPublishV2Request) GetVersion() string {
 		return ""
 	}
 	return p.Version
-}
-
-func (p *PostFeatureRevisionPublishV2Request) GetSkipSchemaValidation() *bool {
-	if p == nil {
-		return nil
-	}
-	return p.SkipSchemaValidation
-}
-
-func (p *PostFeatureRevisionPublishV2Request) GetIgnoreWarnings() *bool {
-	if p == nil {
-		return nil
-	}
-	return p.IgnoreWarnings
 }
 
 func (p *PostFeatureRevisionPublishV2Request) GetBody() PostFeatureRevisionPublishV2RequestBody {

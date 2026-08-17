@@ -837,10 +837,6 @@ func (s *ConfigRevisions) SetMetadata(ctx context.Context, request operations.Pu
 		req.Header.Set("Content-Type", reqContentType)
 	}
 
-	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
-	}
-
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
 	}
@@ -995,10 +991,6 @@ func (s *ConfigRevisions) SetValue(ctx context.Context, request operations.PutCo
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
 	if reqContentType != "" {
 		req.Header.Set("Content-Type", reqContentType)
-	}
-
-	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
 	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
@@ -1157,10 +1149,6 @@ func (s *ConfigRevisions) SetSchema(ctx context.Context, request operations.PutC
 		req.Header.Set("Content-Type", reqContentType)
 	}
 
-	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
-	}
-
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
 	}
@@ -1311,10 +1299,6 @@ func (s *ConfigRevisions) SetProjection(ctx context.Context, request operations.
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
 	if reqContentType != "" {
 		req.Header.Set("Content-Type", reqContentType)
-	}
-
-	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
 	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
@@ -2983,10 +2967,6 @@ func (s *ConfigRevisions) Publish(ctx context.Context, request operations.PostCo
 		req.Header.Set("Content-Type", reqContentType)
 	}
 
-	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
-	}
-
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
 	}
@@ -3289,10 +3269,6 @@ func (s *ConfigRevisions) Revert(ctx context.Context, request operations.PostCon
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
 	if reqContentType != "" {
 		req.Header.Set("Content-Type", reqContentType)
-	}
-
-	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
 	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {

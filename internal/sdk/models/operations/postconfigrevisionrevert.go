@@ -92,13 +92,9 @@ func (p *PostConfigRevisionRevertRequestBody) GetSkipHooks() *bool {
 }
 
 type PostConfigRevisionRevertRequest struct {
-	Key     string `pathParam:"style=simple,explode=false,name=key"`
-	Version string `pathParam:"style=simple,explode=false,name=version"`
-	// Deprecated — pass `skipSchemaValidation` in the request body instead.
-	SkipSchemaValidation *bool `queryParam:"style=form,explode=true,name=skipSchemaValidation"`
-	// Deprecated — pass `ignoreWarnings` in the request body instead.
-	IgnoreWarnings *bool                               `queryParam:"style=form,explode=true,name=ignoreWarnings"`
-	Body           PostConfigRevisionRevertRequestBody `request:"mediaType=application/json"`
+	Key     string                              `pathParam:"style=simple,explode=false,name=key"`
+	Version string                              `pathParam:"style=simple,explode=false,name=version"`
+	Body    PostConfigRevisionRevertRequestBody `request:"mediaType=application/json"`
 }
 
 func (p *PostConfigRevisionRevertRequest) GetKey() string {
@@ -113,20 +109,6 @@ func (p *PostConfigRevisionRevertRequest) GetVersion() string {
 		return ""
 	}
 	return p.Version
-}
-
-func (p *PostConfigRevisionRevertRequest) GetSkipSchemaValidation() *bool {
-	if p == nil {
-		return nil
-	}
-	return p.SkipSchemaValidation
-}
-
-func (p *PostConfigRevisionRevertRequest) GetIgnoreWarnings() *bool {
-	if p == nil {
-		return nil
-	}
-	return p.IgnoreWarnings
 }
 
 func (p *PostConfigRevisionRevertRequest) GetBody() PostConfigRevisionRevertRequestBody {

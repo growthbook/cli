@@ -13,25 +13,23 @@ growthbook feature-revisions set-default-value [flags]
 ### Examples
 
 ```
-  growthbook feature-revisions set-default-value --id <id> --version-param <value> --body-param.default-value <value>
+  growthbook feature-revisions set-default-value --id <id> --version-param <value> --default-value <value>
 ```
 
 ### Options
 
 ```
-      --body string                                   Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --body-param.default-value baseConfig           New default value. In Config mode (feature has baseConfig), the default must be exactly a config with no overrides: send `"{}"` to use `baseConfig`, or set `defaultValueConfig` to point at a descendant. [required]
-      --body-param.default-value-config baseConfig    Key of a config within the feature's baseConfig family that the default value resolves to (the base itself or a descendant). The default is exactly that config with no overrides; pass `null` to use `baseConfig`. Do not embed `@config:` in `defaultValue` — use this field.
-      --body-param.ignore-warnings                    Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
-      --body-param.revision-comment string            Comment for a newly created draft. Only used when version is "new"; ignored for existing revisions.
-      --body-param.revision-title string              Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
-      --body-param.skip-hooks skipSchemaValidation    Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use skipSchemaValidation for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
-      --body-param.skip-schema-validation skipHooks   Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use skipHooks for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
-  -h, --help                                          help for set-default-value
-      --id string                                     [required]
-      --ignore-warnings ignoreWarnings                Deprecated — pass ignoreWarnings in the request body instead.
-  -s, --skip-schema-validation skipSchemaValidation   Deprecated — pass skipSchemaValidation in the request body instead.
-  -v, --version-param string                          [required]
+      --body string                        Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --default-value baseConfig           New default value. In Config mode (feature has baseConfig), the default must be exactly a config with no overrides: send `"{}"` to use `baseConfig`, or set `defaultValueConfig` to point at a descendant. [required]
+      --default-value-config baseConfig    Key of a config within the feature's baseConfig family that the default value resolves to (the base itself or a descendant). The default is exactly that config with no overrides; pass `null` to use `baseConfig`. Do not embed `@config:` in `defaultValue` — use this field.
+  -h, --help                               help for set-default-value
+      --id string                          [required]
+      --ignore-warnings                    Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+      --revision-comment string            Comment for a newly created draft. Only used when version is "new"; ignored for existing revisions.
+      --revision-title string              Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
+      --skip-hooks skipSchemaValidation    Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use skipSchemaValidation for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+      --skip-schema-validation skipHooks   Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use skipHooks for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+  -v, --version-param string               [required]
 ```
 
 ### Options inherited from parent commands

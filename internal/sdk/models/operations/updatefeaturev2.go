@@ -1586,12 +1586,8 @@ func (u *UpdateFeatureV2RequestBody) GetSkipHooks() *bool {
 
 type UpdateFeatureV2Request struct {
 	// The id of the requested resource
-	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// Deprecated — pass `skipSchemaValidation` in the request body instead.
-	SkipSchemaValidation *bool `queryParam:"style=form,explode=true,name=skipSchemaValidation"`
-	// Deprecated — pass `ignoreWarnings` in the request body instead.
-	IgnoreWarnings *bool                      `queryParam:"style=form,explode=true,name=ignoreWarnings"`
-	Body           UpdateFeatureV2RequestBody `request:"mediaType=application/json"`
+	ID   string                     `pathParam:"style=simple,explode=false,name=id"`
+	Body UpdateFeatureV2RequestBody `request:"mediaType=application/json"`
 }
 
 func (u *UpdateFeatureV2Request) GetID() string {
@@ -1599,20 +1595,6 @@ func (u *UpdateFeatureV2Request) GetID() string {
 		return ""
 	}
 	return u.ID
-}
-
-func (u *UpdateFeatureV2Request) GetSkipSchemaValidation() *bool {
-	if u == nil {
-		return nil
-	}
-	return u.SkipSchemaValidation
-}
-
-func (u *UpdateFeatureV2Request) GetIgnoreWarnings() *bool {
-	if u == nil {
-		return nil
-	}
-	return u.IgnoreWarnings
 }
 
 func (u *UpdateFeatureV2Request) GetBody() UpdateFeatureV2RequestBody {

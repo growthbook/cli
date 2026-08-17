@@ -1031,3 +1031,21 @@ actions:
     update: { required: false }
   - target: $..[?(@.operationId=="postConfigRevisionReopen")].requestBody
     update: { required: false }
+  # 5. Drop the deprecated `ignoreWarnings` / `skipSchemaValidation` QUERY params.
+  #
+  # The back-end moved both into the request body (growthbook#6397) and kept the
+  # query params only for back-compat — the spec marks them `deprecated: true`
+  # and says "pass ... in the request body instead". But keeping them collides
+  # with the identically-named body fields, and Speakeasy resolves that collision
+  # by prefixing the ENTIRE body with `--body-param.` — so two deprecated params
+  # renamed 142 flags across 15 commands in 2.0.0, including `--description` and
+  # `--tags`, which never collided with anything.
+  #
+  # Removing them lets the body flatten again and restores the 1.x flag names.
+  # Scripts passing `--ignore-warnings` keep working: the flat body field claims
+  # that name and lands on the API's intended path. (Their schemas are also
+  # anyOf-const unions, which degrade to value-swallowing string flags — cli#52.)
+  - target: $..[?(@['$ref']=="#/components/parameters/ignoreWarnings")]
+    remove: true
+  - target: $..[?(@['$ref']=="#/components/parameters/skipSchemaValidation")]
+    remove: true

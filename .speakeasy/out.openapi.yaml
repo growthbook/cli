@@ -5939,9 +5939,7 @@ paths:
         }
 
         ```
-      parameters:
-        - $ref: '#/components/parameters/skipSchemaValidation'
-        - $ref: '#/components/parameters/ignoreWarnings'
+      parameters: []
       requestBody:
         required: true
         content:
@@ -6559,8 +6557,6 @@ paths:
         Other top-level fields are patch-merged: omit a field to leave it unchanged. The `rules` field, when supplied, replaces the entire `rules` array in one operation. To preserve existing rules, fetch the Feature Flag, update the returned `rules` array, and send the complete array back. Safe-rollout rules round-trip through `safeRolloutId`; use `POST /v2/features/:id/revisions/:version/rules` to create new ones.
       parameters:
         - $ref: '#/components/parameters/id'
-        - $ref: '#/components/parameters/skipSchemaValidation'
-        - $ref: '#/components/parameters/ignoreWarnings'
       requestBody:
         required: true
         content:
@@ -8062,8 +8058,6 @@ paths:
           schema:
             type: string
             description: Revision version number, or "new" to auto-create a draft (only where supported).
-        - $ref: '#/components/parameters/skipSchemaValidation'
-        - $ref: '#/components/parameters/ignoreWarnings'
       requestBody:
         required: true
         content:
@@ -8437,8 +8431,6 @@ paths:
           schema:
             type: string
             description: Revision version number, or "new" to auto-create a draft (only where supported).
-        - $ref: '#/components/parameters/skipSchemaValidation'
-        - $ref: '#/components/parameters/ignoreWarnings'
       requestBody:
         required: true
         content:
@@ -8915,8 +8907,6 @@ paths:
             type: string
             description: Revision version number, or "new" to auto-create a draft (only where supported).
         - $ref: '#/components/parameters/ruleId'
-        - $ref: '#/components/parameters/skipSchemaValidation'
-        - $ref: '#/components/parameters/ignoreWarnings'
       requestBody:
         required: true
         content:
@@ -10929,8 +10919,6 @@ paths:
           schema:
             type: string
         - $ref: '#/components/parameters/version'
-        - $ref: '#/components/parameters/skipSchemaValidation'
-        - $ref: '#/components/parameters/ignoreWarnings'
       requestBody:
         required: true
         content:
@@ -20243,9 +20231,7 @@ paths:
       summary: Create a single config
       tags:
         - configs
-      parameters:
-        - $ref: '#/components/parameters/skipSchemaValidation'
-        - $ref: '#/components/parameters/ignoreWarnings'
+      parameters: []
       requestBody:
         required: true
         content:
@@ -20839,8 +20825,6 @@ paths:
           schema:
             description: The key of the config
             type: string
-        - $ref: '#/components/parameters/skipSchemaValidation'
-        - $ref: '#/components/parameters/ignoreWarnings'
       requestBody:
         required: true
         content:
@@ -21046,7 +21030,6 @@ paths:
           schema:
             description: The key of the config
             type: string
-        - $ref: '#/components/parameters/ignoreWarnings'
       requestBody:
         required: true
         content:
@@ -21472,8 +21455,6 @@ paths:
           schema:
             type: string
             description: Revision version number, or "new" to auto-create a draft (only where supported).
-        - $ref: '#/components/parameters/skipSchemaValidation'
-        - $ref: '#/components/parameters/ignoreWarnings'
       requestBody:
         required: true
         content:
@@ -21574,8 +21555,6 @@ paths:
           schema:
             type: string
             description: Revision version number, or "new" to auto-create a draft (only where supported).
-        - $ref: '#/components/parameters/skipSchemaValidation'
-        - $ref: '#/components/parameters/ignoreWarnings'
       requestBody:
         required: true
         content:
@@ -21666,8 +21645,6 @@ paths:
           schema:
             type: string
             description: Revision version number, or "new" to auto-create a draft (only where supported).
-        - $ref: '#/components/parameters/skipSchemaValidation'
-        - $ref: '#/components/parameters/ignoreWarnings'
       requestBody:
         required: true
         content:
@@ -21749,8 +21726,6 @@ paths:
           schema:
             type: string
             description: Revision version number, or "new" to auto-create a draft (only where supported).
-        - $ref: '#/components/parameters/skipSchemaValidation'
-        - $ref: '#/components/parameters/ignoreWarnings'
       requestBody:
         required: true
         content:
@@ -22415,8 +22390,6 @@ paths:
           schema:
             type: string
         - $ref: '#/components/parameters/version'
-        - $ref: '#/components/parameters/skipSchemaValidation'
-        - $ref: '#/components/parameters/ignoreWarnings'
       requestBody:
         required: true
         content:
@@ -22533,8 +22506,6 @@ paths:
           schema:
             type: string
         - $ref: '#/components/parameters/version'
-        - $ref: '#/components/parameters/skipSchemaValidation'
-        - $ref: '#/components/parameters/ignoreWarnings'
       requestBody:
         required: true
         content:
@@ -45047,22 +45018,6 @@ components:
       schema:
         description: >-
           Whether to include archived features. Defaults to `false` (non-archived only). Pass `true` to include archived features alongside non-archived ones.
-        type: boolean
-    skipSchemaValidation:
-      name: skipSchemaValidation
-      in: query
-      description: Deprecated — pass `skipSchemaValidation` in the request body instead.
-      schema:
-        description: Deprecated — pass `skipSchemaValidation` in the request body instead.
-        deprecated: true
-        type: boolean
-    ignoreWarnings:
-      name: ignoreWarnings
-      in: query
-      description: Deprecated — pass `ignoreWarnings` in the request body instead.
-      schema:
-        description: Deprecated — pass `ignoreWarnings` in the request body instead.
-        deprecated: true
         type: boolean
     format:
       name: format

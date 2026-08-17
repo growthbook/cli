@@ -23,19 +23,17 @@ growthbook config-revisions set-value [flags]
 ### Options
 
 ```
-      --body string                                   Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --body-param.ignore-warnings                    Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
-      --body-param.infer-schema-if-missing value      When the config has no schema yet, infer one from the supplied value and stage it on the same draft.
-      --body-param.revision-comment string            string value
-      --body-param.revision-title string              string value
-      --body-param.skip-hooks skipSchemaValidation    Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use skipSchemaValidation for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
-      --body-param.skip-schema-validation skipHooks   Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use skipHooks for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
-      --body-param.value string                       This config's own value as a JSON object — a targeted patch deep-merged onto the resolved parent value.
-  -h, --help                                          help for set-value
-  -i, --ignore-warnings ignoreWarnings                Deprecated — pass ignoreWarnings in the request body instead.
-  -k, --key string                                    [required]
-  -s, --skip-schema-validation skipSchemaValidation   Deprecated — pass skipSchemaValidation in the request body instead.
-  -v, --version-param string                          [required]
+      --body string                        Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -h, --help                               help for set-value
+      --ignore-warnings                    Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+      --infer-schema-if-missing value      When the config has no schema yet, infer one from the supplied value and stage it on the same draft.
+  -k, --key string                         [required]
+      --revision-comment string            string value
+      --revision-title string              string value
+      --skip-hooks skipSchemaValidation    Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use skipSchemaValidation for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+      --skip-schema-validation skipHooks   Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use skipHooks for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+      --value string                       This config's own value as a JSON object — a targeted patch deep-merged onto the resolved parent value.
+      --version-param string               [required]
 ```
 
 ### Options inherited from parent commands
