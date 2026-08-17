@@ -1,15 +1,5 @@
 # Changelog
 
-All notable user-facing changes to the GrowthBook CLI are documented here.
-
-The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
-follows [Semantic Versioning](https://semver.org). Because the CLI is generated from the GrowthBook
-OpenAPI spec, most entries originate from spec changes — see
-[RELEASING.md](RELEASING.md) for how a spec change becomes a release, and who writes these entries.
-
-This file records what a **user** notices: commands and flags added, renamed, or removed; changed
-output or behaviour; install changes. It is not a log of generated-code churn.
-
 ## [Unreleased]
 
 _Planned release: **2.0.0**._
@@ -28,20 +18,20 @@ _Planned release: **2.0.0**._
   group name from every subcommand. These groups were missed by the 1.0.0 naming cleanup; this
   finishes it.
 
-  | Before | After |
-  | --- | --- |
-  | `contextual-bandits get-contextual-bandit-current-weights` | `contextual-bandits get-current-weights` |
-  | `contextual-bandits get-contextual-bandit-event` | `contextual-bandits get-event` |
-  | `contextual-bandits list-contextual-bandit-events` | `contextual-bandits list-events` |
-  | `contextual-bandits get-contextual-bandit-snapshot` | `contextual-bandits get-snapshot` |
-  | `contextual-bandits list-contextual-bandit-snapshots` | `contextual-bandits list-snapshots` |
-  | `contextual-bandits get-contextual-bandit-results` | `contextual-bandits get-results` |
-  | `contextual-bandits get-contextual-bandit-linked-features` | `contextual-bandits list-linked-features` |
+  | Before                                                       | After                                      |
+  | ------------------------------------------------------------ | ------------------------------------------ |
+  | `contextual-bandits get-contextual-bandit-current-weights`   | `contextual-bandits get-current-weights`   |
+  | `contextual-bandits get-contextual-bandit-event`             | `contextual-bandits get-event`             |
+  | `contextual-bandits list-contextual-bandit-events`           | `contextual-bandits list-events`           |
+  | `contextual-bandits get-contextual-bandit-snapshot`          | `contextual-bandits get-snapshot`          |
+  | `contextual-bandits list-contextual-bandit-snapshots`        | `contextual-bandits list-snapshots`        |
+  | `contextual-bandits get-contextual-bandit-results`           | `contextual-bandits get-results`           |
+  | `contextual-bandits get-contextual-bandit-linked-features`   | `contextual-bandits list-linked-features`  |
   | `contextual-bandits delete-contextual-bandit-linked-feature` | `contextual-bandits delete-linked-feature` |
-  | `contextual-bandit-queries create-contextual-bandit-query` | `contextual-bandit-queries create` |
-  | `contextual-bandit-queries get-contextual-bandit-query` | `contextual-bandit-queries get` |
-  | `contextual-bandit-queries update-contextual-bandit-query` | `contextual-bandit-queries update` |
-  | `contextual-bandit-queries delete-contextual-bandit-query` | `contextual-bandit-queries delete` |
+  | `contextual-bandit-queries create-contextual-bandit-query`   | `contextual-bandit-queries create`         |
+  | `contextual-bandit-queries get-contextual-bandit-query`      | `contextual-bandit-queries get`            |
+  | `contextual-bandit-queries update-contextual-bandit-query`   | `contextual-bandit-queries update`         |
+  | `contextual-bandit-queries delete-contextual-bandit-query`   | `contextual-bandit-queries delete`         |
 
 - **`go install` path now carries the major version.** Go requires a `/vN` module suffix at v2+:
 
