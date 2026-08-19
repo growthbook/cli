@@ -324,6 +324,68 @@ func (p *PostFeatureRuleExperiment) GetValue() []PostFeatureValue {
 	return p.Value
 }
 
+type PostFeatureMatch3 string
+
+const (
+	PostFeatureMatch3All  PostFeatureMatch3 = "all"
+	PostFeatureMatch3None PostFeatureMatch3 = "none"
+	PostFeatureMatch3Any  PostFeatureMatch3 = "any"
+)
+
+func (e PostFeatureMatch3) ToPointer() *PostFeatureMatch3 {
+	return &e
+}
+func (e *PostFeatureMatch3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "all":
+		fallthrough
+	case "none":
+		fallthrough
+	case "any":
+		*e = PostFeatureMatch3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PostFeatureMatch3: %v", v)
+	}
+}
+
+type PostFeatureSavedGroup3 struct {
+	Match PostFeatureMatch3 `json:"match"`
+	Ids   []string          `json:"ids"`
+}
+
+func (p PostFeatureSavedGroup3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostFeatureSavedGroup3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PostFeatureSavedGroup3) GetMatch() PostFeatureMatch3 {
+	if p == nil {
+		return PostFeatureMatch3("")
+	}
+	return p.Match
+}
+
+func (p *PostFeatureSavedGroup3) GetIds() []string {
+	if p == nil {
+		return []string{}
+	}
+	return p.Ids
+}
+
+// #region class-body-postfeaturesavedgroup3
+// #endregion class-body-postfeaturesavedgroup3
+
 type PostFeatureMatchType3 string
 
 const (
@@ -460,8 +522,12 @@ type PostFeatureRuleExperimentRef struct {
 	// Enabled by default
 	Enabled *bool `json:"enabled,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_               string                            `const:"experiment-ref" json:"type"`
-	Condition           *string                           `json:"condition,omitzero"`
+	type_       string                   `const:"experiment-ref" json:"type"`
+	Condition   *string                  `json:"condition,omitzero"`
+	SavedGroups []PostFeatureSavedGroup3 `json:"savedGroups,omitzero"`
+	// Deprecated — use `savedGroups`. Accepted so a GET response can be posted back unchanged; `savedGroups` takes precedence if both are sent.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	SavedGroupTargeting []PostFeatureSavedGroupTargeting3 `json:"savedGroupTargeting,omitzero"`
 	Prerequisites       []PostFeaturePrerequisite3        `json:"prerequisites,omitzero"`
 	ScheduleRules       []components.ScheduleRule         `json:"scheduleRules,omitzero"`
@@ -528,6 +594,13 @@ func (p *PostFeatureRuleExperimentRef) GetCondition() *string {
 	return p.Condition
 }
 
+func (p *PostFeatureRuleExperimentRef) GetSavedGroups() []PostFeatureSavedGroup3 {
+	if p == nil {
+		return nil
+	}
+	return p.SavedGroups
+}
+
 func (p *PostFeatureRuleExperimentRef) GetSavedGroupTargeting() []PostFeatureSavedGroupTargeting3 {
 	if p == nil {
 		return nil
@@ -569,6 +642,68 @@ func (p *PostFeatureRuleExperimentRef) GetSparse() *bool {
 	}
 	return p.Sparse
 }
+
+type PostFeatureMatch2 string
+
+const (
+	PostFeatureMatch2All  PostFeatureMatch2 = "all"
+	PostFeatureMatch2None PostFeatureMatch2 = "none"
+	PostFeatureMatch2Any  PostFeatureMatch2 = "any"
+)
+
+func (e PostFeatureMatch2) ToPointer() *PostFeatureMatch2 {
+	return &e
+}
+func (e *PostFeatureMatch2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "all":
+		fallthrough
+	case "none":
+		fallthrough
+	case "any":
+		*e = PostFeatureMatch2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PostFeatureMatch2: %v", v)
+	}
+}
+
+type PostFeatureSavedGroup2 struct {
+	Match PostFeatureMatch2 `json:"match"`
+	Ids   []string          `json:"ids"`
+}
+
+func (p PostFeatureSavedGroup2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostFeatureSavedGroup2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PostFeatureSavedGroup2) GetMatch() PostFeatureMatch2 {
+	if p == nil {
+		return PostFeatureMatch2("")
+	}
+	return p.Match
+}
+
+func (p *PostFeatureSavedGroup2) GetIds() []string {
+	if p == nil {
+		return []string{}
+	}
+	return p.Ids
+}
+
+// #region class-body-postfeaturesavedgroup2
+// #endregion class-body-postfeaturesavedgroup2
 
 type PostFeatureMatchType2 string
 
@@ -673,7 +808,11 @@ type PostFeatureRuleRollout struct {
 	Projects    []string `json:"projects,omitzero"`
 	Description *string  `json:"description,omitzero"`
 	// Applied to everyone by default.
-	Condition           *string                           `json:"condition,omitzero"`
+	Condition   *string                  `json:"condition,omitzero"`
+	SavedGroups []PostFeatureSavedGroup2 `json:"savedGroups,omitzero"`
+	// Deprecated — use `savedGroups`. Accepted so a GET response can be posted back unchanged; `savedGroups` takes precedence if both are sent.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	SavedGroupTargeting []PostFeatureSavedGroupTargeting2 `json:"savedGroupTargeting,omitzero"`
 	Prerequisites       []PostFeaturePrerequisite2        `json:"prerequisites,omitzero"`
 	ScheduleRules       []components.ScheduleRule         `json:"scheduleRules,omitzero"`
@@ -730,6 +869,13 @@ func (p *PostFeatureRuleRollout) GetCondition() *string {
 		return nil
 	}
 	return p.Condition
+}
+
+func (p *PostFeatureRuleRollout) GetSavedGroups() []PostFeatureSavedGroup2 {
+	if p == nil {
+		return nil
+	}
+	return p.SavedGroups
 }
 
 func (p *PostFeatureRuleRollout) GetSavedGroupTargeting() []PostFeatureSavedGroupTargeting2 {
@@ -812,6 +958,68 @@ func (p *PostFeatureRuleRollout) GetHashVersion() *float64 {
 	}
 	return p.HashVersion
 }
+
+type PostFeatureMatch1 string
+
+const (
+	PostFeatureMatch1All  PostFeatureMatch1 = "all"
+	PostFeatureMatch1None PostFeatureMatch1 = "none"
+	PostFeatureMatch1Any  PostFeatureMatch1 = "any"
+)
+
+func (e PostFeatureMatch1) ToPointer() *PostFeatureMatch1 {
+	return &e
+}
+func (e *PostFeatureMatch1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "all":
+		fallthrough
+	case "none":
+		fallthrough
+	case "any":
+		*e = PostFeatureMatch1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PostFeatureMatch1: %v", v)
+	}
+}
+
+type PostFeatureSavedGroup1 struct {
+	Match PostFeatureMatch1 `json:"match"`
+	Ids   []string          `json:"ids"`
+}
+
+func (p PostFeatureSavedGroup1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostFeatureSavedGroup1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PostFeatureSavedGroup1) GetMatch() PostFeatureMatch1 {
+	if p == nil {
+		return PostFeatureMatch1("")
+	}
+	return p.Match
+}
+
+func (p *PostFeatureSavedGroup1) GetIds() []string {
+	if p == nil {
+		return []string{}
+	}
+	return p.Ids
+}
+
+// #region class-body-postfeaturesavedgroup1
+// #endregion class-body-postfeaturesavedgroup1
 
 type PostFeatureMatchType1 string
 
@@ -916,7 +1124,11 @@ type PostFeatureRuleForce struct {
 	Projects    []string `json:"projects,omitzero"`
 	Description *string  `json:"description,omitzero"`
 	// Applied to everyone by default.
-	Condition           *string                           `json:"condition,omitzero"`
+	Condition   *string                  `json:"condition,omitzero"`
+	SavedGroups []PostFeatureSavedGroup1 `json:"savedGroups,omitzero"`
+	// Deprecated — use `savedGroups`. Accepted so a GET response can be posted back unchanged; `savedGroups` takes precedence if both are sent.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	SavedGroupTargeting []PostFeatureSavedGroupTargeting1 `json:"savedGroupTargeting,omitzero"`
 	Prerequisites       []PostFeaturePrerequisite1        `json:"prerequisites,omitzero"`
 	ScheduleRules       []components.ScheduleRule         `json:"scheduleRules,omitzero"`
@@ -967,6 +1179,13 @@ func (p *PostFeatureRuleForce) GetCondition() *string {
 		return nil
 	}
 	return p.Condition
+}
+
+func (p *PostFeatureRuleForce) GetSavedGroups() []PostFeatureSavedGroup1 {
+	if p == nil {
+		return nil
+	}
+	return p.SavedGroups
 }
 
 func (p *PostFeatureRuleForce) GetSavedGroupTargeting() []PostFeatureSavedGroupTargeting1 {
@@ -1429,6 +1648,68 @@ func (p *PostFeatureRuleDraftExperiment) GetValue() []PostFeatureDraftValue {
 	return p.Value
 }
 
+type PostFeatureDraftMatch3 string
+
+const (
+	PostFeatureDraftMatch3All  PostFeatureDraftMatch3 = "all"
+	PostFeatureDraftMatch3None PostFeatureDraftMatch3 = "none"
+	PostFeatureDraftMatch3Any  PostFeatureDraftMatch3 = "any"
+)
+
+func (e PostFeatureDraftMatch3) ToPointer() *PostFeatureDraftMatch3 {
+	return &e
+}
+func (e *PostFeatureDraftMatch3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "all":
+		fallthrough
+	case "none":
+		fallthrough
+	case "any":
+		*e = PostFeatureDraftMatch3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PostFeatureDraftMatch3: %v", v)
+	}
+}
+
+type PostFeatureDraftSavedGroup3 struct {
+	Match PostFeatureDraftMatch3 `json:"match"`
+	Ids   []string               `json:"ids"`
+}
+
+func (p PostFeatureDraftSavedGroup3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostFeatureDraftSavedGroup3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PostFeatureDraftSavedGroup3) GetMatch() PostFeatureDraftMatch3 {
+	if p == nil {
+		return PostFeatureDraftMatch3("")
+	}
+	return p.Match
+}
+
+func (p *PostFeatureDraftSavedGroup3) GetIds() []string {
+	if p == nil {
+		return []string{}
+	}
+	return p.Ids
+}
+
+// #region class-body-postfeaturedraftsavedgroup3
+// #endregion class-body-postfeaturedraftsavedgroup3
+
 type PostFeatureDraftMatchType3 string
 
 const (
@@ -1565,8 +1846,12 @@ type PostFeatureRuleDraftExperimentRef struct {
 	// Enabled by default
 	Enabled *bool `json:"enabled,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_               string                                 `const:"experiment-ref" json:"type"`
-	Condition           *string                                `json:"condition,omitzero"`
+	type_       string                        `const:"experiment-ref" json:"type"`
+	Condition   *string                       `json:"condition,omitzero"`
+	SavedGroups []PostFeatureDraftSavedGroup3 `json:"savedGroups,omitzero"`
+	// Deprecated — use `savedGroups`. Accepted so a GET response can be posted back unchanged; `savedGroups` takes precedence if both are sent.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	SavedGroupTargeting []PostFeatureDraftSavedGroupTargeting3 `json:"savedGroupTargeting,omitzero"`
 	Prerequisites       []PostFeatureDraftPrerequisite3        `json:"prerequisites,omitzero"`
 	ScheduleRules       []components.ScheduleRule              `json:"scheduleRules,omitzero"`
@@ -1633,6 +1918,13 @@ func (p *PostFeatureRuleDraftExperimentRef) GetCondition() *string {
 	return p.Condition
 }
 
+func (p *PostFeatureRuleDraftExperimentRef) GetSavedGroups() []PostFeatureDraftSavedGroup3 {
+	if p == nil {
+		return nil
+	}
+	return p.SavedGroups
+}
+
 func (p *PostFeatureRuleDraftExperimentRef) GetSavedGroupTargeting() []PostFeatureDraftSavedGroupTargeting3 {
 	if p == nil {
 		return nil
@@ -1674,6 +1966,68 @@ func (p *PostFeatureRuleDraftExperimentRef) GetSparse() *bool {
 	}
 	return p.Sparse
 }
+
+type PostFeatureDraftMatch2 string
+
+const (
+	PostFeatureDraftMatch2All  PostFeatureDraftMatch2 = "all"
+	PostFeatureDraftMatch2None PostFeatureDraftMatch2 = "none"
+	PostFeatureDraftMatch2Any  PostFeatureDraftMatch2 = "any"
+)
+
+func (e PostFeatureDraftMatch2) ToPointer() *PostFeatureDraftMatch2 {
+	return &e
+}
+func (e *PostFeatureDraftMatch2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "all":
+		fallthrough
+	case "none":
+		fallthrough
+	case "any":
+		*e = PostFeatureDraftMatch2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PostFeatureDraftMatch2: %v", v)
+	}
+}
+
+type PostFeatureDraftSavedGroup2 struct {
+	Match PostFeatureDraftMatch2 `json:"match"`
+	Ids   []string               `json:"ids"`
+}
+
+func (p PostFeatureDraftSavedGroup2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostFeatureDraftSavedGroup2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PostFeatureDraftSavedGroup2) GetMatch() PostFeatureDraftMatch2 {
+	if p == nil {
+		return PostFeatureDraftMatch2("")
+	}
+	return p.Match
+}
+
+func (p *PostFeatureDraftSavedGroup2) GetIds() []string {
+	if p == nil {
+		return []string{}
+	}
+	return p.Ids
+}
+
+// #region class-body-postfeaturedraftsavedgroup2
+// #endregion class-body-postfeaturedraftsavedgroup2
 
 type PostFeatureDraftMatchType2 string
 
@@ -1778,7 +2132,11 @@ type PostFeatureRuleDraftRollout struct {
 	Projects    []string `json:"projects,omitzero"`
 	Description *string  `json:"description,omitzero"`
 	// Applied to everyone by default.
-	Condition           *string                                `json:"condition,omitzero"`
+	Condition   *string                       `json:"condition,omitzero"`
+	SavedGroups []PostFeatureDraftSavedGroup2 `json:"savedGroups,omitzero"`
+	// Deprecated — use `savedGroups`. Accepted so a GET response can be posted back unchanged; `savedGroups` takes precedence if both are sent.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	SavedGroupTargeting []PostFeatureDraftSavedGroupTargeting2 `json:"savedGroupTargeting,omitzero"`
 	Prerequisites       []PostFeatureDraftPrerequisite2        `json:"prerequisites,omitzero"`
 	ScheduleRules       []components.ScheduleRule              `json:"scheduleRules,omitzero"`
@@ -1835,6 +2193,13 @@ func (p *PostFeatureRuleDraftRollout) GetCondition() *string {
 		return nil
 	}
 	return p.Condition
+}
+
+func (p *PostFeatureRuleDraftRollout) GetSavedGroups() []PostFeatureDraftSavedGroup2 {
+	if p == nil {
+		return nil
+	}
+	return p.SavedGroups
 }
 
 func (p *PostFeatureRuleDraftRollout) GetSavedGroupTargeting() []PostFeatureDraftSavedGroupTargeting2 {
@@ -1917,6 +2282,68 @@ func (p *PostFeatureRuleDraftRollout) GetHashVersion() *float64 {
 	}
 	return p.HashVersion
 }
+
+type PostFeatureDraftMatch1 string
+
+const (
+	PostFeatureDraftMatch1All  PostFeatureDraftMatch1 = "all"
+	PostFeatureDraftMatch1None PostFeatureDraftMatch1 = "none"
+	PostFeatureDraftMatch1Any  PostFeatureDraftMatch1 = "any"
+)
+
+func (e PostFeatureDraftMatch1) ToPointer() *PostFeatureDraftMatch1 {
+	return &e
+}
+func (e *PostFeatureDraftMatch1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "all":
+		fallthrough
+	case "none":
+		fallthrough
+	case "any":
+		*e = PostFeatureDraftMatch1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PostFeatureDraftMatch1: %v", v)
+	}
+}
+
+type PostFeatureDraftSavedGroup1 struct {
+	Match PostFeatureDraftMatch1 `json:"match"`
+	Ids   []string               `json:"ids"`
+}
+
+func (p PostFeatureDraftSavedGroup1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostFeatureDraftSavedGroup1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PostFeatureDraftSavedGroup1) GetMatch() PostFeatureDraftMatch1 {
+	if p == nil {
+		return PostFeatureDraftMatch1("")
+	}
+	return p.Match
+}
+
+func (p *PostFeatureDraftSavedGroup1) GetIds() []string {
+	if p == nil {
+		return []string{}
+	}
+	return p.Ids
+}
+
+// #region class-body-postfeaturedraftsavedgroup1
+// #endregion class-body-postfeaturedraftsavedgroup1
 
 type PostFeatureDraftMatchType1 string
 
@@ -2021,7 +2448,11 @@ type PostFeatureRuleDraftForce struct {
 	Projects    []string `json:"projects,omitzero"`
 	Description *string  `json:"description,omitzero"`
 	// Applied to everyone by default.
-	Condition           *string                                `json:"condition,omitzero"`
+	Condition   *string                       `json:"condition,omitzero"`
+	SavedGroups []PostFeatureDraftSavedGroup1 `json:"savedGroups,omitzero"`
+	// Deprecated — use `savedGroups`. Accepted so a GET response can be posted back unchanged; `savedGroups` takes precedence if both are sent.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	SavedGroupTargeting []PostFeatureDraftSavedGroupTargeting1 `json:"savedGroupTargeting,omitzero"`
 	Prerequisites       []PostFeatureDraftPrerequisite1        `json:"prerequisites,omitzero"`
 	ScheduleRules       []components.ScheduleRule              `json:"scheduleRules,omitzero"`
@@ -2072,6 +2503,13 @@ func (p *PostFeatureRuleDraftForce) GetCondition() *string {
 		return nil
 	}
 	return p.Condition
+}
+
+func (p *PostFeatureRuleDraftForce) GetSavedGroups() []PostFeatureDraftSavedGroup1 {
+	if p == nil {
+		return nil
+	}
+	return p.SavedGroups
 }
 
 func (p *PostFeatureRuleDraftForce) GetSavedGroupTargeting() []PostFeatureDraftSavedGroupTargeting1 {

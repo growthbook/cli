@@ -361,8 +361,10 @@ func (e *UpdateDashboardGlobalControlsDateGranularity) UnmarshalJSON(data []byte
 }
 
 type UpdateDashboardGlobalControls struct {
-	DateRange       *UpdateDashboardGlobalControlsDateRange       `json:"dateRange,omitzero"`
-	DateGranularity *UpdateDashboardGlobalControlsDateGranularity `json:"dateGranularity,omitzero"`
+	DateRange              *UpdateDashboardGlobalControlsDateRange       `json:"dateRange,omitzero"`
+	DateGranularity        *UpdateDashboardGlobalControlsDateGranularity `json:"dateGranularity,omitzero"`
+	Projects               []string                                      `json:"projects,omitzero"`
+	ExperimentSearchString *string                                       `json:"experimentSearchString,omitzero"`
 }
 
 func (u UpdateDashboardGlobalControls) MarshalJSON() ([]byte, error) {
@@ -388,6 +390,20 @@ func (u *UpdateDashboardGlobalControls) GetDateGranularity() *UpdateDashboardGlo
 		return nil
 	}
 	return u.DateGranularity
+}
+
+func (u *UpdateDashboardGlobalControls) GetProjects() []string {
+	if u == nil {
+		return nil
+	}
+	return u.Projects
+}
+
+func (u *UpdateDashboardGlobalControls) GetExperimentSearchString() *string {
+	if u == nil {
+		return nil
+	}
+	return u.ExperimentSearchString
 }
 
 type UpdateDashboardLayout31 struct {
@@ -659,30 +675,30 @@ func (u *UpdateDashboardComparison15) GetPreviousTimeFrame() *UpdateDashboardPre
 // #region class-body-updatedashboardcomparison15
 // #endregion class-body-updatedashboardcomparison15
 
-type UpdateDashboardGlobalControlSettings7 struct {
+type UpdateDashboardGlobalControlSettings15 struct {
 	DateRange *bool `json:"dateRange,omitzero"`
 }
 
-func (u UpdateDashboardGlobalControlSettings7) MarshalJSON() ([]byte, error) {
+func (u UpdateDashboardGlobalControlSettings15) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(u, "", false)
 }
 
-func (u *UpdateDashboardGlobalControlSettings7) UnmarshalJSON(data []byte) error {
+func (u *UpdateDashboardGlobalControlSettings15) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (u *UpdateDashboardGlobalControlSettings7) GetDateRange() *bool {
+func (u *UpdateDashboardGlobalControlSettings15) GetDateRange() *bool {
 	if u == nil {
 		return nil
 	}
 	return u.DateRange
 }
 
-// #region class-body-updatedashboardglobalcontrolsettings7
-// #endregion class-body-updatedashboardglobalcontrolsettings7
+// #region class-body-updatedashboardglobalcontrolsettings15
+// #endregion class-body-updatedashboardglobalcontrolsettings15
 
 type UpdateDashboardDimensionOperatorFunnel string
 
@@ -1725,16 +1741,16 @@ type BlockFunnelExploration struct {
 	ID           string `json:"id"`
 	UID          string `json:"uid"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_                        string                                 `const:"funnel-exploration" json:"type"`
-	Title                        string                                 `json:"title"`
-	Description                  string                                 `json:"description"`
-	SnapshotID                   *string                                `json:"snapshotId,omitzero"`
-	Layout                       *UpdateDashboardLayout31               `json:"layout,omitzero"`
-	ExplorerAnalysisID           string                                 `json:"explorerAnalysisId"`
-	Comparison                   *UpdateDashboardComparison15           `json:"comparison,omitzero"`
-	ComparisonExplorerAnalysisID *string                                `json:"comparisonExplorerAnalysisId,omitzero"`
-	GlobalControlSettings        *UpdateDashboardGlobalControlSettings7 `json:"globalControlSettings,omitzero"`
-	Config                       UpdateDashboardConfigFunnel            `json:"config"`
+	type_                        string                                  `const:"funnel-exploration" json:"type"`
+	Title                        string                                  `json:"title"`
+	Description                  string                                  `json:"description"`
+	SnapshotID                   *string                                 `json:"snapshotId,omitzero"`
+	Layout                       *UpdateDashboardLayout31                `json:"layout,omitzero"`
+	ExplorerAnalysisID           string                                  `json:"explorerAnalysisId"`
+	Comparison                   *UpdateDashboardComparison15            `json:"comparison,omitzero"`
+	ComparisonExplorerAnalysisID *string                                 `json:"comparisonExplorerAnalysisId,omitzero"`
+	GlobalControlSettings        *UpdateDashboardGlobalControlSettings15 `json:"globalControlSettings,omitzero"`
+	Config                       UpdateDashboardConfigFunnel             `json:"config"`
 }
 
 func (b BlockFunnelExploration) MarshalJSON() ([]byte, error) {
@@ -1822,7 +1838,7 @@ func (b *BlockFunnelExploration) GetComparisonExplorerAnalysisID() *string {
 	return b.ComparisonExplorerAnalysisID
 }
 
-func (b *BlockFunnelExploration) GetGlobalControlSettings() *UpdateDashboardGlobalControlSettings7 {
+func (b *BlockFunnelExploration) GetGlobalControlSettings() *UpdateDashboardGlobalControlSettings15 {
 	if b == nil {
 		return nil
 	}
@@ -2105,30 +2121,30 @@ func (u *UpdateDashboardComparison14) GetPreviousTimeFrame() *UpdateDashboardPre
 // #region class-body-updatedashboardcomparison14
 // #endregion class-body-updatedashboardcomparison14
 
-type UpdateDashboardGlobalControlSettings6 struct {
+type UpdateDashboardGlobalControlSettings14 struct {
 	DateRange *bool `json:"dateRange,omitzero"`
 }
 
-func (u UpdateDashboardGlobalControlSettings6) MarshalJSON() ([]byte, error) {
+func (u UpdateDashboardGlobalControlSettings14) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(u, "", false)
 }
 
-func (u *UpdateDashboardGlobalControlSettings6) UnmarshalJSON(data []byte) error {
+func (u *UpdateDashboardGlobalControlSettings14) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (u *UpdateDashboardGlobalControlSettings6) GetDateRange() *bool {
+func (u *UpdateDashboardGlobalControlSettings14) GetDateRange() *bool {
 	if u == nil {
 		return nil
 	}
 	return u.DateRange
 }
 
-// #region class-body-updatedashboardglobalcontrolsettings6
-// #endregion class-body-updatedashboardglobalcontrolsettings6
+// #region class-body-updatedashboardglobalcontrolsettings14
+// #endregion class-body-updatedashboardglobalcontrolsettings14
 
 type UpdateDashboardDimensionOperatorDataSource2 string
 
@@ -3194,16 +3210,16 @@ type UpdateDashboardBlockDataSourceExploration2 struct {
 	ID           string `json:"id"`
 	UID          string `json:"uid"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_                        string                                 `const:"data-source-exploration" json:"type"`
-	Title                        string                                 `json:"title"`
-	Description                  string                                 `json:"description"`
-	SnapshotID                   *string                                `json:"snapshotId,omitzero"`
-	Layout                       *UpdateDashboardLayout30               `json:"layout,omitzero"`
-	ExplorerAnalysisID           string                                 `json:"explorerAnalysisId"`
-	Comparison                   *UpdateDashboardComparison14           `json:"comparison,omitzero"`
-	ComparisonExplorerAnalysisID *string                                `json:"comparisonExplorerAnalysisId,omitzero"`
-	GlobalControlSettings        *UpdateDashboardGlobalControlSettings6 `json:"globalControlSettings,omitzero"`
-	Config                       UpdateDashboardConfigDataSource2       `json:"config"`
+	type_                        string                                  `const:"data-source-exploration" json:"type"`
+	Title                        string                                  `json:"title"`
+	Description                  string                                  `json:"description"`
+	SnapshotID                   *string                                 `json:"snapshotId,omitzero"`
+	Layout                       *UpdateDashboardLayout30                `json:"layout,omitzero"`
+	ExplorerAnalysisID           string                                  `json:"explorerAnalysisId"`
+	Comparison                   *UpdateDashboardComparison14            `json:"comparison,omitzero"`
+	ComparisonExplorerAnalysisID *string                                 `json:"comparisonExplorerAnalysisId,omitzero"`
+	GlobalControlSettings        *UpdateDashboardGlobalControlSettings14 `json:"globalControlSettings,omitzero"`
+	Config                       UpdateDashboardConfigDataSource2        `json:"config"`
 }
 
 func (u UpdateDashboardBlockDataSourceExploration2) MarshalJSON() ([]byte, error) {
@@ -3291,7 +3307,7 @@ func (u *UpdateDashboardBlockDataSourceExploration2) GetComparisonExplorerAnalys
 	return u.ComparisonExplorerAnalysisID
 }
 
-func (u *UpdateDashboardBlockDataSourceExploration2) GetGlobalControlSettings() *UpdateDashboardGlobalControlSettings6 {
+func (u *UpdateDashboardBlockDataSourceExploration2) GetGlobalControlSettings() *UpdateDashboardGlobalControlSettings14 {
 	if u == nil {
 		return nil
 	}
@@ -3577,30 +3593,30 @@ func (u *UpdateDashboardComparison13) GetPreviousTimeFrame() *UpdateDashboardPre
 // #region class-body-updatedashboardcomparison13
 // #endregion class-body-updatedashboardcomparison13
 
-type UpdateDashboardGlobalControlSettings5 struct {
+type UpdateDashboardGlobalControlSettings13 struct {
 	DateRange *bool `json:"dateRange,omitzero"`
 }
 
-func (u UpdateDashboardGlobalControlSettings5) MarshalJSON() ([]byte, error) {
+func (u UpdateDashboardGlobalControlSettings13) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(u, "", false)
 }
 
-func (u *UpdateDashboardGlobalControlSettings5) UnmarshalJSON(data []byte) error {
+func (u *UpdateDashboardGlobalControlSettings13) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (u *UpdateDashboardGlobalControlSettings5) GetDateRange() *bool {
+func (u *UpdateDashboardGlobalControlSettings13) GetDateRange() *bool {
 	if u == nil {
 		return nil
 	}
 	return u.DateRange
 }
 
-// #region class-body-updatedashboardglobalcontrolsettings5
-// #endregion class-body-updatedashboardglobalcontrolsettings5
+// #region class-body-updatedashboardglobalcontrolsettings13
+// #endregion class-body-updatedashboardglobalcontrolsettings13
 
 type UpdateDashboardDimensionOperatorFactTable2 string
 
@@ -4607,16 +4623,16 @@ type UpdateDashboardBlockFactTableExploration2 struct {
 	ID           string `json:"id"`
 	UID          string `json:"uid"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_                        string                                 `const:"fact-table-exploration" json:"type"`
-	Title                        string                                 `json:"title"`
-	Description                  string                                 `json:"description"`
-	SnapshotID                   *string                                `json:"snapshotId,omitzero"`
-	Layout                       *UpdateDashboardLayout29               `json:"layout,omitzero"`
-	ExplorerAnalysisID           string                                 `json:"explorerAnalysisId"`
-	Comparison                   *UpdateDashboardComparison13           `json:"comparison,omitzero"`
-	ComparisonExplorerAnalysisID *string                                `json:"comparisonExplorerAnalysisId,omitzero"`
-	GlobalControlSettings        *UpdateDashboardGlobalControlSettings5 `json:"globalControlSettings,omitzero"`
-	Config                       UpdateDashboardConfigFactTable2        `json:"config"`
+	type_                        string                                  `const:"fact-table-exploration" json:"type"`
+	Title                        string                                  `json:"title"`
+	Description                  string                                  `json:"description"`
+	SnapshotID                   *string                                 `json:"snapshotId,omitzero"`
+	Layout                       *UpdateDashboardLayout29                `json:"layout,omitzero"`
+	ExplorerAnalysisID           string                                  `json:"explorerAnalysisId"`
+	Comparison                   *UpdateDashboardComparison13            `json:"comparison,omitzero"`
+	ComparisonExplorerAnalysisID *string                                 `json:"comparisonExplorerAnalysisId,omitzero"`
+	GlobalControlSettings        *UpdateDashboardGlobalControlSettings13 `json:"globalControlSettings,omitzero"`
+	Config                       UpdateDashboardConfigFactTable2         `json:"config"`
 }
 
 func (u UpdateDashboardBlockFactTableExploration2) MarshalJSON() ([]byte, error) {
@@ -4704,7 +4720,7 @@ func (u *UpdateDashboardBlockFactTableExploration2) GetComparisonExplorerAnalysi
 	return u.ComparisonExplorerAnalysisID
 }
 
-func (u *UpdateDashboardBlockFactTableExploration2) GetGlobalControlSettings() *UpdateDashboardGlobalControlSettings5 {
+func (u *UpdateDashboardBlockFactTableExploration2) GetGlobalControlSettings() *UpdateDashboardGlobalControlSettings13 {
 	if u == nil {
 		return nil
 	}
@@ -4990,30 +5006,30 @@ func (u *UpdateDashboardComparison12) GetPreviousTimeFrame() *UpdateDashboardPre
 // #region class-body-updatedashboardcomparison12
 // #endregion class-body-updatedashboardcomparison12
 
-type UpdateDashboardGlobalControlSettings4 struct {
+type UpdateDashboardGlobalControlSettings12 struct {
 	DateRange *bool `json:"dateRange,omitzero"`
 }
 
-func (u UpdateDashboardGlobalControlSettings4) MarshalJSON() ([]byte, error) {
+func (u UpdateDashboardGlobalControlSettings12) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(u, "", false)
 }
 
-func (u *UpdateDashboardGlobalControlSettings4) UnmarshalJSON(data []byte) error {
+func (u *UpdateDashboardGlobalControlSettings12) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (u *UpdateDashboardGlobalControlSettings4) GetDateRange() *bool {
+func (u *UpdateDashboardGlobalControlSettings12) GetDateRange() *bool {
 	if u == nil {
 		return nil
 	}
 	return u.DateRange
 }
 
-// #region class-body-updatedashboardglobalcontrolsettings4
-// #endregion class-body-updatedashboardglobalcontrolsettings4
+// #region class-body-updatedashboardglobalcontrolsettings12
+// #endregion class-body-updatedashboardglobalcontrolsettings12
 
 type UpdateDashboardDimensionOperatorMetric2 string
 
@@ -5983,16 +5999,16 @@ type UpdateDashboardBlockMetricExploration2 struct {
 	ID           string `json:"id"`
 	UID          string `json:"uid"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_                        string                                 `const:"metric-exploration" json:"type"`
-	Title                        string                                 `json:"title"`
-	Description                  string                                 `json:"description"`
-	SnapshotID                   *string                                `json:"snapshotId,omitzero"`
-	Layout                       *UpdateDashboardLayout28               `json:"layout,omitzero"`
-	ExplorerAnalysisID           string                                 `json:"explorerAnalysisId"`
-	Comparison                   *UpdateDashboardComparison12           `json:"comparison,omitzero"`
-	ComparisonExplorerAnalysisID *string                                `json:"comparisonExplorerAnalysisId,omitzero"`
-	GlobalControlSettings        *UpdateDashboardGlobalControlSettings4 `json:"globalControlSettings,omitzero"`
-	Config                       UpdateDashboardConfigMetric2           `json:"config"`
+	type_                        string                                  `const:"metric-exploration" json:"type"`
+	Title                        string                                  `json:"title"`
+	Description                  string                                  `json:"description"`
+	SnapshotID                   *string                                 `json:"snapshotId,omitzero"`
+	Layout                       *UpdateDashboardLayout28                `json:"layout,omitzero"`
+	ExplorerAnalysisID           string                                  `json:"explorerAnalysisId"`
+	Comparison                   *UpdateDashboardComparison12            `json:"comparison,omitzero"`
+	ComparisonExplorerAnalysisID *string                                 `json:"comparisonExplorerAnalysisId,omitzero"`
+	GlobalControlSettings        *UpdateDashboardGlobalControlSettings12 `json:"globalControlSettings,omitzero"`
+	Config                       UpdateDashboardConfigMetric2            `json:"config"`
 }
 
 func (u UpdateDashboardBlockMetricExploration2) MarshalJSON() ([]byte, error) {
@@ -6080,7 +6096,7 @@ func (u *UpdateDashboardBlockMetricExploration2) GetComparisonExplorerAnalysisID
 	return u.ComparisonExplorerAnalysisID
 }
 
-func (u *UpdateDashboardBlockMetricExploration2) GetGlobalControlSettings() *UpdateDashboardGlobalControlSettings4 {
+func (u *UpdateDashboardBlockMetricExploration2) GetGlobalControlSettings() *UpdateDashboardGlobalControlSettings12 {
 	if u == nil {
 		return nil
 	}
@@ -7466,6 +7482,47 @@ func (u *UpdateDashboardComparison11) GetPreviousTimeFrame() *UpdateDashboardPre
 // #region class-body-updatedashboardcomparison11
 // #endregion class-body-updatedashboardcomparison11
 
+type UpdateDashboardGlobalControlSettings11 struct {
+	DateRange              *bool `json:"dateRange,omitzero"`
+	Projects               *bool `json:"projects,omitzero"`
+	ExperimentSearchString *bool `json:"experimentSearchString,omitzero"`
+}
+
+func (u UpdateDashboardGlobalControlSettings11) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdateDashboardGlobalControlSettings11) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *UpdateDashboardGlobalControlSettings11) GetDateRange() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.DateRange
+}
+
+func (u *UpdateDashboardGlobalControlSettings11) GetProjects() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.Projects
+}
+
+func (u *UpdateDashboardGlobalControlSettings11) GetExperimentSearchString() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.ExperimentSearchString
+}
+
+// #region class-body-updatedashboardglobalcontrolsettings11
+// #endregion class-body-updatedashboardglobalcontrolsettings11
+
 type UpdateDashboardBlockDateGranularity2 string
 
 const (
@@ -7503,122 +7560,3 @@ func (e *UpdateDashboardBlockDateGranularity2) UnmarshalJSON(data []byte) error 
 		return fmt.Errorf("invalid value for UpdateDashboardBlockDateGranularity2: %v", v)
 	}
 }
-
-type UpdateDashboardBlockExperimentsStatus2 struct {
-	Organization string `json:"organization"`
-	ID           string `json:"id"`
-	UID          string `json:"uid"`
-	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_                  string                                `const:"experiments-status" json:"type"`
-	Title                  string                                `json:"title"`
-	Description            string                                `json:"description"`
-	SnapshotID             *string                               `json:"snapshotId,omitzero"`
-	Layout                 *UpdateDashboardLayout23              `json:"layout,omitzero"`
-	DateRange              UpdateDashboardBlockDateRange6        `json:"dateRange"`
-	Projects               []string                              `json:"projects"`
-	ExperimentSearchString *string                               `json:"experimentSearchString,omitzero"`
-	Comparison             *UpdateDashboardComparison11          `json:"comparison,omitzero"`
-	DateGranularity        *UpdateDashboardBlockDateGranularity2 `json:"dateGranularity,omitzero"`
-}
-
-func (u UpdateDashboardBlockExperimentsStatus2) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateDashboardBlockExperimentsStatus2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateDashboardBlockExperimentsStatus2) GetOrganization() string {
-	if u == nil {
-		return ""
-	}
-	return u.Organization
-}
-
-func (u *UpdateDashboardBlockExperimentsStatus2) GetID() string {
-	if u == nil {
-		return ""
-	}
-	return u.ID
-}
-
-func (u *UpdateDashboardBlockExperimentsStatus2) GetUID() string {
-	if u == nil {
-		return ""
-	}
-	return u.UID
-}
-
-func (u *UpdateDashboardBlockExperimentsStatus2) GetType() string {
-	return "experiments-status"
-}
-
-func (u *UpdateDashboardBlockExperimentsStatus2) GetTitle() string {
-	if u == nil {
-		return ""
-	}
-	return u.Title
-}
-
-func (u *UpdateDashboardBlockExperimentsStatus2) GetDescription() string {
-	if u == nil {
-		return ""
-	}
-	return u.Description
-}
-
-func (u *UpdateDashboardBlockExperimentsStatus2) GetSnapshotID() *string {
-	if u == nil {
-		return nil
-	}
-	return u.SnapshotID
-}
-
-func (u *UpdateDashboardBlockExperimentsStatus2) GetLayout() *UpdateDashboardLayout23 {
-	if u == nil {
-		return nil
-	}
-	return u.Layout
-}
-
-func (u *UpdateDashboardBlockExperimentsStatus2) GetDateRange() UpdateDashboardBlockDateRange6 {
-	if u == nil {
-		return UpdateDashboardBlockDateRange6{}
-	}
-	return u.DateRange
-}
-
-func (u *UpdateDashboardBlockExperimentsStatus2) GetProjects() []string {
-	if u == nil {
-		return []string{}
-	}
-	return u.Projects
-}
-
-func (u *UpdateDashboardBlockExperimentsStatus2) GetExperimentSearchString() *string {
-	if u == nil {
-		return nil
-	}
-	return u.ExperimentSearchString
-}
-
-func (u *UpdateDashboardBlockExperimentsStatus2) GetComparison() *UpdateDashboardComparison11 {
-	if u == nil {
-		return nil
-	}
-	return u.Comparison
-}
-
-func (u *UpdateDashboardBlockExperimentsStatus2) GetDateGranularity() *UpdateDashboardBlockDateGranularity2 {
-	if u == nil {
-		return nil
-	}
-	return u.DateGranularity
-}
-
-// #region class-body-updatedashboardblockexperimentsstatus2
-// #endregion class-body-updatedashboardblockexperimentsstatus2

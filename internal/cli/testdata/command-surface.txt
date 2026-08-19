@@ -137,7 +137,7 @@ growthbook custom-hooks get  [--id]
 growthbook custom-hooks list  [--limit --offset]
 growthbook custom-hooks list-history  [--id --limit --offset]
 growthbook custom-hooks revert  [--audit-id --body --id]
-growthbook custom-hooks test  [--body --entity-id --entity-type --function-args --function-body]
+growthbook custom-hooks test  [--body --entity-id --entity-type --function-args --function-body --original-function-args]
 growthbook custom-hooks update  [--body --code --enabled --entity-id --entity-type --hook --id --incremental-changes-only --name --projects]
 growthbook dashboards
 growthbook dashboards create  [--blocks --body --edit-level --enable-auto-updates --experiment-id --global-controls --projects --share-level --title --update-schedule --update-schedule.cron --update-schedule.cron.cron --update-schedule.stale --update-schedule.stale.hours]

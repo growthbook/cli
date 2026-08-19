@@ -2,6 +2,27 @@
 
 ## [Unreleased]
 
+Additive only — no commands or flags were removed or renamed, so no action is needed on upgrade.
+
+### Added
+
+- **`growthbook custom-hooks test --original-function-args`** — the entity state *before* the
+  change. When supplied, the hook also runs against that state and Incremental Changes Only
+  suppression is applied, and the response gains a `suppressed` object listing the error and
+  warnings the previous state produced too (the ones a real save would hide).
+
+- **`savedGroups` targeting on feature rules and experiment phases.** `growthbook features
+  create` / `update` accept `savedGroups` inside `rules[]`, and `growthbook experiments create` /
+  `update-experiment` accept it inside `phases[]`. Both are nested body fields, so pass them in
+  `--body` JSON — there are no new flags.
+
+- **`create-snapshot` now reports 409 conflicts.** `growthbook snapshots create-snapshot` and
+  `growthbook experiments create-snapshot` surface a typed conflict when the dimension is already
+  up to date (with `overallResultsAsOf`) or when a full refresh is required, rather than an
+  unmodelled error status.
+
+- Dashboard responses carry additional global-control settings variants. No flag changes.
+
 ## [2.0.1] - 2026-08-17
 
 A narrow fix: 2.0.0 unintentionally renamed the request-body flags, and this restores their

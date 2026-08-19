@@ -97,6 +97,52 @@ func (p *PostExperimentSnapshotRequest) GetBody() *PostExperimentSnapshotRequest
 	return p.Body
 }
 
+type CodeDimensionAlreadyUpToDate string
+
+const (
+	CodeDimensionAlreadyUpToDateDimensionAlreadyUpToDate CodeDimensionAlreadyUpToDate = "dimension_already_up_to_date"
+)
+
+func (e CodeDimensionAlreadyUpToDate) ToPointer() *CodeDimensionAlreadyUpToDate {
+	return &e
+}
+func (e *CodeDimensionAlreadyUpToDate) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "dimension_already_up_to_date":
+		*e = CodeDimensionAlreadyUpToDate(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CodeDimensionAlreadyUpToDate: %v", v)
+	}
+}
+
+type CodeRequiresFullRefresh string
+
+const (
+	CodeRequiresFullRefreshRequiresFullRefresh CodeRequiresFullRefresh = "requires_full_refresh"
+)
+
+func (e CodeRequiresFullRefresh) ToPointer() *CodeRequiresFullRefresh {
+	return &e
+}
+func (e *CodeRequiresFullRefresh) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "requires_full_refresh":
+		*e = CodeRequiresFullRefresh(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CodeRequiresFullRefresh: %v", v)
+	}
+}
+
 // PostExperimentSnapshotResponseBody - Resource created
 type PostExperimentSnapshotResponseBody struct {
 	Snapshot components.Snapshot `json:"snapshot"`

@@ -162,6 +162,47 @@ func (b *BlockComparison4) GetPreviousTimeFrame() *BlockPreviousTimeFrame4 {
 // #region class-body-blockcomparison4
 // #endregion class-body-blockcomparison4
 
+type GlobalControlSettings4 struct {
+	DateRange              *bool `json:"dateRange,omitzero"`
+	Projects               *bool `json:"projects,omitzero"`
+	ExperimentSearchString *bool `json:"experimentSearchString,omitzero"`
+}
+
+func (g GlobalControlSettings4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GlobalControlSettings4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (g *GlobalControlSettings4) GetDateRange() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.DateRange
+}
+
+func (g *GlobalControlSettings4) GetProjects() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.Projects
+}
+
+func (g *GlobalControlSettings4) GetExperimentSearchString() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.ExperimentSearchString
+}
+
+// #region class-body-globalcontrolsettings4
+// #endregion class-body-globalcontrolsettings4
+
 type BlockDateGranularity string
 
 const (
@@ -193,16 +234,17 @@ type BlockExperimentsStatus struct {
 	ID           string `json:"id"`
 	UID          string `json:"uid"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_                  string                `const:"experiments-status" json:"type"`
-	Title                  string                `json:"title"`
-	Description            string                `json:"description"`
-	SnapshotID             *string               `json:"snapshotId,omitzero"`
-	Layout                 *Layout8              `json:"layout,omitzero"`
-	DateRange              BlockDateRange3       `json:"dateRange"`
-	Projects               []string              `json:"projects"`
-	ExperimentSearchString *string               `json:"experimentSearchString,omitzero"`
-	Comparison             *BlockComparison4     `json:"comparison,omitzero"`
-	DateGranularity        *BlockDateGranularity `json:"dateGranularity,omitzero"`
+	type_                  string                  `const:"experiments-status" json:"type"`
+	Title                  string                  `json:"title"`
+	Description            string                  `json:"description"`
+	SnapshotID             *string                 `json:"snapshotId,omitzero"`
+	Layout                 *Layout8                `json:"layout,omitzero"`
+	DateRange              BlockDateRange3         `json:"dateRange"`
+	Projects               []string                `json:"projects"`
+	ExperimentSearchString *string                 `json:"experimentSearchString,omitzero"`
+	Comparison             *BlockComparison4       `json:"comparison,omitzero"`
+	GlobalControlSettings  *GlobalControlSettings4 `json:"globalControlSettings,omitzero"`
+	DateGranularity        *BlockDateGranularity   `json:"dateGranularity,omitzero"`
 }
 
 func (b BlockExperimentsStatus) MarshalJSON() ([]byte, error) {
@@ -295,6 +337,13 @@ func (b *BlockExperimentsStatus) GetComparison() *BlockComparison4 {
 		return nil
 	}
 	return b.Comparison
+}
+
+func (b *BlockExperimentsStatus) GetGlobalControlSettings() *GlobalControlSettings4 {
+	if b == nil {
+		return nil
+	}
+	return b.GlobalControlSettings
 }
 
 func (b *BlockExperimentsStatus) GetDateGranularity() *BlockDateGranularity {
@@ -647,21 +696,63 @@ func (b *BlockComparison3) GetPreviousTimeFrame() *BlockPreviousTimeFrame3 {
 // #region class-body-blockcomparison3
 // #endregion class-body-blockcomparison3
 
+type GlobalControlSettings3 struct {
+	DateRange              *bool `json:"dateRange,omitzero"`
+	Projects               *bool `json:"projects,omitzero"`
+	ExperimentSearchString *bool `json:"experimentSearchString,omitzero"`
+}
+
+func (g GlobalControlSettings3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GlobalControlSettings3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (g *GlobalControlSettings3) GetDateRange() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.DateRange
+}
+
+func (g *GlobalControlSettings3) GetProjects() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.Projects
+}
+
+func (g *GlobalControlSettings3) GetExperimentSearchString() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.ExperimentSearchString
+}
+
+// #region class-body-globalcontrolsettings3
+// #endregion class-body-globalcontrolsettings3
+
 type BlockExperimentsWinRate struct {
 	Organization string `json:"organization"`
 	ID           string `json:"id"`
 	UID          string `json:"uid"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_                  string            `const:"experiments-win-rate" json:"type"`
-	Title                  string            `json:"title"`
-	Description            string            `json:"description"`
-	SnapshotID             *string           `json:"snapshotId,omitzero"`
-	Layout                 *Layout7          `json:"layout,omitzero"`
-	DateRange              BlockDateRange2   `json:"dateRange"`
-	Projects               []string          `json:"projects"`
-	ExperimentSearchString *string           `json:"experimentSearchString,omitzero"`
-	Comparison             *BlockComparison3 `json:"comparison,omitzero"`
-	ShowProjectBreakdown   bool              `json:"showProjectBreakdown"`
+	type_                  string                  `const:"experiments-win-rate" json:"type"`
+	Title                  string                  `json:"title"`
+	Description            string                  `json:"description"`
+	SnapshotID             *string                 `json:"snapshotId,omitzero"`
+	Layout                 *Layout7                `json:"layout,omitzero"`
+	DateRange              BlockDateRange2         `json:"dateRange"`
+	Projects               []string                `json:"projects"`
+	ExperimentSearchString *string                 `json:"experimentSearchString,omitzero"`
+	Comparison             *BlockComparison3       `json:"comparison,omitzero"`
+	GlobalControlSettings  *GlobalControlSettings3 `json:"globalControlSettings,omitzero"`
+	ShowProjectBreakdown   bool                    `json:"showProjectBreakdown"`
 }
 
 func (b BlockExperimentsWinRate) MarshalJSON() ([]byte, error) {
@@ -754,6 +845,13 @@ func (b *BlockExperimentsWinRate) GetComparison() *BlockComparison3 {
 		return nil
 	}
 	return b.Comparison
+}
+
+func (b *BlockExperimentsWinRate) GetGlobalControlSettings() *GlobalControlSettings3 {
+	if b == nil {
+		return nil
+	}
+	return b.GlobalControlSettings
 }
 
 func (b *BlockExperimentsWinRate) GetShowProjectBreakdown() bool {
@@ -1106,21 +1204,63 @@ func (b *BlockComparison2) GetPreviousTimeFrame() *BlockPreviousTimeFrame2 {
 // #region class-body-blockcomparison2
 // #endregion class-body-blockcomparison2
 
+type GlobalControlSettings2 struct {
+	DateRange              *bool `json:"dateRange,omitzero"`
+	Projects               *bool `json:"projects,omitzero"`
+	ExperimentSearchString *bool `json:"experimentSearchString,omitzero"`
+}
+
+func (g GlobalControlSettings2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GlobalControlSettings2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (g *GlobalControlSettings2) GetDateRange() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.DateRange
+}
+
+func (g *GlobalControlSettings2) GetProjects() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.Projects
+}
+
+func (g *GlobalControlSettings2) GetExperimentSearchString() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.ExperimentSearchString
+}
+
+// #region class-body-globalcontrolsettings2
+// #endregion class-body-globalcontrolsettings2
+
 type BlockExperimentsScaledImpact struct {
 	Organization string `json:"organization"`
 	ID           string `json:"id"`
 	UID          string `json:"uid"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_                  string            `const:"experiments-scaled-impact" json:"type"`
-	Title                  string            `json:"title"`
-	Description            string            `json:"description"`
-	SnapshotID             *string           `json:"snapshotId,omitzero"`
-	Layout                 *Layout6          `json:"layout,omitzero"`
-	DateRange              BlockDateRange1   `json:"dateRange"`
-	Projects               []string          `json:"projects"`
-	ExperimentSearchString *string           `json:"experimentSearchString,omitzero"`
-	Comparison             *BlockComparison2 `json:"comparison,omitzero"`
-	MetricID               string            `json:"metricId"`
+	type_                  string                  `const:"experiments-scaled-impact" json:"type"`
+	Title                  string                  `json:"title"`
+	Description            string                  `json:"description"`
+	SnapshotID             *string                 `json:"snapshotId,omitzero"`
+	Layout                 *Layout6                `json:"layout,omitzero"`
+	DateRange              BlockDateRange1         `json:"dateRange"`
+	Projects               []string                `json:"projects"`
+	ExperimentSearchString *string                 `json:"experimentSearchString,omitzero"`
+	Comparison             *BlockComparison2       `json:"comparison,omitzero"`
+	GlobalControlSettings  *GlobalControlSettings2 `json:"globalControlSettings,omitzero"`
+	MetricID               string                  `json:"metricId"`
 }
 
 func (b BlockExperimentsScaledImpact) MarshalJSON() ([]byte, error) {
@@ -1213,6 +1353,13 @@ func (b *BlockExperimentsScaledImpact) GetComparison() *BlockComparison2 {
 		return nil
 	}
 	return b.Comparison
+}
+
+func (b *BlockExperimentsScaledImpact) GetGlobalControlSettings() *GlobalControlSettings2 {
+	if b == nil {
+		return nil
+	}
+	return b.GlobalControlSettings
 }
 
 func (b *BlockExperimentsScaledImpact) GetMetricID() string {
@@ -1546,6 +1693,47 @@ func (d *DashboardColumn) GetVisible() bool {
 	return d.Visible
 }
 
+type GlobalControlSettings1 struct {
+	DateRange              *bool `json:"dateRange,omitzero"`
+	Projects               *bool `json:"projects,omitzero"`
+	ExperimentSearchString *bool `json:"experimentSearchString,omitzero"`
+}
+
+func (g GlobalControlSettings1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GlobalControlSettings1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (g *GlobalControlSettings1) GetDateRange() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.DateRange
+}
+
+func (g *GlobalControlSettings1) GetProjects() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.Projects
+}
+
+func (g *GlobalControlSettings1) GetExperimentSearchString() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.ExperimentSearchString
+}
+
+// #region class-body-globalcontrolsettings1
+// #endregion class-body-globalcontrolsettings1
+
 type BlockMetricExperiments struct {
 	Organization string `json:"organization"`
 	ID           string `json:"id"`
@@ -1564,6 +1752,7 @@ type BlockMetricExperiments struct {
 	StartDateRange         *StartDateRange          `json:"startDateRange,omitzero"`
 	EndDateRange           *EndDateRange            `json:"endDateRange,omitzero"`
 	Columns                []DashboardColumn        `json:"columns,omitzero"`
+	GlobalControlSettings  *GlobalControlSettings1  `json:"globalControlSettings,omitzero"`
 }
 
 func (b BlockMetricExperiments) MarshalJSON() ([]byte, error) {
@@ -1684,6 +1873,13 @@ func (b *BlockMetricExperiments) GetColumns() []DashboardColumn {
 		return nil
 	}
 	return b.Columns
+}
+
+func (b *BlockMetricExperiments) GetGlobalControlSettings() *GlobalControlSettings1 {
+	if b == nil {
+		return nil
+	}
+	return b.GlobalControlSettings
 }
 
 type Layout4 struct {

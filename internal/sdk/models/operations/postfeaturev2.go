@@ -45,6 +45,68 @@ func (e *PostFeatureV2ValueType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type PostFeatureV2Match4 string
+
+const (
+	PostFeatureV2Match4All  PostFeatureV2Match4 = "all"
+	PostFeatureV2Match4None PostFeatureV2Match4 = "none"
+	PostFeatureV2Match4Any  PostFeatureV2Match4 = "any"
+)
+
+func (e PostFeatureV2Match4) ToPointer() *PostFeatureV2Match4 {
+	return &e
+}
+func (e *PostFeatureV2Match4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "all":
+		fallthrough
+	case "none":
+		fallthrough
+	case "any":
+		*e = PostFeatureV2Match4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PostFeatureV2Match4: %v", v)
+	}
+}
+
+type PostFeatureV2SavedGroup4 struct {
+	Match PostFeatureV2Match4 `json:"match"`
+	Ids   []string            `json:"ids"`
+}
+
+func (p PostFeatureV2SavedGroup4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostFeatureV2SavedGroup4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PostFeatureV2SavedGroup4) GetMatch() PostFeatureV2Match4 {
+	if p == nil {
+		return PostFeatureV2Match4("")
+	}
+	return p.Match
+}
+
+func (p *PostFeatureV2SavedGroup4) GetIds() []string {
+	if p == nil {
+		return []string{}
+	}
+	return p.Ids
+}
+
+// #region class-body-postfeaturev2savedgroup4
+// #endregion class-body-postfeaturev2savedgroup4
+
 type PostFeatureV2MatchType4 string
 
 const (
@@ -212,8 +274,12 @@ type PostFeatureV2RuleSafeRollout struct {
 	ID          *string `json:"id,omitzero"`
 	Enabled     *bool   `json:"enabled,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_               string                              `const:"safe-rollout" json:"type"`
-	Condition           *string                             `json:"condition,omitzero"`
+	type_       string                     `const:"safe-rollout" json:"type"`
+	Condition   *string                    `json:"condition,omitzero"`
+	SavedGroups []PostFeatureV2SavedGroup4 `json:"savedGroups,omitzero"`
+	// Deprecated — use `savedGroups`. Accepted so a GET response can be posted back unchanged; `savedGroups` takes precedence if both are sent.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	SavedGroupTargeting []PostFeatureV2SavedGroupTargeting4 `json:"savedGroupTargeting,omitzero"`
 	Prerequisites       []PostFeatureV2Prerequisite4        `json:"prerequisites,omitzero"`
 	ScheduleRules       []PostFeatureV2ScheduleRule4        `json:"scheduleRules,omitzero"`
@@ -276,6 +342,13 @@ func (p *PostFeatureV2RuleSafeRollout) GetCondition() *string {
 		return nil
 	}
 	return p.Condition
+}
+
+func (p *PostFeatureV2RuleSafeRollout) GetSavedGroups() []PostFeatureV2SavedGroup4 {
+	if p == nil {
+		return nil
+	}
+	return p.SavedGroups
 }
 
 func (p *PostFeatureV2RuleSafeRollout) GetSavedGroupTargeting() []PostFeatureV2SavedGroupTargeting4 {
@@ -378,6 +451,68 @@ func (p *PostFeatureV2RuleSafeRollout) GetProjects() []string {
 
 // #region class-body-postfeaturev2rulesaferollout
 // #endregion class-body-postfeaturev2rulesaferollout
+
+type PostFeatureV2Match3 string
+
+const (
+	PostFeatureV2Match3All  PostFeatureV2Match3 = "all"
+	PostFeatureV2Match3None PostFeatureV2Match3 = "none"
+	PostFeatureV2Match3Any  PostFeatureV2Match3 = "any"
+)
+
+func (e PostFeatureV2Match3) ToPointer() *PostFeatureV2Match3 {
+	return &e
+}
+func (e *PostFeatureV2Match3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "all":
+		fallthrough
+	case "none":
+		fallthrough
+	case "any":
+		*e = PostFeatureV2Match3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PostFeatureV2Match3: %v", v)
+	}
+}
+
+type PostFeatureV2SavedGroup3 struct {
+	Match PostFeatureV2Match3 `json:"match"`
+	Ids   []string            `json:"ids"`
+}
+
+func (p PostFeatureV2SavedGroup3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostFeatureV2SavedGroup3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PostFeatureV2SavedGroup3) GetMatch() PostFeatureV2Match3 {
+	if p == nil {
+		return PostFeatureV2Match3("")
+	}
+	return p.Match
+}
+
+func (p *PostFeatureV2SavedGroup3) GetIds() []string {
+	if p == nil {
+		return []string{}
+	}
+	return p.Ids
+}
+
+// #region class-body-postfeaturev2savedgroup3
+// #endregion class-body-postfeaturev2savedgroup3
 
 type PostFeatureV2MatchType3 string
 
@@ -556,8 +691,12 @@ type PostFeatureV2RuleExperimentRef struct {
 	ID          *string `json:"id,omitzero"`
 	Enabled     *bool   `json:"enabled,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_               string                              `const:"experiment-ref" json:"type"`
-	Condition           *string                             `json:"condition,omitzero"`
+	type_       string                     `const:"experiment-ref" json:"type"`
+	Condition   *string                    `json:"condition,omitzero"`
+	SavedGroups []PostFeatureV2SavedGroup3 `json:"savedGroups,omitzero"`
+	// Deprecated — use `savedGroups`. Accepted so a GET response can be posted back unchanged; `savedGroups` takes precedence if both are sent.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	SavedGroupTargeting []PostFeatureV2SavedGroupTargeting3 `json:"savedGroupTargeting,omitzero"`
 	Prerequisites       []PostFeatureV2Prerequisite3        `json:"prerequisites,omitzero"`
 	ScheduleRules       []PostFeatureV2ScheduleRule3        `json:"scheduleRules,omitzero"`
@@ -616,6 +755,13 @@ func (p *PostFeatureV2RuleExperimentRef) GetCondition() *string {
 		return nil
 	}
 	return p.Condition
+}
+
+func (p *PostFeatureV2RuleExperimentRef) GetSavedGroups() []PostFeatureV2SavedGroup3 {
+	if p == nil {
+		return nil
+	}
+	return p.SavedGroups
 }
 
 func (p *PostFeatureV2RuleExperimentRef) GetSavedGroupTargeting() []PostFeatureV2SavedGroupTargeting3 {
@@ -690,6 +836,68 @@ func (p *PostFeatureV2RuleExperimentRef) GetProjects() []string {
 
 // #region class-body-postfeaturev2ruleexperimentref
 // #endregion class-body-postfeaturev2ruleexperimentref
+
+type PostFeatureV2Match2 string
+
+const (
+	PostFeatureV2Match2All  PostFeatureV2Match2 = "all"
+	PostFeatureV2Match2None PostFeatureV2Match2 = "none"
+	PostFeatureV2Match2Any  PostFeatureV2Match2 = "any"
+)
+
+func (e PostFeatureV2Match2) ToPointer() *PostFeatureV2Match2 {
+	return &e
+}
+func (e *PostFeatureV2Match2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "all":
+		fallthrough
+	case "none":
+		fallthrough
+	case "any":
+		*e = PostFeatureV2Match2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PostFeatureV2Match2: %v", v)
+	}
+}
+
+type PostFeatureV2SavedGroup2 struct {
+	Match PostFeatureV2Match2 `json:"match"`
+	Ids   []string            `json:"ids"`
+}
+
+func (p PostFeatureV2SavedGroup2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostFeatureV2SavedGroup2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PostFeatureV2SavedGroup2) GetMatch() PostFeatureV2Match2 {
+	if p == nil {
+		return PostFeatureV2Match2("")
+	}
+	return p.Match
+}
+
+func (p *PostFeatureV2SavedGroup2) GetIds() []string {
+	if p == nil {
+		return []string{}
+	}
+	return p.Ids
+}
+
+// #region class-body-postfeaturev2savedgroup2
+// #endregion class-body-postfeaturev2savedgroup2
 
 type PostFeatureV2MatchType2 string
 
@@ -822,8 +1030,12 @@ func (p *PostFeatureV2ScheduleRule2) GetEnabled() bool {
 // #endregion class-body-postfeaturev2schedulerule2
 
 type PostFeatureV2RuleRollout struct {
-	Description         *string                             `json:"description,omitzero"`
-	Condition           *string                             `json:"condition,omitzero"`
+	Description *string                    `json:"description,omitzero"`
+	Condition   *string                    `json:"condition,omitzero"`
+	SavedGroups []PostFeatureV2SavedGroup2 `json:"savedGroups,omitzero"`
+	// Deprecated — use `savedGroups`. Accepted so a GET response can be posted back unchanged; `savedGroups` takes precedence if both are sent.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	SavedGroupTargeting []PostFeatureV2SavedGroupTargeting2 `json:"savedGroupTargeting,omitzero"`
 	Prerequisites       []PostFeatureV2Prerequisite2        `json:"prerequisites,omitzero"`
 	ScheduleRules       []PostFeatureV2ScheduleRule2        `json:"scheduleRules,omitzero"`
@@ -874,6 +1086,13 @@ func (p *PostFeatureV2RuleRollout) GetCondition() *string {
 		return nil
 	}
 	return p.Condition
+}
+
+func (p *PostFeatureV2RuleRollout) GetSavedGroups() []PostFeatureV2SavedGroup2 {
+	if p == nil {
+		return nil
+	}
+	return p.SavedGroups
 }
 
 func (p *PostFeatureV2RuleRollout) GetSavedGroupTargeting() []PostFeatureV2SavedGroupTargeting2 {
@@ -994,6 +1213,68 @@ func (p *PostFeatureV2RuleRollout) GetProjects() []string {
 
 // #region class-body-postfeaturev2rulerollout
 // #endregion class-body-postfeaturev2rulerollout
+
+type PostFeatureV2Match1 string
+
+const (
+	PostFeatureV2Match1All  PostFeatureV2Match1 = "all"
+	PostFeatureV2Match1None PostFeatureV2Match1 = "none"
+	PostFeatureV2Match1Any  PostFeatureV2Match1 = "any"
+)
+
+func (e PostFeatureV2Match1) ToPointer() *PostFeatureV2Match1 {
+	return &e
+}
+func (e *PostFeatureV2Match1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "all":
+		fallthrough
+	case "none":
+		fallthrough
+	case "any":
+		*e = PostFeatureV2Match1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PostFeatureV2Match1: %v", v)
+	}
+}
+
+type PostFeatureV2SavedGroup1 struct {
+	Match PostFeatureV2Match1 `json:"match"`
+	Ids   []string            `json:"ids"`
+}
+
+func (p PostFeatureV2SavedGroup1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostFeatureV2SavedGroup1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PostFeatureV2SavedGroup1) GetMatch() PostFeatureV2Match1 {
+	if p == nil {
+		return PostFeatureV2Match1("")
+	}
+	return p.Match
+}
+
+func (p *PostFeatureV2SavedGroup1) GetIds() []string {
+	if p == nil {
+		return []string{}
+	}
+	return p.Ids
+}
+
+// #region class-body-postfeaturev2savedgroup1
+// #endregion class-body-postfeaturev2savedgroup1
 
 type PostFeatureV2MatchType1 string
 
@@ -1126,8 +1407,12 @@ func (p *PostFeatureV2ScheduleRule1) GetEnabled() bool {
 // #endregion class-body-postfeaturev2schedulerule1
 
 type PostFeatureV2RuleForce struct {
-	Description         *string                             `json:"description,omitzero"`
-	Condition           *string                             `json:"condition,omitzero"`
+	Description *string                    `json:"description,omitzero"`
+	Condition   *string                    `json:"condition,omitzero"`
+	SavedGroups []PostFeatureV2SavedGroup1 `json:"savedGroups,omitzero"`
+	// Deprecated — use `savedGroups`. Accepted so a GET response can be posted back unchanged; `savedGroups` takes precedence if both are sent.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	SavedGroupTargeting []PostFeatureV2SavedGroupTargeting1 `json:"savedGroupTargeting,omitzero"`
 	Prerequisites       []PostFeatureV2Prerequisite1        `json:"prerequisites,omitzero"`
 	ScheduleRules       []PostFeatureV2ScheduleRule1        `json:"scheduleRules,omitzero"`
@@ -1173,6 +1458,13 @@ func (p *PostFeatureV2RuleForce) GetCondition() *string {
 		return nil
 	}
 	return p.Condition
+}
+
+func (p *PostFeatureV2RuleForce) GetSavedGroups() []PostFeatureV2SavedGroup1 {
+	if p == nil {
+		return nil
+	}
+	return p.SavedGroups
 }
 
 func (p *PostFeatureV2RuleForce) GetSavedGroupTargeting() []PostFeatureV2SavedGroupTargeting1 {

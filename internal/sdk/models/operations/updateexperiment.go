@@ -506,6 +506,54 @@ func (u *UpdateExperimentPrerequisite) GetCondition() string {
 	return u.Condition
 }
 
+type UpdateExperimentMatch string
+
+const (
+	UpdateExperimentMatchAll  UpdateExperimentMatch = "all"
+	UpdateExperimentMatchNone UpdateExperimentMatch = "none"
+	UpdateExperimentMatchAny  UpdateExperimentMatch = "any"
+)
+
+func (e UpdateExperimentMatch) ToPointer() *UpdateExperimentMatch {
+	return &e
+}
+func (e *UpdateExperimentMatch) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "all":
+		fallthrough
+	case "none":
+		fallthrough
+	case "any":
+		*e = UpdateExperimentMatch(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for UpdateExperimentMatch: %v", v)
+	}
+}
+
+type UpdateExperimentSavedGroup struct {
+	Match UpdateExperimentMatch `json:"match"`
+	Ids   []string              `json:"ids"`
+}
+
+func (u *UpdateExperimentSavedGroup) GetMatch() UpdateExperimentMatch {
+	if u == nil {
+		return UpdateExperimentMatch("")
+	}
+	return u.Match
+}
+
+func (u *UpdateExperimentSavedGroup) GetIds() []string {
+	if u == nil {
+		return []string{}
+	}
+	return u.Ids
+}
+
 type UpdateExperimentMatchType string
 
 const (
@@ -591,7 +639,11 @@ type UpdateExperimentPhase struct {
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	Condition *string `json:"condition,omitzero"`
 	// Targeting condition as a JSON string. Mirrors the GET response.
-	TargetingCondition  *string                               `json:"targetingCondition,omitzero"`
+	TargetingCondition *string                      `json:"targetingCondition,omitzero"`
+	SavedGroups        []UpdateExperimentSavedGroup `json:"savedGroups,omitzero"`
+	// Deprecated — use `savedGroups`. Accepted so a GET response can be posted back unchanged; `savedGroups` takes precedence if both are sent.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	SavedGroupTargeting []UpdateExperimentSavedGroupTargeting `json:"savedGroupTargeting,omitzero"`
 	// Deprecated: use `trafficSplit`. Takes precedence if set.
 	//
@@ -687,6 +739,13 @@ func (u *UpdateExperimentPhase) GetTargetingCondition() *string {
 		return nil
 	}
 	return u.TargetingCondition
+}
+
+func (u *UpdateExperimentPhase) GetSavedGroups() []UpdateExperimentSavedGroup {
+	if u == nil {
+		return nil
+	}
+	return u.SavedGroups
 }
 
 func (u *UpdateExperimentPhase) GetSavedGroupTargeting() []UpdateExperimentSavedGroupTargeting {

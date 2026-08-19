@@ -342,8 +342,10 @@ func (e *GlobalControlsDateGranularity) IsExact() bool {
 }
 
 type GlobalControls struct {
-	DateRange       *GlobalControlsDateRange       `json:"dateRange,omitzero"`
-	DateGranularity *GlobalControlsDateGranularity `json:"dateGranularity,omitzero"`
+	DateRange              *GlobalControlsDateRange       `json:"dateRange,omitzero"`
+	DateGranularity        *GlobalControlsDateGranularity `json:"dateGranularity,omitzero"`
+	Projects               []string                       `json:"projects,omitzero"`
+	ExperimentSearchString *string                        `json:"experimentSearchString,omitzero"`
 }
 
 func (g GlobalControls) MarshalJSON() ([]byte, error) {
@@ -369,6 +371,20 @@ func (g *GlobalControls) GetDateGranularity() *GlobalControlsDateGranularity {
 		return nil
 	}
 	return g.DateGranularity
+}
+
+func (g *GlobalControls) GetProjects() []string {
+	if g == nil {
+		return nil
+	}
+	return g.Projects
+}
+
+func (g *GlobalControls) GetExperimentSearchString() *string {
+	if g == nil {
+		return nil
+	}
+	return g.ExperimentSearchString
 }
 
 type DashboardMode string
@@ -793,30 +809,30 @@ func (b *BlockComparison8) GetPreviousTimeFrame() *BlockPreviousTimeFrame8 {
 // #region class-body-blockcomparison8
 // #endregion class-body-blockcomparison8
 
-type GlobalControlSettings4 struct {
+type GlobalControlSettings8 struct {
 	DateRange *bool `json:"dateRange,omitzero"`
 }
 
-func (g GlobalControlSettings4) MarshalJSON() ([]byte, error) {
+func (g GlobalControlSettings8) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(g, "", false)
 }
 
-func (g *GlobalControlSettings4) UnmarshalJSON(data []byte) error {
+func (g *GlobalControlSettings8) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (g *GlobalControlSettings4) GetDateRange() *bool {
+func (g *GlobalControlSettings8) GetDateRange() *bool {
 	if g == nil {
 		return nil
 	}
 	return g.DateRange
 }
 
-// #region class-body-globalcontrolsettings4
-// #endregion class-body-globalcontrolsettings4
+// #region class-body-globalcontrolsettings8
+// #endregion class-body-globalcontrolsettings8
 
 type DimensionOperatorFunnel string
 
@@ -1745,7 +1761,7 @@ type BlockFunnelExploration struct {
 	ExplorerAnalysisID           string                  `json:"explorerAnalysisId"`
 	Comparison                   *BlockComparison8       `json:"comparison,omitzero"`
 	ComparisonExplorerAnalysisID *string                 `json:"comparisonExplorerAnalysisId,omitzero"`
-	GlobalControlSettings        *GlobalControlSettings4 `json:"globalControlSettings,omitzero"`
+	GlobalControlSettings        *GlobalControlSettings8 `json:"globalControlSettings,omitzero"`
 	Config                       ConfigFunnel            `json:"config"`
 }
 
@@ -1834,7 +1850,7 @@ func (b *BlockFunnelExploration) GetComparisonExplorerAnalysisID() *string {
 	return b.ComparisonExplorerAnalysisID
 }
 
-func (b *BlockFunnelExploration) GetGlobalControlSettings() *GlobalControlSettings4 {
+func (b *BlockFunnelExploration) GetGlobalControlSettings() *GlobalControlSettings8 {
 	if b == nil {
 		return nil
 	}
@@ -2081,30 +2097,30 @@ func (b *BlockComparison7) GetPreviousTimeFrame() *BlockPreviousTimeFrame7 {
 // #region class-body-blockcomparison7
 // #endregion class-body-blockcomparison7
 
-type GlobalControlSettings3 struct {
+type GlobalControlSettings7 struct {
 	DateRange *bool `json:"dateRange,omitzero"`
 }
 
-func (g GlobalControlSettings3) MarshalJSON() ([]byte, error) {
+func (g GlobalControlSettings7) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(g, "", false)
 }
 
-func (g *GlobalControlSettings3) UnmarshalJSON(data []byte) error {
+func (g *GlobalControlSettings7) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (g *GlobalControlSettings3) GetDateRange() *bool {
+func (g *GlobalControlSettings7) GetDateRange() *bool {
 	if g == nil {
 		return nil
 	}
 	return g.DateRange
 }
 
-// #region class-body-globalcontrolsettings3
-// #endregion class-body-globalcontrolsettings3
+// #region class-body-globalcontrolsettings7
+// #endregion class-body-globalcontrolsettings7
 
 type DimensionOperatorDataSource string
 
@@ -3019,7 +3035,7 @@ type BlockDataSourceExploration struct {
 	ExplorerAnalysisID           string                  `json:"explorerAnalysisId"`
 	Comparison                   *BlockComparison7       `json:"comparison,omitzero"`
 	ComparisonExplorerAnalysisID *string                 `json:"comparisonExplorerAnalysisId,omitzero"`
-	GlobalControlSettings        *GlobalControlSettings3 `json:"globalControlSettings,omitzero"`
+	GlobalControlSettings        *GlobalControlSettings7 `json:"globalControlSettings,omitzero"`
 	Config                       ConfigDataSource        `json:"config"`
 }
 
@@ -3108,7 +3124,7 @@ func (b *BlockDataSourceExploration) GetComparisonExplorerAnalysisID() *string {
 	return b.ComparisonExplorerAnalysisID
 }
 
-func (b *BlockDataSourceExploration) GetGlobalControlSettings() *GlobalControlSettings3 {
+func (b *BlockDataSourceExploration) GetGlobalControlSettings() *GlobalControlSettings7 {
 	if b == nil {
 		return nil
 	}
@@ -3355,30 +3371,30 @@ func (b *BlockComparison6) GetPreviousTimeFrame() *BlockPreviousTimeFrame6 {
 // #region class-body-blockcomparison6
 // #endregion class-body-blockcomparison6
 
-type GlobalControlSettings2 struct {
+type GlobalControlSettings6 struct {
 	DateRange *bool `json:"dateRange,omitzero"`
 }
 
-func (g GlobalControlSettings2) MarshalJSON() ([]byte, error) {
+func (g GlobalControlSettings6) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(g, "", false)
 }
 
-func (g *GlobalControlSettings2) UnmarshalJSON(data []byte) error {
+func (g *GlobalControlSettings6) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (g *GlobalControlSettings2) GetDateRange() *bool {
+func (g *GlobalControlSettings6) GetDateRange() *bool {
 	if g == nil {
 		return nil
 	}
 	return g.DateRange
 }
 
-// #region class-body-globalcontrolsettings2
-// #endregion class-body-globalcontrolsettings2
+// #region class-body-globalcontrolsettings6
+// #endregion class-body-globalcontrolsettings6
 
 type DimensionOperatorFactTable string
 
@@ -4244,7 +4260,7 @@ type BlockFactTableExploration struct {
 	ExplorerAnalysisID           string                  `json:"explorerAnalysisId"`
 	Comparison                   *BlockComparison6       `json:"comparison,omitzero"`
 	ComparisonExplorerAnalysisID *string                 `json:"comparisonExplorerAnalysisId,omitzero"`
-	GlobalControlSettings        *GlobalControlSettings2 `json:"globalControlSettings,omitzero"`
+	GlobalControlSettings        *GlobalControlSettings6 `json:"globalControlSettings,omitzero"`
 	Config                       ConfigFactTable         `json:"config"`
 }
 
@@ -4333,7 +4349,7 @@ func (b *BlockFactTableExploration) GetComparisonExplorerAnalysisID() *string {
 	return b.ComparisonExplorerAnalysisID
 }
 
-func (b *BlockFactTableExploration) GetGlobalControlSettings() *GlobalControlSettings2 {
+func (b *BlockFactTableExploration) GetGlobalControlSettings() *GlobalControlSettings6 {
 	if b == nil {
 		return nil
 	}
@@ -4580,30 +4596,30 @@ func (b *BlockComparison5) GetPreviousTimeFrame() *BlockPreviousTimeFrame5 {
 // #region class-body-blockcomparison5
 // #endregion class-body-blockcomparison5
 
-type GlobalControlSettings1 struct {
+type GlobalControlSettings5 struct {
 	DateRange *bool `json:"dateRange,omitzero"`
 }
 
-func (g GlobalControlSettings1) MarshalJSON() ([]byte, error) {
+func (g GlobalControlSettings5) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(g, "", false)
 }
 
-func (g *GlobalControlSettings1) UnmarshalJSON(data []byte) error {
+func (g *GlobalControlSettings5) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (g *GlobalControlSettings1) GetDateRange() *bool {
+func (g *GlobalControlSettings5) GetDateRange() *bool {
 	if g == nil {
 		return nil
 	}
 	return g.DateRange
 }
 
-// #region class-body-globalcontrolsettings1
-// #endregion class-body-globalcontrolsettings1
+// #region class-body-globalcontrolsettings5
+// #endregion class-body-globalcontrolsettings5
 
 type DimensionOperatorMetric string
 
@@ -5438,7 +5454,7 @@ type BlockMetricExploration struct {
 	ExplorerAnalysisID           string                  `json:"explorerAnalysisId"`
 	Comparison                   *BlockComparison5       `json:"comparison,omitzero"`
 	ComparisonExplorerAnalysisID *string                 `json:"comparisonExplorerAnalysisId,omitzero"`
-	GlobalControlSettings        *GlobalControlSettings1 `json:"globalControlSettings,omitzero"`
+	GlobalControlSettings        *GlobalControlSettings5 `json:"globalControlSettings,omitzero"`
 	Config                       ConfigMetric            `json:"config"`
 }
 
@@ -5527,7 +5543,7 @@ func (b *BlockMetricExploration) GetComparisonExplorerAnalysisID() *string {
 	return b.ComparisonExplorerAnalysisID
 }
 
-func (b *BlockMetricExploration) GetGlobalControlSettings() *GlobalControlSettings1 {
+func (b *BlockMetricExploration) GetGlobalControlSettings() *GlobalControlSettings5 {
 	if b == nil {
 		return nil
 	}

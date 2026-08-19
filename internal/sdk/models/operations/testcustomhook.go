@@ -42,9 +42,11 @@ type TestCustomHookRequest struct {
 	// JavaScript function body to execute in the sandbox
 	FunctionBody string `json:"functionBody"`
 	// Arguments exposed to the function as named globals (e.g. `feature`, `config`, `revision`)
-	FunctionArgs map[string]any            `json:"functionArgs,omitzero"`
-	EntityType   *TestCustomHookEntityType `json:"entityType,omitzero"`
-	EntityID     *string                   `json:"entityId,omitzero"`
+	FunctionArgs map[string]any `json:"functionArgs,omitzero"`
+	// State before the change. When supplied, the hook also runs against it and Incremental Changes Only suppression is applied to the result.
+	OriginalFunctionArgs map[string]any            `json:"originalFunctionArgs,omitzero"`
+	EntityType           *TestCustomHookEntityType `json:"entityType,omitzero"`
+	EntityID             *string                   `json:"entityId,omitzero"`
 }
 
 func (t TestCustomHookRequest) MarshalJSON() ([]byte, error) {
@@ -72,6 +74,13 @@ func (t *TestCustomHookRequest) GetFunctionArgs() map[string]any {
 	return t.FunctionArgs
 }
 
+func (t *TestCustomHookRequest) GetOriginalFunctionArgs() map[string]any {
+	if t == nil {
+		return nil
+	}
+	return t.OriginalFunctionArgs
+}
+
 func (t *TestCustomHookRequest) GetEntityType() *TestCustomHookEntityType {
 	if t == nil {
 		return nil
@@ -95,6 +104,8 @@ type TestCustomHookResponseBody struct {
 	Warnings  []string `json:"warnings,omitzero"`
 	// Captured console output
 	Log *string `json:"log,omitzero"`
+	// Outcomes the previous state produced too, which Incremental Changes Only would hide on a real save
+	Suppressed *components.Suppressed `json:"suppressed,omitzero"`
 }
 
 func (t TestCustomHookResponseBody) MarshalJSON() ([]byte, error) {
@@ -141,6 +152,13 @@ func (t *TestCustomHookResponseBody) GetLog() *string {
 		return nil
 	}
 	return t.Log
+}
+
+func (t *TestCustomHookResponseBody) GetSuppressed() *components.Suppressed {
+	if t == nil {
+		return nil
+	}
+	return t.Suppressed
 }
 
 type TestCustomHookResponse struct {
