@@ -291,6 +291,68 @@ func (u *UpdateFeatureRuleExperiment) GetValue() []UpdateFeatureValue {
 	return u.Value
 }
 
+type UpdateFeatureMatch3 string
+
+const (
+	UpdateFeatureMatch3All  UpdateFeatureMatch3 = "all"
+	UpdateFeatureMatch3None UpdateFeatureMatch3 = "none"
+	UpdateFeatureMatch3Any  UpdateFeatureMatch3 = "any"
+)
+
+func (e UpdateFeatureMatch3) ToPointer() *UpdateFeatureMatch3 {
+	return &e
+}
+func (e *UpdateFeatureMatch3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "all":
+		fallthrough
+	case "none":
+		fallthrough
+	case "any":
+		*e = UpdateFeatureMatch3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for UpdateFeatureMatch3: %v", v)
+	}
+}
+
+type UpdateFeatureSavedGroup3 struct {
+	Match UpdateFeatureMatch3 `json:"match"`
+	Ids   []string            `json:"ids"`
+}
+
+func (u UpdateFeatureSavedGroup3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdateFeatureSavedGroup3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *UpdateFeatureSavedGroup3) GetMatch() UpdateFeatureMatch3 {
+	if u == nil {
+		return UpdateFeatureMatch3("")
+	}
+	return u.Match
+}
+
+func (u *UpdateFeatureSavedGroup3) GetIds() []string {
+	if u == nil {
+		return []string{}
+	}
+	return u.Ids
+}
+
+// #region class-body-updatefeaturesavedgroup3
+// #endregion class-body-updatefeaturesavedgroup3
+
 type UpdateFeatureMatchType3 string
 
 const (
@@ -427,8 +489,12 @@ type UpdateFeatureRuleExperimentRef struct {
 	// Enabled by default
 	Enabled *bool `json:"enabled,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_               string                              `const:"experiment-ref" json:"type"`
-	Condition           *string                             `json:"condition,omitzero"`
+	type_       string                     `const:"experiment-ref" json:"type"`
+	Condition   *string                    `json:"condition,omitzero"`
+	SavedGroups []UpdateFeatureSavedGroup3 `json:"savedGroups,omitzero"`
+	// Deprecated — use `savedGroups`. Accepted so a GET response can be posted back unchanged; `savedGroups` takes precedence if both are sent.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	SavedGroupTargeting []UpdateFeatureSavedGroupTargeting3 `json:"savedGroupTargeting,omitzero"`
 	Prerequisites       []UpdateFeaturePrerequisite3        `json:"prerequisites,omitzero"`
 	ScheduleRules       []components.ScheduleRule           `json:"scheduleRules,omitzero"`
@@ -495,6 +561,13 @@ func (u *UpdateFeatureRuleExperimentRef) GetCondition() *string {
 	return u.Condition
 }
 
+func (u *UpdateFeatureRuleExperimentRef) GetSavedGroups() []UpdateFeatureSavedGroup3 {
+	if u == nil {
+		return nil
+	}
+	return u.SavedGroups
+}
+
 func (u *UpdateFeatureRuleExperimentRef) GetSavedGroupTargeting() []UpdateFeatureSavedGroupTargeting3 {
 	if u == nil {
 		return nil
@@ -536,6 +609,68 @@ func (u *UpdateFeatureRuleExperimentRef) GetSparse() *bool {
 	}
 	return u.Sparse
 }
+
+type UpdateFeatureMatch2 string
+
+const (
+	UpdateFeatureMatch2All  UpdateFeatureMatch2 = "all"
+	UpdateFeatureMatch2None UpdateFeatureMatch2 = "none"
+	UpdateFeatureMatch2Any  UpdateFeatureMatch2 = "any"
+)
+
+func (e UpdateFeatureMatch2) ToPointer() *UpdateFeatureMatch2 {
+	return &e
+}
+func (e *UpdateFeatureMatch2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "all":
+		fallthrough
+	case "none":
+		fallthrough
+	case "any":
+		*e = UpdateFeatureMatch2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for UpdateFeatureMatch2: %v", v)
+	}
+}
+
+type UpdateFeatureSavedGroup2 struct {
+	Match UpdateFeatureMatch2 `json:"match"`
+	Ids   []string            `json:"ids"`
+}
+
+func (u UpdateFeatureSavedGroup2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdateFeatureSavedGroup2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *UpdateFeatureSavedGroup2) GetMatch() UpdateFeatureMatch2 {
+	if u == nil {
+		return UpdateFeatureMatch2("")
+	}
+	return u.Match
+}
+
+func (u *UpdateFeatureSavedGroup2) GetIds() []string {
+	if u == nil {
+		return []string{}
+	}
+	return u.Ids
+}
+
+// #region class-body-updatefeaturesavedgroup2
+// #endregion class-body-updatefeaturesavedgroup2
 
 type UpdateFeatureMatchType2 string
 
@@ -640,7 +775,11 @@ type UpdateFeatureRuleRollout struct {
 	Projects    []string `json:"projects,omitzero"`
 	Description *string  `json:"description,omitzero"`
 	// Applied to everyone by default.
-	Condition           *string                             `json:"condition,omitzero"`
+	Condition   *string                    `json:"condition,omitzero"`
+	SavedGroups []UpdateFeatureSavedGroup2 `json:"savedGroups,omitzero"`
+	// Deprecated — use `savedGroups`. Accepted so a GET response can be posted back unchanged; `savedGroups` takes precedence if both are sent.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	SavedGroupTargeting []UpdateFeatureSavedGroupTargeting2 `json:"savedGroupTargeting,omitzero"`
 	Prerequisites       []UpdateFeaturePrerequisite2        `json:"prerequisites,omitzero"`
 	ScheduleRules       []components.ScheduleRule           `json:"scheduleRules,omitzero"`
@@ -697,6 +836,13 @@ func (u *UpdateFeatureRuleRollout) GetCondition() *string {
 		return nil
 	}
 	return u.Condition
+}
+
+func (u *UpdateFeatureRuleRollout) GetSavedGroups() []UpdateFeatureSavedGroup2 {
+	if u == nil {
+		return nil
+	}
+	return u.SavedGroups
 }
 
 func (u *UpdateFeatureRuleRollout) GetSavedGroupTargeting() []UpdateFeatureSavedGroupTargeting2 {
@@ -779,6 +925,68 @@ func (u *UpdateFeatureRuleRollout) GetHashVersion() *float64 {
 	}
 	return u.HashVersion
 }
+
+type UpdateFeatureMatch1 string
+
+const (
+	UpdateFeatureMatch1All  UpdateFeatureMatch1 = "all"
+	UpdateFeatureMatch1None UpdateFeatureMatch1 = "none"
+	UpdateFeatureMatch1Any  UpdateFeatureMatch1 = "any"
+)
+
+func (e UpdateFeatureMatch1) ToPointer() *UpdateFeatureMatch1 {
+	return &e
+}
+func (e *UpdateFeatureMatch1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "all":
+		fallthrough
+	case "none":
+		fallthrough
+	case "any":
+		*e = UpdateFeatureMatch1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for UpdateFeatureMatch1: %v", v)
+	}
+}
+
+type UpdateFeatureSavedGroup1 struct {
+	Match UpdateFeatureMatch1 `json:"match"`
+	Ids   []string            `json:"ids"`
+}
+
+func (u UpdateFeatureSavedGroup1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdateFeatureSavedGroup1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *UpdateFeatureSavedGroup1) GetMatch() UpdateFeatureMatch1 {
+	if u == nil {
+		return UpdateFeatureMatch1("")
+	}
+	return u.Match
+}
+
+func (u *UpdateFeatureSavedGroup1) GetIds() []string {
+	if u == nil {
+		return []string{}
+	}
+	return u.Ids
+}
+
+// #region class-body-updatefeaturesavedgroup1
+// #endregion class-body-updatefeaturesavedgroup1
 
 type UpdateFeatureMatchType1 string
 
@@ -883,7 +1091,11 @@ type UpdateFeatureRuleForce struct {
 	Projects    []string `json:"projects,omitzero"`
 	Description *string  `json:"description,omitzero"`
 	// Applied to everyone by default.
-	Condition           *string                             `json:"condition,omitzero"`
+	Condition   *string                    `json:"condition,omitzero"`
+	SavedGroups []UpdateFeatureSavedGroup1 `json:"savedGroups,omitzero"`
+	// Deprecated — use `savedGroups`. Accepted so a GET response can be posted back unchanged; `savedGroups` takes precedence if both are sent.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	SavedGroupTargeting []UpdateFeatureSavedGroupTargeting1 `json:"savedGroupTargeting,omitzero"`
 	Prerequisites       []UpdateFeaturePrerequisite1        `json:"prerequisites,omitzero"`
 	ScheduleRules       []components.ScheduleRule           `json:"scheduleRules,omitzero"`
@@ -934,6 +1146,13 @@ func (u *UpdateFeatureRuleForce) GetCondition() *string {
 		return nil
 	}
 	return u.Condition
+}
+
+func (u *UpdateFeatureRuleForce) GetSavedGroups() []UpdateFeatureSavedGroup1 {
+	if u == nil {
+		return nil
+	}
+	return u.SavedGroups
 }
 
 func (u *UpdateFeatureRuleForce) GetSavedGroupTargeting() []UpdateFeatureSavedGroupTargeting1 {
@@ -1396,6 +1615,68 @@ func (u *UpdateFeatureRuleDraftExperiment) GetValue() []UpdateFeatureDraftValue 
 	return u.Value
 }
 
+type UpdateFeatureDraftMatch3 string
+
+const (
+	UpdateFeatureDraftMatch3All  UpdateFeatureDraftMatch3 = "all"
+	UpdateFeatureDraftMatch3None UpdateFeatureDraftMatch3 = "none"
+	UpdateFeatureDraftMatch3Any  UpdateFeatureDraftMatch3 = "any"
+)
+
+func (e UpdateFeatureDraftMatch3) ToPointer() *UpdateFeatureDraftMatch3 {
+	return &e
+}
+func (e *UpdateFeatureDraftMatch3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "all":
+		fallthrough
+	case "none":
+		fallthrough
+	case "any":
+		*e = UpdateFeatureDraftMatch3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for UpdateFeatureDraftMatch3: %v", v)
+	}
+}
+
+type UpdateFeatureDraftSavedGroup3 struct {
+	Match UpdateFeatureDraftMatch3 `json:"match"`
+	Ids   []string                 `json:"ids"`
+}
+
+func (u UpdateFeatureDraftSavedGroup3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdateFeatureDraftSavedGroup3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *UpdateFeatureDraftSavedGroup3) GetMatch() UpdateFeatureDraftMatch3 {
+	if u == nil {
+		return UpdateFeatureDraftMatch3("")
+	}
+	return u.Match
+}
+
+func (u *UpdateFeatureDraftSavedGroup3) GetIds() []string {
+	if u == nil {
+		return []string{}
+	}
+	return u.Ids
+}
+
+// #region class-body-updatefeaturedraftsavedgroup3
+// #endregion class-body-updatefeaturedraftsavedgroup3
+
 type UpdateFeatureDraftMatchType3 string
 
 const (
@@ -1532,8 +1813,12 @@ type UpdateFeatureRuleDraftExperimentRef struct {
 	// Enabled by default
 	Enabled *bool `json:"enabled,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_               string                                   `const:"experiment-ref" json:"type"`
-	Condition           *string                                  `json:"condition,omitzero"`
+	type_       string                          `const:"experiment-ref" json:"type"`
+	Condition   *string                         `json:"condition,omitzero"`
+	SavedGroups []UpdateFeatureDraftSavedGroup3 `json:"savedGroups,omitzero"`
+	// Deprecated — use `savedGroups`. Accepted so a GET response can be posted back unchanged; `savedGroups` takes precedence if both are sent.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	SavedGroupTargeting []UpdateFeatureDraftSavedGroupTargeting3 `json:"savedGroupTargeting,omitzero"`
 	Prerequisites       []UpdateFeatureDraftPrerequisite3        `json:"prerequisites,omitzero"`
 	ScheduleRules       []components.ScheduleRule                `json:"scheduleRules,omitzero"`
@@ -1600,6 +1885,13 @@ func (u *UpdateFeatureRuleDraftExperimentRef) GetCondition() *string {
 	return u.Condition
 }
 
+func (u *UpdateFeatureRuleDraftExperimentRef) GetSavedGroups() []UpdateFeatureDraftSavedGroup3 {
+	if u == nil {
+		return nil
+	}
+	return u.SavedGroups
+}
+
 func (u *UpdateFeatureRuleDraftExperimentRef) GetSavedGroupTargeting() []UpdateFeatureDraftSavedGroupTargeting3 {
 	if u == nil {
 		return nil
@@ -1641,6 +1933,68 @@ func (u *UpdateFeatureRuleDraftExperimentRef) GetSparse() *bool {
 	}
 	return u.Sparse
 }
+
+type UpdateFeatureDraftMatch2 string
+
+const (
+	UpdateFeatureDraftMatch2All  UpdateFeatureDraftMatch2 = "all"
+	UpdateFeatureDraftMatch2None UpdateFeatureDraftMatch2 = "none"
+	UpdateFeatureDraftMatch2Any  UpdateFeatureDraftMatch2 = "any"
+)
+
+func (e UpdateFeatureDraftMatch2) ToPointer() *UpdateFeatureDraftMatch2 {
+	return &e
+}
+func (e *UpdateFeatureDraftMatch2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "all":
+		fallthrough
+	case "none":
+		fallthrough
+	case "any":
+		*e = UpdateFeatureDraftMatch2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for UpdateFeatureDraftMatch2: %v", v)
+	}
+}
+
+type UpdateFeatureDraftSavedGroup2 struct {
+	Match UpdateFeatureDraftMatch2 `json:"match"`
+	Ids   []string                 `json:"ids"`
+}
+
+func (u UpdateFeatureDraftSavedGroup2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdateFeatureDraftSavedGroup2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *UpdateFeatureDraftSavedGroup2) GetMatch() UpdateFeatureDraftMatch2 {
+	if u == nil {
+		return UpdateFeatureDraftMatch2("")
+	}
+	return u.Match
+}
+
+func (u *UpdateFeatureDraftSavedGroup2) GetIds() []string {
+	if u == nil {
+		return []string{}
+	}
+	return u.Ids
+}
+
+// #region class-body-updatefeaturedraftsavedgroup2
+// #endregion class-body-updatefeaturedraftsavedgroup2
 
 type UpdateFeatureDraftMatchType2 string
 
@@ -1745,7 +2099,11 @@ type UpdateFeatureRuleDraftRollout struct {
 	Projects    []string `json:"projects,omitzero"`
 	Description *string  `json:"description,omitzero"`
 	// Applied to everyone by default.
-	Condition           *string                                  `json:"condition,omitzero"`
+	Condition   *string                         `json:"condition,omitzero"`
+	SavedGroups []UpdateFeatureDraftSavedGroup2 `json:"savedGroups,omitzero"`
+	// Deprecated — use `savedGroups`. Accepted so a GET response can be posted back unchanged; `savedGroups` takes precedence if both are sent.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	SavedGroupTargeting []UpdateFeatureDraftSavedGroupTargeting2 `json:"savedGroupTargeting,omitzero"`
 	Prerequisites       []UpdateFeatureDraftPrerequisite2        `json:"prerequisites,omitzero"`
 	ScheduleRules       []components.ScheduleRule                `json:"scheduleRules,omitzero"`
@@ -1802,6 +2160,13 @@ func (u *UpdateFeatureRuleDraftRollout) GetCondition() *string {
 		return nil
 	}
 	return u.Condition
+}
+
+func (u *UpdateFeatureRuleDraftRollout) GetSavedGroups() []UpdateFeatureDraftSavedGroup2 {
+	if u == nil {
+		return nil
+	}
+	return u.SavedGroups
 }
 
 func (u *UpdateFeatureRuleDraftRollout) GetSavedGroupTargeting() []UpdateFeatureDraftSavedGroupTargeting2 {
@@ -1884,6 +2249,68 @@ func (u *UpdateFeatureRuleDraftRollout) GetHashVersion() *float64 {
 	}
 	return u.HashVersion
 }
+
+type UpdateFeatureDraftMatch1 string
+
+const (
+	UpdateFeatureDraftMatch1All  UpdateFeatureDraftMatch1 = "all"
+	UpdateFeatureDraftMatch1None UpdateFeatureDraftMatch1 = "none"
+	UpdateFeatureDraftMatch1Any  UpdateFeatureDraftMatch1 = "any"
+)
+
+func (e UpdateFeatureDraftMatch1) ToPointer() *UpdateFeatureDraftMatch1 {
+	return &e
+}
+func (e *UpdateFeatureDraftMatch1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "all":
+		fallthrough
+	case "none":
+		fallthrough
+	case "any":
+		*e = UpdateFeatureDraftMatch1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for UpdateFeatureDraftMatch1: %v", v)
+	}
+}
+
+type UpdateFeatureDraftSavedGroup1 struct {
+	Match UpdateFeatureDraftMatch1 `json:"match"`
+	Ids   []string                 `json:"ids"`
+}
+
+func (u UpdateFeatureDraftSavedGroup1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdateFeatureDraftSavedGroup1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *UpdateFeatureDraftSavedGroup1) GetMatch() UpdateFeatureDraftMatch1 {
+	if u == nil {
+		return UpdateFeatureDraftMatch1("")
+	}
+	return u.Match
+}
+
+func (u *UpdateFeatureDraftSavedGroup1) GetIds() []string {
+	if u == nil {
+		return []string{}
+	}
+	return u.Ids
+}
+
+// #region class-body-updatefeaturedraftsavedgroup1
+// #endregion class-body-updatefeaturedraftsavedgroup1
 
 type UpdateFeatureDraftMatchType1 string
 
@@ -1988,7 +2415,11 @@ type UpdateFeatureRuleDraftForce struct {
 	Projects    []string `json:"projects,omitzero"`
 	Description *string  `json:"description,omitzero"`
 	// Applied to everyone by default.
-	Condition           *string                                  `json:"condition,omitzero"`
+	Condition   *string                         `json:"condition,omitzero"`
+	SavedGroups []UpdateFeatureDraftSavedGroup1 `json:"savedGroups,omitzero"`
+	// Deprecated — use `savedGroups`. Accepted so a GET response can be posted back unchanged; `savedGroups` takes precedence if both are sent.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	SavedGroupTargeting []UpdateFeatureDraftSavedGroupTargeting1 `json:"savedGroupTargeting,omitzero"`
 	Prerequisites       []UpdateFeatureDraftPrerequisite1        `json:"prerequisites,omitzero"`
 	ScheduleRules       []components.ScheduleRule                `json:"scheduleRules,omitzero"`
@@ -2039,6 +2470,13 @@ func (u *UpdateFeatureRuleDraftForce) GetCondition() *string {
 		return nil
 	}
 	return u.Condition
+}
+
+func (u *UpdateFeatureRuleDraftForce) GetSavedGroups() []UpdateFeatureDraftSavedGroup1 {
+	if u == nil {
+		return nil
+	}
+	return u.SavedGroups
 }
 
 func (u *UpdateFeatureRuleDraftForce) GetSavedGroupTargeting() []UpdateFeatureDraftSavedGroupTargeting1 {

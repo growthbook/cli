@@ -17,6 +17,7 @@ import (
 var testCustomHookCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "function-body", FieldPath: "FunctionBody", Kind: flagutil.FlagKindString, Required: true, Description: "JavaScript function body to execute in the sandbox [required]"},
 	{FlagName: "function-args", FieldPath: "FunctionArgs", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"functionArgs,omitempty"`, Description: "Arguments exposed to the function as named globals (e.g. `feature`, `config`, `revision`)"},
+	{FlagName: "original-function-args", FieldPath: "OriginalFunctionArgs", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"originalFunctionArgs,omitempty"`, Description: "State before the change. When supplied, the hook also runs against it and Incremental Changes Only suppression is applied to the result."},
 	{FlagName: "entity-type", FieldPath: "EntityType", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"feature", "config", "experiment"}, Description: "options: feature, config, experiment"},
 	{FlagName: "entity-id", FieldPath: "EntityID", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 }

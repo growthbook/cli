@@ -56,72 +56,72 @@ func (e *ChecklistIncompleteError) Error() string {
 	return string(data)
 }
 
-type ConflictType string
+type PostExperimentStartConflictType string
 
 const (
-	ConflictTypeChecklistIncomplete       ConflictType = "checklist_incomplete"
-	ConflictTypePendingDraftPublishFailed ConflictType = "pending_draft_publish_failed"
-	ConflictTypeInvalidStatus             ConflictType = "invalid_status"
-	ConflictTypeUnknown                   ConflictType = "UNKNOWN"
+	PostExperimentStartConflictTypeChecklistIncomplete       PostExperimentStartConflictType = "checklist_incomplete"
+	PostExperimentStartConflictTypePendingDraftPublishFailed PostExperimentStartConflictType = "pending_draft_publish_failed"
+	PostExperimentStartConflictTypeInvalidStatus             PostExperimentStartConflictType = "invalid_status"
+	PostExperimentStartConflictTypeUnknown                   PostExperimentStartConflictType = "UNKNOWN"
 )
 
-// Conflict
-type Conflict struct {
+// PostExperimentStartConflict - Conflict
+type PostExperimentStartConflict struct {
 	ChecklistIncompleteError                          *ChecklistIncompleteError                          `queryParam:"inline" union:"member"`
 	PostExperimentStartPendingDraftPublishFailedError *PostExperimentStartPendingDraftPublishFailedError `queryParam:"inline" union:"member"`
 	PostExperimentStartInvalidStatusError             *PostExperimentStartInvalidStatusError             `queryParam:"inline" union:"member"`
 	UnknownRaw                                        json.RawMessage                                    `json:"-" union:"unknown"`
 
-	Type ConflictType
+	Type PostExperimentStartConflictType
 
 	HTTPMeta components.HTTPMetadata `json:"-"`
 }
 
-var _ error = &Conflict{}
+var _ error = &PostExperimentStartConflict{}
 
-func CreateConflictChecklistIncomplete(checklistIncomplete ChecklistIncompleteError) Conflict {
-	typ := ConflictTypeChecklistIncomplete
+func CreatePostExperimentStartConflictChecklistIncomplete(checklistIncomplete ChecklistIncompleteError) PostExperimentStartConflict {
+	typ := PostExperimentStartConflictTypeChecklistIncomplete
 
-	return Conflict{
+	return PostExperimentStartConflict{
 		ChecklistIncompleteError: &checklistIncomplete,
 		Type:                     typ,
 	}
 }
 
-func CreateConflictPendingDraftPublishFailed(pendingDraftPublishFailed PostExperimentStartPendingDraftPublishFailedError) Conflict {
-	typ := ConflictTypePendingDraftPublishFailed
+func CreatePostExperimentStartConflictPendingDraftPublishFailed(pendingDraftPublishFailed PostExperimentStartPendingDraftPublishFailedError) PostExperimentStartConflict {
+	typ := PostExperimentStartConflictTypePendingDraftPublishFailed
 
-	return Conflict{
+	return PostExperimentStartConflict{
 		PostExperimentStartPendingDraftPublishFailedError: &pendingDraftPublishFailed,
 		Type: typ,
 	}
 }
 
-func CreateConflictInvalidStatus(invalidStatus PostExperimentStartInvalidStatusError) Conflict {
-	typ := ConflictTypeInvalidStatus
+func CreatePostExperimentStartConflictInvalidStatus(invalidStatus PostExperimentStartInvalidStatusError) PostExperimentStartConflict {
+	typ := PostExperimentStartConflictTypeInvalidStatus
 
-	return Conflict{
+	return PostExperimentStartConflict{
 		PostExperimentStartInvalidStatusError: &invalidStatus,
 		Type:                                  typ,
 	}
 }
 
-func CreateConflictUnknown(raw json.RawMessage) Conflict {
-	return Conflict{
+func CreatePostExperimentStartConflictUnknown(raw json.RawMessage) PostExperimentStartConflict {
+	return PostExperimentStartConflict{
 		UnknownRaw: raw,
-		Type:       ConflictTypeUnknown,
+		Type:       PostExperimentStartConflictTypeUnknown,
 	}
 }
 
-func (u Conflict) GetUnknownRaw() json.RawMessage {
+func (u PostExperimentStartConflict) GetUnknownRaw() json.RawMessage {
 	return u.UnknownRaw
 }
 
-func (u Conflict) IsUnknown() bool {
-	return u.Type == ConflictTypeUnknown
+func (u PostExperimentStartConflict) IsUnknown() bool {
+	return u.Type == PostExperimentStartConflictTypeUnknown
 }
 
-func (u *Conflict) UnmarshalJSON(data []byte) error {
+func (u *PostExperimentStartConflict) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
 		Code string `json:"code"`
@@ -130,12 +130,12 @@ func (u *Conflict) UnmarshalJSON(data []byte) error {
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = ConflictTypeUnknown
+		u.Type = PostExperimentStartConflictTypeUnknown
 		return nil
 	}
 	if dis == nil {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = ConflictTypeUnknown
+		u.Type = PostExperimentStartConflictTypeUnknown
 		return nil
 	}
 
@@ -143,39 +143,39 @@ func (u *Conflict) UnmarshalJSON(data []byte) error {
 	case "checklist_incomplete":
 		checklistIncompleteError := new(ChecklistIncompleteError)
 		if err := utils.UnmarshalJSON(data, &checklistIncompleteError, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Code == checklist_incomplete) type ChecklistIncompleteError within Conflict: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Code == checklist_incomplete) type ChecklistIncompleteError within PostExperimentStartConflict: %w", string(data), err)
 		}
 
 		u.ChecklistIncompleteError = checklistIncompleteError
-		u.Type = ConflictTypeChecklistIncomplete
+		u.Type = PostExperimentStartConflictTypeChecklistIncomplete
 		return nil
 	case "pending_draft_publish_failed":
 		postExperimentStartPendingDraftPublishFailedError := new(PostExperimentStartPendingDraftPublishFailedError)
 		if err := utils.UnmarshalJSON(data, &postExperimentStartPendingDraftPublishFailedError, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Code == pending_draft_publish_failed) type PostExperimentStartPendingDraftPublishFailedError within Conflict: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Code == pending_draft_publish_failed) type PostExperimentStartPendingDraftPublishFailedError within PostExperimentStartConflict: %w", string(data), err)
 		}
 
 		u.PostExperimentStartPendingDraftPublishFailedError = postExperimentStartPendingDraftPublishFailedError
-		u.Type = ConflictTypePendingDraftPublishFailed
+		u.Type = PostExperimentStartConflictTypePendingDraftPublishFailed
 		return nil
 	case "invalid_status":
 		postExperimentStartInvalidStatusError := new(PostExperimentStartInvalidStatusError)
 		if err := utils.UnmarshalJSON(data, &postExperimentStartInvalidStatusError, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Code == invalid_status) type PostExperimentStartInvalidStatusError within Conflict: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Code == invalid_status) type PostExperimentStartInvalidStatusError within PostExperimentStartConflict: %w", string(data), err)
 		}
 
 		u.PostExperimentStartInvalidStatusError = postExperimentStartInvalidStatusError
-		u.Type = ConflictTypeInvalidStatus
+		u.Type = PostExperimentStartConflictTypeInvalidStatus
 		return nil
 	default:
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = ConflictTypeUnknown
+		u.Type = PostExperimentStartConflictTypeUnknown
 		return nil
 	}
 
 }
 
-func (u Conflict) MarshalJSON() ([]byte, error) {
+func (u PostExperimentStartConflict) MarshalJSON() ([]byte, error) {
 	if u.ChecklistIncompleteError != nil {
 		return utils.MarshalJSON(u.ChecklistIncompleteError, "", true)
 	}
@@ -191,21 +191,21 @@ func (u Conflict) MarshalJSON() ([]byte, error) {
 	if u.UnknownRaw != nil {
 		return json.RawMessage(u.UnknownRaw), nil
 	}
-	return nil, errors.New("could not marshal union type Conflict: all fields are null")
+	return nil, errors.New("could not marshal union type PostExperimentStartConflict: all fields are null")
 }
 
-func (u Conflict) Error() string {
+func (u PostExperimentStartConflict) Error() string {
 	switch u.Type {
-	case ConflictTypeChecklistIncomplete:
+	case PostExperimentStartConflictTypeChecklistIncomplete:
 		data, _ := json.Marshal(u.ChecklistIncompleteError)
 		return string(data)
-	case ConflictTypePendingDraftPublishFailed:
+	case PostExperimentStartConflictTypePendingDraftPublishFailed:
 		data, _ := json.Marshal(u.PostExperimentStartPendingDraftPublishFailedError)
 		return string(data)
-	case ConflictTypeInvalidStatus:
+	case PostExperimentStartConflictTypeInvalidStatus:
 		data, _ := json.Marshal(u.PostExperimentStartInvalidStatusError)
 		return string(data)
-	case ConflictTypeUnknown:
+	case PostExperimentStartConflictTypeUnknown:
 		if u.UnknownRaw != nil {
 			return string(u.UnknownRaw)
 		}

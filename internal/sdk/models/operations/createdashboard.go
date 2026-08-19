@@ -362,8 +362,10 @@ func (e *CreateDashboardGlobalControlsDateGranularity) UnmarshalJSON(data []byte
 }
 
 type CreateDashboardGlobalControls struct {
-	DateRange       *CreateDashboardGlobalControlsDateRange       `json:"dateRange,omitzero"`
-	DateGranularity *CreateDashboardGlobalControlsDateGranularity `json:"dateGranularity,omitzero"`
+	DateRange              *CreateDashboardGlobalControlsDateRange       `json:"dateRange,omitzero"`
+	DateGranularity        *CreateDashboardGlobalControlsDateGranularity `json:"dateGranularity,omitzero"`
+	Projects               []string                                      `json:"projects,omitzero"`
+	ExperimentSearchString *string                                       `json:"experimentSearchString,omitzero"`
 }
 
 func (c CreateDashboardGlobalControls) MarshalJSON() ([]byte, error) {
@@ -389,6 +391,20 @@ func (c *CreateDashboardGlobalControls) GetDateGranularity() *CreateDashboardGlo
 		return nil
 	}
 	return c.DateGranularity
+}
+
+func (c *CreateDashboardGlobalControls) GetProjects() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Projects
+}
+
+func (c *CreateDashboardGlobalControls) GetExperimentSearchString() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ExperimentSearchString
 }
 
 type CreateDashboardLayout15 struct {
@@ -660,30 +676,30 @@ func (c *CreateDashboardComparison7) GetPreviousTimeFrame() *CreateDashboardPrev
 // #region class-body-createdashboardcomparison7
 // #endregion class-body-createdashboardcomparison7
 
-type CreateDashboardGlobalControlSettings3 struct {
+type CreateDashboardGlobalControlSettings7 struct {
 	DateRange *bool `json:"dateRange,omitzero"`
 }
 
-func (c CreateDashboardGlobalControlSettings3) MarshalJSON() ([]byte, error) {
+func (c CreateDashboardGlobalControlSettings7) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateDashboardGlobalControlSettings3) UnmarshalJSON(data []byte) error {
+func (c *CreateDashboardGlobalControlSettings7) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateDashboardGlobalControlSettings3) GetDateRange() *bool {
+func (c *CreateDashboardGlobalControlSettings7) GetDateRange() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.DateRange
 }
 
-// #region class-body-createdashboardglobalcontrolsettings3
-// #endregion class-body-createdashboardglobalcontrolsettings3
+// #region class-body-createdashboardglobalcontrolsettings7
+// #endregion class-body-createdashboardglobalcontrolsettings7
 
 type CreateDashboardDimensionOperatorDataSource string
 
@@ -1721,7 +1737,7 @@ type CreateDashboardBlockDataSourceExploration struct {
 	ExplorerAnalysisID           string                                 `json:"explorerAnalysisId"`
 	Comparison                   *CreateDashboardComparison7            `json:"comparison,omitzero"`
 	ComparisonExplorerAnalysisID *string                                `json:"comparisonExplorerAnalysisId,omitzero"`
-	GlobalControlSettings        *CreateDashboardGlobalControlSettings3 `json:"globalControlSettings,omitzero"`
+	GlobalControlSettings        *CreateDashboardGlobalControlSettings7 `json:"globalControlSettings,omitzero"`
 	Config                       CreateDashboardConfigDataSource        `json:"config"`
 }
 
@@ -1789,7 +1805,7 @@ func (c *CreateDashboardBlockDataSourceExploration) GetComparisonExplorerAnalysi
 	return c.ComparisonExplorerAnalysisID
 }
 
-func (c *CreateDashboardBlockDataSourceExploration) GetGlobalControlSettings() *CreateDashboardGlobalControlSettings3 {
+func (c *CreateDashboardBlockDataSourceExploration) GetGlobalControlSettings() *CreateDashboardGlobalControlSettings7 {
 	if c == nil {
 		return nil
 	}
@@ -2072,30 +2088,30 @@ func (c *CreateDashboardComparison6) GetPreviousTimeFrame() *CreateDashboardPrev
 // #region class-body-createdashboardcomparison6
 // #endregion class-body-createdashboardcomparison6
 
-type CreateDashboardGlobalControlSettings2 struct {
+type CreateDashboardGlobalControlSettings6 struct {
 	DateRange *bool `json:"dateRange,omitzero"`
 }
 
-func (c CreateDashboardGlobalControlSettings2) MarshalJSON() ([]byte, error) {
+func (c CreateDashboardGlobalControlSettings6) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateDashboardGlobalControlSettings2) UnmarshalJSON(data []byte) error {
+func (c *CreateDashboardGlobalControlSettings6) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateDashboardGlobalControlSettings2) GetDateRange() *bool {
+func (c *CreateDashboardGlobalControlSettings6) GetDateRange() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.DateRange
 }
 
-// #region class-body-createdashboardglobalcontrolsettings2
-// #endregion class-body-createdashboardglobalcontrolsettings2
+// #region class-body-createdashboardglobalcontrolsettings6
+// #endregion class-body-createdashboardglobalcontrolsettings6
 
 type CreateDashboardDimensionOperatorFactTable string
 
@@ -3074,7 +3090,7 @@ type CreateDashboardBlockFactTableExploration struct {
 	ExplorerAnalysisID           string                                 `json:"explorerAnalysisId"`
 	Comparison                   *CreateDashboardComparison6            `json:"comparison,omitzero"`
 	ComparisonExplorerAnalysisID *string                                `json:"comparisonExplorerAnalysisId,omitzero"`
-	GlobalControlSettings        *CreateDashboardGlobalControlSettings2 `json:"globalControlSettings,omitzero"`
+	GlobalControlSettings        *CreateDashboardGlobalControlSettings6 `json:"globalControlSettings,omitzero"`
 	Config                       CreateDashboardConfigFactTable         `json:"config"`
 }
 
@@ -3142,7 +3158,7 @@ func (c *CreateDashboardBlockFactTableExploration) GetComparisonExplorerAnalysis
 	return c.ComparisonExplorerAnalysisID
 }
 
-func (c *CreateDashboardBlockFactTableExploration) GetGlobalControlSettings() *CreateDashboardGlobalControlSettings2 {
+func (c *CreateDashboardBlockFactTableExploration) GetGlobalControlSettings() *CreateDashboardGlobalControlSettings6 {
 	if c == nil {
 		return nil
 	}
@@ -3425,30 +3441,30 @@ func (c *CreateDashboardComparison5) GetPreviousTimeFrame() *CreateDashboardPrev
 // #region class-body-createdashboardcomparison5
 // #endregion class-body-createdashboardcomparison5
 
-type CreateDashboardGlobalControlSettings1 struct {
+type CreateDashboardGlobalControlSettings5 struct {
 	DateRange *bool `json:"dateRange,omitzero"`
 }
 
-func (c CreateDashboardGlobalControlSettings1) MarshalJSON() ([]byte, error) {
+func (c CreateDashboardGlobalControlSettings5) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateDashboardGlobalControlSettings1) UnmarshalJSON(data []byte) error {
+func (c *CreateDashboardGlobalControlSettings5) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateDashboardGlobalControlSettings1) GetDateRange() *bool {
+func (c *CreateDashboardGlobalControlSettings5) GetDateRange() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.DateRange
 }
 
-// #region class-body-createdashboardglobalcontrolsettings1
-// #endregion class-body-createdashboardglobalcontrolsettings1
+// #region class-body-createdashboardglobalcontrolsettings5
+// #endregion class-body-createdashboardglobalcontrolsettings5
 
 type CreateDashboardDimensionOperatorMetric string
 
@@ -4390,7 +4406,7 @@ type CreateDashboardBlockMetricExploration struct {
 	ExplorerAnalysisID           string                                 `json:"explorerAnalysisId"`
 	Comparison                   *CreateDashboardComparison5            `json:"comparison,omitzero"`
 	ComparisonExplorerAnalysisID *string                                `json:"comparisonExplorerAnalysisId,omitzero"`
-	GlobalControlSettings        *CreateDashboardGlobalControlSettings1 `json:"globalControlSettings,omitzero"`
+	GlobalControlSettings        *CreateDashboardGlobalControlSettings5 `json:"globalControlSettings,omitzero"`
 	Config                       CreateDashboardConfigMetric            `json:"config"`
 }
 
@@ -4458,7 +4474,7 @@ func (c *CreateDashboardBlockMetricExploration) GetComparisonExplorerAnalysisID(
 	return c.ComparisonExplorerAnalysisID
 }
 
-func (c *CreateDashboardBlockMetricExploration) GetGlobalControlSettings() *CreateDashboardGlobalControlSettings1 {
+func (c *CreateDashboardBlockMetricExploration) GetGlobalControlSettings() *CreateDashboardGlobalControlSettings5 {
 	if c == nil {
 		return nil
 	}
@@ -6278,6 +6294,47 @@ func (c *CreateDashboardComparison3) GetPreviousTimeFrame() *CreateDashboardPrev
 // #region class-body-createdashboardcomparison3
 // #endregion class-body-createdashboardcomparison3
 
+type CreateDashboardGlobalControlSettings4 struct {
+	DateRange              *bool `json:"dateRange,omitzero"`
+	Projects               *bool `json:"projects,omitzero"`
+	ExperimentSearchString *bool `json:"experimentSearchString,omitzero"`
+}
+
+func (c CreateDashboardGlobalControlSettings4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateDashboardGlobalControlSettings4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateDashboardGlobalControlSettings4) GetDateRange() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.DateRange
+}
+
+func (c *CreateDashboardGlobalControlSettings4) GetProjects() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Projects
+}
+
+func (c *CreateDashboardGlobalControlSettings4) GetExperimentSearchString() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.ExperimentSearchString
+}
+
+// #region class-body-createdashboardglobalcontrolsettings4
+// #endregion class-body-createdashboardglobalcontrolsettings4
+
 type CreateDashboardBlockDateGranularity string
 
 const (
@@ -6318,16 +6375,17 @@ func (e *CreateDashboardBlockDateGranularity) UnmarshalJSON(data []byte) error {
 
 type CreateDashboardBlockExperimentsStatus struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_                  string                               `const:"experiments-status" json:"type"`
-	Title                  string                               `json:"title"`
-	Description            string                               `json:"description"`
-	SnapshotID             *string                              `json:"snapshotId,omitzero"`
-	Layout                 *CreateDashboardLayout7              `json:"layout,omitzero"`
-	DateRange              CreateDashboardBlockDateRange3       `json:"dateRange"`
-	Projects               []string                             `json:"projects"`
-	ExperimentSearchString *string                              `json:"experimentSearchString,omitzero"`
-	Comparison             *CreateDashboardComparison3          `json:"comparison,omitzero"`
-	DateGranularity        *CreateDashboardBlockDateGranularity `json:"dateGranularity,omitzero"`
+	type_                  string                                 `const:"experiments-status" json:"type"`
+	Title                  string                                 `json:"title"`
+	Description            string                                 `json:"description"`
+	SnapshotID             *string                                `json:"snapshotId,omitzero"`
+	Layout                 *CreateDashboardLayout7                `json:"layout,omitzero"`
+	DateRange              CreateDashboardBlockDateRange3         `json:"dateRange"`
+	Projects               []string                               `json:"projects"`
+	ExperimentSearchString *string                                `json:"experimentSearchString,omitzero"`
+	Comparison             *CreateDashboardComparison3            `json:"comparison,omitzero"`
+	GlobalControlSettings  *CreateDashboardGlobalControlSettings4 `json:"globalControlSettings,omitzero"`
+	DateGranularity        *CreateDashboardBlockDateGranularity   `json:"dateGranularity,omitzero"`
 }
 
 func (c CreateDashboardBlockExperimentsStatus) MarshalJSON() ([]byte, error) {
@@ -6399,6 +6457,13 @@ func (c *CreateDashboardBlockExperimentsStatus) GetComparison() *CreateDashboard
 		return nil
 	}
 	return c.Comparison
+}
+
+func (c *CreateDashboardBlockExperimentsStatus) GetGlobalControlSettings() *CreateDashboardGlobalControlSettings4 {
+	if c == nil {
+		return nil
+	}
+	return c.GlobalControlSettings
 }
 
 func (c *CreateDashboardBlockExperimentsStatus) GetDateGranularity() *CreateDashboardBlockDateGranularity {
@@ -6813,18 +6878,60 @@ func (c *CreateDashboardComparison2) GetPreviousTimeFrame() *CreateDashboardPrev
 // #region class-body-createdashboardcomparison2
 // #endregion class-body-createdashboardcomparison2
 
+type CreateDashboardGlobalControlSettings3 struct {
+	DateRange              *bool `json:"dateRange,omitzero"`
+	Projects               *bool `json:"projects,omitzero"`
+	ExperimentSearchString *bool `json:"experimentSearchString,omitzero"`
+}
+
+func (c CreateDashboardGlobalControlSettings3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateDashboardGlobalControlSettings3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateDashboardGlobalControlSettings3) GetDateRange() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.DateRange
+}
+
+func (c *CreateDashboardGlobalControlSettings3) GetProjects() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Projects
+}
+
+func (c *CreateDashboardGlobalControlSettings3) GetExperimentSearchString() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.ExperimentSearchString
+}
+
+// #region class-body-createdashboardglobalcontrolsettings3
+// #endregion class-body-createdashboardglobalcontrolsettings3
+
 type CreateDashboardBlockExperimentsWinRate struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_                  string                         `const:"experiments-win-rate" json:"type"`
-	Title                  string                         `json:"title"`
-	Description            string                         `json:"description"`
-	SnapshotID             *string                        `json:"snapshotId,omitzero"`
-	Layout                 *CreateDashboardLayout6        `json:"layout,omitzero"`
-	DateRange              CreateDashboardBlockDateRange2 `json:"dateRange"`
-	Projects               []string                       `json:"projects"`
-	ExperimentSearchString *string                        `json:"experimentSearchString,omitzero"`
-	Comparison             *CreateDashboardComparison2    `json:"comparison,omitzero"`
-	ShowProjectBreakdown   bool                           `json:"showProjectBreakdown"`
+	type_                  string                                 `const:"experiments-win-rate" json:"type"`
+	Title                  string                                 `json:"title"`
+	Description            string                                 `json:"description"`
+	SnapshotID             *string                                `json:"snapshotId,omitzero"`
+	Layout                 *CreateDashboardLayout6                `json:"layout,omitzero"`
+	DateRange              CreateDashboardBlockDateRange2         `json:"dateRange"`
+	Projects               []string                               `json:"projects"`
+	ExperimentSearchString *string                                `json:"experimentSearchString,omitzero"`
+	Comparison             *CreateDashboardComparison2            `json:"comparison,omitzero"`
+	GlobalControlSettings  *CreateDashboardGlobalControlSettings3 `json:"globalControlSettings,omitzero"`
+	ShowProjectBreakdown   bool                                   `json:"showProjectBreakdown"`
 }
 
 func (c CreateDashboardBlockExperimentsWinRate) MarshalJSON() ([]byte, error) {
@@ -6896,6 +7003,13 @@ func (c *CreateDashboardBlockExperimentsWinRate) GetComparison() *CreateDashboar
 		return nil
 	}
 	return c.Comparison
+}
+
+func (c *CreateDashboardBlockExperimentsWinRate) GetGlobalControlSettings() *CreateDashboardGlobalControlSettings3 {
+	if c == nil {
+		return nil
+	}
+	return c.GlobalControlSettings
 }
 
 func (c *CreateDashboardBlockExperimentsWinRate) GetShowProjectBreakdown() bool {
@@ -7310,18 +7424,60 @@ func (c *CreateDashboardComparison1) GetPreviousTimeFrame() *CreateDashboardPrev
 // #region class-body-createdashboardcomparison1
 // #endregion class-body-createdashboardcomparison1
 
+type CreateDashboardGlobalControlSettings2 struct {
+	DateRange              *bool `json:"dateRange,omitzero"`
+	Projects               *bool `json:"projects,omitzero"`
+	ExperimentSearchString *bool `json:"experimentSearchString,omitzero"`
+}
+
+func (c CreateDashboardGlobalControlSettings2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateDashboardGlobalControlSettings2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateDashboardGlobalControlSettings2) GetDateRange() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.DateRange
+}
+
+func (c *CreateDashboardGlobalControlSettings2) GetProjects() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Projects
+}
+
+func (c *CreateDashboardGlobalControlSettings2) GetExperimentSearchString() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.ExperimentSearchString
+}
+
+// #region class-body-createdashboardglobalcontrolsettings2
+// #endregion class-body-createdashboardglobalcontrolsettings2
+
 type CreateDashboardBlockExperimentsScaledImpact struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_                  string                         `const:"experiments-scaled-impact" json:"type"`
-	Title                  string                         `json:"title"`
-	Description            string                         `json:"description"`
-	SnapshotID             *string                        `json:"snapshotId,omitzero"`
-	Layout                 *CreateDashboardLayout5        `json:"layout,omitzero"`
-	DateRange              CreateDashboardBlockDateRange1 `json:"dateRange"`
-	Projects               []string                       `json:"projects"`
-	ExperimentSearchString *string                        `json:"experimentSearchString,omitzero"`
-	Comparison             *CreateDashboardComparison1    `json:"comparison,omitzero"`
-	MetricID               string                         `json:"metricId"`
+	type_                  string                                 `const:"experiments-scaled-impact" json:"type"`
+	Title                  string                                 `json:"title"`
+	Description            string                                 `json:"description"`
+	SnapshotID             *string                                `json:"snapshotId,omitzero"`
+	Layout                 *CreateDashboardLayout5                `json:"layout,omitzero"`
+	DateRange              CreateDashboardBlockDateRange1         `json:"dateRange"`
+	Projects               []string                               `json:"projects"`
+	ExperimentSearchString *string                                `json:"experimentSearchString,omitzero"`
+	Comparison             *CreateDashboardComparison1            `json:"comparison,omitzero"`
+	GlobalControlSettings  *CreateDashboardGlobalControlSettings2 `json:"globalControlSettings,omitzero"`
+	MetricID               string                                 `json:"metricId"`
 }
 
 func (c CreateDashboardBlockExperimentsScaledImpact) MarshalJSON() ([]byte, error) {
@@ -7393,6 +7549,13 @@ func (c *CreateDashboardBlockExperimentsScaledImpact) GetComparison() *CreateDas
 		return nil
 	}
 	return c.Comparison
+}
+
+func (c *CreateDashboardBlockExperimentsScaledImpact) GetGlobalControlSettings() *CreateDashboardGlobalControlSettings2 {
+	if c == nil {
+		return nil
+	}
+	return c.GlobalControlSettings
 }
 
 func (c *CreateDashboardBlockExperimentsScaledImpact) GetMetricID() string {
@@ -7784,21 +7947,63 @@ func (c *CreateDashboardColumn) GetVisible() bool {
 	return c.Visible
 }
 
+type CreateDashboardGlobalControlSettings1 struct {
+	DateRange              *bool `json:"dateRange,omitzero"`
+	Projects               *bool `json:"projects,omitzero"`
+	ExperimentSearchString *bool `json:"experimentSearchString,omitzero"`
+}
+
+func (c CreateDashboardGlobalControlSettings1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateDashboardGlobalControlSettings1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateDashboardGlobalControlSettings1) GetDateRange() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.DateRange
+}
+
+func (c *CreateDashboardGlobalControlSettings1) GetProjects() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Projects
+}
+
+func (c *CreateDashboardGlobalControlSettings1) GetExperimentSearchString() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.ExperimentSearchString
+}
+
+// #region class-body-createdashboardglobalcontrolsettings1
+// #endregion class-body-createdashboardglobalcontrolsettings1
+
 type CreateDashboardBlockMetricExperiments struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_                  string                         `const:"metric-experiments" json:"type"`
-	Title                  string                         `json:"title"`
-	Description            string                         `json:"description"`
-	SnapshotID             *string                        `json:"snapshotId,omitzero"`
-	Layout                 *CreateDashboardLayout4        `json:"layout,omitzero"`
-	MetricID               string                         `json:"metricId"`
-	Projects               []string                       `json:"projects"`
-	ExperimentSearchString string                         `json:"experimentSearchString"`
-	DifferenceType         CreateDashboardDifferenceType2 `json:"differenceType"`
-	Bandits                bool                           `json:"bandits"`
-	StartDateRange         *CreateDashboardStartDateRange `json:"startDateRange,omitzero"`
-	EndDateRange           *CreateDashboardEndDateRange   `json:"endDateRange,omitzero"`
-	Columns                []CreateDashboardColumn        `json:"columns,omitzero"`
+	type_                  string                                 `const:"metric-experiments" json:"type"`
+	Title                  string                                 `json:"title"`
+	Description            string                                 `json:"description"`
+	SnapshotID             *string                                `json:"snapshotId,omitzero"`
+	Layout                 *CreateDashboardLayout4                `json:"layout,omitzero"`
+	MetricID               string                                 `json:"metricId"`
+	Projects               []string                               `json:"projects"`
+	ExperimentSearchString string                                 `json:"experimentSearchString"`
+	DifferenceType         CreateDashboardDifferenceType2         `json:"differenceType"`
+	Bandits                bool                                   `json:"bandits"`
+	StartDateRange         *CreateDashboardStartDateRange         `json:"startDateRange,omitzero"`
+	EndDateRange           *CreateDashboardEndDateRange           `json:"endDateRange,omitzero"`
+	Columns                []CreateDashboardColumn                `json:"columns,omitzero"`
+	GlobalControlSettings  *CreateDashboardGlobalControlSettings1 `json:"globalControlSettings,omitzero"`
 }
 
 func (c CreateDashboardBlockMetricExperiments) MarshalJSON() ([]byte, error) {
@@ -7898,6 +8103,13 @@ func (c *CreateDashboardBlockMetricExperiments) GetColumns() []CreateDashboardCo
 		return nil
 	}
 	return c.Columns
+}
+
+func (c *CreateDashboardBlockMetricExperiments) GetGlobalControlSettings() *CreateDashboardGlobalControlSettings1 {
+	if c == nil {
+		return nil
+	}
+	return c.GlobalControlSettings
 }
 
 type CreateDashboardLayout3 struct {
