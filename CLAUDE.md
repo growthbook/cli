@@ -46,6 +46,11 @@ go build ./...                                  # quick check the whole module c
 commit the result. CI regenerates it and fails on any drift, so a stale golden can't merge — but
 running it locally keeps the surface diff in the same PR as the spec change that caused it.
 
+That gate depends on the **`PR_CREATION_PAT`** secret: a PR opened with `GITHUB_TOKEN` triggers no
+workflows at all, so without the PAT a generation PR gets *zero* checks and a stale golden merges
+clean. If `gh pr checks <n>` reports "no checks reported" on a bot PR, the secret is missing or
+expired — fix that rather than reviewing the PR unguarded.
+
 **Go must be installed wherever generation runs — including CI.** Without it, `speakeasy run`
 skips the compile and `go mod tidy` steps, so `go.sum` is left incomplete and the output won't
 build. (Don't commit a generated tree that hasn't been compiled.)
