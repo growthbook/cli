@@ -2,7 +2,10 @@
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-08-19
+
 Additive only — no commands or flags were removed or renamed, so no action is needed on upgrade.
+One request field is newly deprecated but still accepted; see "Deprecated" below.
 
 ### Added
 
@@ -14,14 +17,32 @@ Additive only — no commands or flags were removed or renamed, so no action is 
 - **`savedGroups` targeting on feature rules and experiment phases.** `growthbook features
   create` / `update` accept `savedGroups` inside `rules[]`, and `growthbook experiments create` /
   `update-experiment` accept it inside `phases[]`. Both are nested body fields, so pass them in
-  `--body` JSON — there are no new flags.
+  `--body` JSON — there are no new flags. Each entry is `{"match": "all"|"any"|"none", "ids":
+  [...]}`.
 
-- **`create-snapshot` now reports 409 conflicts.** `growthbook snapshots create-snapshot` and
-  `growthbook experiments create-snapshot` surface a typed conflict when the dimension is already
-  up to date (with `overallResultsAsOf`) or when a full refresh is required, rather than an
-  unmodelled error status.
+  Note that **responses still return the older `savedGroupTargeting` shape**
+  (`{"matchType": ..., "savedGroups": [...]}`), so a value you send as `savedGroups` reads back
+  under the other name. That asymmetry is deliberate: it keeps a GET response postable back
+  unchanged.
+
+- **`create-snapshot` models 409 conflicts.** `growthbook snapshots create-snapshot` and
+  `growthbook experiments create-snapshot` now distinguish two Incremental Pipeline conflicts —
+  the dimension was already computed from the latest Overall Results (carrying
+  `overallResultsAsOf`), and a full refresh of Overall Results is required first — instead of one
+  unmodelled error status. Both need `--output-format json` to see the `details` payload.
 
 - Dashboard responses carry additional global-control settings variants. No flag changes.
+
+### Deprecated
+
+- **`savedGroupTargeting` — use `savedGroups` instead.** Deprecated on feature rules
+  (`features create` / `update`) and experiment phases (`experiments create` /
+  `update-experiment`). It is still accepted, so nothing breaks now, but it will be removed in a
+  future release. If both are sent, `savedGroups` wins.
+
+  Migrating is a rename plus a field rename: `{"matchType": "all", "savedGroups": ["grp_x"]}`
+  becomes `{"match": "all", "ids": ["grp_x"]}`. Only *request* bodies are affected — responses
+  continue to return `savedGroupTargeting`.
 
 ## [2.0.1] - 2026-08-17
 
