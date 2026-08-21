@@ -108,7 +108,11 @@ type FactTable struct {
 	Columns []FactTableColumn `json:"columns,omitzero"`
 	// Error message if there was an issue parsing the SQL schema
 	ColumnsError optionalnullable.OptionalNullable[string] `json:"columnsError,omitzero"`
-	Archived     *bool                                     `json:"archived,omitzero"`
+	// True while the fact table's column schema is being detected in the background. While true, `columns` may be empty or incomplete and metrics referencing not-yet-detected columns cannot be created.
+	ColumnRefreshPending *bool `json:"columnRefreshPending,omitzero"`
+	Archived             *bool `json:"archived,omitzero"`
+	// Whether Auto Slice values for this fact table's columns are refreshed automatically in the background.
+	AutoSliceUpdatesEnabled *bool `json:"autoSliceUpdatesEnabled,omitzero"`
 	// Where this fact table must be managed from. If not set (empty string), it can be managed from anywhere.
 	ManagedBy   FactTableManagedBy `json:"managedBy"`
 	DateCreated time.Time          `json:"dateCreated"`
@@ -224,11 +228,25 @@ func (f *FactTable) GetColumnsError() optionalnullable.OptionalNullable[string] 
 	return f.ColumnsError
 }
 
+func (f *FactTable) GetColumnRefreshPending() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.ColumnRefreshPending
+}
+
 func (f *FactTable) GetArchived() *bool {
 	if f == nil {
 		return nil
 	}
 	return f.Archived
+}
+
+func (f *FactTable) GetAutoSliceUpdatesEnabled() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.AutoSliceUpdatesEnabled
 }
 
 func (f *FactTable) GetManagedBy() FactTableManagedBy {

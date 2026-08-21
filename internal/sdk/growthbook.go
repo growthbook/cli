@@ -2,7 +2,7 @@
 
 package sdk
 
-// Generated from OpenAPI doc version 5.0.0 and generator version 2.930.0
+// Generated from OpenAPI doc version 5.0.1 and generator version 2.930.0
 
 import (
 	"bytes"
@@ -254,7 +254,7 @@ func New(opts ...SDKOption) *Growthbook {
 	sdk := &Growthbook{
 		SDKVersion: "0.0.1",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/go 0.0.1 2.930.0 5.0.0 github.com/growthbook/cli/v2/internal/sdk",
+			UserAgent:  "speakeasy-sdk/go 0.0.1 2.930.0 5.0.1 github.com/growthbook/cli/v2/internal/sdk",
 			ServerList: ServerList,
 			ServerVariables: []map[string]string{
 				{},

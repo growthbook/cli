@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 4c8e0331-b838-4af2-bf59-101dac30ada4
 management:
-  docChecksum: d9b9a5a4cc07b08748c902430b51f506
-  docVersion: 5.0.0
+  docChecksum: 1eea58329365cf968fc0469bfd19f469
+  docVersion: 5.0.1
   speakeasyVersion: 1.794.0
   generationVersion: 2.930.0
-  releaseVersion: 2.1.0
-  configChecksum: 9d57ffa933da2530263a6a93a9b716cf
+  releaseVersion: 2.1.1
+  configChecksum: f1021aec5259885b9de85fb7660cef72
   repoURL: https://github.com/growthbook/cli.git
   installationURL: https://github.com/growthbook/cli
 persistentEdits:
-  generation_id: 0ccbf61c-bee7-43aa-877e-32ecccc3adda
-  pristine_commit_hash: 4fe9fa7ae171b231f43fde279966ffca2d1c9f0e
-  pristine_tree_hash: a8dbe5fe8bb1b98e91918c748336d49a2730690b
+  generation_id: 101f87d4-c738-455c-9b7b-9c190d19fda4
+  pristine_commit_hash: d8227ff32bc986b5b22e9208c6adc955ba3becbe
+  pristine_tree_hash: d35479fbc47907cfadc05367a8557c6f0c8de237
 features:
   cli:
     additionalProperties: 0.0.1
@@ -863,8 +863,8 @@ trackedFiles:
     pristine_git_object: 1fa03e7c796ee433be1baa46439bcc7a89d5867a
   internal/cli/facttables/updatefacttable.go:
     id: bc03c672e845
-    last_write_checksum: sha1:9388677719ed0fe39f324631aaec26e26d282ad8
-    pristine_git_object: 2d3a80c9f85bceef2f70be2d8e2c83c7aadd7c08
+    last_write_checksum: sha1:c35c119f391b525d4609dcdc46df36a741c6329a
+    pristine_git_object: fbaf9b0db5db3849f2e005d569d684822dcaf9bd
   internal/cli/facttables/updatefilter.go:
     id: 3507026bb51b
     last_write_checksum: sha1:28b6a9bb626902d731ca9fc68b2cbb16992dbab7
@@ -1779,8 +1779,8 @@ trackedFiles:
     pristine_git_object: 773a22f36454f22ba733858a3f54401690fe8f31
   internal/cli/version.go:
     id: 7b0665492f72
-    last_write_checksum: sha1:cc06066075216519dcba4a659b89b74c185b9893
-    pristine_git_object: 7df82655e331b5a2781756d79a74c79f21fa783e
+    last_write_checksum: sha1:03a044fb224337620765337aa919a070d6d8ef13
+    pristine_git_object: 547c146030ecf9677a3c95e029e6feaa77aa81b0
   internal/cli/visualchangesets/addvisualchange.go:
     id: fdbcb9d69b23
     last_write_checksum: sha1:62c37780da4a614d14105d11d5241ae225eb0df6
@@ -1987,8 +1987,8 @@ trackedFiles:
     pristine_git_object: 921b9190c0626f62e40d197993a1f6ac5b7b35bc
   internal/sdk/growthbook.go:
     id: c159b715703a
-    last_write_checksum: sha1:9ed34d00686580e05c8fab45bf7966ca30539b96
-    pristine_git_object: 7d76120cf1a9bc05f58716f9d56289dcdac70ec9
+    last_write_checksum: sha1:6482119d72fed3562adc7ef94ab23a35c44218a6
+    pristine_git_object: c4027f9319e104c27c3cd492b491c25248bd6739
   internal/sdk/learnings.go:
     id: c2496c45e036
     last_write_checksum: sha1:f76fc86fedc3191904ed345c6c57409688fd0ddc
@@ -2239,12 +2239,12 @@ trackedFiles:
     pristine_git_object: c9f14f6a5080b247d227671edf0a7a0ff74cd82e
   internal/sdk/models/components/facttable.go:
     id: df5174a9602e
-    last_write_checksum: sha1:c5c0819476e9dcd6d4dee13e5db54169994a541b
-    pristine_git_object: 9857cf4db17587b3b9eaf976ca8caf310e6a3319
+    last_write_checksum: sha1:70e3053f6165b197fd6f1408eb2fbd545ab8dd7c
+    pristine_git_object: 328bcb16327445230a8bd511fa8fd04a6b2867d6
   internal/sdk/models/components/facttablecolumn.go:
     id: 617734bcf730
-    last_write_checksum: sha1:ffed0fe883a613f410e322c3d34442d01c2a9665
-    pristine_git_object: 39fc4d514bd0c946a6cece5a57a347885052a8f2
+    last_write_checksum: sha1:06c739f1b5df44c93f5f2d957ef1ff40c2452550
+    pristine_git_object: 56ec5978b182904f80159944da5b8ecc3472eb39
   internal/sdk/models/components/facttablecolumninput.go:
     id: 90a83950595e
     last_write_checksum: sha1:136b8ae46b7d0e3f27dc4ddea279fd8ad34c53ba
@@ -4067,8 +4067,8 @@ trackedFiles:
     pristine_git_object: 32eb4ac9e785392898551275b77f52e9e5c25234
   internal/sdk/models/operations/updatefacttable.go:
     id: 2ba3588ad25b
-    last_write_checksum: sha1:567b8478e6430e3c3001ac74736275c0dba8aed5
-    pristine_git_object: fe52a8c66544d3513ac52bb0e3903cf103a394b5
+    last_write_checksum: sha1:3bd943fadb6b762b8ab1407a662b685a279fa83b
+    pristine_git_object: 7d44fcc1901a16759ab94d377005a6d9a7788207
   internal/sdk/models/operations/updatefacttablefilter.go:
     id: 4fedf49410e2
     last_write_checksum: sha1:69fd461a3ec2d67826081a25e8fef36e914b9bc1
@@ -4323,8 +4323,8 @@ trackedFiles:
     pristine_git_object: 159a87ec97aba99e4edd132f69652e123434303e
   internal/usage/schema.go:
     id: 0f40f4612437
-    last_write_checksum: sha1:ad386e6a01e3938f9c5ceeac88bd248be9176a3d
-    pristine_git_object: ecc1b6c3b8b75ccd65762b06c8adf72f5e0cb42d
+    last_write_checksum: sha1:86a66041484732c81c3678b298dff83c9a5468ff
+    pristine_git_object: c6f37f1f81a5e994e8dcce4926b288cfe8675dc7
   scripts/install.ps1:
     id: fee0853709e9
     last_write_checksum: sha1:f9df93912e2b5d20eaffddbdb2708ce76ec06445
@@ -7953,4 +7953,4 @@ examples:
         "200":
           application/json: {"learnings": [{"id": "<id>", "dateCreated": "2026-04-24T01:06:38.996Z", "dateUpdated": "2026-12-05T23:10:53.580Z", "owner": "<value>", "authors": [], "title": "<value>", "text": "<value>", "tags": ["<value 1>", "<value 2>", "<value 3>"], "supportingExperimentIds": ["<value 1>", "<value 2>"], "contradictingExperimentIds": ["<value 1>", "<value 2>"], "projects": ["<value 1>", "<value 2>", "<value 3>"], "status": "<value>", "source": "manual", "similarity": 5969.19}]}
 examplesVersion: 1.0.2
-releaseNotes: "## Cli SDK Changes:\n* `Growthbook.FeaturesV1.Create()`: \n  *  `request.Request.Environments.Map<environments>` **Changed**\n* `Growthbook.FeaturesV1.Update()`: \n  *  `request.Request.Body.Environments.Map<environments>` **Changed**\n* `Growthbook.Features.Create()`: \n  *  `request.Request.Rules[]` **Changed**\n* `Growthbook.Features.Update()`: \n  *  `request.Request.Body.Rules[]` **Changed**\n* `Growthbook.Experiments.Create()`: \n  *  `request.Request.Phases[].SavedGroups` **Added**\n* `Growthbook.Experiments.UpdateExperiment()`: \n  *  `request.Request.Body.Phases[].SavedGroups` **Added**\n* `Growthbook.Experiments.CreateSnapshot()`:  `error.status[409]` **Added**\n* `Growthbook.Snapshots.CreateSnapshot()`:  `error.status[409]` **Added**\n* `Growthbook.CustomHooks.TestCustomHook()`: \n  *  `request.Request.OriginalFunctionArgs` **Added**\n  *  `response.Suppressed` **Added**\n* `Growthbook.Dashboards.GetDashboard()`:  `response.Dashboard` **Changed**\n* `Growthbook.Dashboards.UpdateDashboard()`: \n  *  `request.Request.Body` **Changed**\n  *  `response.Dashboard` **Changed**\n* `Growthbook.Dashboards.CreateDashboard()`: \n  *  `request.Request` **Changed**\n  *  `response.Dashboard` **Changed**\n* `Growthbook.Dashboards.ListDashboards()`:  `response.Dashboards[]` **Changed**\n* `Growthbook.Dashboards.ListForExperiment()`:  `response.Dashboards[]` **Changed**\n"
+releaseNotes: "## Cli SDK Changes:\n* `Growthbook.FactTables.UpdateFactTable()`: \n  *  `request.Request.Body.ColumnsError` **Removed** (Breaking ⚠️)\n  *  `response.FactTable` **Changed**\n* `Growthbook.FactTables.ListFactTables()`:  `response.FactTables[]` **Changed**\n* `Growthbook.FactTables.Create()`:  `response.FactTable` **Changed**\n* `Growthbook.FactTables.GetFactTable()`:  `response.FactTable` **Changed**\n* `Growthbook.FactTables.CreateVirtualColumn()`:  `response.FactTableColumn` **Changed**\n* `Growthbook.FactTables.UpdateVirtualColumn()`:  `response.FactTableColumn` **Changed**\n"
