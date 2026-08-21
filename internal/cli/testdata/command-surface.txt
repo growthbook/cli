@@ -210,7 +210,7 @@ growthbook fact-tables list  [--all --datasource-id --limit --max-pages --offset
 growthbook fact-tables list-aggregated-table-runs  [--all --id --id-type --limit --max-pages --offset]
 growthbook fact-tables list-filters  [--all --fact-table-id --limit --max-pages --offset]
 growthbook fact-tables refresh-aggregated  [--body --full-restate --id --id-type]
-growthbook fact-tables update  [--aggregated-fact-table-settings --archived --body --columns --columns-error --description --event-name --id --managed-by --name --owner --projects --sql --tags --user-id-types]
+growthbook fact-tables update  [--aggregated-fact-table-settings --archived --body --columns --description --event-name --id --managed-by --name --owner --projects --sql --tags --user-id-types]
 growthbook fact-tables update-filter  [--body --description --fact-table-id --id --managed-by --name --value]
 growthbook fact-tables update-virtual-column  [--body --datatype --description --fact-table-id --id --name --number-format --sql]
 growthbook feature-revisions

@@ -2,6 +2,29 @@
 
 ## [Unreleased]
 
+One flag is gone. It only ever set a server-generated diagnostic, so nothing that worked before
+stops working — but a script that passes it will now fail with `unknown flag`, so it is called out
+below.
+
+### Removed
+
+- **`growthbook fact-tables update --columns-error`.** `columnsError` is the error message the
+  server produces when it cannot parse a fact table's SQL schema. It was writable by accident and
+  is now read-only, maintained server-side ([growthbook#6692]). Responses still include it.
+
+  Scripts passing `--columns-error` now fail with `unknown flag` instead of overwriting the
+  server's diagnostic. The fix is to delete the flag — there is no replacement, and nothing to
+  migrate to.
+
+### Added
+
+- **`-c` shorthand for `--columns`** on `growthbook fact-tables update`.
+- Fact table responses gained `columnRefreshPending`, `archived`, `autoSliceUpdatesEnabled`, and
+  fact table columns gained `sql`, `topValues`, `topValuesDate`, `dateCreated`, `dateUpdated`. No
+  flag changes.
+
+[growthbook#6692]: https://github.com/growthbook/growthbook/pull/6692
+
 ## [2.1.0] - 2026-08-19
 
 Additive only — no commands or flags were removed or renamed, so no action is needed on upgrade.
