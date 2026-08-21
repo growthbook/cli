@@ -154,9 +154,13 @@ type FactTableColumn struct {
 	// Whether this is a virtual (computed) column defined by a SQL expression rather than detected from the fact table SQL. Can be set when creating a column, but a column's origin cannot be changed afterwards — sending a value that contradicts an existing column is rejected.
 	IsVirtual *bool `default:"false" json:"isVirtual"`
 	// For virtual columns, the SQL expression that computes the column value. Only valid on a virtual column; when omitted from an update, the existing expression is preserved.
-	SQL         *string    `json:"sql,omitzero"`
-	DateCreated *time.Time `json:"dateCreated,omitzero"`
-	DateUpdated *time.Time `json:"dateUpdated,omitzero"`
+	SQL *string `json:"sql,omitzero"`
+	// The most common values for this column, sampled from the warehouse to populate filter pickers and auto slices. Read-only.
+	TopValues []string `json:"topValues,omitzero"`
+	// When topValues was last refreshed for this column.
+	TopValuesDate *time.Time `json:"topValuesDate,omitzero"`
+	DateCreated   *time.Time `json:"dateCreated,omitzero"`
+	DateUpdated   *time.Time `json:"dateUpdated,omitzero"`
 }
 
 func (f FactTableColumn) MarshalJSON() ([]byte, error) {
@@ -266,6 +270,20 @@ func (f *FactTableColumn) GetSQL() *string {
 		return nil
 	}
 	return f.SQL
+}
+
+func (f *FactTableColumn) GetTopValues() []string {
+	if f == nil {
+		return nil
+	}
+	return f.TopValues
+}
+
+func (f *FactTableColumn) GetTopValuesDate() *time.Time {
+	if f == nil {
+		return nil
+	}
+	return f.TopValuesDate
 }
 
 func (f *FactTableColumn) GetDateCreated() *time.Time {

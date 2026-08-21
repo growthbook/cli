@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/growthbook/cli/v2/internal/sdk/models/components"
-	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
 	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
@@ -115,8 +114,6 @@ type UpdateFactTableRequestBody struct {
 	EventName *string `json:"eventName,omitzero"`
 	// Optional array of columns to upsert by `column`: existing columns are patched, new columns are created, and columns not included are left unchanged. Omit `datatype` to leave an existing column's type untouched; send "" to reset it for auto-detection; new columns are auto-detected when `datatype` is omitted or "". Slice-related properties require an enterprise license.
 	Columns []components.FactTableColumnInput `json:"columns,omitzero"`
-	// Error message if there was an issue parsing the SQL schema
-	ColumnsError optionalnullable.OptionalNullable[string] `json:"columnsError,omitzero"`
 	// Set this to "api" to disable editing in the GrowthBook UI
 	ManagedBy *UpdateFactTableManagedBy `json:"managedBy,omitzero"`
 	Archived  *bool                     `json:"archived,omitzero"`
@@ -201,13 +198,6 @@ func (u *UpdateFactTableRequestBody) GetColumns() []components.FactTableColumnIn
 		return nil
 	}
 	return u.Columns
-}
-
-func (u *UpdateFactTableRequestBody) GetColumnsError() optionalnullable.OptionalNullable[string] {
-	if u == nil {
-		return nil
-	}
-	return u.ColumnsError
 }
 
 func (u *UpdateFactTableRequestBody) GetManagedBy() *UpdateFactTableManagedBy {
