@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [2.1.1] - 2026-08-21
+
 One flag is gone. It only ever set a server-generated diagnostic, so nothing that worked before
 stops working — but a script that passes it will now fail with `unknown flag`, so it is called out
 below.
