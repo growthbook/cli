@@ -7,11 +7,78 @@ import (
 	"time"
 )
 
+type MemberAdditionalRole struct {
+	Role                     string   `json:"role"`
+	Environments             []string `json:"environments"`
+	LimitAccessByEnvironment *bool    `json:"limitAccessByEnvironment,omitzero"`
+}
+
+func (m *MemberAdditionalRole) GetRole() string {
+	if m == nil {
+		return ""
+	}
+	return m.Role
+}
+
+func (m *MemberAdditionalRole) GetEnvironments() []string {
+	if m == nil {
+		return []string{}
+	}
+	return m.Environments
+}
+
+func (m *MemberAdditionalRole) GetLimitAccessByEnvironment() *bool {
+	if m == nil {
+		return nil
+	}
+	return m.LimitAccessByEnvironment
+}
+
+type MemberProjectRoleAdditionalRole struct {
+	Role                     string   `json:"role"`
+	Environments             []string `json:"environments"`
+	LimitAccessByEnvironment *bool    `json:"limitAccessByEnvironment,omitzero"`
+}
+
+func (m *MemberProjectRoleAdditionalRole) GetRole() string {
+	if m == nil {
+		return ""
+	}
+	return m.Role
+}
+
+func (m *MemberProjectRoleAdditionalRole) GetEnvironments() []string {
+	if m == nil {
+		return []string{}
+	}
+	return m.Environments
+}
+
+func (m *MemberProjectRoleAdditionalRole) GetLimitAccessByEnvironment() *bool {
+	if m == nil {
+		return nil
+	}
+	return m.LimitAccessByEnvironment
+}
+
 type MemberProjectRole struct {
 	Project                  string   `json:"project"`
 	Role                     string   `json:"role"`
 	LimitAccessByEnvironment bool     `json:"limitAccessByEnvironment"`
 	Environments             []string `json:"environments"`
+	// Additional roles granted alongside this one, in the same scope. Each is granted independently and environment access is the union across them.
+	AdditionalRoles []MemberProjectRoleAdditionalRole `json:"additionalRoles,omitzero"`
+}
+
+func (m MemberProjectRole) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(m, "", false)
+}
+
+func (m *MemberProjectRole) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &m, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (m *MemberProjectRole) GetProject() string {
@@ -42,19 +109,28 @@ func (m *MemberProjectRole) GetEnvironments() []string {
 	return m.Environments
 }
 
+func (m *MemberProjectRole) GetAdditionalRoles() []MemberProjectRoleAdditionalRole {
+	if m == nil {
+		return nil
+	}
+	return m.AdditionalRoles
+}
+
 type Member struct {
-	ID                       string              `json:"id"`
-	Name                     *string             `json:"name,omitzero"`
-	Email                    string              `json:"email"`
-	GlobalRole               string              `json:"globalRole"`
-	Environments             []string            `json:"environments,omitzero"`
-	LimitAccessByEnvironment *bool               `json:"limitAccessByEnvironment,omitzero"`
-	ManagedbyIdp             *bool               `json:"managedbyIdp,omitzero"`
-	Teams                    []string            `json:"teams,omitzero"`
-	ProjectRoles             []MemberProjectRole `json:"projectRoles,omitzero"`
-	LastLoginDate            *time.Time          `json:"lastLoginDate,omitzero"`
-	DateCreated              *time.Time          `json:"dateCreated,omitzero"`
-	DateUpdated              *time.Time          `json:"dateUpdated,omitzero"`
+	ID                       string   `json:"id"`
+	Name                     *string  `json:"name,omitzero"`
+	Email                    string   `json:"email"`
+	GlobalRole               string   `json:"globalRole"`
+	Environments             []string `json:"environments,omitzero"`
+	LimitAccessByEnvironment *bool    `json:"limitAccessByEnvironment,omitzero"`
+	// Additional roles granted alongside this one, in the same scope. Each is granted independently and environment access is the union across them.
+	AdditionalRoles []MemberAdditionalRole `json:"additionalRoles,omitzero"`
+	ManagedbyIdp    *bool                  `json:"managedbyIdp,omitzero"`
+	Teams           []string               `json:"teams,omitzero"`
+	ProjectRoles    []MemberProjectRole    `json:"projectRoles,omitzero"`
+	LastLoginDate   *time.Time             `json:"lastLoginDate,omitzero"`
+	DateCreated     *time.Time             `json:"dateCreated,omitzero"`
+	DateUpdated     *time.Time             `json:"dateUpdated,omitzero"`
 }
 
 func (m Member) MarshalJSON() ([]byte, error) {
@@ -108,6 +184,13 @@ func (m *Member) GetLimitAccessByEnvironment() *bool {
 		return nil
 	}
 	return m.LimitAccessByEnvironment
+}
+
+func (m *Member) GetAdditionalRoles() []MemberAdditionalRole {
+	if m == nil {
+		return nil
+	}
+	return m.AdditionalRoles
 }
 
 func (m *Member) GetManagedbyIdp() *bool {
