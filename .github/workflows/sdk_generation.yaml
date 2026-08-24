@@ -33,3 +33,73 @@ jobs:
       # Without a PAT, a bot-opened PR triggers no workflows — CI's drift gate never runs.
       pr_creation_pat: ${{ secrets.PR_CREATION_PAT }}
       speakeasy_api_key: ${{ secrets.SPEAKEASY_API_KEY }}
+
+  refresh-surface:
+    needs: generate
+    # `speakeasy run` never refreshes the golden, so every regen lands a stale one.
+    if: github.event_name != 'pull_request' && needs.generate.outputs.go_regenerated == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Find the generation branch
+        id: br
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # No job output names the branch (branch_name is not forwarded, commit_hash is direct-mode only), so refuse to guess when ambiguous.
+          mapfile -t found < <(
+            gh pr list --repo "$GITHUB_REPOSITORY" --state open \
+              --search "sort:created-desc" --json headRefName \
+              --jq '.[].headRefName | select(startswith("speakeasy-sdk-regen-"))'
+          )
+          case "${#found[@]}" in
+            0) echo "No open generation PR — nothing to refresh."
+               echo "branch=" >> "$GITHUB_OUTPUT" ;;
+            1) echo "Found ${found[0]}"
+               echo "branch=${found[0]}" >> "$GITHUB_OUTPUT" ;;
+            *) echo "Refusing to guess between ${#found[@]} open generation PRs:"
+               printf '  %s\n' "${found[@]}"
+               exit 1 ;;
+          esac
+
+      - uses: actions/checkout@v5
+        if: steps.br.outputs.branch != ''
+        with:
+          ref: ${{ steps.br.outputs.branch }}
+          # Not GITHUB_TOKEN: a push by it triggers no workflows, so CI would never run on the new head.
+          token: ${{ secrets.PR_CREATION_PAT }}
+
+      - uses: actions/setup-go@v6
+        if: steps.br.outputs.branch != ''
+        with:
+          go-version-file: "go.mod"
+          cache: true
+
+      - name: Refresh the golden and report the delta
+        if: steps.br.outputs.branch != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: ${{ steps.br.outputs.branch }}
+        run: |
+          # The golden is the repo's only go:generate target; the narrow scope keeps docs out of this commit.
+          go generate ./internal/cli/...
+          if git diff --quiet -- internal/cli/testdata; then
+            echo "Golden already current."
+            exit 0
+          fi
+          # word-diff pinpoints the changed flag inline instead of printing two 200-char lines to compare by eye.
+          git diff --word-diff=plain -- internal/cli/testdata > "$RUNNER_TEMP/surface.diff"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "Refresh the command-surface golden" -- internal/cli/testdata
+          git push origin "HEAD:$BRANCH"
+          # Committing this automatically removes the red check that was the only signal a command or flag changed.
+          {
+            echo "**The command surface changed in this regeneration.** The golden was stale and has been refreshed automatically."
+            echo
+            echo '```'
+            # Match `-]` and `{+`, not `[-`: every flag list contains a literal `[-` (as in `[--all`).
+            grep -E '\-\]|\{\+' "$RUNNER_TEMP/surface.diff" | grep '^growthbook ' \
+              || echo "(no command lines changed — ordering or whitespace only)"
+            echo '```'
+          } > "$RUNNER_TEMP/comment.md"
+          gh pr comment "$BRANCH" --repo "$GITHUB_REPOSITORY" --body-file "$RUNNER_TEMP/comment.md"
