@@ -7,11 +7,78 @@ import (
 	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
+type UpdateMemberRoleAdditionalRole struct {
+	Role                     string   `json:"role"`
+	Environments             []string `json:"environments"`
+	LimitAccessByEnvironment *bool    `json:"limitAccessByEnvironment,omitzero"`
+}
+
+func (u *UpdateMemberRoleAdditionalRole) GetRole() string {
+	if u == nil {
+		return ""
+	}
+	return u.Role
+}
+
+func (u *UpdateMemberRoleAdditionalRole) GetEnvironments() []string {
+	if u == nil {
+		return []string{}
+	}
+	return u.Environments
+}
+
+func (u *UpdateMemberRoleAdditionalRole) GetLimitAccessByEnvironment() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.LimitAccessByEnvironment
+}
+
+type UpdateMemberRoleProjectRoleAdditionalRole struct {
+	Role                     string   `json:"role"`
+	Environments             []string `json:"environments"`
+	LimitAccessByEnvironment *bool    `json:"limitAccessByEnvironment,omitzero"`
+}
+
+func (u *UpdateMemberRoleProjectRoleAdditionalRole) GetRole() string {
+	if u == nil {
+		return ""
+	}
+	return u.Role
+}
+
+func (u *UpdateMemberRoleProjectRoleAdditionalRole) GetEnvironments() []string {
+	if u == nil {
+		return []string{}
+	}
+	return u.Environments
+}
+
+func (u *UpdateMemberRoleProjectRoleAdditionalRole) GetLimitAccessByEnvironment() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.LimitAccessByEnvironment
+}
+
 type UpdateMemberRoleProjectRole struct {
 	Project                  string   `json:"project"`
 	Role                     string   `json:"role"`
 	Environments             []string `json:"environments"`
 	LimitAccessByEnvironment *bool    `json:"limitAccessByEnvironment,omitzero"`
+	// Additional roles granted alongside this one, in the same scope. Each is granted independently and environment access is the union across them.
+	AdditionalRoles []UpdateMemberRoleProjectRoleAdditionalRole `json:"additionalRoles,omitzero"`
+}
+
+func (u UpdateMemberRoleProjectRole) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdateMemberRoleProjectRole) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (u *UpdateMemberRoleProjectRole) GetProject() string {
@@ -42,10 +109,19 @@ func (u *UpdateMemberRoleProjectRole) GetLimitAccessByEnvironment() *bool {
 	return u.LimitAccessByEnvironment
 }
 
+func (u *UpdateMemberRoleProjectRole) GetAdditionalRoles() []UpdateMemberRoleProjectRoleAdditionalRole {
+	if u == nil {
+		return nil
+	}
+	return u.AdditionalRoles
+}
+
 type Member struct {
-	Role         *string                       `json:"role,omitzero"`
-	Environments []string                      `json:"environments,omitzero"`
-	ProjectRoles []UpdateMemberRoleProjectRole `json:"projectRoles,omitzero"`
+	Role         *string  `json:"role,omitzero"`
+	Environments []string `json:"environments,omitzero"`
+	// Additional roles granted alongside this one, in the same scope. Each is granted independently and environment access is the union across them.
+	AdditionalRoles []UpdateMemberRoleAdditionalRole `json:"additionalRoles,omitzero"`
+	ProjectRoles    []UpdateMemberRoleProjectRole    `json:"projectRoles,omitzero"`
 }
 
 func (m Member) MarshalJSON() ([]byte, error) {
@@ -71,6 +147,13 @@ func (m *Member) GetEnvironments() []string {
 		return nil
 	}
 	return m.Environments
+}
+
+func (m *Member) GetAdditionalRoles() []UpdateMemberRoleAdditionalRole {
+	if m == nil {
+		return nil
+	}
+	return m.AdditionalRoles
 }
 
 func (m *Member) GetProjectRoles() []UpdateMemberRoleProjectRole {

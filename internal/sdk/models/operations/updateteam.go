@@ -9,12 +9,40 @@ import (
 	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
-type UpdateTeamProjectRole struct {
+type UpdateTeamAdditionalRole struct {
 	Role                     string   `json:"role"`
 	LimitAccessByEnvironment bool     `json:"limitAccessByEnvironment"`
 	Environments             []string `json:"environments"`
-	Teams                    []string `json:"teams,omitzero"`
-	Project                  string   `json:"project"`
+}
+
+func (u *UpdateTeamAdditionalRole) GetRole() string {
+	if u == nil {
+		return ""
+	}
+	return u.Role
+}
+
+func (u *UpdateTeamAdditionalRole) GetLimitAccessByEnvironment() bool {
+	if u == nil {
+		return false
+	}
+	return u.LimitAccessByEnvironment
+}
+
+func (u *UpdateTeamAdditionalRole) GetEnvironments() []string {
+	if u == nil {
+		return []string{}
+	}
+	return u.Environments
+}
+
+type UpdateTeamProjectRole struct {
+	Role                     string                     `json:"role"`
+	LimitAccessByEnvironment bool                       `json:"limitAccessByEnvironment"`
+	Environments             []string                   `json:"environments"`
+	Teams                    []string                   `json:"teams,omitzero"`
+	AdditionalRoles          []UpdateTeamAdditionalRole `json:"additionalRoles,omitzero"`
+	Project                  string                     `json:"project"`
 }
 
 func (u UpdateTeamProjectRole) MarshalJSON() ([]byte, error) {
@@ -54,6 +82,13 @@ func (u *UpdateTeamProjectRole) GetTeams() []string {
 		return nil
 	}
 	return u.Teams
+}
+
+func (u *UpdateTeamProjectRole) GetAdditionalRoles() []UpdateTeamAdditionalRole {
+	if u == nil {
+		return nil
+	}
+	return u.AdditionalRoles
 }
 
 func (u *UpdateTeamProjectRole) GetProject() string {

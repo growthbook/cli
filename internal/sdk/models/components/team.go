@@ -9,12 +9,40 @@ import (
 	"time"
 )
 
-type TeamProjectRole struct {
+type TeamAdditionalRole struct {
 	Role                     string   `json:"role"`
 	LimitAccessByEnvironment bool     `json:"limitAccessByEnvironment"`
 	Environments             []string `json:"environments"`
-	Teams                    []string `json:"teams,omitzero"`
-	Project                  string   `json:"project"`
+}
+
+func (t *TeamAdditionalRole) GetRole() string {
+	if t == nil {
+		return ""
+	}
+	return t.Role
+}
+
+func (t *TeamAdditionalRole) GetLimitAccessByEnvironment() bool {
+	if t == nil {
+		return false
+	}
+	return t.LimitAccessByEnvironment
+}
+
+func (t *TeamAdditionalRole) GetEnvironments() []string {
+	if t == nil {
+		return []string{}
+	}
+	return t.Environments
+}
+
+type TeamProjectRole struct {
+	Role                     string               `json:"role"`
+	LimitAccessByEnvironment bool                 `json:"limitAccessByEnvironment"`
+	Environments             []string             `json:"environments"`
+	Teams                    []string             `json:"teams,omitzero"`
+	AdditionalRoles          []TeamAdditionalRole `json:"additionalRoles,omitzero"`
+	Project                  string               `json:"project"`
 }
 
 func (t TeamProjectRole) MarshalJSON() ([]byte, error) {
@@ -54,6 +82,13 @@ func (t *TeamProjectRole) GetTeams() []string {
 		return nil
 	}
 	return t.Teams
+}
+
+func (t *TeamProjectRole) GetAdditionalRoles() []TeamAdditionalRole {
+	if t == nil {
+		return nil
+	}
+	return t.AdditionalRoles
 }
 
 func (t *TeamProjectRole) GetProject() string {
