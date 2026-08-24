@@ -1,19 +1,28 @@
-## growthbook settings
+## growthbook settings set-approvals
 
-Get the organization settings
+Replace the approval requirements for feature flags, configs and constants, and for saved groups. Each family is replaced wholesale when supplied; omit one to leave it unchanged.
 
 ### Synopsis
 
-Get the organization settings.
+Replace the approval requirements for feature flags, configs and constants, and for saved groups. Each family is replaced wholesale when supplied; omit one to leave it unchanged.
 
 ```
-growthbook settings [flags]
+growthbook settings set-approvals [flags]
+```
+
+### Examples
+
+```
+  growthbook settings set-approvals
 ```
 
 ### Options
 
 ```
-  -h, --help   help for settings
+  -a, --approval-flows string    JSON object
+      --body string              Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -h, --help                     help for set-approvals
+  -r, --require-reviews string   list of values
 ```
 
 ### Options inherited from parent commands
@@ -42,6 +51,4 @@ growthbook settings [flags]
 
 ### SEE ALSO
 
-* [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
-* [growthbook settings get](growthbook_settings_get.md)	 - Get organization settings
-* [growthbook settings set-approvals](growthbook_settings_set-approvals.md)	 - Replace the approval requirements for feature flags, configs and constants, and for saved groups. Each family is replaced wholesale when supplied; omit one to leave it unchanged.
+* [growthbook settings](growthbook_settings.md)	 - Get the organization settings

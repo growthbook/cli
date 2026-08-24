@@ -2,6 +2,34 @@
 
 ## [Unreleased]
 
+Additive only — no commands or flags were removed or renamed, so no action is needed on upgrade.
+
+### Added
+
+- **`growthbook settings set-approvals`** — replace the organization's approval requirements.
+  `PUT /v1/settings/approvals` covers two independent families: `--require-reviews` for feature
+  flags, configs, and constants, and `--approval-flows` for saved groups. Each family is replaced
+  wholesale when supplied, and omitting one leaves it untouched, so read the current values from
+  `growthbook settings get` before sending a partial update.
+
+  ```bash
+  growthbook settings set-approvals --body '{
+    "requireReviews": [{"requireReviewOn": true, "blockSelfApproval": true}],
+    "approvalFlows": {"savedGroups": [{"required": true}]}
+  }'
+  ```
+
+- **Approval settings gained `blockSelfApproval` and `requiredApproverTeams`.** Both appear on
+  every entry of `requireReviews` in `growthbook settings get`, alongside a new top-level
+  `approvalFlows.savedGroups` describing the saved-group approval rules.
+
+- **`additionalRoles` on members and team project roles.** Responses from `growthbook members
+  list`, `growthbook members update-member-role`, and the `growthbook teams` commands now carry
+  `additionalRoles` on the member and inside each `projectRoles[]` entry. It is also accepted in
+  the request bodies of `members update-member-role`, `teams create`, and `teams update` — a
+  nested body field, so pass it in `--member` / `--project-roles` / `--body` JSON. There are no
+  new flags.
+
 ## [2.1.1] - 2026-08-21
 
 One flag is gone. It only ever set a server-generated diagnostic, so nothing that worked before

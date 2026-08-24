@@ -261,74 +261,15 @@ func (e *FeatureKillSwitchBehavior) IsExact() bool {
 	return false
 }
 
-type RequireReview struct {
-	RequireReviewOn                 *bool    `json:"requireReviewOn,omitzero"`
-	ResetReviewOnChange             *bool    `json:"resetReviewOnChange,omitzero"`
-	Environments                    []string `json:"environments,omitzero"`
-	Projects                        []string `json:"projects,omitzero"`
-	FeatureRequireEnvironmentReview *bool    `json:"featureRequireEnvironmentReview,omitzero"`
-	FeatureRequireMetadataReview    *bool    `json:"featureRequireMetadataReview,omitzero"`
-	AutopublishOnApproval           *bool    `json:"autopublishOnApproval,omitzero"`
+type SettingsApprovalFlows struct {
+	SavedGroups []SavedGroupApprovalRule `json:"savedGroups"`
 }
 
-func (r RequireReview) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RequireReview) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
+func (s *SettingsApprovalFlows) GetSavedGroups() []SavedGroupApprovalRule {
+	if s == nil {
+		return []SavedGroupApprovalRule{}
 	}
-	return nil
-}
-
-func (r *RequireReview) GetRequireReviewOn() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.RequireReviewOn
-}
-
-func (r *RequireReview) GetResetReviewOnChange() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.ResetReviewOnChange
-}
-
-func (r *RequireReview) GetEnvironments() []string {
-	if r == nil {
-		return nil
-	}
-	return r.Environments
-}
-
-func (r *RequireReview) GetProjects() []string {
-	if r == nil {
-		return nil
-	}
-	return r.Projects
-}
-
-func (r *RequireReview) GetFeatureRequireEnvironmentReview() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.FeatureRequireEnvironmentReview
-}
-
-func (r *RequireReview) GetFeatureRequireMetadataReview() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.FeatureRequireMetadataReview
-}
-
-func (r *RequireReview) GetAutopublishOnApproval() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.AutopublishOnApproval
+	return s.SavedGroups
 }
 
 type SettingsMode string
@@ -464,7 +405,8 @@ type Settings struct {
 	SecureAttributeSalt              string                                     `json:"secureAttributeSalt"`
 	KillswitchConfirmation           bool                                       `json:"killswitchConfirmation"`
 	FeatureKillSwitchBehavior        *FeatureKillSwitchBehavior                 `json:"featureKillSwitchBehavior,omitzero"`
-	RequireReviews                   []RequireReview                            `json:"requireReviews"`
+	RequireReviews                   []RequireReviewRule                        `json:"requireReviews"`
+	ApprovalFlows                    SettingsApprovalFlows                      `json:"approvalFlows"`
 	TargetingReviewMode              []TargetingReviewMode                      `json:"targetingReviewMode,omitzero"`
 	RestAPIBypassesReviews           *bool                                      `json:"restApiBypassesReviews,omitzero"`
 	RequireRebaseBeforePublish       *bool                                      `json:"requireRebaseBeforePublish,omitzero"`
@@ -664,11 +606,18 @@ func (s *Settings) GetFeatureKillSwitchBehavior() *FeatureKillSwitchBehavior {
 	return s.FeatureKillSwitchBehavior
 }
 
-func (s *Settings) GetRequireReviews() []RequireReview {
+func (s *Settings) GetRequireReviews() []RequireReviewRule {
 	if s == nil {
-		return []RequireReview{}
+		return []RequireReviewRule{}
 	}
 	return s.RequireReviews
+}
+
+func (s *Settings) GetApprovalFlows() SettingsApprovalFlows {
+	if s == nil {
+		return SettingsApprovalFlows{}
+	}
+	return s.ApprovalFlows
 }
 
 func (s *Settings) GetTargetingReviewMode() []TargetingReviewMode {

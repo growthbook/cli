@@ -24,6 +24,10 @@ func InitSettingsRoot(parent *cobra.Command) error {
 		return err
 	}
 
+	if err := initSetApprovalsCmd(SettingsCmd); err != nil {
+		return err
+	}
+
 	parent.AddCommand(SettingsCmd)
 	return nil
 }

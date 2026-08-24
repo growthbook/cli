@@ -424,6 +424,7 @@ growthbook segments list  [--all --datasource-id --limit --max-pages --offset]
 growthbook segments update  [--body --datasource-id --description --fact-table-id --filters --id --identifier-type --managed-by --name --owner --projects --query --type]
 growthbook settings
 growthbook settings get
+growthbook settings set-approvals  [--approval-flows --body --require-reviews]
 growthbook snapshots
 growthbook snapshots create-snapshot  [--body --dimension --id --phase --triggered-by]
 growthbook snapshots get-experiment  [--id]

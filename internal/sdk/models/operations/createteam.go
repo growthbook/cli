@@ -9,12 +9,40 @@ import (
 	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
-type CreateTeamProjectRole struct {
+type CreateTeamAdditionalRole struct {
 	Role                     string   `json:"role"`
 	LimitAccessByEnvironment bool     `json:"limitAccessByEnvironment"`
 	Environments             []string `json:"environments"`
-	Teams                    []string `json:"teams,omitzero"`
-	Project                  string   `json:"project"`
+}
+
+func (c *CreateTeamAdditionalRole) GetRole() string {
+	if c == nil {
+		return ""
+	}
+	return c.Role
+}
+
+func (c *CreateTeamAdditionalRole) GetLimitAccessByEnvironment() bool {
+	if c == nil {
+		return false
+	}
+	return c.LimitAccessByEnvironment
+}
+
+func (c *CreateTeamAdditionalRole) GetEnvironments() []string {
+	if c == nil {
+		return []string{}
+	}
+	return c.Environments
+}
+
+type CreateTeamProjectRole struct {
+	Role                     string                     `json:"role"`
+	LimitAccessByEnvironment bool                       `json:"limitAccessByEnvironment"`
+	Environments             []string                   `json:"environments"`
+	Teams                    []string                   `json:"teams,omitzero"`
+	AdditionalRoles          []CreateTeamAdditionalRole `json:"additionalRoles,omitzero"`
+	Project                  string                     `json:"project"`
 }
 
 func (c CreateTeamProjectRole) MarshalJSON() ([]byte, error) {
@@ -54,6 +82,13 @@ func (c *CreateTeamProjectRole) GetTeams() []string {
 		return nil
 	}
 	return c.Teams
+}
+
+func (c *CreateTeamProjectRole) GetAdditionalRoles() []CreateTeamAdditionalRole {
+	if c == nil {
+		return nil
+	}
+	return c.AdditionalRoles
 }
 
 func (c *CreateTeamProjectRole) GetProject() string {

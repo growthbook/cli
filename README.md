@@ -622,6 +622,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 ### [settings](docs/growthbook_settings.md)
 
 * [`get`](docs/growthbook_settings_get.md) - Get organization settings
+* [`set-approvals`](docs/growthbook_settings_set-approvals.md) - Replace the approval requirements for feature flags, configs and constants, and for saved groups. Each family is replaced wholesale when supplied; omit one to leave it unchanged.
 
 ### [meta](docs/growthbook_meta.md)
 
