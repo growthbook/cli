@@ -1,4 +1,4 @@
-## growthbook settings put-approval
+## growthbook settings set-approvals
 
 Replace the approval requirements for feature flags, configs and constants, and for saved groups. Each family is replaced wholesale when supplied; omit one to leave it unchanged.
 
@@ -7,13 +7,13 @@ Replace the approval requirements for feature flags, configs and constants, and 
 Replace the approval requirements for feature flags, configs and constants, and for saved groups. Each family is replaced wholesale when supplied; omit one to leave it unchanged.
 
 ```
-growthbook settings put-approval [flags]
+growthbook settings set-approvals [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook settings put-approval
+  growthbook settings set-approvals
 ```
 
 ### Options
@@ -21,7 +21,7 @@ growthbook settings put-approval [flags]
 ```
   -a, --approval-flows string    JSON object
       --body string              Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -h, --help                     help for put-approval
+  -h, --help                     help for set-approvals
   -r, --require-reviews string   list of values
 ```
 

@@ -948,6 +948,9 @@ actions:
     update: { x-speakeasy-name-override: set-metadata }
   - target: $..[?(@.operationId=="putReportSettings")]
     update: { x-speakeasy-name-override: set-settings }
+  # settings
+  - target: $..[?(@.operationId=="putApprovalSettings")]
+    update: { x-speakeasy-name-override: set-approvals }
   # visual-changesets (visual-change is a distinct sub-resource; keep its name)
   - target: $..[?(@.operationId=="postVisualChange")]
     update: { x-speakeasy-name-override: add-visual-change }

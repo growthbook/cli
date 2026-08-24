@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 4c8e0331-b838-4af2-bf59-101dac30ada4
 management:
-  docChecksum: 28a531034cc90634ae8045c3c0d0584f
+  docChecksum: 93d9694c9aea694779137710d0d59c16
   docVersion: 5.0.1
   speakeasyVersion: 1.794.0
   generationVersion: 2.930.0
-  releaseVersion: 2.1.2
-  configChecksum: 7493b015334289b7d3946b563579831e
+  releaseVersion: 2.2.0
+  configChecksum: 2a9f0dfa0d1e5e22f7a73d4a88e86b16
   repoURL: https://github.com/growthbook/cli.git
   installationURL: https://github.com/growthbook/cli
 persistentEdits:
-  generation_id: 75441ac2-13a5-4c92-b1a2-83d6347765a4
-  pristine_commit_hash: 5a4a878cdace5f7f5408788c587789f3a97ceb5e
-  pristine_tree_hash: cba664b20107f528ce6410532be4975fe6674d1b
+  generation_id: 83bc2a99-9104-429a-8f9c-cfd05666d9b7
+  pristine_commit_hash: b7e2b1c5a1579f29e38c18867752537ed4bb22ae
+  pristine_tree_hash: 2ef3ccb89921dca5c2c2ad8ffa3abaa6af403067
 features:
   cli:
     additionalProperties: 0.0.1
@@ -55,8 +55,8 @@ trackedFiles:
     pristine_git_object: 2beae7b53b827bff124cf587cba0829a4cb2bf95
   go.mod:
     id: c47645c391ad
-    last_write_checksum: sha1:8d1d9813022c8ad18a0cf155b9d8ee60050e5955
-    pristine_git_object: f4fefffdf86a2d35dda34473dc0b8728c36d76f9
+    last_write_checksum: sha1:c132fa9fca3fbd21e02077b5c5b230b65bb6ddd3
+    pristine_git_object: f439fdebf944bf0626e886182d1ef414bffb0062
   internal/cli//copytransform.go:
     id: b9278f4c2248
     last_write_checksum: sha1:51996c765ba3c97059b7177308e1bf012142813b
@@ -1721,14 +1721,14 @@ trackedFiles:
     id: 7623be322d53
     last_write_checksum: sha1:a51837c9575ed86e308d0cdf52c1bdf34b18b454
     pristine_git_object: 9b3d4628a4e8b5fa462ddad0040b3c74855ca928
-  internal/cli/settings/putapprovalsettings.go:
-    id: 9821ea156397
-    last_write_checksum: sha1:12e97013e7cefd9212017b30968b2a8f985cdd91
-    pristine_git_object: ffa354649815281f5e4257ca73d1e15c9f05f2ec
   internal/cli/settings/root.go:
     id: 2a0d4890ed42
-    last_write_checksum: sha1:359e0b0f85770511c2e9e48f6aa3688f2825eeb5
-    pristine_git_object: 1c16cb386151172fa1f30624098c2d6eac4360a4
+    last_write_checksum: sha1:fbf3c57a2da382852a56f1496f0e270feab9890f
+    pristine_git_object: ba28a261984d58d7ba5143a3aa4fd203b4a5db49
+  internal/cli/settings/setapprovals.go:
+    id: 38ae5687ac7b
+    last_write_checksum: sha1:0ea9222bd47c13ebb796106767eaf4503848ad6b
+    pristine_git_object: fa7f1f69075cfa0f1ecf036fdec0d8bc125f53c5
   internal/cli/snapshots/createsnapshot.go:
     id: 444c1f143057
     last_write_checksum: sha1:e28c10294f54462bdb28a4fbffa94be30df98b01
@@ -1783,8 +1783,8 @@ trackedFiles:
     pristine_git_object: 773a22f36454f22ba733858a3f54401690fe8f31
   internal/cli/version.go:
     id: 7b0665492f72
-    last_write_checksum: sha1:e149de11aa9ecec772241a6d5bf2619a5b819df9
-    pristine_git_object: 5690faac0b7e12fe44427f1895701a15f2906578
+    last_write_checksum: sha1:882dc8a8bcffb93f068550ab5146c7f5a23b0875
+    pristine_git_object: db535880a4abf2269002d459ffd84a21e12e757d
   internal/cli/visualchangesets/addvisualchange.go:
     id: fdbcb9d69b23
     last_write_checksum: sha1:62c37780da4a614d14105d11d5241ae225eb0df6
@@ -4307,8 +4307,8 @@ trackedFiles:
     pristine_git_object: c1989363c1bfa4e0771128ed86a5d2f3f038f6ba
   internal/sdk/settings.go:
     id: 4b4e8e5dc0ca
-    last_write_checksum: sha1:21088bdd52bdc100566dd008be02a7134eef8a10
-    pristine_git_object: 7cd683260890f7f240f67499ff75cb3d3e0d8712
+    last_write_checksum: sha1:424befd26ac499f105dd36a9309b5ebf9efa9a3b
+    pristine_git_object: 9e1db060da95d89b174765978ea98520628388d9
   internal/sdk/snapshots.go:
     id: f522e72787a7
     last_write_checksum: sha1:138b997f44fb0bbb54a4354d0b481981ce8f55a3
@@ -4347,8 +4347,8 @@ trackedFiles:
     pristine_git_object: 159a87ec97aba99e4edd132f69652e123434303e
   internal/usage/schema.go:
     id: 0f40f4612437
-    last_write_checksum: sha1:65df12d8768e4fde800b3b301a700b4c2d627f66
-    pristine_git_object: d9e289cdd9824b3d98f3c24722a0d0ccb752de97
+    last_write_checksum: sha1:15bee6130cdf213264ac8c604bba39b1eaf454e5
+    pristine_git_object: a004adaac1c7b9add6f7f7ffb0d65be1788f185a
   scripts/install.ps1:
     id: fee0853709e9
     last_write_checksum: sha1:f9df93912e2b5d20eaffddbdb2708ce76ec06445
@@ -7984,4 +7984,3 @@ examples:
         "200":
           application/json: {"requireReviews": [], "approvalFlows": {"savedGroups": []}}
 examplesVersion: 1.0.2
-releaseNotes: "## Cli SDK Changes:\n* `Growthbook.Settings.PutApprovalSettings()`: **Added**\n* `Growthbook.Members.ListMembers()`:  `response.Members[]` **Changed**\n* `Growthbook.Members.UpdateMemberRole()`: \n  *  `request.Request.Body.Member` **Changed**\n  *  `response.UpdatedMember` **Changed**\n* `Growthbook.Settings.GetSettings()`:  `response.Settings` **Changed**\n* `Growthbook.Teams.GetTeam()`:  `response.Team.ProjectRoles[].AdditionalRoles` **Added**\n* `Growthbook.Teams.UpdateTeam()`: \n  *  `request.Request.Body.ProjectRoles[].AdditionalRoles` **Added**\n  *  `response.Team.ProjectRoles[].AdditionalRoles` **Added**\n* `Growthbook.Teams.CreateTeam()`: \n  *  `request.Request.ProjectRoles[].AdditionalRoles` **Added**\n  *  `response.Team.ProjectRoles[].AdditionalRoles` **Added**\n* `Growthbook.Teams.ListTeams()`:  `response.Teams[].ProjectRoles[].AdditionalRoles` **Added**\n"

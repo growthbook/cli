@@ -14,41 +14,41 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var putApprovalSettingsCmdMeta = []flagutil.FlagMeta{
+var setApprovalsCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "require-reviews", Shorthand: "r", FieldPath: "RequireReviews", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"requireReviews,omitempty"`, Description: "list of values"},
 	{FlagName: "approval-flows", Shorthand: "a", FieldPath: "ApprovalFlows", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"approvalFlows,omitempty"`, Description: "JSON object"},
 }
 
-// initPutApprovalSettingsCmd initializes the put-approval-settings command.
-func initPutApprovalSettingsCmd(parent *cobra.Command) error {
+// initSetApprovalsCmd initializes the set-approvals command.
+func initSetApprovalsCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
-		Use:     "put-approval",
+		Use:     "set-approvals",
 		Short:   "Replace the approval requirements for feature flags, configs and constants, and for saved groups. Each family is replaced wholesale when supplied; omit one to leave it unchanged.",
 		Long:    "Replace the approval requirements for feature flags, configs and constants, and for saved groups. Each family is replaced wholesale when supplied; omit one to leave it unchanged.",
-		Example: "  growthbook settings put-approval",
-		RunE:    runPutApprovalSettingsCmd,
-		Aliases: []string{"pa"},
+		Example: "  growthbook settings set-approvals",
+		RunE:    runSetApprovalsCmd,
+		Aliases: []string{"sa"},
 	}
-	flagutil.RegisterFlags(cmd, putApprovalSettingsCmdMeta)
-	if err := flagutil.ValidateMeta[operations.PutApprovalSettingsRequest](putApprovalSettingsCmdMeta); err != nil {
-		return fmt.Errorf("invalid metadata for put-approval-settings: %w", err)
+	flagutil.RegisterFlags(cmd, setApprovalsCmdMeta)
+	if err := flagutil.ValidateMeta[operations.PutApprovalSettingsRequest](setApprovalsCmdMeta); err != nil {
+		return fmt.Errorf("invalid metadata for set-approvals: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
 	parent.AddCommand(cmd)
 	return nil
 }
 
-// runPutApprovalSettingsCmd executes the put-approval-settings command.
-func runPutApprovalSettingsCmd(cmd *cobra.Command, args []string) error {
+// runSetApprovalsCmd executes the set-approvals command.
+func runSetApprovalsCmd(cmd *cobra.Command, args []string) error {
 	if usage.UsageRequested(cmd) {
 		return usage.EmitSchema(cmd, cmd.OutOrStdout())
 	}
-	if interactive.ShouldPrompt(cmd, putApprovalSettingsCmdMeta) {
-		if err := interactive.PromptAndSetFlags(cmd, putApprovalSettingsCmdMeta); err != nil {
+	if interactive.ShouldPrompt(cmd, setApprovalsCmdMeta) {
+		if err := interactive.PromptAndSetFlags(cmd, setApprovalsCmdMeta); err != nil {
 			return err
 		}
 	}
-	request, err := flagutil.BuildRequest[operations.PutApprovalSettingsRequest](cmd, putApprovalSettingsCmdMeta, "", "body")
+	request, err := flagutil.BuildRequest[operations.PutApprovalSettingsRequest](cmd, setApprovalsCmdMeta, "", "body")
 	if err != nil {
 		return err
 	}
@@ -71,7 +71,7 @@ func runPutApprovalSettingsCmd(cmd *cobra.Command, args []string) error {
 	if output.WantsRawJSON(cmd) {
 		sdkOpts = append(sdkOpts, operations.WithSkipDeserialization())
 	}
-	res, err := s.Settings.PutApprovalSettings(cmd.Context(), *request, sdkOpts...)
+	res, err := s.Settings.SetApprovals(cmd.Context(), *request, sdkOpts...)
 	if err != nil {
 		return output.Error(cmd, err)
 	}

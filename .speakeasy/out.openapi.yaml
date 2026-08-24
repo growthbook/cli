@@ -26956,6 +26956,7 @@ paths:
           source: |-
             curl -X PUT 'https://api.growthbook.io/api/v1/settings/approvals' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: set-approvals
   /v1/version:
     get:
       operationId: getVersion
