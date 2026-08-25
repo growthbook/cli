@@ -48,6 +48,7 @@ growthbook config-revisions [flags]
 * [growthbook config-revisions archive](growthbook_config-revisions_archive.md)	 - Stage an archive/unarchive in a draft revision
 * [growthbook config-revisions create](growthbook_config-revisions_create.md)	 - Create a draft revision
 * [growthbook config-revisions delete-projection](growthbook_config-revisions_delete-projection.md)	 - Remove a config's per-source render projection on a draft
+* [growthbook config-revisions delete-property](growthbook_config-revisions_delete-property.md)	 - Remove one property from a config draft revision's value
 * [growthbook config-revisions discard](growthbook_config-revisions_discard.md)	 - Discard a draft revision
 * [growthbook config-revisions get](growthbook_config-revisions_get.md)	 - Get a single config revision
 * [growthbook config-revisions latest](growthbook_config-revisions_latest.md)	 - Get the most recent active draft revision
@@ -63,6 +64,7 @@ growthbook config-revisions [flags]
 * [growthbook config-revisions schedule-publish](growthbook_config-revisions_schedule-publish.md)	 - Schedule (or cancel) a deferred publish
 * [growthbook config-revisions set-metadata](growthbook_config-revisions_set-metadata.md)	 - Update config metadata in a draft revision
 * [growthbook config-revisions set-projection](growthbook_config-revisions_set-projection.md)	 - Set (or update) a config's per-source render projection on a draft
+* [growthbook config-revisions set-property](growthbook_config-revisions_set-property.md)	 - Set one property of a config draft revision's value
 * [growthbook config-revisions set-schema](growthbook_config-revisions_set-schema.md)	 - Update or import the schema of a config draft revision
 * [growthbook config-revisions set-value](growthbook_config-revisions_set-value.md)	 - Update the value of a config draft revision
 * [growthbook config-revisions submit-review](growthbook_config-revisions_submit-review.md)	 - Submit a review on a draft revision

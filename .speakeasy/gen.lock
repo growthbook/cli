@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 4c8e0331-b838-4af2-bf59-101dac30ada4
 management:
-  docChecksum: 93d9694c9aea694779137710d0d59c16
+  docChecksum: e79d3d20fe96ab85ab0165211dc9ac14
   docVersion: 5.0.1
   speakeasyVersion: 1.794.0
   generationVersion: 2.930.0
-  releaseVersion: 2.2.0
-  configChecksum: 2a9f0dfa0d1e5e22f7a73d4a88e86b16
+  releaseVersion: 2.3.0
+  configChecksum: 59f55f81ea3d9a56c5ccee1ed9676c5d
   repoURL: https://github.com/growthbook/cli.git
   installationURL: https://github.com/growthbook/cli
 persistentEdits:
-  generation_id: 83bc2a99-9104-429a-8f9c-cfd05666d9b7
-  pristine_commit_hash: b7e2b1c5a1579f29e38c18867752537ed4bb22ae
-  pristine_tree_hash: 2ef3ccb89921dca5c2c2ad8ffa3abaa6af403067
+  generation_id: 9c4ac215-727c-4660-85e2-9cdbc458ba3c
+  pristine_commit_hash: 2f24b18bf2d846fe868fe0a5b50c49eba7ad7045
+  pristine_tree_hash: 50686a46ab8b70b39a3e2545983c8da9c98a71f0
 features:
   cli:
     additionalProperties: 0.0.1
@@ -55,8 +55,8 @@ trackedFiles:
     pristine_git_object: 2beae7b53b827bff124cf587cba0829a4cb2bf95
   go.mod:
     id: c47645c391ad
-    last_write_checksum: sha1:c132fa9fca3fbd21e02077b5c5b230b65bb6ddd3
-    pristine_git_object: f439fdebf944bf0626e886182d1ef414bffb0062
+    last_write_checksum: sha1:8d1d9813022c8ad18a0cf155b9d8ee60050e5955
+    pristine_git_object: f4fefffdf86a2d35dda34473dc0b8728c36d76f9
   internal/cli//copytransform.go:
     id: b9278f4c2248
     last_write_checksum: sha1:51996c765ba3c97059b7177308e1bf012142813b
@@ -161,6 +161,10 @@ trackedFiles:
     id: 47764a12075b
     last_write_checksum: sha1:fcae41e4a47dbe24af47c8303ef7fd899c34311b
     pristine_git_object: d0ce4a3417603eff07e6377746ec4d149b5b94c1
+  internal/cli/configrevisions/deleteproperty.go:
+    id: 144df7acf848
+    last_write_checksum: sha1:343c76701a307d116a00b2542b04e81053c4ec69
+    pristine_git_object: 471fb85535961164aec8113622eeaff7daa7e8e3
   internal/cli/configrevisions/discard.go:
     id: 2baa2b2eefce
     last_write_checksum: sha1:936d187380c2950c52e3785f88727fad92db0e9b
@@ -211,8 +215,8 @@ trackedFiles:
     pristine_git_object: f87fb0f126e38140dede0a9efc470e35d43848a2
   internal/cli/configrevisions/root.go:
     id: c9a25248280d
-    last_write_checksum: sha1:ccd30a61734e569254b2bd07142ddc362a06f060
-    pristine_git_object: 1610dd48b6caa33ece6d990e68a3c13b73032be7
+    last_write_checksum: sha1:3048374d3c21e6b5e860836a36946117c1cb8e26
+    pristine_git_object: e2289a6dc41d22415647ed2afea08a3d3a08c1a5
   internal/cli/configrevisions/schedulepublish.go:
     id: 45a20a10c8a6
     last_write_checksum: sha1:487be0519445f2993f687af8ba7322e2c410caa8
@@ -225,6 +229,10 @@ trackedFiles:
     id: 378c2ec0b80b
     last_write_checksum: sha1:334ee215a7eaad16fc42e181d562f82d103a2012
     pristine_git_object: ce74715ed4ec8ff50aa5a2330ab2882210865c0d
+  internal/cli/configrevisions/setproperty.go:
+    id: bb15fefd5d19
+    last_write_checksum: sha1:9d4c6626a8dbb1b2bee30e9ed96feaedc1ca8706
+    pristine_git_object: efe742cc828d5861de0cc78037771d6f39f2bc9e
   internal/cli/configrevisions/setschema.go:
     id: 9a97660731f0
     last_write_checksum: sha1:98aa38168f38782677cbb740edd2b5b4c43a8378
@@ -1783,8 +1791,8 @@ trackedFiles:
     pristine_git_object: 773a22f36454f22ba733858a3f54401690fe8f31
   internal/cli/version.go:
     id: 7b0665492f72
-    last_write_checksum: sha1:882dc8a8bcffb93f068550ab5146c7f5a23b0875
-    pristine_git_object: db535880a4abf2269002d459ffd84a21e12e757d
+    last_write_checksum: sha1:ecee4d0d6ccbf2626ad366cc542e4305e6562389
+    pristine_git_object: 551fb1fd331beae1e079235ccaffea999a72e77d
   internal/cli/visualchangesets/addvisualchange.go:
     id: fdbcb9d69b23
     last_write_checksum: sha1:62c37780da4a614d14105d11d5241ae225eb0df6
@@ -1911,8 +1919,8 @@ trackedFiles:
     pristine_git_object: 72fba21982adb366e1fd19b91f45408ed0a8e42e
   internal/sdk/configrevisions.go:
     id: c0851429a9cd
-    last_write_checksum: sha1:ba79d9fc3aa61badd8c9863bb49848294d3dcd61
-    pristine_git_object: 8fd38ba1216dbc82417f82dd62951a7b31b896cb
+    last_write_checksum: sha1:bafac34d646ade39dce5de092e4e9a4a75aa4db9
+    pristine_git_object: 4bac2f6e46834eb4ff3a72f324578ea19cc5f551
   internal/sdk/configs.go:
     id: 8a11067cac47
     last_write_checksum: sha1:1c5028507dd01da08a763f05b63ca5733033e75d
@@ -2693,6 +2701,10 @@ trackedFiles:
     id: 5649d01a2be0
     last_write_checksum: sha1:7923bc30ae8d9b87bb74e9440e246db1a138b82d
     pristine_git_object: 530ada0f233092de12bd5dcc5d90dff234b5e0c0
+  internal/sdk/models/operations/deleteconfigrevisionproperty.go:
+    id: 6bc9dd967c35
+    last_write_checksum: sha1:d622a32c303a562ab5cfb153d04501ac52d99fb7
+    pristine_git_object: 27eb04fa1287ff599497e390754a8d17de32017c
   internal/sdk/models/operations/deleteconstant.go:
     id: 0c584837b769
     last_write_checksum: sha1:fea49ff594b4358a8ad173ebe377c4df65b9613f
@@ -3801,6 +3813,10 @@ trackedFiles:
     id: 260b3568b4dd
     last_write_checksum: sha1:7c141210710d1320a666c29c2c588a9c1d425643
     pristine_git_object: 2e0fe0ec8cb653f0bb4664b84e499313e27ac412
+  internal/sdk/models/operations/putconfigrevisionproperty.go:
+    id: 8d52756fc4b1
+    last_write_checksum: sha1:37bc000bd2e36b301ade217ce670b42d03e6302c
+    pristine_git_object: 6a1f198baaee4388cb0c8c91e106a99e96f800e8
   internal/sdk/models/operations/putconfigrevisionschema.go:
     id: 01ce88aa6111
     last_write_checksum: sha1:a689309027365bfa0acc8c6e9de15efd99156279
@@ -4347,8 +4363,8 @@ trackedFiles:
     pristine_git_object: 159a87ec97aba99e4edd132f69652e123434303e
   internal/usage/schema.go:
     id: 0f40f4612437
-    last_write_checksum: sha1:15bee6130cdf213264ac8c604bba39b1eaf454e5
-    pristine_git_object: a004adaac1c7b9add6f7f7ffb0d65be1788f185a
+    last_write_checksum: sha1:e2f72457bc98f85456d469e3685689d7c31f75e2
+    pristine_git_object: 6b8f32f0c67fee34f04d3ea9f37753a4b9f5eae2
   scripts/install.ps1:
     id: fee0853709e9
     last_write_checksum: sha1:f9df93912e2b5d20eaffddbdb2708ce76ec06445
@@ -7983,4 +7999,26 @@ examples:
       responses:
         "200":
           application/json: {"requireReviews": [], "approvalFlows": {"savedGroups": []}}
+  putConfigRevisionProperty:
+    speakeasy-default-put-config-revision-property:
+      parameters:
+        path:
+          key: "<key>"
+          version: "<value>"
+      requestBody:
+        application/json: {"property": "<value>", "value": "<value>"}
+      responses:
+        "200":
+          application/json: {"revision": {"id": "<id>", "status": "draft", "authorId": "<id>", "reviews": [], "activityLog": [{"id": "<id>", "userId": "<id>", "action": "reviewed", "dateCreated": "2024-11-30T10:17:27.083Z"}], "dateCreated": "2026-06-29T15:16:50.606Z", "dateUpdated": "2025-11-08T07:09:58.265Z", "baseConfig": {"id": "<id>", "key": "<key>", "name": "<value>", "dateCreated": "2024-07-19T20:24:35.841Z", "dateUpdated": "2025-06-03T23:43:50.769Z"}, "proposedConfig": {"id": "<id>", "key": "<key>", "name": "<value>", "dateCreated": "2026-10-26T05:47:57.166Z", "dateUpdated": "2026-02-17T13:43:08.891Z"}, "proposedChanges": [{"op": "test", "path": "/var/spool", "value": "<value>"}]}}
+  deleteConfigRevisionProperty:
+    speakeasy-default-delete-config-revision-property:
+      parameters:
+        path:
+          key: "<key>"
+          version: "<value>"
+        query:
+          property: "<value>"
+      responses:
+        "200":
+          application/json: {"revision": {"id": "<id>", "status": "changes-requested", "authorId": "<id>", "reviews": [{"id": "<id>", "userId": "<id>", "decision": "approve", "dateCreated": "2025-07-07T15:03:35.754Z"}], "activityLog": [], "dateCreated": "2024-08-19T21:02:55.793Z", "dateUpdated": "2025-11-24T22:05:17.716Z", "baseConfig": {"id": "<id>", "key": "<key>", "name": "<value>", "dateCreated": "2026-09-28T23:55:50.526Z", "dateUpdated": "2024-05-17T03:41:35.892Z"}, "proposedConfig": {"id": "<id>", "key": "<key>", "name": "<value>", "dateCreated": "2024-04-09T21:20:05.470Z", "dateUpdated": "2024-07-11T16:46:17.458Z"}, "proposedChanges": [{"op": "replace", "path": "/home/user/dir", "value": "<value>"}]}}
 examplesVersion: 1.0.2

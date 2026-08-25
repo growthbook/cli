@@ -824,6 +824,11 @@ actions:
     update: { x-speakeasy-name-override: set-projection }
   - target: $..[?(@.operationId=="deleteConfigRevisionProjection")]
     update: { x-speakeasy-name-override: delete-projection }
+  # property is a 1:1 analog of the projection sub-resource above — same verb pair.
+  - target: $..[?(@.operationId=="putConfigRevisionProperty")]
+    update: { x-speakeasy-name-override: set-property }
+  - target: $..[?(@.operationId=="deleteConfigRevisionProperty")]
+    update: { x-speakeasy-name-override: delete-property }
   # Straggler leaf renames swept across the remaining groups — same rationale:
   # drop the operationId-derived http-verb/resource-echo prefixes for the action,
   # since the group already supplies the context. Keeps mixed-convention families
