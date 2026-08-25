@@ -37,7 +37,8 @@ jobs:
   refresh-surface:
     needs: generate
     # `speakeasy run` never refreshes the golden, so every regen lands a stale one.
-    if: github.event_name != 'pull_request' && needs.generate.outputs.go_regenerated == 'true'
+    # No `go_regenerated` check: workflow-executor.yaml declares no workflow_call outputs, so it is always empty.
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - name: Find the generation branch
@@ -97,8 +98,8 @@ jobs:
             echo "**The command surface changed in this regeneration.** The golden was stale and has been refreshed automatically."
             echo
             echo '```'
-            # Match `-]` and `{+`, not `[-`: every flag list contains a literal `[-` (as in `[--all`).
-            grep -E '\-\]|\{\+' "$RUNNER_TEMP/surface.diff" | grep '^growthbook ' \
+            # A wholly added/removed command line starts with its own `{+`/`[-` marker, so the anchor must allow one.
+            grep -E '^(\{\+|\[-)?growthbook ' "$RUNNER_TEMP/surface.diff" | grep -E '\{\+|\-\]' \
               || echo "(no command lines changed — ordering or whitespace only)"
             echo '```'
           } > "$RUNNER_TEMP/comment.md"
