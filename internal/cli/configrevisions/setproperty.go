@@ -14,7 +14,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var putConfigRevisionPropertyCmdMeta = []flagutil.FlagMeta{
+var setPropertyCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "key", Shorthand: "k", FieldPath: "Key", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
@@ -26,36 +26,36 @@ var putConfigRevisionPropertyCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "skip-hooks", FieldPath: "Body.SkipHooks", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored."},
 }
 
-// initPutConfigRevisionPropertyCmd initializes the put-config-revision-property command.
-func initPutConfigRevisionPropertyCmd(parent *cobra.Command) error {
+// initSetPropertyCmd initializes the set-property command.
+func initSetPropertyCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
-		Use:     "put-config-revision-property",
+		Use:     "set-property",
 		Short:   "Set one property of a config draft revision's value",
 		Long:    "Stages a single property of this config's own value on the draft, leaving every other property untouched. Prefer this over `PUT .../value` when changing one field: a whole-value write from a stale read silently drops properties someone else added in the meantime.\n\n`null` is a value (it does not remove the property) — use `DELETE .../property` to remove one. Pass `version: \"new\"` to auto-create a draft.",
-		Example: "  growthbook config-revisions put-config-revision-property --key <key> --version-param <value> --property <value> --value <value>",
-		RunE:    runPutConfigRevisionPropertyCmd,
-		Aliases: []string{"pcrp"},
+		Example: "  growthbook config-revisions set-property --key <key> --version-param <value> --property <value> --value <value>",
+		RunE:    runSetPropertyCmd,
+		Aliases: []string{"spro"},
 	}
-	flagutil.RegisterFlags(cmd, putConfigRevisionPropertyCmdMeta)
-	if err := flagutil.ValidateMeta[operations.PutConfigRevisionPropertyRequest](putConfigRevisionPropertyCmdMeta); err != nil {
-		return fmt.Errorf("invalid metadata for put-config-revision-property: %w", err)
+	flagutil.RegisterFlags(cmd, setPropertyCmdMeta)
+	if err := flagutil.ValidateMeta[operations.PutConfigRevisionPropertyRequest](setPropertyCmdMeta); err != nil {
+		return fmt.Errorf("invalid metadata for set-property: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
 	parent.AddCommand(cmd)
 	return nil
 }
 
-// runPutConfigRevisionPropertyCmd executes the put-config-revision-property command.
-func runPutConfigRevisionPropertyCmd(cmd *cobra.Command, args []string) error {
+// runSetPropertyCmd executes the set-property command.
+func runSetPropertyCmd(cmd *cobra.Command, args []string) error {
 	if usage.UsageRequested(cmd) {
 		return usage.EmitSchema(cmd, cmd.OutOrStdout())
 	}
-	if interactive.ShouldPrompt(cmd, putConfigRevisionPropertyCmdMeta) {
-		if err := interactive.PromptAndSetFlags(cmd, putConfigRevisionPropertyCmdMeta); err != nil {
+	if interactive.ShouldPrompt(cmd, setPropertyCmdMeta) {
+		if err := interactive.PromptAndSetFlags(cmd, setPropertyCmdMeta); err != nil {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.PutConfigRevisionPropertyRequest](cmd, putConfigRevisionPropertyCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.PutConfigRevisionPropertyRequest](cmd, setPropertyCmdMeta, "Body", "body")
 	if err != nil {
 		return err
 	}
@@ -78,7 +78,7 @@ func runPutConfigRevisionPropertyCmd(cmd *cobra.Command, args []string) error {
 	if output.WantsRawJSON(cmd) {
 		sdkOpts = append(sdkOpts, operations.WithSkipDeserialization())
 	}
-	res, err := s.ConfigRevisions.PutConfigRevisionProperty(cmd.Context(), *req, sdkOpts...)
+	res, err := s.ConfigRevisions.SetProperty(cmd.Context(), *req, sdkOpts...)
 	if err != nil {
 		return output.Error(cmd, err)
 	}

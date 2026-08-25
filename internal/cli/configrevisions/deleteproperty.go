@@ -14,41 +14,41 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var deleteConfigRevisionPropertyCmdMeta = []flagutil.FlagMeta{
+var deletePropertyCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "key", Shorthand: "k", FieldPath: "Key", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "property", Shorthand: "p", FieldPath: "Property", Kind: flagutil.FlagKindString, Required: true, Description: "Name of the property to remove. [required]"},
 }
 
-// initDeleteConfigRevisionPropertyCmd initializes the delete-config-revision-property command.
-func initDeleteConfigRevisionPropertyCmd(parent *cobra.Command) error {
+// initDeletePropertyCmd initializes the delete-property command.
+func initDeletePropertyCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
-		Use:     "delete-config-revision-property",
+		Use:     "delete-property",
 		Short:   "Remove one property from a config draft revision's value",
 		Long:    "Stages removal of a single property from this config's own value on the draft; the config then inherits that property from its parent (if any). Every other property is untouched. Pass `version: \"new\"` to auto-create a draft.",
-		Example: "  growthbook config-revisions delete-config-revision-property --key <key> --version-param <value> --property <value>",
-		RunE:    runDeleteConfigRevisionPropertyCmd,
-		Aliases: []string{"dcrp"},
+		Example: "  growthbook config-revisions delete-property --key <key> --version-param <value> --property <value>",
+		RunE:    runDeletePropertyCmd,
+		Aliases: []string{"dpr"},
 	}
-	flagutil.RegisterFlags(cmd, deleteConfigRevisionPropertyCmdMeta)
-	if err := flagutil.ValidateMeta[operations.DeleteConfigRevisionPropertyRequest](deleteConfigRevisionPropertyCmdMeta); err != nil {
-		return fmt.Errorf("invalid metadata for delete-config-revision-property: %w", err)
+	flagutil.RegisterFlags(cmd, deletePropertyCmdMeta)
+	if err := flagutil.ValidateMeta[operations.DeleteConfigRevisionPropertyRequest](deletePropertyCmdMeta); err != nil {
+		return fmt.Errorf("invalid metadata for delete-property: %w", err)
 	}
 	parent.AddCommand(cmd)
 	return nil
 }
 
-// runDeleteConfigRevisionPropertyCmd executes the delete-config-revision-property command.
-func runDeleteConfigRevisionPropertyCmd(cmd *cobra.Command, args []string) error {
+// runDeletePropertyCmd executes the delete-property command.
+func runDeletePropertyCmd(cmd *cobra.Command, args []string) error {
 	if usage.UsageRequested(cmd) {
 		return usage.EmitSchema(cmd, cmd.OutOrStdout())
 	}
-	if interactive.ShouldPrompt(cmd, deleteConfigRevisionPropertyCmdMeta) {
-		if err := interactive.PromptAndSetFlags(cmd, deleteConfigRevisionPropertyCmdMeta); err != nil {
+	if interactive.ShouldPrompt(cmd, deletePropertyCmdMeta) {
+		if err := interactive.PromptAndSetFlags(cmd, deletePropertyCmdMeta); err != nil {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.DeleteConfigRevisionPropertyRequest](cmd, deleteConfigRevisionPropertyCmdMeta, "", "")
+	req, err := flagutil.BuildRequest[operations.DeleteConfigRevisionPropertyRequest](cmd, deletePropertyCmdMeta, "", "")
 	if err != nil {
 		return err
 	}
@@ -71,7 +71,7 @@ func runDeleteConfigRevisionPropertyCmd(cmd *cobra.Command, args []string) error
 	if output.WantsRawJSON(cmd) {
 		sdkOpts = append(sdkOpts, operations.WithSkipDeserialization())
 	}
-	res, err := s.ConfigRevisions.DeleteConfigRevisionProperty(cmd.Context(), *req, sdkOpts...)
+	res, err := s.ConfigRevisions.DeleteProperty(cmd.Context(), *req, sdkOpts...)
 	if err != nil {
 		return output.Error(cmd, err)
 	}

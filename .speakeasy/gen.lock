@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 4c8e0331-b838-4af2-bf59-101dac30ada4
 management:
-  docChecksum: 6191faa3a597517054ac30db32026bc1
+  docChecksum: e79d3d20fe96ab85ab0165211dc9ac14
   docVersion: 5.0.1
   speakeasyVersion: 1.794.0
   generationVersion: 2.930.0
-  releaseVersion: 2.2.1
-  configChecksum: 31bfc3a084fe822b2b40dc8f13085c03
+  releaseVersion: 2.3.0
+  configChecksum: 59f55f81ea3d9a56c5ccee1ed9676c5d
   repoURL: https://github.com/growthbook/cli.git
   installationURL: https://github.com/growthbook/cli
 persistentEdits:
-  generation_id: a17952d2-5b06-49c2-91c6-ce90d1fa1a99
-  pristine_commit_hash: b6113ea9bb0f06513bad22fc6137022eb38daa5e
-  pristine_tree_hash: f0b13432e0177611d34b09fcb03bcc7191df034a
+  generation_id: 9c4ac215-727c-4660-85e2-9cdbc458ba3c
+  pristine_commit_hash: 2f24b18bf2d846fe868fe0a5b50c49eba7ad7045
+  pristine_tree_hash: 50686a46ab8b70b39a3e2545983c8da9c98a71f0
 features:
   cli:
     additionalProperties: 0.0.1
@@ -157,14 +157,14 @@ trackedFiles:
     id: 3d288fdd4c3c
     last_write_checksum: sha1:22f3c4ea4315bfe80637c747bfa11046dc59b26e
     pristine_git_object: 7fcc97bb10c27c35254a03bf6ddcf6f9a41cb8a9
-  internal/cli/configrevisions/deleteconfigrevisionproperty.go:
-    id: 772dfbbd1394
-    last_write_checksum: sha1:5d0409113b6db8cda84782b4749223339720eb3f
-    pristine_git_object: ea19552fd3a584b8055e5060c20137835a85509d
   internal/cli/configrevisions/deleteprojection.go:
     id: 47764a12075b
     last_write_checksum: sha1:fcae41e4a47dbe24af47c8303ef7fd899c34311b
     pristine_git_object: d0ce4a3417603eff07e6377746ec4d149b5b94c1
+  internal/cli/configrevisions/deleteproperty.go:
+    id: 144df7acf848
+    last_write_checksum: sha1:343c76701a307d116a00b2542b04e81053c4ec69
+    pristine_git_object: 471fb85535961164aec8113622eeaff7daa7e8e3
   internal/cli/configrevisions/discard.go:
     id: 2baa2b2eefce
     last_write_checksum: sha1:936d187380c2950c52e3785f88727fad92db0e9b
@@ -193,10 +193,6 @@ trackedFiles:
     id: 4a51847d3a0a
     last_write_checksum: sha1:6f9063678eced81ff8ac55267f04851a5968de4c
     pristine_git_object: 778c0a807b16164edfc9a2d350f34b0c4a184a3e
-  internal/cli/configrevisions/putconfigrevisionproperty.go:
-    id: 595c76e8fbed
-    last_write_checksum: sha1:e8adaf934630dcb64bd674ccf5e3c72058a92d7a
-    pristine_git_object: 708352435454260eae926364055a00127b5ae66a
   internal/cli/configrevisions/rebase.go:
     id: 5a19ac2260dc
     last_write_checksum: sha1:1381c5ab37d4111bd679ea77a393f41bfdbfa1a6
@@ -219,8 +215,8 @@ trackedFiles:
     pristine_git_object: f87fb0f126e38140dede0a9efc470e35d43848a2
   internal/cli/configrevisions/root.go:
     id: c9a25248280d
-    last_write_checksum: sha1:75740e8a6a6eb2f5774468e52719127f95ce65c0
-    pristine_git_object: 33cfba90325466d92e346d92dc81b8dd6ef7d637
+    last_write_checksum: sha1:3048374d3c21e6b5e860836a36946117c1cb8e26
+    pristine_git_object: e2289a6dc41d22415647ed2afea08a3d3a08c1a5
   internal/cli/configrevisions/schedulepublish.go:
     id: 45a20a10c8a6
     last_write_checksum: sha1:487be0519445f2993f687af8ba7322e2c410caa8
@@ -233,6 +229,10 @@ trackedFiles:
     id: 378c2ec0b80b
     last_write_checksum: sha1:334ee215a7eaad16fc42e181d562f82d103a2012
     pristine_git_object: ce74715ed4ec8ff50aa5a2330ab2882210865c0d
+  internal/cli/configrevisions/setproperty.go:
+    id: bb15fefd5d19
+    last_write_checksum: sha1:9d4c6626a8dbb1b2bee30e9ed96feaedc1ca8706
+    pristine_git_object: efe742cc828d5861de0cc78037771d6f39f2bc9e
   internal/cli/configrevisions/setschema.go:
     id: 9a97660731f0
     last_write_checksum: sha1:98aa38168f38782677cbb740edd2b5b4c43a8378
@@ -1791,8 +1791,8 @@ trackedFiles:
     pristine_git_object: 773a22f36454f22ba733858a3f54401690fe8f31
   internal/cli/version.go:
     id: 7b0665492f72
-    last_write_checksum: sha1:5eb7d1a77ff9038f2148b90ed1917bf5e53f7cf2
-    pristine_git_object: 5fe0416be7bb73d5ea959512d5941b40aa8c8347
+    last_write_checksum: sha1:ecee4d0d6ccbf2626ad366cc542e4305e6562389
+    pristine_git_object: 551fb1fd331beae1e079235ccaffea999a72e77d
   internal/cli/visualchangesets/addvisualchange.go:
     id: fdbcb9d69b23
     last_write_checksum: sha1:62c37780da4a614d14105d11d5241ae225eb0df6
@@ -1919,8 +1919,8 @@ trackedFiles:
     pristine_git_object: 72fba21982adb366e1fd19b91f45408ed0a8e42e
   internal/sdk/configrevisions.go:
     id: c0851429a9cd
-    last_write_checksum: sha1:f814d158db8d7b26f3fe0d83b36a1cdabbd04ccb
-    pristine_git_object: 0d5702374a4cea7a69ce0be0ed61cac6aac44706
+    last_write_checksum: sha1:bafac34d646ade39dce5de092e4e9a4a75aa4db9
+    pristine_git_object: 4bac2f6e46834eb4ff3a72f324578ea19cc5f551
   internal/sdk/configs.go:
     id: 8a11067cac47
     last_write_checksum: sha1:1c5028507dd01da08a763f05b63ca5733033e75d
@@ -4363,8 +4363,8 @@ trackedFiles:
     pristine_git_object: 159a87ec97aba99e4edd132f69652e123434303e
   internal/usage/schema.go:
     id: 0f40f4612437
-    last_write_checksum: sha1:5fafb155d2f3202cabc1ef8f38a07dc2b890bd18
-    pristine_git_object: 9c6bdcf6525e85f5b3fb7ad74bb53a5dae9671c9
+    last_write_checksum: sha1:e2f72457bc98f85456d469e3685689d7c31f75e2
+    pristine_git_object: 6b8f32f0c67fee34f04d3ea9f37753a4b9f5eae2
   scripts/install.ps1:
     id: fee0853709e9
     last_write_checksum: sha1:f9df93912e2b5d20eaffddbdb2708ce76ec06445
@@ -8022,7 +8022,3 @@ examples:
         "200":
           application/json: {"revision": {"id": "<id>", "status": "changes-requested", "authorId": "<id>", "reviews": [{"id": "<id>", "userId": "<id>", "decision": "approve", "dateCreated": "2025-07-07T15:03:35.754Z"}], "activityLog": [], "dateCreated": "2024-08-19T21:02:55.793Z", "dateUpdated": "2025-11-24T22:05:17.716Z", "baseConfig": {"id": "<id>", "key": "<key>", "name": "<value>", "dateCreated": "2026-09-28T23:55:50.526Z", "dateUpdated": "2024-05-17T03:41:35.892Z"}, "proposedConfig": {"id": "<id>", "key": "<key>", "name": "<value>", "dateCreated": "2024-04-09T21:20:05.470Z", "dateUpdated": "2024-07-11T16:46:17.458Z"}, "proposedChanges": [{"op": "replace", "path": "/home/user/dir", "value": "<value>"}]}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Cli SDK Changes:
-  * `Growthbook.ConfigRevisions.PutConfigRevisionProperty()`: **Added**
-  * `Growthbook.ConfigRevisions.DeleteConfigRevisionProperty()`: **Added**

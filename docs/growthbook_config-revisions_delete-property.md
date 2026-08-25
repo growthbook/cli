@@ -1,4 +1,4 @@
-## growthbook config-revisions delete-config-revision-property
+## growthbook config-revisions delete-property
 
 Remove one property from a config draft revision's value
 
@@ -7,19 +7,19 @@ Remove one property from a config draft revision's value
 Stages removal of a single property from this config's own value on the draft; the config then inherits that property from its parent (if any). Every other property is untouched. Pass `version: "new"` to auto-create a draft.
 
 ```
-growthbook config-revisions delete-config-revision-property [flags]
+growthbook config-revisions delete-property [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook config-revisions delete-config-revision-property --key <key> --version-param <value> --property <value>
+  growthbook config-revisions delete-property --key <key> --version-param <value> --property <value>
 ```
 
 ### Options
 
 ```
-  -h, --help                   help for delete-config-revision-property
+  -h, --help                   help for delete-property
   -k, --key string             [required]
   -p, --property string        Name of the property to remove. [required]
   -v, --version-param string   [required]

@@ -22233,6 +22233,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: set-property
     delete:
       operationId: deleteConfigRevisionProperty
       summary: Remove one property from a config draft revision's value
@@ -22282,6 +22283,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: delete-property
   /v1/configs-revisions/{key}/{version}/schema:
     put:
       operationId: putConfigRevisionSchema

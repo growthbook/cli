@@ -1,4 +1,4 @@
-## growthbook config-revisions put-config-revision-property
+## growthbook config-revisions set-property
 
 Set one property of a config draft revision's value
 
@@ -9,20 +9,20 @@ Stages a single property of this config's own value on the draft, leaving every 
 `null` is a value (it does not remove the property) — use `DELETE .../property` to remove one. Pass `version: "new"` to auto-create a draft.
 
 ```
-growthbook config-revisions put-config-revision-property [flags]
+growthbook config-revisions set-property [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook config-revisions put-config-revision-property --key <key> --version-param <value> --property <value> --value <value>
+  growthbook config-revisions set-property --key <key> --version-param <value> --property <value> --value <value>
 ```
 
 ### Options
 
 ```
       --body string                        Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -h, --help                               help for put-config-revision-property
+  -h, --help                               help for set-property
   -i, --ignore-warnings                    Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
   -k, --key string                         [required]
   -p, --property string                    Name of the property to set in this config's own value. [required]

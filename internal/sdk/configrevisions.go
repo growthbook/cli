@@ -1085,11 +1085,11 @@ func (s *ConfigRevisions) SetValue(ctx context.Context, request operations.PutCo
 
 }
 
-// PutConfigRevisionProperty - Set one property of a config draft revision's value
+// SetProperty - Set one property of a config draft revision's value
 // Stages a single property of this config's own value on the draft, leaving every other property untouched. Prefer this over `PUT .../value` when changing one field: a whole-value write from a stale read silently drops properties someone else added in the meantime.
 //
 // `null` is a value (it does not remove the property) — use `DELETE .../property` to remove one. Pass `version: "new"` to auto-create a draft.
-func (s *ConfigRevisions) PutConfigRevisionProperty(ctx context.Context, request operations.PutConfigRevisionPropertyRequest, opts ...operations.Option) (*operations.PutConfigRevisionPropertyResponse, error) {
+func (s *ConfigRevisions) SetProperty(ctx context.Context, request operations.PutConfigRevisionPropertyRequest, opts ...operations.Option) (*operations.PutConfigRevisionPropertyResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1239,9 +1239,9 @@ func (s *ConfigRevisions) PutConfigRevisionProperty(ctx context.Context, request
 
 }
 
-// DeleteConfigRevisionProperty - Remove one property from a config draft revision's value
+// DeleteProperty - Remove one property from a config draft revision's value
 // Stages removal of a single property from this config's own value on the draft; the config then inherits that property from its parent (if any). Every other property is untouched. Pass `version: "new"` to auto-create a draft.
-func (s *ConfigRevisions) DeleteConfigRevisionProperty(ctx context.Context, request operations.DeleteConfigRevisionPropertyRequest, opts ...operations.Option) (*operations.DeleteConfigRevisionPropertyResponse, error) {
+func (s *ConfigRevisions) DeleteProperty(ctx context.Context, request operations.DeleteConfigRevisionPropertyRequest, opts ...operations.Option) (*operations.DeleteConfigRevisionPropertyResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

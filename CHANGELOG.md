@@ -2,6 +2,32 @@
 
 ## [Unreleased]
 
+Additive only — no commands or flags were removed or renamed, so no action is needed on upgrade.
+
+### Added
+
+- **`growthbook config-revisions set-property`** — stage a single property of a config draft
+  revision's own value, leaving every other property untouched. Prefer it over
+  `config-revisions set-value` when you are changing one field: a whole-value write built from a
+  stale read silently drops properties someone else added in the meantime.
+
+  `--value null` sets the property to null rather than removing it — use `delete-property` to
+  remove one. Pass `--version-param new` to auto-create a draft.
+
+  ```bash
+  growthbook config-revisions set-property --key my-config --version-param new \
+    --property timeout --value 30
+  ```
+
+- **`growthbook config-revisions delete-property`** — stage removal of a single property from a
+  config draft revision's own value. The config then inherits that property from its parent, if it
+  has one, and every other property is untouched. Also accepts `--version-param new`.
+
+  ```bash
+  growthbook config-revisions delete-property --key my-config --version-param new \
+    --property timeout
+  ```
+
 ## [2.2.0] - 2026-08-24
 
 Additive only — no commands or flags were removed or renamed, so no action is needed on upgrade.
