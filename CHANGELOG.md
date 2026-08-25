@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [2.3.0] - 2026-08-25
+
 Additive only — no commands or flags were removed or renamed, so no action is needed on upgrade.
 
 ### Added
