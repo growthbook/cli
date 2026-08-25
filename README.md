@@ -536,6 +536,8 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`get`](docs/growthbook_config-revisions_get.md) - Get a single config revision
 * [`set-metadata`](docs/growthbook_config-revisions_set-metadata.md) - Update config metadata in a draft revision
 * [`set-value`](docs/growthbook_config-revisions_set-value.md) - Update the value of a config draft revision
+* [`put-config-revision-property`](docs/growthbook_config-revisions_put-config-revision-property.md) - Set one property of a config draft revision's value
+* [`delete-config-revision-property`](docs/growthbook_config-revisions_delete-config-revision-property.md) - Remove one property from a config draft revision's value
 * [`set-schema`](docs/growthbook_config-revisions_set-schema.md) - Update or import the schema of a config draft revision
 * [`set-projection`](docs/growthbook_config-revisions_set-projection.md) - Set (or update) a config's per-source render projection on a draft
 * [`delete-projection`](docs/growthbook_config-revisions_delete-projection.md) - Remove a config's per-source render projection on a draft

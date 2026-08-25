@@ -49,6 +49,14 @@ func InitConfigRevisionsRoot(parent *cobra.Command) error {
 		return err
 	}
 
+	if err := initPutConfigRevisionPropertyCmd(ConfigRevisionsCmd); err != nil {
+		return err
+	}
+
+	if err := initDeleteConfigRevisionPropertyCmd(ConfigRevisionsCmd); err != nil {
+		return err
+	}
+
 	if err := initSetSchemaCmd(ConfigRevisionsCmd); err != nil {
 		return err
 	}

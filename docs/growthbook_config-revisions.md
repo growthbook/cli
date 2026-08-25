@@ -47,6 +47,7 @@ growthbook config-revisions [flags]
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
 * [growthbook config-revisions archive](growthbook_config-revisions_archive.md)	 - Stage an archive/unarchive in a draft revision
 * [growthbook config-revisions create](growthbook_config-revisions_create.md)	 - Create a draft revision
+* [growthbook config-revisions delete-config-revision-property](growthbook_config-revisions_delete-config-revision-property.md)	 - Remove one property from a config draft revision's value
 * [growthbook config-revisions delete-projection](growthbook_config-revisions_delete-projection.md)	 - Remove a config's per-source render projection on a draft
 * [growthbook config-revisions discard](growthbook_config-revisions_discard.md)	 - Discard a draft revision
 * [growthbook config-revisions get](growthbook_config-revisions_get.md)	 - Get a single config revision
@@ -55,6 +56,7 @@ growthbook config-revisions [flags]
 * [growthbook config-revisions list-for-config](growthbook_config-revisions_list-for-config.md)	 - List revisions for a config
 * [growthbook config-revisions merge-status](growthbook_config-revisions_merge-status.md)	 - Get merge status for a draft revision
 * [growthbook config-revisions publish](growthbook_config-revisions_publish.md)	 - Publish a draft revision
+* [growthbook config-revisions put-config-revision-property](growthbook_config-revisions_put-config-revision-property.md)	 - Set one property of a config draft revision's value
 * [growthbook config-revisions rebase](growthbook_config-revisions_rebase.md)	 - Rebase a draft revision onto the current live config
 * [growthbook config-revisions recall-review](growthbook_config-revisions_recall-review.md)	 - Recall a review request
 * [growthbook config-revisions reopen](growthbook_config-revisions_reopen.md)	 - Reopen a discarded revision
