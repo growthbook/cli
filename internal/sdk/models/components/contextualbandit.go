@@ -306,7 +306,7 @@ type ContextualBandit struct {
 	Condition               *string                                                 `json:"condition,omitzero"`
 	SavedGroups             []ContextualBanditSavedGroup                            `json:"savedGroups,omitzero"`
 	Prerequisites           []ContextualBanditPrerequisite                          `json:"prerequisites,omitzero"`
-	Seed                    *string                                                 `json:"seed,omitzero"`
+	Seed                    string                                                  `json:"seed"`
 	VariationWeights        []VariationWeight                                       `json:"variationWeights,omitzero"`
 	CurrentLeafWeights      []CurrentLeafWeight                                     `json:"currentLeafWeights"`
 	BanditVersion           int64                                                   `json:"banditVersion"`
@@ -493,9 +493,9 @@ func (c *ContextualBandit) GetPrerequisites() []ContextualBanditPrerequisite {
 	return c.Prerequisites
 }
 
-func (c *ContextualBandit) GetSeed() *string {
+func (c *ContextualBandit) GetSeed() string {
 	if c == nil {
-		return nil
+		return ""
 	}
 	return c.Seed
 }

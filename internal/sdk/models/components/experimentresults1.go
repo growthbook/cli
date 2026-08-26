@@ -66,6 +66,7 @@ type Analysis struct {
 	PValue              *float64 `json:"pValue,omitzero"`
 	Risk                *float64 `json:"risk,omitzero"`
 	ChanceToBeatControl *float64 `json:"chanceToBeatControl,omitzero"`
+	ErrorMessage        *string  `json:"errorMessage,omitzero"`
 }
 
 func (a *Analysis) GetEngine() Engine {
@@ -143,6 +144,13 @@ func (a *Analysis) GetChanceToBeatControl() *float64 {
 		return nil
 	}
 	return a.ChanceToBeatControl
+}
+
+func (a *Analysis) GetErrorMessage() *string {
+	if a == nil {
+		return nil
+	}
+	return a.ErrorMessage
 }
 
 type ExperimentResultsVariation1 struct {

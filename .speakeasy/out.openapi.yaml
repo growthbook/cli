@@ -36464,6 +36464,7 @@ paths:
                                           - type: string
                                           - type: 'null'
                                       steps:
+                                        maxItems: 20
                                         type: array
                                         items:
                                           type: object
@@ -36557,6 +36558,10 @@ paths:
                                   - type
                                   - dataset
                                 additionalProperties: false
+                              linkedFunnelMetricId:
+                                anyOf:
+                                  - type: string
+                                  - type: 'null'
                             required:
                               - organization
                               - id
@@ -43847,6 +43852,7 @@ paths:
                         - type: string
                         - type: 'null'
                     steps:
+                      maxItems: 20
                       type: array
                       items:
                         type: object
@@ -44228,6 +44234,7 @@ paths:
                                       - type: string
                                       - type: 'null'
                                   steps:
+                                    maxItems: 20
                                     type: array
                                     items:
                                       type: object
@@ -50716,6 +50723,8 @@ components:
                                   type: number
                                 chanceToBeatControl:
                                   type: number
+                                errorMessage:
+                                  type: string
                               required:
                                 - engine
                                 - numerator
@@ -59510,6 +59519,7 @@ components:
                               - type: string
                               - type: 'null'
                           steps:
+                            maxItems: 20
                             type: array
                             items:
                               type: object
@@ -59603,6 +59613,10 @@ components:
                       - type
                       - dataset
                     additionalProperties: false
+                  linkedFunnelMetricId:
+                    anyOf:
+                      - type: string
+                      - type: 'null'
                 required:
                   - organization
                   - id
@@ -59854,6 +59868,7 @@ components:
         - variations
         - datasource
         - contextualBanditQueryId
+        - seed
         - currentLeafWeights
         - banditVersion
         - contextualAttributes

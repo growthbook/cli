@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 4c8e0331-b838-4af2-bf59-101dac30ada4
 management:
-  docChecksum: e79d3d20fe96ab85ab0165211dc9ac14
+  docChecksum: 9bd8e8313343062057dc5ac836523a9c
   docVersion: 5.0.1
   speakeasyVersion: 1.794.0
   generationVersion: 2.930.0
-  releaseVersion: 2.3.0
-  configChecksum: 59f55f81ea3d9a56c5ccee1ed9676c5d
+  releaseVersion: 2.3.1
+  configChecksum: 503b610cf56e731e661c3a0f0847b631
   repoURL: https://github.com/growthbook/cli.git
   installationURL: https://github.com/growthbook/cli
 persistentEdits:
-  generation_id: 9c4ac215-727c-4660-85e2-9cdbc458ba3c
-  pristine_commit_hash: 2f24b18bf2d846fe868fe0a5b50c49eba7ad7045
-  pristine_tree_hash: 50686a46ab8b70b39a3e2545983c8da9c98a71f0
+  generation_id: ae0f0ab4-4d4c-46a2-a187-26393e696c6e
+  pristine_commit_hash: c582817da8b3b8a2b3cf8fe15834cdfce63fb5fc
+  pristine_tree_hash: e5ba4563962abdbae1c7ccf8de24882c5635b96e
 features:
   cli:
     additionalProperties: 0.0.1
@@ -1791,8 +1791,8 @@ trackedFiles:
     pristine_git_object: 773a22f36454f22ba733858a3f54401690fe8f31
   internal/cli/version.go:
     id: 7b0665492f72
-    last_write_checksum: sha1:ecee4d0d6ccbf2626ad366cc542e4305e6562389
-    pristine_git_object: 551fb1fd331beae1e079235ccaffea999a72e77d
+    last_write_checksum: sha1:3ece66981ae4c68d9271e7961ecb12201202b4e8
+    pristine_git_object: 77420ad429f16f478f68f5de893f10bbb8c3a349
   internal/cli/visualchangesets/addvisualchange.go:
     id: fdbcb9d69b23
     last_write_checksum: sha1:62c37780da4a614d14105d11d5241ae225eb0df6
@@ -2079,8 +2079,8 @@ trackedFiles:
     pristine_git_object: 3f413e6bd16e2bfb0a393b84ea3f3a2d3f1027e2
   internal/sdk/models/components/blockmode4.go:
     id: 62cadc1a99f0
-    last_write_checksum: sha1:ac71f4915203b6857a7505a48c2a90c92e3c97d6
-    pristine_git_object: bb8c4fe34f4c3dd2db23d37a6a61113cd73c7100
+    last_write_checksum: sha1:dbe5740da27060dabe8c95c9d7f93afed7fbfd99
+    pristine_git_object: 1fe15a0c045842a7853219ad6bbc07b8d4241927
   internal/sdk/models/components/bypassedgates.go:
     id: 01cd15330348
     last_write_checksum: sha1:2dd4578145bf0fd39c3555b1b3e161ffb9f78b5c
@@ -2155,8 +2155,8 @@ trackedFiles:
     pristine_git_object: 6ee7b3ec17c342174d7f7ad22fc722ad22dfc748
   internal/sdk/models/components/contextualbandit.go:
     id: 7b81512bf270
-    last_write_checksum: sha1:8866087e4be1401e952a1e11e2e8021d4109d756
-    pristine_git_object: e05c9371d65c0dda713dc1ae3f4c654f3a5e6e7d
+    last_write_checksum: sha1:ff46d75a68c017c00d519223e0df274aebe56099
+    pristine_git_object: 19f920d7ad8460f508fdfe46e2c407f0d16edbb1
   internal/sdk/models/components/contextualbanditquery.go:
     id: 3707540f644e
     last_write_checksum: sha1:57bcfbde3c4a5ea0ae9ce9c226f50c7076e2cdc6
@@ -2227,8 +2227,8 @@ trackedFiles:
     pristine_git_object: f3db346d3b3018ca044abfcf2956d9f141f23789
   internal/sdk/models/components/experimentresults1.go:
     id: e2904cac1dcc
-    last_write_checksum: sha1:e6dd68341e972be6cc9d1edb497df29acc617d98
-    pristine_git_object: 9ce87f0dd78be097baf7208b2b66229a868e114d
+    last_write_checksum: sha1:8d1efb7a23ba040ffa096b38fc5ac68db6d384eb
+    pristine_git_object: a4064f818c73964b6dee8e1e8b8d8708ed303f78
   internal/sdk/models/components/experimentresults2.go:
     id: 98a81a5a1178
     last_write_checksum: sha1:b03aa9993edc73d5c68fba8be12bf1d0a3a9fd29
@@ -4083,8 +4083,8 @@ trackedFiles:
     pristine_git_object: d81db58b5bd92d0049e513200dc7fa5c637f39dd
   internal/sdk/models/operations/updatedashboardblockdategranularity2.go:
     id: a653cf31905f
-    last_write_checksum: sha1:46de4ca8d2d4b40b8eb84d59b4fef481d6608e0b
-    pristine_git_object: b46ae092ec566443143322804c932fb5ad10377c
+    last_write_checksum: sha1:9a6086346adddd17566f807dfadd8cbfed34d0a1
+    pristine_git_object: 0504a6e66050cb86acab225a9a69803b011d6fce
   internal/sdk/models/operations/updatedashboardresponse.go:
     id: 5fcf5b593ffb
     last_write_checksum: sha1:9279d686018e1f52e174c6b5b5b3f1f2239a2de2
@@ -4363,8 +4363,8 @@ trackedFiles:
     pristine_git_object: 159a87ec97aba99e4edd132f69652e123434303e
   internal/usage/schema.go:
     id: 0f40f4612437
-    last_write_checksum: sha1:e2f72457bc98f85456d469e3685689d7c31f75e2
-    pristine_git_object: 6b8f32f0c67fee34f04d3ea9f37753a4b9f5eae2
+    last_write_checksum: sha1:57ec36721591838d4b22548898533a905bce6edb
+    pristine_git_object: 52e0aa8ac0c7df624bf25d47e4c6c45ad6a25c2a
   scripts/install.ps1:
     id: fee0853709e9
     last_write_checksum: sha1:f9df93912e2b5d20eaffddbdb2708ce76ec06445
@@ -7016,7 +7016,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"contextualBandit": {"id": "<id>", "dateCreated": "2026-12-25T21:06:37.276Z", "dateUpdated": "2026-07-14T13:02:02.651Z", "name": "<value>", "owner": "<value>", "tags": [], "archived": false, "status": "stopped", "trackingKey": "<value>", "hashAttribute": "<value>", "variations": [], "datasource": "<value>", "contextualBanditQueryId": "<id>", "currentLeafWeights": [], "banditVersion": 628275, "contextualAttributes": ["<value 1>", "<value 2>"], "minUsersPerLeaf": 62850, "maxLeaves": 126694, "holdoutPercent": 8578.8, "banditModelVersion": 197385}}
+          application/json: {"contextualBandit": {"id": "<id>", "dateCreated": "2026-12-25T21:06:37.276Z", "dateUpdated": "2026-07-14T13:02:02.651Z", "name": "<value>", "owner": "<value>", "tags": [], "archived": false, "status": "stopped", "trackingKey": "<value>", "hashAttribute": "<value>", "variations": [], "datasource": "<value>", "contextualBanditQueryId": "<id>", "seed": "<value>", "currentLeafWeights": [], "banditVersion": 628275, "contextualAttributes": ["<value 1>", "<value 2>"], "minUsersPerLeaf": 62850, "maxLeaves": 126694, "holdoutPercent": 8578.8, "banditModelVersion": 197385}}
   updateContextualBandit:
     speakeasy-default-update-contextual-bandit:
       parameters:
@@ -7026,14 +7026,14 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"contextualBandit": {"id": "<id>", "dateCreated": "2026-01-03T03:21:48.224Z", "dateUpdated": "2026-09-11T14:41:50.433Z", "name": "<value>", "owner": "<value>", "tags": ["<value 1>", "<value 2>"], "archived": false, "status": "draft", "trackingKey": "<value>", "hashAttribute": "<value>", "variations": [{"id": "<id>", "key": "<key>", "name": "<value>"}], "datasource": "<value>", "contextualBanditQueryId": "<id>", "currentLeafWeights": [{"leafId": 164247, "condition": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "weights": []}], "banditVersion": 73013, "contextualAttributes": ["<value 1>"], "minUsersPerLeaf": 270368, "maxLeaves": 527938, "holdoutPercent": 2699.49, "banditModelVersion": 126192}}
+          application/json: {"contextualBandit": {"id": "<id>", "dateCreated": "2026-01-03T03:21:48.224Z", "dateUpdated": "2026-09-11T14:41:50.433Z", "name": "<value>", "owner": "<value>", "tags": ["<value 1>", "<value 2>"], "archived": false, "status": "draft", "trackingKey": "<value>", "hashAttribute": "<value>", "variations": [{"id": "<id>", "key": "<key>", "name": "<value>"}], "datasource": "<value>", "contextualBanditQueryId": "<id>", "seed": "<value>", "currentLeafWeights": [{"leafId": 164247, "condition": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "weights": []}], "banditVersion": 73013, "contextualAttributes": ["<value 1>"], "minUsersPerLeaf": 270368, "maxLeaves": 527938, "holdoutPercent": 2699.49, "banditModelVersion": 126192}}
   createContextualBandit:
     speakeasy-default-create-contextual-bandit:
       requestBody:
         application/json: {"name": "<value>", "trackingKey": "<value>", "decisionMetric": "<value>", "variations": [{"key": "<key>", "name": "<value>"}], "datasource": "<value>", "contextualBanditQueryId": "<id>", "contextualAttributes": ["<value 1>", "<value 2>", "<value 3>"]}
       responses:
         "200":
-          application/json: {"contextualBandit": {"id": "<id>", "dateCreated": "2025-05-20T07:16:49.264Z", "dateUpdated": "2025-04-29T13:47:01.199Z", "name": "<value>", "owner": "<value>", "tags": ["<value 1>", "<value 2>"], "archived": false, "status": "draft", "trackingKey": "<value>", "hashAttribute": "<value>", "variations": [], "datasource": "<value>", "contextualBanditQueryId": "<id>", "currentLeafWeights": [{"leafId": 189984, "condition": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "weights": [{"variationId": "<id>", "weight": 792.74}]}], "banditVersion": 633727, "contextualAttributes": ["<value 1>", "<value 2>", "<value 3>"], "minUsersPerLeaf": 58490, "maxLeaves": 581532, "holdoutPercent": 1327.48, "banditModelVersion": 413094}}
+          application/json: {"contextualBandit": {"id": "<id>", "dateCreated": "2025-05-20T07:16:49.264Z", "dateUpdated": "2025-04-29T13:47:01.199Z", "name": "<value>", "owner": "<value>", "tags": ["<value 1>", "<value 2>"], "archived": false, "status": "draft", "trackingKey": "<value>", "hashAttribute": "<value>", "variations": [], "datasource": "<value>", "contextualBanditQueryId": "<id>", "seed": "<value>", "currentLeafWeights": [{"leafId": 189984, "condition": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "weights": [{"variationId": "<id>", "weight": 792.74}]}], "banditVersion": 633727, "contextualAttributes": ["<value 1>", "<value 2>", "<value 3>"], "minUsersPerLeaf": 58490, "maxLeaves": 581532, "holdoutPercent": 1327.48, "banditModelVersion": 413094}}
   listContextualBandits:
     speakeasy-default-list-contextual-bandits:
       responses:
@@ -7046,7 +7046,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"contextualBandit": {"id": "<id>", "dateCreated": "2026-02-02T16:58:32.263Z", "dateUpdated": "2025-05-02T23:14:09.356Z", "name": "<value>", "owner": "<value>", "tags": ["<value 1>", "<value 2>", "<value 3>"], "archived": false, "status": "running", "trackingKey": "<value>", "hashAttribute": "<value>", "variations": [], "datasource": "<value>", "contextualBanditQueryId": "<id>", "currentLeafWeights": [], "banditVersion": 760811, "contextualAttributes": ["<value 1>", "<value 2>", "<value 3>"], "minUsersPerLeaf": 227953, "maxLeaves": 323722, "holdoutPercent": 645.87, "banditModelVersion": 73899}}
+          application/json: {"contextualBandit": {"id": "<id>", "dateCreated": "2026-02-02T16:58:32.263Z", "dateUpdated": "2025-05-02T23:14:09.356Z", "name": "<value>", "owner": "<value>", "tags": ["<value 1>", "<value 2>", "<value 3>"], "archived": false, "status": "running", "trackingKey": "<value>", "hashAttribute": "<value>", "variations": [], "datasource": "<value>", "contextualBanditQueryId": "<id>", "seed": "<value>", "currentLeafWeights": [], "banditVersion": 760811, "contextualAttributes": ["<value 1>", "<value 2>", "<value 3>"], "minUsersPerLeaf": 227953, "maxLeaves": 323722, "holdoutPercent": 645.87, "banditModelVersion": 73899}}
   stopContextualBandit:
     speakeasy-default-stop-contextual-bandit:
       parameters:
@@ -7054,7 +7054,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"contextualBandit": {"id": "<id>", "dateCreated": "2026-05-28T16:10:08.322Z", "dateUpdated": "2024-03-03T05:34:45.625Z", "name": "<value>", "owner": "<value>", "tags": ["<value 1>", "<value 2>"], "archived": true, "status": "stopped", "trackingKey": "<value>", "hashAttribute": "<value>", "variations": [{"id": "<id>", "key": "<key>", "name": "<value>"}], "datasource": "<value>", "contextualBanditQueryId": "<id>", "currentLeafWeights": [{"leafId": 336234, "condition": {"key": "<value>", "key1": "<value>"}, "weights": [{"variationId": "<id>", "weight": 5694.01}]}], "banditVersion": 693613, "contextualAttributes": ["<value 1>"], "minUsersPerLeaf": 354264, "maxLeaves": 451149, "holdoutPercent": 6442.58, "banditModelVersion": 224228}}
+          application/json: {"contextualBandit": {"id": "<id>", "dateCreated": "2026-05-28T16:10:08.322Z", "dateUpdated": "2024-03-03T05:34:45.625Z", "name": "<value>", "owner": "<value>", "tags": ["<value 1>", "<value 2>"], "archived": true, "status": "stopped", "trackingKey": "<value>", "hashAttribute": "<value>", "variations": [{"id": "<id>", "key": "<key>", "name": "<value>"}], "datasource": "<value>", "contextualBanditQueryId": "<id>", "seed": "<value>", "currentLeafWeights": [{"leafId": 336234, "condition": {"key": "<value>", "key1": "<value>"}, "weights": [{"variationId": "<id>", "weight": 5694.01}]}], "banditVersion": 693613, "contextualAttributes": ["<value 1>"], "minUsersPerLeaf": 354264, "maxLeaves": 451149, "holdoutPercent": 6442.58, "banditModelVersion": 224228}}
   refreshContextualBandit:
     speakeasy-default-refresh-contextual-bandit:
       parameters:
@@ -8022,3 +8022,4 @@ examples:
         "200":
           application/json: {"revision": {"id": "<id>", "status": "changes-requested", "authorId": "<id>", "reviews": [{"id": "<id>", "userId": "<id>", "decision": "approve", "dateCreated": "2025-07-07T15:03:35.754Z"}], "activityLog": [], "dateCreated": "2024-08-19T21:02:55.793Z", "dateUpdated": "2025-11-24T22:05:17.716Z", "baseConfig": {"id": "<id>", "key": "<key>", "name": "<value>", "dateCreated": "2026-09-28T23:55:50.526Z", "dateUpdated": "2024-05-17T03:41:35.892Z"}, "proposedConfig": {"id": "<id>", "key": "<key>", "name": "<value>", "dateCreated": "2024-04-09T21:20:05.470Z", "dateUpdated": "2024-07-11T16:46:17.458Z"}, "proposedChanges": [{"op": "replace", "path": "/home/user/dir", "value": "<value>"}]}}
 examplesVersion: 1.0.2
+releaseNotes: "## Cli SDK Changes:\n* `Growthbook.Experiments.ListResults()`:  `response.ExperimentResults[].Results[].Metrics[].Variations[].Analyses[].ErrorMessage` **Added**\n* `Growthbook.Experiments.Results()`:  `response.Result.Results[].Metrics[].Variations[].Analyses[].ErrorMessage` **Added**\n* `Growthbook.ContextualBandits.GetContextualBandit()`:  `response.ContextualBandit.Seed` **Changed**\n* `Growthbook.ContextualBandits.UpdateContextualBandit()`:  `response.ContextualBandit.Seed` **Changed**\n* `Growthbook.ContextualBandits.CreateContextualBandit()`:  `response.ContextualBandit.Seed` **Changed**\n* `Growthbook.ContextualBandits.ListContextualBandits()`:  `response.ContextualBandits[].Seed` **Changed**\n* `Growthbook.ContextualBandits.StartContextualBandit()`:  `response.ContextualBandit.Seed` **Changed**\n* `Growthbook.ContextualBandits.StopContextualBandit()`:  `response.ContextualBandit.Seed` **Changed**\n* `Growthbook.Reports.ListReports()`:  `response.Reports[].Results.Results[].Metrics[].Variations[].Analyses[].ErrorMessage` **Added**\n* `Growthbook.Reports.Create()`:  `response.Report.Results.Results[].Metrics[].Variations[].Analyses[].ErrorMessage` **Added**\n* `Growthbook.Reports.GetReport()`:  `response.Report.Results.Results[].Metrics[].Variations[].Analyses[].ErrorMessage` **Added**\n* `Growthbook.Reports.Refresh()`:  `response.Report.Results.Results[].Metrics[].Variations[].Analyses[].ErrorMessage` **Added**\n* `Growthbook.Reports.SetMetadata()`:  `response.Report.Results.Results[].Metrics[].Variations[].Analyses[].ErrorMessage` **Added**\n* `Growthbook.Reports.SetSettings()`:  `response.Report.Results.Results[].Metrics[].Variations[].Analyses[].ErrorMessage` **Added**\n* `Growthbook.Dashboards.GetDashboard()`:  `response.Dashboard.Blocks[].union(funnel-exploration).LinkedFunnelMetricId` **Added**\n* `Growthbook.Dashboards.UpdateDashboard()`: \n  *  `request.Request.Body.Blocks[].union(union (1)).union(funnel-exploration).LinkedFunnelMetricId` **Added**\n  *  `response.Dashboard.Blocks[].union(funnel-exploration).LinkedFunnelMetricId` **Added**\n* `Growthbook.Dashboards.CreateDashboard()`:  `response.Dashboard.Blocks[].union(funnel-exploration).LinkedFunnelMetricId` **Added**\n* `Growthbook.Dashboards.ListDashboards()`:  `response.Dashboards[].Blocks[].union(funnel-exploration).LinkedFunnelMetricId` **Added**\n* `Growthbook.Dashboards.ListForExperiment()`:  `response.Dashboards[].Blocks[].union(funnel-exploration).LinkedFunnelMetricId` **Added**\n"
