@@ -2,6 +2,31 @@
 
 ## [Unreleased]
 
+Additive only — no commands or flags were added, removed, or renamed, so no action is needed on
+upgrade. The new fields are all nested, so there are no new flags.
+
+### Added
+
+- **`errorMessage` on analysis results.** Each `analyses[]` entry under
+  `results[].metrics[].variations[]` can now carry the reason that analysis failed, instead of
+  reporting absent numbers with no explanation. Returned by `growthbook experiments results`,
+  `growthbook experiments list-results`, and every `growthbook reports` command that returns
+  results. Response-only.
+
+- **`linkedFunnelMetricId` on funnel-exploration dashboard blocks.** Returned by every `growthbook
+  dashboards` command that returns blocks, and accepted by `growthbook dashboards update` inside
+  `blocks[]` — a nested body field, so pass it in `--body` JSON. Nullable. `dashboards create`
+  does not take funnel-exploration blocks, so it is update-only on the request side.
+
+### Changed
+
+- **`seed` is now always returned on contextual bandits.** It was previously omitted when unset;
+  every `growthbook contextual-bandits` command now includes it. Nothing to migrate — a script
+  reading `.seed` gets a string where it could previously have got nothing.
+
+- **Funnel-exploration blocks cap `config.dataset.steps` at 20 entries.** The API enforces the
+  limit, so a longer list is rejected server-side; the CLI does not check it before sending.
+
 ## [2.3.0] - 2026-08-25
 
 Additive only — no commands or flags were removed or renamed, so no action is needed on upgrade.

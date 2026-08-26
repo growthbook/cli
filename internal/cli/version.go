@@ -13,7 +13,7 @@ import (
 // which propagates the value here (see cmd/growthbook/main.go):
 //
 //	go build -ldflags "-X main.version=x.y.z" ./cmd/growthbook
-var Version = "2.3.1"
+var Version = "2.4.0"
 
 // BuildTime is optionally set at build time via ldflags targeting the main package.
 var BuildTime string

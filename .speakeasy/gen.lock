@@ -5,7 +5,7 @@ management:
   docVersion: 5.0.1
   speakeasyVersion: 1.794.0
   generationVersion: 2.930.0
-  releaseVersion: 2.3.1
+  releaseVersion: 2.4.0
   configChecksum: 503b610cf56e731e661c3a0f0847b631
   repoURL: https://github.com/growthbook/cli.git
   installationURL: https://github.com/growthbook/cli
