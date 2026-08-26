@@ -1753,16 +1753,17 @@ type BlockFunnelExploration struct {
 	ID           string `json:"id"`
 	UID          string `json:"uid"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_                        string                  `const:"funnel-exploration" json:"type"`
-	Title                        string                  `json:"title"`
-	Description                  string                  `json:"description"`
-	SnapshotID                   *string                 `json:"snapshotId,omitzero"`
-	Layout                       *Layout16               `json:"layout,omitzero"`
-	ExplorerAnalysisID           string                  `json:"explorerAnalysisId"`
-	Comparison                   *BlockComparison8       `json:"comparison,omitzero"`
-	ComparisonExplorerAnalysisID *string                 `json:"comparisonExplorerAnalysisId,omitzero"`
-	GlobalControlSettings        *GlobalControlSettings8 `json:"globalControlSettings,omitzero"`
-	Config                       ConfigFunnel            `json:"config"`
+	type_                        string                                    `const:"funnel-exploration" json:"type"`
+	Title                        string                                    `json:"title"`
+	Description                  string                                    `json:"description"`
+	SnapshotID                   *string                                   `json:"snapshotId,omitzero"`
+	Layout                       *Layout16                                 `json:"layout,omitzero"`
+	ExplorerAnalysisID           string                                    `json:"explorerAnalysisId"`
+	Comparison                   *BlockComparison8                         `json:"comparison,omitzero"`
+	ComparisonExplorerAnalysisID *string                                   `json:"comparisonExplorerAnalysisId,omitzero"`
+	GlobalControlSettings        *GlobalControlSettings8                   `json:"globalControlSettings,omitzero"`
+	Config                       ConfigFunnel                              `json:"config"`
+	LinkedFunnelMetricID         optionalnullable.OptionalNullable[string] `json:"linkedFunnelMetricId,omitzero"`
 }
 
 func (b BlockFunnelExploration) MarshalJSON() ([]byte, error) {
@@ -1862,6 +1863,13 @@ func (b *BlockFunnelExploration) GetConfig() ConfigFunnel {
 		return ConfigFunnel{}
 	}
 	return b.Config
+}
+
+func (b *BlockFunnelExploration) GetLinkedFunnelMetricID() optionalnullable.OptionalNullable[string] {
+	if b == nil {
+		return nil
+	}
+	return b.LinkedFunnelMetricID
 }
 
 type Layout15 struct {

@@ -1741,16 +1741,17 @@ type BlockFunnelExploration struct {
 	ID           string `json:"id"`
 	UID          string `json:"uid"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_                        string                                  `const:"funnel-exploration" json:"type"`
-	Title                        string                                  `json:"title"`
-	Description                  string                                  `json:"description"`
-	SnapshotID                   *string                                 `json:"snapshotId,omitzero"`
-	Layout                       *UpdateDashboardLayout31                `json:"layout,omitzero"`
-	ExplorerAnalysisID           string                                  `json:"explorerAnalysisId"`
-	Comparison                   *UpdateDashboardComparison15            `json:"comparison,omitzero"`
-	ComparisonExplorerAnalysisID *string                                 `json:"comparisonExplorerAnalysisId,omitzero"`
-	GlobalControlSettings        *UpdateDashboardGlobalControlSettings15 `json:"globalControlSettings,omitzero"`
-	Config                       UpdateDashboardConfigFunnel             `json:"config"`
+	type_                        string                                    `const:"funnel-exploration" json:"type"`
+	Title                        string                                    `json:"title"`
+	Description                  string                                    `json:"description"`
+	SnapshotID                   *string                                   `json:"snapshotId,omitzero"`
+	Layout                       *UpdateDashboardLayout31                  `json:"layout,omitzero"`
+	ExplorerAnalysisID           string                                    `json:"explorerAnalysisId"`
+	Comparison                   *UpdateDashboardComparison15              `json:"comparison,omitzero"`
+	ComparisonExplorerAnalysisID *string                                   `json:"comparisonExplorerAnalysisId,omitzero"`
+	GlobalControlSettings        *UpdateDashboardGlobalControlSettings15   `json:"globalControlSettings,omitzero"`
+	Config                       UpdateDashboardConfigFunnel               `json:"config"`
+	LinkedFunnelMetricID         optionalnullable.OptionalNullable[string] `json:"linkedFunnelMetricId,omitzero"`
 }
 
 func (b BlockFunnelExploration) MarshalJSON() ([]byte, error) {
@@ -1850,6 +1851,13 @@ func (b *BlockFunnelExploration) GetConfig() UpdateDashboardConfigFunnel {
 		return UpdateDashboardConfigFunnel{}
 	}
 	return b.Config
+}
+
+func (b *BlockFunnelExploration) GetLinkedFunnelMetricID() optionalnullable.OptionalNullable[string] {
+	if b == nil {
+		return nil
+	}
+	return b.LinkedFunnelMetricID
 }
 
 type UpdateDashboardLayout30 struct {
