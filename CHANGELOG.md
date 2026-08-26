@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [2.4.0] - 2026-08-26
+
 Additive only — no commands or flags were added, removed, or renamed, so no action is needed on
 upgrade. The new fields are all nested, so there are no new flags.
 
