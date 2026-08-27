@@ -55,12 +55,14 @@ func (e *Engine) IsExact() bool {
 }
 
 type Analysis struct {
-	Engine              Engine   `json:"engine"`
-	Numerator           float64  `json:"numerator"`
-	Denominator         float64  `json:"denominator"`
-	Mean                float64  `json:"mean"`
-	Stddev              float64  `json:"stddev"`
-	PercentChange       float64  `json:"percentChange"`
+	Engine        Engine  `json:"engine"`
+	Numerator     float64 `json:"numerator"`
+	Denominator   float64 `json:"denominator"`
+	Mean          float64 `json:"mean"`
+	Stddev        float64 `json:"stddev"`
+	PercentChange float64 `json:"percentChange"`
+	// Standard error of the estimated effect (`percentChange`).
+	EffectStandardError float64  `json:"effectStandardError"`
 	CiLow               float64  `json:"ciLow"`
 	CiHigh              float64  `json:"ciHigh"`
 	PValue              *float64 `json:"pValue,omitzero"`
@@ -109,6 +111,13 @@ func (a *Analysis) GetPercentChange() float64 {
 		return 0.0
 	}
 	return a.PercentChange
+}
+
+func (a *Analysis) GetEffectStandardError() float64 {
+	if a == nil {
+		return 0.0
+	}
+	return a.EffectStandardError
 }
 
 func (a *Analysis) GetCiLow() float64 {

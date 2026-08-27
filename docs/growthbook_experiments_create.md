@@ -22,6 +22,7 @@ growthbook experiments create [flags]
       --activation-metric string                     Users must convert on this metric before being included
       --archived                                     boolean flag
       --assignment-query-id string                   The ID property of one of the assignment query objects associated with the datasource. Can only be set if a templateId is not provided.
+      --attribute-scope-all-projects                 Picker preference: show attributes from all projects in this experiment's targeting UI instead of only those in scope for its project and linked features. Does not loosen enforcement — when the organization requires registered attributes with project scoping, out-of-scope attributes are still rejected.
       --attribution-model "experimentDuration"       Setting attribution model to "experimentDuration" is the same as selecting "Ignore Conversion Windows" for the Conversion Window Override. Setting it to `"lookbackOverride"` requires a `lookbackOverride` object to be provided. (options: firstExposure, experimentDuration, lookbackOverride)
       --auto-refresh                                 boolean flag
       --bandit-burn-in-unit string                   options: days, hours

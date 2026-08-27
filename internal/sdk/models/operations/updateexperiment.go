@@ -1203,16 +1203,18 @@ type UpdateExperimentRequestBody struct {
 	// WHERE clause to add to the default experiment query
 	QueryFilter *string `json:"queryFilter,omitzero"`
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-	Owner                  *string                 `json:"owner,omitzero"`
-	Archived               *bool                   `json:"archived,omitzero"`
-	Status                 *UpdateExperimentStatus `json:"status,omitzero"`
-	AutoRefresh            *bool                   `json:"autoRefresh,omitzero"`
-	HashAttribute          *string                 `json:"hashAttribute,omitzero"`
-	FallbackAttribute      *string                 `json:"fallbackAttribute,omitzero"`
-	HashVersion            *float64                `json:"hashVersion,omitzero"`
-	DisableStickyBucketing *bool                   `json:"disableStickyBucketing,omitzero"`
-	BucketVersion          *float64                `json:"bucketVersion,omitzero"`
-	MinBucketVersion       *float64                `json:"minBucketVersion,omitzero"`
+	Owner             *string                 `json:"owner,omitzero"`
+	Archived          *bool                   `json:"archived,omitzero"`
+	Status            *UpdateExperimentStatus `json:"status,omitzero"`
+	AutoRefresh       *bool                   `json:"autoRefresh,omitzero"`
+	HashAttribute     *string                 `json:"hashAttribute,omitzero"`
+	FallbackAttribute *string                 `json:"fallbackAttribute,omitzero"`
+	// Picker preference: show attributes from all projects in this experiment's targeting UI instead of only those in scope for its project and linked features. Does not loosen enforcement — when the organization requires registered attributes with project scoping, out-of-scope attributes are still rejected.
+	AttributeScopeAllProjects *bool    `json:"attributeScopeAllProjects,omitzero"`
+	HashVersion               *float64 `json:"hashVersion,omitzero"`
+	DisableStickyBucketing    *bool    `json:"disableStickyBucketing,omitzero"`
+	BucketVersion             *float64 `json:"bucketVersion,omitzero"`
+	MinBucketVersion          *float64 `json:"minBucketVersion,omitzero"`
 	// The result status of the experiment. Maps to resultSummary.status in the GET response.
 	Results *UpdateExperimentResults `json:"results,omitzero"`
 	// The index of the winning variation (0-indexed). Maps to resultSummary.winner (variation ID) in the GET response.
@@ -1423,6 +1425,13 @@ func (u *UpdateExperimentRequestBody) GetFallbackAttribute() *string {
 		return nil
 	}
 	return u.FallbackAttribute
+}
+
+func (u *UpdateExperimentRequestBody) GetAttributeScopeAllProjects() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.AttributeScopeAllProjects
 }
 
 func (u *UpdateExperimentRequestBody) GetHashVersion() *float64 {

@@ -23,6 +23,7 @@ growthbook experiments update [flags]
       --analysis string                              Analysis summary or conclusions for the experiment. Maps to resultSummary.conclusions in the GET response.
       --archived                                     boolean flag
       --assignment-query-id string                   string value
+      --attribute-scope-all-projects                 Picker preference: show attributes from all projects in this experiment's targeting UI instead of only those in scope for its project and linked features. Does not loosen enforcement — when the organization requires registered attributes with project scoping, out-of-scope attributes are still rejected.
       --attribution-model "experimentDuration"       Setting attribution model to "experimentDuration" is the same as selecting "Ignore Conversion Windows" for the Conversion Window Override. Setting it to `"lookbackOverride"` requires a `lookbackOverride` object to be provided. (options: firstExposure, experimentDuration, lookbackOverride)
       --auto-refresh                                 boolean flag
       --bandit-burn-in-unit string                   options: days, hours
