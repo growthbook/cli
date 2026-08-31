@@ -91,7 +91,8 @@ jobs:
           git diff --word-diff=plain -- internal/cli/testdata > "$RUNNER_TEMP/surface.diff"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git commit -m "Refresh the command-surface golden" -- internal/cli/testdata
+          # The `ci` prefix is load-bearing: without it the Speakeasy action hard-fails every later run on this branch.
+          git commit -m "ci: refresh the command-surface golden" -- internal/cli/testdata
           git push origin "HEAD:$BRANCH"
           # Committing this automatically removes the red check that was the only signal a command or flag changed.
           {
