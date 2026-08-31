@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [2.5.0] - 2026-08-31
+
 Additive only — two new flags, no commands or flags were removed or renamed, so no action is
 needed on upgrade.
 
