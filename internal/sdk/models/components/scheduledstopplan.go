@@ -26,6 +26,7 @@ func (e *ScheduledStopPlanMode) IsExact() bool {
 	return false
 }
 
+// Fallback - What to do at the scheduled end when there is no clear winner. Required when `mode` is `"auto-ship"`; ignored for other modes.
 type Fallback string
 
 const (
@@ -50,10 +51,11 @@ func (e *Fallback) IsExact() bool {
 
 // ScheduledStopPlan - What happens at the scheduled end date. `notify` keeps the experiment running and just notifies (soft). `auto-ship` (requires the Decision Framework) ships the winning variation and stops; multi-winner ties break on `tiebreakerMetricId` (higher lift); with no clear winner, `fallback` either keeps running (`notify`) or ships `fallbackVariationId`. `force-ship` stops and rolls out `fallbackVariationId`. `stop` is a hard deadline that stops with no rollout. For `force-ship` and `stop`, the Decision Framework verdict (won/lost/inconclusive) is recorded as metadata when available.
 type ScheduledStopPlan struct {
-	Mode                ScheduledStopPlanMode `json:"mode"`
-	TiebreakerMetricID  *string               `json:"tiebreakerMetricId,omitzero"`
-	Fallback            Fallback              `json:"fallback"`
-	FallbackVariationID *string               `json:"fallbackVariationId,omitzero"`
+	Mode               ScheduledStopPlanMode `json:"mode"`
+	TiebreakerMetricID *string               `json:"tiebreakerMetricId,omitzero"`
+	// What to do at the scheduled end when there is no clear winner. Required when `mode` is `"auto-ship"`; ignored for other modes.
+	Fallback            *Fallback `json:"fallback,omitzero"`
+	FallbackVariationID *string   `json:"fallbackVariationId,omitzero"`
 }
 
 func (s *ScheduledStopPlan) GetMode() ScheduledStopPlanMode {
@@ -70,9 +72,9 @@ func (s *ScheduledStopPlan) GetTiebreakerMetricID() *string {
 	return s.TiebreakerMetricID
 }
 
-func (s *ScheduledStopPlan) GetFallback() Fallback {
+func (s *ScheduledStopPlan) GetFallback() *Fallback {
 	if s == nil {
-		return Fallback("")
+		return nil
 	}
 	return s.Fallback
 }

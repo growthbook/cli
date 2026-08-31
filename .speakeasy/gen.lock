@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 4c8e0331-b838-4af2-bf59-101dac30ada4
 management:
-  docChecksum: 9bd8e8313343062057dc5ac836523a9c
+  docChecksum: ddee4abc73e05f4f53872b664b2285b9
   docVersion: 5.0.1
   speakeasyVersion: 1.794.0
   generationVersion: 2.930.0
-  releaseVersion: 2.4.0
-  configChecksum: 503b610cf56e731e661c3a0f0847b631
+  releaseVersion: 2.5.0
+  configChecksum: d827a205b38831ffd0ee20fda012c6c2
   repoURL: https://github.com/growthbook/cli.git
   installationURL: https://github.com/growthbook/cli
 persistentEdits:
-  generation_id: ae0f0ab4-4d4c-46a2-a187-26393e696c6e
-  pristine_commit_hash: c582817da8b3b8a2b3cf8fe15834cdfce63fb5fc
-  pristine_tree_hash: e5ba4563962abdbae1c7ccf8de24882c5635b96e
+  generation_id: a149ae72-b8a4-4119-92c9-4f73f1a232d9
+  pristine_commit_hash: d19b22cf180c197b616ff1281e8281131ee3c2fd
+  pristine_tree_hash: e3b1fd73c70d680aef4a7053616718239b74e1e4
 features:
   cli:
     additionalProperties: 0.0.1
@@ -687,8 +687,8 @@ trackedFiles:
     pristine_git_object: 5fed18095e735e1b33570a9a610b78b79d714e5c
   internal/cli/experiments/create.go:
     id: 597a692f04ca
-    last_write_checksum: sha1:b2ac65b08acb657a45bfe4ec2e61985343d39e9f
-    pristine_git_object: 7b2ec64676babf3566314d8a63e08bd9bfd2f827
+    last_write_checksum: sha1:24246eba8b16ca14ca6485654e7da226335fda07
+    pristine_git_object: f646f0be33c58aab6e238d105128d5419b4aa88f
   internal/cli/experiments/createsnapshot.go:
     id: 78453ca1a3cd
     last_write_checksum: sha1:6a96b220d81810dcfb777ae1e25360a44a9c0fff
@@ -743,8 +743,8 @@ trackedFiles:
     pristine_git_object: 634cb090306942be393600d4e9ebdee9cb876b90
   internal/cli/experiments/updateexperiment.go:
     id: b5d8fe8a28b5
-    last_write_checksum: sha1:5326493d854824c3db48e7cf65fc803fd5a399e5
-    pristine_git_object: 0a3ae101f58e7745821833b3116da2e23bb1c555
+    last_write_checksum: sha1:17b3f6056a963b95431354a707293801eb7037cc
+    pristine_git_object: 0a4a7bab8b0cddbef5327a5b19f8a3a0775a8577
   internal/cli/experiments/uploadvariationscreenshot.go:
     id: 27f8d729adfb
     last_write_checksum: sha1:40e7a7c9a38446567bd0283a1250c8a449449af6
@@ -1791,8 +1791,8 @@ trackedFiles:
     pristine_git_object: 773a22f36454f22ba733858a3f54401690fe8f31
   internal/cli/version.go:
     id: 7b0665492f72
-    last_write_checksum: sha1:3ece66981ae4c68d9271e7961ecb12201202b4e8
-    pristine_git_object: 77420ad429f16f478f68f5de893f10bbb8c3a349
+    last_write_checksum: sha1:b157653864f62aa7e1fc1c9f5b1254c20aca5573
+    pristine_git_object: dccc7a80bcf405b17895d778050b4d6dbf64207b
   internal/cli/visualchangesets/addvisualchange.go:
     id: fdbcb9d69b23
     last_write_checksum: sha1:62c37780da4a614d14105d11d5241ae225eb0df6
@@ -2207,8 +2207,8 @@ trackedFiles:
     pristine_git_object: 2514c64aaea80152c26a19e08e2f481f7d506b5d
   internal/sdk/models/components/experiment.go:
     id: 7aecb7ad7e2c
-    last_write_checksum: sha1:fc632a284e0c3a7b126ca598f0c80b2a27870c3c
-    pristine_git_object: 7debc9363145dab38aa5239c39ddd140daf7bf7d
+    last_write_checksum: sha1:4f1069de32679791c2bb6a95d6be577ca6942e51
+    pristine_git_object: dcf35f5a6dd9eda97ed3db7e0829c12d130d2f81
   internal/sdk/models/components/experimentanalysissettings.go:
     id: d6ce8157dd69
     last_write_checksum: sha1:4b941c78c7a179fce7649fa4262e6bbdf789b359
@@ -2227,12 +2227,12 @@ trackedFiles:
     pristine_git_object: f3db346d3b3018ca044abfcf2956d9f141f23789
   internal/sdk/models/components/experimentresults1.go:
     id: e2904cac1dcc
-    last_write_checksum: sha1:8d1efb7a23ba040ffa096b38fc5ac68db6d384eb
-    pristine_git_object: a4064f818c73964b6dee8e1e8b8d8708ed303f78
+    last_write_checksum: sha1:6db4c06252ecf36287a92bee27b91aa954fa8743
+    pristine_git_object: defa76d15908fd888c4e79cda1e117e79587d5f1
   internal/sdk/models/components/experimentresults2.go:
     id: 98a81a5a1178
-    last_write_checksum: sha1:b03aa9993edc73d5c68fba8be12bf1d0a3a9fd29
-    pristine_git_object: f87e8e87682d0145684e36c618e46985a25a849c
+    last_write_checksum: sha1:dcc9cece3d9514a3d69013a739734eacc03a3a6c
+    pristine_git_object: 2db2008047730d07c891d8b451e8ec329aac32ad
   internal/sdk/models/components/experimentrule.go:
     id: 6c94261d0321
     last_write_checksum: sha1:3d72f1018fe44c289acc30ed157a36a74abd48f6
@@ -2247,8 +2247,8 @@ trackedFiles:
     pristine_git_object: 7180422e5bd4ccefad7c4522ab67a71be1757384
   internal/sdk/models/components/experimentwithenhancedstatus.go:
     id: e48231cf9d2a
-    last_write_checksum: sha1:dabe8790c867d1178734a5117c47fa3e90deb592
-    pristine_git_object: 90063de64e6a53c69f9f37efd1480a0713a44ee1
+    last_write_checksum: sha1:be5b6bbe985c39a0bec80184317228d68fb8d20a
+    pristine_git_object: 9a9e5f7955f8980a8f3efe75f7605ab5a209275e
   internal/sdk/models/components/factmetric.go:
     id: b69202d41e56
     last_write_checksum: sha1:f81f765d085792baed73ed7477ba390542847516
@@ -2515,8 +2515,8 @@ trackedFiles:
     pristine_git_object: 5b998004f4bc0a25e47a1627dc786e3a5e779f42
   internal/sdk/models/components/scheduledstopplan.go:
     id: 000fd7c9657a
-    last_write_checksum: sha1:c6ce9f55c1a9b3334d12f34d5cb2a26f181eca41
-    pristine_git_object: 2ad1ce2f8b9529c1d15a7576f37e7b5792df785f
+    last_write_checksum: sha1:06be7605e35738bdaa30222b99b3dba866ac6364
+    pristine_git_object: 05df97d513329e1c5d701ec27e3dafca063ce147
   internal/sdk/models/components/schedulerule.go:
     id: 12c5b2445909
     last_write_checksum: sha1:7ef7346d17d098675250402ddd92daa146a53efb
@@ -3515,8 +3515,8 @@ trackedFiles:
     pristine_git_object: a35d7f38abaced53dcc98ad83e71bd7af52902b7
   internal/sdk/models/operations/postexperiment.go:
     id: 627b78d51960
-    last_write_checksum: sha1:82d3f67518e948390914b867f9e6faf0e98cb91f
-    pristine_git_object: d0ef668867ed78fbddf244937290a84a742d1da7
+    last_write_checksum: sha1:24fab9b6ed66d88d681a879344ffd8756e0e510e
+    pristine_git_object: c3dbe9c4014cbfb94f2e96861ef6506f1a0b0489
   internal/sdk/models/operations/postexperimentmodifytemporaryrollout.go:
     id: 47af1f331c93
     last_write_checksum: sha1:276f6f4264ec7255d03690f3e47498f4ffc90404
@@ -4095,8 +4095,8 @@ trackedFiles:
     pristine_git_object: 5027a59cb6956493943ab64173beef6d606c5450
   internal/sdk/models/operations/updateexperiment.go:
     id: c49b3a9ef5c0
-    last_write_checksum: sha1:5e78aaf4ec362dae67bde2499ca67451a5215721
-    pristine_git_object: f19ada83bf676edb66e3c46ca6686172274071f7
+    last_write_checksum: sha1:ea37d6d1979de1a1639c4083f9476f768f9a6af9
+    pristine_git_object: a795ad9a791491c9a63bfb25f10ba54678d4cfd7
   internal/sdk/models/operations/updateexperimenttemplate.go:
     id: 3f6f77c9eeba
     last_write_checksum: sha1:c61c4fcbc23090d96792ad7934ba5857f19a3624
@@ -4363,8 +4363,8 @@ trackedFiles:
     pristine_git_object: 159a87ec97aba99e4edd132f69652e123434303e
   internal/usage/schema.go:
     id: 0f40f4612437
-    last_write_checksum: sha1:57ec36721591838d4b22548898533a905bce6edb
-    pristine_git_object: 52e0aa8ac0c7df624bf25d47e4c6c45ad6a25c2a
+    last_write_checksum: sha1:f7a500b476ceb2f07c45a65a7befba76d97df719
+    pristine_git_object: 630bf9c5ad2731d5336ba446f396957d7260b9d1
   scripts/install.ps1:
     id: fee0853709e9
     last_write_checksum: sha1:f9df93912e2b5d20eaffddbdb2708ce76ec06445
@@ -8022,4 +8022,4 @@ examples:
         "200":
           application/json: {"revision": {"id": "<id>", "status": "changes-requested", "authorId": "<id>", "reviews": [{"id": "<id>", "userId": "<id>", "decision": "approve", "dateCreated": "2025-07-07T15:03:35.754Z"}], "activityLog": [], "dateCreated": "2024-08-19T21:02:55.793Z", "dateUpdated": "2025-11-24T22:05:17.716Z", "baseConfig": {"id": "<id>", "key": "<key>", "name": "<value>", "dateCreated": "2026-09-28T23:55:50.526Z", "dateUpdated": "2024-05-17T03:41:35.892Z"}, "proposedConfig": {"id": "<id>", "key": "<key>", "name": "<value>", "dateCreated": "2024-04-09T21:20:05.470Z", "dateUpdated": "2024-07-11T16:46:17.458Z"}, "proposedChanges": [{"op": "replace", "path": "/home/user/dir", "value": "<value>"}]}}
 examplesVersion: 1.0.2
-releaseNotes: "## Cli SDK Changes:\n* `Growthbook.Experiments.ListResults()`:  `response.ExperimentResults[].Results[].Metrics[].Variations[].Analyses[].ErrorMessage` **Added**\n* `Growthbook.Experiments.Results()`:  `response.Result.Results[].Metrics[].Variations[].Analyses[].ErrorMessage` **Added**\n* `Growthbook.ContextualBandits.GetContextualBandit()`:  `response.ContextualBandit.Seed` **Changed**\n* `Growthbook.ContextualBandits.UpdateContextualBandit()`:  `response.ContextualBandit.Seed` **Changed**\n* `Growthbook.ContextualBandits.CreateContextualBandit()`:  `response.ContextualBandit.Seed` **Changed**\n* `Growthbook.ContextualBandits.ListContextualBandits()`:  `response.ContextualBandits[].Seed` **Changed**\n* `Growthbook.ContextualBandits.StartContextualBandit()`:  `response.ContextualBandit.Seed` **Changed**\n* `Growthbook.ContextualBandits.StopContextualBandit()`:  `response.ContextualBandit.Seed` **Changed**\n* `Growthbook.Reports.ListReports()`:  `response.Reports[].Results.Results[].Metrics[].Variations[].Analyses[].ErrorMessage` **Added**\n* `Growthbook.Reports.Create()`:  `response.Report.Results.Results[].Metrics[].Variations[].Analyses[].ErrorMessage` **Added**\n* `Growthbook.Reports.GetReport()`:  `response.Report.Results.Results[].Metrics[].Variations[].Analyses[].ErrorMessage` **Added**\n* `Growthbook.Reports.Refresh()`:  `response.Report.Results.Results[].Metrics[].Variations[].Analyses[].ErrorMessage` **Added**\n* `Growthbook.Reports.SetMetadata()`:  `response.Report.Results.Results[].Metrics[].Variations[].Analyses[].ErrorMessage` **Added**\n* `Growthbook.Reports.SetSettings()`:  `response.Report.Results.Results[].Metrics[].Variations[].Analyses[].ErrorMessage` **Added**\n* `Growthbook.Dashboards.GetDashboard()`:  `response.Dashboard.Blocks[].union(funnel-exploration).LinkedFunnelMetricId` **Added**\n* `Growthbook.Dashboards.UpdateDashboard()`: \n  *  `request.Request.Body.Blocks[].union(union (1)).union(funnel-exploration).LinkedFunnelMetricId` **Added**\n  *  `response.Dashboard.Blocks[].union(funnel-exploration).LinkedFunnelMetricId` **Added**\n* `Growthbook.Dashboards.CreateDashboard()`:  `response.Dashboard.Blocks[].union(funnel-exploration).LinkedFunnelMetricId` **Added**\n* `Growthbook.Dashboards.ListDashboards()`:  `response.Dashboards[].Blocks[].union(funnel-exploration).LinkedFunnelMetricId` **Added**\n* `Growthbook.Dashboards.ListForExperiment()`:  `response.Dashboards[].Blocks[].union(funnel-exploration).LinkedFunnelMetricId` **Added**\n"
+releaseNotes: "## Cli SDK Changes:\n* `Growthbook.Experiments.ListExperiments()`:  `response.Experiments[]` **Changed**\n* `Growthbook.Experiments.Create()`: \n  *  `request.Request` **Changed**\n  *  `response.Experiment` **Changed**\n* `Growthbook.Experiments.ListResults()`:  `response.ExperimentResults[].Results[].Metrics[].Variations[].Analyses[].EffectStandardError` **Added**\n* `Growthbook.Experiments.GetExperiment()`:  `response.Experiment` **Changed**\n* `Growthbook.Experiments.UpdateExperiment()`: \n  *  `request.Request.Body` **Changed**\n  *  `response.Experiment` **Changed**\n* `Growthbook.Experiments.Results()`:  `response` **Changed**\n* `Growthbook.Experiments.Start()`:  `response.Experiment` **Changed**\n* `Growthbook.Experiments.Stop()`:  `response.Experiment` **Changed**\n* `Growthbook.Experiments.SetSchedule()`: \n  *  `request.Request.Body.ScheduledStopPlan.Fallback` **Changed**\n  *  `response.Experiment` **Changed**\n* `Growthbook.Experiments.ModifyTemporaryRollout()`:  `response.Experiment` **Changed**\n* `Growthbook.VisualChangesets.GetVisualChangeset()`:  `response.Experiment` **Changed**\n* `Growthbook.Metrics.ListExperiments()`:  `response.ExperimentResults[].Variations[].EffectStandardError` **Added**\n* `Growthbook.Reports.ListReports()`:  `response.Reports[].Results.Results[].Metrics[].Variations[].Analyses[].EffectStandardError` **Added**\n* `Growthbook.Reports.Create()`:  `response.Report.Results.Results[].Metrics[].Variations[].Analyses[].EffectStandardError` **Added**\n* `Growthbook.Reports.GetReport()`:  `response.Report.Results.Results[].Metrics[].Variations[].Analyses[].EffectStandardError` **Added**\n* `Growthbook.Reports.Refresh()`:  `response.Report.Results.Results[].Metrics[].Variations[].Analyses[].EffectStandardError` **Added**\n* `Growthbook.Reports.SetMetadata()`:  `response.Report.Results.Results[].Metrics[].Variations[].Analyses[].EffectStandardError` **Added**\n* `Growthbook.Reports.SetSettings()`:  `response.Report.Results.Results[].Metrics[].Variations[].Analyses[].EffectStandardError` **Added**\n"

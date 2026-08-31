@@ -38,6 +38,7 @@ var updateExperimentCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "auto-refresh", FieldPath: "Body.AutoRefresh", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "hash-attribute", FieldPath: "Body.HashAttribute", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "fallback-attribute", Shorthand: "f", FieldPath: "Body.FallbackAttribute", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "attribute-scope-all-projects", FieldPath: "Body.AttributeScopeAllProjects", Kind: flagutil.FlagKindBool, Optional: true, Description: "Picker preference: show attributes from all projects in this experiment's targeting UI instead of only those in scope for its project and linked features. Does not loosen enforcement — when the organization requires registered attributes with project scoping, out-of-scope attributes are still rejected."},
 	{FlagName: "hash-version", FieldPath: "Body.HashVersion", Kind: flagutil.FlagKindFloat64, Optional: true, Description: "number value"},
 	{FlagName: "disable-sticky-bucketing", FieldPath: "Body.DisableStickyBucketing", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "bucket-version", FieldPath: "Body.BucketVersion", Kind: flagutil.FlagKindFloat64, Optional: true, Description: "number value"},

@@ -14,6 +14,8 @@ type ExperimentResultsVariation2 struct {
 	Mean          *float64 `json:"mean,omitzero"`
 	// Relative uplift mean for this variation, if available
 	Lift *float64 `json:"lift,omitzero"`
+	// Standard error of `lift`, if available
+	EffectStandardError *float64 `json:"effectStandardError,omitzero"`
 	// Confidence interval [lower, upper]
 	Ci          []float64 `json:"ci,omitzero"`
 	PValue      *float64  `json:"pValue,omitzero"`
@@ -71,6 +73,13 @@ func (e *ExperimentResultsVariation2) GetLift() *float64 {
 		return nil
 	}
 	return e.Lift
+}
+
+func (e *ExperimentResultsVariation2) GetEffectStandardError() *float64 {
+	if e == nil {
+		return nil
+	}
+	return e.EffectStandardError
 }
 
 func (e *ExperimentResultsVariation2) GetCi() []float64 {

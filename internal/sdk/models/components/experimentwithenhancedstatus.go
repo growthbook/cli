@@ -689,6 +689,7 @@ type ExperimentWithEnhancedStatus struct {
 	BanditConversionWindowValue *float64                                                `json:"banditConversionWindowValue,omitzero"`
 	BanditConversionWindowUnit  *ExperimentWithEnhancedStatusBanditConversionWindowUnit `json:"banditConversionWindowUnit,omitzero"`
 	LinkedFeatures              []string                                                `json:"linkedFeatures,omitzero"`
+	AttributeScopeAllProjects   *bool                                                   `json:"attributeScopeAllProjects,omitzero"`
 	HasVisualChangesets         *bool                                                   `json:"hasVisualChangesets,omitzero"`
 	HasURLRedirects             *bool                                                   `json:"hasURLRedirects,omitzero"`
 	CustomFields                map[string]any                                          `json:"customFields,omitzero"`
@@ -950,6 +951,13 @@ func (e *ExperimentWithEnhancedStatus) GetLinkedFeatures() []string {
 		return nil
 	}
 	return e.LinkedFeatures
+}
+
+func (e *ExperimentWithEnhancedStatus) GetAttributeScopeAllProjects() *bool {
+	if e == nil {
+		return nil
+	}
+	return e.AttributeScopeAllProjects
 }
 
 func (e *ExperimentWithEnhancedStatus) GetHasVisualChangesets() *bool {

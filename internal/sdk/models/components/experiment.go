@@ -645,6 +645,7 @@ type Experiment struct {
 	BanditConversionWindowValue *float64                              `json:"banditConversionWindowValue,omitzero"`
 	BanditConversionWindowUnit  *ExperimentBanditConversionWindowUnit `json:"banditConversionWindowUnit,omitzero"`
 	LinkedFeatures              []string                              `json:"linkedFeatures,omitzero"`
+	AttributeScopeAllProjects   *bool                                 `json:"attributeScopeAllProjects,omitzero"`
 	HasVisualChangesets         *bool                                 `json:"hasVisualChangesets,omitzero"`
 	HasURLRedirects             *bool                                 `json:"hasURLRedirects,omitzero"`
 	CustomFields                map[string]any                        `json:"customFields,omitzero"`
@@ -905,6 +906,13 @@ func (e *Experiment) GetLinkedFeatures() []string {
 		return nil
 	}
 	return e.LinkedFeatures
+}
+
+func (e *Experiment) GetAttributeScopeAllProjects() *bool {
+	if e == nil {
+		return nil
+	}
+	return e.AttributeScopeAllProjects
 }
 
 func (e *Experiment) GetHasVisualChangesets() *bool {

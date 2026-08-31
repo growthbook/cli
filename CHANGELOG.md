@@ -2,6 +2,35 @@
 
 ## [Unreleased]
 
+Additive only — two new flags, no commands or flags were removed or renamed, so no action is
+needed on upgrade.
+
+### Added
+
+- **`--attribute-scope-all-projects` on `growthbook experiments create` and `growthbook
+  experiments update`.** A picker preference: show attributes from all projects in the
+  experiment's targeting UI instead of only those in scope for its project and linked features.
+  It does not loosen enforcement — when the organization requires registered attributes with
+  project scoping, out-of-scope attributes are still rejected.
+
+- **`effectStandardError` on analysis results.** The standard error of the estimated effect,
+  alongside the `percentChange` it belongs to. Returned by `growthbook experiments results`,
+  `growthbook experiments list-results`, and every `growthbook reports` command that returns
+  results, under `results[].metrics[].variations[].analyses[]`. Response-only, always present.
+
+- **`effectStandardError` on experiment result variations.** The standard error of `lift`, under
+  `experimentResults[].variations[]` from `growthbook metrics list-experiments`. Response-only
+  and optional — returned only when available.
+
+### Changed
+
+- **`scheduledStopPlan.fallback` is now optional.** It was required on every scheduled stop plan;
+  it is now required only when `mode` is `"auto-ship"`, and ignored for other modes. A relaxation,
+  so nothing to migrate — plans that already send `fallback` keep working, and `notify`,
+  `force-ship`, and `stop` plans can now omit it. Affects `growthbook experiments set-schedule
+  --scheduled-stop-plan` and the `statusUpdateSchedule.scheduledStopPlan` body field on
+  `growthbook experiments create` / `update`.
+
 ## [2.4.0] - 2026-08-26
 
 Additive only — no commands or flags were added, removed, or renamed, so no action is needed on
