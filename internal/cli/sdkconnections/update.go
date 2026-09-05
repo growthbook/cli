@@ -38,6 +38,7 @@ var updateCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "hash-secure-attributes", FieldPath: "Body.HashSecureAttributes", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "remote-eval-enabled", Shorthand: "r", FieldPath: "Body.RemoteEvalEnabled", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "saved-group-references-enabled", FieldPath: "Body.SavedGroupReferencesEnabled", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
+	{FlagName: "include-referenced-prerequisites", FieldPath: "Body.IncludeReferencedPrerequisites", Kind: flagutil.FlagKindBool, Optional: true, Description: "Carry prerequisite Feature Flags into this payload even when they target other Projects. Defaults to true for new connections."},
 }
 
 // initUpdateCmd initializes the update command.

@@ -72,6 +72,7 @@ growthbook [flags]
 * [growthbook features-v1](growthbook_features-v1.md)	 - Control your feature flags programatically
 * [growthbook generate-types](growthbook_generate-types.md)	 - Generate TypeScript types for all your features
 * [growthbook get-SDK-payload](growthbook_get-SDK-payload.md)	 - Get a SDK payload
+* [growthbook holdouts](growthbook_holdouts.md)	 - Hold a share of traffic out of all experiments to measure their combined effect
 * [growthbook learnings](growthbook_learnings.md)	 - Saved learnings captured across experiments, including AI-discovered patterns
 * [growthbook members](growthbook_members.md)	 - Members are users who have been invited to an organization
 * [growthbook meta](growthbook_meta.md)	 - Server metadata, including the running build's version and commit for version-skew checks

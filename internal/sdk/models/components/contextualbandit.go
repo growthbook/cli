@@ -258,20 +258,20 @@ func (e *ConversionWindowUnit) IsExact() bool {
 	return false
 }
 
-type Stage string
+type ContextualBanditStage string
 
 const (
-	StageExplore Stage = "explore"
-	StageExploit Stage = "exploit"
-	StagePaused  Stage = "paused"
+	ContextualBanditStageExplore ContextualBanditStage = "explore"
+	ContextualBanditStageExploit ContextualBanditStage = "exploit"
+	ContextualBanditStagePaused  ContextualBanditStage = "paused"
 )
 
-func (e Stage) ToPointer() *Stage {
+func (e ContextualBanditStage) ToPointer() *ContextualBanditStage {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *Stage) IsExact() bool {
+func (e *ContextualBanditStage) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "explore", "exploit", "paused":
@@ -322,7 +322,7 @@ type ContextualBandit struct {
 	BurnInUnit              *BurnInUnit                                             `json:"burnInUnit,omitzero"`
 	ConversionWindowValue   optionalnullable.OptionalNullable[float64]              `json:"conversionWindowValue,omitzero"`
 	ConversionWindowUnit    optionalnullable.OptionalNullable[ConversionWindowUnit] `json:"conversionWindowUnit,omitzero"`
-	Stage                   *Stage                                                  `json:"stage,omitzero"`
+	Stage                   *ContextualBanditStage                                  `json:"stage,omitzero"`
 	StageDateStarted        *time.Time                                              `json:"stageDateStarted,omitzero"`
 	AutoSnapshots           *bool                                                   `json:"autoSnapshots,omitzero"`
 	NextSnapshotAttempt     *time.Time                                              `json:"nextSnapshotAttempt,omitzero"`
@@ -605,7 +605,7 @@ func (c *ContextualBandit) GetConversionWindowUnit() optionalnullable.OptionalNu
 	return c.ConversionWindowUnit
 }
 
-func (c *ContextualBandit) GetStage() *Stage {
+func (c *ContextualBandit) GetStage() *ContextualBanditStage {
 	if c == nil {
 		return nil
 	}

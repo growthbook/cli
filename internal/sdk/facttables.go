@@ -2677,6 +2677,7 @@ func (s *FactTables) GetAggregatedTableRun(ctx context.Context, request operatio
 }
 
 // BulkImport - Bulk import fact tables, filters, and metrics
+// Creates or updates Fact Tables, Fact Table filters, and Fact Metrics. Resources upsert by `id`. Pass `dryRun: true` to validate with zero writes. Not transactional: a live mid-loop failure returns HTTP 400 (403 for a permission failure) with write counts and `errors`.
 func (s *FactTables) BulkImport(ctx context.Context, request operations.PostBulkImportFactsRequest, opts ...operations.Option) (*operations.PostBulkImportFactsResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{

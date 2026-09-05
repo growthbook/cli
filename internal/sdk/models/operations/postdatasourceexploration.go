@@ -1747,22 +1747,22 @@ func (e *PostDataSourceExplorationShowAsResponse) IsExact() bool {
 	return false
 }
 
-type ColumnTypesResponse string
+type PostDataSourceExplorationColumnTypesResponse string
 
 const (
-	ColumnTypesResponseString  ColumnTypesResponse = "string"
-	ColumnTypesResponseNumber  ColumnTypesResponse = "number"
-	ColumnTypesResponseDate    ColumnTypesResponse = "date"
-	ColumnTypesResponseBoolean ColumnTypesResponse = "boolean"
-	ColumnTypesResponseOther   ColumnTypesResponse = "other"
+	PostDataSourceExplorationColumnTypesResponseString  PostDataSourceExplorationColumnTypesResponse = "string"
+	PostDataSourceExplorationColumnTypesResponseNumber  PostDataSourceExplorationColumnTypesResponse = "number"
+	PostDataSourceExplorationColumnTypesResponseDate    PostDataSourceExplorationColumnTypesResponse = "date"
+	PostDataSourceExplorationColumnTypesResponseBoolean PostDataSourceExplorationColumnTypesResponse = "boolean"
+	PostDataSourceExplorationColumnTypesResponseOther   PostDataSourceExplorationColumnTypesResponse = "other"
 )
 
-func (e ColumnTypesResponse) ToPointer() *ColumnTypesResponse {
+func (e PostDataSourceExplorationColumnTypesResponse) ToPointer() *PostDataSourceExplorationColumnTypesResponse {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ColumnTypesResponse) IsExact() bool {
+func (e *PostDataSourceExplorationColumnTypesResponse) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "string", "number", "date", "boolean", "other":
@@ -1935,12 +1935,12 @@ func (v *ValueDataSourceResponse) GetUnit() *string {
 
 type PostDataSourceExplorationDatasetResponse struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_           string                         `const:"data_source" json:"type"`
-	Table           string                         `json:"table"`
-	Path            string                         `json:"path"`
-	TimestampColumn string                         `json:"timestampColumn"`
-	ColumnTypes     map[string]ColumnTypesResponse `json:"columnTypes"`
-	Values          []ValueDataSourceResponse      `json:"values"`
+	type_           string                                                  `const:"data_source" json:"type"`
+	Table           string                                                  `json:"table"`
+	Path            string                                                  `json:"path"`
+	TimestampColumn string                                                  `json:"timestampColumn"`
+	ColumnTypes     map[string]PostDataSourceExplorationColumnTypesResponse `json:"columnTypes"`
+	Values          []ValueDataSourceResponse                               `json:"values"`
 }
 
 func (p PostDataSourceExplorationDatasetResponse) MarshalJSON() ([]byte, error) {
@@ -1979,9 +1979,9 @@ func (p *PostDataSourceExplorationDatasetResponse) GetTimestampColumn() string {
 	return p.TimestampColumn
 }
 
-func (p *PostDataSourceExplorationDatasetResponse) GetColumnTypes() map[string]ColumnTypesResponse {
+func (p *PostDataSourceExplorationDatasetResponse) GetColumnTypes() map[string]PostDataSourceExplorationColumnTypesResponse {
 	if p == nil {
-		return map[string]ColumnTypesResponse{}
+		return map[string]PostDataSourceExplorationColumnTypesResponse{}
 	}
 	return p.ColumnTypes
 }

@@ -164,6 +164,8 @@ type Growthbook struct {
 	RampScheduleTemplates *RampScheduleTemplates
 	// Saved learnings captured across experiments, including AI-discovered patterns.
 	Learnings *Learnings
+	// Hold a share of traffic out of all experiments to measure their combined effect.
+	Holdouts *Holdouts
 
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
@@ -322,6 +324,7 @@ func New(opts ...SDKOption) *Growthbook {
 	sdk.AnalyticsExplorations = newAnalyticsExplorations(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.RampScheduleTemplates = newRampScheduleTemplates(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Learnings = newLearnings(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Holdouts = newHoldouts(sdk, sdk.sdkConfiguration, sdk.hooks)
 
 	return sdk
 }

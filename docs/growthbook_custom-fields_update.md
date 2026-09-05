@@ -21,6 +21,7 @@ growthbook custom-fields update [flags]
 ```
   -a, --active                 boolean flag
       --body string            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -c, --creatable              For enum and multiselect fields, allow users to enter values beyond the predefined list
       --default-value string   JSON value (one of: string | number | boolean | date-time | date | array of string | array of number | array of boolean | array of date-time | array of date)
       --description string     string value
   -h, --help                   help for update

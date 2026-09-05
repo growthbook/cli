@@ -2,24 +2,72 @@
 
 package components
 
-type ExperimentResultsDimension struct {
+import (
+	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
+)
+
+type ExperimentResultsDimension1 struct {
 	Type string  `json:"type"`
 	ID   *string `json:"id,omitzero"`
 }
 
-func (e *ExperimentResultsDimension) GetType() string {
+func (e *ExperimentResultsDimension1) GetType() string {
 	if e == nil {
 		return ""
 	}
 	return e.Type
 }
 
-func (e *ExperimentResultsDimension) GetID() *string {
+func (e *ExperimentResultsDimension1) GetID() *string {
 	if e == nil {
 		return nil
 	}
 	return e.ID
 }
+
+// #region class-body-experimentresultsdimension1
+// #endregion class-body-experimentresultsdimension1
+
+type ExperimentResultsDimension2 struct {
+	Type       string                        `json:"type"`
+	ID         *string                       `json:"id,omitzero"`
+	Dimensions []ExperimentResultsDimension1 `json:"dimensions,omitzero"`
+}
+
+func (e ExperimentResultsDimension2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ExperimentResultsDimension2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (e *ExperimentResultsDimension2) GetType() string {
+	if e == nil {
+		return ""
+	}
+	return e.Type
+}
+
+func (e *ExperimentResultsDimension2) GetID() *string {
+	if e == nil {
+		return nil
+	}
+	return e.ID
+}
+
+func (e *ExperimentResultsDimension2) GetDimensions() []ExperimentResultsDimension1 {
+	if e == nil {
+		return nil
+	}
+	return e.Dimensions
+}
+
+// #region class-body-experimentresultsdimension2
+// #endregion class-body-experimentresultsdimension2
 
 type Checks struct {
 	Srm float64 `json:"srm"`
@@ -263,16 +311,16 @@ func (e *ExperimentResultsResult) GetMetrics() []ExperimentResultsMetric {
 }
 
 type ExperimentResults1 struct {
-	ID           string                     `json:"id"`
-	DateUpdated  string                     `json:"dateUpdated"`
-	ExperimentID string                     `json:"experimentId"`
-	Phase        string                     `json:"phase"`
-	DateStart    string                     `json:"dateStart"`
-	DateEnd      string                     `json:"dateEnd"`
-	Dimension    ExperimentResultsDimension `json:"dimension"`
-	Settings     ExperimentAnalysisSettings `json:"settings"`
-	QueryIds     []string                   `json:"queryIds"`
-	Results      []ExperimentResultsResult  `json:"results"`
+	ID           string                      `json:"id"`
+	DateUpdated  string                      `json:"dateUpdated"`
+	ExperimentID string                      `json:"experimentId"`
+	Phase        string                      `json:"phase"`
+	DateStart    string                      `json:"dateStart"`
+	DateEnd      string                      `json:"dateEnd"`
+	Dimension    ExperimentResultsDimension2 `json:"dimension"`
+	Settings     ExperimentAnalysisSettings  `json:"settings"`
+	QueryIds     []string                    `json:"queryIds"`
+	Results      []ExperimentResultsResult   `json:"results"`
 }
 
 func (e *ExperimentResults1) GetID() string {
@@ -317,9 +365,9 @@ func (e *ExperimentResults1) GetDateEnd() string {
 	return e.DateEnd
 }
 
-func (e *ExperimentResults1) GetDimension() ExperimentResultsDimension {
+func (e *ExperimentResults1) GetDimension() ExperimentResultsDimension2 {
 	if e == nil {
-		return ExperimentResultsDimension{}
+		return ExperimentResultsDimension2{}
 	}
 	return e.Dimension
 }

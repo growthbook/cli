@@ -24,6 +24,7 @@ growthbook projects create [flags]
   -h, --help                 help for create
   -n, --name string          [required]
   -p, --public-id string     URL-safe slug (lowercase letters, numbers, dashes). Auto-generated from name if not provided.
+  -r, --restrict-access      When true, only members with an explicit role on this Project (directly or via a team) can access it. Members with the manageTeam permission retain access. Requires a Pro or Enterprise plan.
   -s, --settings string      Project stats settings that, when set, override the organization settings.
 ```
 

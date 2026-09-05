@@ -395,6 +395,7 @@ type CustomField struct {
 	DefaultValue *DefaultValue   `json:"defaultValue,omitzero"`
 	Type         CustomFieldType `json:"type"`
 	Values       *string         `json:"values,omitzero"`
+	Creatable    *bool           `json:"creatable,omitzero"`
 	Required     bool            `json:"required"`
 	Creator      *string         `json:"creator,omitzero"`
 	Projects     []string        `json:"projects,omitzero"`
@@ -474,6 +475,13 @@ func (c *CustomField) GetValues() *string {
 		return nil
 	}
 	return c.Values
+}
+
+func (c *CustomField) GetCreatable() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Creatable
 }
 
 func (c *CustomField) GetRequired() bool {
