@@ -6,8 +6,94 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/growthbook/cli/v2/internal/sdk/models/components"
+	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
 	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
+
+// DefaultManagedBy - Fallback `managedBy` for Fact Tables and Fact Metrics that omit the field. Defaults to `"api"`. Filters inherit `"api"` only when the parent Fact Table is api-managed.
+type DefaultManagedBy string
+
+const (
+	DefaultManagedByUnknown DefaultManagedBy = ""
+	DefaultManagedByAPI     DefaultManagedBy = "api"
+	DefaultManagedByAdmin   DefaultManagedBy = "admin"
+)
+
+func (e DefaultManagedBy) ToPointer() *DefaultManagedBy {
+	return &e
+}
+func (e *DefaultManagedBy) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "":
+		fallthrough
+	case "api":
+		fallthrough
+	case "admin":
+		*e = DefaultManagedBy(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for DefaultManagedBy: %v", v)
+	}
+}
+
+type PostBulkImportFactsUpdateTime struct {
+	Time     string `json:"time"`
+	Timezone string `json:"timezone"`
+}
+
+func (p *PostBulkImportFactsUpdateTime) GetTime() string {
+	if p == nil {
+		return ""
+	}
+	return p.Time
+}
+
+func (p *PostBulkImportFactsUpdateTime) GetTimezone() string {
+	if p == nil {
+		return ""
+	}
+	return p.Timezone
+}
+
+// PostBulkImportFactsAggregatedFactTableSettings - Settings for maintaining shared daily aggregated tables (a subset of userIdTypes plus the daily update time and restate lookback window) used to speed up CUPED. Requires the data pipeline (pipeline-mode) feature.
+type PostBulkImportFactsAggregatedFactTableSettings struct {
+	IDTypes          []string                      `json:"idTypes"`
+	UpdateTime       PostBulkImportFactsUpdateTime `json:"updateTime"`
+	LookbackWindow   int64                         `json:"lookbackWindow"`
+	RestateChunkDays *int64                        `json:"restateChunkDays,omitzero"`
+}
+
+func (p *PostBulkImportFactsAggregatedFactTableSettings) GetIDTypes() []string {
+	if p == nil {
+		return []string{}
+	}
+	return p.IDTypes
+}
+
+func (p *PostBulkImportFactsAggregatedFactTableSettings) GetUpdateTime() PostBulkImportFactsUpdateTime {
+	if p == nil {
+		return PostBulkImportFactsUpdateTime{}
+	}
+	return p.UpdateTime
+}
+
+func (p *PostBulkImportFactsAggregatedFactTableSettings) GetLookbackWindow() int64 {
+	if p == nil {
+		return 0
+	}
+	return p.LookbackWindow
+}
+
+func (p *PostBulkImportFactsAggregatedFactTableSettings) GetRestateChunkDays() *int64 {
+	if p == nil {
+		return nil
+	}
+	return p.RestateChunkDays
+}
 
 // FactTableManagedBy - Set this to "api" to disable editing in the GrowthBook UI
 type FactTableManagedBy string
@@ -53,6 +139,8 @@ type FactTableData struct {
 	Datasource string `json:"datasource"`
 	// List of identifier columns in this table. For example, "id" or "anonymous_id"
 	UserIDTypes []string `json:"userIdTypes"`
+	// Settings for maintaining shared daily aggregated tables (a subset of userIdTypes plus the daily update time and restate lookback window) used to speed up CUPED. Requires the data pipeline (pipeline-mode) feature.
+	AggregatedFactTableSettings *PostBulkImportFactsAggregatedFactTableSettings `json:"aggregatedFactTableSettings,omitzero"`
 	// The SQL query for this fact table
 	SQL string `json:"sql"`
 	// The event name used in SQL template variables
@@ -121,6 +209,13 @@ func (f *FactTableData) GetUserIDTypes() []string {
 		return []string{}
 	}
 	return f.UserIDTypes
+}
+
+func (f *FactTableData) GetAggregatedFactTableSettings() *PostBulkImportFactsAggregatedFactTableSettings {
+	if f == nil {
+		return nil
+	}
+	return f.AggregatedFactTableSettings
 }
 
 func (f *FactTableData) GetSQL() string {
@@ -271,6 +366,7 @@ const (
 	PostBulkImportFactsMetricTypeQuantile           PostBulkImportFactsMetricType = "quantile"
 	PostBulkImportFactsMetricTypeRatio              PostBulkImportFactsMetricType = "ratio"
 	PostBulkImportFactsMetricTypeDailyParticipation PostBulkImportFactsMetricType = "dailyParticipation"
+	PostBulkImportFactsMetricTypeFunnel             PostBulkImportFactsMetricType = "funnel"
 )
 
 func (e PostBulkImportFactsMetricType) ToPointer() *PostBulkImportFactsMetricType {
@@ -293,6 +389,8 @@ func (e *PostBulkImportFactsMetricType) UnmarshalJSON(data []byte) error {
 	case "ratio":
 		fallthrough
 	case "dailyParticipation":
+		fallthrough
+	case "funnel":
 		*e = PostBulkImportFactsMetricType(v)
 		return nil
 	default:
@@ -840,6 +938,291 @@ func (p *PostBulkImportFactsQuantileSettings) GetQuantileEventCountColumn() *str
 	return p.QuantileEventCountColumn
 }
 
+type PostBulkImportFactsOperatorSequential string
+
+const (
+	PostBulkImportFactsOperatorSequentialEqual            PostBulkImportFactsOperatorSequential = "="
+	PostBulkImportFactsOperatorSequentialNotEqual         PostBulkImportFactsOperatorSequential = "!="
+	PostBulkImportFactsOperatorSequentialGreaterThan      PostBulkImportFactsOperatorSequential = ">"
+	PostBulkImportFactsOperatorSequentialLessThan         PostBulkImportFactsOperatorSequential = "<"
+	PostBulkImportFactsOperatorSequentialGreaterThanEqual PostBulkImportFactsOperatorSequential = ">="
+	PostBulkImportFactsOperatorSequentialLessThanEqual    PostBulkImportFactsOperatorSequential = "<="
+	PostBulkImportFactsOperatorSequentialBetween          PostBulkImportFactsOperatorSequential = "between"
+	PostBulkImportFactsOperatorSequentialNotBetween       PostBulkImportFactsOperatorSequential = "not_between"
+	PostBulkImportFactsOperatorSequentialIn               PostBulkImportFactsOperatorSequential = "in"
+	PostBulkImportFactsOperatorSequentialNotIn            PostBulkImportFactsOperatorSequential = "not_in"
+	PostBulkImportFactsOperatorSequentialIsNull           PostBulkImportFactsOperatorSequential = "is_null"
+	PostBulkImportFactsOperatorSequentialNotNull          PostBulkImportFactsOperatorSequential = "not_null"
+	PostBulkImportFactsOperatorSequentialIsTrue           PostBulkImportFactsOperatorSequential = "is_true"
+	PostBulkImportFactsOperatorSequentialIsFalse          PostBulkImportFactsOperatorSequential = "is_false"
+	PostBulkImportFactsOperatorSequentialContains         PostBulkImportFactsOperatorSequential = "contains"
+	PostBulkImportFactsOperatorSequentialNotContains      PostBulkImportFactsOperatorSequential = "not_contains"
+	PostBulkImportFactsOperatorSequentialStartsWith       PostBulkImportFactsOperatorSequential = "starts_with"
+	PostBulkImportFactsOperatorSequentialEndsWith         PostBulkImportFactsOperatorSequential = "ends_with"
+	PostBulkImportFactsOperatorSequentialSQLExpr          PostBulkImportFactsOperatorSequential = "sql_expr"
+	PostBulkImportFactsOperatorSequentialSavedFilter      PostBulkImportFactsOperatorSequential = "saved_filter"
+)
+
+func (e PostBulkImportFactsOperatorSequential) ToPointer() *PostBulkImportFactsOperatorSequential {
+	return &e
+}
+func (e *PostBulkImportFactsOperatorSequential) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "=":
+		fallthrough
+	case "!=":
+		fallthrough
+	case ">":
+		fallthrough
+	case "<":
+		fallthrough
+	case ">=":
+		fallthrough
+	case "<=":
+		fallthrough
+	case "between":
+		fallthrough
+	case "not_between":
+		fallthrough
+	case "in":
+		fallthrough
+	case "not_in":
+		fallthrough
+	case "is_null":
+		fallthrough
+	case "not_null":
+		fallthrough
+	case "is_true":
+		fallthrough
+	case "is_false":
+		fallthrough
+	case "contains":
+		fallthrough
+	case "not_contains":
+		fallthrough
+	case "starts_with":
+		fallthrough
+	case "ends_with":
+		fallthrough
+	case "sql_expr":
+		fallthrough
+	case "saved_filter":
+		*e = PostBulkImportFactsOperatorSequential(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PostBulkImportFactsOperatorSequential: %v", v)
+	}
+}
+
+type PostBulkImportFactsRowFilterSequential struct {
+	Operator PostBulkImportFactsOperatorSequential `json:"operator"`
+	// Not required for is_null, not_null, is_true, is_false operators. The between and not_between operators take at most two values, a lower and an upper bound in that order; leave a bound as an empty string for an open-ended range.
+	Values []string `json:"values,omitzero"`
+	// Required for all operators except sql_expr and saved_filter.
+	Column *string `json:"column,omitzero"`
+}
+
+func (p PostBulkImportFactsRowFilterSequential) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostBulkImportFactsRowFilterSequential) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PostBulkImportFactsRowFilterSequential) GetOperator() PostBulkImportFactsOperatorSequential {
+	if p == nil {
+		return PostBulkImportFactsOperatorSequential("")
+	}
+	return p.Operator
+}
+
+func (p *PostBulkImportFactsRowFilterSequential) GetValues() []string {
+	if p == nil {
+		return nil
+	}
+	return p.Values
+}
+
+func (p *PostBulkImportFactsRowFilterSequential) GetColumn() *string {
+	if p == nil {
+		return nil
+	}
+	return p.Column
+}
+
+type PostBulkImportFactsUnit string
+
+const (
+	PostBulkImportFactsUnitWeeks   PostBulkImportFactsUnit = "weeks"
+	PostBulkImportFactsUnitDays    PostBulkImportFactsUnit = "days"
+	PostBulkImportFactsUnitHours   PostBulkImportFactsUnit = "hours"
+	PostBulkImportFactsUnitMinutes PostBulkImportFactsUnit = "minutes"
+)
+
+func (e PostBulkImportFactsUnit) ToPointer() *PostBulkImportFactsUnit {
+	return &e
+}
+func (e *PostBulkImportFactsUnit) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "weeks":
+		fallthrough
+	case "days":
+		fallthrough
+	case "hours":
+		fallthrough
+	case "minutes":
+		*e = PostBulkImportFactsUnit(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PostBulkImportFactsUnit: %v", v)
+	}
+}
+
+// PostBulkImportFactsConversionWindow - Bounds how long after the nearest prior required step (or exposure, for the first step / after only-optional priors of an experiment funnel metric) this step's event can occur.
+type PostBulkImportFactsConversionWindow struct {
+	Unit  PostBulkImportFactsUnit `json:"unit"`
+	Value float64                 `json:"value"`
+}
+
+func (p *PostBulkImportFactsConversionWindow) GetUnit() PostBulkImportFactsUnit {
+	if p == nil {
+		return PostBulkImportFactsUnit("")
+	}
+	return p.Unit
+}
+
+func (p *PostBulkImportFactsConversionWindow) GetValue() float64 {
+	if p == nil {
+		return 0.0
+	}
+	return p.Value
+}
+
+type PostBulkImportFactsStep struct {
+	// Display name for the funnel step
+	Name string `json:"name"`
+	// The fact table this step draws events from
+	FactTableID string `json:"factTableId"`
+	// Filters that decide whether an event row counts as this step
+	RowFilters []PostBulkImportFactsRowFilterSequential `json:"rowFilters"`
+	// When true, this step still counts for its own conversion but does not anchor later steps. Later steps window off the nearest prior required step (or exposure, for experiment funnel metrics, when every prior step is optional).
+	Optional         bool                                                                   `json:"optional"`
+	ConversionWindow optionalnullable.OptionalNullable[PostBulkImportFactsConversionWindow] `json:"conversionWindow,omitzero"`
+}
+
+func (p PostBulkImportFactsStep) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostBulkImportFactsStep) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PostBulkImportFactsStep) GetName() string {
+	if p == nil {
+		return ""
+	}
+	return p.Name
+}
+
+func (p *PostBulkImportFactsStep) GetFactTableID() string {
+	if p == nil {
+		return ""
+	}
+	return p.FactTableID
+}
+
+func (p *PostBulkImportFactsStep) GetRowFilters() []PostBulkImportFactsRowFilterSequential {
+	if p == nil {
+		return []PostBulkImportFactsRowFilterSequential{}
+	}
+	return p.RowFilters
+}
+
+func (p *PostBulkImportFactsStep) GetOptional() bool {
+	if p == nil {
+		return false
+	}
+	return p.Optional
+}
+
+func (p *PostBulkImportFactsStep) GetConversionWindow() optionalnullable.OptionalNullable[PostBulkImportFactsConversionWindow] {
+	if p == nil {
+		return nil
+	}
+	return p.ConversionWindow
+}
+
+// PostBulkImportFactsOrdering - Step ordering mode. Only 'sequential' is supported in v1.
+type PostBulkImportFactsOrdering string
+
+const (
+	PostBulkImportFactsOrderingSequential PostBulkImportFactsOrdering = "sequential"
+)
+
+func (e PostBulkImportFactsOrdering) ToPointer() *PostBulkImportFactsOrdering {
+	return &e
+}
+func (e *PostBulkImportFactsOrdering) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "sequential":
+		*e = PostBulkImportFactsOrdering(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PostBulkImportFactsOrdering: %v", v)
+	}
+}
+
+// PostBulkImportFactsFunnelSettings - Funnel metric settings (required when metricType is "funnel")
+type PostBulkImportFactsFunnelSettings struct {
+	// Ordered list of funnel steps. Minimum 2 steps required.
+	Steps []PostBulkImportFactsStep `json:"steps"`
+	// Step ordering mode. Only 'sequential' is supported in v1.
+	Ordering *PostBulkImportFactsOrdering `json:"ordering,omitzero"`
+	// Out-of-order tolerance between adjacent steps in seconds. Defaults to 0.
+	ConcurrencyWindowSeconds *int64 `json:"concurrencyWindowSeconds,omitzero"`
+}
+
+func (p *PostBulkImportFactsFunnelSettings) GetSteps() []PostBulkImportFactsStep {
+	if p == nil {
+		return []PostBulkImportFactsStep{}
+	}
+	return p.Steps
+}
+
+func (p *PostBulkImportFactsFunnelSettings) GetOrdering() *PostBulkImportFactsOrdering {
+	if p == nil {
+		return nil
+	}
+	return p.Ordering
+}
+
+func (p *PostBulkImportFactsFunnelSettings) GetConcurrencyWindowSeconds() *int64 {
+	if p == nil {
+		return nil
+	}
+	return p.ConcurrencyWindowSeconds
+}
+
 type PostBulkImportFactsCappingSettingsType string
 
 const (
@@ -1157,17 +1540,19 @@ type FactMetricData struct {
 	Name        string  `json:"name"`
 	Description *string `json:"description,omitzero"`
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-	Owner      *string                       `json:"owner,omitzero"`
-	Projects   []string                      `json:"projects,omitzero"`
-	Tags       []string                      `json:"tags,omitzero"`
-	MetricType PostBulkImportFactsMetricType `json:"metricType"`
-	Numerator  PostBulkImportFactsNumerator  `json:"numerator"`
+	Owner      *string                                                         `json:"owner,omitzero"`
+	Projects   []string                                                        `json:"projects,omitzero"`
+	Tags       []string                                                        `json:"tags,omitzero"`
+	MetricType PostBulkImportFactsMetricType                                   `json:"metricType"`
+	Numerator  optionalnullable.OptionalNullable[PostBulkImportFactsNumerator] `json:"numerator,omitzero"`
 	// Only when metricType is 'ratio'
 	Denominator *PostBulkImportFactsDenominator `json:"denominator,omitzero"`
 	// Set to true for things like Bounce Rate, where you want the metric to decrease
 	Inverse *bool `json:"inverse,omitzero"`
 	// Controls the settings for quantile metrics (mandatory if metricType is "quantile")
 	QuantileSettings *PostBulkImportFactsQuantileSettings `json:"quantileSettings,omitzero"`
+	// Funnel metric settings (required when metricType is "funnel")
+	FunnelSettings *PostBulkImportFactsFunnelSettings `json:"funnelSettings,omitzero"`
 	// Controls how outliers are handled
 	CappingSettings *PostBulkImportFactsCappingSettings `json:"cappingSettings,omitzero"`
 	// Controls the conversion window for the metric
@@ -1195,10 +1580,12 @@ type FactMetricData struct {
 	TargetMDE *float64 `json:"targetMDE,omitzero"`
 	// Set this to "api" to disable editing in the GrowthBook UI
 	ManagedBy *FactMetricManagedBy `json:"managedBy,omitzero"`
-	// Set to true to archive the metric. Archived metrics are hidden by default in the UI and excluded from new experiments.
-	Archived *bool `json:"archived,omitzero"`
 	// Array of slice column names that will be automatically included in metric analysis. This is an enterprise feature.
 	MetricAutoSlices []string `json:"metricAutoSlices,omitzero"`
+	// Ids of older metrics (legacy or fact) that this metric supersedes, for example the legacy metric it was migrated from. Cannot include this metric's own id. Informational only - GrowthBook uses it to link the old and new definitions in the UI and to keep showing results from a snapshot that was created before an experiment switched to this metric. This field can only be set through the API.
+	Replaces []string `json:"replaces,omitzero"`
+	// Set to true to archive the metric. Archived metrics are hidden by default in the UI and excluded from new experiments.
+	Archived *bool `json:"archived,omitzero"`
 }
 
 func (f FactMetricData) MarshalJSON() ([]byte, error) {
@@ -1254,9 +1641,9 @@ func (f *FactMetricData) GetMetricType() PostBulkImportFactsMetricType {
 	return f.MetricType
 }
 
-func (f *FactMetricData) GetNumerator() PostBulkImportFactsNumerator {
+func (f *FactMetricData) GetNumerator() optionalnullable.OptionalNullable[PostBulkImportFactsNumerator] {
 	if f == nil {
-		return PostBulkImportFactsNumerator{}
+		return nil
 	}
 	return f.Numerator
 }
@@ -1280,6 +1667,13 @@ func (f *FactMetricData) GetQuantileSettings() *PostBulkImportFactsQuantileSetti
 		return nil
 	}
 	return f.QuantileSettings
+}
+
+func (f *FactMetricData) GetFunnelSettings() *PostBulkImportFactsFunnelSettings {
+	if f == nil {
+		return nil
+	}
+	return f.FunnelSettings
 }
 
 func (f *FactMetricData) GetCappingSettings() *PostBulkImportFactsCappingSettings {
@@ -1366,18 +1760,25 @@ func (f *FactMetricData) GetManagedBy() *FactMetricManagedBy {
 	return f.ManagedBy
 }
 
-func (f *FactMetricData) GetArchived() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.Archived
-}
-
 func (f *FactMetricData) GetMetricAutoSlices() []string {
 	if f == nil {
 		return nil
 	}
 	return f.MetricAutoSlices
+}
+
+func (f *FactMetricData) GetReplaces() []string {
+	if f == nil {
+		return nil
+	}
+	return f.Replaces
+}
+
+func (f *FactMetricData) GetArchived() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.Archived
 }
 
 type FactMetric struct {
@@ -1400,6 +1801,10 @@ func (f *FactMetric) GetData() FactMetricData {
 }
 
 type PostBulkImportFactsRequest struct {
+	// Fallback `managedBy` for Fact Tables and Fact Metrics that omit the field. Defaults to `"api"`. Filters inherit `"api"` only when the parent Fact Table is api-managed.
+	DefaultManagedBy *DefaultManagedBy `json:"defaultManagedBy,omitzero"`
+	// Validate with zero writes.
+	DryRun           *bool             `json:"dryRun,omitzero"`
 	FactTables       []FactTable       `json:"factTables,omitzero"`
 	FactTableFilters []FactTableFilter `json:"factTableFilters,omitzero"`
 	FactMetrics      []FactMetric      `json:"factMetrics,omitzero"`
@@ -1414,6 +1819,20 @@ func (p *PostBulkImportFactsRequest) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (p *PostBulkImportFactsRequest) GetDefaultManagedBy() *DefaultManagedBy {
+	if p == nil {
+		return nil
+	}
+	return p.DefaultManagedBy
+}
+
+func (p *PostBulkImportFactsRequest) GetDryRun() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.DryRun
 }
 
 func (p *PostBulkImportFactsRequest) GetFactTables() []FactTable {
@@ -1439,13 +1858,15 @@ func (p *PostBulkImportFactsRequest) GetFactMetrics() []FactMetric {
 
 // PostBulkImportFactsResponseBody - Resource created
 type PostBulkImportFactsResponseBody struct {
-	Success                 bool  `json:"success"`
-	FactTablesAdded         int64 `json:"factTablesAdded"`
-	FactTablesUpdated       int64 `json:"factTablesUpdated"`
-	FactTableFiltersAdded   int64 `json:"factTableFiltersAdded"`
-	FactTableFiltersUpdated int64 `json:"factTableFiltersUpdated"`
-	FactMetricsAdded        int64 `json:"factMetricsAdded"`
-	FactMetricsUpdated      int64 `json:"factMetricsUpdated"`
+	Success                 bool                         `json:"success"`
+	DryRun                  bool                         `json:"dryRun"`
+	FactTablesAdded         int64                        `json:"factTablesAdded"`
+	FactTablesUpdated       int64                        `json:"factTablesUpdated"`
+	FactTableFiltersAdded   int64                        `json:"factTableFiltersAdded"`
+	FactTableFiltersUpdated int64                        `json:"factTableFiltersUpdated"`
+	FactMetricsAdded        int64                        `json:"factMetricsAdded"`
+	FactMetricsUpdated      int64                        `json:"factMetricsUpdated"`
+	Errors                  []components.BulkImportError `json:"errors"`
 }
 
 func (p *PostBulkImportFactsResponseBody) GetSuccess() bool {
@@ -1453,6 +1874,13 @@ func (p *PostBulkImportFactsResponseBody) GetSuccess() bool {
 		return false
 	}
 	return p.Success
+}
+
+func (p *PostBulkImportFactsResponseBody) GetDryRun() bool {
+	if p == nil {
+		return false
+	}
+	return p.DryRun
 }
 
 func (p *PostBulkImportFactsResponseBody) GetFactTablesAdded() int64 {
@@ -1495,6 +1923,13 @@ func (p *PostBulkImportFactsResponseBody) GetFactMetricsUpdated() int64 {
 		return 0
 	}
 	return p.FactMetricsUpdated
+}
+
+func (p *PostBulkImportFactsResponseBody) GetErrors() []components.BulkImportError {
+	if p == nil {
+		return []components.BulkImportError{}
+	}
+	return p.Errors
 }
 
 type PostBulkImportFactsResponse struct {

@@ -342,8 +342,10 @@ type UpdateCustomFieldRequestBody struct {
 	Placeholder  *string                        `json:"placeholder,omitzero"`
 	DefaultValue *UpdateCustomFieldDefaultValue `json:"defaultValue,omitzero"`
 	Values       *string                        `json:"values,omitzero"`
-	Required     *bool                          `json:"required,omitzero"`
-	Projects     []string                       `json:"projects,omitzero"`
+	// For enum and multiselect fields, allow users to enter values beyond the predefined list
+	Creatable *bool    `json:"creatable,omitzero"`
+	Required  *bool    `json:"required,omitzero"`
+	Projects  []string `json:"projects,omitzero"`
 	// What types of objects this custom field is applicable to (feature, experiment)
 	Sections []UpdateCustomFieldSection `json:"sections,omitzero"`
 	Active   *bool                      `json:"active,omitzero"`
@@ -393,6 +395,13 @@ func (u *UpdateCustomFieldRequestBody) GetValues() *string {
 		return nil
 	}
 	return u.Values
+}
+
+func (u *UpdateCustomFieldRequestBody) GetCreatable() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.Creatable
 }
 
 func (u *UpdateCustomFieldRequestBody) GetRequired() *bool {

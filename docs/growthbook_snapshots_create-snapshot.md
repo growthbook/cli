@@ -20,7 +20,7 @@ growthbook snapshots create-snapshot [flags]
 
 ```
       --body string           Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --dimension string      Dimension to break results down by. For Unit Dimensions, use the dimension id (e.g. "dim_abc123"). For Experiment Dimensions, use "exp:<dimensionName>" (e.g. "exp:country"). Built-in pre-exposure dimensions include "pre:date" and, when configured, "pre:activation". Omit this field to create a standard snapshot.
+      --dimension string      Dimension to break results down by. For Unit Dimensions, use the dimension id (e.g. "dim_abc123"). For Experiment Dimensions, use "exp:<dimensionName>" (e.g. "exp:country"). Built-in pre-exposure dimensions include "pre:date" and, when configured, "pre:activation". Use "cutoff:<ISO datetime>" (e.g. "cutoff:2026-01-15T00:12:00.000Z") to split units by whether they were first exposed before or after the cutoff; it must fall within the phase dates. Use "combo:<dimA>::<dimB>" (e.g. "combo:exp:country::dim_abc123") to break down by the intersection of two dimensions, each an Experiment Dimension or Unit Dimension id; values beyond the top 20 combined slices are merged into "(other)". Omit this field to create a standard snapshot.
   -h, --help                  help for create-snapshot
   -i, --id string             The experiment id of the experiment to update [required]
   -p, --phase int             Zero-based phase index to snapshot, where 0 is the first experiment phase. Defaults to the latest phase.

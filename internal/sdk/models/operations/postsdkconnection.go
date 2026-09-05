@@ -31,6 +31,8 @@ type PostSDKConnectionRequest struct {
 	HashSecureAttributes                *bool    `json:"hashSecureAttributes,omitzero"`
 	RemoteEvalEnabled                   *bool    `json:"remoteEvalEnabled,omitzero"`
 	SavedGroupReferencesEnabled         *bool    `json:"savedGroupReferencesEnabled,omitzero"`
+	// Carry prerequisite Feature Flags into this payload even when they target other Projects. Defaults to true for new connections.
+	IncludeReferencedPrerequisites *bool `json:"includeReferencedPrerequisites,omitzero"`
 }
 
 func (p PostSDKConnectionRequest) MarshalJSON() ([]byte, error) {
@@ -196,6 +198,13 @@ func (p *PostSDKConnectionRequest) GetSavedGroupReferencesEnabled() *bool {
 		return nil
 	}
 	return p.SavedGroupReferencesEnabled
+}
+
+func (p *PostSDKConnectionRequest) GetIncludeReferencedPrerequisites() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.IncludeReferencedPrerequisites
 }
 
 // PostSDKConnectionResponseBody - Resource created

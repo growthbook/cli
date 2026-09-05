@@ -19,7 +19,7 @@ growthbook fact-metrics update [flags]
 ### Options
 
 ```
-  -a, --archived                                     boolean flag
+  -a, --archived                                     Set to true to archive the metric. Archived metrics are hidden by default in the UI and excluded from new experiments.
       --body string                                  Request body as JSON (alternative to individual flags). Can also be provided via stdin.
   -c, --capping-settings string                      Controls how outliers are handled
       --denominator string                           Only when metricType is 'ratio'
@@ -42,10 +42,11 @@ growthbook fact-metrics update [flags]
       --projects stringArray                         list of values
       --quantile-settings string                     Controls the settings for quantile metrics (mandatory if metricType is "quantile")
       --regression-adjustment-settings string        Controls the regression adjustment (CUPED) settings for the metric
+      --replaces stringArray                         Ids of older metrics (legacy or fact) that this metric supersedes, for example the legacy metric it was migrated from. Cannot include this metric's own id. Informational only - GrowthBook uses it to link the old and new definitions in the UI and to keep showing results from a snapshot that was created before an experiment switched to this metric. This field can only be set through the API.
       --risk-threshold-danger float                  No longer used. Threshold for Risk to be considered too high, as a proportion (e.g. put 0.0125 for 1.25%). <br/> Must be a non-negative number.
       --risk-threshold-success riskThresholdDanger   No longer used. Threshold for Risk to be considered low enough, as a proportion (e.g. put 0.0025 for 0.25%). <br/> Must be a non-negative number and must not be higher than riskThresholdDanger.
       --tags stringArray                             list of values
-      --target-mde float                             number value
+      --target-mde float                             The percentage change that you want to reliably detect before ending an experiment, as a proportion (e.g. put 0.1 for 10%). This is used to estimate the "Days Left" for running experiments.
   -w, --window-settings string                       Controls the conversion window for the metric
 ```
 

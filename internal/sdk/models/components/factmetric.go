@@ -975,6 +975,8 @@ type FactMetric struct {
 	Archived    *bool               `json:"archived,omitzero"`
 	// Array of slice column names that will be automatically included in metric analysis. This is an enterprise feature.
 	MetricAutoSlices []string `json:"metricAutoSlices,omitzero"`
+	// Ids of older metrics (legacy or fact) that this metric supersedes, for example the legacy metric it was migrated from. Informational only - GrowthBook uses it to link the old and new definitions in the UI and to keep showing results from a snapshot that was created before an experiment switched to this metric.
+	Replaces []string `json:"replaces,omitzero"`
 }
 
 func (f FactMetric) MarshalJSON() ([]byte, error) {
@@ -1196,4 +1198,11 @@ func (f *FactMetric) GetMetricAutoSlices() []string {
 		return nil
 	}
 	return f.MetricAutoSlices
+}
+
+func (f *FactMetric) GetReplaces() []string {
+	if f == nil {
+		return nil
+	}
+	return f.Replaces
 }

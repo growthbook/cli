@@ -37,10 +37,11 @@ var updateFactMetricCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "min-percent-change", FieldPath: "Body.MinPercentChange", Kind: flagutil.FlagKindFloat64, Optional: true, Description: "Minimum percent change to consider uplift significant, as a proportion (e.g. put 0.005 for 0.5%)"},
 	{FlagName: "max-percent-change", FieldPath: "Body.MaxPercentChange", Kind: flagutil.FlagKindFloat64, Optional: true, Description: "Maximum percent change to consider uplift significant, as a proportion (e.g. put 0.5 for 50%)"},
 	{FlagName: "min-sample-size", FieldPath: "Body.MinSampleSize", Kind: flagutil.FlagKindFloat64, Optional: true, Description: "number value"},
-	{FlagName: "target-mde", FieldPath: "Body.TargetMDE", Kind: flagutil.FlagKindFloat64, Optional: true, Description: "number value"},
+	{FlagName: "target-mde", FieldPath: "Body.TargetMDE", Kind: flagutil.FlagKindFloat64, Optional: true, Description: "The percentage change that you want to reliably detect before ending an experiment, as a proportion (e.g. put 0.1 for 10%). This is used to estimate the \"Days Left\" for running experiments."},
 	{FlagName: "managed-by", FieldPath: "Body.ManagedBy", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"", "api", "admin"}, Description: "Set this to \"api\" to disable editing in the GrowthBook UI (options: , api, admin)"},
-	{FlagName: "archived", Shorthand: "a", FieldPath: "Body.Archived", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "metric-auto-slices", FieldPath: "Body.MetricAutoSlices", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Array of slice column names that will be automatically included in metric analysis. This is an enterprise feature."},
+	{FlagName: "replaces", FieldPath: "Body.Replaces", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Ids of older metrics (legacy or fact) that this metric supersedes, for example the legacy metric it was migrated from. Cannot include this metric's own id. Informational only - GrowthBook uses it to link the old and new definitions in the UI and to keep showing results from a snapshot that was created before an experiment switched to this metric. This field can only be set through the API."},
+	{FlagName: "archived", Shorthand: "a", FieldPath: "Body.Archived", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to archive the metric. Archived metrics are hidden by default in the UI and excluded from new experiments."},
 }
 
 // initUpdateFactMetricCmd initializes the update-fact-metric command.

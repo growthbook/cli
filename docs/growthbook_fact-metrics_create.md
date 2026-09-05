@@ -40,6 +40,7 @@ growthbook fact-metrics create [flags]
       --projects stringArray                         list of values
       --quantile-settings string                     Controls the settings for quantile metrics (mandatory if metricType is "quantile")
       --regression-adjustment-settings string        Controls the regression adjustment (CUPED) settings for the metric
+      --replaces stringArray                         Ids of older metrics (legacy or fact) that this metric supersedes, for example the legacy metric it was migrated from. Cannot include this metric's own id. Informational only - GrowthBook uses it to link the old and new definitions in the UI and to keep showing results from a snapshot that was created before an experiment switched to this metric. This field can only be set through the API.
       --risk-threshold-danger float                  No longer used. Threshold for Risk to be considered too high, as a proportion (e.g. put 0.0125 for 1.25%). <br/> Must be a non-negative number.
       --risk-threshold-success riskThresholdDanger   No longer used. Threshold for Risk to be considered low enough, as a proportion (e.g. put 0.0025 for 0.25%). <br/> Must be a non-negative number and must not be higher than riskThresholdDanger.
       --tags stringArray                             list of values

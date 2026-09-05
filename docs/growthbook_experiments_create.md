@@ -40,7 +40,7 @@ growthbook experiments create [flags]
       --decision-framework-settings string           Controls the decision framework and metric overrides for the experiment. Replaces the entire stored object on update (does not patch individual fields).
       --default-dashboard-id string                  ID of the default dashboard for this experiment.
       --description string                           Description of the experiment
-      --disable-sticky-bucketing                     boolean flag
+      --disable-sticky-bucketing                     When true, disables Sticky Bucketing for this experiment. If omitted, defaults to your organization's Sticky Bucketing setting for new experiments. Sticky Bucketing only takes effect when it is also enabled at the organization level.
   -e, --exclude-from-payload                         boolean flag
   -f, --fallback-attribute string                    string value
   -g, --guardrail-metrics stringArray                list of values

@@ -15,6 +15,8 @@ import (
 )
 
 var bulkImportCmdMeta = []flagutil.FlagMeta{
+	{FlagName: "default-managed-by", FieldPath: "DefaultManagedBy", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"", "api", "admin"}, Description: "Fallback `managedBy` for Fact Tables and Fact Metrics that omit the field. Defaults to `\"api\"`. Filters inherit `\"api\"` only when the parent Fact Table is api-managed. (options: , api, admin)"},
+	{FlagName: "dry-run", FieldPath: "DryRun", Kind: flagutil.FlagKindBool, Optional: true, Description: "Validate with zero writes."},
 	{FlagName: "fact-tables", FieldPath: "FactTables", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"factTables,omitempty"`, Description: "list of values"},
 	{FlagName: "fact-table-filters", FieldPath: "FactTableFilters", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"factTableFilters,omitempty"`, Description: "list of values"},
 	{FlagName: "fact-metrics", FieldPath: "FactMetrics", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"factMetrics,omitempty"`, Description: "list of values"},
@@ -25,7 +27,7 @@ func initBulkImportCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "bulk-import",
 		Short:   "Bulk import fact tables, filters, and metrics",
-		Long:    "Bulk import fact tables, filters, and metrics",
+		Long:    "Creates or updates Fact Tables, Fact Table filters, and Fact Metrics. Resources upsert by `id`. Pass `dryRun: true` to validate with zero writes. Not transactional: a live mid-loop failure returns HTTP 400 (403 for a permission failure) with write counts and `errors`.",
 		Example: "  growthbook fact-tables bulk-import",
 		RunE:    runBulkImportCmd,
 		Aliases: []string{"bi"},

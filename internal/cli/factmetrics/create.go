@@ -39,6 +39,7 @@ var createCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "target-mde", FieldPath: "TargetMDE", Kind: flagutil.FlagKindFloat64, Optional: true, Description: "The percentage change that you want to reliably detect before ending an experiment, as a proportion (e.g. put 0.1 for 10%). This is used to estimate the \"Days Left\" for running experiments."},
 	{FlagName: "managed-by", FieldPath: "ManagedBy", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"", "api", "admin"}, Description: "Set this to \"api\" to disable editing in the GrowthBook UI (options: , api, admin)"},
 	{FlagName: "metric-auto-slices", FieldPath: "MetricAutoSlices", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Array of slice column names that will be automatically included in metric analysis. This is an enterprise feature."},
+	{FlagName: "replaces", FieldPath: "Replaces", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Ids of older metrics (legacy or fact) that this metric supersedes, for example the legacy metric it was migrated from. Cannot include this metric's own id. Informational only - GrowthBook uses it to link the old and new definitions in the UI and to keep showing results from a snapshot that was created before an experiment switched to this metric. This field can only be set through the API."},
 }
 
 // initCreateCmd initializes the create command.

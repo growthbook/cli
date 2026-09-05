@@ -40,7 +40,7 @@ var createCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "fallback-attribute", Shorthand: "f", FieldPath: "FallbackAttribute", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "attribute-scope-all-projects", FieldPath: "AttributeScopeAllProjects", Kind: flagutil.FlagKindBool, Optional: true, Description: "Picker preference: show attributes from all projects in this experiment's targeting UI instead of only those in scope for its project and linked features. Does not loosen enforcement — when the organization requires registered attributes with project scoping, out-of-scope attributes are still rejected."},
 	{FlagName: "hash-version", FieldPath: "HashVersion", Kind: flagutil.FlagKindFloat64, Optional: true, Description: "number value"},
-	{FlagName: "disable-sticky-bucketing", FieldPath: "DisableStickyBucketing", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
+	{FlagName: "disable-sticky-bucketing", FieldPath: "DisableStickyBucketing", Kind: flagutil.FlagKindBool, Optional: true, Description: "When true, disables Sticky Bucketing for this experiment. If omitted, defaults to your organization's Sticky Bucketing setting for new experiments. Sticky Bucketing only takes effect when it is also enabled at the organization level."},
 	{FlagName: "bucket-version", FieldPath: "BucketVersion", Kind: flagutil.FlagKindFloat64, Optional: true, Description: "number value"},
 	{FlagName: "min-bucket-version", FieldPath: "MinBucketVersion", Kind: flagutil.FlagKindFloat64, Optional: true, Description: "number value"},
 	{FlagName: "released-variation-id", FieldPath: "ReleasedVariationID", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},

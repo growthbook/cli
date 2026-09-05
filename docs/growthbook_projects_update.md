@@ -25,6 +25,7 @@ growthbook projects update [flags]
   -i, --id string            The id of the requested resource [required]
   -n, --name string          Project name.
   -p, --public-id string     URL-safe slug (lowercase letters, numbers, dashes).
+  -r, --restrict-access      When true, only members with an explicit role on this Project (directly or via a team) can access it. Members with the manageTeam permission retain access. Requires a Pro or Enterprise plan.
   -s, --settings string      Project stats settings that, when set, override the organization settings.
 ```
 

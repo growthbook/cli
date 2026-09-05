@@ -732,6 +732,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`run-metric`](docs/growthbook_analytics-explorations_run-metric.md) - Create a Metric based visualization
 * [`run-fact-table`](docs/growthbook_analytics-explorations_run-fact-table.md) - Run a Fact Table based visualization
 * [`run-data-source`](docs/growthbook_analytics-explorations_run-data-source.md) - Create a Data Source based visualization
+* [`post-sql-exploration`](docs/growthbook_analytics-explorations_post-sql-exploration.md) - Create a SQL based visualization
 * [`run-funnel`](docs/growthbook_analytics-explorations_run-funnel.md) - Run a Funnel based visualization
 
 ### [ramp-schedule-templates](docs/growthbook_ramp-schedule-templates.md)
@@ -750,6 +751,16 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`create`](docs/growthbook_learnings_create.md) - Create a single learning
 * [`list`](docs/growthbook_learnings_list.md) - Get all learnings
 * [`search`](docs/growthbook_learnings_search.md) - Search saved Learnings by meaning rather than keyword
+
+### [holdouts](docs/growthbook_holdouts.md)
+
+* [`get`](docs/growthbook_holdouts_get.md) - Get a single holdout
+* [`update`](docs/growthbook_holdouts_update.md) - Update a single holdout
+* [`create`](docs/growthbook_holdouts_create.md) - Create a single holdout
+* [`list`](docs/growthbook_holdouts_list.md) - Get all holdouts
+* [`start`](docs/growthbook_holdouts_start.md) - Start the Holdout's Active Period
+* [`start-holdout-analysis`](docs/growthbook_holdouts_start-holdout-analysis.md) - Start the Holdout's Analysis Period
+* [`stop`](docs/growthbook_holdouts_stop.md) - Stop a Holdout
 
 </details>
 <!-- End Available Commands [operations] -->

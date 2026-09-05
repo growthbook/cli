@@ -45,6 +45,8 @@ type PostProjectRequest struct {
 	PublicID *string `json:"publicId,omitzero"`
 	// Project stats settings that, when set, override the organization settings.
 	Settings *PostProjectSettings `json:"settings,omitzero"`
+	// When true, only members with an explicit role on this Project (directly or via a team) can access it. Members with the manageTeam permission retain access. Requires a Pro or Enterprise plan.
+	RestrictAccess *bool `json:"restrictAccess,omitzero"`
 }
 
 func (p PostProjectRequest) MarshalJSON() ([]byte, error) {
@@ -84,6 +86,13 @@ func (p *PostProjectRequest) GetSettings() *PostProjectSettings {
 		return nil
 	}
 	return p.Settings
+}
+
+func (p *PostProjectRequest) GetRestrictAccess() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.RestrictAccess
 }
 
 // PostProjectResponseBody - Resource created

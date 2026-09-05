@@ -21,6 +21,7 @@ var updateCustomFieldCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "placeholder", FieldPath: "Body.Placeholder", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "default-value", FieldPath: "Body.DefaultValue", Kind: flagutil.FlagKindUnion, Union: &flagutil.UnionMeta{Discriminated: false, Optional: true, TypeDescription: "JSON value (one of: string | number | boolean | date-time | date | array of string | array of number | array of boolean | array of date-time | array of date)"}},
 	{FlagName: "values", Shorthand: "v", FieldPath: "Body.Values", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "creatable", Shorthand: "c", FieldPath: "Body.Creatable", Kind: flagutil.FlagKindBool, Optional: true, Description: "For enum and multiselect fields, allow users to enter values beyond the predefined list"},
 	{FlagName: "required", Shorthand: "r", FieldPath: "Body.Required", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "projects", FieldPath: "Body.Projects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
 	{FlagName: "sections", Shorthand: "s", FieldPath: "Body.Sections", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "What types of objects this custom field is applicable to (feature, experiment)"},
