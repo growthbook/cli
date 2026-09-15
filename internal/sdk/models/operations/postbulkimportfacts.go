@@ -1822,7 +1822,7 @@ type PostBulkImportFactsRequest struct {
 	// Fallback `managedBy` for Fact Tables and Fact Metrics that omit the field. Defaults to `"api"`. Filters inherit `"api"` only when the parent Fact Table is api-managed.
 	DefaultManagedBy *DefaultManagedBy `json:"defaultManagedBy,omitzero"`
 	// Validate with zero writes.
-	DryRun           *bool             `json:"dryRun,omitzero"`
+	ValidateOnly     *bool             `json:"dryRun,omitzero"`
 	FactTables       []FactTable       `json:"factTables,omitzero"`
 	FactTableFilters []FactTableFilter `json:"factTableFilters,omitzero"`
 	FactMetrics      []FactMetric      `json:"factMetrics,omitzero"`
@@ -1846,11 +1846,11 @@ func (p *PostBulkImportFactsRequest) GetDefaultManagedBy() *DefaultManagedBy {
 	return p.DefaultManagedBy
 }
 
-func (p *PostBulkImportFactsRequest) GetDryRun() *bool {
+func (p *PostBulkImportFactsRequest) GetValidateOnly() *bool {
 	if p == nil {
 		return nil
 	}
-	return p.DryRun
+	return p.ValidateOnly
 }
 
 func (p *PostBulkImportFactsRequest) GetFactTables() []FactTable {

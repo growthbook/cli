@@ -180,7 +180,7 @@ type PostReleasePublishRevisionsRequest struct {
 	// The revisions to publish, at most one per entity.
 	Revisions []Revision `json:"revisions"`
 	// Report every gate and outcome without writing anything.
-	DryRun *bool `json:"dryRun,omitzero"`
+	ValidateOnly *bool `json:"dryRun,omitzero"`
 	// Set to true to acknowledge warnings from experiment guards, schema changes, or archives. It can also force-publish an out-of-date draft when the caller has Bypass draft approvals access for that resource.
 	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
 	// Set to true to publish despite schema or invariant failures. Validation still runs and the response still reports each failure. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project.
@@ -198,11 +198,11 @@ func (p *PostReleasePublishRevisionsRequest) GetRevisions() []Revision {
 	return p.Revisions
 }
 
-func (p *PostReleasePublishRevisionsRequest) GetDryRun() *bool {
+func (p *PostReleasePublishRevisionsRequest) GetValidateOnly() *bool {
 	if p == nil {
 		return nil
 	}
-	return p.DryRun
+	return p.ValidateOnly
 }
 
 func (p *PostReleasePublishRevisionsRequest) GetIgnoreWarnings() *bool {

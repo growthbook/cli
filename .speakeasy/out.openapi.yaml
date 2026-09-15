@@ -24494,6 +24494,7 @@ paths:
                 dryRun:
                   description: Report every gate and outcome without writing anything.
                   type: boolean
+                  x-speakeasy-name-override: validateOnly
                 ignoreWarnings:
                   description: >-
                     Set to true to acknowledge warnings from experiment guards, schema changes, or archives. It can also force-publish an out-of-date draft when the caller has Bypass draft approvals access for that resource.
@@ -27403,6 +27404,7 @@ paths:
                 dryRun:
                   description: Validate with zero writes.
                   type: boolean
+                  x-speakeasy-name-override: validateOnly
                 factTables:
                   type: array
                   items:

@@ -16,7 +16,7 @@ import (
 
 var bulkImportCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "default-managed-by", FieldPath: "DefaultManagedBy", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"", "api", "admin"}, Description: "Fallback `managedBy` for Fact Tables and Fact Metrics that omit the field. Defaults to `\"api\"`. Filters inherit `\"api\"` only when the parent Fact Table is api-managed. (options: , api, admin)"},
-	{FlagName: "dry-run", FieldPath: "DryRun", Kind: flagutil.FlagKindBool, Optional: true, Description: "Validate with zero writes."},
+	{FlagName: "validate-only", Shorthand: "v", FieldPath: "ValidateOnly", Kind: flagutil.FlagKindBool, Optional: true, Description: "Validate with zero writes."},
 	{FlagName: "fact-tables", FieldPath: "FactTables", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"factTables,omitempty"`, Description: "list of values"},
 	{FlagName: "fact-table-filters", FieldPath: "FactTableFilters", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"factTableFilters,omitempty"`, Description: "list of values"},
 	{FlagName: "fact-metrics", FieldPath: "FactMetrics", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"factMetrics,omitempty"`, Description: "list of values"},

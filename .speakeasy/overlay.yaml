@@ -1081,3 +1081,20 @@ actions:
     update: { x-speakeasy-name-override: append-artifact }
   - target: $..[?(@.operationId=="startHoldoutAnalysis")]
     update: { x-speakeasy-name-override: start-analysis }
+  # 7. Rename the `dryRun` BODY field's flag to --validate-only.
+  #
+  # `--dry-run` is one of our root persistent flags: preview the request and
+  # skip the network call. A command-local flag of the same name shadows it
+  # (cobra resolves local before inherited), and client.IsDryRun reads
+  # cmd.Flags(), so it sees the body field. The result is that
+  # `--dry-run` sets "dryRun": true in the payload AND short-circuits to
+  # "Network call skipped" — the server-side validation the caller asked for
+  # can never run, and --dry-run disappears from the command's Diagnostics.
+  #
+  # Renaming only the flag keeps the wire field `dryRun` untouched.
+  - target: $.paths["/v1/bulk-import/facts"].post.requestBody.content["application/json"].schema.properties.dryRun
+    update:
+      x-speakeasy-name-override: validateOnly
+  - target: $.paths["/v1/releases/publish-revisions"].post.requestBody.content["application/json"].schema.properties.dryRun
+    update:
+      x-speakeasy-name-override: validateOnly

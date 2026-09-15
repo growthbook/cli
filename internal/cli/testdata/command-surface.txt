@@ -213,7 +213,7 @@ growthbook fact-metrics get  [--id]
 growthbook fact-metrics list  [--all --datasource-id --fact-table-id --limit --max-pages --offset --project-id]
 growthbook fact-metrics update  [--archived --body --capping-settings --denominator --description --display-as-percentage --funnel-settings --id --inverse --managed-by --max-percent-change --metric-auto-slices --metric-type --min-percent-change --min-sample-size --name --numerator --owner --prior-settings --projects --quantile-settings --regression-adjustment-settings --replaces --risk-threshold-danger --risk-threshold-success --tags --target-mde --window-settings]
 growthbook fact-tables
-growthbook fact-tables bulk-import  [--body --default-managed-by --dry-run --fact-metrics --fact-table-filters --fact-tables]
+growthbook fact-tables bulk-import  [--body --default-managed-by --fact-metrics --fact-table-filters --fact-tables --validate-only]
 growthbook fact-tables create  [--aggregated-fact-table-settings --body --columns --datasource --description --event-name --managed-by --name --owner --projects --sql --tags --timestamp-column --user-id-columns --user-id-types]
 growthbook fact-tables create-filter  [--body --description --fact-table-id --managed-by --name --value]
 growthbook fact-tables create-virtual-column  [--body --column --datatype --description --fact-table-id --name --number-format --sql]
@@ -402,7 +402,7 @@ growthbook ramp-schedules update-ramp-schedule-lockdown  [--body --id --mode]
 growthbook ramp-schedules update-ramp-schedule-monitoring  [--auto-update --body --datasource-id --exposure-query-id --guardrail-metric-ids --id --monitoring-mode --multiple-exposure-action --no-traffic-action --no-traffic-grace-period-hours --signal-metric-ids --srm-action --update-schedule-minutes]
 growthbook ramp-schedules update-ramp-schedule-steps  [--body --id --steps]
 growthbook releases
-growthbook releases publish-revisions  [--body --comment --dry-run --ignore-warnings --revisions --skip-hooks --skip-schema-validation]
+growthbook releases publish-revisions  [--body --comment --ignore-warnings --revisions --skip-hooks --skip-schema-validation --validate-only]
 growthbook reports
 growthbook reports create  [--activation-metric --attribution-model --body --custom-metric-slices --date-ended --date-started --description --difference-type --dimension --experiment-id --goal-metrics --guardrail-metrics --lookback-override --lookback-override.date --lookback-override.window --lookback-override.window.value --lookback-override.window.value-unit --metric-overrides --owner --query-filter --regression-adjustment-enabled --secondary-metrics --segment --sequential-testing-enabled --sequential-testing-tuning-parameter --share-level --skip-partial-data --stats-engine --title]
 growthbook reports get  [--id]
