@@ -84,6 +84,10 @@ func InitExperimentsRoot(parent *cobra.Command) error {
 		return err
 	}
 
+	if err := initPostCommentCmd(ExperimentsCmd); err != nil {
+		return err
+	}
+
 	parent.AddCommand(ExperimentsCmd)
 	return nil
 }

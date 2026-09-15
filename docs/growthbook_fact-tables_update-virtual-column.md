@@ -26,7 +26,7 @@ growthbook fact-tables update-virtual-column [flags]
   -h, --help                   help for update-virtual-column
   -i, --id string              The id of the requested resource [required]
       --name string            Display name for the column
-      --number-format string   options: , currency, time:seconds, memory:bytes, memory:kilobytes
+      --number-format string   options: , currency, time:seconds, time:milliseconds, memory:bytes, memory:kilobytes
   -s, --sql string             The SQL expression that computes the column value
 ```
 

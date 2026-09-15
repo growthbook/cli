@@ -37,6 +37,7 @@ var createCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "hash-secure-attributes", FieldPath: "HashSecureAttributes", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "remote-eval-enabled", Shorthand: "r", FieldPath: "RemoteEvalEnabled", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "saved-group-references-enabled", FieldPath: "SavedGroupReferencesEnabled", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
+	{FlagName: "include-referenced-prerequisites", FieldPath: "IncludeReferencedPrerequisites", Kind: flagutil.FlagKindBool, Optional: true, Description: "Carry prerequisite Feature Flags into this payload even when they target other Projects. Defaults to true for new connections."},
 }
 
 // initCreateCmd initializes the create command.

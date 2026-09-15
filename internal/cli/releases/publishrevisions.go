@@ -16,7 +16,7 @@ import (
 
 var publishRevisionsCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "revisions", Shorthand: "r", FieldPath: "Revisions", Kind: flagutil.FlagKindJSON, Required: true, Annotations: `json:"revisions"`, Description: "The revisions to publish, at most one per entity. [required]"},
-	{FlagName: "dry-run", FieldPath: "DryRun", Kind: flagutil.FlagKindBool, Optional: true, Description: "Report every gate and outcome without writing anything."},
+	{FlagName: "validate-only", Shorthand: "v", FieldPath: "ValidateOnly", Kind: flagutil.FlagKindBool, Optional: true, Description: "Report every gate and outcome without writing anything."},
 	{FlagName: "ignore-warnings", Shorthand: "i", FieldPath: "IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to acknowledge warnings from experiment guards, schema changes, or archives. It can also force-publish an out-of-date draft when the caller has Bypass draft approvals access for that resource."},
 	{FlagName: "skip-schema-validation", FieldPath: "SkipSchemaValidation", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to publish despite schema or invariant failures. Validation still runs and the response still reports each failure. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project."},
 	{FlagName: "skip-hooks", FieldPath: "SkipHooks", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to publish despite Custom Hook rejections. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project."},

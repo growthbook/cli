@@ -1198,14 +1198,15 @@ type PostExperimentRequest struct {
 	HashAttribute     *string               `json:"hashAttribute,omitzero"`
 	FallbackAttribute *string               `json:"fallbackAttribute,omitzero"`
 	// Picker preference: show attributes from all projects in this experiment's targeting UI instead of only those in scope for its project and linked features. Does not loosen enforcement — when the organization requires registered attributes with project scoping, out-of-scope attributes are still rejected.
-	AttributeScopeAllProjects *bool                                `json:"attributeScopeAllProjects,omitzero"`
-	HashVersion               *float64                             `json:"hashVersion,omitzero"`
-	DisableStickyBucketing    *bool                                `json:"disableStickyBucketing,omitzero"`
-	BucketVersion             *float64                             `json:"bucketVersion,omitzero"`
-	MinBucketVersion          *float64                             `json:"minBucketVersion,omitzero"`
-	ReleasedVariationID       *string                              `json:"releasedVariationId,omitzero"`
-	ExcludeFromPayload        *bool                                `json:"excludeFromPayload,omitzero"`
-	InProgressConversions     *PostExperimentInProgressConversions `json:"inProgressConversions,omitzero"`
+	AttributeScopeAllProjects *bool    `json:"attributeScopeAllProjects,omitzero"`
+	HashVersion               *float64 `json:"hashVersion,omitzero"`
+	// When true, disables Sticky Bucketing for this experiment. If omitted, defaults to your organization's Sticky Bucketing setting for new experiments. Sticky Bucketing only takes effect when it is also enabled at the organization level.
+	DisableStickyBucketing *bool                                `json:"disableStickyBucketing,omitzero"`
+	BucketVersion          *float64                             `json:"bucketVersion,omitzero"`
+	MinBucketVersion       *float64                             `json:"minBucketVersion,omitzero"`
+	ReleasedVariationID    *string                              `json:"releasedVariationId,omitzero"`
+	ExcludeFromPayload     *bool                                `json:"excludeFromPayload,omitzero"`
+	InProgressConversions  *PostExperimentInProgressConversions `json:"inProgressConversions,omitzero"`
 	// Setting attribution model to `"experimentDuration"` is the same as selecting "Ignore Conversion Windows" for the Conversion Window Override. Setting it to `"lookbackOverride"` requires a `lookbackOverride` object to be provided.
 	AttributionModel *PostExperimentAttributionModel `json:"attributionModel,omitzero"`
 	// Controls the lookback override for the experiment. For type "window", value must be a non-negative number and valueUnit is required.

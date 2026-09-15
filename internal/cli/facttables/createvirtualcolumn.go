@@ -19,7 +19,7 @@ var createVirtualColumnCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "column", Shorthand: "c", FieldPath: "Body.Column", Kind: flagutil.FlagKindString, Required: true, Description: "The column identifier used in generated SQL. Must contain only letters, numbers, and underscores and end with `_vc`. [required]"},
 	{FlagName: "name", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Optional: true, Description: "Display name for the column"},
 	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "number-format", FieldPath: "Body.NumberFormat", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"", "currency", "time:seconds", "memory:bytes", "memory:kilobytes"}, Description: "options: , currency, time:seconds, memory:bytes, memory:kilobytes"},
+	{FlagName: "number-format", FieldPath: "Body.NumberFormat", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"", "currency", "time:seconds", "time:milliseconds", "memory:bytes", "memory:kilobytes"}, Description: "options: , currency, time:seconds, time:milliseconds, memory:bytes, memory:kilobytes"},
 	{FlagName: "datatype", FieldPath: "Body.Datatype", Kind: flagutil.FlagKindEnum, Required: true, EnumValues: []string{"number", "string", "date", "boolean", "json", "binary", "other"}, Description: "The data type of the computed column (options: number, string, date, boolean, json, binary, other) [required]"},
 	{FlagName: "sql", Shorthand: "s", FieldPath: "Body.SQL", Kind: flagutil.FlagKindString, Required: true, Description: "The SQL expression that computes the column value [required]"},
 }

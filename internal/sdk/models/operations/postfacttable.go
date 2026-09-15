@@ -108,10 +108,14 @@ type PostFactTableRequest struct {
 	Datasource string `json:"datasource"`
 	// List of identifier columns in this table. For example, "id" or "anonymous_id"
 	UserIDTypes []string `json:"userIdTypes"`
+	// Maps an identifier type to the column holding it, for SQL that does not alias its columns to the identifier type names, e.g. `{"user_id": "userId"}`. May also be a single-level field path into a JSON column (`properties.userId`). Unmapped types use the identifier type name as the column name.
+	UserIDColumns map[string]string `json:"userIdColumns,omitzero"`
 	// Settings for maintaining shared daily aggregated tables (a subset of userIdTypes plus the daily update time and restate lookback window) used to speed up CUPED. Requires the data pipeline (pipeline-mode) feature.
 	AggregatedFactTableSettings *PostFactTableAggregatedFactTableSettings `json:"aggregatedFactTableSettings,omitzero"`
 	// The SQL query for this fact table
 	SQL string `json:"sql"`
+	// The column holding the event timestamp. Must be a date column on this fact table. Defaults to "timestamp" when unset.
+	TimestampColumn *string `json:"timestampColumn,omitzero"`
 	// The event name used in SQL template variables
 	EventName *string `json:"eventName,omitzero"`
 	// Optional array of column definitions to store for this fact table. Supplied columns are stored as-is. Omit `datatype` (or send "") on a column to have it auto-detected from the SQL.
@@ -180,6 +184,13 @@ func (p *PostFactTableRequest) GetUserIDTypes() []string {
 	return p.UserIDTypes
 }
 
+func (p *PostFactTableRequest) GetUserIDColumns() map[string]string {
+	if p == nil {
+		return nil
+	}
+	return p.UserIDColumns
+}
+
 func (p *PostFactTableRequest) GetAggregatedFactTableSettings() *PostFactTableAggregatedFactTableSettings {
 	if p == nil {
 		return nil
@@ -192,6 +203,13 @@ func (p *PostFactTableRequest) GetSQL() string {
 		return ""
 	}
 	return p.SQL
+}
+
+func (p *PostFactTableRequest) GetTimestampColumn() *string {
+	if p == nil {
+		return nil
+	}
+	return p.TimestampColumn
 }
 
 func (p *PostFactTableRequest) GetEventName() *string {

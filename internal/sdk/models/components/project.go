@@ -41,8 +41,10 @@ type Project struct {
 	DateUpdated time.Time `json:"dateUpdated"`
 	Description *string   `json:"description,omitzero"`
 	// URL-safe slug used in SDK payload metadata. Auto-generated from name if not provided.
-	PublicID *string          `json:"publicId,omitzero"`
-	Settings *ProjectSettings `json:"settings,omitzero"`
+	PublicID *string `json:"publicId,omitzero"`
+	// When true, only members with an explicit role on this Project (directly or via a team) can access it. Members with the manageTeam permission retain access.
+	RestrictAccess *bool            `json:"restrictAccess,omitzero"`
+	Settings       *ProjectSettings `json:"settings,omitzero"`
 }
 
 func (p Project) MarshalJSON() ([]byte, error) {
@@ -96,6 +98,13 @@ func (p *Project) GetPublicID() *string {
 		return nil
 	}
 	return p.PublicID
+}
+
+func (p *Project) GetRestrictAccess() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.RestrictAccess
 }
 
 func (p *Project) GetSettings() *ProjectSettings {

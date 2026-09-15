@@ -4,7 +4,7 @@ Bulk import fact tables, filters, and metrics
 
 ### Synopsis
 
-Bulk import fact tables, filters, and metrics
+Creates or updates Fact Tables, Fact Table filters, and Fact Metrics. Resources upsert by `id`. Pass `dryRun: true` to validate with zero writes. Not transactional: a live mid-loop failure returns HTTP 400 (403 for a permission failure) with write counts and `errors`.
 
 ```
 growthbook fact-tables bulk-import [flags]
@@ -19,11 +19,13 @@ growthbook fact-tables bulk-import [flags]
 ### Options
 
 ```
-      --body string                 Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --fact-metrics string         list of values
-      --fact-table-filters string   list of values
-      --fact-tables string          list of values
-  -h, --help                        help for bulk-import
+      --body string                    Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --default-managed-by managedBy   Fallback managedBy for Fact Tables and Fact Metrics that omit the field. Defaults to `"api"`. Filters inherit `"api"` only when the parent Fact Table is api-managed. (options: , api, admin)
+      --fact-metrics string            list of values
+      --fact-table-filters string      list of values
+      --fact-tables string             list of values
+  -h, --help                           help for bulk-import
+  -v, --validate-only                  Validate with zero writes.
 ```
 
 ### Options inherited from parent commands

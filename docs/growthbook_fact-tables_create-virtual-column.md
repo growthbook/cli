@@ -26,7 +26,7 @@ growthbook fact-tables create-virtual-column [flags]
   -f, --fact-table-id string   Specify a specific fact table [required]
   -h, --help                   help for create-virtual-column
       --name string            Display name for the column
-      --number-format string   options: , currency, time:seconds, memory:bytes, memory:kilobytes
+      --number-format string   options: , currency, time:seconds, time:milliseconds, memory:bytes, memory:kilobytes
   -s, --sql string             The SQL expression that computes the column value [required]
 ```
 

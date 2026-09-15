@@ -9,6 +9,11 @@ must identify a rule that is already published and must not already be
 controlled by another schedule. `environment` is accepted for backward
 compatibility with pre-v2 ramps but is deprecated and no longer required.
 
+This skips the revision review flow, so when the organization requires review
+anywhere it is limited to credentials that may bypass approval. The reviewed way
+to attach a plan is `PUT /features/{id}/revisions/{version}/rules/{ruleId}/ramp-schedule`
+followed by a publish.
+
 ```
 growthbook ramp-schedules add-target [flags]
 ```

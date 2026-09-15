@@ -106,10 +106,14 @@ type UpdateFactTableRequestBody struct {
 	Tags []string `json:"tags,omitzero"`
 	// List of identifier columns in this table. For example, "id" or "anonymous_id"
 	UserIDTypes []string `json:"userIdTypes,omitzero"`
+	// Maps an identifier type to the column holding it, for SQL that does not alias its columns to the identifier type names, e.g. `{"user_id": "userId"}`. May also be a single-level field path into a JSON column (`properties.userId`). Unmapped types use the identifier type name as the column name.
+	UserIDColumns map[string]string `json:"userIdColumns,omitzero"`
 	// Settings for maintaining shared daily aggregated tables (a subset of userIdTypes plus the daily update time and restate lookback window) used to speed up CUPED. Requires the data pipeline (pipeline-mode) feature.
 	AggregatedFactTableSettings *UpdateFactTableAggregatedFactTableSettings `json:"aggregatedFactTableSettings,omitzero"`
 	// The SQL query for this fact table
 	SQL *string `json:"sql,omitzero"`
+	// The column holding the event timestamp. Must be a date column on this fact table. Defaults to "timestamp" when unset.
+	TimestampColumn *string `json:"timestampColumn,omitzero"`
 	// The event name used in SQL template variables
 	EventName *string `json:"eventName,omitzero"`
 	// Optional array of columns to upsert by `column`: existing columns are patched, new columns are created, and columns not included are left unchanged. Omit `datatype` to leave an existing column's type untouched; send "" to reset it for auto-detection; new columns are auto-detected when `datatype` is omitted or "". Slice-related properties require an enterprise license.
@@ -172,6 +176,13 @@ func (u *UpdateFactTableRequestBody) GetUserIDTypes() []string {
 	return u.UserIDTypes
 }
 
+func (u *UpdateFactTableRequestBody) GetUserIDColumns() map[string]string {
+	if u == nil {
+		return nil
+	}
+	return u.UserIDColumns
+}
+
 func (u *UpdateFactTableRequestBody) GetAggregatedFactTableSettings() *UpdateFactTableAggregatedFactTableSettings {
 	if u == nil {
 		return nil
@@ -184,6 +195,13 @@ func (u *UpdateFactTableRequestBody) GetSQL() *string {
 		return nil
 	}
 	return u.SQL
+}
+
+func (u *UpdateFactTableRequestBody) GetTimestampColumn() *string {
+	if u == nil {
+		return nil
+	}
+	return u.TimestampColumn
 }
 
 func (u *UpdateFactTableRequestBody) GetEventName() *string {

@@ -99,9 +99,13 @@ type FactTable struct {
 	Tags        []string `json:"tags"`
 	Datasource  string   `json:"datasource"`
 	UserIDTypes []string `json:"userIdTypes"`
+	// Maps an identifier type to the column holding it, for SQL that does not alias its columns to the identifier type names, e.g. `{"user_id": "userId"}`. May also be a single-level field path into a JSON column (`properties.userId`). Unmapped types use the identifier type name as the column name.
+	UserIDColumns map[string]string `json:"userIdColumns,omitzero"`
 	// Settings for maintaining shared daily aggregated tables (a subset of userIdTypes plus the daily update time and restate lookback window) used to speed up CUPED. Requires the data pipeline (pipeline-mode) feature.
 	AggregatedFactTableSettings *AggregatedFactTableSettings `json:"aggregatedFactTableSettings,omitzero"`
 	SQL                         string                       `json:"sql"`
+	// The column holding the event timestamp. Must be a date column on this fact table. Defaults to "timestamp" when unset.
+	TimestampColumn *string `json:"timestampColumn,omitzero"`
 	// The event name used in SQL template variables
 	EventName *string `json:"eventName,omitzero"`
 	// Array of column definitions for this fact table
@@ -193,6 +197,13 @@ func (f *FactTable) GetUserIDTypes() []string {
 	return f.UserIDTypes
 }
 
+func (f *FactTable) GetUserIDColumns() map[string]string {
+	if f == nil {
+		return nil
+	}
+	return f.UserIDColumns
+}
+
 func (f *FactTable) GetAggregatedFactTableSettings() *AggregatedFactTableSettings {
 	if f == nil {
 		return nil
@@ -205,6 +216,13 @@ func (f *FactTable) GetSQL() string {
 		return ""
 	}
 	return f.SQL
+}
+
+func (f *FactTable) GetTimestampColumn() *string {
+	if f == nil {
+		return nil
+	}
+	return f.TimestampColumn
 }
 
 func (f *FactTable) GetEventName() *string {

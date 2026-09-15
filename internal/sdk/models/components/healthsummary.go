@@ -250,7 +250,7 @@ func (e *Role) IsExact() bool {
 	return false
 }
 
-type Metrics struct {
+type HealthSummaryMetrics struct {
 	// Metric ID.
 	ID string `json:"id"`
 	// Human-readable metric name. Absent if the metric definition has been deleted.
@@ -269,60 +269,60 @@ type Metrics struct {
 	PValue *float64 `json:"pValue,omitzero"`
 }
 
-func (m *Metrics) GetID() string {
-	if m == nil {
+func (h *HealthSummaryMetrics) GetID() string {
+	if h == nil {
 		return ""
 	}
-	return m.ID
+	return h.ID
 }
 
-func (m *Metrics) GetName() *string {
-	if m == nil {
+func (h *HealthSummaryMetrics) GetName() *string {
+	if h == nil {
 		return nil
 	}
-	return m.Name
+	return h.Name
 }
 
-func (m *Metrics) GetStatus() MetricsStatus {
-	if m == nil {
+func (h *HealthSummaryMetrics) GetStatus() MetricsStatus {
+	if h == nil {
 		return MetricsStatus("")
 	}
-	return m.Status
+	return h.Status
 }
 
-func (m *Metrics) GetRole() Role {
-	if m == nil {
+func (h *HealthSummaryMetrics) GetRole() Role {
+	if h == nil {
 		return Role("")
 	}
-	return m.Role
+	return h.Role
 }
 
-func (m *Metrics) GetRelativeLift() *float64 {
-	if m == nil {
+func (h *HealthSummaryMetrics) GetRelativeLift() *float64 {
+	if h == nil {
 		return nil
 	}
-	return m.RelativeLift
+	return h.RelativeLift
 }
 
-func (m *Metrics) GetAbsoluteLift() *float64 {
-	if m == nil {
+func (h *HealthSummaryMetrics) GetAbsoluteLift() *float64 {
+	if h == nil {
 		return nil
 	}
-	return m.AbsoluteLift
+	return h.AbsoluteLift
 }
 
-func (m *Metrics) GetCiHarmBound() *float64 {
-	if m == nil {
+func (h *HealthSummaryMetrics) GetCiHarmBound() *float64 {
+	if h == nil {
 		return nil
 	}
-	return m.CiHarmBound
+	return h.CiHarmBound
 }
 
-func (m *Metrics) GetPValue() *float64 {
-	if m == nil {
+func (h *HealthSummaryMetrics) GetPValue() *float64 {
+	if h == nil {
 		return nil
 	}
-	return m.PValue
+	return h.PValue
 }
 
 // HealthSummary - Populated when monitoring is enabled and analysis data is available. Contains the current evaluator decision, aggregate traffic health, and per-metric status with effect sizes.
@@ -340,7 +340,7 @@ type HealthSummary struct {
 	// Traffic health from the latest snapshot. Absent when no snapshot has been taken yet.
 	Traffic *Traffic `json:"traffic,omitzero"`
 	// Per-metric health keyed by metric ID. Only includes metrics configured as guardrails or signals on this schedule.
-	Metrics map[string]Metrics `json:"metrics"`
+	Metrics map[string]HealthSummaryMetrics `json:"metrics"`
 }
 
 func (h HealthSummary) MarshalJSON() ([]byte, error) {
@@ -396,9 +396,9 @@ func (h *HealthSummary) GetTraffic() *Traffic {
 	return h.Traffic
 }
 
-func (h *HealthSummary) GetMetrics() map[string]Metrics {
+func (h *HealthSummary) GetMetrics() map[string]HealthSummaryMetrics {
 	if h == nil {
-		return map[string]Metrics{}
+		return map[string]HealthSummaryMetrics{}
 	}
 	return h.Metrics
 }

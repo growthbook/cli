@@ -132,9 +132,9 @@ type TargetingRule struct {
 	Condition     *string                     `json:"condition,omitzero"`
 	SavedGroups   []TargetingRuleSavedGroup   `json:"savedGroups,omitzero"`
 	Prerequisites []TargetingRulePrerequisite `json:"prerequisites,omitzero"`
-	// When true the rule applies to all environments. Defaults to false.
+	// When true the rule applies to all environments. Omit both scope fields to apply to all environments.
 	AllEnvironments *bool `json:"allEnvironments,omitzero"`
-	// Specific environment IDs this rule applies to. Used when allEnvironments is false.
+	// Environment IDs the rule applies to. Ignored when allEnvironments is true; with allEnvironments false, an omitted or empty list scopes the rule to no environment.
 	Environments []string `json:"environments,omitzero"`
 	// Use "force" for a standard targeting rule, or "rollout" for a percentage rollout (coverage < 1). Defaults to "force". Both are functionally equivalent; a force rule with coverage < 1 behaves as a rollout.
 	Type *TargetingRuleType `json:"type,omitzero"`

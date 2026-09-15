@@ -43,7 +43,12 @@ growthbook analytics-explorations [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
+* [growthbook analytics-explorations get](growthbook_analytics-explorations_get.md)	 - Get a Product Analytics exploration
+* [growthbook analytics-explorations get-column-values](growthbook_analytics-explorations_get-column-values.md)	 - Fetch values for Product Analytics string columns
+* [growthbook analytics-explorations get-columns](growthbook_analytics-explorations_get-columns.md)	 - List columns available to a Product Analytics exploration
 * [growthbook analytics-explorations run-data-source](growthbook_analytics-explorations_run-data-source.md)	 - Create a Data Source based visualization
 * [growthbook analytics-explorations run-fact-table](growthbook_analytics-explorations_run-fact-table.md)	 - Run a Fact Table based visualization
 * [growthbook analytics-explorations run-funnel](growthbook_analytics-explorations_run-funnel.md)	 - Run a Funnel based visualization
 * [growthbook analytics-explorations run-metric](growthbook_analytics-explorations_run-metric.md)	 - Create a Metric based visualization
+* [growthbook analytics-explorations run-sql](growthbook_analytics-explorations_run-sql.md)	 - Create a SQL based visualization
+* [growthbook analytics-explorations search](growthbook_analytics-explorations_search.md)	 - Search Product Analytics resources

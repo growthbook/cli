@@ -7,6 +7,7 @@ import (
 	"github.com/growthbook/cli/v2/internal/cli/analyticsexplorations"
 	"github.com/growthbook/cli/v2/internal/cli/archetypes"
 	"github.com/growthbook/cli/v2/internal/cli/attributes"
+	"github.com/growthbook/cli/v2/internal/cli/autoruns"
 	"github.com/growthbook/cli/v2/internal/cli/codereferences"
 	"github.com/growthbook/cli/v2/internal/cli/configrevisions"
 	"github.com/growthbook/cli/v2/internal/cli/configs"
@@ -28,6 +29,7 @@ import (
 	"github.com/growthbook/cli/v2/internal/cli/featurerevisionsv1"
 	"github.com/growthbook/cli/v2/internal/cli/features"
 	"github.com/growthbook/cli/v2/internal/cli/featuresv1"
+	"github.com/growthbook/cli/v2/internal/cli/holdouts"
 	"github.com/growthbook/cli/v2/internal/cli/learnings"
 	"github.com/growthbook/cli/v2/internal/cli/members"
 	"github.com/growthbook/cli/v2/internal/cli/meta"
@@ -228,6 +230,12 @@ func NewRootCommand() (*cobra.Command, error) {
 	}
 	if err := learnings.InitLearningsRoot(rootCmd); err != nil {
 		return nil, fmt.Errorf("init learnings: %w", err)
+	}
+	if err := holdouts.InitHoldoutsRoot(rootCmd); err != nil {
+		return nil, fmt.Errorf("init holdouts: %w", err)
+	}
+	if err := autoruns.InitAutoRunsRoot(rootCmd); err != nil {
+		return nil, fmt.Errorf("init auto-runs: %w", err)
 	}
 	if err := initGetSDKPayloadCmd(rootCmd); err != nil {
 		return nil, fmt.Errorf("init get-SDK-payload: %w", err)

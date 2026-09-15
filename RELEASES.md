@@ -47,3 +47,11 @@ Based on:
 - Speakeasy CLI 1.794.0 (2.930.0) https://github.com/speakeasy-api/speakeasy
 ### Generated
 - [cli v2.4.1] .
+
+## 2026-09-15 02:46:19
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.794.0 (2.930.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [cli v2.5.1] .

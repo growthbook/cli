@@ -20,6 +20,7 @@ var updateCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Project description."},
 	{FlagName: "public-id", Shorthand: "p", FieldPath: "Body.PublicID", Kind: flagutil.FlagKindString, Optional: true, Description: "URL-safe slug (lowercase letters, numbers, dashes)."},
 	{FlagName: "settings", Shorthand: "s", FieldPath: "Body.Settings", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"settings,omitempty"`, Description: "Project stats settings that, when set, override the organization settings."},
+	{FlagName: "restrict-access", Shorthand: "r", FieldPath: "Body.RestrictAccess", Kind: flagutil.FlagKindBool, Optional: true, Description: "When true, only members with an explicit role on this Project (directly or via a team) can access it. Members with the manageTeam permission retain access. Requires a Pro or Enterprise plan."},
 }
 
 // initUpdateCmd initializes the update command.

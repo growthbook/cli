@@ -1229,12 +1229,16 @@ type UpdateFactMetricRequestBody struct {
 	// Maximum percent change to consider uplift significant, as a proportion (e.g. put 0.5 for 50%)
 	MaxPercentChange *float64 `json:"maxPercentChange,omitzero"`
 	MinSampleSize    *float64 `json:"minSampleSize,omitzero"`
-	TargetMDE        *float64 `json:"targetMDE,omitzero"`
+	// The percentage change that you want to reliably detect before ending an experiment, as a proportion (e.g. put 0.1 for 10%). This is used to estimate the "Days Left" for running experiments.
+	TargetMDE *float64 `json:"targetMDE,omitzero"`
 	// Set this to "api" to disable editing in the GrowthBook UI
 	ManagedBy *UpdateFactMetricManagedBy `json:"managedBy,omitzero"`
-	Archived  *bool                      `json:"archived,omitzero"`
 	// Array of slice column names that will be automatically included in metric analysis. This is an enterprise feature.
 	MetricAutoSlices []string `json:"metricAutoSlices,omitzero"`
+	// Ids of older metrics (legacy or fact) that this metric supersedes, for example the legacy metric it was migrated from. Cannot include this metric's own id. Informational only - GrowthBook uses it to link the old and new definitions in the UI and to keep showing results from a snapshot that was created before an experiment switched to this metric. This field can only be set through the API.
+	Replaces []string `json:"replaces,omitzero"`
+	// Set to true to archive the metric. Archived metrics are hidden by default in the UI and excluded from new experiments.
+	Archived *bool `json:"archived,omitzero"`
 }
 
 func (u UpdateFactMetricRequestBody) MarshalJSON() ([]byte, error) {
@@ -1409,18 +1413,25 @@ func (u *UpdateFactMetricRequestBody) GetManagedBy() *UpdateFactMetricManagedBy 
 	return u.ManagedBy
 }
 
-func (u *UpdateFactMetricRequestBody) GetArchived() *bool {
-	if u == nil {
-		return nil
-	}
-	return u.Archived
-}
-
 func (u *UpdateFactMetricRequestBody) GetMetricAutoSlices() []string {
 	if u == nil {
 		return nil
 	}
 	return u.MetricAutoSlices
+}
+
+func (u *UpdateFactMetricRequestBody) GetReplaces() []string {
+	if u == nil {
+		return nil
+	}
+	return u.Replaces
+}
+
+func (u *UpdateFactMetricRequestBody) GetArchived() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.Archived
 }
 
 type UpdateFactMetricRequest struct {

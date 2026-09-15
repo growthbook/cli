@@ -11,6 +11,130 @@ import (
 	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
+type UpdateFeatureMatch4 string
+
+const (
+	UpdateFeatureMatch4All  UpdateFeatureMatch4 = "all"
+	UpdateFeatureMatch4None UpdateFeatureMatch4 = "none"
+	UpdateFeatureMatch4Any  UpdateFeatureMatch4 = "any"
+)
+
+func (e UpdateFeatureMatch4) ToPointer() *UpdateFeatureMatch4 {
+	return &e
+}
+func (e *UpdateFeatureMatch4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "all":
+		fallthrough
+	case "none":
+		fallthrough
+	case "any":
+		*e = UpdateFeatureMatch4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for UpdateFeatureMatch4: %v", v)
+	}
+}
+
+type UpdateFeatureSavedGroup4 struct {
+	Match UpdateFeatureMatch4 `json:"match"`
+	Ids   []string            `json:"ids"`
+}
+
+func (u UpdateFeatureSavedGroup4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdateFeatureSavedGroup4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *UpdateFeatureSavedGroup4) GetMatch() UpdateFeatureMatch4 {
+	if u == nil {
+		return UpdateFeatureMatch4("")
+	}
+	return u.Match
+}
+
+func (u *UpdateFeatureSavedGroup4) GetIds() []string {
+	if u == nil {
+		return []string{}
+	}
+	return u.Ids
+}
+
+// #region class-body-updatefeaturesavedgroup4
+// #endregion class-body-updatefeaturesavedgroup4
+
+type UpdateFeatureMatchType4 string
+
+const (
+	UpdateFeatureMatchType4All  UpdateFeatureMatchType4 = "all"
+	UpdateFeatureMatchType4Any  UpdateFeatureMatchType4 = "any"
+	UpdateFeatureMatchType4None UpdateFeatureMatchType4 = "none"
+)
+
+func (e UpdateFeatureMatchType4) ToPointer() *UpdateFeatureMatchType4 {
+	return &e
+}
+func (e *UpdateFeatureMatchType4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "all":
+		fallthrough
+	case "any":
+		fallthrough
+	case "none":
+		*e = UpdateFeatureMatchType4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for UpdateFeatureMatchType4: %v", v)
+	}
+}
+
+type UpdateFeatureSavedGroupTargeting4 struct {
+	MatchType   UpdateFeatureMatchType4 `json:"matchType"`
+	SavedGroups []string                `json:"savedGroups"`
+}
+
+func (u UpdateFeatureSavedGroupTargeting4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdateFeatureSavedGroupTargeting4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *UpdateFeatureSavedGroupTargeting4) GetMatchType() UpdateFeatureMatchType4 {
+	if u == nil {
+		return UpdateFeatureMatchType4("")
+	}
+	return u.MatchType
+}
+
+func (u *UpdateFeatureSavedGroupTargeting4) GetSavedGroups() []string {
+	if u == nil {
+		return []string{}
+	}
+	return u.SavedGroups
+}
+
+// #region class-body-updatefeaturesavedgrouptargeting4
+// #endregion class-body-updatefeaturesavedgrouptargeting4
+
 type UpdateFeatureNamespace struct {
 	Enabled bool      `json:"enabled"`
 	Name    string    `json:"name"`
@@ -125,10 +249,19 @@ type UpdateFeatureRuleExperiment struct {
 	// When true (default), the rule applies to every project the feature is delivered to. When false, `projects` scopes it.
 	AllProjects *bool `json:"allProjects,omitzero"`
 	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
-	Projects    []string `json:"projects,omitzero"`
-	Description *string  `json:"description,omitzero"`
-	Condition   string   `json:"condition"`
-	ID          *string  `json:"id,omitzero"`
+	Projects []string `json:"projects,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	RampScheduleID any `json:"rampScheduleId,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ScheduleType any                        `json:"scheduleType,omitzero"`
+	SavedGroups  []UpdateFeatureSavedGroup4 `json:"savedGroups,omitzero"`
+	// Deprecated — use `savedGroups`. Accepted so a GET response can be posted back unchanged; `savedGroups` takes precedence if both are sent.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	SavedGroupTargeting []UpdateFeatureSavedGroupTargeting4 `json:"savedGroupTargeting,omitzero"`
+	Description         *string                             `json:"description,omitzero"`
+	Condition           string                              `json:"condition"`
+	ID                  *string                             `json:"id,omitzero"`
 	// Enabled by default
 	Enabled *bool `json:"enabled,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
@@ -148,6 +281,56 @@ type UpdateFeatureRuleExperiment struct {
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	Value []UpdateFeatureValue `json:"value,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ExperimentType any `json:"experimentType,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	Hypothesis any `json:"hypothesis,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	HashVersion any `json:"hashVersion,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	Datasource any `json:"datasource,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ExposureQueryID any `json:"exposureQueryId,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	GoalMetrics any `json:"goalMetrics,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	SecondaryMetrics any `json:"secondaryMetrics,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	GuardrailMetrics any `json:"guardrailMetrics,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ActivationMetric any `json:"activationMetric,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	Segment any `json:"segment,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	SkipPartialData any `json:"skipPartialData,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	RegressionAdjustmentEnabled any `json:"regressionAdjustmentEnabled,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	SequentialTestingEnabled any `json:"sequentialTestingEnabled,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	SequentialTestingTuningParameter any `json:"sequentialTestingTuningParameter,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	StatsEngine any `json:"statsEngine,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditStage any `json:"banditStage,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditStageDateStarted any `json:"banditStageDateStarted,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditScheduleValue any `json:"banditScheduleValue,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditScheduleUnit any `json:"banditScheduleUnit,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditBurnInValue any `json:"banditBurnInValue,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditBurnInUnit any `json:"banditBurnInUnit,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditConversionWindowValue any `json:"banditConversionWindowValue,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditConversionWindowUnit any `json:"banditConversionWindowUnit,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	TemplateID any `json:"templateId,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	CustomFields any `json:"customFields,omitzero"`
 }
 
 func (u UpdateFeatureRuleExperiment) MarshalJSON() ([]byte, error) {
@@ -173,6 +356,34 @@ func (u *UpdateFeatureRuleExperiment) GetProjects() []string {
 		return nil
 	}
 	return u.Projects
+}
+
+func (u *UpdateFeatureRuleExperiment) GetRampScheduleID() any {
+	if u == nil {
+		return nil
+	}
+	return u.RampScheduleID
+}
+
+func (u *UpdateFeatureRuleExperiment) GetScheduleType() any {
+	if u == nil {
+		return nil
+	}
+	return u.ScheduleType
+}
+
+func (u *UpdateFeatureRuleExperiment) GetSavedGroups() []UpdateFeatureSavedGroup4 {
+	if u == nil {
+		return nil
+	}
+	return u.SavedGroups
+}
+
+func (u *UpdateFeatureRuleExperiment) GetSavedGroupTargeting() []UpdateFeatureSavedGroupTargeting4 {
+	if u == nil {
+		return nil
+	}
+	return u.SavedGroupTargeting
 }
 
 func (u *UpdateFeatureRuleExperiment) GetDescription() *string {
@@ -289,6 +500,181 @@ func (u *UpdateFeatureRuleExperiment) GetValue() []UpdateFeatureValue {
 		return nil
 	}
 	return u.Value
+}
+
+func (u *UpdateFeatureRuleExperiment) GetExperimentType() any {
+	if u == nil {
+		return nil
+	}
+	return u.ExperimentType
+}
+
+func (u *UpdateFeatureRuleExperiment) GetHypothesis() any {
+	if u == nil {
+		return nil
+	}
+	return u.Hypothesis
+}
+
+func (u *UpdateFeatureRuleExperiment) GetHashVersion() any {
+	if u == nil {
+		return nil
+	}
+	return u.HashVersion
+}
+
+func (u *UpdateFeatureRuleExperiment) GetDatasource() any {
+	if u == nil {
+		return nil
+	}
+	return u.Datasource
+}
+
+func (u *UpdateFeatureRuleExperiment) GetExposureQueryID() any {
+	if u == nil {
+		return nil
+	}
+	return u.ExposureQueryID
+}
+
+func (u *UpdateFeatureRuleExperiment) GetGoalMetrics() any {
+	if u == nil {
+		return nil
+	}
+	return u.GoalMetrics
+}
+
+func (u *UpdateFeatureRuleExperiment) GetSecondaryMetrics() any {
+	if u == nil {
+		return nil
+	}
+	return u.SecondaryMetrics
+}
+
+func (u *UpdateFeatureRuleExperiment) GetGuardrailMetrics() any {
+	if u == nil {
+		return nil
+	}
+	return u.GuardrailMetrics
+}
+
+func (u *UpdateFeatureRuleExperiment) GetActivationMetric() any {
+	if u == nil {
+		return nil
+	}
+	return u.ActivationMetric
+}
+
+func (u *UpdateFeatureRuleExperiment) GetSegment() any {
+	if u == nil {
+		return nil
+	}
+	return u.Segment
+}
+
+func (u *UpdateFeatureRuleExperiment) GetSkipPartialData() any {
+	if u == nil {
+		return nil
+	}
+	return u.SkipPartialData
+}
+
+func (u *UpdateFeatureRuleExperiment) GetRegressionAdjustmentEnabled() any {
+	if u == nil {
+		return nil
+	}
+	return u.RegressionAdjustmentEnabled
+}
+
+func (u *UpdateFeatureRuleExperiment) GetSequentialTestingEnabled() any {
+	if u == nil {
+		return nil
+	}
+	return u.SequentialTestingEnabled
+}
+
+func (u *UpdateFeatureRuleExperiment) GetSequentialTestingTuningParameter() any {
+	if u == nil {
+		return nil
+	}
+	return u.SequentialTestingTuningParameter
+}
+
+func (u *UpdateFeatureRuleExperiment) GetStatsEngine() any {
+	if u == nil {
+		return nil
+	}
+	return u.StatsEngine
+}
+
+func (u *UpdateFeatureRuleExperiment) GetBanditStage() any {
+	if u == nil {
+		return nil
+	}
+	return u.BanditStage
+}
+
+func (u *UpdateFeatureRuleExperiment) GetBanditStageDateStarted() any {
+	if u == nil {
+		return nil
+	}
+	return u.BanditStageDateStarted
+}
+
+func (u *UpdateFeatureRuleExperiment) GetBanditScheduleValue() any {
+	if u == nil {
+		return nil
+	}
+	return u.BanditScheduleValue
+}
+
+func (u *UpdateFeatureRuleExperiment) GetBanditScheduleUnit() any {
+	if u == nil {
+		return nil
+	}
+	return u.BanditScheduleUnit
+}
+
+func (u *UpdateFeatureRuleExperiment) GetBanditBurnInValue() any {
+	if u == nil {
+		return nil
+	}
+	return u.BanditBurnInValue
+}
+
+func (u *UpdateFeatureRuleExperiment) GetBanditBurnInUnit() any {
+	if u == nil {
+		return nil
+	}
+	return u.BanditBurnInUnit
+}
+
+func (u *UpdateFeatureRuleExperiment) GetBanditConversionWindowValue() any {
+	if u == nil {
+		return nil
+	}
+	return u.BanditConversionWindowValue
+}
+
+func (u *UpdateFeatureRuleExperiment) GetBanditConversionWindowUnit() any {
+	if u == nil {
+		return nil
+	}
+	return u.BanditConversionWindowUnit
+}
+
+func (u *UpdateFeatureRuleExperiment) GetTemplateID() any {
+	if u == nil {
+		return nil
+	}
+	return u.TemplateID
+}
+
+func (u *UpdateFeatureRuleExperiment) GetCustomFields() any {
+	if u == nil {
+		return nil
+	}
+	return u.CustomFields
 }
 
 type UpdateFeatureMatch3 string
@@ -483,9 +869,13 @@ type UpdateFeatureRuleExperimentRef struct {
 	// When true (default), the rule applies to every project the feature is delivered to. When false, `projects` scopes it.
 	AllProjects *bool `json:"allProjects,omitzero"`
 	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
-	Projects    []string `json:"projects,omitzero"`
-	Description *string  `json:"description,omitzero"`
-	ID          *string  `json:"id,omitzero"`
+	Projects []string `json:"projects,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	RampScheduleID any `json:"rampScheduleId,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ScheduleType any     `json:"scheduleType,omitzero"`
+	Description  *string `json:"description,omitzero"`
+	ID           *string `json:"id,omitzero"`
 	// Enabled by default
 	Enabled *bool `json:"enabled,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
@@ -527,6 +917,20 @@ func (u *UpdateFeatureRuleExperimentRef) GetProjects() []string {
 		return nil
 	}
 	return u.Projects
+}
+
+func (u *UpdateFeatureRuleExperimentRef) GetRampScheduleID() any {
+	if u == nil {
+		return nil
+	}
+	return u.RampScheduleID
+}
+
+func (u *UpdateFeatureRuleExperimentRef) GetScheduleType() any {
+	if u == nil {
+		return nil
+	}
+	return u.ScheduleType
 }
 
 func (u *UpdateFeatureRuleExperimentRef) GetDescription() *string {
@@ -772,8 +1176,12 @@ type UpdateFeatureRuleRollout struct {
 	// When true (default), the rule applies to every project the feature is delivered to. When false, `projects` scopes it.
 	AllProjects *bool `json:"allProjects,omitzero"`
 	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
-	Projects    []string `json:"projects,omitzero"`
-	Description *string  `json:"description,omitzero"`
+	Projects []string `json:"projects,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	RampScheduleID any `json:"rampScheduleId,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ScheduleType any     `json:"scheduleType,omitzero"`
+	Description  *string `json:"description,omitzero"`
 	// Applied to everyone by default.
 	Condition   *string                    `json:"condition,omitzero"`
 	SavedGroups []UpdateFeatureSavedGroup2 `json:"savedGroups,omitzero"`
@@ -822,6 +1230,20 @@ func (u *UpdateFeatureRuleRollout) GetProjects() []string {
 		return nil
 	}
 	return u.Projects
+}
+
+func (u *UpdateFeatureRuleRollout) GetRampScheduleID() any {
+	if u == nil {
+		return nil
+	}
+	return u.RampScheduleID
+}
+
+func (u *UpdateFeatureRuleRollout) GetScheduleType() any {
+	if u == nil {
+		return nil
+	}
+	return u.ScheduleType
 }
 
 func (u *UpdateFeatureRuleRollout) GetDescription() *string {
@@ -1088,8 +1510,12 @@ type UpdateFeatureRuleForce struct {
 	// When true (default), the rule applies to every project the feature is delivered to. When false, `projects` scopes it.
 	AllProjects *bool `json:"allProjects,omitzero"`
 	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
-	Projects    []string `json:"projects,omitzero"`
-	Description *string  `json:"description,omitzero"`
+	Projects []string `json:"projects,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	RampScheduleID any `json:"rampScheduleId,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ScheduleType any     `json:"scheduleType,omitzero"`
+	Description  *string `json:"description,omitzero"`
 	// Applied to everyone by default.
 	Condition   *string                    `json:"condition,omitzero"`
 	SavedGroups []UpdateFeatureSavedGroup1 `json:"savedGroups,omitzero"`
@@ -1132,6 +1558,20 @@ func (u *UpdateFeatureRuleForce) GetProjects() []string {
 		return nil
 	}
 	return u.Projects
+}
+
+func (u *UpdateFeatureRuleForce) GetRampScheduleID() any {
+	if u == nil {
+		return nil
+	}
+	return u.RampScheduleID
+}
+
+func (u *UpdateFeatureRuleForce) GetScheduleType() any {
+	if u == nil {
+		return nil
+	}
+	return u.ScheduleType
 }
 
 func (u *UpdateFeatureRuleForce) GetDescription() *string {
@@ -1335,6 +1775,130 @@ func (u UpdateFeatureRuleUnion) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type UpdateFeatureRuleUnion: all fields are null")
 }
 
+type UpdateFeatureDraftMatch4 string
+
+const (
+	UpdateFeatureDraftMatch4All  UpdateFeatureDraftMatch4 = "all"
+	UpdateFeatureDraftMatch4None UpdateFeatureDraftMatch4 = "none"
+	UpdateFeatureDraftMatch4Any  UpdateFeatureDraftMatch4 = "any"
+)
+
+func (e UpdateFeatureDraftMatch4) ToPointer() *UpdateFeatureDraftMatch4 {
+	return &e
+}
+func (e *UpdateFeatureDraftMatch4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "all":
+		fallthrough
+	case "none":
+		fallthrough
+	case "any":
+		*e = UpdateFeatureDraftMatch4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for UpdateFeatureDraftMatch4: %v", v)
+	}
+}
+
+type UpdateFeatureDraftSavedGroup4 struct {
+	Match UpdateFeatureDraftMatch4 `json:"match"`
+	Ids   []string                 `json:"ids"`
+}
+
+func (u UpdateFeatureDraftSavedGroup4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdateFeatureDraftSavedGroup4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *UpdateFeatureDraftSavedGroup4) GetMatch() UpdateFeatureDraftMatch4 {
+	if u == nil {
+		return UpdateFeatureDraftMatch4("")
+	}
+	return u.Match
+}
+
+func (u *UpdateFeatureDraftSavedGroup4) GetIds() []string {
+	if u == nil {
+		return []string{}
+	}
+	return u.Ids
+}
+
+// #region class-body-updatefeaturedraftsavedgroup4
+// #endregion class-body-updatefeaturedraftsavedgroup4
+
+type UpdateFeatureDraftMatchType4 string
+
+const (
+	UpdateFeatureDraftMatchType4All  UpdateFeatureDraftMatchType4 = "all"
+	UpdateFeatureDraftMatchType4Any  UpdateFeatureDraftMatchType4 = "any"
+	UpdateFeatureDraftMatchType4None UpdateFeatureDraftMatchType4 = "none"
+)
+
+func (e UpdateFeatureDraftMatchType4) ToPointer() *UpdateFeatureDraftMatchType4 {
+	return &e
+}
+func (e *UpdateFeatureDraftMatchType4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "all":
+		fallthrough
+	case "any":
+		fallthrough
+	case "none":
+		*e = UpdateFeatureDraftMatchType4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for UpdateFeatureDraftMatchType4: %v", v)
+	}
+}
+
+type UpdateFeatureDraftSavedGroupTargeting4 struct {
+	MatchType   UpdateFeatureDraftMatchType4 `json:"matchType"`
+	SavedGroups []string                     `json:"savedGroups"`
+}
+
+func (u UpdateFeatureDraftSavedGroupTargeting4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdateFeatureDraftSavedGroupTargeting4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *UpdateFeatureDraftSavedGroupTargeting4) GetMatchType() UpdateFeatureDraftMatchType4 {
+	if u == nil {
+		return UpdateFeatureDraftMatchType4("")
+	}
+	return u.MatchType
+}
+
+func (u *UpdateFeatureDraftSavedGroupTargeting4) GetSavedGroups() []string {
+	if u == nil {
+		return []string{}
+	}
+	return u.SavedGroups
+}
+
+// #region class-body-updatefeaturedraftsavedgrouptargeting4
+// #endregion class-body-updatefeaturedraftsavedgrouptargeting4
+
 type UpdateFeatureDraftNamespace struct {
 	Enabled bool      `json:"enabled"`
 	Name    string    `json:"name"`
@@ -1449,10 +2013,19 @@ type UpdateFeatureRuleDraftExperiment struct {
 	// When true (default), the rule applies to every project the feature is delivered to. When false, `projects` scopes it.
 	AllProjects *bool `json:"allProjects,omitzero"`
 	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
-	Projects    []string `json:"projects,omitzero"`
-	Description *string  `json:"description,omitzero"`
-	Condition   string   `json:"condition"`
-	ID          *string  `json:"id,omitzero"`
+	Projects []string `json:"projects,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	RampScheduleID any `json:"rampScheduleId,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ScheduleType any                             `json:"scheduleType,omitzero"`
+	SavedGroups  []UpdateFeatureDraftSavedGroup4 `json:"savedGroups,omitzero"`
+	// Deprecated — use `savedGroups`. Accepted so a GET response can be posted back unchanged; `savedGroups` takes precedence if both are sent.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	SavedGroupTargeting []UpdateFeatureDraftSavedGroupTargeting4 `json:"savedGroupTargeting,omitzero"`
+	Description         *string                                  `json:"description,omitzero"`
+	Condition           string                                   `json:"condition"`
+	ID                  *string                                  `json:"id,omitzero"`
 	// Enabled by default
 	Enabled *bool `json:"enabled,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
@@ -1472,6 +2045,56 @@ type UpdateFeatureRuleDraftExperiment struct {
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	Value []UpdateFeatureDraftValue `json:"value,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ExperimentType any `json:"experimentType,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	Hypothesis any `json:"hypothesis,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	HashVersion any `json:"hashVersion,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	Datasource any `json:"datasource,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ExposureQueryID any `json:"exposureQueryId,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	GoalMetrics any `json:"goalMetrics,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	SecondaryMetrics any `json:"secondaryMetrics,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	GuardrailMetrics any `json:"guardrailMetrics,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ActivationMetric any `json:"activationMetric,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	Segment any `json:"segment,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	SkipPartialData any `json:"skipPartialData,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	RegressionAdjustmentEnabled any `json:"regressionAdjustmentEnabled,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	SequentialTestingEnabled any `json:"sequentialTestingEnabled,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	SequentialTestingTuningParameter any `json:"sequentialTestingTuningParameter,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	StatsEngine any `json:"statsEngine,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditStage any `json:"banditStage,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditStageDateStarted any `json:"banditStageDateStarted,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditScheduleValue any `json:"banditScheduleValue,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditScheduleUnit any `json:"banditScheduleUnit,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditBurnInValue any `json:"banditBurnInValue,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditBurnInUnit any `json:"banditBurnInUnit,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditConversionWindowValue any `json:"banditConversionWindowValue,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditConversionWindowUnit any `json:"banditConversionWindowUnit,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	TemplateID any `json:"templateId,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	CustomFields any `json:"customFields,omitzero"`
 }
 
 func (u UpdateFeatureRuleDraftExperiment) MarshalJSON() ([]byte, error) {
@@ -1497,6 +2120,34 @@ func (u *UpdateFeatureRuleDraftExperiment) GetProjects() []string {
 		return nil
 	}
 	return u.Projects
+}
+
+func (u *UpdateFeatureRuleDraftExperiment) GetRampScheduleID() any {
+	if u == nil {
+		return nil
+	}
+	return u.RampScheduleID
+}
+
+func (u *UpdateFeatureRuleDraftExperiment) GetScheduleType() any {
+	if u == nil {
+		return nil
+	}
+	return u.ScheduleType
+}
+
+func (u *UpdateFeatureRuleDraftExperiment) GetSavedGroups() []UpdateFeatureDraftSavedGroup4 {
+	if u == nil {
+		return nil
+	}
+	return u.SavedGroups
+}
+
+func (u *UpdateFeatureRuleDraftExperiment) GetSavedGroupTargeting() []UpdateFeatureDraftSavedGroupTargeting4 {
+	if u == nil {
+		return nil
+	}
+	return u.SavedGroupTargeting
 }
 
 func (u *UpdateFeatureRuleDraftExperiment) GetDescription() *string {
@@ -1613,6 +2264,181 @@ func (u *UpdateFeatureRuleDraftExperiment) GetValue() []UpdateFeatureDraftValue 
 		return nil
 	}
 	return u.Value
+}
+
+func (u *UpdateFeatureRuleDraftExperiment) GetExperimentType() any {
+	if u == nil {
+		return nil
+	}
+	return u.ExperimentType
+}
+
+func (u *UpdateFeatureRuleDraftExperiment) GetHypothesis() any {
+	if u == nil {
+		return nil
+	}
+	return u.Hypothesis
+}
+
+func (u *UpdateFeatureRuleDraftExperiment) GetHashVersion() any {
+	if u == nil {
+		return nil
+	}
+	return u.HashVersion
+}
+
+func (u *UpdateFeatureRuleDraftExperiment) GetDatasource() any {
+	if u == nil {
+		return nil
+	}
+	return u.Datasource
+}
+
+func (u *UpdateFeatureRuleDraftExperiment) GetExposureQueryID() any {
+	if u == nil {
+		return nil
+	}
+	return u.ExposureQueryID
+}
+
+func (u *UpdateFeatureRuleDraftExperiment) GetGoalMetrics() any {
+	if u == nil {
+		return nil
+	}
+	return u.GoalMetrics
+}
+
+func (u *UpdateFeatureRuleDraftExperiment) GetSecondaryMetrics() any {
+	if u == nil {
+		return nil
+	}
+	return u.SecondaryMetrics
+}
+
+func (u *UpdateFeatureRuleDraftExperiment) GetGuardrailMetrics() any {
+	if u == nil {
+		return nil
+	}
+	return u.GuardrailMetrics
+}
+
+func (u *UpdateFeatureRuleDraftExperiment) GetActivationMetric() any {
+	if u == nil {
+		return nil
+	}
+	return u.ActivationMetric
+}
+
+func (u *UpdateFeatureRuleDraftExperiment) GetSegment() any {
+	if u == nil {
+		return nil
+	}
+	return u.Segment
+}
+
+func (u *UpdateFeatureRuleDraftExperiment) GetSkipPartialData() any {
+	if u == nil {
+		return nil
+	}
+	return u.SkipPartialData
+}
+
+func (u *UpdateFeatureRuleDraftExperiment) GetRegressionAdjustmentEnabled() any {
+	if u == nil {
+		return nil
+	}
+	return u.RegressionAdjustmentEnabled
+}
+
+func (u *UpdateFeatureRuleDraftExperiment) GetSequentialTestingEnabled() any {
+	if u == nil {
+		return nil
+	}
+	return u.SequentialTestingEnabled
+}
+
+func (u *UpdateFeatureRuleDraftExperiment) GetSequentialTestingTuningParameter() any {
+	if u == nil {
+		return nil
+	}
+	return u.SequentialTestingTuningParameter
+}
+
+func (u *UpdateFeatureRuleDraftExperiment) GetStatsEngine() any {
+	if u == nil {
+		return nil
+	}
+	return u.StatsEngine
+}
+
+func (u *UpdateFeatureRuleDraftExperiment) GetBanditStage() any {
+	if u == nil {
+		return nil
+	}
+	return u.BanditStage
+}
+
+func (u *UpdateFeatureRuleDraftExperiment) GetBanditStageDateStarted() any {
+	if u == nil {
+		return nil
+	}
+	return u.BanditStageDateStarted
+}
+
+func (u *UpdateFeatureRuleDraftExperiment) GetBanditScheduleValue() any {
+	if u == nil {
+		return nil
+	}
+	return u.BanditScheduleValue
+}
+
+func (u *UpdateFeatureRuleDraftExperiment) GetBanditScheduleUnit() any {
+	if u == nil {
+		return nil
+	}
+	return u.BanditScheduleUnit
+}
+
+func (u *UpdateFeatureRuleDraftExperiment) GetBanditBurnInValue() any {
+	if u == nil {
+		return nil
+	}
+	return u.BanditBurnInValue
+}
+
+func (u *UpdateFeatureRuleDraftExperiment) GetBanditBurnInUnit() any {
+	if u == nil {
+		return nil
+	}
+	return u.BanditBurnInUnit
+}
+
+func (u *UpdateFeatureRuleDraftExperiment) GetBanditConversionWindowValue() any {
+	if u == nil {
+		return nil
+	}
+	return u.BanditConversionWindowValue
+}
+
+func (u *UpdateFeatureRuleDraftExperiment) GetBanditConversionWindowUnit() any {
+	if u == nil {
+		return nil
+	}
+	return u.BanditConversionWindowUnit
+}
+
+func (u *UpdateFeatureRuleDraftExperiment) GetTemplateID() any {
+	if u == nil {
+		return nil
+	}
+	return u.TemplateID
+}
+
+func (u *UpdateFeatureRuleDraftExperiment) GetCustomFields() any {
+	if u == nil {
+		return nil
+	}
+	return u.CustomFields
 }
 
 type UpdateFeatureDraftMatch3 string
@@ -1807,9 +2633,13 @@ type UpdateFeatureRuleDraftExperimentRef struct {
 	// When true (default), the rule applies to every project the feature is delivered to. When false, `projects` scopes it.
 	AllProjects *bool `json:"allProjects,omitzero"`
 	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
-	Projects    []string `json:"projects,omitzero"`
-	Description *string  `json:"description,omitzero"`
-	ID          *string  `json:"id,omitzero"`
+	Projects []string `json:"projects,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	RampScheduleID any `json:"rampScheduleId,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ScheduleType any     `json:"scheduleType,omitzero"`
+	Description  *string `json:"description,omitzero"`
+	ID           *string `json:"id,omitzero"`
 	// Enabled by default
 	Enabled *bool `json:"enabled,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
@@ -1851,6 +2681,20 @@ func (u *UpdateFeatureRuleDraftExperimentRef) GetProjects() []string {
 		return nil
 	}
 	return u.Projects
+}
+
+func (u *UpdateFeatureRuleDraftExperimentRef) GetRampScheduleID() any {
+	if u == nil {
+		return nil
+	}
+	return u.RampScheduleID
+}
+
+func (u *UpdateFeatureRuleDraftExperimentRef) GetScheduleType() any {
+	if u == nil {
+		return nil
+	}
+	return u.ScheduleType
 }
 
 func (u *UpdateFeatureRuleDraftExperimentRef) GetDescription() *string {
@@ -2096,8 +2940,12 @@ type UpdateFeatureRuleDraftRollout struct {
 	// When true (default), the rule applies to every project the feature is delivered to. When false, `projects` scopes it.
 	AllProjects *bool `json:"allProjects,omitzero"`
 	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
-	Projects    []string `json:"projects,omitzero"`
-	Description *string  `json:"description,omitzero"`
+	Projects []string `json:"projects,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	RampScheduleID any `json:"rampScheduleId,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ScheduleType any     `json:"scheduleType,omitzero"`
+	Description  *string `json:"description,omitzero"`
 	// Applied to everyone by default.
 	Condition   *string                         `json:"condition,omitzero"`
 	SavedGroups []UpdateFeatureDraftSavedGroup2 `json:"savedGroups,omitzero"`
@@ -2146,6 +2994,20 @@ func (u *UpdateFeatureRuleDraftRollout) GetProjects() []string {
 		return nil
 	}
 	return u.Projects
+}
+
+func (u *UpdateFeatureRuleDraftRollout) GetRampScheduleID() any {
+	if u == nil {
+		return nil
+	}
+	return u.RampScheduleID
+}
+
+func (u *UpdateFeatureRuleDraftRollout) GetScheduleType() any {
+	if u == nil {
+		return nil
+	}
+	return u.ScheduleType
 }
 
 func (u *UpdateFeatureRuleDraftRollout) GetDescription() *string {
@@ -2412,8 +3274,12 @@ type UpdateFeatureRuleDraftForce struct {
 	// When true (default), the rule applies to every project the feature is delivered to. When false, `projects` scopes it.
 	AllProjects *bool `json:"allProjects,omitzero"`
 	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
-	Projects    []string `json:"projects,omitzero"`
-	Description *string  `json:"description,omitzero"`
+	Projects []string `json:"projects,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	RampScheduleID any `json:"rampScheduleId,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ScheduleType any     `json:"scheduleType,omitzero"`
+	Description  *string `json:"description,omitzero"`
 	// Applied to everyone by default.
 	Condition   *string                         `json:"condition,omitzero"`
 	SavedGroups []UpdateFeatureDraftSavedGroup1 `json:"savedGroups,omitzero"`
@@ -2456,6 +3322,20 @@ func (u *UpdateFeatureRuleDraftForce) GetProjects() []string {
 		return nil
 	}
 	return u.Projects
+}
+
+func (u *UpdateFeatureRuleDraftForce) GetRampScheduleID() any {
+	if u == nil {
+		return nil
+	}
+	return u.RampScheduleID
+}
+
+func (u *UpdateFeatureRuleDraftForce) GetScheduleType() any {
+	if u == nil {
+		return nil
+	}
+	return u.ScheduleType
 }
 
 func (u *UpdateFeatureRuleDraftForce) GetDescription() *string {
@@ -2773,7 +3653,8 @@ type UpdateFeatureRequestBody struct {
 	// The config backing this flag ("Config mode"), fixed at creation. Cannot be changed by an update — resend the current value or omit it; a different value (or null to detach) is rejected.
 	BaseConfig optionalnullable.OptionalNullable[string] `json:"baseConfig,omitzero"`
 	// List of associated tags. Will override tags completely with submitted list
-	Tags         []string                             `json:"tags,omitzero"`
+	Tags []string `json:"tags,omitzero"`
+	// Settings for each environment, keyed by environment ID. Any environment you leave out keeps its current settings.
 	Environments map[string]UpdateFeatureEnvironments `json:"environments,omitzero"`
 	// Feature IDs. Each feature must evaluate to `true`
 	Prerequisites []string `json:"prerequisites,omitzero"`

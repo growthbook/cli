@@ -36,7 +36,7 @@ func initCreateCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "create",
 		Short:   "Create a ramp schedule",
-		Long:    "Create a ramp schedule",
+		Long:    "Creates a ramp schedule, optionally attached to a published feature rule by passing `featureId` and `ruleId` together (the target is then injected into every action). Attaching on creation skips the revision review flow, so when the organization requires review anywhere it is limited to credentials that may bypass approval. The reviewed way to attach a plan is `PUT /features/{id}/revisions/{version}/rules/{ruleId}/ramp-schedule` followed by a publish. Without a target the schedule is a free-standing skeleton in `pending` status. Requires a Pro plan or above.",
 		Example: "  growthbook ramp-schedules create",
 		RunE:    runCreateCmd,
 	}

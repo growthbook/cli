@@ -2,6 +2,96 @@
 
 ## [Unreleased]
 
+Additive, plus one flag fix. Twenty-four new commands and twenty-two new flags; nothing was
+removed, and `--dry-run` behaves exactly as before everywhere, so no action is needed on upgrade.
+
+### Added
+
+- **`growthbook holdouts` — a new command group.** Manage holdouts end to end: `create`, `get`,
+  `list`, `update`, `start` (begin the active period), `start-analysis` (begin the analysis
+  period), and `stop`. `list` filters on `--stage`, `--datasource-id`, `--project-id`, and
+  `--archived`.
+
+- **`growthbook auto-runs` — a new command group.** `create`, `get`, `list`, `update`, and
+  `append-artifact` for recording an agent's run and the artifacts it produced.
+
+- **Product-analytics commands on `growthbook analytics-explorations`.** `get` returns a saved
+  exploration by id; `search` finds explorable resources; `get-columns` and `get-column-values`
+  enumerate a source's columns and their values; `run-sql` runs a SQL exploration alongside the
+  existing `run-metric` / `run-funnel` / `run-fact-table` / `run-data-source`.
+
+- **Warehouse SQL commands on `growthbook data-sources`.** `search-warehouse-tables`,
+  `get-warehouse-table-schema`, `preview-warehouse-column-values`, and `run-sql-query` for
+  exploring a data source's warehouse directly.
+
+- **`growthbook experiments post-comment`.** Add a comment to an experiment.
+
+- **`--restrict-access` on `growthbook projects create` / `update`.** When true, only members with
+  an explicit role on the project — directly or via a team — can access it. Members with
+  `manageTeam` keep access. Requires a Pro or Enterprise plan.
+
+- **`--include-referenced-prerequisites` on `growthbook SDK-connections create` / `update`.**
+  Carry prerequisite feature flags into the payload even when they target other projects. Defaults
+  to true for new connections.
+
+- **`--include-archived` on `growthbook metrics list`.** Defaults to `true`; pass `false` to return
+  only non-archived metrics.
+
+- **`--replaces` on `growthbook fact-metrics create` / `update`.** Ids of older metrics this one
+  supersedes. Informational only — it links the old and new definitions in the UI and keeps
+  showing results from snapshots taken before an experiment switched to this metric. Settable only
+  through the API.
+
+- **`--creatable` on `growthbook custom-fields create` / `update`.** For `enum` and `multiselect`
+  fields, let users enter values beyond the predefined list.
+
+- **`--timestamp-column` and `--user-id-columns` on `growthbook fact-tables create` / `update`.**
+  Name the event-timestamp column, and map identifier types to columns for SQL that does not alias
+  its columns to the identifier-type names.
+
+- **`--default-managed-by` on `growthbook fact-tables bulk-import`.** Fallback `managedBy` for fact
+  tables and fact metrics that omit it. Defaults to `api`.
+
+- **`--comparison` on `growthbook dashboards create` / `update`.** Dashboard-wide
+  compare-to-previous-period; takes precedence over any per-block comparison.
+
+- **`--chart-settings` on the four `growthbook analytics-explorations run-*` commands.**
+
+- **`sql-exploration` dashboard blocks.** A new block type returned by every `growthbook
+  dashboards` command and accepted inside `blocks[]` — a nested body field, so pass it in `--body`
+  JSON.
+
+- **Dimension breakdowns on results.** `dimension.dimensions` is now returned under
+  `growthbook experiments results`, `growthbook experiments list-results`, and every `growthbook
+  reports` command that returns results, with `date`, `dynamic`, `static`, and `slice` variants.
+  Response-only.
+
+- **`force` on ramp-schedule template patch actions**, under `steps[].actions[].patch` on every
+  `growthbook ramp-schedule-templates` command, and **`actions` on**
+  `growthbook ramp-schedules update-ramp-schedule-steps` steps.
+
+### Fixed
+
+- **`--dry-run` on `growthbook fact-tables bulk-import` and `growthbook releases
+  publish-revisions` never reached the server; the API's own dry run is now `--validate-only`.**
+  Both endpoints take a `dryRun` body field meaning "validate and report, write nothing." It
+  generated a command-local `--dry-run` flag that shadowed the CLI's global `--dry-run` ("preview
+  the request, skip the network call"), and because the global is read off the command, passing it
+  both set `dryRun: true` in the payload *and* short-circuited to `Network call skipped` — so the
+  server-side validation could never actually run, and `--dry-run` vanished from the command's
+  `Diagnostics` help section.
+
+  The body field's flag is now `--validate-only` (`-v`); the wire field is still `dryRun`, so the
+  request is unchanged. `--dry-run` goes back to meaning what it means on every other command, and
+  does exactly what it did before on these two — it always skipped the network call, so no script
+  changes behavior. To get the server-side gate report, switch `--dry-run` to `--validate-only`.
+
+### Changed
+
+- **`--number-format` accepts `time:milliseconds`.** A new option on `growthbook fact-tables
+  create-virtual-column` and `update-virtual-column`, alongside `currency`, `time:seconds`,
+  `memory:bytes`, and `memory:kilobytes`. Purely additive — existing values are unaffected.
+
 ## [2.5.0] - 2026-08-31
 
 Additive only — two new flags, no commands or flags were removed or renamed, so no action is

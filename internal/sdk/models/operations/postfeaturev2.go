@@ -281,19 +281,25 @@ type PostFeatureV2RuleSafeRollout struct {
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	SavedGroupTargeting []PostFeatureV2SavedGroupTargeting4 `json:"savedGroupTargeting,omitzero"`
-	Prerequisites       []PostFeatureV2Prerequisite4        `json:"prerequisites,omitzero"`
-	ScheduleRules       []PostFeatureV2ScheduleRule4        `json:"scheduleRules,omitzero"`
-	ControlValue        string                              `json:"controlValue"`
-	VariationValue      string                              `json:"variationValue"`
-	HashAttribute       string                              `json:"hashAttribute"`
-	TrackingKey         *string                             `json:"trackingKey,omitzero"`
-	Seed                *string                             `json:"seed,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	PendingRamp any `json:"pendingRamp,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	RampScheduleID any `json:"rampScheduleId,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ScheduleType   any                          `json:"scheduleType,omitzero"`
+	Prerequisites  []PostFeatureV2Prerequisite4 `json:"prerequisites,omitzero"`
+	ScheduleRules  []PostFeatureV2ScheduleRule4 `json:"scheduleRules,omitzero"`
+	ControlValue   string                       `json:"controlValue"`
+	VariationValue string                       `json:"variationValue"`
+	HashAttribute  string                       `json:"hashAttribute"`
+	TrackingKey    *string                      `json:"trackingKey,omitzero"`
+	Seed           *string                      `json:"seed,omitzero"`
 	// ID of an existing SafeRollout on this feature. Bulk POST/PUT cannot create new safe-rollouts; use POST /v2/features/:id/revisions/:version/rules to create one.
 	SafeRolloutID string               `json:"safeRolloutId"`
 	Status        *PostFeatureV2Status `json:"status,omitzero"`
 	// When true the rule applies to all environments (default).
 	AllEnvironments *bool `json:"allEnvironments,omitzero"`
-	// Specific environment IDs this rule applies to. Required when allEnvironments is false.
+	// Environment IDs the rule applies to. Ignored when allEnvironments is true; with allEnvironments false, an omitted or empty list scopes the rule to no environment.
 	Environments []string `json:"environments,omitzero"`
 	// When true (the default) the rule applies to every project the feature is delivered to. Set false and supply `projects` to scope the rule.
 	AllProjects *bool `json:"allProjects,omitzero"`
@@ -356,6 +362,27 @@ func (p *PostFeatureV2RuleSafeRollout) GetSavedGroupTargeting() []PostFeatureV2S
 		return nil
 	}
 	return p.SavedGroupTargeting
+}
+
+func (p *PostFeatureV2RuleSafeRollout) GetPendingRamp() any {
+	if p == nil {
+		return nil
+	}
+	return p.PendingRamp
+}
+
+func (p *PostFeatureV2RuleSafeRollout) GetRampScheduleID() any {
+	if p == nil {
+		return nil
+	}
+	return p.RampScheduleID
+}
+
+func (p *PostFeatureV2RuleSafeRollout) GetScheduleType() any {
+	if p == nil {
+		return nil
+	}
+	return p.ScheduleType
 }
 
 func (p *PostFeatureV2RuleSafeRollout) GetPrerequisites() []PostFeatureV2Prerequisite4 {
@@ -698,15 +725,21 @@ type PostFeatureV2RuleExperimentRef struct {
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	SavedGroupTargeting []PostFeatureV2SavedGroupTargeting3 `json:"savedGroupTargeting,omitzero"`
-	Prerequisites       []PostFeatureV2Prerequisite3        `json:"prerequisites,omitzero"`
-	ScheduleRules       []PostFeatureV2ScheduleRule3        `json:"scheduleRules,omitzero"`
-	Variations          []PostFeatureV2Variation            `json:"variations"`
-	ExperimentID        string                              `json:"experimentId"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	PendingRamp any `json:"pendingRamp,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	RampScheduleID any `json:"rampScheduleId,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ScheduleType  any                          `json:"scheduleType,omitzero"`
+	Prerequisites []PostFeatureV2Prerequisite3 `json:"prerequisites,omitzero"`
+	ScheduleRules []PostFeatureV2ScheduleRule3 `json:"scheduleRules,omitzero"`
+	Variations    []PostFeatureV2Variation     `json:"variations"`
+	ExperimentID  string                       `json:"experimentId"`
 	// JSON features only. When true, the rule value is a partial object merged onto the feature's default value instead of replacing it.
 	Sparse *bool `json:"sparse,omitzero"`
 	// When true the rule applies to all environments (default).
 	AllEnvironments *bool `json:"allEnvironments,omitzero"`
-	// Specific environment IDs this rule applies to. Required when allEnvironments is false.
+	// Environment IDs the rule applies to. Ignored when allEnvironments is true; with allEnvironments false, an omitted or empty list scopes the rule to no environment.
 	Environments []string `json:"environments,omitzero"`
 	// When true (the default) the rule applies to every project the feature is delivered to. Set false and supply `projects` to scope the rule.
 	AllProjects *bool `json:"allProjects,omitzero"`
@@ -769,6 +802,27 @@ func (p *PostFeatureV2RuleExperimentRef) GetSavedGroupTargeting() []PostFeatureV
 		return nil
 	}
 	return p.SavedGroupTargeting
+}
+
+func (p *PostFeatureV2RuleExperimentRef) GetPendingRamp() any {
+	if p == nil {
+		return nil
+	}
+	return p.PendingRamp
+}
+
+func (p *PostFeatureV2RuleExperimentRef) GetRampScheduleID() any {
+	if p == nil {
+		return nil
+	}
+	return p.RampScheduleID
+}
+
+func (p *PostFeatureV2RuleExperimentRef) GetScheduleType() any {
+	if p == nil {
+		return nil
+	}
+	return p.ScheduleType
 }
 
 func (p *PostFeatureV2RuleExperimentRef) GetPrerequisites() []PostFeatureV2Prerequisite3 {
@@ -1037,10 +1091,16 @@ type PostFeatureV2RuleRollout struct {
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	SavedGroupTargeting []PostFeatureV2SavedGroupTargeting2 `json:"savedGroupTargeting,omitzero"`
-	Prerequisites       []PostFeatureV2Prerequisite2        `json:"prerequisites,omitzero"`
-	ScheduleRules       []PostFeatureV2ScheduleRule2        `json:"scheduleRules,omitzero"`
-	ID                  *string                             `json:"id,omitzero"`
-	Enabled             *bool                               `json:"enabled,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	PendingRamp any `json:"pendingRamp,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	RampScheduleID any `json:"rampScheduleId,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ScheduleType  any                          `json:"scheduleType,omitzero"`
+	Prerequisites []PostFeatureV2Prerequisite2 `json:"prerequisites,omitzero"`
+	ScheduleRules []PostFeatureV2ScheduleRule2 `json:"scheduleRules,omitzero"`
+	ID            *string                      `json:"id,omitzero"`
+	Enabled       *bool                        `json:"enabled,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_ string `const:"rollout" json:"type"`
 	Value string `json:"value"`
@@ -1055,7 +1115,7 @@ type PostFeatureV2RuleRollout struct {
 	HashVersion *float64 `json:"hashVersion,omitzero"`
 	// When true the rule applies to all environments (default).
 	AllEnvironments *bool `json:"allEnvironments,omitzero"`
-	// Specific environment IDs this rule applies to. Required when allEnvironments is false.
+	// Environment IDs the rule applies to. Ignored when allEnvironments is true; with allEnvironments false, an omitted or empty list scopes the rule to no environment.
 	Environments []string `json:"environments,omitzero"`
 	// When true (the default) the rule applies to every project the feature is delivered to. Set false and supply `projects` to scope the rule.
 	AllProjects *bool `json:"allProjects,omitzero"`
@@ -1100,6 +1160,27 @@ func (p *PostFeatureV2RuleRollout) GetSavedGroupTargeting() []PostFeatureV2Saved
 		return nil
 	}
 	return p.SavedGroupTargeting
+}
+
+func (p *PostFeatureV2RuleRollout) GetPendingRamp() any {
+	if p == nil {
+		return nil
+	}
+	return p.PendingRamp
+}
+
+func (p *PostFeatureV2RuleRollout) GetRampScheduleID() any {
+	if p == nil {
+		return nil
+	}
+	return p.RampScheduleID
+}
+
+func (p *PostFeatureV2RuleRollout) GetScheduleType() any {
+	if p == nil {
+		return nil
+	}
+	return p.ScheduleType
 }
 
 func (p *PostFeatureV2RuleRollout) GetPrerequisites() []PostFeatureV2Prerequisite2 {
@@ -1414,10 +1495,16 @@ type PostFeatureV2RuleForce struct {
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	SavedGroupTargeting []PostFeatureV2SavedGroupTargeting1 `json:"savedGroupTargeting,omitzero"`
-	Prerequisites       []PostFeatureV2Prerequisite1        `json:"prerequisites,omitzero"`
-	ScheduleRules       []PostFeatureV2ScheduleRule1        `json:"scheduleRules,omitzero"`
-	ID                  *string                             `json:"id,omitzero"`
-	Enabled             *bool                               `json:"enabled,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	PendingRamp any `json:"pendingRamp,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	RampScheduleID any `json:"rampScheduleId,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ScheduleType  any                          `json:"scheduleType,omitzero"`
+	Prerequisites []PostFeatureV2Prerequisite1 `json:"prerequisites,omitzero"`
+	ScheduleRules []PostFeatureV2ScheduleRule1 `json:"scheduleRules,omitzero"`
+	ID            *string                      `json:"id,omitzero"`
+	Enabled       *bool                        `json:"enabled,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_ string `const:"force" json:"type"`
 	Value string `json:"value"`
@@ -1427,7 +1514,7 @@ type PostFeatureV2RuleForce struct {
 	Sparse *bool `json:"sparse,omitzero"`
 	// When true the rule applies to all environments (default).
 	AllEnvironments *bool `json:"allEnvironments,omitzero"`
-	// Specific environment IDs this rule applies to. Required when allEnvironments is false.
+	// Environment IDs the rule applies to. Ignored when allEnvironments is true; with allEnvironments false, an omitted or empty list scopes the rule to no environment.
 	Environments []string `json:"environments,omitzero"`
 	// When true (the default) the rule applies to every project the feature is delivered to. Set false and supply `projects` to scope the rule.
 	AllProjects *bool `json:"allProjects,omitzero"`
@@ -1472,6 +1559,27 @@ func (p *PostFeatureV2RuleForce) GetSavedGroupTargeting() []PostFeatureV2SavedGr
 		return nil
 	}
 	return p.SavedGroupTargeting
+}
+
+func (p *PostFeatureV2RuleForce) GetPendingRamp() any {
+	if p == nil {
+		return nil
+	}
+	return p.PendingRamp
+}
+
+func (p *PostFeatureV2RuleForce) GetRampScheduleID() any {
+	if p == nil {
+		return nil
+	}
+	return p.RampScheduleID
+}
+
+func (p *PostFeatureV2RuleForce) GetScheduleType() any {
+	if p == nil {
+		return nil
+	}
+	return p.ScheduleType
 }
 
 func (p *PostFeatureV2RuleForce) GetPrerequisites() []PostFeatureV2Prerequisite1 {

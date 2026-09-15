@@ -35,6 +35,8 @@ const (
 	StaleReasonAbandonedDraft   StaleReason = "abandoned-draft"
 	StaleReasonToggledOff       StaleReason = "toggled-off"
 	StaleReasonActiveExperiment StaleReason = "active-experiment"
+	StaleReasonTempRollout      StaleReason = "temp-rollout"
+	StaleReasonOldTempRollout   StaleReason = "old-temp-rollout"
 	StaleReasonHasRules         StaleReason = "has-rules"
 )
 
@@ -46,7 +48,7 @@ func (e StaleReason) ToPointer() *StaleReason {
 func (e *StaleReason) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "never-stale", "recently-updated", "active-draft", "has-dependents", "no-rules", "rules-one-sided", "abandoned-draft", "toggled-off", "active-experiment", "has-rules":
+		case "never-stale", "recently-updated", "active-draft", "has-dependents", "no-rules", "rules-one-sided", "abandoned-draft", "toggled-off", "active-experiment", "temp-rollout", "old-temp-rollout", "has-rules":
 			return true
 		}
 	}
@@ -61,6 +63,8 @@ const (
 	ReasonAbandonedDraft   Reason = "abandoned-draft"
 	ReasonToggledOff       Reason = "toggled-off"
 	ReasonActiveExperiment Reason = "active-experiment"
+	ReasonTempRollout      Reason = "temp-rollout"
+	ReasonOldTempRollout   Reason = "old-temp-rollout"
 	ReasonHasRules         Reason = "has-rules"
 	ReasonRecentlyUpdated  Reason = "recently-updated"
 	ReasonActiveDraft      Reason = "active-draft"
@@ -75,7 +79,29 @@ func (e Reason) ToPointer() *Reason {
 func (e *Reason) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "no-rules", "rules-one-sided", "abandoned-draft", "toggled-off", "active-experiment", "has-rules", "recently-updated", "active-draft", "has-dependents":
+		case "no-rules", "rules-one-sided", "abandoned-draft", "toggled-off", "active-experiment", "temp-rollout", "old-temp-rollout", "has-rules", "recently-updated", "active-draft", "has-dependents":
+			return true
+		}
+	}
+	return false
+}
+
+type TempRollout string
+
+const (
+	TempRolloutTempRollout    TempRollout = "temp-rollout"
+	TempRolloutOldTempRollout TempRollout = "old-temp-rollout"
+)
+
+func (e TempRollout) ToPointer() *TempRollout {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *TempRollout) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "temp-rollout", "old-temp-rollout":
 			return true
 		}
 	}
@@ -83,9 +109,10 @@ func (e *Reason) IsExact() bool {
 }
 
 type StaleByEnv struct {
-	IsStale     bool    `json:"isStale"`
-	Reason      *Reason `json:"reason"`
-	EvaluatesTo *string `json:"evaluatesTo,omitzero"`
+	IsStale     bool         `json:"isStale"`
+	Reason      *Reason      `json:"reason"`
+	EvaluatesTo *string      `json:"evaluatesTo,omitzero"`
+	TempRollout *TempRollout `json:"tempRollout,omitzero"`
 }
 
 func (s *StaleByEnv) GetIsStale() bool {
@@ -107,6 +134,13 @@ func (s *StaleByEnv) GetEvaluatesTo() *string {
 		return nil
 	}
 	return s.EvaluatesTo
+}
+
+func (s *StaleByEnv) GetTempRollout() *TempRollout {
+	if s == nil {
+		return nil
+	}
+	return s.TempRollout
 }
 
 type Features struct {

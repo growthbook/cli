@@ -44,6 +44,130 @@ func (e *PostFeatureValueType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type PostFeatureMatch4 string
+
+const (
+	PostFeatureMatch4All  PostFeatureMatch4 = "all"
+	PostFeatureMatch4None PostFeatureMatch4 = "none"
+	PostFeatureMatch4Any  PostFeatureMatch4 = "any"
+)
+
+func (e PostFeatureMatch4) ToPointer() *PostFeatureMatch4 {
+	return &e
+}
+func (e *PostFeatureMatch4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "all":
+		fallthrough
+	case "none":
+		fallthrough
+	case "any":
+		*e = PostFeatureMatch4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PostFeatureMatch4: %v", v)
+	}
+}
+
+type PostFeatureSavedGroup4 struct {
+	Match PostFeatureMatch4 `json:"match"`
+	Ids   []string          `json:"ids"`
+}
+
+func (p PostFeatureSavedGroup4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostFeatureSavedGroup4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PostFeatureSavedGroup4) GetMatch() PostFeatureMatch4 {
+	if p == nil {
+		return PostFeatureMatch4("")
+	}
+	return p.Match
+}
+
+func (p *PostFeatureSavedGroup4) GetIds() []string {
+	if p == nil {
+		return []string{}
+	}
+	return p.Ids
+}
+
+// #region class-body-postfeaturesavedgroup4
+// #endregion class-body-postfeaturesavedgroup4
+
+type PostFeatureMatchType4 string
+
+const (
+	PostFeatureMatchType4All  PostFeatureMatchType4 = "all"
+	PostFeatureMatchType4Any  PostFeatureMatchType4 = "any"
+	PostFeatureMatchType4None PostFeatureMatchType4 = "none"
+)
+
+func (e PostFeatureMatchType4) ToPointer() *PostFeatureMatchType4 {
+	return &e
+}
+func (e *PostFeatureMatchType4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "all":
+		fallthrough
+	case "any":
+		fallthrough
+	case "none":
+		*e = PostFeatureMatchType4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PostFeatureMatchType4: %v", v)
+	}
+}
+
+type PostFeatureSavedGroupTargeting4 struct {
+	MatchType   PostFeatureMatchType4 `json:"matchType"`
+	SavedGroups []string              `json:"savedGroups"`
+}
+
+func (p PostFeatureSavedGroupTargeting4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostFeatureSavedGroupTargeting4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PostFeatureSavedGroupTargeting4) GetMatchType() PostFeatureMatchType4 {
+	if p == nil {
+		return PostFeatureMatchType4("")
+	}
+	return p.MatchType
+}
+
+func (p *PostFeatureSavedGroupTargeting4) GetSavedGroups() []string {
+	if p == nil {
+		return []string{}
+	}
+	return p.SavedGroups
+}
+
+// #region class-body-postfeaturesavedgrouptargeting4
+// #endregion class-body-postfeaturesavedgrouptargeting4
+
 type PostFeatureNamespace struct {
 	Enabled bool      `json:"enabled"`
 	Name    string    `json:"name"`
@@ -158,10 +282,19 @@ type PostFeatureRuleExperiment struct {
 	// When true (default), the rule applies to every project the feature is delivered to. When false, `projects` scopes it.
 	AllProjects *bool `json:"allProjects,omitzero"`
 	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
-	Projects    []string `json:"projects,omitzero"`
-	Description *string  `json:"description,omitzero"`
-	Condition   string   `json:"condition"`
-	ID          *string  `json:"id,omitzero"`
+	Projects []string `json:"projects,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	RampScheduleID any `json:"rampScheduleId,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ScheduleType any                      `json:"scheduleType,omitzero"`
+	SavedGroups  []PostFeatureSavedGroup4 `json:"savedGroups,omitzero"`
+	// Deprecated — use `savedGroups`. Accepted so a GET response can be posted back unchanged; `savedGroups` takes precedence if both are sent.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	SavedGroupTargeting []PostFeatureSavedGroupTargeting4 `json:"savedGroupTargeting,omitzero"`
+	Description         *string                           `json:"description,omitzero"`
+	Condition           string                            `json:"condition"`
+	ID                  *string                           `json:"id,omitzero"`
 	// Enabled by default
 	Enabled *bool `json:"enabled,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
@@ -181,6 +314,56 @@ type PostFeatureRuleExperiment struct {
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	Value []PostFeatureValue `json:"value,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ExperimentType any `json:"experimentType,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	Hypothesis any `json:"hypothesis,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	HashVersion any `json:"hashVersion,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	Datasource any `json:"datasource,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ExposureQueryID any `json:"exposureQueryId,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	GoalMetrics any `json:"goalMetrics,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	SecondaryMetrics any `json:"secondaryMetrics,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	GuardrailMetrics any `json:"guardrailMetrics,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ActivationMetric any `json:"activationMetric,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	Segment any `json:"segment,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	SkipPartialData any `json:"skipPartialData,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	RegressionAdjustmentEnabled any `json:"regressionAdjustmentEnabled,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	SequentialTestingEnabled any `json:"sequentialTestingEnabled,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	SequentialTestingTuningParameter any `json:"sequentialTestingTuningParameter,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	StatsEngine any `json:"statsEngine,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditStage any `json:"banditStage,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditStageDateStarted any `json:"banditStageDateStarted,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditScheduleValue any `json:"banditScheduleValue,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditScheduleUnit any `json:"banditScheduleUnit,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditBurnInValue any `json:"banditBurnInValue,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditBurnInUnit any `json:"banditBurnInUnit,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditConversionWindowValue any `json:"banditConversionWindowValue,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditConversionWindowUnit any `json:"banditConversionWindowUnit,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	TemplateID any `json:"templateId,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	CustomFields any `json:"customFields,omitzero"`
 }
 
 func (p PostFeatureRuleExperiment) MarshalJSON() ([]byte, error) {
@@ -206,6 +389,34 @@ func (p *PostFeatureRuleExperiment) GetProjects() []string {
 		return nil
 	}
 	return p.Projects
+}
+
+func (p *PostFeatureRuleExperiment) GetRampScheduleID() any {
+	if p == nil {
+		return nil
+	}
+	return p.RampScheduleID
+}
+
+func (p *PostFeatureRuleExperiment) GetScheduleType() any {
+	if p == nil {
+		return nil
+	}
+	return p.ScheduleType
+}
+
+func (p *PostFeatureRuleExperiment) GetSavedGroups() []PostFeatureSavedGroup4 {
+	if p == nil {
+		return nil
+	}
+	return p.SavedGroups
+}
+
+func (p *PostFeatureRuleExperiment) GetSavedGroupTargeting() []PostFeatureSavedGroupTargeting4 {
+	if p == nil {
+		return nil
+	}
+	return p.SavedGroupTargeting
 }
 
 func (p *PostFeatureRuleExperiment) GetDescription() *string {
@@ -322,6 +533,181 @@ func (p *PostFeatureRuleExperiment) GetValue() []PostFeatureValue {
 		return nil
 	}
 	return p.Value
+}
+
+func (p *PostFeatureRuleExperiment) GetExperimentType() any {
+	if p == nil {
+		return nil
+	}
+	return p.ExperimentType
+}
+
+func (p *PostFeatureRuleExperiment) GetHypothesis() any {
+	if p == nil {
+		return nil
+	}
+	return p.Hypothesis
+}
+
+func (p *PostFeatureRuleExperiment) GetHashVersion() any {
+	if p == nil {
+		return nil
+	}
+	return p.HashVersion
+}
+
+func (p *PostFeatureRuleExperiment) GetDatasource() any {
+	if p == nil {
+		return nil
+	}
+	return p.Datasource
+}
+
+func (p *PostFeatureRuleExperiment) GetExposureQueryID() any {
+	if p == nil {
+		return nil
+	}
+	return p.ExposureQueryID
+}
+
+func (p *PostFeatureRuleExperiment) GetGoalMetrics() any {
+	if p == nil {
+		return nil
+	}
+	return p.GoalMetrics
+}
+
+func (p *PostFeatureRuleExperiment) GetSecondaryMetrics() any {
+	if p == nil {
+		return nil
+	}
+	return p.SecondaryMetrics
+}
+
+func (p *PostFeatureRuleExperiment) GetGuardrailMetrics() any {
+	if p == nil {
+		return nil
+	}
+	return p.GuardrailMetrics
+}
+
+func (p *PostFeatureRuleExperiment) GetActivationMetric() any {
+	if p == nil {
+		return nil
+	}
+	return p.ActivationMetric
+}
+
+func (p *PostFeatureRuleExperiment) GetSegment() any {
+	if p == nil {
+		return nil
+	}
+	return p.Segment
+}
+
+func (p *PostFeatureRuleExperiment) GetSkipPartialData() any {
+	if p == nil {
+		return nil
+	}
+	return p.SkipPartialData
+}
+
+func (p *PostFeatureRuleExperiment) GetRegressionAdjustmentEnabled() any {
+	if p == nil {
+		return nil
+	}
+	return p.RegressionAdjustmentEnabled
+}
+
+func (p *PostFeatureRuleExperiment) GetSequentialTestingEnabled() any {
+	if p == nil {
+		return nil
+	}
+	return p.SequentialTestingEnabled
+}
+
+func (p *PostFeatureRuleExperiment) GetSequentialTestingTuningParameter() any {
+	if p == nil {
+		return nil
+	}
+	return p.SequentialTestingTuningParameter
+}
+
+func (p *PostFeatureRuleExperiment) GetStatsEngine() any {
+	if p == nil {
+		return nil
+	}
+	return p.StatsEngine
+}
+
+func (p *PostFeatureRuleExperiment) GetBanditStage() any {
+	if p == nil {
+		return nil
+	}
+	return p.BanditStage
+}
+
+func (p *PostFeatureRuleExperiment) GetBanditStageDateStarted() any {
+	if p == nil {
+		return nil
+	}
+	return p.BanditStageDateStarted
+}
+
+func (p *PostFeatureRuleExperiment) GetBanditScheduleValue() any {
+	if p == nil {
+		return nil
+	}
+	return p.BanditScheduleValue
+}
+
+func (p *PostFeatureRuleExperiment) GetBanditScheduleUnit() any {
+	if p == nil {
+		return nil
+	}
+	return p.BanditScheduleUnit
+}
+
+func (p *PostFeatureRuleExperiment) GetBanditBurnInValue() any {
+	if p == nil {
+		return nil
+	}
+	return p.BanditBurnInValue
+}
+
+func (p *PostFeatureRuleExperiment) GetBanditBurnInUnit() any {
+	if p == nil {
+		return nil
+	}
+	return p.BanditBurnInUnit
+}
+
+func (p *PostFeatureRuleExperiment) GetBanditConversionWindowValue() any {
+	if p == nil {
+		return nil
+	}
+	return p.BanditConversionWindowValue
+}
+
+func (p *PostFeatureRuleExperiment) GetBanditConversionWindowUnit() any {
+	if p == nil {
+		return nil
+	}
+	return p.BanditConversionWindowUnit
+}
+
+func (p *PostFeatureRuleExperiment) GetTemplateID() any {
+	if p == nil {
+		return nil
+	}
+	return p.TemplateID
+}
+
+func (p *PostFeatureRuleExperiment) GetCustomFields() any {
+	if p == nil {
+		return nil
+	}
+	return p.CustomFields
 }
 
 type PostFeatureMatch3 string
@@ -516,9 +902,13 @@ type PostFeatureRuleExperimentRef struct {
 	// When true (default), the rule applies to every project the feature is delivered to. When false, `projects` scopes it.
 	AllProjects *bool `json:"allProjects,omitzero"`
 	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
-	Projects    []string `json:"projects,omitzero"`
-	Description *string  `json:"description,omitzero"`
-	ID          *string  `json:"id,omitzero"`
+	Projects []string `json:"projects,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	RampScheduleID any `json:"rampScheduleId,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ScheduleType any     `json:"scheduleType,omitzero"`
+	Description  *string `json:"description,omitzero"`
+	ID           *string `json:"id,omitzero"`
 	// Enabled by default
 	Enabled *bool `json:"enabled,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
@@ -560,6 +950,20 @@ func (p *PostFeatureRuleExperimentRef) GetProjects() []string {
 		return nil
 	}
 	return p.Projects
+}
+
+func (p *PostFeatureRuleExperimentRef) GetRampScheduleID() any {
+	if p == nil {
+		return nil
+	}
+	return p.RampScheduleID
+}
+
+func (p *PostFeatureRuleExperimentRef) GetScheduleType() any {
+	if p == nil {
+		return nil
+	}
+	return p.ScheduleType
 }
 
 func (p *PostFeatureRuleExperimentRef) GetDescription() *string {
@@ -805,8 +1209,12 @@ type PostFeatureRuleRollout struct {
 	// When true (default), the rule applies to every project the feature is delivered to. When false, `projects` scopes it.
 	AllProjects *bool `json:"allProjects,omitzero"`
 	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
-	Projects    []string `json:"projects,omitzero"`
-	Description *string  `json:"description,omitzero"`
+	Projects []string `json:"projects,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	RampScheduleID any `json:"rampScheduleId,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ScheduleType any     `json:"scheduleType,omitzero"`
+	Description  *string `json:"description,omitzero"`
 	// Applied to everyone by default.
 	Condition   *string                  `json:"condition,omitzero"`
 	SavedGroups []PostFeatureSavedGroup2 `json:"savedGroups,omitzero"`
@@ -855,6 +1263,20 @@ func (p *PostFeatureRuleRollout) GetProjects() []string {
 		return nil
 	}
 	return p.Projects
+}
+
+func (p *PostFeatureRuleRollout) GetRampScheduleID() any {
+	if p == nil {
+		return nil
+	}
+	return p.RampScheduleID
+}
+
+func (p *PostFeatureRuleRollout) GetScheduleType() any {
+	if p == nil {
+		return nil
+	}
+	return p.ScheduleType
 }
 
 func (p *PostFeatureRuleRollout) GetDescription() *string {
@@ -1121,8 +1543,12 @@ type PostFeatureRuleForce struct {
 	// When true (default), the rule applies to every project the feature is delivered to. When false, `projects` scopes it.
 	AllProjects *bool `json:"allProjects,omitzero"`
 	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
-	Projects    []string `json:"projects,omitzero"`
-	Description *string  `json:"description,omitzero"`
+	Projects []string `json:"projects,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	RampScheduleID any `json:"rampScheduleId,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ScheduleType any     `json:"scheduleType,omitzero"`
+	Description  *string `json:"description,omitzero"`
 	// Applied to everyone by default.
 	Condition   *string                  `json:"condition,omitzero"`
 	SavedGroups []PostFeatureSavedGroup1 `json:"savedGroups,omitzero"`
@@ -1165,6 +1591,20 @@ func (p *PostFeatureRuleForce) GetProjects() []string {
 		return nil
 	}
 	return p.Projects
+}
+
+func (p *PostFeatureRuleForce) GetRampScheduleID() any {
+	if p == nil {
+		return nil
+	}
+	return p.RampScheduleID
+}
+
+func (p *PostFeatureRuleForce) GetScheduleType() any {
+	if p == nil {
+		return nil
+	}
+	return p.ScheduleType
 }
 
 func (p *PostFeatureRuleForce) GetDescription() *string {
@@ -1368,6 +1808,130 @@ func (u PostFeatureRuleUnion) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type PostFeatureRuleUnion: all fields are null")
 }
 
+type PostFeatureDraftMatch4 string
+
+const (
+	PostFeatureDraftMatch4All  PostFeatureDraftMatch4 = "all"
+	PostFeatureDraftMatch4None PostFeatureDraftMatch4 = "none"
+	PostFeatureDraftMatch4Any  PostFeatureDraftMatch4 = "any"
+)
+
+func (e PostFeatureDraftMatch4) ToPointer() *PostFeatureDraftMatch4 {
+	return &e
+}
+func (e *PostFeatureDraftMatch4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "all":
+		fallthrough
+	case "none":
+		fallthrough
+	case "any":
+		*e = PostFeatureDraftMatch4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PostFeatureDraftMatch4: %v", v)
+	}
+}
+
+type PostFeatureDraftSavedGroup4 struct {
+	Match PostFeatureDraftMatch4 `json:"match"`
+	Ids   []string               `json:"ids"`
+}
+
+func (p PostFeatureDraftSavedGroup4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostFeatureDraftSavedGroup4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PostFeatureDraftSavedGroup4) GetMatch() PostFeatureDraftMatch4 {
+	if p == nil {
+		return PostFeatureDraftMatch4("")
+	}
+	return p.Match
+}
+
+func (p *PostFeatureDraftSavedGroup4) GetIds() []string {
+	if p == nil {
+		return []string{}
+	}
+	return p.Ids
+}
+
+// #region class-body-postfeaturedraftsavedgroup4
+// #endregion class-body-postfeaturedraftsavedgroup4
+
+type PostFeatureDraftMatchType4 string
+
+const (
+	PostFeatureDraftMatchType4All  PostFeatureDraftMatchType4 = "all"
+	PostFeatureDraftMatchType4Any  PostFeatureDraftMatchType4 = "any"
+	PostFeatureDraftMatchType4None PostFeatureDraftMatchType4 = "none"
+)
+
+func (e PostFeatureDraftMatchType4) ToPointer() *PostFeatureDraftMatchType4 {
+	return &e
+}
+func (e *PostFeatureDraftMatchType4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "all":
+		fallthrough
+	case "any":
+		fallthrough
+	case "none":
+		*e = PostFeatureDraftMatchType4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PostFeatureDraftMatchType4: %v", v)
+	}
+}
+
+type PostFeatureDraftSavedGroupTargeting4 struct {
+	MatchType   PostFeatureDraftMatchType4 `json:"matchType"`
+	SavedGroups []string                   `json:"savedGroups"`
+}
+
+func (p PostFeatureDraftSavedGroupTargeting4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostFeatureDraftSavedGroupTargeting4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PostFeatureDraftSavedGroupTargeting4) GetMatchType() PostFeatureDraftMatchType4 {
+	if p == nil {
+		return PostFeatureDraftMatchType4("")
+	}
+	return p.MatchType
+}
+
+func (p *PostFeatureDraftSavedGroupTargeting4) GetSavedGroups() []string {
+	if p == nil {
+		return []string{}
+	}
+	return p.SavedGroups
+}
+
+// #region class-body-postfeaturedraftsavedgrouptargeting4
+// #endregion class-body-postfeaturedraftsavedgrouptargeting4
+
 type PostFeatureDraftNamespace struct {
 	Enabled bool      `json:"enabled"`
 	Name    string    `json:"name"`
@@ -1482,10 +2046,19 @@ type PostFeatureRuleDraftExperiment struct {
 	// When true (default), the rule applies to every project the feature is delivered to. When false, `projects` scopes it.
 	AllProjects *bool `json:"allProjects,omitzero"`
 	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
-	Projects    []string `json:"projects,omitzero"`
-	Description *string  `json:"description,omitzero"`
-	Condition   string   `json:"condition"`
-	ID          *string  `json:"id,omitzero"`
+	Projects []string `json:"projects,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	RampScheduleID any `json:"rampScheduleId,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ScheduleType any                           `json:"scheduleType,omitzero"`
+	SavedGroups  []PostFeatureDraftSavedGroup4 `json:"savedGroups,omitzero"`
+	// Deprecated — use `savedGroups`. Accepted so a GET response can be posted back unchanged; `savedGroups` takes precedence if both are sent.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	SavedGroupTargeting []PostFeatureDraftSavedGroupTargeting4 `json:"savedGroupTargeting,omitzero"`
+	Description         *string                                `json:"description,omitzero"`
+	Condition           string                                 `json:"condition"`
+	ID                  *string                                `json:"id,omitzero"`
 	// Enabled by default
 	Enabled *bool `json:"enabled,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
@@ -1505,6 +2078,56 @@ type PostFeatureRuleDraftExperiment struct {
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	Value []PostFeatureDraftValue `json:"value,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ExperimentType any `json:"experimentType,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	Hypothesis any `json:"hypothesis,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	HashVersion any `json:"hashVersion,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	Datasource any `json:"datasource,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ExposureQueryID any `json:"exposureQueryId,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	GoalMetrics any `json:"goalMetrics,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	SecondaryMetrics any `json:"secondaryMetrics,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	GuardrailMetrics any `json:"guardrailMetrics,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ActivationMetric any `json:"activationMetric,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	Segment any `json:"segment,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	SkipPartialData any `json:"skipPartialData,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	RegressionAdjustmentEnabled any `json:"regressionAdjustmentEnabled,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	SequentialTestingEnabled any `json:"sequentialTestingEnabled,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	SequentialTestingTuningParameter any `json:"sequentialTestingTuningParameter,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	StatsEngine any `json:"statsEngine,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditStage any `json:"banditStage,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditStageDateStarted any `json:"banditStageDateStarted,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditScheduleValue any `json:"banditScheduleValue,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditScheduleUnit any `json:"banditScheduleUnit,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditBurnInValue any `json:"banditBurnInValue,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditBurnInUnit any `json:"banditBurnInUnit,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditConversionWindowValue any `json:"banditConversionWindowValue,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	BanditConversionWindowUnit any `json:"banditConversionWindowUnit,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	TemplateID any `json:"templateId,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	CustomFields any `json:"customFields,omitzero"`
 }
 
 func (p PostFeatureRuleDraftExperiment) MarshalJSON() ([]byte, error) {
@@ -1530,6 +2153,34 @@ func (p *PostFeatureRuleDraftExperiment) GetProjects() []string {
 		return nil
 	}
 	return p.Projects
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetRampScheduleID() any {
+	if p == nil {
+		return nil
+	}
+	return p.RampScheduleID
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetScheduleType() any {
+	if p == nil {
+		return nil
+	}
+	return p.ScheduleType
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetSavedGroups() []PostFeatureDraftSavedGroup4 {
+	if p == nil {
+		return nil
+	}
+	return p.SavedGroups
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetSavedGroupTargeting() []PostFeatureDraftSavedGroupTargeting4 {
+	if p == nil {
+		return nil
+	}
+	return p.SavedGroupTargeting
 }
 
 func (p *PostFeatureRuleDraftExperiment) GetDescription() *string {
@@ -1646,6 +2297,181 @@ func (p *PostFeatureRuleDraftExperiment) GetValue() []PostFeatureDraftValue {
 		return nil
 	}
 	return p.Value
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetExperimentType() any {
+	if p == nil {
+		return nil
+	}
+	return p.ExperimentType
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetHypothesis() any {
+	if p == nil {
+		return nil
+	}
+	return p.Hypothesis
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetHashVersion() any {
+	if p == nil {
+		return nil
+	}
+	return p.HashVersion
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetDatasource() any {
+	if p == nil {
+		return nil
+	}
+	return p.Datasource
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetExposureQueryID() any {
+	if p == nil {
+		return nil
+	}
+	return p.ExposureQueryID
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetGoalMetrics() any {
+	if p == nil {
+		return nil
+	}
+	return p.GoalMetrics
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetSecondaryMetrics() any {
+	if p == nil {
+		return nil
+	}
+	return p.SecondaryMetrics
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetGuardrailMetrics() any {
+	if p == nil {
+		return nil
+	}
+	return p.GuardrailMetrics
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetActivationMetric() any {
+	if p == nil {
+		return nil
+	}
+	return p.ActivationMetric
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetSegment() any {
+	if p == nil {
+		return nil
+	}
+	return p.Segment
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetSkipPartialData() any {
+	if p == nil {
+		return nil
+	}
+	return p.SkipPartialData
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetRegressionAdjustmentEnabled() any {
+	if p == nil {
+		return nil
+	}
+	return p.RegressionAdjustmentEnabled
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetSequentialTestingEnabled() any {
+	if p == nil {
+		return nil
+	}
+	return p.SequentialTestingEnabled
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetSequentialTestingTuningParameter() any {
+	if p == nil {
+		return nil
+	}
+	return p.SequentialTestingTuningParameter
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetStatsEngine() any {
+	if p == nil {
+		return nil
+	}
+	return p.StatsEngine
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetBanditStage() any {
+	if p == nil {
+		return nil
+	}
+	return p.BanditStage
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetBanditStageDateStarted() any {
+	if p == nil {
+		return nil
+	}
+	return p.BanditStageDateStarted
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetBanditScheduleValue() any {
+	if p == nil {
+		return nil
+	}
+	return p.BanditScheduleValue
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetBanditScheduleUnit() any {
+	if p == nil {
+		return nil
+	}
+	return p.BanditScheduleUnit
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetBanditBurnInValue() any {
+	if p == nil {
+		return nil
+	}
+	return p.BanditBurnInValue
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetBanditBurnInUnit() any {
+	if p == nil {
+		return nil
+	}
+	return p.BanditBurnInUnit
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetBanditConversionWindowValue() any {
+	if p == nil {
+		return nil
+	}
+	return p.BanditConversionWindowValue
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetBanditConversionWindowUnit() any {
+	if p == nil {
+		return nil
+	}
+	return p.BanditConversionWindowUnit
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetTemplateID() any {
+	if p == nil {
+		return nil
+	}
+	return p.TemplateID
+}
+
+func (p *PostFeatureRuleDraftExperiment) GetCustomFields() any {
+	if p == nil {
+		return nil
+	}
+	return p.CustomFields
 }
 
 type PostFeatureDraftMatch3 string
@@ -1840,9 +2666,13 @@ type PostFeatureRuleDraftExperimentRef struct {
 	// When true (default), the rule applies to every project the feature is delivered to. When false, `projects` scopes it.
 	AllProjects *bool `json:"allProjects,omitzero"`
 	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
-	Projects    []string `json:"projects,omitzero"`
-	Description *string  `json:"description,omitzero"`
-	ID          *string  `json:"id,omitzero"`
+	Projects []string `json:"projects,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	RampScheduleID any `json:"rampScheduleId,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ScheduleType any     `json:"scheduleType,omitzero"`
+	Description  *string `json:"description,omitzero"`
+	ID           *string `json:"id,omitzero"`
 	// Enabled by default
 	Enabled *bool `json:"enabled,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
@@ -1884,6 +2714,20 @@ func (p *PostFeatureRuleDraftExperimentRef) GetProjects() []string {
 		return nil
 	}
 	return p.Projects
+}
+
+func (p *PostFeatureRuleDraftExperimentRef) GetRampScheduleID() any {
+	if p == nil {
+		return nil
+	}
+	return p.RampScheduleID
+}
+
+func (p *PostFeatureRuleDraftExperimentRef) GetScheduleType() any {
+	if p == nil {
+		return nil
+	}
+	return p.ScheduleType
 }
 
 func (p *PostFeatureRuleDraftExperimentRef) GetDescription() *string {
@@ -2129,8 +2973,12 @@ type PostFeatureRuleDraftRollout struct {
 	// When true (default), the rule applies to every project the feature is delivered to. When false, `projects` scopes it.
 	AllProjects *bool `json:"allProjects,omitzero"`
 	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
-	Projects    []string `json:"projects,omitzero"`
-	Description *string  `json:"description,omitzero"`
+	Projects []string `json:"projects,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	RampScheduleID any `json:"rampScheduleId,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ScheduleType any     `json:"scheduleType,omitzero"`
+	Description  *string `json:"description,omitzero"`
 	// Applied to everyone by default.
 	Condition   *string                       `json:"condition,omitzero"`
 	SavedGroups []PostFeatureDraftSavedGroup2 `json:"savedGroups,omitzero"`
@@ -2179,6 +3027,20 @@ func (p *PostFeatureRuleDraftRollout) GetProjects() []string {
 		return nil
 	}
 	return p.Projects
+}
+
+func (p *PostFeatureRuleDraftRollout) GetRampScheduleID() any {
+	if p == nil {
+		return nil
+	}
+	return p.RampScheduleID
+}
+
+func (p *PostFeatureRuleDraftRollout) GetScheduleType() any {
+	if p == nil {
+		return nil
+	}
+	return p.ScheduleType
 }
 
 func (p *PostFeatureRuleDraftRollout) GetDescription() *string {
@@ -2445,8 +3307,12 @@ type PostFeatureRuleDraftForce struct {
 	// When true (default), the rule applies to every project the feature is delivered to. When false, `projects` scopes it.
 	AllProjects *bool `json:"allProjects,omitzero"`
 	// Project IDs this rule is scoped to when `allProjects` is false. An empty array scopes the rule to no project.
-	Projects    []string `json:"projects,omitzero"`
-	Description *string  `json:"description,omitzero"`
+	Projects []string `json:"projects,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	RampScheduleID any `json:"rampScheduleId,omitzero"`
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	ScheduleType any     `json:"scheduleType,omitzero"`
+	Description  *string `json:"description,omitzero"`
 	// Applied to everyone by default.
 	Condition   *string                       `json:"condition,omitzero"`
 	SavedGroups []PostFeatureDraftSavedGroup1 `json:"savedGroups,omitzero"`
@@ -2489,6 +3355,20 @@ func (p *PostFeatureRuleDraftForce) GetProjects() []string {
 		return nil
 	}
 	return p.Projects
+}
+
+func (p *PostFeatureRuleDraftForce) GetRampScheduleID() any {
+	if p == nil {
+		return nil
+	}
+	return p.RampScheduleID
+}
+
+func (p *PostFeatureRuleDraftForce) GetScheduleType() any {
+	if p == nil {
+		return nil
+	}
+	return p.ScheduleType
 }
 
 func (p *PostFeatureRuleDraftForce) GetDescription() *string {
@@ -2791,7 +3671,7 @@ type PostFeatureRequest struct {
 	BaseConfig optionalnullable.OptionalNullable[string] `json:"baseConfig,omitzero"`
 	// List of associated tags
 	Tags []string `json:"tags,omitzero"`
-	// A dictionary of environments that are enabled for this feature. Keys supply the names of environments. Environments belong to organization and are not specified will be disabled by default.
+	// Settings for each environment, keyed by environment ID. Any environment you leave out is enabled or disabled per that environment's "Default state for new features" setting.
 	Environments map[string]PostFeatureEnvironments `json:"environments,omitzero"`
 	// Feature IDs. Each feature must evaluate to `true`
 	Prerequisites []string `json:"prerequisites,omitzero"`

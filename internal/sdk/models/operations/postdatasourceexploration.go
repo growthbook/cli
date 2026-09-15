@@ -473,6 +473,7 @@ const (
 	PostDataSourceExplorationChartTypeRequestHorizontalBar        PostDataSourceExplorationChartTypeRequest = "horizontalBar"
 	PostDataSourceExplorationChartTypeRequestStackedHorizontalBar PostDataSourceExplorationChartTypeRequest = "stackedHorizontalBar"
 	PostDataSourceExplorationChartTypeRequestBigNumber            PostDataSourceExplorationChartTypeRequest = "bigNumber"
+	PostDataSourceExplorationChartTypeRequestRawTable             PostDataSourceExplorationChartTypeRequest = "rawTable"
 )
 
 func (e PostDataSourceExplorationChartTypeRequest) ToPointer() *PostDataSourceExplorationChartTypeRequest {
@@ -501,6 +502,8 @@ func (e *PostDataSourceExplorationChartTypeRequest) UnmarshalJSON(data []byte) e
 	case "stackedHorizontalBar":
 		fallthrough
 	case "bigNumber":
+		fallthrough
+	case "rawTable":
 		*e = PostDataSourceExplorationChartTypeRequest(v)
 		return nil
 	default:
@@ -654,6 +657,25 @@ func (e *PostDataSourceExplorationShowAsRequest) UnmarshalJSON(data []byte) erro
 	default:
 		return fmt.Errorf("invalid value for PostDataSourceExplorationShowAsRequest: %v", v)
 	}
+}
+
+type PostDataSourceExplorationChartSettingsRequest struct {
+	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
+	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+}
+
+func (p *PostDataSourceExplorationChartSettingsRequest) GetCategoryAxisLabel() *string {
+	if p == nil {
+		return nil
+	}
+	return p.CategoryAxisLabel
+}
+
+func (p *PostDataSourceExplorationChartSettingsRequest) GetValueAxisLabel() *string {
+	if p == nil {
+		return nil
+	}
+	return p.ValueAxisLabel
 }
 
 type PostDataSourceExplorationColumnTypesRequest string
@@ -960,11 +982,12 @@ func (p *PostDataSourceExplorationDatasetRequest) GetValues() []PostDataSourceEx
 
 type PostDataSourceExplorationRequestBody struct {
 	// ID of the datasource to query
-	Datasource string                                           `json:"datasource"`
-	Dimensions []PostDataSourceExplorationDimensionRequestUnion `json:"dimensions"`
-	ChartType  PostDataSourceExplorationChartTypeRequest        `json:"chartType"`
-	DateRange  PostDataSourceExplorationDateRangeRequest        `json:"dateRange"`
-	ShowAs     *PostDataSourceExplorationShowAsRequest          `json:"showAs,omitzero"`
+	Datasource    string                                           `json:"datasource"`
+	Dimensions    []PostDataSourceExplorationDimensionRequestUnion `json:"dimensions"`
+	ChartType     PostDataSourceExplorationChartTypeRequest        `json:"chartType"`
+	DateRange     PostDataSourceExplorationDateRangeRequest        `json:"dateRange"`
+	ShowAs        *PostDataSourceExplorationShowAsRequest          `json:"showAs,omitzero"`
+	ChartSettings *PostDataSourceExplorationChartSettingsRequest   `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                                  `const:"data_source" json:"type"`
 	Dataset PostDataSourceExplorationDatasetRequest `json:"dataset"`
@@ -1014,6 +1037,13 @@ func (p *PostDataSourceExplorationRequestBody) GetShowAs() *PostDataSourceExplor
 		return nil
 	}
 	return p.ShowAs
+}
+
+func (p *PostDataSourceExplorationRequestBody) GetChartSettings() *PostDataSourceExplorationChartSettingsRequest {
+	if p == nil {
+		return nil
+	}
+	return p.ChartSettings
 }
 
 func (p *PostDataSourceExplorationRequestBody) GetType() string {
@@ -1163,7 +1193,20 @@ func (p *PostDataSourceExplorationRow) GetSteps() []PostDataSourceExplorationSte
 }
 
 type PostDataSourceExplorationResult struct {
-	Rows []PostDataSourceExplorationRow `json:"rows"`
+	Rows      []PostDataSourceExplorationRow `json:"rows"`
+	RawRows   []map[string]any               `json:"rawRows,omitzero"`
+	Truncated *bool                          `json:"truncated,omitzero"`
+}
+
+func (p PostDataSourceExplorationResult) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostDataSourceExplorationResult) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (p *PostDataSourceExplorationResult) GetRows() []PostDataSourceExplorationRow {
@@ -1171,6 +1214,20 @@ func (p *PostDataSourceExplorationResult) GetRows() []PostDataSourceExplorationR
 		return []PostDataSourceExplorationRow{}
 	}
 	return p.Rows
+}
+
+func (p *PostDataSourceExplorationResult) GetRawRows() []map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.RawRows
+}
+
+func (p *PostDataSourceExplorationResult) GetTruncated() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.Truncated
 }
 
 type PostDataSourceExplorationExplorationDimensionOperator string
@@ -1612,6 +1669,7 @@ const (
 	PostDataSourceExplorationChartTypeResponseHorizontalBar        PostDataSourceExplorationChartTypeResponse = "horizontalBar"
 	PostDataSourceExplorationChartTypeResponseStackedHorizontalBar PostDataSourceExplorationChartTypeResponse = "stackedHorizontalBar"
 	PostDataSourceExplorationChartTypeResponseBigNumber            PostDataSourceExplorationChartTypeResponse = "bigNumber"
+	PostDataSourceExplorationChartTypeResponseRawTable             PostDataSourceExplorationChartTypeResponse = "rawTable"
 )
 
 func (e PostDataSourceExplorationChartTypeResponse) ToPointer() *PostDataSourceExplorationChartTypeResponse {
@@ -1622,7 +1680,7 @@ func (e PostDataSourceExplorationChartTypeResponse) ToPointer() *PostDataSourceE
 func (e *PostDataSourceExplorationChartTypeResponse) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "line", "area", "timeseries-table", "table", "bar", "stackedBar", "horizontalBar", "stackedHorizontalBar", "bigNumber":
+		case "line", "area", "timeseries-table", "table", "bar", "stackedBar", "horizontalBar", "stackedHorizontalBar", "bigNumber", "rawTable":
 			return true
 		}
 	}
@@ -1747,22 +1805,41 @@ func (e *PostDataSourceExplorationShowAsResponse) IsExact() bool {
 	return false
 }
 
-type ColumnTypesResponse string
+type PostDataSourceExplorationChartSettingsResponse struct {
+	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
+	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+}
+
+func (p *PostDataSourceExplorationChartSettingsResponse) GetCategoryAxisLabel() *string {
+	if p == nil {
+		return nil
+	}
+	return p.CategoryAxisLabel
+}
+
+func (p *PostDataSourceExplorationChartSettingsResponse) GetValueAxisLabel() *string {
+	if p == nil {
+		return nil
+	}
+	return p.ValueAxisLabel
+}
+
+type PostDataSourceExplorationColumnTypesResponse string
 
 const (
-	ColumnTypesResponseString  ColumnTypesResponse = "string"
-	ColumnTypesResponseNumber  ColumnTypesResponse = "number"
-	ColumnTypesResponseDate    ColumnTypesResponse = "date"
-	ColumnTypesResponseBoolean ColumnTypesResponse = "boolean"
-	ColumnTypesResponseOther   ColumnTypesResponse = "other"
+	PostDataSourceExplorationColumnTypesResponseString  PostDataSourceExplorationColumnTypesResponse = "string"
+	PostDataSourceExplorationColumnTypesResponseNumber  PostDataSourceExplorationColumnTypesResponse = "number"
+	PostDataSourceExplorationColumnTypesResponseDate    PostDataSourceExplorationColumnTypesResponse = "date"
+	PostDataSourceExplorationColumnTypesResponseBoolean PostDataSourceExplorationColumnTypesResponse = "boolean"
+	PostDataSourceExplorationColumnTypesResponseOther   PostDataSourceExplorationColumnTypesResponse = "other"
 )
 
-func (e ColumnTypesResponse) ToPointer() *ColumnTypesResponse {
+func (e PostDataSourceExplorationColumnTypesResponse) ToPointer() *PostDataSourceExplorationColumnTypesResponse {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ColumnTypesResponse) IsExact() bool {
+func (e *PostDataSourceExplorationColumnTypesResponse) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "string", "number", "date", "boolean", "other":
@@ -1935,12 +2012,12 @@ func (v *ValueDataSourceResponse) GetUnit() *string {
 
 type PostDataSourceExplorationDatasetResponse struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_           string                         `const:"data_source" json:"type"`
-	Table           string                         `json:"table"`
-	Path            string                         `json:"path"`
-	TimestampColumn string                         `json:"timestampColumn"`
-	ColumnTypes     map[string]ColumnTypesResponse `json:"columnTypes"`
-	Values          []ValueDataSourceResponse      `json:"values"`
+	type_           string                                                  `const:"data_source" json:"type"`
+	Table           string                                                  `json:"table"`
+	Path            string                                                  `json:"path"`
+	TimestampColumn string                                                  `json:"timestampColumn"`
+	ColumnTypes     map[string]PostDataSourceExplorationColumnTypesResponse `json:"columnTypes"`
+	Values          []ValueDataSourceResponse                               `json:"values"`
 }
 
 func (p PostDataSourceExplorationDatasetResponse) MarshalJSON() ([]byte, error) {
@@ -1979,9 +2056,9 @@ func (p *PostDataSourceExplorationDatasetResponse) GetTimestampColumn() string {
 	return p.TimestampColumn
 }
 
-func (p *PostDataSourceExplorationDatasetResponse) GetColumnTypes() map[string]ColumnTypesResponse {
+func (p *PostDataSourceExplorationDatasetResponse) GetColumnTypes() map[string]PostDataSourceExplorationColumnTypesResponse {
 	if p == nil {
-		return map[string]ColumnTypesResponse{}
+		return map[string]PostDataSourceExplorationColumnTypesResponse{}
 	}
 	return p.ColumnTypes
 }
@@ -1995,11 +2072,12 @@ func (p *PostDataSourceExplorationDatasetResponse) GetValues() []ValueDataSource
 
 type PostDataSourceExplorationConfig struct {
 	// ID of the datasource to query
-	Datasource string                                            `json:"datasource"`
-	Dimensions []PostDataSourceExplorationDimensionResponseUnion `json:"dimensions"`
-	ChartType  PostDataSourceExplorationChartTypeResponse        `json:"chartType"`
-	DateRange  PostDataSourceExplorationDateRangeResponse        `json:"dateRange"`
-	ShowAs     *PostDataSourceExplorationShowAsResponse          `json:"showAs,omitzero"`
+	Datasource    string                                            `json:"datasource"`
+	Dimensions    []PostDataSourceExplorationDimensionResponseUnion `json:"dimensions"`
+	ChartType     PostDataSourceExplorationChartTypeResponse        `json:"chartType"`
+	DateRange     PostDataSourceExplorationDateRangeResponse        `json:"dateRange"`
+	ShowAs        *PostDataSourceExplorationShowAsResponse          `json:"showAs,omitzero"`
+	ChartSettings *PostDataSourceExplorationChartSettingsResponse   `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                                   `const:"data_source" json:"type"`
 	Dataset PostDataSourceExplorationDatasetResponse `json:"dataset"`
@@ -2049,6 +2127,13 @@ func (p *PostDataSourceExplorationConfig) GetShowAs() *PostDataSourceExploration
 		return nil
 	}
 	return p.ShowAs
+}
+
+func (p *PostDataSourceExplorationConfig) GetChartSettings() *PostDataSourceExplorationChartSettingsResponse {
+	if p == nil {
+		return nil
+	}
+	return p.ChartSettings
 }
 
 func (p *PostDataSourceExplorationConfig) GetType() string {

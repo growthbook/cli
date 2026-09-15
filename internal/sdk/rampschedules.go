@@ -227,6 +227,7 @@ func (s *RampSchedules) ListRampSchedules(ctx context.Context, request *operatio
 }
 
 // Create a ramp schedule
+// Creates a ramp schedule, optionally attached to a published feature rule by passing `featureId` and `ruleId` together (the target is then injected into every action). Attaching on creation skips the revision review flow, so when the organization requires review anywhere it is limited to credentials that may bypass approval. The reviewed way to attach a plan is `PUT /features/{id}/revisions/{version}/rules/{ruleId}/ramp-schedule` followed by a publish. Without a target the schedule is a free-standing skeleton in `pending` status. Requires a Pro plan or above.
 func (s *RampSchedules) Create(ctx context.Context, request operations.PostRampScheduleRequest, opts ...operations.Option) (*operations.PostRampScheduleResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -1625,6 +1626,11 @@ func (s *RampSchedules) ApproveStepRampSchedule(ctx context.Context, request ope
 // must identify a rule that is already published and must not already be
 // controlled by another schedule. `environment` is accepted for backward
 // compatibility with pre-v2 ramps but is deprecated and no longer required.
+//
+// This skips the revision review flow, so when the organization requires review
+// anywhere it is limited to credentials that may bypass approval. The reviewed way
+// to attach a plan is `PUT /features/{id}/revisions/{version}/rules/{ruleId}/ramp-schedule`
+// followed by a publish.
 func (s *RampSchedules) AddTargetRampSchedule(ctx context.Context, request operations.AddTargetRampScheduleRequest, opts ...operations.Option) (*operations.AddTargetRampScheduleResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -2873,6 +2879,8 @@ func (s *RampSchedules) UpdateRampScheduleLockdown(ctx context.Context, request 
 // UpdateRampScheduleSteps - Update ramp schedule steps
 // Fully replaces the steps array for a ramp schedule. Only allowed when the schedule is in a non-running, non-terminal state (`ready`, `pending`, or `paused`). Pause a running schedule first; restart a terminal schedule first.
 //
+// On a schedule attached to a rule this skips the revision review flow, so when the organization requires review anywhere it is limited to credentials that may bypass approval.
+//
 // **Step actions** (coverage/targeting patches) are not accepted here — they change the SDK payload and must go through a feature revision draft. Existing step actions are preserved for each position. Use `PUT /v2/features/:id/revisions/:version/rules/:ruleId/ramp-schedule` to modify coverage/targeting.
 func (s *RampSchedules) UpdateRampScheduleSteps(ctx context.Context, request operations.UpdateRampScheduleStepsRequest, opts ...operations.Option) (*operations.UpdateRampScheduleStepsResponse, error) {
 	o := operations.Options{}
@@ -3474,6 +3482,11 @@ func (s *RampSchedules) DeleteRampSchedule(ctx context.Context, request operatio
 // Updates the name, steps, endActions, startDate, or cutoffDate of a ramp schedule.
 //
 // Only allowed when the schedule is in `pending`, `ready`, or `paused` status.
+//
+// Changing `steps`, `startActions`, `endActions`, `startDate`, or `cutoffDate` on a
+// schedule that is attached to a rule skips the revision review flow, so when the
+// organization requires review anywhere it is limited to credentials that may
+// bypass approval. Otherwise stage a new plan on a draft revision and publish it.
 //
 // **targetId shorthand**: When providing `steps` or `endActions`, you may omit `targetId`
 // (or pass `"t1"`) in each action. If the schedule has exactly one active target, the server
