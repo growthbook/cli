@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [2.6.0] - 2026-09-15
+
 Additive, plus one flag fix. Twenty-four new commands and twenty-two new flags; nothing was
 removed, and `--dry-run` behaves exactly as before everywhere, so no action is needed on upgrade.
 
