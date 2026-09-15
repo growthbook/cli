@@ -33,7 +33,27 @@ func InitAnalyticsExplorationsRoot(parent *cobra.Command) error {
 		return err
 	}
 
+	if err := initPostSqlExplorationCmd(AnalyticsExplorationsCmd); err != nil {
+		return err
+	}
+
 	if err := initRunFunnelCmd(AnalyticsExplorationsCmd); err != nil {
+		return err
+	}
+
+	if err := initSearchProductAnalyticsResourcesCmd(AnalyticsExplorationsCmd); err != nil {
+		return err
+	}
+
+	if err := initGetProductAnalyticsColumnsCmd(AnalyticsExplorationsCmd); err != nil {
+		return err
+	}
+
+	if err := initGetProductAnalyticsColumnValuesCmd(AnalyticsExplorationsCmd); err != nil {
+		return err
+	}
+
+	if err := initGetProductAnalyticsExplorationCmd(AnalyticsExplorationsCmd); err != nil {
 		return err
 	}
 

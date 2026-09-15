@@ -26,7 +26,7 @@ func initAddTargetRampScheduleCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "add-target",
 		Short:   "Add a target rule to a ramp schedule",
-		Long:    "Attaches an additional feature rule to this ramp schedule. The `ruleId`\nmust identify a rule that is already published and must not already be\ncontrolled by another schedule. `environment` is accepted for backward\ncompatibility with pre-v2 ramps but is deprecated and no longer required.",
+		Long:    "Attaches an additional feature rule to this ramp schedule. The `ruleId`\nmust identify a rule that is already published and must not already be\ncontrolled by another schedule. `environment` is accepted for backward\ncompatibility with pre-v2 ramps but is deprecated and no longer required.\n\nThis skips the revision review flow, so when the organization requires review\nanywhere it is limited to credentials that may bypass approval. The reviewed way\nto attach a plan is `PUT /features/{id}/revisions/{version}/rules/{ruleId}/ramp-schedule`\nfollowed by a publish.",
 		Example: "  growthbook ramp-schedules add-target --id <id> --feature-id <id> --rule-id <id>",
 		RunE:    runAddTargetRampScheduleCmd,
 		Aliases: []string{"at"},

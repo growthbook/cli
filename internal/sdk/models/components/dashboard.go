@@ -11,6 +11,1843 @@ import (
 	"time"
 )
 
+type DimensionMetricDate struct {
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	dimensionType   string                `const:"date" json:"dimensionType"`
+	Column          *string               `json:"column"`
+	DateGranularity DateGranularityMetric `json:"dateGranularity"`
+}
+
+func (d DimensionMetricDate) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DimensionMetricDate) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DimensionMetricDate) GetDimensionType() string {
+	return "date"
+}
+
+func (d *DimensionMetricDate) GetColumn() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Column
+}
+
+func (d *DimensionMetricDate) GetDateGranularity() DateGranularityMetric {
+	if d == nil {
+		return DateGranularityMetric("")
+	}
+	return d.DateGranularity
+}
+
+type DimensionMetricUnionType string
+
+const (
+	DimensionMetricUnionTypeDate    DimensionMetricUnionType = "date"
+	DimensionMetricUnionTypeDynamic DimensionMetricUnionType = "dynamic"
+	DimensionMetricUnionTypeStatic  DimensionMetricUnionType = "static"
+	DimensionMetricUnionTypeSlice   DimensionMetricUnionType = "slice"
+	DimensionMetricUnionTypeUnknown DimensionMetricUnionType = "UNKNOWN"
+)
+
+type DimensionMetricUnion struct {
+	DimensionMetricDate    *DimensionMetricDate    `queryParam:"inline" union:"member"`
+	DimensionMetricDynamic *DimensionMetricDynamic `queryParam:"inline" union:"member"`
+	DimensionMetricStatic  *DimensionMetricStatic  `queryParam:"inline" union:"member"`
+	DimensionMetricSlice   *DimensionMetricSlice   `queryParam:"inline" union:"member"`
+	UnknownRaw             json.RawMessage         `json:"-" union:"unknown"`
+
+	Type DimensionMetricUnionType
+}
+
+func CreateDimensionMetricUnionDate(date DimensionMetricDate) DimensionMetricUnion {
+	typ := DimensionMetricUnionTypeDate
+
+	return DimensionMetricUnion{
+		DimensionMetricDate: &date,
+		Type:                typ,
+	}
+}
+
+func CreateDimensionMetricUnionDynamic(dynamic DimensionMetricDynamic) DimensionMetricUnion {
+	typ := DimensionMetricUnionTypeDynamic
+
+	return DimensionMetricUnion{
+		DimensionMetricDynamic: &dynamic,
+		Type:                   typ,
+	}
+}
+
+func CreateDimensionMetricUnionStatic(static DimensionMetricStatic) DimensionMetricUnion {
+	typ := DimensionMetricUnionTypeStatic
+
+	return DimensionMetricUnion{
+		DimensionMetricStatic: &static,
+		Type:                  typ,
+	}
+}
+
+func CreateDimensionMetricUnionSlice(slice DimensionMetricSlice) DimensionMetricUnion {
+	typ := DimensionMetricUnionTypeSlice
+
+	return DimensionMetricUnion{
+		DimensionMetricSlice: &slice,
+		Type:                 typ,
+	}
+}
+
+func CreateDimensionMetricUnionUnknown(raw json.RawMessage) DimensionMetricUnion {
+	return DimensionMetricUnion{
+		UnknownRaw: raw,
+		Type:       DimensionMetricUnionTypeUnknown,
+	}
+}
+
+func (u DimensionMetricUnion) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u DimensionMetricUnion) IsUnknown() bool {
+	return u.Type == DimensionMetricUnionTypeUnknown
+}
+
+func (u *DimensionMetricUnion) UnmarshalJSON(data []byte) error {
+
+	type discriminator struct {
+		DimensionType string `json:"dimensionType"`
+	}
+
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = DimensionMetricUnionTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = DimensionMetricUnionTypeUnknown
+		return nil
+	}
+
+	switch dis.DimensionType {
+	case "date":
+		dimensionMetricDate := new(DimensionMetricDate)
+		if err := utils.UnmarshalJSON(data, &dimensionMetricDate, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (DimensionType == date) type DimensionMetricDate within DimensionMetricUnion: %w", string(data), err)
+		}
+
+		u.DimensionMetricDate = dimensionMetricDate
+		u.Type = DimensionMetricUnionTypeDate
+		return nil
+	case "dynamic":
+		dimensionMetricDynamic := new(DimensionMetricDynamic)
+		if err := utils.UnmarshalJSON(data, &dimensionMetricDynamic, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (DimensionType == dynamic) type DimensionMetricDynamic within DimensionMetricUnion: %w", string(data), err)
+		}
+
+		u.DimensionMetricDynamic = dimensionMetricDynamic
+		u.Type = DimensionMetricUnionTypeDynamic
+		return nil
+	case "static":
+		dimensionMetricStatic := new(DimensionMetricStatic)
+		if err := utils.UnmarshalJSON(data, &dimensionMetricStatic, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (DimensionType == static) type DimensionMetricStatic within DimensionMetricUnion: %w", string(data), err)
+		}
+
+		u.DimensionMetricStatic = dimensionMetricStatic
+		u.Type = DimensionMetricUnionTypeStatic
+		return nil
+	case "slice":
+		dimensionMetricSlice := new(DimensionMetricSlice)
+		if err := utils.UnmarshalJSON(data, &dimensionMetricSlice, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (DimensionType == slice) type DimensionMetricSlice within DimensionMetricUnion: %w", string(data), err)
+		}
+
+		u.DimensionMetricSlice = dimensionMetricSlice
+		u.Type = DimensionMetricUnionTypeSlice
+		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = DimensionMetricUnionTypeUnknown
+		return nil
+	}
+
+}
+
+func (u DimensionMetricUnion) MarshalJSON() ([]byte, error) {
+	if u.DimensionMetricDate != nil {
+		return utils.MarshalJSON(u.DimensionMetricDate, "", true)
+	}
+
+	if u.DimensionMetricDynamic != nil {
+		return utils.MarshalJSON(u.DimensionMetricDynamic, "", true)
+	}
+
+	if u.DimensionMetricStatic != nil {
+		return utils.MarshalJSON(u.DimensionMetricStatic, "", true)
+	}
+
+	if u.DimensionMetricSlice != nil {
+		return utils.MarshalJSON(u.DimensionMetricSlice, "", true)
+	}
+
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
+	return nil, errors.New("could not marshal union type DimensionMetricUnion: all fields are null")
+}
+
+type ChartTypeMetric string
+
+const (
+	ChartTypeMetricLine                 ChartTypeMetric = "line"
+	ChartTypeMetricArea                 ChartTypeMetric = "area"
+	ChartTypeMetricTimeseriesTable      ChartTypeMetric = "timeseries-table"
+	ChartTypeMetricTable                ChartTypeMetric = "table"
+	ChartTypeMetricBar                  ChartTypeMetric = "bar"
+	ChartTypeMetricStackedBar           ChartTypeMetric = "stackedBar"
+	ChartTypeMetricHorizontalBar        ChartTypeMetric = "horizontalBar"
+	ChartTypeMetricStackedHorizontalBar ChartTypeMetric = "stackedHorizontalBar"
+	ChartTypeMetricBigNumber            ChartTypeMetric = "bigNumber"
+	ChartTypeMetricRawTable             ChartTypeMetric = "rawTable"
+)
+
+func (e ChartTypeMetric) ToPointer() *ChartTypeMetric {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ChartTypeMetric) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "line", "area", "timeseries-table", "table", "bar", "stackedBar", "horizontalBar", "stackedHorizontalBar", "bigNumber", "rawTable":
+			return true
+		}
+	}
+	return false
+}
+
+type PredefinedMetric string
+
+const (
+	PredefinedMetricToday            PredefinedMetric = "today"
+	PredefinedMetricYesterday        PredefinedMetric = "yesterday"
+	PredefinedMetricLast7Days        PredefinedMetric = "last7Days"
+	PredefinedMetricLast30Days       PredefinedMetric = "last30Days"
+	PredefinedMetricLast90Days       PredefinedMetric = "last90Days"
+	PredefinedMetricLast12Months     PredefinedMetric = "last12Months"
+	PredefinedMetricLastCalendarYear PredefinedMetric = "lastCalendarYear"
+	PredefinedMetricCustomLookback   PredefinedMetric = "customLookback"
+	PredefinedMetricCustomDateRange  PredefinedMetric = "customDateRange"
+)
+
+func (e PredefinedMetric) ToPointer() *PredefinedMetric {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *PredefinedMetric) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "today", "yesterday", "last7Days", "last30Days", "last90Days", "last12Months", "lastCalendarYear", "customLookback", "customDateRange":
+			return true
+		}
+	}
+	return false
+}
+
+type LookbackUnitMetric string
+
+const (
+	LookbackUnitMetricHour  LookbackUnitMetric = "hour"
+	LookbackUnitMetricDay   LookbackUnitMetric = "day"
+	LookbackUnitMetricWeek  LookbackUnitMetric = "week"
+	LookbackUnitMetricMonth LookbackUnitMetric = "month"
+)
+
+func (e LookbackUnitMetric) ToPointer() *LookbackUnitMetric {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *LookbackUnitMetric) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "hour", "day", "week", "month":
+			return true
+		}
+	}
+	return false
+}
+
+type DateRangeMetric struct {
+	Predefined    PredefinedMetric                                      `json:"predefined"`
+	LookbackValue optionalnullable.OptionalNullable[float64]            `json:"lookbackValue,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[LookbackUnitMetric] `json:"lookbackUnit,omitzero"`
+	StartDate     optionalnullable.OptionalNullable[string]             `json:"startDate,omitzero"`
+	EndDate       optionalnullable.OptionalNullable[string]             `json:"endDate,omitzero"`
+}
+
+func (d DateRangeMetric) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DateRangeMetric) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DateRangeMetric) GetPredefined() PredefinedMetric {
+	if d == nil {
+		return PredefinedMetric("")
+	}
+	return d.Predefined
+}
+
+func (d *DateRangeMetric) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+	if d == nil {
+		return nil
+	}
+	return d.LookbackValue
+}
+
+func (d *DateRangeMetric) GetLookbackUnit() optionalnullable.OptionalNullable[LookbackUnitMetric] {
+	if d == nil {
+		return nil
+	}
+	return d.LookbackUnit
+}
+
+func (d *DateRangeMetric) GetStartDate() optionalnullable.OptionalNullable[string] {
+	if d == nil {
+		return nil
+	}
+	return d.StartDate
+}
+
+func (d *DateRangeMetric) GetEndDate() optionalnullable.OptionalNullable[string] {
+	if d == nil {
+		return nil
+	}
+	return d.EndDate
+}
+
+type ShowAsMetric string
+
+const (
+	ShowAsMetricTotal   ShowAsMetric = "total"
+	ShowAsMetricPerUnit ShowAsMetric = "per_unit"
+)
+
+func (e ShowAsMetric) ToPointer() *ShowAsMetric {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ShowAsMetric) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "total", "per_unit":
+			return true
+		}
+	}
+	return false
+}
+
+type ChartSettingsMetric struct {
+	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
+	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+}
+
+func (c ChartSettingsMetric) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ChartSettingsMetric) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *ChartSettingsMetric) GetCategoryAxisLabel() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CategoryAxisLabel
+}
+
+func (c *ChartSettingsMetric) GetValueAxisLabel() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ValueAxisLabel
+}
+
+type DashboardRowFilterOperatorMetric string
+
+const (
+	DashboardRowFilterOperatorMetricEqual            DashboardRowFilterOperatorMetric = "="
+	DashboardRowFilterOperatorMetricNotEqual         DashboardRowFilterOperatorMetric = "!="
+	DashboardRowFilterOperatorMetricLessThan         DashboardRowFilterOperatorMetric = "<"
+	DashboardRowFilterOperatorMetricLessThanEqual    DashboardRowFilterOperatorMetric = "<="
+	DashboardRowFilterOperatorMetricGreaterThan      DashboardRowFilterOperatorMetric = ">"
+	DashboardRowFilterOperatorMetricGreaterThanEqual DashboardRowFilterOperatorMetric = ">="
+	DashboardRowFilterOperatorMetricBetween          DashboardRowFilterOperatorMetric = "between"
+	DashboardRowFilterOperatorMetricNotBetween       DashboardRowFilterOperatorMetric = "not_between"
+	DashboardRowFilterOperatorMetricIn               DashboardRowFilterOperatorMetric = "in"
+	DashboardRowFilterOperatorMetricNotIn            DashboardRowFilterOperatorMetric = "not_in"
+	DashboardRowFilterOperatorMetricContains         DashboardRowFilterOperatorMetric = "contains"
+	DashboardRowFilterOperatorMetricNotContains      DashboardRowFilterOperatorMetric = "not_contains"
+	DashboardRowFilterOperatorMetricStartsWith       DashboardRowFilterOperatorMetric = "starts_with"
+	DashboardRowFilterOperatorMetricEndsWith         DashboardRowFilterOperatorMetric = "ends_with"
+	DashboardRowFilterOperatorMetricIsNull           DashboardRowFilterOperatorMetric = "is_null"
+	DashboardRowFilterOperatorMetricNotNull          DashboardRowFilterOperatorMetric = "not_null"
+	DashboardRowFilterOperatorMetricIsTrue           DashboardRowFilterOperatorMetric = "is_true"
+	DashboardRowFilterOperatorMetricIsFalse          DashboardRowFilterOperatorMetric = "is_false"
+	DashboardRowFilterOperatorMetricSQLExpr          DashboardRowFilterOperatorMetric = "sql_expr"
+	DashboardRowFilterOperatorMetricSavedFilter      DashboardRowFilterOperatorMetric = "saved_filter"
+)
+
+func (e DashboardRowFilterOperatorMetric) ToPointer() *DashboardRowFilterOperatorMetric {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *DashboardRowFilterOperatorMetric) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+			return true
+		}
+	}
+	return false
+}
+
+type DashboardRowFilterMetric struct {
+	Operator DashboardRowFilterOperatorMetric `json:"operator"`
+	Column   *string                          `json:"column,omitzero"`
+	Values   []string                         `json:"values,omitzero"`
+}
+
+func (d DashboardRowFilterMetric) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DashboardRowFilterMetric) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DashboardRowFilterMetric) GetOperator() DashboardRowFilterOperatorMetric {
+	if d == nil {
+		return DashboardRowFilterOperatorMetric("")
+	}
+	return d.Operator
+}
+
+func (d *DashboardRowFilterMetric) GetColumn() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Column
+}
+
+func (d *DashboardRowFilterMetric) GetValues() []string {
+	if d == nil {
+		return nil
+	}
+	return d.Values
+}
+
+type DashboardValueMetric struct {
+	Name       string                     `json:"name"`
+	RowFilters []DashboardRowFilterMetric `json:"rowFilters"`
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	type_           string  `const:"metric" json:"type"`
+	MetricID        string  `json:"metricId"`
+	Unit            *string `json:"unit"`
+	DenominatorUnit *string `json:"denominatorUnit"`
+}
+
+func (d DashboardValueMetric) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DashboardValueMetric) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DashboardValueMetric) GetName() string {
+	if d == nil {
+		return ""
+	}
+	return d.Name
+}
+
+func (d *DashboardValueMetric) GetRowFilters() []DashboardRowFilterMetric {
+	if d == nil {
+		return []DashboardRowFilterMetric{}
+	}
+	return d.RowFilters
+}
+
+func (d *DashboardValueMetric) GetType() string {
+	return "metric"
+}
+
+func (d *DashboardValueMetric) GetMetricID() string {
+	if d == nil {
+		return ""
+	}
+	return d.MetricID
+}
+
+func (d *DashboardValueMetric) GetUnit() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Unit
+}
+
+func (d *DashboardValueMetric) GetDenominatorUnit() *string {
+	if d == nil {
+		return nil
+	}
+	return d.DenominatorUnit
+}
+
+type DashboardDatasetMetric struct {
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	type_  string                 `const:"metric" json:"type"`
+	Values []DashboardValueMetric `json:"values"`
+}
+
+func (d DashboardDatasetMetric) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DashboardDatasetMetric) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DashboardDatasetMetric) GetType() string {
+	return "metric"
+}
+
+func (d *DashboardDatasetMetric) GetValues() []DashboardValueMetric {
+	if d == nil {
+		return []DashboardValueMetric{}
+	}
+	return d.Values
+}
+
+type DashboardConfigMetric struct {
+	// ID of the datasource to query
+	Datasource    string                 `json:"datasource"`
+	Dimensions    []DimensionMetricUnion `json:"dimensions"`
+	ChartType     ChartTypeMetric        `json:"chartType"`
+	DateRange     DateRangeMetric        `json:"dateRange"`
+	ShowAs        *ShowAsMetric          `json:"showAs,omitzero"`
+	ChartSettings *ChartSettingsMetric   `json:"chartSettings,omitzero"`
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	type_   string                 `const:"metric" json:"type"`
+	Dataset DashboardDatasetMetric `json:"dataset"`
+}
+
+func (d DashboardConfigMetric) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DashboardConfigMetric) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DashboardConfigMetric) GetDatasource() string {
+	if d == nil {
+		return ""
+	}
+	return d.Datasource
+}
+
+func (d *DashboardConfigMetric) GetDimensions() []DimensionMetricUnion {
+	if d == nil {
+		return []DimensionMetricUnion{}
+	}
+	return d.Dimensions
+}
+
+func (d *DashboardConfigMetric) GetChartType() ChartTypeMetric {
+	if d == nil {
+		return ChartTypeMetric("")
+	}
+	return d.ChartType
+}
+
+func (d *DashboardConfigMetric) GetDateRange() DateRangeMetric {
+	if d == nil {
+		return DateRangeMetric{}
+	}
+	return d.DateRange
+}
+
+func (d *DashboardConfigMetric) GetShowAs() *ShowAsMetric {
+	if d == nil {
+		return nil
+	}
+	return d.ShowAs
+}
+
+func (d *DashboardConfigMetric) GetChartSettings() *ChartSettingsMetric {
+	if d == nil {
+		return nil
+	}
+	return d.ChartSettings
+}
+
+func (d *DashboardConfigMetric) GetType() string {
+	return "metric"
+}
+
+func (d *DashboardConfigMetric) GetDataset() DashboardDatasetMetric {
+	if d == nil {
+		return DashboardDatasetMetric{}
+	}
+	return d.Dataset
+}
+
+type BlockMetricExploration struct {
+	Organization string `json:"organization"`
+	ID           string `json:"id"`
+	UID          string `json:"uid"`
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	type_                        string                  `const:"metric-exploration" json:"type"`
+	Title                        string                  `json:"title"`
+	Description                  string                  `json:"description"`
+	SnapshotID                   *string                 `json:"snapshotId,omitzero"`
+	Layout                       *Layout13               `json:"layout,omitzero"`
+	ExplorerAnalysisID           string                  `json:"explorerAnalysisId"`
+	Comparison                   *BlockComparison5       `json:"comparison,omitzero"`
+	ComparisonExplorerAnalysisID *string                 `json:"comparisonExplorerAnalysisId,omitzero"`
+	GlobalControlSettings        *GlobalControlSettings5 `json:"globalControlSettings,omitzero"`
+	Config                       DashboardConfigMetric   `json:"config"`
+}
+
+func (b BlockMetricExploration) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BlockMetricExploration) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *BlockMetricExploration) GetOrganization() string {
+	if b == nil {
+		return ""
+	}
+	return b.Organization
+}
+
+func (b *BlockMetricExploration) GetID() string {
+	if b == nil {
+		return ""
+	}
+	return b.ID
+}
+
+func (b *BlockMetricExploration) GetUID() string {
+	if b == nil {
+		return ""
+	}
+	return b.UID
+}
+
+func (b *BlockMetricExploration) GetType() string {
+	return "metric-exploration"
+}
+
+func (b *BlockMetricExploration) GetTitle() string {
+	if b == nil {
+		return ""
+	}
+	return b.Title
+}
+
+func (b *BlockMetricExploration) GetDescription() string {
+	if b == nil {
+		return ""
+	}
+	return b.Description
+}
+
+func (b *BlockMetricExploration) GetSnapshotID() *string {
+	if b == nil {
+		return nil
+	}
+	return b.SnapshotID
+}
+
+func (b *BlockMetricExploration) GetLayout() *Layout13 {
+	if b == nil {
+		return nil
+	}
+	return b.Layout
+}
+
+func (b *BlockMetricExploration) GetExplorerAnalysisID() string {
+	if b == nil {
+		return ""
+	}
+	return b.ExplorerAnalysisID
+}
+
+func (b *BlockMetricExploration) GetComparison() *BlockComparison5 {
+	if b == nil {
+		return nil
+	}
+	return b.Comparison
+}
+
+func (b *BlockMetricExploration) GetComparisonExplorerAnalysisID() *string {
+	if b == nil {
+		return nil
+	}
+	return b.ComparisonExplorerAnalysisID
+}
+
+func (b *BlockMetricExploration) GetGlobalControlSettings() *GlobalControlSettings5 {
+	if b == nil {
+		return nil
+	}
+	return b.GlobalControlSettings
+}
+
+func (b *BlockMetricExploration) GetConfig() DashboardConfigMetric {
+	if b == nil {
+		return DashboardConfigMetric{}
+	}
+	return b.Config
+}
+
+type Layout12 struct {
+	X      int64 `json:"x"`
+	Y      int64 `json:"y"`
+	W      int64 `json:"w"`
+	H      int64 `json:"h"`
+	Static *bool `json:"static,omitzero"`
+}
+
+func (l Layout12) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
+}
+
+func (l *Layout12) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (l *Layout12) GetX() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.X
+}
+
+func (l *Layout12) GetY() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.Y
+}
+
+func (l *Layout12) GetW() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.W
+}
+
+func (l *Layout12) GetH() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.H
+}
+
+func (l *Layout12) GetStatic() *bool {
+	if l == nil {
+		return nil
+	}
+	return l.Static
+}
+
+// #region class-body-layout12
+// #endregion class-body-layout12
+
+type BlockSQLExplorer struct {
+	Organization string `json:"organization"`
+	ID           string `json:"id"`
+	UID          string `json:"uid"`
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	type_              string    `const:"sql-explorer" json:"type"`
+	Title              string    `json:"title"`
+	Description        string    `json:"description"`
+	SnapshotID         *string   `json:"snapshotId,omitzero"`
+	Layout             *Layout12 `json:"layout,omitzero"`
+	SavedQueryID       string    `json:"savedQueryId"`
+	DataVizConfigIndex *float64  `json:"dataVizConfigIndex,omitzero"`
+	BlockConfig        []string  `json:"blockConfig"`
+}
+
+func (b BlockSQLExplorer) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BlockSQLExplorer) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *BlockSQLExplorer) GetOrganization() string {
+	if b == nil {
+		return ""
+	}
+	return b.Organization
+}
+
+func (b *BlockSQLExplorer) GetID() string {
+	if b == nil {
+		return ""
+	}
+	return b.ID
+}
+
+func (b *BlockSQLExplorer) GetUID() string {
+	if b == nil {
+		return ""
+	}
+	return b.UID
+}
+
+func (b *BlockSQLExplorer) GetType() string {
+	return "sql-explorer"
+}
+
+func (b *BlockSQLExplorer) GetTitle() string {
+	if b == nil {
+		return ""
+	}
+	return b.Title
+}
+
+func (b *BlockSQLExplorer) GetDescription() string {
+	if b == nil {
+		return ""
+	}
+	return b.Description
+}
+
+func (b *BlockSQLExplorer) GetSnapshotID() *string {
+	if b == nil {
+		return nil
+	}
+	return b.SnapshotID
+}
+
+func (b *BlockSQLExplorer) GetLayout() *Layout12 {
+	if b == nil {
+		return nil
+	}
+	return b.Layout
+}
+
+func (b *BlockSQLExplorer) GetSavedQueryID() string {
+	if b == nil {
+		return ""
+	}
+	return b.SavedQueryID
+}
+
+func (b *BlockSQLExplorer) GetDataVizConfigIndex() *float64 {
+	if b == nil {
+		return nil
+	}
+	return b.DataVizConfigIndex
+}
+
+func (b *BlockSQLExplorer) GetBlockConfig() []string {
+	if b == nil {
+		return []string{}
+	}
+	return b.BlockConfig
+}
+
+type Layout11 struct {
+	X      int64 `json:"x"`
+	Y      int64 `json:"y"`
+	W      int64 `json:"w"`
+	H      int64 `json:"h"`
+	Static *bool `json:"static,omitzero"`
+}
+
+func (l Layout11) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
+}
+
+func (l *Layout11) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (l *Layout11) GetX() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.X
+}
+
+func (l *Layout11) GetY() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.Y
+}
+
+func (l *Layout11) GetW() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.W
+}
+
+func (l *Layout11) GetH() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.H
+}
+
+func (l *Layout11) GetStatic() *bool {
+	if l == nil {
+		return nil
+	}
+	return l.Static
+}
+
+// #region class-body-layout11
+// #endregion class-body-layout11
+
+type BlockExperimentTraffic struct {
+	Organization string `json:"organization"`
+	ID           string `json:"id"`
+	UID          string `json:"uid"`
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	type_          string    `const:"experiment-traffic" json:"type"`
+	Title          string    `json:"title"`
+	Description    string    `json:"description"`
+	SnapshotID     *string   `json:"snapshotId,omitzero"`
+	Layout         *Layout11 `json:"layout,omitzero"`
+	ExperimentID   string    `json:"experimentId"`
+	ShowTable      bool      `json:"showTable"`
+	ShowTimeseries bool      `json:"showTimeseries"`
+}
+
+func (b BlockExperimentTraffic) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BlockExperimentTraffic) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *BlockExperimentTraffic) GetOrganization() string {
+	if b == nil {
+		return ""
+	}
+	return b.Organization
+}
+
+func (b *BlockExperimentTraffic) GetID() string {
+	if b == nil {
+		return ""
+	}
+	return b.ID
+}
+
+func (b *BlockExperimentTraffic) GetUID() string {
+	if b == nil {
+		return ""
+	}
+	return b.UID
+}
+
+func (b *BlockExperimentTraffic) GetType() string {
+	return "experiment-traffic"
+}
+
+func (b *BlockExperimentTraffic) GetTitle() string {
+	if b == nil {
+		return ""
+	}
+	return b.Title
+}
+
+func (b *BlockExperimentTraffic) GetDescription() string {
+	if b == nil {
+		return ""
+	}
+	return b.Description
+}
+
+func (b *BlockExperimentTraffic) GetSnapshotID() *string {
+	if b == nil {
+		return nil
+	}
+	return b.SnapshotID
+}
+
+func (b *BlockExperimentTraffic) GetLayout() *Layout11 {
+	if b == nil {
+		return nil
+	}
+	return b.Layout
+}
+
+func (b *BlockExperimentTraffic) GetExperimentID() string {
+	if b == nil {
+		return ""
+	}
+	return b.ExperimentID
+}
+
+func (b *BlockExperimentTraffic) GetShowTable() bool {
+	if b == nil {
+		return false
+	}
+	return b.ShowTable
+}
+
+func (b *BlockExperimentTraffic) GetShowTimeseries() bool {
+	if b == nil {
+		return false
+	}
+	return b.ShowTimeseries
+}
+
+type Layout10 struct {
+	X      int64 `json:"x"`
+	Y      int64 `json:"y"`
+	W      int64 `json:"w"`
+	H      int64 `json:"h"`
+	Static *bool `json:"static,omitzero"`
+}
+
+func (l Layout10) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
+}
+
+func (l *Layout10) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (l *Layout10) GetX() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.X
+}
+
+func (l *Layout10) GetY() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.Y
+}
+
+func (l *Layout10) GetW() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.W
+}
+
+func (l *Layout10) GetH() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.H
+}
+
+func (l *Layout10) GetStatic() *bool {
+	if l == nil {
+		return nil
+	}
+	return l.Static
+}
+
+// #region class-body-layout10
+// #endregion class-body-layout10
+
+type DashboardDifferenceType4 string
+
+const (
+	DashboardDifferenceType4Absolute DashboardDifferenceType4 = "absolute"
+	DashboardDifferenceType4Relative DashboardDifferenceType4 = "relative"
+	DashboardDifferenceType4Scaled   DashboardDifferenceType4 = "scaled"
+)
+
+func (e DashboardDifferenceType4) ToPointer() *DashboardDifferenceType4 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *DashboardDifferenceType4) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "absolute", "relative", "scaled":
+			return true
+		}
+	}
+	return false
+}
+
+type DashboardSortBy3 string
+
+const (
+	DashboardSortBy3Metrics      DashboardSortBy3 = "metrics"
+	DashboardSortBy3MetricTags   DashboardSortBy3 = "metricTags"
+	DashboardSortBy3Significance DashboardSortBy3 = "significance"
+	DashboardSortBy3Change       DashboardSortBy3 = "change"
+)
+
+func (e DashboardSortBy3) ToPointer() *DashboardSortBy3 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *DashboardSortBy3) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "metrics", "metricTags", "significance", "change":
+			return true
+		}
+	}
+	return false
+}
+
+type SortDirection3 string
+
+const (
+	SortDirection3Asc  SortDirection3 = "asc"
+	SortDirection3Desc SortDirection3 = "desc"
+)
+
+func (e SortDirection3) ToPointer() *SortDirection3 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SortDirection3) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "asc", "desc":
+			return true
+		}
+	}
+	return false
+}
+
+type BlockExperimentTimeSeries struct {
+	Organization string `json:"organization"`
+	ID           string `json:"id"`
+	UID          string `json:"uid"`
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	type_           string                   `const:"experiment-time-series" json:"type"`
+	Title           string                   `json:"title"`
+	Description     string                   `json:"description"`
+	SnapshotID      string                   `json:"snapshotId"`
+	Layout          *Layout10                `json:"layout,omitzero"`
+	ExperimentID    string                   `json:"experimentId"`
+	MetricID        *string                  `json:"metricId,omitzero"`
+	MetricIds       []string                 `json:"metricIds"`
+	VariationIds    []string                 `json:"variationIds"`
+	DifferenceType  DashboardDifferenceType4 `json:"differenceType"`
+	SliceTagsFilter []string                 `json:"sliceTagsFilter"`
+	MetricTagFilter []string                 `json:"metricTagFilter"`
+	SortBy          *DashboardSortBy3        `json:"sortBy"`
+	SortDirection   *SortDirection3          `json:"sortDirection"`
+}
+
+func (b BlockExperimentTimeSeries) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BlockExperimentTimeSeries) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *BlockExperimentTimeSeries) GetOrganization() string {
+	if b == nil {
+		return ""
+	}
+	return b.Organization
+}
+
+func (b *BlockExperimentTimeSeries) GetID() string {
+	if b == nil {
+		return ""
+	}
+	return b.ID
+}
+
+func (b *BlockExperimentTimeSeries) GetUID() string {
+	if b == nil {
+		return ""
+	}
+	return b.UID
+}
+
+func (b *BlockExperimentTimeSeries) GetType() string {
+	return "experiment-time-series"
+}
+
+func (b *BlockExperimentTimeSeries) GetTitle() string {
+	if b == nil {
+		return ""
+	}
+	return b.Title
+}
+
+func (b *BlockExperimentTimeSeries) GetDescription() string {
+	if b == nil {
+		return ""
+	}
+	return b.Description
+}
+
+func (b *BlockExperimentTimeSeries) GetSnapshotID() string {
+	if b == nil {
+		return ""
+	}
+	return b.SnapshotID
+}
+
+func (b *BlockExperimentTimeSeries) GetLayout() *Layout10 {
+	if b == nil {
+		return nil
+	}
+	return b.Layout
+}
+
+func (b *BlockExperimentTimeSeries) GetExperimentID() string {
+	if b == nil {
+		return ""
+	}
+	return b.ExperimentID
+}
+
+func (b *BlockExperimentTimeSeries) GetMetricID() *string {
+	if b == nil {
+		return nil
+	}
+	return b.MetricID
+}
+
+func (b *BlockExperimentTimeSeries) GetMetricIds() []string {
+	if b == nil {
+		return []string{}
+	}
+	return b.MetricIds
+}
+
+func (b *BlockExperimentTimeSeries) GetVariationIds() []string {
+	if b == nil {
+		return []string{}
+	}
+	return b.VariationIds
+}
+
+func (b *BlockExperimentTimeSeries) GetDifferenceType() DashboardDifferenceType4 {
+	if b == nil {
+		return DashboardDifferenceType4("")
+	}
+	return b.DifferenceType
+}
+
+func (b *BlockExperimentTimeSeries) GetSliceTagsFilter() []string {
+	if b == nil {
+		return []string{}
+	}
+	return b.SliceTagsFilter
+}
+
+func (b *BlockExperimentTimeSeries) GetMetricTagFilter() []string {
+	if b == nil {
+		return []string{}
+	}
+	return b.MetricTagFilter
+}
+
+func (b *BlockExperimentTimeSeries) GetSortBy() *DashboardSortBy3 {
+	if b == nil {
+		return nil
+	}
+	return b.SortBy
+}
+
+func (b *BlockExperimentTimeSeries) GetSortDirection() *SortDirection3 {
+	if b == nil {
+		return nil
+	}
+	return b.SortDirection
+}
+
+type Layout9 struct {
+	X      int64 `json:"x"`
+	Y      int64 `json:"y"`
+	W      int64 `json:"w"`
+	H      int64 `json:"h"`
+	Static *bool `json:"static,omitzero"`
+}
+
+func (l Layout9) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
+}
+
+func (l *Layout9) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (l *Layout9) GetX() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.X
+}
+
+func (l *Layout9) GetY() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.Y
+}
+
+func (l *Layout9) GetW() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.W
+}
+
+func (l *Layout9) GetH() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.H
+}
+
+func (l *Layout9) GetStatic() *bool {
+	if l == nil {
+		return nil
+	}
+	return l.Static
+}
+
+// #region class-body-layout9
+// #endregion class-body-layout9
+
+type DashboardDifferenceType3 string
+
+const (
+	DashboardDifferenceType3Absolute DashboardDifferenceType3 = "absolute"
+	DashboardDifferenceType3Relative DashboardDifferenceType3 = "relative"
+	DashboardDifferenceType3Scaled   DashboardDifferenceType3 = "scaled"
+)
+
+func (e DashboardDifferenceType3) ToPointer() *DashboardDifferenceType3 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *DashboardDifferenceType3) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "absolute", "relative", "scaled":
+			return true
+		}
+	}
+	return false
+}
+
+type ColumnsFilter2 string
+
+const (
+	ColumnsFilter2MetricAndVariationNames ColumnsFilter2 = "Metric & Variation Names"
+	ColumnsFilter2BaselineAverage         ColumnsFilter2 = "Baseline Average"
+	ColumnsFilter2VariationAverages       ColumnsFilter2 = "Variation Averages"
+	ColumnsFilter2ChanceToWin             ColumnsFilter2 = "Chance to Win"
+	ColumnsFilter2CiGraph                 ColumnsFilter2 = "CI Graph"
+	ColumnsFilter2Lift                    ColumnsFilter2 = "Lift"
+)
+
+func (e ColumnsFilter2) ToPointer() *ColumnsFilter2 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ColumnsFilter2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "Metric & Variation Names", "Baseline Average", "Variation Averages", "Chance to Win", "CI Graph", "Lift":
+			return true
+		}
+	}
+	return false
+}
+
+type DashboardSortBy2 string
+
+const (
+	DashboardSortBy2Metrics      DashboardSortBy2 = "metrics"
+	DashboardSortBy2MetricTags   DashboardSortBy2 = "metricTags"
+	DashboardSortBy2Significance DashboardSortBy2 = "significance"
+	DashboardSortBy2Change       DashboardSortBy2 = "change"
+)
+
+func (e DashboardSortBy2) ToPointer() *DashboardSortBy2 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *DashboardSortBy2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "metrics", "metricTags", "significance", "change":
+			return true
+		}
+	}
+	return false
+}
+
+type SortDirection2 string
+
+const (
+	SortDirection2Asc  SortDirection2 = "asc"
+	SortDirection2Desc SortDirection2 = "desc"
+)
+
+func (e SortDirection2) ToPointer() *SortDirection2 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SortDirection2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "asc", "desc":
+			return true
+		}
+	}
+	return false
+}
+
+type BlockExperimentDimension struct {
+	Organization string `json:"organization"`
+	ID           string `json:"id"`
+	UID          string `json:"uid"`
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	type_           string                   `const:"experiment-dimension" json:"type"`
+	Title           string                   `json:"title"`
+	Description     string                   `json:"description"`
+	SnapshotID      string                   `json:"snapshotId"`
+	Layout          *Layout9                 `json:"layout,omitzero"`
+	ExperimentID    string                   `json:"experimentId"`
+	DimensionID     string                   `json:"dimensionId"`
+	DimensionValues []string                 `json:"dimensionValues"`
+	MetricIds       []string                 `json:"metricIds"`
+	VariationIds    []string                 `json:"variationIds"`
+	BaselineRow     float64                  `json:"baselineRow"`
+	DifferenceType  DashboardDifferenceType3 `json:"differenceType"`
+	ColumnsFilter   []ColumnsFilter2         `json:"columnsFilter"`
+	MetricTagFilter []string                 `json:"metricTagFilter"`
+	SortBy          *DashboardSortBy2        `json:"sortBy"`
+	SortDirection   *SortDirection2          `json:"sortDirection"`
+}
+
+func (b BlockExperimentDimension) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BlockExperimentDimension) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *BlockExperimentDimension) GetOrganization() string {
+	if b == nil {
+		return ""
+	}
+	return b.Organization
+}
+
+func (b *BlockExperimentDimension) GetID() string {
+	if b == nil {
+		return ""
+	}
+	return b.ID
+}
+
+func (b *BlockExperimentDimension) GetUID() string {
+	if b == nil {
+		return ""
+	}
+	return b.UID
+}
+
+func (b *BlockExperimentDimension) GetType() string {
+	return "experiment-dimension"
+}
+
+func (b *BlockExperimentDimension) GetTitle() string {
+	if b == nil {
+		return ""
+	}
+	return b.Title
+}
+
+func (b *BlockExperimentDimension) GetDescription() string {
+	if b == nil {
+		return ""
+	}
+	return b.Description
+}
+
+func (b *BlockExperimentDimension) GetSnapshotID() string {
+	if b == nil {
+		return ""
+	}
+	return b.SnapshotID
+}
+
+func (b *BlockExperimentDimension) GetLayout() *Layout9 {
+	if b == nil {
+		return nil
+	}
+	return b.Layout
+}
+
+func (b *BlockExperimentDimension) GetExperimentID() string {
+	if b == nil {
+		return ""
+	}
+	return b.ExperimentID
+}
+
+func (b *BlockExperimentDimension) GetDimensionID() string {
+	if b == nil {
+		return ""
+	}
+	return b.DimensionID
+}
+
+func (b *BlockExperimentDimension) GetDimensionValues() []string {
+	if b == nil {
+		return []string{}
+	}
+	return b.DimensionValues
+}
+
+func (b *BlockExperimentDimension) GetMetricIds() []string {
+	if b == nil {
+		return []string{}
+	}
+	return b.MetricIds
+}
+
+func (b *BlockExperimentDimension) GetVariationIds() []string {
+	if b == nil {
+		return []string{}
+	}
+	return b.VariationIds
+}
+
+func (b *BlockExperimentDimension) GetBaselineRow() float64 {
+	if b == nil {
+		return 0.0
+	}
+	return b.BaselineRow
+}
+
+func (b *BlockExperimentDimension) GetDifferenceType() DashboardDifferenceType3 {
+	if b == nil {
+		return DashboardDifferenceType3("")
+	}
+	return b.DifferenceType
+}
+
+func (b *BlockExperimentDimension) GetColumnsFilter() []ColumnsFilter2 {
+	if b == nil {
+		return []ColumnsFilter2{}
+	}
+	return b.ColumnsFilter
+}
+
+func (b *BlockExperimentDimension) GetMetricTagFilter() []string {
+	if b == nil {
+		return []string{}
+	}
+	return b.MetricTagFilter
+}
+
+func (b *BlockExperimentDimension) GetSortBy() *DashboardSortBy2 {
+	if b == nil {
+		return nil
+	}
+	return b.SortBy
+}
+
+func (b *BlockExperimentDimension) GetSortDirection() *SortDirection2 {
+	if b == nil {
+		return nil
+	}
+	return b.SortDirection
+}
+
+type Layout8 struct {
+	X      int64 `json:"x"`
+	Y      int64 `json:"y"`
+	W      int64 `json:"w"`
+	H      int64 `json:"h"`
+	Static *bool `json:"static,omitzero"`
+}
+
+func (l Layout8) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
+}
+
+func (l *Layout8) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (l *Layout8) GetX() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.X
+}
+
+func (l *Layout8) GetY() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.Y
+}
+
+func (l *Layout8) GetW() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.W
+}
+
+func (l *Layout8) GetH() int64 {
+	if l == nil {
+		return 0
+	}
+	return l.H
+}
+
+func (l *Layout8) GetStatic() *bool {
+	if l == nil {
+		return nil
+	}
+	return l.Static
+}
+
+// #region class-body-layout8
+// #endregion class-body-layout8
+
+type BlockDateRangePredefined3 string
+
+const (
+	BlockDateRangePredefined3Today            BlockDateRangePredefined3 = "today"
+	BlockDateRangePredefined3Yesterday        BlockDateRangePredefined3 = "yesterday"
+	BlockDateRangePredefined3Last7Days        BlockDateRangePredefined3 = "last7Days"
+	BlockDateRangePredefined3Last30Days       BlockDateRangePredefined3 = "last30Days"
+	BlockDateRangePredefined3Last90Days       BlockDateRangePredefined3 = "last90Days"
+	BlockDateRangePredefined3Last12Months     BlockDateRangePredefined3 = "last12Months"
+	BlockDateRangePredefined3LastCalendarYear BlockDateRangePredefined3 = "lastCalendarYear"
+	BlockDateRangePredefined3CustomLookback   BlockDateRangePredefined3 = "customLookback"
+	BlockDateRangePredefined3CustomDateRange  BlockDateRangePredefined3 = "customDateRange"
+)
+
+func (e BlockDateRangePredefined3) ToPointer() *BlockDateRangePredefined3 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *BlockDateRangePredefined3) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "today", "yesterday", "last7Days", "last30Days", "last90Days", "last12Months", "lastCalendarYear", "customLookback", "customDateRange":
+			return true
+		}
+	}
+	return false
+}
+
+type BlockDateRangeLookbackUnit3 string
+
+const (
+	BlockDateRangeLookbackUnit3Hour  BlockDateRangeLookbackUnit3 = "hour"
+	BlockDateRangeLookbackUnit3Day   BlockDateRangeLookbackUnit3 = "day"
+	BlockDateRangeLookbackUnit3Week  BlockDateRangeLookbackUnit3 = "week"
+	BlockDateRangeLookbackUnit3Month BlockDateRangeLookbackUnit3 = "month"
+)
+
+func (e BlockDateRangeLookbackUnit3) ToPointer() *BlockDateRangeLookbackUnit3 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *BlockDateRangeLookbackUnit3) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "hour", "day", "week", "month":
+			return true
+		}
+	}
+	return false
+}
+
+type BlockDateRange3 struct {
+	Predefined    BlockDateRangePredefined3                                      `json:"predefined"`
+	LookbackValue optionalnullable.OptionalNullable[float64]                     `json:"lookbackValue,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[BlockDateRangeLookbackUnit3] `json:"lookbackUnit,omitzero"`
+	StartDate     optionalnullable.OptionalNullable[string]                      `json:"startDate,omitzero"`
+	EndDate       optionalnullable.OptionalNullable[string]                      `json:"endDate,omitzero"`
+}
+
+func (b BlockDateRange3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BlockDateRange3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *BlockDateRange3) GetPredefined() BlockDateRangePredefined3 {
+	if b == nil {
+		return BlockDateRangePredefined3("")
+	}
+	return b.Predefined
+}
+
+func (b *BlockDateRange3) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+	if b == nil {
+		return nil
+	}
+	return b.LookbackValue
+}
+
+func (b *BlockDateRange3) GetLookbackUnit() optionalnullable.OptionalNullable[BlockDateRangeLookbackUnit3] {
+	if b == nil {
+		return nil
+	}
+	return b.LookbackUnit
+}
+
+func (b *BlockDateRange3) GetStartDate() optionalnullable.OptionalNullable[string] {
+	if b == nil {
+		return nil
+	}
+	return b.StartDate
+}
+
+func (b *BlockDateRange3) GetEndDate() optionalnullable.OptionalNullable[string] {
+	if b == nil {
+		return nil
+	}
+	return b.EndDate
+}
+
+// #region class-body-blockdaterange3
+// #endregion class-body-blockdaterange3
+
+type BlockMode4 string
+
+const (
+	BlockMode4PreviousPeriod               BlockMode4 = "previousPeriod"
+	BlockMode4PreviousPeriodMatchDayOfWeek BlockMode4 = "previousPeriodMatchDayOfWeek"
+	BlockMode4PreviousYear                 BlockMode4 = "previousYear"
+	BlockMode4PreviousYearMatchDayOfWeek   BlockMode4 = "previousYearMatchDayOfWeek"
+	BlockMode4Custom                       BlockMode4 = "custom"
+)
+
+func (e BlockMode4) ToPointer() *BlockMode4 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *BlockMode4) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "previousPeriod", "previousPeriodMatchDayOfWeek", "previousYear", "previousYearMatchDayOfWeek", "custom":
+			return true
+		}
+	}
+	return false
+}
+
 type BlockPreviousTimeFramePredefined4 string
 
 const (
@@ -3035,6 +4872,7 @@ const (
 	BlockTypeMetricExploration       BlockType = "metric-exploration"
 	BlockTypeFactTableExploration    BlockType = "fact-table-exploration"
 	BlockTypeDataSourceExploration   BlockType = "data-source-exploration"
+	BlockTypeSQLExploration          BlockType = "sql-exploration"
 	BlockTypeFunnelExploration       BlockType = "funnel-exploration"
 	BlockTypeUnknown                 BlockType = "UNKNOWN"
 )
@@ -3055,6 +4893,7 @@ type Block struct {
 	BlockMetricExploration       *BlockMetricExploration       `queryParam:"inline" union:"member"`
 	BlockFactTableExploration    *BlockFactTableExploration    `queryParam:"inline" union:"member"`
 	BlockDataSourceExploration   *BlockDataSourceExploration   `queryParam:"inline" union:"member"`
+	BlockSQLExploration          *BlockSQLExploration          `queryParam:"inline" union:"member"`
 	BlockFunnelExploration       *BlockFunnelExploration       `queryParam:"inline" union:"member"`
 	UnknownRaw                   json.RawMessage               `json:"-" union:"unknown"`
 
@@ -3193,6 +5032,15 @@ func CreateBlockDataSourceExploration(dataSourceExploration BlockDataSourceExplo
 	return Block{
 		BlockDataSourceExploration: &dataSourceExploration,
 		Type:                       typ,
+	}
+}
+
+func CreateBlockSQLExploration(sqlExploration BlockSQLExploration) Block {
+	typ := BlockTypeSQLExploration
+
+	return Block{
+		BlockSQLExploration: &sqlExploration,
+		Type:                typ,
 	}
 }
 
@@ -3374,6 +5222,15 @@ func (u *Block) UnmarshalJSON(data []byte) error {
 		u.BlockDataSourceExploration = blockDataSourceExploration
 		u.Type = BlockTypeDataSourceExploration
 		return nil
+	case "sql-exploration":
+		blockSQLExploration := new(BlockSQLExploration)
+		if err := utils.UnmarshalJSON(data, &blockSQLExploration, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == sql-exploration) type BlockSQLExploration within Block: %w", string(data), err)
+		}
+
+		u.BlockSQLExploration = blockSQLExploration
+		u.Type = BlockTypeSQLExploration
+		return nil
 	case "funnel-exploration":
 		blockFunnelExploration := new(BlockFunnelExploration)
 		if err := utils.UnmarshalJSON(data, &blockFunnelExploration, "", true, nil); err != nil {
@@ -3450,6 +5307,10 @@ func (u Block) MarshalJSON() ([]byte, error) {
 
 	if u.BlockDataSourceExploration != nil {
 		return utils.MarshalJSON(u.BlockDataSourceExploration, "", true)
+	}
+
+	if u.BlockSQLExploration != nil {
+		return utils.MarshalJSON(u.BlockSQLExploration, "", true)
 	}
 
 	if u.BlockFunnelExploration != nil {

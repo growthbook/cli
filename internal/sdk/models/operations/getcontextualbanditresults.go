@@ -25,6 +25,7 @@ type ContextualBanditSnapshot struct {
 	LeafMap       []any    `json:"leaf_map,omitzero"`
 	LeafStats     []any    `json:"leaf_stats,omitzero"`
 	SseTrajectory []any    `json:"sse_trajectory,omitzero"`
+	BicTrajectory []any    `json:"bic_trajectory,omitzero"`
 }
 
 func (c ContextualBanditSnapshot) MarshalJSON() ([]byte, error) {
@@ -73,6 +74,13 @@ func (c *ContextualBanditSnapshot) GetSseTrajectory() []any {
 	return c.SseTrajectory
 }
 
+func (c *ContextualBanditSnapshot) GetBicTrajectory() []any {
+	if c == nil {
+		return nil
+	}
+	return c.BicTrajectory
+}
+
 type OverallWeights struct {
 	VariationID string   `json:"variationId"`
 	Weight      *float64 `json:"weight"`
@@ -92,9 +100,105 @@ func (o *OverallWeights) GetWeight() *float64 {
 	return o.Weight
 }
 
+type LeafClauseOperator string
+
+const (
+	LeafClauseOperatorIn    LeafClauseOperator = "in"
+	LeafClauseOperatorNotIn LeafClauseOperator = "not in"
+)
+
+func (e LeafClauseOperator) ToPointer() *LeafClauseOperator {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *LeafClauseOperator) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "in", "not in":
+			return true
+		}
+	}
+	return false
+}
+
+type LeafClause struct {
+	Attribute string             `json:"attribute"`
+	Levels    []string           `json:"levels"`
+	Operator  LeafClauseOperator `json:"operator"`
+}
+
+func (l *LeafClause) GetAttribute() string {
+	if l == nil {
+		return ""
+	}
+	return l.Attribute
+}
+
+func (l *LeafClause) GetLevels() []string {
+	if l == nil {
+		return []string{}
+	}
+	return l.Levels
+}
+
+func (l *LeafClause) GetOperator() LeafClauseOperator {
+	if l == nil {
+		return LeafClauseOperator("")
+	}
+	return l.Operator
+}
+
+type Split struct {
+	LeafClauses []LeafClause `json:"leafClauses"`
+	Attribute   string       `json:"attribute"`
+	LeftLevels  []string     `json:"leftLevels"`
+	RightLevels []string     `json:"rightLevels"`
+}
+
+func (s *Split) GetLeafClauses() []LeafClause {
+	if s == nil {
+		return []LeafClause{}
+	}
+	return s.LeafClauses
+}
+
+func (s *Split) GetAttribute() string {
+	if s == nil {
+		return ""
+	}
+	return s.Attribute
+}
+
+func (s *Split) GetLeftLevels() []string {
+	if s == nil {
+		return []string{}
+	}
+	return s.LeftLevels
+}
+
+func (s *Split) GetRightLevels() []string {
+	if s == nil {
+		return []string{}
+	}
+	return s.RightLevels
+}
+
 type SseTrajectory struct {
 	NumSplits int64   `json:"numSplits"`
 	TotalSse  float64 `json:"totalSse"`
+	Split     *Split  `json:"split,omitzero"`
+}
+
+func (s SseTrajectory) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SseTrajectory) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (s *SseTrajectory) GetNumSplits() int64 {
@@ -111,10 +215,18 @@ func (s *SseTrajectory) GetTotalSse() float64 {
 	return s.TotalSse
 }
 
+func (s *SseTrajectory) GetSplit() *Split {
+	if s == nil {
+		return nil
+	}
+	return s.Split
+}
+
 type OverallVariation struct {
 	VariationID   string   `json:"variationId"`
 	VariationName *string  `json:"variationName,omitzero"`
 	Weight        *float64 `json:"weight"`
+	Mean          *float64 `json:"mean"`
 	Users         *float64 `json:"users"`
 }
 
@@ -139,6 +251,13 @@ func (o *OverallVariation) GetWeight() *float64 {
 	return o.Weight
 }
 
+func (o *OverallVariation) GetMean() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Mean
+}
+
 func (o *OverallVariation) GetUsers() *float64 {
 	if o == nil {
 		return nil
@@ -157,19 +276,19 @@ func (o *Overall) GetVariations() []OverallVariation {
 	return o.Variations
 }
 
-type GetContextualBanditResultsOperator string
+type ClauseOperator string
 
 const (
-	GetContextualBanditResultsOperatorIn    GetContextualBanditResultsOperator = "in"
-	GetContextualBanditResultsOperatorNotIn GetContextualBanditResultsOperator = "not in"
+	ClauseOperatorIn    ClauseOperator = "in"
+	ClauseOperatorNotIn ClauseOperator = "not in"
 )
 
-func (e GetContextualBanditResultsOperator) ToPointer() *GetContextualBanditResultsOperator {
+func (e ClauseOperator) ToPointer() *ClauseOperator {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *GetContextualBanditResultsOperator) IsExact() bool {
+func (e *ClauseOperator) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "in", "not in":
@@ -180,9 +299,9 @@ func (e *GetContextualBanditResultsOperator) IsExact() bool {
 }
 
 type Clause struct {
-	Attribute string                             `json:"attribute"`
-	Levels    []string                           `json:"levels"`
-	Operator  GetContextualBanditResultsOperator `json:"operator"`
+	Attribute string         `json:"attribute"`
+	Levels    []string       `json:"levels"`
+	Operator  ClauseOperator `json:"operator"`
 }
 
 func (c *Clause) GetAttribute() string {
@@ -199,9 +318,9 @@ func (c *Clause) GetLevels() []string {
 	return c.Levels
 }
 
-func (c *Clause) GetOperator() GetContextualBanditResultsOperator {
+func (c *Clause) GetOperator() ClauseOperator {
 	if c == nil {
-		return GetContextualBanditResultsOperator("")
+		return ClauseOperator("")
 	}
 	return c.Operator
 }

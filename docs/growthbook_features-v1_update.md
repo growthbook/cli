@@ -29,7 +29,7 @@ growthbook features-v1 update [flags]
   -c, --custom-fields string               value
       --default-value string               string value
       --description string                 Description of the feature
-  -e, --environments string                value
+  -e, --environments string                Settings for each environment, keyed by environment ID. Any environment you leave out keeps its current settings.
   -h, --help                               help for update
       --holdout null                       Holdout to assign this feature to. Pass null to remove the feature from its current holdout. Omit the field entirely to leave the holdout unchanged.
                                            

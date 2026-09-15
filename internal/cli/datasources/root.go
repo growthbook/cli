@@ -33,6 +33,22 @@ func InitDataSourcesRoot(parent *cobra.Command) error {
 		return err
 	}
 
+	if err := initSearchWarehouseTablesCmd(DataSourcesCmd); err != nil {
+		return err
+	}
+
+	if err := initGetWarehouseTableSchemaCmd(DataSourcesCmd); err != nil {
+		return err
+	}
+
+	if err := initPreviewWarehouseColumnValuesCmd(DataSourcesCmd); err != nil {
+		return err
+	}
+
+	if err := initRunSqlQueryCmd(DataSourcesCmd); err != nil {
+		return err
+	}
+
 	if err := initGetInformationSchemaTableCmd(DataSourcesCmd); err != nil {
 		return err
 	}

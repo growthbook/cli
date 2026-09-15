@@ -46,6 +46,7 @@ growthbook [flags]
 * [growthbook archetypes](growthbook_archetypes.md)	 - Archetypes allow you to simulate the result of targeting rules on pre-set user attributes
 * [growthbook attributes](growthbook_attributes.md)	 - Used when targeting feature flags and experiments
 * [growthbook auth](growthbook_auth.md)	 - Manage authentication credentials
+* [growthbook auto-runs](growthbook_auto-runs.md)	 - Operations for auto-runs
 * [growthbook code-references](growthbook_code-references.md)	 - Intended for use with our code reference CI utility, [`gb-find-code-refs`](https://github
 * [growthbook config-revisions](growthbook_config-revisions.md)	 - **Beta** — these endpoints are new and may change in backwards-incompatible ways
 * [growthbook configs](growthbook_configs.md)	 - **Beta** — these endpoints are new and may change in backwards-incompatible ways
@@ -72,6 +73,7 @@ growthbook [flags]
 * [growthbook features-v1](growthbook_features-v1.md)	 - Control your feature flags programatically
 * [growthbook generate-types](growthbook_generate-types.md)	 - Generate TypeScript types for all your features
 * [growthbook get-SDK-payload](growthbook_get-SDK-payload.md)	 - Get a SDK payload
+* [growthbook holdouts](growthbook_holdouts.md)	 - Hold a share of traffic out of all experiments to measure their combined effect
 * [growthbook learnings](growthbook_learnings.md)	 - Saved learnings captured across experiments, including AI-discovered patterns
 * [growthbook members](growthbook_members.md)	 - Members are users who have been invited to an organization
 * [growthbook meta](growthbook_meta.md)	 - Server metadata, including the running build's version and commit for version-skew checks

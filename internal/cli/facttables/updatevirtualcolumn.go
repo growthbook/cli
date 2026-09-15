@@ -19,7 +19,7 @@ var updateVirtualColumnCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The id of the requested resource [required]"},
 	{FlagName: "name", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Optional: true, Description: "Display name for the column"},
 	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "number-format", FieldPath: "Body.NumberFormat", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"", "currency", "time:seconds", "memory:bytes", "memory:kilobytes"}, Description: "options: , currency, time:seconds, memory:bytes, memory:kilobytes"},
+	{FlagName: "number-format", FieldPath: "Body.NumberFormat", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"", "currency", "time:seconds", "time:milliseconds", "memory:bytes", "memory:kilobytes"}, Description: "options: , currency, time:seconds, time:milliseconds, memory:bytes, memory:kilobytes"},
 	{FlagName: "datatype", FieldPath: "Body.Datatype", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"number", "string", "date", "boolean", "json", "binary", "other"}, Description: "The data type of the computed column (options: number, string, date, boolean, json, binary, other)"},
 	{FlagName: "sql", Shorthand: "s", FieldPath: "Body.SQL", Kind: flagutil.FlagKindString, Optional: true, Description: "The SQL expression that computes the column value"},
 }

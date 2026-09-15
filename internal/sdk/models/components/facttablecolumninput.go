@@ -56,11 +56,12 @@ func (e *FactTableColumnInputDatatype) UnmarshalJSON(data []byte) error {
 type FactTableColumnInputNumberFormat string
 
 const (
-	FactTableColumnInputNumberFormatUnknown         FactTableColumnInputNumberFormat = ""
-	FactTableColumnInputNumberFormatCurrency        FactTableColumnInputNumberFormat = "currency"
-	FactTableColumnInputNumberFormatTimeSeconds     FactTableColumnInputNumberFormat = "time:seconds"
-	FactTableColumnInputNumberFormatMemoryBytes     FactTableColumnInputNumberFormat = "memory:bytes"
-	FactTableColumnInputNumberFormatMemoryKilobytes FactTableColumnInputNumberFormat = "memory:kilobytes"
+	FactTableColumnInputNumberFormatUnknown          FactTableColumnInputNumberFormat = ""
+	FactTableColumnInputNumberFormatCurrency         FactTableColumnInputNumberFormat = "currency"
+	FactTableColumnInputNumberFormatTimeSeconds      FactTableColumnInputNumberFormat = "time:seconds"
+	FactTableColumnInputNumberFormatTimeMilliseconds FactTableColumnInputNumberFormat = "time:milliseconds"
+	FactTableColumnInputNumberFormatMemoryBytes      FactTableColumnInputNumberFormat = "memory:bytes"
+	FactTableColumnInputNumberFormatMemoryKilobytes  FactTableColumnInputNumberFormat = "memory:kilobytes"
 )
 
 func (e FactTableColumnInputNumberFormat) ToPointer() *FactTableColumnInputNumberFormat {
@@ -77,6 +78,8 @@ func (e *FactTableColumnInputNumberFormat) UnmarshalJSON(data []byte) error {
 	case "currency":
 		fallthrough
 	case "time:seconds":
+		fallthrough
+	case "time:milliseconds":
 		fallthrough
 	case "memory:bytes":
 		fallthrough

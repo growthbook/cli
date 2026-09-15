@@ -31,8 +31,10 @@ growthbook fact-tables create [flags]
       --owner string                            The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
   -p, --projects stringArray                    List of associated project ids
   -s, --sql string                              The SQL query for this fact table [required]
-  -t, --tags stringArray                        List of associated tags
-  -u, --user-id-types stringArray               List of identifier columns in this table. For example, "id" or "anonymous_id" [required]
+      --tags stringArray                        List of associated tags
+      --timestamp-column string                 The column holding the event timestamp. Must be a date column on this fact table. Defaults to "timestamp" when unset.
+      --user-id-columns {"user_id": "userId"}   Maps an identifier type to the column holding it, for SQL that does not alias its columns to the identifier type names, e.g. {"user_id": "userId"}. May also be a single-level field path into a JSON column (`properties.userId`). Unmapped types use the identifier type name as the column name.
+      --user-id-types stringArray               List of identifier columns in this table. For example, "id" or "anonymous_id" [required]
 ```
 
 ### Options inherited from parent commands

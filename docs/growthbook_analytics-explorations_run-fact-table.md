@@ -19,15 +19,16 @@ growthbook analytics-explorations run-fact-table [flags]
 ### Options
 
 ```
-      --body string         Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --cache preferred     Controls cache behavior for this exploration: preferred (default) returns a cached result if one exists, otherwise runs a new query; `never` always runs a new query, ignoring any cached results; `required` only returns a cached result, if none exists returns exploration: null with a message (options: preferred, required, never)
-      --chart-type string   options: line, area, timeseries-table, table, bar, stackedBar, horizontalBar, stackedHorizontalBar, bigNumber [required]
-      --dataset string      [required]
-      --datasource string   ID of the datasource to query [required]
-      --date-range string   [required]
-      --dimensions string   [required]
-  -h, --help                help for run-fact-table
-  -s, --show-as string      options: total, per_unit
+      --body string             Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --cache preferred         Controls cache behavior for this exploration: preferred (default) returns a cached result if one exists, otherwise runs a new query; `never` always runs a new query, ignoring any cached results; `required` only returns a cached result, if none exists returns exploration: null with a message (options: preferred, required, never)
+      --chart-settings string   JSON object
+      --chart-type string       options: line, area, timeseries-table, table, bar, stackedBar, horizontalBar, stackedHorizontalBar, bigNumber, rawTable [required]
+      --dataset string          [required]
+      --datasource string       ID of the datasource to query [required]
+      --date-range string       [required]
+      --dimensions string       [required]
+  -h, --help                    help for run-fact-table
+  -s, --show-as string          options: total, per_unit
 ```
 
 ### Options inherited from parent commands

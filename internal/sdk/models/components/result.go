@@ -1366,38 +1366,38 @@ func (u NamespaceUnion) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type NamespaceUnion: all fields are null")
 }
 
-type ResultValue struct {
+type RuleValue struct {
 	Value  string  `json:"value"`
 	Weight float64 `json:"weight"`
 	Name   *string `json:"name,omitzero"`
 }
 
-func (r ResultValue) MarshalJSON() ([]byte, error) {
+func (r RuleValue) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(r, "", false)
 }
 
-func (r *ResultValue) UnmarshalJSON(data []byte) error {
+func (r *RuleValue) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *ResultValue) GetValue() string {
+func (r *RuleValue) GetValue() string {
 	if r == nil {
 		return ""
 	}
 	return r.Value
 }
 
-func (r *ResultValue) GetWeight() float64 {
+func (r *RuleValue) GetWeight() float64 {
 	if r == nil {
 		return 0.0
 	}
 	return r.Weight
 }
 
-func (r *ResultValue) GetName() *string {
+func (r *RuleValue) GetName() *string {
 	if r == nil {
 		return nil
 	}
@@ -1549,7 +1549,7 @@ type RuleExperiment struct {
 	ActivationMetric                 *string                                                             `json:"activationMetric,omitzero"`
 	Segment                          *string                                                             `json:"segment,omitzero"`
 	SkipPartialData                  *bool                                                               `json:"skipPartialData,omitzero"`
-	Values                           []ResultValue                                                       `json:"values"`
+	Values                           []RuleValue                                                         `json:"values"`
 	RegressionAdjustmentEnabled      *bool                                                               `json:"regressionAdjustmentEnabled,omitzero"`
 	SequentialTestingEnabled         *bool                                                               `json:"sequentialTestingEnabled,omitzero"`
 	SequentialTestingTuningParameter *float64                                                            `json:"sequentialTestingTuningParameter,omitzero"`
@@ -1798,9 +1798,9 @@ func (r *RuleExperiment) GetSkipPartialData() *bool {
 	return r.SkipPartialData
 }
 
-func (r *RuleExperiment) GetValues() []ResultValue {
+func (r *RuleExperiment) GetValues() []RuleValue {
 	if r == nil {
-		return []ResultValue{}
+		return []RuleValue{}
 	}
 	return r.Values
 }

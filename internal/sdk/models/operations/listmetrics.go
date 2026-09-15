@@ -16,6 +16,8 @@ type ListMetricsRequest struct {
 	ProjectID *string `queryParam:"style=form,explode=true,name=projectId"`
 	// Filter by Data Source
 	DatasourceID *string `queryParam:"style=form,explode=true,name=datasourceId"`
+	// Whether to include archived metrics. Defaults to `true`. Pass `false` to return only non-archived metrics.
+	IncludeArchived any `queryParam:"style=form,explode=true,name=includeArchived"`
 }
 
 func (l ListMetricsRequest) MarshalJSON() ([]byte, error) {
@@ -55,6 +57,13 @@ func (l *ListMetricsRequest) GetDatasourceID() *string {
 		return nil
 	}
 	return l.DatasourceID
+}
+
+func (l *ListMetricsRequest) GetIncludeArchived() any {
+	if l == nil {
+		return nil
+	}
+	return l.IncludeArchived
 }
 
 // ListMetricsResponseBody - Successful response

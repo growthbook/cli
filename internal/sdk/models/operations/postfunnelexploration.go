@@ -473,6 +473,7 @@ const (
 	PostFunnelExplorationChartTypeRequestHorizontalBar        PostFunnelExplorationChartTypeRequest = "horizontalBar"
 	PostFunnelExplorationChartTypeRequestStackedHorizontalBar PostFunnelExplorationChartTypeRequest = "stackedHorizontalBar"
 	PostFunnelExplorationChartTypeRequestBigNumber            PostFunnelExplorationChartTypeRequest = "bigNumber"
+	PostFunnelExplorationChartTypeRequestRawTable             PostFunnelExplorationChartTypeRequest = "rawTable"
 )
 
 func (e PostFunnelExplorationChartTypeRequest) ToPointer() *PostFunnelExplorationChartTypeRequest {
@@ -501,6 +502,8 @@ func (e *PostFunnelExplorationChartTypeRequest) UnmarshalJSON(data []byte) error
 	case "stackedHorizontalBar":
 		fallthrough
 	case "bigNumber":
+		fallthrough
+	case "rawTable":
 		*e = PostFunnelExplorationChartTypeRequest(v)
 		return nil
 	default:
@@ -654,6 +657,25 @@ func (e *PostFunnelExplorationShowAsRequest) UnmarshalJSON(data []byte) error {
 	default:
 		return fmt.Errorf("invalid value for PostFunnelExplorationShowAsRequest: %v", v)
 	}
+}
+
+type PostFunnelExplorationChartSettingsRequest struct {
+	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
+	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+}
+
+func (p *PostFunnelExplorationChartSettingsRequest) GetCategoryAxisLabel() *string {
+	if p == nil {
+		return nil
+	}
+	return p.CategoryAxisLabel
+}
+
+func (p *PostFunnelExplorationChartSettingsRequest) GetValueAxisLabel() *string {
+	if p == nil {
+		return nil
+	}
+	return p.ValueAxisLabel
 }
 
 type PostFunnelExplorationStepOperatorRequest string
@@ -959,11 +981,12 @@ func (p *PostFunnelExplorationDatasetRequest) GetYAxisScale() *PostFunnelExplora
 
 type PostFunnelExplorationRequestBody struct {
 	// ID of the datasource to query
-	Datasource string                                       `json:"datasource"`
-	Dimensions []PostFunnelExplorationDimensionRequestUnion `json:"dimensions"`
-	ChartType  PostFunnelExplorationChartTypeRequest        `json:"chartType"`
-	DateRange  PostFunnelExplorationDateRangeRequest        `json:"dateRange"`
-	ShowAs     *PostFunnelExplorationShowAsRequest          `json:"showAs,omitzero"`
+	Datasource    string                                       `json:"datasource"`
+	Dimensions    []PostFunnelExplorationDimensionRequestUnion `json:"dimensions"`
+	ChartType     PostFunnelExplorationChartTypeRequest        `json:"chartType"`
+	DateRange     PostFunnelExplorationDateRangeRequest        `json:"dateRange"`
+	ShowAs        *PostFunnelExplorationShowAsRequest          `json:"showAs,omitzero"`
+	ChartSettings *PostFunnelExplorationChartSettingsRequest   `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                              `const:"funnel" json:"type"`
 	Dataset PostFunnelExplorationDatasetRequest `json:"dataset"`
@@ -1013,6 +1036,13 @@ func (p *PostFunnelExplorationRequestBody) GetShowAs() *PostFunnelExplorationSho
 		return nil
 	}
 	return p.ShowAs
+}
+
+func (p *PostFunnelExplorationRequestBody) GetChartSettings() *PostFunnelExplorationChartSettingsRequest {
+	if p == nil {
+		return nil
+	}
+	return p.ChartSettings
 }
 
 func (p *PostFunnelExplorationRequestBody) GetType() string {
@@ -1162,7 +1192,20 @@ func (p *PostFunnelExplorationRow) GetSteps() []PostFunnelExplorationRowStep {
 }
 
 type PostFunnelExplorationResult struct {
-	Rows []PostFunnelExplorationRow `json:"rows"`
+	Rows      []PostFunnelExplorationRow `json:"rows"`
+	RawRows   []map[string]any           `json:"rawRows,omitzero"`
+	Truncated *bool                      `json:"truncated,omitzero"`
+}
+
+func (p PostFunnelExplorationResult) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostFunnelExplorationResult) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (p *PostFunnelExplorationResult) GetRows() []PostFunnelExplorationRow {
@@ -1170,6 +1213,20 @@ func (p *PostFunnelExplorationResult) GetRows() []PostFunnelExplorationRow {
 		return []PostFunnelExplorationRow{}
 	}
 	return p.Rows
+}
+
+func (p *PostFunnelExplorationResult) GetRawRows() []map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.RawRows
+}
+
+func (p *PostFunnelExplorationResult) GetTruncated() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.Truncated
 }
 
 type PostFunnelExplorationExplorationDimensionOperator string
@@ -1611,6 +1668,7 @@ const (
 	PostFunnelExplorationChartTypeResponseHorizontalBar        PostFunnelExplorationChartTypeResponse = "horizontalBar"
 	PostFunnelExplorationChartTypeResponseStackedHorizontalBar PostFunnelExplorationChartTypeResponse = "stackedHorizontalBar"
 	PostFunnelExplorationChartTypeResponseBigNumber            PostFunnelExplorationChartTypeResponse = "bigNumber"
+	PostFunnelExplorationChartTypeResponseRawTable             PostFunnelExplorationChartTypeResponse = "rawTable"
 )
 
 func (e PostFunnelExplorationChartTypeResponse) ToPointer() *PostFunnelExplorationChartTypeResponse {
@@ -1621,7 +1679,7 @@ func (e PostFunnelExplorationChartTypeResponse) ToPointer() *PostFunnelExplorati
 func (e *PostFunnelExplorationChartTypeResponse) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "line", "area", "timeseries-table", "table", "bar", "stackedBar", "horizontalBar", "stackedHorizontalBar", "bigNumber":
+		case "line", "area", "timeseries-table", "table", "bar", "stackedBar", "horizontalBar", "stackedHorizontalBar", "bigNumber", "rawTable":
 			return true
 		}
 	}
@@ -1744,6 +1802,25 @@ func (e *PostFunnelExplorationShowAsResponse) IsExact() bool {
 		}
 	}
 	return false
+}
+
+type PostFunnelExplorationChartSettingsResponse struct {
+	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
+	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+}
+
+func (p *PostFunnelExplorationChartSettingsResponse) GetCategoryAxisLabel() *string {
+	if p == nil {
+		return nil
+	}
+	return p.CategoryAxisLabel
+}
+
+func (p *PostFunnelExplorationChartSettingsResponse) GetValueAxisLabel() *string {
+	if p == nil {
+		return nil
+	}
+	return p.ValueAxisLabel
 }
 
 type ExplorationStepOperator string
@@ -1997,11 +2074,12 @@ func (p *PostFunnelExplorationDatasetResponse) GetYAxisScale() *YAxisScaleRespon
 
 type PostFunnelExplorationConfig struct {
 	// ID of the datasource to query
-	Datasource string                                        `json:"datasource"`
-	Dimensions []PostFunnelExplorationDimensionResponseUnion `json:"dimensions"`
-	ChartType  PostFunnelExplorationChartTypeResponse        `json:"chartType"`
-	DateRange  PostFunnelExplorationDateRangeResponse        `json:"dateRange"`
-	ShowAs     *PostFunnelExplorationShowAsResponse          `json:"showAs,omitzero"`
+	Datasource    string                                        `json:"datasource"`
+	Dimensions    []PostFunnelExplorationDimensionResponseUnion `json:"dimensions"`
+	ChartType     PostFunnelExplorationChartTypeResponse        `json:"chartType"`
+	DateRange     PostFunnelExplorationDateRangeResponse        `json:"dateRange"`
+	ShowAs        *PostFunnelExplorationShowAsResponse          `json:"showAs,omitzero"`
+	ChartSettings *PostFunnelExplorationChartSettingsResponse   `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                               `const:"funnel" json:"type"`
 	Dataset PostFunnelExplorationDatasetResponse `json:"dataset"`
@@ -2051,6 +2129,13 @@ func (p *PostFunnelExplorationConfig) GetShowAs() *PostFunnelExplorationShowAsRe
 		return nil
 	}
 	return p.ShowAs
+}
+
+func (p *PostFunnelExplorationConfig) GetChartSettings() *PostFunnelExplorationChartSettingsResponse {
+	if p == nil {
+		return nil
+	}
+	return p.ChartSettings
 }
 
 func (p *PostFunnelExplorationConfig) GetType() string {

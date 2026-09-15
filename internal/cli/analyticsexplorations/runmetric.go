@@ -18,9 +18,10 @@ var runMetricCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "cache", FieldPath: "Cache", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"preferred", "required", "never"}, Description: "Controls cache behavior for this exploration: `preferred` (default) returns a cached result if one exists, otherwise runs a new query; `never` always runs a new query, ignoring any cached results; `required` only returns a cached result, if none exists returns exploration: null with a message (options: preferred, required, never)"},
 	{FlagName: "datasource", FieldPath: "Body.Datasource", Kind: flagutil.FlagKindString, Required: true, Description: "ID of the datasource to query [required]"},
 	{FlagName: "dimensions", FieldPath: "Body.Dimensions", Kind: flagutil.FlagKindJSON, Required: true, Annotations: `json:"dimensions"`, Description: "[required]"},
-	{FlagName: "chart-type", FieldPath: "Body.ChartType", Kind: flagutil.FlagKindEnum, Required: true, EnumValues: []string{"line", "area", "timeseries-table", "table", "bar", "stackedBar", "horizontalBar", "stackedHorizontalBar", "bigNumber"}, Description: "options: line, area, timeseries-table, table, bar, stackedBar, horizontalBar, stackedHorizontalBar, bigNumber [required]"},
+	{FlagName: "chart-type", FieldPath: "Body.ChartType", Kind: flagutil.FlagKindEnum, Required: true, EnumValues: []string{"line", "area", "timeseries-table", "table", "bar", "stackedBar", "horizontalBar", "stackedHorizontalBar", "bigNumber", "rawTable"}, Description: "options: line, area, timeseries-table, table, bar, stackedBar, horizontalBar, stackedHorizontalBar, bigNumber, rawTable [required]"},
 	{FlagName: "date-range", FieldPath: "Body.DateRange", Kind: flagutil.FlagKindJSON, Required: true, Annotations: `json:"dateRange"`, Description: "[required]"},
 	{FlagName: "show-as", Shorthand: "s", FieldPath: "Body.ShowAs", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"total", "per_unit"}, Description: "options: total, per_unit"},
+	{FlagName: "chart-settings", FieldPath: "Body.ChartSettings", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"chartSettings,omitempty"`, Description: "JSON object"},
 	{FlagName: "dataset", FieldPath: "Body.Dataset", Kind: flagutil.FlagKindJSON, Required: true, Annotations: `json:"dataset"`, Description: "[required]"},
 }
 

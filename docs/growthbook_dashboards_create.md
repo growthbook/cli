@@ -21,6 +21,7 @@ growthbook dashboards create [flags]
 ```
   -b, --blocks string                       [required]
       --body string                         Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -c, --comparison string                   Dashboard-wide compare-to-previous-period. Takes precedence over any per-block comparison.
       --edit-level string                   Dashboards that are "published" are editable by organization members with appropriate permissions (options: published, private) [required]
       --enable-auto-updates                 If enabled for a General Dashboard, also requires an updateSchedule [required]
       --experiment-id string                The parent experiment for an Experiment Dashboard, or undefined for a general dashboard

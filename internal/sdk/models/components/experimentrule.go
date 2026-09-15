@@ -144,9 +144,9 @@ type ExperimentRule struct {
 	Condition     *string                      `json:"condition,omitzero"`
 	SavedGroups   []ExperimentRuleSavedGroup   `json:"savedGroups,omitzero"`
 	Prerequisites []ExperimentRulePrerequisite `json:"prerequisites,omitzero"`
-	// When true the rule applies to all environments. Defaults to false.
+	// When true the rule applies to all environments. Omit both scope fields to apply to all environments.
 	AllEnvironments *bool `json:"allEnvironments,omitzero"`
-	// Specific environment IDs this rule applies to. Used when allEnvironments is false.
+	// Environment IDs the rule applies to. Ignored when allEnvironments is true; with allEnvironments false, an omitted or empty list scopes the rule to no environment.
 	Environments []string `json:"environments,omitzero"`
 	// Must be "experiment-ref" for an experiment rule.
 	//lint:ignore U1000 accessed via reflection for JSON marshaling

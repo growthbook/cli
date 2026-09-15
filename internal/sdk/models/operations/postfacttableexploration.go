@@ -473,6 +473,7 @@ const (
 	PostFactTableExplorationChartTypeRequestHorizontalBar        PostFactTableExplorationChartTypeRequest = "horizontalBar"
 	PostFactTableExplorationChartTypeRequestStackedHorizontalBar PostFactTableExplorationChartTypeRequest = "stackedHorizontalBar"
 	PostFactTableExplorationChartTypeRequestBigNumber            PostFactTableExplorationChartTypeRequest = "bigNumber"
+	PostFactTableExplorationChartTypeRequestRawTable             PostFactTableExplorationChartTypeRequest = "rawTable"
 )
 
 func (e PostFactTableExplorationChartTypeRequest) ToPointer() *PostFactTableExplorationChartTypeRequest {
@@ -501,6 +502,8 @@ func (e *PostFactTableExplorationChartTypeRequest) UnmarshalJSON(data []byte) er
 	case "stackedHorizontalBar":
 		fallthrough
 	case "bigNumber":
+		fallthrough
+	case "rawTable":
 		*e = PostFactTableExplorationChartTypeRequest(v)
 		return nil
 	default:
@@ -654,6 +657,25 @@ func (e *PostFactTableExplorationShowAsRequest) UnmarshalJSON(data []byte) error
 	default:
 		return fmt.Errorf("invalid value for PostFactTableExplorationShowAsRequest: %v", v)
 	}
+}
+
+type PostFactTableExplorationChartSettingsRequest struct {
+	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
+	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+}
+
+func (p *PostFactTableExplorationChartSettingsRequest) GetCategoryAxisLabel() *string {
+	if p == nil {
+		return nil
+	}
+	return p.CategoryAxisLabel
+}
+
+func (p *PostFactTableExplorationChartSettingsRequest) GetValueAxisLabel() *string {
+	if p == nil {
+		return nil
+	}
+	return p.ValueAxisLabel
 }
 
 type PostFactTableExplorationRowFilterOperatorRequest string
@@ -901,11 +923,12 @@ func (p *PostFactTableExplorationDatasetRequest) GetValues() []PostFactTableExpl
 
 type PostFactTableExplorationRequestBody struct {
 	// ID of the datasource to query
-	Datasource string                                          `json:"datasource"`
-	Dimensions []PostFactTableExplorationDimensionRequestUnion `json:"dimensions"`
-	ChartType  PostFactTableExplorationChartTypeRequest        `json:"chartType"`
-	DateRange  PostFactTableExplorationDateRangeRequest        `json:"dateRange"`
-	ShowAs     *PostFactTableExplorationShowAsRequest          `json:"showAs,omitzero"`
+	Datasource    string                                          `json:"datasource"`
+	Dimensions    []PostFactTableExplorationDimensionRequestUnion `json:"dimensions"`
+	ChartType     PostFactTableExplorationChartTypeRequest        `json:"chartType"`
+	DateRange     PostFactTableExplorationDateRangeRequest        `json:"dateRange"`
+	ShowAs        *PostFactTableExplorationShowAsRequest          `json:"showAs,omitzero"`
+	ChartSettings *PostFactTableExplorationChartSettingsRequest   `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                                 `const:"fact_table" json:"type"`
 	Dataset PostFactTableExplorationDatasetRequest `json:"dataset"`
@@ -955,6 +978,13 @@ func (p *PostFactTableExplorationRequestBody) GetShowAs() *PostFactTableExplorat
 		return nil
 	}
 	return p.ShowAs
+}
+
+func (p *PostFactTableExplorationRequestBody) GetChartSettings() *PostFactTableExplorationChartSettingsRequest {
+	if p == nil {
+		return nil
+	}
+	return p.ChartSettings
 }
 
 func (p *PostFactTableExplorationRequestBody) GetType() string {
@@ -1104,7 +1134,20 @@ func (p *PostFactTableExplorationRow) GetSteps() []PostFactTableExplorationStep 
 }
 
 type PostFactTableExplorationResult struct {
-	Rows []PostFactTableExplorationRow `json:"rows"`
+	Rows      []PostFactTableExplorationRow `json:"rows"`
+	RawRows   []map[string]any              `json:"rawRows,omitzero"`
+	Truncated *bool                         `json:"truncated,omitzero"`
+}
+
+func (p PostFactTableExplorationResult) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostFactTableExplorationResult) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (p *PostFactTableExplorationResult) GetRows() []PostFactTableExplorationRow {
@@ -1112,6 +1155,20 @@ func (p *PostFactTableExplorationResult) GetRows() []PostFactTableExplorationRow
 		return []PostFactTableExplorationRow{}
 	}
 	return p.Rows
+}
+
+func (p *PostFactTableExplorationResult) GetRawRows() []map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.RawRows
+}
+
+func (p *PostFactTableExplorationResult) GetTruncated() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.Truncated
 }
 
 type PostFactTableExplorationExplorationDimensionOperator string
@@ -1553,6 +1610,7 @@ const (
 	PostFactTableExplorationChartTypeResponseHorizontalBar        PostFactTableExplorationChartTypeResponse = "horizontalBar"
 	PostFactTableExplorationChartTypeResponseStackedHorizontalBar PostFactTableExplorationChartTypeResponse = "stackedHorizontalBar"
 	PostFactTableExplorationChartTypeResponseBigNumber            PostFactTableExplorationChartTypeResponse = "bigNumber"
+	PostFactTableExplorationChartTypeResponseRawTable             PostFactTableExplorationChartTypeResponse = "rawTable"
 )
 
 func (e PostFactTableExplorationChartTypeResponse) ToPointer() *PostFactTableExplorationChartTypeResponse {
@@ -1563,7 +1621,7 @@ func (e PostFactTableExplorationChartTypeResponse) ToPointer() *PostFactTableExp
 func (e *PostFactTableExplorationChartTypeResponse) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "line", "area", "timeseries-table", "table", "bar", "stackedBar", "horizontalBar", "stackedHorizontalBar", "bigNumber":
+		case "line", "area", "timeseries-table", "table", "bar", "stackedBar", "horizontalBar", "stackedHorizontalBar", "bigNumber", "rawTable":
 			return true
 		}
 	}
@@ -1686,6 +1744,25 @@ func (e *PostFactTableExplorationShowAsResponse) IsExact() bool {
 		}
 	}
 	return false
+}
+
+type PostFactTableExplorationChartSettingsResponse struct {
+	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
+	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+}
+
+func (p *PostFactTableExplorationChartSettingsResponse) GetCategoryAxisLabel() *string {
+	if p == nil {
+		return nil
+	}
+	return p.CategoryAxisLabel
+}
+
+func (p *PostFactTableExplorationChartSettingsResponse) GetValueAxisLabel() *string {
+	if p == nil {
+		return nil
+	}
+	return p.ValueAxisLabel
 }
 
 type PostFactTableExplorationExplorationRowFilterOperator string
@@ -1887,11 +1964,12 @@ func (p *PostFactTableExplorationDatasetResponse) GetValues() []ValueFactTableRe
 
 type PostFactTableExplorationConfig struct {
 	// ID of the datasource to query
-	Datasource string                                           `json:"datasource"`
-	Dimensions []PostFactTableExplorationDimensionResponseUnion `json:"dimensions"`
-	ChartType  PostFactTableExplorationChartTypeResponse        `json:"chartType"`
-	DateRange  PostFactTableExplorationDateRangeResponse        `json:"dateRange"`
-	ShowAs     *PostFactTableExplorationShowAsResponse          `json:"showAs,omitzero"`
+	Datasource    string                                           `json:"datasource"`
+	Dimensions    []PostFactTableExplorationDimensionResponseUnion `json:"dimensions"`
+	ChartType     PostFactTableExplorationChartTypeResponse        `json:"chartType"`
+	DateRange     PostFactTableExplorationDateRangeResponse        `json:"dateRange"`
+	ShowAs        *PostFactTableExplorationShowAsResponse          `json:"showAs,omitzero"`
+	ChartSettings *PostFactTableExplorationChartSettingsResponse   `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                                  `const:"fact_table" json:"type"`
 	Dataset PostFactTableExplorationDatasetResponse `json:"dataset"`
@@ -1941,6 +2019,13 @@ func (p *PostFactTableExplorationConfig) GetShowAs() *PostFactTableExplorationSh
 		return nil
 	}
 	return p.ShowAs
+}
+
+func (p *PostFactTableExplorationConfig) GetChartSettings() *PostFactTableExplorationChartSettingsResponse {
+	if p == nil {
+		return nil
+	}
+	return p.ChartSettings
 }
 
 func (p *PostFactTableExplorationConfig) GetType() string {

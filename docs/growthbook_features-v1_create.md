@@ -27,7 +27,7 @@ growthbook features-v1 create [flags]
   -c, --custom-fields string               value
       --default-value valueType            Default value when feature is enabled. Type must match valueType. In Config mode (`baseConfig` set) this is the JSON override patch merged on top of the config. [required]
       --description string                 Description of the feature
-  -e, --environments string                A dictionary of environments that are enabled for this feature. Keys supply the names of environments. Environments belong to organization and are not specified will be disabled by default.
+  -e, --environments string                Settings for each environment, keyed by environment ID. Any environment you leave out is enabled or disabled per that environment's "Default state for new features" setting.
   -h, --help                               help for create
       --id string                          A unique key name for the feature. Feature keys can only include letters, numbers, hyphens, and underscores. [required]
       --ignore-warnings                    Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.

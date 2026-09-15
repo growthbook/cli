@@ -338,6 +338,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`upload-variation-screenshot`](docs/growthbook_experiments_upload-variation-screenshot.md) - Upload a variation screenshot
 * [`delete-variation-screenshot`](docs/growthbook_experiments_delete-variation-screenshot.md) - Delete a variation screenshot
 * [`list-names`](docs/growthbook_experiments_list-names.md) - Get a list of experiments with names and ids
+* [`post-experiment-comment`](docs/growthbook_experiments_post-experiment-comment.md) - Post a comment on an experiment
 
 ### [snapshots](docs/growthbook_snapshots.md)
 
@@ -439,6 +440,10 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`list`](docs/growthbook_data-sources_list.md) - Get all data sources
 * [`get`](docs/growthbook_data-sources_get.md) - Get a single data source
 * [`get-information-schema`](docs/growthbook_data-sources_get-information-schema.md) - Get a Data Source's Information Schema
+* [`search-warehouse-tables`](docs/growthbook_data-sources_search-warehouse-tables.md) - Search warehouse tables
+* [`get-warehouse-table-schema`](docs/growthbook_data-sources_get-warehouse-table-schema.md) - Get warehouse table schemas
+* [`preview-warehouse-column-values`](docs/growthbook_data-sources_preview-warehouse-column-values.md) - Preview distinct column values
+* [`run-sql-query`](docs/growthbook_data-sources_run-sql-query.md) - Execute a read-only SQL query
 * [`get-information-schema-table`](docs/growthbook_data-sources_get-information-schema-table.md) - Get a single Information Schema Table by id
 
 ### [saved-groups](docs/growthbook_saved-groups.md)
@@ -732,7 +737,12 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`run-metric`](docs/growthbook_analytics-explorations_run-metric.md) - Create a Metric based visualization
 * [`run-fact-table`](docs/growthbook_analytics-explorations_run-fact-table.md) - Run a Fact Table based visualization
 * [`run-data-source`](docs/growthbook_analytics-explorations_run-data-source.md) - Create a Data Source based visualization
+* [`post-sql-exploration`](docs/growthbook_analytics-explorations_post-sql-exploration.md) - Create a SQL based visualization
 * [`run-funnel`](docs/growthbook_analytics-explorations_run-funnel.md) - Run a Funnel based visualization
+* [`search-product-analytics-resources`](docs/growthbook_analytics-explorations_search-product-analytics-resources.md) - Search Product Analytics resources
+* [`get-product-analytics-columns`](docs/growthbook_analytics-explorations_get-product-analytics-columns.md) - List columns available to a Product Analytics exploration
+* [`get-product-analytics-column-values`](docs/growthbook_analytics-explorations_get-product-analytics-column-values.md) - Fetch values for Product Analytics string columns
+* [`get-product`](docs/growthbook_analytics-explorations_get-product.md) - Get a Product Analytics exploration
 
 ### [ramp-schedule-templates](docs/growthbook_ramp-schedule-templates.md)
 
@@ -750,6 +760,24 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`create`](docs/growthbook_learnings_create.md) - Create a single learning
 * [`list`](docs/growthbook_learnings_list.md) - Get all learnings
 * [`search`](docs/growthbook_learnings_search.md) - Search saved Learnings by meaning rather than keyword
+
+### [holdouts](docs/growthbook_holdouts.md)
+
+* [`get`](docs/growthbook_holdouts_get.md) - Get a single holdout
+* [`update`](docs/growthbook_holdouts_update.md) - Update a single holdout
+* [`create`](docs/growthbook_holdouts_create.md) - Create a single holdout
+* [`list`](docs/growthbook_holdouts_list.md) - Get all holdouts
+* [`start`](docs/growthbook_holdouts_start.md) - Start the Holdout's Active Period
+* [`start-holdout-analysis`](docs/growthbook_holdouts_start-holdout-analysis.md) - Start the Holdout's Analysis Period
+* [`stop`](docs/growthbook_holdouts_stop.md) - Stop a Holdout
+
+### [auto-runs](docs/growthbook_auto-runs.md)
+
+* [`create`](docs/growthbook_auto-runs_create.md) - Create a single autoRun
+* [`list`](docs/growthbook_auto-runs_list.md) - Get all autoRuns
+* [`get`](docs/growthbook_auto-runs_get.md) - Get a single autoRun
+* [`update`](docs/growthbook_auto-runs_update.md) - Update a single autoRun
+* [`append-auto-run-artifact`](docs/growthbook_auto-runs_append-auto-run-artifact.md) - Record something an auto run created
 
 </details>
 <!-- End Available Commands [operations] -->

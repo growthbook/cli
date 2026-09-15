@@ -19,6 +19,7 @@ var createCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "description", FieldPath: "Description", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "public-id", Shorthand: "p", FieldPath: "PublicID", Kind: flagutil.FlagKindString, Optional: true, Description: "URL-safe slug (lowercase letters, numbers, dashes). Auto-generated from name if not provided."},
 	{FlagName: "settings", Shorthand: "s", FieldPath: "Settings", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"settings,omitempty"`, Description: "Project stats settings that, when set, override the organization settings."},
+	{FlagName: "restrict-access", Shorthand: "r", FieldPath: "RestrictAccess", Kind: flagutil.FlagKindBool, Optional: true, Description: "When true, only members with an explicit role on this Project (directly or via a team) can access it. Members with the manageTeam permission retain access. Requires a Pro or Enterprise plan."},
 }
 
 // initCreateCmd initializes the create command.

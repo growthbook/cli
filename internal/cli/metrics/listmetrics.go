@@ -19,6 +19,7 @@ var listMetricsCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "offset", FieldPath: "Offset", Kind: flagutil.FlagKindInt64, Optional: true, HasDefault: true, Description: "How many items to skip (use in conjunction with limit for pagination)"},
 	{FlagName: "project-id", Shorthand: "p", FieldPath: "ProjectID", Kind: flagutil.FlagKindString, Optional: true, Description: "Filter by project id"},
 	{FlagName: "datasource-id", FieldPath: "DatasourceID", Kind: flagutil.FlagKindString, Optional: true, Description: "Filter by Data Source"},
+	{FlagName: "include-archived", Shorthand: "i", FieldPath: "IncludeArchived", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `queryParam:"style=form,explode=true,name=includeArchived"`, Description: "Whether to include archived metrics. Defaults to `true`. Pass `false` to return only non-archived metrics."},
 }
 
 // initListMetricsCmd initializes the list-metrics command.

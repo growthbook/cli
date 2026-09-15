@@ -395,10 +395,12 @@ type CreateCustomFieldRequest struct {
 	Placeholder  *string                        `json:"placeholder,omitzero"`
 	DefaultValue *CreateCustomFieldDefaultValue `json:"defaultValue,omitzero"`
 	// The type of value this custom field will take
-	Type     CreateCustomFieldType `json:"type"`
-	Values   *string               `json:"values,omitzero"`
-	Required bool                  `json:"required"`
-	Projects []string              `json:"projects,omitzero"`
+	Type   CreateCustomFieldType `json:"type"`
+	Values *string               `json:"values,omitzero"`
+	// For enum and multiselect fields, allow users to enter values beyond the predefined list
+	Creatable *bool    `json:"creatable,omitzero"`
+	Required  bool     `json:"required"`
+	Projects  []string `json:"projects,omitzero"`
 	// What types of objects this custom field is applicable to (feature, experiment)
 	Sections []CreateCustomFieldSection `json:"sections"`
 }
@@ -461,6 +463,13 @@ func (c *CreateCustomFieldRequest) GetValues() *string {
 		return nil
 	}
 	return c.Values
+}
+
+func (c *CreateCustomFieldRequest) GetCreatable() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Creatable
 }
 
 func (c *CreateCustomFieldRequest) GetRequired() bool {

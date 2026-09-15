@@ -41,6 +41,7 @@ type SDKConnection struct {
 	HashSecureAttributes                *bool    `json:"hashSecureAttributes,omitzero"`
 	RemoteEvalEnabled                   *bool    `json:"remoteEvalEnabled,omitzero"`
 	SavedGroupReferencesEnabled         *bool    `json:"savedGroupReferencesEnabled,omitzero"`
+	IncludeReferencedPrerequisites      *bool    `json:"includeReferencedPrerequisites,omitzero"`
 }
 
 func (s SDKConnection) MarshalJSON() ([]byte, error) {
@@ -269,4 +270,11 @@ func (s *SDKConnection) GetSavedGroupReferencesEnabled() *bool {
 		return nil
 	}
 	return s.SavedGroupReferencesEnabled
+}
+
+func (s *SDKConnection) GetIncludeReferencedPrerequisites() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.IncludeReferencedPrerequisites
 }

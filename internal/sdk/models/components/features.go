@@ -18,6 +18,8 @@ const (
 	StaleReasonAbandonedDraft   StaleReason = "abandoned-draft"
 	StaleReasonToggledOff       StaleReason = "toggled-off"
 	StaleReasonActiveExperiment StaleReason = "active-experiment"
+	StaleReasonTempRollout      StaleReason = "temp-rollout"
+	StaleReasonOldTempRollout   StaleReason = "old-temp-rollout"
 	StaleReasonHasRules         StaleReason = "has-rules"
 )
 
@@ -29,7 +31,7 @@ func (e StaleReason) ToPointer() *StaleReason {
 func (e *StaleReason) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "never-stale", "recently-updated", "active-draft", "has-dependents", "no-rules", "rules-one-sided", "abandoned-draft", "toggled-off", "active-experiment", "has-rules":
+		case "never-stale", "recently-updated", "active-draft", "has-dependents", "no-rules", "rules-one-sided", "abandoned-draft", "toggled-off", "active-experiment", "temp-rollout", "old-temp-rollout", "has-rules":
 			return true
 		}
 	}
@@ -44,6 +46,8 @@ const (
 	FeaturesReasonAbandonedDraft   FeaturesReason = "abandoned-draft"
 	FeaturesReasonToggledOff       FeaturesReason = "toggled-off"
 	FeaturesReasonActiveExperiment FeaturesReason = "active-experiment"
+	FeaturesReasonTempRollout      FeaturesReason = "temp-rollout"
+	FeaturesReasonOldTempRollout   FeaturesReason = "old-temp-rollout"
 	FeaturesReasonHasRules         FeaturesReason = "has-rules"
 	FeaturesReasonRecentlyUpdated  FeaturesReason = "recently-updated"
 	FeaturesReasonActiveDraft      FeaturesReason = "active-draft"
@@ -58,7 +62,30 @@ func (e FeaturesReason) ToPointer() *FeaturesReason {
 func (e *FeaturesReason) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "no-rules", "rules-one-sided", "abandoned-draft", "toggled-off", "active-experiment", "has-rules", "recently-updated", "active-draft", "has-dependents":
+		case "no-rules", "rules-one-sided", "abandoned-draft", "toggled-off", "active-experiment", "temp-rollout", "old-temp-rollout", "has-rules", "recently-updated", "active-draft", "has-dependents":
+			return true
+		}
+	}
+	return false
+}
+
+// TempRollout - Present when a reachable rule still serves a stopped experiment's released variation (a temporary rollout that can be cleaned up). `old-temp-rollout` once the experiment has been stopped for more than 30 days.
+type TempRollout string
+
+const (
+	TempRolloutTempRollout    TempRollout = "temp-rollout"
+	TempRolloutOldTempRollout TempRollout = "old-temp-rollout"
+)
+
+func (e TempRollout) ToPointer() *TempRollout {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *TempRollout) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "temp-rollout", "old-temp-rollout":
 			return true
 		}
 	}
@@ -73,6 +100,9 @@ type StaleByEnv struct {
 	// The deterministic value this feature evaluates to in this environment. Uses the same raw string encoding as `feature.defaultValue`. Only present when the value is deterministic or the environment is toggled off.
 	//
 	EvaluatesTo *string `json:"evaluatesTo,omitzero"`
+	// Present when a reachable rule still serves a stopped experiment's released variation (a temporary rollout that can be cleaned up). `old-temp-rollout` once the experiment has been stopped for more than 30 days.
+	//
+	TempRollout *TempRollout `json:"tempRollout,omitzero"`
 }
 
 func (s *StaleByEnv) GetIsStale() bool {
@@ -96,12 +126,19 @@ func (s *StaleByEnv) GetEvaluatesTo() *string {
 	return s.EvaluatesTo
 }
 
+func (s *StaleByEnv) GetTempRollout() *TempRollout {
+	if s == nil {
+		return nil
+	}
+	return s.TempRollout
+}
+
 type Features struct {
 	// The feature key
 	FeatureID string `json:"featureId"`
 	// Whether the feature is considered stale overall (all enabled environments are stale). Always false when neverStale is true.
 	IsStale bool `json:"isStale"`
-	// Reason for the feature's stale or non-stale status. `never-stale` when stale detection is disabled. Non-stale reasons: `recently-updated`, `active-draft`, `has-dependents`. Stale reasons: `no-rules`, `rules-one-sided`, `abandoned-draft`, `toggled-off`. Null when non-stale with no single cause (see staleByEnv).
+	// Reason for the feature's stale or non-stale status. `never-stale` when stale detection is disabled. Non-stale reasons: `recently-updated`, `active-draft`, `has-dependents`, `temp-rollout` (a rule serves a recently stopped experiment's released variation). Stale reasons: `no-rules`, `rules-one-sided`, `abandoned-draft`, `toggled-off`, `old-temp-rollout` (the environment only serves the released variation of an experiment stopped more than 30 days ago). Null when non-stale with no single cause (see staleByEnv).
 	//
 	StaleReason *StaleReason `json:"staleReason"`
 	// When true the feature is permanently excluded from stale detection.

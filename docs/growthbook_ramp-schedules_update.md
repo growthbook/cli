@@ -8,6 +8,11 @@ Updates the name, steps, endActions, startDate, or cutoffDate of a ramp schedule
 
 Only allowed when the schedule is in `pending`, `ready`, or `paused` status.
 
+Changing `steps`, `startActions`, `endActions`, `startDate`, or `cutoffDate` on a
+schedule that is attached to a rule skips the revision review flow, so when the
+organization requires review anywhere it is limited to credentials that may
+bypass approval. Otherwise stage a new plan on a draft revision and publish it.
+
 **targetId shorthand**: When providing `steps` or `endActions`, you may omit `targetId`
 (or pass `"t1"`) in each action. If the schedule has exactly one active target, the server
 will resolve it automatically. For schedules with multiple targets, provide the explicit

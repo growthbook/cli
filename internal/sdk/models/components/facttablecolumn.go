@@ -68,11 +68,12 @@ func (e *DataTypeFromWarehouse) IsExact() bool {
 type FactTableColumnNumberFormat string
 
 const (
-	FactTableColumnNumberFormatUnknown         FactTableColumnNumberFormat = ""
-	FactTableColumnNumberFormatCurrency        FactTableColumnNumberFormat = "currency"
-	FactTableColumnNumberFormatTimeSeconds     FactTableColumnNumberFormat = "time:seconds"
-	FactTableColumnNumberFormatMemoryBytes     FactTableColumnNumberFormat = "memory:bytes"
-	FactTableColumnNumberFormatMemoryKilobytes FactTableColumnNumberFormat = "memory:kilobytes"
+	FactTableColumnNumberFormatUnknown          FactTableColumnNumberFormat = ""
+	FactTableColumnNumberFormatCurrency         FactTableColumnNumberFormat = "currency"
+	FactTableColumnNumberFormatTimeSeconds      FactTableColumnNumberFormat = "time:seconds"
+	FactTableColumnNumberFormatTimeMilliseconds FactTableColumnNumberFormat = "time:milliseconds"
+	FactTableColumnNumberFormatMemoryBytes      FactTableColumnNumberFormat = "memory:bytes"
+	FactTableColumnNumberFormatMemoryKilobytes  FactTableColumnNumberFormat = "memory:kilobytes"
 )
 
 func (e FactTableColumnNumberFormat) ToPointer() *FactTableColumnNumberFormat {
@@ -83,7 +84,7 @@ func (e FactTableColumnNumberFormat) ToPointer() *FactTableColumnNumberFormat {
 func (e *FactTableColumnNumberFormat) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "", "currency", "time:seconds", "memory:bytes", "memory:kilobytes":
+		case "", "currency", "time:seconds", "time:milliseconds", "memory:bytes", "memory:kilobytes":
 			return true
 		}
 	}

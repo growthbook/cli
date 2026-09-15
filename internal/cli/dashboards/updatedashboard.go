@@ -30,6 +30,7 @@ var updateDashboardCmdMeta = []flagutil.FlagMeta{
 	}}},
 	{FlagName: "projects", Shorthand: "p", FieldPath: "Body.Projects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "General Dashboards only, Experiment Dashboards use the experiment's projects"},
 	{FlagName: "global-controls", Shorthand: "g", FieldPath: "Body.GlobalControls", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"globalControls,omitempty"`, Description: "JSON object"},
+	{FlagName: "comparison", Shorthand: "c", FieldPath: "Body.Comparison", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"comparison,omitempty"`, Description: "Dashboard-wide compare-to-previous-period. Takes precedence over any per-block comparison."},
 	{FlagName: "blocks", Shorthand: "b", FieldPath: "Body.Blocks", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"blocks,omitempty"`, Description: "list of values"},
 }
 

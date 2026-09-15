@@ -24,7 +24,7 @@ func initUpdateRampScheduleStepsCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "update-ramp-schedule-steps",
 		Short:   "Update ramp schedule steps",
-		Long:    "Fully replaces the steps array for a ramp schedule. Only allowed when the schedule is in a non-running, non-terminal state (`ready`, `pending`, or `paused`). Pause a running schedule first; restart a terminal schedule first.\n\n**Step actions** (coverage/targeting patches) are not accepted here — they change the SDK payload and must go through a feature revision draft. Existing step actions are preserved for each position. Use `PUT /v2/features/:id/revisions/:version/rules/:ruleId/ramp-schedule` to modify coverage/targeting.",
+		Long:    "Fully replaces the steps array for a ramp schedule. Only allowed when the schedule is in a non-running, non-terminal state (`ready`, `pending`, or `paused`). Pause a running schedule first; restart a terminal schedule first.\n\nOn a schedule attached to a rule this skips the revision review flow, so when the organization requires review anywhere it is limited to credentials that may bypass approval.\n\n**Step actions** (coverage/targeting patches) are not accepted here — they change the SDK payload and must go through a feature revision draft. Existing step actions are preserved for each position. Use `PUT /v2/features/:id/revisions/:version/rules/:ruleId/ramp-schedule` to modify coverage/targeting.",
 		Example: "  growthbook ramp-schedules update-ramp-schedule-steps --id <id> --steps '[]'",
 		RunE:    runUpdateRampScheduleStepsCmd,
 		Aliases: []string{"urss"},

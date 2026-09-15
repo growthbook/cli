@@ -32,6 +32,7 @@ growthbook SDK-connections create [flags]
       --include-experiment-schedule-in-metadata         boolean flag
       --include-project-id-in-metadata                  boolean flag
       --include-redirect-experiments                    boolean flag
+      --include-referenced-prerequisites                Carry prerequisite Feature Flags into this payload even when they target other Projects. Defaults to true for new connections.
       --include-rule-ids                                boolean flag
       --include-tags-in-metadata                        boolean flag
       --include-visual-experiments                      boolean flag

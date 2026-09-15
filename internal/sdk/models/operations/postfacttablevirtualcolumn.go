@@ -12,11 +12,12 @@ import (
 type PostFactTableVirtualColumnNumberFormat string
 
 const (
-	PostFactTableVirtualColumnNumberFormatUnknown         PostFactTableVirtualColumnNumberFormat = ""
-	PostFactTableVirtualColumnNumberFormatCurrency        PostFactTableVirtualColumnNumberFormat = "currency"
-	PostFactTableVirtualColumnNumberFormatTimeSeconds     PostFactTableVirtualColumnNumberFormat = "time:seconds"
-	PostFactTableVirtualColumnNumberFormatMemoryBytes     PostFactTableVirtualColumnNumberFormat = "memory:bytes"
-	PostFactTableVirtualColumnNumberFormatMemoryKilobytes PostFactTableVirtualColumnNumberFormat = "memory:kilobytes"
+	PostFactTableVirtualColumnNumberFormatUnknown          PostFactTableVirtualColumnNumberFormat = ""
+	PostFactTableVirtualColumnNumberFormatCurrency         PostFactTableVirtualColumnNumberFormat = "currency"
+	PostFactTableVirtualColumnNumberFormatTimeSeconds      PostFactTableVirtualColumnNumberFormat = "time:seconds"
+	PostFactTableVirtualColumnNumberFormatTimeMilliseconds PostFactTableVirtualColumnNumberFormat = "time:milliseconds"
+	PostFactTableVirtualColumnNumberFormatMemoryBytes      PostFactTableVirtualColumnNumberFormat = "memory:bytes"
+	PostFactTableVirtualColumnNumberFormatMemoryKilobytes  PostFactTableVirtualColumnNumberFormat = "memory:kilobytes"
 )
 
 func (e PostFactTableVirtualColumnNumberFormat) ToPointer() *PostFactTableVirtualColumnNumberFormat {
@@ -33,6 +34,8 @@ func (e *PostFactTableVirtualColumnNumberFormat) UnmarshalJSON(data []byte) erro
 	case "currency":
 		fallthrough
 	case "time:seconds":
+		fallthrough
+	case "time:milliseconds":
 		fallthrough
 	case "memory:bytes":
 		fallthrough

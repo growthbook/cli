@@ -98,6 +98,8 @@ type RampScheduleTemplatePatch struct {
 	AllEnvironments optionalnullable.OptionalNullable[bool]                                `json:"allEnvironments,omitzero"`
 	Environments    optionalnullable.OptionalNullable[[]string]                            `json:"environments,omitzero"`
 	Enabled         optionalnullable.OptionalNullable[bool]                                `json:"enabled,omitzero"`
+	// Ignored: templates never carry force values. Accepted so a schedule's steps can be copied into a template.
+	Force any `json:"force,omitzero"`
 }
 
 func (r RampScheduleTemplatePatch) MarshalJSON() ([]byte, error) {
@@ -165,6 +167,13 @@ func (r *RampScheduleTemplatePatch) GetEnabled() optionalnullable.OptionalNullab
 		return nil
 	}
 	return r.Enabled
+}
+
+func (r *RampScheduleTemplatePatch) GetForce() any {
+	if r == nil {
+		return nil
+	}
+	return r.Force
 }
 
 type RampScheduleTemplateAction struct {

@@ -11,2525 +11,46 @@ import (
 	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
-type UpdateDashboardBlockMetricExplorer1 struct {
-	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_                      string                            `const:"metric-explorer" json:"type"`
-	Title                      string                            `json:"title"`
-	Description                string                            `json:"description"`
-	SnapshotID                 *string                           `json:"snapshotId,omitzero"`
-	Layout                     *UpdateDashboardLayout12          `json:"layout,omitzero"`
-	FactMetricID               string                            `json:"factMetricId"`
-	VisualizationType          UpdateDashboardVisualizationType1 `json:"visualizationType"`
-	ValueType                  UpdateDashboardValueType1         `json:"valueType"`
-	MetricAnalysisID           string                            `json:"metricAnalysisId"`
-	Comparison                 *UpdateDashboardComparison4       `json:"comparison,omitzero"`
-	ComparisonMetricAnalysisID *string                           `json:"comparisonMetricAnalysisId,omitzero"`
-	AnalysisSettings           UpdateDashboardAnalysisSettings1  `json:"analysisSettings"`
+type UpdateDashboardBlockComparison1 struct {
+	Enabled           bool                                    `json:"enabled"`
+	Mode              *UpdateDashboardBlockMode1              `json:"mode,omitzero"`
+	PreviousTimeFrame *UpdateDashboardBlockPreviousTimeFrame1 `json:"previousTimeFrame,omitzero"`
 }
 
-func (u UpdateDashboardBlockMetricExplorer1) MarshalJSON() ([]byte, error) {
+func (u UpdateDashboardBlockComparison1) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(u, "", false)
 }
 
-func (u *UpdateDashboardBlockMetricExplorer1) UnmarshalJSON(data []byte) error {
+func (u *UpdateDashboardBlockComparison1) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (u *UpdateDashboardBlockMetricExplorer1) GetType() string {
-	return "metric-explorer"
-}
-
-func (u *UpdateDashboardBlockMetricExplorer1) GetTitle() string {
-	if u == nil {
-		return ""
-	}
-	return u.Title
-}
-
-func (u *UpdateDashboardBlockMetricExplorer1) GetDescription() string {
-	if u == nil {
-		return ""
-	}
-	return u.Description
-}
-
-func (u *UpdateDashboardBlockMetricExplorer1) GetSnapshotID() *string {
-	if u == nil {
-		return nil
-	}
-	return u.SnapshotID
-}
-
-func (u *UpdateDashboardBlockMetricExplorer1) GetLayout() *UpdateDashboardLayout12 {
-	if u == nil {
-		return nil
-	}
-	return u.Layout
-}
-
-func (u *UpdateDashboardBlockMetricExplorer1) GetFactMetricID() string {
-	if u == nil {
-		return ""
-	}
-	return u.FactMetricID
-}
-
-func (u *UpdateDashboardBlockMetricExplorer1) GetVisualizationType() UpdateDashboardVisualizationType1 {
-	if u == nil {
-		return UpdateDashboardVisualizationType1("")
-	}
-	return u.VisualizationType
-}
-
-func (u *UpdateDashboardBlockMetricExplorer1) GetValueType() UpdateDashboardValueType1 {
-	if u == nil {
-		return UpdateDashboardValueType1("")
-	}
-	return u.ValueType
-}
-
-func (u *UpdateDashboardBlockMetricExplorer1) GetMetricAnalysisID() string {
-	if u == nil {
-		return ""
-	}
-	return u.MetricAnalysisID
-}
-
-func (u *UpdateDashboardBlockMetricExplorer1) GetComparison() *UpdateDashboardComparison4 {
-	if u == nil {
-		return nil
-	}
-	return u.Comparison
-}
-
-func (u *UpdateDashboardBlockMetricExplorer1) GetComparisonMetricAnalysisID() *string {
-	if u == nil {
-		return nil
-	}
-	return u.ComparisonMetricAnalysisID
-}
-
-func (u *UpdateDashboardBlockMetricExplorer1) GetAnalysisSettings() UpdateDashboardAnalysisSettings1 {
-	if u == nil {
-		return UpdateDashboardAnalysisSettings1{}
-	}
-	return u.AnalysisSettings
-}
-
-// #region class-body-updatedashboardblockmetricexplorer1
-// #endregion class-body-updatedashboardblockmetricexplorer1
-
-type UpdateDashboardLayout11 struct {
-	X      int64 `json:"x"`
-	Y      int64 `json:"y"`
-	W      int64 `json:"w"`
-	H      int64 `json:"h"`
-	Static *bool `json:"static,omitzero"`
-}
-
-func (u UpdateDashboardLayout11) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateDashboardLayout11) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateDashboardLayout11) GetX() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.X
-}
-
-func (u *UpdateDashboardLayout11) GetY() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.Y
-}
-
-func (u *UpdateDashboardLayout11) GetW() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.W
-}
-
-func (u *UpdateDashboardLayout11) GetH() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.H
-}
-
-func (u *UpdateDashboardLayout11) GetStatic() *bool {
-	if u == nil {
-		return nil
-	}
-	return u.Static
-}
-
-// #region class-body-updatedashboardlayout11
-// #endregion class-body-updatedashboardlayout11
-
-type UpdateDashboardBlockSQLExplorer1 struct {
-	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_              string                   `const:"sql-explorer" json:"type"`
-	Title              string                   `json:"title"`
-	Description        string                   `json:"description"`
-	SnapshotID         *string                  `json:"snapshotId,omitzero"`
-	Layout             *UpdateDashboardLayout11 `json:"layout,omitzero"`
-	SavedQueryID       string                   `json:"savedQueryId"`
-	DataVizConfigIndex *float64                 `json:"dataVizConfigIndex,omitzero"`
-	BlockConfig        []string                 `json:"blockConfig"`
-}
-
-func (u UpdateDashboardBlockSQLExplorer1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateDashboardBlockSQLExplorer1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateDashboardBlockSQLExplorer1) GetType() string {
-	return "sql-explorer"
-}
-
-func (u *UpdateDashboardBlockSQLExplorer1) GetTitle() string {
-	if u == nil {
-		return ""
-	}
-	return u.Title
-}
-
-func (u *UpdateDashboardBlockSQLExplorer1) GetDescription() string {
-	if u == nil {
-		return ""
-	}
-	return u.Description
-}
-
-func (u *UpdateDashboardBlockSQLExplorer1) GetSnapshotID() *string {
-	if u == nil {
-		return nil
-	}
-	return u.SnapshotID
-}
-
-func (u *UpdateDashboardBlockSQLExplorer1) GetLayout() *UpdateDashboardLayout11 {
-	if u == nil {
-		return nil
-	}
-	return u.Layout
-}
-
-func (u *UpdateDashboardBlockSQLExplorer1) GetSavedQueryID() string {
-	if u == nil {
-		return ""
-	}
-	return u.SavedQueryID
-}
-
-func (u *UpdateDashboardBlockSQLExplorer1) GetDataVizConfigIndex() *float64 {
-	if u == nil {
-		return nil
-	}
-	return u.DataVizConfigIndex
-}
-
-func (u *UpdateDashboardBlockSQLExplorer1) GetBlockConfig() []string {
-	if u == nil {
-		return []string{}
-	}
-	return u.BlockConfig
-}
-
-// #region class-body-updatedashboardblocksqlexplorer1
-// #endregion class-body-updatedashboardblocksqlexplorer1
-
-type UpdateDashboardLayout10 struct {
-	X      int64 `json:"x"`
-	Y      int64 `json:"y"`
-	W      int64 `json:"w"`
-	H      int64 `json:"h"`
-	Static *bool `json:"static,omitzero"`
-}
-
-func (u UpdateDashboardLayout10) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateDashboardLayout10) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateDashboardLayout10) GetX() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.X
-}
-
-func (u *UpdateDashboardLayout10) GetY() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.Y
-}
-
-func (u *UpdateDashboardLayout10) GetW() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.W
-}
-
-func (u *UpdateDashboardLayout10) GetH() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.H
-}
-
-func (u *UpdateDashboardLayout10) GetStatic() *bool {
-	if u == nil {
-		return nil
-	}
-	return u.Static
-}
-
-// #region class-body-updatedashboardlayout10
-// #endregion class-body-updatedashboardlayout10
-
-type UpdateDashboardBlockExperimentTraffic1 struct {
-	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_          string                   `const:"experiment-traffic" json:"type"`
-	Title          string                   `json:"title"`
-	Description    string                   `json:"description"`
-	SnapshotID     *string                  `json:"snapshotId,omitzero"`
-	Layout         *UpdateDashboardLayout10 `json:"layout,omitzero"`
-	ExperimentID   string                   `json:"experimentId"`
-	ShowTable      bool                     `json:"showTable"`
-	ShowTimeseries bool                     `json:"showTimeseries"`
-}
-
-func (u UpdateDashboardBlockExperimentTraffic1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateDashboardBlockExperimentTraffic1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateDashboardBlockExperimentTraffic1) GetType() string {
-	return "experiment-traffic"
-}
-
-func (u *UpdateDashboardBlockExperimentTraffic1) GetTitle() string {
-	if u == nil {
-		return ""
-	}
-	return u.Title
-}
-
-func (u *UpdateDashboardBlockExperimentTraffic1) GetDescription() string {
-	if u == nil {
-		return ""
-	}
-	return u.Description
-}
-
-func (u *UpdateDashboardBlockExperimentTraffic1) GetSnapshotID() *string {
-	if u == nil {
-		return nil
-	}
-	return u.SnapshotID
-}
-
-func (u *UpdateDashboardBlockExperimentTraffic1) GetLayout() *UpdateDashboardLayout10 {
-	if u == nil {
-		return nil
-	}
-	return u.Layout
-}
-
-func (u *UpdateDashboardBlockExperimentTraffic1) GetExperimentID() string {
-	if u == nil {
-		return ""
-	}
-	return u.ExperimentID
-}
-
-func (u *UpdateDashboardBlockExperimentTraffic1) GetShowTable() bool {
-	if u == nil {
-		return false
-	}
-	return u.ShowTable
-}
-
-func (u *UpdateDashboardBlockExperimentTraffic1) GetShowTimeseries() bool {
-	if u == nil {
-		return false
-	}
-	return u.ShowTimeseries
-}
-
-// #region class-body-updatedashboardblockexperimenttraffic1
-// #endregion class-body-updatedashboardblockexperimenttraffic1
-
-type UpdateDashboardLayout9 struct {
-	X      int64 `json:"x"`
-	Y      int64 `json:"y"`
-	W      int64 `json:"w"`
-	H      int64 `json:"h"`
-	Static *bool `json:"static,omitzero"`
-}
-
-func (u UpdateDashboardLayout9) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateDashboardLayout9) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateDashboardLayout9) GetX() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.X
-}
-
-func (u *UpdateDashboardLayout9) GetY() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.Y
-}
-
-func (u *UpdateDashboardLayout9) GetW() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.W
-}
-
-func (u *UpdateDashboardLayout9) GetH() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.H
-}
-
-func (u *UpdateDashboardLayout9) GetStatic() *bool {
-	if u == nil {
-		return nil
-	}
-	return u.Static
-}
-
-// #region class-body-updatedashboardlayout9
-// #endregion class-body-updatedashboardlayout9
-
-type UpdateDashboardDifferenceType4 string
-
-const (
-	UpdateDashboardDifferenceType4Absolute UpdateDashboardDifferenceType4 = "absolute"
-	UpdateDashboardDifferenceType4Relative UpdateDashboardDifferenceType4 = "relative"
-	UpdateDashboardDifferenceType4Scaled   UpdateDashboardDifferenceType4 = "scaled"
-)
-
-func (e UpdateDashboardDifferenceType4) ToPointer() *UpdateDashboardDifferenceType4 {
-	return &e
-}
-func (e *UpdateDashboardDifferenceType4) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "absolute":
-		fallthrough
-	case "relative":
-		fallthrough
-	case "scaled":
-		*e = UpdateDashboardDifferenceType4(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdateDashboardDifferenceType4: %v", v)
-	}
-}
-
-type UpdateDashboardSortBy3 string
-
-const (
-	UpdateDashboardSortBy3Metrics      UpdateDashboardSortBy3 = "metrics"
-	UpdateDashboardSortBy3MetricTags   UpdateDashboardSortBy3 = "metricTags"
-	UpdateDashboardSortBy3Significance UpdateDashboardSortBy3 = "significance"
-	UpdateDashboardSortBy3Change       UpdateDashboardSortBy3 = "change"
-)
-
-func (e UpdateDashboardSortBy3) ToPointer() *UpdateDashboardSortBy3 {
-	return &e
-}
-func (e *UpdateDashboardSortBy3) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "metrics":
-		fallthrough
-	case "metricTags":
-		fallthrough
-	case "significance":
-		fallthrough
-	case "change":
-		*e = UpdateDashboardSortBy3(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdateDashboardSortBy3: %v", v)
-	}
-}
-
-type UpdateDashboardSortDirection3 string
-
-const (
-	UpdateDashboardSortDirection3Asc  UpdateDashboardSortDirection3 = "asc"
-	UpdateDashboardSortDirection3Desc UpdateDashboardSortDirection3 = "desc"
-)
-
-func (e UpdateDashboardSortDirection3) ToPointer() *UpdateDashboardSortDirection3 {
-	return &e
-}
-func (e *UpdateDashboardSortDirection3) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "asc":
-		fallthrough
-	case "desc":
-		*e = UpdateDashboardSortDirection3(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdateDashboardSortDirection3: %v", v)
-	}
-}
-
-type UpdateDashboardBlockExperimentTimeSeries1 struct {
-	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_           string                         `const:"experiment-time-series" json:"type"`
-	Title           string                         `json:"title"`
-	Description     string                         `json:"description"`
-	SnapshotID      string                         `json:"snapshotId"`
-	Layout          *UpdateDashboardLayout9        `json:"layout,omitzero"`
-	ExperimentID    string                         `json:"experimentId"`
-	MetricID        *string                        `json:"metricId,omitzero"`
-	MetricIds       []string                       `json:"metricIds"`
-	VariationIds    []string                       `json:"variationIds"`
-	DifferenceType  UpdateDashboardDifferenceType4 `json:"differenceType"`
-	SliceTagsFilter []string                       `json:"sliceTagsFilter"`
-	MetricTagFilter []string                       `json:"metricTagFilter"`
-	SortBy          *UpdateDashboardSortBy3        `json:"sortBy"`
-	SortDirection   *UpdateDashboardSortDirection3 `json:"sortDirection"`
-}
-
-func (u UpdateDashboardBlockExperimentTimeSeries1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateDashboardBlockExperimentTimeSeries1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateDashboardBlockExperimentTimeSeries1) GetType() string {
-	return "experiment-time-series"
-}
-
-func (u *UpdateDashboardBlockExperimentTimeSeries1) GetTitle() string {
-	if u == nil {
-		return ""
-	}
-	return u.Title
-}
-
-func (u *UpdateDashboardBlockExperimentTimeSeries1) GetDescription() string {
-	if u == nil {
-		return ""
-	}
-	return u.Description
-}
-
-func (u *UpdateDashboardBlockExperimentTimeSeries1) GetSnapshotID() string {
-	if u == nil {
-		return ""
-	}
-	return u.SnapshotID
-}
-
-func (u *UpdateDashboardBlockExperimentTimeSeries1) GetLayout() *UpdateDashboardLayout9 {
-	if u == nil {
-		return nil
-	}
-	return u.Layout
-}
-
-func (u *UpdateDashboardBlockExperimentTimeSeries1) GetExperimentID() string {
-	if u == nil {
-		return ""
-	}
-	return u.ExperimentID
-}
-
-func (u *UpdateDashboardBlockExperimentTimeSeries1) GetMetricID() *string {
-	if u == nil {
-		return nil
-	}
-	return u.MetricID
-}
-
-func (u *UpdateDashboardBlockExperimentTimeSeries1) GetMetricIds() []string {
-	if u == nil {
-		return []string{}
-	}
-	return u.MetricIds
-}
-
-func (u *UpdateDashboardBlockExperimentTimeSeries1) GetVariationIds() []string {
-	if u == nil {
-		return []string{}
-	}
-	return u.VariationIds
-}
-
-func (u *UpdateDashboardBlockExperimentTimeSeries1) GetDifferenceType() UpdateDashboardDifferenceType4 {
-	if u == nil {
-		return UpdateDashboardDifferenceType4("")
-	}
-	return u.DifferenceType
-}
-
-func (u *UpdateDashboardBlockExperimentTimeSeries1) GetSliceTagsFilter() []string {
-	if u == nil {
-		return []string{}
-	}
-	return u.SliceTagsFilter
-}
-
-func (u *UpdateDashboardBlockExperimentTimeSeries1) GetMetricTagFilter() []string {
-	if u == nil {
-		return []string{}
-	}
-	return u.MetricTagFilter
-}
-
-func (u *UpdateDashboardBlockExperimentTimeSeries1) GetSortBy() *UpdateDashboardSortBy3 {
-	if u == nil {
-		return nil
-	}
-	return u.SortBy
-}
-
-func (u *UpdateDashboardBlockExperimentTimeSeries1) GetSortDirection() *UpdateDashboardSortDirection3 {
-	if u == nil {
-		return nil
-	}
-	return u.SortDirection
-}
-
-// #region class-body-updatedashboardblockexperimenttimeseries1
-// #endregion class-body-updatedashboardblockexperimenttimeseries1
-
-type UpdateDashboardLayout8 struct {
-	X      int64 `json:"x"`
-	Y      int64 `json:"y"`
-	W      int64 `json:"w"`
-	H      int64 `json:"h"`
-	Static *bool `json:"static,omitzero"`
-}
-
-func (u UpdateDashboardLayout8) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateDashboardLayout8) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateDashboardLayout8) GetX() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.X
-}
-
-func (u *UpdateDashboardLayout8) GetY() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.Y
-}
-
-func (u *UpdateDashboardLayout8) GetW() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.W
-}
-
-func (u *UpdateDashboardLayout8) GetH() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.H
-}
-
-func (u *UpdateDashboardLayout8) GetStatic() *bool {
-	if u == nil {
-		return nil
-	}
-	return u.Static
-}
-
-// #region class-body-updatedashboardlayout8
-// #endregion class-body-updatedashboardlayout8
-
-type UpdateDashboardDifferenceType3 string
-
-const (
-	UpdateDashboardDifferenceType3Absolute UpdateDashboardDifferenceType3 = "absolute"
-	UpdateDashboardDifferenceType3Relative UpdateDashboardDifferenceType3 = "relative"
-	UpdateDashboardDifferenceType3Scaled   UpdateDashboardDifferenceType3 = "scaled"
-)
-
-func (e UpdateDashboardDifferenceType3) ToPointer() *UpdateDashboardDifferenceType3 {
-	return &e
-}
-func (e *UpdateDashboardDifferenceType3) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "absolute":
-		fallthrough
-	case "relative":
-		fallthrough
-	case "scaled":
-		*e = UpdateDashboardDifferenceType3(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdateDashboardDifferenceType3: %v", v)
-	}
-}
-
-type UpdateDashboardColumnsFilter2 string
-
-const (
-	UpdateDashboardColumnsFilter2MetricAndVariationNames UpdateDashboardColumnsFilter2 = "Metric & Variation Names"
-	UpdateDashboardColumnsFilter2BaselineAverage         UpdateDashboardColumnsFilter2 = "Baseline Average"
-	UpdateDashboardColumnsFilter2VariationAverages       UpdateDashboardColumnsFilter2 = "Variation Averages"
-	UpdateDashboardColumnsFilter2ChanceToWin             UpdateDashboardColumnsFilter2 = "Chance to Win"
-	UpdateDashboardColumnsFilter2CiGraph                 UpdateDashboardColumnsFilter2 = "CI Graph"
-	UpdateDashboardColumnsFilter2Lift                    UpdateDashboardColumnsFilter2 = "Lift"
-)
-
-func (e UpdateDashboardColumnsFilter2) ToPointer() *UpdateDashboardColumnsFilter2 {
-	return &e
-}
-func (e *UpdateDashboardColumnsFilter2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "Metric & Variation Names":
-		fallthrough
-	case "Baseline Average":
-		fallthrough
-	case "Variation Averages":
-		fallthrough
-	case "Chance to Win":
-		fallthrough
-	case "CI Graph":
-		fallthrough
-	case "Lift":
-		*e = UpdateDashboardColumnsFilter2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdateDashboardColumnsFilter2: %v", v)
-	}
-}
-
-type UpdateDashboardSortBy2 string
-
-const (
-	UpdateDashboardSortBy2Metrics      UpdateDashboardSortBy2 = "metrics"
-	UpdateDashboardSortBy2MetricTags   UpdateDashboardSortBy2 = "metricTags"
-	UpdateDashboardSortBy2Significance UpdateDashboardSortBy2 = "significance"
-	UpdateDashboardSortBy2Change       UpdateDashboardSortBy2 = "change"
-)
-
-func (e UpdateDashboardSortBy2) ToPointer() *UpdateDashboardSortBy2 {
-	return &e
-}
-func (e *UpdateDashboardSortBy2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "metrics":
-		fallthrough
-	case "metricTags":
-		fallthrough
-	case "significance":
-		fallthrough
-	case "change":
-		*e = UpdateDashboardSortBy2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdateDashboardSortBy2: %v", v)
-	}
-}
-
-type UpdateDashboardSortDirection2 string
-
-const (
-	UpdateDashboardSortDirection2Asc  UpdateDashboardSortDirection2 = "asc"
-	UpdateDashboardSortDirection2Desc UpdateDashboardSortDirection2 = "desc"
-)
-
-func (e UpdateDashboardSortDirection2) ToPointer() *UpdateDashboardSortDirection2 {
-	return &e
-}
-func (e *UpdateDashboardSortDirection2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "asc":
-		fallthrough
-	case "desc":
-		*e = UpdateDashboardSortDirection2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdateDashboardSortDirection2: %v", v)
-	}
-}
-
-type UpdateDashboardBlockExperimentDimension1 struct {
-	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_           string                          `const:"experiment-dimension" json:"type"`
-	Title           string                          `json:"title"`
-	Description     string                          `json:"description"`
-	SnapshotID      string                          `json:"snapshotId"`
-	Layout          *UpdateDashboardLayout8         `json:"layout,omitzero"`
-	ExperimentID    string                          `json:"experimentId"`
-	DimensionID     string                          `json:"dimensionId"`
-	DimensionValues []string                        `json:"dimensionValues"`
-	MetricIds       []string                        `json:"metricIds"`
-	VariationIds    []string                        `json:"variationIds"`
-	BaselineRow     float64                         `json:"baselineRow"`
-	DifferenceType  UpdateDashboardDifferenceType3  `json:"differenceType"`
-	ColumnsFilter   []UpdateDashboardColumnsFilter2 `json:"columnsFilter"`
-	MetricTagFilter []string                        `json:"metricTagFilter"`
-	SortBy          *UpdateDashboardSortBy2         `json:"sortBy"`
-	SortDirection   *UpdateDashboardSortDirection2  `json:"sortDirection"`
-}
-
-func (u UpdateDashboardBlockExperimentDimension1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateDashboardBlockExperimentDimension1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateDashboardBlockExperimentDimension1) GetType() string {
-	return "experiment-dimension"
-}
-
-func (u *UpdateDashboardBlockExperimentDimension1) GetTitle() string {
-	if u == nil {
-		return ""
-	}
-	return u.Title
-}
-
-func (u *UpdateDashboardBlockExperimentDimension1) GetDescription() string {
-	if u == nil {
-		return ""
-	}
-	return u.Description
-}
-
-func (u *UpdateDashboardBlockExperimentDimension1) GetSnapshotID() string {
-	if u == nil {
-		return ""
-	}
-	return u.SnapshotID
-}
-
-func (u *UpdateDashboardBlockExperimentDimension1) GetLayout() *UpdateDashboardLayout8 {
-	if u == nil {
-		return nil
-	}
-	return u.Layout
-}
-
-func (u *UpdateDashboardBlockExperimentDimension1) GetExperimentID() string {
-	if u == nil {
-		return ""
-	}
-	return u.ExperimentID
-}
-
-func (u *UpdateDashboardBlockExperimentDimension1) GetDimensionID() string {
-	if u == nil {
-		return ""
-	}
-	return u.DimensionID
-}
-
-func (u *UpdateDashboardBlockExperimentDimension1) GetDimensionValues() []string {
-	if u == nil {
-		return []string{}
-	}
-	return u.DimensionValues
-}
-
-func (u *UpdateDashboardBlockExperimentDimension1) GetMetricIds() []string {
-	if u == nil {
-		return []string{}
-	}
-	return u.MetricIds
-}
-
-func (u *UpdateDashboardBlockExperimentDimension1) GetVariationIds() []string {
-	if u == nil {
-		return []string{}
-	}
-	return u.VariationIds
-}
-
-func (u *UpdateDashboardBlockExperimentDimension1) GetBaselineRow() float64 {
-	if u == nil {
-		return 0.0
-	}
-	return u.BaselineRow
-}
-
-func (u *UpdateDashboardBlockExperimentDimension1) GetDifferenceType() UpdateDashboardDifferenceType3 {
-	if u == nil {
-		return UpdateDashboardDifferenceType3("")
-	}
-	return u.DifferenceType
-}
-
-func (u *UpdateDashboardBlockExperimentDimension1) GetColumnsFilter() []UpdateDashboardColumnsFilter2 {
-	if u == nil {
-		return []UpdateDashboardColumnsFilter2{}
-	}
-	return u.ColumnsFilter
-}
-
-func (u *UpdateDashboardBlockExperimentDimension1) GetMetricTagFilter() []string {
-	if u == nil {
-		return []string{}
-	}
-	return u.MetricTagFilter
-}
-
-func (u *UpdateDashboardBlockExperimentDimension1) GetSortBy() *UpdateDashboardSortBy2 {
-	if u == nil {
-		return nil
-	}
-	return u.SortBy
-}
-
-func (u *UpdateDashboardBlockExperimentDimension1) GetSortDirection() *UpdateDashboardSortDirection2 {
-	if u == nil {
-		return nil
-	}
-	return u.SortDirection
-}
-
-// #region class-body-updatedashboardblockexperimentdimension1
-// #endregion class-body-updatedashboardblockexperimentdimension1
-
-type UpdateDashboardLayout7 struct {
-	X      int64 `json:"x"`
-	Y      int64 `json:"y"`
-	W      int64 `json:"w"`
-	H      int64 `json:"h"`
-	Static *bool `json:"static,omitzero"`
-}
-
-func (u UpdateDashboardLayout7) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateDashboardLayout7) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateDashboardLayout7) GetX() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.X
-}
-
-func (u *UpdateDashboardLayout7) GetY() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.Y
-}
-
-func (u *UpdateDashboardLayout7) GetW() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.W
-}
-
-func (u *UpdateDashboardLayout7) GetH() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.H
-}
-
-func (u *UpdateDashboardLayout7) GetStatic() *bool {
-	if u == nil {
-		return nil
-	}
-	return u.Static
-}
-
-// #region class-body-updatedashboardlayout7
-// #endregion class-body-updatedashboardlayout7
-
-type UpdateDashboardBlockDateRangePredefined3 string
-
-const (
-	UpdateDashboardBlockDateRangePredefined3Today            UpdateDashboardBlockDateRangePredefined3 = "today"
-	UpdateDashboardBlockDateRangePredefined3Yesterday        UpdateDashboardBlockDateRangePredefined3 = "yesterday"
-	UpdateDashboardBlockDateRangePredefined3Last7Days        UpdateDashboardBlockDateRangePredefined3 = "last7Days"
-	UpdateDashboardBlockDateRangePredefined3Last30Days       UpdateDashboardBlockDateRangePredefined3 = "last30Days"
-	UpdateDashboardBlockDateRangePredefined3Last90Days       UpdateDashboardBlockDateRangePredefined3 = "last90Days"
-	UpdateDashboardBlockDateRangePredefined3Last12Months     UpdateDashboardBlockDateRangePredefined3 = "last12Months"
-	UpdateDashboardBlockDateRangePredefined3LastCalendarYear UpdateDashboardBlockDateRangePredefined3 = "lastCalendarYear"
-	UpdateDashboardBlockDateRangePredefined3CustomLookback   UpdateDashboardBlockDateRangePredefined3 = "customLookback"
-	UpdateDashboardBlockDateRangePredefined3CustomDateRange  UpdateDashboardBlockDateRangePredefined3 = "customDateRange"
-)
-
-func (e UpdateDashboardBlockDateRangePredefined3) ToPointer() *UpdateDashboardBlockDateRangePredefined3 {
-	return &e
-}
-func (e *UpdateDashboardBlockDateRangePredefined3) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "today":
-		fallthrough
-	case "yesterday":
-		fallthrough
-	case "last7Days":
-		fallthrough
-	case "last30Days":
-		fallthrough
-	case "last90Days":
-		fallthrough
-	case "last12Months":
-		fallthrough
-	case "lastCalendarYear":
-		fallthrough
-	case "customLookback":
-		fallthrough
-	case "customDateRange":
-		*e = UpdateDashboardBlockDateRangePredefined3(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdateDashboardBlockDateRangePredefined3: %v", v)
-	}
-}
-
-type UpdateDashboardBlockDateRangeLookbackUnit3 string
-
-const (
-	UpdateDashboardBlockDateRangeLookbackUnit3Hour  UpdateDashboardBlockDateRangeLookbackUnit3 = "hour"
-	UpdateDashboardBlockDateRangeLookbackUnit3Day   UpdateDashboardBlockDateRangeLookbackUnit3 = "day"
-	UpdateDashboardBlockDateRangeLookbackUnit3Week  UpdateDashboardBlockDateRangeLookbackUnit3 = "week"
-	UpdateDashboardBlockDateRangeLookbackUnit3Month UpdateDashboardBlockDateRangeLookbackUnit3 = "month"
-)
-
-func (e UpdateDashboardBlockDateRangeLookbackUnit3) ToPointer() *UpdateDashboardBlockDateRangeLookbackUnit3 {
-	return &e
-}
-func (e *UpdateDashboardBlockDateRangeLookbackUnit3) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "hour":
-		fallthrough
-	case "day":
-		fallthrough
-	case "week":
-		fallthrough
-	case "month":
-		*e = UpdateDashboardBlockDateRangeLookbackUnit3(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdateDashboardBlockDateRangeLookbackUnit3: %v", v)
-	}
-}
-
-type UpdateDashboardBlockDateRange3 struct {
-	Predefined    UpdateDashboardBlockDateRangePredefined3                                      `json:"predefined"`
-	LookbackValue optionalnullable.OptionalNullable[float64]                                    `json:"lookbackValue,omitzero"`
-	LookbackUnit  optionalnullable.OptionalNullable[UpdateDashboardBlockDateRangeLookbackUnit3] `json:"lookbackUnit,omitzero"`
-	StartDate     optionalnullable.OptionalNullable[string]                                     `json:"startDate,omitzero"`
-	EndDate       optionalnullable.OptionalNullable[string]                                     `json:"endDate,omitzero"`
-}
-
-func (u UpdateDashboardBlockDateRange3) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateDashboardBlockDateRange3) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateDashboardBlockDateRange3) GetPredefined() UpdateDashboardBlockDateRangePredefined3 {
-	if u == nil {
-		return UpdateDashboardBlockDateRangePredefined3("")
-	}
-	return u.Predefined
-}
-
-func (u *UpdateDashboardBlockDateRange3) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
-	if u == nil {
-		return nil
-	}
-	return u.LookbackValue
-}
-
-func (u *UpdateDashboardBlockDateRange3) GetLookbackUnit() optionalnullable.OptionalNullable[UpdateDashboardBlockDateRangeLookbackUnit3] {
-	if u == nil {
-		return nil
-	}
-	return u.LookbackUnit
-}
-
-func (u *UpdateDashboardBlockDateRange3) GetStartDate() optionalnullable.OptionalNullable[string] {
-	if u == nil {
-		return nil
-	}
-	return u.StartDate
-}
-
-func (u *UpdateDashboardBlockDateRange3) GetEndDate() optionalnullable.OptionalNullable[string] {
-	if u == nil {
-		return nil
-	}
-	return u.EndDate
-}
-
-// #region class-body-updatedashboardblockdaterange3
-// #endregion class-body-updatedashboardblockdaterange3
-
-type UpdateDashboardMode3 string
-
-const (
-	UpdateDashboardMode3PreviousPeriod               UpdateDashboardMode3 = "previousPeriod"
-	UpdateDashboardMode3PreviousPeriodMatchDayOfWeek UpdateDashboardMode3 = "previousPeriodMatchDayOfWeek"
-	UpdateDashboardMode3PreviousYear                 UpdateDashboardMode3 = "previousYear"
-	UpdateDashboardMode3PreviousYearMatchDayOfWeek   UpdateDashboardMode3 = "previousYearMatchDayOfWeek"
-	UpdateDashboardMode3Custom                       UpdateDashboardMode3 = "custom"
-)
-
-func (e UpdateDashboardMode3) ToPointer() *UpdateDashboardMode3 {
-	return &e
-}
-func (e *UpdateDashboardMode3) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "previousPeriod":
-		fallthrough
-	case "previousPeriodMatchDayOfWeek":
-		fallthrough
-	case "previousYear":
-		fallthrough
-	case "previousYearMatchDayOfWeek":
-		fallthrough
-	case "custom":
-		*e = UpdateDashboardMode3(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdateDashboardMode3: %v", v)
-	}
-}
-
-type UpdateDashboardPreviousTimeFramePredefined3 string
-
-const (
-	UpdateDashboardPreviousTimeFramePredefined3Today            UpdateDashboardPreviousTimeFramePredefined3 = "today"
-	UpdateDashboardPreviousTimeFramePredefined3Yesterday        UpdateDashboardPreviousTimeFramePredefined3 = "yesterday"
-	UpdateDashboardPreviousTimeFramePredefined3Last7Days        UpdateDashboardPreviousTimeFramePredefined3 = "last7Days"
-	UpdateDashboardPreviousTimeFramePredefined3Last30Days       UpdateDashboardPreviousTimeFramePredefined3 = "last30Days"
-	UpdateDashboardPreviousTimeFramePredefined3Last90Days       UpdateDashboardPreviousTimeFramePredefined3 = "last90Days"
-	UpdateDashboardPreviousTimeFramePredefined3Last12Months     UpdateDashboardPreviousTimeFramePredefined3 = "last12Months"
-	UpdateDashboardPreviousTimeFramePredefined3LastCalendarYear UpdateDashboardPreviousTimeFramePredefined3 = "lastCalendarYear"
-	UpdateDashboardPreviousTimeFramePredefined3CustomLookback   UpdateDashboardPreviousTimeFramePredefined3 = "customLookback"
-	UpdateDashboardPreviousTimeFramePredefined3CustomDateRange  UpdateDashboardPreviousTimeFramePredefined3 = "customDateRange"
-)
-
-func (e UpdateDashboardPreviousTimeFramePredefined3) ToPointer() *UpdateDashboardPreviousTimeFramePredefined3 {
-	return &e
-}
-func (e *UpdateDashboardPreviousTimeFramePredefined3) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "today":
-		fallthrough
-	case "yesterday":
-		fallthrough
-	case "last7Days":
-		fallthrough
-	case "last30Days":
-		fallthrough
-	case "last90Days":
-		fallthrough
-	case "last12Months":
-		fallthrough
-	case "lastCalendarYear":
-		fallthrough
-	case "customLookback":
-		fallthrough
-	case "customDateRange":
-		*e = UpdateDashboardPreviousTimeFramePredefined3(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdateDashboardPreviousTimeFramePredefined3: %v", v)
-	}
-}
-
-type UpdateDashboardPreviousTimeFrameLookbackUnit3 string
-
-const (
-	UpdateDashboardPreviousTimeFrameLookbackUnit3Hour  UpdateDashboardPreviousTimeFrameLookbackUnit3 = "hour"
-	UpdateDashboardPreviousTimeFrameLookbackUnit3Day   UpdateDashboardPreviousTimeFrameLookbackUnit3 = "day"
-	UpdateDashboardPreviousTimeFrameLookbackUnit3Week  UpdateDashboardPreviousTimeFrameLookbackUnit3 = "week"
-	UpdateDashboardPreviousTimeFrameLookbackUnit3Month UpdateDashboardPreviousTimeFrameLookbackUnit3 = "month"
-)
-
-func (e UpdateDashboardPreviousTimeFrameLookbackUnit3) ToPointer() *UpdateDashboardPreviousTimeFrameLookbackUnit3 {
-	return &e
-}
-func (e *UpdateDashboardPreviousTimeFrameLookbackUnit3) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "hour":
-		fallthrough
-	case "day":
-		fallthrough
-	case "week":
-		fallthrough
-	case "month":
-		*e = UpdateDashboardPreviousTimeFrameLookbackUnit3(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdateDashboardPreviousTimeFrameLookbackUnit3: %v", v)
-	}
-}
-
-type UpdateDashboardPreviousTimeFrame3 struct {
-	Predefined    UpdateDashboardPreviousTimeFramePredefined3                                      `json:"predefined"`
-	LookbackValue optionalnullable.OptionalNullable[float64]                                       `json:"lookbackValue,omitzero"`
-	LookbackUnit  optionalnullable.OptionalNullable[UpdateDashboardPreviousTimeFrameLookbackUnit3] `json:"lookbackUnit,omitzero"`
-	StartDate     optionalnullable.OptionalNullable[string]                                        `json:"startDate,omitzero"`
-	EndDate       optionalnullable.OptionalNullable[string]                                        `json:"endDate,omitzero"`
-}
-
-func (u UpdateDashboardPreviousTimeFrame3) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateDashboardPreviousTimeFrame3) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateDashboardPreviousTimeFrame3) GetPredefined() UpdateDashboardPreviousTimeFramePredefined3 {
-	if u == nil {
-		return UpdateDashboardPreviousTimeFramePredefined3("")
-	}
-	return u.Predefined
-}
-
-func (u *UpdateDashboardPreviousTimeFrame3) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
-	if u == nil {
-		return nil
-	}
-	return u.LookbackValue
-}
-
-func (u *UpdateDashboardPreviousTimeFrame3) GetLookbackUnit() optionalnullable.OptionalNullable[UpdateDashboardPreviousTimeFrameLookbackUnit3] {
-	if u == nil {
-		return nil
-	}
-	return u.LookbackUnit
-}
-
-func (u *UpdateDashboardPreviousTimeFrame3) GetStartDate() optionalnullable.OptionalNullable[string] {
-	if u == nil {
-		return nil
-	}
-	return u.StartDate
-}
-
-func (u *UpdateDashboardPreviousTimeFrame3) GetEndDate() optionalnullable.OptionalNullable[string] {
-	if u == nil {
-		return nil
-	}
-	return u.EndDate
-}
-
-// #region class-body-updatedashboardprevioustimeframe3
-// #endregion class-body-updatedashboardprevioustimeframe3
-
-type UpdateDashboardComparison3 struct {
-	Enabled           bool                               `json:"enabled"`
-	Mode              *UpdateDashboardMode3              `json:"mode,omitzero"`
-	PreviousTimeFrame *UpdateDashboardPreviousTimeFrame3 `json:"previousTimeFrame,omitzero"`
-}
-
-func (u UpdateDashboardComparison3) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateDashboardComparison3) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateDashboardComparison3) GetEnabled() bool {
+func (u *UpdateDashboardBlockComparison1) GetEnabled() bool {
 	if u == nil {
 		return false
 	}
 	return u.Enabled
 }
 
-func (u *UpdateDashboardComparison3) GetMode() *UpdateDashboardMode3 {
+func (u *UpdateDashboardBlockComparison1) GetMode() *UpdateDashboardBlockMode1 {
 	if u == nil {
 		return nil
 	}
 	return u.Mode
 }
 
-func (u *UpdateDashboardComparison3) GetPreviousTimeFrame() *UpdateDashboardPreviousTimeFrame3 {
+func (u *UpdateDashboardBlockComparison1) GetPreviousTimeFrame() *UpdateDashboardBlockPreviousTimeFrame1 {
 	if u == nil {
 		return nil
 	}
 	return u.PreviousTimeFrame
 }
 
-// #region class-body-updatedashboardcomparison3
-// #endregion class-body-updatedashboardcomparison3
-
-type UpdateDashboardGlobalControlSettings4 struct {
-	DateRange              *bool `json:"dateRange,omitzero"`
-	Projects               *bool `json:"projects,omitzero"`
-	ExperimentSearchString *bool `json:"experimentSearchString,omitzero"`
-}
-
-func (u UpdateDashboardGlobalControlSettings4) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateDashboardGlobalControlSettings4) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateDashboardGlobalControlSettings4) GetDateRange() *bool {
-	if u == nil {
-		return nil
-	}
-	return u.DateRange
-}
-
-func (u *UpdateDashboardGlobalControlSettings4) GetProjects() *bool {
-	if u == nil {
-		return nil
-	}
-	return u.Projects
-}
-
-func (u *UpdateDashboardGlobalControlSettings4) GetExperimentSearchString() *bool {
-	if u == nil {
-		return nil
-	}
-	return u.ExperimentSearchString
-}
-
-// #region class-body-updatedashboardglobalcontrolsettings4
-// #endregion class-body-updatedashboardglobalcontrolsettings4
-
-type UpdateDashboardBlockDateGranularity1 string
-
-const (
-	UpdateDashboardBlockDateGranularity1Auto  UpdateDashboardBlockDateGranularity1 = "auto"
-	UpdateDashboardBlockDateGranularity1Hour  UpdateDashboardBlockDateGranularity1 = "hour"
-	UpdateDashboardBlockDateGranularity1Day   UpdateDashboardBlockDateGranularity1 = "day"
-	UpdateDashboardBlockDateGranularity1Week  UpdateDashboardBlockDateGranularity1 = "week"
-	UpdateDashboardBlockDateGranularity1Month UpdateDashboardBlockDateGranularity1 = "month"
-	UpdateDashboardBlockDateGranularity1Year  UpdateDashboardBlockDateGranularity1 = "year"
-)
-
-func (e UpdateDashboardBlockDateGranularity1) ToPointer() *UpdateDashboardBlockDateGranularity1 {
-	return &e
-}
-func (e *UpdateDashboardBlockDateGranularity1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "auto":
-		fallthrough
-	case "hour":
-		fallthrough
-	case "day":
-		fallthrough
-	case "week":
-		fallthrough
-	case "month":
-		fallthrough
-	case "year":
-		*e = UpdateDashboardBlockDateGranularity1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdateDashboardBlockDateGranularity1: %v", v)
-	}
-}
-
-type UpdateDashboardBlockExperimentsStatus1 struct {
-	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_                  string                                 `const:"experiments-status" json:"type"`
-	Title                  string                                 `json:"title"`
-	Description            string                                 `json:"description"`
-	SnapshotID             *string                                `json:"snapshotId,omitzero"`
-	Layout                 *UpdateDashboardLayout7                `json:"layout,omitzero"`
-	DateRange              UpdateDashboardBlockDateRange3         `json:"dateRange"`
-	Projects               []string                               `json:"projects"`
-	ExperimentSearchString *string                                `json:"experimentSearchString,omitzero"`
-	Comparison             *UpdateDashboardComparison3            `json:"comparison,omitzero"`
-	GlobalControlSettings  *UpdateDashboardGlobalControlSettings4 `json:"globalControlSettings,omitzero"`
-	DateGranularity        *UpdateDashboardBlockDateGranularity1  `json:"dateGranularity,omitzero"`
-}
-
-func (u UpdateDashboardBlockExperimentsStatus1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateDashboardBlockExperimentsStatus1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateDashboardBlockExperimentsStatus1) GetType() string {
-	return "experiments-status"
-}
-
-func (u *UpdateDashboardBlockExperimentsStatus1) GetTitle() string {
-	if u == nil {
-		return ""
-	}
-	return u.Title
-}
-
-func (u *UpdateDashboardBlockExperimentsStatus1) GetDescription() string {
-	if u == nil {
-		return ""
-	}
-	return u.Description
-}
-
-func (u *UpdateDashboardBlockExperimentsStatus1) GetSnapshotID() *string {
-	if u == nil {
-		return nil
-	}
-	return u.SnapshotID
-}
-
-func (u *UpdateDashboardBlockExperimentsStatus1) GetLayout() *UpdateDashboardLayout7 {
-	if u == nil {
-		return nil
-	}
-	return u.Layout
-}
-
-func (u *UpdateDashboardBlockExperimentsStatus1) GetDateRange() UpdateDashboardBlockDateRange3 {
-	if u == nil {
-		return UpdateDashboardBlockDateRange3{}
-	}
-	return u.DateRange
-}
-
-func (u *UpdateDashboardBlockExperimentsStatus1) GetProjects() []string {
-	if u == nil {
-		return []string{}
-	}
-	return u.Projects
-}
-
-func (u *UpdateDashboardBlockExperimentsStatus1) GetExperimentSearchString() *string {
-	if u == nil {
-		return nil
-	}
-	return u.ExperimentSearchString
-}
-
-func (u *UpdateDashboardBlockExperimentsStatus1) GetComparison() *UpdateDashboardComparison3 {
-	if u == nil {
-		return nil
-	}
-	return u.Comparison
-}
-
-func (u *UpdateDashboardBlockExperimentsStatus1) GetGlobalControlSettings() *UpdateDashboardGlobalControlSettings4 {
-	if u == nil {
-		return nil
-	}
-	return u.GlobalControlSettings
-}
-
-func (u *UpdateDashboardBlockExperimentsStatus1) GetDateGranularity() *UpdateDashboardBlockDateGranularity1 {
-	if u == nil {
-		return nil
-	}
-	return u.DateGranularity
-}
-
-// #region class-body-updatedashboardblockexperimentsstatus1
-// #endregion class-body-updatedashboardblockexperimentsstatus1
-
-type UpdateDashboardLayout6 struct {
-	X      int64 `json:"x"`
-	Y      int64 `json:"y"`
-	W      int64 `json:"w"`
-	H      int64 `json:"h"`
-	Static *bool `json:"static,omitzero"`
-}
-
-func (u UpdateDashboardLayout6) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateDashboardLayout6) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateDashboardLayout6) GetX() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.X
-}
-
-func (u *UpdateDashboardLayout6) GetY() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.Y
-}
-
-func (u *UpdateDashboardLayout6) GetW() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.W
-}
-
-func (u *UpdateDashboardLayout6) GetH() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.H
-}
-
-func (u *UpdateDashboardLayout6) GetStatic() *bool {
-	if u == nil {
-		return nil
-	}
-	return u.Static
-}
-
-// #region class-body-updatedashboardlayout6
-// #endregion class-body-updatedashboardlayout6
-
-type UpdateDashboardBlockDateRangePredefined2 string
-
-const (
-	UpdateDashboardBlockDateRangePredefined2Today            UpdateDashboardBlockDateRangePredefined2 = "today"
-	UpdateDashboardBlockDateRangePredefined2Yesterday        UpdateDashboardBlockDateRangePredefined2 = "yesterday"
-	UpdateDashboardBlockDateRangePredefined2Last7Days        UpdateDashboardBlockDateRangePredefined2 = "last7Days"
-	UpdateDashboardBlockDateRangePredefined2Last30Days       UpdateDashboardBlockDateRangePredefined2 = "last30Days"
-	UpdateDashboardBlockDateRangePredefined2Last90Days       UpdateDashboardBlockDateRangePredefined2 = "last90Days"
-	UpdateDashboardBlockDateRangePredefined2Last12Months     UpdateDashboardBlockDateRangePredefined2 = "last12Months"
-	UpdateDashboardBlockDateRangePredefined2LastCalendarYear UpdateDashboardBlockDateRangePredefined2 = "lastCalendarYear"
-	UpdateDashboardBlockDateRangePredefined2CustomLookback   UpdateDashboardBlockDateRangePredefined2 = "customLookback"
-	UpdateDashboardBlockDateRangePredefined2CustomDateRange  UpdateDashboardBlockDateRangePredefined2 = "customDateRange"
-)
-
-func (e UpdateDashboardBlockDateRangePredefined2) ToPointer() *UpdateDashboardBlockDateRangePredefined2 {
-	return &e
-}
-func (e *UpdateDashboardBlockDateRangePredefined2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "today":
-		fallthrough
-	case "yesterday":
-		fallthrough
-	case "last7Days":
-		fallthrough
-	case "last30Days":
-		fallthrough
-	case "last90Days":
-		fallthrough
-	case "last12Months":
-		fallthrough
-	case "lastCalendarYear":
-		fallthrough
-	case "customLookback":
-		fallthrough
-	case "customDateRange":
-		*e = UpdateDashboardBlockDateRangePredefined2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdateDashboardBlockDateRangePredefined2: %v", v)
-	}
-}
-
-type UpdateDashboardBlockDateRangeLookbackUnit2 string
-
-const (
-	UpdateDashboardBlockDateRangeLookbackUnit2Hour  UpdateDashboardBlockDateRangeLookbackUnit2 = "hour"
-	UpdateDashboardBlockDateRangeLookbackUnit2Day   UpdateDashboardBlockDateRangeLookbackUnit2 = "day"
-	UpdateDashboardBlockDateRangeLookbackUnit2Week  UpdateDashboardBlockDateRangeLookbackUnit2 = "week"
-	UpdateDashboardBlockDateRangeLookbackUnit2Month UpdateDashboardBlockDateRangeLookbackUnit2 = "month"
-)
-
-func (e UpdateDashboardBlockDateRangeLookbackUnit2) ToPointer() *UpdateDashboardBlockDateRangeLookbackUnit2 {
-	return &e
-}
-func (e *UpdateDashboardBlockDateRangeLookbackUnit2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "hour":
-		fallthrough
-	case "day":
-		fallthrough
-	case "week":
-		fallthrough
-	case "month":
-		*e = UpdateDashboardBlockDateRangeLookbackUnit2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdateDashboardBlockDateRangeLookbackUnit2: %v", v)
-	}
-}
-
-type UpdateDashboardBlockDateRange2 struct {
-	Predefined    UpdateDashboardBlockDateRangePredefined2                                      `json:"predefined"`
-	LookbackValue optionalnullable.OptionalNullable[float64]                                    `json:"lookbackValue,omitzero"`
-	LookbackUnit  optionalnullable.OptionalNullable[UpdateDashboardBlockDateRangeLookbackUnit2] `json:"lookbackUnit,omitzero"`
-	StartDate     optionalnullable.OptionalNullable[string]                                     `json:"startDate,omitzero"`
-	EndDate       optionalnullable.OptionalNullable[string]                                     `json:"endDate,omitzero"`
-}
-
-func (u UpdateDashboardBlockDateRange2) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateDashboardBlockDateRange2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateDashboardBlockDateRange2) GetPredefined() UpdateDashboardBlockDateRangePredefined2 {
-	if u == nil {
-		return UpdateDashboardBlockDateRangePredefined2("")
-	}
-	return u.Predefined
-}
-
-func (u *UpdateDashboardBlockDateRange2) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
-	if u == nil {
-		return nil
-	}
-	return u.LookbackValue
-}
-
-func (u *UpdateDashboardBlockDateRange2) GetLookbackUnit() optionalnullable.OptionalNullable[UpdateDashboardBlockDateRangeLookbackUnit2] {
-	if u == nil {
-		return nil
-	}
-	return u.LookbackUnit
-}
-
-func (u *UpdateDashboardBlockDateRange2) GetStartDate() optionalnullable.OptionalNullable[string] {
-	if u == nil {
-		return nil
-	}
-	return u.StartDate
-}
-
-func (u *UpdateDashboardBlockDateRange2) GetEndDate() optionalnullable.OptionalNullable[string] {
-	if u == nil {
-		return nil
-	}
-	return u.EndDate
-}
-
-// #region class-body-updatedashboardblockdaterange2
-// #endregion class-body-updatedashboardblockdaterange2
-
-type UpdateDashboardMode2 string
-
-const (
-	UpdateDashboardMode2PreviousPeriod               UpdateDashboardMode2 = "previousPeriod"
-	UpdateDashboardMode2PreviousPeriodMatchDayOfWeek UpdateDashboardMode2 = "previousPeriodMatchDayOfWeek"
-	UpdateDashboardMode2PreviousYear                 UpdateDashboardMode2 = "previousYear"
-	UpdateDashboardMode2PreviousYearMatchDayOfWeek   UpdateDashboardMode2 = "previousYearMatchDayOfWeek"
-	UpdateDashboardMode2Custom                       UpdateDashboardMode2 = "custom"
-)
-
-func (e UpdateDashboardMode2) ToPointer() *UpdateDashboardMode2 {
-	return &e
-}
-func (e *UpdateDashboardMode2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "previousPeriod":
-		fallthrough
-	case "previousPeriodMatchDayOfWeek":
-		fallthrough
-	case "previousYear":
-		fallthrough
-	case "previousYearMatchDayOfWeek":
-		fallthrough
-	case "custom":
-		*e = UpdateDashboardMode2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdateDashboardMode2: %v", v)
-	}
-}
-
-type UpdateDashboardPreviousTimeFramePredefined2 string
-
-const (
-	UpdateDashboardPreviousTimeFramePredefined2Today            UpdateDashboardPreviousTimeFramePredefined2 = "today"
-	UpdateDashboardPreviousTimeFramePredefined2Yesterday        UpdateDashboardPreviousTimeFramePredefined2 = "yesterday"
-	UpdateDashboardPreviousTimeFramePredefined2Last7Days        UpdateDashboardPreviousTimeFramePredefined2 = "last7Days"
-	UpdateDashboardPreviousTimeFramePredefined2Last30Days       UpdateDashboardPreviousTimeFramePredefined2 = "last30Days"
-	UpdateDashboardPreviousTimeFramePredefined2Last90Days       UpdateDashboardPreviousTimeFramePredefined2 = "last90Days"
-	UpdateDashboardPreviousTimeFramePredefined2Last12Months     UpdateDashboardPreviousTimeFramePredefined2 = "last12Months"
-	UpdateDashboardPreviousTimeFramePredefined2LastCalendarYear UpdateDashboardPreviousTimeFramePredefined2 = "lastCalendarYear"
-	UpdateDashboardPreviousTimeFramePredefined2CustomLookback   UpdateDashboardPreviousTimeFramePredefined2 = "customLookback"
-	UpdateDashboardPreviousTimeFramePredefined2CustomDateRange  UpdateDashboardPreviousTimeFramePredefined2 = "customDateRange"
-)
-
-func (e UpdateDashboardPreviousTimeFramePredefined2) ToPointer() *UpdateDashboardPreviousTimeFramePredefined2 {
-	return &e
-}
-func (e *UpdateDashboardPreviousTimeFramePredefined2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "today":
-		fallthrough
-	case "yesterday":
-		fallthrough
-	case "last7Days":
-		fallthrough
-	case "last30Days":
-		fallthrough
-	case "last90Days":
-		fallthrough
-	case "last12Months":
-		fallthrough
-	case "lastCalendarYear":
-		fallthrough
-	case "customLookback":
-		fallthrough
-	case "customDateRange":
-		*e = UpdateDashboardPreviousTimeFramePredefined2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdateDashboardPreviousTimeFramePredefined2: %v", v)
-	}
-}
-
-type UpdateDashboardPreviousTimeFrameLookbackUnit2 string
-
-const (
-	UpdateDashboardPreviousTimeFrameLookbackUnit2Hour  UpdateDashboardPreviousTimeFrameLookbackUnit2 = "hour"
-	UpdateDashboardPreviousTimeFrameLookbackUnit2Day   UpdateDashboardPreviousTimeFrameLookbackUnit2 = "day"
-	UpdateDashboardPreviousTimeFrameLookbackUnit2Week  UpdateDashboardPreviousTimeFrameLookbackUnit2 = "week"
-	UpdateDashboardPreviousTimeFrameLookbackUnit2Month UpdateDashboardPreviousTimeFrameLookbackUnit2 = "month"
-)
-
-func (e UpdateDashboardPreviousTimeFrameLookbackUnit2) ToPointer() *UpdateDashboardPreviousTimeFrameLookbackUnit2 {
-	return &e
-}
-func (e *UpdateDashboardPreviousTimeFrameLookbackUnit2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "hour":
-		fallthrough
-	case "day":
-		fallthrough
-	case "week":
-		fallthrough
-	case "month":
-		*e = UpdateDashboardPreviousTimeFrameLookbackUnit2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdateDashboardPreviousTimeFrameLookbackUnit2: %v", v)
-	}
-}
-
-type UpdateDashboardPreviousTimeFrame2 struct {
-	Predefined    UpdateDashboardPreviousTimeFramePredefined2                                      `json:"predefined"`
-	LookbackValue optionalnullable.OptionalNullable[float64]                                       `json:"lookbackValue,omitzero"`
-	LookbackUnit  optionalnullable.OptionalNullable[UpdateDashboardPreviousTimeFrameLookbackUnit2] `json:"lookbackUnit,omitzero"`
-	StartDate     optionalnullable.OptionalNullable[string]                                        `json:"startDate,omitzero"`
-	EndDate       optionalnullable.OptionalNullable[string]                                        `json:"endDate,omitzero"`
-}
-
-func (u UpdateDashboardPreviousTimeFrame2) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateDashboardPreviousTimeFrame2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateDashboardPreviousTimeFrame2) GetPredefined() UpdateDashboardPreviousTimeFramePredefined2 {
-	if u == nil {
-		return UpdateDashboardPreviousTimeFramePredefined2("")
-	}
-	return u.Predefined
-}
-
-func (u *UpdateDashboardPreviousTimeFrame2) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
-	if u == nil {
-		return nil
-	}
-	return u.LookbackValue
-}
-
-func (u *UpdateDashboardPreviousTimeFrame2) GetLookbackUnit() optionalnullable.OptionalNullable[UpdateDashboardPreviousTimeFrameLookbackUnit2] {
-	if u == nil {
-		return nil
-	}
-	return u.LookbackUnit
-}
-
-func (u *UpdateDashboardPreviousTimeFrame2) GetStartDate() optionalnullable.OptionalNullable[string] {
-	if u == nil {
-		return nil
-	}
-	return u.StartDate
-}
-
-func (u *UpdateDashboardPreviousTimeFrame2) GetEndDate() optionalnullable.OptionalNullable[string] {
-	if u == nil {
-		return nil
-	}
-	return u.EndDate
-}
-
-// #region class-body-updatedashboardprevioustimeframe2
-// #endregion class-body-updatedashboardprevioustimeframe2
-
-type UpdateDashboardComparison2 struct {
-	Enabled           bool                               `json:"enabled"`
-	Mode              *UpdateDashboardMode2              `json:"mode,omitzero"`
-	PreviousTimeFrame *UpdateDashboardPreviousTimeFrame2 `json:"previousTimeFrame,omitzero"`
-}
-
-func (u UpdateDashboardComparison2) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateDashboardComparison2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateDashboardComparison2) GetEnabled() bool {
-	if u == nil {
-		return false
-	}
-	return u.Enabled
-}
-
-func (u *UpdateDashboardComparison2) GetMode() *UpdateDashboardMode2 {
-	if u == nil {
-		return nil
-	}
-	return u.Mode
-}
-
-func (u *UpdateDashboardComparison2) GetPreviousTimeFrame() *UpdateDashboardPreviousTimeFrame2 {
-	if u == nil {
-		return nil
-	}
-	return u.PreviousTimeFrame
-}
-
-// #region class-body-updatedashboardcomparison2
-// #endregion class-body-updatedashboardcomparison2
-
-type UpdateDashboardGlobalControlSettings3 struct {
-	DateRange              *bool `json:"dateRange,omitzero"`
-	Projects               *bool `json:"projects,omitzero"`
-	ExperimentSearchString *bool `json:"experimentSearchString,omitzero"`
-}
-
-func (u UpdateDashboardGlobalControlSettings3) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateDashboardGlobalControlSettings3) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateDashboardGlobalControlSettings3) GetDateRange() *bool {
-	if u == nil {
-		return nil
-	}
-	return u.DateRange
-}
-
-func (u *UpdateDashboardGlobalControlSettings3) GetProjects() *bool {
-	if u == nil {
-		return nil
-	}
-	return u.Projects
-}
-
-func (u *UpdateDashboardGlobalControlSettings3) GetExperimentSearchString() *bool {
-	if u == nil {
-		return nil
-	}
-	return u.ExperimentSearchString
-}
-
-// #region class-body-updatedashboardglobalcontrolsettings3
-// #endregion class-body-updatedashboardglobalcontrolsettings3
-
-type UpdateDashboardBlockExperimentsWinRate1 struct {
-	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_                  string                                 `const:"experiments-win-rate" json:"type"`
-	Title                  string                                 `json:"title"`
-	Description            string                                 `json:"description"`
-	SnapshotID             *string                                `json:"snapshotId,omitzero"`
-	Layout                 *UpdateDashboardLayout6                `json:"layout,omitzero"`
-	DateRange              UpdateDashboardBlockDateRange2         `json:"dateRange"`
-	Projects               []string                               `json:"projects"`
-	ExperimentSearchString *string                                `json:"experimentSearchString,omitzero"`
-	Comparison             *UpdateDashboardComparison2            `json:"comparison,omitzero"`
-	GlobalControlSettings  *UpdateDashboardGlobalControlSettings3 `json:"globalControlSettings,omitzero"`
-	ShowProjectBreakdown   bool                                   `json:"showProjectBreakdown"`
-}
-
-func (u UpdateDashboardBlockExperimentsWinRate1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateDashboardBlockExperimentsWinRate1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateDashboardBlockExperimentsWinRate1) GetType() string {
-	return "experiments-win-rate"
-}
-
-func (u *UpdateDashboardBlockExperimentsWinRate1) GetTitle() string {
-	if u == nil {
-		return ""
-	}
-	return u.Title
-}
-
-func (u *UpdateDashboardBlockExperimentsWinRate1) GetDescription() string {
-	if u == nil {
-		return ""
-	}
-	return u.Description
-}
-
-func (u *UpdateDashboardBlockExperimentsWinRate1) GetSnapshotID() *string {
-	if u == nil {
-		return nil
-	}
-	return u.SnapshotID
-}
-
-func (u *UpdateDashboardBlockExperimentsWinRate1) GetLayout() *UpdateDashboardLayout6 {
-	if u == nil {
-		return nil
-	}
-	return u.Layout
-}
-
-func (u *UpdateDashboardBlockExperimentsWinRate1) GetDateRange() UpdateDashboardBlockDateRange2 {
-	if u == nil {
-		return UpdateDashboardBlockDateRange2{}
-	}
-	return u.DateRange
-}
-
-func (u *UpdateDashboardBlockExperimentsWinRate1) GetProjects() []string {
-	if u == nil {
-		return []string{}
-	}
-	return u.Projects
-}
-
-func (u *UpdateDashboardBlockExperimentsWinRate1) GetExperimentSearchString() *string {
-	if u == nil {
-		return nil
-	}
-	return u.ExperimentSearchString
-}
-
-func (u *UpdateDashboardBlockExperimentsWinRate1) GetComparison() *UpdateDashboardComparison2 {
-	if u == nil {
-		return nil
-	}
-	return u.Comparison
-}
-
-func (u *UpdateDashboardBlockExperimentsWinRate1) GetGlobalControlSettings() *UpdateDashboardGlobalControlSettings3 {
-	if u == nil {
-		return nil
-	}
-	return u.GlobalControlSettings
-}
-
-func (u *UpdateDashboardBlockExperimentsWinRate1) GetShowProjectBreakdown() bool {
-	if u == nil {
-		return false
-	}
-	return u.ShowProjectBreakdown
-}
-
-// #region class-body-updatedashboardblockexperimentswinrate1
-// #endregion class-body-updatedashboardblockexperimentswinrate1
-
-type UpdateDashboardLayout5 struct {
-	X      int64 `json:"x"`
-	Y      int64 `json:"y"`
-	W      int64 `json:"w"`
-	H      int64 `json:"h"`
-	Static *bool `json:"static,omitzero"`
-}
-
-func (u UpdateDashboardLayout5) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateDashboardLayout5) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateDashboardLayout5) GetX() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.X
-}
-
-func (u *UpdateDashboardLayout5) GetY() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.Y
-}
-
-func (u *UpdateDashboardLayout5) GetW() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.W
-}
-
-func (u *UpdateDashboardLayout5) GetH() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.H
-}
-
-func (u *UpdateDashboardLayout5) GetStatic() *bool {
-	if u == nil {
-		return nil
-	}
-	return u.Static
-}
-
-// #region class-body-updatedashboardlayout5
-// #endregion class-body-updatedashboardlayout5
-
-type UpdateDashboardBlockDateRangePredefined1 string
-
-const (
-	UpdateDashboardBlockDateRangePredefined1Today            UpdateDashboardBlockDateRangePredefined1 = "today"
-	UpdateDashboardBlockDateRangePredefined1Yesterday        UpdateDashboardBlockDateRangePredefined1 = "yesterday"
-	UpdateDashboardBlockDateRangePredefined1Last7Days        UpdateDashboardBlockDateRangePredefined1 = "last7Days"
-	UpdateDashboardBlockDateRangePredefined1Last30Days       UpdateDashboardBlockDateRangePredefined1 = "last30Days"
-	UpdateDashboardBlockDateRangePredefined1Last90Days       UpdateDashboardBlockDateRangePredefined1 = "last90Days"
-	UpdateDashboardBlockDateRangePredefined1Last12Months     UpdateDashboardBlockDateRangePredefined1 = "last12Months"
-	UpdateDashboardBlockDateRangePredefined1LastCalendarYear UpdateDashboardBlockDateRangePredefined1 = "lastCalendarYear"
-	UpdateDashboardBlockDateRangePredefined1CustomLookback   UpdateDashboardBlockDateRangePredefined1 = "customLookback"
-	UpdateDashboardBlockDateRangePredefined1CustomDateRange  UpdateDashboardBlockDateRangePredefined1 = "customDateRange"
-)
-
-func (e UpdateDashboardBlockDateRangePredefined1) ToPointer() *UpdateDashboardBlockDateRangePredefined1 {
-	return &e
-}
-func (e *UpdateDashboardBlockDateRangePredefined1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "today":
-		fallthrough
-	case "yesterday":
-		fallthrough
-	case "last7Days":
-		fallthrough
-	case "last30Days":
-		fallthrough
-	case "last90Days":
-		fallthrough
-	case "last12Months":
-		fallthrough
-	case "lastCalendarYear":
-		fallthrough
-	case "customLookback":
-		fallthrough
-	case "customDateRange":
-		*e = UpdateDashboardBlockDateRangePredefined1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdateDashboardBlockDateRangePredefined1: %v", v)
-	}
-}
-
-type UpdateDashboardBlockDateRangeLookbackUnit1 string
-
-const (
-	UpdateDashboardBlockDateRangeLookbackUnit1Hour  UpdateDashboardBlockDateRangeLookbackUnit1 = "hour"
-	UpdateDashboardBlockDateRangeLookbackUnit1Day   UpdateDashboardBlockDateRangeLookbackUnit1 = "day"
-	UpdateDashboardBlockDateRangeLookbackUnit1Week  UpdateDashboardBlockDateRangeLookbackUnit1 = "week"
-	UpdateDashboardBlockDateRangeLookbackUnit1Month UpdateDashboardBlockDateRangeLookbackUnit1 = "month"
-)
-
-func (e UpdateDashboardBlockDateRangeLookbackUnit1) ToPointer() *UpdateDashboardBlockDateRangeLookbackUnit1 {
-	return &e
-}
-func (e *UpdateDashboardBlockDateRangeLookbackUnit1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "hour":
-		fallthrough
-	case "day":
-		fallthrough
-	case "week":
-		fallthrough
-	case "month":
-		*e = UpdateDashboardBlockDateRangeLookbackUnit1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdateDashboardBlockDateRangeLookbackUnit1: %v", v)
-	}
-}
-
-type UpdateDashboardBlockDateRange1 struct {
-	Predefined    UpdateDashboardBlockDateRangePredefined1                                      `json:"predefined"`
-	LookbackValue optionalnullable.OptionalNullable[float64]                                    `json:"lookbackValue,omitzero"`
-	LookbackUnit  optionalnullable.OptionalNullable[UpdateDashboardBlockDateRangeLookbackUnit1] `json:"lookbackUnit,omitzero"`
-	StartDate     optionalnullable.OptionalNullable[string]                                     `json:"startDate,omitzero"`
-	EndDate       optionalnullable.OptionalNullable[string]                                     `json:"endDate,omitzero"`
-}
-
-func (u UpdateDashboardBlockDateRange1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateDashboardBlockDateRange1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateDashboardBlockDateRange1) GetPredefined() UpdateDashboardBlockDateRangePredefined1 {
-	if u == nil {
-		return UpdateDashboardBlockDateRangePredefined1("")
-	}
-	return u.Predefined
-}
-
-func (u *UpdateDashboardBlockDateRange1) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
-	if u == nil {
-		return nil
-	}
-	return u.LookbackValue
-}
-
-func (u *UpdateDashboardBlockDateRange1) GetLookbackUnit() optionalnullable.OptionalNullable[UpdateDashboardBlockDateRangeLookbackUnit1] {
-	if u == nil {
-		return nil
-	}
-	return u.LookbackUnit
-}
-
-func (u *UpdateDashboardBlockDateRange1) GetStartDate() optionalnullable.OptionalNullable[string] {
-	if u == nil {
-		return nil
-	}
-	return u.StartDate
-}
-
-func (u *UpdateDashboardBlockDateRange1) GetEndDate() optionalnullable.OptionalNullable[string] {
-	if u == nil {
-		return nil
-	}
-	return u.EndDate
-}
-
-// #region class-body-updatedashboardblockdaterange1
-// #endregion class-body-updatedashboardblockdaterange1
-
-type UpdateDashboardMode1 string
-
-const (
-	UpdateDashboardMode1PreviousPeriod               UpdateDashboardMode1 = "previousPeriod"
-	UpdateDashboardMode1PreviousPeriodMatchDayOfWeek UpdateDashboardMode1 = "previousPeriodMatchDayOfWeek"
-	UpdateDashboardMode1PreviousYear                 UpdateDashboardMode1 = "previousYear"
-	UpdateDashboardMode1PreviousYearMatchDayOfWeek   UpdateDashboardMode1 = "previousYearMatchDayOfWeek"
-	UpdateDashboardMode1Custom                       UpdateDashboardMode1 = "custom"
-)
-
-func (e UpdateDashboardMode1) ToPointer() *UpdateDashboardMode1 {
-	return &e
-}
-func (e *UpdateDashboardMode1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "previousPeriod":
-		fallthrough
-	case "previousPeriodMatchDayOfWeek":
-		fallthrough
-	case "previousYear":
-		fallthrough
-	case "previousYearMatchDayOfWeek":
-		fallthrough
-	case "custom":
-		*e = UpdateDashboardMode1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdateDashboardMode1: %v", v)
-	}
-}
-
-type UpdateDashboardPreviousTimeFramePredefined1 string
-
-const (
-	UpdateDashboardPreviousTimeFramePredefined1Today            UpdateDashboardPreviousTimeFramePredefined1 = "today"
-	UpdateDashboardPreviousTimeFramePredefined1Yesterday        UpdateDashboardPreviousTimeFramePredefined1 = "yesterday"
-	UpdateDashboardPreviousTimeFramePredefined1Last7Days        UpdateDashboardPreviousTimeFramePredefined1 = "last7Days"
-	UpdateDashboardPreviousTimeFramePredefined1Last30Days       UpdateDashboardPreviousTimeFramePredefined1 = "last30Days"
-	UpdateDashboardPreviousTimeFramePredefined1Last90Days       UpdateDashboardPreviousTimeFramePredefined1 = "last90Days"
-	UpdateDashboardPreviousTimeFramePredefined1Last12Months     UpdateDashboardPreviousTimeFramePredefined1 = "last12Months"
-	UpdateDashboardPreviousTimeFramePredefined1LastCalendarYear UpdateDashboardPreviousTimeFramePredefined1 = "lastCalendarYear"
-	UpdateDashboardPreviousTimeFramePredefined1CustomLookback   UpdateDashboardPreviousTimeFramePredefined1 = "customLookback"
-	UpdateDashboardPreviousTimeFramePredefined1CustomDateRange  UpdateDashboardPreviousTimeFramePredefined1 = "customDateRange"
-)
-
-func (e UpdateDashboardPreviousTimeFramePredefined1) ToPointer() *UpdateDashboardPreviousTimeFramePredefined1 {
-	return &e
-}
-func (e *UpdateDashboardPreviousTimeFramePredefined1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "today":
-		fallthrough
-	case "yesterday":
-		fallthrough
-	case "last7Days":
-		fallthrough
-	case "last30Days":
-		fallthrough
-	case "last90Days":
-		fallthrough
-	case "last12Months":
-		fallthrough
-	case "lastCalendarYear":
-		fallthrough
-	case "customLookback":
-		fallthrough
-	case "customDateRange":
-		*e = UpdateDashboardPreviousTimeFramePredefined1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdateDashboardPreviousTimeFramePredefined1: %v", v)
-	}
-}
-
-type UpdateDashboardPreviousTimeFrameLookbackUnit1 string
-
-const (
-	UpdateDashboardPreviousTimeFrameLookbackUnit1Hour  UpdateDashboardPreviousTimeFrameLookbackUnit1 = "hour"
-	UpdateDashboardPreviousTimeFrameLookbackUnit1Day   UpdateDashboardPreviousTimeFrameLookbackUnit1 = "day"
-	UpdateDashboardPreviousTimeFrameLookbackUnit1Week  UpdateDashboardPreviousTimeFrameLookbackUnit1 = "week"
-	UpdateDashboardPreviousTimeFrameLookbackUnit1Month UpdateDashboardPreviousTimeFrameLookbackUnit1 = "month"
-)
-
-func (e UpdateDashboardPreviousTimeFrameLookbackUnit1) ToPointer() *UpdateDashboardPreviousTimeFrameLookbackUnit1 {
-	return &e
-}
-func (e *UpdateDashboardPreviousTimeFrameLookbackUnit1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "hour":
-		fallthrough
-	case "day":
-		fallthrough
-	case "week":
-		fallthrough
-	case "month":
-		*e = UpdateDashboardPreviousTimeFrameLookbackUnit1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdateDashboardPreviousTimeFrameLookbackUnit1: %v", v)
-	}
-}
-
-type UpdateDashboardPreviousTimeFrame1 struct {
-	Predefined    UpdateDashboardPreviousTimeFramePredefined1                                      `json:"predefined"`
-	LookbackValue optionalnullable.OptionalNullable[float64]                                       `json:"lookbackValue,omitzero"`
-	LookbackUnit  optionalnullable.OptionalNullable[UpdateDashboardPreviousTimeFrameLookbackUnit1] `json:"lookbackUnit,omitzero"`
-	StartDate     optionalnullable.OptionalNullable[string]                                        `json:"startDate,omitzero"`
-	EndDate       optionalnullable.OptionalNullable[string]                                        `json:"endDate,omitzero"`
-}
-
-func (u UpdateDashboardPreviousTimeFrame1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateDashboardPreviousTimeFrame1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateDashboardPreviousTimeFrame1) GetPredefined() UpdateDashboardPreviousTimeFramePredefined1 {
-	if u == nil {
-		return UpdateDashboardPreviousTimeFramePredefined1("")
-	}
-	return u.Predefined
-}
-
-func (u *UpdateDashboardPreviousTimeFrame1) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
-	if u == nil {
-		return nil
-	}
-	return u.LookbackValue
-}
-
-func (u *UpdateDashboardPreviousTimeFrame1) GetLookbackUnit() optionalnullable.OptionalNullable[UpdateDashboardPreviousTimeFrameLookbackUnit1] {
-	if u == nil {
-		return nil
-	}
-	return u.LookbackUnit
-}
-
-func (u *UpdateDashboardPreviousTimeFrame1) GetStartDate() optionalnullable.OptionalNullable[string] {
-	if u == nil {
-		return nil
-	}
-	return u.StartDate
-}
-
-func (u *UpdateDashboardPreviousTimeFrame1) GetEndDate() optionalnullable.OptionalNullable[string] {
-	if u == nil {
-		return nil
-	}
-	return u.EndDate
-}
-
-// #region class-body-updatedashboardprevioustimeframe1
-// #endregion class-body-updatedashboardprevioustimeframe1
-
-type UpdateDashboardComparison1 struct {
-	Enabled           bool                               `json:"enabled"`
-	Mode              *UpdateDashboardMode1              `json:"mode,omitzero"`
-	PreviousTimeFrame *UpdateDashboardPreviousTimeFrame1 `json:"previousTimeFrame,omitzero"`
-}
-
-func (u UpdateDashboardComparison1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateDashboardComparison1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateDashboardComparison1) GetEnabled() bool {
-	if u == nil {
-		return false
-	}
-	return u.Enabled
-}
-
-func (u *UpdateDashboardComparison1) GetMode() *UpdateDashboardMode1 {
-	if u == nil {
-		return nil
-	}
-	return u.Mode
-}
-
-func (u *UpdateDashboardComparison1) GetPreviousTimeFrame() *UpdateDashboardPreviousTimeFrame1 {
-	if u == nil {
-		return nil
-	}
-	return u.PreviousTimeFrame
-}
-
-// #region class-body-updatedashboardcomparison1
-// #endregion class-body-updatedashboardcomparison1
+// #region class-body-updatedashboardblockcomparison1
+// #endregion class-body-updatedashboardblockcomparison1
 
 type UpdateDashboardGlobalControlSettings2 struct {
 	DateRange              *bool `json:"dateRange,omitzero"`
@@ -2582,9 +103,12 @@ type UpdateDashboardBlockExperimentsScaledImpact1 struct {
 	DateRange              UpdateDashboardBlockDateRange1         `json:"dateRange"`
 	Projects               []string                               `json:"projects"`
 	ExperimentSearchString *string                                `json:"experimentSearchString,omitzero"`
-	Comparison             *UpdateDashboardComparison1            `json:"comparison,omitzero"`
+	Comparison             *UpdateDashboardBlockComparison1       `json:"comparison,omitzero"`
 	GlobalControlSettings  *UpdateDashboardGlobalControlSettings2 `json:"globalControlSettings,omitzero"`
 	MetricID               string                                 `json:"metricId"`
+	ID                     string                                 `json:"id"`
+	UID                    *string                                `json:"uid,omitzero"`
+	Organization           *string                                `json:"organization,omitzero"`
 }
 
 func (u UpdateDashboardBlockExperimentsScaledImpact1) MarshalJSON() ([]byte, error) {
@@ -2651,7 +175,7 @@ func (u *UpdateDashboardBlockExperimentsScaledImpact1) GetExperimentSearchString
 	return u.ExperimentSearchString
 }
 
-func (u *UpdateDashboardBlockExperimentsScaledImpact1) GetComparison() *UpdateDashboardComparison1 {
+func (u *UpdateDashboardBlockExperimentsScaledImpact1) GetComparison() *UpdateDashboardBlockComparison1 {
 	if u == nil {
 		return nil
 	}
@@ -2670,6 +194,27 @@ func (u *UpdateDashboardBlockExperimentsScaledImpact1) GetMetricID() string {
 		return ""
 	}
 	return u.MetricID
+}
+
+func (u *UpdateDashboardBlockExperimentsScaledImpact1) GetID() string {
+	if u == nil {
+		return ""
+	}
+	return u.ID
+}
+
+func (u *UpdateDashboardBlockExperimentsScaledImpact1) GetUID() *string {
+	if u == nil {
+		return nil
+	}
+	return u.UID
+}
+
+func (u *UpdateDashboardBlockExperimentsScaledImpact1) GetOrganization() *string {
+	if u == nil {
+		return nil
+	}
+	return u.Organization
 }
 
 // #region class-body-updatedashboardblockexperimentsscaledimpact1
@@ -3123,6 +668,9 @@ type UpdateDashboardBlockMetricExperiments1 struct {
 	EndDateRange           *UpdateDashboardEndDateRange1          `json:"endDateRange,omitzero"`
 	Columns                []UpdateDashboardColumn1               `json:"columns,omitzero"`
 	GlobalControlSettings  *UpdateDashboardGlobalControlSettings1 `json:"globalControlSettings,omitzero"`
+	ID                     string                                 `json:"id"`
+	UID                    *string                                `json:"uid,omitzero"`
+	Organization           *string                                `json:"organization,omitzero"`
 }
 
 func (u UpdateDashboardBlockMetricExperiments1) MarshalJSON() ([]byte, error) {
@@ -3229,6 +777,27 @@ func (u *UpdateDashboardBlockMetricExperiments1) GetGlobalControlSettings() *Upd
 		return nil
 	}
 	return u.GlobalControlSettings
+}
+
+func (u *UpdateDashboardBlockMetricExperiments1) GetID() string {
+	if u == nil {
+		return ""
+	}
+	return u.ID
+}
+
+func (u *UpdateDashboardBlockMetricExperiments1) GetUID() *string {
+	if u == nil {
+		return nil
+	}
+	return u.UID
+}
+
+func (u *UpdateDashboardBlockMetricExperiments1) GetOrganization() *string {
+	if u == nil {
+		return nil
+	}
+	return u.Organization
 }
 
 // #region class-body-updatedashboardblockmetricexperiments1
@@ -3433,6 +1002,9 @@ type UpdateDashboardBlockExperimentMetric1 struct {
 	MetricTagFilter []string                        `json:"metricTagFilter"`
 	SortBy          *UpdateDashboardSortBy1         `json:"sortBy"`
 	SortDirection   *UpdateDashboardSortDirection1  `json:"sortDirection"`
+	ID              string                          `json:"id"`
+	UID             *string                         `json:"uid,omitzero"`
+	Organization    *string                         `json:"organization,omitzero"`
 }
 
 func (u UpdateDashboardBlockExperimentMetric1) MarshalJSON() ([]byte, error) {
@@ -3548,6 +1120,27 @@ func (u *UpdateDashboardBlockExperimentMetric1) GetSortDirection() *UpdateDashbo
 	return u.SortDirection
 }
 
+func (u *UpdateDashboardBlockExperimentMetric1) GetID() string {
+	if u == nil {
+		return ""
+	}
+	return u.ID
+}
+
+func (u *UpdateDashboardBlockExperimentMetric1) GetUID() *string {
+	if u == nil {
+		return nil
+	}
+	return u.UID
+}
+
+func (u *UpdateDashboardBlockExperimentMetric1) GetOrganization() *string {
+	if u == nil {
+		return nil
+	}
+	return u.Organization
+}
+
 // #region class-body-updatedashboardblockexperimentmetric1
 // #endregion class-body-updatedashboardblockexperimentmetric1
 
@@ -3620,6 +1213,9 @@ type UpdateDashboardBlockExperimentMetadata1 struct {
 	ShowHypothesis      bool                    `json:"showHypothesis"`
 	ShowVariationImages bool                    `json:"showVariationImages"`
 	VariationIds        []string                `json:"variationIds,omitzero"`
+	ID                  string                  `json:"id"`
+	UID                 *string                 `json:"uid,omitzero"`
+	Organization        *string                 `json:"organization,omitzero"`
 }
 
 func (u UpdateDashboardBlockExperimentMetadata1) MarshalJSON() ([]byte, error) {
@@ -3700,6 +1296,27 @@ func (u *UpdateDashboardBlockExperimentMetadata1) GetVariationIds() []string {
 	return u.VariationIds
 }
 
+func (u *UpdateDashboardBlockExperimentMetadata1) GetID() string {
+	if u == nil {
+		return ""
+	}
+	return u.ID
+}
+
+func (u *UpdateDashboardBlockExperimentMetadata1) GetUID() *string {
+	if u == nil {
+		return nil
+	}
+	return u.UID
+}
+
+func (u *UpdateDashboardBlockExperimentMetadata1) GetOrganization() *string {
+	if u == nil {
+		return nil
+	}
+	return u.Organization
+}
+
 // #region class-body-updatedashboardblockexperimentmetadata1
 // #endregion class-body-updatedashboardblockexperimentmetadata1
 
@@ -3762,12 +1379,15 @@ func (u *UpdateDashboardLayout1) GetStatic() *bool {
 
 type UpdateDashboardBlockMarkdown1 struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_       string                  `const:"markdown" json:"type"`
-	Title       string                  `json:"title"`
-	Description string                  `json:"description"`
-	SnapshotID  *string                 `json:"snapshotId,omitzero"`
-	Layout      *UpdateDashboardLayout1 `json:"layout,omitzero"`
-	Content     string                  `json:"content"`
+	type_        string                  `const:"markdown" json:"type"`
+	Title        string                  `json:"title"`
+	Description  string                  `json:"description"`
+	SnapshotID   *string                 `json:"snapshotId,omitzero"`
+	Layout       *UpdateDashboardLayout1 `json:"layout,omitzero"`
+	Content      string                  `json:"content"`
+	ID           string                  `json:"id"`
+	UID          *string                 `json:"uid,omitzero"`
+	Organization *string                 `json:"organization,omitzero"`
 }
 
 func (u UpdateDashboardBlockMarkdown1) MarshalJSON() ([]byte, error) {
@@ -3820,6 +1440,27 @@ func (u *UpdateDashboardBlockMarkdown1) GetContent() string {
 	return u.Content
 }
 
+func (u *UpdateDashboardBlockMarkdown1) GetID() string {
+	if u == nil {
+		return ""
+	}
+	return u.ID
+}
+
+func (u *UpdateDashboardBlockMarkdown1) GetUID() *string {
+	if u == nil {
+		return nil
+	}
+	return u.UID
+}
+
+func (u *UpdateDashboardBlockMarkdown1) GetOrganization() *string {
+	if u == nil {
+		return nil
+	}
+	return u.Organization
+}
+
 // #region class-body-updatedashboardblockmarkdown1
 // #endregion class-body-updatedashboardblockmarkdown1
 
@@ -3841,6 +1482,8 @@ const (
 	UpdateDashboardBlockUnion2TypeMetricExploration       UpdateDashboardBlockUnion2Type = "metric-exploration"
 	UpdateDashboardBlockUnion2TypeFactTableExploration    UpdateDashboardBlockUnion2Type = "fact-table-exploration"
 	UpdateDashboardBlockUnion2TypeDataSourceExploration   UpdateDashboardBlockUnion2Type = "data-source-exploration"
+	UpdateDashboardBlockUnion2TypeFunnelExploration       UpdateDashboardBlockUnion2Type = "funnel-exploration"
+	UpdateDashboardBlockUnion2TypeSQLExploration          UpdateDashboardBlockUnion2Type = "sql-exploration"
 )
 
 type UpdateDashboardBlockUnion2 struct {
@@ -3859,6 +1502,8 @@ type UpdateDashboardBlockUnion2 struct {
 	UpdateDashboardBlockMetricExploration1       *UpdateDashboardBlockMetricExploration1       `queryParam:"inline" union:"member"`
 	UpdateDashboardBlockFactTableExploration1    *UpdateDashboardBlockFactTableExploration1    `queryParam:"inline" union:"member"`
 	UpdateDashboardBlockDataSourceExploration1   *UpdateDashboardBlockDataSourceExploration1   `queryParam:"inline" union:"member"`
+	UpdateDashboardBlockFunnelExploration1       *UpdateDashboardBlockFunnelExploration1       `queryParam:"inline" union:"member"`
+	UpdateDashboardBlockSQLExploration1          *UpdateDashboardBlockSQLExploration1          `queryParam:"inline" union:"member"`
 
 	Type UpdateDashboardBlockUnion2Type
 }
@@ -3995,6 +1640,24 @@ func CreateUpdateDashboardBlockUnion2DataSourceExploration(dataSourceExploration
 	return UpdateDashboardBlockUnion2{
 		UpdateDashboardBlockDataSourceExploration1: &dataSourceExploration,
 		Type: typ,
+	}
+}
+
+func CreateUpdateDashboardBlockUnion2FunnelExploration(funnelExploration UpdateDashboardBlockFunnelExploration1) UpdateDashboardBlockUnion2 {
+	typ := UpdateDashboardBlockUnion2TypeFunnelExploration
+
+	return UpdateDashboardBlockUnion2{
+		UpdateDashboardBlockFunnelExploration1: &funnelExploration,
+		Type:                                   typ,
+	}
+}
+
+func CreateUpdateDashboardBlockUnion2SQLExploration(sqlExploration UpdateDashboardBlockSQLExploration1) UpdateDashboardBlockUnion2 {
+	typ := UpdateDashboardBlockUnion2TypeSQLExploration
+
+	return UpdateDashboardBlockUnion2{
+		UpdateDashboardBlockSQLExploration1: &sqlExploration,
+		Type:                                typ,
 	}
 }
 
@@ -4145,6 +1808,24 @@ func (u *UpdateDashboardBlockUnion2) UnmarshalJSON(data []byte) error {
 		u.UpdateDashboardBlockDataSourceExploration1 = updateDashboardBlockDataSourceExploration1
 		u.Type = UpdateDashboardBlockUnion2TypeDataSourceExploration
 		return nil
+	case "funnel-exploration":
+		updateDashboardBlockFunnelExploration1 := new(UpdateDashboardBlockFunnelExploration1)
+		if err := utils.UnmarshalJSON(data, &updateDashboardBlockFunnelExploration1, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == funnel-exploration) type UpdateDashboardBlockFunnelExploration1 within UpdateDashboardBlockUnion2: %w", string(data), err)
+		}
+
+		u.UpdateDashboardBlockFunnelExploration1 = updateDashboardBlockFunnelExploration1
+		u.Type = UpdateDashboardBlockUnion2TypeFunnelExploration
+		return nil
+	case "sql-exploration":
+		updateDashboardBlockSQLExploration1 := new(UpdateDashboardBlockSQLExploration1)
+		if err := utils.UnmarshalJSON(data, &updateDashboardBlockSQLExploration1, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == sql-exploration) type UpdateDashboardBlockSQLExploration1 within UpdateDashboardBlockUnion2: %w", string(data), err)
+		}
+
+		u.UpdateDashboardBlockSQLExploration1 = updateDashboardBlockSQLExploration1
+		u.Type = UpdateDashboardBlockUnion2TypeSQLExploration
+		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for UpdateDashboardBlockUnion2", string(data))
@@ -4211,21 +1892,62 @@ func (u UpdateDashboardBlockUnion2) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.UpdateDashboardBlockDataSourceExploration1, "", true)
 	}
 
+	if u.UpdateDashboardBlockFunnelExploration1 != nil {
+		return utils.MarshalJSON(u.UpdateDashboardBlockFunnelExploration1, "", true)
+	}
+
+	if u.UpdateDashboardBlockSQLExploration1 != nil {
+		return utils.MarshalJSON(u.UpdateDashboardBlockSQLExploration1, "", true)
+	}
+
 	return nil, errors.New("could not marshal union type UpdateDashboardBlockUnion2: all fields are null")
+}
+
+type UpdateDashboardBlock struct {
+	ID string `json:"id"`
+}
+
+func (u UpdateDashboardBlock) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdateDashboardBlock) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *UpdateDashboardBlock) GetID() string {
+	if u == nil {
+		return ""
+	}
+	return u.ID
 }
 
 type UpdateDashboardBlockUnion1Type string
 
 const (
+	UpdateDashboardBlockUnion1TypeUpdateDashboardBlock       UpdateDashboardBlockUnion1Type = "updateDashboard_block"
 	UpdateDashboardBlockUnion1TypeUpdateDashboardBlockUnion2 UpdateDashboardBlockUnion1Type = "updateDashboard_block_union_2"
 	UpdateDashboardBlockUnion1TypeUpdateDashboardBlockUnion3 UpdateDashboardBlockUnion1Type = "updateDashboard_block_union_3"
 )
 
 type UpdateDashboardBlockUnion1 struct {
+	UpdateDashboardBlock       *UpdateDashboardBlock       `queryParam:"inline" union:"member"`
 	UpdateDashboardBlockUnion2 *UpdateDashboardBlockUnion2 `queryParam:"inline" union:"member"`
 	UpdateDashboardBlockUnion3 *UpdateDashboardBlockUnion3 `queryParam:"inline" union:"member"`
 
 	Type UpdateDashboardBlockUnion1Type
+}
+
+func CreateUpdateDashboardBlockUnion1UpdateDashboardBlock(updateDashboardBlock UpdateDashboardBlock) UpdateDashboardBlockUnion1 {
+	typ := UpdateDashboardBlockUnion1TypeUpdateDashboardBlock
+
+	return UpdateDashboardBlockUnion1{
+		UpdateDashboardBlock: &updateDashboardBlock,
+		Type:                 typ,
+	}
 }
 
 func CreateUpdateDashboardBlockUnion1UpdateDashboardBlockUnion2(updateDashboardBlockUnion2 UpdateDashboardBlockUnion2) UpdateDashboardBlockUnion1 {
@@ -4251,6 +1973,14 @@ func (u *UpdateDashboardBlockUnion1) UnmarshalJSON(data []byte) error {
 	var candidates []utils.UnionCandidate
 
 	// Collect all valid candidates
+	var updateDashboardBlock UpdateDashboardBlock = UpdateDashboardBlock{}
+	if err := utils.UnmarshalJSON(data, &updateDashboardBlock, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  UpdateDashboardBlockUnion1TypeUpdateDashboardBlock,
+			Value: &updateDashboardBlock,
+		})
+	}
+
 	var updateDashboardBlockUnion2 UpdateDashboardBlockUnion2 = UpdateDashboardBlockUnion2{}
 	if err := utils.UnmarshalJSON(data, &updateDashboardBlockUnion2, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
@@ -4280,6 +2010,9 @@ func (u *UpdateDashboardBlockUnion1) UnmarshalJSON(data []byte) error {
 	// Set the union type and value based on the best candidate
 	u.Type = best.Type.(UpdateDashboardBlockUnion1Type)
 	switch best.Type {
+	case UpdateDashboardBlockUnion1TypeUpdateDashboardBlock:
+		u.UpdateDashboardBlock = best.Value.(*UpdateDashboardBlock)
+		return nil
 	case UpdateDashboardBlockUnion1TypeUpdateDashboardBlockUnion2:
 		u.UpdateDashboardBlockUnion2 = best.Value.(*UpdateDashboardBlockUnion2)
 		return nil
@@ -4292,6 +2025,10 @@ func (u *UpdateDashboardBlockUnion1) UnmarshalJSON(data []byte) error {
 }
 
 func (u UpdateDashboardBlockUnion1) MarshalJSON() ([]byte, error) {
+	if u.UpdateDashboardBlock != nil {
+		return utils.MarshalJSON(u.UpdateDashboardBlock, "", true)
+	}
+
 	if u.UpdateDashboardBlockUnion2 != nil {
 		return utils.MarshalJSON(u.UpdateDashboardBlockUnion2, "", true)
 	}
@@ -4317,7 +2054,9 @@ type UpdateDashboardRequestBody struct {
 	// General Dashboards only, Experiment Dashboards use the experiment's projects
 	Projects       []string                       `json:"projects,omitzero"`
 	GlobalControls *UpdateDashboardGlobalControls `json:"globalControls,omitzero"`
-	Blocks         []UpdateDashboardBlockUnion1   `json:"blocks,omitzero"`
+	// Dashboard-wide compare-to-previous-period. Takes precedence over any per-block comparison.
+	Comparison *UpdateDashboardComparison   `json:"comparison,omitzero"`
+	Blocks     []UpdateDashboardBlockUnion1 `json:"blocks,omitzero"`
 }
 
 func (u UpdateDashboardRequestBody) MarshalJSON() ([]byte, error) {
@@ -4392,6 +2131,13 @@ func (u *UpdateDashboardRequestBody) GetGlobalControls() *UpdateDashboardGlobalC
 		return nil
 	}
 	return u.GlobalControls
+}
+
+func (u *UpdateDashboardRequestBody) GetComparison() *UpdateDashboardComparison {
+	if u == nil {
+		return nil
+	}
+	return u.Comparison
 }
 
 func (u *UpdateDashboardRequestBody) GetBlocks() []UpdateDashboardBlockUnion1 {

@@ -29,6 +29,8 @@ func (u *UpdateRampScheduleStepsHoldConditions) GetRequiresApproval() *bool {
 }
 
 type UpdateRampScheduleStepsStep struct {
+	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
+	Actions any `json:"actions,omitzero"`
 	// Hold duration in seconds before this step's gates are evaluated. `null` means no time gate.
 	Interval *float64 `json:"interval"`
 	// When true, this step runs A/B traffic analysis while active. Applies only to future steps — cannot be changed on the currently executing step.
@@ -48,6 +50,13 @@ func (u *UpdateRampScheduleStepsStep) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (u *UpdateRampScheduleStepsStep) GetActions() any {
+	if u == nil {
+		return nil
+	}
+	return u.Actions
 }
 
 func (u *UpdateRampScheduleStepsStep) GetInterval() *float64 {
