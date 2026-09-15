@@ -14,41 +14,41 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var getProductAnalyticsColumnsCmdMeta = []flagutil.FlagMeta{
+var getColumnsCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "source", Shorthand: "s", FieldPath: "Source", Kind: flagutil.FlagKindEnum, Required: true, EnumValues: []string{"fact_table", "metric"}, Description: "options: fact_table, metric [required]"},
 	{FlagName: "fact-table-id", Shorthand: "f", FieldPath: "FactTableID", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "metric-ids", Shorthand: "m", FieldPath: "MetricIds", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
 }
 
-// initGetProductAnalyticsColumnsCmd initializes the get-product-analytics-columns command.
-func initGetProductAnalyticsColumnsCmd(parent *cobra.Command) error {
+// initGetColumnsCmd initializes the get-columns command.
+func initGetColumnsCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
-		Use:     "get-product-analytics-columns",
+		Use:     "get-columns",
 		Short:   "List columns available to a Product Analytics exploration",
 		Long:    "List columns available to a Product Analytics exploration",
-		Example: "  growthbook analytics-explorations get-product-analytics-columns --source metric",
-		RunE:    runGetProductAnalyticsColumnsCmd,
-		Aliases: []string{"gpac"},
+		Example: "  growthbook analytics-explorations get-columns --source metric",
+		RunE:    runGetColumnsCmd,
+		Aliases: []string{"gc"},
 	}
-	flagutil.RegisterFlags(cmd, getProductAnalyticsColumnsCmdMeta)
-	if err := flagutil.ValidateMeta[operations.GetProductAnalyticsColumnsRequest](getProductAnalyticsColumnsCmdMeta); err != nil {
-		return fmt.Errorf("invalid metadata for get-product-analytics-columns: %w", err)
+	flagutil.RegisterFlags(cmd, getColumnsCmdMeta)
+	if err := flagutil.ValidateMeta[operations.GetProductAnalyticsColumnsRequest](getColumnsCmdMeta); err != nil {
+		return fmt.Errorf("invalid metadata for get-columns: %w", err)
 	}
 	parent.AddCommand(cmd)
 	return nil
 }
 
-// runGetProductAnalyticsColumnsCmd executes the get-product-analytics-columns command.
-func runGetProductAnalyticsColumnsCmd(cmd *cobra.Command, args []string) error {
+// runGetColumnsCmd executes the get-columns command.
+func runGetColumnsCmd(cmd *cobra.Command, args []string) error {
 	if usage.UsageRequested(cmd) {
 		return usage.EmitSchema(cmd, cmd.OutOrStdout())
 	}
-	if interactive.ShouldPrompt(cmd, getProductAnalyticsColumnsCmdMeta) {
-		if err := interactive.PromptAndSetFlags(cmd, getProductAnalyticsColumnsCmdMeta); err != nil {
+	if interactive.ShouldPrompt(cmd, getColumnsCmdMeta) {
+		if err := interactive.PromptAndSetFlags(cmd, getColumnsCmdMeta); err != nil {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.GetProductAnalyticsColumnsRequest](cmd, getProductAnalyticsColumnsCmdMeta, "", "")
+	req, err := flagutil.BuildRequest[operations.GetProductAnalyticsColumnsRequest](cmd, getColumnsCmdMeta, "", "")
 	if err != nil {
 		return err
 	}
@@ -71,7 +71,7 @@ func runGetProductAnalyticsColumnsCmd(cmd *cobra.Command, args []string) error {
 	if output.WantsRawJSON(cmd) {
 		sdkOpts = append(sdkOpts, operations.WithSkipDeserialization())
 	}
-	res, err := s.AnalyticsExplorations.GetProductAnalyticsColumns(cmd.Context(), *req, sdkOpts...)
+	res, err := s.AnalyticsExplorations.GetColumns(cmd.Context(), *req, sdkOpts...)
 	if err != nil {
 		return output.Error(cmd, err)
 	}

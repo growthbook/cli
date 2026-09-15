@@ -14519,6 +14519,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"comment":"This looks good to ship."}'
+      x-speakeasy-name-override: post-comment
   /v1/experiments/{id}/visual-changesets:
     get:
       operationId: listVisualChangesets
@@ -48226,6 +48227,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: run-sql
   /v1/product-analytics/funnel-exploration:
     post:
       operationId: postFunnelExploration
@@ -49103,6 +49105,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: search
   /v1/product-analytics/columns:
     get:
       operationId: getProductAnalyticsColumns
@@ -49162,6 +49165,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: get-columns
   /v1/product-analytics/column-values:
     post:
       operationId: getProductAnalyticsColumnValues
@@ -49237,6 +49241,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: get-column-values
   /v1/product-analytics/explorations/{id}:
     get:
       operationId: getProductAnalyticsExploration
@@ -49282,6 +49287,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: get
   /v1/ramp-schedule-templates/{id}:
     get:
       operationId: getRampScheduleTemplate
@@ -51220,6 +51226,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: start-analysis
   /v1/holdouts/{id}/stop:
     post:
       operationId: stopHoldout
@@ -51598,6 +51605,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: append-artifact
 components:
   parameters:
     limit:

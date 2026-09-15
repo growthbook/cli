@@ -495,8 +495,8 @@ func (s *AnalyticsExplorations) RunDataSource(ctx context.Context, request opera
 
 }
 
-// PostSQLExploration - Create a SQL based visualization
-func (s *AnalyticsExplorations) PostSQLExploration(ctx context.Context, request operations.PostSQLExplorationRequest, opts ...operations.Option) (*operations.PostSQLExplorationResponse, error) {
+// RunSQL - Create a SQL based visualization
+func (s *AnalyticsExplorations) RunSQL(ctx context.Context, request operations.PostSQLExplorationRequest, opts ...operations.Option) (*operations.PostSQLExplorationResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -805,8 +805,8 @@ func (s *AnalyticsExplorations) RunFunnel(ctx context.Context, request operation
 
 }
 
-// SearchProductAnalyticsResources - Search Product Analytics resources
-func (s *AnalyticsExplorations) SearchProductAnalyticsResources(ctx context.Context, request *operations.SearchProductAnalyticsResourcesRequest, opts ...operations.Option) (*operations.SearchProductAnalyticsResourcesResponse, error) {
+// Search Product Analytics resources
+func (s *AnalyticsExplorations) Search(ctx context.Context, request *operations.SearchProductAnalyticsResourcesRequest, opts ...operations.Option) (*operations.SearchProductAnalyticsResourcesResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -953,8 +953,8 @@ func (s *AnalyticsExplorations) SearchProductAnalyticsResources(ctx context.Cont
 
 }
 
-// GetProductAnalyticsColumns - List columns available to a Product Analytics exploration
-func (s *AnalyticsExplorations) GetProductAnalyticsColumns(ctx context.Context, request operations.GetProductAnalyticsColumnsRequest, opts ...operations.Option) (*operations.GetProductAnalyticsColumnsResponse, error) {
+// GetColumns - List columns available to a Product Analytics exploration
+func (s *AnalyticsExplorations) GetColumns(ctx context.Context, request operations.GetProductAnalyticsColumnsRequest, opts ...operations.Option) (*operations.GetProductAnalyticsColumnsResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1101,8 +1101,8 @@ func (s *AnalyticsExplorations) GetProductAnalyticsColumns(ctx context.Context, 
 
 }
 
-// GetProductAnalyticsColumnValues - Fetch values for Product Analytics string columns
-func (s *AnalyticsExplorations) GetProductAnalyticsColumnValues(ctx context.Context, request operations.GetProductAnalyticsColumnValuesRequest, opts ...operations.Option) (*operations.GetProductAnalyticsColumnValuesResponse, error) {
+// GetColumnValues - Fetch values for Product Analytics string columns
+func (s *AnalyticsExplorations) GetColumnValues(ctx context.Context, request operations.GetProductAnalyticsColumnValuesRequest, opts ...operations.Option) (*operations.GetProductAnalyticsColumnValuesResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1252,8 +1252,8 @@ func (s *AnalyticsExplorations) GetProductAnalyticsColumnValues(ctx context.Cont
 
 }
 
-// GetProductAnalyticsExploration - Get a Product Analytics exploration
-func (s *AnalyticsExplorations) GetProductAnalyticsExploration(ctx context.Context, request operations.GetProductAnalyticsExplorationRequest, opts ...operations.Option) (*operations.GetProductAnalyticsExplorationResponse, error) {
+// Get a Product Analytics exploration
+func (s *AnalyticsExplorations) Get(ctx context.Context, request operations.GetProductAnalyticsExplorationRequest, opts ...operations.Option) (*operations.GetProductAnalyticsExplorationResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

@@ -1,28 +1,29 @@
-## growthbook analytics-explorations get-product-analytics-columns
+## growthbook analytics-explorations search
 
-List columns available to a Product Analytics exploration
+Search Product Analytics resources
 
 ### Synopsis
 
-List columns available to a Product Analytics exploration
+Search Product Analytics resources
 
 ```
-growthbook analytics-explorations get-product-analytics-columns [flags]
+growthbook analytics-explorations search [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook analytics-explorations get-product-analytics-columns --source metric
+  growthbook analytics-explorations search
 ```
 
 ### Options
 
 ```
-  -f, --fact-table-id string     string value
-  -h, --help                     help for get-product-analytics-columns
-  -m, --metric-ids stringArray   list of values
-  -s, --source string            options: fact_table, metric [required]
+      --datasource-id string   string value
+  -h, --help                   help for search
+  -l, --limit int              integer value (default 10)
+      --query string           string value
+  -s, --skip int               integer value
 ```
 
 ### Options inherited from parent commands

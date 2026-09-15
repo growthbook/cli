@@ -1,26 +1,32 @@
-## growthbook analytics-explorations get-product
+## growthbook auto-runs append-artifact
 
-Get a Product Analytics exploration
+Record something an auto run created
 
 ### Synopsis
 
-Get a Product Analytics exploration
+Record something an auto run created
 
 ```
-growthbook analytics-explorations get-product [flags]
+growthbook auto-runs append-artifact [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook analytics-explorations get-product --id <id>
+  growthbook auto-runs append-artifact --id <id> --body-param.kind experiment --body-param.id <id> --body-param.label <value> --body-param.by growthbook
 ```
 
 ### Options
 
 ```
-  -h, --help        help for get-product
-  -i, --id string   [required]
+      --body string                Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --body-param.by string       options: developer, growthbook [required]
+      --body-param.detail string   Evidence or summary, e.g. 'boolean, off in dev' [required]
+      --body-param.id string       Id, or key for Feature Flags [required]
+      --body-param.kind string     options: sdk-connection, feature, experiment, attribute, metric, fact-table [required]
+      --body-param.label string    [required]
+  -h, --help                       help for append-artifact
+  -i, --id string                  [required]
 ```
 
 ### Options inherited from parent commands
@@ -49,4 +55,4 @@ growthbook analytics-explorations get-product [flags]
 
 ### SEE ALSO
 
-* [growthbook analytics-explorations](growthbook_analytics-explorations.md)	 - Operations for analytics-explorations
+* [growthbook auto-runs](growthbook_auto-runs.md)	 - Operations for auto-runs

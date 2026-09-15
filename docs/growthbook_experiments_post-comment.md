@@ -1,4 +1,4 @@
-## growthbook experiments post-experiment-comment
+## growthbook experiments post-comment
 
 Post a comment on an experiment
 
@@ -7,13 +7,13 @@ Post a comment on an experiment
 Adds a new comment to an experiment's discussion thread.
 
 ```
-growthbook experiments post-experiment-comment [flags]
+growthbook experiments post-comment [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook experiments post-experiment-comment --id <id> --comment New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016
+  growthbook experiments post-comment --id <id> --comment New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016
 ```
 
 ### Options
@@ -21,7 +21,7 @@ growthbook experiments post-experiment-comment [flags]
 ```
       --body string      Request body as JSON (alternative to individual flags). Can also be provided via stdin.
   -c, --comment string   [required]
-  -h, --help             help for post-experiment-comment
+  -h, --help             help for post-comment
   -i, --id string        The id of the requested resource [required]
 ```
 

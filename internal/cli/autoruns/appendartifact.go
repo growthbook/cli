@@ -14,7 +14,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var appendAutoRunArtifactCmdMeta = []flagutil.FlagMeta{
+var appendArtifactCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "body-param.kind", FieldPath: "Body.Kind", Kind: flagutil.FlagKindEnum, Required: true, EnumValues: []string{"sdk-connection", "feature", "experiment", "attribute", "metric", "fact-table"}, Description: "options: sdk-connection, feature, experiment, attribute, metric, fact-table [required]"},
 	{FlagName: "body-param.id", FieldPath: "Body.ID", Kind: flagutil.FlagKindString, Required: true, Description: "Id, or key for Feature Flags [required]"},
@@ -23,36 +23,36 @@ var appendAutoRunArtifactCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "body-param.detail", FieldPath: "Body.Detail", Kind: flagutil.FlagKindString, Optional: true, Description: "Evidence or summary, e.g. 'boolean, off in dev' [required]"},
 }
 
-// initAppendAutoRunArtifactCmd initializes the append-auto-run-artifact command.
-func initAppendAutoRunArtifactCmd(parent *cobra.Command) error {
+// initAppendArtifactCmd initializes the append-artifact command.
+func initAppendArtifactCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
-		Use:     "append-auto-run-artifact",
+		Use:     "append-artifact",
 		Short:   "Record something an auto run created",
 		Long:    "Record something an auto run created",
-		Example: "  growthbook auto-runs append-auto-run-artifact --id <id> --body-param.kind experiment --body-param.id <id> --body-param.label <value> --body-param.by growthbook",
-		RunE:    runAppendAutoRunArtifactCmd,
-		Aliases: []string{"aara"},
+		Example: "  growthbook auto-runs append-artifact --id <id> --body-param.kind experiment --body-param.id <id> --body-param.label <value> --body-param.by growthbook",
+		RunE:    runAppendArtifactCmd,
+		Aliases: []string{"aa"},
 	}
-	flagutil.RegisterFlags(cmd, appendAutoRunArtifactCmdMeta)
-	if err := flagutil.ValidateMeta[operations.AppendAutoRunArtifactRequest](appendAutoRunArtifactCmdMeta); err != nil {
-		return fmt.Errorf("invalid metadata for append-auto-run-artifact: %w", err)
+	flagutil.RegisterFlags(cmd, appendArtifactCmdMeta)
+	if err := flagutil.ValidateMeta[operations.AppendAutoRunArtifactRequest](appendArtifactCmdMeta); err != nil {
+		return fmt.Errorf("invalid metadata for append-artifact: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
 	parent.AddCommand(cmd)
 	return nil
 }
 
-// runAppendAutoRunArtifactCmd executes the append-auto-run-artifact command.
-func runAppendAutoRunArtifactCmd(cmd *cobra.Command, args []string) error {
+// runAppendArtifactCmd executes the append-artifact command.
+func runAppendArtifactCmd(cmd *cobra.Command, args []string) error {
 	if usage.UsageRequested(cmd) {
 		return usage.EmitSchema(cmd, cmd.OutOrStdout())
 	}
-	if interactive.ShouldPrompt(cmd, appendAutoRunArtifactCmdMeta) {
-		if err := interactive.PromptAndSetFlags(cmd, appendAutoRunArtifactCmdMeta); err != nil {
+	if interactive.ShouldPrompt(cmd, appendArtifactCmdMeta) {
+		if err := interactive.PromptAndSetFlags(cmd, appendArtifactCmdMeta); err != nil {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.AppendAutoRunArtifactRequest](cmd, appendAutoRunArtifactCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.AppendAutoRunArtifactRequest](cmd, appendArtifactCmdMeta, "Body", "body")
 	if err != nil {
 		return err
 	}
@@ -75,7 +75,7 @@ func runAppendAutoRunArtifactCmd(cmd *cobra.Command, args []string) error {
 	if output.WantsRawJSON(cmd) {
 		sdkOpts = append(sdkOpts, operations.WithSkipDeserialization())
 	}
-	res, err := s.AutoRuns.AppendAutoRunArtifact(cmd.Context(), *req, sdkOpts...)
+	res, err := s.AutoRuns.AppendArtifact(cmd.Context(), *req, sdkOpts...)
 	if err != nil {
 		return output.Error(cmd, err)
 	}

@@ -37,7 +37,7 @@ func InitAutoRunsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initAppendAutoRunArtifactCmd(AutoRunsCmd); err != nil {
+	if err := initAppendArtifactCmd(AutoRunsCmd); err != nil {
 		return err
 	}
 

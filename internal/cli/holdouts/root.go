@@ -40,7 +40,7 @@ func InitHoldoutsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initStartHoldoutAnalysisCmd(HoldoutsCmd); err != nil {
+	if err := initStartAnalysisCmd(HoldoutsCmd); err != nil {
 		return err
 	}
 

@@ -14,41 +14,41 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var postExperimentCommentCmdMeta = []flagutil.FlagMeta{
+var postCommentCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The id of the requested resource [required]"},
 	{FlagName: "comment", Shorthand: "c", FieldPath: "Body.Comment", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 }
 
-// initPostExperimentCommentCmd initializes the post-experiment-comment command.
-func initPostExperimentCommentCmd(parent *cobra.Command) error {
+// initPostCommentCmd initializes the post-comment command.
+func initPostCommentCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
-		Use:     "post-experiment-comment",
+		Use:     "post-comment",
 		Short:   "Post a comment on an experiment",
 		Long:    "Adds a new comment to an experiment's discussion thread.",
-		Example: "  growthbook experiments post-experiment-comment --id <id> --comment New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016",
-		RunE:    runPostExperimentCommentCmd,
-		Aliases: []string{"pec"},
+		Example: "  growthbook experiments post-comment --id <id> --comment New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016",
+		RunE:    runPostCommentCmd,
+		Aliases: []string{"pc"},
 	}
-	flagutil.RegisterFlags(cmd, postExperimentCommentCmdMeta)
-	if err := flagutil.ValidateMeta[operations.PostExperimentCommentRequest](postExperimentCommentCmdMeta); err != nil {
-		return fmt.Errorf("invalid metadata for post-experiment-comment: %w", err)
+	flagutil.RegisterFlags(cmd, postCommentCmdMeta)
+	if err := flagutil.ValidateMeta[operations.PostExperimentCommentRequest](postCommentCmdMeta); err != nil {
+		return fmt.Errorf("invalid metadata for post-comment: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
 	parent.AddCommand(cmd)
 	return nil
 }
 
-// runPostExperimentCommentCmd executes the post-experiment-comment command.
-func runPostExperimentCommentCmd(cmd *cobra.Command, args []string) error {
+// runPostCommentCmd executes the post-comment command.
+func runPostCommentCmd(cmd *cobra.Command, args []string) error {
 	if usage.UsageRequested(cmd) {
 		return usage.EmitSchema(cmd, cmd.OutOrStdout())
 	}
-	if interactive.ShouldPrompt(cmd, postExperimentCommentCmdMeta) {
-		if err := interactive.PromptAndSetFlags(cmd, postExperimentCommentCmdMeta); err != nil {
+	if interactive.ShouldPrompt(cmd, postCommentCmdMeta) {
+		if err := interactive.PromptAndSetFlags(cmd, postCommentCmdMeta); err != nil {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.PostExperimentCommentRequest](cmd, postExperimentCommentCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.PostExperimentCommentRequest](cmd, postCommentCmdMeta, "Body", "body")
 	if err != nil {
 		return err
 	}
@@ -71,7 +71,7 @@ func runPostExperimentCommentCmd(cmd *cobra.Command, args []string) error {
 	if output.WantsRawJSON(cmd) {
 		sdkOpts = append(sdkOpts, operations.WithSkipDeserialization())
 	}
-	res, err := s.Experiments.PostExperimentComment(cmd.Context(), *req, sdkOpts...)
+	res, err := s.Experiments.PostComment(cmd.Context(), *req, sdkOpts...)
 	if err != nil {
 		return output.Error(cmd, err)
 	}

@@ -14,42 +14,41 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var searchProductAnalyticsResourcesCmdMeta = []flagutil.FlagMeta{
+var searchCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "query", FieldPath: "Query", Kind: flagutil.FlagKindString, Optional: true, HasDefault: true, DefaultStr: "", Description: "string value"},
 	{FlagName: "limit", Shorthand: "l", FieldPath: "Limit", Kind: flagutil.FlagKindInt64, Optional: true, HasDefault: true, DefaultInt: 10, Description: "integer value"},
 	{FlagName: "skip", Shorthand: "s", FieldPath: "Skip", Kind: flagutil.FlagKindInt64, Optional: true, HasDefault: true, Description: "integer value"},
 	{FlagName: "datasource-id", FieldPath: "DatasourceID", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 }
 
-// initSearchProductAnalyticsResourcesCmd initializes the search-product-analytics-resources command.
-func initSearchProductAnalyticsResourcesCmd(parent *cobra.Command) error {
+// initSearchCmd initializes the search command.
+func initSearchCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
-		Use:     "search-product-analytics-resources",
+		Use:     "search",
 		Short:   "Search Product Analytics resources",
 		Long:    "Search Product Analytics resources",
-		Example: "  growthbook analytics-explorations search-product-analytics-resources",
-		RunE:    runSearchProductAnalyticsResourcesCmd,
-		Aliases: []string{"spar"},
+		Example: "  growthbook analytics-explorations search",
+		RunE:    runSearchCmd,
 	}
-	flagutil.RegisterFlags(cmd, searchProductAnalyticsResourcesCmdMeta)
-	if err := flagutil.ValidateMeta[operations.SearchProductAnalyticsResourcesRequest](searchProductAnalyticsResourcesCmdMeta); err != nil {
-		return fmt.Errorf("invalid metadata for search-product-analytics-resources: %w", err)
+	flagutil.RegisterFlags(cmd, searchCmdMeta)
+	if err := flagutil.ValidateMeta[operations.SearchProductAnalyticsResourcesRequest](searchCmdMeta); err != nil {
+		return fmt.Errorf("invalid metadata for search: %w", err)
 	}
 	parent.AddCommand(cmd)
 	return nil
 }
 
-// runSearchProductAnalyticsResourcesCmd executes the search-product-analytics-resources command.
-func runSearchProductAnalyticsResourcesCmd(cmd *cobra.Command, args []string) error {
+// runSearchCmd executes the search command.
+func runSearchCmd(cmd *cobra.Command, args []string) error {
 	if usage.UsageRequested(cmd) {
 		return usage.EmitSchema(cmd, cmd.OutOrStdout())
 	}
-	if interactive.ShouldPrompt(cmd, searchProductAnalyticsResourcesCmdMeta) {
-		if err := interactive.PromptAndSetFlags(cmd, searchProductAnalyticsResourcesCmdMeta); err != nil {
+	if interactive.ShouldPrompt(cmd, searchCmdMeta) {
+		if err := interactive.PromptAndSetFlags(cmd, searchCmdMeta); err != nil {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.SearchProductAnalyticsResourcesRequest](cmd, searchProductAnalyticsResourcesCmdMeta, "", "")
+	req, err := flagutil.BuildRequest[operations.SearchProductAnalyticsResourcesRequest](cmd, searchCmdMeta, "", "")
 	if err != nil {
 		return err
 	}
@@ -72,7 +71,7 @@ func runSearchProductAnalyticsResourcesCmd(cmd *cobra.Command, args []string) er
 	if output.WantsRawJSON(cmd) {
 		sdkOpts = append(sdkOpts, operations.WithSkipDeserialization())
 	}
-	res, err := s.AnalyticsExplorations.SearchProductAnalyticsResources(cmd.Context(), req, sdkOpts...)
+	res, err := s.AnalyticsExplorations.Search(cmd.Context(), req, sdkOpts...)
 	if err != nil {
 		return output.Error(cmd, err)
 	}

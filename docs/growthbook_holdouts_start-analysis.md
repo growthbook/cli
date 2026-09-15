@@ -1,32 +1,26 @@
-## growthbook auto-runs append-auto-run-artifact
+## growthbook holdouts start-analysis
 
-Record something an auto run created
+Start the Holdout's Analysis Period
 
 ### Synopsis
 
-Record something an auto run created
+Move the holdout into an analysis phase. New Feature Flags and Experiments can no longer be added, but existing traffic splits remain active for existing and new traffic. Results exclude data from before the analysis period so you can measure the cumulative impact after changes are frozen.
 
 ```
-growthbook auto-runs append-auto-run-artifact [flags]
+growthbook holdouts start-analysis [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook auto-runs append-auto-run-artifact --id <id> --body-param.kind experiment --body-param.id <id> --body-param.label <value> --body-param.by growthbook
+  growthbook holdouts start-analysis --id <id>
 ```
 
 ### Options
 
 ```
-      --body string                Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --body-param.by string       options: developer, growthbook [required]
-      --body-param.detail string   Evidence or summary, e.g. 'boolean, off in dev' [required]
-      --body-param.id string       Id, or key for Feature Flags [required]
-      --body-param.kind string     options: sdk-connection, feature, experiment, attribute, metric, fact-table [required]
-      --body-param.label string    [required]
-  -h, --help                       help for append-auto-run-artifact
-  -i, --id string                  [required]
+  -h, --help        help for start-analysis
+  -i, --id string   [required]
 ```
 
 ### Options inherited from parent commands
@@ -55,4 +49,4 @@ growthbook auto-runs append-auto-run-artifact [flags]
 
 ### SEE ALSO
 
-* [growthbook auto-runs](growthbook_auto-runs.md)	 - Operations for auto-runs
+* [growthbook holdouts](growthbook_holdouts.md)	 - Hold a share of traffic out of all experiments to measure their combined effect

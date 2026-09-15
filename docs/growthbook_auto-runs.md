@@ -43,7 +43,7 @@ growthbook auto-runs [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
-* [growthbook auto-runs append-auto-run-artifact](growthbook_auto-runs_append-auto-run-artifact.md)	 - Record something an auto run created
+* [growthbook auto-runs append-artifact](growthbook_auto-runs_append-artifact.md)	 - Record something an auto run created
 * [growthbook auto-runs create](growthbook_auto-runs_create.md)	 - Create a single autoRun
 * [growthbook auto-runs get](growthbook_auto-runs_get.md)	 - Get a single autoRun
 * [growthbook auto-runs list](growthbook_auto-runs_list.md)	 - Get all autoRuns

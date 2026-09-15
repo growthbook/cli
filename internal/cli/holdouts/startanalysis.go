@@ -14,39 +14,39 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var startHoldoutAnalysisCmdMeta = []flagutil.FlagMeta{
+var startAnalysisCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 }
 
-// initStartHoldoutAnalysisCmd initializes the start-holdout-analysis command.
-func initStartHoldoutAnalysisCmd(parent *cobra.Command) error {
+// initStartAnalysisCmd initializes the start-analysis command.
+func initStartAnalysisCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
-		Use:     "start-holdout-analysis",
+		Use:     "start-analysis",
 		Short:   "Start the Holdout's Analysis Period",
 		Long:    "Move the holdout into an analysis phase. New Feature Flags and Experiments can no longer be added, but existing traffic splits remain active for existing and new traffic. Results exclude data from before the analysis period so you can measure the cumulative impact after changes are frozen.",
-		Example: "  growthbook holdouts start-holdout-analysis --id <id>",
-		RunE:    runStartHoldoutAnalysisCmd,
-		Aliases: []string{"sha"},
+		Example: "  growthbook holdouts start-analysis --id <id>",
+		RunE:    runStartAnalysisCmd,
+		Aliases: []string{"sa"},
 	}
-	flagutil.RegisterFlags(cmd, startHoldoutAnalysisCmdMeta)
-	if err := flagutil.ValidateMeta[operations.StartHoldoutAnalysisRequest](startHoldoutAnalysisCmdMeta); err != nil {
-		return fmt.Errorf("invalid metadata for start-holdout-analysis: %w", err)
+	flagutil.RegisterFlags(cmd, startAnalysisCmdMeta)
+	if err := flagutil.ValidateMeta[operations.StartHoldoutAnalysisRequest](startAnalysisCmdMeta); err != nil {
+		return fmt.Errorf("invalid metadata for start-analysis: %w", err)
 	}
 	parent.AddCommand(cmd)
 	return nil
 }
 
-// runStartHoldoutAnalysisCmd executes the start-holdout-analysis command.
-func runStartHoldoutAnalysisCmd(cmd *cobra.Command, args []string) error {
+// runStartAnalysisCmd executes the start-analysis command.
+func runStartAnalysisCmd(cmd *cobra.Command, args []string) error {
 	if usage.UsageRequested(cmd) {
 		return usage.EmitSchema(cmd, cmd.OutOrStdout())
 	}
-	if interactive.ShouldPrompt(cmd, startHoldoutAnalysisCmdMeta) {
-		if err := interactive.PromptAndSetFlags(cmd, startHoldoutAnalysisCmdMeta); err != nil {
+	if interactive.ShouldPrompt(cmd, startAnalysisCmdMeta) {
+		if err := interactive.PromptAndSetFlags(cmd, startAnalysisCmdMeta); err != nil {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.StartHoldoutAnalysisRequest](cmd, startHoldoutAnalysisCmdMeta, "", "")
+	req, err := flagutil.BuildRequest[operations.StartHoldoutAnalysisRequest](cmd, startAnalysisCmdMeta, "", "")
 	if err != nil {
 		return err
 	}
@@ -69,7 +69,7 @@ func runStartHoldoutAnalysisCmd(cmd *cobra.Command, args []string) error {
 	if output.WantsRawJSON(cmd) {
 		sdkOpts = append(sdkOpts, operations.WithSkipDeserialization())
 	}
-	res, err := s.Holdouts.StartHoldoutAnalysis(cmd.Context(), *req, sdkOpts...)
+	res, err := s.Holdouts.StartAnalysis(cmd.Context(), *req, sdkOpts...)
 	if err != nil {
 		return output.Error(cmd, err)
 	}

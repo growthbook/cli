@@ -14,7 +14,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var getProductAnalyticsColumnValuesCmdMeta = []flagutil.FlagMeta{
+var getColumnValuesCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "source", FieldPath: "Source", Kind: flagutil.FlagKindEnum, Required: true, EnumValues: []string{"fact_table", "metric"}, Description: "options: fact_table, metric [required]"},
 	{FlagName: "fact-table-id", Shorthand: "f", FieldPath: "FactTableID", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "metric-ids", Shorthand: "m", FieldPath: "MetricIds", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
@@ -23,36 +23,36 @@ var getProductAnalyticsColumnValuesCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "limit", Shorthand: "l", FieldPath: "Limit", Kind: flagutil.FlagKindInt64, Optional: true, HasDefault: true, DefaultInt: 20, Description: "integer value"},
 }
 
-// initGetProductAnalyticsColumnValuesCmd initializes the get-product-analytics-column-values command.
-func initGetProductAnalyticsColumnValuesCmd(parent *cobra.Command) error {
+// initGetColumnValuesCmd initializes the get-column-values command.
+func initGetColumnValuesCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
-		Use:     "get-product-analytics-column-values",
+		Use:     "get-column-values",
 		Short:   "Fetch values for Product Analytics string columns",
 		Long:    "Fetch values for Product Analytics string columns",
-		Example: "  growthbook analytics-explorations get-product-analytics-column-values --source metric --columns '[\"<value 1>\",\"<value 2>\",\"<value 3>\"]'",
-		RunE:    runGetProductAnalyticsColumnValuesCmd,
-		Aliases: []string{"gpacv"},
+		Example: "  growthbook analytics-explorations get-column-values --source metric --columns '[\"<value 1>\",\"<value 2>\",\"<value 3>\"]'",
+		RunE:    runGetColumnValuesCmd,
+		Aliases: []string{"gcv"},
 	}
-	flagutil.RegisterFlags(cmd, getProductAnalyticsColumnValuesCmdMeta)
-	if err := flagutil.ValidateMeta[operations.GetProductAnalyticsColumnValuesRequest](getProductAnalyticsColumnValuesCmdMeta); err != nil {
-		return fmt.Errorf("invalid metadata for get-product-analytics-column-values: %w", err)
+	flagutil.RegisterFlags(cmd, getColumnValuesCmdMeta)
+	if err := flagutil.ValidateMeta[operations.GetProductAnalyticsColumnValuesRequest](getColumnValuesCmdMeta); err != nil {
+		return fmt.Errorf("invalid metadata for get-column-values: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
 	parent.AddCommand(cmd)
 	return nil
 }
 
-// runGetProductAnalyticsColumnValuesCmd executes the get-product-analytics-column-values command.
-func runGetProductAnalyticsColumnValuesCmd(cmd *cobra.Command, args []string) error {
+// runGetColumnValuesCmd executes the get-column-values command.
+func runGetColumnValuesCmd(cmd *cobra.Command, args []string) error {
 	if usage.UsageRequested(cmd) {
 		return usage.EmitSchema(cmd, cmd.OutOrStdout())
 	}
-	if interactive.ShouldPrompt(cmd, getProductAnalyticsColumnValuesCmdMeta) {
-		if err := interactive.PromptAndSetFlags(cmd, getProductAnalyticsColumnValuesCmdMeta); err != nil {
+	if interactive.ShouldPrompt(cmd, getColumnValuesCmdMeta) {
+		if err := interactive.PromptAndSetFlags(cmd, getColumnValuesCmdMeta); err != nil {
 			return err
 		}
 	}
-	request, err := flagutil.BuildRequest[operations.GetProductAnalyticsColumnValuesRequest](cmd, getProductAnalyticsColumnValuesCmdMeta, "", "body")
+	request, err := flagutil.BuildRequest[operations.GetProductAnalyticsColumnValuesRequest](cmd, getColumnValuesCmdMeta, "", "body")
 	if err != nil {
 		return err
 	}
@@ -75,7 +75,7 @@ func runGetProductAnalyticsColumnValuesCmd(cmd *cobra.Command, args []string) er
 	if output.WantsRawJSON(cmd) {
 		sdkOpts = append(sdkOpts, operations.WithSkipDeserialization())
 	}
-	res, err := s.AnalyticsExplorations.GetProductAnalyticsColumnValues(cmd.Context(), *request, sdkOpts...)
+	res, err := s.AnalyticsExplorations.GetColumnValues(cmd.Context(), *request, sdkOpts...)
 	if err != nil {
 		return output.Error(cmd, err)
 	}

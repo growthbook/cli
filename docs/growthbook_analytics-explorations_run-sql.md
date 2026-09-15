@@ -1,32 +1,34 @@
-## growthbook analytics-explorations get-product-analytics-column-values
+## growthbook analytics-explorations run-sql
 
-Fetch values for Product Analytics string columns
+Create a SQL based visualization
 
 ### Synopsis
 
-Fetch values for Product Analytics string columns
+Create a SQL based visualization
 
 ```
-growthbook analytics-explorations get-product-analytics-column-values [flags]
+growthbook analytics-explorations run-sql [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook analytics-explorations get-product-analytics-column-values --source metric --columns '["<value 1>","<value 2>","<value 3>"]'
+  growthbook analytics-explorations run-sql --datasource <value> --dimensions '[]' --chart-type bar --date-range '{"predefined":"last12Months"}' --dataset '{"type":"sql","sql":"<value>","timestampColumn":null,"columnTypes":{"key":"other"},"values":[{"name":"<value>","rowFilters":[{"operator":"contains"}],"type":"sql","valueType":"sum","valueColumn":"<value>","unit":"hertz"}]}'
 ```
 
 ### Options
 
 ```
-      --body string              Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -c, --columns stringArray      [required]
-  -f, --fact-table-id string     string value
-  -h, --help                     help for get-product-analytics-column-values
-  -l, --limit int                integer value (default 20)
-  -m, --metric-ids stringArray   list of values
-      --search-term string       string value
-      --source string            options: fact_table, metric [required]
+      --body string             Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --cache preferred         Controls cache behavior for this exploration: preferred (default) returns a cached result if one exists, otherwise runs a new query; `never` always runs a new query, ignoring any cached results; `required` only returns a cached result, if none exists returns exploration: null with a message (options: preferred, required, never)
+      --chart-settings string   JSON object
+      --chart-type string       options: line, area, timeseries-table, table, bar, stackedBar, horizontalBar, stackedHorizontalBar, bigNumber, rawTable [required]
+      --dataset string          [required]
+      --datasource string       ID of the datasource to query [required]
+      --date-range string       [required]
+      --dimensions string       [required]
+  -h, --help                    help for run-sql
+  -s, --show-as string          options: total, per_unit
 ```
 
 ### Options inherited from parent commands

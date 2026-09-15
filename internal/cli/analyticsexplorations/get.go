@@ -14,39 +14,38 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var getProductAnalyticsExplorationCmdMeta = []flagutil.FlagMeta{
+var getCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 }
 
-// initGetProductAnalyticsExplorationCmd initializes the get-product-analytics-exploration command.
-func initGetProductAnalyticsExplorationCmd(parent *cobra.Command) error {
+// initGetCmd initializes the get command.
+func initGetCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
-		Use:     "get-product",
+		Use:     "get",
 		Short:   "Get a Product Analytics exploration",
 		Long:    "Get a Product Analytics exploration",
-		Example: "  growthbook analytics-explorations get-product --id <id>",
-		RunE:    runGetProductAnalyticsExplorationCmd,
-		Aliases: []string{"gp"},
+		Example: "  growthbook analytics-explorations get --id <id>",
+		RunE:    runGetCmd,
 	}
-	flagutil.RegisterFlags(cmd, getProductAnalyticsExplorationCmdMeta)
-	if err := flagutil.ValidateMeta[operations.GetProductAnalyticsExplorationRequest](getProductAnalyticsExplorationCmdMeta); err != nil {
-		return fmt.Errorf("invalid metadata for get-product-analytics-exploration: %w", err)
+	flagutil.RegisterFlags(cmd, getCmdMeta)
+	if err := flagutil.ValidateMeta[operations.GetProductAnalyticsExplorationRequest](getCmdMeta); err != nil {
+		return fmt.Errorf("invalid metadata for get: %w", err)
 	}
 	parent.AddCommand(cmd)
 	return nil
 }
 
-// runGetProductAnalyticsExplorationCmd executes the get-product-analytics-exploration command.
-func runGetProductAnalyticsExplorationCmd(cmd *cobra.Command, args []string) error {
+// runGetCmd executes the get command.
+func runGetCmd(cmd *cobra.Command, args []string) error {
 	if usage.UsageRequested(cmd) {
 		return usage.EmitSchema(cmd, cmd.OutOrStdout())
 	}
-	if interactive.ShouldPrompt(cmd, getProductAnalyticsExplorationCmdMeta) {
-		if err := interactive.PromptAndSetFlags(cmd, getProductAnalyticsExplorationCmdMeta); err != nil {
+	if interactive.ShouldPrompt(cmd, getCmdMeta) {
+		if err := interactive.PromptAndSetFlags(cmd, getCmdMeta); err != nil {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.GetProductAnalyticsExplorationRequest](cmd, getProductAnalyticsExplorationCmdMeta, "", "")
+	req, err := flagutil.BuildRequest[operations.GetProductAnalyticsExplorationRequest](cmd, getCmdMeta, "", "")
 	if err != nil {
 		return err
 	}
@@ -69,7 +68,7 @@ func runGetProductAnalyticsExplorationCmd(cmd *cobra.Command, args []string) err
 	if output.WantsRawJSON(cmd) {
 		sdkOpts = append(sdkOpts, operations.WithSkipDeserialization())
 	}
-	res, err := s.AnalyticsExplorations.GetProductAnalyticsExploration(cmd.Context(), *req, sdkOpts...)
+	res, err := s.AnalyticsExplorations.Get(cmd.Context(), *req, sdkOpts...)
 	if err != nil {
 		return output.Error(cmd, err)
 	}

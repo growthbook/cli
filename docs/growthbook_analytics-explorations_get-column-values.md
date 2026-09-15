@@ -1,29 +1,32 @@
-## growthbook analytics-explorations search-product-analytics-resources
+## growthbook analytics-explorations get-column-values
 
-Search Product Analytics resources
+Fetch values for Product Analytics string columns
 
 ### Synopsis
 
-Search Product Analytics resources
+Fetch values for Product Analytics string columns
 
 ```
-growthbook analytics-explorations search-product-analytics-resources [flags]
+growthbook analytics-explorations get-column-values [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook analytics-explorations search-product-analytics-resources
+  growthbook analytics-explorations get-column-values --source metric --columns '["<value 1>","<value 2>","<value 3>"]'
 ```
 
 ### Options
 
 ```
-      --datasource-id string   string value
-  -h, --help                   help for search-product-analytics-resources
-  -l, --limit int              integer value (default 10)
-      --query string           string value
-  -s, --skip int               integer value
+      --body string              Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -c, --columns stringArray      [required]
+  -f, --fact-table-id string     string value
+  -h, --help                     help for get-column-values
+  -l, --limit int                integer value (default 20)
+  -m, --metric-ids stringArray   list of values
+      --search-term string       string value
+      --source string            options: fact_table, metric [required]
 ```
 
 ### Options inherited from parent commands

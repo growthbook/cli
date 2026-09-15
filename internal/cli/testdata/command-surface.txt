@@ -7,15 +7,15 @@ growthbook SDK-connections list  [--all --limit --max-pages --multi-org --offset
 growthbook SDK-connections lookup-SDK-connection-by-key  [--key]
 growthbook SDK-connections update  [--allowed-custom-fields-in-metadata --body --encrypt-payload --environment --hash-secure-attributes --id --include-custom-fields-in-metadata --include-draft-experiment-refs --include-draft-experiments --include-experiment-names --include-experiment-schedule-in-metadata --include-project-id-in-metadata --include-redirect-experiments --include-referenced-prerequisites --include-rule-ids --include-tags-in-metadata --include-visual-experiments --language --name --projects --proxy-enabled --proxy-host --remote-eval-enabled --saved-group-references-enabled --sdk-version]
 growthbook analytics-explorations
-growthbook analytics-explorations get-product  [--id]
-growthbook analytics-explorations get-product-analytics-column-values  [--body --columns --fact-table-id --limit --metric-ids --search-term --source]
-growthbook analytics-explorations get-product-analytics-columns  [--fact-table-id --metric-ids --source]
-growthbook analytics-explorations post-sql-exploration  [--body --cache --chart-settings --chart-type --dataset --datasource --date-range --dimensions --show-as]
+growthbook analytics-explorations get  [--id]
+growthbook analytics-explorations get-column-values  [--body --columns --fact-table-id --limit --metric-ids --search-term --source]
+growthbook analytics-explorations get-columns  [--fact-table-id --metric-ids --source]
 growthbook analytics-explorations run-data-source  [--body --cache --chart-settings --chart-type --dataset --datasource --date-range --dimensions --show-as]
 growthbook analytics-explorations run-fact-table  [--body --cache --chart-settings --chart-type --dataset --datasource --date-range --dimensions --show-as]
 growthbook analytics-explorations run-funnel  [--body --cache --chart-settings --chart-type --dataset --datasource --date-range --dimensions --show-as]
 growthbook analytics-explorations run-metric  [--body --cache --chart-settings --chart-type --dataset --datasource --date-range --dimensions --show-as]
-growthbook analytics-explorations search-product-analytics-resources  [--datasource-id --limit --query --skip]
+growthbook analytics-explorations run-sql  [--body --cache --chart-settings --chart-type --dataset --datasource --date-range --dimensions --show-as]
+growthbook analytics-explorations search  [--datasource-id --limit --query --skip]
 growthbook archetypes
 growthbook archetypes create  [--attributes --body --description --environments --is-public --name --projects]
 growthbook archetypes delete  [--id]
@@ -32,7 +32,7 @@ growthbook auth login
 growthbook auth logout
 growthbook auth whoami
 growthbook auto-runs
-growthbook auto-runs append-auto-run-artifact  [--body --body-param.by --body-param.detail --body-param.id --body-param.kind --body-param.label --id]
+growthbook auto-runs append-artifact  [--body --body-param.by --body-param.detail --body-param.id --body-param.kind --body-param.label --id]
 growthbook auto-runs create  [--agent --body --metadata --source]
 growthbook auto-runs get  [--id]
 growthbook auto-runs list
@@ -197,7 +197,7 @@ growthbook experiments list  [--all --archived --bandits --datasource-id --exper
 growthbook experiments list-names  [--project-id]
 growthbook experiments list-results  [--all --datasource-id --limit --max-pages --offset --project-id --status --tracking-key]
 growthbook experiments modify-temporary-rollout  [--body --enable-temporary-rollout --id --ignore-warnings --released-variation-id]
-growthbook experiments post-experiment-comment  [--body --comment --id]
+growthbook experiments post-comment  [--body --comment --id]
 growthbook experiments results  [--dimension --id --phase]
 growthbook experiments set-schedule  [--body --id --scheduled-stop-plan --start-at --stop-after --stop-at]
 growthbook experiments start  [--body --id --ignore-warnings --skip-checklist]
@@ -317,7 +317,7 @@ growthbook holdouts create  [--assignment-query-id --body --datasource-id --desc
 growthbook holdouts get  [--id]
 growthbook holdouts list  [--archived --datasource-id --project-id --stage]
 growthbook holdouts start  [--id]
-growthbook holdouts start-holdout-analysis  [--id]
+growthbook holdouts start-analysis  [--id]
 growthbook holdouts stop  [--id]
 growthbook holdouts update  [--archived --assignment-query-id --body --datasource-id --description --environments --goal-metrics --hash-attribute --holdout-size --id --name --owner --projects --saved-group-targeting --secondary-metrics --skip-as-default-holdout --stats-engine --status-update-schedule --tags --targeting-condition]
 growthbook learnings

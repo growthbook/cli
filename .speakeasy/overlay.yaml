@@ -1057,3 +1057,27 @@ actions:
     remove: true
   - target: $..[?(@['$ref']=="#/components/parameters/skipSchemaValidation")]
     remove: true
+  # 6. Name the leaves of the new command groups.
+  #
+  # Speakeasy derives a leaf name from the operationId by stripping the group's
+  # tokens, which leaves either the raw operationId or — for
+  # getProductAnalyticsExploration — the mangled fragment `get-product`. Pin each
+  # to the verb its siblings already use. Cheap now; these ship for the first
+  # time in 2.6.0, and names freeze once released.
+  - target: $..[?(@.operationId=="getProductAnalyticsExploration")]
+    update: { x-speakeasy-name-override: get }
+  - target: $..[?(@.operationId=="getProductAnalyticsColumns")]
+    update: { x-speakeasy-name-override: get-columns }
+  - target: $..[?(@.operationId=="getProductAnalyticsColumnValues")]
+    update: { x-speakeasy-name-override: get-column-values }
+  - target: $..[?(@.operationId=="searchProductAnalyticsResources")]
+    update: { x-speakeasy-name-override: search }
+  # Siblings are run-metric / run-funnel / run-fact-table / run-data-source.
+  - target: $..[?(@.operationId=="postSqlExploration")]
+    update: { x-speakeasy-name-override: run-sql }
+  - target: $..[?(@.operationId=="postExperimentComment")]
+    update: { x-speakeasy-name-override: post-comment }
+  - target: $..[?(@.operationId=="appendAutoRunArtifact")]
+    update: { x-speakeasy-name-override: append-artifact }
+  - target: $..[?(@.operationId=="startHoldoutAnalysis")]
+    update: { x-speakeasy-name-override: start-analysis }

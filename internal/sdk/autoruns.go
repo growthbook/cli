@@ -620,8 +620,8 @@ func (s *AutoRuns) UpdateAutoRun(ctx context.Context, request operations.UpdateA
 
 }
 
-// AppendAutoRunArtifact - Record something an auto run created
-func (s *AutoRuns) AppendAutoRunArtifact(ctx context.Context, request operations.AppendAutoRunArtifactRequest, opts ...operations.Option) (*operations.AppendAutoRunArtifactResponse, error) {
+// AppendArtifact - Record something an auto run created
+func (s *AutoRuns) AppendArtifact(ctx context.Context, request operations.AppendAutoRunArtifactRequest, opts ...operations.Option) (*operations.AppendAutoRunArtifactResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

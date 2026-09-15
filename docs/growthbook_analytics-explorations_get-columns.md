@@ -1,34 +1,28 @@
-## growthbook analytics-explorations post-sql-exploration
+## growthbook analytics-explorations get-columns
 
-Create a SQL based visualization
+List columns available to a Product Analytics exploration
 
 ### Synopsis
 
-Create a SQL based visualization
+List columns available to a Product Analytics exploration
 
 ```
-growthbook analytics-explorations post-sql-exploration [flags]
+growthbook analytics-explorations get-columns [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook analytics-explorations post-sql-exploration --datasource <value> --dimensions '[]' --chart-type bar --date-range '{"predefined":"last12Months"}' --dataset '{"type":"sql","sql":"<value>","timestampColumn":null,"columnTypes":{"key":"other"},"values":[{"name":"<value>","rowFilters":[{"operator":"contains"}],"type":"sql","valueType":"sum","valueColumn":"<value>","unit":"hertz"}]}'
+  growthbook analytics-explorations get-columns --source metric
 ```
 
 ### Options
 
 ```
-      --body string             Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --cache preferred         Controls cache behavior for this exploration: preferred (default) returns a cached result if one exists, otherwise runs a new query; `never` always runs a new query, ignoring any cached results; `required` only returns a cached result, if none exists returns exploration: null with a message (options: preferred, required, never)
-      --chart-settings string   JSON object
-      --chart-type string       options: line, area, timeseries-table, table, bar, stackedBar, horizontalBar, stackedHorizontalBar, bigNumber, rawTable [required]
-      --dataset string          [required]
-      --datasource string       ID of the datasource to query [required]
-      --date-range string       [required]
-      --dimensions string       [required]
-  -h, --help                    help for post-sql-exploration
-  -s, --show-as string          options: total, per_unit
+  -f, --fact-table-id string     string value
+  -h, --help                     help for get-columns
+  -m, --metric-ids stringArray   list of values
+  -s, --source string            options: fact_table, metric [required]
 ```
 
 ### Options inherited from parent commands

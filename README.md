@@ -338,7 +338,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`upload-variation-screenshot`](docs/growthbook_experiments_upload-variation-screenshot.md) - Upload a variation screenshot
 * [`delete-variation-screenshot`](docs/growthbook_experiments_delete-variation-screenshot.md) - Delete a variation screenshot
 * [`list-names`](docs/growthbook_experiments_list-names.md) - Get a list of experiments with names and ids
-* [`post-experiment-comment`](docs/growthbook_experiments_post-experiment-comment.md) - Post a comment on an experiment
+* [`post-comment`](docs/growthbook_experiments_post-comment.md) - Post a comment on an experiment
 
 ### [snapshots](docs/growthbook_snapshots.md)
 
@@ -737,12 +737,12 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`run-metric`](docs/growthbook_analytics-explorations_run-metric.md) - Create a Metric based visualization
 * [`run-fact-table`](docs/growthbook_analytics-explorations_run-fact-table.md) - Run a Fact Table based visualization
 * [`run-data-source`](docs/growthbook_analytics-explorations_run-data-source.md) - Create a Data Source based visualization
-* [`post-sql-exploration`](docs/growthbook_analytics-explorations_post-sql-exploration.md) - Create a SQL based visualization
+* [`run-sql`](docs/growthbook_analytics-explorations_run-sql.md) - Create a SQL based visualization
 * [`run-funnel`](docs/growthbook_analytics-explorations_run-funnel.md) - Run a Funnel based visualization
-* [`search-product-analytics-resources`](docs/growthbook_analytics-explorations_search-product-analytics-resources.md) - Search Product Analytics resources
-* [`get-product-analytics-columns`](docs/growthbook_analytics-explorations_get-product-analytics-columns.md) - List columns available to a Product Analytics exploration
-* [`get-product-analytics-column-values`](docs/growthbook_analytics-explorations_get-product-analytics-column-values.md) - Fetch values for Product Analytics string columns
-* [`get-product`](docs/growthbook_analytics-explorations_get-product.md) - Get a Product Analytics exploration
+* [`search`](docs/growthbook_analytics-explorations_search.md) - Search Product Analytics resources
+* [`get-columns`](docs/growthbook_analytics-explorations_get-columns.md) - List columns available to a Product Analytics exploration
+* [`get-column-values`](docs/growthbook_analytics-explorations_get-column-values.md) - Fetch values for Product Analytics string columns
+* [`get`](docs/growthbook_analytics-explorations_get.md) - Get a Product Analytics exploration
 
 ### [ramp-schedule-templates](docs/growthbook_ramp-schedule-templates.md)
 
@@ -768,7 +768,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`create`](docs/growthbook_holdouts_create.md) - Create a single holdout
 * [`list`](docs/growthbook_holdouts_list.md) - Get all holdouts
 * [`start`](docs/growthbook_holdouts_start.md) - Start the Holdout's Active Period
-* [`start-holdout-analysis`](docs/growthbook_holdouts_start-holdout-analysis.md) - Start the Holdout's Analysis Period
+* [`start-analysis`](docs/growthbook_holdouts_start-analysis.md) - Start the Holdout's Analysis Period
 * [`stop`](docs/growthbook_holdouts_stop.md) - Stop a Holdout
 
 ### [auto-runs](docs/growthbook_auto-runs.md)
@@ -777,7 +777,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`list`](docs/growthbook_auto-runs_list.md) - Get all autoRuns
 * [`get`](docs/growthbook_auto-runs_get.md) - Get a single autoRun
 * [`update`](docs/growthbook_auto-runs_update.md) - Update a single autoRun
-* [`append-auto-run-artifact`](docs/growthbook_auto-runs_append-auto-run-artifact.md) - Record something an auto run created
+* [`append-artifact`](docs/growthbook_auto-runs_append-artifact.md) - Record something an auto run created
 
 </details>
 <!-- End Available Commands [operations] -->

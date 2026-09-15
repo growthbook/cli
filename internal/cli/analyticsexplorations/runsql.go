@@ -14,7 +14,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var postSQLExplorationCmdMeta = []flagutil.FlagMeta{
+var runSQLCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "cache", FieldPath: "Cache", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"preferred", "required", "never"}, Description: "Controls cache behavior for this exploration: `preferred` (default) returns a cached result if one exists, otherwise runs a new query; `never` always runs a new query, ignoring any cached results; `required` only returns a cached result, if none exists returns exploration: null with a message (options: preferred, required, never)"},
 	{FlagName: "datasource", FieldPath: "Body.Datasource", Kind: flagutil.FlagKindString, Required: true, Description: "ID of the datasource to query [required]"},
 	{FlagName: "dimensions", FieldPath: "Body.Dimensions", Kind: flagutil.FlagKindJSON, Required: true, Annotations: `json:"dimensions"`, Description: "[required]"},
@@ -25,36 +25,36 @@ var postSQLExplorationCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "dataset", FieldPath: "Body.Dataset", Kind: flagutil.FlagKindJSON, Required: true, Annotations: `json:"dataset"`, Description: "[required]"},
 }
 
-// initPostSqlExplorationCmd initializes the post-sql-exploration command.
-func initPostSqlExplorationCmd(parent *cobra.Command) error {
+// initRunSqlCmd initializes the run-sql command.
+func initRunSqlCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
-		Use:     "post-sql-exploration",
+		Use:     "run-sql",
 		Short:   "Create a SQL based visualization",
 		Long:    "Create a SQL based visualization",
-		Example: "  growthbook analytics-explorations post-sql-exploration --datasource <value> --dimensions '[]' --chart-type bar --date-range '{\"predefined\":\"last12Months\"}' --dataset '{\"type\":\"sql\",\"sql\":\"<value>\",\"timestampColumn\":null,\"columnTypes\":{\"key\":\"other\"},\"values\":[{\"name\":\"<value>\",\"rowFilters\":[{\"operator\":\"contains\"}],\"type\":\"sql\",\"valueType\":\"sum\",\"valueColumn\":\"<value>\",\"unit\":\"hertz\"}]}'",
-		RunE:    runPostSqlExplorationCmd,
-		Aliases: []string{"pse"},
+		Example: "  growthbook analytics-explorations run-sql --datasource <value> --dimensions '[]' --chart-type bar --date-range '{\"predefined\":\"last12Months\"}' --dataset '{\"type\":\"sql\",\"sql\":\"<value>\",\"timestampColumn\":null,\"columnTypes\":{\"key\":\"other\"},\"values\":[{\"name\":\"<value>\",\"rowFilters\":[{\"operator\":\"contains\"}],\"type\":\"sql\",\"valueType\":\"sum\",\"valueColumn\":\"<value>\",\"unit\":\"hertz\"}]}'",
+		RunE:    runRunSqlCmd,
+		Aliases: []string{"rs"},
 	}
-	flagutil.RegisterFlags(cmd, postSQLExplorationCmdMeta)
-	if err := flagutil.ValidateMeta[operations.PostSQLExplorationRequest](postSQLExplorationCmdMeta); err != nil {
-		return fmt.Errorf("invalid metadata for post-sql-exploration: %w", err)
+	flagutil.RegisterFlags(cmd, runSQLCmdMeta)
+	if err := flagutil.ValidateMeta[operations.PostSQLExplorationRequest](runSQLCmdMeta); err != nil {
+		return fmt.Errorf("invalid metadata for run-sql: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
 	parent.AddCommand(cmd)
 	return nil
 }
 
-// runPostSqlExplorationCmd executes the post-sql-exploration command.
-func runPostSqlExplorationCmd(cmd *cobra.Command, args []string) error {
+// runRunSqlCmd executes the run-sql command.
+func runRunSqlCmd(cmd *cobra.Command, args []string) error {
 	if usage.UsageRequested(cmd) {
 		return usage.EmitSchema(cmd, cmd.OutOrStdout())
 	}
-	if interactive.ShouldPrompt(cmd, postSQLExplorationCmdMeta) {
-		if err := interactive.PromptAndSetFlags(cmd, postSQLExplorationCmdMeta); err != nil {
+	if interactive.ShouldPrompt(cmd, runSQLCmdMeta) {
+		if err := interactive.PromptAndSetFlags(cmd, runSQLCmdMeta); err != nil {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.PostSQLExplorationRequest](cmd, postSQLExplorationCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.PostSQLExplorationRequest](cmd, runSQLCmdMeta, "Body", "body")
 	if err != nil {
 		return err
 	}
@@ -77,7 +77,7 @@ func runPostSqlExplorationCmd(cmd *cobra.Command, args []string) error {
 	if output.WantsRawJSON(cmd) {
 		sdkOpts = append(sdkOpts, operations.WithSkipDeserialization())
 	}
-	res, err := s.AnalyticsExplorations.PostSQLExploration(cmd.Context(), *req, sdkOpts...)
+	res, err := s.AnalyticsExplorations.RunSQL(cmd.Context(), *req, sdkOpts...)
 	if err != nil {
 		return output.Error(cmd, err)
 	}

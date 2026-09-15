@@ -2673,9 +2673,9 @@ func (s *Experiments) ListNames(ctx context.Context, request *operations.GetExpe
 
 }
 
-// PostExperimentComment - Post a comment on an experiment
+// PostComment - Post a comment on an experiment
 // Adds a new comment to an experiment's discussion thread.
-func (s *Experiments) PostExperimentComment(ctx context.Context, request operations.PostExperimentCommentRequest, opts ...operations.Option) (*operations.PostExperimentCommentResponse, error) {
+func (s *Experiments) PostComment(ctx context.Context, request operations.PostExperimentCommentRequest, opts ...operations.Option) (*operations.PostExperimentCommentResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

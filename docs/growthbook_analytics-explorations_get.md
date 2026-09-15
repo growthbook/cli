@@ -1,25 +1,25 @@
-## growthbook holdouts start-holdout-analysis
+## growthbook analytics-explorations get
 
-Start the Holdout's Analysis Period
+Get a Product Analytics exploration
 
 ### Synopsis
 
-Move the holdout into an analysis phase. New Feature Flags and Experiments can no longer be added, but existing traffic splits remain active for existing and new traffic. Results exclude data from before the analysis period so you can measure the cumulative impact after changes are frozen.
+Get a Product Analytics exploration
 
 ```
-growthbook holdouts start-holdout-analysis [flags]
+growthbook analytics-explorations get [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook holdouts start-holdout-analysis --id <id>
+  growthbook analytics-explorations get --id <id>
 ```
 
 ### Options
 
 ```
-  -h, --help        help for start-holdout-analysis
+  -h, --help        help for get
   -i, --id string   [required]
 ```
 
@@ -49,4 +49,4 @@ growthbook holdouts start-holdout-analysis [flags]
 
 ### SEE ALSO
 
-* [growthbook holdouts](growthbook_holdouts.md)	 - Hold a share of traffic out of all experiments to measure their combined effect
+* [growthbook analytics-explorations](growthbook_analytics-explorations.md)	 - Operations for analytics-explorations

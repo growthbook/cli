@@ -797,9 +797,9 @@ func (s *Holdouts) StartHoldout(ctx context.Context, request operations.StartHol
 
 }
 
-// StartHoldoutAnalysis - Start the Holdout's Analysis Period
+// StartAnalysis - Start the Holdout's Analysis Period
 // Move the holdout into an analysis phase. New Feature Flags and Experiments can no longer be added, but existing traffic splits remain active for existing and new traffic. Results exclude data from before the analysis period so you can measure the cumulative impact after changes are frozen.
-func (s *Holdouts) StartHoldoutAnalysis(ctx context.Context, request operations.StartHoldoutAnalysisRequest, opts ...operations.Option) (*operations.StartHoldoutAnalysisResponse, error) {
+func (s *Holdouts) StartAnalysis(ctx context.Context, request operations.StartHoldoutAnalysisRequest, opts ...operations.Option) (*operations.StartHoldoutAnalysisResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

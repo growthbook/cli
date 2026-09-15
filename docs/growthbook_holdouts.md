@@ -47,6 +47,6 @@ growthbook holdouts [flags]
 * [growthbook holdouts get](growthbook_holdouts_get.md)	 - Get a single holdout
 * [growthbook holdouts list](growthbook_holdouts_list.md)	 - Get all holdouts
 * [growthbook holdouts start](growthbook_holdouts_start.md)	 - Start the Holdout's Active Period
-* [growthbook holdouts start-holdout-analysis](growthbook_holdouts_start-holdout-analysis.md)	 - Start the Holdout's Analysis Period
+* [growthbook holdouts start-analysis](growthbook_holdouts_start-analysis.md)	 - Start the Holdout's Analysis Period
 * [growthbook holdouts stop](growthbook_holdouts_stop.md)	 - Stop a Holdout
 * [growthbook holdouts update](growthbook_holdouts_update.md)	 - Update a single holdout
