@@ -216,6 +216,8 @@ func fetchServerBuild(ctx context.Context, serverURL, bearer string) (*serverBui
 	if err != nil {
 		return nil, err
 	}
+	// This one bypasses the SDK client, so it needs the CLI's User-Agent set by hand.
+	req.Header.Set("User-Agent", UserAgent())
 	if bearer != "" {
 		req.Header.Set("Authorization", "Bearer "+strings.TrimPrefix(bearer, "Bearer "))
 	}
@@ -252,6 +254,7 @@ func latestCLIRelease(ctx context.Context) (*cliRelease, error) {
 		return nil, err
 	}
 	req.Header.Set("Accept", "application/vnd.github+json")
+	req.Header.Set("User-Agent", UserAgent())
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return nil, err

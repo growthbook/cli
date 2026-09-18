@@ -1,7 +1,15 @@
 diff --git a/internal/client/client.go b/internal/client/client.go
 --- a/internal/client/client.go
 +++ b/internal/client/client.go
-@@ -62,17 +62,36 @@ func resolveStringFlag(cmd *cobra.Command, name string) string {
+@@ -49,6 +49,7 @@ func NewClient(cmd *cobra.Command) (*sdk.Growthbook, error) {
+ 		httpClient = testClient
+ 	}
+ 	httpClient = WrapClientForDiagnostics(cmd, httpClient)
++	httpClient = WrapClientForUserAgent(httpClient)
+ 	sdkOpts = append(sdkOpts, sdk.WithClient(httpClient))
+ 	return sdk.New(sdkOpts...), nil
+ }
+@@ -62,17 +63,36 @@ func resolveStringFlag(cmd *cobra.Command, name string) string {
  }
  
  // buildGlobalSecurity reads security credentials from flags, env vars, and config file.
@@ -44,7 +52,7 @@ diff --git a/internal/client/client.go b/internal/client/client.go
  		globalSecurity.BasicAuth = &components.SchemeBasicAuth{
  			Username: username,
  			Password: password,
-@@ -80,3 +99,20 @@ func buildGlobalSecurity(cmd *cobra.Command) components.Security {
+@@ -80,3 +100,20 @@ func buildGlobalSecurity(cmd *cobra.Command) components.Security {
  	}
  	return globalSecurity
  }
