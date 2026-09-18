@@ -49,6 +49,7 @@ func NewClient(cmd *cobra.Command) (*sdk.Growthbook, error) {
 		httpClient = testClient
 	}
 	httpClient = WrapClientForDiagnostics(cmd, httpClient)
+	httpClient = WrapClientForUserAgent(httpClient)
 	sdkOpts = append(sdkOpts, sdk.WithClient(httpClient))
 	return sdk.New(sdkOpts...), nil
 }

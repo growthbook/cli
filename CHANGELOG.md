@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Requests send `User-Agent: growthbook-cli/<version> (<go version>; <os>/<arch>)` instead of the
+  Speakeasy generator's default, so GrowthBook can attribute API usage to the CLI and to a real
+  release rather than the generator's version.
+
 ## [2.6.0] - 2026-09-15
 
 Additive, plus one flag fix. Twenty-four new commands and twenty-two new flags; nothing was
