@@ -64,8 +64,9 @@ build. (Don't commit a generated tree that hasn't been compiled.)
   overwrite — no 3-way merge, no silently-kept stale files, renamed-away packages actually
   disappear. Keep customization in inputs (overlay/`gen.yaml`) wherever possible. Hand-written
   Go lives in two forms, both of which survive a clean regen:
-  - **Separate files** the generator never emits: `internal/cli/custom_*.go` and the whole
-    `internal/customcfg/` package (profiles, legacy migration, startup hook, deprecation warning).
+  - **Separate files** the generator never emits: `internal/cli/custom_*.go`,
+    `internal/client/custom_*.go`, and the whole `internal/customcfg/` package (profiles, legacy
+    migration, startup hook, deprecation warning, User-Agent).
   - **Edits to a generated file** → a unified-diff under `.speakeasy/patches/` (mirrors the
     file path, e.g. `.speakeasy/patches/internal/cli/root.go.patch`). Speakeasy re-applies it
     after every generation and **fails loudly** if it ever stops matching — the opposite of

@@ -6,7 +6,11 @@
 
 - Requests send `User-Agent: growthbook-cli/<version> (<go version>; <os>/<arch>)` instead of the
   Speakeasy generator's default, so GrowthBook can attribute API usage to the CLI and to a real
-  release rather than the generator's version.
+  release rather than the generator's version. A `User-Agent` supplied with `-H`/`--header` is kept
+  as a second product token behind the CLI's own instead of replacing it, so a proxy or wrapper can
+  still identify itself.
+- The once-a-day compatibility check sends the same `User-Agent`. It bypasses the SDK client, so it
+  previously went out as Go's default and was counted as generic Go traffic rather than as the CLI.
 
 ## [2.6.0] - 2026-09-15
 

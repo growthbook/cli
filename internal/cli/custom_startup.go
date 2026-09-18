@@ -36,6 +36,11 @@ func customRegister(rootCmd *cobra.Command) {
 		f.Usage = "Specify the output format. Options: pretty, json, yaml, toon."
 	}
 
+	// Say so up front, since `-H` otherwise reads as an outright replacement.
+	if f := rootCmd.PersistentFlags().Lookup("header"); f != nil {
+		f.Usage += " A User-Agent set this way follows the CLI's own token rather than replacing it."
+	}
+
 	// Run custom startup after the generated PersistentPreRunE (which initializes
 	// config), but skip it for --usage/schema introspection, exactly as the
 	// generated code does for its own setup.
