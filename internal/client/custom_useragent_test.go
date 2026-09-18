@@ -5,6 +5,8 @@ import (
 	"net/http/httptest"
 	"regexp"
 	"testing"
+
+	"github.com/growthbook/cli/v2/internal/customcfg"
 )
 
 func TestUserAgentFormat(t *testing.T) {
@@ -12,6 +14,23 @@ func TestUserAgentFormat(t *testing.T) {
 	want := regexp.MustCompile(`^growthbook-cli/\S+ \(go\S+; \w+/\w+\)$`)
 	if !want.MatchString(ua) {
 		t.Errorf("User-Agent %q does not match %v", ua, want)
+	}
+}
+
+func TestVersionPrefersLdflagsOverBuildInfo(t *testing.T) {
+	original := customcfg.Version
+	t.Cleanup(func() { customcfg.Version = original })
+
+	customcfg.Version = "2.6.0"
+	if got := version(); got != "2.6.0" {
+		t.Errorf("version() = %q, want the ldflags value 2.6.0", got)
+	}
+
+	// Unstamped build: falls through to build info, and under `go test` that
+	// has no module version either, so it lands on the "dev" sentinel.
+	customcfg.Version = "dev"
+	if got := version(); got == "" {
+		t.Error("version() returned empty for an unstamped build")
 	}
 }
 
