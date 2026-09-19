@@ -46,6 +46,7 @@ growthbook analytics-explorations [flags]
 * [growthbook analytics-explorations get](growthbook_analytics-explorations_get.md)	 - Get a Product Analytics exploration
 * [growthbook analytics-explorations get-column-values](growthbook_analytics-explorations_get-column-values.md)	 - Fetch values for Product Analytics string columns
 * [growthbook analytics-explorations get-columns](growthbook_analytics-explorations_get-columns.md)	 - List columns available to a Product Analytics exploration
+* [growthbook analytics-explorations post-journey-exploration](growthbook_analytics-explorations_post-journey-exploration.md)	 - Run a User Journey based visualization
 * [growthbook analytics-explorations run-data-source](growthbook_analytics-explorations_run-data-source.md)	 - Create a Data Source based visualization
 * [growthbook analytics-explorations run-fact-table](growthbook_analytics-explorations_run-fact-table.md)	 - Run a Fact Table based visualization
 * [growthbook analytics-explorations run-funnel](growthbook_analytics-explorations_run-funnel.md)	 - Run a Funnel based visualization

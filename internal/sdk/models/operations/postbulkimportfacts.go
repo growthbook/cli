@@ -455,26 +455,28 @@ func (e *PostBulkImportFactsNumeratorAggregation) UnmarshalJSON(data []byte) err
 type PostBulkImportFactsNumeratorOperator string
 
 const (
-	PostBulkImportFactsNumeratorOperatorEqual            PostBulkImportFactsNumeratorOperator = "="
-	PostBulkImportFactsNumeratorOperatorNotEqual         PostBulkImportFactsNumeratorOperator = "!="
-	PostBulkImportFactsNumeratorOperatorGreaterThan      PostBulkImportFactsNumeratorOperator = ">"
-	PostBulkImportFactsNumeratorOperatorLessThan         PostBulkImportFactsNumeratorOperator = "<"
-	PostBulkImportFactsNumeratorOperatorGreaterThanEqual PostBulkImportFactsNumeratorOperator = ">="
-	PostBulkImportFactsNumeratorOperatorLessThanEqual    PostBulkImportFactsNumeratorOperator = "<="
-	PostBulkImportFactsNumeratorOperatorBetween          PostBulkImportFactsNumeratorOperator = "between"
-	PostBulkImportFactsNumeratorOperatorNotBetween       PostBulkImportFactsNumeratorOperator = "not_between"
-	PostBulkImportFactsNumeratorOperatorIn               PostBulkImportFactsNumeratorOperator = "in"
-	PostBulkImportFactsNumeratorOperatorNotIn            PostBulkImportFactsNumeratorOperator = "not_in"
-	PostBulkImportFactsNumeratorOperatorIsNull           PostBulkImportFactsNumeratorOperator = "is_null"
-	PostBulkImportFactsNumeratorOperatorNotNull          PostBulkImportFactsNumeratorOperator = "not_null"
-	PostBulkImportFactsNumeratorOperatorIsTrue           PostBulkImportFactsNumeratorOperator = "is_true"
-	PostBulkImportFactsNumeratorOperatorIsFalse          PostBulkImportFactsNumeratorOperator = "is_false"
-	PostBulkImportFactsNumeratorOperatorContains         PostBulkImportFactsNumeratorOperator = "contains"
-	PostBulkImportFactsNumeratorOperatorNotContains      PostBulkImportFactsNumeratorOperator = "not_contains"
-	PostBulkImportFactsNumeratorOperatorStartsWith       PostBulkImportFactsNumeratorOperator = "starts_with"
-	PostBulkImportFactsNumeratorOperatorEndsWith         PostBulkImportFactsNumeratorOperator = "ends_with"
-	PostBulkImportFactsNumeratorOperatorSQLExpr          PostBulkImportFactsNumeratorOperator = "sql_expr"
-	PostBulkImportFactsNumeratorOperatorSavedFilter      PostBulkImportFactsNumeratorOperator = "saved_filter"
+	PostBulkImportFactsNumeratorOperatorEqual             PostBulkImportFactsNumeratorOperator = "="
+	PostBulkImportFactsNumeratorOperatorNotEqual          PostBulkImportFactsNumeratorOperator = "!="
+	PostBulkImportFactsNumeratorOperatorGreaterThan       PostBulkImportFactsNumeratorOperator = ">"
+	PostBulkImportFactsNumeratorOperatorLessThan          PostBulkImportFactsNumeratorOperator = "<"
+	PostBulkImportFactsNumeratorOperatorGreaterThanEqual  PostBulkImportFactsNumeratorOperator = ">="
+	PostBulkImportFactsNumeratorOperatorLessThanEqual     PostBulkImportFactsNumeratorOperator = "<="
+	PostBulkImportFactsNumeratorOperatorBetween           PostBulkImportFactsNumeratorOperator = "between"
+	PostBulkImportFactsNumeratorOperatorNotBetween        PostBulkImportFactsNumeratorOperator = "not_between"
+	PostBulkImportFactsNumeratorOperatorIn                PostBulkImportFactsNumeratorOperator = "in"
+	PostBulkImportFactsNumeratorOperatorNotIn             PostBulkImportFactsNumeratorOperator = "not_in"
+	PostBulkImportFactsNumeratorOperatorIsNull            PostBulkImportFactsNumeratorOperator = "is_null"
+	PostBulkImportFactsNumeratorOperatorNotNull           PostBulkImportFactsNumeratorOperator = "not_null"
+	PostBulkImportFactsNumeratorOperatorIsTrue            PostBulkImportFactsNumeratorOperator = "is_true"
+	PostBulkImportFactsNumeratorOperatorIsFalse           PostBulkImportFactsNumeratorOperator = "is_false"
+	PostBulkImportFactsNumeratorOperatorContains          PostBulkImportFactsNumeratorOperator = "contains"
+	PostBulkImportFactsNumeratorOperatorNotContains       PostBulkImportFactsNumeratorOperator = "not_contains"
+	PostBulkImportFactsNumeratorOperatorMatchesPattern    PostBulkImportFactsNumeratorOperator = "matches_pattern"
+	PostBulkImportFactsNumeratorOperatorNotMatchesPattern PostBulkImportFactsNumeratorOperator = "not_matches_pattern"
+	PostBulkImportFactsNumeratorOperatorStartsWith        PostBulkImportFactsNumeratorOperator = "starts_with"
+	PostBulkImportFactsNumeratorOperatorEndsWith          PostBulkImportFactsNumeratorOperator = "ends_with"
+	PostBulkImportFactsNumeratorOperatorSQLExpr           PostBulkImportFactsNumeratorOperator = "sql_expr"
+	PostBulkImportFactsNumeratorOperatorSavedFilter       PostBulkImportFactsNumeratorOperator = "saved_filter"
 )
 
 func (e PostBulkImportFactsNumeratorOperator) ToPointer() *PostBulkImportFactsNumeratorOperator {
@@ -517,6 +519,10 @@ func (e *PostBulkImportFactsNumeratorOperator) UnmarshalJSON(data []byte) error 
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough
@@ -700,26 +706,28 @@ func (e *PostBulkImportFactsDenominatorAggregation) UnmarshalJSON(data []byte) e
 type PostBulkImportFactsDenominatorOperator string
 
 const (
-	PostBulkImportFactsDenominatorOperatorEqual            PostBulkImportFactsDenominatorOperator = "="
-	PostBulkImportFactsDenominatorOperatorNotEqual         PostBulkImportFactsDenominatorOperator = "!="
-	PostBulkImportFactsDenominatorOperatorGreaterThan      PostBulkImportFactsDenominatorOperator = ">"
-	PostBulkImportFactsDenominatorOperatorLessThan         PostBulkImportFactsDenominatorOperator = "<"
-	PostBulkImportFactsDenominatorOperatorGreaterThanEqual PostBulkImportFactsDenominatorOperator = ">="
-	PostBulkImportFactsDenominatorOperatorLessThanEqual    PostBulkImportFactsDenominatorOperator = "<="
-	PostBulkImportFactsDenominatorOperatorBetween          PostBulkImportFactsDenominatorOperator = "between"
-	PostBulkImportFactsDenominatorOperatorNotBetween       PostBulkImportFactsDenominatorOperator = "not_between"
-	PostBulkImportFactsDenominatorOperatorIn               PostBulkImportFactsDenominatorOperator = "in"
-	PostBulkImportFactsDenominatorOperatorNotIn            PostBulkImportFactsDenominatorOperator = "not_in"
-	PostBulkImportFactsDenominatorOperatorIsNull           PostBulkImportFactsDenominatorOperator = "is_null"
-	PostBulkImportFactsDenominatorOperatorNotNull          PostBulkImportFactsDenominatorOperator = "not_null"
-	PostBulkImportFactsDenominatorOperatorIsTrue           PostBulkImportFactsDenominatorOperator = "is_true"
-	PostBulkImportFactsDenominatorOperatorIsFalse          PostBulkImportFactsDenominatorOperator = "is_false"
-	PostBulkImportFactsDenominatorOperatorContains         PostBulkImportFactsDenominatorOperator = "contains"
-	PostBulkImportFactsDenominatorOperatorNotContains      PostBulkImportFactsDenominatorOperator = "not_contains"
-	PostBulkImportFactsDenominatorOperatorStartsWith       PostBulkImportFactsDenominatorOperator = "starts_with"
-	PostBulkImportFactsDenominatorOperatorEndsWith         PostBulkImportFactsDenominatorOperator = "ends_with"
-	PostBulkImportFactsDenominatorOperatorSQLExpr          PostBulkImportFactsDenominatorOperator = "sql_expr"
-	PostBulkImportFactsDenominatorOperatorSavedFilter      PostBulkImportFactsDenominatorOperator = "saved_filter"
+	PostBulkImportFactsDenominatorOperatorEqual             PostBulkImportFactsDenominatorOperator = "="
+	PostBulkImportFactsDenominatorOperatorNotEqual          PostBulkImportFactsDenominatorOperator = "!="
+	PostBulkImportFactsDenominatorOperatorGreaterThan       PostBulkImportFactsDenominatorOperator = ">"
+	PostBulkImportFactsDenominatorOperatorLessThan          PostBulkImportFactsDenominatorOperator = "<"
+	PostBulkImportFactsDenominatorOperatorGreaterThanEqual  PostBulkImportFactsDenominatorOperator = ">="
+	PostBulkImportFactsDenominatorOperatorLessThanEqual     PostBulkImportFactsDenominatorOperator = "<="
+	PostBulkImportFactsDenominatorOperatorBetween           PostBulkImportFactsDenominatorOperator = "between"
+	PostBulkImportFactsDenominatorOperatorNotBetween        PostBulkImportFactsDenominatorOperator = "not_between"
+	PostBulkImportFactsDenominatorOperatorIn                PostBulkImportFactsDenominatorOperator = "in"
+	PostBulkImportFactsDenominatorOperatorNotIn             PostBulkImportFactsDenominatorOperator = "not_in"
+	PostBulkImportFactsDenominatorOperatorIsNull            PostBulkImportFactsDenominatorOperator = "is_null"
+	PostBulkImportFactsDenominatorOperatorNotNull           PostBulkImportFactsDenominatorOperator = "not_null"
+	PostBulkImportFactsDenominatorOperatorIsTrue            PostBulkImportFactsDenominatorOperator = "is_true"
+	PostBulkImportFactsDenominatorOperatorIsFalse           PostBulkImportFactsDenominatorOperator = "is_false"
+	PostBulkImportFactsDenominatorOperatorContains          PostBulkImportFactsDenominatorOperator = "contains"
+	PostBulkImportFactsDenominatorOperatorNotContains       PostBulkImportFactsDenominatorOperator = "not_contains"
+	PostBulkImportFactsDenominatorOperatorMatchesPattern    PostBulkImportFactsDenominatorOperator = "matches_pattern"
+	PostBulkImportFactsDenominatorOperatorNotMatchesPattern PostBulkImportFactsDenominatorOperator = "not_matches_pattern"
+	PostBulkImportFactsDenominatorOperatorStartsWith        PostBulkImportFactsDenominatorOperator = "starts_with"
+	PostBulkImportFactsDenominatorOperatorEndsWith          PostBulkImportFactsDenominatorOperator = "ends_with"
+	PostBulkImportFactsDenominatorOperatorSQLExpr           PostBulkImportFactsDenominatorOperator = "sql_expr"
+	PostBulkImportFactsDenominatorOperatorSavedFilter       PostBulkImportFactsDenominatorOperator = "saved_filter"
 )
 
 func (e PostBulkImportFactsDenominatorOperator) ToPointer() *PostBulkImportFactsDenominatorOperator {
@@ -762,6 +770,10 @@ func (e *PostBulkImportFactsDenominatorOperator) UnmarshalJSON(data []byte) erro
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough
@@ -959,26 +971,28 @@ func (p *PostBulkImportFactsQuantileSettings) GetQuantileEventCountColumn() *str
 type PostBulkImportFactsOperatorSequential string
 
 const (
-	PostBulkImportFactsOperatorSequentialEqual            PostBulkImportFactsOperatorSequential = "="
-	PostBulkImportFactsOperatorSequentialNotEqual         PostBulkImportFactsOperatorSequential = "!="
-	PostBulkImportFactsOperatorSequentialGreaterThan      PostBulkImportFactsOperatorSequential = ">"
-	PostBulkImportFactsOperatorSequentialLessThan         PostBulkImportFactsOperatorSequential = "<"
-	PostBulkImportFactsOperatorSequentialGreaterThanEqual PostBulkImportFactsOperatorSequential = ">="
-	PostBulkImportFactsOperatorSequentialLessThanEqual    PostBulkImportFactsOperatorSequential = "<="
-	PostBulkImportFactsOperatorSequentialBetween          PostBulkImportFactsOperatorSequential = "between"
-	PostBulkImportFactsOperatorSequentialNotBetween       PostBulkImportFactsOperatorSequential = "not_between"
-	PostBulkImportFactsOperatorSequentialIn               PostBulkImportFactsOperatorSequential = "in"
-	PostBulkImportFactsOperatorSequentialNotIn            PostBulkImportFactsOperatorSequential = "not_in"
-	PostBulkImportFactsOperatorSequentialIsNull           PostBulkImportFactsOperatorSequential = "is_null"
-	PostBulkImportFactsOperatorSequentialNotNull          PostBulkImportFactsOperatorSequential = "not_null"
-	PostBulkImportFactsOperatorSequentialIsTrue           PostBulkImportFactsOperatorSequential = "is_true"
-	PostBulkImportFactsOperatorSequentialIsFalse          PostBulkImportFactsOperatorSequential = "is_false"
-	PostBulkImportFactsOperatorSequentialContains         PostBulkImportFactsOperatorSequential = "contains"
-	PostBulkImportFactsOperatorSequentialNotContains      PostBulkImportFactsOperatorSequential = "not_contains"
-	PostBulkImportFactsOperatorSequentialStartsWith       PostBulkImportFactsOperatorSequential = "starts_with"
-	PostBulkImportFactsOperatorSequentialEndsWith         PostBulkImportFactsOperatorSequential = "ends_with"
-	PostBulkImportFactsOperatorSequentialSQLExpr          PostBulkImportFactsOperatorSequential = "sql_expr"
-	PostBulkImportFactsOperatorSequentialSavedFilter      PostBulkImportFactsOperatorSequential = "saved_filter"
+	PostBulkImportFactsOperatorSequentialEqual             PostBulkImportFactsOperatorSequential = "="
+	PostBulkImportFactsOperatorSequentialNotEqual          PostBulkImportFactsOperatorSequential = "!="
+	PostBulkImportFactsOperatorSequentialGreaterThan       PostBulkImportFactsOperatorSequential = ">"
+	PostBulkImportFactsOperatorSequentialLessThan          PostBulkImportFactsOperatorSequential = "<"
+	PostBulkImportFactsOperatorSequentialGreaterThanEqual  PostBulkImportFactsOperatorSequential = ">="
+	PostBulkImportFactsOperatorSequentialLessThanEqual     PostBulkImportFactsOperatorSequential = "<="
+	PostBulkImportFactsOperatorSequentialBetween           PostBulkImportFactsOperatorSequential = "between"
+	PostBulkImportFactsOperatorSequentialNotBetween        PostBulkImportFactsOperatorSequential = "not_between"
+	PostBulkImportFactsOperatorSequentialIn                PostBulkImportFactsOperatorSequential = "in"
+	PostBulkImportFactsOperatorSequentialNotIn             PostBulkImportFactsOperatorSequential = "not_in"
+	PostBulkImportFactsOperatorSequentialIsNull            PostBulkImportFactsOperatorSequential = "is_null"
+	PostBulkImportFactsOperatorSequentialNotNull           PostBulkImportFactsOperatorSequential = "not_null"
+	PostBulkImportFactsOperatorSequentialIsTrue            PostBulkImportFactsOperatorSequential = "is_true"
+	PostBulkImportFactsOperatorSequentialIsFalse           PostBulkImportFactsOperatorSequential = "is_false"
+	PostBulkImportFactsOperatorSequentialContains          PostBulkImportFactsOperatorSequential = "contains"
+	PostBulkImportFactsOperatorSequentialNotContains       PostBulkImportFactsOperatorSequential = "not_contains"
+	PostBulkImportFactsOperatorSequentialMatchesPattern    PostBulkImportFactsOperatorSequential = "matches_pattern"
+	PostBulkImportFactsOperatorSequentialNotMatchesPattern PostBulkImportFactsOperatorSequential = "not_matches_pattern"
+	PostBulkImportFactsOperatorSequentialStartsWith        PostBulkImportFactsOperatorSequential = "starts_with"
+	PostBulkImportFactsOperatorSequentialEndsWith          PostBulkImportFactsOperatorSequential = "ends_with"
+	PostBulkImportFactsOperatorSequentialSQLExpr           PostBulkImportFactsOperatorSequential = "sql_expr"
+	PostBulkImportFactsOperatorSequentialSavedFilter       PostBulkImportFactsOperatorSequential = "saved_filter"
 )
 
 func (e PostBulkImportFactsOperatorSequential) ToPointer() *PostBulkImportFactsOperatorSequential {
@@ -1021,6 +1035,10 @@ func (e *PostBulkImportFactsOperatorSequential) UnmarshalJSON(data []byte) error
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough

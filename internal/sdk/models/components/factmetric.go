@@ -63,26 +63,28 @@ func (e *Aggregation) IsExact() bool {
 type NumeratorOperator string
 
 const (
-	NumeratorOperatorEqual            NumeratorOperator = "="
-	NumeratorOperatorNotEqual         NumeratorOperator = "!="
-	NumeratorOperatorGreaterThan      NumeratorOperator = ">"
-	NumeratorOperatorLessThan         NumeratorOperator = "<"
-	NumeratorOperatorGreaterThanEqual NumeratorOperator = ">="
-	NumeratorOperatorLessThanEqual    NumeratorOperator = "<="
-	NumeratorOperatorBetween          NumeratorOperator = "between"
-	NumeratorOperatorNotBetween       NumeratorOperator = "not_between"
-	NumeratorOperatorIn               NumeratorOperator = "in"
-	NumeratorOperatorNotIn            NumeratorOperator = "not_in"
-	NumeratorOperatorIsNull           NumeratorOperator = "is_null"
-	NumeratorOperatorNotNull          NumeratorOperator = "not_null"
-	NumeratorOperatorIsTrue           NumeratorOperator = "is_true"
-	NumeratorOperatorIsFalse          NumeratorOperator = "is_false"
-	NumeratorOperatorContains         NumeratorOperator = "contains"
-	NumeratorOperatorNotContains      NumeratorOperator = "not_contains"
-	NumeratorOperatorStartsWith       NumeratorOperator = "starts_with"
-	NumeratorOperatorEndsWith         NumeratorOperator = "ends_with"
-	NumeratorOperatorSQLExpr          NumeratorOperator = "sql_expr"
-	NumeratorOperatorSavedFilter      NumeratorOperator = "saved_filter"
+	NumeratorOperatorEqual             NumeratorOperator = "="
+	NumeratorOperatorNotEqual          NumeratorOperator = "!="
+	NumeratorOperatorGreaterThan       NumeratorOperator = ">"
+	NumeratorOperatorLessThan          NumeratorOperator = "<"
+	NumeratorOperatorGreaterThanEqual  NumeratorOperator = ">="
+	NumeratorOperatorLessThanEqual     NumeratorOperator = "<="
+	NumeratorOperatorBetween           NumeratorOperator = "between"
+	NumeratorOperatorNotBetween        NumeratorOperator = "not_between"
+	NumeratorOperatorIn                NumeratorOperator = "in"
+	NumeratorOperatorNotIn             NumeratorOperator = "not_in"
+	NumeratorOperatorIsNull            NumeratorOperator = "is_null"
+	NumeratorOperatorNotNull           NumeratorOperator = "not_null"
+	NumeratorOperatorIsTrue            NumeratorOperator = "is_true"
+	NumeratorOperatorIsFalse           NumeratorOperator = "is_false"
+	NumeratorOperatorContains          NumeratorOperator = "contains"
+	NumeratorOperatorNotContains       NumeratorOperator = "not_contains"
+	NumeratorOperatorMatchesPattern    NumeratorOperator = "matches_pattern"
+	NumeratorOperatorNotMatchesPattern NumeratorOperator = "not_matches_pattern"
+	NumeratorOperatorStartsWith        NumeratorOperator = "starts_with"
+	NumeratorOperatorEndsWith          NumeratorOperator = "ends_with"
+	NumeratorOperatorSQLExpr           NumeratorOperator = "sql_expr"
+	NumeratorOperatorSavedFilter       NumeratorOperator = "saved_filter"
 )
 
 func (e NumeratorOperator) ToPointer() *NumeratorOperator {
@@ -93,7 +95,7 @@ func (e NumeratorOperator) ToPointer() *NumeratorOperator {
 func (e *NumeratorOperator) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", ">", "<", ">=", "<=", "between", "not_between", "in", "not_in", "is_null", "not_null", "is_true", "is_false", "contains", "not_contains", "starts_with", "ends_with", "sql_expr", "saved_filter":
+		case "=", "!=", ">", "<", ">=", "<=", "between", "not_between", "in", "not_in", "is_null", "not_null", "is_true", "is_false", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "sql_expr", "saved_filter":
 			return true
 		}
 	}
@@ -230,26 +232,28 @@ func (n *Numerator) GetAggregateFilter() *string {
 type DenominatorOperator string
 
 const (
-	DenominatorOperatorEqual            DenominatorOperator = "="
-	DenominatorOperatorNotEqual         DenominatorOperator = "!="
-	DenominatorOperatorGreaterThan      DenominatorOperator = ">"
-	DenominatorOperatorLessThan         DenominatorOperator = "<"
-	DenominatorOperatorGreaterThanEqual DenominatorOperator = ">="
-	DenominatorOperatorLessThanEqual    DenominatorOperator = "<="
-	DenominatorOperatorBetween          DenominatorOperator = "between"
-	DenominatorOperatorNotBetween       DenominatorOperator = "not_between"
-	DenominatorOperatorIn               DenominatorOperator = "in"
-	DenominatorOperatorNotIn            DenominatorOperator = "not_in"
-	DenominatorOperatorIsNull           DenominatorOperator = "is_null"
-	DenominatorOperatorNotNull          DenominatorOperator = "not_null"
-	DenominatorOperatorIsTrue           DenominatorOperator = "is_true"
-	DenominatorOperatorIsFalse          DenominatorOperator = "is_false"
-	DenominatorOperatorContains         DenominatorOperator = "contains"
-	DenominatorOperatorNotContains      DenominatorOperator = "not_contains"
-	DenominatorOperatorStartsWith       DenominatorOperator = "starts_with"
-	DenominatorOperatorEndsWith         DenominatorOperator = "ends_with"
-	DenominatorOperatorSQLExpr          DenominatorOperator = "sql_expr"
-	DenominatorOperatorSavedFilter      DenominatorOperator = "saved_filter"
+	DenominatorOperatorEqual             DenominatorOperator = "="
+	DenominatorOperatorNotEqual          DenominatorOperator = "!="
+	DenominatorOperatorGreaterThan       DenominatorOperator = ">"
+	DenominatorOperatorLessThan          DenominatorOperator = "<"
+	DenominatorOperatorGreaterThanEqual  DenominatorOperator = ">="
+	DenominatorOperatorLessThanEqual     DenominatorOperator = "<="
+	DenominatorOperatorBetween           DenominatorOperator = "between"
+	DenominatorOperatorNotBetween        DenominatorOperator = "not_between"
+	DenominatorOperatorIn                DenominatorOperator = "in"
+	DenominatorOperatorNotIn             DenominatorOperator = "not_in"
+	DenominatorOperatorIsNull            DenominatorOperator = "is_null"
+	DenominatorOperatorNotNull           DenominatorOperator = "not_null"
+	DenominatorOperatorIsTrue            DenominatorOperator = "is_true"
+	DenominatorOperatorIsFalse           DenominatorOperator = "is_false"
+	DenominatorOperatorContains          DenominatorOperator = "contains"
+	DenominatorOperatorNotContains       DenominatorOperator = "not_contains"
+	DenominatorOperatorMatchesPattern    DenominatorOperator = "matches_pattern"
+	DenominatorOperatorNotMatchesPattern DenominatorOperator = "not_matches_pattern"
+	DenominatorOperatorStartsWith        DenominatorOperator = "starts_with"
+	DenominatorOperatorEndsWith          DenominatorOperator = "ends_with"
+	DenominatorOperatorSQLExpr           DenominatorOperator = "sql_expr"
+	DenominatorOperatorSavedFilter       DenominatorOperator = "saved_filter"
 )
 
 func (e DenominatorOperator) ToPointer() *DenominatorOperator {
@@ -260,7 +264,7 @@ func (e DenominatorOperator) ToPointer() *DenominatorOperator {
 func (e *DenominatorOperator) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", ">", "<", ">=", "<=", "between", "not_between", "in", "not_in", "is_null", "not_null", "is_true", "is_false", "contains", "not_contains", "starts_with", "ends_with", "sql_expr", "saved_filter":
+		case "=", "!=", ">", "<", ">=", "<=", "between", "not_between", "in", "not_in", "is_null", "not_null", "is_true", "is_false", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "sql_expr", "saved_filter":
 			return true
 		}
 	}
@@ -434,26 +438,28 @@ func (q *QuantileSettings) GetQuantileEventCountColumn() *string {
 type FunnelSettingsOperator string
 
 const (
-	FunnelSettingsOperatorEqual            FunnelSettingsOperator = "="
-	FunnelSettingsOperatorNotEqual         FunnelSettingsOperator = "!="
-	FunnelSettingsOperatorGreaterThan      FunnelSettingsOperator = ">"
-	FunnelSettingsOperatorLessThan         FunnelSettingsOperator = "<"
-	FunnelSettingsOperatorGreaterThanEqual FunnelSettingsOperator = ">="
-	FunnelSettingsOperatorLessThanEqual    FunnelSettingsOperator = "<="
-	FunnelSettingsOperatorBetween          FunnelSettingsOperator = "between"
-	FunnelSettingsOperatorNotBetween       FunnelSettingsOperator = "not_between"
-	FunnelSettingsOperatorIn               FunnelSettingsOperator = "in"
-	FunnelSettingsOperatorNotIn            FunnelSettingsOperator = "not_in"
-	FunnelSettingsOperatorIsNull           FunnelSettingsOperator = "is_null"
-	FunnelSettingsOperatorNotNull          FunnelSettingsOperator = "not_null"
-	FunnelSettingsOperatorIsTrue           FunnelSettingsOperator = "is_true"
-	FunnelSettingsOperatorIsFalse          FunnelSettingsOperator = "is_false"
-	FunnelSettingsOperatorContains         FunnelSettingsOperator = "contains"
-	FunnelSettingsOperatorNotContains      FunnelSettingsOperator = "not_contains"
-	FunnelSettingsOperatorStartsWith       FunnelSettingsOperator = "starts_with"
-	FunnelSettingsOperatorEndsWith         FunnelSettingsOperator = "ends_with"
-	FunnelSettingsOperatorSQLExpr          FunnelSettingsOperator = "sql_expr"
-	FunnelSettingsOperatorSavedFilter      FunnelSettingsOperator = "saved_filter"
+	FunnelSettingsOperatorEqual             FunnelSettingsOperator = "="
+	FunnelSettingsOperatorNotEqual          FunnelSettingsOperator = "!="
+	FunnelSettingsOperatorGreaterThan       FunnelSettingsOperator = ">"
+	FunnelSettingsOperatorLessThan          FunnelSettingsOperator = "<"
+	FunnelSettingsOperatorGreaterThanEqual  FunnelSettingsOperator = ">="
+	FunnelSettingsOperatorLessThanEqual     FunnelSettingsOperator = "<="
+	FunnelSettingsOperatorBetween           FunnelSettingsOperator = "between"
+	FunnelSettingsOperatorNotBetween        FunnelSettingsOperator = "not_between"
+	FunnelSettingsOperatorIn                FunnelSettingsOperator = "in"
+	FunnelSettingsOperatorNotIn             FunnelSettingsOperator = "not_in"
+	FunnelSettingsOperatorIsNull            FunnelSettingsOperator = "is_null"
+	FunnelSettingsOperatorNotNull           FunnelSettingsOperator = "not_null"
+	FunnelSettingsOperatorIsTrue            FunnelSettingsOperator = "is_true"
+	FunnelSettingsOperatorIsFalse           FunnelSettingsOperator = "is_false"
+	FunnelSettingsOperatorContains          FunnelSettingsOperator = "contains"
+	FunnelSettingsOperatorNotContains       FunnelSettingsOperator = "not_contains"
+	FunnelSettingsOperatorMatchesPattern    FunnelSettingsOperator = "matches_pattern"
+	FunnelSettingsOperatorNotMatchesPattern FunnelSettingsOperator = "not_matches_pattern"
+	FunnelSettingsOperatorStartsWith        FunnelSettingsOperator = "starts_with"
+	FunnelSettingsOperatorEndsWith          FunnelSettingsOperator = "ends_with"
+	FunnelSettingsOperatorSQLExpr           FunnelSettingsOperator = "sql_expr"
+	FunnelSettingsOperatorSavedFilter       FunnelSettingsOperator = "saved_filter"
 )
 
 func (e FunnelSettingsOperator) ToPointer() *FunnelSettingsOperator {
@@ -464,7 +470,7 @@ func (e FunnelSettingsOperator) ToPointer() *FunnelSettingsOperator {
 func (e *FunnelSettingsOperator) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", ">", "<", ">=", "<=", "between", "not_between", "in", "not_in", "is_null", "not_null", "is_true", "is_false", "contains", "not_contains", "starts_with", "ends_with", "sql_expr", "saved_filter":
+		case "=", "!=", ">", "<", ">=", "<=", "between", "not_between", "in", "not_in", "is_null", "not_null", "is_true", "is_false", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "sql_expr", "saved_filter":
 			return true
 		}
 	}

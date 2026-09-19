@@ -396,26 +396,28 @@ func (c *ChartSettingsMetric) GetValueAxisLabel() *string {
 type DashboardRowFilterOperatorMetric string
 
 const (
-	DashboardRowFilterOperatorMetricEqual            DashboardRowFilterOperatorMetric = "="
-	DashboardRowFilterOperatorMetricNotEqual         DashboardRowFilterOperatorMetric = "!="
-	DashboardRowFilterOperatorMetricLessThan         DashboardRowFilterOperatorMetric = "<"
-	DashboardRowFilterOperatorMetricLessThanEqual    DashboardRowFilterOperatorMetric = "<="
-	DashboardRowFilterOperatorMetricGreaterThan      DashboardRowFilterOperatorMetric = ">"
-	DashboardRowFilterOperatorMetricGreaterThanEqual DashboardRowFilterOperatorMetric = ">="
-	DashboardRowFilterOperatorMetricBetween          DashboardRowFilterOperatorMetric = "between"
-	DashboardRowFilterOperatorMetricNotBetween       DashboardRowFilterOperatorMetric = "not_between"
-	DashboardRowFilterOperatorMetricIn               DashboardRowFilterOperatorMetric = "in"
-	DashboardRowFilterOperatorMetricNotIn            DashboardRowFilterOperatorMetric = "not_in"
-	DashboardRowFilterOperatorMetricContains         DashboardRowFilterOperatorMetric = "contains"
-	DashboardRowFilterOperatorMetricNotContains      DashboardRowFilterOperatorMetric = "not_contains"
-	DashboardRowFilterOperatorMetricStartsWith       DashboardRowFilterOperatorMetric = "starts_with"
-	DashboardRowFilterOperatorMetricEndsWith         DashboardRowFilterOperatorMetric = "ends_with"
-	DashboardRowFilterOperatorMetricIsNull           DashboardRowFilterOperatorMetric = "is_null"
-	DashboardRowFilterOperatorMetricNotNull          DashboardRowFilterOperatorMetric = "not_null"
-	DashboardRowFilterOperatorMetricIsTrue           DashboardRowFilterOperatorMetric = "is_true"
-	DashboardRowFilterOperatorMetricIsFalse          DashboardRowFilterOperatorMetric = "is_false"
-	DashboardRowFilterOperatorMetricSQLExpr          DashboardRowFilterOperatorMetric = "sql_expr"
-	DashboardRowFilterOperatorMetricSavedFilter      DashboardRowFilterOperatorMetric = "saved_filter"
+	DashboardRowFilterOperatorMetricEqual             DashboardRowFilterOperatorMetric = "="
+	DashboardRowFilterOperatorMetricNotEqual          DashboardRowFilterOperatorMetric = "!="
+	DashboardRowFilterOperatorMetricLessThan          DashboardRowFilterOperatorMetric = "<"
+	DashboardRowFilterOperatorMetricLessThanEqual     DashboardRowFilterOperatorMetric = "<="
+	DashboardRowFilterOperatorMetricGreaterThan       DashboardRowFilterOperatorMetric = ">"
+	DashboardRowFilterOperatorMetricGreaterThanEqual  DashboardRowFilterOperatorMetric = ">="
+	DashboardRowFilterOperatorMetricBetween           DashboardRowFilterOperatorMetric = "between"
+	DashboardRowFilterOperatorMetricNotBetween        DashboardRowFilterOperatorMetric = "not_between"
+	DashboardRowFilterOperatorMetricIn                DashboardRowFilterOperatorMetric = "in"
+	DashboardRowFilterOperatorMetricNotIn             DashboardRowFilterOperatorMetric = "not_in"
+	DashboardRowFilterOperatorMetricContains          DashboardRowFilterOperatorMetric = "contains"
+	DashboardRowFilterOperatorMetricNotContains       DashboardRowFilterOperatorMetric = "not_contains"
+	DashboardRowFilterOperatorMetricMatchesPattern    DashboardRowFilterOperatorMetric = "matches_pattern"
+	DashboardRowFilterOperatorMetricNotMatchesPattern DashboardRowFilterOperatorMetric = "not_matches_pattern"
+	DashboardRowFilterOperatorMetricStartsWith        DashboardRowFilterOperatorMetric = "starts_with"
+	DashboardRowFilterOperatorMetricEndsWith          DashboardRowFilterOperatorMetric = "ends_with"
+	DashboardRowFilterOperatorMetricIsNull            DashboardRowFilterOperatorMetric = "is_null"
+	DashboardRowFilterOperatorMetricNotNull           DashboardRowFilterOperatorMetric = "not_null"
+	DashboardRowFilterOperatorMetricIsTrue            DashboardRowFilterOperatorMetric = "is_true"
+	DashboardRowFilterOperatorMetricIsFalse           DashboardRowFilterOperatorMetric = "is_false"
+	DashboardRowFilterOperatorMetricSQLExpr           DashboardRowFilterOperatorMetric = "sql_expr"
+	DashboardRowFilterOperatorMetricSavedFilter       DashboardRowFilterOperatorMetric = "saved_filter"
 )
 
 func (e DashboardRowFilterOperatorMetric) ToPointer() *DashboardRowFilterOperatorMetric {
@@ -426,7 +428,7 @@ func (e DashboardRowFilterOperatorMetric) ToPointer() *DashboardRowFilterOperato
 func (e *DashboardRowFilterOperatorMetric) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
 			return true
 		}
 	}

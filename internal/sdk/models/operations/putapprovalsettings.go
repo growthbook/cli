@@ -19,8 +19,9 @@ func (a *ApprovalFlows) GetSavedGroups() []components.SavedGroupApprovalRule {
 }
 
 type PutApprovalSettingsRequest struct {
-	RequireReviews []components.RequireReviewRuleInput `json:"requireReviews,omitzero"`
-	ApprovalFlows  *ApprovalFlows                      `json:"approvalFlows,omitzero"`
+	RequireReviews      []components.RequireReviewRuleInput `json:"requireReviews,omitzero"`
+	ApprovalFlows       *ApprovalFlows                      `json:"approvalFlows,omitzero"`
+	TargetingReviewMode []components.TargetingReviewRule    `json:"targetingReviewMode,omitzero"`
 }
 
 func (p PutApprovalSettingsRequest) MarshalJSON() ([]byte, error) {
@@ -48,10 +49,18 @@ func (p *PutApprovalSettingsRequest) GetApprovalFlows() *ApprovalFlows {
 	return p.ApprovalFlows
 }
 
+func (p *PutApprovalSettingsRequest) GetTargetingReviewMode() []components.TargetingReviewRule {
+	if p == nil {
+		return nil
+	}
+	return p.TargetingReviewMode
+}
+
 // PutApprovalSettingsResponseBody - Resource updated
 type PutApprovalSettingsResponseBody struct {
-	RequireReviews []components.RequireReviewRule `json:"requireReviews"`
-	ApprovalFlows  components.ApprovalFlows       `json:"approvalFlows"`
+	RequireReviews      []components.RequireReviewRule   `json:"requireReviews"`
+	ApprovalFlows       components.ApprovalFlows         `json:"approvalFlows"`
+	TargetingReviewMode []components.TargetingReviewRule `json:"targetingReviewMode"`
 }
 
 func (p *PutApprovalSettingsResponseBody) GetRequireReviews() []components.RequireReviewRule {
@@ -66,6 +75,13 @@ func (p *PutApprovalSettingsResponseBody) GetApprovalFlows() components.Approval
 		return components.ApprovalFlows{}
 	}
 	return p.ApprovalFlows
+}
+
+func (p *PutApprovalSettingsResponseBody) GetTargetingReviewMode() []components.TargetingReviewRule {
+	if p == nil {
+		return []components.TargetingReviewRule{}
+	}
+	return p.TargetingReviewMode
 }
 
 type PutApprovalSettingsResponse struct {

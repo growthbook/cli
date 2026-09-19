@@ -380,26 +380,28 @@ func (c *CreateDashboardChartSettingsMetric) GetValueAxisLabel() *string {
 type CreateDashboardRowFilterOperatorMetric string
 
 const (
-	CreateDashboardRowFilterOperatorMetricEqual            CreateDashboardRowFilterOperatorMetric = "="
-	CreateDashboardRowFilterOperatorMetricNotEqual         CreateDashboardRowFilterOperatorMetric = "!="
-	CreateDashboardRowFilterOperatorMetricLessThan         CreateDashboardRowFilterOperatorMetric = "<"
-	CreateDashboardRowFilterOperatorMetricLessThanEqual    CreateDashboardRowFilterOperatorMetric = "<="
-	CreateDashboardRowFilterOperatorMetricGreaterThan      CreateDashboardRowFilterOperatorMetric = ">"
-	CreateDashboardRowFilterOperatorMetricGreaterThanEqual CreateDashboardRowFilterOperatorMetric = ">="
-	CreateDashboardRowFilterOperatorMetricBetween          CreateDashboardRowFilterOperatorMetric = "between"
-	CreateDashboardRowFilterOperatorMetricNotBetween       CreateDashboardRowFilterOperatorMetric = "not_between"
-	CreateDashboardRowFilterOperatorMetricIn               CreateDashboardRowFilterOperatorMetric = "in"
-	CreateDashboardRowFilterOperatorMetricNotIn            CreateDashboardRowFilterOperatorMetric = "not_in"
-	CreateDashboardRowFilterOperatorMetricContains         CreateDashboardRowFilterOperatorMetric = "contains"
-	CreateDashboardRowFilterOperatorMetricNotContains      CreateDashboardRowFilterOperatorMetric = "not_contains"
-	CreateDashboardRowFilterOperatorMetricStartsWith       CreateDashboardRowFilterOperatorMetric = "starts_with"
-	CreateDashboardRowFilterOperatorMetricEndsWith         CreateDashboardRowFilterOperatorMetric = "ends_with"
-	CreateDashboardRowFilterOperatorMetricIsNull           CreateDashboardRowFilterOperatorMetric = "is_null"
-	CreateDashboardRowFilterOperatorMetricNotNull          CreateDashboardRowFilterOperatorMetric = "not_null"
-	CreateDashboardRowFilterOperatorMetricIsTrue           CreateDashboardRowFilterOperatorMetric = "is_true"
-	CreateDashboardRowFilterOperatorMetricIsFalse          CreateDashboardRowFilterOperatorMetric = "is_false"
-	CreateDashboardRowFilterOperatorMetricSQLExpr          CreateDashboardRowFilterOperatorMetric = "sql_expr"
-	CreateDashboardRowFilterOperatorMetricSavedFilter      CreateDashboardRowFilterOperatorMetric = "saved_filter"
+	CreateDashboardRowFilterOperatorMetricEqual             CreateDashboardRowFilterOperatorMetric = "="
+	CreateDashboardRowFilterOperatorMetricNotEqual          CreateDashboardRowFilterOperatorMetric = "!="
+	CreateDashboardRowFilterOperatorMetricLessThan          CreateDashboardRowFilterOperatorMetric = "<"
+	CreateDashboardRowFilterOperatorMetricLessThanEqual     CreateDashboardRowFilterOperatorMetric = "<="
+	CreateDashboardRowFilterOperatorMetricGreaterThan       CreateDashboardRowFilterOperatorMetric = ">"
+	CreateDashboardRowFilterOperatorMetricGreaterThanEqual  CreateDashboardRowFilterOperatorMetric = ">="
+	CreateDashboardRowFilterOperatorMetricBetween           CreateDashboardRowFilterOperatorMetric = "between"
+	CreateDashboardRowFilterOperatorMetricNotBetween        CreateDashboardRowFilterOperatorMetric = "not_between"
+	CreateDashboardRowFilterOperatorMetricIn                CreateDashboardRowFilterOperatorMetric = "in"
+	CreateDashboardRowFilterOperatorMetricNotIn             CreateDashboardRowFilterOperatorMetric = "not_in"
+	CreateDashboardRowFilterOperatorMetricContains          CreateDashboardRowFilterOperatorMetric = "contains"
+	CreateDashboardRowFilterOperatorMetricNotContains       CreateDashboardRowFilterOperatorMetric = "not_contains"
+	CreateDashboardRowFilterOperatorMetricMatchesPattern    CreateDashboardRowFilterOperatorMetric = "matches_pattern"
+	CreateDashboardRowFilterOperatorMetricNotMatchesPattern CreateDashboardRowFilterOperatorMetric = "not_matches_pattern"
+	CreateDashboardRowFilterOperatorMetricStartsWith        CreateDashboardRowFilterOperatorMetric = "starts_with"
+	CreateDashboardRowFilterOperatorMetricEndsWith          CreateDashboardRowFilterOperatorMetric = "ends_with"
+	CreateDashboardRowFilterOperatorMetricIsNull            CreateDashboardRowFilterOperatorMetric = "is_null"
+	CreateDashboardRowFilterOperatorMetricNotNull           CreateDashboardRowFilterOperatorMetric = "not_null"
+	CreateDashboardRowFilterOperatorMetricIsTrue            CreateDashboardRowFilterOperatorMetric = "is_true"
+	CreateDashboardRowFilterOperatorMetricIsFalse           CreateDashboardRowFilterOperatorMetric = "is_false"
+	CreateDashboardRowFilterOperatorMetricSQLExpr           CreateDashboardRowFilterOperatorMetric = "sql_expr"
+	CreateDashboardRowFilterOperatorMetricSavedFilter       CreateDashboardRowFilterOperatorMetric = "saved_filter"
 )
 
 func (e CreateDashboardRowFilterOperatorMetric) ToPointer() *CreateDashboardRowFilterOperatorMetric {
@@ -434,6 +436,10 @@ func (e *CreateDashboardRowFilterOperatorMetric) UnmarshalJSON(data []byte) erro
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough

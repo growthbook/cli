@@ -88,7 +88,7 @@ type PostRampScheduleStepPatch struct {
 	Prerequisites   optionalnullable.OptionalNullable[[]PostRampScheduleStepPrerequisites] `json:"prerequisites,omitzero"`
 	AllEnvironments optionalnullable.OptionalNullable[bool]                                `json:"allEnvironments,omitzero"`
 	Environments    optionalnullable.OptionalNullable[[]string]                            `json:"environments,omitzero"`
-	// Force value (any JSON type)
+	// Value to serve, in the string form rule values use ("false", "10", '{"limit": 5}'). A non-string JSON value is accepted and stored as its JSON text. Must be valid for the feature's value type.
 	Force   any                                     `json:"force,omitzero"`
 	Enabled optionalnullable.OptionalNullable[bool] `json:"enabled,omitzero"`
 }
@@ -388,7 +388,7 @@ type PostRampSchedulePatch struct {
 	Prerequisites   optionalnullable.OptionalNullable[[]PostRampSchedulePrerequisites] `json:"prerequisites,omitzero"`
 	AllEnvironments optionalnullable.OptionalNullable[bool]                            `json:"allEnvironments,omitzero"`
 	Environments    optionalnullable.OptionalNullable[[]string]                        `json:"environments,omitzero"`
-	// Force value (any JSON type)
+	// Value to serve, in the string form rule values use ("false", "10", '{"limit": 5}'). A non-string JSON value is accepted and stored as its JSON text. Must be valid for the feature's value type.
 	Force   any                                     `json:"force,omitzero"`
 	Enabled optionalnullable.OptionalNullable[bool] `json:"enabled,omitzero"`
 }

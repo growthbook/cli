@@ -397,6 +397,7 @@ func (u *UpdateExperimentScreenshot) GetDescription() *string {
 }
 
 type UpdateExperimentVariation struct {
+	// Stable variation id. On update, an omitted id is filled from the stored variation with the same key, or the same position, when the number of variations is unchanged.
 	ID *string `json:"id,omitzero"`
 	// Alias for `id`. Mirrors the GET response. `id` takes precedence.
 	VariationID *string                      `json:"variationId,omitzero"`

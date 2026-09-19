@@ -837,26 +837,28 @@ func (g *GlobalControlSettings9) GetDateRange() *bool {
 type DimensionOperatorFunnel string
 
 const (
-	DimensionOperatorFunnelEqual            DimensionOperatorFunnel = "="
-	DimensionOperatorFunnelNotEqual         DimensionOperatorFunnel = "!="
-	DimensionOperatorFunnelLessThan         DimensionOperatorFunnel = "<"
-	DimensionOperatorFunnelLessThanEqual    DimensionOperatorFunnel = "<="
-	DimensionOperatorFunnelGreaterThan      DimensionOperatorFunnel = ">"
-	DimensionOperatorFunnelGreaterThanEqual DimensionOperatorFunnel = ">="
-	DimensionOperatorFunnelBetween          DimensionOperatorFunnel = "between"
-	DimensionOperatorFunnelNotBetween       DimensionOperatorFunnel = "not_between"
-	DimensionOperatorFunnelIn               DimensionOperatorFunnel = "in"
-	DimensionOperatorFunnelNotIn            DimensionOperatorFunnel = "not_in"
-	DimensionOperatorFunnelContains         DimensionOperatorFunnel = "contains"
-	DimensionOperatorFunnelNotContains      DimensionOperatorFunnel = "not_contains"
-	DimensionOperatorFunnelStartsWith       DimensionOperatorFunnel = "starts_with"
-	DimensionOperatorFunnelEndsWith         DimensionOperatorFunnel = "ends_with"
-	DimensionOperatorFunnelIsNull           DimensionOperatorFunnel = "is_null"
-	DimensionOperatorFunnelNotNull          DimensionOperatorFunnel = "not_null"
-	DimensionOperatorFunnelIsTrue           DimensionOperatorFunnel = "is_true"
-	DimensionOperatorFunnelIsFalse          DimensionOperatorFunnel = "is_false"
-	DimensionOperatorFunnelSQLExpr          DimensionOperatorFunnel = "sql_expr"
-	DimensionOperatorFunnelSavedFilter      DimensionOperatorFunnel = "saved_filter"
+	DimensionOperatorFunnelEqual             DimensionOperatorFunnel = "="
+	DimensionOperatorFunnelNotEqual          DimensionOperatorFunnel = "!="
+	DimensionOperatorFunnelLessThan          DimensionOperatorFunnel = "<"
+	DimensionOperatorFunnelLessThanEqual     DimensionOperatorFunnel = "<="
+	DimensionOperatorFunnelGreaterThan       DimensionOperatorFunnel = ">"
+	DimensionOperatorFunnelGreaterThanEqual  DimensionOperatorFunnel = ">="
+	DimensionOperatorFunnelBetween           DimensionOperatorFunnel = "between"
+	DimensionOperatorFunnelNotBetween        DimensionOperatorFunnel = "not_between"
+	DimensionOperatorFunnelIn                DimensionOperatorFunnel = "in"
+	DimensionOperatorFunnelNotIn             DimensionOperatorFunnel = "not_in"
+	DimensionOperatorFunnelContains          DimensionOperatorFunnel = "contains"
+	DimensionOperatorFunnelNotContains       DimensionOperatorFunnel = "not_contains"
+	DimensionOperatorFunnelMatchesPattern    DimensionOperatorFunnel = "matches_pattern"
+	DimensionOperatorFunnelNotMatchesPattern DimensionOperatorFunnel = "not_matches_pattern"
+	DimensionOperatorFunnelStartsWith        DimensionOperatorFunnel = "starts_with"
+	DimensionOperatorFunnelEndsWith          DimensionOperatorFunnel = "ends_with"
+	DimensionOperatorFunnelIsNull            DimensionOperatorFunnel = "is_null"
+	DimensionOperatorFunnelNotNull           DimensionOperatorFunnel = "not_null"
+	DimensionOperatorFunnelIsTrue            DimensionOperatorFunnel = "is_true"
+	DimensionOperatorFunnelIsFalse           DimensionOperatorFunnel = "is_false"
+	DimensionOperatorFunnelSQLExpr           DimensionOperatorFunnel = "sql_expr"
+	DimensionOperatorFunnelSavedFilter       DimensionOperatorFunnel = "saved_filter"
 )
 
 func (e DimensionOperatorFunnel) ToPointer() *DimensionOperatorFunnel {
@@ -867,7 +869,7 @@ func (e DimensionOperatorFunnel) ToPointer() *DimensionOperatorFunnel {
 func (e *DimensionOperatorFunnel) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
 			return true
 		}
 	}
@@ -1453,26 +1455,28 @@ func (c *ChartSettingsFunnel) GetValueAxisLabel() *string {
 type DashboardStepOperator string
 
 const (
-	DashboardStepOperatorEqual            DashboardStepOperator = "="
-	DashboardStepOperatorNotEqual         DashboardStepOperator = "!="
-	DashboardStepOperatorLessThan         DashboardStepOperator = "<"
-	DashboardStepOperatorLessThanEqual    DashboardStepOperator = "<="
-	DashboardStepOperatorGreaterThan      DashboardStepOperator = ">"
-	DashboardStepOperatorGreaterThanEqual DashboardStepOperator = ">="
-	DashboardStepOperatorBetween          DashboardStepOperator = "between"
-	DashboardStepOperatorNotBetween       DashboardStepOperator = "not_between"
-	DashboardStepOperatorIn               DashboardStepOperator = "in"
-	DashboardStepOperatorNotIn            DashboardStepOperator = "not_in"
-	DashboardStepOperatorContains         DashboardStepOperator = "contains"
-	DashboardStepOperatorNotContains      DashboardStepOperator = "not_contains"
-	DashboardStepOperatorStartsWith       DashboardStepOperator = "starts_with"
-	DashboardStepOperatorEndsWith         DashboardStepOperator = "ends_with"
-	DashboardStepOperatorIsNull           DashboardStepOperator = "is_null"
-	DashboardStepOperatorNotNull          DashboardStepOperator = "not_null"
-	DashboardStepOperatorIsTrue           DashboardStepOperator = "is_true"
-	DashboardStepOperatorIsFalse          DashboardStepOperator = "is_false"
-	DashboardStepOperatorSQLExpr          DashboardStepOperator = "sql_expr"
-	DashboardStepOperatorSavedFilter      DashboardStepOperator = "saved_filter"
+	DashboardStepOperatorEqual             DashboardStepOperator = "="
+	DashboardStepOperatorNotEqual          DashboardStepOperator = "!="
+	DashboardStepOperatorLessThan          DashboardStepOperator = "<"
+	DashboardStepOperatorLessThanEqual     DashboardStepOperator = "<="
+	DashboardStepOperatorGreaterThan       DashboardStepOperator = ">"
+	DashboardStepOperatorGreaterThanEqual  DashboardStepOperator = ">="
+	DashboardStepOperatorBetween           DashboardStepOperator = "between"
+	DashboardStepOperatorNotBetween        DashboardStepOperator = "not_between"
+	DashboardStepOperatorIn                DashboardStepOperator = "in"
+	DashboardStepOperatorNotIn             DashboardStepOperator = "not_in"
+	DashboardStepOperatorContains          DashboardStepOperator = "contains"
+	DashboardStepOperatorNotContains       DashboardStepOperator = "not_contains"
+	DashboardStepOperatorMatchesPattern    DashboardStepOperator = "matches_pattern"
+	DashboardStepOperatorNotMatchesPattern DashboardStepOperator = "not_matches_pattern"
+	DashboardStepOperatorStartsWith        DashboardStepOperator = "starts_with"
+	DashboardStepOperatorEndsWith          DashboardStepOperator = "ends_with"
+	DashboardStepOperatorIsNull            DashboardStepOperator = "is_null"
+	DashboardStepOperatorNotNull           DashboardStepOperator = "not_null"
+	DashboardStepOperatorIsTrue            DashboardStepOperator = "is_true"
+	DashboardStepOperatorIsFalse           DashboardStepOperator = "is_false"
+	DashboardStepOperatorSQLExpr           DashboardStepOperator = "sql_expr"
+	DashboardStepOperatorSavedFilter       DashboardStepOperator = "saved_filter"
 )
 
 func (e DashboardStepOperator) ToPointer() *DashboardStepOperator {
@@ -1483,7 +1487,7 @@ func (e DashboardStepOperator) ToPointer() *DashboardStepOperator {
 func (e *DashboardStepOperator) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
 			return true
 		}
 	}
@@ -2172,26 +2176,28 @@ func (g *GlobalControlSettings8) GetDateRange() *bool {
 type DimensionOperatorSQL string
 
 const (
-	DimensionOperatorSQLEqual            DimensionOperatorSQL = "="
-	DimensionOperatorSQLNotEqual         DimensionOperatorSQL = "!="
-	DimensionOperatorSQLLessThan         DimensionOperatorSQL = "<"
-	DimensionOperatorSQLLessThanEqual    DimensionOperatorSQL = "<="
-	DimensionOperatorSQLGreaterThan      DimensionOperatorSQL = ">"
-	DimensionOperatorSQLGreaterThanEqual DimensionOperatorSQL = ">="
-	DimensionOperatorSQLBetween          DimensionOperatorSQL = "between"
-	DimensionOperatorSQLNotBetween       DimensionOperatorSQL = "not_between"
-	DimensionOperatorSQLIn               DimensionOperatorSQL = "in"
-	DimensionOperatorSQLNotIn            DimensionOperatorSQL = "not_in"
-	DimensionOperatorSQLContains         DimensionOperatorSQL = "contains"
-	DimensionOperatorSQLNotContains      DimensionOperatorSQL = "not_contains"
-	DimensionOperatorSQLStartsWith       DimensionOperatorSQL = "starts_with"
-	DimensionOperatorSQLEndsWith         DimensionOperatorSQL = "ends_with"
-	DimensionOperatorSQLIsNull           DimensionOperatorSQL = "is_null"
-	DimensionOperatorSQLNotNull          DimensionOperatorSQL = "not_null"
-	DimensionOperatorSQLIsTrue           DimensionOperatorSQL = "is_true"
-	DimensionOperatorSQLIsFalse          DimensionOperatorSQL = "is_false"
-	DimensionOperatorSQLSQLExpr          DimensionOperatorSQL = "sql_expr"
-	DimensionOperatorSQLSavedFilter      DimensionOperatorSQL = "saved_filter"
+	DimensionOperatorSQLEqual             DimensionOperatorSQL = "="
+	DimensionOperatorSQLNotEqual          DimensionOperatorSQL = "!="
+	DimensionOperatorSQLLessThan          DimensionOperatorSQL = "<"
+	DimensionOperatorSQLLessThanEqual     DimensionOperatorSQL = "<="
+	DimensionOperatorSQLGreaterThan       DimensionOperatorSQL = ">"
+	DimensionOperatorSQLGreaterThanEqual  DimensionOperatorSQL = ">="
+	DimensionOperatorSQLBetween           DimensionOperatorSQL = "between"
+	DimensionOperatorSQLNotBetween        DimensionOperatorSQL = "not_between"
+	DimensionOperatorSQLIn                DimensionOperatorSQL = "in"
+	DimensionOperatorSQLNotIn             DimensionOperatorSQL = "not_in"
+	DimensionOperatorSQLContains          DimensionOperatorSQL = "contains"
+	DimensionOperatorSQLNotContains       DimensionOperatorSQL = "not_contains"
+	DimensionOperatorSQLMatchesPattern    DimensionOperatorSQL = "matches_pattern"
+	DimensionOperatorSQLNotMatchesPattern DimensionOperatorSQL = "not_matches_pattern"
+	DimensionOperatorSQLStartsWith        DimensionOperatorSQL = "starts_with"
+	DimensionOperatorSQLEndsWith          DimensionOperatorSQL = "ends_with"
+	DimensionOperatorSQLIsNull            DimensionOperatorSQL = "is_null"
+	DimensionOperatorSQLNotNull           DimensionOperatorSQL = "not_null"
+	DimensionOperatorSQLIsTrue            DimensionOperatorSQL = "is_true"
+	DimensionOperatorSQLIsFalse           DimensionOperatorSQL = "is_false"
+	DimensionOperatorSQLSQLExpr           DimensionOperatorSQL = "sql_expr"
+	DimensionOperatorSQLSavedFilter       DimensionOperatorSQL = "saved_filter"
 )
 
 func (e DimensionOperatorSQL) ToPointer() *DimensionOperatorSQL {
@@ -2202,7 +2208,7 @@ func (e DimensionOperatorSQL) ToPointer() *DimensionOperatorSQL {
 func (e *DimensionOperatorSQL) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
 			return true
 		}
 	}
@@ -2813,26 +2819,28 @@ func (e *DashboardColumnTypesSQL) IsExact() bool {
 type DashboardRowFilterOperatorSQL string
 
 const (
-	DashboardRowFilterOperatorSQLEqual            DashboardRowFilterOperatorSQL = "="
-	DashboardRowFilterOperatorSQLNotEqual         DashboardRowFilterOperatorSQL = "!="
-	DashboardRowFilterOperatorSQLLessThan         DashboardRowFilterOperatorSQL = "<"
-	DashboardRowFilterOperatorSQLLessThanEqual    DashboardRowFilterOperatorSQL = "<="
-	DashboardRowFilterOperatorSQLGreaterThan      DashboardRowFilterOperatorSQL = ">"
-	DashboardRowFilterOperatorSQLGreaterThanEqual DashboardRowFilterOperatorSQL = ">="
-	DashboardRowFilterOperatorSQLBetween          DashboardRowFilterOperatorSQL = "between"
-	DashboardRowFilterOperatorSQLNotBetween       DashboardRowFilterOperatorSQL = "not_between"
-	DashboardRowFilterOperatorSQLIn               DashboardRowFilterOperatorSQL = "in"
-	DashboardRowFilterOperatorSQLNotIn            DashboardRowFilterOperatorSQL = "not_in"
-	DashboardRowFilterOperatorSQLContains         DashboardRowFilterOperatorSQL = "contains"
-	DashboardRowFilterOperatorSQLNotContains      DashboardRowFilterOperatorSQL = "not_contains"
-	DashboardRowFilterOperatorSQLStartsWith       DashboardRowFilterOperatorSQL = "starts_with"
-	DashboardRowFilterOperatorSQLEndsWith         DashboardRowFilterOperatorSQL = "ends_with"
-	DashboardRowFilterOperatorSQLIsNull           DashboardRowFilterOperatorSQL = "is_null"
-	DashboardRowFilterOperatorSQLNotNull          DashboardRowFilterOperatorSQL = "not_null"
-	DashboardRowFilterOperatorSQLIsTrue           DashboardRowFilterOperatorSQL = "is_true"
-	DashboardRowFilterOperatorSQLIsFalse          DashboardRowFilterOperatorSQL = "is_false"
-	DashboardRowFilterOperatorSQLSQLExpr          DashboardRowFilterOperatorSQL = "sql_expr"
-	DashboardRowFilterOperatorSQLSavedFilter      DashboardRowFilterOperatorSQL = "saved_filter"
+	DashboardRowFilterOperatorSQLEqual             DashboardRowFilterOperatorSQL = "="
+	DashboardRowFilterOperatorSQLNotEqual          DashboardRowFilterOperatorSQL = "!="
+	DashboardRowFilterOperatorSQLLessThan          DashboardRowFilterOperatorSQL = "<"
+	DashboardRowFilterOperatorSQLLessThanEqual     DashboardRowFilterOperatorSQL = "<="
+	DashboardRowFilterOperatorSQLGreaterThan       DashboardRowFilterOperatorSQL = ">"
+	DashboardRowFilterOperatorSQLGreaterThanEqual  DashboardRowFilterOperatorSQL = ">="
+	DashboardRowFilterOperatorSQLBetween           DashboardRowFilterOperatorSQL = "between"
+	DashboardRowFilterOperatorSQLNotBetween        DashboardRowFilterOperatorSQL = "not_between"
+	DashboardRowFilterOperatorSQLIn                DashboardRowFilterOperatorSQL = "in"
+	DashboardRowFilterOperatorSQLNotIn             DashboardRowFilterOperatorSQL = "not_in"
+	DashboardRowFilterOperatorSQLContains          DashboardRowFilterOperatorSQL = "contains"
+	DashboardRowFilterOperatorSQLNotContains       DashboardRowFilterOperatorSQL = "not_contains"
+	DashboardRowFilterOperatorSQLMatchesPattern    DashboardRowFilterOperatorSQL = "matches_pattern"
+	DashboardRowFilterOperatorSQLNotMatchesPattern DashboardRowFilterOperatorSQL = "not_matches_pattern"
+	DashboardRowFilterOperatorSQLStartsWith        DashboardRowFilterOperatorSQL = "starts_with"
+	DashboardRowFilterOperatorSQLEndsWith          DashboardRowFilterOperatorSQL = "ends_with"
+	DashboardRowFilterOperatorSQLIsNull            DashboardRowFilterOperatorSQL = "is_null"
+	DashboardRowFilterOperatorSQLNotNull           DashboardRowFilterOperatorSQL = "not_null"
+	DashboardRowFilterOperatorSQLIsTrue            DashboardRowFilterOperatorSQL = "is_true"
+	DashboardRowFilterOperatorSQLIsFalse           DashboardRowFilterOperatorSQL = "is_false"
+	DashboardRowFilterOperatorSQLSQLExpr           DashboardRowFilterOperatorSQL = "sql_expr"
+	DashboardRowFilterOperatorSQLSavedFilter       DashboardRowFilterOperatorSQL = "saved_filter"
 )
 
 func (e DashboardRowFilterOperatorSQL) ToPointer() *DashboardRowFilterOperatorSQL {
@@ -2843,7 +2851,7 @@ func (e DashboardRowFilterOperatorSQL) ToPointer() *DashboardRowFilterOperatorSQ
 func (e *DashboardRowFilterOperatorSQL) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
 			return true
 		}
 	}
@@ -3485,26 +3493,28 @@ func (g *GlobalControlSettings7) GetDateRange() *bool {
 type DimensionOperatorDataSource string
 
 const (
-	DimensionOperatorDataSourceEqual            DimensionOperatorDataSource = "="
-	DimensionOperatorDataSourceNotEqual         DimensionOperatorDataSource = "!="
-	DimensionOperatorDataSourceLessThan         DimensionOperatorDataSource = "<"
-	DimensionOperatorDataSourceLessThanEqual    DimensionOperatorDataSource = "<="
-	DimensionOperatorDataSourceGreaterThan      DimensionOperatorDataSource = ">"
-	DimensionOperatorDataSourceGreaterThanEqual DimensionOperatorDataSource = ">="
-	DimensionOperatorDataSourceBetween          DimensionOperatorDataSource = "between"
-	DimensionOperatorDataSourceNotBetween       DimensionOperatorDataSource = "not_between"
-	DimensionOperatorDataSourceIn               DimensionOperatorDataSource = "in"
-	DimensionOperatorDataSourceNotIn            DimensionOperatorDataSource = "not_in"
-	DimensionOperatorDataSourceContains         DimensionOperatorDataSource = "contains"
-	DimensionOperatorDataSourceNotContains      DimensionOperatorDataSource = "not_contains"
-	DimensionOperatorDataSourceStartsWith       DimensionOperatorDataSource = "starts_with"
-	DimensionOperatorDataSourceEndsWith         DimensionOperatorDataSource = "ends_with"
-	DimensionOperatorDataSourceIsNull           DimensionOperatorDataSource = "is_null"
-	DimensionOperatorDataSourceNotNull          DimensionOperatorDataSource = "not_null"
-	DimensionOperatorDataSourceIsTrue           DimensionOperatorDataSource = "is_true"
-	DimensionOperatorDataSourceIsFalse          DimensionOperatorDataSource = "is_false"
-	DimensionOperatorDataSourceSQLExpr          DimensionOperatorDataSource = "sql_expr"
-	DimensionOperatorDataSourceSavedFilter      DimensionOperatorDataSource = "saved_filter"
+	DimensionOperatorDataSourceEqual             DimensionOperatorDataSource = "="
+	DimensionOperatorDataSourceNotEqual          DimensionOperatorDataSource = "!="
+	DimensionOperatorDataSourceLessThan          DimensionOperatorDataSource = "<"
+	DimensionOperatorDataSourceLessThanEqual     DimensionOperatorDataSource = "<="
+	DimensionOperatorDataSourceGreaterThan       DimensionOperatorDataSource = ">"
+	DimensionOperatorDataSourceGreaterThanEqual  DimensionOperatorDataSource = ">="
+	DimensionOperatorDataSourceBetween           DimensionOperatorDataSource = "between"
+	DimensionOperatorDataSourceNotBetween        DimensionOperatorDataSource = "not_between"
+	DimensionOperatorDataSourceIn                DimensionOperatorDataSource = "in"
+	DimensionOperatorDataSourceNotIn             DimensionOperatorDataSource = "not_in"
+	DimensionOperatorDataSourceContains          DimensionOperatorDataSource = "contains"
+	DimensionOperatorDataSourceNotContains       DimensionOperatorDataSource = "not_contains"
+	DimensionOperatorDataSourceMatchesPattern    DimensionOperatorDataSource = "matches_pattern"
+	DimensionOperatorDataSourceNotMatchesPattern DimensionOperatorDataSource = "not_matches_pattern"
+	DimensionOperatorDataSourceStartsWith        DimensionOperatorDataSource = "starts_with"
+	DimensionOperatorDataSourceEndsWith          DimensionOperatorDataSource = "ends_with"
+	DimensionOperatorDataSourceIsNull            DimensionOperatorDataSource = "is_null"
+	DimensionOperatorDataSourceNotNull           DimensionOperatorDataSource = "not_null"
+	DimensionOperatorDataSourceIsTrue            DimensionOperatorDataSource = "is_true"
+	DimensionOperatorDataSourceIsFalse           DimensionOperatorDataSource = "is_false"
+	DimensionOperatorDataSourceSQLExpr           DimensionOperatorDataSource = "sql_expr"
+	DimensionOperatorDataSourceSavedFilter       DimensionOperatorDataSource = "saved_filter"
 )
 
 func (e DimensionOperatorDataSource) ToPointer() *DimensionOperatorDataSource {
@@ -3515,7 +3525,7 @@ func (e DimensionOperatorDataSource) ToPointer() *DimensionOperatorDataSource {
 func (e *DimensionOperatorDataSource) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
 			return true
 		}
 	}
@@ -4126,26 +4136,28 @@ func (e *DashboardColumnTypesDataSource) IsExact() bool {
 type DashboardRowFilterOperatorDataSource string
 
 const (
-	DashboardRowFilterOperatorDataSourceEqual            DashboardRowFilterOperatorDataSource = "="
-	DashboardRowFilterOperatorDataSourceNotEqual         DashboardRowFilterOperatorDataSource = "!="
-	DashboardRowFilterOperatorDataSourceLessThan         DashboardRowFilterOperatorDataSource = "<"
-	DashboardRowFilterOperatorDataSourceLessThanEqual    DashboardRowFilterOperatorDataSource = "<="
-	DashboardRowFilterOperatorDataSourceGreaterThan      DashboardRowFilterOperatorDataSource = ">"
-	DashboardRowFilterOperatorDataSourceGreaterThanEqual DashboardRowFilterOperatorDataSource = ">="
-	DashboardRowFilterOperatorDataSourceBetween          DashboardRowFilterOperatorDataSource = "between"
-	DashboardRowFilterOperatorDataSourceNotBetween       DashboardRowFilterOperatorDataSource = "not_between"
-	DashboardRowFilterOperatorDataSourceIn               DashboardRowFilterOperatorDataSource = "in"
-	DashboardRowFilterOperatorDataSourceNotIn            DashboardRowFilterOperatorDataSource = "not_in"
-	DashboardRowFilterOperatorDataSourceContains         DashboardRowFilterOperatorDataSource = "contains"
-	DashboardRowFilterOperatorDataSourceNotContains      DashboardRowFilterOperatorDataSource = "not_contains"
-	DashboardRowFilterOperatorDataSourceStartsWith       DashboardRowFilterOperatorDataSource = "starts_with"
-	DashboardRowFilterOperatorDataSourceEndsWith         DashboardRowFilterOperatorDataSource = "ends_with"
-	DashboardRowFilterOperatorDataSourceIsNull           DashboardRowFilterOperatorDataSource = "is_null"
-	DashboardRowFilterOperatorDataSourceNotNull          DashboardRowFilterOperatorDataSource = "not_null"
-	DashboardRowFilterOperatorDataSourceIsTrue           DashboardRowFilterOperatorDataSource = "is_true"
-	DashboardRowFilterOperatorDataSourceIsFalse          DashboardRowFilterOperatorDataSource = "is_false"
-	DashboardRowFilterOperatorDataSourceSQLExpr          DashboardRowFilterOperatorDataSource = "sql_expr"
-	DashboardRowFilterOperatorDataSourceSavedFilter      DashboardRowFilterOperatorDataSource = "saved_filter"
+	DashboardRowFilterOperatorDataSourceEqual             DashboardRowFilterOperatorDataSource = "="
+	DashboardRowFilterOperatorDataSourceNotEqual          DashboardRowFilterOperatorDataSource = "!="
+	DashboardRowFilterOperatorDataSourceLessThan          DashboardRowFilterOperatorDataSource = "<"
+	DashboardRowFilterOperatorDataSourceLessThanEqual     DashboardRowFilterOperatorDataSource = "<="
+	DashboardRowFilterOperatorDataSourceGreaterThan       DashboardRowFilterOperatorDataSource = ">"
+	DashboardRowFilterOperatorDataSourceGreaterThanEqual  DashboardRowFilterOperatorDataSource = ">="
+	DashboardRowFilterOperatorDataSourceBetween           DashboardRowFilterOperatorDataSource = "between"
+	DashboardRowFilterOperatorDataSourceNotBetween        DashboardRowFilterOperatorDataSource = "not_between"
+	DashboardRowFilterOperatorDataSourceIn                DashboardRowFilterOperatorDataSource = "in"
+	DashboardRowFilterOperatorDataSourceNotIn             DashboardRowFilterOperatorDataSource = "not_in"
+	DashboardRowFilterOperatorDataSourceContains          DashboardRowFilterOperatorDataSource = "contains"
+	DashboardRowFilterOperatorDataSourceNotContains       DashboardRowFilterOperatorDataSource = "not_contains"
+	DashboardRowFilterOperatorDataSourceMatchesPattern    DashboardRowFilterOperatorDataSource = "matches_pattern"
+	DashboardRowFilterOperatorDataSourceNotMatchesPattern DashboardRowFilterOperatorDataSource = "not_matches_pattern"
+	DashboardRowFilterOperatorDataSourceStartsWith        DashboardRowFilterOperatorDataSource = "starts_with"
+	DashboardRowFilterOperatorDataSourceEndsWith          DashboardRowFilterOperatorDataSource = "ends_with"
+	DashboardRowFilterOperatorDataSourceIsNull            DashboardRowFilterOperatorDataSource = "is_null"
+	DashboardRowFilterOperatorDataSourceNotNull           DashboardRowFilterOperatorDataSource = "not_null"
+	DashboardRowFilterOperatorDataSourceIsTrue            DashboardRowFilterOperatorDataSource = "is_true"
+	DashboardRowFilterOperatorDataSourceIsFalse           DashboardRowFilterOperatorDataSource = "is_false"
+	DashboardRowFilterOperatorDataSourceSQLExpr           DashboardRowFilterOperatorDataSource = "sql_expr"
+	DashboardRowFilterOperatorDataSourceSavedFilter       DashboardRowFilterOperatorDataSource = "saved_filter"
 )
 
 func (e DashboardRowFilterOperatorDataSource) ToPointer() *DashboardRowFilterOperatorDataSource {
@@ -4156,7 +4168,7 @@ func (e DashboardRowFilterOperatorDataSource) ToPointer() *DashboardRowFilterOpe
 func (e *DashboardRowFilterOperatorDataSource) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
 			return true
 		}
 	}
@@ -4798,26 +4810,28 @@ func (g *GlobalControlSettings6) GetDateRange() *bool {
 type DimensionOperatorFactTable string
 
 const (
-	DimensionOperatorFactTableEqual            DimensionOperatorFactTable = "="
-	DimensionOperatorFactTableNotEqual         DimensionOperatorFactTable = "!="
-	DimensionOperatorFactTableLessThan         DimensionOperatorFactTable = "<"
-	DimensionOperatorFactTableLessThanEqual    DimensionOperatorFactTable = "<="
-	DimensionOperatorFactTableGreaterThan      DimensionOperatorFactTable = ">"
-	DimensionOperatorFactTableGreaterThanEqual DimensionOperatorFactTable = ">="
-	DimensionOperatorFactTableBetween          DimensionOperatorFactTable = "between"
-	DimensionOperatorFactTableNotBetween       DimensionOperatorFactTable = "not_between"
-	DimensionOperatorFactTableIn               DimensionOperatorFactTable = "in"
-	DimensionOperatorFactTableNotIn            DimensionOperatorFactTable = "not_in"
-	DimensionOperatorFactTableContains         DimensionOperatorFactTable = "contains"
-	DimensionOperatorFactTableNotContains      DimensionOperatorFactTable = "not_contains"
-	DimensionOperatorFactTableStartsWith       DimensionOperatorFactTable = "starts_with"
-	DimensionOperatorFactTableEndsWith         DimensionOperatorFactTable = "ends_with"
-	DimensionOperatorFactTableIsNull           DimensionOperatorFactTable = "is_null"
-	DimensionOperatorFactTableNotNull          DimensionOperatorFactTable = "not_null"
-	DimensionOperatorFactTableIsTrue           DimensionOperatorFactTable = "is_true"
-	DimensionOperatorFactTableIsFalse          DimensionOperatorFactTable = "is_false"
-	DimensionOperatorFactTableSQLExpr          DimensionOperatorFactTable = "sql_expr"
-	DimensionOperatorFactTableSavedFilter      DimensionOperatorFactTable = "saved_filter"
+	DimensionOperatorFactTableEqual             DimensionOperatorFactTable = "="
+	DimensionOperatorFactTableNotEqual          DimensionOperatorFactTable = "!="
+	DimensionOperatorFactTableLessThan          DimensionOperatorFactTable = "<"
+	DimensionOperatorFactTableLessThanEqual     DimensionOperatorFactTable = "<="
+	DimensionOperatorFactTableGreaterThan       DimensionOperatorFactTable = ">"
+	DimensionOperatorFactTableGreaterThanEqual  DimensionOperatorFactTable = ">="
+	DimensionOperatorFactTableBetween           DimensionOperatorFactTable = "between"
+	DimensionOperatorFactTableNotBetween        DimensionOperatorFactTable = "not_between"
+	DimensionOperatorFactTableIn                DimensionOperatorFactTable = "in"
+	DimensionOperatorFactTableNotIn             DimensionOperatorFactTable = "not_in"
+	DimensionOperatorFactTableContains          DimensionOperatorFactTable = "contains"
+	DimensionOperatorFactTableNotContains       DimensionOperatorFactTable = "not_contains"
+	DimensionOperatorFactTableMatchesPattern    DimensionOperatorFactTable = "matches_pattern"
+	DimensionOperatorFactTableNotMatchesPattern DimensionOperatorFactTable = "not_matches_pattern"
+	DimensionOperatorFactTableStartsWith        DimensionOperatorFactTable = "starts_with"
+	DimensionOperatorFactTableEndsWith          DimensionOperatorFactTable = "ends_with"
+	DimensionOperatorFactTableIsNull            DimensionOperatorFactTable = "is_null"
+	DimensionOperatorFactTableNotNull           DimensionOperatorFactTable = "not_null"
+	DimensionOperatorFactTableIsTrue            DimensionOperatorFactTable = "is_true"
+	DimensionOperatorFactTableIsFalse           DimensionOperatorFactTable = "is_false"
+	DimensionOperatorFactTableSQLExpr           DimensionOperatorFactTable = "sql_expr"
+	DimensionOperatorFactTableSavedFilter       DimensionOperatorFactTable = "saved_filter"
 )
 
 func (e DimensionOperatorFactTable) ToPointer() *DimensionOperatorFactTable {
@@ -4828,7 +4842,7 @@ func (e DimensionOperatorFactTable) ToPointer() *DimensionOperatorFactTable {
 func (e *DimensionOperatorFactTable) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
 			return true
 		}
 	}
@@ -5414,26 +5428,28 @@ func (c *ChartSettingsFactTable) GetValueAxisLabel() *string {
 type DashboardRowFilterOperatorFactTable string
 
 const (
-	DashboardRowFilterOperatorFactTableEqual            DashboardRowFilterOperatorFactTable = "="
-	DashboardRowFilterOperatorFactTableNotEqual         DashboardRowFilterOperatorFactTable = "!="
-	DashboardRowFilterOperatorFactTableLessThan         DashboardRowFilterOperatorFactTable = "<"
-	DashboardRowFilterOperatorFactTableLessThanEqual    DashboardRowFilterOperatorFactTable = "<="
-	DashboardRowFilterOperatorFactTableGreaterThan      DashboardRowFilterOperatorFactTable = ">"
-	DashboardRowFilterOperatorFactTableGreaterThanEqual DashboardRowFilterOperatorFactTable = ">="
-	DashboardRowFilterOperatorFactTableBetween          DashboardRowFilterOperatorFactTable = "between"
-	DashboardRowFilterOperatorFactTableNotBetween       DashboardRowFilterOperatorFactTable = "not_between"
-	DashboardRowFilterOperatorFactTableIn               DashboardRowFilterOperatorFactTable = "in"
-	DashboardRowFilterOperatorFactTableNotIn            DashboardRowFilterOperatorFactTable = "not_in"
-	DashboardRowFilterOperatorFactTableContains         DashboardRowFilterOperatorFactTable = "contains"
-	DashboardRowFilterOperatorFactTableNotContains      DashboardRowFilterOperatorFactTable = "not_contains"
-	DashboardRowFilterOperatorFactTableStartsWith       DashboardRowFilterOperatorFactTable = "starts_with"
-	DashboardRowFilterOperatorFactTableEndsWith         DashboardRowFilterOperatorFactTable = "ends_with"
-	DashboardRowFilterOperatorFactTableIsNull           DashboardRowFilterOperatorFactTable = "is_null"
-	DashboardRowFilterOperatorFactTableNotNull          DashboardRowFilterOperatorFactTable = "not_null"
-	DashboardRowFilterOperatorFactTableIsTrue           DashboardRowFilterOperatorFactTable = "is_true"
-	DashboardRowFilterOperatorFactTableIsFalse          DashboardRowFilterOperatorFactTable = "is_false"
-	DashboardRowFilterOperatorFactTableSQLExpr          DashboardRowFilterOperatorFactTable = "sql_expr"
-	DashboardRowFilterOperatorFactTableSavedFilter      DashboardRowFilterOperatorFactTable = "saved_filter"
+	DashboardRowFilterOperatorFactTableEqual             DashboardRowFilterOperatorFactTable = "="
+	DashboardRowFilterOperatorFactTableNotEqual          DashboardRowFilterOperatorFactTable = "!="
+	DashboardRowFilterOperatorFactTableLessThan          DashboardRowFilterOperatorFactTable = "<"
+	DashboardRowFilterOperatorFactTableLessThanEqual     DashboardRowFilterOperatorFactTable = "<="
+	DashboardRowFilterOperatorFactTableGreaterThan       DashboardRowFilterOperatorFactTable = ">"
+	DashboardRowFilterOperatorFactTableGreaterThanEqual  DashboardRowFilterOperatorFactTable = ">="
+	DashboardRowFilterOperatorFactTableBetween           DashboardRowFilterOperatorFactTable = "between"
+	DashboardRowFilterOperatorFactTableNotBetween        DashboardRowFilterOperatorFactTable = "not_between"
+	DashboardRowFilterOperatorFactTableIn                DashboardRowFilterOperatorFactTable = "in"
+	DashboardRowFilterOperatorFactTableNotIn             DashboardRowFilterOperatorFactTable = "not_in"
+	DashboardRowFilterOperatorFactTableContains          DashboardRowFilterOperatorFactTable = "contains"
+	DashboardRowFilterOperatorFactTableNotContains       DashboardRowFilterOperatorFactTable = "not_contains"
+	DashboardRowFilterOperatorFactTableMatchesPattern    DashboardRowFilterOperatorFactTable = "matches_pattern"
+	DashboardRowFilterOperatorFactTableNotMatchesPattern DashboardRowFilterOperatorFactTable = "not_matches_pattern"
+	DashboardRowFilterOperatorFactTableStartsWith        DashboardRowFilterOperatorFactTable = "starts_with"
+	DashboardRowFilterOperatorFactTableEndsWith          DashboardRowFilterOperatorFactTable = "ends_with"
+	DashboardRowFilterOperatorFactTableIsNull            DashboardRowFilterOperatorFactTable = "is_null"
+	DashboardRowFilterOperatorFactTableNotNull           DashboardRowFilterOperatorFactTable = "not_null"
+	DashboardRowFilterOperatorFactTableIsTrue            DashboardRowFilterOperatorFactTable = "is_true"
+	DashboardRowFilterOperatorFactTableIsFalse           DashboardRowFilterOperatorFactTable = "is_false"
+	DashboardRowFilterOperatorFactTableSQLExpr           DashboardRowFilterOperatorFactTable = "sql_expr"
+	DashboardRowFilterOperatorFactTableSavedFilter       DashboardRowFilterOperatorFactTable = "saved_filter"
 )
 
 func (e DashboardRowFilterOperatorFactTable) ToPointer() *DashboardRowFilterOperatorFactTable {
@@ -5444,7 +5460,7 @@ func (e DashboardRowFilterOperatorFactTable) ToPointer() *DashboardRowFilterOper
 func (e *DashboardRowFilterOperatorFactTable) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
 			return true
 		}
 	}
@@ -6062,26 +6078,28 @@ func (g *GlobalControlSettings5) GetDateRange() *bool {
 type DimensionOperatorMetric string
 
 const (
-	DimensionOperatorMetricEqual            DimensionOperatorMetric = "="
-	DimensionOperatorMetricNotEqual         DimensionOperatorMetric = "!="
-	DimensionOperatorMetricLessThan         DimensionOperatorMetric = "<"
-	DimensionOperatorMetricLessThanEqual    DimensionOperatorMetric = "<="
-	DimensionOperatorMetricGreaterThan      DimensionOperatorMetric = ">"
-	DimensionOperatorMetricGreaterThanEqual DimensionOperatorMetric = ">="
-	DimensionOperatorMetricBetween          DimensionOperatorMetric = "between"
-	DimensionOperatorMetricNotBetween       DimensionOperatorMetric = "not_between"
-	DimensionOperatorMetricIn               DimensionOperatorMetric = "in"
-	DimensionOperatorMetricNotIn            DimensionOperatorMetric = "not_in"
-	DimensionOperatorMetricContains         DimensionOperatorMetric = "contains"
-	DimensionOperatorMetricNotContains      DimensionOperatorMetric = "not_contains"
-	DimensionOperatorMetricStartsWith       DimensionOperatorMetric = "starts_with"
-	DimensionOperatorMetricEndsWith         DimensionOperatorMetric = "ends_with"
-	DimensionOperatorMetricIsNull           DimensionOperatorMetric = "is_null"
-	DimensionOperatorMetricNotNull          DimensionOperatorMetric = "not_null"
-	DimensionOperatorMetricIsTrue           DimensionOperatorMetric = "is_true"
-	DimensionOperatorMetricIsFalse          DimensionOperatorMetric = "is_false"
-	DimensionOperatorMetricSQLExpr          DimensionOperatorMetric = "sql_expr"
-	DimensionOperatorMetricSavedFilter      DimensionOperatorMetric = "saved_filter"
+	DimensionOperatorMetricEqual             DimensionOperatorMetric = "="
+	DimensionOperatorMetricNotEqual          DimensionOperatorMetric = "!="
+	DimensionOperatorMetricLessThan          DimensionOperatorMetric = "<"
+	DimensionOperatorMetricLessThanEqual     DimensionOperatorMetric = "<="
+	DimensionOperatorMetricGreaterThan       DimensionOperatorMetric = ">"
+	DimensionOperatorMetricGreaterThanEqual  DimensionOperatorMetric = ">="
+	DimensionOperatorMetricBetween           DimensionOperatorMetric = "between"
+	DimensionOperatorMetricNotBetween        DimensionOperatorMetric = "not_between"
+	DimensionOperatorMetricIn                DimensionOperatorMetric = "in"
+	DimensionOperatorMetricNotIn             DimensionOperatorMetric = "not_in"
+	DimensionOperatorMetricContains          DimensionOperatorMetric = "contains"
+	DimensionOperatorMetricNotContains       DimensionOperatorMetric = "not_contains"
+	DimensionOperatorMetricMatchesPattern    DimensionOperatorMetric = "matches_pattern"
+	DimensionOperatorMetricNotMatchesPattern DimensionOperatorMetric = "not_matches_pattern"
+	DimensionOperatorMetricStartsWith        DimensionOperatorMetric = "starts_with"
+	DimensionOperatorMetricEndsWith          DimensionOperatorMetric = "ends_with"
+	DimensionOperatorMetricIsNull            DimensionOperatorMetric = "is_null"
+	DimensionOperatorMetricNotNull           DimensionOperatorMetric = "not_null"
+	DimensionOperatorMetricIsTrue            DimensionOperatorMetric = "is_true"
+	DimensionOperatorMetricIsFalse           DimensionOperatorMetric = "is_false"
+	DimensionOperatorMetricSQLExpr           DimensionOperatorMetric = "sql_expr"
+	DimensionOperatorMetricSavedFilter       DimensionOperatorMetric = "saved_filter"
 )
 
 func (e DimensionOperatorMetric) ToPointer() *DimensionOperatorMetric {
@@ -6092,7 +6110,7 @@ func (e DimensionOperatorMetric) ToPointer() *DimensionOperatorMetric {
 func (e *DimensionOperatorMetric) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
 			return true
 		}
 	}
