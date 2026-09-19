@@ -8,7 +8,9 @@ import (
 )
 
 type ToggleFeatureV2RequestBody struct {
-	Reason       *string        `json:"reason,omitzero"`
+	Reason *string `json:"reason,omitzero"`
+	// Comment to record on the revision this toggle publishes, when it changes any environment. Defaults to "Created via REST API". (`reason` is recorded in the audit log only.)
+	Comment      *string        `json:"comment,omitzero"`
 	Environments map[string]any `json:"environments"`
 }
 
@@ -17,6 +19,13 @@ func (t *ToggleFeatureV2RequestBody) GetReason() *string {
 		return nil
 	}
 	return t.Reason
+}
+
+func (t *ToggleFeatureV2RequestBody) GetComment() *string {
+	if t == nil {
+		return nil
+	}
+	return t.Comment
 }
 
 func (t *ToggleFeatureV2RequestBody) GetEnvironments() map[string]any {

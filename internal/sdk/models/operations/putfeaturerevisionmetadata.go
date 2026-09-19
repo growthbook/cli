@@ -303,12 +303,16 @@ type PutFeatureRevisionMetadataRequestBody struct {
 	Title       *string `json:"title,omitzero"`
 	Description *string `json:"description,omitzero"`
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-	Owner        *string                               `json:"owner,omitzero"`
-	Project      *string                               `json:"project,omitzero"`
-	Tags         []string                              `json:"tags,omitzero"`
-	NeverStale   *bool                                 `json:"neverStale,omitzero"`
-	CustomFields map[string]any                        `json:"customFields,omitzero"`
-	JSONSchema   *PutFeatureRevisionMetadataJSONSchema `json:"jsonSchema,omitzero"`
+	Owner   *string `json:"owner,omitzero"`
+	Project *string `json:"project,omitzero"`
+	// Stage delivering this feature to every project. Requires the `targetFeatures` permission unscoped to any project.
+	TargetingAllProjects *bool `json:"targetingAllProjects,omitzero"`
+	// Stage the secondary project IDs this feature is delivered to. Adding a project requires the `targetFeatures` permission (FlagsTarget policy) in that project.
+	TargetingProjects []string                              `json:"targetingProjects,omitzero"`
+	Tags              []string                              `json:"tags,omitzero"`
+	NeverStale        *bool                                 `json:"neverStale,omitzero"`
+	CustomFields      map[string]any                        `json:"customFields,omitzero"`
+	JSONSchema        *PutFeatureRevisionMetadataJSONSchema `json:"jsonSchema,omitzero"`
 	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
 	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
 }
@@ -357,6 +361,20 @@ func (p *PutFeatureRevisionMetadataRequestBody) GetProject() *string {
 		return nil
 	}
 	return p.Project
+}
+
+func (p *PutFeatureRevisionMetadataRequestBody) GetTargetingAllProjects() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.TargetingAllProjects
+}
+
+func (p *PutFeatureRevisionMetadataRequestBody) GetTargetingProjects() []string {
+	if p == nil {
+		return nil
+	}
+	return p.TargetingProjects
 }
 
 func (p *PutFeatureRevisionMetadataRequestBody) GetTags() []string {

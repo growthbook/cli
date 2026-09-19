@@ -10,84 +10,6 @@ import (
 	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
 
-type UpdateContextualBanditScreenshot struct {
-	Path        string   `json:"path"`
-	Width       *float64 `json:"width,omitzero"`
-	Height      *float64 `json:"height,omitzero"`
-	Description *string  `json:"description,omitzero"`
-}
-
-func (u *UpdateContextualBanditScreenshot) GetPath() string {
-	if u == nil {
-		return ""
-	}
-	return u.Path
-}
-
-func (u *UpdateContextualBanditScreenshot) GetWidth() *float64 {
-	if u == nil {
-		return nil
-	}
-	return u.Width
-}
-
-func (u *UpdateContextualBanditScreenshot) GetHeight() *float64 {
-	if u == nil {
-		return nil
-	}
-	return u.Height
-}
-
-func (u *UpdateContextualBanditScreenshot) GetDescription() *string {
-	if u == nil {
-		return nil
-	}
-	return u.Description
-}
-
-type UpdateContextualBanditVariation struct {
-	ID          string                             `json:"id"`
-	Name        string                             `json:"name"`
-	Description *string                            `json:"description,omitzero"`
-	Key         string                             `json:"key"`
-	Screenshots []UpdateContextualBanditScreenshot `json:"screenshots"`
-}
-
-func (u *UpdateContextualBanditVariation) GetID() string {
-	if u == nil {
-		return ""
-	}
-	return u.ID
-}
-
-func (u *UpdateContextualBanditVariation) GetName() string {
-	if u == nil {
-		return ""
-	}
-	return u.Name
-}
-
-func (u *UpdateContextualBanditVariation) GetDescription() *string {
-	if u == nil {
-		return nil
-	}
-	return u.Description
-}
-
-func (u *UpdateContextualBanditVariation) GetKey() string {
-	if u == nil {
-		return ""
-	}
-	return u.Key
-}
-
-func (u *UpdateContextualBanditVariation) GetScreenshots() []UpdateContextualBanditScreenshot {
-	if u == nil {
-		return []UpdateContextualBanditScreenshot{}
-	}
-	return u.Screenshots
-}
-
 type UpdateContextualBanditScheduleUnit string
 
 const (
@@ -262,25 +184,6 @@ func (u *UpdateContextualBanditPrerequisite) GetCondition() string {
 	return u.Condition
 }
 
-type VariationWeight struct {
-	VariationID string  `json:"variationId"`
-	Weight      float64 `json:"weight"`
-}
-
-func (v *VariationWeight) GetVariationID() string {
-	if v == nil {
-		return ""
-	}
-	return v.VariationID
-}
-
-func (v *VariationWeight) GetWeight() float64 {
-	if v == nil {
-		return 0.0
-	}
-	return v.Weight
-}
-
 type UpdateContextualBanditRequestBody struct {
 	Name        *string `json:"name,omitzero"`
 	Description *string `json:"description,omitzero"`
@@ -290,7 +193,6 @@ type UpdateContextualBanditRequestBody struct {
 	Tags                    []string                                                                      `json:"tags,omitzero"`
 	TrackingKey             *string                                                                       `json:"trackingKey,omitzero"`
 	HashAttribute           *string                                                                       `json:"hashAttribute,omitzero"`
-	Variations              []UpdateContextualBanditVariation                                             `json:"variations,omitzero"`
 	Datasource              *string                                                                       `json:"datasource,omitzero"`
 	ContextualBanditQueryID *string                                                                       `json:"contextualBanditQueryId,omitzero"`
 	ContextualAttributes    []string                                                                      `json:"contextualAttributes,omitzero"`
@@ -310,7 +212,6 @@ type UpdateContextualBanditRequestBody struct {
 	SavedGroups             []UpdateContextualBanditSavedGroup                                            `json:"savedGroups,omitzero"`
 	Prerequisites           []UpdateContextualBanditPrerequisite                                          `json:"prerequisites,omitzero"`
 	Seed                    *string                                                                       `json:"seed,omitzero"`
-	VariationWeights        []VariationWeight                                                             `json:"variationWeights,omitzero"`
 }
 
 func (u UpdateContextualBanditRequestBody) MarshalJSON() ([]byte, error) {
@@ -371,13 +272,6 @@ func (u *UpdateContextualBanditRequestBody) GetHashAttribute() *string {
 		return nil
 	}
 	return u.HashAttribute
-}
-
-func (u *UpdateContextualBanditRequestBody) GetVariations() []UpdateContextualBanditVariation {
-	if u == nil {
-		return nil
-	}
-	return u.Variations
 }
 
 func (u *UpdateContextualBanditRequestBody) GetDatasource() *string {
@@ -511,13 +405,6 @@ func (u *UpdateContextualBanditRequestBody) GetSeed() *string {
 		return nil
 	}
 	return u.Seed
-}
-
-func (u *UpdateContextualBanditRequestBody) GetVariationWeights() []VariationWeight {
-	if u == nil {
-		return nil
-	}
-	return u.VariationWeights
 }
 
 type UpdateContextualBanditRequest struct {

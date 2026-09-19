@@ -385,26 +385,28 @@ func (u *UpdateDashboardChartSettingsMetric2) GetValueAxisLabel() *string {
 type UpdateDashboardRowFilterOperatorMetric2 string
 
 const (
-	UpdateDashboardRowFilterOperatorMetric2Equal            UpdateDashboardRowFilterOperatorMetric2 = "="
-	UpdateDashboardRowFilterOperatorMetric2NotEqual         UpdateDashboardRowFilterOperatorMetric2 = "!="
-	UpdateDashboardRowFilterOperatorMetric2LessThan         UpdateDashboardRowFilterOperatorMetric2 = "<"
-	UpdateDashboardRowFilterOperatorMetric2LessThanEqual    UpdateDashboardRowFilterOperatorMetric2 = "<="
-	UpdateDashboardRowFilterOperatorMetric2GreaterThan      UpdateDashboardRowFilterOperatorMetric2 = ">"
-	UpdateDashboardRowFilterOperatorMetric2GreaterThanEqual UpdateDashboardRowFilterOperatorMetric2 = ">="
-	UpdateDashboardRowFilterOperatorMetric2Between          UpdateDashboardRowFilterOperatorMetric2 = "between"
-	UpdateDashboardRowFilterOperatorMetric2NotBetween       UpdateDashboardRowFilterOperatorMetric2 = "not_between"
-	UpdateDashboardRowFilterOperatorMetric2In               UpdateDashboardRowFilterOperatorMetric2 = "in"
-	UpdateDashboardRowFilterOperatorMetric2NotIn            UpdateDashboardRowFilterOperatorMetric2 = "not_in"
-	UpdateDashboardRowFilterOperatorMetric2Contains         UpdateDashboardRowFilterOperatorMetric2 = "contains"
-	UpdateDashboardRowFilterOperatorMetric2NotContains      UpdateDashboardRowFilterOperatorMetric2 = "not_contains"
-	UpdateDashboardRowFilterOperatorMetric2StartsWith       UpdateDashboardRowFilterOperatorMetric2 = "starts_with"
-	UpdateDashboardRowFilterOperatorMetric2EndsWith         UpdateDashboardRowFilterOperatorMetric2 = "ends_with"
-	UpdateDashboardRowFilterOperatorMetric2IsNull           UpdateDashboardRowFilterOperatorMetric2 = "is_null"
-	UpdateDashboardRowFilterOperatorMetric2NotNull          UpdateDashboardRowFilterOperatorMetric2 = "not_null"
-	UpdateDashboardRowFilterOperatorMetric2IsTrue           UpdateDashboardRowFilterOperatorMetric2 = "is_true"
-	UpdateDashboardRowFilterOperatorMetric2IsFalse          UpdateDashboardRowFilterOperatorMetric2 = "is_false"
-	UpdateDashboardRowFilterOperatorMetric2SQLExpr          UpdateDashboardRowFilterOperatorMetric2 = "sql_expr"
-	UpdateDashboardRowFilterOperatorMetric2SavedFilter      UpdateDashboardRowFilterOperatorMetric2 = "saved_filter"
+	UpdateDashboardRowFilterOperatorMetric2Equal             UpdateDashboardRowFilterOperatorMetric2 = "="
+	UpdateDashboardRowFilterOperatorMetric2NotEqual          UpdateDashboardRowFilterOperatorMetric2 = "!="
+	UpdateDashboardRowFilterOperatorMetric2LessThan          UpdateDashboardRowFilterOperatorMetric2 = "<"
+	UpdateDashboardRowFilterOperatorMetric2LessThanEqual     UpdateDashboardRowFilterOperatorMetric2 = "<="
+	UpdateDashboardRowFilterOperatorMetric2GreaterThan       UpdateDashboardRowFilterOperatorMetric2 = ">"
+	UpdateDashboardRowFilterOperatorMetric2GreaterThanEqual  UpdateDashboardRowFilterOperatorMetric2 = ">="
+	UpdateDashboardRowFilterOperatorMetric2Between           UpdateDashboardRowFilterOperatorMetric2 = "between"
+	UpdateDashboardRowFilterOperatorMetric2NotBetween        UpdateDashboardRowFilterOperatorMetric2 = "not_between"
+	UpdateDashboardRowFilterOperatorMetric2In                UpdateDashboardRowFilterOperatorMetric2 = "in"
+	UpdateDashboardRowFilterOperatorMetric2NotIn             UpdateDashboardRowFilterOperatorMetric2 = "not_in"
+	UpdateDashboardRowFilterOperatorMetric2Contains          UpdateDashboardRowFilterOperatorMetric2 = "contains"
+	UpdateDashboardRowFilterOperatorMetric2NotContains       UpdateDashboardRowFilterOperatorMetric2 = "not_contains"
+	UpdateDashboardRowFilterOperatorMetric2MatchesPattern    UpdateDashboardRowFilterOperatorMetric2 = "matches_pattern"
+	UpdateDashboardRowFilterOperatorMetric2NotMatchesPattern UpdateDashboardRowFilterOperatorMetric2 = "not_matches_pattern"
+	UpdateDashboardRowFilterOperatorMetric2StartsWith        UpdateDashboardRowFilterOperatorMetric2 = "starts_with"
+	UpdateDashboardRowFilterOperatorMetric2EndsWith          UpdateDashboardRowFilterOperatorMetric2 = "ends_with"
+	UpdateDashboardRowFilterOperatorMetric2IsNull            UpdateDashboardRowFilterOperatorMetric2 = "is_null"
+	UpdateDashboardRowFilterOperatorMetric2NotNull           UpdateDashboardRowFilterOperatorMetric2 = "not_null"
+	UpdateDashboardRowFilterOperatorMetric2IsTrue            UpdateDashboardRowFilterOperatorMetric2 = "is_true"
+	UpdateDashboardRowFilterOperatorMetric2IsFalse           UpdateDashboardRowFilterOperatorMetric2 = "is_false"
+	UpdateDashboardRowFilterOperatorMetric2SQLExpr           UpdateDashboardRowFilterOperatorMetric2 = "sql_expr"
+	UpdateDashboardRowFilterOperatorMetric2SavedFilter       UpdateDashboardRowFilterOperatorMetric2 = "saved_filter"
 )
 
 func (e UpdateDashboardRowFilterOperatorMetric2) ToPointer() *UpdateDashboardRowFilterOperatorMetric2 {
@@ -439,6 +441,10 @@ func (e *UpdateDashboardRowFilterOperatorMetric2) UnmarshalJSON(data []byte) err
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough
@@ -5761,26 +5767,28 @@ func (u *UpdateDashboardGlobalControlSettings9) GetDateRange() *bool {
 type UpdateDashboardDimensionOperatorSQL1 string
 
 const (
-	UpdateDashboardDimensionOperatorSQL1Equal            UpdateDashboardDimensionOperatorSQL1 = "="
-	UpdateDashboardDimensionOperatorSQL1NotEqual         UpdateDashboardDimensionOperatorSQL1 = "!="
-	UpdateDashboardDimensionOperatorSQL1LessThan         UpdateDashboardDimensionOperatorSQL1 = "<"
-	UpdateDashboardDimensionOperatorSQL1LessThanEqual    UpdateDashboardDimensionOperatorSQL1 = "<="
-	UpdateDashboardDimensionOperatorSQL1GreaterThan      UpdateDashboardDimensionOperatorSQL1 = ">"
-	UpdateDashboardDimensionOperatorSQL1GreaterThanEqual UpdateDashboardDimensionOperatorSQL1 = ">="
-	UpdateDashboardDimensionOperatorSQL1Between          UpdateDashboardDimensionOperatorSQL1 = "between"
-	UpdateDashboardDimensionOperatorSQL1NotBetween       UpdateDashboardDimensionOperatorSQL1 = "not_between"
-	UpdateDashboardDimensionOperatorSQL1In               UpdateDashboardDimensionOperatorSQL1 = "in"
-	UpdateDashboardDimensionOperatorSQL1NotIn            UpdateDashboardDimensionOperatorSQL1 = "not_in"
-	UpdateDashboardDimensionOperatorSQL1Contains         UpdateDashboardDimensionOperatorSQL1 = "contains"
-	UpdateDashboardDimensionOperatorSQL1NotContains      UpdateDashboardDimensionOperatorSQL1 = "not_contains"
-	UpdateDashboardDimensionOperatorSQL1StartsWith       UpdateDashboardDimensionOperatorSQL1 = "starts_with"
-	UpdateDashboardDimensionOperatorSQL1EndsWith         UpdateDashboardDimensionOperatorSQL1 = "ends_with"
-	UpdateDashboardDimensionOperatorSQL1IsNull           UpdateDashboardDimensionOperatorSQL1 = "is_null"
-	UpdateDashboardDimensionOperatorSQL1NotNull          UpdateDashboardDimensionOperatorSQL1 = "not_null"
-	UpdateDashboardDimensionOperatorSQL1IsTrue           UpdateDashboardDimensionOperatorSQL1 = "is_true"
-	UpdateDashboardDimensionOperatorSQL1IsFalse          UpdateDashboardDimensionOperatorSQL1 = "is_false"
-	UpdateDashboardDimensionOperatorSQL1SQLExpr          UpdateDashboardDimensionOperatorSQL1 = "sql_expr"
-	UpdateDashboardDimensionOperatorSQL1SavedFilter      UpdateDashboardDimensionOperatorSQL1 = "saved_filter"
+	UpdateDashboardDimensionOperatorSQL1Equal             UpdateDashboardDimensionOperatorSQL1 = "="
+	UpdateDashboardDimensionOperatorSQL1NotEqual          UpdateDashboardDimensionOperatorSQL1 = "!="
+	UpdateDashboardDimensionOperatorSQL1LessThan          UpdateDashboardDimensionOperatorSQL1 = "<"
+	UpdateDashboardDimensionOperatorSQL1LessThanEqual     UpdateDashboardDimensionOperatorSQL1 = "<="
+	UpdateDashboardDimensionOperatorSQL1GreaterThan       UpdateDashboardDimensionOperatorSQL1 = ">"
+	UpdateDashboardDimensionOperatorSQL1GreaterThanEqual  UpdateDashboardDimensionOperatorSQL1 = ">="
+	UpdateDashboardDimensionOperatorSQL1Between           UpdateDashboardDimensionOperatorSQL1 = "between"
+	UpdateDashboardDimensionOperatorSQL1NotBetween        UpdateDashboardDimensionOperatorSQL1 = "not_between"
+	UpdateDashboardDimensionOperatorSQL1In                UpdateDashboardDimensionOperatorSQL1 = "in"
+	UpdateDashboardDimensionOperatorSQL1NotIn             UpdateDashboardDimensionOperatorSQL1 = "not_in"
+	UpdateDashboardDimensionOperatorSQL1Contains          UpdateDashboardDimensionOperatorSQL1 = "contains"
+	UpdateDashboardDimensionOperatorSQL1NotContains       UpdateDashboardDimensionOperatorSQL1 = "not_contains"
+	UpdateDashboardDimensionOperatorSQL1MatchesPattern    UpdateDashboardDimensionOperatorSQL1 = "matches_pattern"
+	UpdateDashboardDimensionOperatorSQL1NotMatchesPattern UpdateDashboardDimensionOperatorSQL1 = "not_matches_pattern"
+	UpdateDashboardDimensionOperatorSQL1StartsWith        UpdateDashboardDimensionOperatorSQL1 = "starts_with"
+	UpdateDashboardDimensionOperatorSQL1EndsWith          UpdateDashboardDimensionOperatorSQL1 = "ends_with"
+	UpdateDashboardDimensionOperatorSQL1IsNull            UpdateDashboardDimensionOperatorSQL1 = "is_null"
+	UpdateDashboardDimensionOperatorSQL1NotNull           UpdateDashboardDimensionOperatorSQL1 = "not_null"
+	UpdateDashboardDimensionOperatorSQL1IsTrue            UpdateDashboardDimensionOperatorSQL1 = "is_true"
+	UpdateDashboardDimensionOperatorSQL1IsFalse           UpdateDashboardDimensionOperatorSQL1 = "is_false"
+	UpdateDashboardDimensionOperatorSQL1SQLExpr           UpdateDashboardDimensionOperatorSQL1 = "sql_expr"
+	UpdateDashboardDimensionOperatorSQL1SavedFilter       UpdateDashboardDimensionOperatorSQL1 = "saved_filter"
 )
 
 func (e UpdateDashboardDimensionOperatorSQL1) ToPointer() *UpdateDashboardDimensionOperatorSQL1 {
@@ -5815,6 +5823,10 @@ func (e *UpdateDashboardDimensionOperatorSQL1) UnmarshalJSON(data []byte) error 
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough
@@ -6508,26 +6520,28 @@ func (e *UpdateDashboardColumnTypesSQL1) UnmarshalJSON(data []byte) error {
 type UpdateDashboardRowFilterOperatorSQL1 string
 
 const (
-	UpdateDashboardRowFilterOperatorSQL1Equal            UpdateDashboardRowFilterOperatorSQL1 = "="
-	UpdateDashboardRowFilterOperatorSQL1NotEqual         UpdateDashboardRowFilterOperatorSQL1 = "!="
-	UpdateDashboardRowFilterOperatorSQL1LessThan         UpdateDashboardRowFilterOperatorSQL1 = "<"
-	UpdateDashboardRowFilterOperatorSQL1LessThanEqual    UpdateDashboardRowFilterOperatorSQL1 = "<="
-	UpdateDashboardRowFilterOperatorSQL1GreaterThan      UpdateDashboardRowFilterOperatorSQL1 = ">"
-	UpdateDashboardRowFilterOperatorSQL1GreaterThanEqual UpdateDashboardRowFilterOperatorSQL1 = ">="
-	UpdateDashboardRowFilterOperatorSQL1Between          UpdateDashboardRowFilterOperatorSQL1 = "between"
-	UpdateDashboardRowFilterOperatorSQL1NotBetween       UpdateDashboardRowFilterOperatorSQL1 = "not_between"
-	UpdateDashboardRowFilterOperatorSQL1In               UpdateDashboardRowFilterOperatorSQL1 = "in"
-	UpdateDashboardRowFilterOperatorSQL1NotIn            UpdateDashboardRowFilterOperatorSQL1 = "not_in"
-	UpdateDashboardRowFilterOperatorSQL1Contains         UpdateDashboardRowFilterOperatorSQL1 = "contains"
-	UpdateDashboardRowFilterOperatorSQL1NotContains      UpdateDashboardRowFilterOperatorSQL1 = "not_contains"
-	UpdateDashboardRowFilterOperatorSQL1StartsWith       UpdateDashboardRowFilterOperatorSQL1 = "starts_with"
-	UpdateDashboardRowFilterOperatorSQL1EndsWith         UpdateDashboardRowFilterOperatorSQL1 = "ends_with"
-	UpdateDashboardRowFilterOperatorSQL1IsNull           UpdateDashboardRowFilterOperatorSQL1 = "is_null"
-	UpdateDashboardRowFilterOperatorSQL1NotNull          UpdateDashboardRowFilterOperatorSQL1 = "not_null"
-	UpdateDashboardRowFilterOperatorSQL1IsTrue           UpdateDashboardRowFilterOperatorSQL1 = "is_true"
-	UpdateDashboardRowFilterOperatorSQL1IsFalse          UpdateDashboardRowFilterOperatorSQL1 = "is_false"
-	UpdateDashboardRowFilterOperatorSQL1SQLExpr          UpdateDashboardRowFilterOperatorSQL1 = "sql_expr"
-	UpdateDashboardRowFilterOperatorSQL1SavedFilter      UpdateDashboardRowFilterOperatorSQL1 = "saved_filter"
+	UpdateDashboardRowFilterOperatorSQL1Equal             UpdateDashboardRowFilterOperatorSQL1 = "="
+	UpdateDashboardRowFilterOperatorSQL1NotEqual          UpdateDashboardRowFilterOperatorSQL1 = "!="
+	UpdateDashboardRowFilterOperatorSQL1LessThan          UpdateDashboardRowFilterOperatorSQL1 = "<"
+	UpdateDashboardRowFilterOperatorSQL1LessThanEqual     UpdateDashboardRowFilterOperatorSQL1 = "<="
+	UpdateDashboardRowFilterOperatorSQL1GreaterThan       UpdateDashboardRowFilterOperatorSQL1 = ">"
+	UpdateDashboardRowFilterOperatorSQL1GreaterThanEqual  UpdateDashboardRowFilterOperatorSQL1 = ">="
+	UpdateDashboardRowFilterOperatorSQL1Between           UpdateDashboardRowFilterOperatorSQL1 = "between"
+	UpdateDashboardRowFilterOperatorSQL1NotBetween        UpdateDashboardRowFilterOperatorSQL1 = "not_between"
+	UpdateDashboardRowFilterOperatorSQL1In                UpdateDashboardRowFilterOperatorSQL1 = "in"
+	UpdateDashboardRowFilterOperatorSQL1NotIn             UpdateDashboardRowFilterOperatorSQL1 = "not_in"
+	UpdateDashboardRowFilterOperatorSQL1Contains          UpdateDashboardRowFilterOperatorSQL1 = "contains"
+	UpdateDashboardRowFilterOperatorSQL1NotContains       UpdateDashboardRowFilterOperatorSQL1 = "not_contains"
+	UpdateDashboardRowFilterOperatorSQL1MatchesPattern    UpdateDashboardRowFilterOperatorSQL1 = "matches_pattern"
+	UpdateDashboardRowFilterOperatorSQL1NotMatchesPattern UpdateDashboardRowFilterOperatorSQL1 = "not_matches_pattern"
+	UpdateDashboardRowFilterOperatorSQL1StartsWith        UpdateDashboardRowFilterOperatorSQL1 = "starts_with"
+	UpdateDashboardRowFilterOperatorSQL1EndsWith          UpdateDashboardRowFilterOperatorSQL1 = "ends_with"
+	UpdateDashboardRowFilterOperatorSQL1IsNull            UpdateDashboardRowFilterOperatorSQL1 = "is_null"
+	UpdateDashboardRowFilterOperatorSQL1NotNull           UpdateDashboardRowFilterOperatorSQL1 = "not_null"
+	UpdateDashboardRowFilterOperatorSQL1IsTrue            UpdateDashboardRowFilterOperatorSQL1 = "is_true"
+	UpdateDashboardRowFilterOperatorSQL1IsFalse           UpdateDashboardRowFilterOperatorSQL1 = "is_false"
+	UpdateDashboardRowFilterOperatorSQL1SQLExpr           UpdateDashboardRowFilterOperatorSQL1 = "sql_expr"
+	UpdateDashboardRowFilterOperatorSQL1SavedFilter       UpdateDashboardRowFilterOperatorSQL1 = "saved_filter"
 )
 
 func (e UpdateDashboardRowFilterOperatorSQL1) ToPointer() *UpdateDashboardRowFilterOperatorSQL1 {
@@ -6562,6 +6576,10 @@ func (e *UpdateDashboardRowFilterOperatorSQL1) UnmarshalJSON(data []byte) error 
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough
@@ -7278,26 +7296,28 @@ func (u *UpdateDashboardGlobalControlSettings8) GetDateRange() *bool {
 type UpdateDashboardDimensionOperatorFunnel1 string
 
 const (
-	UpdateDashboardDimensionOperatorFunnel1Equal            UpdateDashboardDimensionOperatorFunnel1 = "="
-	UpdateDashboardDimensionOperatorFunnel1NotEqual         UpdateDashboardDimensionOperatorFunnel1 = "!="
-	UpdateDashboardDimensionOperatorFunnel1LessThan         UpdateDashboardDimensionOperatorFunnel1 = "<"
-	UpdateDashboardDimensionOperatorFunnel1LessThanEqual    UpdateDashboardDimensionOperatorFunnel1 = "<="
-	UpdateDashboardDimensionOperatorFunnel1GreaterThan      UpdateDashboardDimensionOperatorFunnel1 = ">"
-	UpdateDashboardDimensionOperatorFunnel1GreaterThanEqual UpdateDashboardDimensionOperatorFunnel1 = ">="
-	UpdateDashboardDimensionOperatorFunnel1Between          UpdateDashboardDimensionOperatorFunnel1 = "between"
-	UpdateDashboardDimensionOperatorFunnel1NotBetween       UpdateDashboardDimensionOperatorFunnel1 = "not_between"
-	UpdateDashboardDimensionOperatorFunnel1In               UpdateDashboardDimensionOperatorFunnel1 = "in"
-	UpdateDashboardDimensionOperatorFunnel1NotIn            UpdateDashboardDimensionOperatorFunnel1 = "not_in"
-	UpdateDashboardDimensionOperatorFunnel1Contains         UpdateDashboardDimensionOperatorFunnel1 = "contains"
-	UpdateDashboardDimensionOperatorFunnel1NotContains      UpdateDashboardDimensionOperatorFunnel1 = "not_contains"
-	UpdateDashboardDimensionOperatorFunnel1StartsWith       UpdateDashboardDimensionOperatorFunnel1 = "starts_with"
-	UpdateDashboardDimensionOperatorFunnel1EndsWith         UpdateDashboardDimensionOperatorFunnel1 = "ends_with"
-	UpdateDashboardDimensionOperatorFunnel1IsNull           UpdateDashboardDimensionOperatorFunnel1 = "is_null"
-	UpdateDashboardDimensionOperatorFunnel1NotNull          UpdateDashboardDimensionOperatorFunnel1 = "not_null"
-	UpdateDashboardDimensionOperatorFunnel1IsTrue           UpdateDashboardDimensionOperatorFunnel1 = "is_true"
-	UpdateDashboardDimensionOperatorFunnel1IsFalse          UpdateDashboardDimensionOperatorFunnel1 = "is_false"
-	UpdateDashboardDimensionOperatorFunnel1SQLExpr          UpdateDashboardDimensionOperatorFunnel1 = "sql_expr"
-	UpdateDashboardDimensionOperatorFunnel1SavedFilter      UpdateDashboardDimensionOperatorFunnel1 = "saved_filter"
+	UpdateDashboardDimensionOperatorFunnel1Equal             UpdateDashboardDimensionOperatorFunnel1 = "="
+	UpdateDashboardDimensionOperatorFunnel1NotEqual          UpdateDashboardDimensionOperatorFunnel1 = "!="
+	UpdateDashboardDimensionOperatorFunnel1LessThan          UpdateDashboardDimensionOperatorFunnel1 = "<"
+	UpdateDashboardDimensionOperatorFunnel1LessThanEqual     UpdateDashboardDimensionOperatorFunnel1 = "<="
+	UpdateDashboardDimensionOperatorFunnel1GreaterThan       UpdateDashboardDimensionOperatorFunnel1 = ">"
+	UpdateDashboardDimensionOperatorFunnel1GreaterThanEqual  UpdateDashboardDimensionOperatorFunnel1 = ">="
+	UpdateDashboardDimensionOperatorFunnel1Between           UpdateDashboardDimensionOperatorFunnel1 = "between"
+	UpdateDashboardDimensionOperatorFunnel1NotBetween        UpdateDashboardDimensionOperatorFunnel1 = "not_between"
+	UpdateDashboardDimensionOperatorFunnel1In                UpdateDashboardDimensionOperatorFunnel1 = "in"
+	UpdateDashboardDimensionOperatorFunnel1NotIn             UpdateDashboardDimensionOperatorFunnel1 = "not_in"
+	UpdateDashboardDimensionOperatorFunnel1Contains          UpdateDashboardDimensionOperatorFunnel1 = "contains"
+	UpdateDashboardDimensionOperatorFunnel1NotContains       UpdateDashboardDimensionOperatorFunnel1 = "not_contains"
+	UpdateDashboardDimensionOperatorFunnel1MatchesPattern    UpdateDashboardDimensionOperatorFunnel1 = "matches_pattern"
+	UpdateDashboardDimensionOperatorFunnel1NotMatchesPattern UpdateDashboardDimensionOperatorFunnel1 = "not_matches_pattern"
+	UpdateDashboardDimensionOperatorFunnel1StartsWith        UpdateDashboardDimensionOperatorFunnel1 = "starts_with"
+	UpdateDashboardDimensionOperatorFunnel1EndsWith          UpdateDashboardDimensionOperatorFunnel1 = "ends_with"
+	UpdateDashboardDimensionOperatorFunnel1IsNull            UpdateDashboardDimensionOperatorFunnel1 = "is_null"
+	UpdateDashboardDimensionOperatorFunnel1NotNull           UpdateDashboardDimensionOperatorFunnel1 = "not_null"
+	UpdateDashboardDimensionOperatorFunnel1IsTrue            UpdateDashboardDimensionOperatorFunnel1 = "is_true"
+	UpdateDashboardDimensionOperatorFunnel1IsFalse           UpdateDashboardDimensionOperatorFunnel1 = "is_false"
+	UpdateDashboardDimensionOperatorFunnel1SQLExpr           UpdateDashboardDimensionOperatorFunnel1 = "sql_expr"
+	UpdateDashboardDimensionOperatorFunnel1SavedFilter       UpdateDashboardDimensionOperatorFunnel1 = "saved_filter"
 )
 
 func (e UpdateDashboardDimensionOperatorFunnel1) ToPointer() *UpdateDashboardDimensionOperatorFunnel1 {
@@ -7332,6 +7352,10 @@ func (e *UpdateDashboardDimensionOperatorFunnel1) UnmarshalJSON(data []byte) err
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough
@@ -7990,26 +8014,28 @@ func (u *UpdateDashboardChartSettingsFunnel1) GetValueAxisLabel() *string {
 type UpdateDashboardStepOperator1 string
 
 const (
-	UpdateDashboardStepOperator1Equal            UpdateDashboardStepOperator1 = "="
-	UpdateDashboardStepOperator1NotEqual         UpdateDashboardStepOperator1 = "!="
-	UpdateDashboardStepOperator1LessThan         UpdateDashboardStepOperator1 = "<"
-	UpdateDashboardStepOperator1LessThanEqual    UpdateDashboardStepOperator1 = "<="
-	UpdateDashboardStepOperator1GreaterThan      UpdateDashboardStepOperator1 = ">"
-	UpdateDashboardStepOperator1GreaterThanEqual UpdateDashboardStepOperator1 = ">="
-	UpdateDashboardStepOperator1Between          UpdateDashboardStepOperator1 = "between"
-	UpdateDashboardStepOperator1NotBetween       UpdateDashboardStepOperator1 = "not_between"
-	UpdateDashboardStepOperator1In               UpdateDashboardStepOperator1 = "in"
-	UpdateDashboardStepOperator1NotIn            UpdateDashboardStepOperator1 = "not_in"
-	UpdateDashboardStepOperator1Contains         UpdateDashboardStepOperator1 = "contains"
-	UpdateDashboardStepOperator1NotContains      UpdateDashboardStepOperator1 = "not_contains"
-	UpdateDashboardStepOperator1StartsWith       UpdateDashboardStepOperator1 = "starts_with"
-	UpdateDashboardStepOperator1EndsWith         UpdateDashboardStepOperator1 = "ends_with"
-	UpdateDashboardStepOperator1IsNull           UpdateDashboardStepOperator1 = "is_null"
-	UpdateDashboardStepOperator1NotNull          UpdateDashboardStepOperator1 = "not_null"
-	UpdateDashboardStepOperator1IsTrue           UpdateDashboardStepOperator1 = "is_true"
-	UpdateDashboardStepOperator1IsFalse          UpdateDashboardStepOperator1 = "is_false"
-	UpdateDashboardStepOperator1SQLExpr          UpdateDashboardStepOperator1 = "sql_expr"
-	UpdateDashboardStepOperator1SavedFilter      UpdateDashboardStepOperator1 = "saved_filter"
+	UpdateDashboardStepOperator1Equal             UpdateDashboardStepOperator1 = "="
+	UpdateDashboardStepOperator1NotEqual          UpdateDashboardStepOperator1 = "!="
+	UpdateDashboardStepOperator1LessThan          UpdateDashboardStepOperator1 = "<"
+	UpdateDashboardStepOperator1LessThanEqual     UpdateDashboardStepOperator1 = "<="
+	UpdateDashboardStepOperator1GreaterThan       UpdateDashboardStepOperator1 = ">"
+	UpdateDashboardStepOperator1GreaterThanEqual  UpdateDashboardStepOperator1 = ">="
+	UpdateDashboardStepOperator1Between           UpdateDashboardStepOperator1 = "between"
+	UpdateDashboardStepOperator1NotBetween        UpdateDashboardStepOperator1 = "not_between"
+	UpdateDashboardStepOperator1In                UpdateDashboardStepOperator1 = "in"
+	UpdateDashboardStepOperator1NotIn             UpdateDashboardStepOperator1 = "not_in"
+	UpdateDashboardStepOperator1Contains          UpdateDashboardStepOperator1 = "contains"
+	UpdateDashboardStepOperator1NotContains       UpdateDashboardStepOperator1 = "not_contains"
+	UpdateDashboardStepOperator1MatchesPattern    UpdateDashboardStepOperator1 = "matches_pattern"
+	UpdateDashboardStepOperator1NotMatchesPattern UpdateDashboardStepOperator1 = "not_matches_pattern"
+	UpdateDashboardStepOperator1StartsWith        UpdateDashboardStepOperator1 = "starts_with"
+	UpdateDashboardStepOperator1EndsWith          UpdateDashboardStepOperator1 = "ends_with"
+	UpdateDashboardStepOperator1IsNull            UpdateDashboardStepOperator1 = "is_null"
+	UpdateDashboardStepOperator1NotNull           UpdateDashboardStepOperator1 = "not_null"
+	UpdateDashboardStepOperator1IsTrue            UpdateDashboardStepOperator1 = "is_true"
+	UpdateDashboardStepOperator1IsFalse           UpdateDashboardStepOperator1 = "is_false"
+	UpdateDashboardStepOperator1SQLExpr           UpdateDashboardStepOperator1 = "sql_expr"
+	UpdateDashboardStepOperator1SavedFilter       UpdateDashboardStepOperator1 = "saved_filter"
 )
 
 func (e UpdateDashboardStepOperator1) ToPointer() *UpdateDashboardStepOperator1 {
@@ -8044,6 +8070,10 @@ func (e *UpdateDashboardStepOperator1) UnmarshalJSON(data []byte) error {
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough

@@ -31,11 +31,34 @@ func (e *ContextualBanditStatus) IsExact() bool {
 	return false
 }
 
+type VariationStatus string
+
+const (
+	VariationStatusActive  VariationStatus = "active"
+	VariationStatusPending VariationStatus = "pending"
+)
+
+func (e VariationStatus) ToPointer() *VariationStatus {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *VariationStatus) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "active", "pending":
+			return true
+		}
+	}
+	return false
+}
+
 type ContextualBanditVariation struct {
-	ID          string  `json:"id"`
-	Key         string  `json:"key"`
-	Name        string  `json:"name"`
-	Description *string `json:"description,omitzero"`
+	ID          string           `json:"id"`
+	Key         string           `json:"key"`
+	Name        string           `json:"name"`
+	Description *string          `json:"description,omitzero"`
+	Status      *VariationStatus `json:"status,omitzero"`
 }
 
 func (c *ContextualBanditVariation) GetID() string {
@@ -64,6 +87,13 @@ func (c *ContextualBanditVariation) GetDescription() *string {
 		return nil
 	}
 	return c.Description
+}
+
+func (c *ContextualBanditVariation) GetStatus() *VariationStatus {
+	if c == nil {
+		return nil
+	}
+	return c.Status
 }
 
 type ContextualBanditMatch string

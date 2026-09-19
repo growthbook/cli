@@ -1,19 +1,34 @@
-## growthbook settings
+## growthbook analytics-explorations post-journey-exploration
 
-Get the organization settings
+Run a User Journey based visualization
 
 ### Synopsis
 
-Get the organization settings.
+Run a User Journey based visualization
 
 ```
-growthbook settings [flags]
+growthbook analytics-explorations post-journey-exploration [flags]
+```
+
+### Examples
+
+```
+  growthbook analytics-explorations post-journey-exploration --datasource <value> --dimensions '[{"dimensionType":"dynamic","column":"<value>","maxValues":35.97}]' --chart-type stackedBar --date-range '{"predefined":"today"}' --dataset '{"type":"journey","factTableId":"<id>","unit":"mole","stepColumns":["<value 1>"],"anchorStepValues":["<value 1>"],"direction":"backward","rowFilters":[],"path":[],"lookaheadDepth":809362,"optionsPerStep":[762060]}'
 ```
 
 ### Options
 
 ```
-  -h, --help   help for settings
+      --body string             Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --cache preferred         Controls cache behavior for this exploration: preferred (default) returns a cached result if one exists, otherwise runs a new query; `never` always runs a new query, ignoring any cached results; `required` only returns a cached result, if none exists returns exploration: null with a message (options: preferred, required, never)
+      --chart-settings string   JSON object
+      --chart-type string       options: line, area, timeseries-table, table, bar, stackedBar, horizontalBar, stackedHorizontalBar, bigNumber, rawTable [required]
+      --dataset string          [required]
+      --datasource string       ID of the datasource to query [required]
+      --date-range string       [required]
+      --dimensions string       [required]
+  -h, --help                    help for post-journey-exploration
+  -s, --show-as string          options: total, per_unit
 ```
 
 ### Options inherited from parent commands
@@ -42,6 +57,4 @@ growthbook settings [flags]
 
 ### SEE ALSO
 
-* [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
-* [growthbook settings get](growthbook_settings_get.md)	 - Get organization settings
-* [growthbook settings set-approvals](growthbook_settings_set-approvals.md)	 - Replace the approval requirements for feature flags, configs and constants, for saved groups, and the Targeting Projects review mode. Each family is replaced wholesale when supplied; omit one to leave it unchanged.
+* [growthbook analytics-explorations](growthbook_analytics-explorations.md)	 - Operations for analytics-explorations

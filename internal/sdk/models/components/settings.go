@@ -272,47 +272,6 @@ func (s *SettingsApprovalFlows) GetSavedGroups() []SavedGroupApprovalRule {
 	return s.SavedGroups
 }
 
-type SettingsMode string
-
-const (
-	SettingsModeStrict SettingsMode = "strict"
-	SettingsModeLoose  SettingsMode = "loose"
-)
-
-func (e SettingsMode) ToPointer() *SettingsMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SettingsMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "strict", "loose":
-			return true
-		}
-	}
-	return false
-}
-
-type TargetingReviewMode struct {
-	Projects []string     `json:"projects"`
-	Mode     SettingsMode `json:"mode"`
-}
-
-func (t *TargetingReviewMode) GetProjects() []string {
-	if t == nil {
-		return []string{}
-	}
-	return t.Projects
-}
-
-func (t *TargetingReviewMode) GetMode() SettingsMode {
-	if t == nil {
-		return SettingsMode("")
-	}
-	return t.Mode
-}
-
 type SettingsBanditScheduleUnit string
 
 const (
@@ -407,7 +366,7 @@ type Settings struct {
 	FeatureKillSwitchBehavior        *FeatureKillSwitchBehavior                 `json:"featureKillSwitchBehavior,omitzero"`
 	RequireReviews                   []RequireReviewRule                        `json:"requireReviews"`
 	ApprovalFlows                    SettingsApprovalFlows                      `json:"approvalFlows"`
-	TargetingReviewMode              []TargetingReviewMode                      `json:"targetingReviewMode,omitzero"`
+	TargetingReviewMode              []TargetingReviewRule                      `json:"targetingReviewMode,omitzero"`
 	RestAPIBypassesReviews           *bool                                      `json:"restApiBypassesReviews,omitzero"`
 	RequireRebaseBeforePublish       *bool                                      `json:"requireRebaseBeforePublish,omitzero"`
 	RevertsBypassApproval            *bool                                      `json:"revertsBypassApproval,omitzero"`
@@ -620,7 +579,7 @@ func (s *Settings) GetApprovalFlows() SettingsApprovalFlows {
 	return s.ApprovalFlows
 }
 
-func (s *Settings) GetTargetingReviewMode() []TargetingReviewMode {
+func (s *Settings) GetTargetingReviewMode() []TargetingReviewRule {
 	if s == nil {
 		return nil
 	}

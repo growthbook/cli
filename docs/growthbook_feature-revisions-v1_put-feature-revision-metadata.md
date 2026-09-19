@@ -23,20 +23,22 @@ growthbook feature-revisions-v1 put-feature-revision-metadata [flags]
 ### Options
 
 ```
-      --body string            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --comment string         string value
-      --custom-fields string   value
-      --description string     string value
-  -h, --help                   help for put-feature-revision-metadata
-      --id string              [required]
-      --ignore-warnings        Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
-  -j, --json-schema string     JSON object
-  -n, --never-stale            boolean flag
-      --owner string           The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-  -p, --project string         string value
-      --tags stringArray       list of values
-      --title string           string value
-  -v, --version-param string   [required]
+      --body string                             Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --comment string                          string value
+      --custom-fields string                    value
+      --description string                      string value
+  -h, --help                                    help for put-feature-revision-metadata
+      --id string                               [required]
+      --ignore-warnings                         Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+  -j, --json-schema string                      JSON object
+  -n, --never-stale                             boolean flag
+      --owner string                            The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
+  -p, --project string                          string value
+      --tags stringArray                        list of values
+      --targeting-all-projects targetFeatures   Stage delivering this feature to every project. Requires the targetFeatures permission unscoped to any project.
+      --targeting-projects targetFeatures       Stage the secondary project IDs this feature is delivered to. Adding a project requires the targetFeatures permission (FlagsTarget policy) in that project.
+      --title string                            string value
+  -v, --version-param string                    [required]
 ```
 
 ### Options inherited from parent commands

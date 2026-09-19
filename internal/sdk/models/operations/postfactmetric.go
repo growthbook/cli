@@ -90,26 +90,28 @@ func (e *PostFactMetricNumeratorAggregation) UnmarshalJSON(data []byte) error {
 type PostFactMetricNumeratorOperator string
 
 const (
-	PostFactMetricNumeratorOperatorEqual            PostFactMetricNumeratorOperator = "="
-	PostFactMetricNumeratorOperatorNotEqual         PostFactMetricNumeratorOperator = "!="
-	PostFactMetricNumeratorOperatorGreaterThan      PostFactMetricNumeratorOperator = ">"
-	PostFactMetricNumeratorOperatorLessThan         PostFactMetricNumeratorOperator = "<"
-	PostFactMetricNumeratorOperatorGreaterThanEqual PostFactMetricNumeratorOperator = ">="
-	PostFactMetricNumeratorOperatorLessThanEqual    PostFactMetricNumeratorOperator = "<="
-	PostFactMetricNumeratorOperatorBetween          PostFactMetricNumeratorOperator = "between"
-	PostFactMetricNumeratorOperatorNotBetween       PostFactMetricNumeratorOperator = "not_between"
-	PostFactMetricNumeratorOperatorIn               PostFactMetricNumeratorOperator = "in"
-	PostFactMetricNumeratorOperatorNotIn            PostFactMetricNumeratorOperator = "not_in"
-	PostFactMetricNumeratorOperatorIsNull           PostFactMetricNumeratorOperator = "is_null"
-	PostFactMetricNumeratorOperatorNotNull          PostFactMetricNumeratorOperator = "not_null"
-	PostFactMetricNumeratorOperatorIsTrue           PostFactMetricNumeratorOperator = "is_true"
-	PostFactMetricNumeratorOperatorIsFalse          PostFactMetricNumeratorOperator = "is_false"
-	PostFactMetricNumeratorOperatorContains         PostFactMetricNumeratorOperator = "contains"
-	PostFactMetricNumeratorOperatorNotContains      PostFactMetricNumeratorOperator = "not_contains"
-	PostFactMetricNumeratorOperatorStartsWith       PostFactMetricNumeratorOperator = "starts_with"
-	PostFactMetricNumeratorOperatorEndsWith         PostFactMetricNumeratorOperator = "ends_with"
-	PostFactMetricNumeratorOperatorSQLExpr          PostFactMetricNumeratorOperator = "sql_expr"
-	PostFactMetricNumeratorOperatorSavedFilter      PostFactMetricNumeratorOperator = "saved_filter"
+	PostFactMetricNumeratorOperatorEqual             PostFactMetricNumeratorOperator = "="
+	PostFactMetricNumeratorOperatorNotEqual          PostFactMetricNumeratorOperator = "!="
+	PostFactMetricNumeratorOperatorGreaterThan       PostFactMetricNumeratorOperator = ">"
+	PostFactMetricNumeratorOperatorLessThan          PostFactMetricNumeratorOperator = "<"
+	PostFactMetricNumeratorOperatorGreaterThanEqual  PostFactMetricNumeratorOperator = ">="
+	PostFactMetricNumeratorOperatorLessThanEqual     PostFactMetricNumeratorOperator = "<="
+	PostFactMetricNumeratorOperatorBetween           PostFactMetricNumeratorOperator = "between"
+	PostFactMetricNumeratorOperatorNotBetween        PostFactMetricNumeratorOperator = "not_between"
+	PostFactMetricNumeratorOperatorIn                PostFactMetricNumeratorOperator = "in"
+	PostFactMetricNumeratorOperatorNotIn             PostFactMetricNumeratorOperator = "not_in"
+	PostFactMetricNumeratorOperatorIsNull            PostFactMetricNumeratorOperator = "is_null"
+	PostFactMetricNumeratorOperatorNotNull           PostFactMetricNumeratorOperator = "not_null"
+	PostFactMetricNumeratorOperatorIsTrue            PostFactMetricNumeratorOperator = "is_true"
+	PostFactMetricNumeratorOperatorIsFalse           PostFactMetricNumeratorOperator = "is_false"
+	PostFactMetricNumeratorOperatorContains          PostFactMetricNumeratorOperator = "contains"
+	PostFactMetricNumeratorOperatorNotContains       PostFactMetricNumeratorOperator = "not_contains"
+	PostFactMetricNumeratorOperatorMatchesPattern    PostFactMetricNumeratorOperator = "matches_pattern"
+	PostFactMetricNumeratorOperatorNotMatchesPattern PostFactMetricNumeratorOperator = "not_matches_pattern"
+	PostFactMetricNumeratorOperatorStartsWith        PostFactMetricNumeratorOperator = "starts_with"
+	PostFactMetricNumeratorOperatorEndsWith          PostFactMetricNumeratorOperator = "ends_with"
+	PostFactMetricNumeratorOperatorSQLExpr           PostFactMetricNumeratorOperator = "sql_expr"
+	PostFactMetricNumeratorOperatorSavedFilter       PostFactMetricNumeratorOperator = "saved_filter"
 )
 
 func (e PostFactMetricNumeratorOperator) ToPointer() *PostFactMetricNumeratorOperator {
@@ -152,6 +154,10 @@ func (e *PostFactMetricNumeratorOperator) UnmarshalJSON(data []byte) error {
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough
@@ -335,26 +341,28 @@ func (e *PostFactMetricDenominatorAggregation) UnmarshalJSON(data []byte) error 
 type PostFactMetricDenominatorOperator string
 
 const (
-	PostFactMetricDenominatorOperatorEqual            PostFactMetricDenominatorOperator = "="
-	PostFactMetricDenominatorOperatorNotEqual         PostFactMetricDenominatorOperator = "!="
-	PostFactMetricDenominatorOperatorGreaterThan      PostFactMetricDenominatorOperator = ">"
-	PostFactMetricDenominatorOperatorLessThan         PostFactMetricDenominatorOperator = "<"
-	PostFactMetricDenominatorOperatorGreaterThanEqual PostFactMetricDenominatorOperator = ">="
-	PostFactMetricDenominatorOperatorLessThanEqual    PostFactMetricDenominatorOperator = "<="
-	PostFactMetricDenominatorOperatorBetween          PostFactMetricDenominatorOperator = "between"
-	PostFactMetricDenominatorOperatorNotBetween       PostFactMetricDenominatorOperator = "not_between"
-	PostFactMetricDenominatorOperatorIn               PostFactMetricDenominatorOperator = "in"
-	PostFactMetricDenominatorOperatorNotIn            PostFactMetricDenominatorOperator = "not_in"
-	PostFactMetricDenominatorOperatorIsNull           PostFactMetricDenominatorOperator = "is_null"
-	PostFactMetricDenominatorOperatorNotNull          PostFactMetricDenominatorOperator = "not_null"
-	PostFactMetricDenominatorOperatorIsTrue           PostFactMetricDenominatorOperator = "is_true"
-	PostFactMetricDenominatorOperatorIsFalse          PostFactMetricDenominatorOperator = "is_false"
-	PostFactMetricDenominatorOperatorContains         PostFactMetricDenominatorOperator = "contains"
-	PostFactMetricDenominatorOperatorNotContains      PostFactMetricDenominatorOperator = "not_contains"
-	PostFactMetricDenominatorOperatorStartsWith       PostFactMetricDenominatorOperator = "starts_with"
-	PostFactMetricDenominatorOperatorEndsWith         PostFactMetricDenominatorOperator = "ends_with"
-	PostFactMetricDenominatorOperatorSQLExpr          PostFactMetricDenominatorOperator = "sql_expr"
-	PostFactMetricDenominatorOperatorSavedFilter      PostFactMetricDenominatorOperator = "saved_filter"
+	PostFactMetricDenominatorOperatorEqual             PostFactMetricDenominatorOperator = "="
+	PostFactMetricDenominatorOperatorNotEqual          PostFactMetricDenominatorOperator = "!="
+	PostFactMetricDenominatorOperatorGreaterThan       PostFactMetricDenominatorOperator = ">"
+	PostFactMetricDenominatorOperatorLessThan          PostFactMetricDenominatorOperator = "<"
+	PostFactMetricDenominatorOperatorGreaterThanEqual  PostFactMetricDenominatorOperator = ">="
+	PostFactMetricDenominatorOperatorLessThanEqual     PostFactMetricDenominatorOperator = "<="
+	PostFactMetricDenominatorOperatorBetween           PostFactMetricDenominatorOperator = "between"
+	PostFactMetricDenominatorOperatorNotBetween        PostFactMetricDenominatorOperator = "not_between"
+	PostFactMetricDenominatorOperatorIn                PostFactMetricDenominatorOperator = "in"
+	PostFactMetricDenominatorOperatorNotIn             PostFactMetricDenominatorOperator = "not_in"
+	PostFactMetricDenominatorOperatorIsNull            PostFactMetricDenominatorOperator = "is_null"
+	PostFactMetricDenominatorOperatorNotNull           PostFactMetricDenominatorOperator = "not_null"
+	PostFactMetricDenominatorOperatorIsTrue            PostFactMetricDenominatorOperator = "is_true"
+	PostFactMetricDenominatorOperatorIsFalse           PostFactMetricDenominatorOperator = "is_false"
+	PostFactMetricDenominatorOperatorContains          PostFactMetricDenominatorOperator = "contains"
+	PostFactMetricDenominatorOperatorNotContains       PostFactMetricDenominatorOperator = "not_contains"
+	PostFactMetricDenominatorOperatorMatchesPattern    PostFactMetricDenominatorOperator = "matches_pattern"
+	PostFactMetricDenominatorOperatorNotMatchesPattern PostFactMetricDenominatorOperator = "not_matches_pattern"
+	PostFactMetricDenominatorOperatorStartsWith        PostFactMetricDenominatorOperator = "starts_with"
+	PostFactMetricDenominatorOperatorEndsWith          PostFactMetricDenominatorOperator = "ends_with"
+	PostFactMetricDenominatorOperatorSQLExpr           PostFactMetricDenominatorOperator = "sql_expr"
+	PostFactMetricDenominatorOperatorSavedFilter       PostFactMetricDenominatorOperator = "saved_filter"
 )
 
 func (e PostFactMetricDenominatorOperator) ToPointer() *PostFactMetricDenominatorOperator {
@@ -397,6 +405,10 @@ func (e *PostFactMetricDenominatorOperator) UnmarshalJSON(data []byte) error {
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough
@@ -594,26 +606,28 @@ func (p *PostFactMetricQuantileSettings) GetQuantileEventCountColumn() *string {
 type PostFactMetricOperatorSequential string
 
 const (
-	PostFactMetricOperatorSequentialEqual            PostFactMetricOperatorSequential = "="
-	PostFactMetricOperatorSequentialNotEqual         PostFactMetricOperatorSequential = "!="
-	PostFactMetricOperatorSequentialGreaterThan      PostFactMetricOperatorSequential = ">"
-	PostFactMetricOperatorSequentialLessThan         PostFactMetricOperatorSequential = "<"
-	PostFactMetricOperatorSequentialGreaterThanEqual PostFactMetricOperatorSequential = ">="
-	PostFactMetricOperatorSequentialLessThanEqual    PostFactMetricOperatorSequential = "<="
-	PostFactMetricOperatorSequentialBetween          PostFactMetricOperatorSequential = "between"
-	PostFactMetricOperatorSequentialNotBetween       PostFactMetricOperatorSequential = "not_between"
-	PostFactMetricOperatorSequentialIn               PostFactMetricOperatorSequential = "in"
-	PostFactMetricOperatorSequentialNotIn            PostFactMetricOperatorSequential = "not_in"
-	PostFactMetricOperatorSequentialIsNull           PostFactMetricOperatorSequential = "is_null"
-	PostFactMetricOperatorSequentialNotNull          PostFactMetricOperatorSequential = "not_null"
-	PostFactMetricOperatorSequentialIsTrue           PostFactMetricOperatorSequential = "is_true"
-	PostFactMetricOperatorSequentialIsFalse          PostFactMetricOperatorSequential = "is_false"
-	PostFactMetricOperatorSequentialContains         PostFactMetricOperatorSequential = "contains"
-	PostFactMetricOperatorSequentialNotContains      PostFactMetricOperatorSequential = "not_contains"
-	PostFactMetricOperatorSequentialStartsWith       PostFactMetricOperatorSequential = "starts_with"
-	PostFactMetricOperatorSequentialEndsWith         PostFactMetricOperatorSequential = "ends_with"
-	PostFactMetricOperatorSequentialSQLExpr          PostFactMetricOperatorSequential = "sql_expr"
-	PostFactMetricOperatorSequentialSavedFilter      PostFactMetricOperatorSequential = "saved_filter"
+	PostFactMetricOperatorSequentialEqual             PostFactMetricOperatorSequential = "="
+	PostFactMetricOperatorSequentialNotEqual          PostFactMetricOperatorSequential = "!="
+	PostFactMetricOperatorSequentialGreaterThan       PostFactMetricOperatorSequential = ">"
+	PostFactMetricOperatorSequentialLessThan          PostFactMetricOperatorSequential = "<"
+	PostFactMetricOperatorSequentialGreaterThanEqual  PostFactMetricOperatorSequential = ">="
+	PostFactMetricOperatorSequentialLessThanEqual     PostFactMetricOperatorSequential = "<="
+	PostFactMetricOperatorSequentialBetween           PostFactMetricOperatorSequential = "between"
+	PostFactMetricOperatorSequentialNotBetween        PostFactMetricOperatorSequential = "not_between"
+	PostFactMetricOperatorSequentialIn                PostFactMetricOperatorSequential = "in"
+	PostFactMetricOperatorSequentialNotIn             PostFactMetricOperatorSequential = "not_in"
+	PostFactMetricOperatorSequentialIsNull            PostFactMetricOperatorSequential = "is_null"
+	PostFactMetricOperatorSequentialNotNull           PostFactMetricOperatorSequential = "not_null"
+	PostFactMetricOperatorSequentialIsTrue            PostFactMetricOperatorSequential = "is_true"
+	PostFactMetricOperatorSequentialIsFalse           PostFactMetricOperatorSequential = "is_false"
+	PostFactMetricOperatorSequentialContains          PostFactMetricOperatorSequential = "contains"
+	PostFactMetricOperatorSequentialNotContains       PostFactMetricOperatorSequential = "not_contains"
+	PostFactMetricOperatorSequentialMatchesPattern    PostFactMetricOperatorSequential = "matches_pattern"
+	PostFactMetricOperatorSequentialNotMatchesPattern PostFactMetricOperatorSequential = "not_matches_pattern"
+	PostFactMetricOperatorSequentialStartsWith        PostFactMetricOperatorSequential = "starts_with"
+	PostFactMetricOperatorSequentialEndsWith          PostFactMetricOperatorSequential = "ends_with"
+	PostFactMetricOperatorSequentialSQLExpr           PostFactMetricOperatorSequential = "sql_expr"
+	PostFactMetricOperatorSequentialSavedFilter       PostFactMetricOperatorSequential = "saved_filter"
 )
 
 func (e PostFactMetricOperatorSequential) ToPointer() *PostFactMetricOperatorSequential {
@@ -656,6 +670,10 @@ func (e *PostFactMetricOperatorSequential) UnmarshalJSON(data []byte) error {
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough

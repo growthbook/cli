@@ -396,7 +396,7 @@ type FeatureRevisionV2StepPatch2 struct {
 	Prerequisites   optionalnullable.OptionalNullable[[]FeatureRevisionV2StepPrerequisites2] `json:"prerequisites,omitzero"`
 	AllEnvironments optionalnullable.OptionalNullable[bool]                                  `json:"allEnvironments,omitzero"`
 	Environments    optionalnullable.OptionalNullable[[]string]                              `json:"environments,omitzero"`
-	// Force value (any JSON type)
+	// Value to serve, in the string form rule values use ("false", "10", '{"limit": 5}'). A non-string JSON value is accepted and stored as its JSON text. Must be valid for the feature's value type.
 	Force   any                                     `json:"force,omitzero"`
 	Enabled optionalnullable.OptionalNullable[bool] `json:"enabled,omitzero"`
 }
@@ -705,7 +705,7 @@ type FeatureRevisionV2Patch2 struct {
 	Prerequisites   optionalnullable.OptionalNullable[[]FeatureRevisionV2Prerequisites2] `json:"prerequisites,omitzero"`
 	AllEnvironments optionalnullable.OptionalNullable[bool]                              `json:"allEnvironments,omitzero"`
 	Environments    optionalnullable.OptionalNullable[[]string]                          `json:"environments,omitzero"`
-	// Force value (any JSON type)
+	// Value to serve, in the string form rule values use ("false", "10", '{"limit": 5}'). A non-string JSON value is accepted and stored as its JSON text. Must be valid for the feature's value type.
 	Force   any                                     `json:"force,omitzero"`
 	Enabled optionalnullable.OptionalNullable[bool] `json:"enabled,omitzero"`
 }
@@ -1336,7 +1336,7 @@ type FeatureRevisionV2StepPatch1 struct {
 	Prerequisites   optionalnullable.OptionalNullable[[]FeatureRevisionV2StepPrerequisites1] `json:"prerequisites,omitzero"`
 	AllEnvironments optionalnullable.OptionalNullable[bool]                                  `json:"allEnvironments,omitzero"`
 	Environments    optionalnullable.OptionalNullable[[]string]                              `json:"environments,omitzero"`
-	// Force value (any JSON type)
+	// Value to serve, in the string form rule values use ("false", "10", '{"limit": 5}'). A non-string JSON value is accepted and stored as its JSON text. Must be valid for the feature's value type.
 	Force   any                                     `json:"force,omitzero"`
 	Enabled optionalnullable.OptionalNullable[bool] `json:"enabled,omitzero"`
 }
@@ -1645,7 +1645,7 @@ type FeatureRevisionV2Patch1 struct {
 	Prerequisites   optionalnullable.OptionalNullable[[]FeatureRevisionV2Prerequisites1] `json:"prerequisites,omitzero"`
 	AllEnvironments optionalnullable.OptionalNullable[bool]                              `json:"allEnvironments,omitzero"`
 	Environments    optionalnullable.OptionalNullable[[]string]                          `json:"environments,omitzero"`
-	// Force value (any JSON type)
+	// Value to serve, in the string form rule values use ("false", "10", '{"limit": 5}'). A non-string JSON value is accepted and stored as its JSON text. Must be valid for the feature's value type.
 	Force   any                                     `json:"force,omitzero"`
 	Enabled optionalnullable.OptionalNullable[bool] `json:"enabled,omitzero"`
 }

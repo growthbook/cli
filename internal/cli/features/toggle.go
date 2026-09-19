@@ -17,6 +17,7 @@ import (
 var toggleCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The id of the requested resource [required]"},
 	{FlagName: "reason", Shorthand: "r", FieldPath: "Body.Reason", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "comment", Shorthand: "c", FieldPath: "Body.Comment", Kind: flagutil.FlagKindString, Optional: true, Description: "Comment to record on the revision this toggle publishes, when it changes any environment. Defaults to \"Created via REST API\". (`reason` is recorded in the audit log only.)"},
 	{FlagName: "environments", Shorthand: "e", FieldPath: "Body.Environments", Kind: flagutil.FlagKindJSON, Required: true, Annotations: `json:"environments"`, Description: "[required]"},
 }
 
