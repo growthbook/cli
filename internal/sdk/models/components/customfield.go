@@ -368,6 +368,7 @@ type Section string
 const (
 	SectionFeature    Section = "feature"
 	SectionExperiment Section = "experiment"
+	SectionAttribute  Section = "attribute"
 )
 
 func (e Section) ToPointer() *Section {
@@ -378,7 +379,7 @@ func (e Section) ToPointer() *Section {
 func (e *Section) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "feature", "experiment":
+		case "feature", "experiment", "attribute":
 			return true
 		}
 	}

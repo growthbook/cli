@@ -104,6 +104,8 @@ type PostAttributeRequest struct {
 	Format   *PostAttributeFormat `json:"format,omitzero"`
 	Projects []string             `json:"projects,omitzero"`
 	Tags     []string             `json:"tags,omitzero"`
+	// Values for the organization's attribute custom fields, keyed by field id
+	CustomFields map[string]string `json:"customFields,omitzero"`
 }
 
 func (p PostAttributeRequest) MarshalJSON() ([]byte, error) {
@@ -178,6 +180,13 @@ func (p *PostAttributeRequest) GetTags() []string {
 		return nil
 	}
 	return p.Tags
+}
+
+func (p *PostAttributeRequest) GetCustomFields() map[string]string {
+	if p == nil {
+		return nil
+	}
+	return p.CustomFields
 }
 
 // PostAttributeResponseBody - Resource created

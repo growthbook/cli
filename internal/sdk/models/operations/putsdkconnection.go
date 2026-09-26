@@ -3,9 +3,40 @@
 package operations
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/growthbook/cli/v2/internal/sdk/models/components"
 	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
+
+type PutSDKConnectionSavedGroupFormat string
+
+const (
+	PutSDKConnectionSavedGroupFormatInline       PutSDKConnectionSavedGroupFormat = "inline"
+	PutSDKConnectionSavedGroupFormatReferencesV1 PutSDKConnectionSavedGroupFormat = "referencesV1"
+	PutSDKConnectionSavedGroupFormatReferencesV2 PutSDKConnectionSavedGroupFormat = "referencesV2"
+)
+
+func (e PutSDKConnectionSavedGroupFormat) ToPointer() *PutSDKConnectionSavedGroupFormat {
+	return &e
+}
+func (e *PutSDKConnectionSavedGroupFormat) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "inline":
+		fallthrough
+	case "referencesV1":
+		fallthrough
+	case "referencesV2":
+		*e = PutSDKConnectionSavedGroupFormat(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PutSDKConnectionSavedGroupFormat: %v", v)
+	}
+}
 
 type PutSDKConnectionRequestBody struct {
 	Name                     *string  `json:"name,omitzero"`
@@ -30,7 +61,9 @@ type PutSDKConnectionRequestBody struct {
 	ProxyHost                           *string  `json:"proxyHost,omitzero"`
 	HashSecureAttributes                *bool    `json:"hashSecureAttributes,omitzero"`
 	RemoteEvalEnabled                   *bool    `json:"remoteEvalEnabled,omitzero"`
-	SavedGroupReferencesEnabled         *bool    `json:"savedGroupReferencesEnabled,omitzero"`
+	// Deprecated. Use `savedGroupFormat`.
+	SavedGroupReferencesEnabled *bool                             `json:"savedGroupReferencesEnabled,omitzero"`
+	SavedGroupFormat            *PutSDKConnectionSavedGroupFormat `json:"savedGroupFormat,omitzero"`
 	// Carry prerequisite Feature Flags into this payload even when they target other Projects. Defaults to true for new connections.
 	IncludeReferencedPrerequisites *bool `json:"includeReferencedPrerequisites,omitzero"`
 }
@@ -198,6 +231,13 @@ func (p *PutSDKConnectionRequestBody) GetSavedGroupReferencesEnabled() *bool {
 		return nil
 	}
 	return p.SavedGroupReferencesEnabled
+}
+
+func (p *PutSDKConnectionRequestBody) GetSavedGroupFormat() *PutSDKConnectionSavedGroupFormat {
+	if p == nil {
+		return nil
+	}
+	return p.SavedGroupFormat
 }
 
 func (p *PutSDKConnectionRequestBody) GetIncludeReferencedPrerequisites() *bool {

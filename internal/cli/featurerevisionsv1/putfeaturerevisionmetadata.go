@@ -22,6 +22,8 @@ var putFeatureRevisionMetadataCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "owner", FieldPath: "Body.Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization."},
 	{FlagName: "project", Shorthand: "p", FieldPath: "Body.Project", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "targeting-all-projects", FieldPath: "Body.TargetingAllProjects", Kind: flagutil.FlagKindBool, Optional: true, Description: "Stage delivering this feature to every project. Requires the `targetFeatures` permission unscoped to any project."},
+	{FlagName: "targeting-projects", FieldPath: "Body.TargetingProjects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Stage the secondary project IDs this feature is delivered to. Adding a project requires the `targetFeatures` permission (FlagsTarget policy) in that project."},
 	{FlagName: "tags", FieldPath: "Body.Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
 	{FlagName: "never-stale", Shorthand: "n", FieldPath: "Body.NeverStale", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "custom-fields", FieldPath: "Body.CustomFields", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"customFields,omitempty"`, Description: "value"},

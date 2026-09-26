@@ -12,11 +12,129 @@ import (
 	"time"
 )
 
+type PutFeatureRevisionRuleRampScheduleV2Patch1 struct {
+	RuleID *string `json:"ruleId,omitzero"`
+	// Traffic fraction (0–1). For monitored steps the rollout rule is promoted to an experiment: treatment = [0, coverage), control = [0.5, 0.5+coverage). Both arms are equal-sized and non-adjacent, so a step-up only adds new users to each arm — no existing user changes group. The REST API enforces coverage ≤ 0.5 on monitored steps so control end never exceeds 1.0. The SDK uses explicit hash ranges on bucketingV2 clients to keep bucketing stable across monitored/unmonitored transitions.
+	Coverage        optionalnullable.OptionalNullable[float64]                                                  `json:"coverage,omitzero"`
+	Condition       optionalnullable.OptionalNullable[string]                                                   `json:"condition,omitzero"`
+	SavedGroups     optionalnullable.OptionalNullable[[]PutFeatureRevisionRuleRampScheduleV2PatchSavedGroups]   `json:"savedGroups,omitzero"`
+	Prerequisites   optionalnullable.OptionalNullable[[]PutFeatureRevisionRuleRampScheduleV2PatchPrerequisites] `json:"prerequisites,omitzero"`
+	AllEnvironments optionalnullable.OptionalNullable[bool]                                                     `json:"allEnvironments,omitzero"`
+	Environments    optionalnullable.OptionalNullable[[]string]                                                 `json:"environments,omitzero"`
+	// Value to serve, in the string form rule values use ("false", "10", '{"limit": 5}'). A non-string JSON value is accepted and stored as its JSON text. Must be valid for the feature's value type.
+	Force   any                                     `json:"force,omitzero"`
+	Enabled optionalnullable.OptionalNullable[bool] `json:"enabled,omitzero"`
+	// Attribute the rule buckets on. Required (here or on the rule) when a step sets partial coverage on a force rule, which becomes a rollout.
+	HashAttribute optionalnullable.OptionalNullable[string] `json:"hashAttribute,omitzero"`
+	// Hash seed for a promoted force rule. Defaults to the rule id.
+	Seed optionalnullable.OptionalNullable[string] `json:"seed,omitzero"`
+	// Hash algorithm version for a promoted force rule. Defaults to 2.
+	HashVersion *float64 `json:"hashVersion,omitzero"`
+}
+
+func (p PutFeatureRevisionRuleRampScheduleV2Patch1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PutFeatureRevisionRuleRampScheduleV2Patch1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PutFeatureRevisionRuleRampScheduleV2Patch1) GetRuleID() *string {
+	if p == nil {
+		return nil
+	}
+	return p.RuleID
+}
+
+func (p *PutFeatureRevisionRuleRampScheduleV2Patch1) GetCoverage() optionalnullable.OptionalNullable[float64] {
+	if p == nil {
+		return nil
+	}
+	return p.Coverage
+}
+
+func (p *PutFeatureRevisionRuleRampScheduleV2Patch1) GetCondition() optionalnullable.OptionalNullable[string] {
+	if p == nil {
+		return nil
+	}
+	return p.Condition
+}
+
+func (p *PutFeatureRevisionRuleRampScheduleV2Patch1) GetSavedGroups() optionalnullable.OptionalNullable[[]PutFeatureRevisionRuleRampScheduleV2PatchSavedGroups] {
+	if p == nil {
+		return nil
+	}
+	return p.SavedGroups
+}
+
+func (p *PutFeatureRevisionRuleRampScheduleV2Patch1) GetPrerequisites() optionalnullable.OptionalNullable[[]PutFeatureRevisionRuleRampScheduleV2PatchPrerequisites] {
+	if p == nil {
+		return nil
+	}
+	return p.Prerequisites
+}
+
+func (p *PutFeatureRevisionRuleRampScheduleV2Patch1) GetAllEnvironments() optionalnullable.OptionalNullable[bool] {
+	if p == nil {
+		return nil
+	}
+	return p.AllEnvironments
+}
+
+func (p *PutFeatureRevisionRuleRampScheduleV2Patch1) GetEnvironments() optionalnullable.OptionalNullable[[]string] {
+	if p == nil {
+		return nil
+	}
+	return p.Environments
+}
+
+func (p *PutFeatureRevisionRuleRampScheduleV2Patch1) GetForce() any {
+	if p == nil {
+		return nil
+	}
+	return p.Force
+}
+
+func (p *PutFeatureRevisionRuleRampScheduleV2Patch1) GetEnabled() optionalnullable.OptionalNullable[bool] {
+	if p == nil {
+		return nil
+	}
+	return p.Enabled
+}
+
+func (p *PutFeatureRevisionRuleRampScheduleV2Patch1) GetHashAttribute() optionalnullable.OptionalNullable[string] {
+	if p == nil {
+		return nil
+	}
+	return p.HashAttribute
+}
+
+func (p *PutFeatureRevisionRuleRampScheduleV2Patch1) GetSeed() optionalnullable.OptionalNullable[string] {
+	if p == nil {
+		return nil
+	}
+	return p.Seed
+}
+
+func (p *PutFeatureRevisionRuleRampScheduleV2Patch1) GetHashVersion() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.HashVersion
+}
+
+// #region class-body-putfeaturerevisionrulerampschedulev2patch1
+// #endregion class-body-putfeaturerevisionrulerampschedulev2patch1
+
 type PutFeatureRevisionRuleRampScheduleV2StartAction struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	targetType *string                                   `const:"feature-rule" json:"targetType,omitzero"`
-	TargetID   *string                                   `json:"targetId,omitzero"`
-	Patch      PutFeatureRevisionRuleRampScheduleV2Patch `json:"patch"`
+	targetType *string                                    `const:"feature-rule" json:"targetType,omitzero"`
+	TargetID   *string                                    `json:"targetId,omitzero"`
+	Patch      PutFeatureRevisionRuleRampScheduleV2Patch1 `json:"patch"`
 }
 
 func (p PutFeatureRevisionRuleRampScheduleV2StartAction) MarshalJSON() ([]byte, error) {
@@ -41,9 +159,9 @@ func (p *PutFeatureRevisionRuleRampScheduleV2StartAction) GetTargetID() *string 
 	return p.TargetID
 }
 
-func (p *PutFeatureRevisionRuleRampScheduleV2StartAction) GetPatch() PutFeatureRevisionRuleRampScheduleV2Patch {
+func (p *PutFeatureRevisionRuleRampScheduleV2StartAction) GetPatch() PutFeatureRevisionRuleRampScheduleV2Patch1 {
 	if p == nil {
-		return PutFeatureRevisionRuleRampScheduleV2Patch{}
+		return PutFeatureRevisionRuleRampScheduleV2Patch1{}
 	}
 	return p.Patch
 }
@@ -133,7 +251,7 @@ type PutFeatureRevisionRuleRampScheduleV2StepPatch struct {
 	Prerequisites   optionalnullable.OptionalNullable[[]PutFeatureRevisionRuleRampScheduleV2StepPrerequisites] `json:"prerequisites,omitzero"`
 	AllEnvironments optionalnullable.OptionalNullable[bool]                                                    `json:"allEnvironments,omitzero"`
 	Environments    optionalnullable.OptionalNullable[[]string]                                                `json:"environments,omitzero"`
-	// Force value (any JSON type)
+	// Value to serve, in the string form rule values use ("false", "10", '{"limit": 5}'). A non-string JSON value is accepted and stored as its JSON text. Must be valid for the feature's value type.
 	Force   any                                     `json:"force,omitzero"`
 	Enabled optionalnullable.OptionalNullable[bool] `json:"enabled,omitzero"`
 }
@@ -406,7 +524,7 @@ func (p *PutFeatureRevisionRuleRampScheduleV2PatchPrerequisites) GetCondition() 
 // #region class-body-putfeaturerevisionrulerampschedulev2patchprerequisites
 // #endregion class-body-putfeaturerevisionrulerampschedulev2patchprerequisites
 
-type PutFeatureRevisionRuleRampScheduleV2Patch struct {
+type PutFeatureRevisionRuleRampScheduleV2Patch2 struct {
 	RuleID *string `json:"ruleId,omitzero"`
 	// Traffic fraction (0–1). For monitored steps the rollout rule is promoted to an experiment: treatment = [0, coverage), control = [0.5, 0.5+coverage). Both arms are equal-sized and non-adjacent, so a step-up only adds new users to each arm — no existing user changes group. The REST API enforces coverage ≤ 0.5 on monitored steps so control end never exceeds 1.0. The SDK uses explicit hash ranges on bucketingV2 clients to keep bucketing stable across monitored/unmonitored transitions.
 	Coverage        optionalnullable.OptionalNullable[float64]                                                  `json:"coverage,omitzero"`
@@ -415,93 +533,93 @@ type PutFeatureRevisionRuleRampScheduleV2Patch struct {
 	Prerequisites   optionalnullable.OptionalNullable[[]PutFeatureRevisionRuleRampScheduleV2PatchPrerequisites] `json:"prerequisites,omitzero"`
 	AllEnvironments optionalnullable.OptionalNullable[bool]                                                     `json:"allEnvironments,omitzero"`
 	Environments    optionalnullable.OptionalNullable[[]string]                                                 `json:"environments,omitzero"`
-	// Force value (any JSON type)
+	// Value to serve, in the string form rule values use ("false", "10", '{"limit": 5}'). A non-string JSON value is accepted and stored as its JSON text. Must be valid for the feature's value type.
 	Force   any                                     `json:"force,omitzero"`
 	Enabled optionalnullable.OptionalNullable[bool] `json:"enabled,omitzero"`
 }
 
-func (p PutFeatureRevisionRuleRampScheduleV2Patch) MarshalJSON() ([]byte, error) {
+func (p PutFeatureRevisionRuleRampScheduleV2Patch2) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(p, "", false)
 }
 
-func (p *PutFeatureRevisionRuleRampScheduleV2Patch) UnmarshalJSON(data []byte) error {
+func (p *PutFeatureRevisionRuleRampScheduleV2Patch2) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PutFeatureRevisionRuleRampScheduleV2Patch) GetRuleID() *string {
+func (p *PutFeatureRevisionRuleRampScheduleV2Patch2) GetRuleID() *string {
 	if p == nil {
 		return nil
 	}
 	return p.RuleID
 }
 
-func (p *PutFeatureRevisionRuleRampScheduleV2Patch) GetCoverage() optionalnullable.OptionalNullable[float64] {
+func (p *PutFeatureRevisionRuleRampScheduleV2Patch2) GetCoverage() optionalnullable.OptionalNullable[float64] {
 	if p == nil {
 		return nil
 	}
 	return p.Coverage
 }
 
-func (p *PutFeatureRevisionRuleRampScheduleV2Patch) GetCondition() optionalnullable.OptionalNullable[string] {
+func (p *PutFeatureRevisionRuleRampScheduleV2Patch2) GetCondition() optionalnullable.OptionalNullable[string] {
 	if p == nil {
 		return nil
 	}
 	return p.Condition
 }
 
-func (p *PutFeatureRevisionRuleRampScheduleV2Patch) GetSavedGroups() optionalnullable.OptionalNullable[[]PutFeatureRevisionRuleRampScheduleV2PatchSavedGroups] {
+func (p *PutFeatureRevisionRuleRampScheduleV2Patch2) GetSavedGroups() optionalnullable.OptionalNullable[[]PutFeatureRevisionRuleRampScheduleV2PatchSavedGroups] {
 	if p == nil {
 		return nil
 	}
 	return p.SavedGroups
 }
 
-func (p *PutFeatureRevisionRuleRampScheduleV2Patch) GetPrerequisites() optionalnullable.OptionalNullable[[]PutFeatureRevisionRuleRampScheduleV2PatchPrerequisites] {
+func (p *PutFeatureRevisionRuleRampScheduleV2Patch2) GetPrerequisites() optionalnullable.OptionalNullable[[]PutFeatureRevisionRuleRampScheduleV2PatchPrerequisites] {
 	if p == nil {
 		return nil
 	}
 	return p.Prerequisites
 }
 
-func (p *PutFeatureRevisionRuleRampScheduleV2Patch) GetAllEnvironments() optionalnullable.OptionalNullable[bool] {
+func (p *PutFeatureRevisionRuleRampScheduleV2Patch2) GetAllEnvironments() optionalnullable.OptionalNullable[bool] {
 	if p == nil {
 		return nil
 	}
 	return p.AllEnvironments
 }
 
-func (p *PutFeatureRevisionRuleRampScheduleV2Patch) GetEnvironments() optionalnullable.OptionalNullable[[]string] {
+func (p *PutFeatureRevisionRuleRampScheduleV2Patch2) GetEnvironments() optionalnullable.OptionalNullable[[]string] {
 	if p == nil {
 		return nil
 	}
 	return p.Environments
 }
 
-func (p *PutFeatureRevisionRuleRampScheduleV2Patch) GetForce() any {
+func (p *PutFeatureRevisionRuleRampScheduleV2Patch2) GetForce() any {
 	if p == nil {
 		return nil
 	}
 	return p.Force
 }
 
-func (p *PutFeatureRevisionRuleRampScheduleV2Patch) GetEnabled() optionalnullable.OptionalNullable[bool] {
+func (p *PutFeatureRevisionRuleRampScheduleV2Patch2) GetEnabled() optionalnullable.OptionalNullable[bool] {
 	if p == nil {
 		return nil
 	}
 	return p.Enabled
 }
 
-// #region class-body-putfeaturerevisionrulerampschedulev2patch
-// #endregion class-body-putfeaturerevisionrulerampschedulev2patch
+// #region class-body-putfeaturerevisionrulerampschedulev2patch2
+// #endregion class-body-putfeaturerevisionrulerampschedulev2patch2
 
 type PutFeatureRevisionRuleRampScheduleV2EndAction struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	targetType *string                                   `const:"feature-rule" json:"targetType,omitzero"`
-	TargetID   *string                                   `json:"targetId,omitzero"`
-	Patch      PutFeatureRevisionRuleRampScheduleV2Patch `json:"patch"`
+	targetType *string                                    `const:"feature-rule" json:"targetType,omitzero"`
+	TargetID   *string                                    `json:"targetId,omitzero"`
+	Patch      PutFeatureRevisionRuleRampScheduleV2Patch2 `json:"patch"`
 }
 
 func (p PutFeatureRevisionRuleRampScheduleV2EndAction) MarshalJSON() ([]byte, error) {
@@ -526,9 +644,9 @@ func (p *PutFeatureRevisionRuleRampScheduleV2EndAction) GetTargetID() *string {
 	return p.TargetID
 }
 
-func (p *PutFeatureRevisionRuleRampScheduleV2EndAction) GetPatch() PutFeatureRevisionRuleRampScheduleV2Patch {
+func (p *PutFeatureRevisionRuleRampScheduleV2EndAction) GetPatch() PutFeatureRevisionRuleRampScheduleV2Patch2 {
 	if p == nil {
-		return PutFeatureRevisionRuleRampScheduleV2Patch{}
+		return PutFeatureRevisionRuleRampScheduleV2Patch2{}
 	}
 	return p.Patch
 }
@@ -862,7 +980,7 @@ func (s *StartStatePrerequisites) GetCondition() string {
 	return s.Condition
 }
 
-// StartState - The rule state to roll back to (the rollback/jump-to-start anchor). Merged onto the rule's current state, so `{ "coverage": 0 }` keeps existing targeting but rolls back to 0%. This affects rollbacks only — it is NOT applied when the ramp starts. On create, omitting it infers the anchor from the rule's current coverage (and returns a warning if that isn't 0%); on update of a live schedule, omitting it leaves the existing anchor unchanged.
+// StartState - The rule state to roll back to (the rollback/jump-to-start anchor). Merged onto the rule's current state, so `{ "coverage": 0 }` keeps existing targeting but rolls back to 0%. Steps accumulate on it, and it is the only place a plan sets `hashAttribute` (plus optional `seed` and `hashVersion`), which a partial-coverage step on a force rule requires unless the rule has one. On create, omitting it infers the anchor from the rule's current coverage (and returns a warning if that isn't 0%); on update of a live schedule, omitting it leaves the existing anchor unchanged.
 type StartState struct {
 	// Traffic fraction (0–1). For monitored steps the rollout rule is promoted to an experiment: treatment = [0, coverage), control = [0.5, 0.5+coverage). Both arms are equal-sized and non-adjacent, so a step-up only adds new users to each arm — no existing user changes group. The REST API enforces coverage ≤ 0.5 on monitored steps so control end never exceeds 1.0. The SDK uses explicit hash ranges on bucketingV2 clients to keep bucketing stable across monitored/unmonitored transitions.
 	Coverage        optionalnullable.OptionalNullable[float64]                   `json:"coverage,omitzero"`
@@ -871,9 +989,15 @@ type StartState struct {
 	Prerequisites   optionalnullable.OptionalNullable[[]StartStatePrerequisites] `json:"prerequisites,omitzero"`
 	AllEnvironments optionalnullable.OptionalNullable[bool]                      `json:"allEnvironments,omitzero"`
 	Environments    optionalnullable.OptionalNullable[[]string]                  `json:"environments,omitzero"`
-	// Force value (any JSON type)
+	// Value to serve, in the string form rule values use ("false", "10", '{"limit": 5}'). A non-string JSON value is accepted and stored as its JSON text. Must be valid for the feature's value type.
 	Force   any                                     `json:"force,omitzero"`
 	Enabled optionalnullable.OptionalNullable[bool] `json:"enabled,omitzero"`
+	// Attribute the rule buckets on. Required (here or on the rule) when a step sets partial coverage on a force rule, which becomes a rollout.
+	HashAttribute optionalnullable.OptionalNullable[string] `json:"hashAttribute,omitzero"`
+	// Hash seed for a promoted force rule. Defaults to the rule id.
+	Seed optionalnullable.OptionalNullable[string] `json:"seed,omitzero"`
+	// Hash algorithm version for a promoted force rule. Defaults to 2.
+	HashVersion *float64 `json:"hashVersion,omitzero"`
 }
 
 func (s StartState) MarshalJSON() ([]byte, error) {
@@ -943,6 +1067,27 @@ func (s *StartState) GetEnabled() optionalnullable.OptionalNullable[bool] {
 	return s.Enabled
 }
 
+func (s *StartState) GetHashAttribute() optionalnullable.OptionalNullable[string] {
+	if s == nil {
+		return nil
+	}
+	return s.HashAttribute
+}
+
+func (s *StartState) GetSeed() optionalnullable.OptionalNullable[string] {
+	if s == nil {
+		return nil
+	}
+	return s.Seed
+}
+
+func (s *StartState) GetHashVersion() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.HashVersion
+}
+
 type PutFeatureRevisionRuleRampScheduleV2RequestBody struct {
 	Name         *string                                           `json:"name,omitzero"`
 	TemplateID   *string                                           `json:"templateId,omitzero"`
@@ -958,7 +1103,7 @@ type PutFeatureRevisionRuleRampScheduleV2RequestBody struct {
 	RequiresStartApproval optionalnullable.OptionalNullable[bool]               `json:"requiresStartApproval,omitzero"`
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	Environment *string `json:"environment,omitzero"`
-	// The rule state to roll back to (the rollback/jump-to-start anchor). Merged onto the rule's current state, so `{ "coverage": 0 }` keeps existing targeting but rolls back to 0%. This affects rollbacks only — it is NOT applied when the ramp starts. On create, omitting it infers the anchor from the rule's current coverage (and returns a warning if that isn't 0%); on update of a live schedule, omitting it leaves the existing anchor unchanged.
+	// The rule state to roll back to (the rollback/jump-to-start anchor). Merged onto the rule's current state, so `{ "coverage": 0 }` keeps existing targeting but rolls back to 0%. Steps accumulate on it, and it is the only place a plan sets `hashAttribute` (plus optional `seed` and `hashVersion`), which a partial-coverage step on a force rule requires unless the rule has one. On create, omitting it infers the anchor from the rule's current coverage (and returns a warning if that isn't 0%); on update of a live schedule, omitting it leaves the existing anchor unchanged.
 	StartState *StartState `json:"startState,omitzero"`
 	// Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
 	RevisionTitle *string `json:"revisionTitle,omitzero"`

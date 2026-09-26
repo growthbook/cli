@@ -44,4 +44,4 @@ growthbook settings [flags]
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
 * [growthbook settings get](growthbook_settings_get.md)	 - Get organization settings
-* [growthbook settings set-approvals](growthbook_settings_set-approvals.md)	 - Replace the approval requirements for feature flags, configs and constants, and for saved groups. Each family is replaced wholesale when supplied; omit one to leave it unchanged.
+* [growthbook settings set-approvals](growthbook_settings_set-approvals.md)	 - Replace the approval requirements for feature flags, configs and constants, for saved groups, and the Targeting Projects review mode. Each family is replaced wholesale when supplied; omit one to leave it unchanged.

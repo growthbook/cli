@@ -102,6 +102,8 @@ type PutAttributeRequestBody struct {
 	Format   *PutAttributeFormat `json:"format,omitzero"`
 	Projects []string            `json:"projects,omitzero"`
 	Tags     []string            `json:"tags,omitzero"`
+	// Values for the organization's attribute custom fields, keyed by field id
+	CustomFields map[string]string `json:"customFields,omitzero"`
 }
 
 func (p PutAttributeRequestBody) MarshalJSON() ([]byte, error) {
@@ -169,6 +171,13 @@ func (p *PutAttributeRequestBody) GetTags() []string {
 		return nil
 	}
 	return p.Tags
+}
+
+func (p *PutAttributeRequestBody) GetCustomFields() map[string]string {
+	if p == nil {
+		return nil
+	}
+	return p.CustomFields
 }
 
 type PutAttributeRequest struct {

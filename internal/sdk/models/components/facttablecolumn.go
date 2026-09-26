@@ -145,7 +145,9 @@ type FactTableColumn struct {
 	Description *string `json:"description,omitzero"`
 	// Whether this column should always be included as an inline filter in queries
 	AlwaysInlineFilter *bool `default:"false" json:"alwaysInlineFilter"`
-	Deleted            *bool `default:"false" json:"deleted"`
+	// Value -> additional column to prompt for when a metric filters this column to that value, e.g. {"Page View": "path", "Modal Open": "properties.modalType"}. Requires alwaysInlineFilter.
+	ConditionalInlineFilters map[string]string `json:"conditionalInlineFilters,omitzero"`
+	Deleted                  *bool             `default:"false" json:"deleted"`
 	// Whether this column can be used for auto slice analysis. This is an enterprise feature.
 	IsAutoSliceColumn *bool `default:"false" json:"isAutoSliceColumn"`
 	// Specific slices to automatically analyze for this column.
@@ -229,6 +231,13 @@ func (f *FactTableColumn) GetAlwaysInlineFilter() *bool {
 		return nil
 	}
 	return f.AlwaysInlineFilter
+}
+
+func (f *FactTableColumn) GetConditionalInlineFilters() map[string]string {
+	if f == nil {
+		return nil
+	}
+	return f.ConditionalInlineFilters
 }
 
 func (f *FactTableColumn) GetDeleted() *bool {

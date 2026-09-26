@@ -17,14 +17,15 @@ import (
 var setApprovalsCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "require-reviews", Shorthand: "r", FieldPath: "RequireReviews", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"requireReviews,omitempty"`, Description: "list of values"},
 	{FlagName: "approval-flows", Shorthand: "a", FieldPath: "ApprovalFlows", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"approvalFlows,omitempty"`, Description: "JSON object"},
+	{FlagName: "targeting-review-mode", Shorthand: "t", FieldPath: "TargetingReviewMode", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"targetingReviewMode,omitempty"`, Description: "list of values"},
 }
 
 // initSetApprovalsCmd initializes the set-approvals command.
 func initSetApprovalsCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "set-approvals",
-		Short:   "Replace the approval requirements for feature flags, configs and constants, and for saved groups. Each family is replaced wholesale when supplied; omit one to leave it unchanged.",
-		Long:    "Replace the approval requirements for feature flags, configs and constants, and for saved groups. Each family is replaced wholesale when supplied; omit one to leave it unchanged.",
+		Short:   "Replace the approval requirements for feature flags, configs and constants, for saved groups, and the Targeting Projects review mode. Each family is replaced wholesale when supplied; omit one to leave it unchanged.",
+		Long:    "Replace the approval requirements for feature flags, configs and constants, for saved groups, and the Targeting Projects review mode. Each family is replaced wholesale when supplied; omit one to leave it unchanged.",
 		Example: "  growthbook settings set-approvals",
 		RunE:    runSetApprovalsCmd,
 		Aliases: []string{"sa"},

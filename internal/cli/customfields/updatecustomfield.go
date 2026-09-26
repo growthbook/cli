@@ -24,7 +24,7 @@ var updateCustomFieldCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "creatable", Shorthand: "c", FieldPath: "Body.Creatable", Kind: flagutil.FlagKindBool, Optional: true, Description: "For enum and multiselect fields, allow users to enter values beyond the predefined list"},
 	{FlagName: "required", Shorthand: "r", FieldPath: "Body.Required", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "projects", FieldPath: "Body.Projects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
-	{FlagName: "sections", Shorthand: "s", FieldPath: "Body.Sections", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "What types of objects this custom field is applicable to (feature, experiment)"},
+	{FlagName: "sections", Shorthand: "s", FieldPath: "Body.Sections", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "What types of objects this custom field is applicable to (feature, experiment, attribute)"},
 	{FlagName: "active", Shorthand: "a", FieldPath: "Body.Active", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 }
 

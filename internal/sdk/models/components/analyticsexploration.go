@@ -88,10 +88,260 @@ func (r *RowStep) GetTimeFromPrevSumSquaresHrs() *float64 {
 	return r.TimeFromPrevSumSquaresHrs
 }
 
+type JourneyDirection2 string
+
+const (
+	JourneyDirection2Forward  JourneyDirection2 = "forward"
+	JourneyDirection2Backward JourneyDirection2 = "backward"
+)
+
+func (e JourneyDirection2) ToPointer() *JourneyDirection2 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *JourneyDirection2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "forward", "backward":
+			return true
+		}
+	}
+	return false
+}
+
+type JourneyCommitted struct {
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	kind      string            `const:"committed" json:"kind"`
+	Direction JourneyDirection2 `json:"direction"`
+	StepIndex float64           `json:"stepIndex"`
+	Value     string            `json:"value"`
+	Count     float64           `json:"count"`
+}
+
+func (j JourneyCommitted) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(j, "", false)
+}
+
+func (j *JourneyCommitted) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &j, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (j *JourneyCommitted) GetKind() string {
+	return "committed"
+}
+
+func (j *JourneyCommitted) GetDirection() JourneyDirection2 {
+	if j == nil {
+		return JourneyDirection2("")
+	}
+	return j.Direction
+}
+
+func (j *JourneyCommitted) GetStepIndex() float64 {
+	if j == nil {
+		return 0.0
+	}
+	return j.StepIndex
+}
+
+func (j *JourneyCommitted) GetValue() string {
+	if j == nil {
+		return ""
+	}
+	return j.Value
+}
+
+func (j *JourneyCommitted) GetCount() float64 {
+	if j == nil {
+		return 0.0
+	}
+	return j.Count
+}
+
+type JourneyDirection1 string
+
+const (
+	JourneyDirection1Forward  JourneyDirection1 = "forward"
+	JourneyDirection1Backward JourneyDirection1 = "backward"
+)
+
+func (e JourneyDirection1) ToPointer() *JourneyDirection1 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *JourneyDirection1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "forward", "backward":
+			return true
+		}
+	}
+	return false
+}
+
+type JourneyPath struct {
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	kind      string            `const:"path" json:"kind"`
+	Direction JourneyDirection1 `json:"direction"`
+	Levels    []string          `json:"levels"`
+	Count     float64           `json:"count"`
+}
+
+func (j JourneyPath) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(j, "", false)
+}
+
+func (j *JourneyPath) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &j, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (j *JourneyPath) GetKind() string {
+	return "path"
+}
+
+func (j *JourneyPath) GetDirection() JourneyDirection1 {
+	if j == nil {
+		return JourneyDirection1("")
+	}
+	return j.Direction
+}
+
+func (j *JourneyPath) GetLevels() []string {
+	if j == nil {
+		return []string{}
+	}
+	return j.Levels
+}
+
+func (j *JourneyPath) GetCount() float64 {
+	if j == nil {
+		return 0.0
+	}
+	return j.Count
+}
+
+type JourneyType string
+
+const (
+	JourneyTypePath      JourneyType = "path"
+	JourneyTypeCommitted JourneyType = "committed"
+	JourneyTypeUnknown   JourneyType = "UNKNOWN"
+)
+
+type Journey struct {
+	JourneyPath      *JourneyPath      `queryParam:"inline" union:"member"`
+	JourneyCommitted *JourneyCommitted `queryParam:"inline" union:"member"`
+	UnknownRaw       json.RawMessage   `json:"-" union:"unknown"`
+
+	Type JourneyType
+}
+
+func CreateJourneyPath(path JourneyPath) Journey {
+	typ := JourneyTypePath
+
+	return Journey{
+		JourneyPath: &path,
+		Type:        typ,
+	}
+}
+
+func CreateJourneyCommitted(committed JourneyCommitted) Journey {
+	typ := JourneyTypeCommitted
+
+	return Journey{
+		JourneyCommitted: &committed,
+		Type:             typ,
+	}
+}
+
+func CreateJourneyUnknown(raw json.RawMessage) Journey {
+	return Journey{
+		UnknownRaw: raw,
+		Type:       JourneyTypeUnknown,
+	}
+}
+
+func (u Journey) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u Journey) IsUnknown() bool {
+	return u.Type == JourneyTypeUnknown
+}
+
+func (u *Journey) UnmarshalJSON(data []byte) error {
+
+	type discriminator struct {
+		Kind string `json:"kind"`
+	}
+
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = JourneyTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = JourneyTypeUnknown
+		return nil
+	}
+
+	switch dis.Kind {
+	case "path":
+		journeyPath := new(JourneyPath)
+		if err := utils.UnmarshalJSON(data, &journeyPath, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Kind == path) type JourneyPath within Journey: %w", string(data), err)
+		}
+
+		u.JourneyPath = journeyPath
+		u.Type = JourneyTypePath
+		return nil
+	case "committed":
+		journeyCommitted := new(JourneyCommitted)
+		if err := utils.UnmarshalJSON(data, &journeyCommitted, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Kind == committed) type JourneyCommitted within Journey: %w", string(data), err)
+		}
+
+		u.JourneyCommitted = journeyCommitted
+		u.Type = JourneyTypeCommitted
+		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = JourneyTypeUnknown
+		return nil
+	}
+
+}
+
+func (u Journey) MarshalJSON() ([]byte, error) {
+	if u.JourneyPath != nil {
+		return utils.MarshalJSON(u.JourneyPath, "", true)
+	}
+
+	if u.JourneyCommitted != nil {
+		return utils.MarshalJSON(u.JourneyCommitted, "", true)
+	}
+
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
+	return nil, errors.New("could not marshal union type Journey: all fields are null")
+}
+
 type Row struct {
 	Dimensions []*string  `json:"dimensions"`
 	Values     []RowValue `json:"values,omitzero"`
 	Steps      []RowStep  `json:"steps,omitzero"`
+	Journey    *Journey   `json:"journey,omitzero"`
 }
 
 func (r Row) MarshalJSON() ([]byte, error) {
@@ -124,6 +374,27 @@ func (r *Row) GetSteps() []RowStep {
 		return nil
 	}
 	return r.Steps
+}
+
+func (r *Row) GetJourney() *Journey {
+	if r == nil {
+		return nil
+	}
+	return r.Journey
+}
+
+func (r *Row) GetJourneyPath() *JourneyPath {
+	if v := r.GetJourney(); v != nil {
+		return v.JourneyPath
+	}
+	return nil
+}
+
+func (r *Row) GetJourneyCommitted() *JourneyCommitted {
+	if v := r.GetJourney(); v != nil {
+		return v.JourneyCommitted
+	}
+	return nil
 }
 
 type AnalyticsExplorationResult struct {
@@ -164,29 +435,1034 @@ func (a *AnalyticsExplorationResult) GetTruncated() *bool {
 	return a.Truncated
 }
 
+type AnalyticsExplorationDimensionOperator6 string
+
+const (
+	AnalyticsExplorationDimensionOperator6Equal             AnalyticsExplorationDimensionOperator6 = "="
+	AnalyticsExplorationDimensionOperator6NotEqual          AnalyticsExplorationDimensionOperator6 = "!="
+	AnalyticsExplorationDimensionOperator6LessThan          AnalyticsExplorationDimensionOperator6 = "<"
+	AnalyticsExplorationDimensionOperator6LessThanEqual     AnalyticsExplorationDimensionOperator6 = "<="
+	AnalyticsExplorationDimensionOperator6GreaterThan       AnalyticsExplorationDimensionOperator6 = ">"
+	AnalyticsExplorationDimensionOperator6GreaterThanEqual  AnalyticsExplorationDimensionOperator6 = ">="
+	AnalyticsExplorationDimensionOperator6Between           AnalyticsExplorationDimensionOperator6 = "between"
+	AnalyticsExplorationDimensionOperator6NotBetween        AnalyticsExplorationDimensionOperator6 = "not_between"
+	AnalyticsExplorationDimensionOperator6In                AnalyticsExplorationDimensionOperator6 = "in"
+	AnalyticsExplorationDimensionOperator6NotIn             AnalyticsExplorationDimensionOperator6 = "not_in"
+	AnalyticsExplorationDimensionOperator6Contains          AnalyticsExplorationDimensionOperator6 = "contains"
+	AnalyticsExplorationDimensionOperator6NotContains       AnalyticsExplorationDimensionOperator6 = "not_contains"
+	AnalyticsExplorationDimensionOperator6MatchesPattern    AnalyticsExplorationDimensionOperator6 = "matches_pattern"
+	AnalyticsExplorationDimensionOperator6NotMatchesPattern AnalyticsExplorationDimensionOperator6 = "not_matches_pattern"
+	AnalyticsExplorationDimensionOperator6StartsWith        AnalyticsExplorationDimensionOperator6 = "starts_with"
+	AnalyticsExplorationDimensionOperator6EndsWith          AnalyticsExplorationDimensionOperator6 = "ends_with"
+	AnalyticsExplorationDimensionOperator6IsNull            AnalyticsExplorationDimensionOperator6 = "is_null"
+	AnalyticsExplorationDimensionOperator6NotNull           AnalyticsExplorationDimensionOperator6 = "not_null"
+	AnalyticsExplorationDimensionOperator6IsTrue            AnalyticsExplorationDimensionOperator6 = "is_true"
+	AnalyticsExplorationDimensionOperator6IsFalse           AnalyticsExplorationDimensionOperator6 = "is_false"
+	AnalyticsExplorationDimensionOperator6SQLExpr           AnalyticsExplorationDimensionOperator6 = "sql_expr"
+	AnalyticsExplorationDimensionOperator6SavedFilter       AnalyticsExplorationDimensionOperator6 = "saved_filter"
+)
+
+func (e AnalyticsExplorationDimensionOperator6) ToPointer() *AnalyticsExplorationDimensionOperator6 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *AnalyticsExplorationDimensionOperator6) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+			return true
+		}
+	}
+	return false
+}
+
+type AnalyticsExplorationFilter6 struct {
+	Operator AnalyticsExplorationDimensionOperator6 `json:"operator"`
+	Column   *string                                `json:"column,omitzero"`
+	Values   []string                               `json:"values,omitzero"`
+}
+
+func (a AnalyticsExplorationFilter6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *AnalyticsExplorationFilter6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (a *AnalyticsExplorationFilter6) GetOperator() AnalyticsExplorationDimensionOperator6 {
+	if a == nil {
+		return AnalyticsExplorationDimensionOperator6("")
+	}
+	return a.Operator
+}
+
+func (a *AnalyticsExplorationFilter6) GetColumn() *string {
+	if a == nil {
+		return nil
+	}
+	return a.Column
+}
+
+func (a *AnalyticsExplorationFilter6) GetValues() []string {
+	if a == nil {
+		return nil
+	}
+	return a.Values
+}
+
+// #region class-body-analyticsexplorationfilter6
+// #endregion class-body-analyticsexplorationfilter6
+
+type AnalyticsExplorationSlice6 struct {
+	Name    string                        `json:"name"`
+	Filters []AnalyticsExplorationFilter6 `json:"filters"`
+}
+
+func (a AnalyticsExplorationSlice6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *AnalyticsExplorationSlice6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (a *AnalyticsExplorationSlice6) GetName() string {
+	if a == nil {
+		return ""
+	}
+	return a.Name
+}
+
+func (a *AnalyticsExplorationSlice6) GetFilters() []AnalyticsExplorationFilter6 {
+	if a == nil {
+		return []AnalyticsExplorationFilter6{}
+	}
+	return a.Filters
+}
+
+// #region class-body-analyticsexplorationslice6
+// #endregion class-body-analyticsexplorationslice6
+
+type AnalyticsExplorationDimensionSlice6 struct {
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	dimensionType string                       `const:"slice" json:"dimensionType"`
+	Slices        []AnalyticsExplorationSlice6 `json:"slices"`
+}
+
+func (a AnalyticsExplorationDimensionSlice6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *AnalyticsExplorationDimensionSlice6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (a *AnalyticsExplorationDimensionSlice6) GetDimensionType() string {
+	return "slice"
+}
+
+func (a *AnalyticsExplorationDimensionSlice6) GetSlices() []AnalyticsExplorationSlice6 {
+	if a == nil {
+		return []AnalyticsExplorationSlice6{}
+	}
+	return a.Slices
+}
+
+// #region class-body-analyticsexplorationdimensionslice6
+// #endregion class-body-analyticsexplorationdimensionslice6
+
+type AnalyticsExplorationDimensionStatic6 struct {
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	dimensionType string   `const:"static" json:"dimensionType"`
+	Column        string   `json:"column"`
+	Values        []string `json:"values"`
+}
+
+func (a AnalyticsExplorationDimensionStatic6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *AnalyticsExplorationDimensionStatic6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (a *AnalyticsExplorationDimensionStatic6) GetDimensionType() string {
+	return "static"
+}
+
+func (a *AnalyticsExplorationDimensionStatic6) GetColumn() string {
+	if a == nil {
+		return ""
+	}
+	return a.Column
+}
+
+func (a *AnalyticsExplorationDimensionStatic6) GetValues() []string {
+	if a == nil {
+		return []string{}
+	}
+	return a.Values
+}
+
+// #region class-body-analyticsexplorationdimensionstatic6
+// #endregion class-body-analyticsexplorationdimensionstatic6
+
+type AnalyticsExplorationDimensionDynamic6 struct {
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	dimensionType string  `const:"dynamic" json:"dimensionType"`
+	Column        *string `json:"column"`
+	MaxValues     float64 `json:"maxValues"`
+}
+
+func (a AnalyticsExplorationDimensionDynamic6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *AnalyticsExplorationDimensionDynamic6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (a *AnalyticsExplorationDimensionDynamic6) GetDimensionType() string {
+	return "dynamic"
+}
+
+func (a *AnalyticsExplorationDimensionDynamic6) GetColumn() *string {
+	if a == nil {
+		return nil
+	}
+	return a.Column
+}
+
+func (a *AnalyticsExplorationDimensionDynamic6) GetMaxValues() float64 {
+	if a == nil {
+		return 0.0
+	}
+	return a.MaxValues
+}
+
+// #region class-body-analyticsexplorationdimensiondynamic6
+// #endregion class-body-analyticsexplorationdimensiondynamic6
+
+type AnalyticsExplorationDateGranularity6 string
+
+const (
+	AnalyticsExplorationDateGranularity6Auto  AnalyticsExplorationDateGranularity6 = "auto"
+	AnalyticsExplorationDateGranularity6Hour  AnalyticsExplorationDateGranularity6 = "hour"
+	AnalyticsExplorationDateGranularity6Day   AnalyticsExplorationDateGranularity6 = "day"
+	AnalyticsExplorationDateGranularity6Week  AnalyticsExplorationDateGranularity6 = "week"
+	AnalyticsExplorationDateGranularity6Month AnalyticsExplorationDateGranularity6 = "month"
+	AnalyticsExplorationDateGranularity6Year  AnalyticsExplorationDateGranularity6 = "year"
+)
+
+func (e AnalyticsExplorationDateGranularity6) ToPointer() *AnalyticsExplorationDateGranularity6 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *AnalyticsExplorationDateGranularity6) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "hour", "day", "week", "month", "year":
+			return true
+		}
+	}
+	return false
+}
+
+type AnalyticsExplorationDimensionDate6 struct {
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	dimensionType   string                               `const:"date" json:"dimensionType"`
+	Column          *string                              `json:"column"`
+	DateGranularity AnalyticsExplorationDateGranularity6 `json:"dateGranularity"`
+}
+
+func (a AnalyticsExplorationDimensionDate6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *AnalyticsExplorationDimensionDate6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (a *AnalyticsExplorationDimensionDate6) GetDimensionType() string {
+	return "date"
+}
+
+func (a *AnalyticsExplorationDimensionDate6) GetColumn() *string {
+	if a == nil {
+		return nil
+	}
+	return a.Column
+}
+
+func (a *AnalyticsExplorationDimensionDate6) GetDateGranularity() AnalyticsExplorationDateGranularity6 {
+	if a == nil {
+		return AnalyticsExplorationDateGranularity6("")
+	}
+	return a.DateGranularity
+}
+
+// #region class-body-analyticsexplorationdimensiondate6
+// #endregion class-body-analyticsexplorationdimensiondate6
+
+type AnalyticsExplorationDimensionUnion6Type string
+
+const (
+	AnalyticsExplorationDimensionUnion6TypeDate    AnalyticsExplorationDimensionUnion6Type = "date"
+	AnalyticsExplorationDimensionUnion6TypeDynamic AnalyticsExplorationDimensionUnion6Type = "dynamic"
+	AnalyticsExplorationDimensionUnion6TypeStatic  AnalyticsExplorationDimensionUnion6Type = "static"
+	AnalyticsExplorationDimensionUnion6TypeSlice   AnalyticsExplorationDimensionUnion6Type = "slice"
+	AnalyticsExplorationDimensionUnion6TypeUnknown AnalyticsExplorationDimensionUnion6Type = "UNKNOWN"
+)
+
+type AnalyticsExplorationDimensionUnion6 struct {
+	AnalyticsExplorationDimensionDate6    *AnalyticsExplorationDimensionDate6    `queryParam:"inline" union:"member"`
+	AnalyticsExplorationDimensionDynamic6 *AnalyticsExplorationDimensionDynamic6 `queryParam:"inline" union:"member"`
+	AnalyticsExplorationDimensionStatic6  *AnalyticsExplorationDimensionStatic6  `queryParam:"inline" union:"member"`
+	AnalyticsExplorationDimensionSlice6   *AnalyticsExplorationDimensionSlice6   `queryParam:"inline" union:"member"`
+	UnknownRaw                            json.RawMessage                        `json:"-" union:"unknown"`
+
+	Type AnalyticsExplorationDimensionUnion6Type
+}
+
+func CreateAnalyticsExplorationDimensionUnion6Date(date AnalyticsExplorationDimensionDate6) AnalyticsExplorationDimensionUnion6 {
+	typ := AnalyticsExplorationDimensionUnion6TypeDate
+
+	return AnalyticsExplorationDimensionUnion6{
+		AnalyticsExplorationDimensionDate6: &date,
+		Type:                               typ,
+	}
+}
+
+func CreateAnalyticsExplorationDimensionUnion6Dynamic(dynamic AnalyticsExplorationDimensionDynamic6) AnalyticsExplorationDimensionUnion6 {
+	typ := AnalyticsExplorationDimensionUnion6TypeDynamic
+
+	return AnalyticsExplorationDimensionUnion6{
+		AnalyticsExplorationDimensionDynamic6: &dynamic,
+		Type:                                  typ,
+	}
+}
+
+func CreateAnalyticsExplorationDimensionUnion6Static(static AnalyticsExplorationDimensionStatic6) AnalyticsExplorationDimensionUnion6 {
+	typ := AnalyticsExplorationDimensionUnion6TypeStatic
+
+	return AnalyticsExplorationDimensionUnion6{
+		AnalyticsExplorationDimensionStatic6: &static,
+		Type:                                 typ,
+	}
+}
+
+func CreateAnalyticsExplorationDimensionUnion6Slice(slice AnalyticsExplorationDimensionSlice6) AnalyticsExplorationDimensionUnion6 {
+	typ := AnalyticsExplorationDimensionUnion6TypeSlice
+
+	return AnalyticsExplorationDimensionUnion6{
+		AnalyticsExplorationDimensionSlice6: &slice,
+		Type:                                typ,
+	}
+}
+
+func CreateAnalyticsExplorationDimensionUnion6Unknown(raw json.RawMessage) AnalyticsExplorationDimensionUnion6 {
+	return AnalyticsExplorationDimensionUnion6{
+		UnknownRaw: raw,
+		Type:       AnalyticsExplorationDimensionUnion6TypeUnknown,
+	}
+}
+
+func (u AnalyticsExplorationDimensionUnion6) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u AnalyticsExplorationDimensionUnion6) IsUnknown() bool {
+	return u.Type == AnalyticsExplorationDimensionUnion6TypeUnknown
+}
+
+func (u *AnalyticsExplorationDimensionUnion6) UnmarshalJSON(data []byte) error {
+
+	type discriminator struct {
+		DimensionType string `json:"dimensionType"`
+	}
+
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = AnalyticsExplorationDimensionUnion6TypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = AnalyticsExplorationDimensionUnion6TypeUnknown
+		return nil
+	}
+
+	switch dis.DimensionType {
+	case "date":
+		analyticsExplorationDimensionDate6 := new(AnalyticsExplorationDimensionDate6)
+		if err := utils.UnmarshalJSON(data, &analyticsExplorationDimensionDate6, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (DimensionType == date) type AnalyticsExplorationDimensionDate6 within AnalyticsExplorationDimensionUnion6: %w", string(data), err)
+		}
+
+		u.AnalyticsExplorationDimensionDate6 = analyticsExplorationDimensionDate6
+		u.Type = AnalyticsExplorationDimensionUnion6TypeDate
+		return nil
+	case "dynamic":
+		analyticsExplorationDimensionDynamic6 := new(AnalyticsExplorationDimensionDynamic6)
+		if err := utils.UnmarshalJSON(data, &analyticsExplorationDimensionDynamic6, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (DimensionType == dynamic) type AnalyticsExplorationDimensionDynamic6 within AnalyticsExplorationDimensionUnion6: %w", string(data), err)
+		}
+
+		u.AnalyticsExplorationDimensionDynamic6 = analyticsExplorationDimensionDynamic6
+		u.Type = AnalyticsExplorationDimensionUnion6TypeDynamic
+		return nil
+	case "static":
+		analyticsExplorationDimensionStatic6 := new(AnalyticsExplorationDimensionStatic6)
+		if err := utils.UnmarshalJSON(data, &analyticsExplorationDimensionStatic6, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (DimensionType == static) type AnalyticsExplorationDimensionStatic6 within AnalyticsExplorationDimensionUnion6: %w", string(data), err)
+		}
+
+		u.AnalyticsExplorationDimensionStatic6 = analyticsExplorationDimensionStatic6
+		u.Type = AnalyticsExplorationDimensionUnion6TypeStatic
+		return nil
+	case "slice":
+		analyticsExplorationDimensionSlice6 := new(AnalyticsExplorationDimensionSlice6)
+		if err := utils.UnmarshalJSON(data, &analyticsExplorationDimensionSlice6, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (DimensionType == slice) type AnalyticsExplorationDimensionSlice6 within AnalyticsExplorationDimensionUnion6: %w", string(data), err)
+		}
+
+		u.AnalyticsExplorationDimensionSlice6 = analyticsExplorationDimensionSlice6
+		u.Type = AnalyticsExplorationDimensionUnion6TypeSlice
+		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = AnalyticsExplorationDimensionUnion6TypeUnknown
+		return nil
+	}
+
+}
+
+func (u AnalyticsExplorationDimensionUnion6) MarshalJSON() ([]byte, error) {
+	if u.AnalyticsExplorationDimensionDate6 != nil {
+		return utils.MarshalJSON(u.AnalyticsExplorationDimensionDate6, "", true)
+	}
+
+	if u.AnalyticsExplorationDimensionDynamic6 != nil {
+		return utils.MarshalJSON(u.AnalyticsExplorationDimensionDynamic6, "", true)
+	}
+
+	if u.AnalyticsExplorationDimensionStatic6 != nil {
+		return utils.MarshalJSON(u.AnalyticsExplorationDimensionStatic6, "", true)
+	}
+
+	if u.AnalyticsExplorationDimensionSlice6 != nil {
+		return utils.MarshalJSON(u.AnalyticsExplorationDimensionSlice6, "", true)
+	}
+
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
+	return nil, errors.New("could not marshal union type AnalyticsExplorationDimensionUnion6: all fields are null")
+}
+
+type AnalyticsExplorationChartType6 string
+
+const (
+	AnalyticsExplorationChartType6Line                 AnalyticsExplorationChartType6 = "line"
+	AnalyticsExplorationChartType6Area                 AnalyticsExplorationChartType6 = "area"
+	AnalyticsExplorationChartType6TimeseriesTable      AnalyticsExplorationChartType6 = "timeseries-table"
+	AnalyticsExplorationChartType6Table                AnalyticsExplorationChartType6 = "table"
+	AnalyticsExplorationChartType6Bar                  AnalyticsExplorationChartType6 = "bar"
+	AnalyticsExplorationChartType6StackedBar           AnalyticsExplorationChartType6 = "stackedBar"
+	AnalyticsExplorationChartType6HorizontalBar        AnalyticsExplorationChartType6 = "horizontalBar"
+	AnalyticsExplorationChartType6StackedHorizontalBar AnalyticsExplorationChartType6 = "stackedHorizontalBar"
+	AnalyticsExplorationChartType6BigNumber            AnalyticsExplorationChartType6 = "bigNumber"
+	AnalyticsExplorationChartType6RawTable             AnalyticsExplorationChartType6 = "rawTable"
+)
+
+func (e AnalyticsExplorationChartType6) ToPointer() *AnalyticsExplorationChartType6 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *AnalyticsExplorationChartType6) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "line", "area", "timeseries-table", "table", "bar", "stackedBar", "horizontalBar", "stackedHorizontalBar", "bigNumber", "rawTable":
+			return true
+		}
+	}
+	return false
+}
+
+type AnalyticsExplorationPredefined6 string
+
+const (
+	AnalyticsExplorationPredefined6Today            AnalyticsExplorationPredefined6 = "today"
+	AnalyticsExplorationPredefined6Yesterday        AnalyticsExplorationPredefined6 = "yesterday"
+	AnalyticsExplorationPredefined6Last7Days        AnalyticsExplorationPredefined6 = "last7Days"
+	AnalyticsExplorationPredefined6Last30Days       AnalyticsExplorationPredefined6 = "last30Days"
+	AnalyticsExplorationPredefined6Last90Days       AnalyticsExplorationPredefined6 = "last90Days"
+	AnalyticsExplorationPredefined6Last12Months     AnalyticsExplorationPredefined6 = "last12Months"
+	AnalyticsExplorationPredefined6LastCalendarYear AnalyticsExplorationPredefined6 = "lastCalendarYear"
+	AnalyticsExplorationPredefined6CustomLookback   AnalyticsExplorationPredefined6 = "customLookback"
+	AnalyticsExplorationPredefined6CustomDateRange  AnalyticsExplorationPredefined6 = "customDateRange"
+)
+
+func (e AnalyticsExplorationPredefined6) ToPointer() *AnalyticsExplorationPredefined6 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *AnalyticsExplorationPredefined6) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "today", "yesterday", "last7Days", "last30Days", "last90Days", "last12Months", "lastCalendarYear", "customLookback", "customDateRange":
+			return true
+		}
+	}
+	return false
+}
+
+type AnalyticsExplorationLookbackUnit6 string
+
+const (
+	AnalyticsExplorationLookbackUnit6Hour  AnalyticsExplorationLookbackUnit6 = "hour"
+	AnalyticsExplorationLookbackUnit6Day   AnalyticsExplorationLookbackUnit6 = "day"
+	AnalyticsExplorationLookbackUnit6Week  AnalyticsExplorationLookbackUnit6 = "week"
+	AnalyticsExplorationLookbackUnit6Month AnalyticsExplorationLookbackUnit6 = "month"
+)
+
+func (e AnalyticsExplorationLookbackUnit6) ToPointer() *AnalyticsExplorationLookbackUnit6 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *AnalyticsExplorationLookbackUnit6) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "hour", "day", "week", "month":
+			return true
+		}
+	}
+	return false
+}
+
+type AnalyticsExplorationDateRange6 struct {
+	Predefined    AnalyticsExplorationPredefined6                                      `json:"predefined"`
+	LookbackValue optionalnullable.OptionalNullable[float64]                           `json:"lookbackValue,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[AnalyticsExplorationLookbackUnit6] `json:"lookbackUnit,omitzero"`
+	StartDate     optionalnullable.OptionalNullable[string]                            `json:"startDate,omitzero"`
+	EndDate       optionalnullable.OptionalNullable[string]                            `json:"endDate,omitzero"`
+}
+
+func (a AnalyticsExplorationDateRange6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *AnalyticsExplorationDateRange6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (a *AnalyticsExplorationDateRange6) GetPredefined() AnalyticsExplorationPredefined6 {
+	if a == nil {
+		return AnalyticsExplorationPredefined6("")
+	}
+	return a.Predefined
+}
+
+func (a *AnalyticsExplorationDateRange6) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+	if a == nil {
+		return nil
+	}
+	return a.LookbackValue
+}
+
+func (a *AnalyticsExplorationDateRange6) GetLookbackUnit() optionalnullable.OptionalNullable[AnalyticsExplorationLookbackUnit6] {
+	if a == nil {
+		return nil
+	}
+	return a.LookbackUnit
+}
+
+func (a *AnalyticsExplorationDateRange6) GetStartDate() optionalnullable.OptionalNullable[string] {
+	if a == nil {
+		return nil
+	}
+	return a.StartDate
+}
+
+func (a *AnalyticsExplorationDateRange6) GetEndDate() optionalnullable.OptionalNullable[string] {
+	if a == nil {
+		return nil
+	}
+	return a.EndDate
+}
+
+// #region class-body-analyticsexplorationdaterange6
+// #endregion class-body-analyticsexplorationdaterange6
+
+type AnalyticsExplorationShowAs6 string
+
+const (
+	AnalyticsExplorationShowAs6Total   AnalyticsExplorationShowAs6 = "total"
+	AnalyticsExplorationShowAs6PerUnit AnalyticsExplorationShowAs6 = "per_unit"
+)
+
+func (e AnalyticsExplorationShowAs6) ToPointer() *AnalyticsExplorationShowAs6 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *AnalyticsExplorationShowAs6) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "total", "per_unit":
+			return true
+		}
+	}
+	return false
+}
+
+type AnalyticsExplorationChartSettings6 struct {
+	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
+	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+}
+
+func (a AnalyticsExplorationChartSettings6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *AnalyticsExplorationChartSettings6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (a *AnalyticsExplorationChartSettings6) GetCategoryAxisLabel() *string {
+	if a == nil {
+		return nil
+	}
+	return a.CategoryAxisLabel
+}
+
+func (a *AnalyticsExplorationChartSettings6) GetValueAxisLabel() *string {
+	if a == nil {
+		return nil
+	}
+	return a.ValueAxisLabel
+}
+
+// #region class-body-analyticsexplorationchartsettings6
+// #endregion class-body-analyticsexplorationchartsettings6
+
+type StepGroup struct {
+	Column  string `json:"column"`
+	Pattern string `json:"pattern"`
+}
+
+func (s StepGroup) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *StepGroup) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *StepGroup) GetColumn() string {
+	if s == nil {
+		return ""
+	}
+	return s.Column
+}
+
+func (s *StepGroup) GetPattern() string {
+	if s == nil {
+		return ""
+	}
+	return s.Pattern
+}
+
+type ConfigDirection string
+
+const (
+	ConfigDirectionForward  ConfigDirection = "forward"
+	ConfigDirectionBackward ConfigDirection = "backward"
+)
+
+func (e ConfigDirection) ToPointer() *ConfigDirection {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ConfigDirection) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "forward", "backward":
+			return true
+		}
+	}
+	return false
+}
+
+type OperatorJourney string
+
+const (
+	OperatorJourneyEqual             OperatorJourney = "="
+	OperatorJourneyNotEqual          OperatorJourney = "!="
+	OperatorJourneyLessThan          OperatorJourney = "<"
+	OperatorJourneyLessThanEqual     OperatorJourney = "<="
+	OperatorJourneyGreaterThan       OperatorJourney = ">"
+	OperatorJourneyGreaterThanEqual  OperatorJourney = ">="
+	OperatorJourneyBetween           OperatorJourney = "between"
+	OperatorJourneyNotBetween        OperatorJourney = "not_between"
+	OperatorJourneyIn                OperatorJourney = "in"
+	OperatorJourneyNotIn             OperatorJourney = "not_in"
+	OperatorJourneyContains          OperatorJourney = "contains"
+	OperatorJourneyNotContains       OperatorJourney = "not_contains"
+	OperatorJourneyMatchesPattern    OperatorJourney = "matches_pattern"
+	OperatorJourneyNotMatchesPattern OperatorJourney = "not_matches_pattern"
+	OperatorJourneyStartsWith        OperatorJourney = "starts_with"
+	OperatorJourneyEndsWith          OperatorJourney = "ends_with"
+	OperatorJourneyIsNull            OperatorJourney = "is_null"
+	OperatorJourneyNotNull           OperatorJourney = "not_null"
+	OperatorJourneyIsTrue            OperatorJourney = "is_true"
+	OperatorJourneyIsFalse           OperatorJourney = "is_false"
+	OperatorJourneySQLExpr           OperatorJourney = "sql_expr"
+	OperatorJourneySavedFilter       OperatorJourney = "saved_filter"
+)
+
+func (e OperatorJourney) ToPointer() *OperatorJourney {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OperatorJourney) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+			return true
+		}
+	}
+	return false
+}
+
+type RowFilterJourney struct {
+	Operator OperatorJourney `json:"operator"`
+	Column   *string         `json:"column,omitzero"`
+	Values   []string        `json:"values,omitzero"`
+}
+
+func (r RowFilterJourney) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RowFilterJourney) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RowFilterJourney) GetOperator() OperatorJourney {
+	if r == nil {
+		return OperatorJourney("")
+	}
+	return r.Operator
+}
+
+func (r *RowFilterJourney) GetColumn() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Column
+}
+
+func (r *RowFilterJourney) GetValues() []string {
+	if r == nil {
+		return nil
+	}
+	return r.Values
+}
+
+type Path struct {
+	Value string `json:"value"`
+}
+
+func (p Path) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *Path) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *Path) GetValue() string {
+	if p == nil {
+		return ""
+	}
+	return p.Value
+}
+
+type HeightScale string
+
+const (
+	HeightScaleRelative HeightScale = "relative"
+	HeightScaleAbsolute HeightScale = "absolute"
+)
+
+func (e HeightScale) ToPointer() *HeightScale {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *HeightScale) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "relative", "absolute":
+			return true
+		}
+	}
+	return false
+}
+
+type DatasetJourney struct {
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	type_            string             `const:"journey" json:"type"`
+	FactTableID      *string            `json:"factTableId"`
+	Unit             *string            `json:"unit"`
+	StepColumns      []string           `json:"stepColumns"`
+	StepGroups       []StepGroup        `json:"stepGroups,omitzero"`
+	AnchorStepValues []string           `json:"anchorStepValues"`
+	Direction        ConfigDirection    `json:"direction"`
+	RowFilters       []RowFilterJourney `json:"rowFilters"`
+	Path             []Path             `json:"path"`
+	LookaheadDepth   int64              `json:"lookaheadDepth"`
+	OptionsPerStep   []int64            `json:"optionsPerStep"`
+	HeightScale      *HeightScale       `json:"heightScale,omitzero"`
+}
+
+func (d DatasetJourney) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DatasetJourney) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DatasetJourney) GetType() string {
+	return "journey"
+}
+
+func (d *DatasetJourney) GetFactTableID() *string {
+	if d == nil {
+		return nil
+	}
+	return d.FactTableID
+}
+
+func (d *DatasetJourney) GetUnit() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Unit
+}
+
+func (d *DatasetJourney) GetStepColumns() []string {
+	if d == nil {
+		return []string{}
+	}
+	return d.StepColumns
+}
+
+func (d *DatasetJourney) GetStepGroups() []StepGroup {
+	if d == nil {
+		return nil
+	}
+	return d.StepGroups
+}
+
+func (d *DatasetJourney) GetAnchorStepValues() []string {
+	if d == nil {
+		return nil
+	}
+	return d.AnchorStepValues
+}
+
+func (d *DatasetJourney) GetDirection() ConfigDirection {
+	if d == nil {
+		return ConfigDirection("")
+	}
+	return d.Direction
+}
+
+func (d *DatasetJourney) GetRowFilters() []RowFilterJourney {
+	if d == nil {
+		return []RowFilterJourney{}
+	}
+	return d.RowFilters
+}
+
+func (d *DatasetJourney) GetPath() []Path {
+	if d == nil {
+		return []Path{}
+	}
+	return d.Path
+}
+
+func (d *DatasetJourney) GetLookaheadDepth() int64 {
+	if d == nil {
+		return 0
+	}
+	return d.LookaheadDepth
+}
+
+func (d *DatasetJourney) GetOptionsPerStep() []int64 {
+	if d == nil {
+		return []int64{}
+	}
+	return d.OptionsPerStep
+}
+
+func (d *DatasetJourney) GetHeightScale() *HeightScale {
+	if d == nil {
+		return nil
+	}
+	return d.HeightScale
+}
+
+type ConfigJourney struct {
+	// ID of the datasource to query
+	Datasource    string                                `json:"datasource"`
+	Dimensions    []AnalyticsExplorationDimensionUnion6 `json:"dimensions"`
+	ChartType     AnalyticsExplorationChartType6        `json:"chartType"`
+	DateRange     AnalyticsExplorationDateRange6        `json:"dateRange"`
+	ShowAs        *AnalyticsExplorationShowAs6          `json:"showAs,omitzero"`
+	ChartSettings *AnalyticsExplorationChartSettings6   `json:"chartSettings,omitzero"`
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	type_   string         `const:"journey" json:"type"`
+	Dataset DatasetJourney `json:"dataset"`
+}
+
+func (c ConfigJourney) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ConfigJourney) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *ConfigJourney) GetDatasource() string {
+	if c == nil {
+		return ""
+	}
+	return c.Datasource
+}
+
+func (c *ConfigJourney) GetDimensions() []AnalyticsExplorationDimensionUnion6 {
+	if c == nil {
+		return []AnalyticsExplorationDimensionUnion6{}
+	}
+	return c.Dimensions
+}
+
+func (c *ConfigJourney) GetChartType() AnalyticsExplorationChartType6 {
+	if c == nil {
+		return AnalyticsExplorationChartType6("")
+	}
+	return c.ChartType
+}
+
+func (c *ConfigJourney) GetDateRange() AnalyticsExplorationDateRange6 {
+	if c == nil {
+		return AnalyticsExplorationDateRange6{}
+	}
+	return c.DateRange
+}
+
+func (c *ConfigJourney) GetShowAs() *AnalyticsExplorationShowAs6 {
+	if c == nil {
+		return nil
+	}
+	return c.ShowAs
+}
+
+func (c *ConfigJourney) GetChartSettings() *AnalyticsExplorationChartSettings6 {
+	if c == nil {
+		return nil
+	}
+	return c.ChartSettings
+}
+
+func (c *ConfigJourney) GetType() string {
+	return "journey"
+}
+
+func (c *ConfigJourney) GetDataset() DatasetJourney {
+	if c == nil {
+		return DatasetJourney{}
+	}
+	return c.Dataset
+}
+
 type AnalyticsExplorationDimensionOperator5 string
 
 const (
-	AnalyticsExplorationDimensionOperator5Equal            AnalyticsExplorationDimensionOperator5 = "="
-	AnalyticsExplorationDimensionOperator5NotEqual         AnalyticsExplorationDimensionOperator5 = "!="
-	AnalyticsExplorationDimensionOperator5LessThan         AnalyticsExplorationDimensionOperator5 = "<"
-	AnalyticsExplorationDimensionOperator5LessThanEqual    AnalyticsExplorationDimensionOperator5 = "<="
-	AnalyticsExplorationDimensionOperator5GreaterThan      AnalyticsExplorationDimensionOperator5 = ">"
-	AnalyticsExplorationDimensionOperator5GreaterThanEqual AnalyticsExplorationDimensionOperator5 = ">="
-	AnalyticsExplorationDimensionOperator5Between          AnalyticsExplorationDimensionOperator5 = "between"
-	AnalyticsExplorationDimensionOperator5NotBetween       AnalyticsExplorationDimensionOperator5 = "not_between"
-	AnalyticsExplorationDimensionOperator5In               AnalyticsExplorationDimensionOperator5 = "in"
-	AnalyticsExplorationDimensionOperator5NotIn            AnalyticsExplorationDimensionOperator5 = "not_in"
-	AnalyticsExplorationDimensionOperator5Contains         AnalyticsExplorationDimensionOperator5 = "contains"
-	AnalyticsExplorationDimensionOperator5NotContains      AnalyticsExplorationDimensionOperator5 = "not_contains"
-	AnalyticsExplorationDimensionOperator5StartsWith       AnalyticsExplorationDimensionOperator5 = "starts_with"
-	AnalyticsExplorationDimensionOperator5EndsWith         AnalyticsExplorationDimensionOperator5 = "ends_with"
-	AnalyticsExplorationDimensionOperator5IsNull           AnalyticsExplorationDimensionOperator5 = "is_null"
-	AnalyticsExplorationDimensionOperator5NotNull          AnalyticsExplorationDimensionOperator5 = "not_null"
-	AnalyticsExplorationDimensionOperator5IsTrue           AnalyticsExplorationDimensionOperator5 = "is_true"
-	AnalyticsExplorationDimensionOperator5IsFalse          AnalyticsExplorationDimensionOperator5 = "is_false"
-	AnalyticsExplorationDimensionOperator5SQLExpr          AnalyticsExplorationDimensionOperator5 = "sql_expr"
-	AnalyticsExplorationDimensionOperator5SavedFilter      AnalyticsExplorationDimensionOperator5 = "saved_filter"
+	AnalyticsExplorationDimensionOperator5Equal             AnalyticsExplorationDimensionOperator5 = "="
+	AnalyticsExplorationDimensionOperator5NotEqual          AnalyticsExplorationDimensionOperator5 = "!="
+	AnalyticsExplorationDimensionOperator5LessThan          AnalyticsExplorationDimensionOperator5 = "<"
+	AnalyticsExplorationDimensionOperator5LessThanEqual     AnalyticsExplorationDimensionOperator5 = "<="
+	AnalyticsExplorationDimensionOperator5GreaterThan       AnalyticsExplorationDimensionOperator5 = ">"
+	AnalyticsExplorationDimensionOperator5GreaterThanEqual  AnalyticsExplorationDimensionOperator5 = ">="
+	AnalyticsExplorationDimensionOperator5Between           AnalyticsExplorationDimensionOperator5 = "between"
+	AnalyticsExplorationDimensionOperator5NotBetween        AnalyticsExplorationDimensionOperator5 = "not_between"
+	AnalyticsExplorationDimensionOperator5In                AnalyticsExplorationDimensionOperator5 = "in"
+	AnalyticsExplorationDimensionOperator5NotIn             AnalyticsExplorationDimensionOperator5 = "not_in"
+	AnalyticsExplorationDimensionOperator5Contains          AnalyticsExplorationDimensionOperator5 = "contains"
+	AnalyticsExplorationDimensionOperator5NotContains       AnalyticsExplorationDimensionOperator5 = "not_contains"
+	AnalyticsExplorationDimensionOperator5MatchesPattern    AnalyticsExplorationDimensionOperator5 = "matches_pattern"
+	AnalyticsExplorationDimensionOperator5NotMatchesPattern AnalyticsExplorationDimensionOperator5 = "not_matches_pattern"
+	AnalyticsExplorationDimensionOperator5StartsWith        AnalyticsExplorationDimensionOperator5 = "starts_with"
+	AnalyticsExplorationDimensionOperator5EndsWith          AnalyticsExplorationDimensionOperator5 = "ends_with"
+	AnalyticsExplorationDimensionOperator5IsNull            AnalyticsExplorationDimensionOperator5 = "is_null"
+	AnalyticsExplorationDimensionOperator5NotNull           AnalyticsExplorationDimensionOperator5 = "not_null"
+	AnalyticsExplorationDimensionOperator5IsTrue            AnalyticsExplorationDimensionOperator5 = "is_true"
+	AnalyticsExplorationDimensionOperator5IsFalse           AnalyticsExplorationDimensionOperator5 = "is_false"
+	AnalyticsExplorationDimensionOperator5SQLExpr           AnalyticsExplorationDimensionOperator5 = "sql_expr"
+	AnalyticsExplorationDimensionOperator5SavedFilter       AnalyticsExplorationDimensionOperator5 = "saved_filter"
 )
 
 func (e AnalyticsExplorationDimensionOperator5) ToPointer() *AnalyticsExplorationDimensionOperator5 {
@@ -197,7 +1473,7 @@ func (e AnalyticsExplorationDimensionOperator5) ToPointer() *AnalyticsExploratio
 func (e *AnalyticsExplorationDimensionOperator5) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
 			return true
 		}
 	}
@@ -807,26 +2083,28 @@ func (a *AnalyticsExplorationChartSettings5) GetValueAxisLabel() *string {
 type AnalyticsExplorationStepOperator string
 
 const (
-	AnalyticsExplorationStepOperatorEqual            AnalyticsExplorationStepOperator = "="
-	AnalyticsExplorationStepOperatorNotEqual         AnalyticsExplorationStepOperator = "!="
-	AnalyticsExplorationStepOperatorLessThan         AnalyticsExplorationStepOperator = "<"
-	AnalyticsExplorationStepOperatorLessThanEqual    AnalyticsExplorationStepOperator = "<="
-	AnalyticsExplorationStepOperatorGreaterThan      AnalyticsExplorationStepOperator = ">"
-	AnalyticsExplorationStepOperatorGreaterThanEqual AnalyticsExplorationStepOperator = ">="
-	AnalyticsExplorationStepOperatorBetween          AnalyticsExplorationStepOperator = "between"
-	AnalyticsExplorationStepOperatorNotBetween       AnalyticsExplorationStepOperator = "not_between"
-	AnalyticsExplorationStepOperatorIn               AnalyticsExplorationStepOperator = "in"
-	AnalyticsExplorationStepOperatorNotIn            AnalyticsExplorationStepOperator = "not_in"
-	AnalyticsExplorationStepOperatorContains         AnalyticsExplorationStepOperator = "contains"
-	AnalyticsExplorationStepOperatorNotContains      AnalyticsExplorationStepOperator = "not_contains"
-	AnalyticsExplorationStepOperatorStartsWith       AnalyticsExplorationStepOperator = "starts_with"
-	AnalyticsExplorationStepOperatorEndsWith         AnalyticsExplorationStepOperator = "ends_with"
-	AnalyticsExplorationStepOperatorIsNull           AnalyticsExplorationStepOperator = "is_null"
-	AnalyticsExplorationStepOperatorNotNull          AnalyticsExplorationStepOperator = "not_null"
-	AnalyticsExplorationStepOperatorIsTrue           AnalyticsExplorationStepOperator = "is_true"
-	AnalyticsExplorationStepOperatorIsFalse          AnalyticsExplorationStepOperator = "is_false"
-	AnalyticsExplorationStepOperatorSQLExpr          AnalyticsExplorationStepOperator = "sql_expr"
-	AnalyticsExplorationStepOperatorSavedFilter      AnalyticsExplorationStepOperator = "saved_filter"
+	AnalyticsExplorationStepOperatorEqual             AnalyticsExplorationStepOperator = "="
+	AnalyticsExplorationStepOperatorNotEqual          AnalyticsExplorationStepOperator = "!="
+	AnalyticsExplorationStepOperatorLessThan          AnalyticsExplorationStepOperator = "<"
+	AnalyticsExplorationStepOperatorLessThanEqual     AnalyticsExplorationStepOperator = "<="
+	AnalyticsExplorationStepOperatorGreaterThan       AnalyticsExplorationStepOperator = ">"
+	AnalyticsExplorationStepOperatorGreaterThanEqual  AnalyticsExplorationStepOperator = ">="
+	AnalyticsExplorationStepOperatorBetween           AnalyticsExplorationStepOperator = "between"
+	AnalyticsExplorationStepOperatorNotBetween        AnalyticsExplorationStepOperator = "not_between"
+	AnalyticsExplorationStepOperatorIn                AnalyticsExplorationStepOperator = "in"
+	AnalyticsExplorationStepOperatorNotIn             AnalyticsExplorationStepOperator = "not_in"
+	AnalyticsExplorationStepOperatorContains          AnalyticsExplorationStepOperator = "contains"
+	AnalyticsExplorationStepOperatorNotContains       AnalyticsExplorationStepOperator = "not_contains"
+	AnalyticsExplorationStepOperatorMatchesPattern    AnalyticsExplorationStepOperator = "matches_pattern"
+	AnalyticsExplorationStepOperatorNotMatchesPattern AnalyticsExplorationStepOperator = "not_matches_pattern"
+	AnalyticsExplorationStepOperatorStartsWith        AnalyticsExplorationStepOperator = "starts_with"
+	AnalyticsExplorationStepOperatorEndsWith          AnalyticsExplorationStepOperator = "ends_with"
+	AnalyticsExplorationStepOperatorIsNull            AnalyticsExplorationStepOperator = "is_null"
+	AnalyticsExplorationStepOperatorNotNull           AnalyticsExplorationStepOperator = "not_null"
+	AnalyticsExplorationStepOperatorIsTrue            AnalyticsExplorationStepOperator = "is_true"
+	AnalyticsExplorationStepOperatorIsFalse           AnalyticsExplorationStepOperator = "is_false"
+	AnalyticsExplorationStepOperatorSQLExpr           AnalyticsExplorationStepOperator = "sql_expr"
+	AnalyticsExplorationStepOperatorSavedFilter       AnalyticsExplorationStepOperator = "saved_filter"
 )
 
 func (e AnalyticsExplorationStepOperator) ToPointer() *AnalyticsExplorationStepOperator {
@@ -837,7 +2115,7 @@ func (e AnalyticsExplorationStepOperator) ToPointer() *AnalyticsExplorationStepO
 func (e *AnalyticsExplorationStepOperator) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
 			return true
 		}
 	}
@@ -1144,26 +2422,28 @@ func (a *AnalyticsExplorationConfigFunnel) GetDataset() AnalyticsExplorationData
 type AnalyticsExplorationDimensionOperator4 string
 
 const (
-	AnalyticsExplorationDimensionOperator4Equal            AnalyticsExplorationDimensionOperator4 = "="
-	AnalyticsExplorationDimensionOperator4NotEqual         AnalyticsExplorationDimensionOperator4 = "!="
-	AnalyticsExplorationDimensionOperator4LessThan         AnalyticsExplorationDimensionOperator4 = "<"
-	AnalyticsExplorationDimensionOperator4LessThanEqual    AnalyticsExplorationDimensionOperator4 = "<="
-	AnalyticsExplorationDimensionOperator4GreaterThan      AnalyticsExplorationDimensionOperator4 = ">"
-	AnalyticsExplorationDimensionOperator4GreaterThanEqual AnalyticsExplorationDimensionOperator4 = ">="
-	AnalyticsExplorationDimensionOperator4Between          AnalyticsExplorationDimensionOperator4 = "between"
-	AnalyticsExplorationDimensionOperator4NotBetween       AnalyticsExplorationDimensionOperator4 = "not_between"
-	AnalyticsExplorationDimensionOperator4In               AnalyticsExplorationDimensionOperator4 = "in"
-	AnalyticsExplorationDimensionOperator4NotIn            AnalyticsExplorationDimensionOperator4 = "not_in"
-	AnalyticsExplorationDimensionOperator4Contains         AnalyticsExplorationDimensionOperator4 = "contains"
-	AnalyticsExplorationDimensionOperator4NotContains      AnalyticsExplorationDimensionOperator4 = "not_contains"
-	AnalyticsExplorationDimensionOperator4StartsWith       AnalyticsExplorationDimensionOperator4 = "starts_with"
-	AnalyticsExplorationDimensionOperator4EndsWith         AnalyticsExplorationDimensionOperator4 = "ends_with"
-	AnalyticsExplorationDimensionOperator4IsNull           AnalyticsExplorationDimensionOperator4 = "is_null"
-	AnalyticsExplorationDimensionOperator4NotNull          AnalyticsExplorationDimensionOperator4 = "not_null"
-	AnalyticsExplorationDimensionOperator4IsTrue           AnalyticsExplorationDimensionOperator4 = "is_true"
-	AnalyticsExplorationDimensionOperator4IsFalse          AnalyticsExplorationDimensionOperator4 = "is_false"
-	AnalyticsExplorationDimensionOperator4SQLExpr          AnalyticsExplorationDimensionOperator4 = "sql_expr"
-	AnalyticsExplorationDimensionOperator4SavedFilter      AnalyticsExplorationDimensionOperator4 = "saved_filter"
+	AnalyticsExplorationDimensionOperator4Equal             AnalyticsExplorationDimensionOperator4 = "="
+	AnalyticsExplorationDimensionOperator4NotEqual          AnalyticsExplorationDimensionOperator4 = "!="
+	AnalyticsExplorationDimensionOperator4LessThan          AnalyticsExplorationDimensionOperator4 = "<"
+	AnalyticsExplorationDimensionOperator4LessThanEqual     AnalyticsExplorationDimensionOperator4 = "<="
+	AnalyticsExplorationDimensionOperator4GreaterThan       AnalyticsExplorationDimensionOperator4 = ">"
+	AnalyticsExplorationDimensionOperator4GreaterThanEqual  AnalyticsExplorationDimensionOperator4 = ">="
+	AnalyticsExplorationDimensionOperator4Between           AnalyticsExplorationDimensionOperator4 = "between"
+	AnalyticsExplorationDimensionOperator4NotBetween        AnalyticsExplorationDimensionOperator4 = "not_between"
+	AnalyticsExplorationDimensionOperator4In                AnalyticsExplorationDimensionOperator4 = "in"
+	AnalyticsExplorationDimensionOperator4NotIn             AnalyticsExplorationDimensionOperator4 = "not_in"
+	AnalyticsExplorationDimensionOperator4Contains          AnalyticsExplorationDimensionOperator4 = "contains"
+	AnalyticsExplorationDimensionOperator4NotContains       AnalyticsExplorationDimensionOperator4 = "not_contains"
+	AnalyticsExplorationDimensionOperator4MatchesPattern    AnalyticsExplorationDimensionOperator4 = "matches_pattern"
+	AnalyticsExplorationDimensionOperator4NotMatchesPattern AnalyticsExplorationDimensionOperator4 = "not_matches_pattern"
+	AnalyticsExplorationDimensionOperator4StartsWith        AnalyticsExplorationDimensionOperator4 = "starts_with"
+	AnalyticsExplorationDimensionOperator4EndsWith          AnalyticsExplorationDimensionOperator4 = "ends_with"
+	AnalyticsExplorationDimensionOperator4IsNull            AnalyticsExplorationDimensionOperator4 = "is_null"
+	AnalyticsExplorationDimensionOperator4NotNull           AnalyticsExplorationDimensionOperator4 = "not_null"
+	AnalyticsExplorationDimensionOperator4IsTrue            AnalyticsExplorationDimensionOperator4 = "is_true"
+	AnalyticsExplorationDimensionOperator4IsFalse           AnalyticsExplorationDimensionOperator4 = "is_false"
+	AnalyticsExplorationDimensionOperator4SQLExpr           AnalyticsExplorationDimensionOperator4 = "sql_expr"
+	AnalyticsExplorationDimensionOperator4SavedFilter       AnalyticsExplorationDimensionOperator4 = "saved_filter"
 )
 
 func (e AnalyticsExplorationDimensionOperator4) ToPointer() *AnalyticsExplorationDimensionOperator4 {
@@ -1174,7 +2454,7 @@ func (e AnalyticsExplorationDimensionOperator4) ToPointer() *AnalyticsExploratio
 func (e *AnalyticsExplorationDimensionOperator4) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
 			return true
 		}
 	}
@@ -1809,26 +3089,28 @@ func (e *AnalyticsExplorationColumnTypesSQL) IsExact() bool {
 type AnalyticsExplorationOperatorSQL string
 
 const (
-	AnalyticsExplorationOperatorSQLEqual            AnalyticsExplorationOperatorSQL = "="
-	AnalyticsExplorationOperatorSQLNotEqual         AnalyticsExplorationOperatorSQL = "!="
-	AnalyticsExplorationOperatorSQLLessThan         AnalyticsExplorationOperatorSQL = "<"
-	AnalyticsExplorationOperatorSQLLessThanEqual    AnalyticsExplorationOperatorSQL = "<="
-	AnalyticsExplorationOperatorSQLGreaterThan      AnalyticsExplorationOperatorSQL = ">"
-	AnalyticsExplorationOperatorSQLGreaterThanEqual AnalyticsExplorationOperatorSQL = ">="
-	AnalyticsExplorationOperatorSQLBetween          AnalyticsExplorationOperatorSQL = "between"
-	AnalyticsExplorationOperatorSQLNotBetween       AnalyticsExplorationOperatorSQL = "not_between"
-	AnalyticsExplorationOperatorSQLIn               AnalyticsExplorationOperatorSQL = "in"
-	AnalyticsExplorationOperatorSQLNotIn            AnalyticsExplorationOperatorSQL = "not_in"
-	AnalyticsExplorationOperatorSQLContains         AnalyticsExplorationOperatorSQL = "contains"
-	AnalyticsExplorationOperatorSQLNotContains      AnalyticsExplorationOperatorSQL = "not_contains"
-	AnalyticsExplorationOperatorSQLStartsWith       AnalyticsExplorationOperatorSQL = "starts_with"
-	AnalyticsExplorationOperatorSQLEndsWith         AnalyticsExplorationOperatorSQL = "ends_with"
-	AnalyticsExplorationOperatorSQLIsNull           AnalyticsExplorationOperatorSQL = "is_null"
-	AnalyticsExplorationOperatorSQLNotNull          AnalyticsExplorationOperatorSQL = "not_null"
-	AnalyticsExplorationOperatorSQLIsTrue           AnalyticsExplorationOperatorSQL = "is_true"
-	AnalyticsExplorationOperatorSQLIsFalse          AnalyticsExplorationOperatorSQL = "is_false"
-	AnalyticsExplorationOperatorSQLSQLExpr          AnalyticsExplorationOperatorSQL = "sql_expr"
-	AnalyticsExplorationOperatorSQLSavedFilter      AnalyticsExplorationOperatorSQL = "saved_filter"
+	AnalyticsExplorationOperatorSQLEqual             AnalyticsExplorationOperatorSQL = "="
+	AnalyticsExplorationOperatorSQLNotEqual          AnalyticsExplorationOperatorSQL = "!="
+	AnalyticsExplorationOperatorSQLLessThan          AnalyticsExplorationOperatorSQL = "<"
+	AnalyticsExplorationOperatorSQLLessThanEqual     AnalyticsExplorationOperatorSQL = "<="
+	AnalyticsExplorationOperatorSQLGreaterThan       AnalyticsExplorationOperatorSQL = ">"
+	AnalyticsExplorationOperatorSQLGreaterThanEqual  AnalyticsExplorationOperatorSQL = ">="
+	AnalyticsExplorationOperatorSQLBetween           AnalyticsExplorationOperatorSQL = "between"
+	AnalyticsExplorationOperatorSQLNotBetween        AnalyticsExplorationOperatorSQL = "not_between"
+	AnalyticsExplorationOperatorSQLIn                AnalyticsExplorationOperatorSQL = "in"
+	AnalyticsExplorationOperatorSQLNotIn             AnalyticsExplorationOperatorSQL = "not_in"
+	AnalyticsExplorationOperatorSQLContains          AnalyticsExplorationOperatorSQL = "contains"
+	AnalyticsExplorationOperatorSQLNotContains       AnalyticsExplorationOperatorSQL = "not_contains"
+	AnalyticsExplorationOperatorSQLMatchesPattern    AnalyticsExplorationOperatorSQL = "matches_pattern"
+	AnalyticsExplorationOperatorSQLNotMatchesPattern AnalyticsExplorationOperatorSQL = "not_matches_pattern"
+	AnalyticsExplorationOperatorSQLStartsWith        AnalyticsExplorationOperatorSQL = "starts_with"
+	AnalyticsExplorationOperatorSQLEndsWith          AnalyticsExplorationOperatorSQL = "ends_with"
+	AnalyticsExplorationOperatorSQLIsNull            AnalyticsExplorationOperatorSQL = "is_null"
+	AnalyticsExplorationOperatorSQLNotNull           AnalyticsExplorationOperatorSQL = "not_null"
+	AnalyticsExplorationOperatorSQLIsTrue            AnalyticsExplorationOperatorSQL = "is_true"
+	AnalyticsExplorationOperatorSQLIsFalse           AnalyticsExplorationOperatorSQL = "is_false"
+	AnalyticsExplorationOperatorSQLSQLExpr           AnalyticsExplorationOperatorSQL = "sql_expr"
+	AnalyticsExplorationOperatorSQLSavedFilter       AnalyticsExplorationOperatorSQL = "saved_filter"
 )
 
 func (e AnalyticsExplorationOperatorSQL) ToPointer() *AnalyticsExplorationOperatorSQL {
@@ -1839,7 +3121,7 @@ func (e AnalyticsExplorationOperatorSQL) ToPointer() *AnalyticsExplorationOperat
 func (e *AnalyticsExplorationOperatorSQL) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
 			return true
 		}
 	}
@@ -2107,26 +3389,28 @@ func (a *AnalyticsExplorationConfigSQL) GetDataset() AnalyticsExplorationDataset
 type AnalyticsExplorationDimensionOperator3 string
 
 const (
-	AnalyticsExplorationDimensionOperator3Equal            AnalyticsExplorationDimensionOperator3 = "="
-	AnalyticsExplorationDimensionOperator3NotEqual         AnalyticsExplorationDimensionOperator3 = "!="
-	AnalyticsExplorationDimensionOperator3LessThan         AnalyticsExplorationDimensionOperator3 = "<"
-	AnalyticsExplorationDimensionOperator3LessThanEqual    AnalyticsExplorationDimensionOperator3 = "<="
-	AnalyticsExplorationDimensionOperator3GreaterThan      AnalyticsExplorationDimensionOperator3 = ">"
-	AnalyticsExplorationDimensionOperator3GreaterThanEqual AnalyticsExplorationDimensionOperator3 = ">="
-	AnalyticsExplorationDimensionOperator3Between          AnalyticsExplorationDimensionOperator3 = "between"
-	AnalyticsExplorationDimensionOperator3NotBetween       AnalyticsExplorationDimensionOperator3 = "not_between"
-	AnalyticsExplorationDimensionOperator3In               AnalyticsExplorationDimensionOperator3 = "in"
-	AnalyticsExplorationDimensionOperator3NotIn            AnalyticsExplorationDimensionOperator3 = "not_in"
-	AnalyticsExplorationDimensionOperator3Contains         AnalyticsExplorationDimensionOperator3 = "contains"
-	AnalyticsExplorationDimensionOperator3NotContains      AnalyticsExplorationDimensionOperator3 = "not_contains"
-	AnalyticsExplorationDimensionOperator3StartsWith       AnalyticsExplorationDimensionOperator3 = "starts_with"
-	AnalyticsExplorationDimensionOperator3EndsWith         AnalyticsExplorationDimensionOperator3 = "ends_with"
-	AnalyticsExplorationDimensionOperator3IsNull           AnalyticsExplorationDimensionOperator3 = "is_null"
-	AnalyticsExplorationDimensionOperator3NotNull          AnalyticsExplorationDimensionOperator3 = "not_null"
-	AnalyticsExplorationDimensionOperator3IsTrue           AnalyticsExplorationDimensionOperator3 = "is_true"
-	AnalyticsExplorationDimensionOperator3IsFalse          AnalyticsExplorationDimensionOperator3 = "is_false"
-	AnalyticsExplorationDimensionOperator3SQLExpr          AnalyticsExplorationDimensionOperator3 = "sql_expr"
-	AnalyticsExplorationDimensionOperator3SavedFilter      AnalyticsExplorationDimensionOperator3 = "saved_filter"
+	AnalyticsExplorationDimensionOperator3Equal             AnalyticsExplorationDimensionOperator3 = "="
+	AnalyticsExplorationDimensionOperator3NotEqual          AnalyticsExplorationDimensionOperator3 = "!="
+	AnalyticsExplorationDimensionOperator3LessThan          AnalyticsExplorationDimensionOperator3 = "<"
+	AnalyticsExplorationDimensionOperator3LessThanEqual     AnalyticsExplorationDimensionOperator3 = "<="
+	AnalyticsExplorationDimensionOperator3GreaterThan       AnalyticsExplorationDimensionOperator3 = ">"
+	AnalyticsExplorationDimensionOperator3GreaterThanEqual  AnalyticsExplorationDimensionOperator3 = ">="
+	AnalyticsExplorationDimensionOperator3Between           AnalyticsExplorationDimensionOperator3 = "between"
+	AnalyticsExplorationDimensionOperator3NotBetween        AnalyticsExplorationDimensionOperator3 = "not_between"
+	AnalyticsExplorationDimensionOperator3In                AnalyticsExplorationDimensionOperator3 = "in"
+	AnalyticsExplorationDimensionOperator3NotIn             AnalyticsExplorationDimensionOperator3 = "not_in"
+	AnalyticsExplorationDimensionOperator3Contains          AnalyticsExplorationDimensionOperator3 = "contains"
+	AnalyticsExplorationDimensionOperator3NotContains       AnalyticsExplorationDimensionOperator3 = "not_contains"
+	AnalyticsExplorationDimensionOperator3MatchesPattern    AnalyticsExplorationDimensionOperator3 = "matches_pattern"
+	AnalyticsExplorationDimensionOperator3NotMatchesPattern AnalyticsExplorationDimensionOperator3 = "not_matches_pattern"
+	AnalyticsExplorationDimensionOperator3StartsWith        AnalyticsExplorationDimensionOperator3 = "starts_with"
+	AnalyticsExplorationDimensionOperator3EndsWith          AnalyticsExplorationDimensionOperator3 = "ends_with"
+	AnalyticsExplorationDimensionOperator3IsNull            AnalyticsExplorationDimensionOperator3 = "is_null"
+	AnalyticsExplorationDimensionOperator3NotNull           AnalyticsExplorationDimensionOperator3 = "not_null"
+	AnalyticsExplorationDimensionOperator3IsTrue            AnalyticsExplorationDimensionOperator3 = "is_true"
+	AnalyticsExplorationDimensionOperator3IsFalse           AnalyticsExplorationDimensionOperator3 = "is_false"
+	AnalyticsExplorationDimensionOperator3SQLExpr           AnalyticsExplorationDimensionOperator3 = "sql_expr"
+	AnalyticsExplorationDimensionOperator3SavedFilter       AnalyticsExplorationDimensionOperator3 = "saved_filter"
 )
 
 func (e AnalyticsExplorationDimensionOperator3) ToPointer() *AnalyticsExplorationDimensionOperator3 {
@@ -2137,7 +3421,7 @@ func (e AnalyticsExplorationDimensionOperator3) ToPointer() *AnalyticsExploratio
 func (e *AnalyticsExplorationDimensionOperator3) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
 			return true
 		}
 	}
@@ -2772,26 +4056,28 @@ func (e *AnalyticsExplorationColumnTypesDataSource) IsExact() bool {
 type AnalyticsExplorationOperatorDataSource string
 
 const (
-	AnalyticsExplorationOperatorDataSourceEqual            AnalyticsExplorationOperatorDataSource = "="
-	AnalyticsExplorationOperatorDataSourceNotEqual         AnalyticsExplorationOperatorDataSource = "!="
-	AnalyticsExplorationOperatorDataSourceLessThan         AnalyticsExplorationOperatorDataSource = "<"
-	AnalyticsExplorationOperatorDataSourceLessThanEqual    AnalyticsExplorationOperatorDataSource = "<="
-	AnalyticsExplorationOperatorDataSourceGreaterThan      AnalyticsExplorationOperatorDataSource = ">"
-	AnalyticsExplorationOperatorDataSourceGreaterThanEqual AnalyticsExplorationOperatorDataSource = ">="
-	AnalyticsExplorationOperatorDataSourceBetween          AnalyticsExplorationOperatorDataSource = "between"
-	AnalyticsExplorationOperatorDataSourceNotBetween       AnalyticsExplorationOperatorDataSource = "not_between"
-	AnalyticsExplorationOperatorDataSourceIn               AnalyticsExplorationOperatorDataSource = "in"
-	AnalyticsExplorationOperatorDataSourceNotIn            AnalyticsExplorationOperatorDataSource = "not_in"
-	AnalyticsExplorationOperatorDataSourceContains         AnalyticsExplorationOperatorDataSource = "contains"
-	AnalyticsExplorationOperatorDataSourceNotContains      AnalyticsExplorationOperatorDataSource = "not_contains"
-	AnalyticsExplorationOperatorDataSourceStartsWith       AnalyticsExplorationOperatorDataSource = "starts_with"
-	AnalyticsExplorationOperatorDataSourceEndsWith         AnalyticsExplorationOperatorDataSource = "ends_with"
-	AnalyticsExplorationOperatorDataSourceIsNull           AnalyticsExplorationOperatorDataSource = "is_null"
-	AnalyticsExplorationOperatorDataSourceNotNull          AnalyticsExplorationOperatorDataSource = "not_null"
-	AnalyticsExplorationOperatorDataSourceIsTrue           AnalyticsExplorationOperatorDataSource = "is_true"
-	AnalyticsExplorationOperatorDataSourceIsFalse          AnalyticsExplorationOperatorDataSource = "is_false"
-	AnalyticsExplorationOperatorDataSourceSQLExpr          AnalyticsExplorationOperatorDataSource = "sql_expr"
-	AnalyticsExplorationOperatorDataSourceSavedFilter      AnalyticsExplorationOperatorDataSource = "saved_filter"
+	AnalyticsExplorationOperatorDataSourceEqual             AnalyticsExplorationOperatorDataSource = "="
+	AnalyticsExplorationOperatorDataSourceNotEqual          AnalyticsExplorationOperatorDataSource = "!="
+	AnalyticsExplorationOperatorDataSourceLessThan          AnalyticsExplorationOperatorDataSource = "<"
+	AnalyticsExplorationOperatorDataSourceLessThanEqual     AnalyticsExplorationOperatorDataSource = "<="
+	AnalyticsExplorationOperatorDataSourceGreaterThan       AnalyticsExplorationOperatorDataSource = ">"
+	AnalyticsExplorationOperatorDataSourceGreaterThanEqual  AnalyticsExplorationOperatorDataSource = ">="
+	AnalyticsExplorationOperatorDataSourceBetween           AnalyticsExplorationOperatorDataSource = "between"
+	AnalyticsExplorationOperatorDataSourceNotBetween        AnalyticsExplorationOperatorDataSource = "not_between"
+	AnalyticsExplorationOperatorDataSourceIn                AnalyticsExplorationOperatorDataSource = "in"
+	AnalyticsExplorationOperatorDataSourceNotIn             AnalyticsExplorationOperatorDataSource = "not_in"
+	AnalyticsExplorationOperatorDataSourceContains          AnalyticsExplorationOperatorDataSource = "contains"
+	AnalyticsExplorationOperatorDataSourceNotContains       AnalyticsExplorationOperatorDataSource = "not_contains"
+	AnalyticsExplorationOperatorDataSourceMatchesPattern    AnalyticsExplorationOperatorDataSource = "matches_pattern"
+	AnalyticsExplorationOperatorDataSourceNotMatchesPattern AnalyticsExplorationOperatorDataSource = "not_matches_pattern"
+	AnalyticsExplorationOperatorDataSourceStartsWith        AnalyticsExplorationOperatorDataSource = "starts_with"
+	AnalyticsExplorationOperatorDataSourceEndsWith          AnalyticsExplorationOperatorDataSource = "ends_with"
+	AnalyticsExplorationOperatorDataSourceIsNull            AnalyticsExplorationOperatorDataSource = "is_null"
+	AnalyticsExplorationOperatorDataSourceNotNull           AnalyticsExplorationOperatorDataSource = "not_null"
+	AnalyticsExplorationOperatorDataSourceIsTrue            AnalyticsExplorationOperatorDataSource = "is_true"
+	AnalyticsExplorationOperatorDataSourceIsFalse           AnalyticsExplorationOperatorDataSource = "is_false"
+	AnalyticsExplorationOperatorDataSourceSQLExpr           AnalyticsExplorationOperatorDataSource = "sql_expr"
+	AnalyticsExplorationOperatorDataSourceSavedFilter       AnalyticsExplorationOperatorDataSource = "saved_filter"
 )
 
 func (e AnalyticsExplorationOperatorDataSource) ToPointer() *AnalyticsExplorationOperatorDataSource {
@@ -2802,7 +4088,7 @@ func (e AnalyticsExplorationOperatorDataSource) ToPointer() *AnalyticsExploratio
 func (e *AnalyticsExplorationOperatorDataSource) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
 			return true
 		}
 	}
@@ -3070,26 +4356,28 @@ func (a *AnalyticsExplorationConfigDataSource) GetDataset() AnalyticsExploration
 type AnalyticsExplorationDimensionOperator2 string
 
 const (
-	AnalyticsExplorationDimensionOperator2Equal            AnalyticsExplorationDimensionOperator2 = "="
-	AnalyticsExplorationDimensionOperator2NotEqual         AnalyticsExplorationDimensionOperator2 = "!="
-	AnalyticsExplorationDimensionOperator2LessThan         AnalyticsExplorationDimensionOperator2 = "<"
-	AnalyticsExplorationDimensionOperator2LessThanEqual    AnalyticsExplorationDimensionOperator2 = "<="
-	AnalyticsExplorationDimensionOperator2GreaterThan      AnalyticsExplorationDimensionOperator2 = ">"
-	AnalyticsExplorationDimensionOperator2GreaterThanEqual AnalyticsExplorationDimensionOperator2 = ">="
-	AnalyticsExplorationDimensionOperator2Between          AnalyticsExplorationDimensionOperator2 = "between"
-	AnalyticsExplorationDimensionOperator2NotBetween       AnalyticsExplorationDimensionOperator2 = "not_between"
-	AnalyticsExplorationDimensionOperator2In               AnalyticsExplorationDimensionOperator2 = "in"
-	AnalyticsExplorationDimensionOperator2NotIn            AnalyticsExplorationDimensionOperator2 = "not_in"
-	AnalyticsExplorationDimensionOperator2Contains         AnalyticsExplorationDimensionOperator2 = "contains"
-	AnalyticsExplorationDimensionOperator2NotContains      AnalyticsExplorationDimensionOperator2 = "not_contains"
-	AnalyticsExplorationDimensionOperator2StartsWith       AnalyticsExplorationDimensionOperator2 = "starts_with"
-	AnalyticsExplorationDimensionOperator2EndsWith         AnalyticsExplorationDimensionOperator2 = "ends_with"
-	AnalyticsExplorationDimensionOperator2IsNull           AnalyticsExplorationDimensionOperator2 = "is_null"
-	AnalyticsExplorationDimensionOperator2NotNull          AnalyticsExplorationDimensionOperator2 = "not_null"
-	AnalyticsExplorationDimensionOperator2IsTrue           AnalyticsExplorationDimensionOperator2 = "is_true"
-	AnalyticsExplorationDimensionOperator2IsFalse          AnalyticsExplorationDimensionOperator2 = "is_false"
-	AnalyticsExplorationDimensionOperator2SQLExpr          AnalyticsExplorationDimensionOperator2 = "sql_expr"
-	AnalyticsExplorationDimensionOperator2SavedFilter      AnalyticsExplorationDimensionOperator2 = "saved_filter"
+	AnalyticsExplorationDimensionOperator2Equal             AnalyticsExplorationDimensionOperator2 = "="
+	AnalyticsExplorationDimensionOperator2NotEqual          AnalyticsExplorationDimensionOperator2 = "!="
+	AnalyticsExplorationDimensionOperator2LessThan          AnalyticsExplorationDimensionOperator2 = "<"
+	AnalyticsExplorationDimensionOperator2LessThanEqual     AnalyticsExplorationDimensionOperator2 = "<="
+	AnalyticsExplorationDimensionOperator2GreaterThan       AnalyticsExplorationDimensionOperator2 = ">"
+	AnalyticsExplorationDimensionOperator2GreaterThanEqual  AnalyticsExplorationDimensionOperator2 = ">="
+	AnalyticsExplorationDimensionOperator2Between           AnalyticsExplorationDimensionOperator2 = "between"
+	AnalyticsExplorationDimensionOperator2NotBetween        AnalyticsExplorationDimensionOperator2 = "not_between"
+	AnalyticsExplorationDimensionOperator2In                AnalyticsExplorationDimensionOperator2 = "in"
+	AnalyticsExplorationDimensionOperator2NotIn             AnalyticsExplorationDimensionOperator2 = "not_in"
+	AnalyticsExplorationDimensionOperator2Contains          AnalyticsExplorationDimensionOperator2 = "contains"
+	AnalyticsExplorationDimensionOperator2NotContains       AnalyticsExplorationDimensionOperator2 = "not_contains"
+	AnalyticsExplorationDimensionOperator2MatchesPattern    AnalyticsExplorationDimensionOperator2 = "matches_pattern"
+	AnalyticsExplorationDimensionOperator2NotMatchesPattern AnalyticsExplorationDimensionOperator2 = "not_matches_pattern"
+	AnalyticsExplorationDimensionOperator2StartsWith        AnalyticsExplorationDimensionOperator2 = "starts_with"
+	AnalyticsExplorationDimensionOperator2EndsWith          AnalyticsExplorationDimensionOperator2 = "ends_with"
+	AnalyticsExplorationDimensionOperator2IsNull            AnalyticsExplorationDimensionOperator2 = "is_null"
+	AnalyticsExplorationDimensionOperator2NotNull           AnalyticsExplorationDimensionOperator2 = "not_null"
+	AnalyticsExplorationDimensionOperator2IsTrue            AnalyticsExplorationDimensionOperator2 = "is_true"
+	AnalyticsExplorationDimensionOperator2IsFalse           AnalyticsExplorationDimensionOperator2 = "is_false"
+	AnalyticsExplorationDimensionOperator2SQLExpr           AnalyticsExplorationDimensionOperator2 = "sql_expr"
+	AnalyticsExplorationDimensionOperator2SavedFilter       AnalyticsExplorationDimensionOperator2 = "saved_filter"
 )
 
 func (e AnalyticsExplorationDimensionOperator2) ToPointer() *AnalyticsExplorationDimensionOperator2 {
@@ -3100,7 +4388,7 @@ func (e AnalyticsExplorationDimensionOperator2) ToPointer() *AnalyticsExploratio
 func (e *AnalyticsExplorationDimensionOperator2) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
 			return true
 		}
 	}
@@ -3710,26 +4998,28 @@ func (a *AnalyticsExplorationChartSettings2) GetValueAxisLabel() *string {
 type AnalyticsExplorationOperatorFactTable string
 
 const (
-	AnalyticsExplorationOperatorFactTableEqual            AnalyticsExplorationOperatorFactTable = "="
-	AnalyticsExplorationOperatorFactTableNotEqual         AnalyticsExplorationOperatorFactTable = "!="
-	AnalyticsExplorationOperatorFactTableLessThan         AnalyticsExplorationOperatorFactTable = "<"
-	AnalyticsExplorationOperatorFactTableLessThanEqual    AnalyticsExplorationOperatorFactTable = "<="
-	AnalyticsExplorationOperatorFactTableGreaterThan      AnalyticsExplorationOperatorFactTable = ">"
-	AnalyticsExplorationOperatorFactTableGreaterThanEqual AnalyticsExplorationOperatorFactTable = ">="
-	AnalyticsExplorationOperatorFactTableBetween          AnalyticsExplorationOperatorFactTable = "between"
-	AnalyticsExplorationOperatorFactTableNotBetween       AnalyticsExplorationOperatorFactTable = "not_between"
-	AnalyticsExplorationOperatorFactTableIn               AnalyticsExplorationOperatorFactTable = "in"
-	AnalyticsExplorationOperatorFactTableNotIn            AnalyticsExplorationOperatorFactTable = "not_in"
-	AnalyticsExplorationOperatorFactTableContains         AnalyticsExplorationOperatorFactTable = "contains"
-	AnalyticsExplorationOperatorFactTableNotContains      AnalyticsExplorationOperatorFactTable = "not_contains"
-	AnalyticsExplorationOperatorFactTableStartsWith       AnalyticsExplorationOperatorFactTable = "starts_with"
-	AnalyticsExplorationOperatorFactTableEndsWith         AnalyticsExplorationOperatorFactTable = "ends_with"
-	AnalyticsExplorationOperatorFactTableIsNull           AnalyticsExplorationOperatorFactTable = "is_null"
-	AnalyticsExplorationOperatorFactTableNotNull          AnalyticsExplorationOperatorFactTable = "not_null"
-	AnalyticsExplorationOperatorFactTableIsTrue           AnalyticsExplorationOperatorFactTable = "is_true"
-	AnalyticsExplorationOperatorFactTableIsFalse          AnalyticsExplorationOperatorFactTable = "is_false"
-	AnalyticsExplorationOperatorFactTableSQLExpr          AnalyticsExplorationOperatorFactTable = "sql_expr"
-	AnalyticsExplorationOperatorFactTableSavedFilter      AnalyticsExplorationOperatorFactTable = "saved_filter"
+	AnalyticsExplorationOperatorFactTableEqual             AnalyticsExplorationOperatorFactTable = "="
+	AnalyticsExplorationOperatorFactTableNotEqual          AnalyticsExplorationOperatorFactTable = "!="
+	AnalyticsExplorationOperatorFactTableLessThan          AnalyticsExplorationOperatorFactTable = "<"
+	AnalyticsExplorationOperatorFactTableLessThanEqual     AnalyticsExplorationOperatorFactTable = "<="
+	AnalyticsExplorationOperatorFactTableGreaterThan       AnalyticsExplorationOperatorFactTable = ">"
+	AnalyticsExplorationOperatorFactTableGreaterThanEqual  AnalyticsExplorationOperatorFactTable = ">="
+	AnalyticsExplorationOperatorFactTableBetween           AnalyticsExplorationOperatorFactTable = "between"
+	AnalyticsExplorationOperatorFactTableNotBetween        AnalyticsExplorationOperatorFactTable = "not_between"
+	AnalyticsExplorationOperatorFactTableIn                AnalyticsExplorationOperatorFactTable = "in"
+	AnalyticsExplorationOperatorFactTableNotIn             AnalyticsExplorationOperatorFactTable = "not_in"
+	AnalyticsExplorationOperatorFactTableContains          AnalyticsExplorationOperatorFactTable = "contains"
+	AnalyticsExplorationOperatorFactTableNotContains       AnalyticsExplorationOperatorFactTable = "not_contains"
+	AnalyticsExplorationOperatorFactTableMatchesPattern    AnalyticsExplorationOperatorFactTable = "matches_pattern"
+	AnalyticsExplorationOperatorFactTableNotMatchesPattern AnalyticsExplorationOperatorFactTable = "not_matches_pattern"
+	AnalyticsExplorationOperatorFactTableStartsWith        AnalyticsExplorationOperatorFactTable = "starts_with"
+	AnalyticsExplorationOperatorFactTableEndsWith          AnalyticsExplorationOperatorFactTable = "ends_with"
+	AnalyticsExplorationOperatorFactTableIsNull            AnalyticsExplorationOperatorFactTable = "is_null"
+	AnalyticsExplorationOperatorFactTableNotNull           AnalyticsExplorationOperatorFactTable = "not_null"
+	AnalyticsExplorationOperatorFactTableIsTrue            AnalyticsExplorationOperatorFactTable = "is_true"
+	AnalyticsExplorationOperatorFactTableIsFalse           AnalyticsExplorationOperatorFactTable = "is_false"
+	AnalyticsExplorationOperatorFactTableSQLExpr           AnalyticsExplorationOperatorFactTable = "sql_expr"
+	AnalyticsExplorationOperatorFactTableSavedFilter       AnalyticsExplorationOperatorFactTable = "saved_filter"
 )
 
 func (e AnalyticsExplorationOperatorFactTable) ToPointer() *AnalyticsExplorationOperatorFactTable {
@@ -3740,7 +5030,7 @@ func (e AnalyticsExplorationOperatorFactTable) ToPointer() *AnalyticsExploration
 func (e *AnalyticsExplorationOperatorFactTable) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
 			return true
 		}
 	}
@@ -3984,26 +5274,28 @@ func (a *AnalyticsExplorationConfigFactTable) GetDataset() AnalyticsExplorationD
 type AnalyticsExplorationDimensionOperator1 string
 
 const (
-	AnalyticsExplorationDimensionOperator1Equal            AnalyticsExplorationDimensionOperator1 = "="
-	AnalyticsExplorationDimensionOperator1NotEqual         AnalyticsExplorationDimensionOperator1 = "!="
-	AnalyticsExplorationDimensionOperator1LessThan         AnalyticsExplorationDimensionOperator1 = "<"
-	AnalyticsExplorationDimensionOperator1LessThanEqual    AnalyticsExplorationDimensionOperator1 = "<="
-	AnalyticsExplorationDimensionOperator1GreaterThan      AnalyticsExplorationDimensionOperator1 = ">"
-	AnalyticsExplorationDimensionOperator1GreaterThanEqual AnalyticsExplorationDimensionOperator1 = ">="
-	AnalyticsExplorationDimensionOperator1Between          AnalyticsExplorationDimensionOperator1 = "between"
-	AnalyticsExplorationDimensionOperator1NotBetween       AnalyticsExplorationDimensionOperator1 = "not_between"
-	AnalyticsExplorationDimensionOperator1In               AnalyticsExplorationDimensionOperator1 = "in"
-	AnalyticsExplorationDimensionOperator1NotIn            AnalyticsExplorationDimensionOperator1 = "not_in"
-	AnalyticsExplorationDimensionOperator1Contains         AnalyticsExplorationDimensionOperator1 = "contains"
-	AnalyticsExplorationDimensionOperator1NotContains      AnalyticsExplorationDimensionOperator1 = "not_contains"
-	AnalyticsExplorationDimensionOperator1StartsWith       AnalyticsExplorationDimensionOperator1 = "starts_with"
-	AnalyticsExplorationDimensionOperator1EndsWith         AnalyticsExplorationDimensionOperator1 = "ends_with"
-	AnalyticsExplorationDimensionOperator1IsNull           AnalyticsExplorationDimensionOperator1 = "is_null"
-	AnalyticsExplorationDimensionOperator1NotNull          AnalyticsExplorationDimensionOperator1 = "not_null"
-	AnalyticsExplorationDimensionOperator1IsTrue           AnalyticsExplorationDimensionOperator1 = "is_true"
-	AnalyticsExplorationDimensionOperator1IsFalse          AnalyticsExplorationDimensionOperator1 = "is_false"
-	AnalyticsExplorationDimensionOperator1SQLExpr          AnalyticsExplorationDimensionOperator1 = "sql_expr"
-	AnalyticsExplorationDimensionOperator1SavedFilter      AnalyticsExplorationDimensionOperator1 = "saved_filter"
+	AnalyticsExplorationDimensionOperator1Equal             AnalyticsExplorationDimensionOperator1 = "="
+	AnalyticsExplorationDimensionOperator1NotEqual          AnalyticsExplorationDimensionOperator1 = "!="
+	AnalyticsExplorationDimensionOperator1LessThan          AnalyticsExplorationDimensionOperator1 = "<"
+	AnalyticsExplorationDimensionOperator1LessThanEqual     AnalyticsExplorationDimensionOperator1 = "<="
+	AnalyticsExplorationDimensionOperator1GreaterThan       AnalyticsExplorationDimensionOperator1 = ">"
+	AnalyticsExplorationDimensionOperator1GreaterThanEqual  AnalyticsExplorationDimensionOperator1 = ">="
+	AnalyticsExplorationDimensionOperator1Between           AnalyticsExplorationDimensionOperator1 = "between"
+	AnalyticsExplorationDimensionOperator1NotBetween        AnalyticsExplorationDimensionOperator1 = "not_between"
+	AnalyticsExplorationDimensionOperator1In                AnalyticsExplorationDimensionOperator1 = "in"
+	AnalyticsExplorationDimensionOperator1NotIn             AnalyticsExplorationDimensionOperator1 = "not_in"
+	AnalyticsExplorationDimensionOperator1Contains          AnalyticsExplorationDimensionOperator1 = "contains"
+	AnalyticsExplorationDimensionOperator1NotContains       AnalyticsExplorationDimensionOperator1 = "not_contains"
+	AnalyticsExplorationDimensionOperator1MatchesPattern    AnalyticsExplorationDimensionOperator1 = "matches_pattern"
+	AnalyticsExplorationDimensionOperator1NotMatchesPattern AnalyticsExplorationDimensionOperator1 = "not_matches_pattern"
+	AnalyticsExplorationDimensionOperator1StartsWith        AnalyticsExplorationDimensionOperator1 = "starts_with"
+	AnalyticsExplorationDimensionOperator1EndsWith          AnalyticsExplorationDimensionOperator1 = "ends_with"
+	AnalyticsExplorationDimensionOperator1IsNull            AnalyticsExplorationDimensionOperator1 = "is_null"
+	AnalyticsExplorationDimensionOperator1NotNull           AnalyticsExplorationDimensionOperator1 = "not_null"
+	AnalyticsExplorationDimensionOperator1IsTrue            AnalyticsExplorationDimensionOperator1 = "is_true"
+	AnalyticsExplorationDimensionOperator1IsFalse           AnalyticsExplorationDimensionOperator1 = "is_false"
+	AnalyticsExplorationDimensionOperator1SQLExpr           AnalyticsExplorationDimensionOperator1 = "sql_expr"
+	AnalyticsExplorationDimensionOperator1SavedFilter       AnalyticsExplorationDimensionOperator1 = "saved_filter"
 )
 
 func (e AnalyticsExplorationDimensionOperator1) ToPointer() *AnalyticsExplorationDimensionOperator1 {
@@ -4014,7 +5306,7 @@ func (e AnalyticsExplorationDimensionOperator1) ToPointer() *AnalyticsExploratio
 func (e *AnalyticsExplorationDimensionOperator1) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
 			return true
 		}
 	}
@@ -4624,26 +5916,28 @@ func (a *AnalyticsExplorationChartSettings1) GetValueAxisLabel() *string {
 type AnalyticsExplorationOperatorMetric string
 
 const (
-	AnalyticsExplorationOperatorMetricEqual            AnalyticsExplorationOperatorMetric = "="
-	AnalyticsExplorationOperatorMetricNotEqual         AnalyticsExplorationOperatorMetric = "!="
-	AnalyticsExplorationOperatorMetricLessThan         AnalyticsExplorationOperatorMetric = "<"
-	AnalyticsExplorationOperatorMetricLessThanEqual    AnalyticsExplorationOperatorMetric = "<="
-	AnalyticsExplorationOperatorMetricGreaterThan      AnalyticsExplorationOperatorMetric = ">"
-	AnalyticsExplorationOperatorMetricGreaterThanEqual AnalyticsExplorationOperatorMetric = ">="
-	AnalyticsExplorationOperatorMetricBetween          AnalyticsExplorationOperatorMetric = "between"
-	AnalyticsExplorationOperatorMetricNotBetween       AnalyticsExplorationOperatorMetric = "not_between"
-	AnalyticsExplorationOperatorMetricIn               AnalyticsExplorationOperatorMetric = "in"
-	AnalyticsExplorationOperatorMetricNotIn            AnalyticsExplorationOperatorMetric = "not_in"
-	AnalyticsExplorationOperatorMetricContains         AnalyticsExplorationOperatorMetric = "contains"
-	AnalyticsExplorationOperatorMetricNotContains      AnalyticsExplorationOperatorMetric = "not_contains"
-	AnalyticsExplorationOperatorMetricStartsWith       AnalyticsExplorationOperatorMetric = "starts_with"
-	AnalyticsExplorationOperatorMetricEndsWith         AnalyticsExplorationOperatorMetric = "ends_with"
-	AnalyticsExplorationOperatorMetricIsNull           AnalyticsExplorationOperatorMetric = "is_null"
-	AnalyticsExplorationOperatorMetricNotNull          AnalyticsExplorationOperatorMetric = "not_null"
-	AnalyticsExplorationOperatorMetricIsTrue           AnalyticsExplorationOperatorMetric = "is_true"
-	AnalyticsExplorationOperatorMetricIsFalse          AnalyticsExplorationOperatorMetric = "is_false"
-	AnalyticsExplorationOperatorMetricSQLExpr          AnalyticsExplorationOperatorMetric = "sql_expr"
-	AnalyticsExplorationOperatorMetricSavedFilter      AnalyticsExplorationOperatorMetric = "saved_filter"
+	AnalyticsExplorationOperatorMetricEqual             AnalyticsExplorationOperatorMetric = "="
+	AnalyticsExplorationOperatorMetricNotEqual          AnalyticsExplorationOperatorMetric = "!="
+	AnalyticsExplorationOperatorMetricLessThan          AnalyticsExplorationOperatorMetric = "<"
+	AnalyticsExplorationOperatorMetricLessThanEqual     AnalyticsExplorationOperatorMetric = "<="
+	AnalyticsExplorationOperatorMetricGreaterThan       AnalyticsExplorationOperatorMetric = ">"
+	AnalyticsExplorationOperatorMetricGreaterThanEqual  AnalyticsExplorationOperatorMetric = ">="
+	AnalyticsExplorationOperatorMetricBetween           AnalyticsExplorationOperatorMetric = "between"
+	AnalyticsExplorationOperatorMetricNotBetween        AnalyticsExplorationOperatorMetric = "not_between"
+	AnalyticsExplorationOperatorMetricIn                AnalyticsExplorationOperatorMetric = "in"
+	AnalyticsExplorationOperatorMetricNotIn             AnalyticsExplorationOperatorMetric = "not_in"
+	AnalyticsExplorationOperatorMetricContains          AnalyticsExplorationOperatorMetric = "contains"
+	AnalyticsExplorationOperatorMetricNotContains       AnalyticsExplorationOperatorMetric = "not_contains"
+	AnalyticsExplorationOperatorMetricMatchesPattern    AnalyticsExplorationOperatorMetric = "matches_pattern"
+	AnalyticsExplorationOperatorMetricNotMatchesPattern AnalyticsExplorationOperatorMetric = "not_matches_pattern"
+	AnalyticsExplorationOperatorMetricStartsWith        AnalyticsExplorationOperatorMetric = "starts_with"
+	AnalyticsExplorationOperatorMetricEndsWith          AnalyticsExplorationOperatorMetric = "ends_with"
+	AnalyticsExplorationOperatorMetricIsNull            AnalyticsExplorationOperatorMetric = "is_null"
+	AnalyticsExplorationOperatorMetricNotNull           AnalyticsExplorationOperatorMetric = "not_null"
+	AnalyticsExplorationOperatorMetricIsTrue            AnalyticsExplorationOperatorMetric = "is_true"
+	AnalyticsExplorationOperatorMetricIsFalse           AnalyticsExplorationOperatorMetric = "is_false"
+	AnalyticsExplorationOperatorMetricSQLExpr           AnalyticsExplorationOperatorMetric = "sql_expr"
+	AnalyticsExplorationOperatorMetricSavedFilter       AnalyticsExplorationOperatorMetric = "saved_filter"
 )
 
 func (e AnalyticsExplorationOperatorMetric) ToPointer() *AnalyticsExplorationOperatorMetric {
@@ -4654,7 +5948,7 @@ func (e AnalyticsExplorationOperatorMetric) ToPointer() *AnalyticsExplorationOpe
 func (e *AnalyticsExplorationOperatorMetric) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
 			return true
 		}
 	}
@@ -4872,6 +6166,7 @@ const (
 	ConfigUnionTypeDataSource ConfigUnionType = "data_source"
 	ConfigUnionTypeSQL        ConfigUnionType = "sql"
 	ConfigUnionTypeFunnel     ConfigUnionType = "funnel"
+	ConfigUnionTypeJourney    ConfigUnionType = "journey"
 	ConfigUnionTypeUnknown    ConfigUnionType = "UNKNOWN"
 )
 
@@ -4881,6 +6176,7 @@ type ConfigUnion struct {
 	AnalyticsExplorationConfigDataSource *AnalyticsExplorationConfigDataSource `queryParam:"inline" union:"member"`
 	AnalyticsExplorationConfigSQL        *AnalyticsExplorationConfigSQL        `queryParam:"inline" union:"member"`
 	AnalyticsExplorationConfigFunnel     *AnalyticsExplorationConfigFunnel     `queryParam:"inline" union:"member"`
+	ConfigJourney                        *ConfigJourney                        `queryParam:"inline" union:"member"`
 	UnknownRaw                           json.RawMessage                       `json:"-" union:"unknown"`
 
 	Type ConfigUnionType
@@ -4928,6 +6224,15 @@ func CreateConfigUnionFunnel(funnel AnalyticsExplorationConfigFunnel) ConfigUnio
 	return ConfigUnion{
 		AnalyticsExplorationConfigFunnel: &funnel,
 		Type:                             typ,
+	}
+}
+
+func CreateConfigUnionJourney(journey ConfigJourney) ConfigUnion {
+	typ := ConfigUnionTypeJourney
+
+	return ConfigUnion{
+		ConfigJourney: &journey,
+		Type:          typ,
 	}
 }
 
@@ -5010,6 +6315,15 @@ func (u *ConfigUnion) UnmarshalJSON(data []byte) error {
 		u.AnalyticsExplorationConfigFunnel = analyticsExplorationConfigFunnel
 		u.Type = ConfigUnionTypeFunnel
 		return nil
+	case "journey":
+		configJourney := new(ConfigJourney)
+		if err := utils.UnmarshalJSON(data, &configJourney, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == journey) type ConfigJourney within ConfigUnion: %w", string(data), err)
+		}
+
+		u.ConfigJourney = configJourney
+		u.Type = ConfigUnionTypeJourney
+		return nil
 	default:
 		u.UnknownRaw = json.RawMessage(data)
 		u.Type = ConfigUnionTypeUnknown
@@ -5037,6 +6351,10 @@ func (u ConfigUnion) MarshalJSON() ([]byte, error) {
 
 	if u.AnalyticsExplorationConfigFunnel != nil {
 		return utils.MarshalJSON(u.AnalyticsExplorationConfigFunnel, "", true)
+	}
+
+	if u.ConfigJourney != nil {
+		return utils.MarshalJSON(u.ConfigJourney, "", true)
 	}
 
 	if u.UnknownRaw != nil {
@@ -5157,4 +6475,8 @@ func (a *AnalyticsExploration) GetConfigSQL() *AnalyticsExplorationConfigSQL {
 
 func (a *AnalyticsExploration) GetConfigFunnel() *AnalyticsExplorationConfigFunnel {
 	return a.GetConfig().AnalyticsExplorationConfigFunnel
+}
+
+func (a *AnalyticsExploration) GetConfigJourney() *ConfigJourney {
+	return a.GetConfig().ConfigJourney
 }

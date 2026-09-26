@@ -314,6 +314,7 @@ type UpdateCustomFieldSection string
 const (
 	UpdateCustomFieldSectionFeature    UpdateCustomFieldSection = "feature"
 	UpdateCustomFieldSectionExperiment UpdateCustomFieldSection = "experiment"
+	UpdateCustomFieldSectionAttribute  UpdateCustomFieldSection = "attribute"
 )
 
 func (e UpdateCustomFieldSection) ToPointer() *UpdateCustomFieldSection {
@@ -328,6 +329,8 @@ func (e *UpdateCustomFieldSection) UnmarshalJSON(data []byte) error {
 	case "feature":
 		fallthrough
 	case "experiment":
+		fallthrough
+	case "attribute":
 		*e = UpdateCustomFieldSection(v)
 		return nil
 	default:
@@ -346,7 +349,7 @@ type UpdateCustomFieldRequestBody struct {
 	Creatable *bool    `json:"creatable,omitzero"`
 	Required  *bool    `json:"required,omitzero"`
 	Projects  []string `json:"projects,omitzero"`
-	// What types of objects this custom field is applicable to (feature, experiment)
+	// What types of objects this custom field is applicable to (feature, experiment, attribute)
 	Sections []UpdateCustomFieldSection `json:"sections,omitzero"`
 	Active   *bool                      `json:"active,omitzero"`
 }

@@ -15,26 +15,28 @@ import (
 type PostFunnelExplorationDimensionOperatorRequest string
 
 const (
-	PostFunnelExplorationDimensionOperatorRequestEqual            PostFunnelExplorationDimensionOperatorRequest = "="
-	PostFunnelExplorationDimensionOperatorRequestNotEqual         PostFunnelExplorationDimensionOperatorRequest = "!="
-	PostFunnelExplorationDimensionOperatorRequestLessThan         PostFunnelExplorationDimensionOperatorRequest = "<"
-	PostFunnelExplorationDimensionOperatorRequestLessThanEqual    PostFunnelExplorationDimensionOperatorRequest = "<="
-	PostFunnelExplorationDimensionOperatorRequestGreaterThan      PostFunnelExplorationDimensionOperatorRequest = ">"
-	PostFunnelExplorationDimensionOperatorRequestGreaterThanEqual PostFunnelExplorationDimensionOperatorRequest = ">="
-	PostFunnelExplorationDimensionOperatorRequestBetween          PostFunnelExplorationDimensionOperatorRequest = "between"
-	PostFunnelExplorationDimensionOperatorRequestNotBetween       PostFunnelExplorationDimensionOperatorRequest = "not_between"
-	PostFunnelExplorationDimensionOperatorRequestIn               PostFunnelExplorationDimensionOperatorRequest = "in"
-	PostFunnelExplorationDimensionOperatorRequestNotIn            PostFunnelExplorationDimensionOperatorRequest = "not_in"
-	PostFunnelExplorationDimensionOperatorRequestContains         PostFunnelExplorationDimensionOperatorRequest = "contains"
-	PostFunnelExplorationDimensionOperatorRequestNotContains      PostFunnelExplorationDimensionOperatorRequest = "not_contains"
-	PostFunnelExplorationDimensionOperatorRequestStartsWith       PostFunnelExplorationDimensionOperatorRequest = "starts_with"
-	PostFunnelExplorationDimensionOperatorRequestEndsWith         PostFunnelExplorationDimensionOperatorRequest = "ends_with"
-	PostFunnelExplorationDimensionOperatorRequestIsNull           PostFunnelExplorationDimensionOperatorRequest = "is_null"
-	PostFunnelExplorationDimensionOperatorRequestNotNull          PostFunnelExplorationDimensionOperatorRequest = "not_null"
-	PostFunnelExplorationDimensionOperatorRequestIsTrue           PostFunnelExplorationDimensionOperatorRequest = "is_true"
-	PostFunnelExplorationDimensionOperatorRequestIsFalse          PostFunnelExplorationDimensionOperatorRequest = "is_false"
-	PostFunnelExplorationDimensionOperatorRequestSQLExpr          PostFunnelExplorationDimensionOperatorRequest = "sql_expr"
-	PostFunnelExplorationDimensionOperatorRequestSavedFilter      PostFunnelExplorationDimensionOperatorRequest = "saved_filter"
+	PostFunnelExplorationDimensionOperatorRequestEqual             PostFunnelExplorationDimensionOperatorRequest = "="
+	PostFunnelExplorationDimensionOperatorRequestNotEqual          PostFunnelExplorationDimensionOperatorRequest = "!="
+	PostFunnelExplorationDimensionOperatorRequestLessThan          PostFunnelExplorationDimensionOperatorRequest = "<"
+	PostFunnelExplorationDimensionOperatorRequestLessThanEqual     PostFunnelExplorationDimensionOperatorRequest = "<="
+	PostFunnelExplorationDimensionOperatorRequestGreaterThan       PostFunnelExplorationDimensionOperatorRequest = ">"
+	PostFunnelExplorationDimensionOperatorRequestGreaterThanEqual  PostFunnelExplorationDimensionOperatorRequest = ">="
+	PostFunnelExplorationDimensionOperatorRequestBetween           PostFunnelExplorationDimensionOperatorRequest = "between"
+	PostFunnelExplorationDimensionOperatorRequestNotBetween        PostFunnelExplorationDimensionOperatorRequest = "not_between"
+	PostFunnelExplorationDimensionOperatorRequestIn                PostFunnelExplorationDimensionOperatorRequest = "in"
+	PostFunnelExplorationDimensionOperatorRequestNotIn             PostFunnelExplorationDimensionOperatorRequest = "not_in"
+	PostFunnelExplorationDimensionOperatorRequestContains          PostFunnelExplorationDimensionOperatorRequest = "contains"
+	PostFunnelExplorationDimensionOperatorRequestNotContains       PostFunnelExplorationDimensionOperatorRequest = "not_contains"
+	PostFunnelExplorationDimensionOperatorRequestMatchesPattern    PostFunnelExplorationDimensionOperatorRequest = "matches_pattern"
+	PostFunnelExplorationDimensionOperatorRequestNotMatchesPattern PostFunnelExplorationDimensionOperatorRequest = "not_matches_pattern"
+	PostFunnelExplorationDimensionOperatorRequestStartsWith        PostFunnelExplorationDimensionOperatorRequest = "starts_with"
+	PostFunnelExplorationDimensionOperatorRequestEndsWith          PostFunnelExplorationDimensionOperatorRequest = "ends_with"
+	PostFunnelExplorationDimensionOperatorRequestIsNull            PostFunnelExplorationDimensionOperatorRequest = "is_null"
+	PostFunnelExplorationDimensionOperatorRequestNotNull           PostFunnelExplorationDimensionOperatorRequest = "not_null"
+	PostFunnelExplorationDimensionOperatorRequestIsTrue            PostFunnelExplorationDimensionOperatorRequest = "is_true"
+	PostFunnelExplorationDimensionOperatorRequestIsFalse           PostFunnelExplorationDimensionOperatorRequest = "is_false"
+	PostFunnelExplorationDimensionOperatorRequestSQLExpr           PostFunnelExplorationDimensionOperatorRequest = "sql_expr"
+	PostFunnelExplorationDimensionOperatorRequestSavedFilter       PostFunnelExplorationDimensionOperatorRequest = "saved_filter"
 )
 
 func (e PostFunnelExplorationDimensionOperatorRequest) ToPointer() *PostFunnelExplorationDimensionOperatorRequest {
@@ -69,6 +71,10 @@ func (e *PostFunnelExplorationDimensionOperatorRequest) UnmarshalJSON(data []byt
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough
@@ -681,26 +687,28 @@ func (p *PostFunnelExplorationChartSettingsRequest) GetValueAxisLabel() *string 
 type PostFunnelExplorationStepOperatorRequest string
 
 const (
-	PostFunnelExplorationStepOperatorRequestEqual            PostFunnelExplorationStepOperatorRequest = "="
-	PostFunnelExplorationStepOperatorRequestNotEqual         PostFunnelExplorationStepOperatorRequest = "!="
-	PostFunnelExplorationStepOperatorRequestLessThan         PostFunnelExplorationStepOperatorRequest = "<"
-	PostFunnelExplorationStepOperatorRequestLessThanEqual    PostFunnelExplorationStepOperatorRequest = "<="
-	PostFunnelExplorationStepOperatorRequestGreaterThan      PostFunnelExplorationStepOperatorRequest = ">"
-	PostFunnelExplorationStepOperatorRequestGreaterThanEqual PostFunnelExplorationStepOperatorRequest = ">="
-	PostFunnelExplorationStepOperatorRequestBetween          PostFunnelExplorationStepOperatorRequest = "between"
-	PostFunnelExplorationStepOperatorRequestNotBetween       PostFunnelExplorationStepOperatorRequest = "not_between"
-	PostFunnelExplorationStepOperatorRequestIn               PostFunnelExplorationStepOperatorRequest = "in"
-	PostFunnelExplorationStepOperatorRequestNotIn            PostFunnelExplorationStepOperatorRequest = "not_in"
-	PostFunnelExplorationStepOperatorRequestContains         PostFunnelExplorationStepOperatorRequest = "contains"
-	PostFunnelExplorationStepOperatorRequestNotContains      PostFunnelExplorationStepOperatorRequest = "not_contains"
-	PostFunnelExplorationStepOperatorRequestStartsWith       PostFunnelExplorationStepOperatorRequest = "starts_with"
-	PostFunnelExplorationStepOperatorRequestEndsWith         PostFunnelExplorationStepOperatorRequest = "ends_with"
-	PostFunnelExplorationStepOperatorRequestIsNull           PostFunnelExplorationStepOperatorRequest = "is_null"
-	PostFunnelExplorationStepOperatorRequestNotNull          PostFunnelExplorationStepOperatorRequest = "not_null"
-	PostFunnelExplorationStepOperatorRequestIsTrue           PostFunnelExplorationStepOperatorRequest = "is_true"
-	PostFunnelExplorationStepOperatorRequestIsFalse          PostFunnelExplorationStepOperatorRequest = "is_false"
-	PostFunnelExplorationStepOperatorRequestSQLExpr          PostFunnelExplorationStepOperatorRequest = "sql_expr"
-	PostFunnelExplorationStepOperatorRequestSavedFilter      PostFunnelExplorationStepOperatorRequest = "saved_filter"
+	PostFunnelExplorationStepOperatorRequestEqual             PostFunnelExplorationStepOperatorRequest = "="
+	PostFunnelExplorationStepOperatorRequestNotEqual          PostFunnelExplorationStepOperatorRequest = "!="
+	PostFunnelExplorationStepOperatorRequestLessThan          PostFunnelExplorationStepOperatorRequest = "<"
+	PostFunnelExplorationStepOperatorRequestLessThanEqual     PostFunnelExplorationStepOperatorRequest = "<="
+	PostFunnelExplorationStepOperatorRequestGreaterThan       PostFunnelExplorationStepOperatorRequest = ">"
+	PostFunnelExplorationStepOperatorRequestGreaterThanEqual  PostFunnelExplorationStepOperatorRequest = ">="
+	PostFunnelExplorationStepOperatorRequestBetween           PostFunnelExplorationStepOperatorRequest = "between"
+	PostFunnelExplorationStepOperatorRequestNotBetween        PostFunnelExplorationStepOperatorRequest = "not_between"
+	PostFunnelExplorationStepOperatorRequestIn                PostFunnelExplorationStepOperatorRequest = "in"
+	PostFunnelExplorationStepOperatorRequestNotIn             PostFunnelExplorationStepOperatorRequest = "not_in"
+	PostFunnelExplorationStepOperatorRequestContains          PostFunnelExplorationStepOperatorRequest = "contains"
+	PostFunnelExplorationStepOperatorRequestNotContains       PostFunnelExplorationStepOperatorRequest = "not_contains"
+	PostFunnelExplorationStepOperatorRequestMatchesPattern    PostFunnelExplorationStepOperatorRequest = "matches_pattern"
+	PostFunnelExplorationStepOperatorRequestNotMatchesPattern PostFunnelExplorationStepOperatorRequest = "not_matches_pattern"
+	PostFunnelExplorationStepOperatorRequestStartsWith        PostFunnelExplorationStepOperatorRequest = "starts_with"
+	PostFunnelExplorationStepOperatorRequestEndsWith          PostFunnelExplorationStepOperatorRequest = "ends_with"
+	PostFunnelExplorationStepOperatorRequestIsNull            PostFunnelExplorationStepOperatorRequest = "is_null"
+	PostFunnelExplorationStepOperatorRequestNotNull           PostFunnelExplorationStepOperatorRequest = "not_null"
+	PostFunnelExplorationStepOperatorRequestIsTrue            PostFunnelExplorationStepOperatorRequest = "is_true"
+	PostFunnelExplorationStepOperatorRequestIsFalse           PostFunnelExplorationStepOperatorRequest = "is_false"
+	PostFunnelExplorationStepOperatorRequestSQLExpr           PostFunnelExplorationStepOperatorRequest = "sql_expr"
+	PostFunnelExplorationStepOperatorRequestSavedFilter       PostFunnelExplorationStepOperatorRequest = "saved_filter"
 )
 
 func (e PostFunnelExplorationStepOperatorRequest) ToPointer() *PostFunnelExplorationStepOperatorRequest {
@@ -735,6 +743,10 @@ func (e *PostFunnelExplorationStepOperatorRequest) UnmarshalJSON(data []byte) er
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough
@@ -1153,10 +1165,260 @@ func (p *PostFunnelExplorationRowStep) GetTimeFromPrevSumSquaresHrs() *float64 {
 	return p.TimeFromPrevSumSquaresHrs
 }
 
+type PostFunnelExplorationDirection2 string
+
+const (
+	PostFunnelExplorationDirection2Forward  PostFunnelExplorationDirection2 = "forward"
+	PostFunnelExplorationDirection2Backward PostFunnelExplorationDirection2 = "backward"
+)
+
+func (e PostFunnelExplorationDirection2) ToPointer() *PostFunnelExplorationDirection2 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *PostFunnelExplorationDirection2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "forward", "backward":
+			return true
+		}
+	}
+	return false
+}
+
+type PostFunnelExplorationJourneyCommitted struct {
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	kind      string                          `const:"committed" json:"kind"`
+	Direction PostFunnelExplorationDirection2 `json:"direction"`
+	StepIndex float64                         `json:"stepIndex"`
+	Value     string                          `json:"value"`
+	Count     float64                         `json:"count"`
+}
+
+func (p PostFunnelExplorationJourneyCommitted) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostFunnelExplorationJourneyCommitted) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PostFunnelExplorationJourneyCommitted) GetKind() string {
+	return "committed"
+}
+
+func (p *PostFunnelExplorationJourneyCommitted) GetDirection() PostFunnelExplorationDirection2 {
+	if p == nil {
+		return PostFunnelExplorationDirection2("")
+	}
+	return p.Direction
+}
+
+func (p *PostFunnelExplorationJourneyCommitted) GetStepIndex() float64 {
+	if p == nil {
+		return 0.0
+	}
+	return p.StepIndex
+}
+
+func (p *PostFunnelExplorationJourneyCommitted) GetValue() string {
+	if p == nil {
+		return ""
+	}
+	return p.Value
+}
+
+func (p *PostFunnelExplorationJourneyCommitted) GetCount() float64 {
+	if p == nil {
+		return 0.0
+	}
+	return p.Count
+}
+
+type PostFunnelExplorationDirection1 string
+
+const (
+	PostFunnelExplorationDirection1Forward  PostFunnelExplorationDirection1 = "forward"
+	PostFunnelExplorationDirection1Backward PostFunnelExplorationDirection1 = "backward"
+)
+
+func (e PostFunnelExplorationDirection1) ToPointer() *PostFunnelExplorationDirection1 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *PostFunnelExplorationDirection1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "forward", "backward":
+			return true
+		}
+	}
+	return false
+}
+
+type PostFunnelExplorationJourneyPath struct {
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	kind      string                          `const:"path" json:"kind"`
+	Direction PostFunnelExplorationDirection1 `json:"direction"`
+	Levels    []string                        `json:"levels"`
+	Count     float64                         `json:"count"`
+}
+
+func (p PostFunnelExplorationJourneyPath) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostFunnelExplorationJourneyPath) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PostFunnelExplorationJourneyPath) GetKind() string {
+	return "path"
+}
+
+func (p *PostFunnelExplorationJourneyPath) GetDirection() PostFunnelExplorationDirection1 {
+	if p == nil {
+		return PostFunnelExplorationDirection1("")
+	}
+	return p.Direction
+}
+
+func (p *PostFunnelExplorationJourneyPath) GetLevels() []string {
+	if p == nil {
+		return []string{}
+	}
+	return p.Levels
+}
+
+func (p *PostFunnelExplorationJourneyPath) GetCount() float64 {
+	if p == nil {
+		return 0.0
+	}
+	return p.Count
+}
+
+type PostFunnelExplorationJourneyUnionType string
+
+const (
+	PostFunnelExplorationJourneyUnionTypePath      PostFunnelExplorationJourneyUnionType = "path"
+	PostFunnelExplorationJourneyUnionTypeCommitted PostFunnelExplorationJourneyUnionType = "committed"
+	PostFunnelExplorationJourneyUnionTypeUnknown   PostFunnelExplorationJourneyUnionType = "UNKNOWN"
+)
+
+type PostFunnelExplorationJourneyUnion struct {
+	PostFunnelExplorationJourneyPath      *PostFunnelExplorationJourneyPath      `queryParam:"inline" union:"member"`
+	PostFunnelExplorationJourneyCommitted *PostFunnelExplorationJourneyCommitted `queryParam:"inline" union:"member"`
+	UnknownRaw                            json.RawMessage                        `json:"-" union:"unknown"`
+
+	Type PostFunnelExplorationJourneyUnionType
+}
+
+func CreatePostFunnelExplorationJourneyUnionPath(path PostFunnelExplorationJourneyPath) PostFunnelExplorationJourneyUnion {
+	typ := PostFunnelExplorationJourneyUnionTypePath
+
+	return PostFunnelExplorationJourneyUnion{
+		PostFunnelExplorationJourneyPath: &path,
+		Type:                             typ,
+	}
+}
+
+func CreatePostFunnelExplorationJourneyUnionCommitted(committed PostFunnelExplorationJourneyCommitted) PostFunnelExplorationJourneyUnion {
+	typ := PostFunnelExplorationJourneyUnionTypeCommitted
+
+	return PostFunnelExplorationJourneyUnion{
+		PostFunnelExplorationJourneyCommitted: &committed,
+		Type:                                  typ,
+	}
+}
+
+func CreatePostFunnelExplorationJourneyUnionUnknown(raw json.RawMessage) PostFunnelExplorationJourneyUnion {
+	return PostFunnelExplorationJourneyUnion{
+		UnknownRaw: raw,
+		Type:       PostFunnelExplorationJourneyUnionTypeUnknown,
+	}
+}
+
+func (u PostFunnelExplorationJourneyUnion) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u PostFunnelExplorationJourneyUnion) IsUnknown() bool {
+	return u.Type == PostFunnelExplorationJourneyUnionTypeUnknown
+}
+
+func (u *PostFunnelExplorationJourneyUnion) UnmarshalJSON(data []byte) error {
+
+	type discriminator struct {
+		Kind string `json:"kind"`
+	}
+
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = PostFunnelExplorationJourneyUnionTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = PostFunnelExplorationJourneyUnionTypeUnknown
+		return nil
+	}
+
+	switch dis.Kind {
+	case "path":
+		postFunnelExplorationJourneyPath := new(PostFunnelExplorationJourneyPath)
+		if err := utils.UnmarshalJSON(data, &postFunnelExplorationJourneyPath, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Kind == path) type PostFunnelExplorationJourneyPath within PostFunnelExplorationJourneyUnion: %w", string(data), err)
+		}
+
+		u.PostFunnelExplorationJourneyPath = postFunnelExplorationJourneyPath
+		u.Type = PostFunnelExplorationJourneyUnionTypePath
+		return nil
+	case "committed":
+		postFunnelExplorationJourneyCommitted := new(PostFunnelExplorationJourneyCommitted)
+		if err := utils.UnmarshalJSON(data, &postFunnelExplorationJourneyCommitted, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Kind == committed) type PostFunnelExplorationJourneyCommitted within PostFunnelExplorationJourneyUnion: %w", string(data), err)
+		}
+
+		u.PostFunnelExplorationJourneyCommitted = postFunnelExplorationJourneyCommitted
+		u.Type = PostFunnelExplorationJourneyUnionTypeCommitted
+		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = PostFunnelExplorationJourneyUnionTypeUnknown
+		return nil
+	}
+
+}
+
+func (u PostFunnelExplorationJourneyUnion) MarshalJSON() ([]byte, error) {
+	if u.PostFunnelExplorationJourneyPath != nil {
+		return utils.MarshalJSON(u.PostFunnelExplorationJourneyPath, "", true)
+	}
+
+	if u.PostFunnelExplorationJourneyCommitted != nil {
+		return utils.MarshalJSON(u.PostFunnelExplorationJourneyCommitted, "", true)
+	}
+
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
+	return nil, errors.New("could not marshal union type PostFunnelExplorationJourneyUnion: all fields are null")
+}
+
 type PostFunnelExplorationRow struct {
-	Dimensions []*string                      `json:"dimensions"`
-	Values     []PostFunnelExplorationValue   `json:"values,omitzero"`
-	Steps      []PostFunnelExplorationRowStep `json:"steps,omitzero"`
+	Dimensions []*string                          `json:"dimensions"`
+	Values     []PostFunnelExplorationValue       `json:"values,omitzero"`
+	Steps      []PostFunnelExplorationRowStep     `json:"steps,omitzero"`
+	Journey    *PostFunnelExplorationJourneyUnion `json:"journey,omitzero"`
 }
 
 func (p PostFunnelExplorationRow) MarshalJSON() ([]byte, error) {
@@ -1189,6 +1451,27 @@ func (p *PostFunnelExplorationRow) GetSteps() []PostFunnelExplorationRowStep {
 		return nil
 	}
 	return p.Steps
+}
+
+func (p *PostFunnelExplorationRow) GetJourney() *PostFunnelExplorationJourneyUnion {
+	if p == nil {
+		return nil
+	}
+	return p.Journey
+}
+
+func (p *PostFunnelExplorationRow) GetJourneyPath() *PostFunnelExplorationJourneyPath {
+	if v := p.GetJourney(); v != nil {
+		return v.PostFunnelExplorationJourneyPath
+	}
+	return nil
+}
+
+func (p *PostFunnelExplorationRow) GetJourneyCommitted() *PostFunnelExplorationJourneyCommitted {
+	if v := p.GetJourney(); v != nil {
+		return v.PostFunnelExplorationJourneyCommitted
+	}
+	return nil
 }
 
 type PostFunnelExplorationResult struct {
@@ -1232,26 +1515,28 @@ func (p *PostFunnelExplorationResult) GetTruncated() *bool {
 type PostFunnelExplorationExplorationDimensionOperator string
 
 const (
-	PostFunnelExplorationExplorationDimensionOperatorEqual            PostFunnelExplorationExplorationDimensionOperator = "="
-	PostFunnelExplorationExplorationDimensionOperatorNotEqual         PostFunnelExplorationExplorationDimensionOperator = "!="
-	PostFunnelExplorationExplorationDimensionOperatorLessThan         PostFunnelExplorationExplorationDimensionOperator = "<"
-	PostFunnelExplorationExplorationDimensionOperatorLessThanEqual    PostFunnelExplorationExplorationDimensionOperator = "<="
-	PostFunnelExplorationExplorationDimensionOperatorGreaterThan      PostFunnelExplorationExplorationDimensionOperator = ">"
-	PostFunnelExplorationExplorationDimensionOperatorGreaterThanEqual PostFunnelExplorationExplorationDimensionOperator = ">="
-	PostFunnelExplorationExplorationDimensionOperatorBetween          PostFunnelExplorationExplorationDimensionOperator = "between"
-	PostFunnelExplorationExplorationDimensionOperatorNotBetween       PostFunnelExplorationExplorationDimensionOperator = "not_between"
-	PostFunnelExplorationExplorationDimensionOperatorIn               PostFunnelExplorationExplorationDimensionOperator = "in"
-	PostFunnelExplorationExplorationDimensionOperatorNotIn            PostFunnelExplorationExplorationDimensionOperator = "not_in"
-	PostFunnelExplorationExplorationDimensionOperatorContains         PostFunnelExplorationExplorationDimensionOperator = "contains"
-	PostFunnelExplorationExplorationDimensionOperatorNotContains      PostFunnelExplorationExplorationDimensionOperator = "not_contains"
-	PostFunnelExplorationExplorationDimensionOperatorStartsWith       PostFunnelExplorationExplorationDimensionOperator = "starts_with"
-	PostFunnelExplorationExplorationDimensionOperatorEndsWith         PostFunnelExplorationExplorationDimensionOperator = "ends_with"
-	PostFunnelExplorationExplorationDimensionOperatorIsNull           PostFunnelExplorationExplorationDimensionOperator = "is_null"
-	PostFunnelExplorationExplorationDimensionOperatorNotNull          PostFunnelExplorationExplorationDimensionOperator = "not_null"
-	PostFunnelExplorationExplorationDimensionOperatorIsTrue           PostFunnelExplorationExplorationDimensionOperator = "is_true"
-	PostFunnelExplorationExplorationDimensionOperatorIsFalse          PostFunnelExplorationExplorationDimensionOperator = "is_false"
-	PostFunnelExplorationExplorationDimensionOperatorSQLExpr          PostFunnelExplorationExplorationDimensionOperator = "sql_expr"
-	PostFunnelExplorationExplorationDimensionOperatorSavedFilter      PostFunnelExplorationExplorationDimensionOperator = "saved_filter"
+	PostFunnelExplorationExplorationDimensionOperatorEqual             PostFunnelExplorationExplorationDimensionOperator = "="
+	PostFunnelExplorationExplorationDimensionOperatorNotEqual          PostFunnelExplorationExplorationDimensionOperator = "!="
+	PostFunnelExplorationExplorationDimensionOperatorLessThan          PostFunnelExplorationExplorationDimensionOperator = "<"
+	PostFunnelExplorationExplorationDimensionOperatorLessThanEqual     PostFunnelExplorationExplorationDimensionOperator = "<="
+	PostFunnelExplorationExplorationDimensionOperatorGreaterThan       PostFunnelExplorationExplorationDimensionOperator = ">"
+	PostFunnelExplorationExplorationDimensionOperatorGreaterThanEqual  PostFunnelExplorationExplorationDimensionOperator = ">="
+	PostFunnelExplorationExplorationDimensionOperatorBetween           PostFunnelExplorationExplorationDimensionOperator = "between"
+	PostFunnelExplorationExplorationDimensionOperatorNotBetween        PostFunnelExplorationExplorationDimensionOperator = "not_between"
+	PostFunnelExplorationExplorationDimensionOperatorIn                PostFunnelExplorationExplorationDimensionOperator = "in"
+	PostFunnelExplorationExplorationDimensionOperatorNotIn             PostFunnelExplorationExplorationDimensionOperator = "not_in"
+	PostFunnelExplorationExplorationDimensionOperatorContains          PostFunnelExplorationExplorationDimensionOperator = "contains"
+	PostFunnelExplorationExplorationDimensionOperatorNotContains       PostFunnelExplorationExplorationDimensionOperator = "not_contains"
+	PostFunnelExplorationExplorationDimensionOperatorMatchesPattern    PostFunnelExplorationExplorationDimensionOperator = "matches_pattern"
+	PostFunnelExplorationExplorationDimensionOperatorNotMatchesPattern PostFunnelExplorationExplorationDimensionOperator = "not_matches_pattern"
+	PostFunnelExplorationExplorationDimensionOperatorStartsWith        PostFunnelExplorationExplorationDimensionOperator = "starts_with"
+	PostFunnelExplorationExplorationDimensionOperatorEndsWith          PostFunnelExplorationExplorationDimensionOperator = "ends_with"
+	PostFunnelExplorationExplorationDimensionOperatorIsNull            PostFunnelExplorationExplorationDimensionOperator = "is_null"
+	PostFunnelExplorationExplorationDimensionOperatorNotNull           PostFunnelExplorationExplorationDimensionOperator = "not_null"
+	PostFunnelExplorationExplorationDimensionOperatorIsTrue            PostFunnelExplorationExplorationDimensionOperator = "is_true"
+	PostFunnelExplorationExplorationDimensionOperatorIsFalse           PostFunnelExplorationExplorationDimensionOperator = "is_false"
+	PostFunnelExplorationExplorationDimensionOperatorSQLExpr           PostFunnelExplorationExplorationDimensionOperator = "sql_expr"
+	PostFunnelExplorationExplorationDimensionOperatorSavedFilter       PostFunnelExplorationExplorationDimensionOperator = "saved_filter"
 )
 
 func (e PostFunnelExplorationExplorationDimensionOperator) ToPointer() *PostFunnelExplorationExplorationDimensionOperator {
@@ -1262,7 +1547,7 @@ func (e PostFunnelExplorationExplorationDimensionOperator) ToPointer() *PostFunn
 func (e *PostFunnelExplorationExplorationDimensionOperator) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
 			return true
 		}
 	}
@@ -1826,26 +2111,28 @@ func (p *PostFunnelExplorationChartSettingsResponse) GetValueAxisLabel() *string
 type ExplorationStepOperator string
 
 const (
-	ExplorationStepOperatorEqual            ExplorationStepOperator = "="
-	ExplorationStepOperatorNotEqual         ExplorationStepOperator = "!="
-	ExplorationStepOperatorLessThan         ExplorationStepOperator = "<"
-	ExplorationStepOperatorLessThanEqual    ExplorationStepOperator = "<="
-	ExplorationStepOperatorGreaterThan      ExplorationStepOperator = ">"
-	ExplorationStepOperatorGreaterThanEqual ExplorationStepOperator = ">="
-	ExplorationStepOperatorBetween          ExplorationStepOperator = "between"
-	ExplorationStepOperatorNotBetween       ExplorationStepOperator = "not_between"
-	ExplorationStepOperatorIn               ExplorationStepOperator = "in"
-	ExplorationStepOperatorNotIn            ExplorationStepOperator = "not_in"
-	ExplorationStepOperatorContains         ExplorationStepOperator = "contains"
-	ExplorationStepOperatorNotContains      ExplorationStepOperator = "not_contains"
-	ExplorationStepOperatorStartsWith       ExplorationStepOperator = "starts_with"
-	ExplorationStepOperatorEndsWith         ExplorationStepOperator = "ends_with"
-	ExplorationStepOperatorIsNull           ExplorationStepOperator = "is_null"
-	ExplorationStepOperatorNotNull          ExplorationStepOperator = "not_null"
-	ExplorationStepOperatorIsTrue           ExplorationStepOperator = "is_true"
-	ExplorationStepOperatorIsFalse          ExplorationStepOperator = "is_false"
-	ExplorationStepOperatorSQLExpr          ExplorationStepOperator = "sql_expr"
-	ExplorationStepOperatorSavedFilter      ExplorationStepOperator = "saved_filter"
+	ExplorationStepOperatorEqual             ExplorationStepOperator = "="
+	ExplorationStepOperatorNotEqual          ExplorationStepOperator = "!="
+	ExplorationStepOperatorLessThan          ExplorationStepOperator = "<"
+	ExplorationStepOperatorLessThanEqual     ExplorationStepOperator = "<="
+	ExplorationStepOperatorGreaterThan       ExplorationStepOperator = ">"
+	ExplorationStepOperatorGreaterThanEqual  ExplorationStepOperator = ">="
+	ExplorationStepOperatorBetween           ExplorationStepOperator = "between"
+	ExplorationStepOperatorNotBetween        ExplorationStepOperator = "not_between"
+	ExplorationStepOperatorIn                ExplorationStepOperator = "in"
+	ExplorationStepOperatorNotIn             ExplorationStepOperator = "not_in"
+	ExplorationStepOperatorContains          ExplorationStepOperator = "contains"
+	ExplorationStepOperatorNotContains       ExplorationStepOperator = "not_contains"
+	ExplorationStepOperatorMatchesPattern    ExplorationStepOperator = "matches_pattern"
+	ExplorationStepOperatorNotMatchesPattern ExplorationStepOperator = "not_matches_pattern"
+	ExplorationStepOperatorStartsWith        ExplorationStepOperator = "starts_with"
+	ExplorationStepOperatorEndsWith          ExplorationStepOperator = "ends_with"
+	ExplorationStepOperatorIsNull            ExplorationStepOperator = "is_null"
+	ExplorationStepOperatorNotNull           ExplorationStepOperator = "not_null"
+	ExplorationStepOperatorIsTrue            ExplorationStepOperator = "is_true"
+	ExplorationStepOperatorIsFalse           ExplorationStepOperator = "is_false"
+	ExplorationStepOperatorSQLExpr           ExplorationStepOperator = "sql_expr"
+	ExplorationStepOperatorSavedFilter       ExplorationStepOperator = "saved_filter"
 )
 
 func (e ExplorationStepOperator) ToPointer() *ExplorationStepOperator {
@@ -1856,7 +2143,7 @@ func (e ExplorationStepOperator) ToPointer() *ExplorationStepOperator {
 func (e *ExplorationStepOperator) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
 			return true
 		}
 	}

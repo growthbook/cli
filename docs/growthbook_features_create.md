@@ -47,7 +47,8 @@ growthbook features create [flags]
   -a, --archived                           boolean flag
   -b, --base-config valueType: "json"      Key of the config backing this flag ("Config mode"). Requires valueType: "json" and a live config. The config supplies the base JSON and schema; `defaultValue` and rule values are override patches on top. null or omitted for a plain flag.
       --body string                        Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -c, --custom-fields string               value
+      --comment string                     Comment to record on the feature's initial revision. Defaults to an empty comment.
+      --custom-fields string               value
       --default-value valueType            Default value when feature is enabled. Type must match valueType. In Config mode (`baseConfig` set) the default must be exactly a config with no overrides: send `"{}"` to use `baseConfig`, or set `defaultValueConfig` to point at a descendant. [required]
       --default-value-config baseConfig    Optional. A config within baseConfig's family that the default value resolves to instead of `baseConfig` itself. null or omitted means the default is `baseConfig`. The default is exactly this config and carries no overrides of its own.
       --description string                 Description of the feature
@@ -63,8 +64,8 @@ growthbook features create [flags]
       --skip-hooks skipSchemaValidation    Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use skipSchemaValidation for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
       --skip-schema-validation skipHooks   Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use skipHooks for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
       --tags stringArray                   List of associated tags
-      --targeting-all-projects project     Make this feature discoverable in — and served to — every project, beyond its primary project. Governance/approvals stay with `project`.
-      --targeting-projects project         Secondary project IDs this feature is targeted in and served to, beyond its primary project. Governance/approvals stay with `project`.
+      --targeting-all-projects project     Make this feature discoverable in — and served to — every project, beyond its primary project. Requires the `targetFeatures` permission (FlagsTarget policy) unscoped to any project. Governance stays with `project`.
+      --targeting-projects project         Secondary project IDs this feature is targeted in and served to, beyond its primary project. Adding a project requires the `targetFeatures` permission (FlagsTarget policy) in that project. Governance stays with `project`.
   -v, --value-type string                  The data type of the feature payload. Boolean by default. (options: boolean, string, number, json) [required]
 ```
 

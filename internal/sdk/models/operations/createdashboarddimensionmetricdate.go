@@ -899,26 +899,28 @@ func (c *CreateDashboardGlobalControlSettings9) GetDateRange() *bool {
 type CreateDashboardDimensionOperatorSQL string
 
 const (
-	CreateDashboardDimensionOperatorSQLEqual            CreateDashboardDimensionOperatorSQL = "="
-	CreateDashboardDimensionOperatorSQLNotEqual         CreateDashboardDimensionOperatorSQL = "!="
-	CreateDashboardDimensionOperatorSQLLessThan         CreateDashboardDimensionOperatorSQL = "<"
-	CreateDashboardDimensionOperatorSQLLessThanEqual    CreateDashboardDimensionOperatorSQL = "<="
-	CreateDashboardDimensionOperatorSQLGreaterThan      CreateDashboardDimensionOperatorSQL = ">"
-	CreateDashboardDimensionOperatorSQLGreaterThanEqual CreateDashboardDimensionOperatorSQL = ">="
-	CreateDashboardDimensionOperatorSQLBetween          CreateDashboardDimensionOperatorSQL = "between"
-	CreateDashboardDimensionOperatorSQLNotBetween       CreateDashboardDimensionOperatorSQL = "not_between"
-	CreateDashboardDimensionOperatorSQLIn               CreateDashboardDimensionOperatorSQL = "in"
-	CreateDashboardDimensionOperatorSQLNotIn            CreateDashboardDimensionOperatorSQL = "not_in"
-	CreateDashboardDimensionOperatorSQLContains         CreateDashboardDimensionOperatorSQL = "contains"
-	CreateDashboardDimensionOperatorSQLNotContains      CreateDashboardDimensionOperatorSQL = "not_contains"
-	CreateDashboardDimensionOperatorSQLStartsWith       CreateDashboardDimensionOperatorSQL = "starts_with"
-	CreateDashboardDimensionOperatorSQLEndsWith         CreateDashboardDimensionOperatorSQL = "ends_with"
-	CreateDashboardDimensionOperatorSQLIsNull           CreateDashboardDimensionOperatorSQL = "is_null"
-	CreateDashboardDimensionOperatorSQLNotNull          CreateDashboardDimensionOperatorSQL = "not_null"
-	CreateDashboardDimensionOperatorSQLIsTrue           CreateDashboardDimensionOperatorSQL = "is_true"
-	CreateDashboardDimensionOperatorSQLIsFalse          CreateDashboardDimensionOperatorSQL = "is_false"
-	CreateDashboardDimensionOperatorSQLSQLExpr          CreateDashboardDimensionOperatorSQL = "sql_expr"
-	CreateDashboardDimensionOperatorSQLSavedFilter      CreateDashboardDimensionOperatorSQL = "saved_filter"
+	CreateDashboardDimensionOperatorSQLEqual             CreateDashboardDimensionOperatorSQL = "="
+	CreateDashboardDimensionOperatorSQLNotEqual          CreateDashboardDimensionOperatorSQL = "!="
+	CreateDashboardDimensionOperatorSQLLessThan          CreateDashboardDimensionOperatorSQL = "<"
+	CreateDashboardDimensionOperatorSQLLessThanEqual     CreateDashboardDimensionOperatorSQL = "<="
+	CreateDashboardDimensionOperatorSQLGreaterThan       CreateDashboardDimensionOperatorSQL = ">"
+	CreateDashboardDimensionOperatorSQLGreaterThanEqual  CreateDashboardDimensionOperatorSQL = ">="
+	CreateDashboardDimensionOperatorSQLBetween           CreateDashboardDimensionOperatorSQL = "between"
+	CreateDashboardDimensionOperatorSQLNotBetween        CreateDashboardDimensionOperatorSQL = "not_between"
+	CreateDashboardDimensionOperatorSQLIn                CreateDashboardDimensionOperatorSQL = "in"
+	CreateDashboardDimensionOperatorSQLNotIn             CreateDashboardDimensionOperatorSQL = "not_in"
+	CreateDashboardDimensionOperatorSQLContains          CreateDashboardDimensionOperatorSQL = "contains"
+	CreateDashboardDimensionOperatorSQLNotContains       CreateDashboardDimensionOperatorSQL = "not_contains"
+	CreateDashboardDimensionOperatorSQLMatchesPattern    CreateDashboardDimensionOperatorSQL = "matches_pattern"
+	CreateDashboardDimensionOperatorSQLNotMatchesPattern CreateDashboardDimensionOperatorSQL = "not_matches_pattern"
+	CreateDashboardDimensionOperatorSQLStartsWith        CreateDashboardDimensionOperatorSQL = "starts_with"
+	CreateDashboardDimensionOperatorSQLEndsWith          CreateDashboardDimensionOperatorSQL = "ends_with"
+	CreateDashboardDimensionOperatorSQLIsNull            CreateDashboardDimensionOperatorSQL = "is_null"
+	CreateDashboardDimensionOperatorSQLNotNull           CreateDashboardDimensionOperatorSQL = "not_null"
+	CreateDashboardDimensionOperatorSQLIsTrue            CreateDashboardDimensionOperatorSQL = "is_true"
+	CreateDashboardDimensionOperatorSQLIsFalse           CreateDashboardDimensionOperatorSQL = "is_false"
+	CreateDashboardDimensionOperatorSQLSQLExpr           CreateDashboardDimensionOperatorSQL = "sql_expr"
+	CreateDashboardDimensionOperatorSQLSavedFilter       CreateDashboardDimensionOperatorSQL = "saved_filter"
 )
 
 func (e CreateDashboardDimensionOperatorSQL) ToPointer() *CreateDashboardDimensionOperatorSQL {
@@ -953,6 +955,10 @@ func (e *CreateDashboardDimensionOperatorSQL) UnmarshalJSON(data []byte) error {
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough
@@ -1622,26 +1628,28 @@ func (e *CreateDashboardColumnTypesSQL) UnmarshalJSON(data []byte) error {
 type CreateDashboardRowFilterOperatorSQL string
 
 const (
-	CreateDashboardRowFilterOperatorSQLEqual            CreateDashboardRowFilterOperatorSQL = "="
-	CreateDashboardRowFilterOperatorSQLNotEqual         CreateDashboardRowFilterOperatorSQL = "!="
-	CreateDashboardRowFilterOperatorSQLLessThan         CreateDashboardRowFilterOperatorSQL = "<"
-	CreateDashboardRowFilterOperatorSQLLessThanEqual    CreateDashboardRowFilterOperatorSQL = "<="
-	CreateDashboardRowFilterOperatorSQLGreaterThan      CreateDashboardRowFilterOperatorSQL = ">"
-	CreateDashboardRowFilterOperatorSQLGreaterThanEqual CreateDashboardRowFilterOperatorSQL = ">="
-	CreateDashboardRowFilterOperatorSQLBetween          CreateDashboardRowFilterOperatorSQL = "between"
-	CreateDashboardRowFilterOperatorSQLNotBetween       CreateDashboardRowFilterOperatorSQL = "not_between"
-	CreateDashboardRowFilterOperatorSQLIn               CreateDashboardRowFilterOperatorSQL = "in"
-	CreateDashboardRowFilterOperatorSQLNotIn            CreateDashboardRowFilterOperatorSQL = "not_in"
-	CreateDashboardRowFilterOperatorSQLContains         CreateDashboardRowFilterOperatorSQL = "contains"
-	CreateDashboardRowFilterOperatorSQLNotContains      CreateDashboardRowFilterOperatorSQL = "not_contains"
-	CreateDashboardRowFilterOperatorSQLStartsWith       CreateDashboardRowFilterOperatorSQL = "starts_with"
-	CreateDashboardRowFilterOperatorSQLEndsWith         CreateDashboardRowFilterOperatorSQL = "ends_with"
-	CreateDashboardRowFilterOperatorSQLIsNull           CreateDashboardRowFilterOperatorSQL = "is_null"
-	CreateDashboardRowFilterOperatorSQLNotNull          CreateDashboardRowFilterOperatorSQL = "not_null"
-	CreateDashboardRowFilterOperatorSQLIsTrue           CreateDashboardRowFilterOperatorSQL = "is_true"
-	CreateDashboardRowFilterOperatorSQLIsFalse          CreateDashboardRowFilterOperatorSQL = "is_false"
-	CreateDashboardRowFilterOperatorSQLSQLExpr          CreateDashboardRowFilterOperatorSQL = "sql_expr"
-	CreateDashboardRowFilterOperatorSQLSavedFilter      CreateDashboardRowFilterOperatorSQL = "saved_filter"
+	CreateDashboardRowFilterOperatorSQLEqual             CreateDashboardRowFilterOperatorSQL = "="
+	CreateDashboardRowFilterOperatorSQLNotEqual          CreateDashboardRowFilterOperatorSQL = "!="
+	CreateDashboardRowFilterOperatorSQLLessThan          CreateDashboardRowFilterOperatorSQL = "<"
+	CreateDashboardRowFilterOperatorSQLLessThanEqual     CreateDashboardRowFilterOperatorSQL = "<="
+	CreateDashboardRowFilterOperatorSQLGreaterThan       CreateDashboardRowFilterOperatorSQL = ">"
+	CreateDashboardRowFilterOperatorSQLGreaterThanEqual  CreateDashboardRowFilterOperatorSQL = ">="
+	CreateDashboardRowFilterOperatorSQLBetween           CreateDashboardRowFilterOperatorSQL = "between"
+	CreateDashboardRowFilterOperatorSQLNotBetween        CreateDashboardRowFilterOperatorSQL = "not_between"
+	CreateDashboardRowFilterOperatorSQLIn                CreateDashboardRowFilterOperatorSQL = "in"
+	CreateDashboardRowFilterOperatorSQLNotIn             CreateDashboardRowFilterOperatorSQL = "not_in"
+	CreateDashboardRowFilterOperatorSQLContains          CreateDashboardRowFilterOperatorSQL = "contains"
+	CreateDashboardRowFilterOperatorSQLNotContains       CreateDashboardRowFilterOperatorSQL = "not_contains"
+	CreateDashboardRowFilterOperatorSQLMatchesPattern    CreateDashboardRowFilterOperatorSQL = "matches_pattern"
+	CreateDashboardRowFilterOperatorSQLNotMatchesPattern CreateDashboardRowFilterOperatorSQL = "not_matches_pattern"
+	CreateDashboardRowFilterOperatorSQLStartsWith        CreateDashboardRowFilterOperatorSQL = "starts_with"
+	CreateDashboardRowFilterOperatorSQLEndsWith          CreateDashboardRowFilterOperatorSQL = "ends_with"
+	CreateDashboardRowFilterOperatorSQLIsNull            CreateDashboardRowFilterOperatorSQL = "is_null"
+	CreateDashboardRowFilterOperatorSQLNotNull           CreateDashboardRowFilterOperatorSQL = "not_null"
+	CreateDashboardRowFilterOperatorSQLIsTrue            CreateDashboardRowFilterOperatorSQL = "is_true"
+	CreateDashboardRowFilterOperatorSQLIsFalse           CreateDashboardRowFilterOperatorSQL = "is_false"
+	CreateDashboardRowFilterOperatorSQLSQLExpr           CreateDashboardRowFilterOperatorSQL = "sql_expr"
+	CreateDashboardRowFilterOperatorSQLSavedFilter       CreateDashboardRowFilterOperatorSQL = "saved_filter"
 )
 
 func (e CreateDashboardRowFilterOperatorSQL) ToPointer() *CreateDashboardRowFilterOperatorSQL {
@@ -1676,6 +1684,10 @@ func (e *CreateDashboardRowFilterOperatorSQL) UnmarshalJSON(data []byte) error {
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough
@@ -2353,26 +2365,28 @@ func (c *CreateDashboardGlobalControlSettings8) GetDateRange() *bool {
 type CreateDashboardDimensionOperatorFunnel string
 
 const (
-	CreateDashboardDimensionOperatorFunnelEqual            CreateDashboardDimensionOperatorFunnel = "="
-	CreateDashboardDimensionOperatorFunnelNotEqual         CreateDashboardDimensionOperatorFunnel = "!="
-	CreateDashboardDimensionOperatorFunnelLessThan         CreateDashboardDimensionOperatorFunnel = "<"
-	CreateDashboardDimensionOperatorFunnelLessThanEqual    CreateDashboardDimensionOperatorFunnel = "<="
-	CreateDashboardDimensionOperatorFunnelGreaterThan      CreateDashboardDimensionOperatorFunnel = ">"
-	CreateDashboardDimensionOperatorFunnelGreaterThanEqual CreateDashboardDimensionOperatorFunnel = ">="
-	CreateDashboardDimensionOperatorFunnelBetween          CreateDashboardDimensionOperatorFunnel = "between"
-	CreateDashboardDimensionOperatorFunnelNotBetween       CreateDashboardDimensionOperatorFunnel = "not_between"
-	CreateDashboardDimensionOperatorFunnelIn               CreateDashboardDimensionOperatorFunnel = "in"
-	CreateDashboardDimensionOperatorFunnelNotIn            CreateDashboardDimensionOperatorFunnel = "not_in"
-	CreateDashboardDimensionOperatorFunnelContains         CreateDashboardDimensionOperatorFunnel = "contains"
-	CreateDashboardDimensionOperatorFunnelNotContains      CreateDashboardDimensionOperatorFunnel = "not_contains"
-	CreateDashboardDimensionOperatorFunnelStartsWith       CreateDashboardDimensionOperatorFunnel = "starts_with"
-	CreateDashboardDimensionOperatorFunnelEndsWith         CreateDashboardDimensionOperatorFunnel = "ends_with"
-	CreateDashboardDimensionOperatorFunnelIsNull           CreateDashboardDimensionOperatorFunnel = "is_null"
-	CreateDashboardDimensionOperatorFunnelNotNull          CreateDashboardDimensionOperatorFunnel = "not_null"
-	CreateDashboardDimensionOperatorFunnelIsTrue           CreateDashboardDimensionOperatorFunnel = "is_true"
-	CreateDashboardDimensionOperatorFunnelIsFalse          CreateDashboardDimensionOperatorFunnel = "is_false"
-	CreateDashboardDimensionOperatorFunnelSQLExpr          CreateDashboardDimensionOperatorFunnel = "sql_expr"
-	CreateDashboardDimensionOperatorFunnelSavedFilter      CreateDashboardDimensionOperatorFunnel = "saved_filter"
+	CreateDashboardDimensionOperatorFunnelEqual             CreateDashboardDimensionOperatorFunnel = "="
+	CreateDashboardDimensionOperatorFunnelNotEqual          CreateDashboardDimensionOperatorFunnel = "!="
+	CreateDashboardDimensionOperatorFunnelLessThan          CreateDashboardDimensionOperatorFunnel = "<"
+	CreateDashboardDimensionOperatorFunnelLessThanEqual     CreateDashboardDimensionOperatorFunnel = "<="
+	CreateDashboardDimensionOperatorFunnelGreaterThan       CreateDashboardDimensionOperatorFunnel = ">"
+	CreateDashboardDimensionOperatorFunnelGreaterThanEqual  CreateDashboardDimensionOperatorFunnel = ">="
+	CreateDashboardDimensionOperatorFunnelBetween           CreateDashboardDimensionOperatorFunnel = "between"
+	CreateDashboardDimensionOperatorFunnelNotBetween        CreateDashboardDimensionOperatorFunnel = "not_between"
+	CreateDashboardDimensionOperatorFunnelIn                CreateDashboardDimensionOperatorFunnel = "in"
+	CreateDashboardDimensionOperatorFunnelNotIn             CreateDashboardDimensionOperatorFunnel = "not_in"
+	CreateDashboardDimensionOperatorFunnelContains          CreateDashboardDimensionOperatorFunnel = "contains"
+	CreateDashboardDimensionOperatorFunnelNotContains       CreateDashboardDimensionOperatorFunnel = "not_contains"
+	CreateDashboardDimensionOperatorFunnelMatchesPattern    CreateDashboardDimensionOperatorFunnel = "matches_pattern"
+	CreateDashboardDimensionOperatorFunnelNotMatchesPattern CreateDashboardDimensionOperatorFunnel = "not_matches_pattern"
+	CreateDashboardDimensionOperatorFunnelStartsWith        CreateDashboardDimensionOperatorFunnel = "starts_with"
+	CreateDashboardDimensionOperatorFunnelEndsWith          CreateDashboardDimensionOperatorFunnel = "ends_with"
+	CreateDashboardDimensionOperatorFunnelIsNull            CreateDashboardDimensionOperatorFunnel = "is_null"
+	CreateDashboardDimensionOperatorFunnelNotNull           CreateDashboardDimensionOperatorFunnel = "not_null"
+	CreateDashboardDimensionOperatorFunnelIsTrue            CreateDashboardDimensionOperatorFunnel = "is_true"
+	CreateDashboardDimensionOperatorFunnelIsFalse           CreateDashboardDimensionOperatorFunnel = "is_false"
+	CreateDashboardDimensionOperatorFunnelSQLExpr           CreateDashboardDimensionOperatorFunnel = "sql_expr"
+	CreateDashboardDimensionOperatorFunnelSavedFilter       CreateDashboardDimensionOperatorFunnel = "saved_filter"
 )
 
 func (e CreateDashboardDimensionOperatorFunnel) ToPointer() *CreateDashboardDimensionOperatorFunnel {
@@ -2407,6 +2421,10 @@ func (e *CreateDashboardDimensionOperatorFunnel) UnmarshalJSON(data []byte) erro
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough
@@ -3041,26 +3059,28 @@ func (c *CreateDashboardChartSettingsFunnel) GetValueAxisLabel() *string {
 type CreateDashboardStepOperator string
 
 const (
-	CreateDashboardStepOperatorEqual            CreateDashboardStepOperator = "="
-	CreateDashboardStepOperatorNotEqual         CreateDashboardStepOperator = "!="
-	CreateDashboardStepOperatorLessThan         CreateDashboardStepOperator = "<"
-	CreateDashboardStepOperatorLessThanEqual    CreateDashboardStepOperator = "<="
-	CreateDashboardStepOperatorGreaterThan      CreateDashboardStepOperator = ">"
-	CreateDashboardStepOperatorGreaterThanEqual CreateDashboardStepOperator = ">="
-	CreateDashboardStepOperatorBetween          CreateDashboardStepOperator = "between"
-	CreateDashboardStepOperatorNotBetween       CreateDashboardStepOperator = "not_between"
-	CreateDashboardStepOperatorIn               CreateDashboardStepOperator = "in"
-	CreateDashboardStepOperatorNotIn            CreateDashboardStepOperator = "not_in"
-	CreateDashboardStepOperatorContains         CreateDashboardStepOperator = "contains"
-	CreateDashboardStepOperatorNotContains      CreateDashboardStepOperator = "not_contains"
-	CreateDashboardStepOperatorStartsWith       CreateDashboardStepOperator = "starts_with"
-	CreateDashboardStepOperatorEndsWith         CreateDashboardStepOperator = "ends_with"
-	CreateDashboardStepOperatorIsNull           CreateDashboardStepOperator = "is_null"
-	CreateDashboardStepOperatorNotNull          CreateDashboardStepOperator = "not_null"
-	CreateDashboardStepOperatorIsTrue           CreateDashboardStepOperator = "is_true"
-	CreateDashboardStepOperatorIsFalse          CreateDashboardStepOperator = "is_false"
-	CreateDashboardStepOperatorSQLExpr          CreateDashboardStepOperator = "sql_expr"
-	CreateDashboardStepOperatorSavedFilter      CreateDashboardStepOperator = "saved_filter"
+	CreateDashboardStepOperatorEqual             CreateDashboardStepOperator = "="
+	CreateDashboardStepOperatorNotEqual          CreateDashboardStepOperator = "!="
+	CreateDashboardStepOperatorLessThan          CreateDashboardStepOperator = "<"
+	CreateDashboardStepOperatorLessThanEqual     CreateDashboardStepOperator = "<="
+	CreateDashboardStepOperatorGreaterThan       CreateDashboardStepOperator = ">"
+	CreateDashboardStepOperatorGreaterThanEqual  CreateDashboardStepOperator = ">="
+	CreateDashboardStepOperatorBetween           CreateDashboardStepOperator = "between"
+	CreateDashboardStepOperatorNotBetween        CreateDashboardStepOperator = "not_between"
+	CreateDashboardStepOperatorIn                CreateDashboardStepOperator = "in"
+	CreateDashboardStepOperatorNotIn             CreateDashboardStepOperator = "not_in"
+	CreateDashboardStepOperatorContains          CreateDashboardStepOperator = "contains"
+	CreateDashboardStepOperatorNotContains       CreateDashboardStepOperator = "not_contains"
+	CreateDashboardStepOperatorMatchesPattern    CreateDashboardStepOperator = "matches_pattern"
+	CreateDashboardStepOperatorNotMatchesPattern CreateDashboardStepOperator = "not_matches_pattern"
+	CreateDashboardStepOperatorStartsWith        CreateDashboardStepOperator = "starts_with"
+	CreateDashboardStepOperatorEndsWith          CreateDashboardStepOperator = "ends_with"
+	CreateDashboardStepOperatorIsNull            CreateDashboardStepOperator = "is_null"
+	CreateDashboardStepOperatorNotNull           CreateDashboardStepOperator = "not_null"
+	CreateDashboardStepOperatorIsTrue            CreateDashboardStepOperator = "is_true"
+	CreateDashboardStepOperatorIsFalse           CreateDashboardStepOperator = "is_false"
+	CreateDashboardStepOperatorSQLExpr           CreateDashboardStepOperator = "sql_expr"
+	CreateDashboardStepOperatorSavedFilter       CreateDashboardStepOperator = "saved_filter"
 )
 
 func (e CreateDashboardStepOperator) ToPointer() *CreateDashboardStepOperator {
@@ -3095,6 +3115,10 @@ func (e *CreateDashboardStepOperator) UnmarshalJSON(data []byte) error {
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough
@@ -3825,26 +3849,28 @@ func (c *CreateDashboardGlobalControlSettings7) GetDateRange() *bool {
 type CreateDashboardDimensionOperatorDataSource string
 
 const (
-	CreateDashboardDimensionOperatorDataSourceEqual            CreateDashboardDimensionOperatorDataSource = "="
-	CreateDashboardDimensionOperatorDataSourceNotEqual         CreateDashboardDimensionOperatorDataSource = "!="
-	CreateDashboardDimensionOperatorDataSourceLessThan         CreateDashboardDimensionOperatorDataSource = "<"
-	CreateDashboardDimensionOperatorDataSourceLessThanEqual    CreateDashboardDimensionOperatorDataSource = "<="
-	CreateDashboardDimensionOperatorDataSourceGreaterThan      CreateDashboardDimensionOperatorDataSource = ">"
-	CreateDashboardDimensionOperatorDataSourceGreaterThanEqual CreateDashboardDimensionOperatorDataSource = ">="
-	CreateDashboardDimensionOperatorDataSourceBetween          CreateDashboardDimensionOperatorDataSource = "between"
-	CreateDashboardDimensionOperatorDataSourceNotBetween       CreateDashboardDimensionOperatorDataSource = "not_between"
-	CreateDashboardDimensionOperatorDataSourceIn               CreateDashboardDimensionOperatorDataSource = "in"
-	CreateDashboardDimensionOperatorDataSourceNotIn            CreateDashboardDimensionOperatorDataSource = "not_in"
-	CreateDashboardDimensionOperatorDataSourceContains         CreateDashboardDimensionOperatorDataSource = "contains"
-	CreateDashboardDimensionOperatorDataSourceNotContains      CreateDashboardDimensionOperatorDataSource = "not_contains"
-	CreateDashboardDimensionOperatorDataSourceStartsWith       CreateDashboardDimensionOperatorDataSource = "starts_with"
-	CreateDashboardDimensionOperatorDataSourceEndsWith         CreateDashboardDimensionOperatorDataSource = "ends_with"
-	CreateDashboardDimensionOperatorDataSourceIsNull           CreateDashboardDimensionOperatorDataSource = "is_null"
-	CreateDashboardDimensionOperatorDataSourceNotNull          CreateDashboardDimensionOperatorDataSource = "not_null"
-	CreateDashboardDimensionOperatorDataSourceIsTrue           CreateDashboardDimensionOperatorDataSource = "is_true"
-	CreateDashboardDimensionOperatorDataSourceIsFalse          CreateDashboardDimensionOperatorDataSource = "is_false"
-	CreateDashboardDimensionOperatorDataSourceSQLExpr          CreateDashboardDimensionOperatorDataSource = "sql_expr"
-	CreateDashboardDimensionOperatorDataSourceSavedFilter      CreateDashboardDimensionOperatorDataSource = "saved_filter"
+	CreateDashboardDimensionOperatorDataSourceEqual             CreateDashboardDimensionOperatorDataSource = "="
+	CreateDashboardDimensionOperatorDataSourceNotEqual          CreateDashboardDimensionOperatorDataSource = "!="
+	CreateDashboardDimensionOperatorDataSourceLessThan          CreateDashboardDimensionOperatorDataSource = "<"
+	CreateDashboardDimensionOperatorDataSourceLessThanEqual     CreateDashboardDimensionOperatorDataSource = "<="
+	CreateDashboardDimensionOperatorDataSourceGreaterThan       CreateDashboardDimensionOperatorDataSource = ">"
+	CreateDashboardDimensionOperatorDataSourceGreaterThanEqual  CreateDashboardDimensionOperatorDataSource = ">="
+	CreateDashboardDimensionOperatorDataSourceBetween           CreateDashboardDimensionOperatorDataSource = "between"
+	CreateDashboardDimensionOperatorDataSourceNotBetween        CreateDashboardDimensionOperatorDataSource = "not_between"
+	CreateDashboardDimensionOperatorDataSourceIn                CreateDashboardDimensionOperatorDataSource = "in"
+	CreateDashboardDimensionOperatorDataSourceNotIn             CreateDashboardDimensionOperatorDataSource = "not_in"
+	CreateDashboardDimensionOperatorDataSourceContains          CreateDashboardDimensionOperatorDataSource = "contains"
+	CreateDashboardDimensionOperatorDataSourceNotContains       CreateDashboardDimensionOperatorDataSource = "not_contains"
+	CreateDashboardDimensionOperatorDataSourceMatchesPattern    CreateDashboardDimensionOperatorDataSource = "matches_pattern"
+	CreateDashboardDimensionOperatorDataSourceNotMatchesPattern CreateDashboardDimensionOperatorDataSource = "not_matches_pattern"
+	CreateDashboardDimensionOperatorDataSourceStartsWith        CreateDashboardDimensionOperatorDataSource = "starts_with"
+	CreateDashboardDimensionOperatorDataSourceEndsWith          CreateDashboardDimensionOperatorDataSource = "ends_with"
+	CreateDashboardDimensionOperatorDataSourceIsNull            CreateDashboardDimensionOperatorDataSource = "is_null"
+	CreateDashboardDimensionOperatorDataSourceNotNull           CreateDashboardDimensionOperatorDataSource = "not_null"
+	CreateDashboardDimensionOperatorDataSourceIsTrue            CreateDashboardDimensionOperatorDataSource = "is_true"
+	CreateDashboardDimensionOperatorDataSourceIsFalse           CreateDashboardDimensionOperatorDataSource = "is_false"
+	CreateDashboardDimensionOperatorDataSourceSQLExpr           CreateDashboardDimensionOperatorDataSource = "sql_expr"
+	CreateDashboardDimensionOperatorDataSourceSavedFilter       CreateDashboardDimensionOperatorDataSource = "saved_filter"
 )
 
 func (e CreateDashboardDimensionOperatorDataSource) ToPointer() *CreateDashboardDimensionOperatorDataSource {
@@ -3879,6 +3905,10 @@ func (e *CreateDashboardDimensionOperatorDataSource) UnmarshalJSON(data []byte) 
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough
@@ -4548,26 +4578,28 @@ func (e *CreateDashboardColumnTypesDataSource) UnmarshalJSON(data []byte) error 
 type CreateDashboardRowFilterOperatorDataSource string
 
 const (
-	CreateDashboardRowFilterOperatorDataSourceEqual            CreateDashboardRowFilterOperatorDataSource = "="
-	CreateDashboardRowFilterOperatorDataSourceNotEqual         CreateDashboardRowFilterOperatorDataSource = "!="
-	CreateDashboardRowFilterOperatorDataSourceLessThan         CreateDashboardRowFilterOperatorDataSource = "<"
-	CreateDashboardRowFilterOperatorDataSourceLessThanEqual    CreateDashboardRowFilterOperatorDataSource = "<="
-	CreateDashboardRowFilterOperatorDataSourceGreaterThan      CreateDashboardRowFilterOperatorDataSource = ">"
-	CreateDashboardRowFilterOperatorDataSourceGreaterThanEqual CreateDashboardRowFilterOperatorDataSource = ">="
-	CreateDashboardRowFilterOperatorDataSourceBetween          CreateDashboardRowFilterOperatorDataSource = "between"
-	CreateDashboardRowFilterOperatorDataSourceNotBetween       CreateDashboardRowFilterOperatorDataSource = "not_between"
-	CreateDashboardRowFilterOperatorDataSourceIn               CreateDashboardRowFilterOperatorDataSource = "in"
-	CreateDashboardRowFilterOperatorDataSourceNotIn            CreateDashboardRowFilterOperatorDataSource = "not_in"
-	CreateDashboardRowFilterOperatorDataSourceContains         CreateDashboardRowFilterOperatorDataSource = "contains"
-	CreateDashboardRowFilterOperatorDataSourceNotContains      CreateDashboardRowFilterOperatorDataSource = "not_contains"
-	CreateDashboardRowFilterOperatorDataSourceStartsWith       CreateDashboardRowFilterOperatorDataSource = "starts_with"
-	CreateDashboardRowFilterOperatorDataSourceEndsWith         CreateDashboardRowFilterOperatorDataSource = "ends_with"
-	CreateDashboardRowFilterOperatorDataSourceIsNull           CreateDashboardRowFilterOperatorDataSource = "is_null"
-	CreateDashboardRowFilterOperatorDataSourceNotNull          CreateDashboardRowFilterOperatorDataSource = "not_null"
-	CreateDashboardRowFilterOperatorDataSourceIsTrue           CreateDashboardRowFilterOperatorDataSource = "is_true"
-	CreateDashboardRowFilterOperatorDataSourceIsFalse          CreateDashboardRowFilterOperatorDataSource = "is_false"
-	CreateDashboardRowFilterOperatorDataSourceSQLExpr          CreateDashboardRowFilterOperatorDataSource = "sql_expr"
-	CreateDashboardRowFilterOperatorDataSourceSavedFilter      CreateDashboardRowFilterOperatorDataSource = "saved_filter"
+	CreateDashboardRowFilterOperatorDataSourceEqual             CreateDashboardRowFilterOperatorDataSource = "="
+	CreateDashboardRowFilterOperatorDataSourceNotEqual          CreateDashboardRowFilterOperatorDataSource = "!="
+	CreateDashboardRowFilterOperatorDataSourceLessThan          CreateDashboardRowFilterOperatorDataSource = "<"
+	CreateDashboardRowFilterOperatorDataSourceLessThanEqual     CreateDashboardRowFilterOperatorDataSource = "<="
+	CreateDashboardRowFilterOperatorDataSourceGreaterThan       CreateDashboardRowFilterOperatorDataSource = ">"
+	CreateDashboardRowFilterOperatorDataSourceGreaterThanEqual  CreateDashboardRowFilterOperatorDataSource = ">="
+	CreateDashboardRowFilterOperatorDataSourceBetween           CreateDashboardRowFilterOperatorDataSource = "between"
+	CreateDashboardRowFilterOperatorDataSourceNotBetween        CreateDashboardRowFilterOperatorDataSource = "not_between"
+	CreateDashboardRowFilterOperatorDataSourceIn                CreateDashboardRowFilterOperatorDataSource = "in"
+	CreateDashboardRowFilterOperatorDataSourceNotIn             CreateDashboardRowFilterOperatorDataSource = "not_in"
+	CreateDashboardRowFilterOperatorDataSourceContains          CreateDashboardRowFilterOperatorDataSource = "contains"
+	CreateDashboardRowFilterOperatorDataSourceNotContains       CreateDashboardRowFilterOperatorDataSource = "not_contains"
+	CreateDashboardRowFilterOperatorDataSourceMatchesPattern    CreateDashboardRowFilterOperatorDataSource = "matches_pattern"
+	CreateDashboardRowFilterOperatorDataSourceNotMatchesPattern CreateDashboardRowFilterOperatorDataSource = "not_matches_pattern"
+	CreateDashboardRowFilterOperatorDataSourceStartsWith        CreateDashboardRowFilterOperatorDataSource = "starts_with"
+	CreateDashboardRowFilterOperatorDataSourceEndsWith          CreateDashboardRowFilterOperatorDataSource = "ends_with"
+	CreateDashboardRowFilterOperatorDataSourceIsNull            CreateDashboardRowFilterOperatorDataSource = "is_null"
+	CreateDashboardRowFilterOperatorDataSourceNotNull           CreateDashboardRowFilterOperatorDataSource = "not_null"
+	CreateDashboardRowFilterOperatorDataSourceIsTrue            CreateDashboardRowFilterOperatorDataSource = "is_true"
+	CreateDashboardRowFilterOperatorDataSourceIsFalse           CreateDashboardRowFilterOperatorDataSource = "is_false"
+	CreateDashboardRowFilterOperatorDataSourceSQLExpr           CreateDashboardRowFilterOperatorDataSource = "sql_expr"
+	CreateDashboardRowFilterOperatorDataSourceSavedFilter       CreateDashboardRowFilterOperatorDataSource = "saved_filter"
 )
 
 func (e CreateDashboardRowFilterOperatorDataSource) ToPointer() *CreateDashboardRowFilterOperatorDataSource {
@@ -4602,6 +4634,10 @@ func (e *CreateDashboardRowFilterOperatorDataSource) UnmarshalJSON(data []byte) 
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough
@@ -5279,26 +5315,28 @@ func (c *CreateDashboardGlobalControlSettings6) GetDateRange() *bool {
 type CreateDashboardDimensionOperatorFactTable string
 
 const (
-	CreateDashboardDimensionOperatorFactTableEqual            CreateDashboardDimensionOperatorFactTable = "="
-	CreateDashboardDimensionOperatorFactTableNotEqual         CreateDashboardDimensionOperatorFactTable = "!="
-	CreateDashboardDimensionOperatorFactTableLessThan         CreateDashboardDimensionOperatorFactTable = "<"
-	CreateDashboardDimensionOperatorFactTableLessThanEqual    CreateDashboardDimensionOperatorFactTable = "<="
-	CreateDashboardDimensionOperatorFactTableGreaterThan      CreateDashboardDimensionOperatorFactTable = ">"
-	CreateDashboardDimensionOperatorFactTableGreaterThanEqual CreateDashboardDimensionOperatorFactTable = ">="
-	CreateDashboardDimensionOperatorFactTableBetween          CreateDashboardDimensionOperatorFactTable = "between"
-	CreateDashboardDimensionOperatorFactTableNotBetween       CreateDashboardDimensionOperatorFactTable = "not_between"
-	CreateDashboardDimensionOperatorFactTableIn               CreateDashboardDimensionOperatorFactTable = "in"
-	CreateDashboardDimensionOperatorFactTableNotIn            CreateDashboardDimensionOperatorFactTable = "not_in"
-	CreateDashboardDimensionOperatorFactTableContains         CreateDashboardDimensionOperatorFactTable = "contains"
-	CreateDashboardDimensionOperatorFactTableNotContains      CreateDashboardDimensionOperatorFactTable = "not_contains"
-	CreateDashboardDimensionOperatorFactTableStartsWith       CreateDashboardDimensionOperatorFactTable = "starts_with"
-	CreateDashboardDimensionOperatorFactTableEndsWith         CreateDashboardDimensionOperatorFactTable = "ends_with"
-	CreateDashboardDimensionOperatorFactTableIsNull           CreateDashboardDimensionOperatorFactTable = "is_null"
-	CreateDashboardDimensionOperatorFactTableNotNull          CreateDashboardDimensionOperatorFactTable = "not_null"
-	CreateDashboardDimensionOperatorFactTableIsTrue           CreateDashboardDimensionOperatorFactTable = "is_true"
-	CreateDashboardDimensionOperatorFactTableIsFalse          CreateDashboardDimensionOperatorFactTable = "is_false"
-	CreateDashboardDimensionOperatorFactTableSQLExpr          CreateDashboardDimensionOperatorFactTable = "sql_expr"
-	CreateDashboardDimensionOperatorFactTableSavedFilter      CreateDashboardDimensionOperatorFactTable = "saved_filter"
+	CreateDashboardDimensionOperatorFactTableEqual             CreateDashboardDimensionOperatorFactTable = "="
+	CreateDashboardDimensionOperatorFactTableNotEqual          CreateDashboardDimensionOperatorFactTable = "!="
+	CreateDashboardDimensionOperatorFactTableLessThan          CreateDashboardDimensionOperatorFactTable = "<"
+	CreateDashboardDimensionOperatorFactTableLessThanEqual     CreateDashboardDimensionOperatorFactTable = "<="
+	CreateDashboardDimensionOperatorFactTableGreaterThan       CreateDashboardDimensionOperatorFactTable = ">"
+	CreateDashboardDimensionOperatorFactTableGreaterThanEqual  CreateDashboardDimensionOperatorFactTable = ">="
+	CreateDashboardDimensionOperatorFactTableBetween           CreateDashboardDimensionOperatorFactTable = "between"
+	CreateDashboardDimensionOperatorFactTableNotBetween        CreateDashboardDimensionOperatorFactTable = "not_between"
+	CreateDashboardDimensionOperatorFactTableIn                CreateDashboardDimensionOperatorFactTable = "in"
+	CreateDashboardDimensionOperatorFactTableNotIn             CreateDashboardDimensionOperatorFactTable = "not_in"
+	CreateDashboardDimensionOperatorFactTableContains          CreateDashboardDimensionOperatorFactTable = "contains"
+	CreateDashboardDimensionOperatorFactTableNotContains       CreateDashboardDimensionOperatorFactTable = "not_contains"
+	CreateDashboardDimensionOperatorFactTableMatchesPattern    CreateDashboardDimensionOperatorFactTable = "matches_pattern"
+	CreateDashboardDimensionOperatorFactTableNotMatchesPattern CreateDashboardDimensionOperatorFactTable = "not_matches_pattern"
+	CreateDashboardDimensionOperatorFactTableStartsWith        CreateDashboardDimensionOperatorFactTable = "starts_with"
+	CreateDashboardDimensionOperatorFactTableEndsWith          CreateDashboardDimensionOperatorFactTable = "ends_with"
+	CreateDashboardDimensionOperatorFactTableIsNull            CreateDashboardDimensionOperatorFactTable = "is_null"
+	CreateDashboardDimensionOperatorFactTableNotNull           CreateDashboardDimensionOperatorFactTable = "not_null"
+	CreateDashboardDimensionOperatorFactTableIsTrue            CreateDashboardDimensionOperatorFactTable = "is_true"
+	CreateDashboardDimensionOperatorFactTableIsFalse           CreateDashboardDimensionOperatorFactTable = "is_false"
+	CreateDashboardDimensionOperatorFactTableSQLExpr           CreateDashboardDimensionOperatorFactTable = "sql_expr"
+	CreateDashboardDimensionOperatorFactTableSavedFilter       CreateDashboardDimensionOperatorFactTable = "saved_filter"
 )
 
 func (e CreateDashboardDimensionOperatorFactTable) ToPointer() *CreateDashboardDimensionOperatorFactTable {
@@ -5333,6 +5371,10 @@ func (e *CreateDashboardDimensionOperatorFactTable) UnmarshalJSON(data []byte) e
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough
@@ -5967,26 +6009,28 @@ func (c *CreateDashboardChartSettingsFactTable) GetValueAxisLabel() *string {
 type CreateDashboardRowFilterOperatorFactTable string
 
 const (
-	CreateDashboardRowFilterOperatorFactTableEqual            CreateDashboardRowFilterOperatorFactTable = "="
-	CreateDashboardRowFilterOperatorFactTableNotEqual         CreateDashboardRowFilterOperatorFactTable = "!="
-	CreateDashboardRowFilterOperatorFactTableLessThan         CreateDashboardRowFilterOperatorFactTable = "<"
-	CreateDashboardRowFilterOperatorFactTableLessThanEqual    CreateDashboardRowFilterOperatorFactTable = "<="
-	CreateDashboardRowFilterOperatorFactTableGreaterThan      CreateDashboardRowFilterOperatorFactTable = ">"
-	CreateDashboardRowFilterOperatorFactTableGreaterThanEqual CreateDashboardRowFilterOperatorFactTable = ">="
-	CreateDashboardRowFilterOperatorFactTableBetween          CreateDashboardRowFilterOperatorFactTable = "between"
-	CreateDashboardRowFilterOperatorFactTableNotBetween       CreateDashboardRowFilterOperatorFactTable = "not_between"
-	CreateDashboardRowFilterOperatorFactTableIn               CreateDashboardRowFilterOperatorFactTable = "in"
-	CreateDashboardRowFilterOperatorFactTableNotIn            CreateDashboardRowFilterOperatorFactTable = "not_in"
-	CreateDashboardRowFilterOperatorFactTableContains         CreateDashboardRowFilterOperatorFactTable = "contains"
-	CreateDashboardRowFilterOperatorFactTableNotContains      CreateDashboardRowFilterOperatorFactTable = "not_contains"
-	CreateDashboardRowFilterOperatorFactTableStartsWith       CreateDashboardRowFilterOperatorFactTable = "starts_with"
-	CreateDashboardRowFilterOperatorFactTableEndsWith         CreateDashboardRowFilterOperatorFactTable = "ends_with"
-	CreateDashboardRowFilterOperatorFactTableIsNull           CreateDashboardRowFilterOperatorFactTable = "is_null"
-	CreateDashboardRowFilterOperatorFactTableNotNull          CreateDashboardRowFilterOperatorFactTable = "not_null"
-	CreateDashboardRowFilterOperatorFactTableIsTrue           CreateDashboardRowFilterOperatorFactTable = "is_true"
-	CreateDashboardRowFilterOperatorFactTableIsFalse          CreateDashboardRowFilterOperatorFactTable = "is_false"
-	CreateDashboardRowFilterOperatorFactTableSQLExpr          CreateDashboardRowFilterOperatorFactTable = "sql_expr"
-	CreateDashboardRowFilterOperatorFactTableSavedFilter      CreateDashboardRowFilterOperatorFactTable = "saved_filter"
+	CreateDashboardRowFilterOperatorFactTableEqual             CreateDashboardRowFilterOperatorFactTable = "="
+	CreateDashboardRowFilterOperatorFactTableNotEqual          CreateDashboardRowFilterOperatorFactTable = "!="
+	CreateDashboardRowFilterOperatorFactTableLessThan          CreateDashboardRowFilterOperatorFactTable = "<"
+	CreateDashboardRowFilterOperatorFactTableLessThanEqual     CreateDashboardRowFilterOperatorFactTable = "<="
+	CreateDashboardRowFilterOperatorFactTableGreaterThan       CreateDashboardRowFilterOperatorFactTable = ">"
+	CreateDashboardRowFilterOperatorFactTableGreaterThanEqual  CreateDashboardRowFilterOperatorFactTable = ">="
+	CreateDashboardRowFilterOperatorFactTableBetween           CreateDashboardRowFilterOperatorFactTable = "between"
+	CreateDashboardRowFilterOperatorFactTableNotBetween        CreateDashboardRowFilterOperatorFactTable = "not_between"
+	CreateDashboardRowFilterOperatorFactTableIn                CreateDashboardRowFilterOperatorFactTable = "in"
+	CreateDashboardRowFilterOperatorFactTableNotIn             CreateDashboardRowFilterOperatorFactTable = "not_in"
+	CreateDashboardRowFilterOperatorFactTableContains          CreateDashboardRowFilterOperatorFactTable = "contains"
+	CreateDashboardRowFilterOperatorFactTableNotContains       CreateDashboardRowFilterOperatorFactTable = "not_contains"
+	CreateDashboardRowFilterOperatorFactTableMatchesPattern    CreateDashboardRowFilterOperatorFactTable = "matches_pattern"
+	CreateDashboardRowFilterOperatorFactTableNotMatchesPattern CreateDashboardRowFilterOperatorFactTable = "not_matches_pattern"
+	CreateDashboardRowFilterOperatorFactTableStartsWith        CreateDashboardRowFilterOperatorFactTable = "starts_with"
+	CreateDashboardRowFilterOperatorFactTableEndsWith          CreateDashboardRowFilterOperatorFactTable = "ends_with"
+	CreateDashboardRowFilterOperatorFactTableIsNull            CreateDashboardRowFilterOperatorFactTable = "is_null"
+	CreateDashboardRowFilterOperatorFactTableNotNull           CreateDashboardRowFilterOperatorFactTable = "not_null"
+	CreateDashboardRowFilterOperatorFactTableIsTrue            CreateDashboardRowFilterOperatorFactTable = "is_true"
+	CreateDashboardRowFilterOperatorFactTableIsFalse           CreateDashboardRowFilterOperatorFactTable = "is_false"
+	CreateDashboardRowFilterOperatorFactTableSQLExpr           CreateDashboardRowFilterOperatorFactTable = "sql_expr"
+	CreateDashboardRowFilterOperatorFactTableSavedFilter       CreateDashboardRowFilterOperatorFactTable = "saved_filter"
 )
 
 func (e CreateDashboardRowFilterOperatorFactTable) ToPointer() *CreateDashboardRowFilterOperatorFactTable {
@@ -6021,6 +6065,10 @@ func (e *CreateDashboardRowFilterOperatorFactTable) UnmarshalJSON(data []byte) e
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough
@@ -6674,26 +6722,28 @@ func (c *CreateDashboardGlobalControlSettings5) GetDateRange() *bool {
 type CreateDashboardDimensionOperatorMetric string
 
 const (
-	CreateDashboardDimensionOperatorMetricEqual            CreateDashboardDimensionOperatorMetric = "="
-	CreateDashboardDimensionOperatorMetricNotEqual         CreateDashboardDimensionOperatorMetric = "!="
-	CreateDashboardDimensionOperatorMetricLessThan         CreateDashboardDimensionOperatorMetric = "<"
-	CreateDashboardDimensionOperatorMetricLessThanEqual    CreateDashboardDimensionOperatorMetric = "<="
-	CreateDashboardDimensionOperatorMetricGreaterThan      CreateDashboardDimensionOperatorMetric = ">"
-	CreateDashboardDimensionOperatorMetricGreaterThanEqual CreateDashboardDimensionOperatorMetric = ">="
-	CreateDashboardDimensionOperatorMetricBetween          CreateDashboardDimensionOperatorMetric = "between"
-	CreateDashboardDimensionOperatorMetricNotBetween       CreateDashboardDimensionOperatorMetric = "not_between"
-	CreateDashboardDimensionOperatorMetricIn               CreateDashboardDimensionOperatorMetric = "in"
-	CreateDashboardDimensionOperatorMetricNotIn            CreateDashboardDimensionOperatorMetric = "not_in"
-	CreateDashboardDimensionOperatorMetricContains         CreateDashboardDimensionOperatorMetric = "contains"
-	CreateDashboardDimensionOperatorMetricNotContains      CreateDashboardDimensionOperatorMetric = "not_contains"
-	CreateDashboardDimensionOperatorMetricStartsWith       CreateDashboardDimensionOperatorMetric = "starts_with"
-	CreateDashboardDimensionOperatorMetricEndsWith         CreateDashboardDimensionOperatorMetric = "ends_with"
-	CreateDashboardDimensionOperatorMetricIsNull           CreateDashboardDimensionOperatorMetric = "is_null"
-	CreateDashboardDimensionOperatorMetricNotNull          CreateDashboardDimensionOperatorMetric = "not_null"
-	CreateDashboardDimensionOperatorMetricIsTrue           CreateDashboardDimensionOperatorMetric = "is_true"
-	CreateDashboardDimensionOperatorMetricIsFalse          CreateDashboardDimensionOperatorMetric = "is_false"
-	CreateDashboardDimensionOperatorMetricSQLExpr          CreateDashboardDimensionOperatorMetric = "sql_expr"
-	CreateDashboardDimensionOperatorMetricSavedFilter      CreateDashboardDimensionOperatorMetric = "saved_filter"
+	CreateDashboardDimensionOperatorMetricEqual             CreateDashboardDimensionOperatorMetric = "="
+	CreateDashboardDimensionOperatorMetricNotEqual          CreateDashboardDimensionOperatorMetric = "!="
+	CreateDashboardDimensionOperatorMetricLessThan          CreateDashboardDimensionOperatorMetric = "<"
+	CreateDashboardDimensionOperatorMetricLessThanEqual     CreateDashboardDimensionOperatorMetric = "<="
+	CreateDashboardDimensionOperatorMetricGreaterThan       CreateDashboardDimensionOperatorMetric = ">"
+	CreateDashboardDimensionOperatorMetricGreaterThanEqual  CreateDashboardDimensionOperatorMetric = ">="
+	CreateDashboardDimensionOperatorMetricBetween           CreateDashboardDimensionOperatorMetric = "between"
+	CreateDashboardDimensionOperatorMetricNotBetween        CreateDashboardDimensionOperatorMetric = "not_between"
+	CreateDashboardDimensionOperatorMetricIn                CreateDashboardDimensionOperatorMetric = "in"
+	CreateDashboardDimensionOperatorMetricNotIn             CreateDashboardDimensionOperatorMetric = "not_in"
+	CreateDashboardDimensionOperatorMetricContains          CreateDashboardDimensionOperatorMetric = "contains"
+	CreateDashboardDimensionOperatorMetricNotContains       CreateDashboardDimensionOperatorMetric = "not_contains"
+	CreateDashboardDimensionOperatorMetricMatchesPattern    CreateDashboardDimensionOperatorMetric = "matches_pattern"
+	CreateDashboardDimensionOperatorMetricNotMatchesPattern CreateDashboardDimensionOperatorMetric = "not_matches_pattern"
+	CreateDashboardDimensionOperatorMetricStartsWith        CreateDashboardDimensionOperatorMetric = "starts_with"
+	CreateDashboardDimensionOperatorMetricEndsWith          CreateDashboardDimensionOperatorMetric = "ends_with"
+	CreateDashboardDimensionOperatorMetricIsNull            CreateDashboardDimensionOperatorMetric = "is_null"
+	CreateDashboardDimensionOperatorMetricNotNull           CreateDashboardDimensionOperatorMetric = "not_null"
+	CreateDashboardDimensionOperatorMetricIsTrue            CreateDashboardDimensionOperatorMetric = "is_true"
+	CreateDashboardDimensionOperatorMetricIsFalse           CreateDashboardDimensionOperatorMetric = "is_false"
+	CreateDashboardDimensionOperatorMetricSQLExpr           CreateDashboardDimensionOperatorMetric = "sql_expr"
+	CreateDashboardDimensionOperatorMetricSavedFilter       CreateDashboardDimensionOperatorMetric = "saved_filter"
 )
 
 func (e CreateDashboardDimensionOperatorMetric) ToPointer() *CreateDashboardDimensionOperatorMetric {
@@ -6728,6 +6778,10 @@ func (e *CreateDashboardDimensionOperatorMetric) UnmarshalJSON(data []byte) erro
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough

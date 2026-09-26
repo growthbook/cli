@@ -19,7 +19,8 @@ growthbook visual-changesets update [flags]
 ### Options
 
 ```
-  -a, --additional-properties string   value
+      --additional-properties string   value
+      --allow-running-experiment       Also accept the write when the experiment is running. Off by default so a stale editor can't change a live test. When set, the change reaches live traffic immediately and the caller needs the runExperiments permission on the affected environments; the write is audited.
       --body string                    Request body as JSON (alternative to individual flags). Can also be provided via stdin.
   -e, --editor-url string              URL of the page opened in the visual editor when creating this changeset
   -h, --help                           help for update
