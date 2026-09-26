@@ -7,6 +7,30 @@ import (
 	"time"
 )
 
+// SavedGroupFormat - How Saved Groups are written into this connection's payload. `referencesV2` needs an SDK version that supports it; the payload steps down to `referencesV1` if not.
+type SavedGroupFormat string
+
+const (
+	SavedGroupFormatInline       SavedGroupFormat = "inline"
+	SavedGroupFormatReferencesV1 SavedGroupFormat = "referencesV1"
+	SavedGroupFormatReferencesV2 SavedGroupFormat = "referencesV2"
+)
+
+func (e SavedGroupFormat) ToPointer() *SavedGroupFormat {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SavedGroupFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "inline", "referencesV1", "referencesV2":
+			return true
+		}
+	}
+	return false
+}
+
 type SDKConnection struct {
 	ID           string    `json:"id"`
 	DateCreated  time.Time `json:"dateCreated"`
@@ -40,8 +64,11 @@ type SDKConnection struct {
 	SseEnabled                          *bool    `json:"sseEnabled,omitzero"`
 	HashSecureAttributes                *bool    `json:"hashSecureAttributes,omitzero"`
 	RemoteEvalEnabled                   *bool    `json:"remoteEvalEnabled,omitzero"`
-	SavedGroupReferencesEnabled         *bool    `json:"savedGroupReferencesEnabled,omitzero"`
-	IncludeReferencedPrerequisites      *bool    `json:"includeReferencedPrerequisites,omitzero"`
+	// Deprecated. Use `savedGroupFormat`.
+	SavedGroupReferencesEnabled *bool `json:"savedGroupReferencesEnabled,omitzero"`
+	// How Saved Groups are written into this connection's payload. `referencesV2` needs an SDK version that supports it; the payload steps down to `referencesV1` if not.
+	SavedGroupFormat               *SavedGroupFormat `json:"savedGroupFormat,omitzero"`
+	IncludeReferencedPrerequisites *bool             `json:"includeReferencedPrerequisites,omitzero"`
 }
 
 func (s SDKConnection) MarshalJSON() ([]byte, error) {
@@ -270,6 +297,13 @@ func (s *SDKConnection) GetSavedGroupReferencesEnabled() *bool {
 		return nil
 	}
 	return s.SavedGroupReferencesEnabled
+}
+
+func (s *SDKConnection) GetSavedGroupFormat() *SavedGroupFormat {
+	if s == nil {
+		return nil
+	}
+	return s.SavedGroupFormat
 }
 
 func (s *SDKConnection) GetIncludeReferencedPrerequisites() *bool {

@@ -21,6 +21,7 @@ growthbook attributes create [flags]
 ```
   -a, --archived               The attribute is archived
       --body string            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -c, --custom-fields string   Values for the organization's attribute custom fields, keyed by field id
       --datatype string        The attribute datatype (options: boolean, string, number, secureString, enum, string[], number[], secureString[]) [required]
       --description string     The description of the new attribute
   -e, --enum string            Comma-separated list of allowed values. Required for the 'enum' datatype. For array datatypes (string[], number[], secureString[]) it optionally restricts the list to these values. Ignored for all other datatypes.

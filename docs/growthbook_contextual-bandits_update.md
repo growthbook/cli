@@ -48,8 +48,6 @@ growthbook contextual-bandits update [flags]
       --status string                       options: draft, running, stopped
       --tags stringArray                    list of values
       --tracking-key string                 string value
-      --variation-weights string            list of values
-      --variations string                   list of values
 ```
 
 ### Options inherited from parent commands

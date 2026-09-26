@@ -336,11 +336,129 @@ func (p *PutFeatureRevisionRuleRule) GetVariationValue() *string {
 	return p.VariationValue
 }
 
+type PutFeatureRevisionRulePatch1 struct {
+	RuleID *string `json:"ruleId,omitzero"`
+	// Traffic fraction (0–1). For monitored steps the rollout rule is promoted to an experiment: treatment = [0, coverage), control = [0.5, 0.5+coverage). Both arms are equal-sized and non-adjacent, so a step-up only adds new users to each arm — no existing user changes group. The REST API enforces coverage ≤ 0.5 on monitored steps so control end never exceeds 1.0. The SDK uses explicit hash ranges on bucketingV2 clients to keep bucketing stable across monitored/unmonitored transitions.
+	Coverage        optionalnullable.OptionalNullable[float64]                               `json:"coverage,omitzero"`
+	Condition       optionalnullable.OptionalNullable[string]                                `json:"condition,omitzero"`
+	SavedGroups     optionalnullable.OptionalNullable[[]PutFeatureRevisionRuleSavedGroups]   `json:"savedGroups,omitzero"`
+	Prerequisites   optionalnullable.OptionalNullable[[]PutFeatureRevisionRulePrerequisites] `json:"prerequisites,omitzero"`
+	AllEnvironments optionalnullable.OptionalNullable[bool]                                  `json:"allEnvironments,omitzero"`
+	Environments    optionalnullable.OptionalNullable[[]string]                              `json:"environments,omitzero"`
+	// Value to serve, in the string form rule values use ("false", "10", '{"limit": 5}'). A non-string JSON value is accepted and stored as its JSON text. Must be valid for the feature's value type.
+	Force   any                                     `json:"force,omitzero"`
+	Enabled optionalnullable.OptionalNullable[bool] `json:"enabled,omitzero"`
+	// Attribute the rule buckets on. Required (here or on the rule) when a step sets partial coverage on a force rule, which becomes a rollout.
+	HashAttribute optionalnullable.OptionalNullable[string] `json:"hashAttribute,omitzero"`
+	// Hash seed for a promoted force rule. Defaults to the rule id.
+	Seed optionalnullable.OptionalNullable[string] `json:"seed,omitzero"`
+	// Hash algorithm version for a promoted force rule. Defaults to 2.
+	HashVersion *float64 `json:"hashVersion,omitzero"`
+}
+
+func (p PutFeatureRevisionRulePatch1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PutFeatureRevisionRulePatch1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PutFeatureRevisionRulePatch1) GetRuleID() *string {
+	if p == nil {
+		return nil
+	}
+	return p.RuleID
+}
+
+func (p *PutFeatureRevisionRulePatch1) GetCoverage() optionalnullable.OptionalNullable[float64] {
+	if p == nil {
+		return nil
+	}
+	return p.Coverage
+}
+
+func (p *PutFeatureRevisionRulePatch1) GetCondition() optionalnullable.OptionalNullable[string] {
+	if p == nil {
+		return nil
+	}
+	return p.Condition
+}
+
+func (p *PutFeatureRevisionRulePatch1) GetSavedGroups() optionalnullable.OptionalNullable[[]PutFeatureRevisionRuleSavedGroups] {
+	if p == nil {
+		return nil
+	}
+	return p.SavedGroups
+}
+
+func (p *PutFeatureRevisionRulePatch1) GetPrerequisites() optionalnullable.OptionalNullable[[]PutFeatureRevisionRulePrerequisites] {
+	if p == nil {
+		return nil
+	}
+	return p.Prerequisites
+}
+
+func (p *PutFeatureRevisionRulePatch1) GetAllEnvironments() optionalnullable.OptionalNullable[bool] {
+	if p == nil {
+		return nil
+	}
+	return p.AllEnvironments
+}
+
+func (p *PutFeatureRevisionRulePatch1) GetEnvironments() optionalnullable.OptionalNullable[[]string] {
+	if p == nil {
+		return nil
+	}
+	return p.Environments
+}
+
+func (p *PutFeatureRevisionRulePatch1) GetForce() any {
+	if p == nil {
+		return nil
+	}
+	return p.Force
+}
+
+func (p *PutFeatureRevisionRulePatch1) GetEnabled() optionalnullable.OptionalNullable[bool] {
+	if p == nil {
+		return nil
+	}
+	return p.Enabled
+}
+
+func (p *PutFeatureRevisionRulePatch1) GetHashAttribute() optionalnullable.OptionalNullable[string] {
+	if p == nil {
+		return nil
+	}
+	return p.HashAttribute
+}
+
+func (p *PutFeatureRevisionRulePatch1) GetSeed() optionalnullable.OptionalNullable[string] {
+	if p == nil {
+		return nil
+	}
+	return p.Seed
+}
+
+func (p *PutFeatureRevisionRulePatch1) GetHashVersion() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.HashVersion
+}
+
+// #region class-body-putfeaturerevisionrulepatch1
+// #endregion class-body-putfeaturerevisionrulepatch1
+
 type PutFeatureRevisionRuleStartAction struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	targetType *string                     `const:"feature-rule" json:"targetType,omitzero"`
-	TargetID   *string                     `json:"targetId,omitzero"`
-	Patch      PutFeatureRevisionRulePatch `json:"patch"`
+	targetType *string                      `const:"feature-rule" json:"targetType,omitzero"`
+	TargetID   *string                      `json:"targetId,omitzero"`
+	Patch      PutFeatureRevisionRulePatch1 `json:"patch"`
 }
 
 func (p PutFeatureRevisionRuleStartAction) MarshalJSON() ([]byte, error) {
@@ -365,9 +483,9 @@ func (p *PutFeatureRevisionRuleStartAction) GetTargetID() *string {
 	return p.TargetID
 }
 
-func (p *PutFeatureRevisionRuleStartAction) GetPatch() PutFeatureRevisionRulePatch {
+func (p *PutFeatureRevisionRuleStartAction) GetPatch() PutFeatureRevisionRulePatch1 {
 	if p == nil {
-		return PutFeatureRevisionRulePatch{}
+		return PutFeatureRevisionRulePatch1{}
 	}
 	return p.Patch
 }
@@ -448,7 +566,7 @@ type PutFeatureRevisionRuleStepPatch struct {
 	Prerequisites   optionalnullable.OptionalNullable[[]PutFeatureRevisionRuleStepPrerequisites] `json:"prerequisites,omitzero"`
 	AllEnvironments optionalnullable.OptionalNullable[bool]                                      `json:"allEnvironments,omitzero"`
 	Environments    optionalnullable.OptionalNullable[[]string]                                  `json:"environments,omitzero"`
-	// Force value (any JSON type)
+	// Value to serve, in the string form rule values use ("false", "10", '{"limit": 5}'). A non-string JSON value is accepted and stored as its JSON text. Must be valid for the feature's value type.
 	Force   any                                     `json:"force,omitzero"`
 	Enabled optionalnullable.OptionalNullable[bool] `json:"enabled,omitzero"`
 }
@@ -703,7 +821,7 @@ func (p *PutFeatureRevisionRulePrerequisites) GetCondition() string {
 	return p.Condition
 }
 
-type PutFeatureRevisionRulePatch struct {
+type PutFeatureRevisionRulePatch2 struct {
 	RuleID *string `json:"ruleId,omitzero"`
 	// Traffic fraction (0–1). For monitored steps the rollout rule is promoted to an experiment: treatment = [0, coverage), control = [0.5, 0.5+coverage). Both arms are equal-sized and non-adjacent, so a step-up only adds new users to each arm — no existing user changes group. The REST API enforces coverage ≤ 0.5 on monitored steps so control end never exceeds 1.0. The SDK uses explicit hash ranges on bucketingV2 clients to keep bucketing stable across monitored/unmonitored transitions.
 	Coverage        optionalnullable.OptionalNullable[float64]                               `json:"coverage,omitzero"`
@@ -712,90 +830,93 @@ type PutFeatureRevisionRulePatch struct {
 	Prerequisites   optionalnullable.OptionalNullable[[]PutFeatureRevisionRulePrerequisites] `json:"prerequisites,omitzero"`
 	AllEnvironments optionalnullable.OptionalNullable[bool]                                  `json:"allEnvironments,omitzero"`
 	Environments    optionalnullable.OptionalNullable[[]string]                              `json:"environments,omitzero"`
-	// Force value (any JSON type)
+	// Value to serve, in the string form rule values use ("false", "10", '{"limit": 5}'). A non-string JSON value is accepted and stored as its JSON text. Must be valid for the feature's value type.
 	Force   any                                     `json:"force,omitzero"`
 	Enabled optionalnullable.OptionalNullable[bool] `json:"enabled,omitzero"`
 }
 
-func (p PutFeatureRevisionRulePatch) MarshalJSON() ([]byte, error) {
+func (p PutFeatureRevisionRulePatch2) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(p, "", false)
 }
 
-func (p *PutFeatureRevisionRulePatch) UnmarshalJSON(data []byte) error {
+func (p *PutFeatureRevisionRulePatch2) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PutFeatureRevisionRulePatch) GetRuleID() *string {
+func (p *PutFeatureRevisionRulePatch2) GetRuleID() *string {
 	if p == nil {
 		return nil
 	}
 	return p.RuleID
 }
 
-func (p *PutFeatureRevisionRulePatch) GetCoverage() optionalnullable.OptionalNullable[float64] {
+func (p *PutFeatureRevisionRulePatch2) GetCoverage() optionalnullable.OptionalNullable[float64] {
 	if p == nil {
 		return nil
 	}
 	return p.Coverage
 }
 
-func (p *PutFeatureRevisionRulePatch) GetCondition() optionalnullable.OptionalNullable[string] {
+func (p *PutFeatureRevisionRulePatch2) GetCondition() optionalnullable.OptionalNullable[string] {
 	if p == nil {
 		return nil
 	}
 	return p.Condition
 }
 
-func (p *PutFeatureRevisionRulePatch) GetSavedGroups() optionalnullable.OptionalNullable[[]PutFeatureRevisionRuleSavedGroups] {
+func (p *PutFeatureRevisionRulePatch2) GetSavedGroups() optionalnullable.OptionalNullable[[]PutFeatureRevisionRuleSavedGroups] {
 	if p == nil {
 		return nil
 	}
 	return p.SavedGroups
 }
 
-func (p *PutFeatureRevisionRulePatch) GetPrerequisites() optionalnullable.OptionalNullable[[]PutFeatureRevisionRulePrerequisites] {
+func (p *PutFeatureRevisionRulePatch2) GetPrerequisites() optionalnullable.OptionalNullable[[]PutFeatureRevisionRulePrerequisites] {
 	if p == nil {
 		return nil
 	}
 	return p.Prerequisites
 }
 
-func (p *PutFeatureRevisionRulePatch) GetAllEnvironments() optionalnullable.OptionalNullable[bool] {
+func (p *PutFeatureRevisionRulePatch2) GetAllEnvironments() optionalnullable.OptionalNullable[bool] {
 	if p == nil {
 		return nil
 	}
 	return p.AllEnvironments
 }
 
-func (p *PutFeatureRevisionRulePatch) GetEnvironments() optionalnullable.OptionalNullable[[]string] {
+func (p *PutFeatureRevisionRulePatch2) GetEnvironments() optionalnullable.OptionalNullable[[]string] {
 	if p == nil {
 		return nil
 	}
 	return p.Environments
 }
 
-func (p *PutFeatureRevisionRulePatch) GetForce() any {
+func (p *PutFeatureRevisionRulePatch2) GetForce() any {
 	if p == nil {
 		return nil
 	}
 	return p.Force
 }
 
-func (p *PutFeatureRevisionRulePatch) GetEnabled() optionalnullable.OptionalNullable[bool] {
+func (p *PutFeatureRevisionRulePatch2) GetEnabled() optionalnullable.OptionalNullable[bool] {
 	if p == nil {
 		return nil
 	}
 	return p.Enabled
 }
 
+// #region class-body-putfeaturerevisionrulepatch2
+// #endregion class-body-putfeaturerevisionrulepatch2
+
 type PutFeatureRevisionRuleEndAction struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	targetType *string                     `const:"feature-rule" json:"targetType,omitzero"`
-	TargetID   *string                     `json:"targetId,omitzero"`
-	Patch      PutFeatureRevisionRulePatch `json:"patch"`
+	targetType *string                      `const:"feature-rule" json:"targetType,omitzero"`
+	TargetID   *string                      `json:"targetId,omitzero"`
+	Patch      PutFeatureRevisionRulePatch2 `json:"patch"`
 }
 
 func (p PutFeatureRevisionRuleEndAction) MarshalJSON() ([]byte, error) {
@@ -820,9 +941,9 @@ func (p *PutFeatureRevisionRuleEndAction) GetTargetID() *string {
 	return p.TargetID
 }
 
-func (p *PutFeatureRevisionRuleEndAction) GetPatch() PutFeatureRevisionRulePatch {
+func (p *PutFeatureRevisionRuleEndAction) GetPatch() PutFeatureRevisionRulePatch2 {
 	if p == nil {
-		return PutFeatureRevisionRulePatch{}
+		return PutFeatureRevisionRulePatch2{}
 	}
 	return p.Patch
 }

@@ -21,6 +21,7 @@ growthbook visual-changesets add-visual-change [flags]
 ```
       --body string                               Request body as JSON (alternative to individual flags). Can also be provided via stdin.
       --body-param.additional-properties string   value
+      --body-param.allow-running-experiment       Also accept the write when the experiment is running. Off by default so a stale editor can't change a live test. When set, the change reaches live traffic immediately and the caller needs the runExperiments permission on the affected environments; the write is audited.
       --body-param.css string                     string value
       --body-param.description string             string value
       --body-param.dom-mutations string           list of values

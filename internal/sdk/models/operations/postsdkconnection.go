@@ -3,9 +3,40 @@
 package operations
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/growthbook/cli/v2/internal/sdk/models/components"
 	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
 )
+
+type PostSDKConnectionSavedGroupFormat string
+
+const (
+	PostSDKConnectionSavedGroupFormatInline       PostSDKConnectionSavedGroupFormat = "inline"
+	PostSDKConnectionSavedGroupFormatReferencesV1 PostSDKConnectionSavedGroupFormat = "referencesV1"
+	PostSDKConnectionSavedGroupFormatReferencesV2 PostSDKConnectionSavedGroupFormat = "referencesV2"
+)
+
+func (e PostSDKConnectionSavedGroupFormat) ToPointer() *PostSDKConnectionSavedGroupFormat {
+	return &e
+}
+func (e *PostSDKConnectionSavedGroupFormat) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "inline":
+		fallthrough
+	case "referencesV1":
+		fallthrough
+	case "referencesV2":
+		*e = PostSDKConnectionSavedGroupFormat(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PostSDKConnectionSavedGroupFormat: %v", v)
+	}
+}
 
 type PostSDKConnectionRequest struct {
 	Name                     string   `json:"name"`
@@ -30,7 +61,9 @@ type PostSDKConnectionRequest struct {
 	ProxyHost                           *string  `json:"proxyHost,omitzero"`
 	HashSecureAttributes                *bool    `json:"hashSecureAttributes,omitzero"`
 	RemoteEvalEnabled                   *bool    `json:"remoteEvalEnabled,omitzero"`
-	SavedGroupReferencesEnabled         *bool    `json:"savedGroupReferencesEnabled,omitzero"`
+	// Deprecated. Use `savedGroupFormat`.
+	SavedGroupReferencesEnabled *bool                              `json:"savedGroupReferencesEnabled,omitzero"`
+	SavedGroupFormat            *PostSDKConnectionSavedGroupFormat `json:"savedGroupFormat,omitzero"`
 	// Carry prerequisite Feature Flags into this payload even when they target other Projects. Defaults to true for new connections.
 	IncludeReferencedPrerequisites *bool `json:"includeReferencedPrerequisites,omitzero"`
 }
@@ -198,6 +231,13 @@ func (p *PostSDKConnectionRequest) GetSavedGroupReferencesEnabled() *bool {
 		return nil
 	}
 	return p.SavedGroupReferencesEnabled
+}
+
+func (p *PostSDKConnectionRequest) GetSavedGroupFormat() *PostSDKConnectionSavedGroupFormat {
+	if p == nil {
+		return nil
+	}
+	return p.SavedGroupFormat
 }
 
 func (p *PostSDKConnectionRequest) GetIncludeReferencedPrerequisites() *bool {

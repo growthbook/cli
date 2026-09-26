@@ -29,7 +29,7 @@ growthbook custom-fields create [flags]
       --placeholder string     string value
       --projects stringArray   list of values
   -r, --required               [required]
-  -s, --sections stringArray   What types of objects this custom field is applicable to (feature, experiment) [required]
+  -s, --sections stringArray   What types of objects this custom field is applicable to (feature, experiment, attribute) [required]
   -t, --type string            The type of value this custom field will take (options: text, textarea, markdown, enum, multiselect, url, number, boolean, date, datetime) [required]
   -v, --values string          string value
 ```

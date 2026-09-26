@@ -24,6 +24,7 @@ var updateCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "format-param", Shorthand: "f", FieldPath: "Body.Format", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"", "version", "date", "isoCountryCode"}, Description: "The attribute's format (options: , version, date, isoCountryCode)"},
 	{FlagName: "projects", FieldPath: "Body.Projects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
 	{FlagName: "tags", Shorthand: "t", FieldPath: "Body.Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
+	{FlagName: "custom-fields", Shorthand: "c", FieldPath: "Body.CustomFields", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"customFields,omitempty"`, Description: "Values for the organization's attribute custom fields, keyed by field id"},
 }
 
 // initUpdateCmd initializes the update command.

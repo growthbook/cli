@@ -30,7 +30,7 @@ growthbook custom-fields update [flags]
       --placeholder string     string value
       --projects stringArray   list of values
   -r, --required               boolean flag
-  -s, --sections stringArray   What types of objects this custom field is applicable to (feature, experiment)
+  -s, --sections stringArray   What types of objects this custom field is applicable to (feature, experiment, attribute)
   -v, --values string          string value
 ```
 

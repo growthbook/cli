@@ -254,9 +254,11 @@ type PutVisualChangesetRequestBody struct {
 	// URL of the page opened in the visual editor when creating this changeset
 	EditorURL *string `json:"editorUrl,omitzero"`
 	// URL patterns that determine which pages this visual changeset applies to
-	URLPatterns          []PutVisualChangesetURLPattern `json:"urlPatterns,omitzero"`
-	VisualChanges        []VisualChange                 `json:"visualChanges,omitzero"`
-	AdditionalProperties map[string]any                 `additionalProperties:"true" json:"-"`
+	URLPatterns []PutVisualChangesetURLPattern `json:"urlPatterns,omitzero"`
+	// Also accept the write when the experiment is running. Off by default so a stale editor can't change a live test. When set, the change reaches live traffic immediately and the caller needs the runExperiments permission on the affected environments; the write is audited.
+	AllowRunningExperiment *bool          `json:"allowRunningExperiment,omitzero"`
+	VisualChanges          []VisualChange `json:"visualChanges,omitzero"`
+	AdditionalProperties   map[string]any `additionalProperties:"true" json:"-"`
 }
 
 func (p PutVisualChangesetRequestBody) MarshalJSON() ([]byte, error) {
@@ -282,6 +284,13 @@ func (p *PutVisualChangesetRequestBody) GetURLPatterns() []PutVisualChangesetURL
 		return nil
 	}
 	return p.URLPatterns
+}
+
+func (p *PutVisualChangesetRequestBody) GetAllowRunningExperiment() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AllowRunningExperiment
 }
 
 func (p *PutVisualChangesetRequestBody) GetVisualChanges() []VisualChange {

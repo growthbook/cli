@@ -19,6 +19,7 @@ growthbook projects update [flags]
 ### Options
 
 ```
+  -a, --allow-targeting      Whether Feature Flags owned by other Projects may add this Project to their Targeting Projects. Defaults to true. Turning it off blocks new targeting (and All Projects); existing targeting is kept.
       --body string          Request body as JSON (alternative to individual flags). Can also be provided via stdin.
       --description string   Project description.
   -h, --help                 help for update

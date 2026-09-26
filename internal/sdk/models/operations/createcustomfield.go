@@ -365,6 +365,7 @@ type CreateCustomFieldSection string
 const (
 	CreateCustomFieldSectionFeature    CreateCustomFieldSection = "feature"
 	CreateCustomFieldSectionExperiment CreateCustomFieldSection = "experiment"
+	CreateCustomFieldSectionAttribute  CreateCustomFieldSection = "attribute"
 )
 
 func (e CreateCustomFieldSection) ToPointer() *CreateCustomFieldSection {
@@ -379,6 +380,8 @@ func (e *CreateCustomFieldSection) UnmarshalJSON(data []byte) error {
 	case "feature":
 		fallthrough
 	case "experiment":
+		fallthrough
+	case "attribute":
 		*e = CreateCustomFieldSection(v)
 		return nil
 	default:
@@ -401,7 +404,7 @@ type CreateCustomFieldRequest struct {
 	Creatable *bool    `json:"creatable,omitzero"`
 	Required  bool     `json:"required"`
 	Projects  []string `json:"projects,omitzero"`
-	// What types of objects this custom field is applicable to (feature, experiment)
+	// What types of objects this custom field is applicable to (feature, experiment, attribute)
 	Sections []CreateCustomFieldSection `json:"sections"`
 }
 

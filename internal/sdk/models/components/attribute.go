@@ -65,10 +65,11 @@ type Attribute struct {
 	HashAttribute *bool             `json:"hashAttribute,omitzero"`
 	Archived      *bool             `json:"archived,omitzero"`
 	// Comma-separated list of allowed values. Required for the 'enum' datatype. For array datatypes (string[], number[], secureString[]) it optionally restricts the list to these values. Ignored for all other datatypes.
-	Enum     *string          `json:"enum,omitzero"`
-	Format   *AttributeFormat `json:"format,omitzero"`
-	Projects []string         `json:"projects,omitzero"`
-	Tags     []string         `json:"tags,omitzero"`
+	Enum         *string           `json:"enum,omitzero"`
+	Format       *AttributeFormat  `json:"format,omitzero"`
+	Projects     []string          `json:"projects,omitzero"`
+	Tags         []string          `json:"tags,omitzero"`
+	CustomFields map[string]string `json:"customFields,omitzero"`
 }
 
 func (a Attribute) MarshalJSON() ([]byte, error) {
@@ -143,4 +144,11 @@ func (a *Attribute) GetTags() []string {
 		return nil
 	}
 	return a.Tags
+}
+
+func (a *Attribute) GetCustomFields() map[string]string {
+	if a == nil {
+		return nil
+	}
+	return a.CustomFields
 }

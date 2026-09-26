@@ -109,12 +109,14 @@ func (p *PutVisualChangeDomMutation) GetAdditionalProperties() map[string]any {
 }
 
 type PutVisualChangeRequestBody struct {
-	Description          *string                      `json:"description,omitzero"`
-	CSS                  *string                      `json:"css,omitzero"`
-	Js                   *string                      `json:"js,omitzero"`
-	Variation            *string                      `json:"variation,omitzero"`
-	DomMutations         []PutVisualChangeDomMutation `json:"domMutations,omitzero"`
-	AdditionalProperties map[string]any               `additionalProperties:"true" json:"-"`
+	Description *string `json:"description,omitzero"`
+	CSS         *string `json:"css,omitzero"`
+	Js          *string `json:"js,omitzero"`
+	Variation   *string `json:"variation,omitzero"`
+	// Also accept the write when the experiment is running. Off by default so a stale editor can't change a live test. When set, the change reaches live traffic immediately and the caller needs the runExperiments permission on the affected environments; the write is audited.
+	AllowRunningExperiment *bool                        `json:"allowRunningExperiment,omitzero"`
+	DomMutations           []PutVisualChangeDomMutation `json:"domMutations,omitzero"`
+	AdditionalProperties   map[string]any               `additionalProperties:"true" json:"-"`
 }
 
 func (p PutVisualChangeRequestBody) MarshalJSON() ([]byte, error) {
@@ -154,6 +156,13 @@ func (p *PutVisualChangeRequestBody) GetVariation() *string {
 		return nil
 	}
 	return p.Variation
+}
+
+func (p *PutVisualChangeRequestBody) GetAllowRunningExperiment() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AllowRunningExperiment
 }
 
 func (p *PutVisualChangeRequestBody) GetDomMutations() []PutVisualChangeDomMutation {

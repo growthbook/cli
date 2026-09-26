@@ -60,4 +60,5 @@ growthbook contextual-bandits [flags]
 * [growthbook contextual-bandits start](growthbook_contextual-bandits_start.md)	 - Start a Contextual Bandit
 * [growthbook contextual-bandits stop](growthbook_contextual-bandits_stop.md)	 - Stop a Contextual Bandit
 * [growthbook contextual-bandits update](growthbook_contextual-bandits_update.md)	 - Update a single contextualBandit
+* [growthbook contextual-bandits update-contextual-bandit-variations](growthbook_contextual-bandits_update-contextual-bandit-variations.md)	 - Add or remove Contextual Bandit variations
 * [growthbook contextual-bandits update-linked-feature](growthbook_contextual-bandits_update-linked-feature.md)	 - Replace a Contextual Bandit's rule on a linked feature

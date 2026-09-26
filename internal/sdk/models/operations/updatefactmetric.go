@@ -90,26 +90,28 @@ func (e *UpdateFactMetricNumeratorAggregation) UnmarshalJSON(data []byte) error 
 type UpdateFactMetricNumeratorOperator string
 
 const (
-	UpdateFactMetricNumeratorOperatorEqual            UpdateFactMetricNumeratorOperator = "="
-	UpdateFactMetricNumeratorOperatorNotEqual         UpdateFactMetricNumeratorOperator = "!="
-	UpdateFactMetricNumeratorOperatorGreaterThan      UpdateFactMetricNumeratorOperator = ">"
-	UpdateFactMetricNumeratorOperatorLessThan         UpdateFactMetricNumeratorOperator = "<"
-	UpdateFactMetricNumeratorOperatorGreaterThanEqual UpdateFactMetricNumeratorOperator = ">="
-	UpdateFactMetricNumeratorOperatorLessThanEqual    UpdateFactMetricNumeratorOperator = "<="
-	UpdateFactMetricNumeratorOperatorBetween          UpdateFactMetricNumeratorOperator = "between"
-	UpdateFactMetricNumeratorOperatorNotBetween       UpdateFactMetricNumeratorOperator = "not_between"
-	UpdateFactMetricNumeratorOperatorIn               UpdateFactMetricNumeratorOperator = "in"
-	UpdateFactMetricNumeratorOperatorNotIn            UpdateFactMetricNumeratorOperator = "not_in"
-	UpdateFactMetricNumeratorOperatorIsNull           UpdateFactMetricNumeratorOperator = "is_null"
-	UpdateFactMetricNumeratorOperatorNotNull          UpdateFactMetricNumeratorOperator = "not_null"
-	UpdateFactMetricNumeratorOperatorIsTrue           UpdateFactMetricNumeratorOperator = "is_true"
-	UpdateFactMetricNumeratorOperatorIsFalse          UpdateFactMetricNumeratorOperator = "is_false"
-	UpdateFactMetricNumeratorOperatorContains         UpdateFactMetricNumeratorOperator = "contains"
-	UpdateFactMetricNumeratorOperatorNotContains      UpdateFactMetricNumeratorOperator = "not_contains"
-	UpdateFactMetricNumeratorOperatorStartsWith       UpdateFactMetricNumeratorOperator = "starts_with"
-	UpdateFactMetricNumeratorOperatorEndsWith         UpdateFactMetricNumeratorOperator = "ends_with"
-	UpdateFactMetricNumeratorOperatorSQLExpr          UpdateFactMetricNumeratorOperator = "sql_expr"
-	UpdateFactMetricNumeratorOperatorSavedFilter      UpdateFactMetricNumeratorOperator = "saved_filter"
+	UpdateFactMetricNumeratorOperatorEqual             UpdateFactMetricNumeratorOperator = "="
+	UpdateFactMetricNumeratorOperatorNotEqual          UpdateFactMetricNumeratorOperator = "!="
+	UpdateFactMetricNumeratorOperatorGreaterThan       UpdateFactMetricNumeratorOperator = ">"
+	UpdateFactMetricNumeratorOperatorLessThan          UpdateFactMetricNumeratorOperator = "<"
+	UpdateFactMetricNumeratorOperatorGreaterThanEqual  UpdateFactMetricNumeratorOperator = ">="
+	UpdateFactMetricNumeratorOperatorLessThanEqual     UpdateFactMetricNumeratorOperator = "<="
+	UpdateFactMetricNumeratorOperatorBetween           UpdateFactMetricNumeratorOperator = "between"
+	UpdateFactMetricNumeratorOperatorNotBetween        UpdateFactMetricNumeratorOperator = "not_between"
+	UpdateFactMetricNumeratorOperatorIn                UpdateFactMetricNumeratorOperator = "in"
+	UpdateFactMetricNumeratorOperatorNotIn             UpdateFactMetricNumeratorOperator = "not_in"
+	UpdateFactMetricNumeratorOperatorIsNull            UpdateFactMetricNumeratorOperator = "is_null"
+	UpdateFactMetricNumeratorOperatorNotNull           UpdateFactMetricNumeratorOperator = "not_null"
+	UpdateFactMetricNumeratorOperatorIsTrue            UpdateFactMetricNumeratorOperator = "is_true"
+	UpdateFactMetricNumeratorOperatorIsFalse           UpdateFactMetricNumeratorOperator = "is_false"
+	UpdateFactMetricNumeratorOperatorContains          UpdateFactMetricNumeratorOperator = "contains"
+	UpdateFactMetricNumeratorOperatorNotContains       UpdateFactMetricNumeratorOperator = "not_contains"
+	UpdateFactMetricNumeratorOperatorMatchesPattern    UpdateFactMetricNumeratorOperator = "matches_pattern"
+	UpdateFactMetricNumeratorOperatorNotMatchesPattern UpdateFactMetricNumeratorOperator = "not_matches_pattern"
+	UpdateFactMetricNumeratorOperatorStartsWith        UpdateFactMetricNumeratorOperator = "starts_with"
+	UpdateFactMetricNumeratorOperatorEndsWith          UpdateFactMetricNumeratorOperator = "ends_with"
+	UpdateFactMetricNumeratorOperatorSQLExpr           UpdateFactMetricNumeratorOperator = "sql_expr"
+	UpdateFactMetricNumeratorOperatorSavedFilter       UpdateFactMetricNumeratorOperator = "saved_filter"
 )
 
 func (e UpdateFactMetricNumeratorOperator) ToPointer() *UpdateFactMetricNumeratorOperator {
@@ -152,6 +154,10 @@ func (e *UpdateFactMetricNumeratorOperator) UnmarshalJSON(data []byte) error {
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough
@@ -335,26 +341,28 @@ func (e *UpdateFactMetricDenominatorAggregation) UnmarshalJSON(data []byte) erro
 type UpdateFactMetricDenominatorOperator string
 
 const (
-	UpdateFactMetricDenominatorOperatorEqual            UpdateFactMetricDenominatorOperator = "="
-	UpdateFactMetricDenominatorOperatorNotEqual         UpdateFactMetricDenominatorOperator = "!="
-	UpdateFactMetricDenominatorOperatorGreaterThan      UpdateFactMetricDenominatorOperator = ">"
-	UpdateFactMetricDenominatorOperatorLessThan         UpdateFactMetricDenominatorOperator = "<"
-	UpdateFactMetricDenominatorOperatorGreaterThanEqual UpdateFactMetricDenominatorOperator = ">="
-	UpdateFactMetricDenominatorOperatorLessThanEqual    UpdateFactMetricDenominatorOperator = "<="
-	UpdateFactMetricDenominatorOperatorBetween          UpdateFactMetricDenominatorOperator = "between"
-	UpdateFactMetricDenominatorOperatorNotBetween       UpdateFactMetricDenominatorOperator = "not_between"
-	UpdateFactMetricDenominatorOperatorIn               UpdateFactMetricDenominatorOperator = "in"
-	UpdateFactMetricDenominatorOperatorNotIn            UpdateFactMetricDenominatorOperator = "not_in"
-	UpdateFactMetricDenominatorOperatorIsNull           UpdateFactMetricDenominatorOperator = "is_null"
-	UpdateFactMetricDenominatorOperatorNotNull          UpdateFactMetricDenominatorOperator = "not_null"
-	UpdateFactMetricDenominatorOperatorIsTrue           UpdateFactMetricDenominatorOperator = "is_true"
-	UpdateFactMetricDenominatorOperatorIsFalse          UpdateFactMetricDenominatorOperator = "is_false"
-	UpdateFactMetricDenominatorOperatorContains         UpdateFactMetricDenominatorOperator = "contains"
-	UpdateFactMetricDenominatorOperatorNotContains      UpdateFactMetricDenominatorOperator = "not_contains"
-	UpdateFactMetricDenominatorOperatorStartsWith       UpdateFactMetricDenominatorOperator = "starts_with"
-	UpdateFactMetricDenominatorOperatorEndsWith         UpdateFactMetricDenominatorOperator = "ends_with"
-	UpdateFactMetricDenominatorOperatorSQLExpr          UpdateFactMetricDenominatorOperator = "sql_expr"
-	UpdateFactMetricDenominatorOperatorSavedFilter      UpdateFactMetricDenominatorOperator = "saved_filter"
+	UpdateFactMetricDenominatorOperatorEqual             UpdateFactMetricDenominatorOperator = "="
+	UpdateFactMetricDenominatorOperatorNotEqual          UpdateFactMetricDenominatorOperator = "!="
+	UpdateFactMetricDenominatorOperatorGreaterThan       UpdateFactMetricDenominatorOperator = ">"
+	UpdateFactMetricDenominatorOperatorLessThan          UpdateFactMetricDenominatorOperator = "<"
+	UpdateFactMetricDenominatorOperatorGreaterThanEqual  UpdateFactMetricDenominatorOperator = ">="
+	UpdateFactMetricDenominatorOperatorLessThanEqual     UpdateFactMetricDenominatorOperator = "<="
+	UpdateFactMetricDenominatorOperatorBetween           UpdateFactMetricDenominatorOperator = "between"
+	UpdateFactMetricDenominatorOperatorNotBetween        UpdateFactMetricDenominatorOperator = "not_between"
+	UpdateFactMetricDenominatorOperatorIn                UpdateFactMetricDenominatorOperator = "in"
+	UpdateFactMetricDenominatorOperatorNotIn             UpdateFactMetricDenominatorOperator = "not_in"
+	UpdateFactMetricDenominatorOperatorIsNull            UpdateFactMetricDenominatorOperator = "is_null"
+	UpdateFactMetricDenominatorOperatorNotNull           UpdateFactMetricDenominatorOperator = "not_null"
+	UpdateFactMetricDenominatorOperatorIsTrue            UpdateFactMetricDenominatorOperator = "is_true"
+	UpdateFactMetricDenominatorOperatorIsFalse           UpdateFactMetricDenominatorOperator = "is_false"
+	UpdateFactMetricDenominatorOperatorContains          UpdateFactMetricDenominatorOperator = "contains"
+	UpdateFactMetricDenominatorOperatorNotContains       UpdateFactMetricDenominatorOperator = "not_contains"
+	UpdateFactMetricDenominatorOperatorMatchesPattern    UpdateFactMetricDenominatorOperator = "matches_pattern"
+	UpdateFactMetricDenominatorOperatorNotMatchesPattern UpdateFactMetricDenominatorOperator = "not_matches_pattern"
+	UpdateFactMetricDenominatorOperatorStartsWith        UpdateFactMetricDenominatorOperator = "starts_with"
+	UpdateFactMetricDenominatorOperatorEndsWith          UpdateFactMetricDenominatorOperator = "ends_with"
+	UpdateFactMetricDenominatorOperatorSQLExpr           UpdateFactMetricDenominatorOperator = "sql_expr"
+	UpdateFactMetricDenominatorOperatorSavedFilter       UpdateFactMetricDenominatorOperator = "saved_filter"
 )
 
 func (e UpdateFactMetricDenominatorOperator) ToPointer() *UpdateFactMetricDenominatorOperator {
@@ -397,6 +405,10 @@ func (e *UpdateFactMetricDenominatorOperator) UnmarshalJSON(data []byte) error {
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough
@@ -594,26 +606,28 @@ func (u *UpdateFactMetricQuantileSettings) GetQuantileEventCountColumn() *string
 type UpdateFactMetricOperatorSequential string
 
 const (
-	UpdateFactMetricOperatorSequentialEqual            UpdateFactMetricOperatorSequential = "="
-	UpdateFactMetricOperatorSequentialNotEqual         UpdateFactMetricOperatorSequential = "!="
-	UpdateFactMetricOperatorSequentialGreaterThan      UpdateFactMetricOperatorSequential = ">"
-	UpdateFactMetricOperatorSequentialLessThan         UpdateFactMetricOperatorSequential = "<"
-	UpdateFactMetricOperatorSequentialGreaterThanEqual UpdateFactMetricOperatorSequential = ">="
-	UpdateFactMetricOperatorSequentialLessThanEqual    UpdateFactMetricOperatorSequential = "<="
-	UpdateFactMetricOperatorSequentialBetween          UpdateFactMetricOperatorSequential = "between"
-	UpdateFactMetricOperatorSequentialNotBetween       UpdateFactMetricOperatorSequential = "not_between"
-	UpdateFactMetricOperatorSequentialIn               UpdateFactMetricOperatorSequential = "in"
-	UpdateFactMetricOperatorSequentialNotIn            UpdateFactMetricOperatorSequential = "not_in"
-	UpdateFactMetricOperatorSequentialIsNull           UpdateFactMetricOperatorSequential = "is_null"
-	UpdateFactMetricOperatorSequentialNotNull          UpdateFactMetricOperatorSequential = "not_null"
-	UpdateFactMetricOperatorSequentialIsTrue           UpdateFactMetricOperatorSequential = "is_true"
-	UpdateFactMetricOperatorSequentialIsFalse          UpdateFactMetricOperatorSequential = "is_false"
-	UpdateFactMetricOperatorSequentialContains         UpdateFactMetricOperatorSequential = "contains"
-	UpdateFactMetricOperatorSequentialNotContains      UpdateFactMetricOperatorSequential = "not_contains"
-	UpdateFactMetricOperatorSequentialStartsWith       UpdateFactMetricOperatorSequential = "starts_with"
-	UpdateFactMetricOperatorSequentialEndsWith         UpdateFactMetricOperatorSequential = "ends_with"
-	UpdateFactMetricOperatorSequentialSQLExpr          UpdateFactMetricOperatorSequential = "sql_expr"
-	UpdateFactMetricOperatorSequentialSavedFilter      UpdateFactMetricOperatorSequential = "saved_filter"
+	UpdateFactMetricOperatorSequentialEqual             UpdateFactMetricOperatorSequential = "="
+	UpdateFactMetricOperatorSequentialNotEqual          UpdateFactMetricOperatorSequential = "!="
+	UpdateFactMetricOperatorSequentialGreaterThan       UpdateFactMetricOperatorSequential = ">"
+	UpdateFactMetricOperatorSequentialLessThan          UpdateFactMetricOperatorSequential = "<"
+	UpdateFactMetricOperatorSequentialGreaterThanEqual  UpdateFactMetricOperatorSequential = ">="
+	UpdateFactMetricOperatorSequentialLessThanEqual     UpdateFactMetricOperatorSequential = "<="
+	UpdateFactMetricOperatorSequentialBetween           UpdateFactMetricOperatorSequential = "between"
+	UpdateFactMetricOperatorSequentialNotBetween        UpdateFactMetricOperatorSequential = "not_between"
+	UpdateFactMetricOperatorSequentialIn                UpdateFactMetricOperatorSequential = "in"
+	UpdateFactMetricOperatorSequentialNotIn             UpdateFactMetricOperatorSequential = "not_in"
+	UpdateFactMetricOperatorSequentialIsNull            UpdateFactMetricOperatorSequential = "is_null"
+	UpdateFactMetricOperatorSequentialNotNull           UpdateFactMetricOperatorSequential = "not_null"
+	UpdateFactMetricOperatorSequentialIsTrue            UpdateFactMetricOperatorSequential = "is_true"
+	UpdateFactMetricOperatorSequentialIsFalse           UpdateFactMetricOperatorSequential = "is_false"
+	UpdateFactMetricOperatorSequentialContains          UpdateFactMetricOperatorSequential = "contains"
+	UpdateFactMetricOperatorSequentialNotContains       UpdateFactMetricOperatorSequential = "not_contains"
+	UpdateFactMetricOperatorSequentialMatchesPattern    UpdateFactMetricOperatorSequential = "matches_pattern"
+	UpdateFactMetricOperatorSequentialNotMatchesPattern UpdateFactMetricOperatorSequential = "not_matches_pattern"
+	UpdateFactMetricOperatorSequentialStartsWith        UpdateFactMetricOperatorSequential = "starts_with"
+	UpdateFactMetricOperatorSequentialEndsWith          UpdateFactMetricOperatorSequential = "ends_with"
+	UpdateFactMetricOperatorSequentialSQLExpr           UpdateFactMetricOperatorSequential = "sql_expr"
+	UpdateFactMetricOperatorSequentialSavedFilter       UpdateFactMetricOperatorSequential = "saved_filter"
 )
 
 func (e UpdateFactMetricOperatorSequential) ToPointer() *UpdateFactMetricOperatorSequential {
@@ -656,6 +670,10 @@ func (e *UpdateFactMetricOperatorSequential) UnmarshalJSON(data []byte) error {
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough
@@ -905,10 +923,10 @@ func (e *UpdateFactMetricCappingSettingsType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// UpdateFactMetricCappingSettings - Controls how outliers are handled
+// UpdateFactMetricCappingSettings - Upper cap. Omit on update to preserve it. Use type: none to disable it explicitly. Invalid values are rejected.
 type UpdateFactMetricCappingSettings struct {
 	Type UpdateFactMetricCappingSettingsType `json:"type"`
-	// When type is absolute, this is the absolute value. When type is percentile, this is the percentile value (from 0.0 to 1.0).
+	// When type is absolute, this must be a finite number greater than zero. When type is percentile, this must be strictly between 0 and 1. Required when enabling capping or changing type; omitted values are preserved only for same-type updates.
 	Value *float64 `json:"value,omitzero"`
 	// If true and capping is `percentile`, zeros will be ignored when calculating the percentile.
 	IgnoreZeros *bool `json:"ignoreZeros,omitzero"`
@@ -929,6 +947,65 @@ func (u *UpdateFactMetricCappingSettings) GetValue() *float64 {
 }
 
 func (u *UpdateFactMetricCappingSettings) GetIgnoreZeros() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.IgnoreZeros
+}
+
+type UpdateFactMetricLowerCappingSettingsType string
+
+const (
+	UpdateFactMetricLowerCappingSettingsTypeNone       UpdateFactMetricLowerCappingSettingsType = "none"
+	UpdateFactMetricLowerCappingSettingsTypeAbsolute   UpdateFactMetricLowerCappingSettingsType = "absolute"
+	UpdateFactMetricLowerCappingSettingsTypePercentile UpdateFactMetricLowerCappingSettingsType = "percentile"
+)
+
+func (e UpdateFactMetricLowerCappingSettingsType) ToPointer() *UpdateFactMetricLowerCappingSettingsType {
+	return &e
+}
+func (e *UpdateFactMetricLowerCappingSettingsType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "none":
+		fallthrough
+	case "absolute":
+		fallthrough
+	case "percentile":
+		*e = UpdateFactMetricLowerCappingSettingsType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for UpdateFactMetricLowerCappingSettingsType: %v", v)
+	}
+}
+
+// UpdateFactMetricLowerCappingSettings - Independent lower-tail capping settings. Configured separately from the upper tail, so the type can differ.
+type UpdateFactMetricLowerCappingSettings struct {
+	Type UpdateFactMetricLowerCappingSettingsType `json:"type"`
+	// When type is absolute, this is a finite lower bound, including zero or negative values. When type is percentile, this must be strictly between 0 and 1. Required when enabling capping or changing type; omitted values are preserved only for same-type updates.
+	Value *float64 `json:"value,omitzero"`
+	// If true and capping is `percentile`, zeros will be ignored when calculating the percentile.
+	IgnoreZeros *bool `json:"ignoreZeros,omitzero"`
+}
+
+func (u *UpdateFactMetricLowerCappingSettings) GetType() UpdateFactMetricLowerCappingSettingsType {
+	if u == nil {
+		return UpdateFactMetricLowerCappingSettingsType("")
+	}
+	return u.Type
+}
+
+func (u *UpdateFactMetricLowerCappingSettings) GetValue() *float64 {
+	if u == nil {
+		return nil
+	}
+	return u.Value
+}
+
+func (u *UpdateFactMetricLowerCappingSettings) GetIgnoreZeros() *bool {
 	if u == nil {
 		return nil
 	}
@@ -1206,8 +1283,10 @@ type UpdateFactMetricRequestBody struct {
 	QuantileSettings *UpdateFactMetricQuantileSettings `json:"quantileSettings,omitzero"`
 	// Funnel metric settings (required when metricType is "funnel")
 	FunnelSettings *UpdateFactMetricFunnelSettings `json:"funnelSettings,omitzero"`
-	// Controls how outliers are handled
+	// Upper cap. Omit on update to preserve it. Use type: none to disable it explicitly. Invalid values are rejected.
 	CappingSettings *UpdateFactMetricCappingSettings `json:"cappingSettings,omitzero"`
+	// Independent lower cap. Omit on update to preserve it. Use null or type: none to disable it explicitly. Invalid values are rejected. For mixed cap types, the absolute bound takes precedence if thresholds cross.
+	LowerCappingSettings optionalnullable.OptionalNullable[UpdateFactMetricLowerCappingSettings] `json:"lowerCappingSettings,omitzero"`
 	// Controls the conversion window for the metric
 	WindowSettings *UpdateFactMetricWindowSettings `json:"windowSettings,omitzero"`
 	// Controls the bayesian prior for the metric. If omitted, organization defaults will be used.
@@ -1334,6 +1413,13 @@ func (u *UpdateFactMetricRequestBody) GetCappingSettings() *UpdateFactMetricCapp
 		return nil
 	}
 	return u.CappingSettings
+}
+
+func (u *UpdateFactMetricRequestBody) GetLowerCappingSettings() optionalnullable.OptionalNullable[UpdateFactMetricLowerCappingSettings] {
+	if u == nil {
+		return nil
+	}
+	return u.LowerCappingSettings
 }
 
 func (u *UpdateFactMetricRequestBody) GetWindowSettings() *UpdateFactMetricWindowSettings {
