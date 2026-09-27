@@ -21,8 +21,9 @@ var updateVisualChangeCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "css", Shorthand: "c", FieldPath: "Body.CSS", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "js", Shorthand: "j", FieldPath: "Body.Js", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "variation", FieldPath: "Body.Variation", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "allow-running-experiment", FieldPath: "Body.AllowRunningExperiment", Kind: flagutil.FlagKindBool, Optional: true, Description: "Also accept the write when the experiment is running. Off by default so a stale editor can't change a live test. When set, the change reaches live traffic immediately and the caller needs the runExperiments permission on the affected environments; the write is audited."},
 	{FlagName: "dom-mutations", FieldPath: "Body.DomMutations", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"domMutations,omitempty"`, Description: "list of values"},
-	{FlagName: "additional-properties", Shorthand: "a", FieldPath: "Body.AdditionalProperties", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `additionalProperties:"true" json:"-"`, Description: "value"},
+	{FlagName: "additional-properties", FieldPath: "Body.AdditionalProperties", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `additionalProperties:"true" json:"-"`, Description: "value"},
 }
 
 // initUpdateVisualChangeCmd initializes the update-visual-change command.

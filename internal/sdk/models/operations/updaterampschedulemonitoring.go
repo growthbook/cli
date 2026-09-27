@@ -696,12 +696,12 @@ type UpdateRampScheduleMonitoringResponseBody struct {
 	EntityID    string                                 `json:"entityId"`
 	// Controlled entity references
 	Targets []components.Targets `json:"targets"`
-	// Actions that restore controlled rules to their pre-ramp state. Applied when rolling back or jumping to start.
+	// Actions that restore controlled rules to their pre-ramp state. Applied when rolling back or jumping to start, and the base every step accumulates on; the only place a plan can set hashAttribute, seed or hashVersion.
 	StartActions []components.StartActions `json:"startActions,omitzero"`
 	// Ordered ramp steps
 	Steps []components.Steps `json:"steps"`
 	// Actions applied on top of all step patches when the ramp completes. Represents the final desired rule state.
-	EndActions []components.StartActions `json:"endActions,omitzero"`
+	EndActions []components.EndActions `json:"endActions,omitzero"`
 	// When the ramp fires. Absent/null means immediately on publish; set to a future datetime to delay start and keep the rule disabled until that time.
 	StartDate optionalnullable.OptionalNullable[time.Time] `json:"startDate,omitzero"`
 	// Rule-level kill date. When reached, the ramp is completed and the rule is disabled (enabled=false). Use for time-boxed rules that must stop serving on a fixed date regardless of ramp progress. Set to null to clear.
@@ -812,7 +812,7 @@ func (u *UpdateRampScheduleMonitoringResponseBody) GetSteps() []components.Steps
 	return u.Steps
 }
 
-func (u *UpdateRampScheduleMonitoringResponseBody) GetEndActions() []components.StartActions {
+func (u *UpdateRampScheduleMonitoringResponseBody) GetEndActions() []components.EndActions {
 	if u == nil {
 		return nil
 	}

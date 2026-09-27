@@ -15,26 +15,28 @@ import (
 type PostSQLExplorationDimensionOperatorRequest string
 
 const (
-	PostSQLExplorationDimensionOperatorRequestEqual            PostSQLExplorationDimensionOperatorRequest = "="
-	PostSQLExplorationDimensionOperatorRequestNotEqual         PostSQLExplorationDimensionOperatorRequest = "!="
-	PostSQLExplorationDimensionOperatorRequestLessThan         PostSQLExplorationDimensionOperatorRequest = "<"
-	PostSQLExplorationDimensionOperatorRequestLessThanEqual    PostSQLExplorationDimensionOperatorRequest = "<="
-	PostSQLExplorationDimensionOperatorRequestGreaterThan      PostSQLExplorationDimensionOperatorRequest = ">"
-	PostSQLExplorationDimensionOperatorRequestGreaterThanEqual PostSQLExplorationDimensionOperatorRequest = ">="
-	PostSQLExplorationDimensionOperatorRequestBetween          PostSQLExplorationDimensionOperatorRequest = "between"
-	PostSQLExplorationDimensionOperatorRequestNotBetween       PostSQLExplorationDimensionOperatorRequest = "not_between"
-	PostSQLExplorationDimensionOperatorRequestIn               PostSQLExplorationDimensionOperatorRequest = "in"
-	PostSQLExplorationDimensionOperatorRequestNotIn            PostSQLExplorationDimensionOperatorRequest = "not_in"
-	PostSQLExplorationDimensionOperatorRequestContains         PostSQLExplorationDimensionOperatorRequest = "contains"
-	PostSQLExplorationDimensionOperatorRequestNotContains      PostSQLExplorationDimensionOperatorRequest = "not_contains"
-	PostSQLExplorationDimensionOperatorRequestStartsWith       PostSQLExplorationDimensionOperatorRequest = "starts_with"
-	PostSQLExplorationDimensionOperatorRequestEndsWith         PostSQLExplorationDimensionOperatorRequest = "ends_with"
-	PostSQLExplorationDimensionOperatorRequestIsNull           PostSQLExplorationDimensionOperatorRequest = "is_null"
-	PostSQLExplorationDimensionOperatorRequestNotNull          PostSQLExplorationDimensionOperatorRequest = "not_null"
-	PostSQLExplorationDimensionOperatorRequestIsTrue           PostSQLExplorationDimensionOperatorRequest = "is_true"
-	PostSQLExplorationDimensionOperatorRequestIsFalse          PostSQLExplorationDimensionOperatorRequest = "is_false"
-	PostSQLExplorationDimensionOperatorRequestSQLExpr          PostSQLExplorationDimensionOperatorRequest = "sql_expr"
-	PostSQLExplorationDimensionOperatorRequestSavedFilter      PostSQLExplorationDimensionOperatorRequest = "saved_filter"
+	PostSQLExplorationDimensionOperatorRequestEqual             PostSQLExplorationDimensionOperatorRequest = "="
+	PostSQLExplorationDimensionOperatorRequestNotEqual          PostSQLExplorationDimensionOperatorRequest = "!="
+	PostSQLExplorationDimensionOperatorRequestLessThan          PostSQLExplorationDimensionOperatorRequest = "<"
+	PostSQLExplorationDimensionOperatorRequestLessThanEqual     PostSQLExplorationDimensionOperatorRequest = "<="
+	PostSQLExplorationDimensionOperatorRequestGreaterThan       PostSQLExplorationDimensionOperatorRequest = ">"
+	PostSQLExplorationDimensionOperatorRequestGreaterThanEqual  PostSQLExplorationDimensionOperatorRequest = ">="
+	PostSQLExplorationDimensionOperatorRequestBetween           PostSQLExplorationDimensionOperatorRequest = "between"
+	PostSQLExplorationDimensionOperatorRequestNotBetween        PostSQLExplorationDimensionOperatorRequest = "not_between"
+	PostSQLExplorationDimensionOperatorRequestIn                PostSQLExplorationDimensionOperatorRequest = "in"
+	PostSQLExplorationDimensionOperatorRequestNotIn             PostSQLExplorationDimensionOperatorRequest = "not_in"
+	PostSQLExplorationDimensionOperatorRequestContains          PostSQLExplorationDimensionOperatorRequest = "contains"
+	PostSQLExplorationDimensionOperatorRequestNotContains       PostSQLExplorationDimensionOperatorRequest = "not_contains"
+	PostSQLExplorationDimensionOperatorRequestMatchesPattern    PostSQLExplorationDimensionOperatorRequest = "matches_pattern"
+	PostSQLExplorationDimensionOperatorRequestNotMatchesPattern PostSQLExplorationDimensionOperatorRequest = "not_matches_pattern"
+	PostSQLExplorationDimensionOperatorRequestStartsWith        PostSQLExplorationDimensionOperatorRequest = "starts_with"
+	PostSQLExplorationDimensionOperatorRequestEndsWith          PostSQLExplorationDimensionOperatorRequest = "ends_with"
+	PostSQLExplorationDimensionOperatorRequestIsNull            PostSQLExplorationDimensionOperatorRequest = "is_null"
+	PostSQLExplorationDimensionOperatorRequestNotNull           PostSQLExplorationDimensionOperatorRequest = "not_null"
+	PostSQLExplorationDimensionOperatorRequestIsTrue            PostSQLExplorationDimensionOperatorRequest = "is_true"
+	PostSQLExplorationDimensionOperatorRequestIsFalse           PostSQLExplorationDimensionOperatorRequest = "is_false"
+	PostSQLExplorationDimensionOperatorRequestSQLExpr           PostSQLExplorationDimensionOperatorRequest = "sql_expr"
+	PostSQLExplorationDimensionOperatorRequestSavedFilter       PostSQLExplorationDimensionOperatorRequest = "saved_filter"
 )
 
 func (e PostSQLExplorationDimensionOperatorRequest) ToPointer() *PostSQLExplorationDimensionOperatorRequest {
@@ -69,6 +71,10 @@ func (e *PostSQLExplorationDimensionOperatorRequest) UnmarshalJSON(data []byte) 
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough
@@ -716,26 +722,28 @@ func (e *PostSQLExplorationColumnTypesRequest) UnmarshalJSON(data []byte) error 
 type PostSQLExplorationRowFilterOperatorRequest string
 
 const (
-	PostSQLExplorationRowFilterOperatorRequestEqual            PostSQLExplorationRowFilterOperatorRequest = "="
-	PostSQLExplorationRowFilterOperatorRequestNotEqual         PostSQLExplorationRowFilterOperatorRequest = "!="
-	PostSQLExplorationRowFilterOperatorRequestLessThan         PostSQLExplorationRowFilterOperatorRequest = "<"
-	PostSQLExplorationRowFilterOperatorRequestLessThanEqual    PostSQLExplorationRowFilterOperatorRequest = "<="
-	PostSQLExplorationRowFilterOperatorRequestGreaterThan      PostSQLExplorationRowFilterOperatorRequest = ">"
-	PostSQLExplorationRowFilterOperatorRequestGreaterThanEqual PostSQLExplorationRowFilterOperatorRequest = ">="
-	PostSQLExplorationRowFilterOperatorRequestBetween          PostSQLExplorationRowFilterOperatorRequest = "between"
-	PostSQLExplorationRowFilterOperatorRequestNotBetween       PostSQLExplorationRowFilterOperatorRequest = "not_between"
-	PostSQLExplorationRowFilterOperatorRequestIn               PostSQLExplorationRowFilterOperatorRequest = "in"
-	PostSQLExplorationRowFilterOperatorRequestNotIn            PostSQLExplorationRowFilterOperatorRequest = "not_in"
-	PostSQLExplorationRowFilterOperatorRequestContains         PostSQLExplorationRowFilterOperatorRequest = "contains"
-	PostSQLExplorationRowFilterOperatorRequestNotContains      PostSQLExplorationRowFilterOperatorRequest = "not_contains"
-	PostSQLExplorationRowFilterOperatorRequestStartsWith       PostSQLExplorationRowFilterOperatorRequest = "starts_with"
-	PostSQLExplorationRowFilterOperatorRequestEndsWith         PostSQLExplorationRowFilterOperatorRequest = "ends_with"
-	PostSQLExplorationRowFilterOperatorRequestIsNull           PostSQLExplorationRowFilterOperatorRequest = "is_null"
-	PostSQLExplorationRowFilterOperatorRequestNotNull          PostSQLExplorationRowFilterOperatorRequest = "not_null"
-	PostSQLExplorationRowFilterOperatorRequestIsTrue           PostSQLExplorationRowFilterOperatorRequest = "is_true"
-	PostSQLExplorationRowFilterOperatorRequestIsFalse          PostSQLExplorationRowFilterOperatorRequest = "is_false"
-	PostSQLExplorationRowFilterOperatorRequestSQLExpr          PostSQLExplorationRowFilterOperatorRequest = "sql_expr"
-	PostSQLExplorationRowFilterOperatorRequestSavedFilter      PostSQLExplorationRowFilterOperatorRequest = "saved_filter"
+	PostSQLExplorationRowFilterOperatorRequestEqual             PostSQLExplorationRowFilterOperatorRequest = "="
+	PostSQLExplorationRowFilterOperatorRequestNotEqual          PostSQLExplorationRowFilterOperatorRequest = "!="
+	PostSQLExplorationRowFilterOperatorRequestLessThan          PostSQLExplorationRowFilterOperatorRequest = "<"
+	PostSQLExplorationRowFilterOperatorRequestLessThanEqual     PostSQLExplorationRowFilterOperatorRequest = "<="
+	PostSQLExplorationRowFilterOperatorRequestGreaterThan       PostSQLExplorationRowFilterOperatorRequest = ">"
+	PostSQLExplorationRowFilterOperatorRequestGreaterThanEqual  PostSQLExplorationRowFilterOperatorRequest = ">="
+	PostSQLExplorationRowFilterOperatorRequestBetween           PostSQLExplorationRowFilterOperatorRequest = "between"
+	PostSQLExplorationRowFilterOperatorRequestNotBetween        PostSQLExplorationRowFilterOperatorRequest = "not_between"
+	PostSQLExplorationRowFilterOperatorRequestIn                PostSQLExplorationRowFilterOperatorRequest = "in"
+	PostSQLExplorationRowFilterOperatorRequestNotIn             PostSQLExplorationRowFilterOperatorRequest = "not_in"
+	PostSQLExplorationRowFilterOperatorRequestContains          PostSQLExplorationRowFilterOperatorRequest = "contains"
+	PostSQLExplorationRowFilterOperatorRequestNotContains       PostSQLExplorationRowFilterOperatorRequest = "not_contains"
+	PostSQLExplorationRowFilterOperatorRequestMatchesPattern    PostSQLExplorationRowFilterOperatorRequest = "matches_pattern"
+	PostSQLExplorationRowFilterOperatorRequestNotMatchesPattern PostSQLExplorationRowFilterOperatorRequest = "not_matches_pattern"
+	PostSQLExplorationRowFilterOperatorRequestStartsWith        PostSQLExplorationRowFilterOperatorRequest = "starts_with"
+	PostSQLExplorationRowFilterOperatorRequestEndsWith          PostSQLExplorationRowFilterOperatorRequest = "ends_with"
+	PostSQLExplorationRowFilterOperatorRequestIsNull            PostSQLExplorationRowFilterOperatorRequest = "is_null"
+	PostSQLExplorationRowFilterOperatorRequestNotNull           PostSQLExplorationRowFilterOperatorRequest = "not_null"
+	PostSQLExplorationRowFilterOperatorRequestIsTrue            PostSQLExplorationRowFilterOperatorRequest = "is_true"
+	PostSQLExplorationRowFilterOperatorRequestIsFalse           PostSQLExplorationRowFilterOperatorRequest = "is_false"
+	PostSQLExplorationRowFilterOperatorRequestSQLExpr           PostSQLExplorationRowFilterOperatorRequest = "sql_expr"
+	PostSQLExplorationRowFilterOperatorRequestSavedFilter       PostSQLExplorationRowFilterOperatorRequest = "saved_filter"
 )
 
 func (e PostSQLExplorationRowFilterOperatorRequest) ToPointer() *PostSQLExplorationRowFilterOperatorRequest {
@@ -770,6 +778,10 @@ func (e *PostSQLExplorationRowFilterOperatorRequest) UnmarshalJSON(data []byte) 
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough
@@ -1154,10 +1166,260 @@ func (p *PostSQLExplorationStep) GetTimeFromPrevSumSquaresHrs() *float64 {
 	return p.TimeFromPrevSumSquaresHrs
 }
 
+type PostSQLExplorationDirection2 string
+
+const (
+	PostSQLExplorationDirection2Forward  PostSQLExplorationDirection2 = "forward"
+	PostSQLExplorationDirection2Backward PostSQLExplorationDirection2 = "backward"
+)
+
+func (e PostSQLExplorationDirection2) ToPointer() *PostSQLExplorationDirection2 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *PostSQLExplorationDirection2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "forward", "backward":
+			return true
+		}
+	}
+	return false
+}
+
+type PostSQLExplorationJourneyCommitted struct {
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	kind      string                       `const:"committed" json:"kind"`
+	Direction PostSQLExplorationDirection2 `json:"direction"`
+	StepIndex float64                      `json:"stepIndex"`
+	Value     string                       `json:"value"`
+	Count     float64                      `json:"count"`
+}
+
+func (p PostSQLExplorationJourneyCommitted) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostSQLExplorationJourneyCommitted) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PostSQLExplorationJourneyCommitted) GetKind() string {
+	return "committed"
+}
+
+func (p *PostSQLExplorationJourneyCommitted) GetDirection() PostSQLExplorationDirection2 {
+	if p == nil {
+		return PostSQLExplorationDirection2("")
+	}
+	return p.Direction
+}
+
+func (p *PostSQLExplorationJourneyCommitted) GetStepIndex() float64 {
+	if p == nil {
+		return 0.0
+	}
+	return p.StepIndex
+}
+
+func (p *PostSQLExplorationJourneyCommitted) GetValue() string {
+	if p == nil {
+		return ""
+	}
+	return p.Value
+}
+
+func (p *PostSQLExplorationJourneyCommitted) GetCount() float64 {
+	if p == nil {
+		return 0.0
+	}
+	return p.Count
+}
+
+type PostSQLExplorationDirection1 string
+
+const (
+	PostSQLExplorationDirection1Forward  PostSQLExplorationDirection1 = "forward"
+	PostSQLExplorationDirection1Backward PostSQLExplorationDirection1 = "backward"
+)
+
+func (e PostSQLExplorationDirection1) ToPointer() *PostSQLExplorationDirection1 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *PostSQLExplorationDirection1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "forward", "backward":
+			return true
+		}
+	}
+	return false
+}
+
+type PostSQLExplorationJourneyPath struct {
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	kind      string                       `const:"path" json:"kind"`
+	Direction PostSQLExplorationDirection1 `json:"direction"`
+	Levels    []string                     `json:"levels"`
+	Count     float64                      `json:"count"`
+}
+
+func (p PostSQLExplorationJourneyPath) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostSQLExplorationJourneyPath) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PostSQLExplorationJourneyPath) GetKind() string {
+	return "path"
+}
+
+func (p *PostSQLExplorationJourneyPath) GetDirection() PostSQLExplorationDirection1 {
+	if p == nil {
+		return PostSQLExplorationDirection1("")
+	}
+	return p.Direction
+}
+
+func (p *PostSQLExplorationJourneyPath) GetLevels() []string {
+	if p == nil {
+		return []string{}
+	}
+	return p.Levels
+}
+
+func (p *PostSQLExplorationJourneyPath) GetCount() float64 {
+	if p == nil {
+		return 0.0
+	}
+	return p.Count
+}
+
+type PostSQLExplorationJourneyUnionType string
+
+const (
+	PostSQLExplorationJourneyUnionTypePath      PostSQLExplorationJourneyUnionType = "path"
+	PostSQLExplorationJourneyUnionTypeCommitted PostSQLExplorationJourneyUnionType = "committed"
+	PostSQLExplorationJourneyUnionTypeUnknown   PostSQLExplorationJourneyUnionType = "UNKNOWN"
+)
+
+type PostSQLExplorationJourneyUnion struct {
+	PostSQLExplorationJourneyPath      *PostSQLExplorationJourneyPath      `queryParam:"inline" union:"member"`
+	PostSQLExplorationJourneyCommitted *PostSQLExplorationJourneyCommitted `queryParam:"inline" union:"member"`
+	UnknownRaw                         json.RawMessage                     `json:"-" union:"unknown"`
+
+	Type PostSQLExplorationJourneyUnionType
+}
+
+func CreatePostSQLExplorationJourneyUnionPath(path PostSQLExplorationJourneyPath) PostSQLExplorationJourneyUnion {
+	typ := PostSQLExplorationJourneyUnionTypePath
+
+	return PostSQLExplorationJourneyUnion{
+		PostSQLExplorationJourneyPath: &path,
+		Type:                          typ,
+	}
+}
+
+func CreatePostSQLExplorationJourneyUnionCommitted(committed PostSQLExplorationJourneyCommitted) PostSQLExplorationJourneyUnion {
+	typ := PostSQLExplorationJourneyUnionTypeCommitted
+
+	return PostSQLExplorationJourneyUnion{
+		PostSQLExplorationJourneyCommitted: &committed,
+		Type:                               typ,
+	}
+}
+
+func CreatePostSQLExplorationJourneyUnionUnknown(raw json.RawMessage) PostSQLExplorationJourneyUnion {
+	return PostSQLExplorationJourneyUnion{
+		UnknownRaw: raw,
+		Type:       PostSQLExplorationJourneyUnionTypeUnknown,
+	}
+}
+
+func (u PostSQLExplorationJourneyUnion) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u PostSQLExplorationJourneyUnion) IsUnknown() bool {
+	return u.Type == PostSQLExplorationJourneyUnionTypeUnknown
+}
+
+func (u *PostSQLExplorationJourneyUnion) UnmarshalJSON(data []byte) error {
+
+	type discriminator struct {
+		Kind string `json:"kind"`
+	}
+
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = PostSQLExplorationJourneyUnionTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = PostSQLExplorationJourneyUnionTypeUnknown
+		return nil
+	}
+
+	switch dis.Kind {
+	case "path":
+		postSQLExplorationJourneyPath := new(PostSQLExplorationJourneyPath)
+		if err := utils.UnmarshalJSON(data, &postSQLExplorationJourneyPath, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Kind == path) type PostSQLExplorationJourneyPath within PostSQLExplorationJourneyUnion: %w", string(data), err)
+		}
+
+		u.PostSQLExplorationJourneyPath = postSQLExplorationJourneyPath
+		u.Type = PostSQLExplorationJourneyUnionTypePath
+		return nil
+	case "committed":
+		postSQLExplorationJourneyCommitted := new(PostSQLExplorationJourneyCommitted)
+		if err := utils.UnmarshalJSON(data, &postSQLExplorationJourneyCommitted, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Kind == committed) type PostSQLExplorationJourneyCommitted within PostSQLExplorationJourneyUnion: %w", string(data), err)
+		}
+
+		u.PostSQLExplorationJourneyCommitted = postSQLExplorationJourneyCommitted
+		u.Type = PostSQLExplorationJourneyUnionTypeCommitted
+		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = PostSQLExplorationJourneyUnionTypeUnknown
+		return nil
+	}
+
+}
+
+func (u PostSQLExplorationJourneyUnion) MarshalJSON() ([]byte, error) {
+	if u.PostSQLExplorationJourneyPath != nil {
+		return utils.MarshalJSON(u.PostSQLExplorationJourneyPath, "", true)
+	}
+
+	if u.PostSQLExplorationJourneyCommitted != nil {
+		return utils.MarshalJSON(u.PostSQLExplorationJourneyCommitted, "", true)
+	}
+
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
+	return nil, errors.New("could not marshal union type PostSQLExplorationJourneyUnion: all fields are null")
+}
+
 type PostSQLExplorationRow struct {
-	Dimensions []*string                    `json:"dimensions"`
-	Values     []PostSQLExplorationRowValue `json:"values,omitzero"`
-	Steps      []PostSQLExplorationStep     `json:"steps,omitzero"`
+	Dimensions []*string                       `json:"dimensions"`
+	Values     []PostSQLExplorationRowValue    `json:"values,omitzero"`
+	Steps      []PostSQLExplorationStep        `json:"steps,omitzero"`
+	Journey    *PostSQLExplorationJourneyUnion `json:"journey,omitzero"`
 }
 
 func (p PostSQLExplorationRow) MarshalJSON() ([]byte, error) {
@@ -1190,6 +1452,27 @@ func (p *PostSQLExplorationRow) GetSteps() []PostSQLExplorationStep {
 		return nil
 	}
 	return p.Steps
+}
+
+func (p *PostSQLExplorationRow) GetJourney() *PostSQLExplorationJourneyUnion {
+	if p == nil {
+		return nil
+	}
+	return p.Journey
+}
+
+func (p *PostSQLExplorationRow) GetJourneyPath() *PostSQLExplorationJourneyPath {
+	if v := p.GetJourney(); v != nil {
+		return v.PostSQLExplorationJourneyPath
+	}
+	return nil
+}
+
+func (p *PostSQLExplorationRow) GetJourneyCommitted() *PostSQLExplorationJourneyCommitted {
+	if v := p.GetJourney(); v != nil {
+		return v.PostSQLExplorationJourneyCommitted
+	}
+	return nil
 }
 
 type PostSQLExplorationResult struct {
@@ -1233,26 +1516,28 @@ func (p *PostSQLExplorationResult) GetTruncated() *bool {
 type PostSQLExplorationExplorationDimensionOperator string
 
 const (
-	PostSQLExplorationExplorationDimensionOperatorEqual            PostSQLExplorationExplorationDimensionOperator = "="
-	PostSQLExplorationExplorationDimensionOperatorNotEqual         PostSQLExplorationExplorationDimensionOperator = "!="
-	PostSQLExplorationExplorationDimensionOperatorLessThan         PostSQLExplorationExplorationDimensionOperator = "<"
-	PostSQLExplorationExplorationDimensionOperatorLessThanEqual    PostSQLExplorationExplorationDimensionOperator = "<="
-	PostSQLExplorationExplorationDimensionOperatorGreaterThan      PostSQLExplorationExplorationDimensionOperator = ">"
-	PostSQLExplorationExplorationDimensionOperatorGreaterThanEqual PostSQLExplorationExplorationDimensionOperator = ">="
-	PostSQLExplorationExplorationDimensionOperatorBetween          PostSQLExplorationExplorationDimensionOperator = "between"
-	PostSQLExplorationExplorationDimensionOperatorNotBetween       PostSQLExplorationExplorationDimensionOperator = "not_between"
-	PostSQLExplorationExplorationDimensionOperatorIn               PostSQLExplorationExplorationDimensionOperator = "in"
-	PostSQLExplorationExplorationDimensionOperatorNotIn            PostSQLExplorationExplorationDimensionOperator = "not_in"
-	PostSQLExplorationExplorationDimensionOperatorContains         PostSQLExplorationExplorationDimensionOperator = "contains"
-	PostSQLExplorationExplorationDimensionOperatorNotContains      PostSQLExplorationExplorationDimensionOperator = "not_contains"
-	PostSQLExplorationExplorationDimensionOperatorStartsWith       PostSQLExplorationExplorationDimensionOperator = "starts_with"
-	PostSQLExplorationExplorationDimensionOperatorEndsWith         PostSQLExplorationExplorationDimensionOperator = "ends_with"
-	PostSQLExplorationExplorationDimensionOperatorIsNull           PostSQLExplorationExplorationDimensionOperator = "is_null"
-	PostSQLExplorationExplorationDimensionOperatorNotNull          PostSQLExplorationExplorationDimensionOperator = "not_null"
-	PostSQLExplorationExplorationDimensionOperatorIsTrue           PostSQLExplorationExplorationDimensionOperator = "is_true"
-	PostSQLExplorationExplorationDimensionOperatorIsFalse          PostSQLExplorationExplorationDimensionOperator = "is_false"
-	PostSQLExplorationExplorationDimensionOperatorSQLExpr          PostSQLExplorationExplorationDimensionOperator = "sql_expr"
-	PostSQLExplorationExplorationDimensionOperatorSavedFilter      PostSQLExplorationExplorationDimensionOperator = "saved_filter"
+	PostSQLExplorationExplorationDimensionOperatorEqual             PostSQLExplorationExplorationDimensionOperator = "="
+	PostSQLExplorationExplorationDimensionOperatorNotEqual          PostSQLExplorationExplorationDimensionOperator = "!="
+	PostSQLExplorationExplorationDimensionOperatorLessThan          PostSQLExplorationExplorationDimensionOperator = "<"
+	PostSQLExplorationExplorationDimensionOperatorLessThanEqual     PostSQLExplorationExplorationDimensionOperator = "<="
+	PostSQLExplorationExplorationDimensionOperatorGreaterThan       PostSQLExplorationExplorationDimensionOperator = ">"
+	PostSQLExplorationExplorationDimensionOperatorGreaterThanEqual  PostSQLExplorationExplorationDimensionOperator = ">="
+	PostSQLExplorationExplorationDimensionOperatorBetween           PostSQLExplorationExplorationDimensionOperator = "between"
+	PostSQLExplorationExplorationDimensionOperatorNotBetween        PostSQLExplorationExplorationDimensionOperator = "not_between"
+	PostSQLExplorationExplorationDimensionOperatorIn                PostSQLExplorationExplorationDimensionOperator = "in"
+	PostSQLExplorationExplorationDimensionOperatorNotIn             PostSQLExplorationExplorationDimensionOperator = "not_in"
+	PostSQLExplorationExplorationDimensionOperatorContains          PostSQLExplorationExplorationDimensionOperator = "contains"
+	PostSQLExplorationExplorationDimensionOperatorNotContains       PostSQLExplorationExplorationDimensionOperator = "not_contains"
+	PostSQLExplorationExplorationDimensionOperatorMatchesPattern    PostSQLExplorationExplorationDimensionOperator = "matches_pattern"
+	PostSQLExplorationExplorationDimensionOperatorNotMatchesPattern PostSQLExplorationExplorationDimensionOperator = "not_matches_pattern"
+	PostSQLExplorationExplorationDimensionOperatorStartsWith        PostSQLExplorationExplorationDimensionOperator = "starts_with"
+	PostSQLExplorationExplorationDimensionOperatorEndsWith          PostSQLExplorationExplorationDimensionOperator = "ends_with"
+	PostSQLExplorationExplorationDimensionOperatorIsNull            PostSQLExplorationExplorationDimensionOperator = "is_null"
+	PostSQLExplorationExplorationDimensionOperatorNotNull           PostSQLExplorationExplorationDimensionOperator = "not_null"
+	PostSQLExplorationExplorationDimensionOperatorIsTrue            PostSQLExplorationExplorationDimensionOperator = "is_true"
+	PostSQLExplorationExplorationDimensionOperatorIsFalse           PostSQLExplorationExplorationDimensionOperator = "is_false"
+	PostSQLExplorationExplorationDimensionOperatorSQLExpr           PostSQLExplorationExplorationDimensionOperator = "sql_expr"
+	PostSQLExplorationExplorationDimensionOperatorSavedFilter       PostSQLExplorationExplorationDimensionOperator = "saved_filter"
 )
 
 func (e PostSQLExplorationExplorationDimensionOperator) ToPointer() *PostSQLExplorationExplorationDimensionOperator {
@@ -1263,7 +1548,7 @@ func (e PostSQLExplorationExplorationDimensionOperator) ToPointer() *PostSQLExpl
 func (e *PostSQLExplorationExplorationDimensionOperator) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
 			return true
 		}
 	}
@@ -1852,26 +2137,28 @@ func (e *PostSQLExplorationColumnTypesResponse) IsExact() bool {
 type PostSQLExplorationExplorationRowFilterOperator string
 
 const (
-	PostSQLExplorationExplorationRowFilterOperatorEqual            PostSQLExplorationExplorationRowFilterOperator = "="
-	PostSQLExplorationExplorationRowFilterOperatorNotEqual         PostSQLExplorationExplorationRowFilterOperator = "!="
-	PostSQLExplorationExplorationRowFilterOperatorLessThan         PostSQLExplorationExplorationRowFilterOperator = "<"
-	PostSQLExplorationExplorationRowFilterOperatorLessThanEqual    PostSQLExplorationExplorationRowFilterOperator = "<="
-	PostSQLExplorationExplorationRowFilterOperatorGreaterThan      PostSQLExplorationExplorationRowFilterOperator = ">"
-	PostSQLExplorationExplorationRowFilterOperatorGreaterThanEqual PostSQLExplorationExplorationRowFilterOperator = ">="
-	PostSQLExplorationExplorationRowFilterOperatorBetween          PostSQLExplorationExplorationRowFilterOperator = "between"
-	PostSQLExplorationExplorationRowFilterOperatorNotBetween       PostSQLExplorationExplorationRowFilterOperator = "not_between"
-	PostSQLExplorationExplorationRowFilterOperatorIn               PostSQLExplorationExplorationRowFilterOperator = "in"
-	PostSQLExplorationExplorationRowFilterOperatorNotIn            PostSQLExplorationExplorationRowFilterOperator = "not_in"
-	PostSQLExplorationExplorationRowFilterOperatorContains         PostSQLExplorationExplorationRowFilterOperator = "contains"
-	PostSQLExplorationExplorationRowFilterOperatorNotContains      PostSQLExplorationExplorationRowFilterOperator = "not_contains"
-	PostSQLExplorationExplorationRowFilterOperatorStartsWith       PostSQLExplorationExplorationRowFilterOperator = "starts_with"
-	PostSQLExplorationExplorationRowFilterOperatorEndsWith         PostSQLExplorationExplorationRowFilterOperator = "ends_with"
-	PostSQLExplorationExplorationRowFilterOperatorIsNull           PostSQLExplorationExplorationRowFilterOperator = "is_null"
-	PostSQLExplorationExplorationRowFilterOperatorNotNull          PostSQLExplorationExplorationRowFilterOperator = "not_null"
-	PostSQLExplorationExplorationRowFilterOperatorIsTrue           PostSQLExplorationExplorationRowFilterOperator = "is_true"
-	PostSQLExplorationExplorationRowFilterOperatorIsFalse          PostSQLExplorationExplorationRowFilterOperator = "is_false"
-	PostSQLExplorationExplorationRowFilterOperatorSQLExpr          PostSQLExplorationExplorationRowFilterOperator = "sql_expr"
-	PostSQLExplorationExplorationRowFilterOperatorSavedFilter      PostSQLExplorationExplorationRowFilterOperator = "saved_filter"
+	PostSQLExplorationExplorationRowFilterOperatorEqual             PostSQLExplorationExplorationRowFilterOperator = "="
+	PostSQLExplorationExplorationRowFilterOperatorNotEqual          PostSQLExplorationExplorationRowFilterOperator = "!="
+	PostSQLExplorationExplorationRowFilterOperatorLessThan          PostSQLExplorationExplorationRowFilterOperator = "<"
+	PostSQLExplorationExplorationRowFilterOperatorLessThanEqual     PostSQLExplorationExplorationRowFilterOperator = "<="
+	PostSQLExplorationExplorationRowFilterOperatorGreaterThan       PostSQLExplorationExplorationRowFilterOperator = ">"
+	PostSQLExplorationExplorationRowFilterOperatorGreaterThanEqual  PostSQLExplorationExplorationRowFilterOperator = ">="
+	PostSQLExplorationExplorationRowFilterOperatorBetween           PostSQLExplorationExplorationRowFilterOperator = "between"
+	PostSQLExplorationExplorationRowFilterOperatorNotBetween        PostSQLExplorationExplorationRowFilterOperator = "not_between"
+	PostSQLExplorationExplorationRowFilterOperatorIn                PostSQLExplorationExplorationRowFilterOperator = "in"
+	PostSQLExplorationExplorationRowFilterOperatorNotIn             PostSQLExplorationExplorationRowFilterOperator = "not_in"
+	PostSQLExplorationExplorationRowFilterOperatorContains          PostSQLExplorationExplorationRowFilterOperator = "contains"
+	PostSQLExplorationExplorationRowFilterOperatorNotContains       PostSQLExplorationExplorationRowFilterOperator = "not_contains"
+	PostSQLExplorationExplorationRowFilterOperatorMatchesPattern    PostSQLExplorationExplorationRowFilterOperator = "matches_pattern"
+	PostSQLExplorationExplorationRowFilterOperatorNotMatchesPattern PostSQLExplorationExplorationRowFilterOperator = "not_matches_pattern"
+	PostSQLExplorationExplorationRowFilterOperatorStartsWith        PostSQLExplorationExplorationRowFilterOperator = "starts_with"
+	PostSQLExplorationExplorationRowFilterOperatorEndsWith          PostSQLExplorationExplorationRowFilterOperator = "ends_with"
+	PostSQLExplorationExplorationRowFilterOperatorIsNull            PostSQLExplorationExplorationRowFilterOperator = "is_null"
+	PostSQLExplorationExplorationRowFilterOperatorNotNull           PostSQLExplorationExplorationRowFilterOperator = "not_null"
+	PostSQLExplorationExplorationRowFilterOperatorIsTrue            PostSQLExplorationExplorationRowFilterOperator = "is_true"
+	PostSQLExplorationExplorationRowFilterOperatorIsFalse           PostSQLExplorationExplorationRowFilterOperator = "is_false"
+	PostSQLExplorationExplorationRowFilterOperatorSQLExpr           PostSQLExplorationExplorationRowFilterOperator = "sql_expr"
+	PostSQLExplorationExplorationRowFilterOperatorSavedFilter       PostSQLExplorationExplorationRowFilterOperator = "saved_filter"
 )
 
 func (e PostSQLExplorationExplorationRowFilterOperator) ToPointer() *PostSQLExplorationExplorationRowFilterOperator {
@@ -1882,7 +2169,7 @@ func (e PostSQLExplorationExplorationRowFilterOperator) ToPointer() *PostSQLExpl
 func (e *PostSQLExplorationExplorationRowFilterOperator) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
 			return true
 		}
 	}

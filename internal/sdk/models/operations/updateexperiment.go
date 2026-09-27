@@ -397,6 +397,7 @@ func (u *UpdateExperimentScreenshot) GetDescription() *string {
 }
 
 type UpdateExperimentVariation struct {
+	// Stable variation id. On update, an omitted id is filled from the stored variation with the same key, or the same position, when the number of variations is unchanged.
 	ID *string `json:"id,omitzero"`
 	// Alias for `id`. Mirrors the GET response. `id` takes precedence.
 	VariationID *string                      `json:"variationId,omitzero"`
@@ -1213,8 +1214,8 @@ type UpdateExperimentRequestBody struct {
 	AttributeScopeAllProjects *bool    `json:"attributeScopeAllProjects,omitzero"`
 	HashVersion               *float64 `json:"hashVersion,omitzero"`
 	DisableStickyBucketing    *bool    `json:"disableStickyBucketing,omitzero"`
-	BucketVersion             *float64 `json:"bucketVersion,omitzero"`
-	MinBucketVersion          *float64 `json:"minBucketVersion,omitzero"`
+	BucketVersion             *int64   `json:"bucketVersion,omitzero"`
+	MinBucketVersion          *int64   `json:"minBucketVersion,omitzero"`
 	// The result status of the experiment. Maps to resultSummary.status in the GET response.
 	Results *UpdateExperimentResults `json:"results,omitzero"`
 	// The index of the winning variation (0-indexed). Maps to resultSummary.winner (variation ID) in the GET response.
@@ -1448,14 +1449,14 @@ func (u *UpdateExperimentRequestBody) GetDisableStickyBucketing() *bool {
 	return u.DisableStickyBucketing
 }
 
-func (u *UpdateExperimentRequestBody) GetBucketVersion() *float64 {
+func (u *UpdateExperimentRequestBody) GetBucketVersion() *int64 {
 	if u == nil {
 		return nil
 	}
 	return u.BucketVersion
 }
 
-func (u *UpdateExperimentRequestBody) GetMinBucketVersion() *float64 {
+func (u *UpdateExperimentRequestBody) GetMinBucketVersion() *int64 {
 	if u == nil {
 		return nil
 	}

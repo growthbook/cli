@@ -90,26 +90,28 @@ func (e *PostFactMetricNumeratorAggregation) UnmarshalJSON(data []byte) error {
 type PostFactMetricNumeratorOperator string
 
 const (
-	PostFactMetricNumeratorOperatorEqual            PostFactMetricNumeratorOperator = "="
-	PostFactMetricNumeratorOperatorNotEqual         PostFactMetricNumeratorOperator = "!="
-	PostFactMetricNumeratorOperatorGreaterThan      PostFactMetricNumeratorOperator = ">"
-	PostFactMetricNumeratorOperatorLessThan         PostFactMetricNumeratorOperator = "<"
-	PostFactMetricNumeratorOperatorGreaterThanEqual PostFactMetricNumeratorOperator = ">="
-	PostFactMetricNumeratorOperatorLessThanEqual    PostFactMetricNumeratorOperator = "<="
-	PostFactMetricNumeratorOperatorBetween          PostFactMetricNumeratorOperator = "between"
-	PostFactMetricNumeratorOperatorNotBetween       PostFactMetricNumeratorOperator = "not_between"
-	PostFactMetricNumeratorOperatorIn               PostFactMetricNumeratorOperator = "in"
-	PostFactMetricNumeratorOperatorNotIn            PostFactMetricNumeratorOperator = "not_in"
-	PostFactMetricNumeratorOperatorIsNull           PostFactMetricNumeratorOperator = "is_null"
-	PostFactMetricNumeratorOperatorNotNull          PostFactMetricNumeratorOperator = "not_null"
-	PostFactMetricNumeratorOperatorIsTrue           PostFactMetricNumeratorOperator = "is_true"
-	PostFactMetricNumeratorOperatorIsFalse          PostFactMetricNumeratorOperator = "is_false"
-	PostFactMetricNumeratorOperatorContains         PostFactMetricNumeratorOperator = "contains"
-	PostFactMetricNumeratorOperatorNotContains      PostFactMetricNumeratorOperator = "not_contains"
-	PostFactMetricNumeratorOperatorStartsWith       PostFactMetricNumeratorOperator = "starts_with"
-	PostFactMetricNumeratorOperatorEndsWith         PostFactMetricNumeratorOperator = "ends_with"
-	PostFactMetricNumeratorOperatorSQLExpr          PostFactMetricNumeratorOperator = "sql_expr"
-	PostFactMetricNumeratorOperatorSavedFilter      PostFactMetricNumeratorOperator = "saved_filter"
+	PostFactMetricNumeratorOperatorEqual             PostFactMetricNumeratorOperator = "="
+	PostFactMetricNumeratorOperatorNotEqual          PostFactMetricNumeratorOperator = "!="
+	PostFactMetricNumeratorOperatorGreaterThan       PostFactMetricNumeratorOperator = ">"
+	PostFactMetricNumeratorOperatorLessThan          PostFactMetricNumeratorOperator = "<"
+	PostFactMetricNumeratorOperatorGreaterThanEqual  PostFactMetricNumeratorOperator = ">="
+	PostFactMetricNumeratorOperatorLessThanEqual     PostFactMetricNumeratorOperator = "<="
+	PostFactMetricNumeratorOperatorBetween           PostFactMetricNumeratorOperator = "between"
+	PostFactMetricNumeratorOperatorNotBetween        PostFactMetricNumeratorOperator = "not_between"
+	PostFactMetricNumeratorOperatorIn                PostFactMetricNumeratorOperator = "in"
+	PostFactMetricNumeratorOperatorNotIn             PostFactMetricNumeratorOperator = "not_in"
+	PostFactMetricNumeratorOperatorIsNull            PostFactMetricNumeratorOperator = "is_null"
+	PostFactMetricNumeratorOperatorNotNull           PostFactMetricNumeratorOperator = "not_null"
+	PostFactMetricNumeratorOperatorIsTrue            PostFactMetricNumeratorOperator = "is_true"
+	PostFactMetricNumeratorOperatorIsFalse           PostFactMetricNumeratorOperator = "is_false"
+	PostFactMetricNumeratorOperatorContains          PostFactMetricNumeratorOperator = "contains"
+	PostFactMetricNumeratorOperatorNotContains       PostFactMetricNumeratorOperator = "not_contains"
+	PostFactMetricNumeratorOperatorMatchesPattern    PostFactMetricNumeratorOperator = "matches_pattern"
+	PostFactMetricNumeratorOperatorNotMatchesPattern PostFactMetricNumeratorOperator = "not_matches_pattern"
+	PostFactMetricNumeratorOperatorStartsWith        PostFactMetricNumeratorOperator = "starts_with"
+	PostFactMetricNumeratorOperatorEndsWith          PostFactMetricNumeratorOperator = "ends_with"
+	PostFactMetricNumeratorOperatorSQLExpr           PostFactMetricNumeratorOperator = "sql_expr"
+	PostFactMetricNumeratorOperatorSavedFilter       PostFactMetricNumeratorOperator = "saved_filter"
 )
 
 func (e PostFactMetricNumeratorOperator) ToPointer() *PostFactMetricNumeratorOperator {
@@ -152,6 +154,10 @@ func (e *PostFactMetricNumeratorOperator) UnmarshalJSON(data []byte) error {
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough
@@ -335,26 +341,28 @@ func (e *PostFactMetricDenominatorAggregation) UnmarshalJSON(data []byte) error 
 type PostFactMetricDenominatorOperator string
 
 const (
-	PostFactMetricDenominatorOperatorEqual            PostFactMetricDenominatorOperator = "="
-	PostFactMetricDenominatorOperatorNotEqual         PostFactMetricDenominatorOperator = "!="
-	PostFactMetricDenominatorOperatorGreaterThan      PostFactMetricDenominatorOperator = ">"
-	PostFactMetricDenominatorOperatorLessThan         PostFactMetricDenominatorOperator = "<"
-	PostFactMetricDenominatorOperatorGreaterThanEqual PostFactMetricDenominatorOperator = ">="
-	PostFactMetricDenominatorOperatorLessThanEqual    PostFactMetricDenominatorOperator = "<="
-	PostFactMetricDenominatorOperatorBetween          PostFactMetricDenominatorOperator = "between"
-	PostFactMetricDenominatorOperatorNotBetween       PostFactMetricDenominatorOperator = "not_between"
-	PostFactMetricDenominatorOperatorIn               PostFactMetricDenominatorOperator = "in"
-	PostFactMetricDenominatorOperatorNotIn            PostFactMetricDenominatorOperator = "not_in"
-	PostFactMetricDenominatorOperatorIsNull           PostFactMetricDenominatorOperator = "is_null"
-	PostFactMetricDenominatorOperatorNotNull          PostFactMetricDenominatorOperator = "not_null"
-	PostFactMetricDenominatorOperatorIsTrue           PostFactMetricDenominatorOperator = "is_true"
-	PostFactMetricDenominatorOperatorIsFalse          PostFactMetricDenominatorOperator = "is_false"
-	PostFactMetricDenominatorOperatorContains         PostFactMetricDenominatorOperator = "contains"
-	PostFactMetricDenominatorOperatorNotContains      PostFactMetricDenominatorOperator = "not_contains"
-	PostFactMetricDenominatorOperatorStartsWith       PostFactMetricDenominatorOperator = "starts_with"
-	PostFactMetricDenominatorOperatorEndsWith         PostFactMetricDenominatorOperator = "ends_with"
-	PostFactMetricDenominatorOperatorSQLExpr          PostFactMetricDenominatorOperator = "sql_expr"
-	PostFactMetricDenominatorOperatorSavedFilter      PostFactMetricDenominatorOperator = "saved_filter"
+	PostFactMetricDenominatorOperatorEqual             PostFactMetricDenominatorOperator = "="
+	PostFactMetricDenominatorOperatorNotEqual          PostFactMetricDenominatorOperator = "!="
+	PostFactMetricDenominatorOperatorGreaterThan       PostFactMetricDenominatorOperator = ">"
+	PostFactMetricDenominatorOperatorLessThan          PostFactMetricDenominatorOperator = "<"
+	PostFactMetricDenominatorOperatorGreaterThanEqual  PostFactMetricDenominatorOperator = ">="
+	PostFactMetricDenominatorOperatorLessThanEqual     PostFactMetricDenominatorOperator = "<="
+	PostFactMetricDenominatorOperatorBetween           PostFactMetricDenominatorOperator = "between"
+	PostFactMetricDenominatorOperatorNotBetween        PostFactMetricDenominatorOperator = "not_between"
+	PostFactMetricDenominatorOperatorIn                PostFactMetricDenominatorOperator = "in"
+	PostFactMetricDenominatorOperatorNotIn             PostFactMetricDenominatorOperator = "not_in"
+	PostFactMetricDenominatorOperatorIsNull            PostFactMetricDenominatorOperator = "is_null"
+	PostFactMetricDenominatorOperatorNotNull           PostFactMetricDenominatorOperator = "not_null"
+	PostFactMetricDenominatorOperatorIsTrue            PostFactMetricDenominatorOperator = "is_true"
+	PostFactMetricDenominatorOperatorIsFalse           PostFactMetricDenominatorOperator = "is_false"
+	PostFactMetricDenominatorOperatorContains          PostFactMetricDenominatorOperator = "contains"
+	PostFactMetricDenominatorOperatorNotContains       PostFactMetricDenominatorOperator = "not_contains"
+	PostFactMetricDenominatorOperatorMatchesPattern    PostFactMetricDenominatorOperator = "matches_pattern"
+	PostFactMetricDenominatorOperatorNotMatchesPattern PostFactMetricDenominatorOperator = "not_matches_pattern"
+	PostFactMetricDenominatorOperatorStartsWith        PostFactMetricDenominatorOperator = "starts_with"
+	PostFactMetricDenominatorOperatorEndsWith          PostFactMetricDenominatorOperator = "ends_with"
+	PostFactMetricDenominatorOperatorSQLExpr           PostFactMetricDenominatorOperator = "sql_expr"
+	PostFactMetricDenominatorOperatorSavedFilter       PostFactMetricDenominatorOperator = "saved_filter"
 )
 
 func (e PostFactMetricDenominatorOperator) ToPointer() *PostFactMetricDenominatorOperator {
@@ -397,6 +405,10 @@ func (e *PostFactMetricDenominatorOperator) UnmarshalJSON(data []byte) error {
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough
@@ -594,26 +606,28 @@ func (p *PostFactMetricQuantileSettings) GetQuantileEventCountColumn() *string {
 type PostFactMetricOperatorSequential string
 
 const (
-	PostFactMetricOperatorSequentialEqual            PostFactMetricOperatorSequential = "="
-	PostFactMetricOperatorSequentialNotEqual         PostFactMetricOperatorSequential = "!="
-	PostFactMetricOperatorSequentialGreaterThan      PostFactMetricOperatorSequential = ">"
-	PostFactMetricOperatorSequentialLessThan         PostFactMetricOperatorSequential = "<"
-	PostFactMetricOperatorSequentialGreaterThanEqual PostFactMetricOperatorSequential = ">="
-	PostFactMetricOperatorSequentialLessThanEqual    PostFactMetricOperatorSequential = "<="
-	PostFactMetricOperatorSequentialBetween          PostFactMetricOperatorSequential = "between"
-	PostFactMetricOperatorSequentialNotBetween       PostFactMetricOperatorSequential = "not_between"
-	PostFactMetricOperatorSequentialIn               PostFactMetricOperatorSequential = "in"
-	PostFactMetricOperatorSequentialNotIn            PostFactMetricOperatorSequential = "not_in"
-	PostFactMetricOperatorSequentialIsNull           PostFactMetricOperatorSequential = "is_null"
-	PostFactMetricOperatorSequentialNotNull          PostFactMetricOperatorSequential = "not_null"
-	PostFactMetricOperatorSequentialIsTrue           PostFactMetricOperatorSequential = "is_true"
-	PostFactMetricOperatorSequentialIsFalse          PostFactMetricOperatorSequential = "is_false"
-	PostFactMetricOperatorSequentialContains         PostFactMetricOperatorSequential = "contains"
-	PostFactMetricOperatorSequentialNotContains      PostFactMetricOperatorSequential = "not_contains"
-	PostFactMetricOperatorSequentialStartsWith       PostFactMetricOperatorSequential = "starts_with"
-	PostFactMetricOperatorSequentialEndsWith         PostFactMetricOperatorSequential = "ends_with"
-	PostFactMetricOperatorSequentialSQLExpr          PostFactMetricOperatorSequential = "sql_expr"
-	PostFactMetricOperatorSequentialSavedFilter      PostFactMetricOperatorSequential = "saved_filter"
+	PostFactMetricOperatorSequentialEqual             PostFactMetricOperatorSequential = "="
+	PostFactMetricOperatorSequentialNotEqual          PostFactMetricOperatorSequential = "!="
+	PostFactMetricOperatorSequentialGreaterThan       PostFactMetricOperatorSequential = ">"
+	PostFactMetricOperatorSequentialLessThan          PostFactMetricOperatorSequential = "<"
+	PostFactMetricOperatorSequentialGreaterThanEqual  PostFactMetricOperatorSequential = ">="
+	PostFactMetricOperatorSequentialLessThanEqual     PostFactMetricOperatorSequential = "<="
+	PostFactMetricOperatorSequentialBetween           PostFactMetricOperatorSequential = "between"
+	PostFactMetricOperatorSequentialNotBetween        PostFactMetricOperatorSequential = "not_between"
+	PostFactMetricOperatorSequentialIn                PostFactMetricOperatorSequential = "in"
+	PostFactMetricOperatorSequentialNotIn             PostFactMetricOperatorSequential = "not_in"
+	PostFactMetricOperatorSequentialIsNull            PostFactMetricOperatorSequential = "is_null"
+	PostFactMetricOperatorSequentialNotNull           PostFactMetricOperatorSequential = "not_null"
+	PostFactMetricOperatorSequentialIsTrue            PostFactMetricOperatorSequential = "is_true"
+	PostFactMetricOperatorSequentialIsFalse           PostFactMetricOperatorSequential = "is_false"
+	PostFactMetricOperatorSequentialContains          PostFactMetricOperatorSequential = "contains"
+	PostFactMetricOperatorSequentialNotContains       PostFactMetricOperatorSequential = "not_contains"
+	PostFactMetricOperatorSequentialMatchesPattern    PostFactMetricOperatorSequential = "matches_pattern"
+	PostFactMetricOperatorSequentialNotMatchesPattern PostFactMetricOperatorSequential = "not_matches_pattern"
+	PostFactMetricOperatorSequentialStartsWith        PostFactMetricOperatorSequential = "starts_with"
+	PostFactMetricOperatorSequentialEndsWith          PostFactMetricOperatorSequential = "ends_with"
+	PostFactMetricOperatorSequentialSQLExpr           PostFactMetricOperatorSequential = "sql_expr"
+	PostFactMetricOperatorSequentialSavedFilter       PostFactMetricOperatorSequential = "saved_filter"
 )
 
 func (e PostFactMetricOperatorSequential) ToPointer() *PostFactMetricOperatorSequential {
@@ -656,6 +670,10 @@ func (e *PostFactMetricOperatorSequential) UnmarshalJSON(data []byte) error {
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough
@@ -905,10 +923,10 @@ func (e *PostFactMetricCappingSettingsType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// PostFactMetricCappingSettings - Controls how outliers are handled
+// PostFactMetricCappingSettings - Upper cap. Omit on update to preserve it. Use type: none to disable it explicitly. Invalid values are rejected.
 type PostFactMetricCappingSettings struct {
 	Type PostFactMetricCappingSettingsType `json:"type"`
-	// When type is absolute, this is the absolute value. When type is percentile, this is the percentile value (from 0.0 to 1.0).
+	// When type is absolute, this must be a finite number greater than zero. When type is percentile, this must be strictly between 0 and 1. Required when enabling capping or changing type; omitted values are preserved only for same-type updates.
 	Value *float64 `json:"value,omitzero"`
 	// If true and capping is `percentile`, zeros will be ignored when calculating the percentile.
 	IgnoreZeros *bool `json:"ignoreZeros,omitzero"`
@@ -929,6 +947,65 @@ func (p *PostFactMetricCappingSettings) GetValue() *float64 {
 }
 
 func (p *PostFactMetricCappingSettings) GetIgnoreZeros() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.IgnoreZeros
+}
+
+type PostFactMetricLowerCappingSettingsType string
+
+const (
+	PostFactMetricLowerCappingSettingsTypeNone       PostFactMetricLowerCappingSettingsType = "none"
+	PostFactMetricLowerCappingSettingsTypeAbsolute   PostFactMetricLowerCappingSettingsType = "absolute"
+	PostFactMetricLowerCappingSettingsTypePercentile PostFactMetricLowerCappingSettingsType = "percentile"
+)
+
+func (e PostFactMetricLowerCappingSettingsType) ToPointer() *PostFactMetricLowerCappingSettingsType {
+	return &e
+}
+func (e *PostFactMetricLowerCappingSettingsType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "none":
+		fallthrough
+	case "absolute":
+		fallthrough
+	case "percentile":
+		*e = PostFactMetricLowerCappingSettingsType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PostFactMetricLowerCappingSettingsType: %v", v)
+	}
+}
+
+// PostFactMetricLowerCappingSettings - Independent lower-tail capping settings. Configured separately from the upper tail, so the type can differ.
+type PostFactMetricLowerCappingSettings struct {
+	Type PostFactMetricLowerCappingSettingsType `json:"type"`
+	// When type is absolute, this is a finite lower bound, including zero or negative values. When type is percentile, this must be strictly between 0 and 1. Required when enabling capping or changing type; omitted values are preserved only for same-type updates.
+	Value *float64 `json:"value,omitzero"`
+	// If true and capping is `percentile`, zeros will be ignored when calculating the percentile.
+	IgnoreZeros *bool `json:"ignoreZeros,omitzero"`
+}
+
+func (p *PostFactMetricLowerCappingSettings) GetType() PostFactMetricLowerCappingSettingsType {
+	if p == nil {
+		return PostFactMetricLowerCappingSettingsType("")
+	}
+	return p.Type
+}
+
+func (p *PostFactMetricLowerCappingSettings) GetValue() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.Value
+}
+
+func (p *PostFactMetricLowerCappingSettings) GetIgnoreZeros() *bool {
 	if p == nil {
 		return nil
 	}
@@ -1206,8 +1283,10 @@ type PostFactMetricRequest struct {
 	QuantileSettings *PostFactMetricQuantileSettings `json:"quantileSettings,omitzero"`
 	// Funnel metric settings (required when metricType is "funnel")
 	FunnelSettings *PostFactMetricFunnelSettings `json:"funnelSettings,omitzero"`
-	// Controls how outliers are handled
+	// Upper cap. Omit on update to preserve it. Use type: none to disable it explicitly. Invalid values are rejected.
 	CappingSettings *PostFactMetricCappingSettings `json:"cappingSettings,omitzero"`
+	// Independent lower cap. Omit on update to preserve it. Use null or type: none to disable it explicitly. Invalid values are rejected. For mixed cap types, the absolute bound takes precedence if thresholds cross.
+	LowerCappingSettings optionalnullable.OptionalNullable[PostFactMetricLowerCappingSettings] `json:"lowerCappingSettings,omitzero"`
 	// Controls the conversion window for the metric
 	WindowSettings *PostFactMetricWindowSettings `json:"windowSettings,omitzero"`
 	// Controls the bayesian prior for the metric. If omitted, organization defaults will be used.
@@ -1332,6 +1411,13 @@ func (p *PostFactMetricRequest) GetCappingSettings() *PostFactMetricCappingSetti
 		return nil
 	}
 	return p.CappingSettings
+}
+
+func (p *PostFactMetricRequest) GetLowerCappingSettings() optionalnullable.OptionalNullable[PostFactMetricLowerCappingSettings] {
+	if p == nil {
+		return nil
+	}
+	return p.LowerCappingSettings
 }
 
 func (p *PostFactMetricRequest) GetWindowSettings() *PostFactMetricWindowSettings {

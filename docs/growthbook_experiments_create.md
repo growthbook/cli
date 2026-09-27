@@ -32,7 +32,7 @@ growthbook experiments create [flags]
       --bandit-schedule-unit string                  options: days, hours
       --bandit-schedule-value float                  number value
       --body string                                  Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --bucket-version float                         number value
+      --bucket-version int                           integer value
       --bypass-duplicate-key-check                   If true, allow creating an experiment even if another experiment with the same tracking key already exists. This is ignored if the organization requires unique tracking keys as a rule.
       --custom-fields string                         value
       --custom-metric-slices string                  Custom slices that apply to ALL applicable metrics in the experiment
@@ -53,7 +53,7 @@ growthbook experiments create [flags]
   -l, --lookback-override string                     Controls the lookback override for the experiment. For type "window", value must be a non-negative number and valueUnit is required.
       --metric-overrides string                      Per-metric analysis overrides for this experiment. Replaces the entire stored array (does not patch individual entries).
       --metrics stringArray                          list of values
-      --min-bucket-version float                     number value
+      --min-bucket-version int                       integer value
   -n, --name string                                  Name of the experiment [required]
       --owner string                                 The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the user associated with the request's Personal Access Token (PAT), if one is being used.
       --phases string                                list of values

@@ -175,7 +175,7 @@ func (s *Settings) GetSettings(ctx context.Context, opts ...operations.Option) (
 
 }
 
-// SetApprovals - Replace the approval requirements for feature flags, configs and constants, and for saved groups. Each family is replaced wholesale when supplied; omit one to leave it unchanged.
+// SetApprovals - Replace the approval requirements for feature flags, configs and constants, for saved groups, and the Targeting Projects review mode. Each family is replaced wholesale when supplied; omit one to leave it unchanged.
 func (s *Settings) SetApprovals(ctx context.Context, request operations.PutApprovalSettingsRequest, opts ...operations.Option) (*operations.PutApprovalSettingsResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{

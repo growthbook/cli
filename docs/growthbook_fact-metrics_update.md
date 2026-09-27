@@ -21,7 +21,7 @@ growthbook fact-metrics update [flags]
 ```
   -a, --archived                                     Set to true to archive the metric. Archived metrics are hidden by default in the UI and excluded from new experiments.
       --body string                                  Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -c, --capping-settings string                      Controls how outliers are handled
+  -c, --capping-settings string                      Upper cap. Omit on update to preserve it. Use type: none to disable it explicitly. Invalid values are rejected.
       --denominator string                           Only when metricType is 'ratio'
       --description string                           string value
       --display-as-percentage                        If true and the metric is a ratio or dailyParticipation metric, variation means will be displayed as a percentage. Defaults to true for dailyParticipation metrics and false for ratio metrics.
@@ -29,6 +29,7 @@ growthbook fact-metrics update [flags]
   -h, --help                                         help for update
       --id string                                    The id of the requested resource [required]
       --inverse                                      Set to true for things like Bounce Rate, where you want the metric to decrease
+  -l, --lower-capping-settings string                Independent lower cap. Omit on update to preserve it. Use null or type: none to disable it explicitly. Invalid values are rejected. For mixed cap types, the absolute bound takes precedence if thresholds cross.
       --managed-by string                            Set this to "api" to disable editing in the GrowthBook UI (options: , api, admin)
       --max-percent-change float                     Maximum percent change to consider uplift significant, as a proportion (e.g. put 0.5 for 50%)
       --metric-auto-slices stringArray               Array of slice column names that will be automatically included in metric analysis. This is an enterprise feature.

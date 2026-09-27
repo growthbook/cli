@@ -21,6 +21,7 @@ var addVisualChangeCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "body-param.css", FieldPath: "Body.CSS", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "body-param.js", FieldPath: "Body.Js", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "body-param.variation", FieldPath: "Body.Variation", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
+	{FlagName: "body-param.allow-running-experiment", FieldPath: "Body.AllowRunningExperiment", Kind: flagutil.FlagKindBool, Optional: true, Description: "Also accept the write when the experiment is running. Off by default so a stale editor can't change a live test. When set, the change reaches live traffic immediately and the caller needs the runExperiments permission on the affected environments; the write is audited."},
 	{FlagName: "body-param.dom-mutations", FieldPath: "Body.DomMutations", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"domMutations,omitempty"`, Description: "list of values"},
 	{FlagName: "body-param.additional-properties", FieldPath: "Body.AdditionalProperties", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `additionalProperties:"true" json:"-"`, Description: "value"},
 }

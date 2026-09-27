@@ -23,7 +23,6 @@ var updateContextualBanditCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "tags", FieldPath: "Body.Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
 	{FlagName: "tracking-key", FieldPath: "Body.TrackingKey", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "hash-attribute", FieldPath: "Body.HashAttribute", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "variations", FieldPath: "Body.Variations", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"variations,omitempty"`, Description: "list of values"},
 	{FlagName: "datasource", FieldPath: "Body.Datasource", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "contextual-bandit-query-id", FieldPath: "Body.ContextualBanditQueryID", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "contextual-attributes", FieldPath: "Body.ContextualAttributes", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
@@ -43,7 +42,6 @@ var updateContextualBanditCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "saved-groups", FieldPath: "Body.SavedGroups", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"savedGroups,omitempty"`, Description: "list of values"},
 	{FlagName: "prerequisites", FieldPath: "Body.Prerequisites", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"prerequisites,omitempty"`, Description: "list of values"},
 	{FlagName: "seed", FieldPath: "Body.Seed", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "variation-weights", FieldPath: "Body.VariationWeights", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"variationWeights,omitempty"`, Description: "list of values"},
 }
 
 // initUpdateContextualBanditCmd initializes the update-contextual-bandit command.

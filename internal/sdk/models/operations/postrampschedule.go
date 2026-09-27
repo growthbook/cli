@@ -88,7 +88,7 @@ type PostRampScheduleStepPatch struct {
 	Prerequisites   optionalnullable.OptionalNullable[[]PostRampScheduleStepPrerequisites] `json:"prerequisites,omitzero"`
 	AllEnvironments optionalnullable.OptionalNullable[bool]                                `json:"allEnvironments,omitzero"`
 	Environments    optionalnullable.OptionalNullable[[]string]                            `json:"environments,omitzero"`
-	// Force value (any JSON type)
+	// Value to serve, in the string form rule values use ("false", "10", '{"limit": 5}'). A non-string JSON value is accepted and stored as its JSON text. Must be valid for the feature's value type.
 	Force   any                                     `json:"force,omitzero"`
 	Enabled optionalnullable.OptionalNullable[bool] `json:"enabled,omitzero"`
 }
@@ -276,11 +276,129 @@ func (p *PostRampScheduleStep) GetHoldConditions() *PostRampScheduleHoldConditio
 	return p.HoldConditions
 }
 
+type PostRampSchedulePatch1 struct {
+	RuleID *string `json:"ruleId,omitzero"`
+	// Traffic fraction (0–1). For monitored steps the rollout rule is promoted to an experiment: treatment = [0, coverage), control = [0.5, 0.5+coverage). Both arms are equal-sized and non-adjacent, so a step-up only adds new users to each arm — no existing user changes group. The REST API enforces coverage ≤ 0.5 on monitored steps so control end never exceeds 1.0. The SDK uses explicit hash ranges on bucketingV2 clients to keep bucketing stable across monitored/unmonitored transitions.
+	Coverage        optionalnullable.OptionalNullable[float64]                         `json:"coverage,omitzero"`
+	Condition       optionalnullable.OptionalNullable[string]                          `json:"condition,omitzero"`
+	SavedGroups     optionalnullable.OptionalNullable[[]PostRampScheduleSavedGroups]   `json:"savedGroups,omitzero"`
+	Prerequisites   optionalnullable.OptionalNullable[[]PostRampSchedulePrerequisites] `json:"prerequisites,omitzero"`
+	AllEnvironments optionalnullable.OptionalNullable[bool]                            `json:"allEnvironments,omitzero"`
+	Environments    optionalnullable.OptionalNullable[[]string]                        `json:"environments,omitzero"`
+	// Value to serve, in the string form rule values use ("false", "10", '{"limit": 5}'). A non-string JSON value is accepted and stored as its JSON text. Must be valid for the feature's value type.
+	Force   any                                     `json:"force,omitzero"`
+	Enabled optionalnullable.OptionalNullable[bool] `json:"enabled,omitzero"`
+	// Attribute the rule buckets on. Required (here or on the rule) when a step sets partial coverage on a force rule, which becomes a rollout.
+	HashAttribute optionalnullable.OptionalNullable[string] `json:"hashAttribute,omitzero"`
+	// Hash seed for a promoted force rule. Defaults to the rule id.
+	Seed optionalnullable.OptionalNullable[string] `json:"seed,omitzero"`
+	// Hash algorithm version for a promoted force rule. Defaults to 2.
+	HashVersion *float64 `json:"hashVersion,omitzero"`
+}
+
+func (p PostRampSchedulePatch1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostRampSchedulePatch1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PostRampSchedulePatch1) GetRuleID() *string {
+	if p == nil {
+		return nil
+	}
+	return p.RuleID
+}
+
+func (p *PostRampSchedulePatch1) GetCoverage() optionalnullable.OptionalNullable[float64] {
+	if p == nil {
+		return nil
+	}
+	return p.Coverage
+}
+
+func (p *PostRampSchedulePatch1) GetCondition() optionalnullable.OptionalNullable[string] {
+	if p == nil {
+		return nil
+	}
+	return p.Condition
+}
+
+func (p *PostRampSchedulePatch1) GetSavedGroups() optionalnullable.OptionalNullable[[]PostRampScheduleSavedGroups] {
+	if p == nil {
+		return nil
+	}
+	return p.SavedGroups
+}
+
+func (p *PostRampSchedulePatch1) GetPrerequisites() optionalnullable.OptionalNullable[[]PostRampSchedulePrerequisites] {
+	if p == nil {
+		return nil
+	}
+	return p.Prerequisites
+}
+
+func (p *PostRampSchedulePatch1) GetAllEnvironments() optionalnullable.OptionalNullable[bool] {
+	if p == nil {
+		return nil
+	}
+	return p.AllEnvironments
+}
+
+func (p *PostRampSchedulePatch1) GetEnvironments() optionalnullable.OptionalNullable[[]string] {
+	if p == nil {
+		return nil
+	}
+	return p.Environments
+}
+
+func (p *PostRampSchedulePatch1) GetForce() any {
+	if p == nil {
+		return nil
+	}
+	return p.Force
+}
+
+func (p *PostRampSchedulePatch1) GetEnabled() optionalnullable.OptionalNullable[bool] {
+	if p == nil {
+		return nil
+	}
+	return p.Enabled
+}
+
+func (p *PostRampSchedulePatch1) GetHashAttribute() optionalnullable.OptionalNullable[string] {
+	if p == nil {
+		return nil
+	}
+	return p.HashAttribute
+}
+
+func (p *PostRampSchedulePatch1) GetSeed() optionalnullable.OptionalNullable[string] {
+	if p == nil {
+		return nil
+	}
+	return p.Seed
+}
+
+func (p *PostRampSchedulePatch1) GetHashVersion() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.HashVersion
+}
+
+// #region class-body-postrampschedulepatch1
+// #endregion class-body-postrampschedulepatch1
+
 type PostRampScheduleStartAction struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	targetType *string               `const:"feature-rule" json:"targetType,omitzero"`
-	TargetID   *string               `json:"targetId,omitzero"`
-	Patch      PostRampSchedulePatch `json:"patch"`
+	targetType *string                `const:"feature-rule" json:"targetType,omitzero"`
+	TargetID   *string                `json:"targetId,omitzero"`
+	Patch      PostRampSchedulePatch1 `json:"patch"`
 }
 
 func (p PostRampScheduleStartAction) MarshalJSON() ([]byte, error) {
@@ -305,9 +423,9 @@ func (p *PostRampScheduleStartAction) GetTargetID() *string {
 	return p.TargetID
 }
 
-func (p *PostRampScheduleStartAction) GetPatch() PostRampSchedulePatch {
+func (p *PostRampScheduleStartAction) GetPatch() PostRampSchedulePatch1 {
 	if p == nil {
-		return PostRampSchedulePatch{}
+		return PostRampSchedulePatch1{}
 	}
 	return p.Patch
 }
@@ -379,7 +497,7 @@ func (p *PostRampSchedulePrerequisites) GetCondition() string {
 	return p.Condition
 }
 
-type PostRampSchedulePatch struct {
+type PostRampSchedulePatch2 struct {
 	RuleID *string `json:"ruleId,omitzero"`
 	// Traffic fraction (0–1). For monitored steps the rollout rule is promoted to an experiment: treatment = [0, coverage), control = [0.5, 0.5+coverage). Both arms are equal-sized and non-adjacent, so a step-up only adds new users to each arm — no existing user changes group. The REST API enforces coverage ≤ 0.5 on monitored steps so control end never exceeds 1.0. The SDK uses explicit hash ranges on bucketingV2 clients to keep bucketing stable across monitored/unmonitored transitions.
 	Coverage        optionalnullable.OptionalNullable[float64]                         `json:"coverage,omitzero"`
@@ -388,90 +506,93 @@ type PostRampSchedulePatch struct {
 	Prerequisites   optionalnullable.OptionalNullable[[]PostRampSchedulePrerequisites] `json:"prerequisites,omitzero"`
 	AllEnvironments optionalnullable.OptionalNullable[bool]                            `json:"allEnvironments,omitzero"`
 	Environments    optionalnullable.OptionalNullable[[]string]                        `json:"environments,omitzero"`
-	// Force value (any JSON type)
+	// Value to serve, in the string form rule values use ("false", "10", '{"limit": 5}'). A non-string JSON value is accepted and stored as its JSON text. Must be valid for the feature's value type.
 	Force   any                                     `json:"force,omitzero"`
 	Enabled optionalnullable.OptionalNullable[bool] `json:"enabled,omitzero"`
 }
 
-func (p PostRampSchedulePatch) MarshalJSON() ([]byte, error) {
+func (p PostRampSchedulePatch2) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(p, "", false)
 }
 
-func (p *PostRampSchedulePatch) UnmarshalJSON(data []byte) error {
+func (p *PostRampSchedulePatch2) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PostRampSchedulePatch) GetRuleID() *string {
+func (p *PostRampSchedulePatch2) GetRuleID() *string {
 	if p == nil {
 		return nil
 	}
 	return p.RuleID
 }
 
-func (p *PostRampSchedulePatch) GetCoverage() optionalnullable.OptionalNullable[float64] {
+func (p *PostRampSchedulePatch2) GetCoverage() optionalnullable.OptionalNullable[float64] {
 	if p == nil {
 		return nil
 	}
 	return p.Coverage
 }
 
-func (p *PostRampSchedulePatch) GetCondition() optionalnullable.OptionalNullable[string] {
+func (p *PostRampSchedulePatch2) GetCondition() optionalnullable.OptionalNullable[string] {
 	if p == nil {
 		return nil
 	}
 	return p.Condition
 }
 
-func (p *PostRampSchedulePatch) GetSavedGroups() optionalnullable.OptionalNullable[[]PostRampScheduleSavedGroups] {
+func (p *PostRampSchedulePatch2) GetSavedGroups() optionalnullable.OptionalNullable[[]PostRampScheduleSavedGroups] {
 	if p == nil {
 		return nil
 	}
 	return p.SavedGroups
 }
 
-func (p *PostRampSchedulePatch) GetPrerequisites() optionalnullable.OptionalNullable[[]PostRampSchedulePrerequisites] {
+func (p *PostRampSchedulePatch2) GetPrerequisites() optionalnullable.OptionalNullable[[]PostRampSchedulePrerequisites] {
 	if p == nil {
 		return nil
 	}
 	return p.Prerequisites
 }
 
-func (p *PostRampSchedulePatch) GetAllEnvironments() optionalnullable.OptionalNullable[bool] {
+func (p *PostRampSchedulePatch2) GetAllEnvironments() optionalnullable.OptionalNullable[bool] {
 	if p == nil {
 		return nil
 	}
 	return p.AllEnvironments
 }
 
-func (p *PostRampSchedulePatch) GetEnvironments() optionalnullable.OptionalNullable[[]string] {
+func (p *PostRampSchedulePatch2) GetEnvironments() optionalnullable.OptionalNullable[[]string] {
 	if p == nil {
 		return nil
 	}
 	return p.Environments
 }
 
-func (p *PostRampSchedulePatch) GetForce() any {
+func (p *PostRampSchedulePatch2) GetForce() any {
 	if p == nil {
 		return nil
 	}
 	return p.Force
 }
 
-func (p *PostRampSchedulePatch) GetEnabled() optionalnullable.OptionalNullable[bool] {
+func (p *PostRampSchedulePatch2) GetEnabled() optionalnullable.OptionalNullable[bool] {
 	if p == nil {
 		return nil
 	}
 	return p.Enabled
 }
 
+// #region class-body-postrampschedulepatch2
+// #endregion class-body-postrampschedulepatch2
+
 type PostRampScheduleEndAction struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	targetType *string               `const:"feature-rule" json:"targetType,omitzero"`
-	TargetID   *string               `json:"targetId,omitzero"`
-	Patch      PostRampSchedulePatch `json:"patch"`
+	targetType *string                `const:"feature-rule" json:"targetType,omitzero"`
+	TargetID   *string                `json:"targetId,omitzero"`
+	Patch      PostRampSchedulePatch2 `json:"patch"`
 }
 
 func (p PostRampScheduleEndAction) MarshalJSON() ([]byte, error) {
@@ -496,9 +617,9 @@ func (p *PostRampScheduleEndAction) GetTargetID() *string {
 	return p.TargetID
 }
 
-func (p *PostRampScheduleEndAction) GetPatch() PostRampSchedulePatch {
+func (p *PostRampScheduleEndAction) GetPatch() PostRampSchedulePatch2 {
 	if p == nil {
-		return PostRampSchedulePatch{}
+		return PostRampSchedulePatch2{}
 	}
 	return p.Patch
 }

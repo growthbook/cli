@@ -364,6 +364,7 @@ func (p *PostExperimentScreenshot) GetDescription() *string {
 }
 
 type PostExperimentVariation struct {
+	// Stable variation id. On update, an omitted id is filled from the stored variation with the same key, or the same position, when the number of variations is unchanged.
 	ID *string `json:"id,omitzero"`
 	// Alias for `id`. Mirrors the GET response. `id` takes precedence.
 	VariationID *string                    `json:"variationId,omitzero"`
@@ -1202,8 +1203,8 @@ type PostExperimentRequest struct {
 	HashVersion               *float64 `json:"hashVersion,omitzero"`
 	// When true, disables Sticky Bucketing for this experiment. If omitted, defaults to your organization's Sticky Bucketing setting for new experiments. Sticky Bucketing only takes effect when it is also enabled at the organization level.
 	DisableStickyBucketing *bool                                `json:"disableStickyBucketing,omitzero"`
-	BucketVersion          *float64                             `json:"bucketVersion,omitzero"`
-	MinBucketVersion       *float64                             `json:"minBucketVersion,omitzero"`
+	BucketVersion          *int64                               `json:"bucketVersion,omitzero"`
+	MinBucketVersion       *int64                               `json:"minBucketVersion,omitzero"`
 	ReleasedVariationID    *string                              `json:"releasedVariationId,omitzero"`
 	ExcludeFromPayload     *bool                                `json:"excludeFromPayload,omitzero"`
 	InProgressConversions  *PostExperimentInProgressConversions `json:"inProgressConversions,omitzero"`
@@ -1436,14 +1437,14 @@ func (p *PostExperimentRequest) GetDisableStickyBucketing() *bool {
 	return p.DisableStickyBucketing
 }
 
-func (p *PostExperimentRequest) GetBucketVersion() *float64 {
+func (p *PostExperimentRequest) GetBucketVersion() *int64 {
 	if p == nil {
 		return nil
 	}
 	return p.BucketVersion
 }
 
-func (p *PostExperimentRequest) GetMinBucketVersion() *float64 {
+func (p *PostExperimentRequest) GetMinBucketVersion() *int64 {
 	if p == nil {
 		return nil
 	}

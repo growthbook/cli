@@ -37,7 +37,8 @@ var updateCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "proxy-host", FieldPath: "Body.ProxyHost", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "hash-secure-attributes", FieldPath: "Body.HashSecureAttributes", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "remote-eval-enabled", Shorthand: "r", FieldPath: "Body.RemoteEvalEnabled", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
-	{FlagName: "saved-group-references-enabled", FieldPath: "Body.SavedGroupReferencesEnabled", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
+	{FlagName: "saved-group-references-enabled", FieldPath: "Body.SavedGroupReferencesEnabled", Kind: flagutil.FlagKindBool, Optional: true, Description: "Deprecated. Use `savedGroupFormat`."},
+	{FlagName: "saved-group-format", FieldPath: "Body.SavedGroupFormat", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"inline", "referencesV1", "referencesV2"}, Description: "options: inline, referencesV1, referencesV2"},
 	{FlagName: "include-referenced-prerequisites", FieldPath: "Body.IncludeReferencedPrerequisites", Kind: flagutil.FlagKindBool, Optional: true, Description: "Carry prerequisite Feature Flags into this payload even when they target other Projects. Defaults to true for new connections."},
 }
 

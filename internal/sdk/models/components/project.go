@@ -43,7 +43,9 @@ type Project struct {
 	// URL-safe slug used in SDK payload metadata. Auto-generated from name if not provided.
 	PublicID *string `json:"publicId,omitzero"`
 	// When true, only members with an explicit role on this Project (directly or via a team) can access it. Members with the manageTeam permission retain access.
-	RestrictAccess *bool            `json:"restrictAccess,omitzero"`
+	RestrictAccess *bool `json:"restrictAccess,omitzero"`
+	// Whether Feature Flags owned by other Projects may add this Project to their Targeting Projects. Defaults to true. Turning it off blocks new targeting (and All Projects); existing targeting is kept.
+	AllowTargeting *bool            `json:"allowTargeting,omitzero"`
 	Settings       *ProjectSettings `json:"settings,omitzero"`
 }
 
@@ -105,6 +107,13 @@ func (p *Project) GetRestrictAccess() *bool {
 		return nil
 	}
 	return p.RestrictAccess
+}
+
+func (p *Project) GetAllowTargeting() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AllowTargeting
 }
 
 func (p *Project) GetSettings() *ProjectSettings {

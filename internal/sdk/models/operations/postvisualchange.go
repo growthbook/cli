@@ -109,13 +109,15 @@ func (p *PostVisualChangeDomMutation) GetAdditionalProperties() map[string]any {
 }
 
 type PostVisualChangeRequestBody struct {
-	ID                   *string                       `json:"id,omitzero"`
-	Description          *string                       `json:"description,omitzero"`
-	CSS                  *string                       `json:"css,omitzero"`
-	Js                   *string                       `json:"js,omitzero"`
-	Variation            string                        `json:"variation"`
-	DomMutations         []PostVisualChangeDomMutation `json:"domMutations,omitzero"`
-	AdditionalProperties map[string]any                `additionalProperties:"true" json:"-"`
+	ID          *string `json:"id,omitzero"`
+	Description *string `json:"description,omitzero"`
+	CSS         *string `json:"css,omitzero"`
+	Js          *string `json:"js,omitzero"`
+	Variation   string  `json:"variation"`
+	// Also accept the write when the experiment is running. Off by default so a stale editor can't change a live test. When set, the change reaches live traffic immediately and the caller needs the runExperiments permission on the affected environments; the write is audited.
+	AllowRunningExperiment *bool                         `json:"allowRunningExperiment,omitzero"`
+	DomMutations           []PostVisualChangeDomMutation `json:"domMutations,omitzero"`
+	AdditionalProperties   map[string]any                `additionalProperties:"true" json:"-"`
 }
 
 func (p PostVisualChangeRequestBody) MarshalJSON() ([]byte, error) {
@@ -162,6 +164,13 @@ func (p *PostVisualChangeRequestBody) GetVariation() string {
 		return ""
 	}
 	return p.Variation
+}
+
+func (p *PostVisualChangeRequestBody) GetAllowRunningExperiment() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AllowRunningExperiment
 }
 
 func (p *PostVisualChangeRequestBody) GetDomMutations() []PostVisualChangeDomMutation {

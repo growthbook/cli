@@ -152,11 +152,129 @@ func (t *Target) GetActivatingRevisionVersion() optionalnullable.OptionalNullabl
 	return t.ActivatingRevisionVersion
 }
 
+type RampSchedulePatch1 struct {
+	RuleID string `json:"ruleId"`
+	// Traffic fraction (0–1). For monitored steps the rollout rule is promoted to an experiment: treatment = [0, coverage), control = [0.5, 0.5+coverage). Both arms are equal-sized and non-adjacent, so a step-up only adds new users to each arm — no existing user changes group. The REST API enforces coverage ≤ 0.5 on monitored steps so control end never exceeds 1.0. The SDK uses explicit hash ranges on bucketingV2 clients to keep bucketing stable across monitored/unmonitored transitions.
+	Coverage        optionalnullable.OptionalNullable[float64]                     `json:"coverage,omitzero"`
+	Condition       optionalnullable.OptionalNullable[string]                      `json:"condition,omitzero"`
+	SavedGroups     optionalnullable.OptionalNullable[[]RampScheduleSavedGroups]   `json:"savedGroups,omitzero"`
+	Prerequisites   optionalnullable.OptionalNullable[[]RampSchedulePrerequisites] `json:"prerequisites,omitzero"`
+	AllEnvironments optionalnullable.OptionalNullable[bool]                        `json:"allEnvironments,omitzero"`
+	Environments    optionalnullable.OptionalNullable[[]string]                    `json:"environments,omitzero"`
+	// Value to serve, in the string form rule values use ("false", "10", '{"limit": 5}'). A non-string JSON value is accepted and stored as its JSON text. Must be valid for the feature's value type.
+	Force   any                                     `json:"force,omitzero"`
+	Enabled optionalnullable.OptionalNullable[bool] `json:"enabled,omitzero"`
+	// Attribute the rule buckets on. Required (here or on the rule) when a step sets partial coverage on a force rule, which becomes a rollout.
+	HashAttribute optionalnullable.OptionalNullable[string] `json:"hashAttribute,omitzero"`
+	// Hash seed for a promoted force rule. Defaults to the rule id.
+	Seed optionalnullable.OptionalNullable[string] `json:"seed,omitzero"`
+	// Hash algorithm version for a promoted force rule. Defaults to 2.
+	HashVersion *float64 `json:"hashVersion,omitzero"`
+}
+
+func (r RampSchedulePatch1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RampSchedulePatch1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RampSchedulePatch1) GetRuleID() string {
+	if r == nil {
+		return ""
+	}
+	return r.RuleID
+}
+
+func (r *RampSchedulePatch1) GetCoverage() optionalnullable.OptionalNullable[float64] {
+	if r == nil {
+		return nil
+	}
+	return r.Coverage
+}
+
+func (r *RampSchedulePatch1) GetCondition() optionalnullable.OptionalNullable[string] {
+	if r == nil {
+		return nil
+	}
+	return r.Condition
+}
+
+func (r *RampSchedulePatch1) GetSavedGroups() optionalnullable.OptionalNullable[[]RampScheduleSavedGroups] {
+	if r == nil {
+		return nil
+	}
+	return r.SavedGroups
+}
+
+func (r *RampSchedulePatch1) GetPrerequisites() optionalnullable.OptionalNullable[[]RampSchedulePrerequisites] {
+	if r == nil {
+		return nil
+	}
+	return r.Prerequisites
+}
+
+func (r *RampSchedulePatch1) GetAllEnvironments() optionalnullable.OptionalNullable[bool] {
+	if r == nil {
+		return nil
+	}
+	return r.AllEnvironments
+}
+
+func (r *RampSchedulePatch1) GetEnvironments() optionalnullable.OptionalNullable[[]string] {
+	if r == nil {
+		return nil
+	}
+	return r.Environments
+}
+
+func (r *RampSchedulePatch1) GetForce() any {
+	if r == nil {
+		return nil
+	}
+	return r.Force
+}
+
+func (r *RampSchedulePatch1) GetEnabled() optionalnullable.OptionalNullable[bool] {
+	if r == nil {
+		return nil
+	}
+	return r.Enabled
+}
+
+func (r *RampSchedulePatch1) GetHashAttribute() optionalnullable.OptionalNullable[string] {
+	if r == nil {
+		return nil
+	}
+	return r.HashAttribute
+}
+
+func (r *RampSchedulePatch1) GetSeed() optionalnullable.OptionalNullable[string] {
+	if r == nil {
+		return nil
+	}
+	return r.Seed
+}
+
+func (r *RampSchedulePatch1) GetHashVersion() *float64 {
+	if r == nil {
+		return nil
+	}
+	return r.HashVersion
+}
+
+// #region class-body-rampschedulepatch1
+// #endregion class-body-rampschedulepatch1
+
 type RampScheduleStartAction struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	targetType string            `const:"feature-rule" json:"targetType"`
-	TargetID   string            `json:"targetId"`
-	Patch      RampSchedulePatch `json:"patch"`
+	targetType string             `const:"feature-rule" json:"targetType"`
+	TargetID   string             `json:"targetId"`
+	Patch      RampSchedulePatch1 `json:"patch"`
 }
 
 func (r RampScheduleStartAction) MarshalJSON() ([]byte, error) {
@@ -181,9 +299,9 @@ func (r *RampScheduleStartAction) GetTargetID() string {
 	return r.TargetID
 }
 
-func (r *RampScheduleStartAction) GetPatch() RampSchedulePatch {
+func (r *RampScheduleStartAction) GetPatch() RampSchedulePatch1 {
 	if r == nil {
-		return RampSchedulePatch{}
+		return RampSchedulePatch1{}
 	}
 	return r.Patch
 }
@@ -310,7 +428,7 @@ type RampScheduleStepPatch struct {
 	Prerequisites   optionalnullable.OptionalNullable[[]RampScheduleStepPrerequisites] `json:"prerequisites,omitzero"`
 	AllEnvironments optionalnullable.OptionalNullable[bool]                            `json:"allEnvironments,omitzero"`
 	Environments    optionalnullable.OptionalNullable[[]string]                        `json:"environments,omitzero"`
-	// Force value (any JSON type)
+	// Value to serve, in the string form rule values use ("false", "10", '{"limit": 5}'). A non-string JSON value is accepted and stored as its JSON text. Must be valid for the feature's value type.
 	Force   any                                     `json:"force,omitzero"`
 	Enabled optionalnullable.OptionalNullable[bool] `json:"enabled,omitzero"`
 }
@@ -564,7 +682,7 @@ func (r *RampSchedulePrerequisites) GetCondition() string {
 	return r.Condition
 }
 
-type RampSchedulePatch struct {
+type RampSchedulePatch2 struct {
 	RuleID string `json:"ruleId"`
 	// Traffic fraction (0–1). For monitored steps the rollout rule is promoted to an experiment: treatment = [0, coverage), control = [0.5, 0.5+coverage). Both arms are equal-sized and non-adjacent, so a step-up only adds new users to each arm — no existing user changes group. The REST API enforces coverage ≤ 0.5 on monitored steps so control end never exceeds 1.0. The SDK uses explicit hash ranges on bucketingV2 clients to keep bucketing stable across monitored/unmonitored transitions.
 	Coverage        optionalnullable.OptionalNullable[float64]                     `json:"coverage,omitzero"`
@@ -573,90 +691,93 @@ type RampSchedulePatch struct {
 	Prerequisites   optionalnullable.OptionalNullable[[]RampSchedulePrerequisites] `json:"prerequisites,omitzero"`
 	AllEnvironments optionalnullable.OptionalNullable[bool]                        `json:"allEnvironments,omitzero"`
 	Environments    optionalnullable.OptionalNullable[[]string]                    `json:"environments,omitzero"`
-	// Force value (any JSON type)
+	// Value to serve, in the string form rule values use ("false", "10", '{"limit": 5}'). A non-string JSON value is accepted and stored as its JSON text. Must be valid for the feature's value type.
 	Force   any                                     `json:"force,omitzero"`
 	Enabled optionalnullable.OptionalNullable[bool] `json:"enabled,omitzero"`
 }
 
-func (r RampSchedulePatch) MarshalJSON() ([]byte, error) {
+func (r RampSchedulePatch2) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(r, "", false)
 }
 
-func (r *RampSchedulePatch) UnmarshalJSON(data []byte) error {
+func (r *RampSchedulePatch2) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *RampSchedulePatch) GetRuleID() string {
+func (r *RampSchedulePatch2) GetRuleID() string {
 	if r == nil {
 		return ""
 	}
 	return r.RuleID
 }
 
-func (r *RampSchedulePatch) GetCoverage() optionalnullable.OptionalNullable[float64] {
+func (r *RampSchedulePatch2) GetCoverage() optionalnullable.OptionalNullable[float64] {
 	if r == nil {
 		return nil
 	}
 	return r.Coverage
 }
 
-func (r *RampSchedulePatch) GetCondition() optionalnullable.OptionalNullable[string] {
+func (r *RampSchedulePatch2) GetCondition() optionalnullable.OptionalNullable[string] {
 	if r == nil {
 		return nil
 	}
 	return r.Condition
 }
 
-func (r *RampSchedulePatch) GetSavedGroups() optionalnullable.OptionalNullable[[]RampScheduleSavedGroups] {
+func (r *RampSchedulePatch2) GetSavedGroups() optionalnullable.OptionalNullable[[]RampScheduleSavedGroups] {
 	if r == nil {
 		return nil
 	}
 	return r.SavedGroups
 }
 
-func (r *RampSchedulePatch) GetPrerequisites() optionalnullable.OptionalNullable[[]RampSchedulePrerequisites] {
+func (r *RampSchedulePatch2) GetPrerequisites() optionalnullable.OptionalNullable[[]RampSchedulePrerequisites] {
 	if r == nil {
 		return nil
 	}
 	return r.Prerequisites
 }
 
-func (r *RampSchedulePatch) GetAllEnvironments() optionalnullable.OptionalNullable[bool] {
+func (r *RampSchedulePatch2) GetAllEnvironments() optionalnullable.OptionalNullable[bool] {
 	if r == nil {
 		return nil
 	}
 	return r.AllEnvironments
 }
 
-func (r *RampSchedulePatch) GetEnvironments() optionalnullable.OptionalNullable[[]string] {
+func (r *RampSchedulePatch2) GetEnvironments() optionalnullable.OptionalNullable[[]string] {
 	if r == nil {
 		return nil
 	}
 	return r.Environments
 }
 
-func (r *RampSchedulePatch) GetForce() any {
+func (r *RampSchedulePatch2) GetForce() any {
 	if r == nil {
 		return nil
 	}
 	return r.Force
 }
 
-func (r *RampSchedulePatch) GetEnabled() optionalnullable.OptionalNullable[bool] {
+func (r *RampSchedulePatch2) GetEnabled() optionalnullable.OptionalNullable[bool] {
 	if r == nil {
 		return nil
 	}
 	return r.Enabled
 }
 
+// #region class-body-rampschedulepatch2
+// #endregion class-body-rampschedulepatch2
+
 type RampScheduleEndAction struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	targetType string            `const:"feature-rule" json:"targetType"`
-	TargetID   string            `json:"targetId"`
-	Patch      RampSchedulePatch `json:"patch"`
+	targetType string             `const:"feature-rule" json:"targetType"`
+	TargetID   string             `json:"targetId"`
+	Patch      RampSchedulePatch2 `json:"patch"`
 }
 
 func (r RampScheduleEndAction) MarshalJSON() ([]byte, error) {
@@ -681,9 +802,9 @@ func (r *RampScheduleEndAction) GetTargetID() string {
 	return r.TargetID
 }
 
-func (r *RampScheduleEndAction) GetPatch() RampSchedulePatch {
+func (r *RampScheduleEndAction) GetPatch() RampSchedulePatch2 {
 	if r == nil {
-		return RampSchedulePatch{}
+		return RampSchedulePatch2{}
 	}
 	return r.Patch
 }
@@ -1157,7 +1278,7 @@ type RampSchedule struct {
 	EntityID    string                  `json:"entityId"`
 	// Controlled entity references
 	Targets []Target `json:"targets"`
-	// Actions that restore controlled rules to their pre-ramp state. Applied when rolling back or jumping to start.
+	// Actions that restore controlled rules to their pre-ramp state. Applied when rolling back or jumping to start, and the base every step accumulates on; the only place a plan can set hashAttribute, seed or hashVersion.
 	StartActions []RampScheduleStartAction `json:"startActions,omitzero"`
 	// Ordered ramp steps
 	Steps []RampScheduleStep `json:"steps"`
