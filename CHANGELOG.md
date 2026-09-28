@@ -2,6 +2,55 @@
 
 ## [Unreleased]
 
+Additive, plus one change to the beta contextual-bandits commands. Two new commands and twenty-two
+new flags. Contextual bandits are in beta, so the flag removal below ships as a minor.
+
+### Changed
+
+- **`growthbook contextual-bandits update` no longer takes `--variations` or
+  `--variation-weights`** (beta). The API now rejects both fields. Edit arms with the new
+  `growthbook contextual-bandits update-variations` instead. Weights can no longer be set directly:
+  the server now rebalances them when arms are added or removed.
+
+### Added
+
+- **`growthbook contextual-bandits update-variations`** (beta). Add arms (`--add-variations`),
+  remove them (`--remove-variation-ids`), or rename them (`--update-variations`). Removed arms'
+  ids can't be re-added, and a new arm needs a value for every linked feature.
+
+- **`growthbook analytics-explorations run-journey`.** Run a user-journey exploration, alongside
+  the existing `run-*` commands.
+
+- **`--comment` on `growthbook features` / `features-v1` `create`, `update` and `toggle`.** Record a
+  comment on the revision the change creates.
+
+- **Targeting projects.** `--targeting-projects` and `--targeting-all-projects` on
+  `growthbook feature-revisions set-metadata` (and `feature-revisions-v1
+  put-feature-revision-metadata`) stage the extra projects a feature is delivered to.
+  `--allow-targeting` on `growthbook projects create` / `update` controls whether other projects'
+  feature flags may target this one. `--targeting-review-mode` on `growthbook settings
+  set-approvals` sets, per project, whether a targeting project's approval rules also apply
+  (`strict`) or only the flag's primary project governs (`loose`).
+
+- **`--allow-running-experiment` on `growthbook visual-changesets update`, `add-visual-change` and
+  `update-visual-change`.** Also accept the write while the experiment is running. It's off by
+  default so a stale editor can't change a live test. (On `add-visual-change` the flag is
+  `--body-param.allow-running-experiment`.)
+
+- **`--custom-fields` on `growthbook attributes create` / `update`.** Values for the
+  organization's attribute custom fields, keyed by field id.
+
+- **`--lower-capping-settings` on `growthbook fact-metrics create` / `update`.** An independent
+  lower cap. Omit it on update to keep the current one.
+
+- **`--saved-group-format` on `growthbook SDK-connections create` / `update`.** Choose `inline`,
+  `referencesV1` or `referencesV2`.
+
+### Deprecated
+
+- **`--saved-group-references-enabled` on `growthbook SDK-connections create` / `update`.** Use
+  `--saved-group-format` instead. The old flag is still accepted for now.
+
 ## [2.6.0] - 2026-09-15
 
 Additive, plus one flag fix. Twenty-four new commands and twenty-two new flags; nothing was

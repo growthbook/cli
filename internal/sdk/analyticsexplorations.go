@@ -805,8 +805,8 @@ func (s *AnalyticsExplorations) RunFunnel(ctx context.Context, request operation
 
 }
 
-// PostJourneyExploration - Run a User Journey based visualization
-func (s *AnalyticsExplorations) PostJourneyExploration(ctx context.Context, request operations.PostJourneyExplorationRequest, opts ...operations.Option) (*operations.PostJourneyExplorationResponse, error) {
+// RunJourney - Run a User Journey based visualization
+func (s *AnalyticsExplorations) RunJourney(ctx context.Context, request operations.PostJourneyExplorationRequest, opts ...operations.Option) (*operations.PostJourneyExplorationResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

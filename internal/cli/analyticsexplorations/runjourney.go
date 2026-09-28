@@ -14,7 +14,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var postJourneyExplorationCmdMeta = []flagutil.FlagMeta{
+var runJourneyCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "cache", FieldPath: "Cache", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"preferred", "required", "never"}, Description: "Controls cache behavior for this exploration: `preferred` (default) returns a cached result if one exists, otherwise runs a new query; `never` always runs a new query, ignoring any cached results; `required` only returns a cached result, if none exists returns exploration: null with a message (options: preferred, required, never)"},
 	{FlagName: "datasource", FieldPath: "Body.Datasource", Kind: flagutil.FlagKindString, Required: true, Description: "ID of the datasource to query [required]"},
 	{FlagName: "dimensions", FieldPath: "Body.Dimensions", Kind: flagutil.FlagKindJSON, Required: true, Annotations: `json:"dimensions"`, Description: "[required]"},
@@ -25,36 +25,36 @@ var postJourneyExplorationCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "dataset", FieldPath: "Body.Dataset", Kind: flagutil.FlagKindJSON, Required: true, Annotations: `json:"dataset"`, Description: "[required]"},
 }
 
-// initPostJourneyExplorationCmd initializes the post-journey-exploration command.
-func initPostJourneyExplorationCmd(parent *cobra.Command) error {
+// initRunJourneyCmd initializes the run-journey command.
+func initRunJourneyCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
-		Use:     "post-journey-exploration",
+		Use:     "run-journey",
 		Short:   "Run a User Journey based visualization",
 		Long:    "Run a User Journey based visualization",
-		Example: "  growthbook analytics-explorations post-journey-exploration --datasource <value> --dimensions '[{\"dimensionType\":\"dynamic\",\"column\":\"<value>\",\"maxValues\":35.97}]' --chart-type stackedBar --date-range '{\"predefined\":\"today\"}' --dataset '{\"type\":\"journey\",\"factTableId\":\"<id>\",\"unit\":\"mole\",\"stepColumns\":[\"<value 1>\"],\"anchorStepValues\":[\"<value 1>\"],\"direction\":\"backward\",\"rowFilters\":[],\"path\":[],\"lookaheadDepth\":809362,\"optionsPerStep\":[762060]}'",
-		RunE:    runPostJourneyExplorationCmd,
-		Aliases: []string{"pje"},
+		Example: "  growthbook analytics-explorations run-journey --datasource <value> --dimensions '[{\"dimensionType\":\"dynamic\",\"column\":\"<value>\",\"maxValues\":35.97}]' --chart-type stackedBar --date-range '{\"predefined\":\"today\"}' --dataset '{\"type\":\"journey\",\"factTableId\":\"<id>\",\"unit\":\"mole\",\"stepColumns\":[\"<value 1>\"],\"anchorStepValues\":[\"<value 1>\"],\"direction\":\"backward\",\"rowFilters\":[],\"path\":[],\"lookaheadDepth\":809362,\"optionsPerStep\":[762060]}'",
+		RunE:    runRunJourneyCmd,
+		Aliases: []string{"rj"},
 	}
-	flagutil.RegisterFlags(cmd, postJourneyExplorationCmdMeta)
-	if err := flagutil.ValidateMeta[operations.PostJourneyExplorationRequest](postJourneyExplorationCmdMeta); err != nil {
-		return fmt.Errorf("invalid metadata for post-journey-exploration: %w", err)
+	flagutil.RegisterFlags(cmd, runJourneyCmdMeta)
+	if err := flagutil.ValidateMeta[operations.PostJourneyExplorationRequest](runJourneyCmdMeta); err != nil {
+		return fmt.Errorf("invalid metadata for run-journey: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
 	parent.AddCommand(cmd)
 	return nil
 }
 
-// runPostJourneyExplorationCmd executes the post-journey-exploration command.
-func runPostJourneyExplorationCmd(cmd *cobra.Command, args []string) error {
+// runRunJourneyCmd executes the run-journey command.
+func runRunJourneyCmd(cmd *cobra.Command, args []string) error {
 	if usage.UsageRequested(cmd) {
 		return usage.EmitSchema(cmd, cmd.OutOrStdout())
 	}
-	if interactive.ShouldPrompt(cmd, postJourneyExplorationCmdMeta) {
-		if err := interactive.PromptAndSetFlags(cmd, postJourneyExplorationCmdMeta); err != nil {
+	if interactive.ShouldPrompt(cmd, runJourneyCmdMeta) {
+		if err := interactive.PromptAndSetFlags(cmd, runJourneyCmdMeta); err != nil {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.PostJourneyExplorationRequest](cmd, postJourneyExplorationCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.PostJourneyExplorationRequest](cmd, runJourneyCmdMeta, "Body", "body")
 	if err != nil {
 		return err
 	}
@@ -77,7 +77,7 @@ func runPostJourneyExplorationCmd(cmd *cobra.Command, args []string) error {
 	if output.WantsRawJSON(cmd) {
 		sdkOpts = append(sdkOpts, operations.WithSkipDeserialization())
 	}
-	res, err := s.AnalyticsExplorations.PostJourneyExploration(cmd.Context(), *req, sdkOpts...)
+	res, err := s.AnalyticsExplorations.RunJourney(cmd.Context(), *req, sdkOpts...)
 	if err != nil {
 		return output.Error(cmd, err)
 	}

@@ -1,4 +1,4 @@
-## growthbook analytics-explorations post-journey-exploration
+## growthbook analytics-explorations run-journey
 
 Run a User Journey based visualization
 
@@ -7,13 +7,13 @@ Run a User Journey based visualization
 Run a User Journey based visualization
 
 ```
-growthbook analytics-explorations post-journey-exploration [flags]
+growthbook analytics-explorations run-journey [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook analytics-explorations post-journey-exploration --datasource <value> --dimensions '[{"dimensionType":"dynamic","column":"<value>","maxValues":35.97}]' --chart-type stackedBar --date-range '{"predefined":"today"}' --dataset '{"type":"journey","factTableId":"<id>","unit":"mole","stepColumns":["<value 1>"],"anchorStepValues":["<value 1>"],"direction":"backward","rowFilters":[],"path":[],"lookaheadDepth":809362,"optionsPerStep":[762060]}'
+  growthbook analytics-explorations run-journey --datasource <value> --dimensions '[{"dimensionType":"dynamic","column":"<value>","maxValues":35.97}]' --chart-type stackedBar --date-range '{"predefined":"today"}' --dataset '{"type":"journey","factTableId":"<id>","unit":"mole","stepColumns":["<value 1>"],"anchorStepValues":["<value 1>"],"direction":"backward","rowFilters":[],"path":[],"lookaheadDepth":809362,"optionsPerStep":[762060]}'
 ```
 
 ### Options
@@ -27,7 +27,7 @@ growthbook analytics-explorations post-journey-exploration [flags]
       --datasource string       ID of the datasource to query [required]
       --date-range string       [required]
       --dimensions string       [required]
-  -h, --help                    help for post-journey-exploration
+  -h, --help                    help for run-journey
   -s, --show-as string          options: total, per_unit
 ```
 

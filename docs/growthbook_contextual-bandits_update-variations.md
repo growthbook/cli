@@ -1,4 +1,4 @@
-## growthbook contextual-bandits update-contextual-bandit-variations
+## growthbook contextual-bandits update-variations
 
 Add or remove Contextual Bandit variations
 
@@ -7,13 +7,13 @@ Add or remove Contextual Bandit variations
 Adds and/or removes variations on a Contextual Bandit. Send `addVariations` and `removeVariationIds` independently; both are optional. New arms must carry a `values` entry for each linked feature. Running CBs publish the linked-feature updates; draft CBs stage them until start. Under an approval flow, unapproved drafts leave the added arm `pending` (zero weight, filtered from the SDK) until every linked feature's draft is live. Removed arms are tombstoned; their ids can never be re-added. Weights are reconciled server-side.
 
 ```
-growthbook contextual-bandits update-contextual-bandit-variations [flags]
+growthbook contextual-bandits update-variations [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook contextual-bandits update-contextual-bandit-variations --id <id>
+  growthbook contextual-bandits update-variations --id <id>
 ```
 
 ### Options
@@ -21,7 +21,7 @@ growthbook contextual-bandits update-contextual-bandit-variations [flags]
 ```
   -a, --add-variations id                  New arms to add. Omit id to have the server generate one and `key` to have the server assign the next integer.
       --body string                        Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -h, --help                               help for update-contextual-bandit-variations
+  -h, --help                               help for update-variations
   -i, --id string                          [required]
   -r, --remove-variation-ids stringArray   Ids of active arms to remove. Removed arms are tombstoned in place and their ids can never be re-added.
   -u, --update-variations name             Metadata edits to existing active arms. name, `description`, and `key` may be changed; values, weights, screenshots, and status are preserved.

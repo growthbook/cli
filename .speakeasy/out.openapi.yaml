@@ -44042,6 +44042,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: update-variations
   /v1/contextual-bandits/{id}/cancel:
     post:
       operationId: cancelContextualBandit
@@ -50658,6 +50659,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: run-journey
   /v1/product-analytics/search:
     get:
       operationId: searchProductAnalyticsResources

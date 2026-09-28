@@ -89,7 +89,7 @@ func InitContextualBanditsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initUpdateContextualBanditVariationsCmd(ContextualBanditsCmd); err != nil {
+	if err := initUpdateVariationsCmd(ContextualBanditsCmd); err != nil {
 		return err
 	}
 

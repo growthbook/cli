@@ -14,43 +14,43 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var updateContextualBanditVariationsCmdMeta = []flagutil.FlagMeta{
+var updateVariationsCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "add-variations", Shorthand: "a", FieldPath: "Body.AddVariations", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"addVariations,omitempty"`, Description: "New arms to add. Omit `id` to have the server generate one and `key` to have the server assign the next integer."},
 	{FlagName: "remove-variation-ids", Shorthand: "r", FieldPath: "Body.RemoveVariationIds", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Ids of active arms to remove. Removed arms are tombstoned in place and their ids can never be re-added."},
 	{FlagName: "update-variations", Shorthand: "u", FieldPath: "Body.UpdateVariations", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"updateVariations,omitempty"`, Description: "Metadata edits to existing active arms. `name`, `description`, and `key` may be changed; values, weights, screenshots, and status are preserved."},
 }
 
-// initUpdateContextualBanditVariationsCmd initializes the update-contextual-bandit-variations command.
-func initUpdateContextualBanditVariationsCmd(parent *cobra.Command) error {
+// initUpdateVariationsCmd initializes the update-variations command.
+func initUpdateVariationsCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
-		Use:     "update-contextual-bandit-variations",
+		Use:     "update-variations",
 		Short:   "Add or remove Contextual Bandit variations",
 		Long:    "Adds and/or removes variations on a Contextual Bandit. Send `addVariations` and `removeVariationIds` independently; both are optional. New arms must carry a `values` entry for each linked feature. Running CBs publish the linked-feature updates; draft CBs stage them until start. Under an approval flow, unapproved drafts leave the added arm `pending` (zero weight, filtered from the SDK) until every linked feature's draft is live. Removed arms are tombstoned; their ids can never be re-added. Weights are reconciled server-side.",
-		Example: "  growthbook contextual-bandits update-contextual-bandit-variations --id <id>",
-		RunE:    runUpdateContextualBanditVariationsCmd,
-		Aliases: []string{"ucbv"},
+		Example: "  growthbook contextual-bandits update-variations --id <id>",
+		RunE:    runUpdateVariationsCmd,
+		Aliases: []string{"uv"},
 	}
-	flagutil.RegisterFlags(cmd, updateContextualBanditVariationsCmdMeta)
-	if err := flagutil.ValidateMeta[operations.UpdateContextualBanditVariationsRequest](updateContextualBanditVariationsCmdMeta); err != nil {
-		return fmt.Errorf("invalid metadata for update-contextual-bandit-variations: %w", err)
+	flagutil.RegisterFlags(cmd, updateVariationsCmdMeta)
+	if err := flagutil.ValidateMeta[operations.UpdateContextualBanditVariationsRequest](updateVariationsCmdMeta); err != nil {
+		return fmt.Errorf("invalid metadata for update-variations: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
 	parent.AddCommand(cmd)
 	return nil
 }
 
-// runUpdateContextualBanditVariationsCmd executes the update-contextual-bandit-variations command.
-func runUpdateContextualBanditVariationsCmd(cmd *cobra.Command, args []string) error {
+// runUpdateVariationsCmd executes the update-variations command.
+func runUpdateVariationsCmd(cmd *cobra.Command, args []string) error {
 	if usage.UsageRequested(cmd) {
 		return usage.EmitSchema(cmd, cmd.OutOrStdout())
 	}
-	if interactive.ShouldPrompt(cmd, updateContextualBanditVariationsCmdMeta) {
-		if err := interactive.PromptAndSetFlags(cmd, updateContextualBanditVariationsCmdMeta); err != nil {
+	if interactive.ShouldPrompt(cmd, updateVariationsCmdMeta) {
+		if err := interactive.PromptAndSetFlags(cmd, updateVariationsCmdMeta); err != nil {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.UpdateContextualBanditVariationsRequest](cmd, updateContextualBanditVariationsCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.UpdateContextualBanditVariationsRequest](cmd, updateVariationsCmdMeta, "Body", "body")
 	if err != nil {
 		return err
 	}
@@ -73,7 +73,7 @@ func runUpdateContextualBanditVariationsCmd(cmd *cobra.Command, args []string) e
 	if output.WantsRawJSON(cmd) {
 		sdkOpts = append(sdkOpts, operations.WithSkipDeserialization())
 	}
-	res, err := s.ContextualBandits.UpdateContextualBanditVariations(cmd.Context(), *req, sdkOpts...)
+	res, err := s.ContextualBandits.UpdateVariations(cmd.Context(), *req, sdkOpts...)
 	if err != nil {
 		return output.Error(cmd, err)
 	}

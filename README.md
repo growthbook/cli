@@ -373,7 +373,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`start`](docs/growthbook_contextual-bandits_start.md) - Start a Contextual Bandit
 * [`stop`](docs/growthbook_contextual-bandits_stop.md) - Stop a Contextual Bandit
 * [`refresh`](docs/growthbook_contextual-bandits_refresh.md) - Trigger a Contextual Bandit snapshot refresh
-* [`update-contextual-bandit-variations`](docs/growthbook_contextual-bandits_update-contextual-bandit-variations.md) - Add or remove Contextual Bandit variations
+* [`update-variations`](docs/growthbook_contextual-bandits_update-variations.md) - Add or remove Contextual Bandit variations
 * [`cancel`](docs/growthbook_contextual-bandits_cancel.md) - Cancel a running Contextual Bandit snapshot refresh
 
 ### [metrics](docs/growthbook_metrics.md)
@@ -740,7 +740,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`run-data-source`](docs/growthbook_analytics-explorations_run-data-source.md) - Create a Data Source based visualization
 * [`run-sql`](docs/growthbook_analytics-explorations_run-sql.md) - Create a SQL based visualization
 * [`run-funnel`](docs/growthbook_analytics-explorations_run-funnel.md) - Run a Funnel based visualization
-* [`post-journey-exploration`](docs/growthbook_analytics-explorations_post-journey-exploration.md) - Run a User Journey based visualization
+* [`run-journey`](docs/growthbook_analytics-explorations_run-journey.md) - Run a User Journey based visualization
 * [`search`](docs/growthbook_analytics-explorations_search.md) - Search Product Analytics resources
 * [`get-columns`](docs/growthbook_analytics-explorations_get-columns.md) - List columns available to a Product Analytics exploration
 * [`get-column-values`](docs/growthbook_analytics-explorations_get-column-values.md) - Fetch values for Product Analytics string columns

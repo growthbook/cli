@@ -41,7 +41,7 @@ func InitAnalyticsExplorationsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPostJourneyExplorationCmd(AnalyticsExplorationsCmd); err != nil {
+	if err := initRunJourneyCmd(AnalyticsExplorationsCmd); err != nil {
 		return err
 	}
 

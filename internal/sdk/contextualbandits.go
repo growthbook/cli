@@ -2527,9 +2527,9 @@ func (s *ContextualBandits) RefreshContextualBandit(ctx context.Context, request
 
 }
 
-// UpdateContextualBanditVariations - Add or remove Contextual Bandit variations
+// UpdateVariations - Add or remove Contextual Bandit variations
 // Adds and/or removes variations on a Contextual Bandit. Send `addVariations` and `removeVariationIds` independently; both are optional. New arms must carry a `values` entry for each linked feature. Running CBs publish the linked-feature updates; draft CBs stage them until start. Under an approval flow, unapproved drafts leave the added arm `pending` (zero weight, filtered from the SDK) until every linked feature's draft is live. Removed arms are tombstoned; their ids can never be re-added. Weights are reconciled server-side.
-func (s *ContextualBandits) UpdateContextualBanditVariations(ctx context.Context, request operations.UpdateContextualBanditVariationsRequest, opts ...operations.Option) (*operations.UpdateContextualBanditVariationsResponse, error) {
+func (s *ContextualBandits) UpdateVariations(ctx context.Context, request operations.UpdateContextualBanditVariationsRequest, opts ...operations.Option) (*operations.UpdateContextualBanditVariationsResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

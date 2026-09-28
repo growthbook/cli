@@ -1,7 +1,7 @@
 lockVersion: 2.0.0
 id: 4c8e0331-b838-4af2-bf59-101dac30ada4
 management:
-  docChecksum: f369196998fc0dbf59cebacd9c763e11
+  docChecksum: fcbdad4931b96111e679733f8c66fda6
   docVersion: 5.1.0
   speakeasyVersion: 1.794.0
   generationVersion: 2.930.0
@@ -10,9 +10,9 @@ management:
   repoURL: https://github.com/growthbook/cli.git
   installationURL: https://github.com/growthbook/cli
 persistentEdits:
-  generation_id: 66d67d44-4c44-4dbc-96ef-459c2edce22a
-  pristine_commit_hash: 51c3d079e636ac0a0007c41177ad5aedaf3134c7
-  pristine_tree_hash: 01034711a369699093e7129d684e9f2b7948ae86
+  generation_id: c07262ea-c608-4979-9224-54e2a7771700
+  pristine_commit_hash: aa2d2d489d85314bf76f4294ae99f155df0f4ad3
+  pristine_tree_hash: 24e5a308173a16a1c8445bac3b679cc3a77aa73e
 features:
   cli:
     additionalProperties: 0.0.1
@@ -77,14 +77,10 @@ trackedFiles:
     id: 3c98b14670c4
     last_write_checksum: sha1:0dd0cfde7b8bbd74310ebaac42bd7fa65609a5f9
     pristine_git_object: d4440bd4045f6e6967277bcc4d00356049a42b73
-  internal/cli/analyticsexplorations/postjourneyexploration.go:
-    id: accbe3ee5fec
-    last_write_checksum: sha1:ee5385aa5d2e8df7ed1b321fc4699f07723cbb27
-    pristine_git_object: d2c431856e7f5aee06d4b3c34b8efa46c0df82ad
   internal/cli/analyticsexplorations/root.go:
     id: 9e716b2898b5
-    last_write_checksum: sha1:4b24d4603681a1d4a78acc7d7c428beb79f90ef3
-    pristine_git_object: 59ab429c81ac8e68b9d364b013073f4a0b8872f2
+    last_write_checksum: sha1:3273663973854b0723f8469a2117597c74c892c2
+    pristine_git_object: d4f0693fbfa7302d3fc215a681a140ab6b24f454
   internal/cli/analyticsexplorations/rundatasource.go:
     id: 2b0a02a70cb7
     last_write_checksum: sha1:57f955d22829283866d3b68f2254d2b2182a759f
@@ -97,6 +93,10 @@ trackedFiles:
     id: 35004378f431
     last_write_checksum: sha1:268647400895ef495e8c0513e0f3fe3124a46de1
     pristine_git_object: 9822e4d80eec84bab0c345e0d47cbd8c436cd771
+  internal/cli/analyticsexplorations/runjourney.go:
+    id: d7f0b7d30d13
+    last_write_checksum: sha1:089d0cb2f64141fe09cdc94a2140778723a46af0
+    pristine_git_object: 83db2264d939cf64c33bac5e1818049c76a78950
   internal/cli/analyticsexplorations/runmetric.go:
     id: 788a98fcd5b1
     last_write_checksum: sha1:20d04ca956a4c98630093599eb2ecb367698e7a9
@@ -559,8 +559,8 @@ trackedFiles:
     pristine_git_object: 67901275c9938b76e7b546fdf5d04c9b4b65e971
   internal/cli/contextualbandits/root.go:
     id: 64a43dcb367b
-    last_write_checksum: sha1:0448208de1905ba61459b52183ea9aabe072b6d7
-    pristine_git_object: 3c46a56d5519a6c30197f2efd0cbb7b3ef437cd6
+    last_write_checksum: sha1:5ba8693942224b4bdf2317b353784efcc57afb46
+    pristine_git_object: a53a3527bf135258ff9f32e87bf0cd579860cabc
   internal/cli/contextualbandits/startcontextualbandit.go:
     id: 62f6fb566a9e
     last_write_checksum: sha1:f6859038059efaffc176bb55b40dc5b1438c3f6f
@@ -573,14 +573,14 @@ trackedFiles:
     id: b6bde7bd75dd
     last_write_checksum: sha1:b2744b80c1052793f25ac914e0315f395a580be6
     pristine_git_object: 2081af564b4a9f5d3313367c4b4cfa8f00bd8440
-  internal/cli/contextualbandits/updatecontextualbanditvariations.go:
-    id: 8a829aa14e84
-    last_write_checksum: sha1:7db3a7356e8e8fd01e182006aa9041de60079c18
-    pristine_git_object: 108f9238f41ac5bb063df090b78d9ec1945e4109
   internal/cli/contextualbandits/updatelinkedfeature.go:
     id: 0ea9223a702c
     last_write_checksum: sha1:57d2483814090d8a523d7e8af0ba2f91d602a18e
     pristine_git_object: 22d13f04eb9aa7c82412a6a19e36a7940fd801d6
+  internal/cli/contextualbandits/updatevariations.go:
+    id: c2ee17ecfe13
+    last_write_checksum: sha1:1bc830c9651f3165ad8e2081d5a9e3ded1f79a25
+    pristine_git_object: 9bb024be3899a74444a4e0a389bfd4ea21f082d4
   internal/cli/customfields/createcustomfield.go:
     id: 40aa17332554
     last_write_checksum: sha1:3ff4873d096a5c6ae33b9ad89fff744f32eb7195
@@ -2007,8 +2007,8 @@ trackedFiles:
     pristine_git_object: e6a994416d0f527912d2d272e2583458f4fc9bcb
   internal/sdk/analyticsexplorations.go:
     id: b44939b97400
-    last_write_checksum: sha1:a3974e1ee32625c0a1f97cc67979188f0e3cbd60
-    pristine_git_object: ffac595cb739c667767725fda3ea502ee7048555
+    last_write_checksum: sha1:420a120d447ed430e2aeaf60c49e31cc04f1e384
+    pristine_git_object: a873d1971860f872c72268c7fcca2c4a24114e76
   internal/sdk/archetypes.go:
     id: b90b8c494851
     last_write_checksum: sha1:4ae5aae25ef073e520599fede6ea9c085ea675d8
@@ -2047,8 +2047,8 @@ trackedFiles:
     pristine_git_object: ae969ec6856ba1e8de11bdc95385da1ca8b4db57
   internal/sdk/contextualbandits.go:
     id: f637b07ee273
-    last_write_checksum: sha1:1267f9ed84f81de66075cc6021d3fcc3729563ba
-    pristine_git_object: 1cbd6b07c9f829d7676593b8ff87b867c592618c
+    last_write_checksum: sha1:3b3c6c98e368a1ee01b54e5988096a12f42aa62f
+    pristine_git_object: 86f291c41cb1e3057191100257844c999c9824fc
   internal/sdk/customfields.go:
     id: 850a3168a241
     last_write_checksum: sha1:3b2bff9f3a770921e291b0308f5ad4ff6160c472
@@ -4647,8 +4647,8 @@ trackedFiles:
     pristine_git_object: 159a87ec97aba99e4edd132f69652e123434303e
   internal/usage/schema.go:
     id: 0f40f4612437
-    last_write_checksum: sha1:b3ed58bdbf783b6c8009a6d5d35b8eeb9d98d20a
-    pristine_git_object: e5b8f413a18451daa731de35a2073bb38dcad3ef
+    last_write_checksum: sha1:127348fd7bb403e0d284073e9e3666152ed382c0
+    pristine_git_object: 3b6f8191ac4c5735ca15fbdd6f3ffc907d3ca9b6
   scripts/install.ps1:
     id: fee0853709e9
     last_write_checksum: sha1:f9df93912e2b5d20eaffddbdb2708ce76ec06445
@@ -8513,4 +8513,3 @@ examples:
         "200":
           application/json: {"exploration": {"id": "<id>", "dateCreated": "2025-08-10T00:05:58.297Z", "dateUpdated": "2026-11-15T23:41:38.160Z", "datasource": "<value>", "status": "running", "dateStart": "<value>", "dateEnd": "<value>", "result": {"rows": []}, "config": {"datasource": "<value>", "dimensions": [], "chartType": "rawTable", "dateRange": {"predefined": "customDateRange"}, "type": "journey", "dataset": {"type": "journey", "factTableId": "<id>", "unit": "mole", "stepColumns": ["<value 1>", "<value 2>"], "anchorStepValues": ["<value 1>"], "direction": "backward", "rowFilters": [], "path": [{"value": "<value>"}], "lookaheadDepth": 721767, "optionsPerStep": [14688, 534392, 472630]}}}, "query": {"id": "<id>", "organization": "<value>", "datasource": "<value>", "language": "<value>", "query": "<value>", "queryType": "<value>", "createdAt": "1721746370745", "startedAt": "<value>", "status": "running", "externalId": "<id>", "dependencies": [], "runAtEnd": true}}
 examplesVersion: 1.0.2
-releaseNotes: "## Cli SDK Changes:\n* `Growthbook.Experiments.Create()`:  `request.Request` **Changed** (Breaking ⚠️)\n* `Growthbook.Experiments.UpdateExperiment()`: \n  *  `request.Request.Body` **Changed** (Breaking ⚠️)\n* `Growthbook.ContextualBandits.UpdateContextualBandit()`: \n  *  `request.Request.Body` **Changed** (Breaking ⚠️)\n  *  `response.ContextualBandit.Variations[].Status` **Added**\n* `Growthbook.ContextualBandits.UpdateContextualBanditVariations()`: **Added**\n* `Growthbook.AnalyticsExplorations.PostJourneyExploration()`: **Added**\n* `Growthbook.FeaturesV1.Create()`: \n  *  `request.Request.Comment` **Added**\n* `Growthbook.FeaturesV1.Get()`:  `response.Feature.Revisions[].RampActions[]` **Changed**\n* `Growthbook.FeaturesV1.Update()`: \n  *  `request.Request.Body.Comment` **Added**\n* `Growthbook.FeaturesV1.Toggle()`: \n  *  `request.Request.Body.Comment` **Added**\n* `Growthbook.FeatureRevisionsV1.ListRevisions()`:  `response.Revisions[].RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.ListForFeature()`:  `response.Revisions[].RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.Create()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.GetFeatureRevisionLatest()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.GetFeatureRevision()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionMetadata()`: \n  *  `request.Request.Body` **Changed**\n  *  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionDefaultValue()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionPrerequisites()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionHoldout()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionArchive()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionToggle()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionRuleAdd()`: \n  *  `request.Request.Body.RampSchedule.StartActions[].Patch` **Changed**\n  *  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionRule()`: \n  *  `request.Request.Body.RampSchedule.StartActions[].Patch` **Changed**\n  *  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.DeleteFeatureRevisionRule()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionRulesReorder()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionRuleRampSchedule()`: \n  *  `request.Request.Body.StartActions[].Patch` **Changed**\n  *  `response` **Changed**\n* `Growthbook.FeatureRevisionsV1.DeleteFeatureRevisionRuleRampSchedule()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionRequestReview()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionSubmitReview()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionRebase()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionPublish()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionDiscard()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionRevert()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.Features.Create()`: \n  *  `request.Request.Comment` **Added**\n* `Growthbook.Features.Get()`:  `response.Feature.Revisions[].RampActions[]` **Changed**\n* `Growthbook.Features.Update()`: \n  *  `request.Request.Body.Comment` **Added**\n* `Growthbook.Features.Toggle()`: \n  *  `request.Request.Body.Comment` **Added**\n* `Growthbook.FeatureRevisions.ListRevisions()`:  `response.Revisions[].RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.ListForFeature()`:  `response.Revisions[].RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.Create()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.Latest()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.Get()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.SetMetadata()`: \n  *  `request.Request.Body` **Changed**\n  *  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.SetDefaultValue()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.SetPrerequisites()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.SetHoldout()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.Archive()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.Toggle()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.AddRule()`: \n  *  `request.Request.Body.RampSchedule.StartActions[].Patch` **Changed**\n  *  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.UpdateRule()`: \n  *  `request.Request.Body.RampSchedule.StartActions[].Patch` **Changed**\n  *  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.DeleteRule()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.ReorderRules()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.SetRuleRampSchedule()`: \n  *  `request.Request.Body` **Changed**\n  *  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.DeleteRuleRampSchedule()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.RequestReview()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.SchedulePublish()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.SubmitReview()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.RecallReview()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.UndoReview()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.Rebase()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.Publish()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.Discard()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.Reopen()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.Revert()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.VisualChangesets.Update()`: \n  *  `request.Request.Body.AllowRunningExperiment` **Added**\n* `Growthbook.VisualChangesets.AddVisualChange()`: \n  *  `request.Request.Body.AllowRunningExperiment` **Added**\n* `Growthbook.VisualChangesets.UpdateVisualChange()`: \n  *  `request.Request.Body.AllowRunningExperiment` **Added**\n* `Growthbook.ContextualBandits.GetContextualBandit()`:  `response.ContextualBandit.Variations[].Status` **Added**\n* `Growthbook.ContextualBandits.CreateContextualBandit()`:  `response.ContextualBandit.Variations[].Status` **Added**\n* `Growthbook.ContextualBandits.ListContextualBandits()`:  `response.ContextualBandits[].Variations[].Status` **Added**\n* `Growthbook.ContextualBandits.StartContextualBandit()`:  `response.ContextualBandit.Variations[].Status` **Added**\n* `Growthbook.ContextualBandits.StopContextualBandit()`:  `response.ContextualBandit.Variations[].Status` **Added**\n* `Growthbook.Projects.ListProjects()`:  `response.Projects[].AllowTargeting` **Added**\n* `Growthbook.Projects.Create()`: \n  *  `request.Request.AllowTargeting` **Added**\n  *  `response.Project.AllowTargeting` **Added**\n* `Growthbook.Projects.GetProject()`:  `response.Project.AllowTargeting` **Added**\n* `Growthbook.Projects.Update()`: \n  *  `request.Request.Body.AllowTargeting` **Added**\n  *  `response.Project.AllowTargeting` **Added**\n* `Growthbook.Attributes.ListAttributes()`:  `response.Attributes[].CustomFields` **Added**\n* `Growthbook.Attributes.Create()`: \n  *  `request.Request.CustomFields` **Added**\n  *  `response.Attribute.CustomFields` **Added**\n* `Growthbook.Attributes.Update()`: \n  *  `request.Request.Body.CustomFields` **Added**\n  *  `response.Attribute.CustomFields` **Added**\n* `Growthbook.SdkConnections.ListSdkConnections()`:  `response.Connections[].SavedGroupFormat` **Added**\n* `Growthbook.SdkConnections.Create()`: \n  *  `request.Request.SavedGroupFormat` **Added**\n  *  `response.SdkConnection.SavedGroupFormat` **Added**\n* `Growthbook.SdkConnections.GetSdkConnection()`:  `response.SdkConnection.SavedGroupFormat` **Added**\n* `Growthbook.SdkConnections.Update()`: \n  *  `request.Request.Body.SavedGroupFormat` **Added**\n  *  `response.SdkConnection.SavedGroupFormat` **Added**\n* `Growthbook.SdkConnections.LookupSdkConnectionByKey()`:  `response.SdkConnection.SavedGroupFormat` **Added**\n* `Growthbook.FactTables.ListFactTables()`:  `response.FactTables[].Columns[].ConditionalInlineFilters` **Added**\n* `Growthbook.FactTables.Create()`: \n  *  `request.Request.Columns[].ConditionalInlineFilters` **Added**\n  *  `response.FactTable.Columns[].ConditionalInlineFilters` **Added**\n* `Growthbook.FactTables.GetFactTable()`:  `response.FactTable.Columns[].ConditionalInlineFilters` **Added**\n* `Growthbook.FactTables.UpdateFactTable()`: \n  *  `request.Request.Body.Columns[].ConditionalInlineFilters` **Added**\n  *  `response.FactTable.Columns[].ConditionalInlineFilters` **Added**\n* `Growthbook.FactTables.CreateVirtualColumn()`:  `response.FactTableColumn.ConditionalInlineFilters` **Added**\n* `Growthbook.FactTables.UpdateVirtualColumn()`:  `response.FactTableColumn.ConditionalInlineFilters` **Added**\n* `Growthbook.FactTables.BulkImport()`:  `request.Request` **Changed**\n* `Growthbook.FactMetrics.ListFactMetrics()`:  `response.FactMetrics[]` **Changed**\n* `Growthbook.FactMetrics.Create()`: \n  *  `request.Request` **Changed**\n  *  `response.FactMetric` **Changed**\n* `Growthbook.FactMetrics.GetFactMetric()`:  `response.FactMetric` **Changed**\n* `Growthbook.FactMetrics.UpdateFactMetric()`: \n  *  `request.Request.Body` **Changed**\n  *  `response.FactMetric` **Changed**\n* `Growthbook.Settings.SetApprovals()`: \n  *  `request.Request.TargetingReviewMode` **Added**\n  *  `response.TargetingReviewMode` **Added**\n* `Growthbook.RampSchedules.ListRampSchedules()`:  `response.RampSchedules[].StartActions[].Patch` **Changed**\n* `Growthbook.RampSchedules.Create()`: \n  *  `request.Request.StartActions[].Patch` **Changed**\n  *  `response.RampSchedule.StartActions[].Patch` **Changed**\n* `Growthbook.RampSchedules.StartRampSchedule()`:  `response.RampSchedule.StartActions[].Patch` **Changed**\n* `Growthbook.RampSchedules.PauseRampSchedule()`:  `response.RampSchedule.StartActions[].Patch` **Changed**\n* `Growthbook.RampSchedules.ResumeRampSchedule()`:  `response.RampSchedule.StartActions[].Patch` **Changed**\n* `Growthbook.RampSchedules.RollbackRampSchedule()`:  `response.RampSchedule.StartActions[].Patch` **Changed**\n* `Growthbook.RampSchedules.RestartRampSchedule()`:  `response.RampSchedule.StartActions[].Patch` **Changed**\n* `Growthbook.RampSchedules.JumpRampSchedule()`:  `response.RampSchedule.StartActions[].Patch` **Changed**\n* `Growthbook.RampSchedules.CompleteRampSchedule()`:  `response.RampSchedule.StartActions[].Patch` **Changed**\n* `Growthbook.RampSchedules.ApproveStepRampSchedule()`:  `response.RampSchedule.StartActions[].Patch` **Changed**\n* `Growthbook.RampSchedules.AddTargetRampSchedule()`:  `response.RampSchedule.StartActions[].Patch` **Changed**\n* `Growthbook.RampSchedules.EjectTargetRampSchedule()`:  `response.union(class (0)).RampSchedule.StartActions[].Patch` **Changed**\n* `Growthbook.RampSchedules.ApiAdvanceRampSchedule()`:  `response.RampSchedule.StartActions[].Patch` **Changed**\n* `Growthbook.RampSchedules.SetMonitoringModeRampSchedule()`:  `response.StartActions[].Patch` **Changed**\n* `Growthbook.RampSchedules.SetAutoUpdateRampSchedule()`:  `response.StartActions[].Patch` **Changed**\n* `Growthbook.RampSchedules.UpdateRampScheduleMonitoring()`:  `response.StartActions[].Patch` **Changed**\n* `Growthbook.RampSchedules.UpdateRampScheduleLockdown()`:  `response.StartActions[].Patch` **Changed**\n* `Growthbook.RampSchedules.UpdateRampScheduleSteps()`:  `response.RampSchedule.StartActions[].Patch` **Changed**\n* `Growthbook.RampSchedules.RefreshMonitoringRampSchedule()`:  `response.RampSchedule.StartActions[].Patch` **Changed**\n* `Growthbook.RampSchedules.GetRampSchedule()`:  `response.RampSchedule.StartActions[].Patch` **Changed**\n* `Growthbook.RampSchedules.UpdateRampSchedule()`: \n  *  `request.Request.Body.StartActions[].Patch` **Changed**\n  *  `response.RampSchedule.StartActions[].Patch` **Changed**\n* `Growthbook.Dashboards.GetDashboard()`:  `response.Dashboard.Blocks[]` **Changed**\n* `Growthbook.Dashboards.UpdateDashboard()`: \n  *  `request.Request.Body.Blocks[]` **Changed**\n  *  `response.Dashboard.Blocks[]` **Changed**\n* `Growthbook.Dashboards.CreateDashboard()`: \n  *  `request.Request.Blocks[]` **Changed**\n  *  `response.Dashboard.Blocks[]` **Changed**\n* `Growthbook.Dashboards.ListDashboards()`:  `response.Dashboards[].Blocks[]` **Changed**\n* `Growthbook.Dashboards.ListForExperiment()`:  `response.Dashboards[].Blocks[]` **Changed**\n* `Growthbook.CustomFields.CreateCustomField()`: \n  *  `request.Request.Sections[].Enum(attribute)` **Added**\n  *  `response.CustomField.Sections[].Enum(attribute)` **Added**\n* `Growthbook.CustomFields.ListCustomFields()`:  `response.[].Sections[].Enum(attribute)` **Added**\n* `Growthbook.CustomFields.GetCustomField()`:  `response.CustomField.Sections[].Enum(attribute)` **Added**\n* `Growthbook.CustomFields.UpdateCustomField()`: \n  *  `request.Request.Body.Sections[].Enum(attribute)` **Added**\n  *  `response.CustomField.Sections[].Enum(attribute)` **Added**\n* `Growthbook.AnalyticsExplorations.RunMetric()`: \n  *  `request.Request.Body` **Changed**\n  *  `response.Exploration` **Changed**\n* `Growthbook.AnalyticsExplorations.RunFactTable()`: \n  *  `request.Request.Body` **Changed**\n  *  `response.Exploration` **Changed**\n* `Growthbook.AnalyticsExplorations.RunDataSource()`: \n  *  `request.Request.Body` **Changed**\n  *  `response.Exploration` **Changed**\n* `Growthbook.AnalyticsExplorations.RunSql()`: \n  *  `request.Request.Body` **Changed**\n  *  `response.Exploration` **Changed**\n* `Growthbook.AnalyticsExplorations.RunFunnel()`: \n  *  `request.Request.Body` **Changed**\n  *  `response.Exploration` **Changed**\n* `Growthbook.AnalyticsExplorations.Get()`:  `response.Exploration` **Changed**\n"
