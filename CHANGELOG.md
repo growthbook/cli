@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [2.7.0] - 2026-09-28
+
 Additive, plus one change to the beta contextual-bandits commands. Two new commands and twenty-two
 new flags. Contextual bandits are in beta, so the flag removal below ships as a minor.
 
