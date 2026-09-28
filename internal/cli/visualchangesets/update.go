@@ -18,8 +18,9 @@ var updateCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The id of the requested resource [required]"},
 	{FlagName: "editor-url", Shorthand: "e", FieldPath: "Body.EditorURL", Kind: flagutil.FlagKindString, Optional: true, Description: "URL of the page opened in the visual editor when creating this changeset"},
 	{FlagName: "url-patterns", Shorthand: "u", FieldPath: "Body.URLPatterns", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"urlPatterns,omitempty"`, Description: "URL patterns that determine which pages this visual changeset applies to"},
+	{FlagName: "allow-running-experiment", FieldPath: "Body.AllowRunningExperiment", Kind: flagutil.FlagKindBool, Optional: true, Description: "Also accept the write when the experiment is running. Off by default so a stale editor can't change a live test. When set, the change reaches live traffic immediately and the caller needs the runExperiments permission on the affected environments; the write is audited."},
 	{FlagName: "visual-changes", Shorthand: "v", FieldPath: "Body.VisualChanges", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"visualChanges,omitempty"`, Description: "list of values"},
-	{FlagName: "additional-properties", Shorthand: "a", FieldPath: "Body.AdditionalProperties", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `additionalProperties:"true" json:"-"`, Description: "value"},
+	{FlagName: "additional-properties", FieldPath: "Body.AdditionalProperties", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `additionalProperties:"true" json:"-"`, Description: "value"},
 }
 
 // initUpdateCmd initializes the update command.

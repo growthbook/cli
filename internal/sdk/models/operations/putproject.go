@@ -49,6 +49,8 @@ type PutProjectRequestBody struct {
 	Settings *PutProjectSettings `json:"settings,omitzero"`
 	// When true, only members with an explicit role on this Project (directly or via a team) can access it. Members with the manageTeam permission retain access. Requires a Pro or Enterprise plan.
 	RestrictAccess *bool `json:"restrictAccess,omitzero"`
+	// Whether Feature Flags owned by other Projects may add this Project to their Targeting Projects. Defaults to true. Turning it off blocks new targeting (and All Projects); existing targeting is kept.
+	AllowTargeting *bool `json:"allowTargeting,omitzero"`
 }
 
 func (p PutProjectRequestBody) MarshalJSON() ([]byte, error) {
@@ -95,6 +97,13 @@ func (p *PutProjectRequestBody) GetRestrictAccess() *bool {
 		return nil
 	}
 	return p.RestrictAccess
+}
+
+func (p *PutProjectRequestBody) GetAllowTargeting() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AllowTargeting
 }
 
 type PutProjectRequest struct {

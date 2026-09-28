@@ -24,6 +24,7 @@ growthbook features-v1 toggle [flags]
 
 ```
       --body string           Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -c, --comment reason        Comment to record on the revision this toggle publishes, when it changes any environment. Defaults to "Created via REST API". (reason is recorded in the audit log only.)
   -e, --environments string   [required]
   -h, --help                  help for toggle
   -i, --id string             The id of the requested resource [required]

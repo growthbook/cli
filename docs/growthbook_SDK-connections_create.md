@@ -19,31 +19,32 @@ growthbook SDK-connections create [flags]
 ### Options
 
 ```
-  -a, --allowed-custom-fields-in-metadata stringArray   list of values
-      --body string                                     Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --encrypt-payload                                 boolean flag
-      --environment string                              [required]
-      --hash-secure-attributes                          boolean flag
-  -h, --help                                            help for create
-      --include-custom-fields-in-metadata               boolean flag
-      --include-draft-experiment-refs                   When true, experiment-ref rules linked to draft experiments are included in feature definitions. Off by default.
-      --include-draft-experiments                       boolean flag
-      --include-experiment-names                        boolean flag
-      --include-experiment-schedule-in-metadata         boolean flag
-      --include-project-id-in-metadata                  boolean flag
-      --include-redirect-experiments                    boolean flag
-      --include-referenced-prerequisites                Carry prerequisite Feature Flags into this payload even when they target other Projects. Defaults to true for new connections.
-      --include-rule-ids                                boolean flag
-      --include-tags-in-metadata                        boolean flag
-      --include-visual-experiments                      boolean flag
-  -l, --language string                                 [required]
-  -n, --name string                                     [required]
-      --projects stringArray                            list of values
-      --proxy-enabled                                   boolean flag
-      --proxy-host string                               string value
-  -r, --remote-eval-enabled                             boolean flag
-      --saved-group-references-enabled                  boolean flag
-      --sdk-version string                              string value
+  -a, --allowed-custom-fields-in-metadata stringArray     list of values
+      --body string                                       Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --encrypt-payload                                   boolean flag
+      --environment string                                [required]
+      --hash-secure-attributes                            boolean flag
+  -h, --help                                              help for create
+      --include-custom-fields-in-metadata                 boolean flag
+      --include-draft-experiment-refs                     When true, experiment-ref rules linked to draft experiments are included in feature definitions. Off by default.
+      --include-draft-experiments                         boolean flag
+      --include-experiment-names                          boolean flag
+      --include-experiment-schedule-in-metadata           boolean flag
+      --include-project-id-in-metadata                    boolean flag
+      --include-redirect-experiments                      boolean flag
+      --include-referenced-prerequisites                  Carry prerequisite Feature Flags into this payload even when they target other Projects. Defaults to true for new connections.
+      --include-rule-ids                                  boolean flag
+      --include-tags-in-metadata                          boolean flag
+      --include-visual-experiments                        boolean flag
+  -l, --language string                                   [required]
+  -n, --name string                                       [required]
+      --projects stringArray                              list of values
+      --proxy-enabled                                     boolean flag
+      --proxy-host string                                 string value
+  -r, --remote-eval-enabled                               boolean flag
+      --saved-group-format string                         options: inline, referencesV1, referencesV2
+      --saved-group-references-enabled savedGroupFormat   Deprecated. Use savedGroupFormat.
+      --sdk-version string                                string value
 ```
 
 ### Options inherited from parent commands

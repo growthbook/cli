@@ -25,7 +25,7 @@ var createCustomFieldCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "creatable", Shorthand: "c", FieldPath: "Creatable", Kind: flagutil.FlagKindBool, Optional: true, Description: "For enum and multiselect fields, allow users to enter values beyond the predefined list"},
 	{FlagName: "required", Shorthand: "r", FieldPath: "Required", Kind: flagutil.FlagKindBool, Required: true, Description: "[required]"},
 	{FlagName: "projects", FieldPath: "Projects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
-	{FlagName: "sections", Shorthand: "s", FieldPath: "Sections", Kind: flagutil.FlagKindStringArray, Required: true, Description: "What types of objects this custom field is applicable to (feature, experiment) [required]"},
+	{FlagName: "sections", Shorthand: "s", FieldPath: "Sections", Kind: flagutil.FlagKindStringArray, Required: true, Description: "What types of objects this custom field is applicable to (feature, experiment, attribute) [required]"},
 }
 
 // initCreateCustomFieldCmd initializes the create-custom-field command.

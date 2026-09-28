@@ -77,9 +77,15 @@ type StartActionsPatch struct {
 	Prerequisites   optionalnullable.OptionalNullable[[]StartActionsPrerequisites] `json:"prerequisites,omitzero"`
 	AllEnvironments optionalnullable.OptionalNullable[bool]                        `json:"allEnvironments,omitzero"`
 	Environments    optionalnullable.OptionalNullable[[]string]                    `json:"environments,omitzero"`
-	// Force value (any JSON type)
+	// Value to serve, in the string form rule values use ("false", "10", '{"limit": 5}'). A non-string JSON value is accepted and stored as its JSON text. Must be valid for the feature's value type.
 	Force   any                                     `json:"force,omitzero"`
 	Enabled optionalnullable.OptionalNullable[bool] `json:"enabled,omitzero"`
+	// Attribute the rule buckets on. Required (here or on the rule) when a step sets partial coverage on a force rule, which becomes a rollout.
+	HashAttribute optionalnullable.OptionalNullable[string] `json:"hashAttribute,omitzero"`
+	// Hash seed for a promoted force rule. Defaults to the rule id.
+	Seed optionalnullable.OptionalNullable[string] `json:"seed,omitzero"`
+	// Hash algorithm version for a promoted force rule. Defaults to 2.
+	HashVersion *float64 `json:"hashVersion,omitzero"`
 }
 
 func (s StartActionsPatch) MarshalJSON() ([]byte, error) {
@@ -154,6 +160,27 @@ func (s *StartActionsPatch) GetEnabled() optionalnullable.OptionalNullable[bool]
 		return nil
 	}
 	return s.Enabled
+}
+
+func (s *StartActionsPatch) GetHashAttribute() optionalnullable.OptionalNullable[string] {
+	if s == nil {
+		return nil
+	}
+	return s.HashAttribute
+}
+
+func (s *StartActionsPatch) GetSeed() optionalnullable.OptionalNullable[string] {
+	if s == nil {
+		return nil
+	}
+	return s.Seed
+}
+
+func (s *StartActionsPatch) GetHashVersion() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.HashVersion
 }
 
 type StartActions struct {

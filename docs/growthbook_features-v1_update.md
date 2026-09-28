@@ -26,7 +26,8 @@ growthbook features-v1 update [flags]
   -a, --archived                           boolean flag
   -b, --base-config string                 The config backing this flag ("Config mode"), fixed at creation. Cannot be changed by an update — resend the current value or omit it; a different value (or null to detach) is rejected.
       --body string                        Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -c, --custom-fields string               value
+      --comment string                     Comment to record on the revision this update publishes, when it publishes one. Defaults to "Created via REST API".
+      --custom-fields string               value
       --default-value string               string value
       --description string                 Description of the feature
   -e, --environments string                Settings for each environment, keyed by environment ID. Any environment you leave out keeps its current settings.
@@ -42,8 +43,8 @@ growthbook features-v1 update [flags]
       --skip-hooks skipSchemaValidation    Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use skipSchemaValidation for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
       --skip-schema-validation skipHooks   Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use skipHooks for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
       --tags stringArray                   List of associated tags. Will override tags completely with submitted list
-      --targeting-all-projects project     Make this feature discoverable in — and served to — every project, beyond its primary project. Governance/approvals stay with `project`.
-      --targeting-projects project         Secondary project IDs this feature is targeted in and served to, beyond its primary project. Governance/approvals stay with `project`.
+      --targeting-all-projects project     Make this feature discoverable in — and served to — every project, beyond its primary project. Requires the `targetFeatures` permission (FlagsTarget policy) unscoped to any project. Governance stays with `project`.
+      --targeting-projects project         Secondary project IDs this feature is targeted in and served to, beyond its primary project. Adding a project requires the `targetFeatures` permission (FlagsTarget policy) in that project. Governance stays with `project`.
 ```
 
 ### Options inherited from parent commands

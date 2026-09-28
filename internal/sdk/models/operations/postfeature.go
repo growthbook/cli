@@ -3659,9 +3659,9 @@ type PostFeatureRequest struct {
 	Owner *string `json:"owner,omitzero"`
 	// An associated project ID
 	Project *string `json:"project,omitzero"`
-	// Make this feature discoverable in — and served to — every project, beyond its primary `project`. Governance/approvals stay with `project`.
+	// Make this feature discoverable in — and served to — every project, beyond its primary `project`. Requires the `targetFeatures` permission (FlagsTarget policy) unscoped to any project. Governance stays with `project`.
 	TargetingAllProjects *bool `json:"targetingAllProjects,omitzero"`
-	// Secondary project IDs this feature is targeted in and served to, beyond its primary `project`. Governance/approvals stay with `project`.
+	// Secondary project IDs this feature is targeted in and served to, beyond its primary `project`. Adding a project requires the `targetFeatures` permission (FlagsTarget policy) in that project. Governance stays with `project`.
 	TargetingProjects []string `json:"targetingProjects,omitzero"`
 	// The data type of the feature payload. Boolean by default.
 	ValueType PostFeatureValueType `json:"valueType"`
@@ -3678,6 +3678,8 @@ type PostFeatureRequest struct {
 	// Use JSON schema to validate the payload of a JSON-type feature value (enterprise only).
 	JSONSchema   *string           `json:"jsonSchema,omitzero"`
 	CustomFields map[string]string `json:"customFields,omitzero"`
+	// Comment to record on the feature's initial revision. Defaults to an empty comment.
+	Comment *string `json:"comment,omitzero"`
 	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
 	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
 	// Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
@@ -3800,6 +3802,13 @@ func (p *PostFeatureRequest) GetCustomFields() map[string]string {
 		return nil
 	}
 	return p.CustomFields
+}
+
+func (p *PostFeatureRequest) GetComment() *string {
+	if p == nil {
+		return nil
+	}
+	return p.Comment
 }
 
 func (p *PostFeatureRequest) GetIgnoreWarnings() *bool {

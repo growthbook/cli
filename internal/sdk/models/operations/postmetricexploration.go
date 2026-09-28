@@ -15,26 +15,28 @@ import (
 type PostMetricExplorationDimensionOperatorRequest string
 
 const (
-	PostMetricExplorationDimensionOperatorRequestEqual            PostMetricExplorationDimensionOperatorRequest = "="
-	PostMetricExplorationDimensionOperatorRequestNotEqual         PostMetricExplorationDimensionOperatorRequest = "!="
-	PostMetricExplorationDimensionOperatorRequestLessThan         PostMetricExplorationDimensionOperatorRequest = "<"
-	PostMetricExplorationDimensionOperatorRequestLessThanEqual    PostMetricExplorationDimensionOperatorRequest = "<="
-	PostMetricExplorationDimensionOperatorRequestGreaterThan      PostMetricExplorationDimensionOperatorRequest = ">"
-	PostMetricExplorationDimensionOperatorRequestGreaterThanEqual PostMetricExplorationDimensionOperatorRequest = ">="
-	PostMetricExplorationDimensionOperatorRequestBetween          PostMetricExplorationDimensionOperatorRequest = "between"
-	PostMetricExplorationDimensionOperatorRequestNotBetween       PostMetricExplorationDimensionOperatorRequest = "not_between"
-	PostMetricExplorationDimensionOperatorRequestIn               PostMetricExplorationDimensionOperatorRequest = "in"
-	PostMetricExplorationDimensionOperatorRequestNotIn            PostMetricExplorationDimensionOperatorRequest = "not_in"
-	PostMetricExplorationDimensionOperatorRequestContains         PostMetricExplorationDimensionOperatorRequest = "contains"
-	PostMetricExplorationDimensionOperatorRequestNotContains      PostMetricExplorationDimensionOperatorRequest = "not_contains"
-	PostMetricExplorationDimensionOperatorRequestStartsWith       PostMetricExplorationDimensionOperatorRequest = "starts_with"
-	PostMetricExplorationDimensionOperatorRequestEndsWith         PostMetricExplorationDimensionOperatorRequest = "ends_with"
-	PostMetricExplorationDimensionOperatorRequestIsNull           PostMetricExplorationDimensionOperatorRequest = "is_null"
-	PostMetricExplorationDimensionOperatorRequestNotNull          PostMetricExplorationDimensionOperatorRequest = "not_null"
-	PostMetricExplorationDimensionOperatorRequestIsTrue           PostMetricExplorationDimensionOperatorRequest = "is_true"
-	PostMetricExplorationDimensionOperatorRequestIsFalse          PostMetricExplorationDimensionOperatorRequest = "is_false"
-	PostMetricExplorationDimensionOperatorRequestSQLExpr          PostMetricExplorationDimensionOperatorRequest = "sql_expr"
-	PostMetricExplorationDimensionOperatorRequestSavedFilter      PostMetricExplorationDimensionOperatorRequest = "saved_filter"
+	PostMetricExplorationDimensionOperatorRequestEqual             PostMetricExplorationDimensionOperatorRequest = "="
+	PostMetricExplorationDimensionOperatorRequestNotEqual          PostMetricExplorationDimensionOperatorRequest = "!="
+	PostMetricExplorationDimensionOperatorRequestLessThan          PostMetricExplorationDimensionOperatorRequest = "<"
+	PostMetricExplorationDimensionOperatorRequestLessThanEqual     PostMetricExplorationDimensionOperatorRequest = "<="
+	PostMetricExplorationDimensionOperatorRequestGreaterThan       PostMetricExplorationDimensionOperatorRequest = ">"
+	PostMetricExplorationDimensionOperatorRequestGreaterThanEqual  PostMetricExplorationDimensionOperatorRequest = ">="
+	PostMetricExplorationDimensionOperatorRequestBetween           PostMetricExplorationDimensionOperatorRequest = "between"
+	PostMetricExplorationDimensionOperatorRequestNotBetween        PostMetricExplorationDimensionOperatorRequest = "not_between"
+	PostMetricExplorationDimensionOperatorRequestIn                PostMetricExplorationDimensionOperatorRequest = "in"
+	PostMetricExplorationDimensionOperatorRequestNotIn             PostMetricExplorationDimensionOperatorRequest = "not_in"
+	PostMetricExplorationDimensionOperatorRequestContains          PostMetricExplorationDimensionOperatorRequest = "contains"
+	PostMetricExplorationDimensionOperatorRequestNotContains       PostMetricExplorationDimensionOperatorRequest = "not_contains"
+	PostMetricExplorationDimensionOperatorRequestMatchesPattern    PostMetricExplorationDimensionOperatorRequest = "matches_pattern"
+	PostMetricExplorationDimensionOperatorRequestNotMatchesPattern PostMetricExplorationDimensionOperatorRequest = "not_matches_pattern"
+	PostMetricExplorationDimensionOperatorRequestStartsWith        PostMetricExplorationDimensionOperatorRequest = "starts_with"
+	PostMetricExplorationDimensionOperatorRequestEndsWith          PostMetricExplorationDimensionOperatorRequest = "ends_with"
+	PostMetricExplorationDimensionOperatorRequestIsNull            PostMetricExplorationDimensionOperatorRequest = "is_null"
+	PostMetricExplorationDimensionOperatorRequestNotNull           PostMetricExplorationDimensionOperatorRequest = "not_null"
+	PostMetricExplorationDimensionOperatorRequestIsTrue            PostMetricExplorationDimensionOperatorRequest = "is_true"
+	PostMetricExplorationDimensionOperatorRequestIsFalse           PostMetricExplorationDimensionOperatorRequest = "is_false"
+	PostMetricExplorationDimensionOperatorRequestSQLExpr           PostMetricExplorationDimensionOperatorRequest = "sql_expr"
+	PostMetricExplorationDimensionOperatorRequestSavedFilter       PostMetricExplorationDimensionOperatorRequest = "saved_filter"
 )
 
 func (e PostMetricExplorationDimensionOperatorRequest) ToPointer() *PostMetricExplorationDimensionOperatorRequest {
@@ -69,6 +71,10 @@ func (e *PostMetricExplorationDimensionOperatorRequest) UnmarshalJSON(data []byt
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough
@@ -681,26 +687,28 @@ func (p *PostMetricExplorationChartSettingsRequest) GetValueAxisLabel() *string 
 type PostMetricExplorationRowFilterOperatorRequest string
 
 const (
-	PostMetricExplorationRowFilterOperatorRequestEqual            PostMetricExplorationRowFilterOperatorRequest = "="
-	PostMetricExplorationRowFilterOperatorRequestNotEqual         PostMetricExplorationRowFilterOperatorRequest = "!="
-	PostMetricExplorationRowFilterOperatorRequestLessThan         PostMetricExplorationRowFilterOperatorRequest = "<"
-	PostMetricExplorationRowFilterOperatorRequestLessThanEqual    PostMetricExplorationRowFilterOperatorRequest = "<="
-	PostMetricExplorationRowFilterOperatorRequestGreaterThan      PostMetricExplorationRowFilterOperatorRequest = ">"
-	PostMetricExplorationRowFilterOperatorRequestGreaterThanEqual PostMetricExplorationRowFilterOperatorRequest = ">="
-	PostMetricExplorationRowFilterOperatorRequestBetween          PostMetricExplorationRowFilterOperatorRequest = "between"
-	PostMetricExplorationRowFilterOperatorRequestNotBetween       PostMetricExplorationRowFilterOperatorRequest = "not_between"
-	PostMetricExplorationRowFilterOperatorRequestIn               PostMetricExplorationRowFilterOperatorRequest = "in"
-	PostMetricExplorationRowFilterOperatorRequestNotIn            PostMetricExplorationRowFilterOperatorRequest = "not_in"
-	PostMetricExplorationRowFilterOperatorRequestContains         PostMetricExplorationRowFilterOperatorRequest = "contains"
-	PostMetricExplorationRowFilterOperatorRequestNotContains      PostMetricExplorationRowFilterOperatorRequest = "not_contains"
-	PostMetricExplorationRowFilterOperatorRequestStartsWith       PostMetricExplorationRowFilterOperatorRequest = "starts_with"
-	PostMetricExplorationRowFilterOperatorRequestEndsWith         PostMetricExplorationRowFilterOperatorRequest = "ends_with"
-	PostMetricExplorationRowFilterOperatorRequestIsNull           PostMetricExplorationRowFilterOperatorRequest = "is_null"
-	PostMetricExplorationRowFilterOperatorRequestNotNull          PostMetricExplorationRowFilterOperatorRequest = "not_null"
-	PostMetricExplorationRowFilterOperatorRequestIsTrue           PostMetricExplorationRowFilterOperatorRequest = "is_true"
-	PostMetricExplorationRowFilterOperatorRequestIsFalse          PostMetricExplorationRowFilterOperatorRequest = "is_false"
-	PostMetricExplorationRowFilterOperatorRequestSQLExpr          PostMetricExplorationRowFilterOperatorRequest = "sql_expr"
-	PostMetricExplorationRowFilterOperatorRequestSavedFilter      PostMetricExplorationRowFilterOperatorRequest = "saved_filter"
+	PostMetricExplorationRowFilterOperatorRequestEqual             PostMetricExplorationRowFilterOperatorRequest = "="
+	PostMetricExplorationRowFilterOperatorRequestNotEqual          PostMetricExplorationRowFilterOperatorRequest = "!="
+	PostMetricExplorationRowFilterOperatorRequestLessThan          PostMetricExplorationRowFilterOperatorRequest = "<"
+	PostMetricExplorationRowFilterOperatorRequestLessThanEqual     PostMetricExplorationRowFilterOperatorRequest = "<="
+	PostMetricExplorationRowFilterOperatorRequestGreaterThan       PostMetricExplorationRowFilterOperatorRequest = ">"
+	PostMetricExplorationRowFilterOperatorRequestGreaterThanEqual  PostMetricExplorationRowFilterOperatorRequest = ">="
+	PostMetricExplorationRowFilterOperatorRequestBetween           PostMetricExplorationRowFilterOperatorRequest = "between"
+	PostMetricExplorationRowFilterOperatorRequestNotBetween        PostMetricExplorationRowFilterOperatorRequest = "not_between"
+	PostMetricExplorationRowFilterOperatorRequestIn                PostMetricExplorationRowFilterOperatorRequest = "in"
+	PostMetricExplorationRowFilterOperatorRequestNotIn             PostMetricExplorationRowFilterOperatorRequest = "not_in"
+	PostMetricExplorationRowFilterOperatorRequestContains          PostMetricExplorationRowFilterOperatorRequest = "contains"
+	PostMetricExplorationRowFilterOperatorRequestNotContains       PostMetricExplorationRowFilterOperatorRequest = "not_contains"
+	PostMetricExplorationRowFilterOperatorRequestMatchesPattern    PostMetricExplorationRowFilterOperatorRequest = "matches_pattern"
+	PostMetricExplorationRowFilterOperatorRequestNotMatchesPattern PostMetricExplorationRowFilterOperatorRequest = "not_matches_pattern"
+	PostMetricExplorationRowFilterOperatorRequestStartsWith        PostMetricExplorationRowFilterOperatorRequest = "starts_with"
+	PostMetricExplorationRowFilterOperatorRequestEndsWith          PostMetricExplorationRowFilterOperatorRequest = "ends_with"
+	PostMetricExplorationRowFilterOperatorRequestIsNull            PostMetricExplorationRowFilterOperatorRequest = "is_null"
+	PostMetricExplorationRowFilterOperatorRequestNotNull           PostMetricExplorationRowFilterOperatorRequest = "not_null"
+	PostMetricExplorationRowFilterOperatorRequestIsTrue            PostMetricExplorationRowFilterOperatorRequest = "is_true"
+	PostMetricExplorationRowFilterOperatorRequestIsFalse           PostMetricExplorationRowFilterOperatorRequest = "is_false"
+	PostMetricExplorationRowFilterOperatorRequestSQLExpr           PostMetricExplorationRowFilterOperatorRequest = "sql_expr"
+	PostMetricExplorationRowFilterOperatorRequestSavedFilter       PostMetricExplorationRowFilterOperatorRequest = "saved_filter"
 )
 
 func (e PostMetricExplorationRowFilterOperatorRequest) ToPointer() *PostMetricExplorationRowFilterOperatorRequest {
@@ -735,6 +743,10 @@ func (e *PostMetricExplorationRowFilterOperatorRequest) UnmarshalJSON(data []byt
 	case "contains":
 		fallthrough
 	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
 		fallthrough
 	case "starts_with":
 		fallthrough
@@ -1058,10 +1070,260 @@ func (p *PostMetricExplorationStep) GetTimeFromPrevSumSquaresHrs() *float64 {
 	return p.TimeFromPrevSumSquaresHrs
 }
 
+type PostMetricExplorationDirection2 string
+
+const (
+	PostMetricExplorationDirection2Forward  PostMetricExplorationDirection2 = "forward"
+	PostMetricExplorationDirection2Backward PostMetricExplorationDirection2 = "backward"
+)
+
+func (e PostMetricExplorationDirection2) ToPointer() *PostMetricExplorationDirection2 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *PostMetricExplorationDirection2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "forward", "backward":
+			return true
+		}
+	}
+	return false
+}
+
+type PostMetricExplorationJourneyCommitted struct {
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	kind      string                          `const:"committed" json:"kind"`
+	Direction PostMetricExplorationDirection2 `json:"direction"`
+	StepIndex float64                         `json:"stepIndex"`
+	Value     string                          `json:"value"`
+	Count     float64                         `json:"count"`
+}
+
+func (p PostMetricExplorationJourneyCommitted) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostMetricExplorationJourneyCommitted) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PostMetricExplorationJourneyCommitted) GetKind() string {
+	return "committed"
+}
+
+func (p *PostMetricExplorationJourneyCommitted) GetDirection() PostMetricExplorationDirection2 {
+	if p == nil {
+		return PostMetricExplorationDirection2("")
+	}
+	return p.Direction
+}
+
+func (p *PostMetricExplorationJourneyCommitted) GetStepIndex() float64 {
+	if p == nil {
+		return 0.0
+	}
+	return p.StepIndex
+}
+
+func (p *PostMetricExplorationJourneyCommitted) GetValue() string {
+	if p == nil {
+		return ""
+	}
+	return p.Value
+}
+
+func (p *PostMetricExplorationJourneyCommitted) GetCount() float64 {
+	if p == nil {
+		return 0.0
+	}
+	return p.Count
+}
+
+type PostMetricExplorationDirection1 string
+
+const (
+	PostMetricExplorationDirection1Forward  PostMetricExplorationDirection1 = "forward"
+	PostMetricExplorationDirection1Backward PostMetricExplorationDirection1 = "backward"
+)
+
+func (e PostMetricExplorationDirection1) ToPointer() *PostMetricExplorationDirection1 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *PostMetricExplorationDirection1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "forward", "backward":
+			return true
+		}
+	}
+	return false
+}
+
+type PostMetricExplorationJourneyPath struct {
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	kind      string                          `const:"path" json:"kind"`
+	Direction PostMetricExplorationDirection1 `json:"direction"`
+	Levels    []string                        `json:"levels"`
+	Count     float64                         `json:"count"`
+}
+
+func (p PostMetricExplorationJourneyPath) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostMetricExplorationJourneyPath) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PostMetricExplorationJourneyPath) GetKind() string {
+	return "path"
+}
+
+func (p *PostMetricExplorationJourneyPath) GetDirection() PostMetricExplorationDirection1 {
+	if p == nil {
+		return PostMetricExplorationDirection1("")
+	}
+	return p.Direction
+}
+
+func (p *PostMetricExplorationJourneyPath) GetLevels() []string {
+	if p == nil {
+		return []string{}
+	}
+	return p.Levels
+}
+
+func (p *PostMetricExplorationJourneyPath) GetCount() float64 {
+	if p == nil {
+		return 0.0
+	}
+	return p.Count
+}
+
+type PostMetricExplorationJourneyUnionType string
+
+const (
+	PostMetricExplorationJourneyUnionTypePath      PostMetricExplorationJourneyUnionType = "path"
+	PostMetricExplorationJourneyUnionTypeCommitted PostMetricExplorationJourneyUnionType = "committed"
+	PostMetricExplorationJourneyUnionTypeUnknown   PostMetricExplorationJourneyUnionType = "UNKNOWN"
+)
+
+type PostMetricExplorationJourneyUnion struct {
+	PostMetricExplorationJourneyPath      *PostMetricExplorationJourneyPath      `queryParam:"inline" union:"member"`
+	PostMetricExplorationJourneyCommitted *PostMetricExplorationJourneyCommitted `queryParam:"inline" union:"member"`
+	UnknownRaw                            json.RawMessage                        `json:"-" union:"unknown"`
+
+	Type PostMetricExplorationJourneyUnionType
+}
+
+func CreatePostMetricExplorationJourneyUnionPath(path PostMetricExplorationJourneyPath) PostMetricExplorationJourneyUnion {
+	typ := PostMetricExplorationJourneyUnionTypePath
+
+	return PostMetricExplorationJourneyUnion{
+		PostMetricExplorationJourneyPath: &path,
+		Type:                             typ,
+	}
+}
+
+func CreatePostMetricExplorationJourneyUnionCommitted(committed PostMetricExplorationJourneyCommitted) PostMetricExplorationJourneyUnion {
+	typ := PostMetricExplorationJourneyUnionTypeCommitted
+
+	return PostMetricExplorationJourneyUnion{
+		PostMetricExplorationJourneyCommitted: &committed,
+		Type:                                  typ,
+	}
+}
+
+func CreatePostMetricExplorationJourneyUnionUnknown(raw json.RawMessage) PostMetricExplorationJourneyUnion {
+	return PostMetricExplorationJourneyUnion{
+		UnknownRaw: raw,
+		Type:       PostMetricExplorationJourneyUnionTypeUnknown,
+	}
+}
+
+func (u PostMetricExplorationJourneyUnion) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u PostMetricExplorationJourneyUnion) IsUnknown() bool {
+	return u.Type == PostMetricExplorationJourneyUnionTypeUnknown
+}
+
+func (u *PostMetricExplorationJourneyUnion) UnmarshalJSON(data []byte) error {
+
+	type discriminator struct {
+		Kind string `json:"kind"`
+	}
+
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = PostMetricExplorationJourneyUnionTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = PostMetricExplorationJourneyUnionTypeUnknown
+		return nil
+	}
+
+	switch dis.Kind {
+	case "path":
+		postMetricExplorationJourneyPath := new(PostMetricExplorationJourneyPath)
+		if err := utils.UnmarshalJSON(data, &postMetricExplorationJourneyPath, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Kind == path) type PostMetricExplorationJourneyPath within PostMetricExplorationJourneyUnion: %w", string(data), err)
+		}
+
+		u.PostMetricExplorationJourneyPath = postMetricExplorationJourneyPath
+		u.Type = PostMetricExplorationJourneyUnionTypePath
+		return nil
+	case "committed":
+		postMetricExplorationJourneyCommitted := new(PostMetricExplorationJourneyCommitted)
+		if err := utils.UnmarshalJSON(data, &postMetricExplorationJourneyCommitted, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Kind == committed) type PostMetricExplorationJourneyCommitted within PostMetricExplorationJourneyUnion: %w", string(data), err)
+		}
+
+		u.PostMetricExplorationJourneyCommitted = postMetricExplorationJourneyCommitted
+		u.Type = PostMetricExplorationJourneyUnionTypeCommitted
+		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = PostMetricExplorationJourneyUnionTypeUnknown
+		return nil
+	}
+
+}
+
+func (u PostMetricExplorationJourneyUnion) MarshalJSON() ([]byte, error) {
+	if u.PostMetricExplorationJourneyPath != nil {
+		return utils.MarshalJSON(u.PostMetricExplorationJourneyPath, "", true)
+	}
+
+	if u.PostMetricExplorationJourneyCommitted != nil {
+		return utils.MarshalJSON(u.PostMetricExplorationJourneyCommitted, "", true)
+	}
+
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
+	return nil, errors.New("could not marshal union type PostMetricExplorationJourneyUnion: all fields are null")
+}
+
 type PostMetricExplorationRow struct {
-	Dimensions []*string                       `json:"dimensions"`
-	Values     []PostMetricExplorationRowValue `json:"values,omitzero"`
-	Steps      []PostMetricExplorationStep     `json:"steps,omitzero"`
+	Dimensions []*string                          `json:"dimensions"`
+	Values     []PostMetricExplorationRowValue    `json:"values,omitzero"`
+	Steps      []PostMetricExplorationStep        `json:"steps,omitzero"`
+	Journey    *PostMetricExplorationJourneyUnion `json:"journey,omitzero"`
 }
 
 func (p PostMetricExplorationRow) MarshalJSON() ([]byte, error) {
@@ -1094,6 +1356,27 @@ func (p *PostMetricExplorationRow) GetSteps() []PostMetricExplorationStep {
 		return nil
 	}
 	return p.Steps
+}
+
+func (p *PostMetricExplorationRow) GetJourney() *PostMetricExplorationJourneyUnion {
+	if p == nil {
+		return nil
+	}
+	return p.Journey
+}
+
+func (p *PostMetricExplorationRow) GetJourneyPath() *PostMetricExplorationJourneyPath {
+	if v := p.GetJourney(); v != nil {
+		return v.PostMetricExplorationJourneyPath
+	}
+	return nil
+}
+
+func (p *PostMetricExplorationRow) GetJourneyCommitted() *PostMetricExplorationJourneyCommitted {
+	if v := p.GetJourney(); v != nil {
+		return v.PostMetricExplorationJourneyCommitted
+	}
+	return nil
 }
 
 type PostMetricExplorationResult struct {
@@ -1137,26 +1420,28 @@ func (p *PostMetricExplorationResult) GetTruncated() *bool {
 type PostMetricExplorationExplorationDimensionOperator string
 
 const (
-	PostMetricExplorationExplorationDimensionOperatorEqual            PostMetricExplorationExplorationDimensionOperator = "="
-	PostMetricExplorationExplorationDimensionOperatorNotEqual         PostMetricExplorationExplorationDimensionOperator = "!="
-	PostMetricExplorationExplorationDimensionOperatorLessThan         PostMetricExplorationExplorationDimensionOperator = "<"
-	PostMetricExplorationExplorationDimensionOperatorLessThanEqual    PostMetricExplorationExplorationDimensionOperator = "<="
-	PostMetricExplorationExplorationDimensionOperatorGreaterThan      PostMetricExplorationExplorationDimensionOperator = ">"
-	PostMetricExplorationExplorationDimensionOperatorGreaterThanEqual PostMetricExplorationExplorationDimensionOperator = ">="
-	PostMetricExplorationExplorationDimensionOperatorBetween          PostMetricExplorationExplorationDimensionOperator = "between"
-	PostMetricExplorationExplorationDimensionOperatorNotBetween       PostMetricExplorationExplorationDimensionOperator = "not_between"
-	PostMetricExplorationExplorationDimensionOperatorIn               PostMetricExplorationExplorationDimensionOperator = "in"
-	PostMetricExplorationExplorationDimensionOperatorNotIn            PostMetricExplorationExplorationDimensionOperator = "not_in"
-	PostMetricExplorationExplorationDimensionOperatorContains         PostMetricExplorationExplorationDimensionOperator = "contains"
-	PostMetricExplorationExplorationDimensionOperatorNotContains      PostMetricExplorationExplorationDimensionOperator = "not_contains"
-	PostMetricExplorationExplorationDimensionOperatorStartsWith       PostMetricExplorationExplorationDimensionOperator = "starts_with"
-	PostMetricExplorationExplorationDimensionOperatorEndsWith         PostMetricExplorationExplorationDimensionOperator = "ends_with"
-	PostMetricExplorationExplorationDimensionOperatorIsNull           PostMetricExplorationExplorationDimensionOperator = "is_null"
-	PostMetricExplorationExplorationDimensionOperatorNotNull          PostMetricExplorationExplorationDimensionOperator = "not_null"
-	PostMetricExplorationExplorationDimensionOperatorIsTrue           PostMetricExplorationExplorationDimensionOperator = "is_true"
-	PostMetricExplorationExplorationDimensionOperatorIsFalse          PostMetricExplorationExplorationDimensionOperator = "is_false"
-	PostMetricExplorationExplorationDimensionOperatorSQLExpr          PostMetricExplorationExplorationDimensionOperator = "sql_expr"
-	PostMetricExplorationExplorationDimensionOperatorSavedFilter      PostMetricExplorationExplorationDimensionOperator = "saved_filter"
+	PostMetricExplorationExplorationDimensionOperatorEqual             PostMetricExplorationExplorationDimensionOperator = "="
+	PostMetricExplorationExplorationDimensionOperatorNotEqual          PostMetricExplorationExplorationDimensionOperator = "!="
+	PostMetricExplorationExplorationDimensionOperatorLessThan          PostMetricExplorationExplorationDimensionOperator = "<"
+	PostMetricExplorationExplorationDimensionOperatorLessThanEqual     PostMetricExplorationExplorationDimensionOperator = "<="
+	PostMetricExplorationExplorationDimensionOperatorGreaterThan       PostMetricExplorationExplorationDimensionOperator = ">"
+	PostMetricExplorationExplorationDimensionOperatorGreaterThanEqual  PostMetricExplorationExplorationDimensionOperator = ">="
+	PostMetricExplorationExplorationDimensionOperatorBetween           PostMetricExplorationExplorationDimensionOperator = "between"
+	PostMetricExplorationExplorationDimensionOperatorNotBetween        PostMetricExplorationExplorationDimensionOperator = "not_between"
+	PostMetricExplorationExplorationDimensionOperatorIn                PostMetricExplorationExplorationDimensionOperator = "in"
+	PostMetricExplorationExplorationDimensionOperatorNotIn             PostMetricExplorationExplorationDimensionOperator = "not_in"
+	PostMetricExplorationExplorationDimensionOperatorContains          PostMetricExplorationExplorationDimensionOperator = "contains"
+	PostMetricExplorationExplorationDimensionOperatorNotContains       PostMetricExplorationExplorationDimensionOperator = "not_contains"
+	PostMetricExplorationExplorationDimensionOperatorMatchesPattern    PostMetricExplorationExplorationDimensionOperator = "matches_pattern"
+	PostMetricExplorationExplorationDimensionOperatorNotMatchesPattern PostMetricExplorationExplorationDimensionOperator = "not_matches_pattern"
+	PostMetricExplorationExplorationDimensionOperatorStartsWith        PostMetricExplorationExplorationDimensionOperator = "starts_with"
+	PostMetricExplorationExplorationDimensionOperatorEndsWith          PostMetricExplorationExplorationDimensionOperator = "ends_with"
+	PostMetricExplorationExplorationDimensionOperatorIsNull            PostMetricExplorationExplorationDimensionOperator = "is_null"
+	PostMetricExplorationExplorationDimensionOperatorNotNull           PostMetricExplorationExplorationDimensionOperator = "not_null"
+	PostMetricExplorationExplorationDimensionOperatorIsTrue            PostMetricExplorationExplorationDimensionOperator = "is_true"
+	PostMetricExplorationExplorationDimensionOperatorIsFalse           PostMetricExplorationExplorationDimensionOperator = "is_false"
+	PostMetricExplorationExplorationDimensionOperatorSQLExpr           PostMetricExplorationExplorationDimensionOperator = "sql_expr"
+	PostMetricExplorationExplorationDimensionOperatorSavedFilter       PostMetricExplorationExplorationDimensionOperator = "saved_filter"
 )
 
 func (e PostMetricExplorationExplorationDimensionOperator) ToPointer() *PostMetricExplorationExplorationDimensionOperator {
@@ -1167,7 +1452,7 @@ func (e PostMetricExplorationExplorationDimensionOperator) ToPointer() *PostMetr
 func (e *PostMetricExplorationExplorationDimensionOperator) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
 			return true
 		}
 	}
@@ -1731,26 +2016,28 @@ func (p *PostMetricExplorationChartSettingsResponse) GetValueAxisLabel() *string
 type PostMetricExplorationExplorationRowFilterOperator string
 
 const (
-	PostMetricExplorationExplorationRowFilterOperatorEqual            PostMetricExplorationExplorationRowFilterOperator = "="
-	PostMetricExplorationExplorationRowFilterOperatorNotEqual         PostMetricExplorationExplorationRowFilterOperator = "!="
-	PostMetricExplorationExplorationRowFilterOperatorLessThan         PostMetricExplorationExplorationRowFilterOperator = "<"
-	PostMetricExplorationExplorationRowFilterOperatorLessThanEqual    PostMetricExplorationExplorationRowFilterOperator = "<="
-	PostMetricExplorationExplorationRowFilterOperatorGreaterThan      PostMetricExplorationExplorationRowFilterOperator = ">"
-	PostMetricExplorationExplorationRowFilterOperatorGreaterThanEqual PostMetricExplorationExplorationRowFilterOperator = ">="
-	PostMetricExplorationExplorationRowFilterOperatorBetween          PostMetricExplorationExplorationRowFilterOperator = "between"
-	PostMetricExplorationExplorationRowFilterOperatorNotBetween       PostMetricExplorationExplorationRowFilterOperator = "not_between"
-	PostMetricExplorationExplorationRowFilterOperatorIn               PostMetricExplorationExplorationRowFilterOperator = "in"
-	PostMetricExplorationExplorationRowFilterOperatorNotIn            PostMetricExplorationExplorationRowFilterOperator = "not_in"
-	PostMetricExplorationExplorationRowFilterOperatorContains         PostMetricExplorationExplorationRowFilterOperator = "contains"
-	PostMetricExplorationExplorationRowFilterOperatorNotContains      PostMetricExplorationExplorationRowFilterOperator = "not_contains"
-	PostMetricExplorationExplorationRowFilterOperatorStartsWith       PostMetricExplorationExplorationRowFilterOperator = "starts_with"
-	PostMetricExplorationExplorationRowFilterOperatorEndsWith         PostMetricExplorationExplorationRowFilterOperator = "ends_with"
-	PostMetricExplorationExplorationRowFilterOperatorIsNull           PostMetricExplorationExplorationRowFilterOperator = "is_null"
-	PostMetricExplorationExplorationRowFilterOperatorNotNull          PostMetricExplorationExplorationRowFilterOperator = "not_null"
-	PostMetricExplorationExplorationRowFilterOperatorIsTrue           PostMetricExplorationExplorationRowFilterOperator = "is_true"
-	PostMetricExplorationExplorationRowFilterOperatorIsFalse          PostMetricExplorationExplorationRowFilterOperator = "is_false"
-	PostMetricExplorationExplorationRowFilterOperatorSQLExpr          PostMetricExplorationExplorationRowFilterOperator = "sql_expr"
-	PostMetricExplorationExplorationRowFilterOperatorSavedFilter      PostMetricExplorationExplorationRowFilterOperator = "saved_filter"
+	PostMetricExplorationExplorationRowFilterOperatorEqual             PostMetricExplorationExplorationRowFilterOperator = "="
+	PostMetricExplorationExplorationRowFilterOperatorNotEqual          PostMetricExplorationExplorationRowFilterOperator = "!="
+	PostMetricExplorationExplorationRowFilterOperatorLessThan          PostMetricExplorationExplorationRowFilterOperator = "<"
+	PostMetricExplorationExplorationRowFilterOperatorLessThanEqual     PostMetricExplorationExplorationRowFilterOperator = "<="
+	PostMetricExplorationExplorationRowFilterOperatorGreaterThan       PostMetricExplorationExplorationRowFilterOperator = ">"
+	PostMetricExplorationExplorationRowFilterOperatorGreaterThanEqual  PostMetricExplorationExplorationRowFilterOperator = ">="
+	PostMetricExplorationExplorationRowFilterOperatorBetween           PostMetricExplorationExplorationRowFilterOperator = "between"
+	PostMetricExplorationExplorationRowFilterOperatorNotBetween        PostMetricExplorationExplorationRowFilterOperator = "not_between"
+	PostMetricExplorationExplorationRowFilterOperatorIn                PostMetricExplorationExplorationRowFilterOperator = "in"
+	PostMetricExplorationExplorationRowFilterOperatorNotIn             PostMetricExplorationExplorationRowFilterOperator = "not_in"
+	PostMetricExplorationExplorationRowFilterOperatorContains          PostMetricExplorationExplorationRowFilterOperator = "contains"
+	PostMetricExplorationExplorationRowFilterOperatorNotContains       PostMetricExplorationExplorationRowFilterOperator = "not_contains"
+	PostMetricExplorationExplorationRowFilterOperatorMatchesPattern    PostMetricExplorationExplorationRowFilterOperator = "matches_pattern"
+	PostMetricExplorationExplorationRowFilterOperatorNotMatchesPattern PostMetricExplorationExplorationRowFilterOperator = "not_matches_pattern"
+	PostMetricExplorationExplorationRowFilterOperatorStartsWith        PostMetricExplorationExplorationRowFilterOperator = "starts_with"
+	PostMetricExplorationExplorationRowFilterOperatorEndsWith          PostMetricExplorationExplorationRowFilterOperator = "ends_with"
+	PostMetricExplorationExplorationRowFilterOperatorIsNull            PostMetricExplorationExplorationRowFilterOperator = "is_null"
+	PostMetricExplorationExplorationRowFilterOperatorNotNull           PostMetricExplorationExplorationRowFilterOperator = "not_null"
+	PostMetricExplorationExplorationRowFilterOperatorIsTrue            PostMetricExplorationExplorationRowFilterOperator = "is_true"
+	PostMetricExplorationExplorationRowFilterOperatorIsFalse           PostMetricExplorationExplorationRowFilterOperator = "is_false"
+	PostMetricExplorationExplorationRowFilterOperatorSQLExpr           PostMetricExplorationExplorationRowFilterOperator = "sql_expr"
+	PostMetricExplorationExplorationRowFilterOperatorSavedFilter       PostMetricExplorationExplorationRowFilterOperator = "saved_filter"
 )
 
 func (e PostMetricExplorationExplorationRowFilterOperator) ToPointer() *PostMetricExplorationExplorationRowFilterOperator {
@@ -1761,7 +2048,7 @@ func (e PostMetricExplorationExplorationRowFilterOperator) ToPointer() *PostMetr
 func (e *PostMetricExplorationExplorationRowFilterOperator) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
+		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
 			return true
 		}
 	}
