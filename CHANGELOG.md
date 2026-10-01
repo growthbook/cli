@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [3.0.0] - 2026-10-01
+
 Upgrading from 2.x: pass `--owner` to `dashboards create` if you authenticate with an
 organization secret API key. Renamed commands keep working under their old names with a stderr
 warning, so update them before 4.0.0 (table below).
