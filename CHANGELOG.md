@@ -2,9 +2,9 @@
 
 ## [Unreleased]
 
-Upgrading from 2.x: update any renamed commands (table below), and pass `--owner` to
-`dashboards create` if you authenticate with an organization secret API key. Renamed commands
-fail loudly with an unknown-command error, so a dry run of your scripts will surface them.
+Upgrading from 2.x: pass `--owner` to `dashboards create` if you authenticate with an
+organization secret API key. Renamed commands keep working under their old names with a stderr
+warning, so update them before 4.0.0 (table below).
 
 ### Changed
 
@@ -15,7 +15,8 @@ fail loudly with an unknown-command error, so a dry run of your scripts will sur
   `growthbook dashboards create-v1`, which is deprecated.
 
 - **Commands renamed** to drop operation names that leaked into the subcommand. These were
-  missed by the 1.0.0 naming cleanup; this finishes it.
+  missed by the 1.0.0 naming cleanup; this finishes it. The old names still work as deprecated
+  aliases that print a warning on stderr, and will be removed in 4.0.0.
 
   | Before                                           | After                              |
   | ------------------------------------------------ | ---------------------------------- |
@@ -51,6 +52,8 @@ fail loudly with an unknown-command error, so a dry run of your scripts will sur
 
 - **`growthbook dashboards create-v1`** (the old `dashboards create`, `POST /v1/dashboards`).
   Use `dashboards create`.
+- **The pre-3.0.0 names of the renamed commands** (table under "Changed"). They still work, print
+  a warning on stderr, and will be removed in 4.0.0.
 
 ### Added
 
