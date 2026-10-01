@@ -28,6 +28,7 @@ func customRegister(rootCmd *cobra.Command) {
 
 	rootCmd.AddCommand(newGenerateTypesCmd())
 	rootCmd.AddCommand(newProfilesCmd())
+	registerRenamedAliases(rootCmd)
 
 	// Drop `table` from the advertised output formats — it's disabled pending an
 	// upstream Speakeasy fix (it renders only the scalar envelope, not the result
@@ -60,6 +61,7 @@ func customRegister(rootCmd *cobra.Command) {
 			output.ResetAgentMode()
 			output.InitAgentMode(cmd)
 		}
+		warnIfRenamedAlias(cmd)
 		return customcfg.OnStartup(cmd)
 	}
 }
