@@ -1,32 +1,42 @@
-## growthbook ramp-schedules update-ramp-schedule-steps
+## growthbook ramp-schedules update-monitoring
 
-Update ramp schedule steps
+Update ramp monitoring configuration
 
 ### Synopsis
 
-Fully replaces the steps array for a ramp schedule. Only allowed when the schedule is in a non-running, non-terminal state (`ready`, `pending`, or `paused`). Pause a running schedule first; restart a terminal schedule first.
+Replaces the monitoring configuration. Health-action thresholds (`srmAction`, `noTrafficAction`, etc.) can be updated at any time.
 
-On a schedule attached to a rule this skips the revision review flow, so when the organization requires review anywhere it is limited to credentials that may bypass approval.
+Once a linked SafeRollout has started, `datasourceId`, `exposureQueryId`, the metric IDs and the snapshot cadence are all locked — stop and recreate the schedule to change the data source.
 
-**Step actions** (coverage/targeting patches) are not accepted here — they change the SDK payload and must go through a feature revision draft. Existing step actions are preserved for each position. Use `PUT /v2/features/:id/revisions/:version/rules/:ruleId/ramp-schedule` to modify coverage/targeting.
+Changes to guardrail or signal metric IDs take effect on the next analysis run.
 
 ```
-growthbook ramp-schedules update-ramp-schedule-steps [flags]
+growthbook ramp-schedules update-monitoring [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook ramp-schedules update-ramp-schedule-steps --id <id> --steps '[]'
+  growthbook ramp-schedules update-monitoring --id <id> --datasource-id <id> --exposure-query-id <id> --guardrail-metric-ids '["<value 1>","<value 2>","<value 3>"]'
 ```
 
 ### Options
 
 ```
-      --body string     Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -h, --help            help for update-ramp-schedule-steps
-  -i, --id string       [required]
-  -s, --steps actions   Full replacement of the steps array. Step-level coverage patches (actions) are intentionally excluded — those require a revision publish because they change the SDK payload. Use the revision flow to modify coverage/targeting; use this endpoint to update monitoring flags and hold conditions. [required]
+  -a, --auto-update                                     boolean flag
+      --body string                                     Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --datasource-id string                            [required]
+  -e, --exposure-query-id string                        [required]
+  -g, --guardrail-metric-ids stringArray                [required]
+  -h, --help                                            help for update-monitoring
+  -i, --id string                                       [required]
+      --monitoring-mode string                          options: auto, manual
+      --multiple-exposure-action string                 options: rollback, hold, warn
+      --no-traffic-action string                        options: rollback, hold, warn
+      --no-traffic-grace-period-hours noTrafficAction   How long to wait for traffic before applying noTrafficAction. Defaults to 24 hours when null or not set.
+      --signal-metric-ids stringArray                   list of values
+      --srm-action string                               options: rollback, hold, warn
+  -u, --update-schedule-minutes string                  number value
 ```
 
 ### Options inherited from parent commands

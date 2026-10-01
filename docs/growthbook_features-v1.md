@@ -48,9 +48,9 @@ growthbook features-v1 [flags]
 * [growthbook features-v1 create](growthbook_features-v1_create.md)	 - Create a single feature
 * [growthbook features-v1 delete](growthbook_features-v1_delete.md)	 - Deletes a single feature
 * [growthbook features-v1 get](growthbook_features-v1_get.md)	 - Get a single feature
-* [growthbook features-v1 get-feature-keys](growthbook_features-v1_get-feature-keys.md)	 - Get list of feature keys
-* [growthbook features-v1 get-feature-stale](growthbook_features-v1_get-feature-stale.md)	 - Get stale status for one or more features
+* [growthbook features-v1 get-stale](growthbook_features-v1_get-stale.md)	 - Get stale status for one or more features
 * [growthbook features-v1 list](growthbook_features-v1_list.md)	 - Get all features
+* [growthbook features-v1 list-keys](growthbook_features-v1_list-keys.md)	 - Get list of feature keys
 * [growthbook features-v1 revert](growthbook_features-v1_revert.md)	 - Revert a feature to a specific revision
 * [growthbook features-v1 toggle](growthbook_features-v1_toggle.md)	 - Toggle a feature in one or more environments
 * [growthbook features-v1 update](growthbook_features-v1_update.md)	 - Partially update a feature

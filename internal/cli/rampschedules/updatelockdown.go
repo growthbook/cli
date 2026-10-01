@@ -4,51 +4,51 @@ package rampschedules
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/v2/internal/client"
-	"github.com/growthbook/cli/v2/internal/flagutil"
-	"github.com/growthbook/cli/v2/internal/interactive"
-	"github.com/growthbook/cli/v2/internal/output"
-	"github.com/growthbook/cli/v2/internal/sdk"
-	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
-	"github.com/growthbook/cli/v2/internal/usage"
+	"github.com/growthbook/cli/v3/internal/client"
+	"github.com/growthbook/cli/v3/internal/flagutil"
+	"github.com/growthbook/cli/v3/internal/interactive"
+	"github.com/growthbook/cli/v3/internal/output"
+	"github.com/growthbook/cli/v3/internal/sdk"
+	"github.com/growthbook/cli/v3/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v3/internal/usage"
 	"github.com/spf13/cobra"
 )
 
-var updateRampScheduleLockdownCmdMeta = []flagutil.FlagMeta{
+var updateLockdownCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "mode", Shorthand: "m", FieldPath: "Body.Mode", Kind: flagutil.FlagKindEnum, Required: true, EnumValues: []string{"none", "locked"}, Description: "options: none, locked [required]"},
 }
 
-// initUpdateRampScheduleLockdownCmd initializes the update-ramp-schedule-lockdown command.
-func initUpdateRampScheduleLockdownCmd(parent *cobra.Command) error {
+// initUpdateLockdownCmd initializes the update-lockdown command.
+func initUpdateLockdownCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
-		Use:     "update-ramp-schedule-lockdown",
+		Use:     "update-lockdown",
 		Short:   "Update ramp lockdown configuration",
 		Long:    "Sets the lockdown mode. `locked` prevents other users from publishing unrelated changes to the parent feature while the ramp is running — useful when you want to ensure no external edits interfere with a live rollout. It does **not** affect the ramp's own auto-advancement or monitoring behavior; use `actions/pause` to halt the ramp itself. `none` removes the publishing restriction.",
-		Example: "  growthbook ramp-schedules update-ramp-schedule-lockdown --id <id> --mode locked",
-		RunE:    runUpdateRampScheduleLockdownCmd,
-		Aliases: []string{"ursl"},
+		Example: "  growthbook ramp-schedules update-lockdown --id <id> --mode locked",
+		RunE:    runUpdateLockdownCmd,
+		Aliases: []string{"ul"},
 	}
-	flagutil.RegisterFlags(cmd, updateRampScheduleLockdownCmdMeta)
-	if err := flagutil.ValidateMeta[operations.UpdateRampScheduleLockdownRequest](updateRampScheduleLockdownCmdMeta); err != nil {
-		return fmt.Errorf("invalid metadata for update-ramp-schedule-lockdown: %w", err)
+	flagutil.RegisterFlags(cmd, updateLockdownCmdMeta)
+	if err := flagutil.ValidateMeta[operations.UpdateRampScheduleLockdownRequest](updateLockdownCmdMeta); err != nil {
+		return fmt.Errorf("invalid metadata for update-lockdown: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
 	parent.AddCommand(cmd)
 	return nil
 }
 
-// runUpdateRampScheduleLockdownCmd executes the update-ramp-schedule-lockdown command.
-func runUpdateRampScheduleLockdownCmd(cmd *cobra.Command, args []string) error {
+// runUpdateLockdownCmd executes the update-lockdown command.
+func runUpdateLockdownCmd(cmd *cobra.Command, args []string) error {
 	if usage.UsageRequested(cmd) {
 		return usage.EmitSchema(cmd, cmd.OutOrStdout())
 	}
-	if interactive.ShouldPrompt(cmd, updateRampScheduleLockdownCmdMeta) {
-		if err := interactive.PromptAndSetFlags(cmd, updateRampScheduleLockdownCmdMeta); err != nil {
+	if interactive.ShouldPrompt(cmd, updateLockdownCmdMeta) {
+		if err := interactive.PromptAndSetFlags(cmd, updateLockdownCmdMeta); err != nil {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.UpdateRampScheduleLockdownRequest](cmd, updateRampScheduleLockdownCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.UpdateRampScheduleLockdownRequest](cmd, updateLockdownCmdMeta, "Body", "body")
 	if err != nil {
 		return err
 	}
@@ -71,7 +71,7 @@ func runUpdateRampScheduleLockdownCmd(cmd *cobra.Command, args []string) error {
 	if output.WantsRawJSON(cmd) {
 		sdkOpts = append(sdkOpts, operations.WithSkipDeserialization())
 	}
-	res, err := s.RampSchedules.UpdateRampScheduleLockdown(cmd.Context(), *req, sdkOpts...)
+	res, err := s.RampSchedules.UpdateLockdown(cmd.Context(), *req, sdkOpts...)
 	if err != nil {
 		return output.Error(cmd, err)
 	}

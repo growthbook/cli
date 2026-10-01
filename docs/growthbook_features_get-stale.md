@@ -1,26 +1,27 @@
-## growthbook features get-feature-keys
+## growthbook features get-stale
 
-Get list of feature keys
+Get stale status for one or more features
 
 ### Synopsis
 
-Get list of feature keys
+Get stale status for one or more features
 
 ```
-growthbook features get-feature-keys [flags]
+growthbook features get-stale [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook features get-feature-keys
+  growthbook features get-stale --ids <value>
 ```
 
 ### Options
 
 ```
-  -h, --help                help for get-feature-keys
-  -p, --project-id string   Filter by project id
+  -h, --help                             help for get-stale
+  -i, --ids my_feature,another_feature   Comma-separated list of feature IDs (URL-encoded if needed). Example: my_feature,another_feature
+                                          [required]
 ```
 
 ### Options inherited from parent commands

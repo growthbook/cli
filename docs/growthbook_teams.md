@@ -43,10 +43,10 @@ growthbook teams [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
-* [growthbook teams add-team-members](growthbook_teams_add-team-members.md)	 - Add members to team
+* [growthbook teams add-members](growthbook_teams_add-members.md)	 - Add members to team
 * [growthbook teams create](growthbook_teams_create.md)	 - Create a single team
 * [growthbook teams delete](growthbook_teams_delete.md)	 - Delete a single team
 * [growthbook teams get](growthbook_teams_get.md)	 - Get a single team
 * [growthbook teams list](growthbook_teams_list.md)	 - Get all teams
-* [growthbook teams remove-team-member](growthbook_teams_remove-team-member.md)	 - Remove members from team
+* [growthbook teams remove-members](growthbook_teams_remove-members.md)	 - Remove members from team
 * [growthbook teams update](growthbook_teams_update.md)	 - Update a single team

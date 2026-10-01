@@ -6,12 +6,12 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/growthbook/cli/v2/internal/sdk/models/components"
-	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
-	"github.com/growthbook/cli/v2/internal/sdk/models/sdkerrors"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/config"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/hooks"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v3/internal/sdk/models/components"
+	"github.com/growthbook/cli/v3/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v3/internal/sdk/models/sdkerrors"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/config"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/hooks"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 	"github.com/spyzhov/ajson"
 	"net/http"
 	"net/url"
@@ -1113,8 +1113,8 @@ func (s *SavedGroups) UnarchiveSavedGroup(ctx context.Context, request operation
 
 }
 
-// GetSavedGroupReferences - Get features, experiments, and saved groups that reference this saved group
-func (s *SavedGroups) GetSavedGroupReferences(ctx context.Context, request operations.GetSavedGroupReferencesRequest, opts ...operations.Option) (*operations.GetSavedGroupReferencesResponse, error) {
+// GetReferences - Get features, experiments, and saved groups that reference this saved group
+func (s *SavedGroups) GetReferences(ctx context.Context, request operations.GetSavedGroupReferencesRequest, opts ...operations.Option) (*operations.GetSavedGroupReferencesResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

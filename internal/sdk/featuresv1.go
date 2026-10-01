@@ -6,12 +6,12 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/growthbook/cli/v2/internal/sdk/models/components"
-	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
-	"github.com/growthbook/cli/v2/internal/sdk/models/sdkerrors"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/config"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/hooks"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v3/internal/sdk/models/components"
+	"github.com/growthbook/cli/v3/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v3/internal/sdk/models/sdkerrors"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/config"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/hooks"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 	"github.com/spyzhov/ajson"
 	"net/http"
 	"net/url"
@@ -1157,11 +1157,11 @@ func (s *FeaturesV1) Revert(ctx context.Context, request operations.RevertFeatur
 
 }
 
-// GetFeatureKeys - Get list of feature keys
+// ListKeys - Get list of feature keys
 // **Deprecated.** Use [GET /v2/feature-keys](#operation/getFeatureKeysV2) instead.
 //
 // Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-func (s *FeaturesV1) GetFeatureKeys(ctx context.Context, request *operations.GetFeatureKeysRequest, opts ...operations.Option) (*operations.GetFeatureKeysResponse, error) {
+func (s *FeaturesV1) ListKeys(ctx context.Context, request *operations.GetFeatureKeysRequest, opts ...operations.Option) (*operations.GetFeatureKeysResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1308,11 +1308,11 @@ func (s *FeaturesV1) GetFeatureKeys(ctx context.Context, request *operations.Get
 
 }
 
-// GetFeatureStale - Get stale status for one or more features
+// GetStale - Get stale status for one or more features
 // **Deprecated.** Use [GET /v2/stale-features](#operation/getFeatureStaleV2) instead.
 //
 // Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-func (s *FeaturesV1) GetFeatureStale(ctx context.Context, request operations.GetFeatureStaleRequest, opts ...operations.Option) (*operations.GetFeatureStaleResponse, error) {
+func (s *FeaturesV1) GetStale(ctx context.Context, request operations.GetFeatureStaleRequest, opts ...operations.Option) (*operations.GetFeatureStaleResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

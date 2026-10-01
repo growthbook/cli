@@ -108,11 +108,11 @@ actions:
   - target: $..[?(@.operationId=="getFeatureKeysV2")].tags
     remove: true
   - target: $..[?(@.operationId=="getFeatureKeysV2")]
-    update: { tags: [features], x-speakeasy-name-override: get-feature-keys }
+    update: { tags: [features], x-speakeasy-name-override: list-keys }
   - target: $..[?(@.operationId=="getFeatureStaleV2")].tags
     remove: true
   - target: $..[?(@.operationId=="getFeatureStaleV2")]
-    update: { tags: [features], x-speakeasy-name-override: get-feature-stale }
+    update: { tags: [features], x-speakeasy-name-override: get-stale }
   # v1 -> `features-v1` (legacy; a startup hook warns when it's used)
   - target: $..[?(@.operationId=="listFeatures")].tags
     remove: true
@@ -145,11 +145,11 @@ actions:
   - target: $..[?(@.operationId=="getFeatureKeys")].tags
     remove: true
   - target: $..[?(@.operationId=="getFeatureKeys")]
-    update: { tags: [features-v1], x-speakeasy-name-override: get-feature-keys }
+    update: { tags: [features-v1], x-speakeasy-name-override: list-keys }
   - target: $..[?(@.operationId=="getFeatureStale")].tags
     remove: true
   - target: $..[?(@.operationId=="getFeatureStale")]
-    update: { tags: [features-v1], x-speakeasy-name-override: get-feature-stale }
+    update: { tags: [features-v1], x-speakeasy-name-override: get-stale }
   # The security-scheme descriptions carry a fenced ```bash curl example. The CLI
   # renders securityScheme.description as the --bearer-auth/--username/--password
   # flag help (and in `whoami`), where the code fences and multi-line curl garble
@@ -929,6 +929,35 @@ actions:
   # dashboards
   - target: $..[?(@.operationId=="getDashboardsForExperiment")]
     update: { x-speakeasy-name-override: list-for-experiment }
+  # v2 owns the plain verb; the deprecated v1 create moves to -v1 (re-pointed in 3.0.0)
+  - target: $..[?(@.operationId=="createDashboardV2")]
+    update: { x-speakeasy-name-override: create }
+  - target: $..[?(@.operationId=="createDashboard")]
+    update: { x-speakeasy-name-override: create-v1 }
+  # 3.0.0 leak sweep: raw-operationId leaves the GA sweep missed, renamed in the major.
+  - target: $..[?(@.operationId=="lookupSdkConnectionByKey")]
+    update: { x-speakeasy-name-override: lookup }
+  - target: $..[?(@.operationId=="updateMemberRole")]
+    update: { x-speakeasy-name-override: update-role }
+  - target: $..[?(@.operationId=="getRampScheduleStatus")]
+    update: { x-speakeasy-name-override: get-status }
+  - target: $..[?(@.operationId=="updateRampScheduleLockdown")]
+    update: { x-speakeasy-name-override: update-lockdown }
+  - target: $..[?(@.operationId=="updateRampScheduleMonitoring")]
+    update: { x-speakeasy-name-override: update-monitoring }
+  - target: $..[?(@.operationId=="updateRampScheduleSteps")]
+    update: { x-speakeasy-name-override: update-steps }
+  - target: $..[?(@.operationId=="getSavedGroupReferences")]
+    update: { x-speakeasy-name-override: get-references }
+  - target: $..[?(@.operationId=="addTeamMembers")]
+    update: { x-speakeasy-name-override: add-members }
+  - target: $..[?(@.operationId=="removeTeamMember")]
+    update: { x-speakeasy-name-override: remove-members }
+  # Drop the duplicate `snapshots create-snapshot`; `experiments create-snapshot` remains.
+  - target: $..[?(@.operationId=="postExperimentSnapshot")].tags
+    remove: true
+  - target: $..[?(@.operationId=="postExperimentSnapshot")]
+    update: { tags: [experiments] }
   # fact-metrics
   - target: $..[?(@.operationId=="postFactMetricAnalysis")]
     update: { x-speakeasy-name-override: create-analysis }

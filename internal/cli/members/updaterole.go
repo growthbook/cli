@@ -4,51 +4,51 @@ package members
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/v2/internal/client"
-	"github.com/growthbook/cli/v2/internal/flagutil"
-	"github.com/growthbook/cli/v2/internal/interactive"
-	"github.com/growthbook/cli/v2/internal/output"
-	"github.com/growthbook/cli/v2/internal/sdk"
-	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
-	"github.com/growthbook/cli/v2/internal/usage"
+	"github.com/growthbook/cli/v3/internal/client"
+	"github.com/growthbook/cli/v3/internal/flagutil"
+	"github.com/growthbook/cli/v3/internal/interactive"
+	"github.com/growthbook/cli/v3/internal/output"
+	"github.com/growthbook/cli/v3/internal/sdk"
+	"github.com/growthbook/cli/v3/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v3/internal/usage"
 	"github.com/spf13/cobra"
 )
 
-var updateMemberRoleCmdMeta = []flagutil.FlagMeta{
+var updateRoleCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The id of the requested resource [required]"},
 	{FlagName: "member", Shorthand: "m", FieldPath: "Body.Member", Kind: flagutil.FlagKindJSON, Required: true, Annotations: `json:"member"`, Description: "[required]"},
 }
 
-// initUpdateMemberRoleCmd initializes the update-member-role command.
-func initUpdateMemberRoleCmd(parent *cobra.Command) error {
+// initUpdateRoleCmd initializes the update-role command.
+func initUpdateRoleCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
-		Use:     "update-member-role",
+		Use:     "update-role",
 		Short:   "Update a member's global role (including any environment restrictions, if applicable). Can also update a member's project roles if your plan supports it.",
 		Long:    "Update a member's global role (including any environment restrictions, if applicable). Can also update a member's project roles if your plan supports it.",
-		Example: "  growthbook members update-member-role --id <id> --member '{}'",
-		RunE:    runUpdateMemberRoleCmd,
-		Aliases: []string{"umr"},
+		Example: "  growthbook members update-role --id <id> --member '{}'",
+		RunE:    runUpdateRoleCmd,
+		Aliases: []string{"ur"},
 	}
-	flagutil.RegisterFlags(cmd, updateMemberRoleCmdMeta)
-	if err := flagutil.ValidateMeta[operations.UpdateMemberRoleRequest](updateMemberRoleCmdMeta); err != nil {
-		return fmt.Errorf("invalid metadata for update-member-role: %w", err)
+	flagutil.RegisterFlags(cmd, updateRoleCmdMeta)
+	if err := flagutil.ValidateMeta[operations.UpdateMemberRoleRequest](updateRoleCmdMeta); err != nil {
+		return fmt.Errorf("invalid metadata for update-role: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
 	parent.AddCommand(cmd)
 	return nil
 }
 
-// runUpdateMemberRoleCmd executes the update-member-role command.
-func runUpdateMemberRoleCmd(cmd *cobra.Command, args []string) error {
+// runUpdateRoleCmd executes the update-role command.
+func runUpdateRoleCmd(cmd *cobra.Command, args []string) error {
 	if usage.UsageRequested(cmd) {
 		return usage.EmitSchema(cmd, cmd.OutOrStdout())
 	}
-	if interactive.ShouldPrompt(cmd, updateMemberRoleCmdMeta) {
-		if err := interactive.PromptAndSetFlags(cmd, updateMemberRoleCmdMeta); err != nil {
+	if interactive.ShouldPrompt(cmd, updateRoleCmdMeta) {
+		if err := interactive.PromptAndSetFlags(cmd, updateRoleCmdMeta); err != nil {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.UpdateMemberRoleRequest](cmd, updateMemberRoleCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.UpdateMemberRoleRequest](cmd, updateRoleCmdMeta, "Body", "body")
 	if err != nil {
 		return err
 	}
@@ -71,7 +71,7 @@ func runUpdateMemberRoleCmd(cmd *cobra.Command, args []string) error {
 	if output.WantsRawJSON(cmd) {
 		sdkOpts = append(sdkOpts, operations.WithSkipDeserialization())
 	}
-	res, err := s.Members.UpdateMemberRole(cmd.Context(), *req, sdkOpts...)
+	res, err := s.Members.UpdateRole(cmd.Context(), *req, sdkOpts...)
 	if err != nil {
 		return output.Error(cmd, err)
 	}

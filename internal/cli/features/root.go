@@ -3,7 +3,7 @@
 package features
 
 import (
-	"github.com/growthbook/cli/v2/internal/usage"
+	"github.com/growthbook/cli/v3/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -48,11 +48,11 @@ func InitFeaturesRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initGetFeatureKeysCmd(FeaturesCmd); err != nil {
+	if err := initListKeysCmd(FeaturesCmd); err != nil {
 		return err
 	}
 
-	if err := initGetFeatureStaleCmd(FeaturesCmd); err != nil {
+	if err := initGetStaleCmd(FeaturesCmd); err != nil {
 		return err
 	}
 

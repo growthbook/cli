@@ -3,7 +3,7 @@
 package savedgroups
 
 import (
-	"github.com/growthbook/cli/v2/internal/usage"
+	"github.com/growthbook/cli/v3/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -49,7 +49,7 @@ func InitSavedGroupsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initGetSavedGroupReferencesCmd(SavedGroupsCmd); err != nil {
+	if err := initGetReferencesCmd(SavedGroupsCmd); err != nil {
 		return err
 	}
 

@@ -4,49 +4,49 @@ package featuresv1
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/v2/internal/client"
-	"github.com/growthbook/cli/v2/internal/flagutil"
-	"github.com/growthbook/cli/v2/internal/interactive"
-	"github.com/growthbook/cli/v2/internal/output"
-	"github.com/growthbook/cli/v2/internal/sdk"
-	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
-	"github.com/growthbook/cli/v2/internal/usage"
+	"github.com/growthbook/cli/v3/internal/client"
+	"github.com/growthbook/cli/v3/internal/flagutil"
+	"github.com/growthbook/cli/v3/internal/interactive"
+	"github.com/growthbook/cli/v3/internal/output"
+	"github.com/growthbook/cli/v3/internal/sdk"
+	"github.com/growthbook/cli/v3/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v3/internal/usage"
 	"github.com/spf13/cobra"
 )
 
-var getFeatureStaleCmdMeta = []flagutil.FlagMeta{
+var getStaleCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "ids", Shorthand: "i", FieldPath: "Ids", Kind: flagutil.FlagKindString, Required: true, Description: "Comma-separated list of feature IDs (URL-encoded if needed). Example: `my_feature,another_feature`\n [required]"},
 }
 
-// initGetFeatureStaleCmd initializes the get-feature-stale command.
-func initGetFeatureStaleCmd(parent *cobra.Command) error {
+// initGetStaleCmd initializes the get-stale command.
+func initGetStaleCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
-		Use:     "get-feature-stale",
+		Use:     "get-stale",
 		Short:   "Get stale status for one or more features",
 		Long:    "DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible\n\n**Deprecated.** Use [GET /v2/stale-features](#operation/getFeatureStaleV2) instead.",
-		Example: "  growthbook features-v1 get-feature-stale --ids <value>",
-		RunE:    runGetFeatureStaleCmd,
-		Aliases: []string{"gfs"},
+		Example: "  growthbook features-v1 get-stale --ids <value>",
+		RunE:    runGetStaleCmd,
+		Aliases: []string{"gs"},
 	}
-	flagutil.RegisterFlags(cmd, getFeatureStaleCmdMeta)
-	if err := flagutil.ValidateMeta[operations.GetFeatureStaleRequest](getFeatureStaleCmdMeta); err != nil {
-		return fmt.Errorf("invalid metadata for get-feature-stale: %w", err)
+	flagutil.RegisterFlags(cmd, getStaleCmdMeta)
+	if err := flagutil.ValidateMeta[operations.GetFeatureStaleRequest](getStaleCmdMeta); err != nil {
+		return fmt.Errorf("invalid metadata for get-stale: %w", err)
 	}
 	parent.AddCommand(cmd)
 	return nil
 }
 
-// runGetFeatureStaleCmd executes the get-feature-stale command.
-func runGetFeatureStaleCmd(cmd *cobra.Command, args []string) error {
+// runGetStaleCmd executes the get-stale command.
+func runGetStaleCmd(cmd *cobra.Command, args []string) error {
 	if usage.UsageRequested(cmd) {
 		return usage.EmitSchema(cmd, cmd.OutOrStdout())
 	}
-	if interactive.ShouldPrompt(cmd, getFeatureStaleCmdMeta) {
-		if err := interactive.PromptAndSetFlags(cmd, getFeatureStaleCmdMeta); err != nil {
+	if interactive.ShouldPrompt(cmd, getStaleCmdMeta) {
+		if err := interactive.PromptAndSetFlags(cmd, getStaleCmdMeta); err != nil {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.GetFeatureStaleRequest](cmd, getFeatureStaleCmdMeta, "", "")
+	req, err := flagutil.BuildRequest[operations.GetFeatureStaleRequest](cmd, getStaleCmdMeta, "", "")
 	if err != nil {
 		return err
 	}
@@ -69,7 +69,7 @@ func runGetFeatureStaleCmd(cmd *cobra.Command, args []string) error {
 	if output.WantsRawJSON(cmd) {
 		sdkOpts = append(sdkOpts, operations.WithSkipDeserialization())
 	}
-	res, err := s.FeaturesV1.GetFeatureStale(cmd.Context(), *req, sdkOpts...)
+	res, err := s.FeaturesV1.GetStale(cmd.Context(), *req, sdkOpts...)
 	if err != nil {
 		return output.Error(cmd, err)
 	}

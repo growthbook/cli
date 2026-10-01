@@ -1,28 +1,28 @@
-## growthbook teams add-team-members
+## growthbook members update-role
 
-Add members to team
+Update a member's global role (including any environment restrictions, if applicable). Can also update a member's project roles if your plan supports it.
 
 ### Synopsis
 
-Add members to team
+Update a member's global role (including any environment restrictions, if applicable). Can also update a member's project roles if your plan supports it.
 
 ```
-growthbook teams add-team-members [flags]
+growthbook members update-role [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook teams add-team-members --id <id> --members '["<value 1>","<value 2>"]'
+  growthbook members update-role --id <id> --member '{}'
 ```
 
 ### Options
 
 ```
-      --body string           Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -h, --help                  help for add-team-members
-  -i, --id string             [required]
-  -m, --members stringArray   [required]
+      --body string     Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -h, --help            help for update-role
+  -i, --id string       The id of the requested resource [required]
+  -m, --member string   [required]
 ```
 
 ### Options inherited from parent commands
@@ -51,4 +51,4 @@ growthbook teams add-team-members [flags]
 
 ### SEE ALSO
 
-* [growthbook teams](growthbook_teams.md)	 - Operations for teams
+* [growthbook members](growthbook_members.md)	 - Members are users who have been invited to an organization

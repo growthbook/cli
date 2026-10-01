@@ -4,51 +4,51 @@ package teams
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/v2/internal/client"
-	"github.com/growthbook/cli/v2/internal/flagutil"
-	"github.com/growthbook/cli/v2/internal/interactive"
-	"github.com/growthbook/cli/v2/internal/output"
-	"github.com/growthbook/cli/v2/internal/sdk"
-	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
-	"github.com/growthbook/cli/v2/internal/usage"
+	"github.com/growthbook/cli/v3/internal/client"
+	"github.com/growthbook/cli/v3/internal/flagutil"
+	"github.com/growthbook/cli/v3/internal/interactive"
+	"github.com/growthbook/cli/v3/internal/output"
+	"github.com/growthbook/cli/v3/internal/sdk"
+	"github.com/growthbook/cli/v3/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v3/internal/usage"
 	"github.com/spf13/cobra"
 )
 
-var removeTeamMemberCmdMeta = []flagutil.FlagMeta{
+var removeMembersCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "members", Shorthand: "m", FieldPath: "Body.Members", Kind: flagutil.FlagKindStringArray, Required: true, Description: "[required]"},
 }
 
-// initRemoveTeamMemberCmd initializes the remove-team-member command.
-func initRemoveTeamMemberCmd(parent *cobra.Command) error {
+// initRemoveMembersCmd initializes the remove-members command.
+func initRemoveMembersCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
-		Use:     "remove-team-member",
+		Use:     "remove-members",
 		Short:   "Remove members from team",
 		Long:    "Remove members from team",
-		Example: "  growthbook teams remove-team-member --id <id> --members '[\"<value 1>\"]'",
-		RunE:    runRemoveTeamMemberCmd,
-		Aliases: []string{"rtm"},
+		Example: "  growthbook teams remove-members --id <id> --members '[\"<value 1>\"]'",
+		RunE:    runRemoveMembersCmd,
+		Aliases: []string{"rm"},
 	}
-	flagutil.RegisterFlags(cmd, removeTeamMemberCmdMeta)
-	if err := flagutil.ValidateMeta[operations.RemoveTeamMemberRequest](removeTeamMemberCmdMeta); err != nil {
-		return fmt.Errorf("invalid metadata for remove-team-member: %w", err)
+	flagutil.RegisterFlags(cmd, removeMembersCmdMeta)
+	if err := flagutil.ValidateMeta[operations.RemoveTeamMemberRequest](removeMembersCmdMeta); err != nil {
+		return fmt.Errorf("invalid metadata for remove-members: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
 	parent.AddCommand(cmd)
 	return nil
 }
 
-// runRemoveTeamMemberCmd executes the remove-team-member command.
-func runRemoveTeamMemberCmd(cmd *cobra.Command, args []string) error {
+// runRemoveMembersCmd executes the remove-members command.
+func runRemoveMembersCmd(cmd *cobra.Command, args []string) error {
 	if usage.UsageRequested(cmd) {
 		return usage.EmitSchema(cmd, cmd.OutOrStdout())
 	}
-	if interactive.ShouldPrompt(cmd, removeTeamMemberCmdMeta) {
-		if err := interactive.PromptAndSetFlags(cmd, removeTeamMemberCmdMeta); err != nil {
+	if interactive.ShouldPrompt(cmd, removeMembersCmdMeta) {
+		if err := interactive.PromptAndSetFlags(cmd, removeMembersCmdMeta); err != nil {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.RemoveTeamMemberRequest](cmd, removeTeamMemberCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.RemoveTeamMemberRequest](cmd, removeMembersCmdMeta, "Body", "body")
 	if err != nil {
 		return err
 	}
@@ -71,7 +71,7 @@ func runRemoveTeamMemberCmd(cmd *cobra.Command, args []string) error {
 	if output.WantsRawJSON(cmd) {
 		sdkOpts = append(sdkOpts, operations.WithSkipDeserialization())
 	}
-	res, err := s.Teams.RemoveTeamMember(cmd.Context(), *req, sdkOpts...)
+	res, err := s.Teams.RemoveMembers(cmd.Context(), *req, sdkOpts...)
 	if err != nil {
 		return output.Error(cmd, err)
 	}

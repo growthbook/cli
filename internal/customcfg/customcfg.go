@@ -18,7 +18,7 @@ import (
 	"path/filepath"
 	"sort"
 
-	"github.com/growthbook/cli/v2/internal/config"
+	"github.com/growthbook/cli/v3/internal/config"
 	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v3"
 )

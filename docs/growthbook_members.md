@@ -45,4 +45,4 @@ growthbook members [flags]
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
 * [growthbook members delete](growthbook_members_delete.md)	 - Removes a single user from an organization
 * [growthbook members list](growthbook_members_list.md)	 - Get all organization members
-* [growthbook members update-member-role](growthbook_members_update-member-role.md)	 - Update a member's global role (including any environment restrictions, if applicable). Can also update a member's project roles if your plan supports it.
+* [growthbook members update-role](growthbook_members_update-role.md)	 - Update a member's global role (including any environment restrictions, if applicable). Can also update a member's project roles if your plan supports it.

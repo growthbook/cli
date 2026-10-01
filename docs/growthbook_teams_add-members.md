@@ -1,26 +1,28 @@
-## growthbook saved-groups get-saved-group-references
+## growthbook teams add-members
 
-Get features, experiments, and saved groups that reference this saved group
+Add members to team
 
 ### Synopsis
 
-Get features, experiments, and saved groups that reference this saved group
+Add members to team
 
 ```
-growthbook saved-groups get-saved-group-references [flags]
+growthbook teams add-members [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook saved-groups get-saved-group-references --id <id>
+  growthbook teams add-members --id <id> --members '["<value 1>","<value 2>"]'
 ```
 
 ### Options
 
 ```
-  -h, --help        help for get-saved-group-references
-  -i, --id string   The id of the requested resource [required]
+      --body string           Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -h, --help                  help for add-members
+  -i, --id string             [required]
+  -m, --members stringArray   [required]
 ```
 
 ### Options inherited from parent commands
@@ -49,4 +51,4 @@ growthbook saved-groups get-saved-group-references [flags]
 
 ### SEE ALSO
 
-* [growthbook saved-groups](growthbook_saved-groups.md)	 - Defined sets of attribute values which can be used with feature rules for targeting features at particular users
+* [growthbook teams](growthbook_teams.md)	 - Operations for teams

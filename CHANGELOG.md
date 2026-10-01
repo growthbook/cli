@@ -2,6 +2,62 @@
 
 ## [Unreleased]
 
+Upgrading from 2.x: update any renamed commands (table below), and pass `--owner` to
+`dashboards create` if you authenticate with an organization secret API key. Renamed commands
+fail loudly with an unknown-command error, so a dry run of your scripts will surface them.
+
+### Changed
+
+- **`growthbook dashboards create` now calls the v2 endpoint (`POST /v2/dashboards`).** It
+  accepts a new `--owner` (userId or email), and the response shape is unchanged. **With an
+  organization secret API key, `--owner` is now required**: the old endpoint silently created
+  an ownerless dashboard instead. The previous behavior is still available as
+  `growthbook dashboards create-v1`, which is deprecated.
+
+- **Commands renamed** to drop operation names that leaked into the subcommand. These were
+  missed by the 1.0.0 naming cleanup; this finishes it.
+
+  | Before                                           | After                              |
+  | ------------------------------------------------ | ---------------------------------- |
+  | `SDK-connections lookup-SDK-connection-by-key`   | `SDK-connections lookup`           |
+  | `features get-feature-keys`                      | `features list-keys`               |
+  | `features get-feature-stale`                     | `features get-stale`               |
+  | `features-v1 get-feature-keys`                   | `features-v1 list-keys`            |
+  | `features-v1 get-feature-stale`                  | `features-v1 get-stale`            |
+  | `members update-member-role`                     | `members update-role`              |
+  | `ramp-schedules get-ramp-schedule-status`        | `ramp-schedules get-status`        |
+  | `ramp-schedules update-ramp-schedule-lockdown`   | `ramp-schedules update-lockdown`   |
+  | `ramp-schedules update-ramp-schedule-monitoring` | `ramp-schedules update-monitoring` |
+  | `ramp-schedules update-ramp-schedule-steps`      | `ramp-schedules update-steps`      |
+  | `saved-groups get-saved-group-references`        | `saved-groups get-references`      |
+  | `teams add-team-members`                         | `teams add-members`                |
+  | `teams remove-team-member`                       | `teams remove-members`             |
+
+- **`go install` path is now `/v3`:**
+
+  ```bash
+  go install github.com/growthbook/cli/v3/cmd/growthbook@latest
+  ```
+
+  This affects `go install` only. npm, Homebrew, the install script and the prebuilt binaries
+  are unchanged.
+
+### Removed
+
+- **`growthbook snapshots create-snapshot`** was a duplicate of
+  `growthbook experiments create-snapshot`, which takes the same flags. Use that instead.
+
+### Deprecated
+
+- **`growthbook dashboards create-v1`** (the old `dashboards create`, `POST /v1/dashboards`).
+  Use `dashboards create`.
+
+### Added
+
+- **`--owner` on `growthbook dashboards update`**, to reassign a dashboard's owner.
+- Dashboard output (`dashboards get`, `list`, `list-for-experiment`, `create`, `update`) now
+  includes `owner` and `ownerEmail`.
+
 ## [2.7.0] - 2026-09-28
 
 Additive, plus one change to the beta contextual-bandits commands. Two new commands and twenty-two

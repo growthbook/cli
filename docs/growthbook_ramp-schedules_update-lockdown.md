@@ -1,28 +1,28 @@
-## growthbook members update-member-role
+## growthbook ramp-schedules update-lockdown
 
-Update a member's global role (including any environment restrictions, if applicable). Can also update a member's project roles if your plan supports it.
+Update ramp lockdown configuration
 
 ### Synopsis
 
-Update a member's global role (including any environment restrictions, if applicable). Can also update a member's project roles if your plan supports it.
+Sets the lockdown mode. `locked` prevents other users from publishing unrelated changes to the parent feature while the ramp is running — useful when you want to ensure no external edits interfere with a live rollout. It does **not** affect the ramp's own auto-advancement or monitoring behavior; use `actions/pause` to halt the ramp itself. `none` removes the publishing restriction.
 
 ```
-growthbook members update-member-role [flags]
+growthbook ramp-schedules update-lockdown [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook members update-member-role --id <id> --member '{}'
+  growthbook ramp-schedules update-lockdown --id <id> --mode locked
 ```
 
 ### Options
 
 ```
-      --body string     Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -h, --help            help for update-member-role
-  -i, --id string       The id of the requested resource [required]
-  -m, --member string   [required]
+      --body string   Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -h, --help          help for update-lockdown
+  -i, --id string     [required]
+  -m, --mode string   options: none, locked [required]
 ```
 
 ### Options inherited from parent commands
@@ -51,4 +51,4 @@ growthbook members update-member-role [flags]
 
 ### SEE ALSO
 
-* [growthbook members](growthbook_members.md)	 - Members are users who have been invited to an organization
+* [growthbook ramp-schedules](growthbook_ramp-schedules.md)	 - Multi-step rollout schedules that gradually increase feature rule traffic over time, with optional real-time monitoring

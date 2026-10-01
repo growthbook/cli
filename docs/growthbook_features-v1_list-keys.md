@@ -1,26 +1,28 @@
-## growthbook SDK-connections lookup-SDK-connection-by-key
+## growthbook features-v1 list-keys
 
-Find a single sdk connection by its key
+Get list of feature keys
 
 ### Synopsis
 
-Find a single sdk connection by its key
+DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible
+
+**Deprecated.** Use [GET /v2/feature-keys](#operation/getFeatureKeysV2) instead.
 
 ```
-growthbook SDK-connections lookup-SDK-connection-by-key [flags]
+growthbook features-v1 list-keys [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook SDK-connections lookup-SDK-connection-by-key --key <key>
+  growthbook features-v1 list-keys
 ```
 
 ### Options
 
 ```
-  -h, --help         help for lookup-SDK-connection-by-key
-  -k, --key string   The key of the requested sdkConnection [required]
+  -h, --help                help for list-keys
+  -p, --project-id string   Filter by project id
 ```
 
 ### Options inherited from parent commands
@@ -49,4 +51,4 @@ growthbook SDK-connections lookup-SDK-connection-by-key [flags]
 
 ### SEE ALSO
 
-* [growthbook SDK-connections](growthbook_SDK-connections.md)	 - Client keys and settings for connecting SDKs to a GrowthBook instance
+* [growthbook features-v1](growthbook_features-v1.md)	 - Control your feature flags programmatically

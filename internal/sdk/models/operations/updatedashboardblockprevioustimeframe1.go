@@ -6,8 +6,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v3/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 )
 
 type UpdateDashboardConversionWindow1 struct {

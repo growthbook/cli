@@ -1,26 +1,29 @@
-## growthbook ramp-schedules get-ramp-schedule-status
+## growthbook features-v1 get-stale
 
-Get ramp schedule status summary
+Get stale status for one or more features
 
 ### Synopsis
 
-Returns a real-time status summary for a ramp schedule: current step, overall health decision, traffic quality, and per-metric effect sizes. Designed for CI pipeline integrations and monitoring dashboards that need a single call to determine whether it is safe to advance.
+DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible
+
+**Deprecated.** Use [GET /v2/stale-features](#operation/getFeatureStaleV2) instead.
 
 ```
-growthbook ramp-schedules get-ramp-schedule-status [flags]
+growthbook features-v1 get-stale [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook ramp-schedules get-ramp-schedule-status --id <id>
+  growthbook features-v1 get-stale --ids <value>
 ```
 
 ### Options
 
 ```
-  -h, --help        help for get-ramp-schedule-status
-  -i, --id string   [required]
+  -h, --help                             help for get-stale
+  -i, --ids my_feature,another_feature   Comma-separated list of feature IDs (URL-encoded if needed). Example: my_feature,another_feature
+                                          [required]
 ```
 
 ### Options inherited from parent commands
@@ -49,4 +52,4 @@ growthbook ramp-schedules get-ramp-schedule-status [flags]
 
 ### SEE ALSO
 
-* [growthbook ramp-schedules](growthbook_ramp-schedules.md)	 - Multi-step rollout schedules that gradually increase feature rule traffic over time, with optional real-time monitoring
+* [growthbook features-v1](growthbook_features-v1.md)	 - Control your feature flags programmatically

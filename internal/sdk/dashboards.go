@@ -6,12 +6,12 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/growthbook/cli/v2/internal/sdk/models/components"
-	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
-	"github.com/growthbook/cli/v2/internal/sdk/models/sdkerrors"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/config"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/hooks"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v3/internal/sdk/models/components"
+	"github.com/growthbook/cli/v3/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v3/internal/sdk/models/sdkerrors"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/config"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/hooks"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 	"net/http"
 	"net/url"
 )
@@ -469,13 +469,13 @@ func (s *Dashboards) UpdateDashboard(ctx context.Context, request operations.Upd
 
 }
 
-// CreateDashboard - Create a single dashboard
+// CreateV1 - Create a single dashboard
 // **Deprecated.** Use [POST /v2/dashboards](#operation/createDashboardV2) instead.
 //
 // This endpoint does not accept an `owner` and always assigns the dashboard to the authenticated user. A dashboard created with an organization secret API key, which has no associated user, therefore has no owner. The v2 endpoint accepts an `owner` (userId or email) and requires one when authenticating with an organization secret API key.
 //
 // Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-func (s *Dashboards) CreateDashboard(ctx context.Context, request operations.CreateDashboardRequest, opts ...operations.Option) (*operations.CreateDashboardResponse, error) {
+func (s *Dashboards) CreateV1(ctx context.Context, request operations.CreateDashboardRequest, opts ...operations.Option) (*operations.CreateDashboardResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -769,8 +769,8 @@ func (s *Dashboards) ListDashboards(ctx context.Context, opts ...operations.Opti
 
 }
 
-// CreateDashboardV2 - Create a single dashboard
-func (s *Dashboards) CreateDashboardV2(ctx context.Context, request operations.CreateDashboardV2Request, opts ...operations.Option) (*operations.CreateDashboardV2Response, error) {
+// Create a single dashboard
+func (s *Dashboards) Create(ctx context.Context, request operations.CreateDashboardV2Request, opts ...operations.Option) (*operations.CreateDashboardV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

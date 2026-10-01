@@ -3459,7 +3459,7 @@ paths:
             curl -X GET 'https://api.growthbook.io/api/v1/feature-keys' \
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [features-v1]
-      x-speakeasy-name-override: get-feature-keys
+      x-speakeasy-name-override: list-keys
   /v1/stale-features:
     get:
       operationId: getFeatureStale
@@ -3488,7 +3488,7 @@ paths:
             curl -X GET 'https://api.growthbook.io/api/v1/stale-features' \
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [features-v1]
-      x-speakeasy-name-override: get-feature-stale
+      x-speakeasy-name-override: get-stale
   /v1/revisions:
     get:
       operationId: listRevisions
@@ -8549,7 +8549,7 @@ paths:
             curl -X GET 'https://api.growthbook.io/api/v2/feature-keys' \
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [features]
-      x-speakeasy-name-override: get-feature-keys
+      x-speakeasy-name-override: list-keys
   /v2/stale-features:
     get:
       operationId: getFeatureStaleV2
@@ -8647,7 +8647,7 @@ paths:
             curl -X GET 'https://api.growthbook.io/api/v2/stale-features' \
               -H 'Authorization: Bearer YOUR_API_KEY'
       tags: [features]
-      x-speakeasy-name-override: get-feature-stale
+      x-speakeasy-name-override: get-stale
   /v2/feature-revisions:
     get:
       operationId: listRevisionsV2
@@ -14487,9 +14487,6 @@ paths:
     post:
       operationId: postExperimentSnapshot
       summary: Create Experiment Snapshot
-      tags:
-        - experiments
-        - snapshots
       parameters:
         - name: id
           in: path
@@ -14586,6 +14583,7 @@ paths:
               -H 'Content-Type: application/json' \
               -d '{"triggeredBy":"schedule"}'
       x-speakeasy-name-override: create-snapshot
+      tags: [experiments]
   /v1/experiments/{id}/variation/{variationId}/screenshot/upload:
     post:
       operationId: postVariationImageUpload
@@ -18173,6 +18171,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: lookup
   /v1/data-sources:
     get:
       operationId: listDataSources
@@ -19456,6 +19455,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: get-references
   /v1/saved-groups-revisions/{savedGroupId}:
     get:
       operationId: getSavedGroupRevisions
@@ -28826,6 +28826,7 @@ paths:
           source: |-
             curl -X POST 'https://api.growthbook.io/api/v1/members/{id}/role' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: update-role
   /v1/members/{id}:
     delete:
       operationId: deleteMember
@@ -30278,6 +30279,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: get-status
   /v1/ramp-schedules/{id}/actions/set-monitoring-mode:
     post:
       operationId: setMonitoringModeRampSchedule
@@ -31366,6 +31368,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: update-monitoring
   /v1/ramp-schedules/{id}/lockdown:
     put:
       operationId: updateRampScheduleLockdown
@@ -31710,6 +31713,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: update-lockdown
   /v1/ramp-schedules/{id}/steps:
     put:
       operationId: updateRampScheduleSteps
@@ -31804,6 +31808,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: update-steps
   /v1/ramp-schedules/{id}/actions/refresh-monitoring:
     post:
       operationId: refreshMonitoringRampSchedule
@@ -43450,6 +43455,7 @@ paths:
           source: |-
             curl -X POST 'https://api.growthbook.io/api/v1/dashboards' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: create-v1
     get:
       operationId: listDashboards
       summary: Get all dashboards
@@ -47015,6 +47021,7 @@ paths:
           source: |-
             curl -X POST 'https://api.growthbook.io/api/v2/dashboards' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: create
   /v1/dashboards/by-experiment/{experimentId}:
     get:
       operationId: getDashboardsForExperiment
@@ -48742,6 +48749,7 @@ paths:
           source: |-
             curl -X POST 'https://api.growthbook.io/api/v1/teams/{id}/members' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: add-members
     delete:
       operationId: removeTeamMember
       summary: Remove members from team
@@ -48789,6 +48797,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: remove-members
   /v1/experiment-templates/{id}:
     get:
       operationId: getExperimentTemplate

@@ -3,7 +3,7 @@
 package teams
 
 import (
-	"github.com/growthbook/cli/v2/internal/usage"
+	"github.com/growthbook/cli/v3/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -40,11 +40,11 @@ func InitTeamsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initAddTeamMembersCmd(TeamsCmd); err != nil {
+	if err := initAddMembersCmd(TeamsCmd); err != nil {
 		return err
 	}
 
-	if err := initRemoveTeamMemberCmd(TeamsCmd); err != nil {
+	if err := initRemoveMembersCmd(TeamsCmd); err != nil {
 		return err
 	}
 

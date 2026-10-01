@@ -3,7 +3,7 @@
 package dashboards
 
 import (
-	"github.com/growthbook/cli/v2/internal/usage"
+	"github.com/growthbook/cli/v3/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -32,7 +32,7 @@ func InitDashboardsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initCreateDashboardCmd(DashboardsCmd); err != nil {
+	if err := initCreateV1Cmd(DashboardsCmd); err != nil {
 		return err
 	}
 
@@ -40,7 +40,7 @@ func InitDashboardsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initCreateDashboardV2Cmd(DashboardsCmd); err != nil {
+	if err := initCreateCmd(DashboardsCmd); err != nil {
 		return err
 	}
 

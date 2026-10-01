@@ -3,7 +3,7 @@
 package sdkconnections
 
 import (
-	"github.com/growthbook/cli/v2/internal/usage"
+	"github.com/growthbook/cli/v3/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -41,7 +41,7 @@ func InitSDKConnectionsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initLookupSDKConnectionByKeyCmd(SDKConnectionsCmd); err != nil {
+	if err := initLookupCmd(SDKConnectionsCmd); err != nil {
 		return err
 	}
 

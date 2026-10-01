@@ -3,7 +3,7 @@
 package components
 
 import (
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 )
 
 // FeatureExperimentRefRuleScheduleType - UI hint for which scheduling mode is active:

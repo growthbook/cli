@@ -1,27 +1,26 @@
-## growthbook features get-feature-stale
+## growthbook saved-groups get-references
 
-Get stale status for one or more features
+Get features, experiments, and saved groups that reference this saved group
 
 ### Synopsis
 
-Get stale status for one or more features
+Get features, experiments, and saved groups that reference this saved group
 
 ```
-growthbook features get-feature-stale [flags]
+growthbook saved-groups get-references [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook features get-feature-stale --ids <value>
+  growthbook saved-groups get-references --id <id>
 ```
 
 ### Options
 
 ```
-  -h, --help                             help for get-feature-stale
-  -i, --ids my_feature,another_feature   Comma-separated list of feature IDs (URL-encoded if needed). Example: my_feature,another_feature
-                                          [required]
+  -h, --help        help for get-references
+  -i, --id string   The id of the requested resource [required]
 ```
 
 ### Options inherited from parent commands
@@ -50,4 +49,4 @@ growthbook features get-feature-stale [flags]
 
 ### SEE ALSO
 
-* [growthbook features](growthbook_features.md)	 - Control your feature flags programmatically
+* [growthbook saved-groups](growthbook_saved-groups.md)	 - Defined sets of attribute values which can be used with feature rules for targeting features at particular users

@@ -4,11 +4,7 @@ Create a single dashboard
 
 ### Synopsis
 
-DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible
-
-**Deprecated.** Use [POST /v2/dashboards](#operation/createDashboardV2) instead.
-
-This endpoint does not accept an `owner` and always assigns the dashboard to the authenticated user. A dashboard created with an organization secret API key, which has no associated user, therefore has no owner. The v2 endpoint accepts an `owner` (userId or email) and requires one when authenticating with an organization secret API key.
+Create a single dashboard
 
 ```
 growthbook dashboards create [flags]
@@ -17,7 +13,7 @@ growthbook dashboards create [flags]
 ### Examples
 
 ```
-  growthbook dashboards create --title <value> --edit-level private --share-level private --enable-auto-updates true --blocks '[{"type":"experiment-metric","title":"<value>","description":"or oily ew via out supposing phew vanish athwart","snapshotId":"<id>","experimentId":"<id>","metricIds":[],"variationIds":[],"baselineRow":536.55,"differenceType":"relative","columnsFilter":["Baseline Average"],"sliceTagsFilter":["<value 1>","<value 2>","<value 3>"],"metricTagFilter":["<value 1>","<value 2>"],"sortBy":"metricTags","sortDirection":"desc"}]'
+  growthbook dashboards create --title <value> --edit-level private --share-level private --enable-auto-updates false --blocks '[{"type":"markdown","title":"<value>","description":"sermon blah affiliate before like officially gah doorpost actually","content":"<value>"}]'
 ```
 
 ### Options
@@ -31,13 +27,14 @@ growthbook dashboards create [flags]
       --experiment-id string                The parent experiment for an Experiment Dashboard, or undefined for a general dashboard
   -g, --global-controls string              JSON object
   -h, --help                                help for create
+      --owner string                        The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. Optional when authenticating with a Personal Access Token (PAT): when omitted, the owner defaults to the PAT's user. Required when authenticating with an organization secret API key (which has no associated user): omitting it fails with a 400. A private dashboard created with an organization secret API key can only be retrieved or updated using its owner's Personal Access Token (PAT).
   -p, --projects stringArray                General Dashboards only, Experiment Dashboards use the experiment's projects
   -s, --share-level string                  General Dashboards only. Dashboards that are "published" are viewable by organization members with appropriate permissions (options: published, private) [required]
   -t, --title string                        The display name of the Dashboard [required]
   -u, --update-schedule string              JSON value (variants: stale: { hours: number }, cron: { cron: string })
-      --update-schedule.cron string         createDashboard_updateSchedule_Cron variant as JSON
+      --update-schedule.cron string         createDashboardV2_updateSchedule_Cron variant as JSON
       --update-schedule.cron.cron string    [required]
-      --update-schedule.stale string        createDashboard_updateSchedule_Stale variant as JSON
+      --update-schedule.stale string        createDashboardV2_updateSchedule_Stale variant as JSON
       --update-schedule.stale.hours float   [required]
 ```
 

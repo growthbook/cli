@@ -4,49 +4,49 @@ package rampschedules
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/v2/internal/client"
-	"github.com/growthbook/cli/v2/internal/flagutil"
-	"github.com/growthbook/cli/v2/internal/interactive"
-	"github.com/growthbook/cli/v2/internal/output"
-	"github.com/growthbook/cli/v2/internal/sdk"
-	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
-	"github.com/growthbook/cli/v2/internal/usage"
+	"github.com/growthbook/cli/v3/internal/client"
+	"github.com/growthbook/cli/v3/internal/flagutil"
+	"github.com/growthbook/cli/v3/internal/interactive"
+	"github.com/growthbook/cli/v3/internal/output"
+	"github.com/growthbook/cli/v3/internal/sdk"
+	"github.com/growthbook/cli/v3/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v3/internal/usage"
 	"github.com/spf13/cobra"
 )
 
-var getRampScheduleStatusCmdMeta = []flagutil.FlagMeta{
+var getStatusCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 }
 
-// initGetRampScheduleStatusCmd initializes the get-ramp-schedule-status command.
-func initGetRampScheduleStatusCmd(parent *cobra.Command) error {
+// initGetStatusCmd initializes the get-status command.
+func initGetStatusCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
-		Use:     "get-ramp-schedule-status",
+		Use:     "get-status",
 		Short:   "Get ramp schedule status summary",
 		Long:    "Returns a real-time status summary for a ramp schedule: current step, overall health decision, traffic quality, and per-metric effect sizes. Designed for CI pipeline integrations and monitoring dashboards that need a single call to determine whether it is safe to advance.",
-		Example: "  growthbook ramp-schedules get-ramp-schedule-status --id <id>",
-		RunE:    runGetRampScheduleStatusCmd,
-		Aliases: []string{"grss"},
+		Example: "  growthbook ramp-schedules get-status --id <id>",
+		RunE:    runGetStatusCmd,
+		Aliases: []string{"gs"},
 	}
-	flagutil.RegisterFlags(cmd, getRampScheduleStatusCmdMeta)
-	if err := flagutil.ValidateMeta[operations.GetRampScheduleStatusRequest](getRampScheduleStatusCmdMeta); err != nil {
-		return fmt.Errorf("invalid metadata for get-ramp-schedule-status: %w", err)
+	flagutil.RegisterFlags(cmd, getStatusCmdMeta)
+	if err := flagutil.ValidateMeta[operations.GetRampScheduleStatusRequest](getStatusCmdMeta); err != nil {
+		return fmt.Errorf("invalid metadata for get-status: %w", err)
 	}
 	parent.AddCommand(cmd)
 	return nil
 }
 
-// runGetRampScheduleStatusCmd executes the get-ramp-schedule-status command.
-func runGetRampScheduleStatusCmd(cmd *cobra.Command, args []string) error {
+// runGetStatusCmd executes the get-status command.
+func runGetStatusCmd(cmd *cobra.Command, args []string) error {
 	if usage.UsageRequested(cmd) {
 		return usage.EmitSchema(cmd, cmd.OutOrStdout())
 	}
-	if interactive.ShouldPrompt(cmd, getRampScheduleStatusCmdMeta) {
-		if err := interactive.PromptAndSetFlags(cmd, getRampScheduleStatusCmdMeta); err != nil {
+	if interactive.ShouldPrompt(cmd, getStatusCmdMeta) {
+		if err := interactive.PromptAndSetFlags(cmd, getStatusCmdMeta); err != nil {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.GetRampScheduleStatusRequest](cmd, getRampScheduleStatusCmdMeta, "", "")
+	req, err := flagutil.BuildRequest[operations.GetRampScheduleStatusRequest](cmd, getStatusCmdMeta, "", "")
 	if err != nil {
 		return err
 	}
@@ -69,7 +69,7 @@ func runGetRampScheduleStatusCmd(cmd *cobra.Command, args []string) error {
 	if output.WantsRawJSON(cmd) {
 		sdkOpts = append(sdkOpts, operations.WithSkipDeserialization())
 	}
-	res, err := s.RampSchedules.GetRampScheduleStatus(cmd.Context(), *req, sdkOpts...)
+	res, err := s.RampSchedules.GetStatus(cmd.Context(), *req, sdkOpts...)
 	if err != nil {
 		return output.Error(cmd, err)
 	}

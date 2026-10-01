@@ -1,28 +1,26 @@
-## growthbook features-v1 get-feature-keys
+## growthbook ramp-schedules get-status
 
-Get list of feature keys
+Get ramp schedule status summary
 
 ### Synopsis
 
-DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible
-
-**Deprecated.** Use [GET /v2/feature-keys](#operation/getFeatureKeysV2) instead.
+Returns a real-time status summary for a ramp schedule: current step, overall health decision, traffic quality, and per-metric effect sizes. Designed for CI pipeline integrations and monitoring dashboards that need a single call to determine whether it is safe to advance.
 
 ```
-growthbook features-v1 get-feature-keys [flags]
+growthbook ramp-schedules get-status [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook features-v1 get-feature-keys
+  growthbook ramp-schedules get-status --id <id>
 ```
 
 ### Options
 
 ```
-  -h, --help                help for get-feature-keys
-  -p, --project-id string   Filter by project id
+  -h, --help        help for get-status
+  -i, --id string   [required]
 ```
 
 ### Options inherited from parent commands
@@ -51,4 +49,4 @@ growthbook features-v1 get-feature-keys [flags]
 
 ### SEE ALSO
 
-* [growthbook features-v1](growthbook_features-v1.md)	 - Control your feature flags programmatically
+* [growthbook ramp-schedules](growthbook_ramp-schedules.md)	 - Multi-step rollout schedules that gradually increase feature rule traffic over time, with optional real-time monitoring
