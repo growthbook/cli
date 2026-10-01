@@ -27,6 +27,7 @@ growthbook dashboards update [flags]
   -g, --global-controls string              JSON object
   -h, --help                                help for update
   -i, --id string                           [required]
+      --owner string                        The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. Omit to leave the current owner unchanged.
   -p, --projects stringArray                General Dashboards only, Experiment Dashboards use the experiment's projects
   -s, --share-level string                  General Dashboards only. Dashboards that are "published" are viewable by organization members with appropriate permissions (options: published, private)
   -t, --title string                        The display name of the Dashboard

@@ -4,51 +4,51 @@ package teams
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/v2/internal/client"
-	"github.com/growthbook/cli/v2/internal/flagutil"
-	"github.com/growthbook/cli/v2/internal/interactive"
-	"github.com/growthbook/cli/v2/internal/output"
-	"github.com/growthbook/cli/v2/internal/sdk"
-	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
-	"github.com/growthbook/cli/v2/internal/usage"
+	"github.com/growthbook/cli/v3/internal/client"
+	"github.com/growthbook/cli/v3/internal/flagutil"
+	"github.com/growthbook/cli/v3/internal/interactive"
+	"github.com/growthbook/cli/v3/internal/output"
+	"github.com/growthbook/cli/v3/internal/sdk"
+	"github.com/growthbook/cli/v3/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v3/internal/usage"
 	"github.com/spf13/cobra"
 )
 
-var addTeamMembersCmdMeta = []flagutil.FlagMeta{
+var addMembersCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "members", Shorthand: "m", FieldPath: "Body.Members", Kind: flagutil.FlagKindStringArray, Required: true, Description: "[required]"},
 }
 
-// initAddTeamMembersCmd initializes the add-team-members command.
-func initAddTeamMembersCmd(parent *cobra.Command) error {
+// initAddMembersCmd initializes the add-members command.
+func initAddMembersCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
-		Use:     "add-team-members",
+		Use:     "add-members",
 		Short:   "Add members to team",
 		Long:    "Add members to team",
-		Example: "  growthbook teams add-team-members --id <id> --members '[\"<value 1>\",\"<value 2>\"]'",
-		RunE:    runAddTeamMembersCmd,
-		Aliases: []string{"atm"},
+		Example: "  growthbook teams add-members --id <id> --members '[\"<value 1>\",\"<value 2>\"]'",
+		RunE:    runAddMembersCmd,
+		Aliases: []string{"am"},
 	}
-	flagutil.RegisterFlags(cmd, addTeamMembersCmdMeta)
-	if err := flagutil.ValidateMeta[operations.AddTeamMembersRequest](addTeamMembersCmdMeta); err != nil {
-		return fmt.Errorf("invalid metadata for add-team-members: %w", err)
+	flagutil.RegisterFlags(cmd, addMembersCmdMeta)
+	if err := flagutil.ValidateMeta[operations.AddTeamMembersRequest](addMembersCmdMeta); err != nil {
+		return fmt.Errorf("invalid metadata for add-members: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
 	parent.AddCommand(cmd)
 	return nil
 }
 
-// runAddTeamMembersCmd executes the add-team-members command.
-func runAddTeamMembersCmd(cmd *cobra.Command, args []string) error {
+// runAddMembersCmd executes the add-members command.
+func runAddMembersCmd(cmd *cobra.Command, args []string) error {
 	if usage.UsageRequested(cmd) {
 		return usage.EmitSchema(cmd, cmd.OutOrStdout())
 	}
-	if interactive.ShouldPrompt(cmd, addTeamMembersCmdMeta) {
-		if err := interactive.PromptAndSetFlags(cmd, addTeamMembersCmdMeta); err != nil {
+	if interactive.ShouldPrompt(cmd, addMembersCmdMeta) {
+		if err := interactive.PromptAndSetFlags(cmd, addMembersCmdMeta); err != nil {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.AddTeamMembersRequest](cmd, addTeamMembersCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.AddTeamMembersRequest](cmd, addMembersCmdMeta, "Body", "body")
 	if err != nil {
 		return err
 	}
@@ -71,7 +71,7 @@ func runAddTeamMembersCmd(cmd *cobra.Command, args []string) error {
 	if output.WantsRawJSON(cmd) {
 		sdkOpts = append(sdkOpts, operations.WithSkipDeserialization())
 	}
-	res, err := s.Teams.AddTeamMembers(cmd.Context(), *req, sdkOpts...)
+	res, err := s.Teams.AddMembers(cmd.Context(), *req, sdkOpts...)
 	if err != nil {
 		return output.Error(cmd, err)
 	}

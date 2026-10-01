@@ -1,28 +1,42 @@
-## growthbook members update-member-role
+## growthbook ramp-schedules update-monitoring
 
-Update a member's global role (including any enviroment restrictions, if applicable). Can also update a member's project roles if your plan supports it.
+Update ramp monitoring configuration
 
 ### Synopsis
 
-Update a member's global role (including any enviroment restrictions, if applicable). Can also update a member's project roles if your plan supports it.
+Replaces the monitoring configuration. Health-action thresholds (`srmAction`, `noTrafficAction`, etc.) can be updated at any time.
+
+Once a linked SafeRollout has started, `datasourceId`, `exposureQueryId`, the metric IDs and the snapshot cadence are all locked — stop and recreate the schedule to change the data source.
+
+Changes to guardrail or signal metric IDs take effect on the next analysis run.
 
 ```
-growthbook members update-member-role [flags]
+growthbook ramp-schedules update-monitoring [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook members update-member-role --id <id> --member '{}'
+  growthbook ramp-schedules update-monitoring --id <id> --datasource-id <id> --exposure-query-id <id> --guardrail-metric-ids '["<value 1>","<value 2>","<value 3>"]'
 ```
 
 ### Options
 
 ```
-      --body string     Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -h, --help            help for update-member-role
-  -i, --id string       The id of the requested resource [required]
-  -m, --member string   [required]
+  -a, --auto-update                                     boolean flag
+      --body string                                     Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --datasource-id string                            [required]
+  -e, --exposure-query-id string                        [required]
+  -g, --guardrail-metric-ids stringArray                [required]
+  -h, --help                                            help for update-monitoring
+  -i, --id string                                       [required]
+      --monitoring-mode string                          options: auto, manual
+      --multiple-exposure-action string                 options: rollback, hold, warn
+      --no-traffic-action string                        options: rollback, hold, warn
+      --no-traffic-grace-period-hours noTrafficAction   How long to wait for traffic before applying noTrafficAction. Defaults to 24 hours when null or not set.
+      --signal-metric-ids stringArray                   list of values
+      --srm-action string                               options: rollback, hold, warn
+  -u, --update-schedule-minutes string                  number value
 ```
 
 ### Options inherited from parent commands
@@ -51,4 +65,4 @@ growthbook members update-member-role [flags]
 
 ### SEE ALSO
 
-* [growthbook members](growthbook_members.md)	 - Members are users who have been invited to an organization
+* [growthbook ramp-schedules](growthbook_ramp-schedules.md)	 - Multi-step rollout schedules that gradually increase feature rule traffic over time, with optional real-time monitoring

@@ -3,7 +3,7 @@
 package rampschedules
 
 import (
-	"github.com/growthbook/cli/v2/internal/usage"
+	"github.com/growthbook/cli/v3/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -73,7 +73,7 @@ func InitRampSchedulesRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initGetRampScheduleStatusCmd(RampSchedulesCmd); err != nil {
+	if err := initGetStatusCmd(RampSchedulesCmd); err != nil {
 		return err
 	}
 
@@ -85,15 +85,15 @@ func InitRampSchedulesRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initUpdateRampScheduleMonitoringCmd(RampSchedulesCmd); err != nil {
+	if err := initUpdateMonitoringCmd(RampSchedulesCmd); err != nil {
 		return err
 	}
 
-	if err := initUpdateRampScheduleLockdownCmd(RampSchedulesCmd); err != nil {
+	if err := initUpdateLockdownCmd(RampSchedulesCmd); err != nil {
 		return err
 	}
 
-	if err := initUpdateRampScheduleStepsCmd(RampSchedulesCmd); err != nil {
+	if err := initUpdateStepsCmd(RampSchedulesCmd); err != nil {
 		return err
 	}
 

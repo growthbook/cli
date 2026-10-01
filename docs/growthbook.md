@@ -69,8 +69,8 @@ growthbook [flags]
 * [growthbook fact-tables](growthbook_fact-tables.md)	 - Fact Tables describe the shape of your data warehouse tables
 * [growthbook feature-revisions](growthbook_feature-revisions.md)	 - Draft revisions for feature flags, including rules, scheduling, and approval workflows
 * [growthbook feature-revisions-v1](growthbook_feature-revisions-v1.md)	 - Draft revisions for feature flags, including rules, scheduling, and approval workflows
-* [growthbook features](growthbook_features.md)	 - Control your feature flags programatically
-* [growthbook features-v1](growthbook_features-v1.md)	 - Control your feature flags programatically
+* [growthbook features](growthbook_features.md)	 - Control your feature flags programmatically
+* [growthbook features-v1](growthbook_features-v1.md)	 - Control your feature flags programmatically
 * [growthbook generate-types](growthbook_generate-types.md)	 - Generate TypeScript types for all your features
 * [growthbook get-SDK-payload](growthbook_get-SDK-payload.md)	 - Get a SDK payload
 * [growthbook holdouts](growthbook_holdouts.md)	 - Hold a share of traffic out of all experiments to measure their combined effect

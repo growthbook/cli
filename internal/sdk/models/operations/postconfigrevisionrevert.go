@@ -5,8 +5,8 @@ package operations
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/growthbook/cli/v2/internal/sdk/models/components"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v3/internal/sdk/models/components"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 )
 
 // PostConfigRevisionRevertStrategy - Whether to stage the revert as a draft or publish it immediately. Defaults to `draft`, or to `publish` when the org enables 'reverts bypass approval'.

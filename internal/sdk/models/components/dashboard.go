@@ -6,8 +6,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v3/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 	"time"
 )
 
@@ -5347,6 +5347,10 @@ type Dashboard struct {
 	DateCreated       time.Time           `json:"dateCreated"`
 	DateUpdated       time.Time           `json:"dateUpdated"`
 	Blocks            []Block             `json:"blocks"`
+	// The userId of the owner (or raw owner name/email for legacy records)
+	Owner string `json:"owner"`
+	// The email address of the owner, when the owner can be resolved to a known user.
+	OwnerEmail *string `json:"ownerEmail,omitzero"`
 }
 
 func (d Dashboard) MarshalJSON() ([]byte, error) {
@@ -5519,4 +5523,18 @@ func (d *Dashboard) GetBlocks() []Block {
 		return []Block{}
 	}
 	return d.Blocks
+}
+
+func (d *Dashboard) GetOwner() string {
+	if d == nil {
+		return ""
+	}
+	return d.Owner
+}
+
+func (d *Dashboard) GetOwnerEmail() *string {
+	if d == nil {
+		return nil
+	}
+	return d.OwnerEmail
 }

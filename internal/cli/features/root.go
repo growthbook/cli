@@ -3,15 +3,15 @@
 package features
 
 import (
-	"github.com/growthbook/cli/v2/internal/usage"
+	"github.com/growthbook/cli/v3/internal/usage"
 	"github.com/spf13/cobra"
 )
 
 func InitFeaturesRoot(parent *cobra.Command) error {
 	var FeaturesCmd = &cobra.Command{
 		Use:   "features",
-		Short: "Control your feature flags programatically",
-		Long:  "Control your feature flags programatically.\n\nRules are returned as a unified top-level array; each rule carries `allEnvironments` / `environments` scope fields instead of being bucketed by environment.",
+		Short: "Control your feature flags programmatically",
+		Long:  "Control your feature flags programmatically.\n\nRules are returned as a unified top-level array; each rule carries `allEnvironments` / `environments` scope fields instead of being bucketed by environment.",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if usage.UsageRequested(cmd) {
 				return usage.EmitSchema(cmd, cmd.OutOrStdout())
@@ -48,11 +48,11 @@ func InitFeaturesRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initGetFeatureKeysCmd(FeaturesCmd); err != nil {
+	if err := initListKeysCmd(FeaturesCmd); err != nil {
 		return err
 	}
 
-	if err := initGetFeatureStaleCmd(FeaturesCmd); err != nil {
+	if err := initGetStaleCmd(FeaturesCmd); err != nil {
 		return err
 	}
 

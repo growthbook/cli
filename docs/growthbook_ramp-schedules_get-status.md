@@ -1,26 +1,26 @@
-## growthbook SDK-connections lookup-SDK-connection-by-key
+## growthbook ramp-schedules get-status
 
-Find a single sdk connection by its key
+Get ramp schedule status summary
 
 ### Synopsis
 
-Find a single sdk connection by its key
+Returns a real-time status summary for a ramp schedule: current step, overall health decision, traffic quality, and per-metric effect sizes. Designed for CI pipeline integrations and monitoring dashboards that need a single call to determine whether it is safe to advance.
 
 ```
-growthbook SDK-connections lookup-SDK-connection-by-key [flags]
+growthbook ramp-schedules get-status [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook SDK-connections lookup-SDK-connection-by-key --key <key>
+  growthbook ramp-schedules get-status --id <id>
 ```
 
 ### Options
 
 ```
-  -h, --help         help for lookup-SDK-connection-by-key
-  -k, --key string   The key of the requested sdkConnection [required]
+  -h, --help        help for get-status
+  -i, --id string   [required]
 ```
 
 ### Options inherited from parent commands
@@ -49,4 +49,4 @@ growthbook SDK-connections lookup-SDK-connection-by-key [flags]
 
 ### SEE ALSO
 
-* [growthbook SDK-connections](growthbook_SDK-connections.md)	 - Client keys and settings for connecting SDKs to a GrowthBook instance
+* [growthbook ramp-schedules](growthbook_ramp-schedules.md)	 - Multi-step rollout schedules that gradually increase feature rule traffic over time, with optional real-time monitoring

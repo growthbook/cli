@@ -1,26 +1,28 @@
-## growthbook saved-groups get-saved-group-references
+## growthbook members update-role
 
-Get features, experiments, and saved groups that reference this saved group
+Update a member's global role (including any environment restrictions, if applicable). Can also update a member's project roles if your plan supports it.
 
 ### Synopsis
 
-Get features, experiments, and saved groups that reference this saved group
+Update a member's global role (including any environment restrictions, if applicable). Can also update a member's project roles if your plan supports it.
 
 ```
-growthbook saved-groups get-saved-group-references [flags]
+growthbook members update-role [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook saved-groups get-saved-group-references --id <id>
+  growthbook members update-role --id <id> --member '{}'
 ```
 
 ### Options
 
 ```
-  -h, --help        help for get-saved-group-references
-  -i, --id string   The id of the requested resource [required]
+      --body string     Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -h, --help            help for update-role
+  -i, --id string       The id of the requested resource [required]
+  -m, --member string   [required]
 ```
 
 ### Options inherited from parent commands
@@ -49,4 +51,4 @@ growthbook saved-groups get-saved-group-references [flags]
 
 ### SEE ALSO
 
-* [growthbook saved-groups](growthbook_saved-groups.md)	 - Defined sets of attribute values which can be used with feature rules for targeting features at particular users
+* [growthbook members](growthbook_members.md)	 - Members are users who have been invited to an organization

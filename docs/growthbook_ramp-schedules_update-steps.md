@@ -1,28 +1,32 @@
-## growthbook ramp-schedules update-ramp-schedule-lockdown
+## growthbook ramp-schedules update-steps
 
-Update ramp lockdown configuration
+Update ramp schedule steps
 
 ### Synopsis
 
-Sets the lockdown mode. `locked` prevents other users from publishing unrelated changes to the parent feature while the ramp is running — useful when you want to ensure no external edits interfere with a live rollout. It does **not** affect the ramp's own auto-advancement or monitoring behavior; use `actions/pause` to halt the ramp itself. `none` removes the publishing restriction.
+Fully replaces the steps array for a ramp schedule. Only allowed when the schedule is in a non-running, non-terminal state (`ready`, `pending`, or `paused`). Pause a running schedule first; restart a terminal schedule first.
+
+On a schedule attached to a rule this skips the revision review flow, so when the organization requires review anywhere it is limited to credentials that may bypass approval.
+
+**Step actions** (coverage/targeting patches) are not accepted here — they change the SDK payload and must go through a feature revision draft. Existing step actions are preserved for each position. Use `PUT /v2/features/:id/revisions/:version/rules/:ruleId/ramp-schedule` to modify coverage/targeting.
 
 ```
-growthbook ramp-schedules update-ramp-schedule-lockdown [flags]
+growthbook ramp-schedules update-steps [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook ramp-schedules update-ramp-schedule-lockdown --id <id> --mode locked
+  growthbook ramp-schedules update-steps --id <id> --steps '[]'
 ```
 
 ### Options
 
 ```
-      --body string   Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -h, --help          help for update-ramp-schedule-lockdown
-  -i, --id string     [required]
-  -m, --mode string   options: none, locked [required]
+      --body string     Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -h, --help            help for update-steps
+  -i, --id string       [required]
+  -s, --steps actions   Full replacement of the steps array. Step-level coverage patches (actions) are intentionally excluded — those require a revision publish because they change the SDK payload. Use the revision flow to modify coverage/targeting; use this endpoint to update monitoring flags and hold conditions. [required]
 ```
 
 ### Options inherited from parent commands

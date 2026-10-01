@@ -3,15 +3,15 @@
 package featuresv1
 
 import (
-	"github.com/growthbook/cli/v2/internal/usage"
+	"github.com/growthbook/cli/v3/internal/usage"
 	"github.com/spf13/cobra"
 )
 
 func InitFeaturesV1Root(parent *cobra.Command) error {
 	var FeaturesV1Cmd = &cobra.Command{
 		Use:   "features-v1",
-		Short: "Control your feature flags programatically",
-		Long:  "Control your feature flags programatically.\n\n**These are v1 endpoints.** New integrations should use the v2 Feature Flags endpoints, which expose a unified per-rule environment scope instead of per-environment rule arrays.",
+		Short: "Control your feature flags programmatically",
+		Long:  "Control your feature flags programmatically.\n\n**These are v1 endpoints.** New integrations should use the v2 Feature Flags endpoints, which expose a unified per-rule environment scope instead of per-environment rule arrays.",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if usage.UsageRequested(cmd) {
 				return usage.EmitSchema(cmd, cmd.OutOrStdout())
@@ -49,11 +49,11 @@ func InitFeaturesV1Root(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initGetFeatureKeysCmd(FeaturesV1Cmd); err != nil {
+	if err := initListKeysCmd(FeaturesV1Cmd); err != nil {
 		return err
 	}
 
-	if err := initGetFeatureStaleCmd(FeaturesV1Cmd); err != nil {
+	if err := initGetStaleCmd(FeaturesV1Cmd); err != nil {
 		return err
 	}
 

@@ -49,4 +49,4 @@ growthbook features delete [flags]
 
 ### SEE ALSO
 
-* [growthbook features](growthbook_features.md)	 - Control your feature flags programatically
+* [growthbook features](growthbook_features.md)	 - Control your feature flags programmatically

@@ -1,10 +1,10 @@
 ## growthbook features
 
-Control your feature flags programatically
+Control your feature flags programmatically
 
 ### Synopsis
 
-Control your feature flags programatically.
+Control your feature flags programmatically.
 
 Rules are returned as a unified top-level array; each rule carries `allEnvironments` / `environments` scope fields instead of being bucketed by environment.
 
@@ -48,9 +48,9 @@ growthbook features [flags]
 * [growthbook features create](growthbook_features_create.md)	 - Create a single feature
 * [growthbook features delete](growthbook_features_delete.md)	 - Deletes a single feature
 * [growthbook features get](growthbook_features_get.md)	 - Get a single feature
-* [growthbook features get-feature-keys](growthbook_features_get-feature-keys.md)	 - Get list of feature keys
-* [growthbook features get-feature-stale](growthbook_features_get-feature-stale.md)	 - Get stale status for one or more features
+* [growthbook features get-stale](growthbook_features_get-stale.md)	 - Get stale status for one or more features
 * [growthbook features list](growthbook_features_list.md)	 - Get all features
+* [growthbook features list-keys](growthbook_features_list-keys.md)	 - Get list of feature keys
 * [growthbook features revert](growthbook_features_revert.md)	 - Revert a feature to a specific revision
 * [growthbook features toggle](growthbook_features_toggle.md)	 - Toggle a feature in one or more environments
 * [growthbook features update](growthbook_features_update.md)	 - Partially update a feature

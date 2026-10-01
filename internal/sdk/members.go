@@ -6,12 +6,12 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/growthbook/cli/v2/internal/sdk/models/components"
-	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
-	"github.com/growthbook/cli/v2/internal/sdk/models/sdkerrors"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/config"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/hooks"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v3/internal/sdk/models/components"
+	"github.com/growthbook/cli/v3/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v3/internal/sdk/models/sdkerrors"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/config"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/hooks"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 	"github.com/spyzhov/ajson"
 	"net/http"
 	"net/url"
@@ -225,8 +225,8 @@ func (s *Members) ListMembers(ctx context.Context, request *operations.ListMembe
 
 }
 
-// UpdateMemberRole - Update a member's global role (including any enviroment restrictions, if applicable). Can also update a member's project roles if your plan supports it.
-func (s *Members) UpdateMemberRole(ctx context.Context, request operations.UpdateMemberRoleRequest, opts ...operations.Option) (*operations.UpdateMemberRoleResponse, error) {
+// UpdateRole - Update a member's global role (including any environment restrictions, if applicable). Can also update a member's project roles if your plan supports it.
+func (s *Members) UpdateRole(ctx context.Context, request operations.UpdateMemberRoleRequest, opts ...operations.Option) (*operations.UpdateMemberRoleResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

@@ -1,29 +1,28 @@
-## growthbook features-v1 get-feature-stale
+## growthbook teams remove-members
 
-Get stale status for one or more features
+Remove members from team
 
 ### Synopsis
 
-DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible
-
-**Deprecated.** Use [GET /v2/stale-features](#operation/getFeatureStaleV2) instead.
+Remove members from team
 
 ```
-growthbook features-v1 get-feature-stale [flags]
+growthbook teams remove-members [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook features-v1 get-feature-stale --ids <value>
+  growthbook teams remove-members --id <id> --members '["<value 1>"]'
 ```
 
 ### Options
 
 ```
-  -h, --help                             help for get-feature-stale
-  -i, --ids my_feature,another_feature   Comma-separated list of feature IDs (URL-encoded if needed). Example: my_feature,another_feature
-                                          [required]
+      --body string           Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -h, --help                  help for remove-members
+  -i, --id string             [required]
+  -m, --members stringArray   [required]
 ```
 
 ### Options inherited from parent commands
@@ -52,4 +51,4 @@ growthbook features-v1 get-feature-stale [flags]
 
 ### SEE ALSO
 
-* [growthbook features-v1](growthbook_features-v1.md)	 - Control your feature flags programatically
+* [growthbook teams](growthbook_teams.md)	 - Operations for teams

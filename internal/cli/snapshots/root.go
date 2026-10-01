@@ -3,7 +3,7 @@
 package snapshots
 
 import (
-	"github.com/growthbook/cli/v2/internal/usage"
+	"github.com/growthbook/cli/v3/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -18,10 +18,6 @@ func InitSnapshotsRoot(parent *cobra.Command) error {
 			}
 			return cmd.Help()
 		},
-	}
-
-	if err := initCreateSnapshotCmd(SnapshotsCmd); err != nil {
-		return err
 	}
 
 	if err := initGetExperimentSnapshotCmd(SnapshotsCmd); err != nil {

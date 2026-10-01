@@ -1,28 +1,26 @@
-## growthbook teams remove-team-member
+## growthbook features list-keys
 
-Remove members from team
+Get list of feature keys
 
 ### Synopsis
 
-Remove members from team
+Get list of feature keys
 
 ```
-growthbook teams remove-team-member [flags]
+growthbook features list-keys [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook teams remove-team-member --id <id> --members '["<value 1>"]'
+  growthbook features list-keys
 ```
 
 ### Options
 
 ```
-      --body string           Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -h, --help                  help for remove-team-member
-  -i, --id string             [required]
-  -m, --members stringArray   [required]
+  -h, --help                help for list-keys
+  -p, --project-id string   Filter by project id
 ```
 
 ### Options inherited from parent commands
@@ -51,4 +49,4 @@ growthbook teams remove-team-member [flags]
 
 ### SEE ALSO
 
-* [growthbook teams](growthbook_teams.md)	 - Operations for teams
+* [growthbook features](growthbook_features.md)	 - Control your feature flags programmatically

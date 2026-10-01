@@ -6,12 +6,12 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/growthbook/cli/v2/internal/sdk/models/components"
-	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
-	"github.com/growthbook/cli/v2/internal/sdk/models/sdkerrors"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/config"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/hooks"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v3/internal/sdk/models/components"
+	"github.com/growthbook/cli/v3/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v3/internal/sdk/models/sdkerrors"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/config"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/hooks"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 	"github.com/spyzhov/ajson"
 	"net/http"
 	"net/url"
@@ -2119,9 +2119,9 @@ func (s *RampSchedules) APIAdvanceRampSchedule(ctx context.Context, request oper
 
 }
 
-// GetRampScheduleStatus - Get ramp schedule status summary
+// GetStatus - Get ramp schedule status summary
 // Returns a real-time status summary for a ramp schedule: current step, overall health decision, traffic quality, and per-metric effect sizes. Designed for CI pipeline integrations and monitoring dashboards that need a single call to determine whether it is safe to advance.
-func (s *RampSchedules) GetRampScheduleStatus(ctx context.Context, request operations.GetRampScheduleStatusRequest, opts ...operations.Option) (*operations.GetRampScheduleStatusResponse, error) {
+func (s *RampSchedules) GetStatus(ctx context.Context, request operations.GetRampScheduleStatusRequest, opts ...operations.Option) (*operations.GetRampScheduleStatusResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -2568,13 +2568,13 @@ func (s *RampSchedules) SetAutoUpdateRampSchedule(ctx context.Context, request o
 
 }
 
-// UpdateRampScheduleMonitoring - Update ramp monitoring configuration
+// UpdateMonitoring - Update ramp monitoring configuration
 // Replaces the monitoring configuration. Health-action thresholds (`srmAction`, `noTrafficAction`, etc.) can be updated at any time.
 //
 // Once a linked SafeRollout has started, `datasourceId`, `exposureQueryId`, the metric IDs and the snapshot cadence are all locked — stop and recreate the schedule to change the data source.
 //
 // Changes to guardrail or signal metric IDs take effect on the next analysis run.
-func (s *RampSchedules) UpdateRampScheduleMonitoring(ctx context.Context, request operations.UpdateRampScheduleMonitoringRequest, opts ...operations.Option) (*operations.UpdateRampScheduleMonitoringResponse, error) {
+func (s *RampSchedules) UpdateMonitoring(ctx context.Context, request operations.UpdateRampScheduleMonitoringRequest, opts ...operations.Option) (*operations.UpdateRampScheduleMonitoringResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -2724,9 +2724,9 @@ func (s *RampSchedules) UpdateRampScheduleMonitoring(ctx context.Context, reques
 
 }
 
-// UpdateRampScheduleLockdown - Update ramp lockdown configuration
+// UpdateLockdown - Update ramp lockdown configuration
 // Sets the lockdown mode. `locked` prevents other users from publishing unrelated changes to the parent feature while the ramp is running — useful when you want to ensure no external edits interfere with a live rollout. It does **not** affect the ramp's own auto-advancement or monitoring behavior; use `actions/pause` to halt the ramp itself. `none` removes the publishing restriction.
-func (s *RampSchedules) UpdateRampScheduleLockdown(ctx context.Context, request operations.UpdateRampScheduleLockdownRequest, opts ...operations.Option) (*operations.UpdateRampScheduleLockdownResponse, error) {
+func (s *RampSchedules) UpdateLockdown(ctx context.Context, request operations.UpdateRampScheduleLockdownRequest, opts ...operations.Option) (*operations.UpdateRampScheduleLockdownResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -2876,13 +2876,13 @@ func (s *RampSchedules) UpdateRampScheduleLockdown(ctx context.Context, request 
 
 }
 
-// UpdateRampScheduleSteps - Update ramp schedule steps
+// UpdateSteps - Update ramp schedule steps
 // Fully replaces the steps array for a ramp schedule. Only allowed when the schedule is in a non-running, non-terminal state (`ready`, `pending`, or `paused`). Pause a running schedule first; restart a terminal schedule first.
 //
 // On a schedule attached to a rule this skips the revision review flow, so when the organization requires review anywhere it is limited to credentials that may bypass approval.
 //
 // **Step actions** (coverage/targeting patches) are not accepted here — they change the SDK payload and must go through a feature revision draft. Existing step actions are preserved for each position. Use `PUT /v2/features/:id/revisions/:version/rules/:ruleId/ramp-schedule` to modify coverage/targeting.
-func (s *RampSchedules) UpdateRampScheduleSteps(ctx context.Context, request operations.UpdateRampScheduleStepsRequest, opts ...operations.Option) (*operations.UpdateRampScheduleStepsResponse, error) {
+func (s *RampSchedules) UpdateSteps(ctx context.Context, request operations.UpdateRampScheduleStepsRequest, opts ...operations.Option) (*operations.UpdateRampScheduleStepsResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

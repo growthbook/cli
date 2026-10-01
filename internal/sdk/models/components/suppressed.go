@@ -3,7 +3,7 @@
 package components
 
 import (
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 )
 
 // Suppressed - Outcomes the previous state produced too, which Incremental Changes Only would hide on a real save

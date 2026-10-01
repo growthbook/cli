@@ -51,7 +51,7 @@ growthbook ramp-schedules [flags]
 * [growthbook ramp-schedules delete](growthbook_ramp-schedules_delete.md)	 - Delete a single rampSchedule
 * [growthbook ramp-schedules eject-target](growthbook_ramp-schedules_eject-target.md)	 - Remove a target rule from a ramp schedule
 * [growthbook ramp-schedules get](growthbook_ramp-schedules_get.md)	 - Get a single rampSchedule
-* [growthbook ramp-schedules get-ramp-schedule-status](growthbook_ramp-schedules_get-ramp-schedule-status.md)	 - Get ramp schedule status summary
+* [growthbook ramp-schedules get-status](growthbook_ramp-schedules_get-status.md)	 - Get ramp schedule status summary
 * [growthbook ramp-schedules jump](growthbook_ramp-schedules_jump.md)	 - Jump to a specific step
 * [growthbook ramp-schedules list](growthbook_ramp-schedules_list.md)	 - Get all rampSchedules
 * [growthbook ramp-schedules pause](growthbook_ramp-schedules_pause.md)	 - Pause a ramp schedule
@@ -63,6 +63,6 @@ growthbook ramp-schedules [flags]
 * [growthbook ramp-schedules set-monitoring-mode](growthbook_ramp-schedules_set-monitoring-mode.md)	 - Set ramp monitoring mode
 * [growthbook ramp-schedules start](growthbook_ramp-schedules_start.md)	 - Start a ramp schedule
 * [growthbook ramp-schedules update](growthbook_ramp-schedules_update.md)	 - Update a single rampSchedule
-* [growthbook ramp-schedules update-ramp-schedule-lockdown](growthbook_ramp-schedules_update-ramp-schedule-lockdown.md)	 - Update ramp lockdown configuration
-* [growthbook ramp-schedules update-ramp-schedule-monitoring](growthbook_ramp-schedules_update-ramp-schedule-monitoring.md)	 - Update ramp monitoring configuration
-* [growthbook ramp-schedules update-ramp-schedule-steps](growthbook_ramp-schedules_update-ramp-schedule-steps.md)	 - Update ramp schedule steps
+* [growthbook ramp-schedules update-lockdown](growthbook_ramp-schedules_update-lockdown.md)	 - Update ramp lockdown configuration
+* [growthbook ramp-schedules update-monitoring](growthbook_ramp-schedules_update-monitoring.md)	 - Update ramp monitoring configuration
+* [growthbook ramp-schedules update-steps](growthbook_ramp-schedules_update-steps.md)	 - Update ramp schedule steps

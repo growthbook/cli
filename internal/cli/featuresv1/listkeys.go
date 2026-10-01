@@ -4,49 +4,49 @@ package featuresv1
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/v2/internal/client"
-	"github.com/growthbook/cli/v2/internal/flagutil"
-	"github.com/growthbook/cli/v2/internal/interactive"
-	"github.com/growthbook/cli/v2/internal/output"
-	"github.com/growthbook/cli/v2/internal/sdk"
-	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
-	"github.com/growthbook/cli/v2/internal/usage"
+	"github.com/growthbook/cli/v3/internal/client"
+	"github.com/growthbook/cli/v3/internal/flagutil"
+	"github.com/growthbook/cli/v3/internal/interactive"
+	"github.com/growthbook/cli/v3/internal/output"
+	"github.com/growthbook/cli/v3/internal/sdk"
+	"github.com/growthbook/cli/v3/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v3/internal/usage"
 	"github.com/spf13/cobra"
 )
 
-var getFeatureKeysCmdMeta = []flagutil.FlagMeta{
+var listKeysCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "project-id", Shorthand: "p", FieldPath: "ProjectID", Kind: flagutil.FlagKindString, Optional: true, Description: "Filter by project id"},
 }
 
-// initGetFeatureKeysCmd initializes the get-feature-keys command.
-func initGetFeatureKeysCmd(parent *cobra.Command) error {
+// initListKeysCmd initializes the list-keys command.
+func initListKeysCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
-		Use:     "get-feature-keys",
+		Use:     "list-keys",
 		Short:   "Get list of feature keys",
 		Long:    "DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible\n\n**Deprecated.** Use [GET /v2/feature-keys](#operation/getFeatureKeysV2) instead.",
-		Example: "  growthbook features-v1 get-feature-keys",
-		RunE:    runGetFeatureKeysCmd,
-		Aliases: []string{"gfk"},
+		Example: "  growthbook features-v1 list-keys",
+		RunE:    runListKeysCmd,
+		Aliases: []string{"lk"},
 	}
-	flagutil.RegisterFlags(cmd, getFeatureKeysCmdMeta)
-	if err := flagutil.ValidateMeta[operations.GetFeatureKeysRequest](getFeatureKeysCmdMeta); err != nil {
-		return fmt.Errorf("invalid metadata for get-feature-keys: %w", err)
+	flagutil.RegisterFlags(cmd, listKeysCmdMeta)
+	if err := flagutil.ValidateMeta[operations.GetFeatureKeysRequest](listKeysCmdMeta); err != nil {
+		return fmt.Errorf("invalid metadata for list-keys: %w", err)
 	}
 	parent.AddCommand(cmd)
 	return nil
 }
 
-// runGetFeatureKeysCmd executes the get-feature-keys command.
-func runGetFeatureKeysCmd(cmd *cobra.Command, args []string) error {
+// runListKeysCmd executes the list-keys command.
+func runListKeysCmd(cmd *cobra.Command, args []string) error {
 	if usage.UsageRequested(cmd) {
 		return usage.EmitSchema(cmd, cmd.OutOrStdout())
 	}
-	if interactive.ShouldPrompt(cmd, getFeatureKeysCmdMeta) {
-		if err := interactive.PromptAndSetFlags(cmd, getFeatureKeysCmdMeta); err != nil {
+	if interactive.ShouldPrompt(cmd, listKeysCmdMeta) {
+		if err := interactive.PromptAndSetFlags(cmd, listKeysCmdMeta); err != nil {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.GetFeatureKeysRequest](cmd, getFeatureKeysCmdMeta, "", "")
+	req, err := flagutil.BuildRequest[operations.GetFeatureKeysRequest](cmd, listKeysCmdMeta, "", "")
 	if err != nil {
 		return err
 	}
@@ -69,7 +69,7 @@ func runGetFeatureKeysCmd(cmd *cobra.Command, args []string) error {
 	if output.WantsRawJSON(cmd) {
 		sdkOpts = append(sdkOpts, operations.WithSkipDeserialization())
 	}
-	res, err := s.FeaturesV1.GetFeatureKeys(cmd.Context(), req, sdkOpts...)
+	res, err := s.FeaturesV1.ListKeys(cmd.Context(), req, sdkOpts...)
 	if err != nil {
 		return output.Error(cmd, err)
 	}

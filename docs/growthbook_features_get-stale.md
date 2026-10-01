@@ -1,4 +1,4 @@
-## growthbook features get-feature-stale
+## growthbook features get-stale
 
 Get stale status for one or more features
 
@@ -7,19 +7,19 @@ Get stale status for one or more features
 Get stale status for one or more features
 
 ```
-growthbook features get-feature-stale [flags]
+growthbook features get-stale [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook features get-feature-stale --ids <value>
+  growthbook features get-stale --ids <value>
 ```
 
 ### Options
 
 ```
-  -h, --help                             help for get-feature-stale
+  -h, --help                             help for get-stale
   -i, --ids my_feature,another_feature   Comma-separated list of feature IDs (URL-encoded if needed). Example: my_feature,another_feature
                                           [required]
 ```
@@ -50,4 +50,4 @@ growthbook features get-feature-stale [flags]
 
 ### SEE ALSO
 
-* [growthbook features](growthbook_features.md)	 - Control your feature flags programatically
+* [growthbook features](growthbook_features.md)	 - Control your feature flags programmatically

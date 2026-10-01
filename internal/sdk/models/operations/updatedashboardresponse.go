@@ -6,9 +6,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/growthbook/cli/v2/internal/sdk/models/components"
-	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v3/internal/sdk/models/components"
+	"github.com/growthbook/cli/v3/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 )
 
 type UpdateDashboardBlockComparison1 struct {
@@ -2057,6 +2057,8 @@ type UpdateDashboardRequestBody struct {
 	// Dashboard-wide compare-to-previous-period. Takes precedence over any per-block comparison.
 	Comparison *UpdateDashboardComparison   `json:"comparison,omitzero"`
 	Blocks     []UpdateDashboardBlockUnion1 `json:"blocks,omitzero"`
+	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. Omit to leave the current owner unchanged.
+	Owner *string `json:"owner,omitzero"`
 }
 
 func (u UpdateDashboardRequestBody) MarshalJSON() ([]byte, error) {
@@ -2145,6 +2147,13 @@ func (u *UpdateDashboardRequestBody) GetBlocks() []UpdateDashboardBlockUnion1 {
 		return nil
 	}
 	return u.Blocks
+}
+
+func (u *UpdateDashboardRequestBody) GetOwner() *string {
+	if u == nil {
+		return nil
+	}
+	return u.Owner
 }
 
 type UpdateDashboardRequest struct {

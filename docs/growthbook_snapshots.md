@@ -43,5 +43,4 @@ growthbook snapshots [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
-* [growthbook snapshots create-snapshot](growthbook_snapshots_create-snapshot.md)	 - Create Experiment Snapshot
 * [growthbook snapshots get-experiment](growthbook_snapshots_get-experiment.md)	 - Get an experiment snapshot status

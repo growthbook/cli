@@ -18,8 +18,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
-	"github.com/growthbook/cli/v2/internal/sdk/types"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v3/internal/sdk/types"
 )
 
 // FlagKind describes what kind of value a flag carries.

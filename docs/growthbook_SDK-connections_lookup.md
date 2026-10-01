@@ -1,26 +1,26 @@
-## growthbook features get-feature-keys
+## growthbook SDK-connections lookup
 
-Get list of feature keys
+Find a single sdk connection by its key
 
 ### Synopsis
 
-Get list of feature keys
+Find a single sdk connection by its key
 
 ```
-growthbook features get-feature-keys [flags]
+growthbook SDK-connections lookup [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook features get-feature-keys
+  growthbook SDK-connections lookup --key <key>
 ```
 
 ### Options
 
 ```
-  -h, --help                help for get-feature-keys
-  -p, --project-id string   Filter by project id
+  -h, --help         help for lookup
+  -k, --key string   The key of the requested sdkConnection [required]
 ```
 
 ### Options inherited from parent commands
@@ -49,4 +49,4 @@ growthbook features get-feature-keys [flags]
 
 ### SEE ALSO
 
-* [growthbook features](growthbook_features.md)	 - Control your feature flags programatically
+* [growthbook SDK-connections](growthbook_SDK-connections.md)	 - Client keys and settings for connecting SDKs to a GrowthBook instance

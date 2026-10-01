@@ -4,7 +4,7 @@ growthbook SDK-connections create  [--allowed-custom-fields-in-metadata --body -
 growthbook SDK-connections delete  [--id]
 growthbook SDK-connections get  [--id]
 growthbook SDK-connections list  [--all --limit --max-pages --multi-org --offset --project-id --with-proxy]
-growthbook SDK-connections lookup-SDK-connection-by-key  [--key]
+growthbook SDK-connections lookup  [--key]
 growthbook SDK-connections update  [--allowed-custom-fields-in-metadata --body --encrypt-payload --environment --hash-secure-attributes --id --include-custom-fields-in-metadata --include-draft-experiment-refs --include-draft-experiments --include-experiment-names --include-experiment-schedule-in-metadata --include-project-id-in-metadata --include-redirect-experiments --include-referenced-prerequisites --include-rule-ids --include-tags-in-metadata --include-visual-experiments --language --name --projects --proxy-enabled --proxy-host --remote-eval-enabled --saved-group-format --saved-group-references-enabled --sdk-version]
 growthbook analytics-explorations
 growthbook analytics-explorations get  [--id]
@@ -155,12 +155,13 @@ growthbook custom-hooks revert  [--audit-id --body --id]
 growthbook custom-hooks test  [--body --entity-id --entity-type --function-args --function-body --original-function-args]
 growthbook custom-hooks update  [--body --code --enabled --entity-id --entity-type --hook --id --incremental-changes-only --name --projects]
 growthbook dashboards
-growthbook dashboards create  [--blocks --body --comparison --edit-level --enable-auto-updates --experiment-id --global-controls --projects --share-level --title --update-schedule --update-schedule.cron --update-schedule.cron.cron --update-schedule.stale --update-schedule.stale.hours]
+growthbook dashboards create  [--blocks --body --comparison --edit-level --enable-auto-updates --experiment-id --global-controls --owner --projects --share-level --title --update-schedule --update-schedule.cron --update-schedule.cron.cron --update-schedule.stale --update-schedule.stale.hours]
+growthbook dashboards create-v1  [--blocks --body --comparison --edit-level --enable-auto-updates --experiment-id --global-controls --projects --share-level --title --update-schedule --update-schedule.cron --update-schedule.cron.cron --update-schedule.stale --update-schedule.stale.hours]
 growthbook dashboards delete  [--id]
 growthbook dashboards get  [--id]
 growthbook dashboards list
 growthbook dashboards list-for-experiment  [--experiment-id]
-growthbook dashboards update  [--blocks --body --comparison --edit-level --enable-auto-updates --global-controls --id --projects --share-level --title --update-schedule --update-schedule.cron --update-schedule.cron.cron --update-schedule.stale --update-schedule.stale.hours]
+growthbook dashboards update  [--blocks --body --comparison --edit-level --enable-auto-updates --global-controls --id --owner --projects --share-level --title --update-schedule --update-schedule.cron --update-schedule.cron.cron --update-schedule.stale --update-schedule.stale.hours]
 growthbook data-sources
 growthbook data-sources get  [--id]
 growthbook data-sources get-information-schema  [--data-source-id]
@@ -296,9 +297,9 @@ growthbook features
 growthbook features create  [--archived --base-config --body --comment --custom-fields --default-value --default-value-config --description --environments --id --ignore-warnings --json-schema --owner --prerequisites --project --rules --skip-hooks --skip-schema-validation --tags --targeting-all-projects --targeting-projects --value-type]
 growthbook features delete  [--id]
 growthbook features get  [--id --with-revisions]
-growthbook features get-feature-keys  [--project-id]
-growthbook features get-feature-stale  [--ids]
+growthbook features get-stale  [--ids]
 growthbook features list  [--all --archived --client-key --limit --max-pages --offset --project-id --skip-pagination]
+growthbook features list-keys  [--project-id]
 growthbook features revert  [--body --comment --id --ignore-warnings --revision --skip-hooks --skip-schema-validation]
 growthbook features toggle  [--body --comment --environments --id --reason]
 growthbook features update  [--archived --base-config --body --comment --custom-fields --default-value --default-value-config --description --environments --holdout --id --ignore-warnings --json-schema --owner --prerequisites --project --rules --skip-hooks --skip-schema-validation --tags --targeting-all-projects --targeting-projects]
@@ -306,9 +307,9 @@ growthbook features-v1
 growthbook features-v1 create  [--archived --base-config --body --comment --custom-fields --default-value --description --environments --id --ignore-warnings --json-schema --owner --prerequisites --project --skip-hooks --skip-schema-validation --tags --targeting-all-projects --targeting-projects --value-type]
 growthbook features-v1 delete  [--id]
 growthbook features-v1 get  [--id --with-revisions]
-growthbook features-v1 get-feature-keys  [--project-id]
-growthbook features-v1 get-feature-stale  [--ids]
+growthbook features-v1 get-stale  [--ids]
 growthbook features-v1 list  [--all --client-key --limit --max-pages --offset --project-id --skip-pagination]
+growthbook features-v1 list-keys  [--project-id]
 growthbook features-v1 revert  [--body --comment --id --ignore-warnings --revision --skip-hooks --skip-schema-validation]
 growthbook features-v1 toggle  [--body --comment --environments --id --reason]
 growthbook features-v1 update  [--archived --base-config --body --comment --custom-fields --default-value --description --environments --holdout --id --ignore-warnings --json-schema --owner --prerequisites --project --skip-hooks --skip-schema-validation --tags --targeting-all-projects --targeting-projects]
@@ -332,7 +333,7 @@ growthbook learnings update  [--body --contradicting-experiment-ids --id --proje
 growthbook members
 growthbook members delete  [--id]
 growthbook members list  [--all --global-role --limit --max-pages --offset --user-email --user-name]
-growthbook members update-member-role  [--body --id --member]
+growthbook members update-role  [--body --id --member]
 growthbook meta
 growthbook meta get-version
 growthbook metric-groups
@@ -388,7 +389,7 @@ growthbook ramp-schedules create  [--body --cutoff-date --end-actions --environm
 growthbook ramp-schedules delete  [--id]
 growthbook ramp-schedules eject-target  [--body --environment --id --rule-id --target-id]
 growthbook ramp-schedules get  [--id]
-growthbook ramp-schedules get-ramp-schedule-status  [--id]
+growthbook ramp-schedules get-status  [--id]
 growthbook ramp-schedules jump  [--body --id --target-step-index]
 growthbook ramp-schedules list  [--all --feature-id --limit --max-pages --offset --status]
 growthbook ramp-schedules pause  [--id]
@@ -400,9 +401,9 @@ growthbook ramp-schedules set-auto-update  [--body --enabled --id]
 growthbook ramp-schedules set-monitoring-mode  [--body --id --monitoring-mode]
 growthbook ramp-schedules start  [--id]
 growthbook ramp-schedules update  [--body --cutoff-date --end-actions --experiment-health-action --id --lockdown-config --monitoring-config --name --start-actions --start-date --steps]
-growthbook ramp-schedules update-ramp-schedule-lockdown  [--body --id --mode]
-growthbook ramp-schedules update-ramp-schedule-monitoring  [--auto-update --body --datasource-id --exposure-query-id --guardrail-metric-ids --id --monitoring-mode --multiple-exposure-action --no-traffic-action --no-traffic-grace-period-hours --signal-metric-ids --srm-action --update-schedule-minutes]
-growthbook ramp-schedules update-ramp-schedule-steps  [--body --id --steps]
+growthbook ramp-schedules update-lockdown  [--body --id --mode]
+growthbook ramp-schedules update-monitoring  [--auto-update --body --datasource-id --exposure-query-id --guardrail-metric-ids --id --monitoring-mode --multiple-exposure-action --no-traffic-action --no-traffic-grace-period-hours --signal-metric-ids --srm-action --update-schedule-minutes]
+growthbook ramp-schedules update-steps  [--body --id --steps]
 growthbook releases
 growthbook releases publish-revisions  [--body --comment --ignore-warnings --revisions --skip-hooks --skip-schema-validation --validate-only]
 growthbook reports
@@ -440,7 +441,7 @@ growthbook saved-groups archive  [--body --id --ignore-warnings]
 growthbook saved-groups create  [--attribute-key --body --bypass-approval --condition --name --owner --projects --type --values]
 growthbook saved-groups delete  [--id]
 growthbook saved-groups get  [--id]
-growthbook saved-groups get-saved-group-references  [--id]
+growthbook saved-groups get-references  [--id]
 growthbook saved-groups list  [--all --limit --max-pages --offset]
 growthbook saved-groups unarchive  [--id]
 growthbook saved-groups update  [--body --bypass-approval --condition --id --name --owner --projects --values]
@@ -454,15 +455,14 @@ growthbook settings
 growthbook settings get
 growthbook settings set-approvals  [--approval-flows --body --require-reviews --targeting-review-mode]
 growthbook snapshots
-growthbook snapshots create-snapshot  [--body --dimension --id --phase --triggered-by]
 growthbook snapshots get-experiment  [--id]
 growthbook teams
-growthbook teams add-team-members  [--body --id --members]
+growthbook teams add-members  [--body --id --members]
 growthbook teams create  [--body --created-by --default-project --description --environments --limit-access-by-environment --managed-by --name --project-roles --role]
 growthbook teams delete  [--delete-members --id]
 growthbook teams get  [--id]
 growthbook teams list
-growthbook teams remove-team-member  [--body --id --members]
+growthbook teams remove-members  [--body --id --members]
 growthbook teams update  [--body --created-by --default-project --description --environments --id --limit-access-by-environment --managed-by --name --project-roles --role]
 growthbook usage-metrics
 growthbook usage-metrics get  [--ids]

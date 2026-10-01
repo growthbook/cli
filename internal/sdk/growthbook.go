@@ -8,13 +8,13 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/growthbook/cli/v2/internal/sdk/models/components"
-	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
-	"github.com/growthbook/cli/v2/internal/sdk/models/sdkerrors"
-	"github.com/growthbook/cli/v2/internal/sdk/retry"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/config"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/hooks"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v3/internal/sdk/models/components"
+	"github.com/growthbook/cli/v3/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v3/internal/sdk/models/sdkerrors"
+	"github.com/growthbook/cli/v3/internal/sdk/retry"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/config"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/hooks"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 	"net/http"
 	"net/url"
 	"time"
@@ -61,7 +61,7 @@ func Pointer[T any](v T) *T { return &v }
 // Authenticate with a Secret Key or Personal Access Token via `--bearer-auth` (or the `GBCLI_BEARER_AUTH` environment variable). Run `growthbook configure` to store credentials, or `growthbook whoami` to check the active configuration.
 type Growthbook struct {
 	SDKVersion string
-	// Control your feature flags programatically.
+	// Control your feature flags programmatically.
 	//
 	// **These are v1 endpoints.** New integrations should use the v2 Feature Flags endpoints, which expose a unified per-rule environment scope instead of per-environment rule arrays.
 	FeaturesV1 *FeaturesV1
@@ -69,7 +69,7 @@ type Growthbook struct {
 	//
 	// **These are v1 endpoints.** New integrations should use the v2 Feature Revisions endpoints.
 	FeatureRevisionsV1 *FeatureRevisionsV1
-	// Control your feature flags programatically.
+	// Control your feature flags programmatically.
 	//
 	// Rules are returned as a unified top-level array; each rule carries `allEnvironments` / `environments` scope fields instead of being bucketed by environment.
 	Features *Features
@@ -81,11 +81,11 @@ type Growthbook struct {
 	Archetypes *Archetypes
 	// Experiments (A/B Tests)
 	Experiments *Experiments
-	// Experiment Snapshots (the individual updates of an experiment)
-	Snapshots *Snapshots
 	// Groups of visual changes made by the visual editor to a single page
 	VisualChangesets  *VisualChangesets
 	ContextualBandits *ContextualBandits
+	// Experiment Snapshots (the individual updates of an experiment)
+	Snapshots *Snapshots
 	// Metrics used as goals and guardrails for experiments
 	Metrics      *Metrics
 	UsageMetrics *UsageMetrics
@@ -257,7 +257,7 @@ func New(opts ...SDKOption) *Growthbook {
 	sdk := &Growthbook{
 		SDKVersion: "0.0.1",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/go 0.0.1 2.930.0 5.1.0 github.com/growthbook/cli/v2/internal/sdk",
+			UserAgent:  "speakeasy-sdk/go 0.0.1 2.930.0 5.1.0 github.com/growthbook/cli/v3/internal/sdk",
 			ServerList: ServerList,
 			ServerVariables: []map[string]string{
 				{},
@@ -285,9 +285,9 @@ func New(opts ...SDKOption) *Growthbook {
 	sdk.FeatureRevisions = newFeatureRevisions(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Archetypes = newArchetypes(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Experiments = newExperiments(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Snapshots = newSnapshots(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.VisualChangesets = newVisualChangesets(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.ContextualBandits = newContextualBandits(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Snapshots = newSnapshots(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Metrics = newMetrics(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.UsageMetrics = newUsageMetrics(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Segments = newSegments(sdk, sdk.sdkConfiguration, sdk.hooks)

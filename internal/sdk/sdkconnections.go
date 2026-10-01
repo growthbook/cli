@@ -6,12 +6,12 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/growthbook/cli/v2/internal/sdk/models/components"
-	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
-	"github.com/growthbook/cli/v2/internal/sdk/models/sdkerrors"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/config"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/hooks"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v3/internal/sdk/models/components"
+	"github.com/growthbook/cli/v3/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v3/internal/sdk/models/sdkerrors"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/config"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/hooks"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 	"github.com/spyzhov/ajson"
 	"net/http"
 	"net/url"
@@ -815,8 +815,8 @@ func (s *SDKConnections) DeleteSDKConnection(ctx context.Context, request operat
 
 }
 
-// LookupSDKConnectionByKey - Find a single sdk connection by its key
-func (s *SDKConnections) LookupSDKConnectionByKey(ctx context.Context, request operations.LookupSDKConnectionByKeyRequest, opts ...operations.Option) (*operations.LookupSDKConnectionByKeyResponse, error) {
+// Lookup - Find a single sdk connection by its key
+func (s *SDKConnections) Lookup(ctx context.Context, request operations.LookupSDKConnectionByKeyRequest, opts ...operations.Option) (*operations.LookupSDKConnectionByKeyResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

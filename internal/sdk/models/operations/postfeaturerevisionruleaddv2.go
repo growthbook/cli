@@ -6,10 +6,10 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/growthbook/cli/v2/internal/sdk/models/components"
-	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
-	"github.com/growthbook/cli/v2/internal/sdk/types"
+	"github.com/growthbook/cli/v3/internal/sdk/models/components"
+	"github.com/growthbook/cli/v3/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v3/internal/sdk/types"
 	"time"
 )
 

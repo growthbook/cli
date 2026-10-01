@@ -82,7 +82,7 @@ iwr -useb https://raw.githubusercontent.com/growthbook/cli/main/scripts/install.
 Alternatively, install directly via Go:
 
 ```bash
-go install github.com/growthbook/cli/v2/cmd/growthbook@latest
+go install github.com/growthbook/cli/v3/cmd/growthbook@latest
 ```
 
 ### Manual Download
@@ -234,8 +234,8 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`~~delete~~`](docs/growthbook_features-v1_delete.md) - Deletes a single feature :warning: **Deprecated**
 * [`~~toggle~~`](docs/growthbook_features-v1_toggle.md) - Toggle a feature in one or more environments :warning: **Deprecated**
 * [`~~revert~~`](docs/growthbook_features-v1_revert.md) - Revert a feature to a specific revision :warning: **Deprecated**
-* [`~~get-feature-keys~~`](docs/growthbook_features-v1_get-feature-keys.md) - Get list of feature keys :warning: **Deprecated**
-* [`~~get-feature-stale~~`](docs/growthbook_features-v1_get-feature-stale.md) - Get stale status for one or more features :warning: **Deprecated**
+* [`~~list-keys~~`](docs/growthbook_features-v1_list-keys.md) - Get list of feature keys :warning: **Deprecated**
+* [`~~get-stale~~`](docs/growthbook_features-v1_get-stale.md) - Get stale status for one or more features :warning: **Deprecated**
 
 ### [feature-revisions-v1](docs/growthbook_feature-revisions-v1.md)
 
@@ -273,8 +273,8 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`delete`](docs/growthbook_features_delete.md) - Deletes a single feature
 * [`toggle`](docs/growthbook_features_toggle.md) - Toggle a feature in one or more environments
 * [`revert`](docs/growthbook_features_revert.md) - Revert a feature to a specific revision
-* [`get-feature-keys`](docs/growthbook_features_get-feature-keys.md) - Get list of feature keys
-* [`get-feature-stale`](docs/growthbook_features_get-feature-stale.md) - Get stale status for one or more features
+* [`list-keys`](docs/growthbook_features_list-keys.md) - Get list of feature keys
+* [`get-stale`](docs/growthbook_features_get-stale.md) - Get stale status for one or more features
 
 ### [feature-revisions](docs/growthbook_feature-revisions.md)
 
@@ -340,11 +340,6 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`list-names`](docs/growthbook_experiments_list-names.md) - Get a list of experiments with names and ids
 * [`post-comment`](docs/growthbook_experiments_post-comment.md) - Post a comment on an experiment
 
-### [snapshots](docs/growthbook_snapshots.md)
-
-* [`create-snapshot`](docs/growthbook_snapshots_create-snapshot.md) - Create Experiment Snapshot
-* [`get-experiment`](docs/growthbook_snapshots_get-experiment.md) - Get an experiment snapshot status
-
 ### [visual-changesets](docs/growthbook_visual-changesets.md)
 
 * [`list`](docs/growthbook_visual-changesets_list.md) - Get all visual changesets
@@ -375,6 +370,10 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`refresh`](docs/growthbook_contextual-bandits_refresh.md) - Trigger a Contextual Bandit snapshot refresh
 * [`update-variations`](docs/growthbook_contextual-bandits_update-variations.md) - Add or remove Contextual Bandit variations
 * [`cancel`](docs/growthbook_contextual-bandits_cancel.md) - Cancel a running Contextual Bandit snapshot refresh
+
+### [snapshots](docs/growthbook_snapshots.md)
+
+* [`get-experiment`](docs/growthbook_snapshots_get-experiment.md) - Get an experiment snapshot status
 
 ### [metrics](docs/growthbook_metrics.md)
 
@@ -434,7 +433,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`get`](docs/growthbook_SDK-connections_get.md) - Get a single sdk connection
 * [`update`](docs/growthbook_SDK-connections_update.md) - Update a single sdk connection
 * [`delete`](docs/growthbook_SDK-connections_delete.md) - Deletes a single SDK connection
-* [`lookup-SDK-connection-by-key`](docs/growthbook_SDK-connections_lookup-SDK-connection-by-key.md) - Find a single sdk connection by its key
+* [`lookup`](docs/growthbook_SDK-connections_lookup.md) - Find a single sdk connection by its key
 
 ### [data-sources](docs/growthbook_data-sources.md)
 
@@ -456,7 +455,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`delete`](docs/growthbook_saved-groups_delete.md) - Deletes a single saved group
 * [`archive`](docs/growthbook_saved-groups_archive.md) - Archive a single saved group
 * [`unarchive`](docs/growthbook_saved-groups_unarchive.md) - Unarchive a single saved group
-* [`get-saved-group-references`](docs/growthbook_saved-groups_get-saved-group-references.md) - Get features, experiments, and saved groups that reference this saved group
+* [`get-references`](docs/growthbook_saved-groups_get-references.md) - Get features, experiments, and saved groups that reference this saved group
 
 ### [saved-group-revisions](docs/growthbook_saved-group-revisions.md)
 
@@ -620,7 +619,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 ### [members](docs/growthbook_members.md)
 
 * [`list`](docs/growthbook_members_list.md) - Get all organization members
-* [`update-member-role`](docs/growthbook_members_update-member-role.md) - Update a member's global role (including any enviroment restrictions, if applicable). Can also update a member's project roles if your plan supports it.
+* [`update-role`](docs/growthbook_members_update-role.md) - Update a member's global role (including any environment restrictions, if applicable). Can also update a member's project roles if your plan supports it.
 * [`delete`](docs/growthbook_members_delete.md) - Removes a single user from an organization
 
 ### [queries](docs/growthbook_queries.md)
@@ -651,12 +650,12 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`add-target`](docs/growthbook_ramp-schedules_add-target.md) - Add a target rule to a ramp schedule
 * [`eject-target`](docs/growthbook_ramp-schedules_eject-target.md) - Remove a target rule from a ramp schedule
 * [`api-advance`](docs/growthbook_ramp-schedules_api-advance.md) - Advance to the next step, overriding any holds
-* [`get-ramp-schedule-status`](docs/growthbook_ramp-schedules_get-ramp-schedule-status.md) - Get ramp schedule status summary
+* [`get-status`](docs/growthbook_ramp-schedules_get-status.md) - Get ramp schedule status summary
 * [`set-monitoring-mode`](docs/growthbook_ramp-schedules_set-monitoring-mode.md) - Set ramp monitoring mode
 * [`set-auto-update`](docs/growthbook_ramp-schedules_set-auto-update.md) - Toggle automatic monitoring updates
-* [`update-ramp-schedule-monitoring`](docs/growthbook_ramp-schedules_update-ramp-schedule-monitoring.md) - Update ramp monitoring configuration
-* [`update-ramp-schedule-lockdown`](docs/growthbook_ramp-schedules_update-ramp-schedule-lockdown.md) - Update ramp lockdown configuration
-* [`update-ramp-schedule-steps`](docs/growthbook_ramp-schedules_update-ramp-schedule-steps.md) - Update ramp schedule steps
+* [`update-monitoring`](docs/growthbook_ramp-schedules_update-monitoring.md) - Update ramp monitoring configuration
+* [`update-lockdown`](docs/growthbook_ramp-schedules_update-lockdown.md) - Update ramp lockdown configuration
+* [`update-steps`](docs/growthbook_ramp-schedules_update-steps.md) - Update ramp schedule steps
 * [`refresh-monitoring`](docs/growthbook_ramp-schedules_refresh-monitoring.md) - Trigger a manual monitoring update
 * [`get`](docs/growthbook_ramp-schedules_get.md) - Get a single rampSchedule
 * [`delete`](docs/growthbook_ramp-schedules_delete.md) - Delete a single rampSchedule
@@ -686,8 +685,9 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`get`](docs/growthbook_dashboards_get.md) - Get a single dashboard
 * [`delete`](docs/growthbook_dashboards_delete.md) - Delete a single dashboard
 * [`update`](docs/growthbook_dashboards_update.md) - Update a single dashboard
-* [`create`](docs/growthbook_dashboards_create.md) - Create a single dashboard
+* [`~~create-v1~~`](docs/growthbook_dashboards_create-v1.md) - Create a single dashboard :warning: **Deprecated**
 * [`list`](docs/growthbook_dashboards_list.md) - Get all dashboards
+* [`create`](docs/growthbook_dashboards_create.md) - Create a single dashboard
 * [`list-for-experiment`](docs/growthbook_dashboards_list-for-experiment.md) - Get all dashboards for an experiment
 
 ### [contextual-bandit-queries](docs/growthbook_contextual-bandit-queries.md)
@@ -721,8 +721,8 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`delete`](docs/growthbook_teams_delete.md) - Delete a single team
 * [`create`](docs/growthbook_teams_create.md) - Create a single team
 * [`list`](docs/growthbook_teams_list.md) - Get all teams
-* [`add-team-members`](docs/growthbook_teams_add-team-members.md) - Add members to team
-* [`remove-team-member`](docs/growthbook_teams_remove-team-member.md) - Remove members from team
+* [`add-members`](docs/growthbook_teams_add-members.md) - Add members to team
+* [`remove-members`](docs/growthbook_teams_remove-members.md) - Remove members from team
 
 ### [experiment-templates](docs/growthbook_experiment-templates.md)
 

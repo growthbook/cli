@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/growthbook/cli/v2/internal/sdk/types"
+	"github.com/growthbook/cli/v3/internal/sdk/types"
 )
 
 // UnionCandidate represents a candidate type during union deserialization

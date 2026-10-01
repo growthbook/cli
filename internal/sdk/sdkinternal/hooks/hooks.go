@@ -5,7 +5,7 @@ package hooks
 import (
 	"context"
 	"errors"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/config"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/config"
 	"net/http"
 )
 

@@ -4,26 +4,26 @@ package dashboards
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/v2/internal/client"
-	"github.com/growthbook/cli/v2/internal/flagutil"
-	"github.com/growthbook/cli/v2/internal/interactive"
-	"github.com/growthbook/cli/v2/internal/output"
-	"github.com/growthbook/cli/v2/internal/sdk"
-	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
-	"github.com/growthbook/cli/v2/internal/usage"
+	"github.com/growthbook/cli/v3/internal/client"
+	"github.com/growthbook/cli/v3/internal/flagutil"
+	"github.com/growthbook/cli/v3/internal/interactive"
+	"github.com/growthbook/cli/v3/internal/output"
+	"github.com/growthbook/cli/v3/internal/sdk"
+	"github.com/growthbook/cli/v3/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v3/internal/usage"
 	"github.com/spf13/cobra"
 )
 
-var createDashboardCmdMeta = []flagutil.FlagMeta{
+var createCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "title", Shorthand: "t", FieldPath: "Title", Kind: flagutil.FlagKindString, Required: true, Description: "The display name of the Dashboard [required]"},
 	{FlagName: "edit-level", FieldPath: "EditLevel", Kind: flagutil.FlagKindEnum, Required: true, EnumValues: []string{"published", "private"}, Description: "Dashboards that are \"published\" are editable by organization members with appropriate permissions (options: published, private) [required]"},
 	{FlagName: "share-level", Shorthand: "s", FieldPath: "ShareLevel", Kind: flagutil.FlagKindEnum, Required: true, EnumValues: []string{"published", "private"}, Description: "General Dashboards only. Dashboards that are \"published\" are viewable by organization members with appropriate permissions (options: published, private) [required]"},
 	{FlagName: "enable-auto-updates", FieldPath: "EnableAutoUpdates", Kind: flagutil.FlagKindBool, Required: true, Description: "If enabled for a General Dashboard, also requires an updateSchedule [required]"},
 	{FlagName: "update-schedule", Shorthand: "u", FieldPath: "UpdateSchedule", Kind: flagutil.FlagKindUnion, Union: &flagutil.UnionMeta{Discriminated: true, DiscriminatorKey: "Type", Optional: true, TypeDescription: "JSON value (variants: stale: { hours: number }, cron: { cron: string })", Variants: []flagutil.UnionVariantMeta{
-		{DiscriminatorValue: "stale", FlagName: "update-schedule.stale", FieldName: "CreateDashboardUpdateScheduleStale", CanExpand: true, Description: "createDashboard_updateSchedule_Stale variant as JSON", Fields: []flagutil.FlagMeta{
+		{DiscriminatorValue: "stale", FlagName: "update-schedule.stale", FieldName: "CreateDashboardV2UpdateScheduleStale", CanExpand: true, Description: "createDashboardV2_updateSchedule_Stale variant as JSON", Fields: []flagutil.FlagMeta{
 			{FlagName: "update-schedule.stale.hours", FieldPath: "Hours", Kind: flagutil.FlagKindFloat64, Required: true, Description: "[required]"},
 		}},
-		{DiscriminatorValue: "cron", FlagName: "update-schedule.cron", FieldName: "CreateDashboardUpdateScheduleCron", CanExpand: true, Description: "createDashboard_updateSchedule_Cron variant as JSON", Fields: []flagutil.FlagMeta{
+		{DiscriminatorValue: "cron", FlagName: "update-schedule.cron", FieldName: "CreateDashboardV2UpdateScheduleCron", CanExpand: true, Description: "createDashboardV2_updateSchedule_Cron variant as JSON", Fields: []flagutil.FlagMeta{
 			{FlagName: "update-schedule.cron.cron", FieldPath: "Cron", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 		}},
 	}}},
@@ -32,37 +32,38 @@ var createDashboardCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "global-controls", Shorthand: "g", FieldPath: "GlobalControls", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"globalControls,omitempty"`, Description: "JSON object"},
 	{FlagName: "comparison", Shorthand: "c", FieldPath: "Comparison", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"comparison,omitempty"`, Description: "Dashboard-wide compare-to-previous-period. Takes precedence over any per-block comparison."},
 	{FlagName: "blocks", Shorthand: "b", FieldPath: "Blocks", Kind: flagutil.FlagKindJSON, Required: true, Annotations: `json:"blocks"`, Description: "[required]"},
+	{FlagName: "owner", FieldPath: "Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. Optional when authenticating with a Personal Access Token (PAT): when omitted, the owner defaults to the PAT's user. Required when authenticating with an organization secret API key (which has no associated user): omitting it fails with a 400. A private dashboard created with an organization secret API key can only be retrieved or updated using its owner's Personal Access Token (PAT)."},
 }
 
-// initCreateDashboardCmd initializes the create-dashboard command.
-func initCreateDashboardCmd(parent *cobra.Command) error {
+// initCreateCmd initializes the create command.
+func initCreateCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "create",
 		Short:   "Create a single dashboard",
 		Long:    "Create a single dashboard",
-		Example: "  growthbook dashboards create --title <value> --edit-level private --share-level private --enable-auto-updates true --blocks '[{\"type\":\"experiment-metric\",\"title\":\"<value>\",\"description\":\"or oily ew via out supposing phew vanish athwart\",\"snapshotId\":\"<id>\",\"experimentId\":\"<id>\",\"metricIds\":[],\"variationIds\":[],\"baselineRow\":536.55,\"differenceType\":\"relative\",\"columnsFilter\":[\"Baseline Average\"],\"sliceTagsFilter\":[\"<value 1>\",\"<value 2>\",\"<value 3>\"],\"metricTagFilter\":[\"<value 1>\",\"<value 2>\"],\"sortBy\":\"metricTags\",\"sortDirection\":\"desc\"}]'",
-		RunE:    runCreateDashboardCmd,
+		Example: "  growthbook dashboards create --title <value> --edit-level private --share-level private --enable-auto-updates false --blocks '[{\"type\":\"markdown\",\"title\":\"<value>\",\"description\":\"sermon blah affiliate before like officially gah doorpost actually\",\"content\":\"<value>\"}]'",
+		RunE:    runCreateCmd,
 	}
-	flagutil.RegisterFlags(cmd, createDashboardCmdMeta)
-	if err := flagutil.ValidateMeta[operations.CreateDashboardRequest](createDashboardCmdMeta); err != nil {
-		return fmt.Errorf("invalid metadata for create-dashboard: %w", err)
+	flagutil.RegisterFlags(cmd, createCmdMeta)
+	if err := flagutil.ValidateMeta[operations.CreateDashboardV2Request](createCmdMeta); err != nil {
+		return fmt.Errorf("invalid metadata for create: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
 	parent.AddCommand(cmd)
 	return nil
 }
 
-// runCreateDashboardCmd executes the create-dashboard command.
-func runCreateDashboardCmd(cmd *cobra.Command, args []string) error {
+// runCreateCmd executes the create command.
+func runCreateCmd(cmd *cobra.Command, args []string) error {
 	if usage.UsageRequested(cmd) {
 		return usage.EmitSchema(cmd, cmd.OutOrStdout())
 	}
-	if interactive.ShouldPrompt(cmd, createDashboardCmdMeta) {
-		if err := interactive.PromptAndSetFlags(cmd, createDashboardCmdMeta); err != nil {
+	if interactive.ShouldPrompt(cmd, createCmdMeta) {
+		if err := interactive.PromptAndSetFlags(cmd, createCmdMeta); err != nil {
 			return err
 		}
 	}
-	request, err := flagutil.BuildRequest[operations.CreateDashboardRequest](cmd, createDashboardCmdMeta, "", "body")
+	request, err := flagutil.BuildRequest[operations.CreateDashboardV2Request](cmd, createCmdMeta, "", "body")
 	if err != nil {
 		return err
 	}
@@ -85,7 +86,7 @@ func runCreateDashboardCmd(cmd *cobra.Command, args []string) error {
 	if output.WantsRawJSON(cmd) {
 		sdkOpts = append(sdkOpts, operations.WithSkipDeserialization())
 	}
-	res, err := s.Dashboards.CreateDashboard(cmd.Context(), *request, sdkOpts...)
+	res, err := s.Dashboards.Create(cmd.Context(), *request, sdkOpts...)
 	if err != nil {
 		return output.Error(cmd, err)
 	}

@@ -6,18 +6,18 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/growthbook/cli/v2/internal/sdk/models/components"
-	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
-	"github.com/growthbook/cli/v2/internal/sdk/models/sdkerrors"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/config"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/hooks"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v3/internal/sdk/models/components"
+	"github.com/growthbook/cli/v3/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v3/internal/sdk/models/sdkerrors"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/config"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/hooks"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 	"github.com/spyzhov/ajson"
 	"net/http"
 	"net/url"
 )
 
-// Features - Control your feature flags programatically.
+// Features - Control your feature flags programmatically.
 //
 // Rules are returned as a unified top-level array; each rule carries `allEnvironments` / `environments` scope fields instead of being bucketed by environment.
 type Features struct {
@@ -1157,8 +1157,8 @@ func (s *Features) Revert(ctx context.Context, request operations.RevertFeatureV
 
 }
 
-// GetFeatureKeys - Get list of feature keys
-func (s *Features) GetFeatureKeys(ctx context.Context, request *operations.GetFeatureKeysV2Request, opts ...operations.Option) (*operations.GetFeatureKeysV2Response, error) {
+// ListKeys - Get list of feature keys
+func (s *Features) ListKeys(ctx context.Context, request *operations.GetFeatureKeysV2Request, opts ...operations.Option) (*operations.GetFeatureKeysV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1305,8 +1305,8 @@ func (s *Features) GetFeatureKeys(ctx context.Context, request *operations.GetFe
 
 }
 
-// GetFeatureStale - Get stale status for one or more features
-func (s *Features) GetFeatureStale(ctx context.Context, request operations.GetFeatureStaleV2Request, opts ...operations.Option) (*operations.GetFeatureStaleV2Response, error) {
+// GetStale - Get stale status for one or more features
+func (s *Features) GetStale(ctx context.Context, request operations.GetFeatureStaleV2Request, opts ...operations.Option) (*operations.GetFeatureStaleV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

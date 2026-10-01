@@ -6,12 +6,12 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/growthbook/cli/v2/internal/sdk/models/components"
-	"github.com/growthbook/cli/v2/internal/sdk/models/operations"
-	"github.com/growthbook/cli/v2/internal/sdk/models/sdkerrors"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/config"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/hooks"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v3/internal/sdk/models/components"
+	"github.com/growthbook/cli/v3/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v3/internal/sdk/models/sdkerrors"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/config"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/hooks"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 	"net/http"
 	"net/url"
 )
@@ -768,8 +768,8 @@ func (s *Teams) ListTeams(ctx context.Context, opts ...operations.Option) (*oper
 
 }
 
-// AddTeamMembers - Add members to team
-func (s *Teams) AddTeamMembers(ctx context.Context, request operations.AddTeamMembersRequest, opts ...operations.Option) (*operations.AddTeamMembersResponse, error) {
+// AddMembers - Add members to team
+func (s *Teams) AddMembers(ctx context.Context, request operations.AddTeamMembersRequest, opts ...operations.Option) (*operations.AddTeamMembersResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -919,8 +919,8 @@ func (s *Teams) AddTeamMembers(ctx context.Context, request operations.AddTeamMe
 
 }
 
-// RemoveTeamMember - Remove members from team
-func (s *Teams) RemoveTeamMember(ctx context.Context, request operations.RemoveTeamMemberRequest, opts ...operations.Option) (*operations.RemoveTeamMemberResponse, error) {
+// RemoveMembers - Remove members from team
+func (s *Teams) RemoveMembers(ctx context.Context, request operations.RemoveTeamMemberRequest, opts ...operations.Option) (*operations.RemoveTeamMemberResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

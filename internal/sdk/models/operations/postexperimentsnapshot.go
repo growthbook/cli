@@ -5,11 +5,11 @@ package operations
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/growthbook/cli/v2/internal/sdk/models/components"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v3/internal/sdk/models/components"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 )
 
-// TriggeredBy - Set to "schedule" if you want this request to trigger notifications and other events as it if were a scheduled update. Defaults to manual.
+// TriggeredBy - Set to "schedule" if you want this request to trigger notifications and other events as if it were a scheduled update. Defaults to manual.
 type TriggeredBy string
 
 const (
@@ -37,7 +37,7 @@ func (e *TriggeredBy) UnmarshalJSON(data []byte) error {
 }
 
 type PostExperimentSnapshotRequestBody struct {
-	// Set to "schedule" if you want this request to trigger notifications and other events as it if were a scheduled update. Defaults to manual.
+	// Set to "schedule" if you want this request to trigger notifications and other events as if it were a scheduled update. Defaults to manual.
 	TriggeredBy *TriggeredBy `json:"triggeredBy,omitzero"`
 	// Dimension to break results down by. For Unit Dimensions, use the dimension id (e.g. "dim_abc123"). For Experiment Dimensions, use "exp:<dimensionName>" (e.g. "exp:country"). Built-in pre-exposure dimensions include "pre:date" and, when configured, "pre:activation". Use "cutoff:<ISO datetime>" (e.g. "cutoff:2026-01-15T00:12:00.000Z") to split units by whether they were first exposed before or after the cutoff; it must fall within the phase dates. Use "combo:<dimA>::<dimB>" (e.g. "combo:exp:country::dim_abc123") to break down by the intersection of two dimensions, each an Experiment Dimension or Unit Dimension id; values beyond the top 20 combined slices are merged into "(other)". Omit this field to create a standard snapshot.
 	Dimension *string `json:"dimension,omitzero"`

@@ -1,28 +1,28 @@
-## growthbook features-v1 get-feature-keys
+## growthbook ramp-schedules update-lockdown
 
-Get list of feature keys
+Update ramp lockdown configuration
 
 ### Synopsis
 
-DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible
-
-**Deprecated.** Use [GET /v2/feature-keys](#operation/getFeatureKeysV2) instead.
+Sets the lockdown mode. `locked` prevents other users from publishing unrelated changes to the parent feature while the ramp is running — useful when you want to ensure no external edits interfere with a live rollout. It does **not** affect the ramp's own auto-advancement or monitoring behavior; use `actions/pause` to halt the ramp itself. `none` removes the publishing restriction.
 
 ```
-growthbook features-v1 get-feature-keys [flags]
+growthbook ramp-schedules update-lockdown [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook features-v1 get-feature-keys
+  growthbook ramp-schedules update-lockdown --id <id> --mode locked
 ```
 
 ### Options
 
 ```
-  -h, --help                help for get-feature-keys
-  -p, --project-id string   Filter by project id
+      --body string   Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -h, --help          help for update-lockdown
+  -i, --id string     [required]
+  -m, --mode string   options: none, locked [required]
 ```
 
 ### Options inherited from parent commands
@@ -51,4 +51,4 @@ growthbook features-v1 get-feature-keys [flags]
 
 ### SEE ALSO
 
-* [growthbook features-v1](growthbook_features-v1.md)	 - Control your feature flags programatically
+* [growthbook ramp-schedules](growthbook_ramp-schedules.md)	 - Multi-step rollout schedules that gradually increase feature rule traffic over time, with optional real-time monitoring

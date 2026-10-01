@@ -3,8 +3,8 @@
 package components
 
 import (
-	"github.com/growthbook/cli/v2/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/v2/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v3/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 	"time"
 )
 
@@ -940,7 +940,7 @@ func (f *FactMetricPriorSettings) GetStddev() float64 {
 type RegressionAdjustmentSettings struct {
 	// If false, the organization default settings will be used
 	Override bool `json:"override"`
-	// Controls whether or not regresion adjustment is applied to the metric
+	// Controls whether or not regression adjustment is applied to the metric
 	Enabled *bool `json:"enabled,omitzero"`
 	// Number of pre-exposure days to use for the regression adjustment
 	Days *float64 `json:"days,omitzero"`
