@@ -17,7 +17,7 @@ import (
 	"net/url"
 )
 
-// Features - Control your feature flags programatically.
+// Features - Control your feature flags programmatically.
 //
 // Rules are returned as a unified top-level array; each rule carries `allEnvironments` / `environments` scope fields instead of being bucketed by environment.
 type Features struct {

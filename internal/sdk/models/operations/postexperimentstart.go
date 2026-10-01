@@ -10,7 +10,7 @@ import (
 )
 
 type PostExperimentStartRequestBody struct {
-	// If true, skips validating the experiment satisifies all pre-launch checklist items
+	// If true, skips validating the experiment satisfies all pre-launch checklist items
 	SkipChecklist *bool `json:"skipChecklist,omitzero"`
 	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
 	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`

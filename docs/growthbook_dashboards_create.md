@@ -4,7 +4,11 @@ Create a single dashboard
 
 ### Synopsis
 
-Create a single dashboard
+DEPRECATED: This will be removed in a future release, please migrate away from it as soon as possible
+
+**Deprecated.** Use [POST /v2/dashboards](#operation/createDashboardV2) instead.
+
+This endpoint does not accept an `owner` and always assigns the dashboard to the authenticated user. A dashboard created with an organization secret API key, which has no associated user, therefore has no owner. The v2 endpoint accepts an `owner` (userId or email) and requires one when authenticating with an organization secret API key.
 
 ```
 growthbook dashboards create [flags]

@@ -32,6 +32,7 @@ var updateDashboardCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "global-controls", Shorthand: "g", FieldPath: "Body.GlobalControls", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"globalControls,omitempty"`, Description: "JSON object"},
 	{FlagName: "comparison", Shorthand: "c", FieldPath: "Body.Comparison", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"comparison,omitempty"`, Description: "Dashboard-wide compare-to-previous-period. Takes precedence over any per-block comparison."},
 	{FlagName: "blocks", Shorthand: "b", FieldPath: "Body.Blocks", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"blocks,omitempty"`, Description: "list of values"},
+	{FlagName: "owner", FieldPath: "Body.Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. Omit to leave the current owner unchanged."},
 }
 
 // initUpdateDashboardCmd initializes the update-dashboard command.

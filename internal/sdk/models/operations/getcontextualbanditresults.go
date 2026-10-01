@@ -555,6 +555,58 @@ func (e *GetContextualBanditResultsStatus) IsExact() bool {
 	return false
 }
 
+type QueryStatus string
+
+const (
+	QueryStatusQueued             QueryStatus = "queued"
+	QueryStatusRunning            QueryStatus = "running"
+	QueryStatusFailed             QueryStatus = "failed"
+	QueryStatusPartiallySucceeded QueryStatus = "partially-succeeded"
+	QueryStatusSucceeded          QueryStatus = "succeeded"
+)
+
+func (e QueryStatus) ToPointer() *QueryStatus {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *QueryStatus) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "queued", "running", "failed", "partially-succeeded", "succeeded":
+			return true
+		}
+	}
+	return false
+}
+
+type Query struct {
+	Query  string      `json:"query"`
+	Status QueryStatus `json:"status"`
+	Name   string      `json:"name"`
+}
+
+func (q *Query) GetQuery() string {
+	if q == nil {
+		return ""
+	}
+	return q.Query
+}
+
+func (q *Query) GetStatus() QueryStatus {
+	if q == nil {
+		return QueryStatus("")
+	}
+	return q.Status
+}
+
+func (q *Query) GetName() string {
+	if q == nil {
+		return ""
+	}
+	return q.Name
+}
+
 type Srm struct {
 	Statistic        float64 `json:"statistic"`
 	PValue           float64 `json:"pValue"`
@@ -586,7 +638,7 @@ type Latest struct {
 	ID                string                           `json:"id"`
 	Status            GetContextualBanditResultsStatus `json:"status"`
 	Error             string                           `json:"error"`
-	Queries           []any                            `json:"queries"`
+	Queries           []Query                          `json:"queries"`
 	RunStarted        *string                          `json:"runStarted"`
 	DateCreated       string                           `json:"dateCreated"`
 	MultipleExposures float64                          `json:"multipleExposures"`
@@ -616,9 +668,9 @@ func (l *Latest) GetError() string {
 	return l.Error
 }
 
-func (l *Latest) GetQueries() []any {
+func (l *Latest) GetQueries() []Query {
 	if l == nil {
-		return []any{}
+		return []Query{}
 	}
 	return l.Queries
 }

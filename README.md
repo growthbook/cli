@@ -620,7 +620,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 ### [members](docs/growthbook_members.md)
 
 * [`list`](docs/growthbook_members_list.md) - Get all organization members
-* [`update-member-role`](docs/growthbook_members_update-member-role.md) - Update a member's global role (including any enviroment restrictions, if applicable). Can also update a member's project roles if your plan supports it.
+* [`update-member-role`](docs/growthbook_members_update-member-role.md) - Update a member's global role (including any environment restrictions, if applicable). Can also update a member's project roles if your plan supports it.
 * [`delete`](docs/growthbook_members_delete.md) - Removes a single user from an organization
 
 ### [queries](docs/growthbook_queries.md)
@@ -686,8 +686,9 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`get`](docs/growthbook_dashboards_get.md) - Get a single dashboard
 * [`delete`](docs/growthbook_dashboards_delete.md) - Delete a single dashboard
 * [`update`](docs/growthbook_dashboards_update.md) - Update a single dashboard
-* [`create`](docs/growthbook_dashboards_create.md) - Create a single dashboard
+* [`~~create~~`](docs/growthbook_dashboards_create.md) - Create a single dashboard :warning: **Deprecated**
 * [`list`](docs/growthbook_dashboards_list.md) - Get all dashboards
+* [`create-dashboard-v2`](docs/growthbook_dashboards_create-dashboard-v2.md) - Create a single dashboard
 * [`list-for-experiment`](docs/growthbook_dashboards_list-for-experiment.md) - Get all dashboards for an experiment
 
 ### [contextual-bandit-queries](docs/growthbook_contextual-bandit-queries.md)

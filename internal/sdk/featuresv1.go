@@ -17,7 +17,7 @@ import (
 	"net/url"
 )
 
-// FeaturesV1 - Control your feature flags programatically.
+// FeaturesV1 - Control your feature flags programmatically.
 //
 // **These are v1 endpoints.** New integrations should use the v2 Feature Flags endpoints, which expose a unified per-rule environment scope instead of per-environment rule arrays.
 type FeaturesV1 struct {

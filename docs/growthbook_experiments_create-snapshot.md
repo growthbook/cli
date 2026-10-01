@@ -24,7 +24,7 @@ growthbook experiments create-snapshot [flags]
   -h, --help                  help for create-snapshot
   -i, --id string             The experiment id of the experiment to update [required]
   -p, --phase int             Zero-based phase index to snapshot, where 0 is the first experiment phase. Defaults to the latest phase.
-  -t, --triggered-by string   Set to "schedule" if you want this request to trigger notifications and other events as it if were a scheduled update. Defaults to manual. (options: manual, schedule)
+  -t, --triggered-by string   Set to "schedule" if you want this request to trigger notifications and other events as if it were a scheduled update. Defaults to manual. (options: manual, schedule)
 ```
 
 ### Options inherited from parent commands

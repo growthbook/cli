@@ -52,4 +52,4 @@ growthbook features-v1 get [flags]
 
 ### SEE ALSO
 
-* [growthbook features-v1](growthbook_features-v1.md)	 - Control your feature flags programatically
+* [growthbook features-v1](growthbook_features-v1.md)	 - Control your feature flags programmatically

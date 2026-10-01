@@ -61,7 +61,7 @@ func Pointer[T any](v T) *T { return &v }
 // Authenticate with a Secret Key or Personal Access Token via `--bearer-auth` (or the `GBCLI_BEARER_AUTH` environment variable). Run `growthbook configure` to store credentials, or `growthbook whoami` to check the active configuration.
 type Growthbook struct {
 	SDKVersion string
-	// Control your feature flags programatically.
+	// Control your feature flags programmatically.
 	//
 	// **These are v1 endpoints.** New integrations should use the v2 Feature Flags endpoints, which expose a unified per-rule environment scope instead of per-environment rule arrays.
 	FeaturesV1 *FeaturesV1
@@ -69,7 +69,7 @@ type Growthbook struct {
 	//
 	// **These are v1 endpoints.** New integrations should use the v2 Feature Revisions endpoints.
 	FeatureRevisionsV1 *FeatureRevisionsV1
-	// Control your feature flags programatically.
+	// Control your feature flags programmatically.
 	//
 	// Rules are returned as a unified top-level array; each rule carries `allEnvironments` / `environments` scope fields instead of being bucketed by environment.
 	Features *Features

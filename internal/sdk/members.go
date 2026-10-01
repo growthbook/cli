@@ -225,7 +225,7 @@ func (s *Members) ListMembers(ctx context.Context, request *operations.ListMembe
 
 }
 
-// UpdateMemberRole - Update a member's global role (including any enviroment restrictions, if applicable). Can also update a member's project roles if your plan supports it.
+// UpdateMemberRole - Update a member's global role (including any environment restrictions, if applicable). Can also update a member's project roles if your plan supports it.
 func (s *Members) UpdateMemberRole(ctx context.Context, request operations.UpdateMemberRoleRequest, opts ...operations.Option) (*operations.UpdateMemberRoleResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{

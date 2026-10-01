@@ -44,6 +44,7 @@ growthbook dashboards [flags]
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
 * [growthbook dashboards create](growthbook_dashboards_create.md)	 - Create a single dashboard
+* [growthbook dashboards create-dashboard-v2](growthbook_dashboards_create-dashboard-v2.md)	 - Create a single dashboard
 * [growthbook dashboards delete](growthbook_dashboards_delete.md)	 - Delete a single dashboard
 * [growthbook dashboards get](growthbook_dashboards_get.md)	 - Get a single dashboard
 * [growthbook dashboards list](growthbook_dashboards_list.md)	 - Get all dashboards

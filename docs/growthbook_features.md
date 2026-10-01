@@ -1,10 +1,10 @@
 ## growthbook features
 
-Control your feature flags programatically
+Control your feature flags programmatically
 
 ### Synopsis
 
-Control your feature flags programatically.
+Control your feature flags programmatically.
 
 Rules are returned as a unified top-level array; each rule carries `allEnvironments` / `environments` scope fields instead of being bucketed by environment.
 

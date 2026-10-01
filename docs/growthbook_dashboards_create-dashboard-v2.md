@@ -1,40 +1,40 @@
-## growthbook dashboards update
+## growthbook dashboards create-dashboard-v2
 
-Update a single dashboard
+Create a single dashboard
 
 ### Synopsis
 
-Update a single dashboard
+Create a single dashboard
 
 ```
-growthbook dashboards update [flags]
+growthbook dashboards create-dashboard-v2 [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook dashboards update --id <id>
+  growthbook dashboards create-dashboard-v2 --title <value> --edit-level private --share-level private --enable-auto-updates false --blocks '[{"type":"markdown","title":"<value>","description":"sermon blah affiliate before like officially gah doorpost actually","content":"<value>"}]'
 ```
 
 ### Options
 
 ```
-  -b, --blocks string                       list of values
+  -b, --blocks string                       [required]
       --body string                         Request body as JSON (alternative to individual flags). Can also be provided via stdin.
   -c, --comparison string                   Dashboard-wide compare-to-previous-period. Takes precedence over any per-block comparison.
-      --edit-level string                   Dashboards that are "published" are editable by organization members with appropriate permissions (options: published, private)
-      --enable-auto-updates                 If enabled for a General Dashboard, also requires an updateSchedule
+      --edit-level string                   Dashboards that are "published" are editable by organization members with appropriate permissions (options: published, private) [required]
+      --enable-auto-updates                 If enabled for a General Dashboard, also requires an updateSchedule [required]
+      --experiment-id string                The parent experiment for an Experiment Dashboard, or undefined for a general dashboard
   -g, --global-controls string              JSON object
-  -h, --help                                help for update
-  -i, --id string                           [required]
-      --owner string                        The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. Omit to leave the current owner unchanged.
+  -h, --help                                help for create-dashboard-v2
+      --owner string                        The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. Optional when authenticating with a Personal Access Token (PAT): when omitted, the owner defaults to the PAT's user. Required when authenticating with an organization secret API key (which has no associated user): omitting it fails with a 400. A private dashboard created with an organization secret API key can only be retrieved or updated using its owner's Personal Access Token (PAT).
   -p, --projects stringArray                General Dashboards only, Experiment Dashboards use the experiment's projects
-  -s, --share-level string                  General Dashboards only. Dashboards that are "published" are viewable by organization members with appropriate permissions (options: published, private)
-  -t, --title string                        The display name of the Dashboard
+  -s, --share-level string                  General Dashboards only. Dashboards that are "published" are viewable by organization members with appropriate permissions (options: published, private) [required]
+  -t, --title string                        The display name of the Dashboard [required]
   -u, --update-schedule string              JSON value (variants: stale: { hours: number }, cron: { cron: string })
-      --update-schedule.cron string         updateDashboard_updateSchedule_Cron variant as JSON
+      --update-schedule.cron string         createDashboardV2_updateSchedule_Cron variant as JSON
       --update-schedule.cron.cron string    [required]
-      --update-schedule.stale string        updateDashboard_updateSchedule_Stale variant as JSON
+      --update-schedule.stale string        createDashboardV2_updateSchedule_Stale variant as JSON
       --update-schedule.stale.hours float   [required]
 ```
 

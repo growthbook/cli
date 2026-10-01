@@ -10,8 +10,8 @@ import (
 func InitFeaturesRoot(parent *cobra.Command) error {
 	var FeaturesCmd = &cobra.Command{
 		Use:   "features",
-		Short: "Control your feature flags programatically",
-		Long:  "Control your feature flags programatically.\n\nRules are returned as a unified top-level array; each rule carries `allEnvironments` / `environments` scope fields instead of being bucketed by environment.",
+		Short: "Control your feature flags programmatically",
+		Long:  "Control your feature flags programmatically.\n\nRules are returned as a unified top-level array; each rule carries `allEnvironments` / `environments` scope fields instead of being bucketed by environment.",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if usage.UsageRequested(cmd) {
 				return usage.EmitSchema(cmd, cmd.OutOrStdout())
