@@ -1035,9 +1035,44 @@ func (e *FeatureRevisionV2MultipleExposureAction2) IsExact() bool {
 	return false
 }
 
+// FeatureRevisionV2ExposureQuery2 - The assignment query, grouping its ID with the identifier type analyzed on.
+type FeatureRevisionV2ExposureQuery2 struct {
+	// The ID of one of the data source's assignment queries.
+	ID string `json:"id"`
+	// The identifier type analyzed on. Null when none can be resolved: no assignment query is selected, or a record saved before identifier types were stored points at a query that no longer exists.
+	IdentifierType *string `json:"identifierType"`
+}
+
+func (f FeatureRevisionV2ExposureQuery2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
+}
+
+func (f *FeatureRevisionV2ExposureQuery2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (f *FeatureRevisionV2ExposureQuery2) GetID() string {
+	if f == nil {
+		return ""
+	}
+	return f.ID
+}
+
+func (f *FeatureRevisionV2ExposureQuery2) GetIdentifierType() *string {
+	if f == nil {
+		return nil
+	}
+	return f.IdentifierType
+}
+
+// #region class-body-featurerevisionv2exposurequery2
+// #endregion class-body-featurerevisionv2exposurequery2
+
 type FeatureRevisionV2MonitoringConfig2 struct {
 	DatasourceID          string                                     `json:"datasourceId"`
-	ExposureQueryID       string                                     `json:"exposureQueryId"`
 	GuardrailMetricIds    []string                                   `json:"guardrailMetricIds"`
 	SignalMetricIds       []string                                   `json:"signalMetricIds,omitzero"`
 	UpdateScheduleMinutes optionalnullable.OptionalNullable[float64] `json:"updateScheduleMinutes,omitzero"`
@@ -1048,6 +1083,12 @@ type FeatureRevisionV2MonitoringConfig2 struct {
 	// How long to wait for traffic before applying `noTrafficAction`. Defaults to 24 hours when null or not set.
 	NoTrafficGracePeriodHours optionalnullable.OptionalNullable[float64] `json:"noTrafficGracePeriodHours,omitzero"`
 	MultipleExposureAction    *FeatureRevisionV2MultipleExposureAction2  `json:"multipleExposureAction,omitzero"`
+	// The assignment query, grouping its ID with the identifier type analyzed on.
+	ExposureQuery FeatureRevisionV2ExposureQuery2 `json:"exposureQuery"`
+	// Deprecated: use `exposureQuery`.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ExposureQueryID string `json:"exposureQueryId"`
 }
 
 func (f FeatureRevisionV2MonitoringConfig2) MarshalJSON() ([]byte, error) {
@@ -1066,13 +1107,6 @@ func (f *FeatureRevisionV2MonitoringConfig2) GetDatasourceID() string {
 		return ""
 	}
 	return f.DatasourceID
-}
-
-func (f *FeatureRevisionV2MonitoringConfig2) GetExposureQueryID() string {
-	if f == nil {
-		return ""
-	}
-	return f.ExposureQueryID
 }
 
 func (f *FeatureRevisionV2MonitoringConfig2) GetGuardrailMetricIds() []string {
@@ -1136,6 +1170,20 @@ func (f *FeatureRevisionV2MonitoringConfig2) GetMultipleExposureAction() *Featur
 		return nil
 	}
 	return f.MultipleExposureAction
+}
+
+func (f *FeatureRevisionV2MonitoringConfig2) GetExposureQuery() FeatureRevisionV2ExposureQuery2 {
+	if f == nil {
+		return FeatureRevisionV2ExposureQuery2{}
+	}
+	return f.ExposureQuery
+}
+
+func (f *FeatureRevisionV2MonitoringConfig2) GetExposureQueryID() string {
+	if f == nil {
+		return ""
+	}
+	return f.ExposureQueryID
 }
 
 // #region class-body-featurerevisionv2monitoringconfig2
@@ -2093,9 +2141,44 @@ func (e *FeatureRevisionV2MultipleExposureAction1) IsExact() bool {
 	return false
 }
 
+// FeatureRevisionV2ExposureQuery1 - The assignment query, grouping its ID with the identifier type analyzed on.
+type FeatureRevisionV2ExposureQuery1 struct {
+	// The ID of one of the data source's assignment queries.
+	ID string `json:"id"`
+	// The identifier type analyzed on. Null when none can be resolved: no assignment query is selected, or a record saved before identifier types were stored points at a query that no longer exists.
+	IdentifierType *string `json:"identifierType"`
+}
+
+func (f FeatureRevisionV2ExposureQuery1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
+}
+
+func (f *FeatureRevisionV2ExposureQuery1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (f *FeatureRevisionV2ExposureQuery1) GetID() string {
+	if f == nil {
+		return ""
+	}
+	return f.ID
+}
+
+func (f *FeatureRevisionV2ExposureQuery1) GetIdentifierType() *string {
+	if f == nil {
+		return nil
+	}
+	return f.IdentifierType
+}
+
+// #region class-body-featurerevisionv2exposurequery1
+// #endregion class-body-featurerevisionv2exposurequery1
+
 type FeatureRevisionV2MonitoringConfig1 struct {
 	DatasourceID          string                                     `json:"datasourceId"`
-	ExposureQueryID       string                                     `json:"exposureQueryId"`
 	GuardrailMetricIds    []string                                   `json:"guardrailMetricIds"`
 	SignalMetricIds       []string                                   `json:"signalMetricIds,omitzero"`
 	UpdateScheduleMinutes optionalnullable.OptionalNullable[float64] `json:"updateScheduleMinutes,omitzero"`
@@ -2106,6 +2189,12 @@ type FeatureRevisionV2MonitoringConfig1 struct {
 	// How long to wait for traffic before applying `noTrafficAction`. Defaults to 24 hours when null or not set.
 	NoTrafficGracePeriodHours optionalnullable.OptionalNullable[float64] `json:"noTrafficGracePeriodHours,omitzero"`
 	MultipleExposureAction    *FeatureRevisionV2MultipleExposureAction1  `json:"multipleExposureAction,omitzero"`
+	// The assignment query, grouping its ID with the identifier type analyzed on.
+	ExposureQuery FeatureRevisionV2ExposureQuery1 `json:"exposureQuery"`
+	// Deprecated: use `exposureQuery`.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ExposureQueryID string `json:"exposureQueryId"`
 }
 
 func (f FeatureRevisionV2MonitoringConfig1) MarshalJSON() ([]byte, error) {
@@ -2124,13 +2213,6 @@ func (f *FeatureRevisionV2MonitoringConfig1) GetDatasourceID() string {
 		return ""
 	}
 	return f.DatasourceID
-}
-
-func (f *FeatureRevisionV2MonitoringConfig1) GetExposureQueryID() string {
-	if f == nil {
-		return ""
-	}
-	return f.ExposureQueryID
 }
 
 func (f *FeatureRevisionV2MonitoringConfig1) GetGuardrailMetricIds() []string {
@@ -2194,6 +2276,20 @@ func (f *FeatureRevisionV2MonitoringConfig1) GetMultipleExposureAction() *Featur
 		return nil
 	}
 	return f.MultipleExposureAction
+}
+
+func (f *FeatureRevisionV2MonitoringConfig1) GetExposureQuery() FeatureRevisionV2ExposureQuery1 {
+	if f == nil {
+		return FeatureRevisionV2ExposureQuery1{}
+	}
+	return f.ExposureQuery
+}
+
+func (f *FeatureRevisionV2MonitoringConfig1) GetExposureQueryID() string {
+	if f == nil {
+		return ""
+	}
+	return f.ExposureQueryID
 }
 
 // #region class-body-featurerevisionv2monitoringconfig1

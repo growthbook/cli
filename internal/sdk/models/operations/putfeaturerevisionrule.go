@@ -1061,9 +1061,30 @@ func (e *PutFeatureRevisionRuleMultipleExposureAction) UnmarshalJSON(data []byte
 	}
 }
 
+// PutFeatureRevisionRuleExposureQuery - The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `exposureQueryId`.
+type PutFeatureRevisionRuleExposureQuery struct {
+	// The ID of one of the data source's assignment queries.
+	ID string `json:"id"`
+	// The identifier type to analyze on, which the query must declare. Required when selecting a different assignment query that declares several. Otherwise defaults to the current identifier type, or the query's only one. Null is treated as omitted, so a response's value can be sent back.
+	IdentifierType optionalnullable.OptionalNullable[string] `json:"identifierType,omitzero"`
+}
+
+func (p *PutFeatureRevisionRuleExposureQuery) GetID() string {
+	if p == nil {
+		return ""
+	}
+	return p.ID
+}
+
+func (p *PutFeatureRevisionRuleExposureQuery) GetIdentifierType() optionalnullable.OptionalNullable[string] {
+	if p == nil {
+		return nil
+	}
+	return p.IdentifierType
+}
+
 type PutFeatureRevisionRuleMonitoringConfig struct {
 	DatasourceID          string                                     `json:"datasourceId"`
-	ExposureQueryID       string                                     `json:"exposureQueryId"`
 	GuardrailMetricIds    []string                                   `json:"guardrailMetricIds"`
 	SignalMetricIds       []string                                   `json:"signalMetricIds,omitzero"`
 	UpdateScheduleMinutes optionalnullable.OptionalNullable[float64] `json:"updateScheduleMinutes,omitzero"`
@@ -1074,6 +1095,12 @@ type PutFeatureRevisionRuleMonitoringConfig struct {
 	// How long to wait for traffic before applying `noTrafficAction`. Defaults to 24 hours when null or not set.
 	NoTrafficGracePeriodHours optionalnullable.OptionalNullable[float64]    `json:"noTrafficGracePeriodHours,omitzero"`
 	MultipleExposureAction    *PutFeatureRevisionRuleMultipleExposureAction `json:"multipleExposureAction,omitzero"`
+	// The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `exposureQueryId`.
+	ExposureQuery *PutFeatureRevisionRuleExposureQuery `json:"exposureQuery,omitzero"`
+	// Deprecated: use `exposureQuery`. Rejected when selecting a different assignment query that declares several identifier types; set `exposureQuery.identifierType` instead.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ExposureQueryID *string `json:"exposureQueryId,omitzero"`
 }
 
 func (p PutFeatureRevisionRuleMonitoringConfig) MarshalJSON() ([]byte, error) {
@@ -1092,13 +1119,6 @@ func (p *PutFeatureRevisionRuleMonitoringConfig) GetDatasourceID() string {
 		return ""
 	}
 	return p.DatasourceID
-}
-
-func (p *PutFeatureRevisionRuleMonitoringConfig) GetExposureQueryID() string {
-	if p == nil {
-		return ""
-	}
-	return p.ExposureQueryID
 }
 
 func (p *PutFeatureRevisionRuleMonitoringConfig) GetGuardrailMetricIds() []string {
@@ -1162,6 +1182,20 @@ func (p *PutFeatureRevisionRuleMonitoringConfig) GetMultipleExposureAction() *Pu
 		return nil
 	}
 	return p.MultipleExposureAction
+}
+
+func (p *PutFeatureRevisionRuleMonitoringConfig) GetExposureQuery() *PutFeatureRevisionRuleExposureQuery {
+	if p == nil {
+		return nil
+	}
+	return p.ExposureQuery
+}
+
+func (p *PutFeatureRevisionRuleMonitoringConfig) GetExposureQueryID() *string {
+	if p == nil {
+		return nil
+	}
+	return p.ExposureQueryID
 }
 
 type PutFeatureRevisionRuleMode string

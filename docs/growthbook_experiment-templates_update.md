@@ -19,30 +19,31 @@ growthbook experiment-templates update [flags]
 ### Options
 
 ```
-  -a, --activation-metric string        string value
-      --body string                     Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --custom-fields string            value
-      --custom-metric-slices string     list of values
-      --datasource string               string value
-      --description string              string value
-      --disable-sticky-bucketing        boolean flag
-  -e, --exposure-query-id string        string value
-  -f, --fallback-attribute string       string value
-      --goal-metrics stringArray        list of values
-      --guardrail-metrics stringArray   list of values
-      --hash-attribute string           string value
-  -h, --help                            help for update
-      --hypothesis string               string value
-  -i, --id string                       [required]
-  -p, --project string                  string value
-      --secondary-metrics stringArray   list of values
-      --segment string                  string value
-      --skip-partial-data               boolean flag
-      --stats-engine string             options: bayesian, frequentist
-      --tags stringArray                list of values
-      --targeting string                JSON object
-      --template-metadata string        JSON object
-      --type string                     options: standard
+  -a, --activation-metric string          string value
+      --body string                       Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --custom-fields string              value
+      --custom-metric-slices string       list of values
+      --datasource string                 string value
+      --description string                string value
+      --disable-sticky-bucketing          boolean flag
+      --exposure-query exposureQueryId    The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated exposureQueryId.
+      --exposure-query-id exposureQuery   Deprecated: use exposureQuery. Rejected when selecting a different assignment query that declares several identifier types; set `exposureQuery.identifierType` instead.
+  -f, --fallback-attribute string         string value
+      --goal-metrics stringArray          list of values
+      --guardrail-metrics stringArray     list of values
+      --hash-attribute string             string value
+  -h, --help                              help for update
+      --hypothesis string                 string value
+  -i, --id string                         [required]
+  -p, --project string                    string value
+      --secondary-metrics stringArray     list of values
+      --segment string                    string value
+      --skip-partial-data                 boolean flag
+      --stats-engine string               options: bayesian, frequentist
+      --tags stringArray                  list of values
+      --targeting string                  JSON object
+      --template-metadata string          JSON object
+      --type string                       options: standard
 ```
 
 ### Options inherited from parent commands

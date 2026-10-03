@@ -23,7 +23,8 @@ var createExperimentTemplateCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "tags", FieldPath: "Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
 	{FlagName: "custom-fields", FieldPath: "CustomFields", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"customFields,omitempty"`, Description: "value"},
 	{FlagName: "datasource", FieldPath: "Datasource", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "exposure-query-id", Shorthand: "e", FieldPath: "ExposureQueryID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
+	{FlagName: "exposure-query", FieldPath: "ExposureQuery", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"exposureQuery,omitempty"`, Description: "The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `exposureQueryId`."},
+	{FlagName: "exposure-query-id", FieldPath: "ExposureQueryID", Kind: flagutil.FlagKindString, Optional: true, Description: "Deprecated: use `exposureQuery`. Rejected when selecting a different assignment query that declares several identifier types; set `exposureQuery.identifierType` instead."},
 	{FlagName: "hash-attribute", FieldPath: "HashAttribute", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "fallback-attribute", Shorthand: "f", FieldPath: "FallbackAttribute", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "disable-sticky-bucketing", FieldPath: "DisableStickyBucketing", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
@@ -44,7 +45,7 @@ func initCreateExperimentTemplateCmd(parent *cobra.Command) error {
 		Use:     "create",
 		Short:   "Create a single experimentTemplate",
 		Long:    "Create a single experimentTemplate",
-		Example: "  growthbook experiment-templates create --template-metadata '{\"name\":\"<value>\"}' --type standard --datasource <value> --exposure-query-id <id> --stats-engine bayesian",
+		Example: "  growthbook experiment-templates create --template-metadata '{\"name\":\"<value>\"}' --type standard --datasource <value> --stats-engine bayesian --targeting '{\"coverage\":131.7,\"condition\":\"<value>\"}'",
 		RunE:    runCreateExperimentTemplateCmd,
 	}
 	flagutil.RegisterFlags(cmd, createExperimentTemplateCmdMeta)

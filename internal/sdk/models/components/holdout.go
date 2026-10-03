@@ -75,6 +75,28 @@ func (h *HoldoutSavedGroupTargeting) GetIds() []string {
 	return h.Ids
 }
 
+// HoldoutAssignmentQuery - The assignment query, grouping its ID with the identifier type analyzed on.
+type HoldoutAssignmentQuery struct {
+	// The ID of one of the data source's assignment queries.
+	ID string `json:"id"`
+	// The identifier type analyzed on. Null when none can be resolved: no assignment query is selected, or a record saved before identifier types were stored points at a query that no longer exists.
+	IdentifierType *string `json:"identifierType"`
+}
+
+func (h *HoldoutAssignmentQuery) GetID() string {
+	if h == nil {
+		return ""
+	}
+	return h.ID
+}
+
+func (h *HoldoutAssignmentQuery) GetIdentifierType() *string {
+	if h == nil {
+		return nil
+	}
+	return h.IdentifierType
+}
+
 // HoldoutStatsEngine - Statistics engine used to analyze this Holdout.
 type HoldoutStatsEngine string
 
@@ -330,9 +352,14 @@ type Holdout struct {
 	TargetingCondition  string                       `json:"targetingCondition"`
 	SavedGroupTargeting []HoldoutSavedGroupTargeting `json:"savedGroupTargeting,omitzero"`
 	DatasourceID        string                       `json:"datasourceId"`
-	AssignmentQueryID   string                       `json:"assignmentQueryId"`
-	GoalMetrics         []string                     `json:"goalMetrics"`
-	SecondaryMetrics    []string                     `json:"secondaryMetrics"`
+	// The assignment query, grouping its ID with the identifier type analyzed on.
+	AssignmentQuery HoldoutAssignmentQuery `json:"assignmentQuery"`
+	// Deprecated: use `assignmentQuery`.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	AssignmentQueryID string   `json:"assignmentQueryId"`
+	GoalMetrics       []string `json:"goalMetrics"`
+	SecondaryMetrics  []string `json:"secondaryMetrics"`
 	// Statistics engine used to analyze this Holdout.
 	StatsEngine *HoldoutStatsEngine `json:"statsEngine,omitzero"`
 	Variations  []HoldoutVariation  `json:"variations"`
@@ -492,6 +519,13 @@ func (h *Holdout) GetDatasourceID() string {
 		return ""
 	}
 	return h.DatasourceID
+}
+
+func (h *Holdout) GetAssignmentQuery() HoldoutAssignmentQuery {
+	if h == nil {
+		return HoldoutAssignmentQuery{}
+	}
+	return h.AssignmentQuery
 }
 
 func (h *Holdout) GetAssignmentQueryID() string {

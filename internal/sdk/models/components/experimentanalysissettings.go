@@ -7,6 +7,28 @@ import (
 	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 )
 
+// ExperimentAnalysisSettingsAssignmentQuery - The assignment query, grouping its ID with the identifier type analyzed on.
+type ExperimentAnalysisSettingsAssignmentQuery struct {
+	// The ID of one of the data source's assignment queries.
+	ID string `json:"id"`
+	// The identifier type analyzed on. Null when none can be resolved: no assignment query is selected, or a record saved before identifier types were stored points at a query that no longer exists.
+	IdentifierType *string `json:"identifierType"`
+}
+
+func (e *ExperimentAnalysisSettingsAssignmentQuery) GetID() string {
+	if e == nil {
+		return ""
+	}
+	return e.ID
+}
+
+func (e *ExperimentAnalysisSettingsAssignmentQuery) GetIdentifierType() *string {
+	if e == nil {
+		return nil
+	}
+	return e.IdentifierType
+}
+
 type InProgressConversions string
 
 const (
@@ -76,7 +98,12 @@ func (e *ExperimentAnalysisSettingsStatsEngine) IsExact() bool {
 }
 
 type ExperimentAnalysisSettings struct {
-	DatasourceID          string                `json:"datasourceId"`
+	DatasourceID string `json:"datasourceId"`
+	// The assignment query, grouping its ID with the identifier type analyzed on.
+	AssignmentQuery ExperimentAnalysisSettingsAssignmentQuery `json:"assignmentQuery"`
+	// Deprecated: use `assignmentQuery`.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	AssignmentQueryID     string                `json:"assignmentQueryId"`
 	ExperimentID          string                `json:"experimentId"`
 	SegmentID             string                `json:"segmentId"`
@@ -118,6 +145,13 @@ func (e *ExperimentAnalysisSettings) GetDatasourceID() string {
 		return ""
 	}
 	return e.DatasourceID
+}
+
+func (e *ExperimentAnalysisSettings) GetAssignmentQuery() ExperimentAnalysisSettingsAssignmentQuery {
+	if e == nil {
+		return ExperimentAnalysisSettingsAssignmentQuery{}
+	}
+	return e.AssignmentQuery
 }
 
 func (e *ExperimentAnalysisSettings) GetAssignmentQueryID() string {
