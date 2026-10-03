@@ -12,6 +12,28 @@ import (
 	"time"
 )
 
+// PostExperimentAssignmentQuery - The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `assignmentQueryId`. Can only be set if a templateId is not provided.
+type PostExperimentAssignmentQuery struct {
+	// The ID of one of the data source's assignment queries.
+	ID string `json:"id"`
+	// The identifier type to analyze on, which the query must declare. Required when selecting a different assignment query that declares several. Otherwise defaults to the current identifier type, or the query's only one. Null is treated as omitted, so a response's value can be sent back.
+	IdentifierType optionalnullable.OptionalNullable[string] `json:"identifierType,omitzero"`
+}
+
+func (p *PostExperimentAssignmentQuery) GetID() string {
+	if p == nil {
+		return ""
+	}
+	return p.ID
+}
+
+func (p *PostExperimentAssignmentQuery) GetIdentifierType() optionalnullable.OptionalNullable[string] {
+	if p == nil {
+		return nil
+	}
+	return p.IdentifierType
+}
+
 type PostExperimentType string
 
 const (
@@ -1165,7 +1187,11 @@ func (p *PostExperimentStatusUpdateSchedule) GetScheduledStopPlan() *components.
 type PostExperimentRequest struct {
 	// ID for the [DataSource](#tag/DataSource_model). Can only be set if a templateId is not provided.
 	DatasourceID *string `json:"datasourceId,omitzero"`
-	// The ID property of one of the assignment query objects associated with the datasource. Can only be set if a templateId is not provided.
+	// The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `assignmentQueryId`. Can only be set if a templateId is not provided.
+	AssignmentQuery *PostExperimentAssignmentQuery `json:"assignmentQuery,omitzero"`
+	// Deprecated: use `assignmentQuery`. Rejected when selecting a different assignment query that declares several identifier types; set `assignmentQuery.identifierType` instead. Can only be set if a templateId is not provided.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	AssignmentQueryID *string `json:"assignmentQueryId,omitzero"`
 	TrackingKey       string  `json:"trackingKey"`
 	// If true, allow creating an experiment even if another experiment with the same tracking key already exists. This is ignored if the organization requires unique tracking keys as a rule.
@@ -1260,6 +1286,13 @@ func (p *PostExperimentRequest) GetDatasourceID() *string {
 		return nil
 	}
 	return p.DatasourceID
+}
+
+func (p *PostExperimentRequest) GetAssignmentQuery() *PostExperimentAssignmentQuery {
+	if p == nil {
+		return nil
+	}
+	return p.AssignmentQuery
 }
 
 func (p *PostExperimentRequest) GetAssignmentQueryID() *string {

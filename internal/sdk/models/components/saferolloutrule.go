@@ -5,6 +5,7 @@ package components
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/growthbook/cli/v3/internal/sdk/optionalnullable"
 	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 )
 
@@ -95,6 +96,39 @@ func (s *SafeRolloutRulePrerequisite) GetCondition() string {
 		return ""
 	}
 	return s.Condition
+}
+
+// SafeRolloutRuleExposureQuery - The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `exposureQueryId`.
+type SafeRolloutRuleExposureQuery struct {
+	// The ID of one of the data source's assignment queries.
+	ID string `json:"id"`
+	// The identifier type to analyze on, which the query must declare. Required when selecting a different assignment query that declares several. Otherwise defaults to the current identifier type, or the query's only one. Null is treated as omitted, so a response's value can be sent back.
+	IdentifierType optionalnullable.OptionalNullable[string] `json:"identifierType,omitzero"`
+}
+
+func (s SafeRolloutRuleExposureQuery) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SafeRolloutRuleExposureQuery) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *SafeRolloutRuleExposureQuery) GetID() string {
+	if s == nil {
+		return ""
+	}
+	return s.ID
+}
+
+func (s *SafeRolloutRuleExposureQuery) GetIdentifierType() optionalnullable.OptionalNullable[string] {
+	if s == nil {
+		return nil
+	}
+	return s.IdentifierType
 }
 
 type SafeRolloutRuleUnit string
@@ -212,8 +246,13 @@ func (r *RampUpSchedule) GetSteps() []SafeRolloutRuleStep {
 }
 
 type SafeRolloutFields struct {
-	DatasourceID       string          `json:"datasourceId"`
-	ExposureQueryID    string          `json:"exposureQueryId"`
+	DatasourceID string `json:"datasourceId"`
+	// The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `exposureQueryId`.
+	ExposureQuery *SafeRolloutRuleExposureQuery `json:"exposureQuery,omitzero"`
+	// Deprecated: use `exposureQuery`. Rejected when selecting a different assignment query that declares several identifier types; set `exposureQuery.identifierType` instead.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ExposureQueryID    *string         `json:"exposureQueryId,omitzero"`
 	GuardrailMetricIds []string        `json:"guardrailMetricIds"`
 	MaxDuration        MaxDuration     `json:"maxDuration"`
 	AutoRollback       *bool           `json:"autoRollback,omitzero"`
@@ -238,9 +277,16 @@ func (s *SafeRolloutFields) GetDatasourceID() string {
 	return s.DatasourceID
 }
 
-func (s *SafeRolloutFields) GetExposureQueryID() string {
+func (s *SafeRolloutFields) GetExposureQuery() *SafeRolloutRuleExposureQuery {
 	if s == nil {
-		return ""
+		return nil
+	}
+	return s.ExposureQuery
+}
+
+func (s *SafeRolloutFields) GetExposureQueryID() *string {
+	if s == nil {
+		return nil
 	}
 	return s.ExposureQueryID
 }

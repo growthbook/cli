@@ -532,6 +532,28 @@ func (u LookbackOverrideUnion) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type LookbackOverrideUnion: all fields are null")
 }
 
+// ReportExposureQuery - The assignment query, grouping its ID with the identifier type analyzed on.
+type ReportExposureQuery struct {
+	// The ID of one of the data source's assignment queries.
+	ID string `json:"id"`
+	// The identifier type analyzed on. Null when none can be resolved: no assignment query is selected, or a record saved before identifier types were stored points at a query that no longer exists.
+	IdentifierType *string `json:"identifierType"`
+}
+
+func (r *ReportExposureQuery) GetID() string {
+	if r == nil {
+		return ""
+	}
+	return r.ID
+}
+
+func (r *ReportExposureQuery) GetIdentifierType() *string {
+	if r == nil {
+		return nil
+	}
+	return r.IdentifierType
+}
+
 type ReportAnalysisSettings struct {
 	StatsEngine      *ReportStatsEngine `json:"statsEngine,omitzero"`
 	GoalMetrics      []string           `json:"goalMetrics,omitzero"`
@@ -557,7 +579,11 @@ type ReportAnalysisSettings struct {
 	LookbackOverride *LookbackOverrideUnion `json:"lookbackOverride,omitzero"`
 	// Tracking key used to identify experiment exposures
 	TrackingKey *string `json:"trackingKey,omitzero"`
-	// Datasource exposure query ID (Assignment Table)
+	// The assignment query, grouping its ID with the identifier type analyzed on.
+	ExposureQuery *ReportExposureQuery `json:"exposureQuery,omitzero"`
+	// Deprecated: use `exposureQuery`.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	ExposureQueryID *string `json:"exposureQueryId,omitzero"`
 	// Segment ID to filter users by
 	Segment *string `json:"segment,omitzero"`
@@ -709,6 +735,13 @@ func (r *ReportAnalysisSettings) GetTrackingKey() *string {
 		return nil
 	}
 	return r.TrackingKey
+}
+
+func (r *ReportAnalysisSettings) GetExposureQuery() *ReportExposureQuery {
+	if r == nil {
+		return nil
+	}
+	return r.ExposureQuery
 }
 
 func (r *ReportAnalysisSettings) GetExposureQueryID() *string {

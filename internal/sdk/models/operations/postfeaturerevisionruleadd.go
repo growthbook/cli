@@ -479,6 +479,39 @@ func (e *PostFeatureRevisionRuleAddScheduleType2) UnmarshalJSON(data []byte) err
 	}
 }
 
+// RuleExposureQuery - The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `exposureQueryId`.
+type RuleExposureQuery struct {
+	// The ID of one of the data source's assignment queries.
+	ID string `json:"id"`
+	// The identifier type to analyze on, which the query must declare. Required when selecting a different assignment query that declares several. Otherwise defaults to the current identifier type, or the query's only one. Null is treated as omitted, so a response's value can be sent back.
+	IdentifierType optionalnullable.OptionalNullable[string] `json:"identifierType,omitzero"`
+}
+
+func (r RuleExposureQuery) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RuleExposureQuery) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RuleExposureQuery) GetID() string {
+	if r == nil {
+		return ""
+	}
+	return r.ID
+}
+
+func (r *RuleExposureQuery) GetIdentifierType() optionalnullable.OptionalNullable[string] {
+	if r == nil {
+		return nil
+	}
+	return r.IdentifierType
+}
+
 type PostFeatureRevisionRuleAddUnit string
 
 const (
@@ -594,8 +627,13 @@ func (r *RampUpSchedule) GetSteps() []RuleStep {
 }
 
 type SafeRolloutFields struct {
-	DatasourceID       string          `json:"datasourceId"`
-	ExposureQueryID    string          `json:"exposureQueryId"`
+	DatasourceID string `json:"datasourceId"`
+	// The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `exposureQueryId`.
+	ExposureQuery *RuleExposureQuery `json:"exposureQuery,omitzero"`
+	// Deprecated: use `exposureQuery`. Rejected when selecting a different assignment query that declares several identifier types; set `exposureQuery.identifierType` instead.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ExposureQueryID    *string         `json:"exposureQueryId,omitzero"`
 	GuardrailMetricIds []string        `json:"guardrailMetricIds"`
 	MaxDuration        MaxDuration     `json:"maxDuration"`
 	AutoRollback       *bool           `json:"autoRollback,omitzero"`
@@ -620,9 +658,16 @@ func (s *SafeRolloutFields) GetDatasourceID() string {
 	return s.DatasourceID
 }
 
-func (s *SafeRolloutFields) GetExposureQueryID() string {
+func (s *SafeRolloutFields) GetExposureQuery() *RuleExposureQuery {
 	if s == nil {
-		return ""
+		return nil
+	}
+	return s.ExposureQuery
+}
+
+func (s *SafeRolloutFields) GetExposureQueryID() *string {
+	if s == nil {
+		return nil
 	}
 	return s.ExposureQueryID
 }
@@ -1906,9 +1951,30 @@ func (e *PostFeatureRevisionRuleAddMultipleExposureAction) UnmarshalJSON(data []
 	}
 }
 
+// PostFeatureRevisionRuleAddRampScheduleExposureQuery - The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `exposureQueryId`.
+type PostFeatureRevisionRuleAddRampScheduleExposureQuery struct {
+	// The ID of one of the data source's assignment queries.
+	ID string `json:"id"`
+	// The identifier type to analyze on, which the query must declare. Required when selecting a different assignment query that declares several. Otherwise defaults to the current identifier type, or the query's only one. Null is treated as omitted, so a response's value can be sent back.
+	IdentifierType optionalnullable.OptionalNullable[string] `json:"identifierType,omitzero"`
+}
+
+func (p *PostFeatureRevisionRuleAddRampScheduleExposureQuery) GetID() string {
+	if p == nil {
+		return ""
+	}
+	return p.ID
+}
+
+func (p *PostFeatureRevisionRuleAddRampScheduleExposureQuery) GetIdentifierType() optionalnullable.OptionalNullable[string] {
+	if p == nil {
+		return nil
+	}
+	return p.IdentifierType
+}
+
 type PostFeatureRevisionRuleAddMonitoringConfig struct {
 	DatasourceID          string                                     `json:"datasourceId"`
-	ExposureQueryID       string                                     `json:"exposureQueryId"`
 	GuardrailMetricIds    []string                                   `json:"guardrailMetricIds"`
 	SignalMetricIds       []string                                   `json:"signalMetricIds,omitzero"`
 	UpdateScheduleMinutes optionalnullable.OptionalNullable[float64] `json:"updateScheduleMinutes,omitzero"`
@@ -1919,6 +1985,12 @@ type PostFeatureRevisionRuleAddMonitoringConfig struct {
 	// How long to wait for traffic before applying `noTrafficAction`. Defaults to 24 hours when null or not set.
 	NoTrafficGracePeriodHours optionalnullable.OptionalNullable[float64]        `json:"noTrafficGracePeriodHours,omitzero"`
 	MultipleExposureAction    *PostFeatureRevisionRuleAddMultipleExposureAction `json:"multipleExposureAction,omitzero"`
+	// The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `exposureQueryId`.
+	ExposureQuery *PostFeatureRevisionRuleAddRampScheduleExposureQuery `json:"exposureQuery,omitzero"`
+	// Deprecated: use `exposureQuery`. Rejected when selecting a different assignment query that declares several identifier types; set `exposureQuery.identifierType` instead.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ExposureQueryID *string `json:"exposureQueryId,omitzero"`
 }
 
 func (p PostFeatureRevisionRuleAddMonitoringConfig) MarshalJSON() ([]byte, error) {
@@ -1937,13 +2009,6 @@ func (p *PostFeatureRevisionRuleAddMonitoringConfig) GetDatasourceID() string {
 		return ""
 	}
 	return p.DatasourceID
-}
-
-func (p *PostFeatureRevisionRuleAddMonitoringConfig) GetExposureQueryID() string {
-	if p == nil {
-		return ""
-	}
-	return p.ExposureQueryID
 }
 
 func (p *PostFeatureRevisionRuleAddMonitoringConfig) GetGuardrailMetricIds() []string {
@@ -2007,6 +2072,20 @@ func (p *PostFeatureRevisionRuleAddMonitoringConfig) GetMultipleExposureAction()
 		return nil
 	}
 	return p.MultipleExposureAction
+}
+
+func (p *PostFeatureRevisionRuleAddMonitoringConfig) GetExposureQuery() *PostFeatureRevisionRuleAddRampScheduleExposureQuery {
+	if p == nil {
+		return nil
+	}
+	return p.ExposureQuery
+}
+
+func (p *PostFeatureRevisionRuleAddMonitoringConfig) GetExposureQueryID() *string {
+	if p == nil {
+		return nil
+	}
+	return p.ExposureQueryID
 }
 
 type PostFeatureRevisionRuleAddMode string
