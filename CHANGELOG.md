@@ -2,6 +2,32 @@
 
 ## [Unreleased]
 
+### Added
+
+- **`--owner` on `projects create` and `projects update`** sets the project's owner.
+- **`--assignment-query` on `experiments create|update` and `holdouts create|update`**, and
+  **`--exposure-query` on `experiment-templates create|update` and
+  `ramp-schedules update-monitoring`**. Each takes an object pairing the query ID with the
+  identifier type to analyze on: `{"id": "...", "identifierType": "..."}`.
+- Responses gain the same `assignmentQuery` / `exposureQuery` objects (experiments, holdouts,
+  experiment and ramp-schedule templates, ramp schedules, reports, safe-rollout rules), data
+  source assignment queries gain `identifierTypes`, and `saved-groups get-references` also
+  lists contextual bandits.
+
+### Fixed
+
+- **`feature-revisions set-metadata --json-schema`** (and `feature-revisions-v1
+  put-feature-revision-metadata`) no longer fails with a 400. The schema's `date` field is gone
+  from the request because the server sets it.
+
+### Deprecated
+
+- **`--assignment-query-id`** (`experiments`, `holdouts`) and **`--exposure-query-id`**
+  (`experiment-templates`, `ramp-schedules update-monitoring`). Use `--assignment-query` /
+  `--exposure-query` instead, e.g. `--assignment-query '{"id": "<old id>"}'`. The matching
+  `assignmentQueryId` / `exposureQueryId` response fields and data source `identifierType`
+  (now `identifierTypes`) are deprecated too.
+
 ## [3.0.0] - 2026-10-01
 
 Upgrading from 2.x: pass `--owner` to `dashboards create` if you authenticate with an
