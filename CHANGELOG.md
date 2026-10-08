@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [3.1.0] - 2026-10-08
+
 ### Added
 
 - **`--owner` on `projects create` and `projects update`** sets the project's owner.
