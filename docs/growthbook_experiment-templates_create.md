@@ -13,35 +13,36 @@ growthbook experiment-templates create [flags]
 ### Examples
 
 ```
-  growthbook experiment-templates create --template-metadata '{"name":"<value>"}' --type standard --datasource <value> --exposure-query-id <id> --stats-engine bayesian
+  growthbook experiment-templates create --template-metadata '{"name":"<value>"}' --type standard --datasource <value> --stats-engine bayesian --targeting '{"coverage":131.7,"condition":"<value>"}'
 ```
 
 ### Options
 
 ```
-  -a, --activation-metric string        string value
-      --body string                     Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --custom-fields string            value
-      --custom-metric-slices string     list of values
-      --datasource string               [required]
-      --description string              string value
-      --disable-sticky-bucketing        boolean flag
-  -e, --exposure-query-id string        [required]
-  -f, --fallback-attribute string       string value
-      --goal-metrics stringArray        list of values
-      --guardrail-metrics stringArray   list of values
-      --hash-attribute string           string value
-  -h, --help                            help for create
-      --hypothesis string               string value
-  -p, --project string                  string value
-      --secondary-metrics stringArray   list of values
-      --segment string                  string value
-      --skip-partial-data               boolean flag
-      --stats-engine string             options: bayesian, frequentist [required]
-      --tags stringArray                list of values
-      --targeting string                [required]
-      --template-metadata string        [required]
-      --type string                     options: standard [required]
+  -a, --activation-metric string          string value
+      --body string                       Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --custom-fields string              value
+      --custom-metric-slices string       list of values
+      --datasource string                 [required]
+      --description string                string value
+      --disable-sticky-bucketing          boolean flag
+      --exposure-query exposureQueryId    The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated exposureQueryId.
+      --exposure-query-id exposureQuery   Deprecated: use exposureQuery. Rejected when selecting a different assignment query that declares several identifier types; set `exposureQuery.identifierType` instead.
+  -f, --fallback-attribute string         string value
+      --goal-metrics stringArray          list of values
+      --guardrail-metrics stringArray     list of values
+      --hash-attribute string             string value
+  -h, --help                              help for create
+      --hypothesis string                 string value
+  -p, --project string                    string value
+      --secondary-metrics stringArray     list of values
+      --segment string                    string value
+      --skip-partial-data                 boolean flag
+      --stats-engine string               options: bayesian, frequentist [required]
+      --tags stringArray                  list of values
+      --targeting string                  [required]
+      --template-metadata string          [required]
+      --type string                       options: standard [required]
 ```
 
 ### Options inherited from parent commands

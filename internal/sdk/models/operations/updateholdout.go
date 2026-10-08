@@ -59,6 +59,28 @@ func (u *UpdateHoldoutSavedGroupTargeting) GetIds() []string {
 	return u.Ids
 }
 
+// UpdateHoldoutAssignmentQuery - The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `assignmentQueryId`.
+type UpdateHoldoutAssignmentQuery struct {
+	// The ID of one of the data source's assignment queries.
+	ID string `json:"id"`
+	// The identifier type to analyze on, which the query must declare. Required when selecting a different assignment query that declares several. Otherwise defaults to the current identifier type, or the query's only one. Null is treated as omitted, so a response's value can be sent back.
+	IdentifierType optionalnullable.OptionalNullable[string] `json:"identifierType,omitzero"`
+}
+
+func (u *UpdateHoldoutAssignmentQuery) GetID() string {
+	if u == nil {
+		return ""
+	}
+	return u.ID
+}
+
+func (u *UpdateHoldoutAssignmentQuery) GetIdentifierType() optionalnullable.OptionalNullable[string] {
+	if u == nil {
+		return nil
+	}
+	return u.IdentifierType
+}
+
 // UpdateHoldoutStatsEngine - Statistics engine used to analyze this Holdout.
 type UpdateHoldoutStatsEngine string
 
@@ -156,9 +178,14 @@ type UpdateHoldoutRequestBody struct {
 	TargetingCondition  *string                            `json:"targetingCondition,omitzero"`
 	SavedGroupTargeting []UpdateHoldoutSavedGroupTargeting `json:"savedGroupTargeting,omitzero"`
 	DatasourceID        *string                            `json:"datasourceId,omitzero"`
-	AssignmentQueryID   *string                            `json:"assignmentQueryId,omitzero"`
-	GoalMetrics         []string                           `json:"goalMetrics,omitzero"`
-	SecondaryMetrics    []string                           `json:"secondaryMetrics,omitzero"`
+	// The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `assignmentQueryId`.
+	AssignmentQuery *UpdateHoldoutAssignmentQuery `json:"assignmentQuery,omitzero"`
+	// Deprecated: use `assignmentQuery`. Rejected when selecting a different assignment query that declares several identifier types; set `assignmentQuery.identifierType` instead.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	AssignmentQueryID *string  `json:"assignmentQueryId,omitzero"`
+	GoalMetrics       []string `json:"goalMetrics,omitzero"`
+	SecondaryMetrics  []string `json:"secondaryMetrics,omitzero"`
 	// Statistics engine used to analyze this Holdout.
 	StatsEngine *UpdateHoldoutStatsEngine `json:"statsEngine,omitzero"`
 	// Replaces the entire per-environment state. Environments not listed are disabled.
@@ -259,6 +286,13 @@ func (u *UpdateHoldoutRequestBody) GetDatasourceID() *string {
 		return nil
 	}
 	return u.DatasourceID
+}
+
+func (u *UpdateHoldoutRequestBody) GetAssignmentQuery() *UpdateHoldoutAssignmentQuery {
+	if u == nil {
+		return nil
+	}
+	return u.AssignmentQuery
 }
 
 func (u *UpdateHoldoutRequestBody) GetAssignmentQueryID() *string {

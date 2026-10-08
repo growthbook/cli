@@ -17,7 +17,8 @@ import (
 var updateExperimentCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The id of the requested resource [required]"},
 	{FlagName: "datasource-id", FieldPath: "Body.DatasourceID", Kind: flagutil.FlagKindString, Optional: true, Description: "Can only be set if existing experiment does not have a datasource"},
-	{FlagName: "assignment-query-id", FieldPath: "Body.AssignmentQueryID", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "assignment-query", FieldPath: "Body.AssignmentQuery", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"assignmentQuery,omitempty"`, Description: "The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `assignmentQueryId`."},
+	{FlagName: "assignment-query-id", FieldPath: "Body.AssignmentQueryID", Kind: flagutil.FlagKindString, Optional: true, Description: "Deprecated: use `assignmentQuery`. Rejected when selecting a different assignment query that declares several identifier types; set `assignmentQuery.identifierType` instead."},
 	{FlagName: "tracking-key", FieldPath: "Body.TrackingKey", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "bypass-duplicate-key-check", FieldPath: "Body.BypassDuplicateKeyCheck", Kind: flagutil.FlagKindBool, Optional: true, Description: "If true, allow updating the tracking key even if another experiment with the same tracking key already exist. This is ignored if the organization requires unique tracking keys as a rule."},
 	{FlagName: "name", Shorthand: "n", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Optional: true, Description: "Name of the experiment"},

@@ -741,9 +741,30 @@ func (e *UpdateRampScheduleMultipleExposureAction) UnmarshalJSON(data []byte) er
 	}
 }
 
+// UpdateRampScheduleExposureQuery - The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `exposureQueryId`.
+type UpdateRampScheduleExposureQuery struct {
+	// The ID of one of the data source's assignment queries.
+	ID string `json:"id"`
+	// The identifier type to analyze on, which the query must declare. Required when selecting a different assignment query that declares several. Otherwise defaults to the current identifier type, or the query's only one. Null is treated as omitted, so a response's value can be sent back.
+	IdentifierType optionalnullable.OptionalNullable[string] `json:"identifierType,omitzero"`
+}
+
+func (u *UpdateRampScheduleExposureQuery) GetID() string {
+	if u == nil {
+		return ""
+	}
+	return u.ID
+}
+
+func (u *UpdateRampScheduleExposureQuery) GetIdentifierType() optionalnullable.OptionalNullable[string] {
+	if u == nil {
+		return nil
+	}
+	return u.IdentifierType
+}
+
 type UpdateRampScheduleMonitoringConfig struct {
 	DatasourceID          string                                     `json:"datasourceId"`
-	ExposureQueryID       string                                     `json:"exposureQueryId"`
 	GuardrailMetricIds    []string                                   `json:"guardrailMetricIds"`
 	SignalMetricIds       []string                                   `json:"signalMetricIds,omitzero"`
 	UpdateScheduleMinutes optionalnullable.OptionalNullable[float64] `json:"updateScheduleMinutes,omitzero"`
@@ -754,6 +775,12 @@ type UpdateRampScheduleMonitoringConfig struct {
 	// How long to wait for traffic before applying `noTrafficAction`. Defaults to 24 hours when null or not set.
 	NoTrafficGracePeriodHours optionalnullable.OptionalNullable[float64] `json:"noTrafficGracePeriodHours,omitzero"`
 	MultipleExposureAction    *UpdateRampScheduleMultipleExposureAction  `json:"multipleExposureAction,omitzero"`
+	// The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `exposureQueryId`.
+	ExposureQuery *UpdateRampScheduleExposureQuery `json:"exposureQuery,omitzero"`
+	// Deprecated: use `exposureQuery`. Rejected when selecting a different assignment query that declares several identifier types; set `exposureQuery.identifierType` instead.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ExposureQueryID *string `json:"exposureQueryId,omitzero"`
 }
 
 func (u UpdateRampScheduleMonitoringConfig) MarshalJSON() ([]byte, error) {
@@ -772,13 +799,6 @@ func (u *UpdateRampScheduleMonitoringConfig) GetDatasourceID() string {
 		return ""
 	}
 	return u.DatasourceID
-}
-
-func (u *UpdateRampScheduleMonitoringConfig) GetExposureQueryID() string {
-	if u == nil {
-		return ""
-	}
-	return u.ExposureQueryID
 }
 
 func (u *UpdateRampScheduleMonitoringConfig) GetGuardrailMetricIds() []string {
@@ -842,6 +862,20 @@ func (u *UpdateRampScheduleMonitoringConfig) GetMultipleExposureAction() *Update
 		return nil
 	}
 	return u.MultipleExposureAction
+}
+
+func (u *UpdateRampScheduleMonitoringConfig) GetExposureQuery() *UpdateRampScheduleExposureQuery {
+	if u == nil {
+		return nil
+	}
+	return u.ExposureQuery
+}
+
+func (u *UpdateRampScheduleMonitoringConfig) GetExposureQueryID() *string {
+	if u == nil {
+		return nil
+	}
+	return u.ExposureQueryID
 }
 
 type UpdateRampScheduleExperimentHealthAction string

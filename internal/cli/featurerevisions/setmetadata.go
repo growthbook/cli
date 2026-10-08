@@ -27,7 +27,7 @@ var setMetadataCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "tags", FieldPath: "Body.Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
 	{FlagName: "never-stale", Shorthand: "n", FieldPath: "Body.NeverStale", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "custom-fields", FieldPath: "Body.CustomFields", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"customFields,omitempty"`, Description: "value"},
-	{FlagName: "json-schema", Shorthand: "j", FieldPath: "Body.JSONSchema", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"jsonSchema,omitempty"`, Description: "JSON object"},
+	{FlagName: "json-schema", Shorthand: "j", FieldPath: "Body.JSONSchema", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"jsonSchema,omitempty"`, Description: "Validation schema to stage on the draft. The server sets `date`, so don't send it."},
 	{FlagName: "ignore-warnings", FieldPath: "Body.IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access."},
 }
 

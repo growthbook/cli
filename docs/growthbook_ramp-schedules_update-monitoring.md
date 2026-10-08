@@ -17,7 +17,7 @@ growthbook ramp-schedules update-monitoring [flags]
 ### Examples
 
 ```
-  growthbook ramp-schedules update-monitoring --id <id> --datasource-id <id> --exposure-query-id <id> --guardrail-metric-ids '["<value 1>","<value 2>","<value 3>"]'
+  growthbook ramp-schedules update-monitoring --id <id> --datasource-id <id> --guardrail-metric-ids '["<value 1>","<value 2>","<value 3>"]'
 ```
 
 ### Options
@@ -26,7 +26,8 @@ growthbook ramp-schedules update-monitoring [flags]
   -a, --auto-update                                     boolean flag
       --body string                                     Request body as JSON (alternative to individual flags). Can also be provided via stdin.
       --datasource-id string                            [required]
-  -e, --exposure-query-id string                        [required]
+      --exposure-query exposureQueryId                  The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated exposureQueryId.
+      --exposure-query-id exposureQuery                 Deprecated: use exposureQuery. Rejected when selecting a different assignment query that declares several identifier types; set `exposureQuery.identifierType` instead.
   -g, --guardrail-metric-ids stringArray                [required]
   -h, --help                                            help for update-monitoring
   -i, --id string                                       [required]

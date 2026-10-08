@@ -45,8 +45,12 @@ type Project struct {
 	// When true, only members with an explicit role on this Project (directly or via a team) can access it. Members with the manageTeam permission retain access.
 	RestrictAccess *bool `json:"restrictAccess,omitzero"`
 	// Whether Feature Flags owned by other Projects may add this Project to their Targeting Projects. Defaults to true. Turning it off blocks new targeting (and All Projects); existing targeting is kept.
-	AllowTargeting *bool            `json:"allowTargeting,omitzero"`
-	Settings       *ProjectSettings `json:"settings,omitzero"`
+	AllowTargeting *bool `json:"allowTargeting,omitzero"`
+	// The userId of the owner (or raw owner name/email for legacy records)
+	Owner string `json:"owner"`
+	// The email address of the owner, when the owner can be resolved to a known user.
+	OwnerEmail *string          `json:"ownerEmail,omitzero"`
+	Settings   *ProjectSettings `json:"settings,omitzero"`
 }
 
 func (p Project) MarshalJSON() ([]byte, error) {
@@ -114,6 +118,20 @@ func (p *Project) GetAllowTargeting() *bool {
 		return nil
 	}
 	return p.AllowTargeting
+}
+
+func (p *Project) GetOwner() string {
+	if p == nil {
+		return ""
+	}
+	return p.Owner
+}
+
+func (p *Project) GetOwnerEmail() *string {
+	if p == nil {
+		return nil
+	}
+	return p.OwnerEmail
 }
 
 func (p *Project) GetSettings() *ProjectSettings {

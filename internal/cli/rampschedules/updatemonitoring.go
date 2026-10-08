@@ -17,7 +17,6 @@ import (
 var updateMonitoringCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "datasource-id", FieldPath: "Body.DatasourceID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "exposure-query-id", Shorthand: "e", FieldPath: "Body.ExposureQueryID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "guardrail-metric-ids", Shorthand: "g", FieldPath: "Body.GuardrailMetricIds", Kind: flagutil.FlagKindStringArray, Required: true, Description: "[required]"},
 	{FlagName: "signal-metric-ids", FieldPath: "Body.SignalMetricIds", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
 	{FlagName: "update-schedule-minutes", Shorthand: "u", FieldPath: "Body.UpdateScheduleMinutes", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"updateScheduleMinutes,omitempty"`, Description: "number value"},
@@ -27,6 +26,8 @@ var updateMonitoringCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "no-traffic-action", FieldPath: "Body.NoTrafficAction", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"rollback", "hold", "warn"}, Description: "options: rollback, hold, warn"},
 	{FlagName: "no-traffic-grace-period-hours", FieldPath: "Body.NoTrafficGracePeriodHours", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"noTrafficGracePeriodHours,omitempty"`, Description: "How long to wait for traffic before applying `noTrafficAction`. Defaults to 24 hours when null or not set."},
 	{FlagName: "multiple-exposure-action", FieldPath: "Body.MultipleExposureAction", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"rollback", "hold", "warn"}, Description: "options: rollback, hold, warn"},
+	{FlagName: "exposure-query", FieldPath: "Body.ExposureQuery", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"exposureQuery,omitempty"`, Description: "The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `exposureQueryId`."},
+	{FlagName: "exposure-query-id", FieldPath: "Body.ExposureQueryID", Kind: flagutil.FlagKindString, Optional: true, Description: "Deprecated: use `exposureQuery`. Rejected when selecting a different assignment query that declares several identifier types; set `exposureQuery.identifierType` instead."},
 }
 
 // initUpdateMonitoringCmd initializes the update-monitoring command.
@@ -35,7 +36,7 @@ func initUpdateMonitoringCmd(parent *cobra.Command) error {
 		Use:     "update-monitoring",
 		Short:   "Update ramp monitoring configuration",
 		Long:    "Replaces the monitoring configuration. Health-action thresholds (`srmAction`, `noTrafficAction`, etc.) can be updated at any time.\n\nOnce a linked SafeRollout has started, `datasourceId`, `exposureQueryId`, the metric IDs and the snapshot cadence are all locked — stop and recreate the schedule to change the data source.\n\nChanges to guardrail or signal metric IDs take effect on the next analysis run.",
-		Example: "  growthbook ramp-schedules update-monitoring --id <id> --datasource-id <id> --exposure-query-id <id> --guardrail-metric-ids '[\"<value 1>\",\"<value 2>\",\"<value 3>\"]'",
+		Example: "  growthbook ramp-schedules update-monitoring --id <id> --datasource-id <id> --guardrail-metric-ids '[\"<value 1>\",\"<value 2>\",\"<value 3>\"]'",
 		RunE:    runUpdateMonitoringCmd,
 		Aliases: []string{"um"},
 	}
