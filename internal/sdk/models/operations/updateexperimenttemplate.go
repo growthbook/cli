@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/growthbook/cli/v3/internal/sdk/models/components"
+	"github.com/growthbook/cli/v3/internal/sdk/optionalnullable"
 	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 )
 
@@ -49,6 +50,28 @@ func (e *UpdateExperimentTemplateType) UnmarshalJSON(data []byte) error {
 	default:
 		return fmt.Errorf("invalid value for UpdateExperimentTemplateType: %v", v)
 	}
+}
+
+// UpdateExperimentTemplateExposureQuery - The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `exposureQueryId`.
+type UpdateExperimentTemplateExposureQuery struct {
+	// The ID of one of the data source's assignment queries.
+	ID string `json:"id"`
+	// The identifier type to analyze on, which the query must declare. Required when selecting a different assignment query that declares several. Otherwise defaults to the current identifier type, or the query's only one. Null is treated as omitted, so a response's value can be sent back.
+	IdentifierType optionalnullable.OptionalNullable[string] `json:"identifierType,omitzero"`
+}
+
+func (u *UpdateExperimentTemplateExposureQuery) GetID() string {
+	if u == nil {
+		return ""
+	}
+	return u.ID
+}
+
+func (u *UpdateExperimentTemplateExposureQuery) GetIdentifierType() optionalnullable.OptionalNullable[string] {
+	if u == nil {
+		return nil
+	}
+	return u.IdentifierType
 }
 
 type UpdateExperimentTemplateStatsEngine string
@@ -221,14 +244,19 @@ func (u *UpdateExperimentTemplateCustomMetricSlice) GetSlices() []UpdateExperime
 }
 
 type UpdateExperimentTemplateRequestBody struct {
-	Project                *string                                     `json:"project,omitzero"`
-	TemplateMetadata       *UpdateExperimentTemplateTemplateMetadata   `json:"templateMetadata,omitzero"`
-	Type                   *UpdateExperimentTemplateType               `json:"type,omitzero"`
-	Hypothesis             *string                                     `json:"hypothesis,omitzero"`
-	Description            *string                                     `json:"description,omitzero"`
-	Tags                   []string                                    `json:"tags,omitzero"`
-	CustomFields           map[string]string                           `json:"customFields,omitzero"`
-	Datasource             *string                                     `json:"datasource,omitzero"`
+	Project          *string                                   `json:"project,omitzero"`
+	TemplateMetadata *UpdateExperimentTemplateTemplateMetadata `json:"templateMetadata,omitzero"`
+	Type             *UpdateExperimentTemplateType             `json:"type,omitzero"`
+	Hypothesis       *string                                   `json:"hypothesis,omitzero"`
+	Description      *string                                   `json:"description,omitzero"`
+	Tags             []string                                  `json:"tags,omitzero"`
+	CustomFields     map[string]string                         `json:"customFields,omitzero"`
+	Datasource       *string                                   `json:"datasource,omitzero"`
+	// The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `exposureQueryId`.
+	ExposureQuery *UpdateExperimentTemplateExposureQuery `json:"exposureQuery,omitzero"`
+	// Deprecated: use `exposureQuery`. Rejected when selecting a different assignment query that declares several identifier types; set `exposureQuery.identifierType` instead.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	ExposureQueryID        *string                                     `json:"exposureQueryId,omitzero"`
 	HashAttribute          *string                                     `json:"hashAttribute,omitzero"`
 	FallbackAttribute      *string                                     `json:"fallbackAttribute,omitzero"`
@@ -309,6 +337,13 @@ func (u *UpdateExperimentTemplateRequestBody) GetDatasource() *string {
 		return nil
 	}
 	return u.Datasource
+}
+
+func (u *UpdateExperimentTemplateRequestBody) GetExposureQuery() *UpdateExperimentTemplateExposureQuery {
+	if u == nil {
+		return nil
+	}
+	return u.ExposureQuery
 }
 
 func (u *UpdateExperimentTemplateRequestBody) GetExposureQueryID() *string {

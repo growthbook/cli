@@ -12,6 +12,28 @@ import (
 	"time"
 )
 
+// UpdateExperimentAssignmentQuery - The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `assignmentQueryId`.
+type UpdateExperimentAssignmentQuery struct {
+	// The ID of one of the data source's assignment queries.
+	ID string `json:"id"`
+	// The identifier type to analyze on, which the query must declare. Required when selecting a different assignment query that declares several. Otherwise defaults to the current identifier type, or the query's only one. Null is treated as omitted, so a response's value can be sent back.
+	IdentifierType optionalnullable.OptionalNullable[string] `json:"identifierType,omitzero"`
+}
+
+func (u *UpdateExperimentAssignmentQuery) GetID() string {
+	if u == nil {
+		return ""
+	}
+	return u.ID
+}
+
+func (u *UpdateExperimentAssignmentQuery) GetIdentifierType() optionalnullable.OptionalNullable[string] {
+	if u == nil {
+		return nil
+	}
+	return u.IdentifierType
+}
+
 type UpdateExperimentType string
 
 const (
@@ -1179,7 +1201,12 @@ func (u *UpdateExperimentStatusUpdateSchedule) GetScheduledStopPlan() *component
 
 type UpdateExperimentRequestBody struct {
 	// Can only be set if existing experiment does not have a datasource
-	DatasourceID      *string `json:"datasourceId,omitzero"`
+	DatasourceID *string `json:"datasourceId,omitzero"`
+	// The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `assignmentQueryId`.
+	AssignmentQuery *UpdateExperimentAssignmentQuery `json:"assignmentQuery,omitzero"`
+	// Deprecated: use `assignmentQuery`. Rejected when selecting a different assignment query that declares several identifier types; set `assignmentQuery.identifierType` instead.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	AssignmentQueryID *string `json:"assignmentQueryId,omitzero"`
 	TrackingKey       *string `json:"trackingKey,omitzero"`
 	// If true, allow updating the tracking key even if another experiment with the same tracking key already exist. This is ignored if the organization requires unique tracking keys as a rule.
@@ -1279,6 +1306,13 @@ func (u *UpdateExperimentRequestBody) GetDatasourceID() *string {
 		return nil
 	}
 	return u.DatasourceID
+}
+
+func (u *UpdateExperimentRequestBody) GetAssignmentQuery() *UpdateExperimentAssignmentQuery {
+	if u == nil {
+		return nil
+	}
+	return u.AssignmentQuery
 }
 
 func (u *UpdateExperimentRequestBody) GetAssignmentQueryID() *string {

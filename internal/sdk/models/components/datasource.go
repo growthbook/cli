@@ -26,63 +26,72 @@ func (i *IdentifierType) GetDescription() string {
 	return i.Description
 }
 
-type AssignmentQuery struct {
-	ID                  string   `json:"id"`
-	Name                string   `json:"name"`
-	Description         string   `json:"description"`
+type DataSourceAssignmentQuery struct {
+	ID              string   `json:"id"`
+	Name            string   `json:"name"`
+	Description     string   `json:"description"`
+	IdentifierTypes []string `json:"identifierTypes"`
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	IdentifierType      string   `json:"identifierType"`
 	SQL                 string   `json:"sql"`
 	IncludesNameColumns bool     `json:"includesNameColumns"`
 	DimensionColumns    []string `json:"dimensionColumns"`
 }
 
-func (a *AssignmentQuery) GetID() string {
-	if a == nil {
+func (d *DataSourceAssignmentQuery) GetID() string {
+	if d == nil {
 		return ""
 	}
-	return a.ID
+	return d.ID
 }
 
-func (a *AssignmentQuery) GetName() string {
-	if a == nil {
+func (d *DataSourceAssignmentQuery) GetName() string {
+	if d == nil {
 		return ""
 	}
-	return a.Name
+	return d.Name
 }
 
-func (a *AssignmentQuery) GetDescription() string {
-	if a == nil {
+func (d *DataSourceAssignmentQuery) GetDescription() string {
+	if d == nil {
 		return ""
 	}
-	return a.Description
+	return d.Description
 }
 
-func (a *AssignmentQuery) GetIdentifierType() string {
-	if a == nil {
-		return ""
-	}
-	return a.IdentifierType
-}
-
-func (a *AssignmentQuery) GetSQL() string {
-	if a == nil {
-		return ""
-	}
-	return a.SQL
-}
-
-func (a *AssignmentQuery) GetIncludesNameColumns() bool {
-	if a == nil {
-		return false
-	}
-	return a.IncludesNameColumns
-}
-
-func (a *AssignmentQuery) GetDimensionColumns() []string {
-	if a == nil {
+func (d *DataSourceAssignmentQuery) GetIdentifierTypes() []string {
+	if d == nil {
 		return []string{}
 	}
-	return a.DimensionColumns
+	return d.IdentifierTypes
+}
+
+func (d *DataSourceAssignmentQuery) GetIdentifierType() string {
+	if d == nil {
+		return ""
+	}
+	return d.IdentifierType
+}
+
+func (d *DataSourceAssignmentQuery) GetSQL() string {
+	if d == nil {
+		return ""
+	}
+	return d.SQL
+}
+
+func (d *DataSourceAssignmentQuery) GetIncludesNameColumns() bool {
+	if d == nil {
+		return false
+	}
+	return d.IncludesNameColumns
+}
+
+func (d *DataSourceAssignmentQuery) GetDimensionColumns() []string {
+	if d == nil {
+		return []string{}
+	}
+	return d.DimensionColumns
 }
 
 type IdentifierJoinQuery struct {
@@ -140,18 +149,18 @@ func (m *MixpanelSettings) GetExtraUserIDProperty() string {
 }
 
 type DataSource struct {
-	ID                    string                `json:"id"`
-	DateCreated           time.Time             `json:"dateCreated"`
-	DateUpdated           time.Time             `json:"dateUpdated"`
-	Type                  string                `json:"type"`
-	Name                  string                `json:"name"`
-	Description           string                `json:"description"`
-	ProjectIds            []string              `json:"projectIds"`
-	EventTracker          string                `json:"eventTracker"`
-	IdentifierTypes       []IdentifierType      `json:"identifierTypes"`
-	AssignmentQueries     []AssignmentQuery     `json:"assignmentQueries"`
-	IdentifierJoinQueries []IdentifierJoinQuery `json:"identifierJoinQueries"`
-	MixpanelSettings      *MixpanelSettings     `json:"mixpanelSettings,omitzero"`
+	ID                    string                      `json:"id"`
+	DateCreated           time.Time                   `json:"dateCreated"`
+	DateUpdated           time.Time                   `json:"dateUpdated"`
+	Type                  string                      `json:"type"`
+	Name                  string                      `json:"name"`
+	Description           string                      `json:"description"`
+	ProjectIds            []string                    `json:"projectIds"`
+	EventTracker          string                      `json:"eventTracker"`
+	IdentifierTypes       []IdentifierType            `json:"identifierTypes"`
+	AssignmentQueries     []DataSourceAssignmentQuery `json:"assignmentQueries"`
+	IdentifierJoinQueries []IdentifierJoinQuery       `json:"identifierJoinQueries"`
+	MixpanelSettings      *MixpanelSettings           `json:"mixpanelSettings,omitzero"`
 }
 
 func (d DataSource) MarshalJSON() ([]byte, error) {
@@ -228,9 +237,9 @@ func (d *DataSource) GetIdentifierTypes() []IdentifierType {
 	return d.IdentifierTypes
 }
 
-func (d *DataSource) GetAssignmentQueries() []AssignmentQuery {
+func (d *DataSource) GetAssignmentQueries() []DataSourceAssignmentQuery {
 	if d == nil {
-		return []AssignmentQuery{}
+		return []DataSourceAssignmentQuery{}
 	}
 	return d.AssignmentQueries
 }

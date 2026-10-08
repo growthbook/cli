@@ -624,6 +624,28 @@ func (p *PostRampScheduleEndAction) GetPatch() PostRampSchedulePatch2 {
 	return p.Patch
 }
 
+// PostRampScheduleExposureQuery - The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `exposureQueryId`.
+type PostRampScheduleExposureQuery struct {
+	// The ID of one of the data source's assignment queries.
+	ID string `json:"id"`
+	// The identifier type to analyze on, which the query must declare. Required when selecting a different assignment query that declares several. Otherwise defaults to the current identifier type, or the query's only one. Null is treated as omitted, so a response's value can be sent back.
+	IdentifierType optionalnullable.OptionalNullable[string] `json:"identifierType,omitzero"`
+}
+
+func (p *PostRampScheduleExposureQuery) GetID() string {
+	if p == nil {
+		return ""
+	}
+	return p.ID
+}
+
+func (p *PostRampScheduleExposureQuery) GetIdentifierType() optionalnullable.OptionalNullable[string] {
+	if p == nil {
+		return nil
+	}
+	return p.IdentifierType
+}
+
 type PostRampScheduleMonitoringMode string
 
 const (
@@ -738,8 +760,13 @@ func (e *PostRampScheduleMultipleExposureAction) UnmarshalJSON(data []byte) erro
 }
 
 type PostRampScheduleMonitoringConfig struct {
-	DatasourceID           string                                     `json:"datasourceId"`
-	ExposureQueryID        string                                     `json:"exposureQueryId"`
+	DatasourceID string `json:"datasourceId"`
+	// The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `exposureQueryId`.
+	ExposureQuery *PostRampScheduleExposureQuery `json:"exposureQuery,omitzero"`
+	// Deprecated: use `exposureQuery`. Rejected when selecting a different assignment query that declares several identifier types; set `exposureQuery.identifierType` instead.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ExposureQueryID        *string                                    `json:"exposureQueryId,omitzero"`
 	GuardrailMetricIds     []string                                   `json:"guardrailMetricIds"`
 	SignalMetricIds        []string                                   `json:"signalMetricIds,omitzero"`
 	MonitoringMode         *PostRampScheduleMonitoringMode            `json:"monitoringMode,omitzero"`
@@ -769,9 +796,16 @@ func (p *PostRampScheduleMonitoringConfig) GetDatasourceID() string {
 	return p.DatasourceID
 }
 
-func (p *PostRampScheduleMonitoringConfig) GetExposureQueryID() string {
+func (p *PostRampScheduleMonitoringConfig) GetExposureQuery() *PostRampScheduleExposureQuery {
 	if p == nil {
-		return ""
+		return nil
+	}
+	return p.ExposureQuery
+}
+
+func (p *PostRampScheduleMonitoringConfig) GetExposureQueryID() *string {
+	if p == nil {
+		return nil
 	}
 	return p.ExposureQueryID
 }

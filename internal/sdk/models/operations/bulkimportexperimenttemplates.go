@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/growthbook/cli/v3/internal/sdk/models/components"
+	"github.com/growthbook/cli/v3/internal/sdk/optionalnullable"
 	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 )
 
@@ -49,6 +50,28 @@ func (e *BulkImportExperimentTemplatesType) UnmarshalJSON(data []byte) error {
 	default:
 		return fmt.Errorf("invalid value for BulkImportExperimentTemplatesType: %v", v)
 	}
+}
+
+// BulkImportExperimentTemplatesExposureQuery - The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `exposureQueryId`.
+type BulkImportExperimentTemplatesExposureQuery struct {
+	// The ID of one of the data source's assignment queries.
+	ID string `json:"id"`
+	// The identifier type to analyze on, which the query must declare. Required when selecting a different assignment query that declares several. Otherwise defaults to the current identifier type, or the query's only one. Null is treated as omitted, so a response's value can be sent back.
+	IdentifierType optionalnullable.OptionalNullable[string] `json:"identifierType,omitzero"`
+}
+
+func (b *BulkImportExperimentTemplatesExposureQuery) GetID() string {
+	if b == nil {
+		return ""
+	}
+	return b.ID
+}
+
+func (b *BulkImportExperimentTemplatesExposureQuery) GetIdentifierType() optionalnullable.OptionalNullable[string] {
+	if b == nil {
+		return nil
+	}
+	return b.IdentifierType
 }
 
 type BulkImportExperimentTemplatesStatsEngine string
@@ -221,15 +244,20 @@ func (b *BulkImportExperimentTemplatesCustomMetricSlice) GetSlices() []BulkImpor
 }
 
 type BulkImportExperimentTemplatesData struct {
-	Project                *string                                          `json:"project,omitzero"`
-	TemplateMetadata       BulkImportExperimentTemplatesTemplateMetadata    `json:"templateMetadata"`
-	Type                   BulkImportExperimentTemplatesType                `json:"type"`
-	Hypothesis             *string                                          `json:"hypothesis,omitzero"`
-	Description            *string                                          `json:"description,omitzero"`
-	Tags                   []string                                         `json:"tags,omitzero"`
-	CustomFields           map[string]string                                `json:"customFields,omitzero"`
-	Datasource             string                                           `json:"datasource"`
-	ExposureQueryID        string                                           `json:"exposureQueryId"`
+	Project          *string                                       `json:"project,omitzero"`
+	TemplateMetadata BulkImportExperimentTemplatesTemplateMetadata `json:"templateMetadata"`
+	Type             BulkImportExperimentTemplatesType             `json:"type"`
+	Hypothesis       *string                                       `json:"hypothesis,omitzero"`
+	Description      *string                                       `json:"description,omitzero"`
+	Tags             []string                                      `json:"tags,omitzero"`
+	CustomFields     map[string]string                             `json:"customFields,omitzero"`
+	Datasource       string                                        `json:"datasource"`
+	// The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `exposureQueryId`.
+	ExposureQuery *BulkImportExperimentTemplatesExposureQuery `json:"exposureQuery,omitzero"`
+	// Deprecated: use `exposureQuery`. Rejected when selecting a different assignment query that declares several identifier types; set `exposureQuery.identifierType` instead.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ExposureQueryID        *string                                          `json:"exposureQueryId,omitzero"`
 	HashAttribute          *string                                          `json:"hashAttribute,omitzero"`
 	FallbackAttribute      *string                                          `json:"fallbackAttribute,omitzero"`
 	DisableStickyBucketing *bool                                            `json:"disableStickyBucketing,omitzero"`
@@ -311,9 +339,16 @@ func (b *BulkImportExperimentTemplatesData) GetDatasource() string {
 	return b.Datasource
 }
 
-func (b *BulkImportExperimentTemplatesData) GetExposureQueryID() string {
+func (b *BulkImportExperimentTemplatesData) GetExposureQuery() *BulkImportExperimentTemplatesExposureQuery {
 	if b == nil {
-		return ""
+		return nil
+	}
+	return b.ExposureQuery
+}
+
+func (b *BulkImportExperimentTemplatesData) GetExposureQueryID() *string {
+	if b == nil {
+		return nil
 	}
 	return b.ExposureQueryID
 }

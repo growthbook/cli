@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/growthbook/cli/v3/internal/sdk/models/components"
+	"github.com/growthbook/cli/v3/internal/sdk/optionalnullable"
 	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 )
 
@@ -49,6 +50,28 @@ func (e *CreateExperimentTemplateType) UnmarshalJSON(data []byte) error {
 	default:
 		return fmt.Errorf("invalid value for CreateExperimentTemplateType: %v", v)
 	}
+}
+
+// CreateExperimentTemplateExposureQuery - The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `exposureQueryId`.
+type CreateExperimentTemplateExposureQuery struct {
+	// The ID of one of the data source's assignment queries.
+	ID string `json:"id"`
+	// The identifier type to analyze on, which the query must declare. Required when selecting a different assignment query that declares several. Otherwise defaults to the current identifier type, or the query's only one. Null is treated as omitted, so a response's value can be sent back.
+	IdentifierType optionalnullable.OptionalNullable[string] `json:"identifierType,omitzero"`
+}
+
+func (c *CreateExperimentTemplateExposureQuery) GetID() string {
+	if c == nil {
+		return ""
+	}
+	return c.ID
+}
+
+func (c *CreateExperimentTemplateExposureQuery) GetIdentifierType() optionalnullable.OptionalNullable[string] {
+	if c == nil {
+		return nil
+	}
+	return c.IdentifierType
 }
 
 type CreateExperimentTemplateStatsEngine string
@@ -221,15 +244,20 @@ func (c *CreateExperimentTemplateCustomMetricSlice) GetSlices() []CreateExperime
 }
 
 type CreateExperimentTemplateRequest struct {
-	Project                *string                                     `json:"project,omitzero"`
-	TemplateMetadata       CreateExperimentTemplateTemplateMetadata    `json:"templateMetadata"`
-	Type                   CreateExperimentTemplateType                `json:"type"`
-	Hypothesis             *string                                     `json:"hypothesis,omitzero"`
-	Description            *string                                     `json:"description,omitzero"`
-	Tags                   []string                                    `json:"tags,omitzero"`
-	CustomFields           map[string]string                           `json:"customFields,omitzero"`
-	Datasource             string                                      `json:"datasource"`
-	ExposureQueryID        string                                      `json:"exposureQueryId"`
+	Project          *string                                  `json:"project,omitzero"`
+	TemplateMetadata CreateExperimentTemplateTemplateMetadata `json:"templateMetadata"`
+	Type             CreateExperimentTemplateType             `json:"type"`
+	Hypothesis       *string                                  `json:"hypothesis,omitzero"`
+	Description      *string                                  `json:"description,omitzero"`
+	Tags             []string                                 `json:"tags,omitzero"`
+	CustomFields     map[string]string                        `json:"customFields,omitzero"`
+	Datasource       string                                   `json:"datasource"`
+	// The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `exposureQueryId`.
+	ExposureQuery *CreateExperimentTemplateExposureQuery `json:"exposureQuery,omitzero"`
+	// Deprecated: use `exposureQuery`. Rejected when selecting a different assignment query that declares several identifier types; set `exposureQuery.identifierType` instead.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ExposureQueryID        *string                                     `json:"exposureQueryId,omitzero"`
 	HashAttribute          *string                                     `json:"hashAttribute,omitzero"`
 	FallbackAttribute      *string                                     `json:"fallbackAttribute,omitzero"`
 	DisableStickyBucketing *bool                                       `json:"disableStickyBucketing,omitzero"`
@@ -311,9 +339,16 @@ func (c *CreateExperimentTemplateRequest) GetDatasource() string {
 	return c.Datasource
 }
 
-func (c *CreateExperimentTemplateRequest) GetExposureQueryID() string {
+func (c *CreateExperimentTemplateRequest) GetExposureQuery() *CreateExperimentTemplateExposureQuery {
 	if c == nil {
-		return ""
+		return nil
+	}
+	return c.ExposureQuery
+}
+
+func (c *CreateExperimentTemplateRequest) GetExposureQueryID() *string {
+	if c == nil {
+		return nil
 	}
 	return c.ExposureQueryID
 }

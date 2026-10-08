@@ -41,6 +41,8 @@ func (p *PutProjectSettings) GetPValueThreshold() *float64 {
 type PutProjectRequestBody struct {
 	// Project name.
 	Name *string `json:"name,omitzero"`
+	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
+	Owner *string `json:"owner,omitzero"`
 	// Project description.
 	Description *string `json:"description,omitzero"`
 	// URL-safe slug (lowercase letters, numbers, dashes).
@@ -69,6 +71,13 @@ func (p *PutProjectRequestBody) GetName() *string {
 		return nil
 	}
 	return p.Name
+}
+
+func (p *PutProjectRequestBody) GetOwner() *string {
+	if p == nil {
+		return nil
+	}
+	return p.Owner
 }
 
 func (p *PutProjectRequestBody) GetDescription() *string {

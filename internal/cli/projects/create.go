@@ -16,6 +16,7 @@ import (
 
 var createCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "name", Shorthand: "n", FieldPath: "Name", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
+	{FlagName: "owner", FieldPath: "Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the user associated with the request's Personal Access Token (PAT), if one is being used."},
 	{FlagName: "description", FieldPath: "Description", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "public-id", Shorthand: "p", FieldPath: "PublicID", Kind: flagutil.FlagKindString, Optional: true, Description: "URL-safe slug (lowercase letters, numbers, dashes). Auto-generated from name if not provided."},
 	{FlagName: "settings", Shorthand: "s", FieldPath: "Settings", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"settings,omitempty"`, Description: "Project stats settings that, when set, override the organization settings."},

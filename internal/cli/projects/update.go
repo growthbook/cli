@@ -17,6 +17,7 @@ import (
 var updateCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The id of the requested resource [required]"},
 	{FlagName: "name", Shorthand: "n", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Optional: true, Description: "Project name."},
+	{FlagName: "owner", FieldPath: "Body.Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization."},
 	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Project description."},
 	{FlagName: "public-id", Shorthand: "p", FieldPath: "Body.PublicID", Kind: flagutil.FlagKindString, Optional: true, Description: "URL-safe slug (lowercase letters, numbers, dashes)."},
 	{FlagName: "settings", Shorthand: "s", FieldPath: "Body.Settings", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"settings,omitempty"`, Description: "Project stats settings that, when set, override the organization settings."},

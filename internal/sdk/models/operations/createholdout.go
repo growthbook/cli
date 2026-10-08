@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/growthbook/cli/v3/internal/sdk/models/components"
+	"github.com/growthbook/cli/v3/internal/sdk/optionalnullable"
 	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 	"time"
 )
@@ -56,6 +57,28 @@ func (c *CreateHoldoutSavedGroupTargeting) GetIds() []string {
 		return []string{}
 	}
 	return c.Ids
+}
+
+// CreateHoldoutAssignmentQuery - The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `assignmentQueryId`.
+type CreateHoldoutAssignmentQuery struct {
+	// The ID of one of the data source's assignment queries.
+	ID string `json:"id"`
+	// The identifier type to analyze on, which the query must declare. Required when selecting a different assignment query that declares several. Otherwise defaults to the current identifier type, or the query's only one. Null is treated as omitted, so a response's value can be sent back.
+	IdentifierType optionalnullable.OptionalNullable[string] `json:"identifierType,omitzero"`
+}
+
+func (c *CreateHoldoutAssignmentQuery) GetID() string {
+	if c == nil {
+		return ""
+	}
+	return c.ID
+}
+
+func (c *CreateHoldoutAssignmentQuery) GetIdentifierType() optionalnullable.OptionalNullable[string] {
+	if c == nil {
+		return nil
+	}
+	return c.IdentifierType
 }
 
 // CreateHoldoutStatsEngine - Statistics engine used to analyze this Holdout.
@@ -156,9 +179,14 @@ type CreateHoldoutRequest struct {
 	TargetingCondition  *string                            `json:"targetingCondition,omitzero"`
 	SavedGroupTargeting []CreateHoldoutSavedGroupTargeting `json:"savedGroupTargeting,omitzero"`
 	DatasourceID        *string                            `json:"datasourceId,omitzero"`
-	AssignmentQueryID   *string                            `json:"assignmentQueryId,omitzero"`
-	GoalMetrics         []string                           `json:"goalMetrics,omitzero"`
-	SecondaryMetrics    []string                           `json:"secondaryMetrics,omitzero"`
+	// The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `assignmentQueryId`.
+	AssignmentQuery *CreateHoldoutAssignmentQuery `json:"assignmentQuery,omitzero"`
+	// Deprecated: use `assignmentQuery`. Rejected when selecting a different assignment query that declares several identifier types; set `assignmentQuery.identifierType` instead.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	AssignmentQueryID *string  `json:"assignmentQueryId,omitzero"`
+	GoalMetrics       []string `json:"goalMetrics,omitzero"`
+	SecondaryMetrics  []string `json:"secondaryMetrics,omitzero"`
 	// Statistics engine used to analyze this Holdout.
 	StatsEngine *CreateHoldoutStatsEngine `json:"statsEngine,omitzero"`
 	// Per-environment state, keyed by environment ID. Environments not listed are disabled.
@@ -253,6 +281,13 @@ func (c *CreateHoldoutRequest) GetDatasourceID() *string {
 		return nil
 	}
 	return c.DatasourceID
+}
+
+func (c *CreateHoldoutRequest) GetAssignmentQuery() *CreateHoldoutAssignmentQuery {
+	if c == nil {
+		return nil
+	}
+	return c.AssignmentQuery
 }
 
 func (c *CreateHoldoutRequest) GetAssignmentQueryID() *string {

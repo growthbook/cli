@@ -19,33 +19,6 @@ func (g *GetSavedGroupReferencesRequest) GetID() string {
 	return g.ID
 }
 
-type GetSavedGroupReferencesFeature struct {
-	ID      string  `json:"id"`
-	Name    *string `json:"name,omitzero"`
-	Project *string `json:"project,omitzero"`
-}
-
-func (g *GetSavedGroupReferencesFeature) GetID() string {
-	if g == nil {
-		return ""
-	}
-	return g.ID
-}
-
-func (g *GetSavedGroupReferencesFeature) GetName() *string {
-	if g == nil {
-		return nil
-	}
-	return g.Name
-}
-
-func (g *GetSavedGroupReferencesFeature) GetProject() *string {
-	if g == nil {
-		return nil
-	}
-	return g.Project
-}
-
 type Experiment struct {
 	ID       string   `json:"id"`
 	Name     *string  `json:"name,omitzero"`
@@ -94,14 +67,15 @@ func (e *Experiment) GetProjects() []string {
 
 // GetSavedGroupReferencesResponseBody - Successful response
 type GetSavedGroupReferencesResponseBody struct {
-	Features    []GetSavedGroupReferencesFeature `json:"features"`
-	Experiments []Experiment                     `json:"experiments"`
-	SavedGroups []components.SavedGroups         `json:"savedGroups"`
+	Features          []components.SavedGroupReferenceResource `json:"features"`
+	Experiments       []Experiment                             `json:"experiments"`
+	ContextualBandits []components.SavedGroupReferenceResource `json:"contextualBandits"`
+	SavedGroups       []components.SavedGroups                 `json:"savedGroups"`
 }
 
-func (g *GetSavedGroupReferencesResponseBody) GetFeatures() []GetSavedGroupReferencesFeature {
+func (g *GetSavedGroupReferencesResponseBody) GetFeatures() []components.SavedGroupReferenceResource {
 	if g == nil {
-		return []GetSavedGroupReferencesFeature{}
+		return []components.SavedGroupReferenceResource{}
 	}
 	return g.Features
 }
@@ -111,6 +85,13 @@ func (g *GetSavedGroupReferencesResponseBody) GetExperiments() []Experiment {
 		return []Experiment{}
 	}
 	return g.Experiments
+}
+
+func (g *GetSavedGroupReferencesResponseBody) GetContextualBandits() []components.SavedGroupReferenceResource {
+	if g == nil {
+		return []components.SavedGroupReferenceResource{}
+	}
+	return g.ContextualBandits
 }
 
 func (g *GetSavedGroupReferencesResponseBody) GetSavedGroups() []components.SavedGroups {

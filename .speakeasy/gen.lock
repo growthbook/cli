@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 4c8e0331-b838-4af2-bf59-101dac30ada4
 management:
-  docChecksum: fc8259818467c035029077d70a1b5286
+  docChecksum: 83c7bc39d8c270f24501c9a362852781
   docVersion: 5.1.0
   speakeasyVersion: 1.794.0
   generationVersion: 2.930.0
-  releaseVersion: 3.0.0
-  configChecksum: 55e0518399be8531a07a2b5a01d928f4
+  releaseVersion: 3.1.0
+  configChecksum: e8506d1999bd560bedb6313193746bff
   repoURL: https://github.com/growthbook/cli.git
   installationURL: https://github.com/growthbook/cli
 persistentEdits:
-  generation_id: 71f2eb58-0b6c-41df-a087-e4549c703403
-  pristine_commit_hash: 7ee84845477e725a0f0b3924a6ec549524ce0cdc
-  pristine_tree_hash: 81f4f2b06cc43cd28fda5f36d37bde7073ccfa83
+  generation_id: 6faea135-b091-4083-94d8-aa93fef86118
+  pristine_commit_hash: 1a2acef71a0985257204b55b8a709ba4517e5a99
+  pristine_tree_hash: 8971abc57686883a64aa1009b79222055ddfeda6
 features:
   cli:
     additionalProperties: 0.0.1
@@ -55,8 +55,8 @@ trackedFiles:
     pristine_git_object: 42c54cda59708a6d1df84db6f442f72bb1821484
   go.mod:
     id: c47645c391ad
-    last_write_checksum: sha1:71495d27bf016346a6c5d538062aeeba1433c413
-    pristine_git_object: d00b46767f63150f618ce29bf75c45f109c66dec
+    last_write_checksum: sha1:ce1fcc9d937a8b456348c4f718f42dfed4220113
+    pristine_git_object: 9df2ef2c830311940a246345177889bee66d9677
   internal/cli//copytransform.go:
     id: b9278f4c2248
     last_write_checksum: sha1:672b13bc5aa072c90d8780eb4fcaf4583467bf8c
@@ -759,8 +759,8 @@ trackedFiles:
     pristine_git_object: 1827e56309d76723da89b5461046e7657f350901
   internal/cli/experiments/create.go:
     id: 597a692f04ca
-    last_write_checksum: sha1:e65c58f93cddece510d2796fefac4bd2cc99eba8
-    pristine_git_object: 6502493377dd201d2fb8bd6f1ce7a8a68fc0d958
+    last_write_checksum: sha1:955df5cdbc44315ec04990fcb60206de86b9921f
+    pristine_git_object: e373e581f3f44be47749a9e73c779f418ff5e4ea
   internal/cli/experiments/createsnapshot.go:
     id: 78453ca1a3cd
     last_write_checksum: sha1:a2aaa2aea3ba7e57016620d5ba443817e2b258b0
@@ -819,8 +819,8 @@ trackedFiles:
     pristine_git_object: 4bc6336607a79d912cd9aa3fc855c76fa7f072c1
   internal/cli/experiments/updateexperiment.go:
     id: b5d8fe8a28b5
-    last_write_checksum: sha1:838643316fee726d923fa62f34a716bdfa5d6222
-    pristine_git_object: 4b77d3a9a87600c4d1981c531a7d050e2a4de92f
+    last_write_checksum: sha1:551ae974e92d0db0a66d6ed51b13638a22e4c187
+    pristine_git_object: a62b0e98a3bbfb11d27da83d8a31c9cf11192b93
   internal/cli/experiments/uploadvariationscreenshot.go:
     id: 27f8d729adfb
     last_write_checksum: sha1:ffbc772b856c506e6586c356374fd940e5a2f8a4
@@ -831,8 +831,8 @@ trackedFiles:
     pristine_git_object: a22a216a01ec437f17e18a085b0ef8d008dea2c6
   internal/cli/experimenttemplates/createexperimenttemplate.go:
     id: b29fa487fd22
-    last_write_checksum: sha1:65c281556737098b76bea8f71f6c067022cac08b
-    pristine_git_object: dfbda232204de56eb50bc29aa4a14a21ada09070
+    last_write_checksum: sha1:fff19c7539aad94a455dcb6d6f4be3450deb42fa
+    pristine_git_object: fccd4359d2e8a794828bd56897b080807438dc41
   internal/cli/experimenttemplates/deleteexperimenttemplate.go:
     id: 015f6412b0a5
     last_write_checksum: sha1:f4c29a98cb4d388e118122eae75389b78e407be3
@@ -851,8 +851,8 @@ trackedFiles:
     pristine_git_object: 13339e8f6ae5f55cb25eea1c5faaee5af2a2a9c1
   internal/cli/experimenttemplates/updateexperimenttemplate.go:
     id: ec2a27c9daf8
-    last_write_checksum: sha1:8253e0a740f6be612d262ab9e0936a1875ee1dc3
-    pristine_git_object: 788814aca6b2db5c432640193e6fa7a55ad53d1a
+    last_write_checksum: sha1:bbadda68d355eb31590eb0a6b3cceb692ff7ae51
+    pristine_git_object: eb8d19049b77f92bddb8d4f24a60caad22b0d5de
   internal/cli/factmetrics/create.go:
     id: 2be35afee8be
     last_write_checksum: sha1:77e95bf0cb5c7c96222292b29cc27567f538f317
@@ -1067,8 +1067,8 @@ trackedFiles:
     pristine_git_object: 545c219cec31dce2bf4369eac2df85abf8a6102b
   internal/cli/featurerevisions/setmetadata.go:
     id: d9a0e8d7e9e7
-    last_write_checksum: sha1:a74a7e08cc437b9065385257a89158a2cb4fb30d
-    pristine_git_object: 486a79396c8b014e965f656a48095a70fcfba93e
+    last_write_checksum: sha1:b158f02dd3f5896477ee056f54377ef9ca0cc760
+    pristine_git_object: 6a49d5f947d919c5fb2968dc138b6d916981a88d
   internal/cli/featurerevisions/setprerequisites.go:
     id: e2778b8be061
     last_write_checksum: sha1:87f70dfb43d1d64573139001afdd69451a28159c
@@ -1175,8 +1175,8 @@ trackedFiles:
     pristine_git_object: 4a46184b357285aa67e5aa417564ae69f66a7eff
   internal/cli/featurerevisionsv1/putfeaturerevisionmetadata.go:
     id: 80e9cdd379ae
-    last_write_checksum: sha1:24b0998a82091d54da12f2235ed967d25e31aa14
-    pristine_git_object: dd27f80537c12452783a1543d172efc76e6746af
+    last_write_checksum: sha1:f41b56e774efe13e779913b79a2d90004461bb70
+    pristine_git_object: aa8f7f92174e12784e9ba5e32d0789e8e3e1e01a
   internal/cli/featurerevisionsv1/putfeaturerevisionprerequisites.go:
     id: e2131a54cbfd
     last_write_checksum: sha1:30318d2af379257591e6aa5ee2f8d7c8edb8b0f7
@@ -1275,8 +1275,8 @@ trackedFiles:
     pristine_git_object: 9b6e7de3b48c0a297708b3d2d78baaa0f3abe718
   internal/cli/holdouts/createholdout.go:
     id: d34d7dd1bf05
-    last_write_checksum: sha1:2f7817acd21f9406e519100bb9891a67ab720f20
-    pristine_git_object: 19e5a9b2bce3a22175c43b4ea7b25d30c9a93fd9
+    last_write_checksum: sha1:af26f8cffa16d01cf912d622ef66e1ce6fe12649
+    pristine_git_object: 29ff6104f4b937e63108c63f6375cddd74c49dcc
   internal/cli/holdouts/getholdout.go:
     id: 965da5989878
     last_write_checksum: sha1:1ec6a3e98b120587ca1710feab5075f8985863e1
@@ -1303,8 +1303,8 @@ trackedFiles:
     pristine_git_object: e04f564f34b507d9b3249ad2ff207861062a5b6e
   internal/cli/holdouts/updateholdout.go:
     id: 9c609b5469af
-    last_write_checksum: sha1:ad69b7561fb8efb14e1ddd6be35ef133be15a0c7
-    pristine_git_object: d751d8f9ade67dce856989879aa8055aaa575e68
+    last_write_checksum: sha1:5a7a5ee8b1b9267a8282739485a1d9d8255dd5b9
+    pristine_git_object: 8b0524bbce48d8b7ecc9125efca0e4658b9e604c
   internal/cli/learnings/createlearning.go:
     id: 99194a083e05
     last_write_checksum: sha1:36d7ff59407fc4ca10b06f6df5ee37f450829eb3
@@ -1463,8 +1463,8 @@ trackedFiles:
     pristine_git_object: ec5e5f46b364d8da96bccb70f649fea9c62aeae3
   internal/cli/projects/create.go:
     id: f6ad4fffabe8
-    last_write_checksum: sha1:78c614af77fbbabe57343c70e70c5766abbc8570
-    pristine_git_object: 4337a5b04ff1b36115b452d0480e302ff81fef82
+    last_write_checksum: sha1:e6a8138246ac25835a86d2b1926b12121e90e173
+    pristine_git_object: 76fcf6a40a6c82cbc506ac3ae289003ef7b835fc
   internal/cli/projects/deleteproject.go:
     id: d76033675d35
     last_write_checksum: sha1:ef0188c4b5f7124bbb3f44733dbd0af80cafe2ed
@@ -1483,8 +1483,8 @@ trackedFiles:
     pristine_git_object: 50c5d39603a7f4f97647a86ad402207412649ca7
   internal/cli/projects/update.go:
     id: 79b2d809d1e9
-    last_write_checksum: sha1:7ef7fe36fd9cd04241cdaa49215805972d752e42
-    pristine_git_object: 210515f1d3c0244025603b841daf0810175cfa4f
+    last_write_checksum: sha1:4580cb5c9edfc0b42c3ebc13d58a9ac7a7f3456a
+    pristine_git_object: b2c56d317d75287f03d2194e73f0002b65087abb
   internal/cli/queries/getquery.go:
     id: 1520ed3ed28f
     last_write_checksum: sha1:09f1ffea74dd824ab7a93547e671163ea8eff084
@@ -1579,8 +1579,8 @@ trackedFiles:
     pristine_git_object: 261e7b7f9003b6cb94f9b27b26d2fad16f0f30c3
   internal/cli/rampschedules/updatemonitoring.go:
     id: dec6c854c705
-    last_write_checksum: sha1:3898f7a46cc95360d5e0ad38ccf2ae4080c9b9d2
-    pristine_git_object: 3b9eb220f5e7fcae1b5a8b3d41b114eacbc3d4cb
+    last_write_checksum: sha1:c1193e9b103e2f3144a2a8d2052c46f2ff962a10
+    pristine_git_object: e1b383a89f0f6585482b88cf60e9aa99f9b18f76
   internal/cli/rampschedules/updaterampschedule.go:
     id: 5facc20cf017
     last_write_checksum: sha1:5e65500ebefff92219b5d363fa5025e2c1d3e2e4
@@ -1895,8 +1895,8 @@ trackedFiles:
     pristine_git_object: ebe103193bb45fd5283323d4d62aa2167da0aec8
   internal/cli/version.go:
     id: 7b0665492f72
-    last_write_checksum: sha1:5756995d07ae21ecc06a99ade8826fe59e1dc413
-    pristine_git_object: 60b5eaf7dcfb9ff4428bb09168490842b0dd8c37
+    last_write_checksum: sha1:6e3f86567ea9fc91811633cc71b59f72f08a361e
+    pristine_git_object: dcf70110859bbd9e07ace9454a6a70895b518a8e
   internal/cli/visualchangesets/addvisualchange.go:
     id: fdbcb9d69b23
     last_write_checksum: sha1:5cded7eeb898816ee2a09f62badf32906cfdc360
@@ -2311,8 +2311,8 @@ trackedFiles:
     pristine_git_object: 4fee40f3c2ee8bd0173b4371f05d6cc2ed0f5339
   internal/sdk/models/components/datasource.go:
     id: c652d5b090e8
-    last_write_checksum: sha1:b9e88b85bb40af10b833314b360f7d6f2b5be0e2
-    pristine_git_object: e3151f90f48f9bb2c61e2bab0ed4a5a6d3ea47e6
+    last_write_checksum: sha1:d4099824ac543312a5b847e1e70a692b5d8d6345
+    pristine_git_object: 02d8d249de7637692f92817b30411495a5824a0a
   internal/sdk/models/components/dategranularitymetric.go:
     id: 41f053e9a906
     last_write_checksum: sha1:2a75037bccf0ed6675fbbd37d78b62ff98849651
@@ -2351,8 +2351,8 @@ trackedFiles:
     pristine_git_object: 3eb789127c900204aea1b8e3f83adba9539d3500
   internal/sdk/models/components/experimentanalysissettings.go:
     id: d6ce8157dd69
-    last_write_checksum: sha1:141236237b0d8c696af6d47adcc5528701f6b52d
-    pristine_git_object: 7c8abe5fdf34a029be4ed20af4e4465b970ea143
+    last_write_checksum: sha1:0ac47558b95ba657cc88433320a2ea455056f1c8
+    pristine_git_object: 3dece3ed2198684481417662d2d9911142133c7d
   internal/sdk/models/components/experimentdecisionframeworksettings.go:
     id: af6937a55e7e
     last_write_checksum: sha1:265b3dfa4724cea5f5cca06dcc4822e692f4952a
@@ -2383,8 +2383,8 @@ trackedFiles:
     pristine_git_object: 39fd46f6422fb684856d6bedb5d7c3d8123d40df
   internal/sdk/models/components/experimenttemplate.go:
     id: d52be240a0f9
-    last_write_checksum: sha1:53a1ca8071cc8d68f8f896fa208313779a381b95
-    pristine_git_object: 9cea894d51f8927b581dfa76c61769f2e5c36f42
+    last_write_checksum: sha1:780be820652ebf089f2d05c28033280b29b24e46
+    pristine_git_object: 3b32c4a9626f278c5ccaba32376190b0da21d078
   internal/sdk/models/components/experimentwithenhancedstatus.go:
     id: e48231cf9d2a
     last_write_checksum: sha1:7670ae03a862014c26167cf1dc2999679d450da9
@@ -2447,12 +2447,12 @@ trackedFiles:
     pristine_git_object: d6f45fc71bf459c0bee679f3b8c9094992abbf75
   internal/sdk/models/components/featurerevisionv1.go:
     id: b28d58e1da8b
-    last_write_checksum: sha1:9a33bd69b6d6325928bba99a5eea38fb0b954361
-    pristine_git_object: d61a9e208b2647745918f02b3006644426c2a80e
+    last_write_checksum: sha1:037de10ef1e1b4323d919ecee1ddf4a4af569cc3
+    pristine_git_object: 42b86f997469d9410a019a356082d4f5a46042ac
   internal/sdk/models/components/featurerevisionv2.go:
     id: fd493f0ed176
-    last_write_checksum: sha1:8271b556504bcbac5ba9dc57f55a774951ab8aed
-    pristine_git_object: 30d6601fe7167a481d621c9fb144f88def929801
+    last_write_checksum: sha1:359ea0f5cace0c8da7e01107e52e1525242f7453
+    pristine_git_object: 524fa659c68bcd6552f99e603139495cee133beb
   internal/sdk/models/components/featurerolloutrule.go:
     id: 4dc249cdddf2
     last_write_checksum: sha1:61fdfaf2c58fc4d19953bfae3021aba36641bd99
@@ -2503,8 +2503,8 @@ trackedFiles:
     pristine_git_object: a1bd2b87dbc9a4d00920a910a36a433ddb444a37
   internal/sdk/models/components/holdout.go:
     id: 5a1dc194aac4
-    last_write_checksum: sha1:acca90611f4e6aba7bbd4fe627a9d4ab0b70b47d
-    pristine_git_object: 9568ca73c6fed33302d5b615be29f7b4b761a003
+    last_write_checksum: sha1:6ac149989bae954202a588f3090faaec1274c5d3
+    pristine_git_object: 61a75a51bbf9b4fa1fc87f37a6b092d05d082903
   internal/sdk/models/components/httpmetadata.go:
     id: 2e30cdb779b3
     last_write_checksum: sha1:01a20fcff33179809ff9920ee431c7adabbd98f1
@@ -2595,24 +2595,24 @@ trackedFiles:
     pristine_git_object: ec77a448393e146fe56336ff89c779e8fa7cab65
   internal/sdk/models/components/project.go:
     id: 7664ccc68b17
-    last_write_checksum: sha1:365db71db37fe04f2316f74dbd21cba5d1787148
-    pristine_git_object: 1ec141ca81ea489468b72054672d108bfac1ac2f
+    last_write_checksum: sha1:9a70f7440e2b5315cf72f1b0bd61361445a332a2
+    pristine_git_object: 4f9a3925d492a6f2f7ca5b001fc1ff3b74a9147a
   internal/sdk/models/components/query.go:
     id: df0c12f964e3
     last_write_checksum: sha1:902ee72c74125cdf2ec80be070e4c91ccff40bec
     pristine_git_object: b4dd9ed45d9474480e3acd86f92d80b74050c3ce
   internal/sdk/models/components/rampschedule.go:
     id: 8f139ee948f5
-    last_write_checksum: sha1:160e63d0fa24e1f0d417c55801c3a19937387005
-    pristine_git_object: ac65cfc6284b7fc39b749ee5dca97ce0ad4c61bd
+    last_write_checksum: sha1:544df133d60df0cb2f5d628eab227bb5a8cbddfc
+    pristine_git_object: fe76f12b587879c800a26ba36e218b46fae0bc0a
   internal/sdk/models/components/rampscheduletemplate.go:
     id: 72d9b34757c3
-    last_write_checksum: sha1:aba7fd062d7021f8fb0df965c93e68a3377e02d5
-    pristine_git_object: 4cf1c81bcde70499ad151cba7df526acbc517735
+    last_write_checksum: sha1:bd82ef82d97d9dcf3ab5e3d17e7a8221e818485b
+    pristine_git_object: e515aef406ca19e7a08f010ff56b68d0132c2108
   internal/sdk/models/components/report.go:
     id: c59fa920e885
-    last_write_checksum: sha1:9683c76c4ffba2e6e76b1cc72b19519ba75cf5d4
-    pristine_git_object: 4361af2963902688000823fdc20fd8aba0ceb51e
+    last_write_checksum: sha1:da6b4a1b80e7ed84c3f57191e636dd1aaf177d4c
+    pristine_git_object: ca061eaa11902348f3d5f2bb5c0b75e4fa48a055
   internal/sdk/models/components/requirereviewrule.go:
     id: 3b782c1dd2a4
     last_write_checksum: sha1:fb21d4d362add83569affa0d66b28ac83a3c9737
@@ -2639,8 +2639,8 @@ trackedFiles:
     pristine_git_object: a4a6476d39c9a22e78ec073492edd18f6d9ea91e
   internal/sdk/models/components/saferolloutrule.go:
     id: 61f43a1663aa
-    last_write_checksum: sha1:776dca25c837565d0c36118bb206dcd5c72ff79c
-    pristine_git_object: f0b3048e111834c89d73fc1bcef2d831a958fcb1
+    last_write_checksum: sha1:157f7198f3b407b5e5a1b848e15cf2215a3ea4cf
+    pristine_git_object: fe3dfb539e99ec8fbf3bada0e5b1b12469b264af
   internal/sdk/models/components/savedgroup.go:
     id: 7d1071a269a9
     last_write_checksum: sha1:57119d06a58e4a33a1c7a3b5f9f692c9fc165eda
@@ -2649,6 +2649,10 @@ trackedFiles:
     id: 23885de02dfc
     last_write_checksum: sha1:1c1a0bd19295a97a60080dde42ce2802085e8730
     pristine_git_object: 0b88c7746565e075f83831923accca45a6a12c5b
+  internal/sdk/models/components/savedgroupreferenceresource.go:
+    id: 7f98d5584633
+    last_write_checksum: sha1:944d743c25d3e4c3eb13941004871461e0cf306c
+    pristine_git_object: 59080d45a6960766e3d2d1d06165763aabf424f0
   internal/sdk/models/components/savedgrouprevision.go:
     id: e6bc70e762a2
     last_write_checksum: sha1:9a39b894fedde8f3e4e1fe2b7a8e558052ef95fb
@@ -2811,8 +2815,8 @@ trackedFiles:
     pristine_git_object: c4dfd62ea5f544cdf99ec65f2f2024bdc760ed0f
   internal/sdk/models/operations/bulkimportexperimenttemplates.go:
     id: faa18f22dd3f
-    last_write_checksum: sha1:5fa00ba411b6cc993fa7744518b716f4d8e2fd23
-    pristine_git_object: 9da00928552f9345bc0d5b0a9e90028e86afee97
+    last_write_checksum: sha1:2c94bb1b9d1ad394cbe5abdd7072651a53547966
+    pristine_git_object: a927d66f8e97d9b9c9ed5ff1aa861541e6c50cb8
   internal/sdk/models/operations/cancelcontextualbandit.go:
     id: 89b920c20b96
     last_write_checksum: sha1:12b2ff4a5c2ac2b3a49a32832da2fe1965f8ba05
@@ -2855,12 +2859,12 @@ trackedFiles:
     pristine_git_object: 24f5c8202d95cacea6008e6332cfd904c4ef524b
   internal/sdk/models/operations/createexperimenttemplate.go:
     id: aec74dde47aa
-    last_write_checksum: sha1:cf92d37353e7cfd318b5e17c161cf08f7a1773b1
-    pristine_git_object: 2258af557b722bf110f5f827e122fdbeadd476c6
+    last_write_checksum: sha1:c1c93edab7d89c0b8373c05c4f19832d9c652ce4
+    pristine_git_object: 99b33399bbb968c57290113f4fe9e71d68f5ff0d
   internal/sdk/models/operations/createholdout.go:
     id: 869c29b0688d
-    last_write_checksum: sha1:253e865f7258f6e90abde7df0e8e71bd5f03cc0b
-    pristine_git_object: ca93fcf2eb732de1d6d451c4da7473fe8b13933b
+    last_write_checksum: sha1:7417ed96dec6ab6875c75b1b0a1d8cd7baad529a
+    pristine_git_object: 9cf6e898a4d61b8bfabdbf084581acb7a80e153d
   internal/sdk/models/operations/createlearning.go:
     id: 5546a27b734a
     last_write_checksum: sha1:fd212b186cdcd91394cfda351820e491716631dd
@@ -2871,8 +2875,8 @@ trackedFiles:
     pristine_git_object: 0021dfd6216d37a3bfc037e3645cd254a933fca0
   internal/sdk/models/operations/createrampscheduletemplate.go:
     id: f6491ad8760e
-    last_write_checksum: sha1:67ab917b4d54b5f94d94a3b97e74ab1c7cef605c
-    pristine_git_object: b1286f814b2138d51cba4d6168943cc90f0f0e57
+    last_write_checksum: sha1:7a6b9609134f670434c8371274d59ce6fcc3d043
+    pristine_git_object: b19972e0ef8b92219192c558adce236a14b653f2
   internal/sdk/models/operations/createteam.go:
     id: 07fd00e4dfa7
     last_write_checksum: sha1:a44d45da648c5d0fe81782b707fabd84a3e9696f
@@ -3343,8 +3347,8 @@ trackedFiles:
     pristine_git_object: 139dc2555c8b804587f05197e04492a9a97e2cc7
   internal/sdk/models/operations/getsavedgroupreferences.go:
     id: b9d0c3184a4d
-    last_write_checksum: sha1:be23cbde8d6d7ffca3206005c5436a2cf158a7db
-    pristine_git_object: 80738b19f8218e783f187646f909f0715d838228
+    last_write_checksum: sha1:a77af9d8087f1e0c8dee0b11b1ed288d47a0e33d
+    pristine_git_object: 654567fccc687d22b2b19360a9e9ca59d4a40544
   internal/sdk/models/operations/getsavedgrouprevision.go:
     id: 9b9af775adbe
     last_write_checksum: sha1:1fd9b041e7440bc301d78cc88183bdf18eff7aad
@@ -3739,8 +3743,8 @@ trackedFiles:
     pristine_git_object: 8ddbff77c0c92bc1b45acfe934629edefb96678f
   internal/sdk/models/operations/postexperiment.go:
     id: 627b78d51960
-    last_write_checksum: sha1:85498b6e83febb8b6180ab7171e3420187f5e76c
-    pristine_git_object: aad7665505c1d928de72e6c14ef2cbcb07872dd6
+    last_write_checksum: sha1:481048cd3833b98103b2440a975bafdbe9e1eb35
+    pristine_git_object: 7ae9faef3ba0c7da06a42a47e79c8ccf70e84148
   internal/sdk/models/operations/postexperimentcomment.go:
     id: 113ef349e4a8
     last_write_checksum: sha1:0fb241668509246f57f9fe483c1586e4829d581b
@@ -3851,12 +3855,12 @@ trackedFiles:
     pristine_git_object: 59cdd008642c92d0f042d4c4bdfb1c33ca207913
   internal/sdk/models/operations/postfeaturerevisionruleadd.go:
     id: 93c1a3a061b3
-    last_write_checksum: sha1:1310da172634618b3b34d29efbd2138bb10551be
-    pristine_git_object: 6a5dbd526807e7545908457e4a08dd4a84595cd3
+    last_write_checksum: sha1:2e6b3393e20fde5c0de3baf1137da721f1bac023
+    pristine_git_object: c1fb9887d4771245b2b88728ad9675d015226353
   internal/sdk/models/operations/postfeaturerevisionruleaddv2.go:
     id: 83c9f3341fcc
-    last_write_checksum: sha1:962a1ebd42c29c676c3d8ebda68c7f416ca3e411
-    pristine_git_object: ce53695a7adc856a728e9992fda32f0f01b88e99
+    last_write_checksum: sha1:e2114eeebf3e43cd80a9d4d947b8a2a4a747dfc0
+    pristine_git_object: 1b2d5c40220c8918d635c0ee1522ebeb02f06619
   internal/sdk/models/operations/postfeaturerevisionrulesreorder.go:
     id: d203bbbd897d
     last_write_checksum: sha1:0159c40ed87548733057d47257537bfaa53a83f4
@@ -3927,12 +3931,12 @@ trackedFiles:
     pristine_git_object: cb40e0ad528f06bf5fae57f0543d5d2f44a31c46
   internal/sdk/models/operations/postproject.go:
     id: a4a6e994f496
-    last_write_checksum: sha1:410ac7e9dfe4c8d7d3a6e82d0b0bdecf03ff5f36
-    pristine_git_object: 9518c6f522481950de99fb7f40d3d8ca3b50f503
+    last_write_checksum: sha1:9426637cd2797733d23602f9374dc10c5e29ee2a
+    pristine_git_object: 544017cf4e0d91fd63beb336936863f979d43b0b
   internal/sdk/models/operations/postrampschedule.go:
     id: 963323980a74
-    last_write_checksum: sha1:46f8224de22b9680a65c5421a8b257ccb8d522f1
-    pristine_git_object: 04415bb99bb2f6120a5599d4413fe1193f4ca9a0
+    last_write_checksum: sha1:0c7a41644cd35c9dfce0506254f1b564bd655fe5
+    pristine_git_object: 72a65951c799e1f5e3436c7966d7a5d33e06e8bc
   internal/sdk/models/operations/postreleasepublishrevisions.go:
     id: 01708ab638cb
     last_write_checksum: sha1:027b4e3b74341905215b2b2fdbf9959da6470d23
@@ -4115,12 +4119,12 @@ trackedFiles:
     pristine_git_object: 96f87f934a8f43cac86b06c56103dfb8e9b85457
   internal/sdk/models/operations/putfeaturerevisionmetadata.go:
     id: 3250acef9539
-    last_write_checksum: sha1:1ac305a58cd9893b785c6e1536b52bcf9efa5ccd
-    pristine_git_object: 35c66623e46caf1541c34952929d174aa7cef2d1
+    last_write_checksum: sha1:d009a12694d3c27fbf121a6272adf38a56628a00
+    pristine_git_object: cdfe3fc3b4d8f8087730b9d74b5f313b24bba59d
   internal/sdk/models/operations/putfeaturerevisionmetadatav2.go:
     id: f5caf260cdad
-    last_write_checksum: sha1:b95ac1501ca7e82ae9d609411dd042deb8ea2c1c
-    pristine_git_object: af2ca0db417a830857cedb28c9f068156a297986
+    last_write_checksum: sha1:8ac90596911e00818ca8a3768ae188df033142c1
+    pristine_git_object: 2aa79306c3ab09e47490dc25accb38cf604c497e
   internal/sdk/models/operations/putfeaturerevisionprerequisites.go:
     id: dcf9956f65db
     last_write_checksum: sha1:72fc59b08e8bf71c13be91164c7d453d04796599
@@ -4131,20 +4135,20 @@ trackedFiles:
     pristine_git_object: 63a72f30738790aed65716ca3ae7012900c27dba
   internal/sdk/models/operations/putfeaturerevisionrule.go:
     id: bfe7405e0878
-    last_write_checksum: sha1:a3a368c7edc3e1e4a11da34e9b3d1284a207e36c
-    pristine_git_object: 1ff5eb16746e56ad4b06bb1f87261bda99b89d47
+    last_write_checksum: sha1:bbd732b94b5285ab012250f8f5d01ad15f02eb07
+    pristine_git_object: 6228c08d8c82d23a5bdd4cc180d20877ac6df296
   internal/sdk/models/operations/putfeaturerevisionrulerampschedule.go:
     id: 6fb30e769e56
-    last_write_checksum: sha1:644aa4aa8cdc19d0ee3d12a9f40f4546b2791a0f
-    pristine_git_object: bf9b0b489c51df2bc5cbf83c9eb0faf84d2f8d0a
+    last_write_checksum: sha1:d26877a574302adddcb029041a61865c2fc585b7
+    pristine_git_object: bd58b866375ee7d591f675b54a250a8544f3618e
   internal/sdk/models/operations/putfeaturerevisionrulerampschedulev2.go:
     id: 2dd0729a2822
-    last_write_checksum: sha1:203e014042871be8a3ca082f65f298dc82df32fa
-    pristine_git_object: 149d2fe3427f76acb0314c09e3e9ca49328d435a
+    last_write_checksum: sha1:8614eb4240fe9ccc99aedce586db0839ee51800c
+    pristine_git_object: a22e3d45312d515b90fdb3f2db39456b6e8f2d9b
   internal/sdk/models/operations/putfeaturerevisionrulev2.go:
     id: b2f7356bb855
-    last_write_checksum: sha1:08ddbcad618b06ecd2d259b83de65a002191002b
-    pristine_git_object: 43da2ec14a9e268fa16a299f62b6dde2dd26f4a3
+    last_write_checksum: sha1:69a3e0957fe2babc7a9c4781d7c66f8493762aac
+    pristine_git_object: fea007f55a684b1576f00c45b04b0fc97cabb73a
   internal/sdk/models/operations/putmetric.go:
     id: df887bc82d8a
     last_write_checksum: sha1:70d2ac78668e2278386aec2ef5bc462c0a071da5
@@ -4159,8 +4163,8 @@ trackedFiles:
     pristine_git_object: 45bcbbf2a2c241752b424d7f3e49e40938333476
   internal/sdk/models/operations/putproject.go:
     id: 20ea9a80ad19
-    last_write_checksum: sha1:890487f2c4f8330bb458286e349e6ef758a0aca6
-    pristine_git_object: 39a06c6656fe11cd2fcdbbc03389594fb2210aef
+    last_write_checksum: sha1:2ff4929874314d695172aefbea40b3015f616437
+    pristine_git_object: 61f3f6613b68b20ad541eebe8811e3c31ceca3b1
   internal/sdk/models/operations/putreportmetadata.go:
     id: 0ce73eb930fa
     last_write_checksum: sha1:bdf19fa82379bcd0aed34422a0bd2e473005822f
@@ -4255,12 +4259,12 @@ trackedFiles:
     pristine_git_object: 0e05505156dbd7ac6e114bf5ef6b23cd7b774689
   internal/sdk/models/operations/setautoupdaterampschedule.go:
     id: de16f8af787a
-    last_write_checksum: sha1:c1aecac08cfc6dc453dde1a9a251f39395eea264
-    pristine_git_object: 5c0511e4312f2d323edc0c23d5faf28ed81329fb
+    last_write_checksum: sha1:1ad01ea50bd17230afdcfd32b17abb2ed89e3389
+    pristine_git_object: 3176ff9e0f4d6e4c1e6876ca6f2c3cbbc99a1167
   internal/sdk/models/operations/setmonitoringmoderampschedule.go:
     id: f30cf4342b8e
-    last_write_checksum: sha1:f26a21487f47a4bb9acdbef9be526ba91d776ebd
-    pristine_git_object: f856f0f738b232eace50a1ab9e4ea2affffd3703
+    last_write_checksum: sha1:ccb6b243693b059fb3862eac84817b72bd01d752
+    pristine_git_object: 3bb4a878651cb94ff1def78682df1ca343a4a065
   internal/sdk/models/operations/startcontextualbandit.go:
     id: cd842693bd83
     last_write_checksum: sha1:13718c91a5f2e66d150530874c5f98f7766329ba
@@ -4371,12 +4375,12 @@ trackedFiles:
     pristine_git_object: a1c36a669d484feb44796d94b48ea49ce5ec7762
   internal/sdk/models/operations/updateexperiment.go:
     id: c49b3a9ef5c0
-    last_write_checksum: sha1:5e349cccc16679ee1f3e1af73bdd6ec18a5d9b87
-    pristine_git_object: e0536dd9f88e5926389242b9e8e320fc74fa3d20
+    last_write_checksum: sha1:1b0fa6d94574ffd7a6afc05aa9a3ffab531be915
+    pristine_git_object: 54445ad6975b5f518082485225cc78d181035928
   internal/sdk/models/operations/updateexperimenttemplate.go:
     id: 3f6f77c9eeba
-    last_write_checksum: sha1:0864485ec9c0be9b1bcd2d60b8f8e8678be72867
-    pristine_git_object: 21520c031c35b30a0cc96ff02469ff33772152c0
+    last_write_checksum: sha1:090412e2f37eed66f3453b9aa6361ac2c09dd522
+    pristine_git_object: bd48f2ef262c544db0812976be6455a07ae49a9e
   internal/sdk/models/operations/updatefactmetric.go:
     id: 1dc552f21e13
     last_write_checksum: sha1:aa7aabbfa679f42d70e2d4a96773060c352996a5
@@ -4403,8 +4407,8 @@ trackedFiles:
     pristine_git_object: b84f23ea2b75816bdc46ceab3647e2f3b75d47fb
   internal/sdk/models/operations/updateholdout.go:
     id: b2ef4585cd9e
-    last_write_checksum: sha1:d76df5bb1685611a43899c387945f82ebe249f41
-    pristine_git_object: 075bd4810e59c12e6b033491300643d530c1d7e1
+    last_write_checksum: sha1:fe36445ba4c94945fdfdd05dd176645b485003cf
+    pristine_git_object: 64816d5115aaecfa60af743000ec60a638a23876
   internal/sdk/models/operations/updatelearning.go:
     id: c92152bf02ac
     last_write_checksum: sha1:b828019ceaf5efb4f3380432f3f704bce0595f9b
@@ -4419,24 +4423,24 @@ trackedFiles:
     pristine_git_object: 039d8789c4cefe0195021bf4520b068a88d43609
   internal/sdk/models/operations/updaterampschedule.go:
     id: adb936f1b2b1
-    last_write_checksum: sha1:d11dee7cfd59c2ff240ef40bc60c2b59a38b1497
-    pristine_git_object: d56c68eb8600e5ab890707fbb37542a8ad6388d7
+    last_write_checksum: sha1:eb37527c6b4cdc0c3209b6fac6cc4f8533b92ffd
+    pristine_git_object: 06519a1996b9f6600f2f87f0e7149a44af0f8707
   internal/sdk/models/operations/updaterampschedulelockdown.go:
     id: 08a47c17225f
-    last_write_checksum: sha1:3fa2b9e4509d2b60dc76f12115c4a7c241d78c8e
-    pristine_git_object: dfd5f837dbfa29adf56f9a6885bde44728a059cb
+    last_write_checksum: sha1:ff179a45461300a53110543c22d98e140948e860
+    pristine_git_object: 11d716395b62946dbe9fb32f0ff03cd92a2ea321
   internal/sdk/models/operations/updaterampschedulemonitoring.go:
     id: 75f5ee27a12a
-    last_write_checksum: sha1:174aad1a38f2501bbd08270ebad06adeb4ba0fe5
-    pristine_git_object: 2071024180b34b4ed981c6099c5d26cb5433ed13
+    last_write_checksum: sha1:764ade53b492445e1e4d6ffb17cf9eac035c425e
+    pristine_git_object: af3835f6ba297c63d96a26f8537f31e551ea49cd
   internal/sdk/models/operations/updaterampschedulesteps.go:
     id: 5a28db233345
     last_write_checksum: sha1:803bbd64e55d57e63d915fbec8586421c3e39c87
     pristine_git_object: cf72734e953b3e9345876dceffc3f92d72a93790
   internal/sdk/models/operations/updaterampscheduletemplate.go:
     id: d8d27b762593
-    last_write_checksum: sha1:8ca81c9f8cb9e4bb60f1517ea59f7c3e6359f49e
-    pristine_git_object: c67474688a0cf371ade3294e1a8e61fa456fc616
+    last_write_checksum: sha1:c5d57508d49604848e8497fc58baa8ad5d014e6a
+    pristine_git_object: cddf02fabbc7202395fa907b263af79377979985
   internal/sdk/models/operations/updatesavedgroup.go:
     id: d396c1790986
     last_write_checksum: sha1:e84e6aa254c4241af5d52cef5033418d637445a2
@@ -4655,8 +4659,8 @@ trackedFiles:
     pristine_git_object: 159a87ec97aba99e4edd132f69652e123434303e
   internal/usage/schema.go:
     id: 0f40f4612437
-    last_write_checksum: sha1:877d3fbcc1e76000f991594e74d1799919b0ace4
-    pristine_git_object: 2151091d301dfad1b92985b605a4d9bdcb812e34
+    last_write_checksum: sha1:515ac2618e0713db902ade6fdadb0e819681e8ee
+    pristine_git_object: fba69389b6e39d8d0f656f6dfd133caccfe77b57
   scripts/install.ps1:
     id: fee0853709e9
     last_write_checksum: sha1:f9df93912e2b5d20eaffddbdb2708ce76ec06445
@@ -5216,7 +5220,7 @@ examples:
         application/json: {"trackingKey": "<value>", "name": "<value>", "variations": []}
       responses:
         "200":
-          application/json: {"experiment": {"id": "<id>", "trackingKey": "<value>", "dateCreated": "2025-01-13T16:02:02.891Z", "dateUpdated": "2026-11-13T11:54:07.508Z", "name": "<value>", "type": "standard", "project": "<value>", "hypothesis": "<value>", "description": "to woot when from fleck dearly gallivant gadzooks slight", "tags": ["<value 1>", "<value 2>"], "owner": "<value>", "archived": true, "status": "<value>", "autoRefresh": false, "hashAttribute": "<value>", "hashVersion": 7693.23, "variations": [], "phases": [{"name": "<value>", "dateStarted": "<value>", "dateEnded": "<value>", "reasonForStopping": "<value>", "seed": "<value>", "coverage": 423.04, "trafficSplit": [], "targetingCondition": "<value>"}], "settings": {"datasourceId": "<id>", "assignmentQueryId": "<id>", "experimentId": "<id>", "segmentId": "<id>", "queryFilter": "<value>", "inProgressConversions": "exclude", "attributionModel": "lookbackOverride", "statsEngine": "bayesian", "goals": [], "secondaryMetrics": [{"metricId": "<id>", "overrides": {}}], "guardrails": [{"metricId": "<id>", "overrides": {}}]}}}
+          application/json: {"experiment": {"id": "<id>", "trackingKey": "<value>", "dateCreated": "2025-01-13T16:02:02.891Z", "dateUpdated": "2026-11-13T11:54:07.508Z", "name": "<value>", "type": "standard", "project": "<value>", "hypothesis": "<value>", "description": "to woot when from fleck dearly gallivant gadzooks slight", "tags": ["<value 1>", "<value 2>"], "owner": "<value>", "archived": true, "status": "<value>", "autoRefresh": false, "hashAttribute": "<value>", "hashVersion": 7693.23, "variations": [], "phases": [{"name": "<value>", "dateStarted": "<value>", "dateEnded": "<value>", "reasonForStopping": "<value>", "seed": "<value>", "coverage": 423.04, "trafficSplit": [], "targetingCondition": "<value>"}], "settings": {"datasourceId": "<id>", "assignmentQuery": {"id": "<id>", "identifierType": "<value>"}, "assignmentQueryId": "<id>", "experimentId": "<id>", "segmentId": "<id>", "queryFilter": "<value>", "inProgressConversions": "exclude", "attributionModel": "lookbackOverride", "statsEngine": "bayesian", "goals": [], "secondaryMetrics": [{"metricId": "<id>", "overrides": {}}], "guardrails": [{"metricId": "<id>", "overrides": {}}]}}}
   listExperimentResults:
     speakeasy-default-list-experiment-results:
       parameters:
@@ -5233,7 +5237,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"experiment": {"id": "<id>", "trackingKey": "<value>", "dateCreated": "2025-07-20T22:40:46.973Z", "dateUpdated": "2025-07-31T03:42:20.220Z", "name": "<value>", "type": "multi-armed-bandit", "project": "<value>", "hypothesis": "<value>", "description": "smoothly youthful chromakey", "tags": [], "owner": "<value>", "archived": true, "status": "<value>", "autoRefresh": false, "hashAttribute": "<value>", "hashVersion": 8663.38, "variations": [{"variationId": "<id>", "key": "<key>", "name": "<value>", "description": "handover uproot queasily coil duh jovially juvenile revoke", "screenshots": []}], "phases": [], "settings": {"datasourceId": "<id>", "assignmentQueryId": "<id>", "experimentId": "<id>", "segmentId": "<id>", "queryFilter": "<value>", "inProgressConversions": "include", "attributionModel": "firstExposure", "statsEngine": "bayesian", "goals": [], "secondaryMetrics": [], "guardrails": []}}}
+          application/json: {"experiment": {"id": "<id>", "trackingKey": "<value>", "dateCreated": "2025-07-20T22:40:46.973Z", "dateUpdated": "2025-07-31T03:42:20.220Z", "name": "<value>", "type": "multi-armed-bandit", "project": "<value>", "hypothesis": "<value>", "description": "smoothly youthful chromakey", "tags": [], "owner": "<value>", "archived": true, "status": "<value>", "autoRefresh": false, "hashAttribute": "<value>", "hashVersion": 8663.38, "variations": [{"variationId": "<id>", "key": "<key>", "name": "<value>", "description": "handover uproot queasily coil duh jovially juvenile revoke", "screenshots": []}], "phases": [], "settings": {"datasourceId": "<id>", "assignmentQuery": {"id": "<id>", "identifierType": "<value>"}, "assignmentQueryId": "<id>", "experimentId": "<id>", "segmentId": "<id>", "queryFilter": "<value>", "inProgressConversions": "include", "attributionModel": "firstExposure", "statsEngine": "bayesian", "goals": [], "secondaryMetrics": [], "guardrails": []}}}
   updateExperiment:
     speakeasy-default-update-experiment:
       parameters:
@@ -5243,7 +5247,7 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"experiment": {"id": "<id>", "trackingKey": "<value>", "dateCreated": "2024-09-08T10:08:43.598Z", "dateUpdated": "2024-08-14T02:18:51.183Z", "name": "<value>", "type": "multi-armed-bandit", "project": "<value>", "hypothesis": "<value>", "description": "bony meh mobilize consistency", "tags": ["<value 1>", "<value 2>"], "owner": "<value>", "archived": true, "status": "<value>", "autoRefresh": false, "hashAttribute": "<value>", "hashVersion": 2033.58, "variations": [{"variationId": "<id>", "key": "<key>", "name": "<value>", "description": "before so agreeable", "screenshots": ["<value 1>", "<value 2>", "<value 3>"]}], "phases": [{"name": "<value>", "dateStarted": "<value>", "dateEnded": "<value>", "reasonForStopping": "<value>", "seed": "<value>", "coverage": 4468.07, "trafficSplit": [{"variationId": "<id>", "weight": 7170.96}], "targetingCondition": "<value>"}], "settings": {"datasourceId": "<id>", "assignmentQueryId": "<id>", "experimentId": "<id>", "segmentId": "<id>", "queryFilter": "<value>", "inProgressConversions": "include", "attributionModel": "firstExposure", "statsEngine": "frequentist", "goals": [], "secondaryMetrics": [], "guardrails": []}}}
+          application/json: {"experiment": {"id": "<id>", "trackingKey": "<value>", "dateCreated": "2024-09-08T10:08:43.598Z", "dateUpdated": "2024-08-14T02:18:51.183Z", "name": "<value>", "type": "multi-armed-bandit", "project": "<value>", "hypothesis": "<value>", "description": "bony meh mobilize consistency", "tags": ["<value 1>", "<value 2>"], "owner": "<value>", "archived": true, "status": "<value>", "autoRefresh": false, "hashAttribute": "<value>", "hashVersion": 2033.58, "variations": [{"variationId": "<id>", "key": "<key>", "name": "<value>", "description": "before so agreeable", "screenshots": ["<value 1>", "<value 2>", "<value 3>"]}], "phases": [{"name": "<value>", "dateStarted": "<value>", "dateEnded": "<value>", "reasonForStopping": "<value>", "seed": "<value>", "coverage": 4468.07, "trafficSplit": [{"variationId": "<id>", "weight": 7170.96}], "targetingCondition": "<value>"}], "settings": {"datasourceId": "<id>", "assignmentQuery": {"id": "<id>", "identifierType": "<value>"}, "assignmentQueryId": "<id>", "experimentId": "<id>", "segmentId": "<id>", "queryFilter": "<value>", "inProgressConversions": "include", "attributionModel": "firstExposure", "statsEngine": "frequentist", "goals": [], "secondaryMetrics": [], "guardrails": []}}}
         "409":
           application/json: {"message": "<value>", "code": "pending_draft_publish_failed", "details": {"failedFeatureDrafts": []}}
   getExperimentStartChecklist:
@@ -5261,7 +5265,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"experiment": {"id": "<id>", "trackingKey": "<value>", "dateCreated": "2026-12-07T21:36:22.964Z", "dateUpdated": "2024-03-08T19:44:06.734Z", "name": "<value>", "type": "standard", "project": "<value>", "hypothesis": "<value>", "description": "intermarry focused acclaimed between pendant given or unlike restfully rationalise", "tags": ["<value 1>", "<value 2>"], "owner": "<value>", "archived": false, "status": "<value>", "autoRefresh": false, "hashAttribute": "<value>", "hashVersion": 8448.01, "variations": [], "phases": [], "settings": {"datasourceId": "<id>", "assignmentQueryId": "<id>", "experimentId": "<id>", "segmentId": "<id>", "queryFilter": "<value>", "inProgressConversions": "include", "attributionModel": "firstExposure", "statsEngine": "bayesian", "goals": [], "secondaryMetrics": [], "guardrails": []}}, "result": {"id": "<id>", "dateUpdated": "<value>", "experimentId": "<id>", "phase": "<value>", "dateStart": "<value>", "dateEnd": "<value>", "dimension": {"type": "<value>"}, "settings": {"datasourceId": "<id>", "assignmentQueryId": "<id>", "experimentId": "<id>", "segmentId": "<id>", "queryFilter": "<value>", "inProgressConversions": "include", "attributionModel": "firstExposure", "statsEngine": "bayesian", "goals": [], "secondaryMetrics": [], "guardrails": []}, "queryIds": [], "results": [{"dimension": "<value>", "totalUsers": 2753.82, "checks": {"srm": 5938.38}, "metrics": []}]}}
+          application/json: {"experiment": {"id": "<id>", "trackingKey": "<value>", "dateCreated": "2026-12-07T21:36:22.964Z", "dateUpdated": "2024-03-08T19:44:06.734Z", "name": "<value>", "type": "standard", "project": "<value>", "hypothesis": "<value>", "description": "intermarry focused acclaimed between pendant given or unlike restfully rationalise", "tags": ["<value 1>", "<value 2>"], "owner": "<value>", "archived": false, "status": "<value>", "autoRefresh": false, "hashAttribute": "<value>", "hashVersion": 8448.01, "variations": [], "phases": [], "settings": {"datasourceId": "<id>", "assignmentQuery": {"id": "<id>", "identifierType": "<value>"}, "assignmentQueryId": "<id>", "experimentId": "<id>", "segmentId": "<id>", "queryFilter": "<value>", "inProgressConversions": "include", "attributionModel": "firstExposure", "statsEngine": "bayesian", "goals": [], "secondaryMetrics": [], "guardrails": []}}, "result": {"id": "<id>", "dateUpdated": "<value>", "experimentId": "<id>", "phase": "<value>", "dateStart": "<value>", "dateEnd": "<value>", "dimension": {"type": "<value>"}, "settings": {"datasourceId": "<id>", "assignmentQuery": {"id": "<id>", "identifierType": "<value>"}, "assignmentQueryId": "<id>", "experimentId": "<id>", "segmentId": "<id>", "queryFilter": "<value>", "inProgressConversions": "include", "attributionModel": "firstExposure", "statsEngine": "bayesian", "goals": [], "secondaryMetrics": [], "guardrails": []}, "queryIds": [], "results": [{"dimension": "<value>", "totalUsers": 2753.82, "checks": {"srm": 5938.38}, "metrics": []}]}}
   postExperimentStart:
     speakeasy-default-post-experiment-start:
       parameters:
@@ -5269,7 +5273,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"experiment": {"id": "<id>", "trackingKey": "<value>", "dateCreated": "2026-02-04T10:41:07.723Z", "dateUpdated": "2024-10-26T20:52:48.980Z", "name": "<value>", "type": "holdout", "project": "<value>", "hypothesis": "<value>", "description": "ugh lace flimsy oh grok fast boo", "tags": [], "owner": "<value>", "archived": false, "status": "<value>", "autoRefresh": true, "hashAttribute": "<value>", "hashVersion": 5328.33, "variations": [{"variationId": "<id>", "key": "<key>", "name": "<value>", "description": "march rosy hm if because minus", "screenshots": ["<value 1>", "<value 2>", "<value 3>"]}], "phases": [{"name": "<value>", "dateStarted": "<value>", "dateEnded": "<value>", "reasonForStopping": "<value>", "seed": "<value>", "coverage": 4860.45, "trafficSplit": [{"variationId": "<id>", "weight": 7440.86}], "targetingCondition": "<value>"}], "settings": {"datasourceId": "<id>", "assignmentQueryId": "<id>", "experimentId": "<id>", "segmentId": "<id>", "queryFilter": "<value>", "inProgressConversions": "exclude", "attributionModel": "experimentDuration", "statsEngine": "bayesian", "goals": [], "secondaryMetrics": [{"metricId": "<id>", "overrides": {}}], "guardrails": []}}}
+          application/json: {"experiment": {"id": "<id>", "trackingKey": "<value>", "dateCreated": "2026-02-04T10:41:07.723Z", "dateUpdated": "2024-10-26T20:52:48.980Z", "name": "<value>", "type": "holdout", "project": "<value>", "hypothesis": "<value>", "description": "ugh lace flimsy oh grok fast boo", "tags": [], "owner": "<value>", "archived": false, "status": "<value>", "autoRefresh": true, "hashAttribute": "<value>", "hashVersion": 5328.33, "variations": [{"variationId": "<id>", "key": "<key>", "name": "<value>", "description": "march rosy hm if because minus", "screenshots": ["<value 1>", "<value 2>", "<value 3>"]}], "phases": [{"name": "<value>", "dateStarted": "<value>", "dateEnded": "<value>", "reasonForStopping": "<value>", "seed": "<value>", "coverage": 4860.45, "trafficSplit": [{"variationId": "<id>", "weight": 7440.86}], "targetingCondition": "<value>"}], "settings": {"datasourceId": "<id>", "assignmentQuery": {"id": "<id>", "identifierType": "<value>"}, "assignmentQueryId": "<id>", "experimentId": "<id>", "segmentId": "<id>", "queryFilter": "<value>", "inProgressConversions": "exclude", "attributionModel": "experimentDuration", "statsEngine": "bayesian", "goals": [], "secondaryMetrics": [{"metricId": "<id>", "overrides": {}}], "guardrails": []}}}
         "409":
           application/json: {"message": "<value>", "code": "checklist_incomplete", "details": {"remainingChecklistItems": [{"key": "<key>", "required": false, "status": "incomplete", "manual": true, "reason": "<value>"}]}}
   postExperimentStartChecklistManualComplete:
@@ -5291,7 +5295,7 @@ examples:
         application/json: {"results": "dnf"}
       responses:
         "200":
-          application/json: {"experiment": {"id": "<id>", "trackingKey": "<value>", "dateCreated": "2026-05-21T03:41:18.805Z", "dateUpdated": "2024-03-31T17:04:45.520Z", "name": "<value>", "type": "multi-armed-bandit", "project": "<value>", "hypothesis": "<value>", "description": "ouch quizzically or aw where once er boss psst", "tags": [], "owner": "<value>", "archived": true, "status": "<value>", "autoRefresh": true, "hashAttribute": "<value>", "hashVersion": 9038.59, "variations": [], "phases": [], "settings": {"datasourceId": "<id>", "assignmentQueryId": "<id>", "experimentId": "<id>", "segmentId": "<id>", "queryFilter": "<value>", "inProgressConversions": "include", "attributionModel": "lookbackOverride", "statsEngine": "frequentist", "goals": [], "secondaryMetrics": [], "guardrails": [{"metricId": "<id>", "overrides": {}}]}}}
+          application/json: {"experiment": {"id": "<id>", "trackingKey": "<value>", "dateCreated": "2026-05-21T03:41:18.805Z", "dateUpdated": "2024-03-31T17:04:45.520Z", "name": "<value>", "type": "multi-armed-bandit", "project": "<value>", "hypothesis": "<value>", "description": "ouch quizzically or aw where once er boss psst", "tags": [], "owner": "<value>", "archived": true, "status": "<value>", "autoRefresh": true, "hashAttribute": "<value>", "hashVersion": 9038.59, "variations": [], "phases": [], "settings": {"datasourceId": "<id>", "assignmentQuery": {"id": "<id>", "identifierType": "<value>"}, "assignmentQueryId": "<id>", "experimentId": "<id>", "segmentId": "<id>", "queryFilter": "<value>", "inProgressConversions": "include", "attributionModel": "lookbackOverride", "statsEngine": "frequentist", "goals": [], "secondaryMetrics": [], "guardrails": [{"metricId": "<id>", "overrides": {}}]}}}
         "409":
           application/json: {"message": "<value>", "code": "invalid_status", "details": {"currentStatus": "<value>", "expectedStatuses": ["<value 1>", "<value 2>"]}}
   postExperimentModifyTemporaryRollout:
@@ -5303,7 +5307,7 @@ examples:
         application/json: {"enableTemporaryRollout": true}
       responses:
         "200":
-          application/json: {"experiment": {"id": "<id>", "trackingKey": "<value>", "dateCreated": "2025-08-01T20:45:09.283Z", "dateUpdated": "2025-09-06T19:38:04.143Z", "name": "<value>", "type": "multi-armed-bandit", "project": "<value>", "hypothesis": "<value>", "description": "incidentally alert and exhaust next front practical during for", "tags": [], "owner": "<value>", "archived": true, "status": "<value>", "autoRefresh": false, "hashAttribute": "<value>", "hashVersion": 3121.08, "variations": [], "phases": [{"name": "<value>", "dateStarted": "<value>", "dateEnded": "<value>", "reasonForStopping": "<value>", "seed": "<value>", "coverage": 3116.85, "trafficSplit": [{"variationId": "<id>", "weight": 7290.79}], "targetingCondition": "<value>"}], "settings": {"datasourceId": "<id>", "assignmentQueryId": "<id>", "experimentId": "<id>", "segmentId": "<id>", "queryFilter": "<value>", "inProgressConversions": "include", "attributionModel": "lookbackOverride", "statsEngine": "frequentist", "goals": [{"metricId": "<id>", "overrides": {}}], "secondaryMetrics": [{"metricId": "<id>", "overrides": {}}], "guardrails": [{"metricId": "<id>", "overrides": {}}]}}}
+          application/json: {"experiment": {"id": "<id>", "trackingKey": "<value>", "dateCreated": "2025-08-01T20:45:09.283Z", "dateUpdated": "2025-09-06T19:38:04.143Z", "name": "<value>", "type": "multi-armed-bandit", "project": "<value>", "hypothesis": "<value>", "description": "incidentally alert and exhaust next front practical during for", "tags": [], "owner": "<value>", "archived": true, "status": "<value>", "autoRefresh": false, "hashAttribute": "<value>", "hashVersion": 3121.08, "variations": [], "phases": [{"name": "<value>", "dateStarted": "<value>", "dateEnded": "<value>", "reasonForStopping": "<value>", "seed": "<value>", "coverage": 3116.85, "trafficSplit": [{"variationId": "<id>", "weight": 7290.79}], "targetingCondition": "<value>"}], "settings": {"datasourceId": "<id>", "assignmentQuery": {"id": "<id>", "identifierType": "<value>"}, "assignmentQueryId": "<id>", "experimentId": "<id>", "segmentId": "<id>", "queryFilter": "<value>", "inProgressConversions": "include", "attributionModel": "lookbackOverride", "statsEngine": "frequentist", "goals": [{"metricId": "<id>", "overrides": {}}], "secondaryMetrics": [{"metricId": "<id>", "overrides": {}}], "guardrails": [{"metricId": "<id>", "overrides": {}}]}}}
         "409":
           application/json: {"message": "<value>", "code": "invalid_status", "details": {"currentStatus": "<value>", "expectedStatuses": ["<value 1>", "<value 2>", "<value 3>"]}}
   postExperimentSnapshot:
@@ -5550,14 +5554,14 @@ examples:
           offset: 0
       responses:
         "200":
-          application/json: {"projects": [{"id": "<id>", "name": "<value>", "dateCreated": "2024-10-13T08:39:21.007Z", "dateUpdated": "2024-12-27T04:52:02.227Z"}], "limit": 716389, "offset": 903399, "count": 515995, "total": 635505, "hasMore": false, "nextOffset": 699241}
+          application/json: {"projects": [{"id": "<id>", "name": "<value>", "dateCreated": "2024-10-13T08:39:21.007Z", "dateUpdated": "2024-12-27T04:52:02.227Z", "owner": "<value>"}], "limit": 716389, "offset": 903399, "count": 515995, "total": 635505, "hasMore": false, "nextOffset": 699241}
   postProject:
     speakeasy-default-post-project:
       requestBody:
         application/json: {"name": "<value>"}
       responses:
         "200":
-          application/json: {"project": {"id": "<id>", "name": "<value>", "dateCreated": "2025-12-08T09:50:11.237Z", "dateUpdated": "2026-10-17T02:00:37.961Z"}}
+          application/json: {"project": {"id": "<id>", "name": "<value>", "dateCreated": "2025-12-08T09:50:11.237Z", "dateUpdated": "2026-10-17T02:00:37.961Z", "owner": "<value>"}}
   getProject:
     speakeasy-default-get-project:
       parameters:
@@ -5565,7 +5569,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"project": {"id": "<id>", "name": "<value>", "dateCreated": "2026-11-01T11:16:07.849Z", "dateUpdated": "2025-04-24T21:52:55.674Z"}}
+          application/json: {"project": {"id": "<id>", "name": "<value>", "dateCreated": "2026-11-01T11:16:07.849Z", "dateUpdated": "2025-04-24T21:52:55.674Z", "owner": "<value>"}}
   putProject:
     speakeasy-default-put-project:
       parameters:
@@ -5575,7 +5579,7 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"project": {"id": "<id>", "name": "<value>", "dateCreated": "2025-05-22T03:42:06.975Z", "dateUpdated": "2026-06-20T08:27:10.397Z"}}
+          application/json: {"project": {"id": "<id>", "name": "<value>", "dateCreated": "2025-05-22T03:42:06.975Z", "dateUpdated": "2026-06-20T08:27:10.397Z", "owner": "<value>"}}
   deleteProject:
     speakeasy-default-delete-project:
       parameters:
@@ -6317,7 +6321,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"datasourceId": "<id>", "exposureQueryId": "<id>", "guardrailMetricIds": ["<value 1>", "<value 2>", "<value 3>"]}
+        application/json: {"datasourceId": "<id>", "guardrailMetricIds": ["<value 1>", "<value 2>", "<value 3>"]}
       responses:
         "200":
           application/json: {"id": "<id>", "dateCreated": "2024-05-29T16:02:45.507Z", "dateUpdated": "2025-05-22T16:15:54.960Z", "name": "<value>", "entityType": "feature", "entityId": "<id>", "targets": [{"id": "<id>", "entityType": "feature", "entityId": "<id>", "status": "active"}], "steps": [{"interval": 7061.43, "actions": [{"targetType": "feature-rule", "targetId": "<id>", "patch": {"ruleId": "<id>"}}]}], "status": "pending", "currentStepIndex": 39064, "nextStepAt": "2026-12-09T23:23:48.549Z", "awaitingApproval": false}
@@ -6677,7 +6681,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"experimentTemplate": {"id": "<id>", "dateCreated": "2025-08-07T20:16:54.407Z", "dateUpdated": "2024-05-29T10:09:17.800Z", "owner": "<value>", "templateMetadata": {"name": "<value>"}, "type": "standard", "datasource": "<value>", "exposureQueryId": "<id>", "statsEngine": "frequentist", "targeting": {"coverage": 998.75, "condition": "<value>"}}}
+          application/json: {"experimentTemplate": {"id": "<id>", "dateCreated": "2025-08-07T20:16:54.407Z", "dateUpdated": "2024-05-29T10:09:17.800Z", "owner": "<value>", "templateMetadata": {"name": "<value>"}, "type": "standard", "datasource": "<value>", "exposureQuery": {"id": "<id>", "identifierType": "<value>"}, "exposureQueryId": "<id>", "statsEngine": "frequentist", "targeting": {"coverage": 998.75, "condition": "<value>"}}}
   deleteExperimentTemplate:
     speakeasy-default-delete-experiment-template:
       parameters:
@@ -6695,14 +6699,14 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"experimentTemplate": {"id": "<id>", "dateCreated": "2025-12-17T13:44:48.658Z", "dateUpdated": "2026-05-25T06:45:31.711Z", "owner": "<value>", "templateMetadata": {"name": "<value>"}, "type": "standard", "datasource": "<value>", "exposureQueryId": "<id>", "statsEngine": "bayesian", "targeting": {"coverage": 7067.47, "condition": "<value>"}}}
+          application/json: {"experimentTemplate": {"id": "<id>", "dateCreated": "2025-12-17T13:44:48.658Z", "dateUpdated": "2026-05-25T06:45:31.711Z", "owner": "<value>", "templateMetadata": {"name": "<value>"}, "type": "standard", "datasource": "<value>", "exposureQuery": {"id": "<id>", "identifierType": "<value>"}, "exposureQueryId": "<id>", "statsEngine": "bayesian", "targeting": {"coverage": 7067.47, "condition": "<value>"}}}
   createExperimentTemplate:
     speakeasy-default-create-experiment-template:
       requestBody:
-        application/json: {"templateMetadata": {"name": "<value>"}, "type": "standard", "datasource": "<value>", "exposureQueryId": "<id>", "statsEngine": "bayesian", "targeting": {"coverage": 131.7, "condition": "<value>"}}
+        application/json: {"templateMetadata": {"name": "<value>"}, "type": "standard", "datasource": "<value>", "statsEngine": "bayesian", "targeting": {"coverage": 131.7, "condition": "<value>"}}
       responses:
         "200":
-          application/json: {"experimentTemplate": {"id": "<id>", "dateCreated": "2025-05-02T08:23:25.421Z", "dateUpdated": "2024-10-08T19:22:09.601Z", "owner": "<value>", "templateMetadata": {"name": "<value>"}, "type": "standard", "datasource": "<value>", "exposureQueryId": "<id>", "statsEngine": "bayesian", "targeting": {"coverage": 5241.22, "condition": "<value>"}}}
+          application/json: {"experimentTemplate": {"id": "<id>", "dateCreated": "2025-05-02T08:23:25.421Z", "dateUpdated": "2024-10-08T19:22:09.601Z", "owner": "<value>", "templateMetadata": {"name": "<value>"}, "type": "standard", "datasource": "<value>", "exposureQuery": {"id": "<id>", "identifierType": "<value>"}, "exposureQueryId": "<id>", "statsEngine": "bayesian", "targeting": {"coverage": 5241.22, "condition": "<value>"}}}
   listExperimentTemplates:
     speakeasy-default-list-experiment-templates:
       responses:
@@ -7362,7 +7366,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"features": [{"id": "<id>"}], "experiments": [], "savedGroups": [{"id": "<id>"}]}
+          application/json: {"features": [{"id": "<id>"}], "experiments": [], "contextualBandits": [{"id": "<id>"}], "savedGroups": [{"id": "<id>"}]}
   listConstants:
     speakeasy-default-list-constants:
       parameters:
@@ -8052,7 +8056,7 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"experiment": {"id": "<id>", "trackingKey": "<value>", "dateCreated": "2025-12-14T14:41:17.438Z", "dateUpdated": "2025-04-09T02:34:36.748Z", "name": "<value>", "type": "multi-armed-bandit", "project": "<value>", "hypothesis": "<value>", "description": "hairy alert meager darn enchanted badly CD consequently", "tags": ["<value 1>"], "owner": "<value>", "archived": true, "status": "<value>", "autoRefresh": true, "hashAttribute": "<value>", "hashVersion": 3305.32, "variations": [], "phases": [], "settings": {"datasourceId": "<id>", "assignmentQueryId": "<id>", "experimentId": "<id>", "segmentId": "<id>", "queryFilter": "<value>", "inProgressConversions": "exclude", "attributionModel": "firstExposure", "statsEngine": "bayesian", "goals": [{"metricId": "<id>", "overrides": {}}], "secondaryMetrics": [], "guardrails": [{"metricId": "<id>", "overrides": {}}]}}}
+          application/json: {"experiment": {"id": "<id>", "trackingKey": "<value>", "dateCreated": "2025-12-14T14:41:17.438Z", "dateUpdated": "2025-04-09T02:34:36.748Z", "name": "<value>", "type": "multi-armed-bandit", "project": "<value>", "hypothesis": "<value>", "description": "hairy alert meager darn enchanted badly CD consequently", "tags": ["<value 1>"], "owner": "<value>", "archived": true, "status": "<value>", "autoRefresh": true, "hashAttribute": "<value>", "hashVersion": 3305.32, "variations": [], "phases": [], "settings": {"datasourceId": "<id>", "assignmentQuery": {"id": "<id>", "identifierType": "<value>"}, "assignmentQueryId": "<id>", "experimentId": "<id>", "segmentId": "<id>", "queryFilter": "<value>", "inProgressConversions": "exclude", "attributionModel": "firstExposure", "statsEngine": "bayesian", "goals": [{"metricId": "<id>", "overrides": {}}], "secondaryMetrics": [], "guardrails": [{"metricId": "<id>", "overrides": {}}]}}}
         "409":
           application/json: {"message": "<value>", "code": "invalid_status", "details": {"currentStatus": "<value>", "expectedStatuses": ["<value 1>", "<value 2>"]}}
   addContextualBanditLinkedFeature:
@@ -8410,7 +8414,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"holdout": {"id": "<id>", "dateCreated": "2025-06-17T10:33:29.173Z", "dateUpdated": "2025-05-03T11:16:53.642Z", "name": "<value>", "description": "fatally and round overspend", "projects": ["<value 1>"], "owner": "<value>", "tags": ["<value 1>", "<value 2>"], "archived": true, "stage": "running", "trackingKey": "<value>", "experimentId": "<id>", "skipAsDefaultHoldout": true, "holdoutSize": 7429.79, "hashAttribute": "<value>", "targetingCondition": "<value>", "datasourceId": "<id>", "assignmentQueryId": "<id>", "goalMetrics": ["<value 1>", "<value 2>", "<value 3>"], "secondaryMetrics": ["<value 1>", "<value 2>", "<value 3>"], "variations": [], "environments": {}, "linkedFeatures": [], "linkedExperiments": [{"id": "<id>", "dateAdded": "2026-02-24T21:36:00.701Z"}]}}
+          application/json: {"holdout": {"id": "<id>", "dateCreated": "2025-06-17T10:33:29.173Z", "dateUpdated": "2025-05-03T11:16:53.642Z", "name": "<value>", "description": "fatally and round overspend", "projects": ["<value 1>"], "owner": "<value>", "tags": ["<value 1>", "<value 2>"], "archived": true, "stage": "running", "trackingKey": "<value>", "experimentId": "<id>", "skipAsDefaultHoldout": true, "holdoutSize": 7429.79, "hashAttribute": "<value>", "targetingCondition": "<value>", "datasourceId": "<id>", "assignmentQuery": {"id": "<id>", "identifierType": "<value>"}, "assignmentQueryId": "<id>", "goalMetrics": ["<value 1>", "<value 2>", "<value 3>"], "secondaryMetrics": ["<value 1>", "<value 2>", "<value 3>"], "variations": [], "environments": {}, "linkedFeatures": [], "linkedExperiments": [{"id": "<id>", "dateAdded": "2026-02-24T21:36:00.701Z"}]}}
   updateHoldout:
     speakeasy-default-update-holdout:
       parameters:
@@ -8420,14 +8424,14 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"holdout": {"id": "<id>", "dateCreated": "2024-01-16T19:16:22.108Z", "dateUpdated": "2025-03-10T07:13:27.337Z", "name": "<value>", "description": "punctuation if aw", "projects": ["<value 1>", "<value 2>", "<value 3>"], "owner": "<value>", "tags": [], "archived": true, "stage": "stopped", "trackingKey": "<value>", "experimentId": "<id>", "skipAsDefaultHoldout": true, "holdoutSize": 9965.92, "hashAttribute": "<value>", "targetingCondition": "<value>", "datasourceId": "<id>", "assignmentQueryId": "<id>", "goalMetrics": ["<value 1>"], "secondaryMetrics": [], "variations": [], "environments": {}, "linkedFeatures": [{"id": "<id>", "dateAdded": "2026-05-07T21:56:25.710Z"}], "linkedExperiments": []}}
+          application/json: {"holdout": {"id": "<id>", "dateCreated": "2024-01-16T19:16:22.108Z", "dateUpdated": "2025-03-10T07:13:27.337Z", "name": "<value>", "description": "punctuation if aw", "projects": ["<value 1>", "<value 2>", "<value 3>"], "owner": "<value>", "tags": [], "archived": true, "stage": "stopped", "trackingKey": "<value>", "experimentId": "<id>", "skipAsDefaultHoldout": true, "holdoutSize": 9965.92, "hashAttribute": "<value>", "targetingCondition": "<value>", "datasourceId": "<id>", "assignmentQuery": {"id": "<id>", "identifierType": null}, "assignmentQueryId": "<id>", "goalMetrics": ["<value 1>"], "secondaryMetrics": [], "variations": [], "environments": {}, "linkedFeatures": [{"id": "<id>", "dateAdded": "2026-05-07T21:56:25.710Z"}], "linkedExperiments": []}}
   createHoldout:
     speakeasy-default-create-holdout:
       requestBody:
         application/json: {"name": "<value>"}
       responses:
         "200":
-          application/json: {"holdout": {"id": "<id>", "dateCreated": "2026-03-08T03:13:38.041Z", "dateUpdated": "2025-08-30T22:42:08.422Z", "name": "<value>", "description": "presume that catalyst impact till ugh", "projects": [], "owner": "<value>", "tags": [], "archived": true, "stage": "running", "trackingKey": "<value>", "experimentId": "<id>", "skipAsDefaultHoldout": true, "holdoutSize": 8853.65, "hashAttribute": "<value>", "targetingCondition": "<value>", "datasourceId": "<id>", "assignmentQueryId": "<id>", "goalMetrics": ["<value 1>"], "secondaryMetrics": ["<value 1>", "<value 2>"], "variations": [{"variationId": "<id>", "key": "<key>", "name": "<value>"}], "environments": {"key": {"enabled": false}}, "linkedFeatures": [], "linkedExperiments": []}}
+          application/json: {"holdout": {"id": "<id>", "dateCreated": "2026-03-08T03:13:38.041Z", "dateUpdated": "2025-08-30T22:42:08.422Z", "name": "<value>", "description": "presume that catalyst impact till ugh", "projects": [], "owner": "<value>", "tags": [], "archived": true, "stage": "running", "trackingKey": "<value>", "experimentId": "<id>", "skipAsDefaultHoldout": true, "holdoutSize": 8853.65, "hashAttribute": "<value>", "targetingCondition": "<value>", "datasourceId": "<id>", "assignmentQuery": {"id": "<id>", "identifierType": "<value>"}, "assignmentQueryId": "<id>", "goalMetrics": ["<value 1>"], "secondaryMetrics": ["<value 1>", "<value 2>"], "variations": [{"variationId": "<id>", "key": "<key>", "name": "<value>"}], "environments": {"key": {"enabled": false}}, "linkedFeatures": [], "linkedExperiments": []}}
   listHoldouts:
     speakeasy-default-list-holdouts:
       responses:
@@ -8440,7 +8444,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"holdout": {"id": "<id>", "dateCreated": "2024-01-19T01:47:53.740Z", "dateUpdated": "2026-10-31T17:12:34.286Z", "name": "<value>", "description": "till geez provided wonderfully", "projects": ["<value 1>", "<value 2>", "<value 3>"], "owner": "<value>", "tags": ["<value 1>", "<value 2>", "<value 3>"], "archived": false, "stage": "stopped", "trackingKey": "<value>", "experimentId": "<id>", "skipAsDefaultHoldout": false, "holdoutSize": 9468.71, "hashAttribute": "<value>", "targetingCondition": "<value>", "datasourceId": "<id>", "assignmentQueryId": "<id>", "goalMetrics": ["<value 1>", "<value 2>", "<value 3>"], "secondaryMetrics": ["<value 1>", "<value 2>", "<value 3>"], "variations": [], "environments": {"key": {"enabled": true}}, "linkedFeatures": [], "linkedExperiments": []}}
+          application/json: {"holdout": {"id": "<id>", "dateCreated": "2024-01-19T01:47:53.740Z", "dateUpdated": "2026-10-31T17:12:34.286Z", "name": "<value>", "description": "till geez provided wonderfully", "projects": ["<value 1>", "<value 2>", "<value 3>"], "owner": "<value>", "tags": ["<value 1>", "<value 2>", "<value 3>"], "archived": false, "stage": "stopped", "trackingKey": "<value>", "experimentId": "<id>", "skipAsDefaultHoldout": false, "holdoutSize": 9468.71, "hashAttribute": "<value>", "targetingCondition": "<value>", "datasourceId": "<id>", "assignmentQuery": {"id": "<id>", "identifierType": null}, "assignmentQueryId": "<id>", "goalMetrics": ["<value 1>", "<value 2>", "<value 3>"], "secondaryMetrics": ["<value 1>", "<value 2>", "<value 3>"], "variations": [], "environments": {"key": {"enabled": true}}, "linkedFeatures": [], "linkedExperiments": []}}
         "409":
           application/json: {"message": "<value>", "code": "invalid_status", "details": {"currentStatus": "<value>", "expectedStatuses": ["<value 1>", "<value 2>", "<value 3>"]}}
   startHoldoutAnalysis:
@@ -8450,7 +8454,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"holdout": {"id": "<id>", "dateCreated": "2026-04-16T07:53:26.367Z", "dateUpdated": "2026-04-17T12:58:28.559Z", "name": "<value>", "description": "for along gadzooks um intermix inquisitively ouch regularly reckless", "projects": ["<value 1>", "<value 2>", "<value 3>"], "owner": "<value>", "tags": ["<value 1>", "<value 2>", "<value 3>"], "archived": false, "stage": "stopped", "trackingKey": "<value>", "experimentId": "<id>", "skipAsDefaultHoldout": false, "holdoutSize": 6733.47, "hashAttribute": "<value>", "targetingCondition": "<value>", "datasourceId": "<id>", "assignmentQueryId": "<id>", "goalMetrics": ["<value 1>", "<value 2>"], "secondaryMetrics": [], "variations": [{"variationId": "<id>", "key": "<key>", "name": "<value>"}], "environments": {}, "linkedFeatures": [], "linkedExperiments": []}}
+          application/json: {"holdout": {"id": "<id>", "dateCreated": "2026-04-16T07:53:26.367Z", "dateUpdated": "2026-04-17T12:58:28.559Z", "name": "<value>", "description": "for along gadzooks um intermix inquisitively ouch regularly reckless", "projects": ["<value 1>", "<value 2>", "<value 3>"], "owner": "<value>", "tags": ["<value 1>", "<value 2>", "<value 3>"], "archived": false, "stage": "stopped", "trackingKey": "<value>", "experimentId": "<id>", "skipAsDefaultHoldout": false, "holdoutSize": 6733.47, "hashAttribute": "<value>", "targetingCondition": "<value>", "datasourceId": "<id>", "assignmentQuery": {"id": "<id>", "identifierType": "<value>"}, "assignmentQueryId": "<id>", "goalMetrics": ["<value 1>", "<value 2>"], "secondaryMetrics": [], "variations": [{"variationId": "<id>", "key": "<key>", "name": "<value>"}], "environments": {}, "linkedFeatures": [], "linkedExperiments": []}}
         "409":
           application/json: {"message": "<value>", "code": "invalid_status", "details": {"currentStatus": "<value>", "expectedStatuses": ["<value 1>", "<value 2>", "<value 3>"]}}
   stopHoldout:
@@ -8460,7 +8464,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"holdout": {"id": "<id>", "dateCreated": "2025-10-17T04:58:19.835Z", "dateUpdated": "2026-10-28T07:37:09.468Z", "name": "<value>", "description": "lone custody wonderfully although yippee", "projects": ["<value 1>", "<value 2>", "<value 3>"], "owner": "<value>", "tags": [], "archived": false, "stage": "analysis-period", "trackingKey": "<value>", "experimentId": "<id>", "skipAsDefaultHoldout": true, "holdoutSize": 6511.19, "hashAttribute": "<value>", "targetingCondition": "<value>", "datasourceId": "<id>", "assignmentQueryId": "<id>", "goalMetrics": ["<value 1>", "<value 2>", "<value 3>"], "secondaryMetrics": ["<value 1>", "<value 2>"], "variations": [], "environments": {}, "linkedFeatures": [], "linkedExperiments": [{"id": "<id>", "dateAdded": "2026-04-30T06:33:58.057Z"}]}}
+          application/json: {"holdout": {"id": "<id>", "dateCreated": "2025-10-17T04:58:19.835Z", "dateUpdated": "2026-10-28T07:37:09.468Z", "name": "<value>", "description": "lone custody wonderfully although yippee", "projects": ["<value 1>", "<value 2>", "<value 3>"], "owner": "<value>", "tags": [], "archived": false, "stage": "analysis-period", "trackingKey": "<value>", "experimentId": "<id>", "skipAsDefaultHoldout": true, "holdoutSize": 6511.19, "hashAttribute": "<value>", "targetingCondition": "<value>", "datasourceId": "<id>", "assignmentQuery": {"id": "<id>", "identifierType": "<value>"}, "assignmentQueryId": "<id>", "goalMetrics": ["<value 1>", "<value 2>", "<value 3>"], "secondaryMetrics": ["<value 1>", "<value 2>"], "variations": [], "environments": {}, "linkedFeatures": [], "linkedExperiments": [{"id": "<id>", "dateAdded": "2026-04-30T06:33:58.057Z"}]}}
         "409":
           application/json: {"message": "<value>", "code": "invalid_status", "details": {"currentStatus": "<value>", "expectedStatuses": []}}
   createAutoRun:
@@ -8528,3 +8532,4 @@ examples:
         "200":
           application/json: {"dashboard": {"id": "<id>", "uid": "<id>", "organization": "<value>", "isDefault": true, "isDeleted": true, "userId": "<id>", "editLevel": "published", "shareLevel": "published", "enableAutoUpdates": true, "title": "<value>", "dateCreated": "2026-06-20T02:22:17.950Z", "dateUpdated": "2026-11-07T22:13:46.053Z", "blocks": [], "owner": "<value>"}}
 examplesVersion: 1.0.2
+releaseNotes: "## Cli SDK Changes:\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionMetadata()`: \n  *  `request.Request.Body.JsonSchema.Date` **Removed** (Breaking ⚠️)\n  *  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.SetMetadata()`: \n  *  `request.Request.Body.JsonSchema.Date` **Removed** (Breaking ⚠️)\n  *  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeaturesV1.Get()`:  `response.Feature.Revisions[].RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.ListRevisions()`:  `response.Revisions[].RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.ListForFeature()`:  `response.Revisions[].RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.Create()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.GetFeatureRevisionLatest()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.GetFeatureRevision()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionDefaultValue()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionPrerequisites()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionHoldout()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionArchive()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionToggle()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionRuleAdd()`: \n  *  `request.Request.Body` **Changed**\n  *  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionRule()`: \n  *  `request.Request.Body.RampSchedule.MonitoringConfig` **Changed**\n  *  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.DeleteFeatureRevisionRule()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionRulesReorder()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionRuleRampSchedule()`: \n  *  `request.Request.Body.MonitoringConfig` **Changed**\n  *  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.DeleteFeatureRevisionRuleRampSchedule()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionRequestReview()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionSubmitReview()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionRebase()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionPublish()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionDiscard()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionRevert()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.Features.Get()`:  `response.Feature.Revisions[].RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.ListRevisions()`:  `response.Revisions[].RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.ListForFeature()`:  `response.Revisions[].RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.Create()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.Latest()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.Get()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.SetDefaultValue()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.SetPrerequisites()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.SetHoldout()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.Archive()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.Toggle()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.AddRule()`: \n  *  `request.Request.Body` **Changed**\n  *  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.UpdateRule()`: \n  *  `request.Request.Body.RampSchedule.MonitoringConfig` **Changed**\n  *  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.DeleteRule()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.ReorderRules()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.SetRuleRampSchedule()`: \n  *  `request.Request.Body.MonitoringConfig` **Changed**\n  *  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.DeleteRuleRampSchedule()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.RequestReview()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.SchedulePublish()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.SubmitReview()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.RecallReview()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.UndoReview()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.Rebase()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.Publish()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.Discard()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.Reopen()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.FeatureRevisions.Revert()`:  `response.Revision.RampActions[]` **Changed**\n* `Growthbook.Experiments.ListExperiments()`:  `response.Experiments[].Settings.AssignmentQuery` **Added**\n* `Growthbook.Experiments.Create()`: \n  *  `request.Request.AssignmentQuery` **Added**\n  *  `response.Experiment.Settings.AssignmentQuery` **Added**\n* `Growthbook.Experiments.ListResults()`:  `response.ExperimentResults[].Settings.AssignmentQuery` **Added**\n* `Growthbook.Experiments.GetExperiment()`:  `response.Experiment.Settings.AssignmentQuery` **Added**\n* `Growthbook.Experiments.UpdateExperiment()`: \n  *  `request.Request.Body.AssignmentQuery` **Added**\n  *  `response.Experiment.Settings.AssignmentQuery` **Added**\n* `Growthbook.Experiments.Results()`:  `response.Experiment.Settings.AssignmentQuery` **Added**\n* `Growthbook.Experiments.Start()`:  `response.Experiment.Settings.AssignmentQuery` **Added**\n* `Growthbook.Experiments.Stop()`:  `response.Experiment.Settings.AssignmentQuery` **Added**\n* `Growthbook.Experiments.SetSchedule()`:  `response.Experiment.Settings.AssignmentQuery` **Added**\n* `Growthbook.Experiments.ModifyTemporaryRollout()`:  `response.Experiment.Settings.AssignmentQuery` **Added**\n* `Growthbook.VisualChangesets.GetVisualChangeset()`:  `response.Experiment.Settings.AssignmentQuery` **Added**\n* `Growthbook.Projects.ListProjects()`:  `response.Projects[]` **Changed**\n* `Growthbook.Projects.Create()`: \n  *  `request.Request.Owner` **Added**\n  *  `response.Project` **Changed**\n* `Growthbook.Projects.GetProject()`:  `response.Project` **Changed**\n* `Growthbook.Projects.Update()`: \n  *  `request.Request.Body.Owner` **Added**\n  *  `response.Project` **Changed**\n* `Growthbook.DataSources.ListDataSources()`:  `response.DataSources[].AssignmentQueries[].IdentifierTypes` **Added**\n* `Growthbook.DataSources.GetDataSource()`:  `response.DataSource.AssignmentQueries[].IdentifierTypes` **Added**\n* `Growthbook.SavedGroups.GetReferences()`:  `response.ContextualBandits` **Added**\n* `Growthbook.RampSchedules.ListRampSchedules()`:  `response.RampSchedules[].MonitoringConfig.ExposureQuery` **Added**\n* `Growthbook.RampSchedules.Create()`: \n  *  `request.Request.MonitoringConfig` **Changed**\n  *  `response.RampSchedule.MonitoringConfig.ExposureQuery` **Added**\n* `Growthbook.RampSchedules.StartRampSchedule()`:  `response.RampSchedule.MonitoringConfig.ExposureQuery` **Added**\n* `Growthbook.RampSchedules.PauseRampSchedule()`:  `response.RampSchedule.MonitoringConfig.ExposureQuery` **Added**\n* `Growthbook.RampSchedules.ResumeRampSchedule()`:  `response.RampSchedule.MonitoringConfig.ExposureQuery` **Added**\n* `Growthbook.RampSchedules.RollbackRampSchedule()`:  `response.RampSchedule.MonitoringConfig.ExposureQuery` **Added**\n* `Growthbook.RampSchedules.RestartRampSchedule()`:  `response.RampSchedule.MonitoringConfig.ExposureQuery` **Added**\n* `Growthbook.RampSchedules.JumpRampSchedule()`:  `response.RampSchedule.MonitoringConfig.ExposureQuery` **Added**\n* `Growthbook.RampSchedules.CompleteRampSchedule()`:  `response.RampSchedule.MonitoringConfig.ExposureQuery` **Added**\n* `Growthbook.RampSchedules.ApproveStepRampSchedule()`:  `response.RampSchedule.MonitoringConfig.ExposureQuery` **Added**\n* `Growthbook.RampSchedules.AddTargetRampSchedule()`:  `response.RampSchedule.MonitoringConfig.ExposureQuery` **Added**\n* `Growthbook.RampSchedules.EjectTargetRampSchedule()`:  `response.union(class (0)).RampSchedule.MonitoringConfig.ExposureQuery` **Added**\n* `Growthbook.RampSchedules.ApiAdvanceRampSchedule()`:  `response.RampSchedule.MonitoringConfig.ExposureQuery` **Added**\n* `Growthbook.RampSchedules.SetMonitoringModeRampSchedule()`:  `response.MonitoringConfig.ExposureQuery` **Added**\n* `Growthbook.RampSchedules.SetAutoUpdateRampSchedule()`:  `response.MonitoringConfig.ExposureQuery` **Added**\n* `Growthbook.RampSchedules.UpdateMonitoring()`: \n  *  `request.Request.Body` **Changed**\n  *  `response.MonitoringConfig.ExposureQuery` **Added**\n* `Growthbook.RampSchedules.UpdateLockdown()`:  `response.MonitoringConfig.ExposureQuery` **Added**\n* `Growthbook.RampSchedules.UpdateSteps()`:  `response.RampSchedule.MonitoringConfig.ExposureQuery` **Added**\n* `Growthbook.RampSchedules.RefreshMonitoringRampSchedule()`:  `response.RampSchedule.MonitoringConfig.ExposureQuery` **Added**\n* `Growthbook.RampSchedules.GetRampSchedule()`:  `response.RampSchedule.MonitoringConfig.ExposureQuery` **Added**\n* `Growthbook.RampSchedules.UpdateRampSchedule()`: \n  *  `request.Request.Body.MonitoringConfig` **Changed**\n  *  `response.RampSchedule.MonitoringConfig.ExposureQuery` **Added**\n* `Growthbook.Reports.ListReports()`:  `response.Reports[]` **Changed**\n* `Growthbook.Reports.Create()`:  `response.Report` **Changed**\n* `Growthbook.Reports.GetReport()`:  `response.Report` **Changed**\n* `Growthbook.Reports.Refresh()`:  `response.Report` **Changed**\n* `Growthbook.Reports.SetMetadata()`:  `response.Report` **Changed**\n* `Growthbook.Reports.SetSettings()`:  `response.Report` **Changed**\n* `Growthbook.ExperimentTemplates.GetExperimentTemplate()`:  `response.ExperimentTemplate.ExposureQuery` **Added**\n* `Growthbook.ExperimentTemplates.UpdateExperimentTemplate()`: \n  *  `request.Request.Body.ExposureQuery` **Added**\n  *  `response.ExperimentTemplate.ExposureQuery` **Added**\n* `Growthbook.ExperimentTemplates.CreateExperimentTemplate()`: \n  *  `request.Request` **Changed**\n  *  `response.ExperimentTemplate.ExposureQuery` **Added**\n* `Growthbook.ExperimentTemplates.ListExperimentTemplates()`:  `response.ExperimentTemplates[].ExposureQuery` **Added**\n* `Growthbook.ExperimentTemplates.BulkImportExperimentTemplates()`: \n  *  `request.Request.Templates[].Data` **Changed**\n* `Growthbook.RampScheduleTemplates.GetRampScheduleTemplate()`:  `response.RampScheduleTemplate.MonitoringConfig.ExposureQuery` **Added**\n* `Growthbook.RampScheduleTemplates.UpdateRampScheduleTemplate()`: \n  *  `request.Request.Body.MonitoringConfig` **Changed**\n  *  `response.RampScheduleTemplate.MonitoringConfig.ExposureQuery` **Added**\n* `Growthbook.RampScheduleTemplates.CreateRampScheduleTemplate()`: \n  *  `request.Request.MonitoringConfig` **Changed**\n  *  `response.RampScheduleTemplate.MonitoringConfig.ExposureQuery` **Added**\n* `Growthbook.RampScheduleTemplates.ListRampScheduleTemplates()`:  `response.RampScheduleTemplates[].MonitoringConfig.ExposureQuery` **Added**\n* `Growthbook.Holdouts.GetHoldout()`:  `response.Holdout.AssignmentQuery` **Added**\n* `Growthbook.Holdouts.UpdateHoldout()`: \n  *  `request.Request.Body.AssignmentQuery` **Added**\n  *  `response.Holdout.AssignmentQuery` **Added**\n* `Growthbook.Holdouts.CreateHoldout()`: \n  *  `request.Request.AssignmentQuery` **Added**\n  *  `response.Holdout.AssignmentQuery` **Added**\n* `Growthbook.Holdouts.ListHoldouts()`:  `response.Holdouts[].AssignmentQuery` **Added**\n* `Growthbook.Holdouts.StartHoldout()`:  `response.Holdout.AssignmentQuery` **Added**\n* `Growthbook.Holdouts.StartAnalysis()`:  `response.Holdout.AssignmentQuery` **Added**\n* `Growthbook.Holdouts.StopHoldout()`:  `response.Holdout.AssignmentQuery` **Added**\n"

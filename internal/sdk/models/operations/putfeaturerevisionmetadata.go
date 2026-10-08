@@ -255,11 +255,11 @@ func (p *PutFeatureRevisionMetadataSimple) GetInvariants() []PutFeatureRevisionM
 	return p.Invariants
 }
 
+// PutFeatureRevisionMetadataJSONSchema - Validation schema to stage on the draft. The server sets `date`, so don't send it.
 type PutFeatureRevisionMetadataJSONSchema struct {
 	SchemaType PutFeatureRevisionMetadataSchemaType `json:"schemaType"`
 	Schema     string                               `json:"schema"`
 	Simple     PutFeatureRevisionMetadataSimple     `json:"simple"`
-	Date       any                                  `json:"date"`
 	Enabled    bool                                 `json:"enabled"`
 }
 
@@ -284,13 +284,6 @@ func (p *PutFeatureRevisionMetadataJSONSchema) GetSimple() PutFeatureRevisionMet
 	return p.Simple
 }
 
-func (p *PutFeatureRevisionMetadataJSONSchema) GetDate() any {
-	if p == nil {
-		return nil
-	}
-	return p.Date
-}
-
 func (p *PutFeatureRevisionMetadataJSONSchema) GetEnabled() bool {
 	if p == nil {
 		return false
@@ -308,11 +301,12 @@ type PutFeatureRevisionMetadataRequestBody struct {
 	// Stage delivering this feature to every project. Requires the `targetFeatures` permission unscoped to any project.
 	TargetingAllProjects *bool `json:"targetingAllProjects,omitzero"`
 	// Stage the secondary project IDs this feature is delivered to. Adding a project requires the `targetFeatures` permission (FlagsTarget policy) in that project.
-	TargetingProjects []string                              `json:"targetingProjects,omitzero"`
-	Tags              []string                              `json:"tags,omitzero"`
-	NeverStale        *bool                                 `json:"neverStale,omitzero"`
-	CustomFields      map[string]any                        `json:"customFields,omitzero"`
-	JSONSchema        *PutFeatureRevisionMetadataJSONSchema `json:"jsonSchema,omitzero"`
+	TargetingProjects []string       `json:"targetingProjects,omitzero"`
+	Tags              []string       `json:"tags,omitzero"`
+	NeverStale        *bool          `json:"neverStale,omitzero"`
+	CustomFields      map[string]any `json:"customFields,omitzero"`
+	// Validation schema to stage on the draft. The server sets `date`, so don't send it.
+	JSONSchema *PutFeatureRevisionMetadataJSONSchema `json:"jsonSchema,omitzero"`
 	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
 	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
 }

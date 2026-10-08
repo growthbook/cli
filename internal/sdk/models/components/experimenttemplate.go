@@ -51,6 +51,28 @@ func (e *ExperimentTemplateType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// ExperimentTemplateExposureQuery - The assignment query, grouping its ID with the identifier type analyzed on.
+type ExperimentTemplateExposureQuery struct {
+	// The ID of one of the data source's assignment queries.
+	ID string `json:"id"`
+	// The identifier type analyzed on. Null when none can be resolved: no assignment query is selected, or a record saved before identifier types were stored points at a query that no longer exists.
+	IdentifierType *string `json:"identifierType"`
+}
+
+func (e *ExperimentTemplateExposureQuery) GetID() string {
+	if e == nil {
+		return ""
+	}
+	return e.ID
+}
+
+func (e *ExperimentTemplateExposureQuery) GetIdentifierType() *string {
+	if e == nil {
+		return nil
+	}
+	return e.IdentifierType
+}
+
 type ExperimentTemplateStatsEngine string
 
 const (
@@ -218,14 +240,19 @@ type ExperimentTemplate struct {
 	// The userId of the owner (or raw owner name/email for legacy records)
 	Owner string `json:"owner"`
 	// The email address of the owner, when the owner can be resolved to a known user.
-	OwnerEmail             *string                               `json:"ownerEmail,omitzero"`
-	TemplateMetadata       TemplateMetadata                      `json:"templateMetadata"`
-	Type                   ExperimentTemplateType                `json:"type"`
-	Hypothesis             *string                               `json:"hypothesis,omitzero"`
-	Description            *string                               `json:"description,omitzero"`
-	Tags                   []string                              `json:"tags,omitzero"`
-	CustomFields           map[string]string                     `json:"customFields,omitzero"`
-	Datasource             string                                `json:"datasource"`
+	OwnerEmail       *string                `json:"ownerEmail,omitzero"`
+	TemplateMetadata TemplateMetadata       `json:"templateMetadata"`
+	Type             ExperimentTemplateType `json:"type"`
+	Hypothesis       *string                `json:"hypothesis,omitzero"`
+	Description      *string                `json:"description,omitzero"`
+	Tags             []string               `json:"tags,omitzero"`
+	CustomFields     map[string]string      `json:"customFields,omitzero"`
+	Datasource       string                 `json:"datasource"`
+	// The assignment query, grouping its ID with the identifier type analyzed on.
+	ExposureQuery ExperimentTemplateExposureQuery `json:"exposureQuery"`
+	// Deprecated: use `exposureQuery`.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	ExposureQueryID        string                                `json:"exposureQueryId"`
 	HashAttribute          *string                               `json:"hashAttribute,omitzero"`
 	FallbackAttribute      *string                               `json:"fallbackAttribute,omitzero"`
@@ -341,6 +368,13 @@ func (e *ExperimentTemplate) GetDatasource() string {
 		return ""
 	}
 	return e.Datasource
+}
+
+func (e *ExperimentTemplate) GetExposureQuery() ExperimentTemplateExposureQuery {
+	if e == nil {
+		return ExperimentTemplateExposureQuery{}
+	}
+	return e.ExposureQuery
 }
 
 func (e *ExperimentTemplate) GetExposureQueryID() string {

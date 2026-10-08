@@ -16,7 +16,8 @@ import (
 
 var createCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "datasource-id", FieldPath: "DatasourceID", Kind: flagutil.FlagKindString, Optional: true, Description: "ID for the [DataSource](#tag/DataSource_model). Can only be set if a templateId is not provided."},
-	{FlagName: "assignment-query-id", FieldPath: "AssignmentQueryID", Kind: flagutil.FlagKindString, Optional: true, Description: "The ID property of one of the assignment query objects associated with the datasource. Can only be set if a templateId is not provided."},
+	{FlagName: "assignment-query", FieldPath: "AssignmentQuery", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"assignmentQuery,omitempty"`, Description: "The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `assignmentQueryId`. Can only be set if a templateId is not provided."},
+	{FlagName: "assignment-query-id", FieldPath: "AssignmentQueryID", Kind: flagutil.FlagKindString, Optional: true, Description: "Deprecated: use `assignmentQuery`. Rejected when selecting a different assignment query that declares several identifier types; set `assignmentQuery.identifierType` instead. Can only be set if a templateId is not provided."},
 	{FlagName: "tracking-key", FieldPath: "TrackingKey", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "bypass-duplicate-key-check", FieldPath: "BypassDuplicateKeyCheck", Kind: flagutil.FlagKindBool, Optional: true, Description: "If true, allow creating an experiment even if another experiment with the same tracking key already exists. This is ignored if the organization requires unique tracking keys as a rule."},
 	{FlagName: "name", Shorthand: "n", FieldPath: "Name", Kind: flagutil.FlagKindString, Required: true, Description: "Name of the experiment [required]"},
