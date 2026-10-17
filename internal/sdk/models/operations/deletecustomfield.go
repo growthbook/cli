@@ -42,6 +42,9 @@ type DeleteCustomFieldResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource deleted
 	Object *DeleteCustomFieldResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (d DeleteCustomFieldResponse) MarshalJSON() ([]byte, error) {
@@ -67,4 +70,18 @@ func (d *DeleteCustomFieldResponse) GetObject() *DeleteCustomFieldResponseBody {
 		return nil
 	}
 	return d.Object
+}
+
+func (d *DeleteCustomFieldResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if d == nil {
+		return nil
+	}
+	return d.ConfirmationHeld
+}
+
+func (d *DeleteCustomFieldResponse) GetHeaders() map[string][]string {
+	if d == nil {
+		return map[string][]string{}
+	}
+	return d.Headers
 }

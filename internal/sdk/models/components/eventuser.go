@@ -2,6 +2,11 @@
 
 package components
 
+import (
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
+)
+
+// EventUserType - `dashboard` (signed-in member), `api_key` (API key or personal access token) or `system`
 type EventUserType string
 
 const (
@@ -25,12 +30,72 @@ func (e *EventUserType) IsExact() bool {
 	return false
 }
 
-// EventUser - The user (or automated actor) responsible for an action
+// RequestedBy - The member named with `X-GrowthBook-Requested-By`
+type RequestedBy struct {
+	ID    string `json:"id"`
+	Name  string `json:"name"`
+	Email string `json:"email"`
+}
+
+func (r RequestedBy) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RequestedBy) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RequestedBy) GetID() string {
+	if r == nil {
+		return ""
+	}
+	return r.ID
+}
+
+func (r *RequestedBy) GetName() string {
+	if r == nil {
+		return ""
+	}
+	return r.Name
+}
+
+func (r *RequestedBy) GetEmail() string {
+	if r == nil {
+		return ""
+	}
+	return r.Email
+}
+
+// EventUser - Who performed an action
 type EventUser struct {
-	Type  EventUserType `json:"type"`
-	ID    *string       `json:"id,omitzero"`
-	Name  *string       `json:"name,omitzero"`
-	Email *string       `json:"email,omitzero"`
+	// `dashboard` (signed-in member), `api_key` (API key or personal access token) or `system`
+	Type EventUserType `json:"type"`
+	// The member's user ID. Absent for an organization API key
+	ID *string `json:"id,omitzero"`
+	// The API key's ID, when the action came through one
+	APIKey *string `json:"apiKey,omitzero"`
+	// The member's name, or the organization API key's name
+	Name *string `json:"name,omitzero"`
+	// The member's email. Absent for an organization API key
+	Email *string `json:"email,omitzero"`
+	// The member named with `X-GrowthBook-Requested-By`
+	RequestedBy *RequestedBy `json:"requestedBy,omitzero"`
+	// Whether the key assumed the named member's role
+	AssumedRole *bool `json:"assumedRole,omitzero"`
+}
+
+func (e EventUser) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *EventUser) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (e *EventUser) GetType() EventUserType {
@@ -47,6 +112,13 @@ func (e *EventUser) GetID() *string {
 	return e.ID
 }
 
+func (e *EventUser) GetAPIKey() *string {
+	if e == nil {
+		return nil
+	}
+	return e.APIKey
+}
+
 func (e *EventUser) GetName() *string {
 	if e == nil {
 		return nil
@@ -59,4 +131,18 @@ func (e *EventUser) GetEmail() *string {
 		return nil
 	}
 	return e.Email
+}
+
+func (e *EventUser) GetRequestedBy() *RequestedBy {
+	if e == nil {
+		return nil
+	}
+	return e.RequestedBy
+}
+
+func (e *EventUser) GetAssumedRole() *bool {
+	if e == nil {
+		return nil
+	}
+	return e.AssumedRole
 }

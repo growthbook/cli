@@ -42,6 +42,9 @@ type DeleteFeatureV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource deleted
 	Object *DeleteFeatureV2ResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (d DeleteFeatureV2Response) MarshalJSON() ([]byte, error) {
@@ -67,6 +70,20 @@ func (d *DeleteFeatureV2Response) GetObject() *DeleteFeatureV2ResponseBody {
 		return nil
 	}
 	return d.Object
+}
+
+func (d *DeleteFeatureV2Response) GetConfirmationHeld() *components.ConfirmationHeld {
+	if d == nil {
+		return nil
+	}
+	return d.ConfirmationHeld
+}
+
+func (d *DeleteFeatureV2Response) GetHeaders() map[string][]string {
+	if d == nil {
+		return map[string][]string{}
+	}
+	return d.Headers
 }
 
 // #region class-body-deletefeaturev2response

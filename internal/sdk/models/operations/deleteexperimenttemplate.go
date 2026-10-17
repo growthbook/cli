@@ -34,6 +34,9 @@ type DeleteExperimentTemplateResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource deleted
 	Object *DeleteExperimentTemplateResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (d DeleteExperimentTemplateResponse) MarshalJSON() ([]byte, error) {
@@ -59,4 +62,18 @@ func (d *DeleteExperimentTemplateResponse) GetObject() *DeleteExperimentTemplate
 		return nil
 	}
 	return d.Object
+}
+
+func (d *DeleteExperimentTemplateResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if d == nil {
+		return nil
+	}
+	return d.ConfirmationHeld
+}
+
+func (d *DeleteExperimentTemplateResponse) GetHeaders() map[string][]string {
+	if d == nil {
+		return map[string][]string{}
+	}
+	return d.Headers
 }

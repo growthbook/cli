@@ -93,6 +93,9 @@ type UnarchiveConstantResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *UnarchiveConstantResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (u UnarchiveConstantResponse) MarshalJSON() ([]byte, error) {
@@ -118,4 +121,18 @@ func (u *UnarchiveConstantResponse) GetObject() *UnarchiveConstantResponseBody {
 		return nil
 	}
 	return u.Object
+}
+
+func (u *UnarchiveConstantResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if u == nil {
+		return nil
+	}
+	return u.ConfirmationHeld
+}
+
+func (u *UnarchiveConstantResponse) GetHeaders() map[string][]string {
+	if u == nil {
+		return map[string][]string{}
+	}
+	return u.Headers
 }

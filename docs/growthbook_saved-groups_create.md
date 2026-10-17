@@ -25,7 +25,7 @@ growthbook saved-groups create [flags]
   -c, --condition string       When type = 'condition', this is the JSON-encoded condition for the group
   -h, --help                   help for create
   -n, --name string            The display name of the Saved Group [required]
-      --owner string           The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the user associated with the request's Personal Access Token (PAT), if one is being used.
+      --owner string           The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the requesting member: a personal access token's owner, or the member an organization API key assumes. An organization API key acting as itself leaves it empty.
   -p, --projects stringArray   list of values
   -t, --type string            The type of Saved Group (inferred from other arguments if missing) (options: condition, list)
   -v, --values stringArray     When type = 'list', this is the list of values for the attribute key

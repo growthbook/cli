@@ -29,6 +29,7 @@ var updateContextualBanditCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "decision-metric", FieldPath: "Body.DecisionMetric", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "min-users-per-leaf", FieldPath: "Body.MinUsersPerLeaf", Kind: flagutil.FlagKindInt64, Optional: true, Description: "integer value"},
 	{FlagName: "max-leaves", FieldPath: "Body.MaxLeaves", Kind: flagutil.FlagKindInt64, Optional: true, Description: "integer value"},
+	{FlagName: "prior-sample-size", FieldPath: "Body.PriorSampleSize", Kind: flagutil.FlagKindInt64, Optional: true, Description: "integer value"},
 	{FlagName: "schedule-value", FieldPath: "Body.ScheduleValue", Kind: flagutil.FlagKindFloat64, Optional: true, Description: "number value"},
 	{FlagName: "schedule-unit", FieldPath: "Body.ScheduleUnit", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"days", "hours"}, Description: "options: days, hours"},
 	{FlagName: "burn-in-value", FieldPath: "Body.BurnInValue", Kind: flagutil.FlagKindFloat64, Optional: true, Description: "number value"},

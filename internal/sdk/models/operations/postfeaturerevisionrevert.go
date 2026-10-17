@@ -152,6 +152,9 @@ type PostFeatureRevisionRevertResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostFeatureRevisionRevertResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostFeatureRevisionRevertResponse) MarshalJSON() ([]byte, error) {
@@ -177,4 +180,18 @@ func (p *PostFeatureRevisionRevertResponse) GetObject() *PostFeatureRevisionReve
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostFeatureRevisionRevertResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostFeatureRevisionRevertResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

@@ -98,6 +98,9 @@ type PostExperimentModifyTemporaryRolloutResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostExperimentModifyTemporaryRolloutResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostExperimentModifyTemporaryRolloutResponse) MarshalJSON() ([]byte, error) {
@@ -123,4 +126,18 @@ func (p *PostExperimentModifyTemporaryRolloutResponse) GetObject() *PostExperime
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostExperimentModifyTemporaryRolloutResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostExperimentModifyTemporaryRolloutResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

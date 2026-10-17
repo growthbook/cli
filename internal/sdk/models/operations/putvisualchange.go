@@ -224,6 +224,9 @@ type PutVisualChangeResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource updated
 	Object *PutVisualChangeResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PutVisualChangeResponse) MarshalJSON() ([]byte, error) {
@@ -249,4 +252,18 @@ func (p *PutVisualChangeResponse) GetObject() *PutVisualChangeResponseBody {
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PutVisualChangeResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PutVisualChangeResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

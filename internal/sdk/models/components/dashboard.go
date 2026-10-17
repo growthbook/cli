@@ -4621,22 +4621,22 @@ func (b *BlockComparison1) GetPreviousTimeFrame() *BlockPreviousTimeFrame1 {
 // #region class-body-blockcomparison1
 // #endregion class-body-blockcomparison1
 
-type PopulationType string
+type DashboardPopulationType string
 
 const (
-	PopulationTypeMetric        PopulationType = "metric"
-	PopulationTypeFactTable     PopulationType = "factTable"
-	PopulationTypeExposureQuery PopulationType = "exposureQuery"
-	PopulationTypePopulation    PopulationType = "population"
-	PopulationTypeSegment       PopulationType = "segment"
+	DashboardPopulationTypeMetric        DashboardPopulationType = "metric"
+	DashboardPopulationTypeFactTable     DashboardPopulationType = "factTable"
+	DashboardPopulationTypeExposureQuery DashboardPopulationType = "exposureQuery"
+	DashboardPopulationTypePopulation    DashboardPopulationType = "population"
+	DashboardPopulationTypeSegment       DashboardPopulationType = "segment"
 )
 
-func (e PopulationType) ToPointer() *PopulationType {
+func (e DashboardPopulationType) ToPointer() *DashboardPopulationType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PopulationType) IsExact() bool {
+func (e *DashboardPopulationType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "metric", "factTable", "exposureQuery", "population", "segment":
@@ -4647,14 +4647,14 @@ func (e *PopulationType) IsExact() bool {
 }
 
 type DashboardAnalysisSettings struct {
-	UserIDType                   string         `json:"userIdType"`
-	LookbackDays                 float64        `json:"lookbackDays"`
-	PopulationType               PopulationType `json:"populationType"`
-	PopulationID                 *string        `json:"populationId"`
-	AdditionalNumeratorFilters   []string       `json:"additionalNumeratorFilters,omitzero"`
-	AdditionalDenominatorFilters []string       `json:"additionalDenominatorFilters,omitzero"`
-	StartDate                    string         `json:"startDate"`
-	EndDate                      string         `json:"endDate"`
+	UserIDType                   string                  `json:"userIdType"`
+	LookbackDays                 float64                 `json:"lookbackDays"`
+	PopulationType               DashboardPopulationType `json:"populationType"`
+	PopulationID                 *string                 `json:"populationId"`
+	AdditionalNumeratorFilters   []string                `json:"additionalNumeratorFilters,omitzero"`
+	AdditionalDenominatorFilters []string                `json:"additionalDenominatorFilters,omitzero"`
+	StartDate                    string                  `json:"startDate"`
+	EndDate                      string                  `json:"endDate"`
 }
 
 func (d DashboardAnalysisSettings) MarshalJSON() ([]byte, error) {
@@ -4682,9 +4682,9 @@ func (d *DashboardAnalysisSettings) GetLookbackDays() float64 {
 	return d.LookbackDays
 }
 
-func (d *DashboardAnalysisSettings) GetPopulationType() PopulationType {
+func (d *DashboardAnalysisSettings) GetPopulationType() DashboardPopulationType {
 	if d == nil {
-		return PopulationType("")
+		return DashboardPopulationType("")
 	}
 	return d.PopulationType
 }

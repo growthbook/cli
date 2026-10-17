@@ -124,6 +124,9 @@ type PostNamespaceResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostNamespaceResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostNamespaceResponse) MarshalJSON() ([]byte, error) {
@@ -149,4 +152,18 @@ func (p *PostNamespaceResponse) GetObject() *PostNamespaceResponseBody {
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostNamespaceResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostNamespaceResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

@@ -21,7 +21,7 @@ var listRevisionsCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "feature-id", Shorthand: "f", FieldPath: "FeatureID", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "status", FieldPath: "Status", Kind: flagutil.FlagKindUnion, Union: &flagutil.UnionMeta{Discriminated: false, Optional: true, TypeDescription: "JSON value (one of: string | array of string)"}},
 	{FlagName: "author", FieldPath: "Author", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "mine", Shorthand: "m", FieldPath: "Mine", Kind: flagutil.FlagKindBool, Optional: true, Description: "If true, return only revisions authored by or contributed to by the calling user. Requires a user-scoped API key. Mutually exclusive with `author`."},
+	{FlagName: "mine", Shorthand: "m", FieldPath: "Mine", Kind: flagutil.FlagKindBool, Optional: true, Description: "If true, return only revisions authored by or contributed to by the calling user. Needs a personal access token, or an organization API key that assumes a named member's role. Mutually exclusive with `author`."},
 }
 
 // initListRevisionsCmd initializes the list-revisions command.

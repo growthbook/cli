@@ -205,7 +205,7 @@ type Config struct {
 	ExperimentGuard *bool `json:"experimentGuard,omitzero"`
 	// The pinned published revision (present only when `locked`). Fetch it via `GET /configs-revisions/:key/:version` for a value guaranteed not to disappear or mutate — use it to pin reproducible builds.
 	LockedRevision *LockedRevision `json:"lockedRevision,omitzero"`
-	// Id of the user who locked the config (when `locked`).
+	// Who locked the config: a member's user ID, or an API key's ID when it acted as itself
 	LockedBy *string `json:"lockedBy,omitzero"`
 	// When the config was locked (when `locked`).
 	DateLocked  *time.Time `json:"dateLocked,omitzero"`

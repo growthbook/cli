@@ -1169,8 +1169,10 @@ type StepApproval struct {
 	StepIndex int64 `json:"stepIndex"`
 	// When the approval was granted.
 	ApprovedAt time.Time `json:"approvedAt"`
-	// User ID of the approver.
+	// Who approved: the approver's user ID, or the API key's ID when a key approved as itself.
 	ApprovedBy string `json:"approvedBy"`
+	// Who performed an action
+	ApprovedByUser *EventUser `json:"approvedByUser,omitzero"`
 	// Surface through which the approval was granted.
 	Context Context `json:"context"`
 }
@@ -1205,6 +1207,13 @@ func (s *StepApproval) GetApprovedBy() string {
 		return ""
 	}
 	return s.ApprovedBy
+}
+
+func (s *StepApproval) GetApprovedByUser() *EventUser {
+	if s == nil {
+		return nil
+	}
+	return s.ApprovedByUser
 }
 
 func (s *StepApproval) GetContext() Context {

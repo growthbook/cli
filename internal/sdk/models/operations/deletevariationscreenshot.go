@@ -54,6 +54,9 @@ type DeleteVariationScreenshotResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Screenshot deleted successfully
 	Object *DeleteVariationScreenshotResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (d DeleteVariationScreenshotResponse) MarshalJSON() ([]byte, error) {
@@ -79,4 +82,18 @@ func (d *DeleteVariationScreenshotResponse) GetObject() *DeleteVariationScreensh
 		return nil
 	}
 	return d.Object
+}
+
+func (d *DeleteVariationScreenshotResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if d == nil {
+		return nil
+	}
+	return d.ConfirmationHeld
+}
+
+func (d *DeleteVariationScreenshotResponse) GetHeaders() map[string][]string {
+	if d == nil {
+		return map[string][]string{}
+	}
+	return d.Headers
 }

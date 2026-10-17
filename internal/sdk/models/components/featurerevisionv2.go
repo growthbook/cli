@@ -2621,9 +2621,9 @@ func (e *FeatureRevisionV2Status) IsExact() bool {
 }
 
 type Review struct {
-	// Stable reviewer identifier: the user ID for dashboard users, or the API key ID for service accounts
+	// Who reviewed: a member's user ID, or an API key's ID when it reviewed as itself
 	UserID string `json:"userId"`
-	// The user (or automated actor) responsible for an action
+	// Who performed an action
 	User      *EventUser              `json:"user,omitzero"`
 	Status    FeatureRevisionV2Status `json:"status"`
 	Timestamp time.Time               `json:"timestamp"`
@@ -2678,9 +2678,9 @@ type FeatureRevisionV2 struct {
 	Comment     string    `json:"comment"`
 	Date        time.Time `json:"date"`
 	Status      string    `json:"status"`
-	// The user (or automated actor) responsible for an action
+	// Who performed an action
 	CreatedBy *EventUser `json:"createdBy,omitzero"`
-	// The user (or automated actor) responsible for an action
+	// Who performed an action
 	PublishedBy *EventUser `json:"publishedBy,omitzero"`
 	// The default value at the time this revision was created. When the feature is in Config mode, this is the JSON override patch merged on top of the config (its own keys win); otherwise it is the full value.
 	DefaultValue *string `json:"defaultValue,omitzero"`
@@ -2711,8 +2711,10 @@ type FeatureRevisionV2 struct {
 	ScheduledPublishBypassApproval *bool `json:"scheduledPublishBypassApproval,omitzero"`
 	// Set when a due scheduled publish keeps failing (e.g. still awaiting approval, merge conflict). Indicates the schedule is stuck and retrying.
 	ScheduledPublishLastError *string `json:"scheduledPublishLastError,omitzero"`
-	// User the deferred publish will run as. Its authority is re-checked when the publish fires.
+	// User or API key the deferred publish runs as, re-checked when it fires. A key that assumed a member's role is recorded as `<keyId>:<memberId>`.
 	AutoPublishEnabledBy *string `json:"autoPublishEnabledBy,omitzero"`
+	// Who performed an action
+	AutoPublishEnabledByUser *EventUser `json:"autoPublishEnabledByUser,omitzero"`
 	// How many times the poller has tried to publish this revision. Read with `scheduledPublishGaveUpAt` to tell a schedule that is still retrying from one that has been parked.
 	ScheduledPublishAttempts *int64 `json:"scheduledPublishAttempts,omitzero"`
 	// When the poller stopped retrying. Giving up CLEARS the schedule and disarms auto-publish, so nothing fires again until the revision is re-armed. The draft is left open, with `scheduledPublishLastError` preserved for context.
@@ -2905,6 +2907,13 @@ func (f *FeatureRevisionV2) GetAutoPublishEnabledBy() *string {
 		return nil
 	}
 	return f.AutoPublishEnabledBy
+}
+
+func (f *FeatureRevisionV2) GetAutoPublishEnabledByUser() *EventUser {
+	if f == nil {
+		return nil
+	}
+	return f.AutoPublishEnabledByUser
 }
 
 func (f *FeatureRevisionV2) GetScheduledPublishAttempts() *int64 {

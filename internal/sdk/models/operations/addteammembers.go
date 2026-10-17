@@ -53,6 +53,9 @@ type AddTeamMembersResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *AddTeamMembersResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (a AddTeamMembersResponse) MarshalJSON() ([]byte, error) {
@@ -78,4 +81,18 @@ func (a *AddTeamMembersResponse) GetObject() *AddTeamMembersResponseBody {
 		return nil
 	}
 	return a.Object
+}
+
+func (a *AddTeamMembersResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if a == nil {
+		return nil
+	}
+	return a.ConfirmationHeld
+}
+
+func (a *AddTeamMembersResponse) GetHeaders() map[string][]string {
+	if a == nil {
+		return map[string][]string{}
+	}
+	return a.Headers
 }

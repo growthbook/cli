@@ -263,6 +263,9 @@ type UpdateAutoRunResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource updated
 	Object *UpdateAutoRunResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (u UpdateAutoRunResponse) MarshalJSON() ([]byte, error) {
@@ -288,4 +291,18 @@ func (u *UpdateAutoRunResponse) GetObject() *UpdateAutoRunResponseBody {
 		return nil
 	}
 	return u.Object
+}
+
+func (u *UpdateAutoRunResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if u == nil {
+		return nil
+	}
+	return u.ConfirmationHeld
+}
+
+func (u *UpdateAutoRunResponse) GetHeaders() map[string][]string {
+	if u == nil {
+		return map[string][]string{}
+	}
+	return u.Headers
 }

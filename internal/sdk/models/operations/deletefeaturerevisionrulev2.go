@@ -97,6 +97,9 @@ type DeleteFeatureRevisionRuleV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource deleted
 	Object *DeleteFeatureRevisionRuleV2ResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (d DeleteFeatureRevisionRuleV2Response) MarshalJSON() ([]byte, error) {
@@ -122,6 +125,20 @@ func (d *DeleteFeatureRevisionRuleV2Response) GetObject() *DeleteFeatureRevision
 		return nil
 	}
 	return d.Object
+}
+
+func (d *DeleteFeatureRevisionRuleV2Response) GetConfirmationHeld() *components.ConfirmationHeld {
+	if d == nil {
+		return nil
+	}
+	return d.ConfirmationHeld
+}
+
+func (d *DeleteFeatureRevisionRuleV2Response) GetHeaders() map[string][]string {
+	if d == nil {
+		return map[string][]string{}
+	}
+	return d.Headers
 }
 
 // #region class-body-deletefeaturerevisionrulev2response

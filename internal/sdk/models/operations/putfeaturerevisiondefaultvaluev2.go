@@ -126,6 +126,9 @@ type PutFeatureRevisionDefaultValueV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource updated
 	Object *PutFeatureRevisionDefaultValueV2ResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PutFeatureRevisionDefaultValueV2Response) MarshalJSON() ([]byte, error) {
@@ -151,6 +154,20 @@ func (p *PutFeatureRevisionDefaultValueV2Response) GetObject() *PutFeatureRevisi
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PutFeatureRevisionDefaultValueV2Response) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PutFeatureRevisionDefaultValueV2Response) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }
 
 // #region class-body-putfeaturerevisiondefaultvaluev2response

@@ -472,6 +472,9 @@ type UpdateExperimentTemplateResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource updated
 	Object *UpdateExperimentTemplateResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (u UpdateExperimentTemplateResponse) MarshalJSON() ([]byte, error) {
@@ -497,4 +500,18 @@ func (u *UpdateExperimentTemplateResponse) GetObject() *UpdateExperimentTemplate
 		return nil
 	}
 	return u.Object
+}
+
+func (u *UpdateExperimentTemplateResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if u == nil {
+		return nil
+	}
+	return u.ConfirmationHeld
+}
+
+func (u *UpdateExperimentTemplateResponse) GetHeaders() map[string][]string {
+	if u == nil {
+		return map[string][]string{}
+	}
+	return u.Headers
 }

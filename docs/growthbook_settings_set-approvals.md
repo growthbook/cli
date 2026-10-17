@@ -1,6 +1,6 @@
 ## growthbook settings set-approvals
 
-Replace the approval requirements for feature flags, configs and constants, for saved groups, and the Targeting Projects review mode. Each family is replaced wholesale when supplied; omit one to leave it unchanged.
+Update approval settings
 
 ### Synopsis
 

@@ -3,6 +3,7 @@
 package components
 
 import (
+	"github.com/growthbook/cli/v3/internal/sdk/optionalnullable"
 	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 	"time"
 )
@@ -16,6 +17,9 @@ const (
 	ArtifactsKindAttribute     ArtifactsKind = "attribute"
 	ArtifactsKindMetric        ArtifactsKind = "metric"
 	ArtifactsKindFactTable     ArtifactsKind = "fact-table"
+	ArtifactsKindSavedGroup    ArtifactsKind = "saved-group"
+	ArtifactsKindEnvironment   ArtifactsKind = "environment"
+	ArtifactsKindTag           ArtifactsKind = "tag"
 )
 
 func (e ArtifactsKind) ToPointer() *ArtifactsKind {
@@ -26,7 +30,7 @@ func (e ArtifactsKind) ToPointer() *ArtifactsKind {
 func (e *ArtifactsKind) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "sdk-connection", "feature", "experiment", "attribute", "metric", "fact-table":
+		case "sdk-connection", "feature", "experiment", "attribute", "metric", "fact-table", "saved-group", "environment", "tag":
 			return true
 		}
 	}
@@ -55,13 +59,43 @@ func (e *ArtifactsBy) IsExact() bool {
 	return false
 }
 
+// ArtifactsAction - What the run did to this object
+type ArtifactsAction string
+
+const (
+	ArtifactsActionCreated  ArtifactsAction = "created"
+	ArtifactsActionUpdated  ArtifactsAction = "updated"
+	ArtifactsActionExisting ArtifactsAction = "existing"
+	ArtifactsActionDeleted  ArtifactsAction = "deleted"
+	ArtifactsActionFailed   ArtifactsAction = "failed"
+)
+
+func (e ArtifactsAction) ToPointer() *ArtifactsAction {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ArtifactsAction) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "created", "updated", "existing", "deleted", "failed":
+			return true
+		}
+	}
+	return false
+}
+
 type Artifacts struct {
-	Kind        ArtifactsKind `json:"kind"`
-	ID          string        `json:"id"`
-	Label       string        `json:"label"`
-	By          ArtifactsBy   `json:"by"`
-	Detail      *string       `json:"detail"`
-	DateCreated time.Time     `json:"dateCreated"`
+	Kind   ArtifactsKind `json:"kind"`
+	ID     string        `json:"id"`
+	Label  string        `json:"label"`
+	By     ArtifactsBy   `json:"by"`
+	Detail *string       `json:"detail"`
+	// Id in the system this was imported from, when it was imported
+	ExternalID optionalnullable.OptionalNullable[string] `json:"externalId,omitzero"`
+	// What the run did to this object
+	Action      *ArtifactsAction `json:"action,omitzero"`
+	DateCreated time.Time        `json:"dateCreated"`
 }
 
 func (a Artifacts) MarshalJSON() ([]byte, error) {
@@ -108,6 +142,20 @@ func (a *Artifacts) GetDetail() *string {
 		return nil
 	}
 	return a.Detail
+}
+
+func (a *Artifacts) GetExternalID() optionalnullable.OptionalNullable[string] {
+	if a == nil {
+		return nil
+	}
+	return a.ExternalID
+}
+
+func (a *Artifacts) GetAction() *ArtifactsAction {
+	if a == nil {
+		return nil
+	}
+	return a.Action
 }
 
 func (a *Artifacts) GetDateCreated() time.Time {

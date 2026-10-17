@@ -263,6 +263,9 @@ type PostSDKConnectionResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostSDKConnectionResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostSDKConnectionResponse) MarshalJSON() ([]byte, error) {
@@ -288,4 +291,18 @@ func (p *PostSDKConnectionResponse) GetObject() *PostSDKConnectionResponseBody {
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostSDKConnectionResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostSDKConnectionResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

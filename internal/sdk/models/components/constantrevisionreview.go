@@ -31,13 +31,16 @@ func (e *ConstantRevisionReviewDecision) IsExact() bool {
 }
 
 type ConstantRevisionReview struct {
-	ID       string                         `json:"id"`
+	ID string `json:"id"`
+	// Who acted: a member's user ID, or an API key's ID when it acted as itself
 	UserID   string                         `json:"userId"`
 	Decision ConstantRevisionReviewDecision `json:"decision"`
 	Comment  *string                        `json:"comment,omitzero"`
 	// True if a later review cycle (re-submit, approval reset, recall, or reopen) superseded this verdict. Stale verdicts are kept for attribution but no longer count as an active approval or change-request.
 	Stale       *bool     `json:"stale,omitzero"`
 	DateCreated time.Time `json:"dateCreated"`
+	// Who performed an action
+	User *EventUser `json:"user,omitzero"`
 }
 
 func (c ConstantRevisionReview) MarshalJSON() ([]byte, error) {
@@ -91,4 +94,11 @@ func (c *ConstantRevisionReview) GetDateCreated() time.Time {
 		return time.Time{}
 	}
 	return c.DateCreated
+}
+
+func (c *ConstantRevisionReview) GetUser() *EventUser {
+	if c == nil {
+		return nil
+	}
+	return c.User
 }

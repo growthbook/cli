@@ -13,8 +13,9 @@ import (
 type CreateAutoRunSource string
 
 const (
-	CreateAutoRunSourceCliWizard CreateAutoRunSource = "cli-wizard"
-	CreateAutoRunSourceSkill     CreateAutoRunSource = "skill"
+	CreateAutoRunSourceCliWizard  CreateAutoRunSource = "cli-wizard"
+	CreateAutoRunSourceSkill      CreateAutoRunSource = "skill"
+	CreateAutoRunSourceEppoImport CreateAutoRunSource = "eppo-import"
 )
 
 func (e CreateAutoRunSource) ToPointer() *CreateAutoRunSource {
@@ -29,6 +30,8 @@ func (e *CreateAutoRunSource) UnmarshalJSON(data []byte) error {
 	case "cli-wizard":
 		fallthrough
 	case "skill":
+		fallthrough
+	case "eppo-import":
 		*e = CreateAutoRunSource(v)
 		return nil
 	default:
@@ -206,6 +209,9 @@ type CreateAutoRunResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *CreateAutoRunResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (c CreateAutoRunResponse) MarshalJSON() ([]byte, error) {
@@ -231,4 +237,18 @@ func (c *CreateAutoRunResponse) GetObject() *CreateAutoRunResponseBody {
 		return nil
 	}
 	return c.Object
+}
+
+func (c *CreateAutoRunResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if c == nil {
+		return nil
+	}
+	return c.ConfirmationHeld
+}
+
+func (c *CreateAutoRunResponse) GetHeaders() map[string][]string {
+	if c == nil {
+		return map[string][]string{}
+	}
+	return c.Headers
 }

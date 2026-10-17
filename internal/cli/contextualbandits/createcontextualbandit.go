@@ -17,7 +17,7 @@ import (
 var createContextualBanditCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "name", Shorthand: "n", FieldPath: "Name", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "description", FieldPath: "Description", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "project", Shorthand: "p", FieldPath: "Project", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "project", FieldPath: "Project", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "owner", FieldPath: "Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization."},
 	{FlagName: "tags", FieldPath: "Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
 	{FlagName: "tracking-key", FieldPath: "TrackingKey", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
@@ -29,6 +29,7 @@ var createContextualBanditCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "contextual-attributes", FieldPath: "ContextualAttributes", Kind: flagutil.FlagKindStringArray, Required: true, Description: "[required]"},
 	{FlagName: "min-users-per-leaf", FieldPath: "MinUsersPerLeaf", Kind: flagutil.FlagKindInt64, Optional: true, Description: "integer value"},
 	{FlagName: "max-leaves", FieldPath: "MaxLeaves", Kind: flagutil.FlagKindInt64, Optional: true, Description: "integer value"},
+	{FlagName: "prior-sample-size", FieldPath: "PriorSampleSize", Kind: flagutil.FlagKindInt64, Optional: true, Description: "integer value"},
 	{FlagName: "schedule-value", FieldPath: "ScheduleValue", Kind: flagutil.FlagKindFloat64, Optional: true, Description: "number value"},
 	{FlagName: "schedule-unit", FieldPath: "ScheduleUnit", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"days", "hours"}, Description: "options: days, hours"},
 	{FlagName: "burn-in-value", FieldPath: "BurnInValue", Kind: flagutil.FlagKindFloat64, Optional: true, Description: "number value"},

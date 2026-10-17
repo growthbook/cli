@@ -23,7 +23,7 @@ growthbook auto-runs create [flags]
       --body string       Request body as JSON (alternative to individual flags). Can also be provided via stdin.
   -h, --help              help for create
   -m, --metadata string   value
-  -s, --source string     options: cli-wizard, skill
+  -s, --source string     options: cli-wizard, skill, eppo-import
 ```
 
 ### Options inherited from parent commands

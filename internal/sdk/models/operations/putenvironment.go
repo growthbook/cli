@@ -92,6 +92,9 @@ type PutEnvironmentResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource updated
 	Object *PutEnvironmentResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PutEnvironmentResponse) MarshalJSON() ([]byte, error) {
@@ -117,4 +120,18 @@ func (p *PutEnvironmentResponse) GetObject() *PutEnvironmentResponseBody {
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PutEnvironmentResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PutEnvironmentResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

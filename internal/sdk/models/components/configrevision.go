@@ -59,9 +59,12 @@ func (e *ConfigRevisionAction) IsExact() bool {
 }
 
 type ConfigRevisionResolution struct {
-	Action      ConfigRevisionAction `json:"action"`
-	UserID      string               `json:"userId"`
-	DateCreated time.Time            `json:"dateCreated"`
+	Action ConfigRevisionAction `json:"action"`
+	// Who acted: a member's user ID, or an API key's ID when it acted as itself
+	UserID string `json:"userId"`
+	// Who performed an action
+	User        *EventUser `json:"user,omitzero"`
+	DateCreated time.Time  `json:"dateCreated"`
 }
 
 func (c ConfigRevisionResolution) MarshalJSON() ([]byte, error) {
@@ -87,6 +90,13 @@ func (c *ConfigRevisionResolution) GetUserID() string {
 		return ""
 	}
 	return c.UserID
+}
+
+func (c *ConfigRevisionResolution) GetUser() *EventUser {
+	if c == nil {
+		return nil
+	}
+	return c.User
 }
 
 func (c *ConfigRevisionResolution) GetDateCreated() time.Time {
@@ -510,11 +520,14 @@ func (u ConfigRevisionProposedChangeUnion) MarshalJSON() ([]byte, error) {
 }
 
 type ConfigRevision struct {
-	ID           string                           `json:"id"`
-	Version      *int64                           `json:"version,omitzero"`
-	Title        *string                          `json:"title,omitzero"`
-	Status       ConfigRevisionStatus             `json:"status"`
-	AuthorID     string                           `json:"authorId"`
+	ID      string               `json:"id"`
+	Version *int64               `json:"version,omitzero"`
+	Title   *string              `json:"title,omitzero"`
+	Status  ConfigRevisionStatus `json:"status"`
+	// Who acted: a member's user ID, or an API key's ID when it acted as itself
+	AuthorID string `json:"authorId"`
+	// Who performed an action
+	Author       *EventUser                       `json:"author,omitzero"`
 	AuthorEmail  *string                          `json:"authorEmail,omitzero"`
 	Contributors []string                         `json:"contributors,omitzero"`
 	RevertedFrom *string                          `json:"revertedFrom,omitzero"`
@@ -522,8 +535,10 @@ type ConfigRevision struct {
 	ActivityLog  []ConfigRevisionActivityLogEntry `json:"activityLog"`
 	// Publish automatically the moment this revision is approved.
 	AutoPublishOnApproval *bool `json:"autoPublishOnApproval,omitzero"`
-	// User the deferred publish will run as. Its authority is re-checked when the publish fires.
+	// User or API key the deferred publish runs as, re-checked when it fires. A key that assumed a member's role is recorded as `<keyId>:<memberId>`.
 	AutoPublishEnabledBy *string `json:"autoPublishEnabledBy,omitzero"`
+	// Who performed an action
+	AutoPublishEnabledByUser *EventUser `json:"autoPublishEnabledByUser,omitzero"`
 	// When the deferred publish fires. Absent when the revision publishes on approval instead, or is not armed at all.
 	ScheduledPublishAt *time.Time `json:"scheduledPublishAt,omitzero"`
 	// Content edits to this revision are frozen until it fires.
@@ -592,6 +607,13 @@ func (c *ConfigRevision) GetAuthorID() string {
 	return c.AuthorID
 }
 
+func (c *ConfigRevision) GetAuthor() *EventUser {
+	if c == nil {
+		return nil
+	}
+	return c.Author
+}
+
 func (c *ConfigRevision) GetAuthorEmail() *string {
 	if c == nil {
 		return nil
@@ -639,6 +661,13 @@ func (c *ConfigRevision) GetAutoPublishEnabledBy() *string {
 		return nil
 	}
 	return c.AutoPublishEnabledBy
+}
+
+func (c *ConfigRevision) GetAutoPublishEnabledByUser() *EventUser {
+	if c == nil {
+		return nil
+	}
+	return c.AutoPublishEnabledByUser
 }
 
 func (c *ConfigRevision) GetScheduledPublishAt() *time.Time {

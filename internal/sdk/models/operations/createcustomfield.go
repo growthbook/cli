@@ -512,6 +512,9 @@ type CreateCustomFieldResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *CreateCustomFieldResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (c CreateCustomFieldResponse) MarshalJSON() ([]byte, error) {
@@ -537,4 +540,18 @@ func (c *CreateCustomFieldResponse) GetObject() *CreateCustomFieldResponseBody {
 		return nil
 	}
 	return c.Object
+}
+
+func (c *CreateCustomFieldResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if c == nil {
+		return nil
+	}
+	return c.ConfirmationHeld
+}
+
+func (c *CreateCustomFieldResponse) GetHeaders() map[string][]string {
+	if c == nil {
+		return map[string][]string{}
+	}
+	return c.Headers
 }

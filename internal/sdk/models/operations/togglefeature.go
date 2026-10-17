@@ -91,6 +91,9 @@ type ToggleFeatureResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *ToggleFeatureResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (t ToggleFeatureResponse) MarshalJSON() ([]byte, error) {
@@ -116,4 +119,18 @@ func (t *ToggleFeatureResponse) GetObject() *ToggleFeatureResponseBody {
 		return nil
 	}
 	return t.Object
+}
+
+func (t *ToggleFeatureResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if t == nil {
+		return nil
+	}
+	return t.ConfirmationHeld
+}
+
+func (t *ToggleFeatureResponse) GetHeaders() map[string][]string {
+	if t == nil {
+		return map[string][]string{}
+	}
+	return t.Headers
 }

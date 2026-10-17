@@ -9,7 +9,7 @@ import (
 
 type GetSavedGroupRevisionLatestRequest struct {
 	SavedGroupID string `pathParam:"style=simple,explode=false,name=savedGroupId"`
-	// If true, return only the most recent active draft authored by the calling user. Requires a user-scoped API key.
+	// If true, return only the most recent active draft authored by the calling user. Needs a personal access token, or an organization API key that assumes a named member's role.
 	Mine *bool `queryParam:"style=form,explode=true,name=mine"`
 }
 

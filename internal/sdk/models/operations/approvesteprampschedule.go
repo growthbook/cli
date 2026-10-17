@@ -34,6 +34,9 @@ type ApproveStepRampScheduleResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *ApproveStepRampScheduleResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (a ApproveStepRampScheduleResponse) MarshalJSON() ([]byte, error) {
@@ -59,4 +62,18 @@ func (a *ApproveStepRampScheduleResponse) GetObject() *ApproveStepRampScheduleRe
 		return nil
 	}
 	return a.Object
+}
+
+func (a *ApproveStepRampScheduleResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if a == nil {
+		return nil
+	}
+	return a.ConfirmationHeld
+}
+
+func (a *ApproveStepRampScheduleResponse) GetHeaders() map[string][]string {
+	if a == nil {
+		return map[string][]string{}
+	}
+	return a.Headers
 }

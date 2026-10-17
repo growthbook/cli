@@ -13,9 +13,9 @@ type FeatureRevisionSummary struct {
 	Version int64     `json:"version"`
 	Comment string    `json:"comment"`
 	Date    time.Time `json:"date"`
-	// The user (or automated actor) responsible for an action
+	// Who performed an action
 	CreatedBy *EventUser `json:"createdBy,omitzero"`
-	// The user (or automated actor) responsible for an action
+	// Who performed an action
 	PublishedBy *EventUser `json:"publishedBy,omitzero"`
 }
 

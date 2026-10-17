@@ -43,6 +43,9 @@ type RefreshContextualBanditResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *RefreshContextualBanditResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (r RefreshContextualBanditResponse) MarshalJSON() ([]byte, error) {
@@ -68,4 +71,18 @@ func (r *RefreshContextualBanditResponse) GetObject() *RefreshContextualBanditRe
 		return nil
 	}
 	return r.Object
+}
+
+func (r *RefreshContextualBanditResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if r == nil {
+		return nil
+	}
+	return r.ConfirmationHeld
+}
+
+func (r *RefreshContextualBanditResponse) GetHeaders() map[string][]string {
+	if r == nil {
+		return map[string][]string{}
+	}
+	return r.Headers
 }

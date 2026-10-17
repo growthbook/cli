@@ -19,7 +19,7 @@ type GetSavedGroupRevisionsRequest struct {
 	// Filter by revision status. Accepts a comma-separated list, or the literal `open` for non-merged/non-discarded revisions.
 	Status *string `queryParam:"style=form,explode=true,name=status"`
 	Author *string `queryParam:"style=form,explode=true,name=author"`
-	// If true, return only revisions authored by the calling user. Requires a user-scoped API key. Mutually exclusive with `author`.
+	// If true, return only revisions authored by the calling user. Needs a personal access token, or an organization API key that assumes a named member's role. Mutually exclusive with `author`.
 	Mine *bool `queryParam:"style=form,explode=true,name=mine"`
 }
 

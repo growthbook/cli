@@ -53,6 +53,9 @@ type PostSavedGroupRevisionUndoReviewResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostSavedGroupRevisionUndoReviewResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostSavedGroupRevisionUndoReviewResponse) MarshalJSON() ([]byte, error) {
@@ -78,4 +81,18 @@ func (p *PostSavedGroupRevisionUndoReviewResponse) GetObject() *PostSavedGroupRe
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostSavedGroupRevisionUndoReviewResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostSavedGroupRevisionUndoReviewResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }
