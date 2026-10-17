@@ -16,7 +16,7 @@ import (
 
 var latestCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "key", Shorthand: "k", FieldPath: "Key", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "mine", Shorthand: "m", FieldPath: "Mine", Kind: flagutil.FlagKindBool, Optional: true, Description: "If true, return only the most recent active draft authored by the calling user. Requires a user-scoped API key."},
+	{FlagName: "mine", Shorthand: "m", FieldPath: "Mine", Kind: flagutil.FlagKindBool, Optional: true, Description: "If true, return only the most recent active draft authored by the calling user. Needs a personal access token, or an organization API key that assumes a named member's role."},
 }
 
 // initLatestCmd initializes the latest command.
@@ -24,7 +24,7 @@ func initLatestCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "latest",
 		Short:   "Get the most recent active draft revision",
-		Long:    "Returns the most recently updated open (non-merged, non-discarded) revision for the config. Returns 404 if there is no active draft. Pass `mine=true` to restrict to drafts authored by the calling user (requires a user-scoped API key).",
+		Long:    "Returns the most recently updated open (non-merged, non-discarded) revision for the config. Returns 404 if there is no active draft. Pass `mine=true` to restrict to drafts authored by the calling user. Needs a personal access token, or an organization API key that assumes a named member's role.",
 		Example: "  growthbook config-revisions latest --key <key>",
 		RunE:    runLatestCmd,
 	}

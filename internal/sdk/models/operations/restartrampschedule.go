@@ -34,6 +34,9 @@ type RestartRampScheduleResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *RestartRampScheduleResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (r RestartRampScheduleResponse) MarshalJSON() ([]byte, error) {
@@ -59,4 +62,18 @@ func (r *RestartRampScheduleResponse) GetObject() *RestartRampScheduleResponseBo
 		return nil
 	}
 	return r.Object
+}
+
+func (r *RestartRampScheduleResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if r == nil {
+		return nil
+	}
+	return r.ConfirmationHeld
+}
+
+func (r *RestartRampScheduleResponse) GetHeaders() map[string][]string {
+	if r == nil {
+		return map[string][]string{}
+	}
+	return r.Headers
 }

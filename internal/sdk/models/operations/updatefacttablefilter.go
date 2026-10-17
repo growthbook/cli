@@ -119,6 +119,9 @@ type UpdateFactTableFilterResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *UpdateFactTableFilterResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (u UpdateFactTableFilterResponse) MarshalJSON() ([]byte, error) {
@@ -144,4 +147,18 @@ func (u *UpdateFactTableFilterResponse) GetObject() *UpdateFactTableFilterRespon
 		return nil
 	}
 	return u.Object
+}
+
+func (u *UpdateFactTableFilterResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if u == nil {
+		return nil
+	}
+	return u.ConfirmationHeld
+}
+
+func (u *UpdateFactTableFilterResponse) GetHeaders() map[string][]string {
+	if u == nil {
+		return map[string][]string{}
+	}
+	return u.Headers
 }

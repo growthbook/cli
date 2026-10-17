@@ -75,6 +75,9 @@ type ArchiveSavedGroupResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *ArchiveSavedGroupResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (a ArchiveSavedGroupResponse) MarshalJSON() ([]byte, error) {
@@ -100,4 +103,18 @@ func (a *ArchiveSavedGroupResponse) GetObject() *ArchiveSavedGroupResponseBody {
 		return nil
 	}
 	return a.Object
+}
+
+func (a *ArchiveSavedGroupResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if a == nil {
+		return nil
+	}
+	return a.ConfirmationHeld
+}
+
+func (a *ArchiveSavedGroupResponse) GetHeaders() map[string][]string {
+	if a == nil {
+		return map[string][]string{}
+	}
+	return a.Headers
 }

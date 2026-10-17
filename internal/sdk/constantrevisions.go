@@ -550,6 +550,31 @@ func (s *ConstantRevisions) Create(ctx context.Context, request operations.PostC
 			}
 			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
@@ -575,7 +600,7 @@ func (s *ConstantRevisions) Create(ctx context.Context, request operations.PostC
 }
 
 // Latest - Get the most recent active draft revision
-// Returns the most recently updated open (non-merged, non-discarded) revision for the constant. Returns 404 if there is no active draft. Pass `mine=true` to restrict to drafts authored by the calling user (requires a user-scoped API key).
+// Returns the most recently updated open (non-merged, non-discarded) revision for the constant. Returns 404 if there is no active draft. Pass `mine=true` to restrict to drafts authored by the calling user. Needs a personal access token, or an organization API key that assumes a named member's role.
 func (s *ConstantRevisions) Latest(ctx context.Context, request operations.GetConstantRevisionLatestRequest, opts ...operations.Option) (*operations.GetConstantRevisionLatestResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -996,6 +1021,31 @@ func (s *ConstantRevisions) SetMetadata(ctx context.Context, request operations.
 			}
 			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
@@ -1148,6 +1198,31 @@ func (s *ConstantRevisions) SetValue(ctx context.Context, request operations.Put
 			}
 			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
@@ -1292,6 +1367,31 @@ func (s *ConstantRevisions) Archive(ctx context.Context, request operations.PutC
 				}
 
 				res.Object = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -1454,6 +1554,31 @@ func (s *ConstantRevisions) RequestReview(ctx context.Context, request operation
 			}
 			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
@@ -1479,7 +1604,7 @@ func (s *ConstantRevisions) RequestReview(ctx context.Context, request operation
 }
 
 // SubmitReview - Submit a review on a draft revision
-// Submits an `approve`, `request-changes`, or `comment` review on the revision. Submitting `approve` or `request-changes` needs Review access. A `comment` is participation rather than a verdict, so it is also open to the Comments permission or draft authority on the entity. Authors and contributors cannot submit `approve` reviews on their own drafts when the org has `blockSelfApproval` enabled.
+// Submits an `approve`, `request-changes`, or `comment` review on the revision. The verdict belongs to whoever the request acts as; see [Naming who asked](/api/introduction#naming-who-asked). No one can rule on a draft they created. Submitting `approve` or `request-changes` needs Review access. A `comment` is participation rather than a verdict, so it is also open to the Comments permission or draft authority on the entity. Authors and contributors cannot submit `approve` reviews on their own drafts when the org has `blockSelfApproval` enabled.
 //
 // When `decision` is `approve` and the revision has `autoPublishOnApproval` enabled, the revision is automatically published after approval. The response includes `autoPublished: true` when this happens. Pass `skipAutoPublish: true` to approve without triggering auto-publish.
 func (s *ConstantRevisions) SubmitReview(ctx context.Context, request operations.PostConstantRevisionSubmitReviewRequest, opts ...operations.Option) (*operations.PostConstantRevisionSubmitReviewResponse, error) {
@@ -1600,6 +1725,31 @@ func (s *ConstantRevisions) SubmitReview(ctx context.Context, request operations
 				}
 
 				res.Object = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -1760,6 +1910,31 @@ func (s *ConstantRevisions) RecallReview(ctx context.Context, request operations
 			}
 			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
@@ -1904,6 +2079,31 @@ func (s *ConstantRevisions) Reopen(ctx context.Context, request operations.PostC
 				}
 
 				res.Object = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -2064,6 +2264,31 @@ func (s *ConstantRevisions) SchedulePublish(ctx context.Context, request operati
 			}
 			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
@@ -2089,7 +2314,7 @@ func (s *ConstantRevisions) SchedulePublish(ctx context.Context, request operati
 }
 
 // UndoReview - Retract your own review verdict
-// Retracts the calling user's own active `approve` or `request-changes` verdict, returning the revision to `pending-review`. Review comments stay in the log. Retracting a `request-changes` can leave the revision approved by someone else, in which case an armed auto-publish fires.
+// Retracts the calling user's own active `approve` or `request-changes` verdict, returning the revision to `pending-review`. Review comments stay in the log. Retracting a `request-changes` can leave the revision approved by someone else, in which case an armed auto-publish fires. The verdict belongs to whoever the request acts as; see [Naming who asked](/api/introduction#naming-who-asked). No one can rule on a draft they created.
 func (s *ConstantRevisions) UndoReview(ctx context.Context, request operations.PostConstantRevisionUndoReviewRequest, opts ...operations.Option) (*operations.PostConstantRevisionUndoReviewResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -2208,6 +2433,31 @@ func (s *ConstantRevisions) UndoReview(ctx context.Context, request operations.P
 				}
 
 				res.Object = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -2513,6 +2763,31 @@ func (s *ConstantRevisions) Rebase(ctx context.Context, request operations.PostC
 			}
 			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
@@ -2657,6 +2932,31 @@ func (s *ConstantRevisions) Publish(ctx context.Context, request operations.Post
 				}
 
 				res.Object = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -2817,6 +3117,31 @@ func (s *ConstantRevisions) Discard(ctx context.Context, request operations.Post
 			}
 			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
@@ -2961,6 +3286,31 @@ func (s *ConstantRevisions) Revert(ctx context.Context, request operations.PostC
 				}
 
 				res.Object = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)

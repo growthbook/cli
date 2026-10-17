@@ -74,6 +74,9 @@ type APIAdvanceRampScheduleResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *APIAdvanceRampScheduleResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (a APIAdvanceRampScheduleResponse) MarshalJSON() ([]byte, error) {
@@ -99,4 +102,18 @@ func (a *APIAdvanceRampScheduleResponse) GetObject() *APIAdvanceRampScheduleResp
 		return nil
 	}
 	return a.Object
+}
+
+func (a *APIAdvanceRampScheduleResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if a == nil {
+		return nil
+	}
+	return a.ConfirmationHeld
+}
+
+func (a *APIAdvanceRampScheduleResponse) GetHeaders() map[string][]string {
+	if a == nil {
+		return map[string][]string{}
+	}
+	return a.Headers
 }

@@ -198,6 +198,9 @@ type UpdateContextualBanditLinkedFeatureResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource updated
 	Object *UpdateContextualBanditLinkedFeatureResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (u UpdateContextualBanditLinkedFeatureResponse) MarshalJSON() ([]byte, error) {
@@ -223,4 +226,18 @@ func (u *UpdateContextualBanditLinkedFeatureResponse) GetObject() *UpdateContext
 		return nil
 	}
 	return u.Object
+}
+
+func (u *UpdateContextualBanditLinkedFeatureResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if u == nil {
+		return nil
+	}
+	return u.ConfirmationHeld
+}
+
+func (u *UpdateContextualBanditLinkedFeatureResponse) GetHeaders() map[string][]string {
+	if u == nil {
+		return map[string][]string{}
+	}
+	return u.Headers
 }

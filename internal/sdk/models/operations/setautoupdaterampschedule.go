@@ -370,8 +370,10 @@ type SetAutoUpdateRampScheduleStepApproval struct {
 	StepIndex int64 `json:"stepIndex"`
 	// When the approval was granted.
 	ApprovedAt time.Time `json:"approvedAt"`
-	// User ID of the approver.
+	// Who approved: the approver's user ID, or the API key's ID when a key approved as itself.
 	ApprovedBy string `json:"approvedBy"`
+	// Who performed an action
+	ApprovedByUser *components.EventUser `json:"approvedByUser,omitzero"`
 	// Surface through which the approval was granted.
 	Context SetAutoUpdateRampScheduleContext `json:"context"`
 }
@@ -406,6 +408,13 @@ func (s *SetAutoUpdateRampScheduleStepApproval) GetApprovedBy() string {
 		return ""
 	}
 	return s.ApprovedBy
+}
+
+func (s *SetAutoUpdateRampScheduleStepApproval) GetApprovedByUser() *components.EventUser {
+	if s == nil {
+		return nil
+	}
+	return s.ApprovedByUser
 }
 
 func (s *SetAutoUpdateRampScheduleStepApproval) GetContext() SetAutoUpdateRampScheduleContext {
@@ -806,6 +815,9 @@ type SetAutoUpdateRampScheduleResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *SetAutoUpdateRampScheduleResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (s SetAutoUpdateRampScheduleResponse) MarshalJSON() ([]byte, error) {
@@ -831,4 +843,18 @@ func (s *SetAutoUpdateRampScheduleResponse) GetObject() *SetAutoUpdateRampSchedu
 		return nil
 	}
 	return s.Object
+}
+
+func (s *SetAutoUpdateRampScheduleResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if s == nil {
+		return nil
+	}
+	return s.ConfirmationHeld
+}
+
+func (s *SetAutoUpdateRampScheduleResponse) GetHeaders() map[string][]string {
+	if s == nil {
+		return map[string][]string{}
+	}
+	return s.Headers
 }

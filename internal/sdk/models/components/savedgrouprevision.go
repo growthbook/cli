@@ -59,9 +59,12 @@ func (e *SavedGroupRevisionAction) IsExact() bool {
 }
 
 type SavedGroupRevisionResolution struct {
-	Action      SavedGroupRevisionAction `json:"action"`
-	UserID      string                   `json:"userId"`
-	DateCreated time.Time                `json:"dateCreated"`
+	Action SavedGroupRevisionAction `json:"action"`
+	// Who acted: a member's user ID, or an API key's ID when it acted as itself
+	UserID string `json:"userId"`
+	// Who performed an action
+	User        *EventUser `json:"user,omitzero"`
+	DateCreated time.Time  `json:"dateCreated"`
 }
 
 func (s SavedGroupRevisionResolution) MarshalJSON() ([]byte, error) {
@@ -87,6 +90,13 @@ func (s *SavedGroupRevisionResolution) GetUserID() string {
 		return ""
 	}
 	return s.UserID
+}
+
+func (s *SavedGroupRevisionResolution) GetUser() *EventUser {
+	if s == nil {
+		return nil
+	}
+	return s.User
 }
 
 func (s *SavedGroupRevisionResolution) GetDateCreated() time.Time {
@@ -510,11 +520,14 @@ func (u SavedGroupRevisionProposedChangeUnion) MarshalJSON() ([]byte, error) {
 }
 
 type SavedGroupRevision struct {
-	ID           string                               `json:"id"`
-	Version      *int64                               `json:"version,omitzero"`
-	Title        *string                              `json:"title,omitzero"`
-	Status       SavedGroupRevisionStatus             `json:"status"`
-	AuthorID     string                               `json:"authorId"`
+	ID      string                   `json:"id"`
+	Version *int64                   `json:"version,omitzero"`
+	Title   *string                  `json:"title,omitzero"`
+	Status  SavedGroupRevisionStatus `json:"status"`
+	// Who acted: a member's user ID, or an API key's ID when it acted as itself
+	AuthorID string `json:"authorId"`
+	// Who performed an action
+	Author       *EventUser                           `json:"author,omitzero"`
 	AuthorEmail  *string                              `json:"authorEmail,omitzero"`
 	Contributors []string                             `json:"contributors,omitzero"`
 	RevertedFrom *string                              `json:"revertedFrom,omitzero"`
@@ -522,8 +535,10 @@ type SavedGroupRevision struct {
 	ActivityLog  []SavedGroupRevisionActivityLogEntry `json:"activityLog"`
 	// Publish automatically the moment this revision is approved.
 	AutoPublishOnApproval *bool `json:"autoPublishOnApproval,omitzero"`
-	// User the deferred publish will run as. Its authority is re-checked when the publish fires.
+	// User or API key the deferred publish runs as, re-checked when it fires. A key that assumed a member's role is recorded as `<keyId>:<memberId>`.
 	AutoPublishEnabledBy *string `json:"autoPublishEnabledBy,omitzero"`
+	// Who performed an action
+	AutoPublishEnabledByUser *EventUser `json:"autoPublishEnabledByUser,omitzero"`
 	// When the deferred publish fires. Absent when the revision publishes on approval instead, or is not armed at all.
 	ScheduledPublishAt *time.Time `json:"scheduledPublishAt,omitzero"`
 	// Content edits to this revision are frozen until it fires.
@@ -592,6 +607,13 @@ func (s *SavedGroupRevision) GetAuthorID() string {
 	return s.AuthorID
 }
 
+func (s *SavedGroupRevision) GetAuthor() *EventUser {
+	if s == nil {
+		return nil
+	}
+	return s.Author
+}
+
 func (s *SavedGroupRevision) GetAuthorEmail() *string {
 	if s == nil {
 		return nil
@@ -639,6 +661,13 @@ func (s *SavedGroupRevision) GetAutoPublishEnabledBy() *string {
 		return nil
 	}
 	return s.AutoPublishEnabledBy
+}
+
+func (s *SavedGroupRevision) GetAutoPublishEnabledByUser() *EventUser {
+	if s == nil {
+		return nil
+	}
+	return s.AutoPublishEnabledByUser
 }
 
 func (s *SavedGroupRevision) GetScheduledPublishAt() *time.Time {

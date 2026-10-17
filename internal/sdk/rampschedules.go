@@ -354,6 +354,31 @@ func (s *RampSchedules) Create(ctx context.Context, request operations.PostRampS
 			}
 			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
@@ -498,6 +523,31 @@ func (s *RampSchedules) StartRampSchedule(ctx context.Context, request operation
 				}
 
 				res.Object = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -656,6 +706,31 @@ func (s *RampSchedules) PauseRampSchedule(ctx context.Context, request operation
 			}
 			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
@@ -799,6 +874,31 @@ func (s *RampSchedules) ResumeRampSchedule(ctx context.Context, request operatio
 				}
 
 				res.Object = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -968,6 +1068,31 @@ func (s *RampSchedules) RollbackRampSchedule(ctx context.Context, request operat
 			}
 			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
@@ -1114,6 +1239,31 @@ func (s *RampSchedules) RestartRampSchedule(ctx context.Context, request operati
 				}
 
 				res.Object = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -1282,6 +1432,31 @@ func (s *RampSchedules) JumpRampSchedule(ctx context.Context, request operations
 			}
 			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
@@ -1431,6 +1606,31 @@ func (s *RampSchedules) CompleteRampSchedule(ctx context.Context, request operat
 				}
 
 				res.Object = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -1589,6 +1789,31 @@ func (s *RampSchedules) ApproveStepRampSchedule(ctx context.Context, request ope
 				}
 
 				res.Object = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -1757,6 +1982,31 @@ func (s *RampSchedules) AddTargetRampSchedule(ctx context.Context, request opera
 			}
 			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
@@ -1905,6 +2155,31 @@ func (s *RampSchedules) EjectTargetRampSchedule(ctx context.Context, request ope
 				}
 
 				res.OneOf = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -2087,6 +2362,31 @@ func (s *RampSchedules) APIAdvanceRampSchedule(ctx context.Context, request oper
 				}
 
 				res.Object = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -2392,6 +2692,31 @@ func (s *RampSchedules) SetMonitoringModeRampSchedule(ctx context.Context, reque
 			}
 			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
@@ -2536,6 +2861,31 @@ func (s *RampSchedules) SetAutoUpdateRampSchedule(ctx context.Context, request o
 				}
 
 				res.Object = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -2700,6 +3050,31 @@ func (s *RampSchedules) UpdateMonitoring(ctx context.Context, request operations
 			}
 			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
@@ -2844,6 +3219,31 @@ func (s *RampSchedules) UpdateLockdown(ctx context.Context, request operations.U
 				}
 
 				res.Object = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -3000,6 +3400,31 @@ func (s *RampSchedules) UpdateSteps(ctx context.Context, request operations.Upda
 				}
 
 				res.Object = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -3454,6 +3879,31 @@ func (s *RampSchedules) DeleteRampSchedule(ctx context.Context, request operatio
 			}
 			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
@@ -3614,6 +4064,31 @@ func (s *RampSchedules) UpdateRampSchedule(ctx context.Context, request operatio
 				}
 
 				res.Object = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)

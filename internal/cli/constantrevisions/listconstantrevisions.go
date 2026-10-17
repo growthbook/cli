@@ -21,7 +21,7 @@ var listConstantRevisionsCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "key", Shorthand: "k", FieldPath: "Key", Kind: flagutil.FlagKindString, Optional: true, Description: "Restrict results to revisions for a single constant (by its key). When omitted, returns revisions across every constant the caller can read."},
 	{FlagName: "status", FieldPath: "Status", Kind: flagutil.FlagKindString, Optional: true, Description: "Filter by revision status. Accepts a comma-separated list, or the literal `open` for non-merged/non-discarded revisions."},
 	{FlagName: "author", FieldPath: "Author", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "mine", Shorthand: "m", FieldPath: "Mine", Kind: flagutil.FlagKindBool, Optional: true, Description: "If true, return only revisions authored by the calling user. Requires a user-scoped API key. Mutually exclusive with `author`."},
+	{FlagName: "mine", Shorthand: "m", FieldPath: "Mine", Kind: flagutil.FlagKindBool, Optional: true, Description: "If true, return only revisions authored by the calling user. Needs a personal access token, or an organization API key that assumes a named member's role. Mutually exclusive with `author`."},
 }
 
 // initListConstantRevisionsCmd initializes the list-constant-revisions command.

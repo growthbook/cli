@@ -27,7 +27,7 @@ func initSubmitReviewCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "submit-review",
 		Short:   "Submit a review on a draft revision",
-		Long:    "Submits an `approve`, `request-changes`, or `comment` review on the draft. Contributors cannot approve their own drafts when `blockSelfApproval` is enabled.\n\nWhen `action` is `approve` and the revision has `autoPublishOnApproval` enabled, the revision is automatically published after approval. The response includes `autoPublished: true` when this happens. Pass `skipAutoPublish: true` to approve without triggering auto-publish.",
+		Long:    "Submits an `approve`, `request-changes`, or `comment` review on the draft. The verdict belongs to whoever the request acts as; see [Naming who asked](/api/introduction#naming-who-asked). No one can rule on a draft they created. Contributors cannot approve their own drafts when `blockSelfApproval` is enabled.\n\nWhen `action` is `approve` and the revision has `autoPublishOnApproval` enabled, the revision is automatically published after approval. The response includes `autoPublished: true` when this happens. Pass `skipAutoPublish: true` to approve without triggering auto-publish.",
 		Example: "  growthbook feature-revisions submit-review --id <id> --version-param 494187",
 		RunE:    runSubmitReviewCmd,
 		Aliases: []string{"sr"},

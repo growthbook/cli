@@ -344,6 +344,7 @@ type ContextualBandit struct {
 	DecisionMetric          *string                                                 `json:"decisionMetric,omitzero"`
 	MinUsersPerLeaf         int64                                                   `json:"minUsersPerLeaf"`
 	MaxLeaves               int64                                                   `json:"maxLeaves"`
+	PriorSampleSize         int64                                                   `json:"priorSampleSize"`
 	HoldoutPercent          float64                                                 `json:"holdoutPercent"`
 	BanditModelVersion      int64                                                   `json:"banditModelVersion"`
 	ScheduleValue           *float64                                                `json:"scheduleValue,omitzero"`
@@ -577,6 +578,13 @@ func (c *ContextualBandit) GetMaxLeaves() int64 {
 		return 0
 	}
 	return c.MaxLeaves
+}
+
+func (c *ContextualBandit) GetPriorSampleSize() int64 {
+	if c == nil {
+		return 0
+	}
+	return c.PriorSampleSize
 }
 
 func (c *ContextualBandit) GetHoldoutPercent() float64 {

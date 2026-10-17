@@ -348,6 +348,9 @@ type CreateHoldoutResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *CreateHoldoutResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (c CreateHoldoutResponse) MarshalJSON() ([]byte, error) {
@@ -373,4 +376,18 @@ func (c *CreateHoldoutResponse) GetObject() *CreateHoldoutResponseBody {
 		return nil
 	}
 	return c.Object
+}
+
+func (c *CreateHoldoutResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if c == nil {
+		return nil
+	}
+	return c.ConfirmationHeld
+}
+
+func (c *CreateHoldoutResponse) GetHeaders() map[string][]string {
+	if c == nil {
+		return map[string][]string{}
+	}
+	return c.Headers
 }

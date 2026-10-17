@@ -130,6 +130,7 @@ type CreateContextualBanditRequest struct {
 	ContextualAttributes    []string                                    `json:"contextualAttributes"`
 	MinUsersPerLeaf         *int64                                      `json:"minUsersPerLeaf,omitzero"`
 	MaxLeaves               *int64                                      `json:"maxLeaves,omitzero"`
+	PriorSampleSize         *int64                                      `json:"priorSampleSize,omitzero"`
 	ScheduleValue           *float64                                    `json:"scheduleValue,omitzero"`
 	ScheduleUnit            *CreateContextualBanditScheduleUnit         `json:"scheduleUnit,omitzero"`
 	BurnInValue             *float64                                    `json:"burnInValue,omitzero"`
@@ -247,6 +248,13 @@ func (c *CreateContextualBanditRequest) GetMaxLeaves() *int64 {
 	return c.MaxLeaves
 }
 
+func (c *CreateContextualBanditRequest) GetPriorSampleSize() *int64 {
+	if c == nil {
+		return nil
+	}
+	return c.PriorSampleSize
+}
+
 func (c *CreateContextualBanditRequest) GetScheduleValue() *float64 {
 	if c == nil {
 		return nil
@@ -305,6 +313,9 @@ type CreateContextualBanditResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *CreateContextualBanditResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (c CreateContextualBanditResponse) MarshalJSON() ([]byte, error) {
@@ -330,4 +341,18 @@ func (c *CreateContextualBanditResponse) GetObject() *CreateContextualBanditResp
 		return nil
 	}
 	return c.Object
+}
+
+func (c *CreateContextualBanditResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if c == nil {
+		return nil
+	}
+	return c.ConfirmationHeld
+}
+
+func (c *CreateContextualBanditResponse) GetHeaders() map[string][]string {
+	if c == nil {
+		return map[string][]string{}
+	}
+	return c.Headers
 }

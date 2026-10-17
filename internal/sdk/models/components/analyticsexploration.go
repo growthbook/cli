@@ -2080,39 +2080,39 @@ func (a *AnalyticsExplorationChartSettings5) GetValueAxisLabel() *string {
 // #region class-body-analyticsexplorationchartsettings5
 // #endregion class-body-analyticsexplorationchartsettings5
 
-type AnalyticsExplorationStepOperator string
+type AnalyticsExplorationOperatorFunnel string
 
 const (
-	AnalyticsExplorationStepOperatorEqual             AnalyticsExplorationStepOperator = "="
-	AnalyticsExplorationStepOperatorNotEqual          AnalyticsExplorationStepOperator = "!="
-	AnalyticsExplorationStepOperatorLessThan          AnalyticsExplorationStepOperator = "<"
-	AnalyticsExplorationStepOperatorLessThanEqual     AnalyticsExplorationStepOperator = "<="
-	AnalyticsExplorationStepOperatorGreaterThan       AnalyticsExplorationStepOperator = ">"
-	AnalyticsExplorationStepOperatorGreaterThanEqual  AnalyticsExplorationStepOperator = ">="
-	AnalyticsExplorationStepOperatorBetween           AnalyticsExplorationStepOperator = "between"
-	AnalyticsExplorationStepOperatorNotBetween        AnalyticsExplorationStepOperator = "not_between"
-	AnalyticsExplorationStepOperatorIn                AnalyticsExplorationStepOperator = "in"
-	AnalyticsExplorationStepOperatorNotIn             AnalyticsExplorationStepOperator = "not_in"
-	AnalyticsExplorationStepOperatorContains          AnalyticsExplorationStepOperator = "contains"
-	AnalyticsExplorationStepOperatorNotContains       AnalyticsExplorationStepOperator = "not_contains"
-	AnalyticsExplorationStepOperatorMatchesPattern    AnalyticsExplorationStepOperator = "matches_pattern"
-	AnalyticsExplorationStepOperatorNotMatchesPattern AnalyticsExplorationStepOperator = "not_matches_pattern"
-	AnalyticsExplorationStepOperatorStartsWith        AnalyticsExplorationStepOperator = "starts_with"
-	AnalyticsExplorationStepOperatorEndsWith          AnalyticsExplorationStepOperator = "ends_with"
-	AnalyticsExplorationStepOperatorIsNull            AnalyticsExplorationStepOperator = "is_null"
-	AnalyticsExplorationStepOperatorNotNull           AnalyticsExplorationStepOperator = "not_null"
-	AnalyticsExplorationStepOperatorIsTrue            AnalyticsExplorationStepOperator = "is_true"
-	AnalyticsExplorationStepOperatorIsFalse           AnalyticsExplorationStepOperator = "is_false"
-	AnalyticsExplorationStepOperatorSQLExpr           AnalyticsExplorationStepOperator = "sql_expr"
-	AnalyticsExplorationStepOperatorSavedFilter       AnalyticsExplorationStepOperator = "saved_filter"
+	AnalyticsExplorationOperatorFunnelEqual             AnalyticsExplorationOperatorFunnel = "="
+	AnalyticsExplorationOperatorFunnelNotEqual          AnalyticsExplorationOperatorFunnel = "!="
+	AnalyticsExplorationOperatorFunnelLessThan          AnalyticsExplorationOperatorFunnel = "<"
+	AnalyticsExplorationOperatorFunnelLessThanEqual     AnalyticsExplorationOperatorFunnel = "<="
+	AnalyticsExplorationOperatorFunnelGreaterThan       AnalyticsExplorationOperatorFunnel = ">"
+	AnalyticsExplorationOperatorFunnelGreaterThanEqual  AnalyticsExplorationOperatorFunnel = ">="
+	AnalyticsExplorationOperatorFunnelBetween           AnalyticsExplorationOperatorFunnel = "between"
+	AnalyticsExplorationOperatorFunnelNotBetween        AnalyticsExplorationOperatorFunnel = "not_between"
+	AnalyticsExplorationOperatorFunnelIn                AnalyticsExplorationOperatorFunnel = "in"
+	AnalyticsExplorationOperatorFunnelNotIn             AnalyticsExplorationOperatorFunnel = "not_in"
+	AnalyticsExplorationOperatorFunnelContains          AnalyticsExplorationOperatorFunnel = "contains"
+	AnalyticsExplorationOperatorFunnelNotContains       AnalyticsExplorationOperatorFunnel = "not_contains"
+	AnalyticsExplorationOperatorFunnelMatchesPattern    AnalyticsExplorationOperatorFunnel = "matches_pattern"
+	AnalyticsExplorationOperatorFunnelNotMatchesPattern AnalyticsExplorationOperatorFunnel = "not_matches_pattern"
+	AnalyticsExplorationOperatorFunnelStartsWith        AnalyticsExplorationOperatorFunnel = "starts_with"
+	AnalyticsExplorationOperatorFunnelEndsWith          AnalyticsExplorationOperatorFunnel = "ends_with"
+	AnalyticsExplorationOperatorFunnelIsNull            AnalyticsExplorationOperatorFunnel = "is_null"
+	AnalyticsExplorationOperatorFunnelNotNull           AnalyticsExplorationOperatorFunnel = "not_null"
+	AnalyticsExplorationOperatorFunnelIsTrue            AnalyticsExplorationOperatorFunnel = "is_true"
+	AnalyticsExplorationOperatorFunnelIsFalse           AnalyticsExplorationOperatorFunnel = "is_false"
+	AnalyticsExplorationOperatorFunnelSQLExpr           AnalyticsExplorationOperatorFunnel = "sql_expr"
+	AnalyticsExplorationOperatorFunnelSavedFilter       AnalyticsExplorationOperatorFunnel = "saved_filter"
 )
 
-func (e AnalyticsExplorationStepOperator) ToPointer() *AnalyticsExplorationStepOperator {
+func (e AnalyticsExplorationOperatorFunnel) ToPointer() *AnalyticsExplorationOperatorFunnel {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *AnalyticsExplorationStepOperator) IsExact() bool {
+func (e *AnalyticsExplorationOperatorFunnel) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "=", "!=", "<", "<=", ">", ">=", "between", "not_between", "in", "not_in", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "is_null", "not_null", "is_true", "is_false", "sql_expr", "saved_filter":
@@ -2123,9 +2123,9 @@ func (e *AnalyticsExplorationStepOperator) IsExact() bool {
 }
 
 type AnalyticsExplorationRowFilterFunnel struct {
-	Operator AnalyticsExplorationStepOperator `json:"operator"`
-	Column   *string                          `json:"column,omitzero"`
-	Values   []string                         `json:"values,omitzero"`
+	Operator AnalyticsExplorationOperatorFunnel `json:"operator"`
+	Column   *string                            `json:"column,omitzero"`
+	Values   []string                           `json:"values,omitzero"`
 }
 
 func (a AnalyticsExplorationRowFilterFunnel) MarshalJSON() ([]byte, error) {
@@ -2139,9 +2139,9 @@ func (a *AnalyticsExplorationRowFilterFunnel) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (a *AnalyticsExplorationRowFilterFunnel) GetOperator() AnalyticsExplorationStepOperator {
+func (a *AnalyticsExplorationRowFilterFunnel) GetOperator() AnalyticsExplorationOperatorFunnel {
 	if a == nil {
-		return AnalyticsExplorationStepOperator("")
+		return AnalyticsExplorationOperatorFunnel("")
 	}
 	return a.Operator
 }

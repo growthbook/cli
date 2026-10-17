@@ -2372,6 +2372,9 @@ type PostFeatureRevisionRuleAddResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostFeatureRevisionRuleAddResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostFeatureRevisionRuleAddResponse) MarshalJSON() ([]byte, error) {
@@ -2397,4 +2400,18 @@ func (p *PostFeatureRevisionRuleAddResponse) GetObject() *PostFeatureRevisionRul
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostFeatureRevisionRuleAddResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostFeatureRevisionRuleAddResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

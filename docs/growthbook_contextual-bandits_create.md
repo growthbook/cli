@@ -35,7 +35,8 @@ growthbook contextual-bandits create [flags]
       --min-users-per-leaf int              integer value
   -n, --name string                         [required]
       --owner string                        The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-  -p, --project string                      string value
+      --prior-sample-size int               integer value
+      --project string                      string value
       --schedule-unit string                options: days, hours
       --schedule-value float                number value
       --tags stringArray                    list of values

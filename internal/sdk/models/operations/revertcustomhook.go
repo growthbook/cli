@@ -55,6 +55,9 @@ type RevertCustomHookResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *RevertCustomHookResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (r RevertCustomHookResponse) MarshalJSON() ([]byte, error) {
@@ -80,4 +83,18 @@ func (r *RevertCustomHookResponse) GetObject() *RevertCustomHookResponseBody {
 		return nil
 	}
 	return r.Object
+}
+
+func (r *RevertCustomHookResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if r == nil {
+		return nil
+	}
+	return r.ConfirmationHeld
+}
+
+func (r *RevertCustomHookResponse) GetHeaders() map[string][]string {
+	if r == nil {
+		return map[string][]string{}
+	}
+	return r.Headers
 }

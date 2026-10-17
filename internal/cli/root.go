@@ -37,6 +37,7 @@ import (
 	"github.com/growthbook/cli/v3/internal/cli/metrics"
 	"github.com/growthbook/cli/v3/internal/cli/namespaces"
 	"github.com/growthbook/cli/v3/internal/cli/organizations"
+	"github.com/growthbook/cli/v3/internal/cli/populations"
 	"github.com/growthbook/cli/v3/internal/cli/projects"
 	"github.com/growthbook/cli/v3/internal/cli/queries"
 	"github.com/growthbook/cli/v3/internal/cli/rampschedules"
@@ -236,6 +237,9 @@ func NewRootCommand() (*cobra.Command, error) {
 	}
 	if err := autoruns.InitAutoRunsRoot(rootCmd); err != nil {
 		return nil, fmt.Errorf("init auto-runs: %w", err)
+	}
+	if err := populations.InitPopulationsRoot(rootCmd); err != nil {
+		return nil, fmt.Errorf("init populations: %w", err)
 	}
 	if err := initGetSDKPayloadCmd(rootCmd); err != nil {
 		return nil, fmt.Errorf("init get-SDK-payload: %w", err)

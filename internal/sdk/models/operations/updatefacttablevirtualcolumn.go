@@ -180,6 +180,9 @@ type UpdateFactTableVirtualColumnResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *UpdateFactTableVirtualColumnResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (u UpdateFactTableVirtualColumnResponse) MarshalJSON() ([]byte, error) {
@@ -205,4 +208,18 @@ func (u *UpdateFactTableVirtualColumnResponse) GetObject() *UpdateFactTableVirtu
 		return nil
 	}
 	return u.Object
+}
+
+func (u *UpdateFactTableVirtualColumnResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if u == nil {
+		return nil
+	}
+	return u.ConfirmationHeld
+}
+
+func (u *UpdateFactTableVirtualColumnResponse) GetHeaders() map[string][]string {
+	if u == nil {
+		return map[string][]string{}
+	}
+	return u.Headers
 }

@@ -199,6 +199,7 @@ type UpdateContextualBanditRequestBody struct {
 	DecisionMetric          *string                                                                       `json:"decisionMetric,omitzero"`
 	MinUsersPerLeaf         *int64                                                                        `json:"minUsersPerLeaf,omitzero"`
 	MaxLeaves               *int64                                                                        `json:"maxLeaves,omitzero"`
+	PriorSampleSize         *int64                                                                        `json:"priorSampleSize,omitzero"`
 	ScheduleValue           *float64                                                                      `json:"scheduleValue,omitzero"`
 	ScheduleUnit            *UpdateContextualBanditScheduleUnit                                           `json:"scheduleUnit,omitzero"`
 	BurnInValue             *float64                                                                      `json:"burnInValue,omitzero"`
@@ -314,6 +315,13 @@ func (u *UpdateContextualBanditRequestBody) GetMaxLeaves() *int64 {
 		return nil
 	}
 	return u.MaxLeaves
+}
+
+func (u *UpdateContextualBanditRequestBody) GetPriorSampleSize() *int64 {
+	if u == nil {
+		return nil
+	}
+	return u.PriorSampleSize
 }
 
 func (u *UpdateContextualBanditRequestBody) GetScheduleValue() *float64 {
@@ -442,6 +450,9 @@ type UpdateContextualBanditResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource updated
 	Object *UpdateContextualBanditResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (u UpdateContextualBanditResponse) MarshalJSON() ([]byte, error) {
@@ -467,4 +478,18 @@ func (u *UpdateContextualBanditResponse) GetObject() *UpdateContextualBanditResp
 		return nil
 	}
 	return u.Object
+}
+
+func (u *UpdateContextualBanditResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if u == nil {
+		return nil
+	}
+	return u.ConfirmationHeld
+}
+
+func (u *UpdateContextualBanditResponse) GetHeaders() map[string][]string {
+	if u == nil {
+		return map[string][]string{}
+	}
+	return u.Headers
 }

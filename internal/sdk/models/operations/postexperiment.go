@@ -1217,7 +1217,7 @@ type PostExperimentRequest struct {
 	SegmentID *string `json:"segmentId,omitzero"`
 	// WHERE clause to add to the default experiment query
 	QueryFilter *string `json:"queryFilter,omitzero"`
-	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the user associated with the request's Personal Access Token (PAT), if one is being used.
+	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the requesting member: a personal access token's owner, or the member an organization API key assumes. An organization API key acting as itself leaves it empty.
 	Owner             *string               `json:"owner,omitzero"`
 	Archived          *bool                 `json:"archived,omitzero"`
 	Status            *PostExperimentStatus `json:"status,omitzero"`
@@ -1689,6 +1689,9 @@ type PostExperimentResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostExperimentResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostExperimentResponse) MarshalJSON() ([]byte, error) {
@@ -1714,4 +1717,18 @@ func (p *PostExperimentResponse) GetObject() *PostExperimentResponseBody {
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostExperimentResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostExperimentResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

@@ -453,6 +453,9 @@ type CreateExperimentTemplateResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *CreateExperimentTemplateResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (c CreateExperimentTemplateResponse) MarshalJSON() ([]byte, error) {
@@ -478,4 +481,18 @@ func (c *CreateExperimentTemplateResponse) GetObject() *CreateExperimentTemplate
 		return nil
 	}
 	return c.Object
+}
+
+func (c *CreateExperimentTemplateResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if c == nil {
+		return nil
+	}
+	return c.ConfirmationHeld
+}
+
+func (c *CreateExperimentTemplateResponse) GetHeaders() map[string][]string {
+	if c == nil {
+		return map[string][]string{}
+	}
+	return c.Headers
 }

@@ -177,6 +177,9 @@ type PutReportMetadataResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource updated
 	Object *PutReportMetadataResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PutReportMetadataResponse) MarshalJSON() ([]byte, error) {
@@ -202,4 +205,18 @@ func (p *PutReportMetadataResponse) GetObject() *PutReportMetadataResponseBody {
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PutReportMetadataResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PutReportMetadataResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

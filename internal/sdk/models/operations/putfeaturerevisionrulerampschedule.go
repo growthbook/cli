@@ -1112,6 +1112,9 @@ type PutFeatureRevisionRuleRampScheduleResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource updated
 	Object *PutFeatureRevisionRuleRampScheduleResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PutFeatureRevisionRuleRampScheduleResponse) MarshalJSON() ([]byte, error) {
@@ -1137,4 +1140,18 @@ func (p *PutFeatureRevisionRuleRampScheduleResponse) GetObject() *PutFeatureRevi
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PutFeatureRevisionRuleRampScheduleResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PutFeatureRevisionRuleRampScheduleResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

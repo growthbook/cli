@@ -491,6 +491,9 @@ type BulkImportExperimentTemplatesResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *BulkImportExperimentTemplatesResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (b BulkImportExperimentTemplatesResponse) MarshalJSON() ([]byte, error) {
@@ -516,4 +519,18 @@ func (b *BulkImportExperimentTemplatesResponse) GetObject() *BulkImportExperimen
 		return nil
 	}
 	return b.Object
+}
+
+func (b *BulkImportExperimentTemplatesResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if b == nil {
+		return nil
+	}
+	return b.ConfirmationHeld
+}
+
+func (b *BulkImportExperimentTemplatesResponse) GetHeaders() map[string][]string {
+	if b == nil {
+		return map[string][]string{}
+	}
+	return b.Headers
 }

@@ -35,6 +35,9 @@ type StopContextualBanditResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *StopContextualBanditResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (s StopContextualBanditResponse) MarshalJSON() ([]byte, error) {
@@ -60,4 +63,18 @@ func (s *StopContextualBanditResponse) GetObject() *StopContextualBanditResponse
 		return nil
 	}
 	return s.Object
+}
+
+func (s *StopContextualBanditResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if s == nil {
+		return nil
+	}
+	return s.ConfirmationHeld
+}
+
+func (s *StopContextualBanditResponse) GetHeaders() map[string][]string {
+	if s == nil {
+		return map[string][]string{}
+	}
+	return s.Headers
 }

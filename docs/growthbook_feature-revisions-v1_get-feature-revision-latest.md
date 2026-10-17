@@ -8,7 +8,7 @@ DEPRECATED: This will be removed in a future release, please migrate away from i
 
 **Deprecated.** Use [GET /v2/features/:id/revisions/latest](#operation/getFeatureRevisionLatestV2) instead.
 
-Returns the most recently updated draft revision for the feature. Returns 404 if there is no active draft. Pass `mine=true` to return the most recent draft authored by or contributed to by the calling user (requires a user-scoped API key).
+Returns the most recently updated draft revision for the feature. Returns 404 if there is no active draft. Pass `mine=true` to return the most recent draft authored by or contributed to by the calling user. Needs a personal access token, or an organization API key that assumes a named member's role.
 
 ```
 growthbook feature-revisions-v1 get-feature-revision-latest [flags]
@@ -25,7 +25,7 @@ growthbook feature-revisions-v1 get-feature-revision-latest [flags]
 ```
   -h, --help        help for get-feature-revision-latest
   -i, --id string   [required]
-  -m, --mine        If true, return only the most recent active draft authored by or contributed to by the calling user. Requires a user-scoped API key.
+  -m, --mine        If true, return only the most recent active draft authored by or contributed to by the calling user. Needs a personal access token, or an organization API key that assumes a named member's role.
 ```
 
 ### Options inherited from parent commands

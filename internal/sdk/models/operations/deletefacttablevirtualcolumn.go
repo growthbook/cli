@@ -45,6 +45,9 @@ type DeleteFactTableVirtualColumnResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource deleted
 	Object *DeleteFactTableVirtualColumnResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (d DeleteFactTableVirtualColumnResponse) MarshalJSON() ([]byte, error) {
@@ -70,4 +73,18 @@ func (d *DeleteFactTableVirtualColumnResponse) GetObject() *DeleteFactTableVirtu
 		return nil
 	}
 	return d.Object
+}
+
+func (d *DeleteFactTableVirtualColumnResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if d == nil {
+		return nil
+	}
+	return d.ConfirmationHeld
+}
+
+func (d *DeleteFactTableVirtualColumnResponse) GetHeaders() map[string][]string {
+	if d == nil {
+		return map[string][]string{}
+	}
+	return d.Headers
 }

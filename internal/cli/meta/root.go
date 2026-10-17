@@ -24,6 +24,10 @@ func InitMetaRoot(parent *cobra.Command) error {
 		return err
 	}
 
+	if err := initGetConfirmationCmd(MetaCmd); err != nil {
+		return err
+	}
+
 	parent.AddCommand(MetaCmd)
 	return nil
 }

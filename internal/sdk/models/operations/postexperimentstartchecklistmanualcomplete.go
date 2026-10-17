@@ -85,6 +85,9 @@ type PostExperimentStartChecklistManualCompleteResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostExperimentStartChecklistManualCompleteResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostExperimentStartChecklistManualCompleteResponse) MarshalJSON() ([]byte, error) {
@@ -110,4 +113,18 @@ func (p *PostExperimentStartChecklistManualCompleteResponse) GetObject() *PostEx
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostExperimentStartChecklistManualCompleteResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostExperimentStartChecklistManualCompleteResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }
