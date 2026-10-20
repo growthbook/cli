@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [3.2.0] - 2026-10-20
+
 ### Added
 
 - **`populations`** (`create`, `delete`, `get`, `list`, `update`) manages populations: a set of
@@ -14,7 +16,7 @@
   failed.
 - **`--description` on `saved-groups create|update`**, **`--prior-sample-size` on
   `contextual-bandits create|update`**, and **`--body-param.action` / `--body-param.external-id`
-  on `auto-runs append-artifact`**. `auto-runs create` accepts `eppoImport` as a source.
+  on `auto-runs append-artifact`**. `auto-runs create --source` accepts `eppo-import`.
 - Actor objects (`createdBy`, `publishedBy`, revision log `user`, reviews) gain `apiKey`,
   `requestedBy` and `assumedRole`. Ramp-schedule step approvals gain `approvedByUser`, feature
   revisions gain `autoPublishEnabledByUser`, and data source assignment queries gain `projects`.
