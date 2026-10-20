@@ -30,6 +30,6 @@ func main() {
 		if !output.IsDisplayed(err) {
 			fmt.Fprintln(os.Stderr, err)
 		}
-		os.Exit(1)
+		os.Exit(cli.ExitCode(err))
 	}
 }

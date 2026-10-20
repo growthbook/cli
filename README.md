@@ -1034,6 +1034,17 @@ fi
 ```
 <!-- End Error Handling [errors] -->
 
+### Confirmation holds
+
+GrowthBook can hold a write until a person confirms it, which is how it puts a human in the
+loop for AI agents. A held command prints the `confirmation` object on stdout, a notice with the
+approval link on stderr, and exits with code **`3`**: the action has not happened yet.
+
+Once the person has acted, check the outcome with
+`growthbook meta get-confirmation --id <id> [--wait <seconds>]`. It exits `0` when the action
+completed, `3` while it is still pending or running, and `1` when it was rejected, expired, or
+failed.
+
 <!-- Start Diagnostics [diagnostics] -->
 ## Diagnostics
 

@@ -6,9 +6,12 @@
 
 - **`populations`** (`create`, `delete`, `get`, `list`, `update`) manages populations: a set of
   units defined by the steps they must complete. Populations are not yet used in analysis.
-- **Confirmation holds.** A mutating command can now return a `confirmation` object instead of
-  its result when GrowthBook holds the change until a person confirms it. Check its outcome with
-  **`meta get-confirmation --id <id> [--wait <seconds>]`**.
+- **Confirmation holds.** When GrowthBook holds a write until a person confirms it, the command
+  prints the `confirmation` object, writes the approval link to stderr, and **exits with code
+  `3`**: the action has not happened yet. Check its outcome with
+  **`meta get-confirmation --id <id> [--wait <seconds>]`**, which exits `0` once the action
+  completed, `3` while it is still pending or running, and `1` if it was rejected, expired, or
+  failed.
 - **`--description` on `saved-groups create|update`**, **`--prior-sample-size` on
   `contextual-bandits create|update`**, and **`--body-param.action` / `--body-param.external-id`
   on `auto-runs append-artifact`**. `auto-runs create` accepts `eppoImport` as a source.
