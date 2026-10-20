@@ -52,7 +52,9 @@ func TestE2E_GetConfirmation_ExitCodes(t *testing.T) {
 		{"pending", `"status":"pending","response":null,"note":null`, ExitConfirmationPending, "Held for human confirmation"},
 		{"running", `"status":"running","response":null,"note":null`, ExitConfirmationPending, "still running"},
 		{"completed", `"status":"completed","response":{"status":200,"body":{}},"note":null`, 0, ""},
-		{"completed but failed", `"status":"completed","response":{"status":409,"body":{}},"note":null`, 1, "failed with HTTP 409"},
+		{"completed but failed", `"status":"completed","response":{"status":409,"body":{"message":"Key already in use"}},"note":null`, 1, "Key already in use"},
+		{"completed, bare failure body", `"status":"completed","response":{"status":500,"body":"oops"},"note":null`, 1, "HTTP 500"},
+		{"confirmed but not run", `"status":"expired","response":{"status":400,"body":{"message":"This request changed after it was confirmed"}},"note":null`, 1, "changed after it was confirmed"},
 		{"rejected", `"status":"rejected","response":null,"note":"Not during the freeze"`, 1, "Not during the freeze"},
 		{"expired", `"status":"expired","response":null,"note":null`, 1, "Expired"},
 	}

@@ -29,8 +29,23 @@ type confirmation struct {
 	ExpiresAt string  `json:"expiresAt"`
 	Note      *string `json:"note"`
 	Response  *struct {
-		Status float64 `json:"status"`
+		Status float64         `json:"status"`
+		Body   json.RawMessage `json:"body"`
 	} `json:"response"`
+}
+
+// failure is the server's reason the confirmed request didn't run, or "" if it did.
+func (c *confirmation) failure() string {
+	if c.Response == nil || c.Response.Status < 400 {
+		return ""
+	}
+	var body struct {
+		Message string `json:"message"`
+	}
+	if json.Unmarshal(c.Response.Body, &body) == nil && body.Message != "" {
+		return body.Message
+	}
+	return fmt.Sprintf("HTTP %d", int(c.Response.Status))
 }
 
 // confirmationError ends a command with a confirmation notice and its exit code.
@@ -125,12 +140,12 @@ func confirmationOutcome(cli string, c *confirmation) error {
 			msg += "\nNote: " + *c.Note
 		}
 		return &confirmationError{1, msg}
-	case "expired":
-		return &confirmationError{1, "Expired before anyone confirmed it: " + c.Summary}
-	case "completed":
-		if c.Response != nil && c.Response.Status >= 400 {
-			return &confirmationError{1, fmt.Sprintf(
-				"Confirmed, but the action failed with HTTP %d: %s", int(c.Response.Status), c.Summary)}
+	case "expired", "completed":
+		if reason := c.failure(); reason != "" {
+			return &confirmationError{1, fmt.Sprintf("Confirmed, but it did not go through: %s\n%s", c.Summary, reason)}
+		}
+		if c.Status == "expired" {
+			return &confirmationError{1, "Expired before anyone confirmed it: " + c.Summary}
 		}
 	}
 	return nil
