@@ -14,11 +14,12 @@ diff --git a/cmd/growthbook/main.go b/cmd/growthbook/main.go
  
  	if err := cli.Execute(); err != nil {
 -		fmt.Fprintln(os.Stderr, err)
+-		os.Exit(1)
 +		// output.Error already prints a formatted message for the errors it
 +		// handles; only print here for errors that weren't already surfaced.
 +		if !output.IsDisplayed(err) {
 +			fmt.Fprintln(os.Stderr, err)
 +		}
- 		os.Exit(1)
++		os.Exit(cli.ExitCode(err))
  	}
  }
