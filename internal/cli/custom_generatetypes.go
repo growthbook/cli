@@ -119,17 +119,21 @@ func renderAppFeaturesTS(features []components.FeatureV2) string {
 export type AppFeatures = {
 `)
 	for _, f := range features {
-		fmt.Fprintf(&b, "  '%s': %s;\n", f.GetID(), tsType(f.GetValueType()))
+		fmt.Fprintf(&b, "  '%s': %s;\n", f.GetID(), tsType(f))
 	}
 	b.WriteString("}\n")
 	return b.String()
 }
 
-func tsType(vt components.FeatureV2ValueType) string {
-	switch vt {
+func tsType(f components.FeatureV2) string {
+	switch vt := f.GetValueType(); vt {
 	case components.FeatureV2ValueTypeBoolean, components.FeatureV2ValueTypeNumber, components.FeatureV2ValueTypeString:
 		return string(vt)
 	case components.FeatureV2ValueTypeJSON:
+		// Rule values must match the default's shape, so an array default means an array feature.
+		if strings.HasPrefix(strings.TrimSpace(f.GetDefaultValue()), "[") {
+			return "unknown[]"
+		}
 		return "Record<string, unknown>"
 	default:
 		return "unknown"
