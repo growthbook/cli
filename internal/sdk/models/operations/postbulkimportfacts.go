@@ -126,8 +126,9 @@ func (e *FactTableManagedBy) UnmarshalJSON(data []byte) error {
 }
 
 type FactTableData struct {
+	// Short display name. Put details in `description`.
 	Name string `json:"name"`
-	// Description of the fact table
+	// Markdown. Put context here, not in the name.
 	Description *string `json:"description,omitzero"`
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
 	Owner *string `json:"owner,omitzero"`
@@ -311,6 +312,7 @@ func (e *FactTableFilterManagedBy) UnmarshalJSON(data []byte) error {
 }
 
 type FactTableFilterData struct {
+	// Short display name. Put details in `description`.
 	Name string `json:"name"`
 	// Description of the fact table filter
 	Description *string `json:"description,omitzero"`
@@ -1632,11 +1634,14 @@ func (e *FactMetricManagedBy) UnmarshalJSON(data []byte) error {
 }
 
 type FactMetricData struct {
-	Name        string  `json:"name"`
+	// Short display name (e.g. `Purchases per user`). Put the definition in `description`.
+	Name string `json:"name"`
+	// Markdown. Put context here, not in the name.
 	Description *string `json:"description,omitzero"`
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-	Owner      *string                                                         `json:"owner,omitzero"`
-	Projects   []string                                                        `json:"projects,omitzero"`
+	Owner    *string  `json:"owner,omitzero"`
+	Projects []string `json:"projects,omitzero"`
+	// Tags for filtering and grouping. Use these instead of encoding groups in names.
 	Tags       []string                                                        `json:"tags,omitzero"`
 	MetricType PostBulkImportFactsMetricType                                   `json:"metricType"`
 	Numerator  optionalnullable.OptionalNullable[PostBulkImportFactsNumerator] `json:"numerator,omitzero"`
@@ -2040,6 +2045,9 @@ type PostBulkImportFactsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostBulkImportFactsResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostBulkImportFactsResponse) MarshalJSON() ([]byte, error) {
@@ -2065,4 +2073,18 @@ func (p *PostBulkImportFactsResponse) GetObject() *PostBulkImportFactsResponseBo
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostBulkImportFactsResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostBulkImportFactsResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

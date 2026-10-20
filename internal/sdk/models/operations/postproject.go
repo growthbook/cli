@@ -39,9 +39,11 @@ func (p *PostProjectSettings) GetPValueThreshold() *float64 {
 }
 
 type PostProjectRequest struct {
+	// Short display name. Put details in `description`.
 	Name string `json:"name"`
-	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the user associated with the request's Personal Access Token (PAT), if one is being used.
-	Owner       *string `json:"owner,omitzero"`
+	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the requesting member: a personal access token's owner, or the member an organization API key assumes. An organization API key acting as itself leaves it empty.
+	Owner *string `json:"owner,omitzero"`
+	// Put context here, not in the name.
 	Description *string `json:"description,omitzero"`
 	// URL-safe slug (lowercase letters, numbers, dashes). Auto-generated from name if not provided.
 	PublicID *string `json:"publicId,omitzero"`
@@ -129,6 +131,9 @@ type PostProjectResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostProjectResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostProjectResponse) MarshalJSON() ([]byte, error) {
@@ -154,4 +159,18 @@ func (p *PostProjectResponse) GetObject() *PostProjectResponseBody {
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostProjectResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostProjectResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

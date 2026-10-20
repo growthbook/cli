@@ -17,7 +17,7 @@ import (
 var updateCustomFieldCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "name", Shorthand: "n", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Optional: true, Description: "The display name of the custom field"},
-	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Help text shown under the field."},
 	{FlagName: "placeholder", FieldPath: "Body.Placeholder", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "default-value", FieldPath: "Body.DefaultValue", Kind: flagutil.FlagKindUnion, Union: &flagutil.UnionMeta{Discriminated: false, Optional: true, TypeDescription: "JSON value (one of: string | number | boolean | date-time | date | array of string | array of number | array of boolean | array of date-time | array of date)"}},
 	{FlagName: "values", Shorthand: "v", FieldPath: "Body.Values", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},

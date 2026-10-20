@@ -53,6 +53,9 @@ type RemoveTeamMemberResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource deleted
 	Object *RemoveTeamMemberResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (r RemoveTeamMemberResponse) MarshalJSON() ([]byte, error) {
@@ -78,4 +81,18 @@ func (r *RemoveTeamMemberResponse) GetObject() *RemoveTeamMemberResponseBody {
 		return nil
 	}
 	return r.Object
+}
+
+func (r *RemoveTeamMemberResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if r == nil {
+		return nil
+	}
+	return r.ConfirmationHeld
+}
+
+func (r *RemoveTeamMemberResponse) GetHeaders() map[string][]string {
+	if r == nil {
+		return map[string][]string{}
+	}
+	return r.Headers
 }

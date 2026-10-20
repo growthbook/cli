@@ -928,7 +928,7 @@ type PutFeatureRevisionRuleRampScheduleRequestBody struct {
 	Environment     *string `json:"environment,omitzero"`
 	RevisionTitle   *string `json:"revisionTitle,omitzero"`
 	RevisionComment *string `json:"revisionComment,omitzero"`
-	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
 }
 
@@ -1112,6 +1112,9 @@ type PutFeatureRevisionRuleRampScheduleResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource updated
 	Object *PutFeatureRevisionRuleRampScheduleResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PutFeatureRevisionRuleRampScheduleResponse) MarshalJSON() ([]byte, error) {
@@ -1137,4 +1140,18 @@ func (p *PutFeatureRevisionRuleRampScheduleResponse) GetObject() *PutFeatureRevi
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PutFeatureRevisionRuleRampScheduleResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PutFeatureRevisionRuleRampScheduleResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

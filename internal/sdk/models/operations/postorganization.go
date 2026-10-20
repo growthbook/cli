@@ -44,6 +44,9 @@ type PostOrganizationResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostOrganizationResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostOrganizationResponse) MarshalJSON() ([]byte, error) {
@@ -69,4 +72,18 @@ func (p *PostOrganizationResponse) GetObject() *PostOrganizationResponseBody {
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostOrganizationResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostOrganizationResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

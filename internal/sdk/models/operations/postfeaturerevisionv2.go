@@ -8,9 +8,11 @@ import (
 )
 
 type PostFeatureRevisionV2RequestBody struct {
+	// Markdown. What changed and why, for reviewers.
 	Comment *string `json:"comment,omitzero"`
-	Title   *string `json:"title,omitzero"`
-	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	// Short draft title (e.g. `Enable for beta testers`).
+	Title *string `json:"title,omitzero"`
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
 }
 
@@ -40,7 +42,7 @@ func (p *PostFeatureRevisionV2RequestBody) GetIgnoreWarnings() *bool {
 
 type PostFeatureRevisionV2Request struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// If the organization caps concurrent drafts per feature (`maxConcurrentDrafts` setting), requests at or over the cap are rejected with a 409. Pass `true` to create the draft anyway.
+	// If the organization caps concurrent drafts per feature (`maxConcurrentDrafts` setting), requests at or over the cap are rejected with a 409. Pass `true` to create the draft anyway. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	OverrideDraftLimit *bool                            `queryParam:"style=form,explode=true,name=overrideDraftLimit"`
 	Body               PostFeatureRevisionV2RequestBody `request:"mediaType=application/json"`
 }
@@ -88,6 +90,9 @@ type PostFeatureRevisionV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostFeatureRevisionV2ResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostFeatureRevisionV2Response) MarshalJSON() ([]byte, error) {
@@ -113,6 +118,20 @@ func (p *PostFeatureRevisionV2Response) GetObject() *PostFeatureRevisionV2Respon
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostFeatureRevisionV2Response) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostFeatureRevisionV2Response) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }
 
 // #region class-body-postfeaturerevisionv2response

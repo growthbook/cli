@@ -28,10 +28,10 @@ growthbook releases publish-revisions [flags]
       --body string              Request body as JSON (alternative to individual flags). Can also be provided via stdin.
   -c, --comment string           An optional publish comment recorded on every revision in this release — it appears in each entity's revision history and is passed to any custom validation hooks that run for the publish.
   -h, --help                     help for publish-revisions
-  -i, --ignore-warnings          Set to true to acknowledge warnings from experiment guards, schema changes, or archives. It can also force-publish an out-of-date draft when the caller has Bypass draft approvals access for that resource.
+  -i, --ignore-warnings          Set to true to acknowledge warnings from experiment guards, schema changes, or archives. It can also force-publish an out-of-date draft when the caller has Bypass draft approvals access for that resource. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
   -r, --revisions string         The revisions to publish, at most one per entity. [required]
-      --skip-hooks               Set to true to publish despite Custom Hook rejections. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project.
-      --skip-schema-validation   Set to true to publish despite schema or invariant failures. Validation still runs and the response still reports each failure. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project.
+      --skip-hooks               Set to true to publish despite Custom Hook rejections. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
+      --skip-schema-validation   Set to true to publish despite schema or invariant failures. Validation still runs and the response still reports each failure. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
   -v, --validate-only            Report every gate and outcome without writing anything.
 ```
 

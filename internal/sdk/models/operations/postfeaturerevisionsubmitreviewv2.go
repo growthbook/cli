@@ -9,6 +9,7 @@ import (
 	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 )
 
+// PostFeatureRevisionSubmitReviewV2Action - `approve`, `request-changes` or `comment`. Defaults to `comment`, which doesn't change whether the draft is approved.
 type PostFeatureRevisionSubmitReviewV2Action string
 
 const (
@@ -39,7 +40,9 @@ func (e *PostFeatureRevisionSubmitReviewV2Action) UnmarshalJSON(data []byte) err
 }
 
 type PostFeatureRevisionSubmitReviewV2RequestBody struct {
-	Comment         *string                                  `json:"comment,omitzero"`
+	// Markdown. Why you approved, requested changes or commented.
+	Comment *string `json:"comment,omitzero"`
+	// `approve`, `request-changes` or `comment`. Defaults to `comment`, which doesn't change whether the draft is approved.
 	Action          *PostFeatureRevisionSubmitReviewV2Action `json:"action,omitzero"`
 	SkipAutoPublish *bool                                    `json:"skipAutoPublish,omitzero"`
 }
@@ -125,6 +128,9 @@ type PostFeatureRevisionSubmitReviewV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostFeatureRevisionSubmitReviewV2ResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostFeatureRevisionSubmitReviewV2Response) MarshalJSON() ([]byte, error) {
@@ -150,6 +156,20 @@ func (p *PostFeatureRevisionSubmitReviewV2Response) GetObject() *PostFeatureRevi
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostFeatureRevisionSubmitReviewV2Response) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostFeatureRevisionSubmitReviewV2Response) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }
 
 // #region class-body-postfeaturerevisionsubmitreviewv2response

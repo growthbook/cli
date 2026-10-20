@@ -167,6 +167,10 @@ type Growthbook struct {
 	// Hold a share of traffic out of all experiments to measure their combined effect.
 	Holdouts *Holdouts
 	AutoRuns *AutoRuns
+	// **Beta** — these endpoints are new and may change in backwards-incompatible ways.
+	//
+	// Populations define a set of units by the steps they must complete, such as appearing in a fact table. Populations are not yet used in analysis.
+	Populations *Populations
 
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
@@ -327,6 +331,7 @@ func New(opts ...SDKOption) *Growthbook {
 	sdk.Learnings = newLearnings(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Holdouts = newHoldouts(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.AutoRuns = newAutoRuns(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Populations = newPopulations(sdk, sdk.sdkConfiguration, sdk.hooks)
 
 	return sdk
 }

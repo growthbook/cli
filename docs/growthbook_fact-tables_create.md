@@ -23,11 +23,11 @@ growthbook fact-tables create [flags]
       --body string                             Request body as JSON (alternative to individual flags). Can also be provided via stdin.
   -c, --columns datatype                        Optional array of column definitions to store for this fact table. Supplied columns are stored as-is. Omit datatype (or send "") on a column to have it auto-detected from the SQL.
       --datasource string                       The datasource id [required]
-      --description string                      Description of the fact table
+      --description string                      Markdown. Put context here, not in the name.
   -e, --event-name string                       The event name used in SQL template variables
   -h, --help                                    help for create
   -m, --managed-by string                       Set this to "api" to disable editing in the GrowthBook UI (options: , api, admin)
-  -n, --name string                             [required]
+  -n, --name description                        Short display name. Put details in description. [required]
       --owner string                            The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
   -p, --projects stringArray                    List of associated project ids
   -s, --sql string                              The SQL query for this fact table [required]

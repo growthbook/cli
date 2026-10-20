@@ -16,7 +16,7 @@ import (
 
 var updateDimensionCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The id of the requested resource [required]"},
-	{FlagName: "name", Shorthand: "n", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Optional: true, Description: "Name of the dimension"},
+	{FlagName: "name", Shorthand: "n", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Optional: true, Description: "Short display name. Put details in `description`."},
 	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Description of the dimension"},
 	{FlagName: "owner", FieldPath: "Body.Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization."},
 	{FlagName: "datasource-id", FieldPath: "Body.DatasourceID", Kind: flagutil.FlagKindString, Optional: true, Description: "ID of the datasource this dimension belongs to"},

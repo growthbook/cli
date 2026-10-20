@@ -73,6 +73,9 @@ type PostFeatureRevisionReopenV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostFeatureRevisionReopenV2ResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostFeatureRevisionReopenV2Response) MarshalJSON() ([]byte, error) {
@@ -98,6 +101,20 @@ func (p *PostFeatureRevisionReopenV2Response) GetObject() *PostFeatureRevisionRe
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostFeatureRevisionReopenV2Response) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostFeatureRevisionReopenV2Response) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }
 
 // #region class-body-postfeaturerevisionreopenv2response

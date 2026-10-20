@@ -181,11 +181,11 @@ type PostReleasePublishRevisionsRequest struct {
 	Revisions []Revision `json:"revisions"`
 	// Report every gate and outcome without writing anything.
 	ValidateOnly *bool `json:"dryRun,omitzero"`
-	// Set to true to acknowledge warnings from experiment guards, schema changes, or archives. It can also force-publish an out-of-date draft when the caller has Bypass draft approvals access for that resource.
+	// Set to true to acknowledge warnings from experiment guards, schema changes, or archives. It can also force-publish an out-of-date draft when the caller has Bypass draft approvals access for that resource. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
-	// Set to true to publish despite schema or invariant failures. Validation still runs and the response still reports each failure. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project.
+	// Set to true to publish despite schema or invariant failures. Validation still runs and the response still reports each failure. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	SkipSchemaValidation *bool `json:"skipSchemaValidation,omitzero"`
-	// Set to true to publish despite Custom Hook rejections. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project.
+	// Set to true to publish despite Custom Hook rejections. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	SkipHooks *bool `json:"skipHooks,omitzero"`
 	// An optional publish comment recorded on every revision in this release — it appears in each entity's revision history and is passed to any custom validation hooks that run for the publish.
 	Comment *string `json:"comment,omitzero"`
@@ -360,6 +360,9 @@ type PostReleasePublishRevisionsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostReleasePublishRevisionsResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostReleasePublishRevisionsResponse) MarshalJSON() ([]byte, error) {
@@ -385,4 +388,18 @@ func (p *PostReleasePublishRevisionsResponse) GetObject() *PostReleasePublishRev
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostReleasePublishRevisionsResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostReleasePublishRevisionsResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

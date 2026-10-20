@@ -8,12 +8,16 @@ import (
 )
 
 type CreateMetricGroupRequest struct {
-	Name        string   `json:"name"`
-	Description string   `json:"description"`
-	Tags        []string `json:"tags,omitzero"`
-	Projects    []string `json:"projects"`
-	Metrics     []string `json:"metrics"`
-	Datasource  string   `json:"datasource"`
+	// Short display name. Put details in `description`.
+	Name string `json:"name"`
+	// Put context here, not in the name.
+	Description string `json:"description"`
+	// Tags for filtering and grouping. Use these instead of encoding groups in names.
+	Tags []string `json:"tags,omitzero"`
+	// Project IDs that can use this. An empty list means all Projects. Projects control access and availability, so don't use them as labels.
+	Projects   []string `json:"projects"`
+	Metrics    []string `json:"metrics"`
+	Datasource string   `json:"datasource"`
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
 	Owner    *string `json:"owner,omitzero"`
 	Archived *bool   `json:"archived,omitzero"`
@@ -102,6 +106,9 @@ type CreateMetricGroupResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *CreateMetricGroupResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (c CreateMetricGroupResponse) MarshalJSON() ([]byte, error) {
@@ -127,4 +134,18 @@ func (c *CreateMetricGroupResponse) GetObject() *CreateMetricGroupResponseBody {
 		return nil
 	}
 	return c.Object
+}
+
+func (c *CreateMetricGroupResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if c == nil {
+		return nil
+	}
+	return c.ConfirmationHeld
+}
+
+func (c *CreateMetricGroupResponse) GetHeaders() map[string][]string {
+	if c == nil {
+		return map[string][]string{}
+	}
+	return c.Headers
 }

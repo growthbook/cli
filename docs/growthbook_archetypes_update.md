@@ -19,15 +19,15 @@ growthbook archetypes update [flags]
 ### Options
 
 ```
-  -a, --attributes string          The attributes to set when using this Archetype
-      --body string                Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --description string         string value
-  -e, --environments stringArray   Limit this Archetype to specific environments. Omit or leave empty to apply to all environments.
-  -h, --help                       help for update
-      --id string                  The id of the requested resource [required]
-      --is-public                  Whether to make this Archetype available to other team members
-  -n, --name string                string value
-  -p, --projects stringArray       list of values
+  -a, --attributes string            The attributes to set when using this Archetype
+      --body string                  Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --description string           Put context here, not in the name.
+  -e, --environments stringArray     Limit this Archetype to specific environments. Omit or leave empty to apply to all environments.
+  -h, --help                         help for update
+      --id string                    The id of the requested resource [required]
+      --is-public                    Whether to make this Archetype available to other team members
+  -n, --name Logged-out US visitor   Short display name (e.g. Logged-out US visitor).
+  -p, --projects stringArray         list of values
 ```
 
 ### Options inherited from parent commands

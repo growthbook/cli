@@ -4,7 +4,7 @@ Submit a review on a draft revision
 
 ### Synopsis
 
-Submits an `approve`, `request-changes`, or `comment` review on the revision. Submitting `approve` or `request-changes` needs Review access. A `comment` is participation rather than a verdict, so it is also open to the Comments permission or draft authority on the entity. Authors and contributors cannot submit `approve` reviews on their own drafts when the org has `blockSelfApproval` enabled.
+Submits an `approve`, `request-changes`, or `comment` review on the revision. The verdict belongs to whoever the request acts as; see [Naming who asked](/api/introduction#naming-who-asked). No one can rule on a draft they created. Submitting `approve` or `request-changes` needs Review access. A `comment` is participation rather than a verdict, so it is also open to the Comments permission or draft authority on the entity. Authors and contributors cannot submit `approve` reviews on their own drafts when the org has `blockSelfApproval` enabled.
 
 When `decision` is `approve` and the revision has `autoPublishOnApproval` enabled, the revision is automatically published after approval. The response includes `autoPublished: true` when this happens. Pass `skipAutoPublish: true` to approve without triggering auto-publish.
 
@@ -22,7 +22,7 @@ growthbook config-revisions submit-review [flags]
 
 ```
       --body string            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -c, --comment string         string value
+  -c, --comment string         Markdown. Why you approved, requested changes or commented.
       --decision string        options: approve, request-changes, comment [required]
   -h, --help                   help for submit-review
   -k, --key string             [required]

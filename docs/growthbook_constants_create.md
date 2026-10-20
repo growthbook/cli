@@ -20,12 +20,12 @@ growthbook constants create [flags]
 
 ```
       --body string                 Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --description string          string value
+      --description string          Markdown. Put context here, not in the name.
   -e, --environment-values string   value
   -h, --help                        help for create
   -k, --key @const:key              Stable reference handle (lowercase slug, unique per org), referenced as @const:key [required]
   -n, --name string                 The display name of the constant [required]
-      --owner string                The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the user associated with the request's Personal Access Token (PAT), if one is being used.
+      --owner string                The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the requesting member: a personal access token's owner, or the member an organization API key assumes. An organization API key acting as itself leaves it empty.
   -p, --project string              string value
   -t, --type string                 string (interpolated as `{ { @const:key } }`) or `json` (substituted as a whole value) (options: string, json) [required]
   -v, --value string                string value

@@ -198,6 +198,9 @@ type AddContextualBanditLinkedFeatureResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *AddContextualBanditLinkedFeatureResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (a AddContextualBanditLinkedFeatureResponse) MarshalJSON() ([]byte, error) {
@@ -223,4 +226,18 @@ func (a *AddContextualBanditLinkedFeatureResponse) GetObject() *AddContextualBan
 		return nil
 	}
 	return a.Object
+}
+
+func (a *AddContextualBanditLinkedFeatureResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if a == nil {
+		return nil
+	}
+	return a.ConfirmationHeld
+}
+
+func (a *AddContextualBanditLinkedFeatureResponse) GetHeaders() map[string][]string {
+	if a == nil {
+		return map[string][]string{}
+	}
+	return a.Headers
 }

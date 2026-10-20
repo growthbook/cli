@@ -21,26 +21,26 @@ growthbook feature-revisions set-rule-ramp-schedule [flags]
 ### Options
 
 ```
-      --body string                      Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -c, --cutoff-date string               ISO 8601 date-time, e.g. "2025-07-01T00:00:00Z". The ramp ends at this time.
-      --end-actions string               list of values
-      --environment string               string value
-  -h, --help                             help for set-rule-ramp-schedule
-      --id string                        [required]
-      --ignore-warnings                  Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
-  -l, --lockdown-config string           JSON object
-  -m, --monitoring-config string         JSON object
-  -n, --name string                      string value
-      --requires-start-approval string   boolean flag
-      --revision-comment string          Comment for a newly created draft. Only used when version is "new"; ignored for existing revisions.
-      --revision-title string            Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
-      --rule-id string                   [required]
-      --start-actions string             list of values
-      --start-date string                ISO 8601 date-time, e.g. "2025-06-01T00:00:00Z". Absent or null means start immediately on publish.
-      --start-state { "coverage": 0 }    The rule state to roll back to (the rollback/jump-to-start anchor). Merged onto the rule's current state, so { "coverage": 0 } keeps existing targeting but rolls back to 0%. Steps accumulate on it, and it is the only place a plan sets `hashAttribute` (plus optional `seed` and `hashVersion`), which a partial-coverage step on a force rule requires unless the rule has one. On create, omitting it infers the anchor from the rule's current coverage (and returns a warning if that isn't 0%); on update of a live schedule, omitting it leaves the existing anchor unchanged.
-      --steps string                     list of values
-  -t, --template-id string               string value
-  -v, --version-param string             [required]
+      --body string                              Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -c, --cutoff-date string                       ISO 8601 date-time, e.g. "2025-07-01T00:00:00Z". The ramp ends at this time.
+      --end-actions string                       list of values
+      --environment string                       string value
+  -h, --help                                     help for set-rule-ramp-schedule
+      --id string                                [required]
+      --ignore-warnings                          Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
+  -l, --lockdown-config string                   JSON object
+  -m, --monitoring-config string                 JSON object
+  -n, --name string                              string value
+      --requires-start-approval string           boolean flag
+      --revision-comment version                 Markdown. What changed and why, for reviewers. Only used when version is "new"; ignored for existing drafts.
+      --revision-title Enable for beta testers   Short draft title (e.g. Enable for beta testers). Only used when `version` is "new"; ignored for existing drafts.
+      --rule-id string                           [required]
+      --start-actions string                     list of values
+      --start-date string                        ISO 8601 date-time, e.g. "2025-06-01T00:00:00Z". Absent or null means start immediately on publish.
+      --start-state { "coverage": 0 }            The rule state to roll back to (the rollback/jump-to-start anchor). Merged onto the rule's current state, so { "coverage": 0 } keeps existing targeting but rolls back to 0%. Steps accumulate on it, and it is the only place a plan sets `hashAttribute` (plus optional `seed` and `hashVersion`), which a partial-coverage step on a force rule requires unless the rule has one. On create, omitting it infers the anchor from the rule's current coverage (and returns a warning if that isn't 0%); on update of a live schedule, omitting it leaves the existing anchor unchanged.
+      --steps string                             list of values
+  -t, --template-id string                       string value
+  -v, --version-param string                     [required]
 ```
 
 ### Options inherited from parent commands

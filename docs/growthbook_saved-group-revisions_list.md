@@ -24,7 +24,7 @@ growthbook saved-group-revisions list [flags]
   -h, --help                    help for list
   -l, --limit int               The number of items to return (default 10)
       --max-pages int           Maximum number of pages to fetch when using --all (0 = no limit)
-  -m, --mine author             If true, return only revisions authored by the calling user. Requires a user-scoped API key. Mutually exclusive with author.
+  -m, --mine author             If true, return only revisions authored by the calling user. Needs a personal access token, or an organization API key that assumes a named member's role. Mutually exclusive with author.
       --offset int              How many items to skip (use in conjunction with limit for pagination)
       --saved-group-id string   Restrict results to revisions for a single saved group. When omitted, returns revisions across every saved group the caller can read.
       --skip-pagination         If true, return all matching items and ignore limit/offset.

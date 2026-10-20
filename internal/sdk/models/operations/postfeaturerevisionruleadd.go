@@ -197,6 +197,7 @@ func (e *PostFeatureRevisionRuleAddType) UnmarshalJSON(data []byte) error {
 }
 
 type PostFeatureRevisionRuleAddRule struct {
+	// Short note on why the rule exists (e.g. `Beta testers only`).
 	Description   *string                                   `json:"description,omitzero"`
 	Enabled       *bool                                     `json:"enabled,omitzero"`
 	Condition     *string                                   `json:"condition,omitzero"`
@@ -701,6 +702,7 @@ func (s *SafeRolloutFields) GetRampUpSchedule() *RampUpSchedule {
 }
 
 type PostFeatureRevisionRuleAddRuleSafeRollout struct {
+	// Short note on why the rule exists (e.g. `Beta testers only`).
 	Description   *string                                   `json:"description,omitzero"`
 	Enabled       *bool                                     `json:"enabled,omitzero"`
 	Condition     *string                                   `json:"condition,omitzero"`
@@ -1012,6 +1014,7 @@ func (p *PostFeatureRevisionRuleAddVariation) GetValue() string {
 }
 
 type PostFeatureRevisionRuleAddRuleExperimentRef struct {
+	// Short note on why the rule exists (e.g. `Beta testers only`).
 	Description   *string                                   `json:"description,omitzero"`
 	Enabled       *bool                                     `json:"enabled,omitzero"`
 	Condition     *string                                   `json:"condition,omitzero"`
@@ -2247,11 +2250,11 @@ type PostFeatureRevisionRuleAddRequestBody struct {
 	Schedule        *PostFeatureRevisionRuleAddSchedule     `json:"schedule,omitzero"`
 	RevisionTitle   *string                                 `json:"revisionTitle,omitzero"`
 	RevisionComment *string                                 `json:"revisionComment,omitzero"`
-	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
-	// Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	// Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	SkipSchemaValidation *bool `json:"skipSchemaValidation,omitzero"`
-	// Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	// Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	SkipHooks *bool `json:"skipHooks,omitzero"`
 }
 
@@ -2372,6 +2375,9 @@ type PostFeatureRevisionRuleAddResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostFeatureRevisionRuleAddResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostFeatureRevisionRuleAddResponse) MarshalJSON() ([]byte, error) {
@@ -2397,4 +2403,18 @@ func (p *PostFeatureRevisionRuleAddResponse) GetObject() *PostFeatureRevisionRul
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostFeatureRevisionRuleAddResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostFeatureRevisionRuleAddResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

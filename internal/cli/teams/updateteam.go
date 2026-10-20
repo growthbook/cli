@@ -16,9 +16,9 @@ import (
 
 var updateTeamCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "name", Shorthand: "n", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "name", Shorthand: "n", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Optional: true, Description: "Short display name. Put details in `description`."},
 	{FlagName: "created-by", Shorthand: "c", FieldPath: "Body.CreatedBy", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Put context here, not in the name."},
 	{FlagName: "role", Shorthand: "r", FieldPath: "Body.Role", Kind: flagutil.FlagKindString, Optional: true, Description: "The global role for members of this team"},
 	{FlagName: "limit-access-by-environment", Shorthand: "l", FieldPath: "Body.LimitAccessByEnvironment", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "environments", Shorthand: "e", FieldPath: "Body.Environments", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "An empty array means 'all environments'"},

@@ -15,6 +15,17 @@ type ExperimentAnalysisSettingsAssignmentQuery struct {
 	IdentifierType *string `json:"identifierType"`
 }
 
+func (e ExperimentAnalysisSettingsAssignmentQuery) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ExperimentAnalysisSettingsAssignmentQuery) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (e *ExperimentAnalysisSettingsAssignmentQuery) GetID() string {
 	if e == nil {
 		return ""

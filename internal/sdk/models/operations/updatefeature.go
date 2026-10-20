@@ -259,9 +259,10 @@ type UpdateFeatureRuleExperiment struct {
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	SavedGroupTargeting []UpdateFeatureSavedGroupTargeting4 `json:"savedGroupTargeting,omitzero"`
-	Description         *string                             `json:"description,omitzero"`
-	Condition           string                              `json:"condition"`
-	ID                  *string                             `json:"id,omitzero"`
+	// Short note on why the rule exists (e.g. `Beta testers only`).
+	Description *string `json:"description,omitzero"`
+	Condition   string  `json:"condition"`
+	ID          *string `json:"id,omitzero"`
 	// Enabled by default
 	Enabled *bool `json:"enabled,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
@@ -873,9 +874,10 @@ type UpdateFeatureRuleExperimentRef struct {
 	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
 	RampScheduleID any `json:"rampScheduleId,omitzero"`
 	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
-	ScheduleType any     `json:"scheduleType,omitzero"`
-	Description  *string `json:"description,omitzero"`
-	ID           *string `json:"id,omitzero"`
+	ScheduleType any `json:"scheduleType,omitzero"`
+	// Short note on why the rule exists (e.g. `Beta testers only`).
+	Description *string `json:"description,omitzero"`
+	ID          *string `json:"id,omitzero"`
 	// Enabled by default
 	Enabled *bool `json:"enabled,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
@@ -1180,8 +1182,9 @@ type UpdateFeatureRuleRollout struct {
 	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
 	RampScheduleID any `json:"rampScheduleId,omitzero"`
 	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
-	ScheduleType any     `json:"scheduleType,omitzero"`
-	Description  *string `json:"description,omitzero"`
+	ScheduleType any `json:"scheduleType,omitzero"`
+	// Short note on why the rule exists (e.g. `Beta testers only`).
+	Description *string `json:"description,omitzero"`
 	// Applied to everyone by default.
 	Condition   *string                    `json:"condition,omitzero"`
 	SavedGroups []UpdateFeatureSavedGroup2 `json:"savedGroups,omitzero"`
@@ -1514,8 +1517,9 @@ type UpdateFeatureRuleForce struct {
 	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
 	RampScheduleID any `json:"rampScheduleId,omitzero"`
 	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
-	ScheduleType any     `json:"scheduleType,omitzero"`
-	Description  *string `json:"description,omitzero"`
+	ScheduleType any `json:"scheduleType,omitzero"`
+	// Short note on why the rule exists (e.g. `Beta testers only`).
+	Description *string `json:"description,omitzero"`
 	// Applied to everyone by default.
 	Condition   *string                    `json:"condition,omitzero"`
 	SavedGroups []UpdateFeatureSavedGroup1 `json:"savedGroups,omitzero"`
@@ -2023,9 +2027,10 @@ type UpdateFeatureRuleDraftExperiment struct {
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	SavedGroupTargeting []UpdateFeatureDraftSavedGroupTargeting4 `json:"savedGroupTargeting,omitzero"`
-	Description         *string                                  `json:"description,omitzero"`
-	Condition           string                                   `json:"condition"`
-	ID                  *string                                  `json:"id,omitzero"`
+	// Short note on why the rule exists (e.g. `Beta testers only`).
+	Description *string `json:"description,omitzero"`
+	Condition   string  `json:"condition"`
+	ID          *string `json:"id,omitzero"`
 	// Enabled by default
 	Enabled *bool `json:"enabled,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
@@ -2637,9 +2642,10 @@ type UpdateFeatureRuleDraftExperimentRef struct {
 	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
 	RampScheduleID any `json:"rampScheduleId,omitzero"`
 	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
-	ScheduleType any     `json:"scheduleType,omitzero"`
-	Description  *string `json:"description,omitzero"`
-	ID           *string `json:"id,omitzero"`
+	ScheduleType any `json:"scheduleType,omitzero"`
+	// Short note on why the rule exists (e.g. `Beta testers only`).
+	Description *string `json:"description,omitzero"`
+	ID          *string `json:"id,omitzero"`
 	// Enabled by default
 	Enabled *bool `json:"enabled,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
@@ -2944,8 +2950,9 @@ type UpdateFeatureRuleDraftRollout struct {
 	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
 	RampScheduleID any `json:"rampScheduleId,omitzero"`
 	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
-	ScheduleType any     `json:"scheduleType,omitzero"`
-	Description  *string `json:"description,omitzero"`
+	ScheduleType any `json:"scheduleType,omitzero"`
+	// Short note on why the rule exists (e.g. `Beta testers only`).
+	Description *string `json:"description,omitzero"`
 	// Applied to everyone by default.
 	Condition   *string                         `json:"condition,omitzero"`
 	SavedGroups []UpdateFeatureDraftSavedGroup2 `json:"savedGroups,omitzero"`
@@ -3278,8 +3285,9 @@ type UpdateFeatureRuleDraftForce struct {
 	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
 	RampScheduleID any `json:"rampScheduleId,omitzero"`
 	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
-	ScheduleType any     `json:"scheduleType,omitzero"`
-	Description  *string `json:"description,omitzero"`
+	ScheduleType any `json:"scheduleType,omitzero"`
+	// Short note on why the rule exists (e.g. `Beta testers only`).
+	Description *string `json:"description,omitzero"`
 	// Applied to everyone by default.
 	Condition   *string                         `json:"condition,omitzero"`
 	SavedGroups []UpdateFeatureDraftSavedGroup1 `json:"savedGroups,omitzero"`
@@ -3638,7 +3646,7 @@ func (u *UpdateFeatureHoldout) GetValue() string {
 }
 
 type UpdateFeatureRequestBody struct {
-	// Description of the feature
+	// Markdown. What the Feature Flag gates and why, rollout plan, and links. Put context here, not in the key.
 	Description *string `json:"description,omitzero"`
 	Archived    *bool   `json:"archived,omitzero"`
 	// An associated project ID
@@ -3652,7 +3660,7 @@ type UpdateFeatureRequestBody struct {
 	DefaultValue *string `json:"defaultValue,omitzero"`
 	// The config backing this flag ("Config mode"), fixed at creation. Cannot be changed by an update — resend the current value or omit it; a different value (or null to detach) is rejected.
 	BaseConfig optionalnullable.OptionalNullable[string] `json:"baseConfig,omitzero"`
-	// List of associated tags. Will override tags completely with submitted list
+	// Tags for filtering and grouping. Use these instead of encoding groups in names. Replaces the existing tags completely.
 	Tags []string `json:"tags,omitzero"`
 	// Settings for each environment, keyed by environment ID. Any environment you leave out keeps its current settings.
 	Environments map[string]UpdateFeatureEnvironments `json:"environments,omitzero"`
@@ -3666,11 +3674,11 @@ type UpdateFeatureRequestBody struct {
 	Holdout optionalnullable.OptionalNullable[UpdateFeatureHoldout] `json:"holdout,omitzero"`
 	// Comment to record on the revision this update publishes, when it publishes one. Defaults to "Created via REST API".
 	Comment *string `json:"comment,omitzero"`
-	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
-	// Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	// Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	SkipSchemaValidation *bool `json:"skipSchemaValidation,omitzero"`
-	// Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	// Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	SkipHooks *bool `json:"skipHooks,omitzero"`
 }
 
@@ -3867,6 +3875,9 @@ type UpdateFeatureResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *UpdateFeatureResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (u UpdateFeatureResponse) MarshalJSON() ([]byte, error) {
@@ -3892,4 +3903,18 @@ func (u *UpdateFeatureResponse) GetObject() *UpdateFeatureResponseBody {
 		return nil
 	}
 	return u.Object
+}
+
+func (u *UpdateFeatureResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if u == nil {
+		return nil
+	}
+	return u.ConfirmationHeld
+}
+
+func (u *UpdateFeatureResponse) GetHeaders() map[string][]string {
+	if u == nil {
+		return map[string][]string{}
+	}
+	return u.Headers
 }

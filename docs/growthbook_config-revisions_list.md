@@ -23,7 +23,7 @@ growthbook config-revisions list [flags]
   -h, --help              help for list
   -k, --key string        Restrict results to revisions for a single config (by its key). When omitted, returns revisions across every config the caller can read.
   -l, --limit int         The number of items to return (default 10)
-  -m, --mine author       If true, return only revisions authored by the calling user. Requires a user-scoped API key. Mutually exclusive with author.
+  -m, --mine author       If true, return only revisions authored by the calling user. Needs a personal access token, or an organization API key that assumes a named member's role. Mutually exclusive with author.
       --offset int        How many items to skip (use in conjunction with limit for pagination)
       --skip-pagination   If true, return all matching items and ignore limit/offset.
                           Self-hosted only. Has no effect unless API_ALLOW_SKIP_PAGINATION is set to true or 1.

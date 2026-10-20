@@ -4,7 +4,7 @@ Post a comment on an experiment
 
 ### Synopsis
 
-Adds a new comment to an experiment's discussion thread.
+Adds a new comment to an experiment's discussion thread, credited to the person behind the request. Needs a personal access token, or an organization API key that assumes a named member's role.
 
 ```
 growthbook experiments post-comment [flags]

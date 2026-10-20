@@ -38,7 +38,7 @@ growthbook SDK-connections update [flags]
       --include-tags-in-metadata                          boolean flag
       --include-visual-experiments                        boolean flag
   -l, --language string                                   string value
-  -n, --name string                                       string value
+  -n, --name Web app                                      Short display name, usually app and platform (e.g. Web app).
       --projects stringArray                              list of values
       --proxy-enabled                                     boolean flag
       --proxy-host string                                 string value

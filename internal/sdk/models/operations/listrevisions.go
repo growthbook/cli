@@ -19,7 +19,7 @@ type ListRevisionsRequest struct {
 	// Filter by revision status. Single value, comma-separated list, repeated params (?status=draft&status=approved), or `all-drafts` shorthand for all active-draft statuses (draft, pending-review, approved, changes-requested).
 	Status *components.Status `queryParam:"style=form,explode=true,name=status"`
 	Author *string            `queryParam:"style=form,explode=true,name=author"`
-	// If true, return only revisions authored by or contributed to by the calling user. Requires a user-scoped API key. Mutually exclusive with `author`.
+	// If true, return only revisions authored by or contributed to by the calling user. Needs a personal access token, or an organization API key that assumes a named member's role. Mutually exclusive with `author`.
 	Mine *bool `queryParam:"style=form,explode=true,name=mine"`
 }
 

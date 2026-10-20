@@ -15,15 +15,15 @@ import (
 )
 
 var createCmdMeta = []flagutil.FlagMeta{
-	{FlagName: "property", FieldPath: "Property", Kind: flagutil.FlagKindString, Required: true, Description: "The attribute property [required]"},
+	{FlagName: "property", FieldPath: "Property", Kind: flagutil.FlagKindString, Required: true, Description: "Attribute name exactly as your SDK passes it (e.g. `userId`). The API can't rename it, and renaming it in the UI doesn't update SDK code or targeting conditions. [required]"},
 	{FlagName: "datatype", FieldPath: "Datatype", Kind: flagutil.FlagKindEnum, Required: true, EnumValues: []string{"boolean", "string", "number", "secureString", "enum", "string[]", "number[]", "secureString[]"}, Description: "The attribute datatype (options: boolean, string, number, secureString, enum, string[], number[], secureString[]) [required]"},
-	{FlagName: "description", FieldPath: "Description", Kind: flagutil.FlagKindString, Optional: true, Description: "The description of the new attribute"},
+	{FlagName: "description", FieldPath: "Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Markdown. Put context here, not in the name."},
 	{FlagName: "archived", Shorthand: "a", FieldPath: "Archived", Kind: flagutil.FlagKindBool, Optional: true, Description: "The attribute is archived"},
 	{FlagName: "hash-attribute", FieldPath: "HashAttribute", Kind: flagutil.FlagKindBool, Optional: true, Description: "Shall the attribute be hashed"},
 	{FlagName: "enum", Shorthand: "e", FieldPath: "Enum", Kind: flagutil.FlagKindString, Optional: true, Description: "Comma-separated list of allowed values. Required for the 'enum' datatype. For array datatypes (string[], number[], secureString[]) it optionally restricts the list to these values. Ignored for all other datatypes."},
 	{FlagName: "format-param", Shorthand: "f", FieldPath: "Format", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"", "version", "date", "isoCountryCode"}, Description: "The attribute's format (options: , version, date, isoCountryCode)"},
-	{FlagName: "projects", FieldPath: "Projects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
-	{FlagName: "tags", Shorthand: "t", FieldPath: "Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
+	{FlagName: "projects", FieldPath: "Projects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Project IDs that can use this. An empty list means all Projects. Projects control access and availability, so don't use them as labels."},
+	{FlagName: "tags", Shorthand: "t", FieldPath: "Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Tags for filtering and grouping. Use these instead of encoding groups in names."},
 	{FlagName: "custom-fields", Shorthand: "c", FieldPath: "CustomFields", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"customFields,omitempty"`, Description: "Values for the organization's attribute custom fields, keyed by field id"},
 }
 

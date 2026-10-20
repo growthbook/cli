@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/growthbook/cli/v3/internal/sdk/models/components"
+	"github.com/growthbook/cli/v3/internal/sdk/optionalnullable"
 	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 	"time"
 )
@@ -19,6 +20,9 @@ const (
 	KindAttribute     Kind = "attribute"
 	KindMetric        Kind = "metric"
 	KindFactTable     Kind = "fact-table"
+	KindSavedGroup    Kind = "saved-group"
+	KindEnvironment   Kind = "environment"
+	KindTag           Kind = "tag"
 )
 
 func (e Kind) ToPointer() *Kind {
@@ -41,6 +45,12 @@ func (e *Kind) UnmarshalJSON(data []byte) error {
 	case "metric":
 		fallthrough
 	case "fact-table":
+		fallthrough
+	case "saved-group":
+		fallthrough
+	case "environment":
+		fallthrough
+	case "tag":
 		*e = Kind(v)
 		return nil
 	default:
@@ -74,6 +84,41 @@ func (e *By) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type AppendAutoRunArtifactAction string
+
+const (
+	AppendAutoRunArtifactActionCreated  AppendAutoRunArtifactAction = "created"
+	AppendAutoRunArtifactActionUpdated  AppendAutoRunArtifactAction = "updated"
+	AppendAutoRunArtifactActionExisting AppendAutoRunArtifactAction = "existing"
+	AppendAutoRunArtifactActionDeleted  AppendAutoRunArtifactAction = "deleted"
+	AppendAutoRunArtifactActionFailed   AppendAutoRunArtifactAction = "failed"
+)
+
+func (e AppendAutoRunArtifactAction) ToPointer() *AppendAutoRunArtifactAction {
+	return &e
+}
+func (e *AppendAutoRunArtifactAction) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "created":
+		fallthrough
+	case "updated":
+		fallthrough
+	case "existing":
+		fallthrough
+	case "deleted":
+		fallthrough
+	case "failed":
+		*e = AppendAutoRunArtifactAction(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for AppendAutoRunArtifactAction: %v", v)
+	}
+}
+
 // AppendAutoRunArtifactRequestBody - Record something the run created
 type AppendAutoRunArtifactRequestBody struct {
 	Kind Kind `json:"kind"`
@@ -82,7 +127,9 @@ type AppendAutoRunArtifactRequestBody struct {
 	Label string `json:"label"`
 	By    By     `json:"by"`
 	// Evidence or summary, e.g. 'boolean, off in dev'
-	Detail *string `json:"detail"`
+	Detail     *string                                   `json:"detail"`
+	ExternalID optionalnullable.OptionalNullable[string] `json:"externalId,omitzero"`
+	Action     *AppendAutoRunArtifactAction              `json:"action,omitzero"`
 }
 
 func (a *AppendAutoRunArtifactRequestBody) GetKind() Kind {
@@ -120,6 +167,20 @@ func (a *AppendAutoRunArtifactRequestBody) GetDetail() *string {
 	return a.Detail
 }
 
+func (a *AppendAutoRunArtifactRequestBody) GetExternalID() optionalnullable.OptionalNullable[string] {
+	if a == nil {
+		return nil
+	}
+	return a.ExternalID
+}
+
+func (a *AppendAutoRunArtifactRequestBody) GetAction() *AppendAutoRunArtifactAction {
+	if a == nil {
+		return nil
+	}
+	return a.Action
+}
+
 type AppendAutoRunArtifactRequest struct {
 	ID   string                           `pathParam:"style=simple,explode=false,name=id"`
 	Body AppendAutoRunArtifactRequestBody `request:"mediaType=application/json"`
@@ -142,8 +203,9 @@ func (a *AppendAutoRunArtifactRequest) GetBody() AppendAutoRunArtifactRequestBod
 type AppendAutoRunArtifactSource string
 
 const (
-	AppendAutoRunArtifactSourceCliWizard AppendAutoRunArtifactSource = "cli-wizard"
-	AppendAutoRunArtifactSourceSkill     AppendAutoRunArtifactSource = "skill"
+	AppendAutoRunArtifactSourceCliWizard  AppendAutoRunArtifactSource = "cli-wizard"
+	AppendAutoRunArtifactSourceSkill      AppendAutoRunArtifactSource = "skill"
+	AppendAutoRunArtifactSourceEppoImport AppendAutoRunArtifactSource = "eppo-import"
 )
 
 func (e AppendAutoRunArtifactSource) ToPointer() *AppendAutoRunArtifactSource {
@@ -154,7 +216,7 @@ func (e AppendAutoRunArtifactSource) ToPointer() *AppendAutoRunArtifactSource {
 func (e *AppendAutoRunArtifactSource) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "cli-wizard", "skill":
+		case "cli-wizard", "skill", "eppo-import":
 			return true
 		}
 	}
@@ -310,6 +372,9 @@ type AppendAutoRunArtifactResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *AppendAutoRunArtifactResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (a AppendAutoRunArtifactResponse) MarshalJSON() ([]byte, error) {
@@ -335,4 +400,18 @@ func (a *AppendAutoRunArtifactResponse) GetObject() *AppendAutoRunArtifactRespon
 		return nil
 	}
 	return a.Object
+}
+
+func (a *AppendAutoRunArtifactResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if a == nil {
+		return nil
+	}
+	return a.ConfirmationHeld
+}
+
+func (a *AppendAutoRunArtifactResponse) GetHeaders() map[string][]string {
+	if a == nil {
+		return map[string][]string{}
+	}
+	return a.Headers
 }

@@ -461,13 +461,16 @@ func (u SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnion) MarshalJ
 }
 
 type SavedGroupRevisionActivityLogEntry struct {
-	ID                      string                                                           `json:"id"`
+	ID string `json:"id"`
+	// Who acted: a member's user ID, or an API key's ID when it acted as itself
 	UserID                  string                                                           `json:"userId"`
 	Action                  SavedGroupRevisionActivityLogEntryAction                         `json:"action"`
 	Description             optionalnullable.OptionalNullable[string]                        `json:"description,omitzero"`
 	ProposedChangesSnapshot []SavedGroupRevisionActivityLogEntryProposedChangesSnapshotUnion `json:"proposedChangesSnapshot,omitzero"`
 	TargetSnapshot          any                                                              `json:"targetSnapshot,omitzero"`
 	DateCreated             time.Time                                                        `json:"dateCreated"`
+	// Who performed an action
+	User *EventUser `json:"user,omitzero"`
 }
 
 func (s SavedGroupRevisionActivityLogEntry) MarshalJSON() ([]byte, error) {
@@ -528,4 +531,11 @@ func (s *SavedGroupRevisionActivityLogEntry) GetDateCreated() time.Time {
 		return time.Time{}
 	}
 	return s.DateCreated
+}
+
+func (s *SavedGroupRevisionActivityLogEntry) GetUser() *EventUser {
+	if s == nil {
+		return nil
+	}
+	return s.User
 }

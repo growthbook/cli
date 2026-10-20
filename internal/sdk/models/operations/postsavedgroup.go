@@ -37,8 +37,10 @@ func (e *PostSavedGroupType) UnmarshalJSON(data []byte) error {
 }
 
 type PostSavedGroupRequest struct {
-	// The display name of the Saved Group
+	// Short display name (e.g. `Internal employees`). Put details in `description`.
 	Name string `json:"name"`
+	// Short note (max 100 characters) on who is in the Saved Group and why.
+	Description *string `json:"description,omitzero"`
 	// The type of Saved Group (inferred from other arguments if missing)
 	Type *PostSavedGroupType `json:"type,omitzero"`
 	// When type = 'condition', this is the JSON-encoded condition for the group
@@ -47,7 +49,7 @@ type PostSavedGroupRequest struct {
 	AttributeKey *string `json:"attributeKey,omitzero"`
 	// When type = 'list', this is the list of values for the attribute key
 	Values []string `json:"values,omitzero"`
-	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the user associated with the request's Personal Access Token (PAT), if one is being used.
+	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the requesting member: a personal access token's owner, or the member an organization API key assumes. An organization API key acting as itself leaves it empty.
 	Owner    *string  `json:"owner,omitzero"`
 	Projects []string `json:"projects,omitzero"`
 	// Set to true to create the live Saved Group without approval. The caller must have Bypass draft approvals access in every assigned Project. This field has no effect when approval is not required.
@@ -70,6 +72,13 @@ func (p *PostSavedGroupRequest) GetName() string {
 		return ""
 	}
 	return p.Name
+}
+
+func (p *PostSavedGroupRequest) GetDescription() *string {
+	if p == nil {
+		return nil
+	}
+	return p.Description
 }
 
 func (p *PostSavedGroupRequest) GetType() *PostSavedGroupType {
@@ -137,6 +146,9 @@ type PostSavedGroupResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostSavedGroupResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostSavedGroupResponse) MarshalJSON() ([]byte, error) {
@@ -162,4 +174,18 @@ func (p *PostSavedGroupResponse) GetObject() *PostSavedGroupResponseBody {
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostSavedGroupResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostSavedGroupResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

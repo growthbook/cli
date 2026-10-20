@@ -21,10 +21,10 @@ growthbook projects update [flags]
 ```
   -a, --allow-targeting      Whether Feature Flags owned by other Projects may add this Project to their Targeting Projects. Defaults to true. Turning it off blocks new targeting (and All Projects); existing targeting is kept.
       --body string          Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --description string   Project description.
+      --description string   Put context here, not in the name.
   -h, --help                 help for update
   -i, --id string            The id of the requested resource [required]
-  -n, --name string          Project name.
+  -n, --name description     Short display name. Put details in description.
       --owner string         The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
   -p, --public-id string     URL-safe slug (lowercase letters, numbers, dashes).
   -r, --restrict-access      When true, only members with an explicit role on this Project (directly or via a team) can access it. Members with the manageTeam permission retain access. Requires a Pro or Enterprise plan.

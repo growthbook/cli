@@ -189,8 +189,9 @@ type UpdateContextualBanditRequestBody struct {
 	Description *string `json:"description,omitzero"`
 	Project     *string `json:"project,omitzero"`
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-	Owner                   *string                                                                       `json:"owner,omitzero"`
-	Tags                    []string                                                                      `json:"tags,omitzero"`
+	Owner *string  `json:"owner,omitzero"`
+	Tags  []string `json:"tags,omitzero"`
+	// Key sent with exposure events. Keep it short, in kebab-case. Changing it after launch splits exposures across two keys.
 	TrackingKey             *string                                                                       `json:"trackingKey,omitzero"`
 	HashAttribute           *string                                                                       `json:"hashAttribute,omitzero"`
 	Datasource              *string                                                                       `json:"datasource,omitzero"`
@@ -199,6 +200,7 @@ type UpdateContextualBanditRequestBody struct {
 	DecisionMetric          *string                                                                       `json:"decisionMetric,omitzero"`
 	MinUsersPerLeaf         *int64                                                                        `json:"minUsersPerLeaf,omitzero"`
 	MaxLeaves               *int64                                                                        `json:"maxLeaves,omitzero"`
+	PriorSampleSize         *int64                                                                        `json:"priorSampleSize,omitzero"`
 	ScheduleValue           *float64                                                                      `json:"scheduleValue,omitzero"`
 	ScheduleUnit            *UpdateContextualBanditScheduleUnit                                           `json:"scheduleUnit,omitzero"`
 	BurnInValue             *float64                                                                      `json:"burnInValue,omitzero"`
@@ -314,6 +316,13 @@ func (u *UpdateContextualBanditRequestBody) GetMaxLeaves() *int64 {
 		return nil
 	}
 	return u.MaxLeaves
+}
+
+func (u *UpdateContextualBanditRequestBody) GetPriorSampleSize() *int64 {
+	if u == nil {
+		return nil
+	}
+	return u.PriorSampleSize
 }
 
 func (u *UpdateContextualBanditRequestBody) GetScheduleValue() *float64 {
@@ -442,6 +451,9 @@ type UpdateContextualBanditResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource updated
 	Object *UpdateContextualBanditResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (u UpdateContextualBanditResponse) MarshalJSON() ([]byte, error) {
@@ -467,4 +479,18 @@ func (u *UpdateContextualBanditResponse) GetObject() *UpdateContextualBanditResp
 		return nil
 	}
 	return u.Object
+}
+
+func (u *UpdateContextualBanditResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if u == nil {
+		return nil
+	}
+	return u.ConfirmationHeld
+}
+
+func (u *UpdateContextualBanditResponse) GetHeaders() map[string][]string {
+	if u == nil {
+		return map[string][]string{}
+	}
+	return u.Headers
 }

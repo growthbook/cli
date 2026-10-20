@@ -17,9 +17,9 @@ import (
 var setMetadataCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "comment", FieldPath: "Body.Comment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "title", FieldPath: "Body.Title", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "comment", FieldPath: "Body.Comment", Kind: flagutil.FlagKindString, Optional: true, Description: "Markdown. What changed and why, for reviewers."},
+	{FlagName: "title", FieldPath: "Body.Title", Kind: flagutil.FlagKindString, Optional: true, Description: "Short draft title (e.g. `Enable for beta testers`)."},
+	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Markdown. What the Feature Flag gates and why, rollout plan, and links. Put context here, not in the key."},
 	{FlagName: "owner", FieldPath: "Body.Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization."},
 	{FlagName: "project", Shorthand: "p", FieldPath: "Body.Project", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "targeting-all-projects", FieldPath: "Body.TargetingAllProjects", Kind: flagutil.FlagKindBool, Optional: true, Description: "Stage delivering this feature to every project. Requires the `targetFeatures` permission unscoped to any project."},
@@ -28,7 +28,7 @@ var setMetadataCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "never-stale", Shorthand: "n", FieldPath: "Body.NeverStale", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "custom-fields", FieldPath: "Body.CustomFields", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"customFields,omitempty"`, Description: "value"},
 	{FlagName: "json-schema", Shorthand: "j", FieldPath: "Body.JSONSchema", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"jsonSchema,omitempty"`, Description: "Validation schema to stage on the draft. The server sets `date`, so don't send it."},
-	{FlagName: "ignore-warnings", FieldPath: "Body.IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access."},
+	{FlagName: "ignore-warnings", FieldPath: "Body.IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it."},
 }
 
 // initSetMetadataCmd initializes the set-metadata command.

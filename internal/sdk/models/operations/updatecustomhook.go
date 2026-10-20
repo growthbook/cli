@@ -190,6 +190,9 @@ type UpdateCustomHookResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *UpdateCustomHookResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (u UpdateCustomHookResponse) MarshalJSON() ([]byte, error) {
@@ -215,4 +218,18 @@ func (u *UpdateCustomHookResponse) GetObject() *UpdateCustomHookResponseBody {
 		return nil
 	}
 	return u.Object
+}
+
+func (u *UpdateCustomHookResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if u == nil {
+		return nil
+	}
+	return u.ConfirmationHeld
+}
+
+func (u *UpdateCustomHookResponse) GetHeaders() map[string][]string {
+	if u == nil {
+		return map[string][]string{}
+	}
+	return u.Headers
 }

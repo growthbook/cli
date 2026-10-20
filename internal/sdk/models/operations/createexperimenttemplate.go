@@ -11,7 +11,9 @@ import (
 )
 
 type CreateExperimentTemplateTemplateMetadata struct {
-	Name        string  `json:"name"`
+	// Short display name (e.g. `Checkout test`).
+	Name string `json:"name"`
+	// When to use this template.
 	Description *string `json:"description,omitzero"`
 }
 
@@ -247,11 +249,14 @@ type CreateExperimentTemplateRequest struct {
 	Project          *string                                  `json:"project,omitzero"`
 	TemplateMetadata CreateExperimentTemplateTemplateMetadata `json:"templateMetadata"`
 	Type             CreateExperimentTemplateType             `json:"type"`
-	Hypothesis       *string                                  `json:"hypothesis,omitzero"`
-	Description      *string                                  `json:"description,omitzero"`
-	Tags             []string                                 `json:"tags,omitzero"`
-	CustomFields     map[string]string                        `json:"customFields,omitzero"`
-	Datasource       string                                   `json:"datasource"`
+	// Default hypothesis for experiments created from this template. Markdown. If we change X, metric Y will move because Z.
+	Hypothesis *string `json:"hypothesis,omitzero"`
+	// Default description for experiments created from this template. Markdown.
+	Description *string `json:"description,omitzero"`
+	// Tags for filtering and grouping. Use these instead of encoding groups in names.
+	Tags         []string          `json:"tags,omitzero"`
+	CustomFields map[string]string `json:"customFields,omitzero"`
+	Datasource   string            `json:"datasource"`
 	// The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `exposureQueryId`.
 	ExposureQuery *CreateExperimentTemplateExposureQuery `json:"exposureQuery,omitzero"`
 	// Deprecated: use `exposureQuery`. Rejected when selecting a different assignment query that declares several identifier types; set `exposureQuery.identifierType` instead.
@@ -453,6 +458,9 @@ type CreateExperimentTemplateResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *CreateExperimentTemplateResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (c CreateExperimentTemplateResponse) MarshalJSON() ([]byte, error) {
@@ -478,4 +486,18 @@ func (c *CreateExperimentTemplateResponse) GetObject() *CreateExperimentTemplate
 		return nil
 	}
 	return c.Object
+}
+
+func (c *CreateExperimentTemplateResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if c == nil {
+		return nil
+	}
+	return c.ConfirmationHeld
+}
+
+func (c *CreateExperimentTemplateResponse) GetHeaders() map[string][]string {
+	if c == nil {
+		return map[string][]string{}
+	}
+	return c.Headers
 }

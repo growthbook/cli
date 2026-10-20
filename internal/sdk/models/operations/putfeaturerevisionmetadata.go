@@ -307,7 +307,7 @@ type PutFeatureRevisionMetadataRequestBody struct {
 	CustomFields      map[string]any `json:"customFields,omitzero"`
 	// Validation schema to stage on the draft. The server sets `date`, so don't send it.
 	JSONSchema *PutFeatureRevisionMetadataJSONSchema `json:"jsonSchema,omitzero"`
-	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
 }
 
@@ -449,6 +449,9 @@ type PutFeatureRevisionMetadataResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource updated
 	Object *PutFeatureRevisionMetadataResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PutFeatureRevisionMetadataResponse) MarshalJSON() ([]byte, error) {
@@ -474,4 +477,18 @@ func (p *PutFeatureRevisionMetadataResponse) GetObject() *PutFeatureRevisionMeta
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PutFeatureRevisionMetadataResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PutFeatureRevisionMetadataResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

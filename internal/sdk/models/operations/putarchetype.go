@@ -8,7 +8,9 @@ import (
 )
 
 type PutArchetypeRequestBody struct {
-	Name        *string `json:"name,omitzero"`
+	// Short display name (e.g. `Logged-out US visitor`).
+	Name *string `json:"name,omitzero"`
+	// Put context here, not in the name.
 	Description *string `json:"description,omitzero"`
 	// Whether to make this Archetype available to other team members
 	IsPublic *bool `json:"isPublic,omitzero"`
@@ -108,6 +110,9 @@ type PutArchetypeResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource updated
 	Object *PutArchetypeResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PutArchetypeResponse) MarshalJSON() ([]byte, error) {
@@ -133,4 +138,18 @@ func (p *PutArchetypeResponse) GetObject() *PutArchetypeResponseBody {
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PutArchetypeResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PutArchetypeResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

@@ -21,7 +21,7 @@ growthbook fact-tables update-virtual-column [flags]
 ```
       --body string            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
       --datatype string        The data type of the computed column (options: number, string, date, boolean, json, binary, other)
-      --description string     string value
+      --description string     Put context here, not in the name.
   -f, --fact-table-id string   Specify a specific fact table [required]
   -h, --help                   help for update-virtual-column
   -i, --id string              The id of the requested resource [required]

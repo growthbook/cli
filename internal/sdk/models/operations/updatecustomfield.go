@@ -340,7 +340,8 @@ func (e *UpdateCustomFieldSection) UnmarshalJSON(data []byte) error {
 
 type UpdateCustomFieldRequestBody struct {
 	// The display name of the custom field
-	Name         *string                        `json:"name,omitzero"`
+	Name *string `json:"name,omitzero"`
+	// Help text shown under the field.
 	Description  *string                        `json:"description,omitzero"`
 	Placeholder  *string                        `json:"placeholder,omitzero"`
 	DefaultValue *UpdateCustomFieldDefaultValue `json:"defaultValue,omitzero"`
@@ -470,6 +471,9 @@ type UpdateCustomFieldResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource updated
 	Object *UpdateCustomFieldResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (u UpdateCustomFieldResponse) MarshalJSON() ([]byte, error) {
@@ -495,4 +499,18 @@ func (u *UpdateCustomFieldResponse) GetObject() *UpdateCustomFieldResponseBody {
 		return nil
 	}
 	return u.Object
+}
+
+func (u *UpdateCustomFieldResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if u == nil {
+		return nil
+	}
+	return u.ConfirmationHeld
+}
+
+func (u *UpdateCustomFieldResponse) GetHeaders() map[string][]string {
+	if u == nil {
+		return map[string][]string{}
+	}
+	return u.Headers
 }

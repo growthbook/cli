@@ -23,7 +23,7 @@ growthbook custom-fields update [flags]
       --body string            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
   -c, --creatable              For enum and multiselect fields, allow users to enter values beyond the predefined list
       --default-value string   JSON value (one of: string | number | boolean | date-time | date | array of string | array of number | array of boolean | array of date-time | array of date)
-      --description string     string value
+      --description string     Help text shown under the field.
   -h, --help                   help for update
   -i, --id string              [required]
   -n, --name string            The display name of the custom field

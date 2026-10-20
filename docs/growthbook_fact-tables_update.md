@@ -23,12 +23,12 @@ growthbook fact-tables update [flags]
       --archived                                boolean flag
       --body string                             Request body as JSON (alternative to individual flags). Can also be provided via stdin.
   -c, --columns column                          Optional array of columns to upsert by column: existing columns are patched, new columns are created, and columns not included are left unchanged. Omit `datatype` to leave an existing column's type untouched; send "" to reset it for auto-detection; new columns are auto-detected when `datatype` is omitted or "". Slice-related properties require an enterprise license.
-      --description string                      Description of the fact table
+      --description string                      Markdown. Put context here, not in the name.
   -e, --event-name string                       The event name used in SQL template variables
   -h, --help                                    help for update
   -i, --id string                               The id of the requested resource [required]
   -m, --managed-by string                       Set this to "api" to disable editing in the GrowthBook UI (options: , api, admin)
-  -n, --name string                             string value
+  -n, --name description                        Short display name. Put details in description.
       --owner string                            The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
   -p, --projects stringArray                    List of associated project ids
   -s, --sql string                              The SQL query for this fact table

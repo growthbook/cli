@@ -18,7 +18,7 @@ var submitReviewCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "key", Shorthand: "k", FieldPath: "Key", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "decision", FieldPath: "Body.Decision", Kind: flagutil.FlagKindEnum, Required: true, EnumValues: []string{"approve", "request-changes", "comment"}, Description: "options: approve, request-changes, comment [required]"},
-	{FlagName: "comment", Shorthand: "c", FieldPath: "Body.Comment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "comment", Shorthand: "c", FieldPath: "Body.Comment", Kind: flagutil.FlagKindString, Optional: true, Description: "Markdown. Why you approved, requested changes or commented."},
 	{FlagName: "skip-auto-publish", Shorthand: "s", FieldPath: "Body.SkipAutoPublish", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 }
 
@@ -27,7 +27,7 @@ func initSubmitReviewCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "submit-review",
 		Short:   "Submit a review on a draft revision",
-		Long:    "Submits an `approve`, `request-changes`, or `comment` review on the revision. Submitting `approve` or `request-changes` needs Review access. A `comment` is participation rather than a verdict, so it is also open to the Comments permission or draft authority on the entity. Authors and contributors cannot submit `approve` reviews on their own drafts when the org has `blockSelfApproval` enabled.\n\nWhen `decision` is `approve` and the revision has `autoPublishOnApproval` enabled, the revision is automatically published after approval. The response includes `autoPublished: true` when this happens. Pass `skipAutoPublish: true` to approve without triggering auto-publish.",
+		Long:    "Submits an `approve`, `request-changes`, or `comment` review on the revision. The verdict belongs to whoever the request acts as; see [Naming who asked](/api/introduction#naming-who-asked). No one can rule on a draft they created. Submitting `approve` or `request-changes` needs Review access. A `comment` is participation rather than a verdict, so it is also open to the Comments permission or draft authority on the entity. Authors and contributors cannot submit `approve` reviews on their own drafts when the org has `blockSelfApproval` enabled.\n\nWhen `decision` is `approve` and the revision has `autoPublishOnApproval` enabled, the revision is automatically published after approval. The response includes `autoPublished: true` when this happens. Pass `skipAutoPublish: true` to approve without triggering auto-publish.",
 		Example: "  growthbook config-revisions submit-review --key <key> --version-param <value> --decision approve",
 		RunE:    runSubmitReviewCmd,
 		Aliases: []string{"sr"},

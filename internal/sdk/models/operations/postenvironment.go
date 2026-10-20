@@ -8,15 +8,16 @@ import (
 )
 
 type PostEnvironmentRequest struct {
-	// The ID of the new environment
+	// Permanent ID, shown as the environment name (e.g. `production`). Short lowercase slug.
 	ID string `json:"id"`
-	// The description of the new environment
+	// Put context here, not in the name.
 	Description *string `json:"description,omitzero"`
 	// Show on feature list page
 	ToggleOnList *bool `json:"toggleOnList,omitzero"`
 	// Default state for new features
-	DefaultState *bool    `json:"defaultState,omitzero"`
-	Projects     []string `json:"projects,omitzero"`
+	DefaultState *bool `json:"defaultState,omitzero"`
+	// Limits which Projects can use this environment. Omit to allow all Projects.
+	Projects []string `json:"projects,omitzero"`
 	// An environment that the new environment should inherit feature rules from. Requires an enterprise license
 	Parent *string `json:"parent,omitzero"`
 }
@@ -90,6 +91,9 @@ type PostEnvironmentResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostEnvironmentResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostEnvironmentResponse) MarshalJSON() ([]byte, error) {
@@ -115,4 +119,18 @@ func (p *PostEnvironmentResponse) GetObject() *PostEnvironmentResponseBody {
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostEnvironmentResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostEnvironmentResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

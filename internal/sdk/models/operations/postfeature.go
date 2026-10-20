@@ -292,9 +292,10 @@ type PostFeatureRuleExperiment struct {
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	SavedGroupTargeting []PostFeatureSavedGroupTargeting4 `json:"savedGroupTargeting,omitzero"`
-	Description         *string                           `json:"description,omitzero"`
-	Condition           string                            `json:"condition"`
-	ID                  *string                           `json:"id,omitzero"`
+	// Short note on why the rule exists (e.g. `Beta testers only`).
+	Description *string `json:"description,omitzero"`
+	Condition   string  `json:"condition"`
+	ID          *string `json:"id,omitzero"`
 	// Enabled by default
 	Enabled *bool `json:"enabled,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
@@ -906,9 +907,10 @@ type PostFeatureRuleExperimentRef struct {
 	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
 	RampScheduleID any `json:"rampScheduleId,omitzero"`
 	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
-	ScheduleType any     `json:"scheduleType,omitzero"`
-	Description  *string `json:"description,omitzero"`
-	ID           *string `json:"id,omitzero"`
+	ScheduleType any `json:"scheduleType,omitzero"`
+	// Short note on why the rule exists (e.g. `Beta testers only`).
+	Description *string `json:"description,omitzero"`
+	ID          *string `json:"id,omitzero"`
 	// Enabled by default
 	Enabled *bool `json:"enabled,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
@@ -1213,8 +1215,9 @@ type PostFeatureRuleRollout struct {
 	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
 	RampScheduleID any `json:"rampScheduleId,omitzero"`
 	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
-	ScheduleType any     `json:"scheduleType,omitzero"`
-	Description  *string `json:"description,omitzero"`
+	ScheduleType any `json:"scheduleType,omitzero"`
+	// Short note on why the rule exists (e.g. `Beta testers only`).
+	Description *string `json:"description,omitzero"`
 	// Applied to everyone by default.
 	Condition   *string                  `json:"condition,omitzero"`
 	SavedGroups []PostFeatureSavedGroup2 `json:"savedGroups,omitzero"`
@@ -1547,8 +1550,9 @@ type PostFeatureRuleForce struct {
 	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
 	RampScheduleID any `json:"rampScheduleId,omitzero"`
 	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
-	ScheduleType any     `json:"scheduleType,omitzero"`
-	Description  *string `json:"description,omitzero"`
+	ScheduleType any `json:"scheduleType,omitzero"`
+	// Short note on why the rule exists (e.g. `Beta testers only`).
+	Description *string `json:"description,omitzero"`
 	// Applied to everyone by default.
 	Condition   *string                  `json:"condition,omitzero"`
 	SavedGroups []PostFeatureSavedGroup1 `json:"savedGroups,omitzero"`
@@ -2056,9 +2060,10 @@ type PostFeatureRuleDraftExperiment struct {
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	SavedGroupTargeting []PostFeatureDraftSavedGroupTargeting4 `json:"savedGroupTargeting,omitzero"`
-	Description         *string                                `json:"description,omitzero"`
-	Condition           string                                 `json:"condition"`
-	ID                  *string                                `json:"id,omitzero"`
+	// Short note on why the rule exists (e.g. `Beta testers only`).
+	Description *string `json:"description,omitzero"`
+	Condition   string  `json:"condition"`
+	ID          *string `json:"id,omitzero"`
 	// Enabled by default
 	Enabled *bool `json:"enabled,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
@@ -2670,9 +2675,10 @@ type PostFeatureRuleDraftExperimentRef struct {
 	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
 	RampScheduleID any `json:"rampScheduleId,omitzero"`
 	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
-	ScheduleType any     `json:"scheduleType,omitzero"`
-	Description  *string `json:"description,omitzero"`
-	ID           *string `json:"id,omitzero"`
+	ScheduleType any `json:"scheduleType,omitzero"`
+	// Short note on why the rule exists (e.g. `Beta testers only`).
+	Description *string `json:"description,omitzero"`
+	ID          *string `json:"id,omitzero"`
 	// Enabled by default
 	Enabled *bool `json:"enabled,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
@@ -2977,8 +2983,9 @@ type PostFeatureRuleDraftRollout struct {
 	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
 	RampScheduleID any `json:"rampScheduleId,omitzero"`
 	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
-	ScheduleType any     `json:"scheduleType,omitzero"`
-	Description  *string `json:"description,omitzero"`
+	ScheduleType any `json:"scheduleType,omitzero"`
+	// Short note on why the rule exists (e.g. `Beta testers only`).
+	Description *string `json:"description,omitzero"`
 	// Applied to everyone by default.
 	Condition   *string                       `json:"condition,omitzero"`
 	SavedGroups []PostFeatureDraftSavedGroup2 `json:"savedGroups,omitzero"`
@@ -3311,8 +3318,9 @@ type PostFeatureRuleDraftForce struct {
 	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
 	RampScheduleID any `json:"rampScheduleId,omitzero"`
 	// Read-only; ignored on write. Accepted so a GET response can be posted back unchanged.
-	ScheduleType any     `json:"scheduleType,omitzero"`
-	Description  *string `json:"description,omitzero"`
+	ScheduleType any `json:"scheduleType,omitzero"`
+	// Short note on why the rule exists (e.g. `Beta testers only`).
+	Description *string `json:"description,omitzero"`
 	// Applied to everyone by default.
 	Condition   *string                       `json:"condition,omitzero"`
 	SavedGroups []PostFeatureDraftSavedGroup1 `json:"savedGroups,omitzero"`
@@ -3650,12 +3658,12 @@ func (p *PostFeatureEnvironments) GetDraft() *PostFeatureDraft {
 }
 
 type PostFeatureRequest struct {
-	// A unique key name for the feature. Feature keys can only include letters, numbers, hyphens, and underscores.
+	// Unique, permanent key, shown as the Feature Flag's name in the UI and used in code. Keep it short. If `featureRegexValidator` in `GET /api/v1/settings` is set, follow it (`featureKeyExample` shows the format); otherwise use kebab-case (e.g. `checkout-express-pay`). Put context in `description`.
 	ID       string `json:"id"`
 	Archived *bool  `json:"archived,omitzero"`
-	// Description of the feature
+	// Markdown. What the Feature Flag gates and why, rollout plan, and links. Put context here, not in the key.
 	Description *string `json:"description,omitzero"`
-	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. Optional when authenticating with a Personal Access Token (PAT): when omitted, the owner defaults to the PAT's user. Required when authenticating with an organization secret API key (which has no associated user): omitting it fails with a 400.
+	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the requesting member: a personal access token's owner, or the member an organization API key assumes. An organization API key acting as itself must send it, or the request fails with a 400.
 	Owner *string `json:"owner,omitzero"`
 	// An associated project ID
 	Project *string `json:"project,omitzero"`
@@ -3669,7 +3677,7 @@ type PostFeatureRequest struct {
 	DefaultValue string `json:"defaultValue"`
 	// Key of the config backing this flag ("Config mode"). Requires `valueType: "json"` and a live config; `defaultValue` and rule values become override patches on top. null or omitted for a plain flag.
 	BaseConfig optionalnullable.OptionalNullable[string] `json:"baseConfig,omitzero"`
-	// List of associated tags
+	// Tags for filtering and grouping. Use these instead of encoding groups in names.
 	Tags []string `json:"tags,omitzero"`
 	// Settings for each environment, keyed by environment ID. Any environment you leave out is enabled or disabled per that environment's "Default state for new features" setting.
 	Environments map[string]PostFeatureEnvironments `json:"environments,omitzero"`
@@ -3680,11 +3688,11 @@ type PostFeatureRequest struct {
 	CustomFields map[string]string `json:"customFields,omitzero"`
 	// Comment to record on the feature's initial revision. Defaults to an empty comment.
 	Comment *string `json:"comment,omitzero"`
-	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
-	// Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	// Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	SkipSchemaValidation *bool `json:"skipSchemaValidation,omitzero"`
-	// Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	// Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	SkipHooks *bool `json:"skipHooks,omitzero"`
 }
 
@@ -3848,6 +3856,9 @@ type PostFeatureResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostFeatureResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostFeatureResponse) MarshalJSON() ([]byte, error) {
@@ -3873,4 +3884,18 @@ func (p *PostFeatureResponse) GetObject() *PostFeatureResponseBody {
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostFeatureResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostFeatureResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

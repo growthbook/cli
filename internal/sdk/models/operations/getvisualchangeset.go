@@ -3,6 +3,9 @@
 package operations
 
 import (
+	"encoding/json"
+	"errors"
+	"fmt"
 	"github.com/growthbook/cli/v3/internal/sdk/models/components"
 	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 )
@@ -28,21 +31,166 @@ func (g *GetVisualChangesetRequest) GetIncludeExperiment() *int64 {
 	return g.IncludeExperiment
 }
 
+type GetVisualChangesetExperimentType string
+
+const (
+	GetVisualChangesetExperimentTypeStandard         GetVisualChangesetExperimentType = "standard"
+	GetVisualChangesetExperimentTypeMultiArmedBandit GetVisualChangesetExperimentType = "multi-armed-bandit"
+	GetVisualChangesetExperimentTypeHoldout          GetVisualChangesetExperimentType = "holdout"
+	GetVisualChangesetExperimentTypeContextualBandit GetVisualChangesetExperimentType = "contextual-bandit"
+	GetVisualChangesetExperimentTypeUnknown          GetVisualChangesetExperimentType = "UNKNOWN"
+)
+
+type GetVisualChangesetExperiment struct {
+	Experiment                   *components.Experiment                   `queryParam:"inline" union:"member"`
+	VisualEditorCbExperimentStub *components.VisualEditorCbExperimentStub `queryParam:"inline" union:"member"`
+	UnknownRaw                   json.RawMessage                          `json:"-" union:"unknown"`
+
+	Type GetVisualChangesetExperimentType
+}
+
+func CreateGetVisualChangesetExperimentStandard(standard components.Experiment) GetVisualChangesetExperiment {
+	typ := GetVisualChangesetExperimentTypeStandard
+
+	typStr := components.ExperimentType(typ)
+	standard.Type = typStr
+
+	return GetVisualChangesetExperiment{
+		Experiment: &standard,
+		Type:       typ,
+	}
+}
+
+func CreateGetVisualChangesetExperimentMultiArmedBandit(multiArmedBandit components.Experiment) GetVisualChangesetExperiment {
+	typ := GetVisualChangesetExperimentTypeMultiArmedBandit
+
+	typStr := components.ExperimentType(typ)
+	multiArmedBandit.Type = typStr
+
+	return GetVisualChangesetExperiment{
+		Experiment: &multiArmedBandit,
+		Type:       typ,
+	}
+}
+
+func CreateGetVisualChangesetExperimentHoldout(holdout components.Experiment) GetVisualChangesetExperiment {
+	typ := GetVisualChangesetExperimentTypeHoldout
+
+	typStr := components.ExperimentType(typ)
+	holdout.Type = typStr
+
+	return GetVisualChangesetExperiment{
+		Experiment: &holdout,
+		Type:       typ,
+	}
+}
+
+func CreateGetVisualChangesetExperimentContextualBandit(contextualBandit components.VisualEditorCbExperimentStub) GetVisualChangesetExperiment {
+	typ := GetVisualChangesetExperimentTypeContextualBandit
+
+	return GetVisualChangesetExperiment{
+		VisualEditorCbExperimentStub: &contextualBandit,
+		Type:                         typ,
+	}
+}
+
+func CreateGetVisualChangesetExperimentUnknown(raw json.RawMessage) GetVisualChangesetExperiment {
+	return GetVisualChangesetExperiment{
+		UnknownRaw: raw,
+		Type:       GetVisualChangesetExperimentTypeUnknown,
+	}
+}
+
+func (u GetVisualChangesetExperiment) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u GetVisualChangesetExperiment) IsUnknown() bool {
+	return u.Type == GetVisualChangesetExperimentTypeUnknown
+}
+
+func (u *GetVisualChangesetExperiment) UnmarshalJSON(data []byte) error {
+
+	type discriminator struct {
+		Type string `json:"type"`
+	}
+
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = GetVisualChangesetExperimentTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = GetVisualChangesetExperimentTypeUnknown
+		return nil
+	}
+
+	switch dis.Type {
+	case "standard":
+		experiment := new(components.Experiment)
+		if err := utils.UnmarshalJSON(data, &experiment, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == standard) type components.Experiment within GetVisualChangesetExperiment: %w", string(data), err)
+		}
+
+		u.Experiment = experiment
+		u.Type = GetVisualChangesetExperimentTypeStandard
+		return nil
+	case "multi-armed-bandit":
+		experiment := new(components.Experiment)
+		if err := utils.UnmarshalJSON(data, &experiment, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == multi-armed-bandit) type components.Experiment within GetVisualChangesetExperiment: %w", string(data), err)
+		}
+
+		u.Experiment = experiment
+		u.Type = GetVisualChangesetExperimentTypeMultiArmedBandit
+		return nil
+	case "holdout":
+		experiment := new(components.Experiment)
+		if err := utils.UnmarshalJSON(data, &experiment, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == holdout) type components.Experiment within GetVisualChangesetExperiment: %w", string(data), err)
+		}
+
+		u.Experiment = experiment
+		u.Type = GetVisualChangesetExperimentTypeHoldout
+		return nil
+	case "contextual-bandit":
+		visualEditorCbExperimentStub := new(components.VisualEditorCbExperimentStub)
+		if err := utils.UnmarshalJSON(data, &visualEditorCbExperimentStub, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == contextual-bandit) type components.VisualEditorCbExperimentStub within GetVisualChangesetExperiment: %w", string(data), err)
+		}
+
+		u.VisualEditorCbExperimentStub = visualEditorCbExperimentStub
+		u.Type = GetVisualChangesetExperimentTypeContextualBandit
+		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = GetVisualChangesetExperimentTypeUnknown
+		return nil
+	}
+
+}
+
+func (u GetVisualChangesetExperiment) MarshalJSON() ([]byte, error) {
+	if u.Experiment != nil {
+		return utils.MarshalJSON(u.Experiment, "", true)
+	}
+
+	if u.VisualEditorCbExperimentStub != nil {
+		return utils.MarshalJSON(u.VisualEditorCbExperimentStub, "", true)
+	}
+
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
+	return nil, errors.New("could not marshal union type GetVisualChangesetExperiment: all fields are null")
+}
+
 // GetVisualChangesetResponseBody - Successful response
 type GetVisualChangesetResponseBody struct {
-	VisualChangeset components.VisualChangeset `json:"visualChangeset"`
-	Experiment      *components.Experiment     `json:"experiment,omitzero"`
-}
-
-func (g GetVisualChangesetResponseBody) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(g, "", false)
-}
-
-func (g *GetVisualChangesetResponseBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
-		return err
-	}
-	return nil
+	VisualChangeset components.VisualChangeset    `json:"visualChangeset"`
+	Experiment      *GetVisualChangesetExperiment `json:"experiment,omitzero"`
 }
 
 func (g *GetVisualChangesetResponseBody) GetVisualChangeset() components.VisualChangeset {
@@ -52,11 +200,39 @@ func (g *GetVisualChangesetResponseBody) GetVisualChangeset() components.VisualC
 	return g.VisualChangeset
 }
 
-func (g *GetVisualChangesetResponseBody) GetExperiment() *components.Experiment {
+func (g *GetVisualChangesetResponseBody) GetExperiment() *GetVisualChangesetExperiment {
 	if g == nil {
 		return nil
 	}
 	return g.Experiment
+}
+
+func (g *GetVisualChangesetResponseBody) GetExperimentStandard() *components.Experiment {
+	if v := g.GetExperiment(); v != nil {
+		return v.Experiment
+	}
+	return nil
+}
+
+func (g *GetVisualChangesetResponseBody) GetExperimentMultiArmedBandit() *components.Experiment {
+	if v := g.GetExperiment(); v != nil {
+		return v.Experiment
+	}
+	return nil
+}
+
+func (g *GetVisualChangesetResponseBody) GetExperimentHoldout() *components.Experiment {
+	if v := g.GetExperiment(); v != nil {
+		return v.Experiment
+	}
+	return nil
+}
+
+func (g *GetVisualChangesetResponseBody) GetExperimentContextualBandit() *components.VisualEditorCbExperimentStub {
+	if v := g.GetExperiment(); v != nil {
+		return v.VisualEditorCbExperimentStub
+	}
+	return nil
 }
 
 type GetVisualChangesetResponse struct {

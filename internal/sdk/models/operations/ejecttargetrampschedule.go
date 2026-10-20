@@ -238,6 +238,20 @@ type EjectTargetRampScheduleResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	OneOf *EjectTargetRampScheduleResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
+}
+
+func (e EjectTargetRampScheduleResponse) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *EjectTargetRampScheduleResponse) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (e *EjectTargetRampScheduleResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -252,4 +266,18 @@ func (e *EjectTargetRampScheduleResponse) GetOneOf() *EjectTargetRampScheduleRes
 		return nil
 	}
 	return e.OneOf
+}
+
+func (e *EjectTargetRampScheduleResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if e == nil {
+		return nil
+	}
+	return e.ConfirmationHeld
+}
+
+func (e *EjectTargetRampScheduleResponse) GetHeaders() map[string][]string {
+	if e == nil {
+		return map[string][]string{}
+	}
+	return e.Headers
 }

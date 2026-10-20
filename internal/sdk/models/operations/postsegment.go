@@ -64,7 +64,7 @@ func (e *PostSegmentType) UnmarshalJSON(data []byte) error {
 }
 
 type PostSegmentRequest struct {
-	// Name of the segment
+	// Short display name. Put details in `description`.
 	Name string `json:"name"`
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
 	Owner *string `json:"owner,omitzero"`
@@ -192,6 +192,9 @@ type PostSegmentResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostSegmentResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostSegmentResponse) MarshalJSON() ([]byte, error) {
@@ -217,4 +220,18 @@ func (p *PostSegmentResponse) GetObject() *PostSegmentResponseBody {
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostSegmentResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostSegmentResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

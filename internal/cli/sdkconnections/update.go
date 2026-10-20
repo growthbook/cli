@@ -16,7 +16,7 @@ import (
 
 var updateCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The id of the requested resource [required]"},
-	{FlagName: "name", Shorthand: "n", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "name", Shorthand: "n", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Optional: true, Description: "Short display name, usually app and platform (e.g. `Web app`)."},
 	{FlagName: "language", Shorthand: "l", FieldPath: "Body.Language", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "sdk-version", FieldPath: "Body.SDKVersion", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "environment", FieldPath: "Body.Environment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},

@@ -64,7 +64,8 @@ func (e *PostNamespaceFormat) UnmarshalJSON(data []byte) error {
 
 type PostNamespaceRequest struct {
 	// Human-readable display name. Must be unique within the organization.
-	DisplayName string               `json:"displayName"`
+	DisplayName string `json:"displayName"`
+	// Put context here, not in the name.
 	Description *string              `json:"description,omitzero"`
 	Status      *PostNamespaceStatus `json:"status,omitzero"`
 	// Namespace format. Defaults to 'multiRange', which supports multiple ranges per experiment and a configurable hash attribute.
@@ -124,6 +125,9 @@ type PostNamespaceResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostNamespaceResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostNamespaceResponse) MarshalJSON() ([]byte, error) {
@@ -149,4 +153,18 @@ func (p *PostNamespaceResponse) GetObject() *PostNamespaceResponseBody {
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostNamespaceResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostNamespaceResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

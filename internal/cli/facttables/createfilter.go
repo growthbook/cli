@@ -16,7 +16,7 @@ import (
 
 var createFilterCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "fact-table-id", Shorthand: "f", FieldPath: "FactTableID", Kind: flagutil.FlagKindString, Required: true, Description: "Specify a specific fact table [required]"},
-	{FlagName: "name", Shorthand: "n", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
+	{FlagName: "name", Shorthand: "n", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Required: true, Description: "Short display name. Put details in `description`. [required]"},
 	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Description of the fact table filter"},
 	{FlagName: "value", Shorthand: "v", FieldPath: "Body.Value", Kind: flagutil.FlagKindString, Required: true, Description: "The SQL expression for this filter. [required]"},
 	{FlagName: "managed-by", Shorthand: "m", FieldPath: "Body.ManagedBy", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"", "api"}, Description: "Set this to \"api\" to disable editing in the GrowthBook UI. Before you do this, the Fact Table itself must also be marked as \"api\" (options: , api)"},

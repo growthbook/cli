@@ -8,13 +8,14 @@ import (
 )
 
 type PutEnvironmentRequestBody struct {
-	// The description of the new environment
+	// Put context here, not in the name.
 	Description *string `json:"description,omitzero"`
 	// Show on feature list page
 	ToggleOnList *bool `json:"toggleOnList,omitzero"`
 	// Default state for new features
-	DefaultState *bool    `json:"defaultState,omitzero"`
-	Projects     []string `json:"projects,omitzero"`
+	DefaultState *bool `json:"defaultState,omitzero"`
+	// Limits which Projects can use this environment. Omit to keep the current list; send `[]` to allow all Projects.
+	Projects []string `json:"projects,omitzero"`
 }
 
 func (p PutEnvironmentRequestBody) MarshalJSON() ([]byte, error) {
@@ -92,6 +93,9 @@ type PutEnvironmentResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource updated
 	Object *PutEnvironmentResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PutEnvironmentResponse) MarshalJSON() ([]byte, error) {
@@ -117,4 +121,18 @@ func (p *PutEnvironmentResponse) GetObject() *PutEnvironmentResponseBody {
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PutEnvironmentResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PutEnvironmentResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

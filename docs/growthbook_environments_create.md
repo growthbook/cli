@@ -21,11 +21,11 @@ growthbook environments create [flags]
 ```
       --body string            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
       --default-state          Default state for new features
-      --description string     The description of the new environment
+      --description string     Put context here, not in the name.
   -h, --help                   help for create
-  -i, --id string              The ID of the new environment [required]
+  -i, --id production          Permanent ID, shown as the environment name (e.g. production). Short lowercase slug. [required]
       --parent string          An environment that the new environment should inherit feature rules from. Requires an enterprise license
-      --projects stringArray   list of values
+      --projects stringArray   Limits which Projects can use this environment. Omit to allow all Projects.
   -t, --toggle-on-list         Show on feature list page
 ```
 

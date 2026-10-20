@@ -15,9 +15,9 @@ import (
 )
 
 var createTeamCmdMeta = []flagutil.FlagMeta{
-	{FlagName: "name", Shorthand: "n", FieldPath: "Name", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
+	{FlagName: "name", Shorthand: "n", FieldPath: "Name", Kind: flagutil.FlagKindString, Required: true, Description: "Short display name. Put details in `description`. [required]"},
 	{FlagName: "created-by", Shorthand: "c", FieldPath: "CreatedBy", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "description", FieldPath: "Description", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
+	{FlagName: "description", FieldPath: "Description", Kind: flagutil.FlagKindString, Required: true, Description: "Put context here, not in the name. [required]"},
 	{FlagName: "role", Shorthand: "r", FieldPath: "Role", Kind: flagutil.FlagKindString, Required: true, Description: "The global role for members of this team [required]"},
 	{FlagName: "limit-access-by-environment", Shorthand: "l", FieldPath: "LimitAccessByEnvironment", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "environments", Shorthand: "e", FieldPath: "Environments", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "An empty array means 'all environments'"},

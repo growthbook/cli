@@ -81,6 +81,7 @@ growthbook [flags]
 * [growthbook metrics](growthbook_metrics.md)	 - Metrics used as goals and guardrails for experiments
 * [growthbook namespaces](growthbook_namespaces.md)	 - Namespaces partition your user population into buckets so that experiments using the same hash attribute do not overlap unintentionally
 * [growthbook organizations](growthbook_organizations.md)	 - Organizations are used for multi-org deployments where different teams can run their own isolated feature flags and experiments
+* [growthbook populations](growthbook_populations.md)	 - **Beta** — these endpoints are new and may change in backwards-incompatible ways
 * [growthbook profiles](growthbook_profiles.md)	 - Manage named credential/server profiles
 * [growthbook projects](growthbook_projects.md)	 - Projects are used to organize your feature flags and experiments
 * [growthbook queries](growthbook_queries.md)	 - Retrieve queries used in experiments to calculate results

@@ -11,7 +11,9 @@ import (
 )
 
 type UpdateExperimentTemplateTemplateMetadata struct {
-	Name        string  `json:"name"`
+	// Short display name (e.g. `Checkout test`).
+	Name string `json:"name"`
+	// When to use this template.
 	Description *string `json:"description,omitzero"`
 }
 
@@ -247,11 +249,14 @@ type UpdateExperimentTemplateRequestBody struct {
 	Project          *string                                   `json:"project,omitzero"`
 	TemplateMetadata *UpdateExperimentTemplateTemplateMetadata `json:"templateMetadata,omitzero"`
 	Type             *UpdateExperimentTemplateType             `json:"type,omitzero"`
-	Hypothesis       *string                                   `json:"hypothesis,omitzero"`
-	Description      *string                                   `json:"description,omitzero"`
-	Tags             []string                                  `json:"tags,omitzero"`
-	CustomFields     map[string]string                         `json:"customFields,omitzero"`
-	Datasource       *string                                   `json:"datasource,omitzero"`
+	// Default hypothesis for experiments created from this template. Markdown. If we change X, metric Y will move because Z.
+	Hypothesis *string `json:"hypothesis,omitzero"`
+	// Default description for experiments created from this template. Markdown.
+	Description *string `json:"description,omitzero"`
+	// Tags for filtering and grouping. Use these instead of encoding groups in names.
+	Tags         []string          `json:"tags,omitzero"`
+	CustomFields map[string]string `json:"customFields,omitzero"`
+	Datasource   *string           `json:"datasource,omitzero"`
 	// The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `exposureQueryId`.
 	ExposureQuery *UpdateExperimentTemplateExposureQuery `json:"exposureQuery,omitzero"`
 	// Deprecated: use `exposureQuery`. Rejected when selecting a different assignment query that declares several identifier types; set `exposureQuery.identifierType` instead.
@@ -472,6 +477,9 @@ type UpdateExperimentTemplateResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource updated
 	Object *UpdateExperimentTemplateResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (u UpdateExperimentTemplateResponse) MarshalJSON() ([]byte, error) {
@@ -497,4 +505,18 @@ func (u *UpdateExperimentTemplateResponse) GetObject() *UpdateExperimentTemplate
 		return nil
 	}
 	return u.Object
+}
+
+func (u *UpdateExperimentTemplateResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if u == nil {
+		return nil
+	}
+	return u.ConfirmationHeld
+}
+
+func (u *UpdateExperimentTemplateResponse) GetHeaders() map[string][]string {
+	if u == nil {
+		return map[string][]string{}
+	}
+	return u.Headers
 }

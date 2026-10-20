@@ -15,7 +15,7 @@ import (
 )
 
 var createAutoRunCmdMeta = []flagutil.FlagMeta{
-	{FlagName: "source", Shorthand: "s", FieldPath: "Source", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"cli-wizard", "skill"}, Description: "options: cli-wizard, skill"},
+	{FlagName: "source", Shorthand: "s", FieldPath: "Source", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"cli-wizard", "skill", "eppo-import"}, Description: "options: cli-wizard, skill, eppo-import"},
 	{FlagName: "agent", Shorthand: "a", FieldPath: "Agent", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "metadata", Shorthand: "m", FieldPath: "Metadata", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"metadata,omitempty"`, Description: "value"},
 }

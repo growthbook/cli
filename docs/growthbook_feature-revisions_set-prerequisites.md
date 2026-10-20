@@ -19,14 +19,14 @@ growthbook feature-revisions set-prerequisites [flags]
 ### Options
 
 ```
-      --body string               Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -h, --help                      help for set-prerequisites
-      --id string                 [required]
-      --ignore-warnings           Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
-  -p, --prerequisites string      List of prerequisite boolean flags. When any prerequisite flag is off for a user, this flag returns its defaultValue for that user. [required]
-      --revision-comment string   Comment for a newly created draft. Only used when version is "new"; ignored for existing revisions.
-      --revision-title string     Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
-  -v, --version-param string      [required]
+      --body string                              Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -h, --help                                     help for set-prerequisites
+      --id string                                [required]
+      --ignore-warnings                          Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
+  -p, --prerequisites string                     List of prerequisite boolean flags. When any prerequisite flag is off for a user, this flag returns its defaultValue for that user. [required]
+      --revision-comment version                 Markdown. What changed and why, for reviewers. Only used when version is "new"; ignored for existing drafts.
+      --revision-title Enable for beta testers   Short draft title (e.g. Enable for beta testers). Only used when `version` is "new"; ignored for existing drafts.
+  -v, --version-param string                     [required]
 ```
 
 ### Options inherited from parent commands

@@ -25,7 +25,7 @@ growthbook fact-tables update-filter [flags]
   -h, --help                   help for update-filter
   -i, --id string              The id of the requested resource [required]
   -m, --managed-by string      Set this to "api" to disable editing in the GrowthBook UI. Before you do this, the Fact Table itself must also be marked as "api" (options: , api)
-  -n, --name string            string value
+  -n, --name description       Short display name. Put details in description.
   -v, --value string           The SQL expression for this filter.
 ```
 

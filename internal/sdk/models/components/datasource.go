@@ -36,6 +36,7 @@ type DataSourceAssignmentQuery struct {
 	SQL                 string   `json:"sql"`
 	IncludesNameColumns bool     `json:"includesNameColumns"`
 	DimensionColumns    []string `json:"dimensionColumns"`
+	Projects            []string `json:"projects"`
 }
 
 func (d *DataSourceAssignmentQuery) GetID() string {
@@ -92,6 +93,13 @@ func (d *DataSourceAssignmentQuery) GetDimensionColumns() []string {
 		return []string{}
 	}
 	return d.DimensionColumns
+}
+
+func (d *DataSourceAssignmentQuery) GetProjects() []string {
+	if d == nil {
+		return []string{}
+	}
+	return d.Projects
 }
 
 type IdentifierJoinQuery struct {

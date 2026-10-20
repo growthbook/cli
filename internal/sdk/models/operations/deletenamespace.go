@@ -36,6 +36,9 @@ type DeleteNamespaceResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource deleted
 	Object *DeleteNamespaceResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (d DeleteNamespaceResponse) MarshalJSON() ([]byte, error) {
@@ -61,4 +64,18 @@ func (d *DeleteNamespaceResponse) GetObject() *DeleteNamespaceResponseBody {
 		return nil
 	}
 	return d.Object
+}
+
+func (d *DeleteNamespaceResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if d == nil {
+		return nil
+	}
+	return d.ConfirmationHeld
+}
+
+func (d *DeleteNamespaceResponse) GetHeaders() map[string][]string {
+	if d == nil {
+		return map[string][]string{}
+	}
+	return d.Headers
 }

@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
+)
+
 type ExperimentMetricOverrideEntryWindowType string
 
 const (
@@ -41,6 +45,17 @@ type ExperimentMetricOverrideEntry struct {
 	RegressionAdjustmentOverride *bool    `json:"regressionAdjustmentOverride,omitzero"`
 	RegressionAdjustmentEnabled  *bool    `json:"regressionAdjustmentEnabled,omitzero"`
 	RegressionAdjustmentDays     *float64 `json:"regressionAdjustmentDays,omitzero"`
+}
+
+func (e ExperimentMetricOverrideEntry) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ExperimentMetricOverrideEntry) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (e *ExperimentMetricOverrideEntry) GetID() string {

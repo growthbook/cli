@@ -55,6 +55,9 @@ type LockConfigResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *LockConfigResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (l LockConfigResponse) MarshalJSON() ([]byte, error) {
@@ -80,4 +83,18 @@ func (l *LockConfigResponse) GetObject() *LockConfigResponseBody {
 		return nil
 	}
 	return l.Object
+}
+
+func (l *LockConfigResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if l == nil {
+		return nil
+	}
+	return l.ConfirmationHeld
+}
+
+func (l *LockConfigResponse) GetHeaders() map[string][]string {
+	if l == nil {
+		return map[string][]string{}
+	}
+	return l.Headers
 }

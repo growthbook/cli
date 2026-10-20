@@ -190,9 +190,11 @@ func (u CreateTeamManagedByUnion) MarshalJSON() ([]byte, error) {
 }
 
 type CreateTeamRequest struct {
-	Name        string  `json:"name"`
-	CreatedBy   *string `json:"createdBy,omitzero"`
-	Description string  `json:"description"`
+	// Short display name. Put details in `description`.
+	Name      string  `json:"name"`
+	CreatedBy *string `json:"createdBy,omitzero"`
+	// Put context here, not in the name.
+	Description string `json:"description"`
 	// The global role for members of this team
 	Role                     string `json:"role"`
 	LimitAccessByEnvironment *bool  `json:"limitAccessByEnvironment,omitzero"`
@@ -293,6 +295,9 @@ type CreateTeamResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *CreateTeamResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (c CreateTeamResponse) MarshalJSON() ([]byte, error) {
@@ -318,4 +323,18 @@ func (c *CreateTeamResponse) GetObject() *CreateTeamResponseBody {
 		return nil
 	}
 	return c.Object
+}
+
+func (c *CreateTeamResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if c == nil {
+		return nil
+	}
+	return c.ConfirmationHeld
+}
+
+func (c *CreateTeamResponse) GetHeaders() map[string][]string {
+	if c == nil {
+		return map[string][]string{}
+	}
+	return c.Headers
 }

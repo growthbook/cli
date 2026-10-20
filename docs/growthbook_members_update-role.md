@@ -1,6 +1,6 @@
 ## growthbook members update-role
 
-Update a member's global role (including any environment restrictions, if applicable). Can also update a member's project roles if your plan supports it.
+Update a member's role
 
 ### Synopsis
 

@@ -16,7 +16,8 @@ import (
 
 var updateSavedGroupCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The id of the requested resource [required]"},
-	{FlagName: "name", Shorthand: "n", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Optional: true, Description: "The display name of the Saved Group"},
+	{FlagName: "name", Shorthand: "n", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Optional: true, Description: "Short display name (e.g. `Internal employees`). Put details in `description`."},
+	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Short note (max 100 characters) on who is in the Saved Group and why."},
 	{FlagName: "condition", Shorthand: "c", FieldPath: "Body.Condition", Kind: flagutil.FlagKindString, Optional: true, Description: "When type = 'condition', this is the JSON-encoded condition for the group"},
 	{FlagName: "values", Shorthand: "v", FieldPath: "Body.Values", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "When type = 'list', this is the list of values for the attribute key"},
 	{FlagName: "owner", FieldPath: "Body.Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization."},

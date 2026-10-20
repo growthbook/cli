@@ -31,19 +31,19 @@ func (e *ContextualBanditStatus) IsExact() bool {
 	return false
 }
 
-type VariationStatus string
+type ContextualBanditVariationStatus string
 
 const (
-	VariationStatusActive  VariationStatus = "active"
-	VariationStatusPending VariationStatus = "pending"
+	ContextualBanditVariationStatusActive  ContextualBanditVariationStatus = "active"
+	ContextualBanditVariationStatusPending ContextualBanditVariationStatus = "pending"
 )
 
-func (e VariationStatus) ToPointer() *VariationStatus {
+func (e ContextualBanditVariationStatus) ToPointer() *ContextualBanditVariationStatus {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *VariationStatus) IsExact() bool {
+func (e *ContextualBanditVariationStatus) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "active", "pending":
@@ -54,11 +54,11 @@ func (e *VariationStatus) IsExact() bool {
 }
 
 type ContextualBanditVariation struct {
-	ID          string           `json:"id"`
-	Key         string           `json:"key"`
-	Name        string           `json:"name"`
-	Description *string          `json:"description,omitzero"`
-	Status      *VariationStatus `json:"status,omitzero"`
+	ID          string                           `json:"id"`
+	Key         string                           `json:"key"`
+	Name        string                           `json:"name"`
+	Description *string                          `json:"description,omitzero"`
+	Status      *ContextualBanditVariationStatus `json:"status,omitzero"`
 }
 
 func (c *ContextualBanditVariation) GetID() string {
@@ -89,7 +89,7 @@ func (c *ContextualBanditVariation) GetDescription() *string {
 	return c.Description
 }
 
-func (c *ContextualBanditVariation) GetStatus() *VariationStatus {
+func (c *ContextualBanditVariation) GetStatus() *ContextualBanditVariationStatus {
 	if c == nil {
 		return nil
 	}
@@ -344,6 +344,7 @@ type ContextualBandit struct {
 	DecisionMetric          *string                                                 `json:"decisionMetric,omitzero"`
 	MinUsersPerLeaf         int64                                                   `json:"minUsersPerLeaf"`
 	MaxLeaves               int64                                                   `json:"maxLeaves"`
+	PriorSampleSize         int64                                                   `json:"priorSampleSize"`
 	HoldoutPercent          float64                                                 `json:"holdoutPercent"`
 	BanditModelVersion      int64                                                   `json:"banditModelVersion"`
 	ScheduleValue           *float64                                                `json:"scheduleValue,omitzero"`
@@ -356,6 +357,7 @@ type ContextualBandit struct {
 	StageDateStarted        *time.Time                                              `json:"stageDateStarted,omitzero"`
 	AutoSnapshots           *bool                                                   `json:"autoSnapshots,omitzero"`
 	NextSnapshotAttempt     *time.Time                                              `json:"nextSnapshotAttempt,omitzero"`
+	HasVisualChangesets     *bool                                                   `json:"hasVisualChangesets,omitzero"`
 }
 
 func (c ContextualBandit) MarshalJSON() ([]byte, error) {
@@ -579,6 +581,13 @@ func (c *ContextualBandit) GetMaxLeaves() int64 {
 	return c.MaxLeaves
 }
 
+func (c *ContextualBandit) GetPriorSampleSize() int64 {
+	if c == nil {
+		return 0
+	}
+	return c.PriorSampleSize
+}
+
 func (c *ContextualBandit) GetHoldoutPercent() float64 {
 	if c == nil {
 		return 0.0
@@ -661,4 +670,11 @@ func (c *ContextualBandit) GetNextSnapshotAttempt() *time.Time {
 		return nil
 	}
 	return c.NextSnapshotAttempt
+}
+
+func (c *ContextualBandit) GetHasVisualChangesets() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.HasVisualChangesets
 }

@@ -8,7 +8,9 @@ import (
 )
 
 type PutSavedGroupRevisionConditionRequestBody struct {
-	RevisionTitle   *string `json:"revisionTitle,omitzero"`
+	// Short draft title (e.g. `Enable for beta testers`). Only used when `version` is "new"; ignored for existing drafts.
+	RevisionTitle *string `json:"revisionTitle,omitzero"`
+	// Markdown. What changed and why, for reviewers. Only used when `version` is "new"; ignored for existing drafts.
 	RevisionComment *string `json:"revisionComment,omitzero"`
 	// The JSON-encoded condition for the saved group
 	Condition string `json:"condition"`
@@ -78,6 +80,9 @@ type PutSavedGroupRevisionConditionResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource updated
 	Object *PutSavedGroupRevisionConditionResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PutSavedGroupRevisionConditionResponse) MarshalJSON() ([]byte, error) {
@@ -103,4 +108,18 @@ func (p *PutSavedGroupRevisionConditionResponse) GetObject() *PutSavedGroupRevis
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PutSavedGroupRevisionConditionResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PutSavedGroupRevisionConditionResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

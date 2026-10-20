@@ -17,8 +17,8 @@ import (
 var setValueCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "key", Shorthand: "k", FieldPath: "Key", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "Short draft title (e.g. `Enable for beta testers`). Only used when `version` is \"new\"; ignored for existing drafts."},
+	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "Markdown. What changed and why, for reviewers. Only used when `version` is \"new\"; ignored for existing drafts."},
 	{FlagName: "value", FieldPath: "Body.Value", Kind: flagutil.FlagKindString, Optional: true, Description: "The default value (raw string for `string` constants, JSON-encoded for `json` constants)"},
 	{FlagName: "environment-values", Shorthand: "e", FieldPath: "Body.EnvironmentValues", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"environmentValues,omitempty"`, Description: "Per-environment value overrides (environment id → value)"},
 }

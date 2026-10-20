@@ -8,11 +8,11 @@ import (
 )
 
 type DeleteFeatureRevisionRuleRampScheduleV2RequestBody struct {
-	// Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
+	// Short draft title (e.g. `Enable for beta testers`). Only used when `version` is "new"; ignored for existing drafts.
 	RevisionTitle *string `json:"revisionTitle,omitzero"`
-	// Comment for a newly created draft. Only used when version is "new"; ignored for existing revisions.
+	// Markdown. What changed and why, for reviewers. Only used when `version` is "new"; ignored for existing drafts.
 	RevisionComment *string `json:"revisionComment,omitzero"`
-	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
 }
 
@@ -97,6 +97,9 @@ type DeleteFeatureRevisionRuleRampScheduleV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource deleted
 	Object *DeleteFeatureRevisionRuleRampScheduleV2ResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (d DeleteFeatureRevisionRuleRampScheduleV2Response) MarshalJSON() ([]byte, error) {
@@ -122,6 +125,20 @@ func (d *DeleteFeatureRevisionRuleRampScheduleV2Response) GetObject() *DeleteFea
 		return nil
 	}
 	return d.Object
+}
+
+func (d *DeleteFeatureRevisionRuleRampScheduleV2Response) GetConfirmationHeld() *components.ConfirmationHeld {
+	if d == nil {
+		return nil
+	}
+	return d.ConfirmationHeld
+}
+
+func (d *DeleteFeatureRevisionRuleRampScheduleV2Response) GetHeaders() map[string][]string {
+	if d == nil {
+		return map[string][]string{}
+	}
+	return d.Headers
 }
 
 // #region class-body-deletefeaturerevisionrulerampschedulev2response

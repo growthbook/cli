@@ -8,8 +8,10 @@ import (
 )
 
 type UpdateSavedGroupRequestBody struct {
-	// The display name of the Saved Group
+	// Short display name (e.g. `Internal employees`). Put details in `description`.
 	Name *string `json:"name,omitzero"`
+	// Short note (max 100 characters) on who is in the Saved Group and why.
+	Description *string `json:"description,omitzero"`
 	// When type = 'condition', this is the JSON-encoded condition for the group
 	Condition *string `json:"condition,omitzero"`
 	// When type = 'list', this is the list of values for the attribute key
@@ -37,6 +39,13 @@ func (u *UpdateSavedGroupRequestBody) GetName() *string {
 		return nil
 	}
 	return u.Name
+}
+
+func (u *UpdateSavedGroupRequestBody) GetDescription() *string {
+	if u == nil {
+		return nil
+	}
+	return u.Description
 }
 
 func (u *UpdateSavedGroupRequestBody) GetCondition() *string {
@@ -130,6 +139,9 @@ type UpdateSavedGroupResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *UpdateSavedGroupResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (u UpdateSavedGroupResponse) MarshalJSON() ([]byte, error) {
@@ -155,4 +167,18 @@ func (u *UpdateSavedGroupResponse) GetObject() *UpdateSavedGroupResponseBody {
 		return nil
 	}
 	return u.Object
+}
+
+func (u *UpdateSavedGroupResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if u == nil {
+		return nil
+	}
+	return u.ConfirmationHeld
+}
+
+func (u *UpdateSavedGroupResponse) GetHeaders() map[string][]string {
+	if u == nil {
+		return map[string][]string{}
+	}
+	return u.Headers
 }

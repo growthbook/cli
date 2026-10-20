@@ -16,11 +16,13 @@ import (
 
 var appendArtifactCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "body-param.kind", FieldPath: "Body.Kind", Kind: flagutil.FlagKindEnum, Required: true, EnumValues: []string{"sdk-connection", "feature", "experiment", "attribute", "metric", "fact-table"}, Description: "options: sdk-connection, feature, experiment, attribute, metric, fact-table [required]"},
+	{FlagName: "body-param.kind", FieldPath: "Body.Kind", Kind: flagutil.FlagKindEnum, Required: true, EnumValues: []string{"sdk-connection", "feature", "experiment", "attribute", "metric", "fact-table", "saved-group", "environment", "tag"}, Description: "options: sdk-connection, feature, experiment, attribute, metric, fact-table, saved-group, environment, tag [required]"},
 	{FlagName: "body-param.id", FieldPath: "Body.ID", Kind: flagutil.FlagKindString, Required: true, Description: "Id, or key for Feature Flags [required]"},
 	{FlagName: "body-param.label", FieldPath: "Body.Label", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "body-param.by", FieldPath: "Body.By", Kind: flagutil.FlagKindEnum, Required: true, EnumValues: []string{"developer", "growthbook"}, Description: "options: developer, growthbook [required]"},
 	{FlagName: "body-param.detail", FieldPath: "Body.Detail", Kind: flagutil.FlagKindString, Optional: true, Description: "Evidence or summary, e.g. 'boolean, off in dev' [required]"},
+	{FlagName: "body-param.external-id", FieldPath: "Body.ExternalID", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"externalId,omitempty"`, Description: "string value"},
+	{FlagName: "body-param.action", FieldPath: "Body.Action", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"created", "updated", "existing", "deleted", "failed"}, Description: "options: created, updated, existing, deleted, failed"},
 }
 
 // initAppendArtifactCmd initializes the append-artifact command.

@@ -4,7 +4,7 @@ Get the most recent active draft revision
 
 ### Synopsis
 
-Returns the most recently updated open (non-merged, non-discarded) revision for the saved group. Returns 404 if there is no active draft. Pass `mine=true` to restrict to drafts authored by the calling user (requires a user-scoped API key).
+Returns the most recently updated open (non-merged, non-discarded) revision for the saved group. Returns 404 if there is no active draft. Pass `mine=true` to restrict to drafts authored by the calling user. Needs a personal access token, or an organization API key that assumes a named member's role.
 
 ```
 growthbook saved-group-revisions latest [flags]
@@ -20,7 +20,7 @@ growthbook saved-group-revisions latest [flags]
 
 ```
   -h, --help                    help for latest
-  -m, --mine                    If true, return only the most recent active draft authored by the calling user. Requires a user-scoped API key.
+  -m, --mine                    If true, return only the most recent active draft authored by the calling user. Needs a personal access token, or an organization API key that assumes a named member's role.
   -s, --saved-group-id string   [required]
 ```
 

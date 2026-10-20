@@ -16,11 +16,11 @@ import (
 
 var updateHoldoutCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "name", Shorthand: "n", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "projects", Shorthand: "p", FieldPath: "Body.Projects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
+	{FlagName: "name", Shorthand: "n", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Optional: true, Description: "Short display name. Put details in `description`."},
+	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Markdown. Put context here, not in the name."},
+	{FlagName: "projects", Shorthand: "p", FieldPath: "Body.Projects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Project IDs this Holdout applies to. Send an empty array for All Projects."},
 	{FlagName: "owner", FieldPath: "Body.Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization."},
-	{FlagName: "tags", FieldPath: "Body.Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
+	{FlagName: "tags", FieldPath: "Body.Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Tags for filtering and grouping. Use these instead of encoding groups in names."},
 	{FlagName: "archived", FieldPath: "Body.Archived", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "skip-as-default-holdout", FieldPath: "Body.SkipAsDefaultHoldout", Kind: flagutil.FlagKindBool, Optional: true, Description: "When true, this Holdout is not selected automatically when creating Feature Flags or Experiments in Projects assigned to the Holdout."},
 	{FlagName: "holdout-size", FieldPath: "Body.HoldoutSize", Kind: flagutil.FlagKindFloat64, Optional: true, Description: "Proportion of traffic placed in the holdout group (e.g. 0.05 for 5%). An equally sized comparison group is sampled from the remaining traffic for measurement, so 2× this value enters the holdout experiment in total. Must be greater than 0 and at most 0.5."},

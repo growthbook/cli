@@ -23,13 +23,13 @@ growthbook holdouts create [flags]
       --assignment-query-id assignmentQuery   Deprecated: use assignmentQuery. Rejected when selecting a different assignment query that declares several identifier types; set `assignmentQuery.identifierType` instead.
       --body string                           Request body as JSON (alternative to individual flags). Can also be provided via stdin.
       --datasource-id string                  string value
-      --description string                    string value
+      --description string                    Markdown. Put context here, not in the name.
   -e, --environments string                   Per-environment state, keyed by environment ID. Environments not listed are disabled.
   -g, --goal-metrics stringArray              list of values
       --hash-attribute string                 string value
   -h, --help                                  help for create
       --holdout-size float                    Proportion of traffic held out, expressed as a decimal (e.g. 0.05 for 5%). An equally-sized control group is bucketed alongside it. Defaults to 0.05. Maximum 0.5.
-  -n, --name string                           [required]
+  -n, --name description                      Short display name. Put details in description. [required]
       --owner string                          The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
   -p, --projects stringArray                  Project IDs this Holdout applies to. Omit or send an empty array for All Projects.
       --saved-group-targeting string          list of values
@@ -37,7 +37,7 @@ growthbook holdouts create [flags]
       --skip-as-default-holdout               When true, this Holdout is not selected automatically when creating Feature Flags or Experiments in Projects assigned to the Holdout.
       --stats-engine string                   Statistics engine used to analyze this Holdout. (options: bayesian, frequentist)
       --status-update-schedule startAt        Automatic stage transitions for the Holdout. Dates must be consecutive: startAt before `startAnalysisPeriodAt` before `stopAt`. Send `null` to delete the schedule.
-      --tags stringArray                      list of values
+      --tags stringArray                      Tags for filtering and grouping. Use these instead of encoding groups in names.
       --targeting-condition string            Targeting condition as a JSON string.
 ```
 

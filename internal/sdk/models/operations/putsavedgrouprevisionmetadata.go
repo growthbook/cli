@@ -8,11 +8,15 @@ import (
 )
 
 type PutSavedGroupRevisionMetadataRequestBody struct {
-	RevisionTitle   *string `json:"revisionTitle,omitzero"`
+	// Short draft title (e.g. `Enable for beta testers`). Only used when `version` is "new"; ignored for existing drafts.
+	RevisionTitle *string `json:"revisionTitle,omitzero"`
+	// Markdown. What changed and why, for reviewers. Only used when `version` is "new"; ignored for existing drafts.
 	RevisionComment *string `json:"revisionComment,omitzero"`
-	Name            *string `json:"name,omitzero"`
+	// Short display name (e.g. `Internal employees`). Put details in `description`.
+	Name *string `json:"name,omitzero"`
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-	Owner       *string  `json:"owner,omitzero"`
+	Owner *string `json:"owner,omitzero"`
+	// Short note (max 100 characters) on who is in the Saved Group and why.
 	Description *string  `json:"description,omitzero"`
 	Projects    []string `json:"projects,omitzero"`
 }
@@ -113,6 +117,9 @@ type PutSavedGroupRevisionMetadataResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource updated
 	Object *PutSavedGroupRevisionMetadataResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PutSavedGroupRevisionMetadataResponse) MarshalJSON() ([]byte, error) {
@@ -138,4 +145,18 @@ func (p *PutSavedGroupRevisionMetadataResponse) GetObject() *PutSavedGroupRevisi
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PutSavedGroupRevisionMetadataResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PutSavedGroupRevisionMetadataResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

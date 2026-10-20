@@ -39,11 +39,11 @@ func (p *PutProjectSettings) GetPValueThreshold() *float64 {
 }
 
 type PutProjectRequestBody struct {
-	// Project name.
+	// Short display name. Put details in `description`.
 	Name *string `json:"name,omitzero"`
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
 	Owner *string `json:"owner,omitzero"`
-	// Project description.
+	// Put context here, not in the name.
 	Description *string `json:"description,omitzero"`
 	// URL-safe slug (lowercase letters, numbers, dashes).
 	PublicID *string `json:"publicId,omitzero"`
@@ -151,6 +151,9 @@ type PutProjectResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource updated
 	Object *PutProjectResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PutProjectResponse) MarshalJSON() ([]byte, error) {
@@ -176,4 +179,18 @@ func (p *PutProjectResponse) GetObject() *PutProjectResponseBody {
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PutProjectResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PutProjectResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

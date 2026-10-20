@@ -19,14 +19,14 @@ growthbook constant-revisions set-value [flags]
 ### Options
 
 ```
-      --body string                 Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -e, --environment-values string   Per-environment value overrides (environment id → value)
-  -h, --help                        help for set-value
-  -k, --key string                  [required]
-      --revision-comment string     string value
-      --revision-title string       string value
-      --value string                The default value (raw string for string constants, JSON-encoded for `json` constants)
-      --version-param string        [required]
+      --body string                              Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -e, --environment-values string                Per-environment value overrides (environment id → value)
+  -h, --help                                     help for set-value
+  -k, --key string                               [required]
+      --revision-comment version                 Markdown. What changed and why, for reviewers. Only used when version is "new"; ignored for existing drafts.
+      --revision-title Enable for beta testers   Short draft title (e.g. Enable for beta testers). Only used when `version` is "new"; ignored for existing drafts.
+      --value string                             The default value (raw string for string constants, JSON-encoded for `json` constants)
+      --version-param string                     [required]
 ```
 
 ### Options inherited from parent commands

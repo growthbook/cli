@@ -39,9 +39,10 @@ func (e *PostConfigRevisionSubmitReviewDecision) UnmarshalJSON(data []byte) erro
 }
 
 type PostConfigRevisionSubmitReviewRequestBody struct {
-	Decision        PostConfigRevisionSubmitReviewDecision `json:"decision"`
-	Comment         *string                                `json:"comment,omitzero"`
-	SkipAutoPublish *bool                                  `json:"skipAutoPublish,omitzero"`
+	Decision PostConfigRevisionSubmitReviewDecision `json:"decision"`
+	// Markdown. Why you approved, requested changes or commented.
+	Comment         *string `json:"comment,omitzero"`
+	SkipAutoPublish *bool   `json:"skipAutoPublish,omitzero"`
 }
 
 func (p *PostConfigRevisionSubmitReviewRequestBody) GetDecision() PostConfigRevisionSubmitReviewDecision {
@@ -116,6 +117,9 @@ type PostConfigRevisionSubmitReviewResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostConfigRevisionSubmitReviewResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostConfigRevisionSubmitReviewResponse) MarshalJSON() ([]byte, error) {
@@ -141,4 +145,18 @@ func (p *PostConfigRevisionSubmitReviewResponse) GetObject() *PostConfigRevision
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostConfigRevisionSubmitReviewResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostConfigRevisionSubmitReviewResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

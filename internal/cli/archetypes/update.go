@@ -16,8 +16,8 @@ import (
 
 var updateCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The id of the requested resource [required]"},
-	{FlagName: "name", Shorthand: "n", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "name", Shorthand: "n", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Optional: true, Description: "Short display name (e.g. `Logged-out US visitor`)."},
+	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Put context here, not in the name."},
 	{FlagName: "is-public", FieldPath: "Body.IsPublic", Kind: flagutil.FlagKindBool, Optional: true, Description: "Whether to make this Archetype available to other team members"},
 	{FlagName: "attributes", Shorthand: "a", FieldPath: "Body.Attributes", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"attributes,omitempty"`, Description: "The attributes to set when using this Archetype"},
 	{FlagName: "projects", Shorthand: "p", FieldPath: "Body.Projects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},

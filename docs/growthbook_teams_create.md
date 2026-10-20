@@ -22,12 +22,12 @@ growthbook teams create [flags]
       --body string                   Request body as JSON (alternative to individual flags). Can also be provided via stdin.
   -c, --created-by string             string value
       --default-project string        string value
-      --description string            [required]
+      --description string            Put context here, not in the name. [required]
   -e, --environments stringArray      An empty array means 'all environments'
   -h, --help                          help for create
   -l, --limit-access-by-environment   boolean flag
   -m, --managed-by string             JSON value (one of: { resourceId: string })
-  -n, --name string                   [required]
+  -n, --name description              Short display name. Put details in description. [required]
   -p, --project-roles string          list of values
   -r, --role string                   The global role for members of this team [required]
 ```

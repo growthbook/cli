@@ -16,8 +16,8 @@ import (
 
 var createCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "saved-group-id", Shorthand: "s", FieldPath: "SavedGroupID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "title", Shorthand: "t", FieldPath: "Body.Title", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "comment", Shorthand: "c", FieldPath: "Body.Comment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "title", Shorthand: "t", FieldPath: "Body.Title", Kind: flagutil.FlagKindString, Optional: true, Description: "Short draft title (e.g. `Enable for beta testers`)."},
+	{FlagName: "comment", Shorthand: "c", FieldPath: "Body.Comment", Kind: flagutil.FlagKindString, Optional: true, Description: "Markdown. What changed and why, for reviewers."},
 }
 
 // initCreateCmd initializes the create command.

@@ -16,11 +16,11 @@ import (
 
 var updateFactMetricCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The id of the requested resource [required]"},
-	{FlagName: "name", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "name", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Optional: true, Description: "Short display name (e.g. `Purchases per user`). Put the definition in `description`."},
+	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Markdown. Put context here, not in the name."},
 	{FlagName: "owner", FieldPath: "Body.Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization."},
 	{FlagName: "projects", FieldPath: "Body.Projects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
-	{FlagName: "tags", FieldPath: "Body.Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
+	{FlagName: "tags", FieldPath: "Body.Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Tags for filtering and grouping. Use these instead of encoding groups in names."},
 	{FlagName: "metric-type", FieldPath: "Body.MetricType", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"proportion", "retention", "mean", "quantile", "ratio", "dailyParticipation", "funnel"}, Description: "options: proportion, retention, mean, quantile, ratio, dailyParticipation, funnel"},
 	{FlagName: "numerator", FieldPath: "Body.Numerator", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"numerator,omitempty"`, Description: "JSON object"},
 	{FlagName: "denominator", FieldPath: "Body.Denominator", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"denominator,omitempty"`, Description: "Only when metricType is 'ratio'"},

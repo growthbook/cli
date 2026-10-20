@@ -21,10 +21,10 @@ growthbook projects create [flags]
 ```
   -a, --allow-targeting      Whether Feature Flags owned by other Projects may add this Project to their Targeting Projects. Defaults to true. Turning it off blocks new targeting (and All Projects); existing targeting is kept.
       --body string          Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --description string   string value
+      --description string   Put context here, not in the name.
   -h, --help                 help for create
-  -n, --name string          [required]
-      --owner string         The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the user associated with the request's Personal Access Token (PAT), if one is being used.
+  -n, --name description     Short display name. Put details in description. [required]
+      --owner string         The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the requesting member: a personal access token's owner, or the member an organization API key assumes. An organization API key acting as itself leaves it empty.
   -p, --public-id string     URL-safe slug (lowercase letters, numbers, dashes). Auto-generated from name if not provided.
   -r, --restrict-access      When true, only members with an explicit role on this Project (directly or via a team) can access it. Members with the manageTeam permission retain access. Requires a Pro or Enterprise plan.
   -s, --settings string      Project stats settings that, when set, override the organization settings.

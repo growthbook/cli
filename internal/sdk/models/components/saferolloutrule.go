@@ -321,6 +321,7 @@ func (s *SafeRolloutFields) GetRampUpSchedule() *RampUpSchedule {
 
 // SafeRolloutRule - A safe rollout rule with automated guardrail monitoring and optional auto-rollback.
 type SafeRolloutRule struct {
+	// Short note on why the rule exists (e.g. `Beta testers only`).
 	Description   *string                       `json:"description,omitzero"`
 	Enabled       *bool                         `json:"enabled,omitzero"`
 	Condition     *string                       `json:"condition,omitzero"`

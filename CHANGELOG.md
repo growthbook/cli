@@ -2,6 +2,20 @@
 
 ## [Unreleased]
 
+### Added
+
+- **`populations`** (`create`, `delete`, `get`, `list`, `update`) manages populations: a set of
+  units defined by the steps they must complete. Populations are not yet used in analysis.
+- **Confirmation holds.** A mutating command can now return a `confirmation` object instead of
+  its result when GrowthBook holds the change until a person confirms it. Check its outcome with
+  **`meta get-confirmation --id <id> [--wait <seconds>]`**.
+- **`--description` on `saved-groups create|update`**, **`--prior-sample-size` on
+  `contextual-bandits create|update`**, and **`--body-param.action` / `--body-param.external-id`
+  on `auto-runs append-artifact`**. `auto-runs create` accepts `eppoImport` as a source.
+- Actor objects (`createdBy`, `publishedBy`, revision log `user`, reviews) gain `apiKey`,
+  `requestedBy` and `assumedRole`. Ramp-schedule step approvals gain `approvedByUser`, feature
+  revisions gain `autoPublishEnabledByUser`, and data source assignment queries gain `projects`.
+
 ### Fixed
 
 - **`generate-types`** types a JSON feature whose default value is an array as `unknown[]`, so

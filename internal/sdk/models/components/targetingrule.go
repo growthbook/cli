@@ -127,6 +127,7 @@ func (e *TargetingRuleType) UnmarshalJSON(data []byte) error {
 
 // TargetingRule - A targeting rule that serves a specific value to users matching the conditions. Set coverage < 1 for a percentage rollout.
 type TargetingRule struct {
+	// Short note on why the rule exists (e.g. `Beta testers only`).
 	Description   *string                     `json:"description,omitzero"`
 	Enabled       *bool                       `json:"enabled,omitzero"`
 	Condition     *string                     `json:"condition,omitzero"`

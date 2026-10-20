@@ -28,7 +28,7 @@ growthbook segments update [flags]
       --id string                The id of the requested resource [required]
       --identifier-type string   Type of identifier (user, anonymous, etc.)
   -m, --managed-by string        Where this Segment must be managed from. If not set (empty string), it can be managed from anywhere. (options: , api)
-  -n, --name string              Name of the segment
+  -n, --name description         Short display name. Put details in description.
       --owner string             The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
   -p, --projects stringArray     List of project IDs for projects that can access this segment
       --query string             SQL query that defines the Segment. This is required for SQL segments.

@@ -16,7 +16,7 @@ import (
 
 var createCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "display-name", FieldPath: "DisplayName", Kind: flagutil.FlagKindString, Required: true, Description: "Human-readable display name. Must be unique within the organization. [required]"},
-	{FlagName: "description", FieldPath: "Description", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "description", FieldPath: "Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Put context here, not in the name."},
 	{FlagName: "status", Shorthand: "s", FieldPath: "Status", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"active", "inactive"}, Description: "options: active, inactive"},
 	{FlagName: "format-param", Shorthand: "f", FieldPath: "Format", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"legacy", "multiRange"}, Description: "Namespace format. Defaults to 'multiRange', which supports multiple ranges per experiment and a configurable hash attribute. (options: legacy, multiRange)"},
 	{FlagName: "hash-attribute", FieldPath: "HashAttribute", Kind: flagutil.FlagKindString, Optional: true, Description: "Required when format is 'multiRange'. The user attribute (e.g. 'id', 'device_id') used to assign users to namespace buckets."},

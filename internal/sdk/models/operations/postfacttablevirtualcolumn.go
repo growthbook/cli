@@ -93,7 +93,8 @@ type PostFactTableVirtualColumnRequestBody struct {
 	// The column identifier used in generated SQL. Must contain only letters, numbers, and underscores and end with `_vc`.
 	Column string `json:"column"`
 	// Display name for the column
-	Name         *string                                 `json:"name,omitzero"`
+	Name *string `json:"name,omitzero"`
+	// Put context here, not in the name.
 	Description  *string                                 `json:"description,omitzero"`
 	NumberFormat *PostFactTableVirtualColumnNumberFormat `json:"numberFormat,omitzero"`
 	// The data type of the computed column
@@ -180,6 +181,9 @@ type PostFactTableVirtualColumnResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostFactTableVirtualColumnResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostFactTableVirtualColumnResponse) MarshalJSON() ([]byte, error) {
@@ -205,4 +209,18 @@ func (p *PostFactTableVirtualColumnResponse) GetObject() *PostFactTableVirtualCo
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostFactTableVirtualColumnResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostFactTableVirtualColumnResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

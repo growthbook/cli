@@ -23,14 +23,14 @@ growthbook attributes create [flags]
       --body string            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
   -c, --custom-fields string   Values for the organization's attribute custom fields, keyed by field id
       --datatype string        The attribute datatype (options: boolean, string, number, secureString, enum, string[], number[], secureString[]) [required]
-      --description string     The description of the new attribute
+      --description string     Markdown. Put context here, not in the name.
   -e, --enum string            Comma-separated list of allowed values. Required for the 'enum' datatype. For array datatypes (string[], number[], secureString[]) it optionally restricts the list to these values. Ignored for all other datatypes.
   -f, --format-param string    The attribute's format (options: , version, date, isoCountryCode)
       --hash-attribute         Shall the attribute be hashed
   -h, --help                   help for create
-      --projects stringArray   list of values
-      --property string        The attribute property [required]
-  -t, --tags stringArray       list of values
+      --projects stringArray   Project IDs that can use this. An empty list means all Projects. Projects control access and availability, so don't use them as labels.
+      --property userId        Attribute name exactly as your SDK passes it (e.g. userId). The API can't rename it, and renaming it in the UI doesn't update SDK code or targeting conditions. [required]
+  -t, --tags stringArray       Tags for filtering and grouping. Use these instead of encoding groups in names.
 ```
 
 ### Options inherited from parent commands

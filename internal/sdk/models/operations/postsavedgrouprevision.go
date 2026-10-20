@@ -8,7 +8,9 @@ import (
 )
 
 type PostSavedGroupRevisionRequestBody struct {
-	Title   *string `json:"title,omitzero"`
+	// Short draft title (e.g. `Enable for beta testers`).
+	Title *string `json:"title,omitzero"`
+	// Markdown. What changed and why, for reviewers.
 	Comment *string `json:"comment,omitzero"`
 }
 
@@ -61,6 +63,9 @@ type PostSavedGroupRevisionResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostSavedGroupRevisionResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostSavedGroupRevisionResponse) MarshalJSON() ([]byte, error) {
@@ -86,4 +91,18 @@ func (p *PostSavedGroupRevisionResponse) GetObject() *PostSavedGroupRevisionResp
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostSavedGroupRevisionResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostSavedGroupRevisionResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

@@ -35,6 +35,9 @@ type DeleteConstantResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource deleted
 	Object *DeleteConstantResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (d DeleteConstantResponse) MarshalJSON() ([]byte, error) {
@@ -60,4 +63,18 @@ func (d *DeleteConstantResponse) GetObject() *DeleteConstantResponseBody {
 		return nil
 	}
 	return d.Object
+}
+
+func (d *DeleteConstantResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if d == nil {
+		return nil
+	}
+	return d.ConfirmationHeld
+}
+
+func (d *DeleteConstantResponse) GetHeaders() map[string][]string {
+	if d == nil {
+		return map[string][]string{}
+	}
+	return d.Headers
 }

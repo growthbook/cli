@@ -1142,11 +1142,11 @@ type PutFeatureRevisionRuleRampScheduleV2RequestBody struct {
 	Environment *string `json:"environment,omitzero"`
 	// The rule state to roll back to (the rollback/jump-to-start anchor). Merged onto the rule's current state, so `{ "coverage": 0 }` keeps existing targeting but rolls back to 0%. Steps accumulate on it, and it is the only place a plan sets `hashAttribute` (plus optional `seed` and `hashVersion`), which a partial-coverage step on a force rule requires unless the rule has one. On create, omitting it infers the anchor from the rule's current coverage (and returns a warning if that isn't 0%); on update of a live schedule, omitting it leaves the existing anchor unchanged.
 	StartState *StartState `json:"startState,omitzero"`
-	// Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
+	// Short draft title (e.g. `Enable for beta testers`). Only used when `version` is "new"; ignored for existing drafts.
 	RevisionTitle *string `json:"revisionTitle,omitzero"`
-	// Comment for a newly created draft. Only used when version is "new"; ignored for existing revisions.
+	// Markdown. What changed and why, for reviewers. Only used when `version` is "new"; ignored for existing drafts.
 	RevisionComment *string `json:"revisionComment,omitzero"`
-	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
 }
 
@@ -1346,6 +1346,9 @@ type PutFeatureRevisionRuleRampScheduleV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource updated
 	Object *PutFeatureRevisionRuleRampScheduleV2ResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PutFeatureRevisionRuleRampScheduleV2Response) MarshalJSON() ([]byte, error) {
@@ -1371,6 +1374,20 @@ func (p *PutFeatureRevisionRuleRampScheduleV2Response) GetObject() *PutFeatureRe
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PutFeatureRevisionRuleRampScheduleV2Response) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PutFeatureRevisionRuleRampScheduleV2Response) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }
 
 // #region class-body-putfeaturerevisionrulerampschedulev2response

@@ -8,7 +8,7 @@ DEPRECATED: This will be removed in a future release, please migrate away from i
 
 **Deprecated.** Use [POST /v2/features/:id/revisions/:version/submit-review](#operation/postFeatureRevisionSubmitReviewV2) instead.
 
-Submits an `approve`, `request-changes`, or `comment` review on the draft. Contributors cannot approve their own drafts, but may submit comments or request changes.
+Submits an `approve`, `request-changes`, or `comment` review on the draft. The verdict belongs to whoever the request acts as; see [Naming who asked](/api/introduction#naming-who-asked). No one can rule on a draft they created. Contributors cannot approve their own drafts, but may submit comments or request changes.
 
 When `action` is `approve` and the revision has `autoPublishOnApproval` enabled, the revision is automatically published after approval. Pass `skipAutoPublish: true` to approve without triggering auto-publish.
 
@@ -25,7 +25,7 @@ growthbook feature-revisions-v1 post-feature-revision-submit-review [flags]
 ### Options
 
 ```
-  -a, --action string          options: approve, request-changes, comment
+  -a, --action approve         approve, `request-changes` or `comment`. Defaults to `comment`, which doesn't change whether the draft is approved. (options: approve, request-changes, comment)
       --body string            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
   -c, --comment string         string value
   -h, --help                   help for post-feature-revision-submit-review

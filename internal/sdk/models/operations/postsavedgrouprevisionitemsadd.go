@@ -8,7 +8,9 @@ import (
 )
 
 type PostSavedGroupRevisionItemsAddRequestBody struct {
-	RevisionTitle   *string  `json:"revisionTitle,omitzero"`
+	// Short draft title (e.g. `Enable for beta testers`). Only used when `version` is "new"; ignored for existing drafts.
+	RevisionTitle *string `json:"revisionTitle,omitzero"`
+	// Markdown. What changed and why, for reviewers. Only used when `version` is "new"; ignored for existing drafts.
 	RevisionComment *string  `json:"revisionComment,omitzero"`
 	Items           []string `json:"items"`
 }
@@ -77,6 +79,9 @@ type PostSavedGroupRevisionItemsAddResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostSavedGroupRevisionItemsAddResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostSavedGroupRevisionItemsAddResponse) MarshalJSON() ([]byte, error) {
@@ -102,4 +107,18 @@ func (p *PostSavedGroupRevisionItemsAddResponse) GetObject() *PostSavedGroupRevi
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostSavedGroupRevisionItemsAddResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostSavedGroupRevisionItemsAddResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }
