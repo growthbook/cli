@@ -33,7 +33,7 @@ growthbook auth login
 growthbook auth logout
 growthbook auth whoami
 growthbook auto-runs
-growthbook auto-runs append-artifact  [--body --body-param.by --body-param.detail --body-param.id --body-param.kind --body-param.label --id]
+growthbook auto-runs append-artifact  [--body --body-param.action --body-param.by --body-param.detail --body-param.external-id --body-param.id --body-param.kind --body-param.label --id]
 growthbook auto-runs create  [--agent --body --metadata --source]
 growthbook auto-runs get  [--id]
 growthbook auto-runs list
@@ -121,7 +121,7 @@ growthbook contextual-bandit-queries update  [--body --description --id --name -
 growthbook contextual-bandits
 growthbook contextual-bandits add-linked-feature  [--all-environments --all-projects --auto-publish --body --description --draft-version --enabled --environments --feature-id --id --projects --variations]
 growthbook contextual-bandits cancel  [--id]
-growthbook contextual-bandits create  [--body --burn-in-unit --burn-in-value --contextual-attributes --contextual-bandit-query-id --conversion-window-unit --conversion-window-value --datasource --decision-metric --description --hash-attribute --max-leaves --min-users-per-leaf --name --owner --project --schedule-unit --schedule-value --tags --tracking-key --variations]
+growthbook contextual-bandits create  [--body --burn-in-unit --burn-in-value --contextual-attributes --contextual-bandit-query-id --conversion-window-unit --conversion-window-value --datasource --decision-metric --description --hash-attribute --max-leaves --min-users-per-leaf --name --owner --prior-sample-size --project --schedule-unit --schedule-value --tags --tracking-key --variations]
 growthbook contextual-bandits delete-linked-feature  [--auto-publish --draft-version --feature-id --id]
 growthbook contextual-bandits get  [--id]
 growthbook contextual-bandits get-current-weights  [--id]
@@ -135,7 +135,7 @@ growthbook contextual-bandits list-snapshots  [--id --limit]
 growthbook contextual-bandits refresh  [--id]
 growthbook contextual-bandits start  [--id]
 growthbook contextual-bandits stop  [--id]
-growthbook contextual-bandits update  [--archived --body --burn-in-unit --burn-in-value --condition --contextual-attributes --contextual-bandit-query-id --conversion-window-unit --conversion-window-value --coverage --datasource --decision-metric --description --hash-attribute --id --max-leaves --min-users-per-leaf --name --owner --prerequisites --project --saved-groups --schedule-unit --schedule-value --seed --status --tags --tracking-key]
+growthbook contextual-bandits update  [--archived --body --burn-in-unit --burn-in-value --condition --contextual-attributes --contextual-bandit-query-id --conversion-window-unit --conversion-window-value --coverage --datasource --decision-metric --description --hash-attribute --id --max-leaves --min-users-per-leaf --name --owner --prerequisites --prior-sample-size --project --saved-groups --schedule-unit --schedule-value --seed --status --tags --tracking-key]
 growthbook contextual-bandits update-linked-feature  [--all-environments --all-projects --auto-publish --body --description --draft-version --enabled --environments --feature-id --id --projects --variations]
 growthbook contextual-bandits update-variations  [--add-variations --body --id --remove-variation-ids --update-variations]
 growthbook copy-transform  [--body --copy --mode --visual-changeset-id]
@@ -335,6 +335,7 @@ growthbook members delete  [--id]
 growthbook members list  [--all --global-role --limit --max-pages --offset --user-email --user-name]
 growthbook members update-role  [--body --id --member]
 growthbook meta
+growthbook meta get-confirmation  [--id --wait]
 growthbook meta get-version
 growthbook metric-groups
 growthbook metric-groups create  [--archived --body --datasource --description --metrics --name --owner --projects --tags]
@@ -361,6 +362,12 @@ growthbook organizations
 growthbook organizations create  [--body --external-id --name]
 growthbook organizations list  [--all --limit --max-pages --offset --search]
 growthbook organizations update  [--body --external-id --id --name]
+growthbook populations
+growthbook populations create  [--body --datasource --description --name --owner --projects --steps --user-id-types]
+growthbook populations delete  [--id]
+growthbook populations get  [--id]
+growthbook populations list  [--limit --offset]
+growthbook populations update  [--body --description --id --name --owner --projects --steps --user-id-types]
 growthbook profiles
 growthbook profiles list
 growthbook profiles remove
@@ -438,13 +445,13 @@ growthbook saved-group-revisions submit-review  [--body --comment --decision --s
 growthbook saved-group-revisions undo-review  [--body --body-param --saved-group-id --version-param]
 growthbook saved-groups
 growthbook saved-groups archive  [--body --id --ignore-warnings]
-growthbook saved-groups create  [--attribute-key --body --bypass-approval --condition --name --owner --projects --type --values]
+growthbook saved-groups create  [--attribute-key --body --bypass-approval --condition --description --name --owner --projects --type --values]
 growthbook saved-groups delete  [--id]
 growthbook saved-groups get  [--id]
 growthbook saved-groups get-references  [--id]
 growthbook saved-groups list  [--all --limit --max-pages --offset]
 growthbook saved-groups unarchive  [--id]
-growthbook saved-groups update  [--body --bypass-approval --condition --id --name --owner --projects --values]
+growthbook saved-groups update  [--body --bypass-approval --condition --description --id --name --owner --projects --values]
 growthbook segments
 growthbook segments create  [--body --datasource-id --description --fact-table-id --filters --identifier-type --managed-by --name --owner --projects --query --type]
 growthbook segments delete  [--id]
