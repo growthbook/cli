@@ -35,13 +35,13 @@ growthbook experiments update [flags]
       --bandit-schedule-value float                  number value
       --body string                                  Request body as JSON (alternative to individual flags). Can also be provided via stdin.
       --bucket-version int                           integer value
-      --bypass-duplicate-key-check                   If true, allow updating the tracking key even if another experiment with the same tracking key already exist. This is ignored if the organization requires unique tracking keys as a rule.
+      --bypass-duplicate-key-check                   If true, allow updating the tracking key even if another experiment with the same tracking key already exist. This is ignored if the organization requires unique tracking keys as a rule. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
       --custom-fields string                         value
       --custom-metric-slices string                  Custom slices that apply to ALL applicable metrics in the experiment
       --datasource-id string                         Can only be set if existing experiment does not have a datasource
       --decision-framework-settings string           Controls the decision framework and metric overrides for the experiment. Replaces the entire stored object on update (does not patch individual fields).
       --default-dashboard-id string                  ID of the default dashboard for this experiment.
-      --description string                           Description of the experiment
+      --description string                           Markdown. Put context here, not in the name.
       --disable-sticky-bucketing                     boolean flag
   -e, --exclude-from-payload                         If true, the experiment is excluded from the SDK payload. Maps to resultSummary.excludeFromPayload in the GET response.
   -f, --fallback-attribute string                    string value
@@ -49,15 +49,15 @@ growthbook experiments update [flags]
       --hash-attribute string                        string value
       --hash-version float                           number value
   -h, --help                                         help for update
-      --hypothesis string                            Hypothesis of the experiment
+      --hypothesis string                            Markdown. If we change X, metric Y will move because Z.
       --id string                                    The id of the requested resource [required]
-      --ignore-warnings                              Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+      --ignore-warnings                              Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
       --in-progress-conversions string               options: loose, strict
   -l, --lookback-override string                     Controls the lookback override for the experiment. For type "window", value must be a non-negative number and valueUnit is required.
       --metric-overrides string                      Per-metric analysis overrides for this experiment. Replaces the entire stored array (does not patch individual entries).
       --metrics stringArray                          list of values
       --min-bucket-version int                       integer value
-  -n, --name string                                  Name of the experiment
+  -n, --name Express checkout button                 Short display name (e.g. Express checkout button). Put reasoning in `hypothesis` and context in `description`.
       --owner string                                 The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
       --phases string                                list of values
       --post-stratification-enabled string           When null, the organization default is used.
@@ -75,8 +75,8 @@ growthbook experiments update [flags]
       --stats-engine string                          options: bayesian, frequentist
       --status string                                options: draft, running, stopped
       --status-update-schedule string                JSON object
-      --tags stringArray                             list of values
-      --tracking-key string                          string value
+      --tags stringArray                             Tags for filtering and grouping. Use these instead of encoding groups in names.
+      --tracking-key invalid_tracking_key            Key sent with exposure events. Keep it short, in kebab-case (usually the Feature Flag key). If your organization requires a tracking key format, a key that doesn't match is rejected with invalid_tracking_key. Changing it after launch splits exposures across two keys.
       --type string                                  options: standard, multi-armed-bandit
   -v, --variations string                            list of values
   -w, --winner float                                 The index of the winning variation (0-indexed). Maps to resultSummary.winner (variation ID) in the GET response.

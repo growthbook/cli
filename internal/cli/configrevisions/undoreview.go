@@ -25,7 +25,7 @@ func initUndoReviewCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "undo-review",
 		Short:   "Retract your own review verdict",
-		Long:    "Retracts the calling user's own active `approve` or `request-changes` verdict, returning the revision to `pending-review`. Review comments stay in the log. Retracting a `request-changes` can leave the revision approved by someone else, in which case an armed auto-publish fires.",
+		Long:    "Retracts the calling user's own active `approve` or `request-changes` verdict, returning the revision to `pending-review`. Review comments stay in the log. Retracting a `request-changes` can leave the revision approved by someone else, in which case an armed auto-publish fires. The verdict belongs to whoever the request acts as; see [Naming who asked](/api/introduction#naming-who-asked). No one can rule on a draft they created.",
 		Example: "  growthbook config-revisions undo-review --key <key> --version-param <value>",
 		RunE:    runUndoReviewCmd,
 		Aliases: []string{"ur"},

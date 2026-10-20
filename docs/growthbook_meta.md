@@ -43,4 +43,5 @@ growthbook meta [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
+* [growthbook meta get-confirmation](growthbook_meta_get-confirmation.md)	 - Get a confirmation
 * [growthbook meta get-version](growthbook_meta_get-version.md)	 - Get the GrowthBook server version and build info

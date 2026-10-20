@@ -7,64 +7,6 @@ import (
 	"time"
 )
 
-type LogType string
-
-const (
-	LogTypeDashboard LogType = "dashboard"
-	LogTypeAPIKey    LogType = "api_key"
-	LogTypeSystem    LogType = "system"
-)
-
-func (e LogType) ToPointer() *LogType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *LogType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "dashboard", "api_key", "system":
-			return true
-		}
-	}
-	return false
-}
-
-type User struct {
-	Type  LogType `json:"type"`
-	ID    *string `json:"id,omitzero"`
-	Name  *string `json:"name,omitzero"`
-	Email *string `json:"email,omitzero"`
-}
-
-func (u *User) GetType() LogType {
-	if u == nil {
-		return LogType("")
-	}
-	return u.Type
-}
-
-func (u *User) GetID() *string {
-	if u == nil {
-		return nil
-	}
-	return u.ID
-}
-
-func (u *User) GetName() *string {
-	if u == nil {
-		return nil
-	}
-	return u.Name
-}
-
-func (u *User) GetEmail() *string {
-	if u == nil {
-		return nil
-	}
-	return u.Email
-}
-
 type Log struct {
 	// Log entry ID. Use a `Comment` entry's id with the PUT/DELETE log endpoints to edit or delete an owned comment. Absent on legacy entries stored inline on the revision.
 	ID *string `json:"id,omitzero"`
@@ -72,9 +14,9 @@ type Log struct {
 	Action  string `json:"action"`
 	Subject string `json:"subject"`
 	// JSON-encoded payload for the entry
-	Value     string    `json:"value"`
-	Timestamp time.Time `json:"timestamp"`
-	User      *User     `json:"user"`
+	Value     string     `json:"value"`
+	Timestamp time.Time  `json:"timestamp"`
+	User      *EventUser `json:"user"`
 }
 
 func (l Log) MarshalJSON() ([]byte, error) {
@@ -123,7 +65,7 @@ func (l *Log) GetTimestamp() time.Time {
 	return l.Timestamp
 }
 
-func (l *Log) GetUser() *User {
+func (l *Log) GetUser() *EventUser {
 	if l == nil {
 		return nil
 	}

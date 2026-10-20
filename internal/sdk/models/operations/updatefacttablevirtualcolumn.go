@@ -91,7 +91,8 @@ func (e *UpdateFactTableVirtualColumnDatatype) UnmarshalJSON(data []byte) error 
 
 type UpdateFactTableVirtualColumnRequestBody struct {
 	// Display name for the column
-	Name         *string                                   `json:"name,omitzero"`
+	Name *string `json:"name,omitzero"`
+	// Put context here, not in the name.
 	Description  *string                                   `json:"description,omitzero"`
 	NumberFormat *UpdateFactTableVirtualColumnNumberFormat `json:"numberFormat,omitzero"`
 	// The data type of the computed column
@@ -180,6 +181,9 @@ type UpdateFactTableVirtualColumnResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *UpdateFactTableVirtualColumnResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (u UpdateFactTableVirtualColumnResponse) MarshalJSON() ([]byte, error) {
@@ -205,4 +209,18 @@ func (u *UpdateFactTableVirtualColumnResponse) GetObject() *UpdateFactTableVirtu
 		return nil
 	}
 	return u.Object
+}
+
+func (u *UpdateFactTableVirtualColumnResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if u == nil {
+		return nil
+	}
+	return u.ConfirmationHeld
+}
+
+func (u *UpdateFactTableVirtualColumnResponse) GetHeaders() map[string][]string {
+	if u == nil {
+		return map[string][]string{}
+	}
+	return u.Headers
 }

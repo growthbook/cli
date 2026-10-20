@@ -39,9 +39,11 @@ func (e *PostSavedGroupRevisionRevertStrategy) UnmarshalJSON(data []byte) error 
 type PostSavedGroupRevisionRevertRequestBody struct {
 	// Whether to stage the revert as a draft or publish it immediately. Defaults to `draft`, or to `publish` when the org enables 'reverts bypass approval'.
 	Strategy *PostSavedGroupRevisionRevertStrategy `json:"strategy,omitzero"`
-	Title    *string                               `json:"title,omitzero"`
-	Comment  *string                               `json:"comment,omitzero"`
-	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	// Short draft title (e.g. `Enable for beta testers`).
+	Title *string `json:"title,omitzero"`
+	// Currently ignored. Use `title` to describe the revert.
+	Comment *string `json:"comment,omitzero"`
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
 }
 
@@ -136,6 +138,9 @@ type PostSavedGroupRevisionRevertResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostSavedGroupRevisionRevertResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostSavedGroupRevisionRevertResponse) MarshalJSON() ([]byte, error) {
@@ -161,4 +166,18 @@ func (p *PostSavedGroupRevisionRevertResponse) GetObject() *PostSavedGroupRevisi
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostSavedGroupRevisionRevertResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostSavedGroupRevisionRevertResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

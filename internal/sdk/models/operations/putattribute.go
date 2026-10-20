@@ -90,7 +90,7 @@ func (e *PutAttributeFormat) UnmarshalJSON(data []byte) error {
 type PutAttributeRequestBody struct {
 	// The attribute datatype
 	Datatype *PutAttributeDatatype `json:"datatype,omitzero"`
-	// The description of the new attribute
+	// Markdown. Put context here, not in the name.
 	Description *string `json:"description,omitzero"`
 	// The attribute is archived
 	Archived *bool `json:"archived,omitzero"`
@@ -99,9 +99,11 @@ type PutAttributeRequestBody struct {
 	// Comma-separated list of allowed values. Required for the 'enum' datatype. For array datatypes (string[], number[], secureString[]) it optionally restricts the list to these values. Ignored for all other datatypes.
 	Enum *string `json:"enum,omitzero"`
 	// The attribute's format
-	Format   *PutAttributeFormat `json:"format,omitzero"`
-	Projects []string            `json:"projects,omitzero"`
-	Tags     []string            `json:"tags,omitzero"`
+	Format *PutAttributeFormat `json:"format,omitzero"`
+	// Project IDs that can use this. An empty list means all Projects. Projects control access and availability, so don't use them as labels.
+	Projects []string `json:"projects,omitzero"`
+	// Tags for filtering and grouping. Use these instead of encoding groups in names.
+	Tags []string `json:"tags,omitzero"`
 	// Values for the organization's attribute custom fields, keyed by field id
 	CustomFields map[string]string `json:"customFields,omitzero"`
 }
@@ -216,6 +218,9 @@ type PutAttributeResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource updated
 	Object *PutAttributeResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PutAttributeResponse) MarshalJSON() ([]byte, error) {
@@ -241,4 +246,18 @@ func (p *PutAttributeResponse) GetObject() *PutAttributeResponseBody {
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PutAttributeResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PutAttributeResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

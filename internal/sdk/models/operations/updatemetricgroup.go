@@ -8,12 +8,16 @@ import (
 )
 
 type UpdateMetricGroupRequestBody struct {
-	Name        *string  `json:"name,omitzero"`
-	Description *string  `json:"description,omitzero"`
-	Tags        []string `json:"tags,omitzero"`
-	Projects    []string `json:"projects,omitzero"`
-	Metrics     []string `json:"metrics,omitzero"`
-	Datasource  *string  `json:"datasource,omitzero"`
+	// Short display name. Put details in `description`.
+	Name *string `json:"name,omitzero"`
+	// Put context here, not in the name.
+	Description *string `json:"description,omitzero"`
+	// Tags for filtering and grouping. Use these instead of encoding groups in names.
+	Tags []string `json:"tags,omitzero"`
+	// Project IDs that can use this. An empty list means all Projects. Projects control access and availability, so don't use them as labels.
+	Projects   []string `json:"projects,omitzero"`
+	Metrics    []string `json:"metrics,omitzero"`
+	Datasource *string  `json:"datasource,omitzero"`
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
 	Owner    *string `json:"owner,omitzero"`
 	Archived *bool   `json:"archived,omitzero"`
@@ -121,6 +125,9 @@ type UpdateMetricGroupResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource updated
 	Object *UpdateMetricGroupResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (u UpdateMetricGroupResponse) MarshalJSON() ([]byte, error) {
@@ -146,4 +153,18 @@ func (u *UpdateMetricGroupResponse) GetObject() *UpdateMetricGroupResponseBody {
 		return nil
 	}
 	return u.Object
+}
+
+func (u *UpdateMetricGroupResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if u == nil {
+		return nil
+	}
+	return u.ConfirmationHeld
+}
+
+func (u *UpdateMetricGroupResponse) GetHeaders() map[string][]string {
+	if u == nil {
+		return map[string][]string{}
+	}
+	return u.Headers
 }

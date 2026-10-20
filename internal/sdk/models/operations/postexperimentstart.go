@@ -10,9 +10,9 @@ import (
 )
 
 type PostExperimentStartRequestBody struct {
-	// If true, skips validating the experiment satisfies all pre-launch checklist items
+	// If true, skips validating the experiment satisfies all pre-launch checklist items. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	SkipChecklist *bool `json:"skipChecklist,omitzero"`
-	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
 }
 
@@ -155,6 +155,9 @@ type PostExperimentStartResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostExperimentStartResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostExperimentStartResponse) MarshalJSON() ([]byte, error) {
@@ -180,4 +183,18 @@ func (p *PostExperimentStartResponse) GetObject() *PostExperimentStartResponseBo
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostExperimentStartResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostExperimentStartResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

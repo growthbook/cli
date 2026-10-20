@@ -95,8 +95,9 @@ func (e *UpdateFactTableManagedBy) UnmarshalJSON(data []byte) error {
 }
 
 type UpdateFactTableRequestBody struct {
+	// Short display name. Put details in `description`.
 	Name *string `json:"name,omitzero"`
-	// Description of the fact table
+	// Markdown. Put context here, not in the name.
 	Description *string `json:"description,omitzero"`
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
 	Owner *string `json:"owner,omitzero"`
@@ -268,6 +269,9 @@ type UpdateFactTableResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *UpdateFactTableResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (u UpdateFactTableResponse) MarshalJSON() ([]byte, error) {
@@ -293,4 +297,18 @@ func (u *UpdateFactTableResponse) GetObject() *UpdateFactTableResponseBody {
 		return nil
 	}
 	return u.Object
+}
+
+func (u *UpdateFactTableResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if u == nil {
+		return nil
+	}
+	return u.ConfirmationHeld
+}
+
+func (u *UpdateFactTableResponse) GetHeaders() map[string][]string {
+	if u == nil {
+		return map[string][]string{}
+	}
+	return u.Headers
 }

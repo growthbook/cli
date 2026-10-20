@@ -1267,11 +1267,14 @@ func (e *UpdateFactMetricManagedBy) UnmarshalJSON(data []byte) error {
 }
 
 type UpdateFactMetricRequestBody struct {
-	Name        *string `json:"name,omitzero"`
+	// Short display name (e.g. `Purchases per user`). Put the definition in `description`.
+	Name *string `json:"name,omitzero"`
+	// Markdown. Put context here, not in the name.
 	Description *string `json:"description,omitzero"`
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-	Owner      *string                                                      `json:"owner,omitzero"`
-	Projects   []string                                                     `json:"projects,omitzero"`
+	Owner    *string  `json:"owner,omitzero"`
+	Projects []string `json:"projects,omitzero"`
+	// Tags for filtering and grouping. Use these instead of encoding groups in names.
 	Tags       []string                                                     `json:"tags,omitzero"`
 	MetricType *UpdateFactMetricMetricType                                  `json:"metricType,omitzero"`
 	Numerator  optionalnullable.OptionalNullable[UpdateFactMetricNumerator] `json:"numerator,omitzero"`
@@ -1556,6 +1559,9 @@ type UpdateFactMetricResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *UpdateFactMetricResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (u UpdateFactMetricResponse) MarshalJSON() ([]byte, error) {
@@ -1581,4 +1587,18 @@ func (u *UpdateFactMetricResponse) GetObject() *UpdateFactMetricResponseBody {
 		return nil
 	}
 	return u.Object
+}
+
+func (u *UpdateFactMetricResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if u == nil {
+		return nil
+	}
+	return u.ConfirmationHeld
+}
+
+func (u *UpdateFactMetricResponse) GetHeaders() map[string][]string {
+	if u == nil {
+		return map[string][]string{}
+	}
+	return u.Headers
 }

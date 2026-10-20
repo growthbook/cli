@@ -20,7 +20,7 @@ growthbook namespaces create [flags]
 
 ```
       --body string             Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --description string      string value
+      --description string      Put context here, not in the name.
       --display-name string     Human-readable display name. Must be unique within the organization. [required]
   -f, --format-param string     Namespace format. Defaults to 'multiRange', which supports multiple ranges per experiment and a configurable hash attribute. (options: legacy, multiRange)
       --hash-attribute string   Required when format is 'multiRange'. The user attribute (e.g. 'id', 'device_id') used to assign users to namespace buckets.

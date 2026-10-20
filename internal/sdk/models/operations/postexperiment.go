@@ -389,9 +389,12 @@ type PostExperimentVariation struct {
 	// Stable variation id. On update, an omitted id is filled from the stored variation with the same key, or the same position, when the number of variations is unchanged.
 	ID *string `json:"id,omitzero"`
 	// Alias for `id`. Mirrors the GET response. `id` takes precedence.
-	VariationID *string                    `json:"variationId,omitzero"`
-	Key         string                     `json:"key"`
-	Name        string                     `json:"name"`
+	VariationID *string `json:"variationId,omitzero"`
+	// Key sent with exposure events (e.g. `0`, `1`). Changing it after launch splits exposures.
+	Key string `json:"key"`
+	// Short label shown in results (e.g. `Control`).
+	Name string `json:"name"`
+	// What this variation changes.
 	Description *string                    `json:"description,omitzero"`
 	Screenshots []PostExperimentScreenshot `json:"screenshots,omitzero"`
 }
@@ -631,6 +634,7 @@ func (p *PostExperimentTrafficSplit) GetWeight() float64 {
 }
 
 type PostExperimentPhase struct {
+	// Short phase label (e.g. `Main`).
 	Name              string                       `json:"name"`
 	DateStarted       time.Time                    `json:"dateStarted"`
 	DateEnded         *time.Time                   `json:"dateEnded,omitzero"`
@@ -1193,20 +1197,22 @@ type PostExperimentRequest struct {
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	AssignmentQueryID *string `json:"assignmentQueryId,omitzero"`
-	TrackingKey       string  `json:"trackingKey"`
-	// If true, allow creating an experiment even if another experiment with the same tracking key already exists. This is ignored if the organization requires unique tracking keys as a rule.
+	// Key sent with exposure events. Keep it short, in kebab-case (usually the Feature Flag key). If your organization requires a tracking key format, a key that doesn't match is rejected with `invalid_tracking_key`. Changing it after launch splits exposures across two keys.
+	TrackingKey string `json:"trackingKey"`
+	// If true, allow creating an experiment even if another experiment with the same tracking key already exists. This is ignored if the organization requires unique tracking keys as a rule. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	BypassDuplicateKeyCheck *bool `json:"bypassDuplicateKeyCheck,omitzero"`
-	// Name of the experiment
+	// Short display name (e.g. `Express checkout button`). Put reasoning in `hypothesis` and context in `description`.
 	Name string              `json:"name"`
 	Type *PostExperimentType `json:"type,omitzero"`
 	// Project ID which the experiment belongs to
 	Project *string `json:"project,omitzero"`
 	// ID of the [ExperimentTemplate](#tag/ExperimentTemplate_model) this experiment was created from. Template fields are applied by default and overridden by explicitly provided payload fields.
 	TemplateID *string `json:"templateId,omitzero"`
-	// Hypothesis of the experiment
+	// Markdown. If we change X, metric Y will move because Z.
 	Hypothesis *string `json:"hypothesis,omitzero"`
-	// Description of the experiment
-	Description      *string  `json:"description,omitzero"`
+	// Markdown. Put context here, not in the name.
+	Description *string `json:"description,omitzero"`
+	// Tags for filtering and grouping. Use these instead of encoding groups in names.
 	Tags             []string `json:"tags,omitzero"`
 	Metrics          []string `json:"metrics,omitzero"`
 	SecondaryMetrics []string `json:"secondaryMetrics,omitzero"`
@@ -1217,7 +1223,7 @@ type PostExperimentRequest struct {
 	SegmentID *string `json:"segmentId,omitzero"`
 	// WHERE clause to add to the default experiment query
 	QueryFilter *string `json:"queryFilter,omitzero"`
-	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the user associated with the request's Personal Access Token (PAT), if one is being used.
+	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the requesting member: a personal access token's owner, or the member an organization API key assumes. An organization API key acting as itself leaves it empty.
 	Owner             *string               `json:"owner,omitzero"`
 	Archived          *bool                 `json:"archived,omitzero"`
 	Status            *PostExperimentStatus `json:"status,omitzero"`
@@ -1266,7 +1272,7 @@ type PostExperimentRequest struct {
 	CustomMetricSlices          []PostExperimentCustomMetricSlice   `json:"customMetricSlices,omitzero"`
 	PrecomputedUnitDimensionIds []string                            `json:"precomputedUnitDimensionIds,omitzero"`
 	StatusUpdateSchedule        *PostExperimentStatusUpdateSchedule `json:"statusUpdateSchedule,omitzero"`
-	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
 }
 
@@ -1689,6 +1695,9 @@ type PostExperimentResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostExperimentResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostExperimentResponse) MarshalJSON() ([]byte, error) {
@@ -1714,4 +1723,18 @@ func (p *PostExperimentResponse) GetObject() *PostExperimentResponseBody {
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostExperimentResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostExperimentResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

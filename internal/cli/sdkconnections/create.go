@@ -15,7 +15,7 @@ import (
 )
 
 var createCmdMeta = []flagutil.FlagMeta{
-	{FlagName: "name", Shorthand: "n", FieldPath: "Name", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
+	{FlagName: "name", Shorthand: "n", FieldPath: "Name", Kind: flagutil.FlagKindString, Required: true, Description: "Short display name, usually app and platform (e.g. `Web app`). [required]"},
 	{FlagName: "language", Shorthand: "l", FieldPath: "Language", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "sdk-version", FieldPath: "SDKVersion", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "environment", FieldPath: "Environment", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},

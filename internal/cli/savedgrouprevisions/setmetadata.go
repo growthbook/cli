@@ -17,11 +17,11 @@ import (
 var setMetadataCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "saved-group-id", Shorthand: "s", FieldPath: "SavedGroupID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "name", Shorthand: "n", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "Short draft title (e.g. `Enable for beta testers`). Only used when `version` is \"new\"; ignored for existing drafts."},
+	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "Markdown. What changed and why, for reviewers. Only used when `version` is \"new\"; ignored for existing drafts."},
+	{FlagName: "name", Shorthand: "n", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Optional: true, Description: "Short display name (e.g. `Internal employees`). Put details in `description`."},
 	{FlagName: "owner", FieldPath: "Body.Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization."},
-	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Short note (max 100 characters) on who is in the Saved Group and why."},
 	{FlagName: "projects", Shorthand: "p", FieldPath: "Body.Projects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
 }
 

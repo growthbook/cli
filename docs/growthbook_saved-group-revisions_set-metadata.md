@@ -19,16 +19,16 @@ growthbook saved-group-revisions set-metadata [flags]
 ### Options
 
 ```
-      --body string               Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --description string        string value
-  -h, --help                      help for set-metadata
-  -n, --name string               string value
-      --owner string              The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-  -p, --projects stringArray      list of values
-      --revision-comment string   string value
-      --revision-title string     string value
-  -s, --saved-group-id string     [required]
-  -v, --version-param string      [required]
+      --body string                              Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --description string                       Short note (max 100 characters) on who is in the Saved Group and why.
+  -h, --help                                     help for set-metadata
+  -n, --name Internal employees                  Short display name (e.g. Internal employees). Put details in `description`.
+      --owner string                             The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
+  -p, --projects stringArray                     list of values
+      --revision-comment version                 Markdown. What changed and why, for reviewers. Only used when version is "new"; ignored for existing drafts.
+      --revision-title Enable for beta testers   Short draft title (e.g. Enable for beta testers). Only used when `version` is "new"; ignored for existing drafts.
+  -s, --saved-group-id string                    [required]
+  -v, --version-param string                     [required]
 ```
 
 ### Options inherited from parent commands

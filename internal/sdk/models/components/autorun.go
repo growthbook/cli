@@ -5,6 +5,7 @@ package components
 import (
 	"encoding/json"
 	"errors"
+	"github.com/growthbook/cli/v3/internal/sdk/optionalnullable"
 	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 	"time"
 )
@@ -12,8 +13,9 @@ import (
 type AutoRunSource string
 
 const (
-	AutoRunSourceCliWizard AutoRunSource = "cli-wizard"
-	AutoRunSourceSkill     AutoRunSource = "skill"
+	AutoRunSourceCliWizard  AutoRunSource = "cli-wizard"
+	AutoRunSourceSkill      AutoRunSource = "skill"
+	AutoRunSourceEppoImport AutoRunSource = "eppo-import"
 )
 
 func (e AutoRunSource) ToPointer() *AutoRunSource {
@@ -24,7 +26,7 @@ func (e AutoRunSource) ToPointer() *AutoRunSource {
 func (e *AutoRunSource) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "cli-wizard", "skill":
+		case "cli-wizard", "skill", "eppo-import":
 			return true
 		}
 	}
@@ -181,6 +183,9 @@ const (
 	AutoRunKindAttribute     AutoRunKind = "attribute"
 	AutoRunKindMetric        AutoRunKind = "metric"
 	AutoRunKindFactTable     AutoRunKind = "fact-table"
+	AutoRunKindSavedGroup    AutoRunKind = "saved-group"
+	AutoRunKindEnvironment   AutoRunKind = "environment"
+	AutoRunKindTag           AutoRunKind = "tag"
 )
 
 func (e AutoRunKind) ToPointer() *AutoRunKind {
@@ -191,7 +196,7 @@ func (e AutoRunKind) ToPointer() *AutoRunKind {
 func (e *AutoRunKind) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "sdk-connection", "feature", "experiment", "attribute", "metric", "fact-table":
+		case "sdk-connection", "feature", "experiment", "attribute", "metric", "fact-table", "saved-group", "environment", "tag":
 			return true
 		}
 	}
@@ -220,13 +225,43 @@ func (e *AutoRunBy) IsExact() bool {
 	return false
 }
 
+// AutoRunAction - What the run did to this object
+type AutoRunAction string
+
+const (
+	AutoRunActionCreated  AutoRunAction = "created"
+	AutoRunActionUpdated  AutoRunAction = "updated"
+	AutoRunActionExisting AutoRunAction = "existing"
+	AutoRunActionDeleted  AutoRunAction = "deleted"
+	AutoRunActionFailed   AutoRunAction = "failed"
+)
+
+func (e AutoRunAction) ToPointer() *AutoRunAction {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *AutoRunAction) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "created", "updated", "existing", "deleted", "failed":
+			return true
+		}
+	}
+	return false
+}
+
 type Artifact struct {
-	Kind        AutoRunKind `json:"kind"`
-	ID          string      `json:"id"`
-	Label       string      `json:"label"`
-	By          AutoRunBy   `json:"by"`
-	Detail      *string     `json:"detail"`
-	DateCreated time.Time   `json:"dateCreated"`
+	Kind   AutoRunKind `json:"kind"`
+	ID     string      `json:"id"`
+	Label  string      `json:"label"`
+	By     AutoRunBy   `json:"by"`
+	Detail *string     `json:"detail"`
+	// Id in the system this was imported from, when it was imported
+	ExternalID optionalnullable.OptionalNullable[string] `json:"externalId,omitzero"`
+	// What the run did to this object
+	Action      *AutoRunAction `json:"action,omitzero"`
+	DateCreated time.Time      `json:"dateCreated"`
 }
 
 func (a Artifact) MarshalJSON() ([]byte, error) {
@@ -273,6 +308,20 @@ func (a *Artifact) GetDetail() *string {
 		return nil
 	}
 	return a.Detail
+}
+
+func (a *Artifact) GetExternalID() optionalnullable.OptionalNullable[string] {
+	if a == nil {
+		return nil
+	}
+	return a.ExternalID
+}
+
+func (a *Artifact) GetAction() *AutoRunAction {
+	if a == nil {
+		return nil
+	}
+	return a.Action
 }
 
 func (a *Artifact) GetDateCreated() time.Time {

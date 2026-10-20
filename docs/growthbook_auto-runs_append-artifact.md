@@ -19,14 +19,16 @@ growthbook auto-runs append-artifact [flags]
 ### Options
 
 ```
-      --body string                Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --body-param.by string       options: developer, growthbook [required]
-      --body-param.detail string   Evidence or summary, e.g. 'boolean, off in dev' [required]
-      --body-param.id string       Id, or key for Feature Flags [required]
-      --body-param.kind string     options: sdk-connection, feature, experiment, attribute, metric, fact-table [required]
-      --body-param.label string    [required]
-  -h, --help                       help for append-artifact
-  -i, --id string                  [required]
+      --body string                     Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --body-param.action string        options: created, updated, existing, deleted, failed
+      --body-param.by string            options: developer, growthbook [required]
+      --body-param.detail string        Evidence or summary, e.g. 'boolean, off in dev' [required]
+      --body-param.external-id string   string value
+      --body-param.id string            Id, or key for Feature Flags [required]
+      --body-param.kind string          options: sdk-connection, feature, experiment, attribute, metric, fact-table, saved-group, environment, tag [required]
+      --body-param.label string         [required]
+  -h, --help                            help for append-artifact
+  -i, --id string                       [required]
 ```
 
 ### Options inherited from parent commands

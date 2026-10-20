@@ -21,7 +21,7 @@ var listForFeatureCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "skip-pagination", FieldPath: "SkipPagination", Kind: flagutil.FlagKindBool, Optional: true, HasDefault: true, Description: "If true, return all matching items and ignore limit/offset.\nSelf-hosted only. Has no effect unless API_ALLOW_SKIP_PAGINATION is set to true or 1."},
 	{FlagName: "status", FieldPath: "Status", Kind: flagutil.FlagKindUnion, Union: &flagutil.UnionMeta{Discriminated: false, Optional: true, TypeDescription: "JSON value (one of: string | array of string)"}},
 	{FlagName: "author", FieldPath: "Author", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "mine", Shorthand: "m", FieldPath: "Mine", Kind: flagutil.FlagKindBool, Optional: true, Description: "If true, return only revisions authored by or contributed to by the calling user. Requires a user-scoped API key. Mutually exclusive with `author`."},
+	{FlagName: "mine", Shorthand: "m", FieldPath: "Mine", Kind: flagutil.FlagKindBool, Optional: true, Description: "If true, return only revisions authored by or contributed to by the calling user. Needs a personal access token, or an organization API key that assumes a named member's role. Mutually exclusive with `author`."},
 }
 
 // initListForFeatureCmd initializes the list-for-feature command.

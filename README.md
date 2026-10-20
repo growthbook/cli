@@ -619,7 +619,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 ### [members](docs/growthbook_members.md)
 
 * [`list`](docs/growthbook_members_list.md) - Get all organization members
-* [`update-role`](docs/growthbook_members_update-role.md) - Update a member's global role (including any environment restrictions, if applicable). Can also update a member's project roles if your plan supports it.
+* [`update-role`](docs/growthbook_members_update-role.md) - Update a member's role
 * [`delete`](docs/growthbook_members_delete.md) - Removes a single user from an organization
 
 ### [queries](docs/growthbook_queries.md)
@@ -629,11 +629,12 @@ growthbook generate-types --project prj_123                 # limit to one proje
 ### [settings](docs/growthbook_settings.md)
 
 * [`get`](docs/growthbook_settings_get.md) - Get organization settings
-* [`set-approvals`](docs/growthbook_settings_set-approvals.md) - Replace the approval requirements for feature flags, configs and constants, for saved groups, and the Targeting Projects review mode. Each family is replaced wholesale when supplied; omit one to leave it unchanged.
+* [`set-approvals`](docs/growthbook_settings_set-approvals.md) - Update approval settings
 
 ### [meta](docs/growthbook_meta.md)
 
 * [`get-version`](docs/growthbook_meta_get-version.md) - Get the GrowthBook server version and build info
+* [`get-confirmation`](docs/growthbook_meta_get-confirmation.md) - Get a confirmation
 
 ### [ramp-schedules](docs/growthbook_ramp-schedules.md)
 
@@ -780,6 +781,14 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`get`](docs/growthbook_auto-runs_get.md) - Get a single autoRun
 * [`update`](docs/growthbook_auto-runs_update.md) - Update a single autoRun
 * [`append-artifact`](docs/growthbook_auto-runs_append-artifact.md) - Record something an auto run created
+
+### [populations](docs/growthbook_populations.md)
+
+* [`list`](docs/growthbook_populations_list.md) - Get all populations
+* [`create`](docs/growthbook_populations_create.md) - Create a single population
+* [`get`](docs/growthbook_populations_get.md) - Get a single population
+* [`update`](docs/growthbook_populations_update.md) - Update a single population
+* [`delete`](docs/growthbook_populations_delete.md) - Delete a single population
 
 </details>
 <!-- End Available Commands [operations] -->

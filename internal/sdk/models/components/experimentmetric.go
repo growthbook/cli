@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
+)
+
 type Window string
 
 const (
@@ -40,6 +44,17 @@ type Overrides struct {
 	RegressionAdjustmentOverride *bool    `json:"regressionAdjustmentOverride,omitzero"`
 	RegressionAdjustmentEnabled  *bool    `json:"regressionAdjustmentEnabled,omitzero"`
 	RegressionAdjustmentDays     *float64 `json:"regressionAdjustmentDays,omitzero"`
+}
+
+func (o Overrides) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *Overrides) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *Overrides) GetDelayHours() *float64 {
@@ -129,6 +144,17 @@ func (o *Overrides) GetRegressionAdjustmentDays() *float64 {
 type ExperimentMetric struct {
 	MetricID  string    `json:"metricId"`
 	Overrides Overrides `json:"overrides"`
+}
+
+func (e ExperimentMetric) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ExperimentMetric) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (e *ExperimentMetric) GetMetricID() string {

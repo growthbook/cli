@@ -21,18 +21,18 @@ growthbook feature-revisions add-rule [flags]
 ### Options
 
 ```
-      --body string                        Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -h, --help                               help for add-rule
-      --id string                          [required]
-      --ignore-warnings                    Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
-      --ramp-schedule schedule             Multi-step ramp schedule for force/rollout rules. Not supported for experiment-ref or safe-rollout rules. Mutually exclusive with schedule.
-      --revision-comment string            Comment for a newly created draft. Only used when version is "new"; ignored for existing revisions.
-      --revision-title string              Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
-      --rule string                        JSON value (one of: { description: string, enabled: boolean, condition: string, savedGroups: object[], ... })
-      --schedule rampSchedule              Simple start/end date window. For force/rollout rules this creates a standalone ramp action; for experiment-ref/safe-rollout rules this sets legacy schedule fields on the rule. Mutually exclusive with rampSchedule.
-      --skip-hooks skipSchemaValidation    Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use skipSchemaValidation for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
-      --skip-schema-validation skipHooks   Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use skipHooks for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
-  -v, --version-param string               [required]
+      --body string                              Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -h, --help                                     help for add-rule
+      --id string                                [required]
+      --ignore-warnings                          Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
+      --ramp-schedule schedule                   Multi-step ramp schedule for force/rollout rules. Not supported for experiment-ref or safe-rollout rules. Mutually exclusive with schedule.
+      --revision-comment version                 Markdown. What changed and why, for reviewers. Only used when version is "new"; ignored for existing drafts.
+      --revision-title Enable for beta testers   Short draft title (e.g. Enable for beta testers). Only used when `version` is "new"; ignored for existing drafts.
+      --rule string                              JSON value (one of: { description: string, enabled: boolean, condition: string, savedGroups: object[], ... })
+      --schedule rampSchedule                    Simple start/end date window. For force/rollout rules this creates a standalone ramp action; for experiment-ref/safe-rollout rules this sets legacy schedule fields on the rule. Mutually exclusive with rampSchedule.
+      --skip-hooks skipSchemaValidation          Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use skipSchemaValidation for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
+      --skip-schema-validation skipHooks         Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use skipHooks for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
+  -v, --version-param string                     [required]
 ```
 
 ### Options inherited from parent commands

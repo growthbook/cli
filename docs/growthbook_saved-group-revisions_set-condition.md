@@ -19,13 +19,13 @@ growthbook saved-group-revisions set-condition [flags]
 ### Options
 
 ```
-      --body string               Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -c, --condition string          The JSON-encoded condition for the saved group [required]
-  -h, --help                      help for set-condition
-      --revision-comment string   string value
-      --revision-title string     string value
-  -s, --saved-group-id string     [required]
-  -v, --version-param string      [required]
+      --body string                              Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -c, --condition string                         The JSON-encoded condition for the saved group [required]
+  -h, --help                                     help for set-condition
+      --revision-comment version                 Markdown. What changed and why, for reviewers. Only used when version is "new"; ignored for existing drafts.
+      --revision-title Enable for beta testers   Short draft title (e.g. Enable for beta testers). Only used when `version` is "new"; ignored for existing drafts.
+  -s, --saved-group-id string                    [required]
+  -v, --version-param string                     [required]
 ```
 
 ### Options inherited from parent commands

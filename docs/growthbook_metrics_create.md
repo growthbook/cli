@@ -19,21 +19,21 @@ growthbook metrics create [flags]
 ### Options
 
 ```
-  -a, --archived               boolean flag
-  -b, --behavior string        JSON object
-      --body string            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --datasource-id string   ID for the [DataSource](#tag/DataSource_model) [required]
-      --description string     Description of the metric
-  -h, --help                   help for create
-      --managed-by string      Where this metric must be managed from. If not set (empty string), it can be managed from anywhere. If set to "api", it can be managed via the API only. (options: , api)
-      --mixpanel sql           Only use for MixPanel (non-SQL) Data Sources. Only one of sql, `sqlBuilder` or `mixpanel` allowed, and at least one must be specified.
-  -n, --name string            Name of the metric [required]
-      --owner string           The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-  -p, --projects stringArray   List of project IDs for projects that can access this metric
-      --sql sql                Preferred way to define SQL. Only one of sql, `sqlBuilder` or `mixpanel` allowed, and at least one must be specified.
-      --sql-builder sql        An alternative way to specify a SQL metric, rather than a full query. Using sql is preferred to `sqlBuilder`. Only one of `sql`, `sqlBuilder` or `mixpanel` allowed, and at least one must be specified.
-      --tags stringArray       List of tags
-      --type string            Type of metric. See [Metrics documentation](/app/metrics/legacy) (options: binomial, count, duration, revenue) [required]
+  -a, --archived                  boolean flag
+  -b, --behavior string           JSON object
+      --body string               Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --datasource-id string      ID for the [DataSource](#tag/DataSource_model) [required]
+      --description string        Markdown. Put context here, not in the name.
+  -h, --help                      help for create
+      --managed-by string         Where this metric must be managed from. If not set (empty string), it can be managed from anywhere. If set to "api", it can be managed via the API only. (options: , api)
+      --mixpanel sql              Only use for MixPanel (non-SQL) Data Sources. Only one of sql, `sqlBuilder` or `mixpanel` allowed, and at least one must be specified.
+  -n, --name Purchases per user   Short display name (e.g. Purchases per user). Put the definition in `description`. [required]
+      --owner string              The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
+  -p, --projects stringArray      List of project IDs for projects that can access this metric
+      --sql sql                   Preferred way to define SQL. Only one of sql, `sqlBuilder` or `mixpanel` allowed, and at least one must be specified.
+      --sql-builder sql           An alternative way to specify a SQL metric, rather than a full query. Using sql is preferred to `sqlBuilder`. Only one of `sql`, `sqlBuilder` or `mixpanel` allowed, and at least one must be specified.
+      --tags stringArray          Tags for filtering and grouping. Use these instead of encoding groups in names.
+      --type string               Type of metric. See [Metrics documentation](/app/metrics/legacy) (options: binomial, count, duration, revenue) [required]
 ```
 
 ### Options inherited from parent commands

@@ -23,7 +23,7 @@ var updateRoleCmdMeta = []flagutil.FlagMeta{
 func initUpdateRoleCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "update-role",
-		Short:   "Update a member's global role (including any environment restrictions, if applicable). Can also update a member's project roles if your plan supports it.",
+		Short:   "Update a member's role",
 		Long:    "Update a member's global role (including any environment restrictions, if applicable). Can also update a member's project roles if your plan supports it.",
 		Example: "  growthbook members update-role --id <id> --member '{}'",
 		RunE:    runUpdateRoleCmd,

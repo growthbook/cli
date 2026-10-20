@@ -15,11 +15,11 @@ import (
 )
 
 var createCmdMeta = []flagutil.FlagMeta{
-	{FlagName: "name", FieldPath: "Name", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "description", FieldPath: "Description", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "name", FieldPath: "Name", Kind: flagutil.FlagKindString, Required: true, Description: "Short display name (e.g. `Purchases per user`). Put the definition in `description`. [required]"},
+	{FlagName: "description", FieldPath: "Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Markdown. Put context here, not in the name."},
 	{FlagName: "owner", FieldPath: "Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization."},
 	{FlagName: "projects", FieldPath: "Projects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
-	{FlagName: "tags", FieldPath: "Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
+	{FlagName: "tags", FieldPath: "Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Tags for filtering and grouping. Use these instead of encoding groups in names."},
 	{FlagName: "metric-type", FieldPath: "MetricType", Kind: flagutil.FlagKindEnum, Required: true, EnumValues: []string{"proportion", "retention", "mean", "quantile", "ratio", "dailyParticipation", "funnel"}, Description: "options: proportion, retention, mean, quantile, ratio, dailyParticipation, funnel [required]"},
 	{FlagName: "numerator", FieldPath: "Numerator", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"numerator,omitempty"`, Description: "JSON object"},
 	{FlagName: "denominator", FieldPath: "Denominator", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"denominator,omitempty"`, Description: "Only when metricType is 'ratio'"},

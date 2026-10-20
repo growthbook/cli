@@ -4,7 +4,11 @@ Create a single experiment
 
 ### Synopsis
 
-Create a single experiment
+Creates a new experiment.
+
+### Naming for human review
+
+Keep `name` short; put reasoning in `hypothesis` and context in `description`. `trackingKey` is sent with exposure events, so keep it short and stable.
 
 ```
 growthbook experiments create [flags]
@@ -34,13 +38,13 @@ growthbook experiments create [flags]
       --bandit-schedule-value float                  number value
       --body string                                  Request body as JSON (alternative to individual flags). Can also be provided via stdin.
       --bucket-version int                           integer value
-      --bypass-duplicate-key-check                   If true, allow creating an experiment even if another experiment with the same tracking key already exists. This is ignored if the organization requires unique tracking keys as a rule.
+      --bypass-duplicate-key-check                   If true, allow creating an experiment even if another experiment with the same tracking key already exists. This is ignored if the organization requires unique tracking keys as a rule. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
       --custom-fields string                         value
       --custom-metric-slices string                  Custom slices that apply to ALL applicable metrics in the experiment
       --datasource-id string                         ID for the [DataSource](#tag/DataSource_model). Can only be set if a templateId is not provided.
       --decision-framework-settings string           Controls the decision framework and metric overrides for the experiment. Replaces the entire stored object on update (does not patch individual fields).
       --default-dashboard-id string                  ID of the default dashboard for this experiment.
-      --description string                           Description of the experiment
+      --description string                           Markdown. Put context here, not in the name.
       --disable-sticky-bucketing                     When true, disables Sticky Bucketing for this experiment. If omitted, defaults to your organization's Sticky Bucketing setting for new experiments. Sticky Bucketing only takes effect when it is also enabled at the organization level.
   -e, --exclude-from-payload                         boolean flag
   -f, --fallback-attribute string                    string value
@@ -48,15 +52,15 @@ growthbook experiments create [flags]
       --hash-attribute string                        string value
       --hash-version float                           number value
   -h, --help                                         help for create
-      --hypothesis string                            Hypothesis of the experiment
-      --ignore-warnings                              Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+      --hypothesis string                            Markdown. If we change X, metric Y will move because Z.
+      --ignore-warnings                              Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
       --in-progress-conversions string               options: loose, strict
   -l, --lookback-override string                     Controls the lookback override for the experiment. For type "window", value must be a non-negative number and valueUnit is required.
       --metric-overrides string                      Per-metric analysis overrides for this experiment. Replaces the entire stored array (does not patch individual entries).
       --metrics stringArray                          list of values
       --min-bucket-version int                       integer value
-  -n, --name string                                  Name of the experiment [required]
-      --owner string                                 The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the user associated with the request's Personal Access Token (PAT), if one is being used.
+  -n, --name Express checkout button                 Short display name (e.g. Express checkout button). Put reasoning in `hypothesis` and context in `description`. [required]
+      --owner string                                 The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the requesting member: a personal access token's owner, or the member an organization API key assumes. An organization API key acting as itself leaves it empty.
       --phases string                                list of values
       --post-stratification-enabled string           When null, the organization default is used.
       --precomputed-unit-dimension-ids stringArray   list of values
@@ -72,9 +76,9 @@ growthbook experiments create [flags]
       --stats-engine string                          options: bayesian, frequentist
       --status string                                options: draft, running, stopped
       --status-update-schedule string                JSON object
-      --tags stringArray                             list of values
+      --tags stringArray                             Tags for filtering and grouping. Use these instead of encoding groups in names.
       --template-id string                           ID of the [ExperimentTemplate](#tag/ExperimentTemplate_model) this experiment was created from. Template fields are applied by default and overridden by explicitly provided payload fields.
-      --tracking-key string                          [required]
+      --tracking-key invalid_tracking_key            Key sent with exposure events. Keep it short, in kebab-case (usually the Feature Flag key). If your organization requires a tracking key format, a key that doesn't match is rejected with invalid_tracking_key. Changing it after launch splits exposures across two keys. [required]
       --type string                                  options: standard, multi-armed-bandit
   -v, --variations string                            [required]
 ```

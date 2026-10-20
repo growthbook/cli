@@ -24,7 +24,7 @@ growthbook fact-tables create-filter [flags]
   -f, --fact-table-id string   Specify a specific fact table [required]
   -h, --help                   help for create-filter
   -m, --managed-by string      Set this to "api" to disable editing in the GrowthBook UI. Before you do this, the Fact Table itself must also be marked as "api" (options: , api)
-  -n, --name string            [required]
+  -n, --name description       Short display name. Put details in description. [required]
   -v, --value string           The SQL expression for this filter. [required]
 ```
 

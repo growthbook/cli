@@ -190,8 +190,10 @@ func (u UpdateTeamManagedByUnion) MarshalJSON() ([]byte, error) {
 }
 
 type UpdateTeamRequestBody struct {
-	Name        *string `json:"name,omitzero"`
-	CreatedBy   *string `json:"createdBy,omitzero"`
+	// Short display name. Put details in `description`.
+	Name      *string `json:"name,omitzero"`
+	CreatedBy *string `json:"createdBy,omitzero"`
+	// Put context here, not in the name.
 	Description *string `json:"description,omitzero"`
 	// The global role for members of this team
 	Role                     *string `json:"role,omitzero"`
@@ -312,6 +314,9 @@ type UpdateTeamResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource updated
 	Object *UpdateTeamResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (u UpdateTeamResponse) MarshalJSON() ([]byte, error) {
@@ -337,4 +342,18 @@ func (u *UpdateTeamResponse) GetObject() *UpdateTeamResponseBody {
 		return nil
 	}
 	return u.Object
+}
+
+func (u *UpdateTeamResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if u == nil {
+		return nil
+	}
+	return u.ConfirmationHeld
+}
+
+func (u *UpdateTeamResponse) GetHeaders() map[string][]string {
+	if u == nil {
+		return map[string][]string{}
+	}
+	return u.Headers
 }

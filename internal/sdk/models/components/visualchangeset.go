@@ -169,11 +169,12 @@ func (v *VisualChange) GetDomMutations() []DomMutation {
 }
 
 type VisualChangeset struct {
-	ID            *string        `json:"id,omitzero"`
-	URLPatterns   []URLPattern   `json:"urlPatterns"`
-	EditorURL     string         `json:"editorUrl"`
-	Experiment    string         `json:"experiment"`
-	VisualChanges []VisualChange `json:"visualChanges"`
+	ID               *string        `json:"id,omitzero"`
+	URLPatterns      []URLPattern   `json:"urlPatterns"`
+	EditorURL        string         `json:"editorUrl"`
+	Experiment       *string        `json:"experiment,omitzero"`
+	ContextualBandit *string        `json:"contextualBandit,omitzero"`
+	VisualChanges    []VisualChange `json:"visualChanges"`
 }
 
 func (v *VisualChangeset) GetID() *string {
@@ -197,11 +198,18 @@ func (v *VisualChangeset) GetEditorURL() string {
 	return v.EditorURL
 }
 
-func (v *VisualChangeset) GetExperiment() string {
+func (v *VisualChangeset) GetExperiment() *string {
 	if v == nil {
-		return ""
+		return nil
 	}
 	return v.Experiment
+}
+
+func (v *VisualChangeset) GetContextualBandit() *string {
+	if v == nil {
+		return nil
+	}
+	return v.ContextualBandit
 }
 
 func (v *VisualChangeset) GetVisualChanges() []VisualChange {

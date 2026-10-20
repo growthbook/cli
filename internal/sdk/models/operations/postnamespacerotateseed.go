@@ -55,6 +55,9 @@ type PostNamespaceRotateSeedResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostNamespaceRotateSeedResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostNamespaceRotateSeedResponse) MarshalJSON() ([]byte, error) {
@@ -80,4 +83,18 @@ func (p *PostNamespaceRotateSeedResponse) GetObject() *PostNamespaceRotateSeedRe
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostNamespaceRotateSeedResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostNamespaceRotateSeedResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

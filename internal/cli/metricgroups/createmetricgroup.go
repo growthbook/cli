@@ -15,10 +15,10 @@ import (
 )
 
 var createMetricGroupCmdMeta = []flagutil.FlagMeta{
-	{FlagName: "name", Shorthand: "n", FieldPath: "Name", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "description", FieldPath: "Description", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "tags", Shorthand: "t", FieldPath: "Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
-	{FlagName: "projects", Shorthand: "p", FieldPath: "Projects", Kind: flagutil.FlagKindStringArray, Required: true, Description: "[required]"},
+	{FlagName: "name", Shorthand: "n", FieldPath: "Name", Kind: flagutil.FlagKindString, Required: true, Description: "Short display name. Put details in `description`. [required]"},
+	{FlagName: "description", FieldPath: "Description", Kind: flagutil.FlagKindString, Required: true, Description: "Put context here, not in the name. [required]"},
+	{FlagName: "tags", Shorthand: "t", FieldPath: "Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Tags for filtering and grouping. Use these instead of encoding groups in names."},
+	{FlagName: "projects", Shorthand: "p", FieldPath: "Projects", Kind: flagutil.FlagKindStringArray, Required: true, Description: "Project IDs that can use this. An empty list means all Projects. Projects control access and availability, so don't use them as labels. [required]"},
 	{FlagName: "metrics", Shorthand: "m", FieldPath: "Metrics", Kind: flagutil.FlagKindStringArray, Required: true, Description: "[required]"},
 	{FlagName: "datasource", FieldPath: "Datasource", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "owner", FieldPath: "Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization."},

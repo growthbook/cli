@@ -24,22 +24,22 @@ growthbook holdouts update [flags]
       --assignment-query-id assignmentQuery   Deprecated: use assignmentQuery. Rejected when selecting a different assignment query that declares several identifier types; set `assignmentQuery.identifierType` instead.
       --body string                           Request body as JSON (alternative to individual flags). Can also be provided via stdin.
       --datasource-id string                  string value
-      --description string                    string value
+      --description string                    Markdown. Put context here, not in the name.
   -e, --environments string                   Replaces the entire per-environment state. Environments not listed are disabled.
   -g, --goal-metrics stringArray              list of values
       --hash-attribute string                 string value
   -h, --help                                  help for update
       --holdout-size float                    Proportion of traffic placed in the holdout group (e.g. 0.05 for 5%). An equally sized comparison group is sampled from the remaining traffic for measurement, so 2× this value enters the holdout experiment in total. Must be greater than 0 and at most 0.5.
   -i, --id string                             [required]
-  -n, --name string                           string value
+  -n, --name description                      Short display name. Put details in description.
       --owner string                          The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-  -p, --projects stringArray                  list of values
+  -p, --projects stringArray                  Project IDs this Holdout applies to. Send an empty array for All Projects.
       --saved-group-targeting string          list of values
       --secondary-metrics stringArray         list of values
       --skip-as-default-holdout               When true, this Holdout is not selected automatically when creating Feature Flags or Experiments in Projects assigned to the Holdout.
       --stats-engine string                   Statistics engine used to analyze this Holdout. (options: bayesian, frequentist)
       --status-update-schedule string         JSON object
-      --tags stringArray                      list of values
+      --tags stringArray                      Tags for filtering and grouping. Use these instead of encoding groups in names.
       --targeting-condition string            string value
 ```
 

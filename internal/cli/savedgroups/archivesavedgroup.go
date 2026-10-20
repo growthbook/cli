@@ -16,7 +16,7 @@ import (
 
 var archiveSavedGroupCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The id of the requested resource [required]"},
-	{FlagName: "ignore-warnings", FieldPath: "Body.IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access."},
+	{FlagName: "ignore-warnings", FieldPath: "Body.IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it."},
 }
 
 // initArchiveSavedGroupCmd initializes the archive-saved-group command.

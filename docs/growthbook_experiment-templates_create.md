@@ -24,7 +24,7 @@ growthbook experiment-templates create [flags]
       --custom-fields string              value
       --custom-metric-slices string       list of values
       --datasource string                 [required]
-      --description string                string value
+      --description string                Default description for experiments created from this template. Markdown.
       --disable-sticky-bucketing          boolean flag
       --exposure-query exposureQueryId    The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated exposureQueryId.
       --exposure-query-id exposureQuery   Deprecated: use exposureQuery. Rejected when selecting a different assignment query that declares several identifier types; set `exposureQuery.identifierType` instead.
@@ -33,13 +33,13 @@ growthbook experiment-templates create [flags]
       --guardrail-metrics stringArray     list of values
       --hash-attribute string             string value
   -h, --help                              help for create
-      --hypothesis string                 string value
+      --hypothesis string                 Default hypothesis for experiments created from this template. Markdown. If we change X, metric Y will move because Z.
   -p, --project string                    string value
       --secondary-metrics stringArray     list of values
       --segment string                    string value
       --skip-partial-data                 boolean flag
       --stats-engine string               options: bayesian, frequentist [required]
-      --tags stringArray                  list of values
+      --tags stringArray                  Tags for filtering and grouping. Use these instead of encoding groups in names.
       --targeting string                  [required]
       --template-metadata string          [required]
       --type string                       options: standard [required]

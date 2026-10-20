@@ -10,8 +10,11 @@ import (
 )
 
 type CreateContextualBanditVariation struct {
-	Key         string  `json:"key"`
-	Name        string  `json:"name"`
+	// Key sent with exposure events (e.g. `0`, `1`). Changing it after launch splits exposures.
+	Key string `json:"key"`
+	// Short label shown in results (e.g. `Control`).
+	Name string `json:"name"`
+	// What this variation changes.
 	Description *string `json:"description,omitzero"`
 }
 
@@ -115,12 +118,16 @@ func (e *CreateContextualBanditConversionWindowUnit) UnmarshalJSON(data []byte) 
 }
 
 type CreateContextualBanditRequest struct {
-	Name        string  `json:"name"`
+	// Short display name. Put details in `description`.
+	Name string `json:"name"`
+	// Markdown. Put context here, not in the name.
 	Description *string `json:"description,omitzero"`
 	Project     *string `json:"project,omitzero"`
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-	Owner                   *string                                     `json:"owner,omitzero"`
-	Tags                    []string                                    `json:"tags,omitzero"`
+	Owner *string `json:"owner,omitzero"`
+	// Tags for filtering and grouping. Use these instead of encoding groups in names.
+	Tags []string `json:"tags,omitzero"`
+	// Key sent with exposure events. Keep it short, in kebab-case. Changing it after launch splits exposures across two keys.
 	TrackingKey             string                                      `json:"trackingKey"`
 	HashAttribute           *string                                     `json:"hashAttribute,omitzero"`
 	DecisionMetric          string                                      `json:"decisionMetric"`
@@ -130,6 +137,7 @@ type CreateContextualBanditRequest struct {
 	ContextualAttributes    []string                                    `json:"contextualAttributes"`
 	MinUsersPerLeaf         *int64                                      `json:"minUsersPerLeaf,omitzero"`
 	MaxLeaves               *int64                                      `json:"maxLeaves,omitzero"`
+	PriorSampleSize         *int64                                      `json:"priorSampleSize,omitzero"`
 	ScheduleValue           *float64                                    `json:"scheduleValue,omitzero"`
 	ScheduleUnit            *CreateContextualBanditScheduleUnit         `json:"scheduleUnit,omitzero"`
 	BurnInValue             *float64                                    `json:"burnInValue,omitzero"`
@@ -247,6 +255,13 @@ func (c *CreateContextualBanditRequest) GetMaxLeaves() *int64 {
 	return c.MaxLeaves
 }
 
+func (c *CreateContextualBanditRequest) GetPriorSampleSize() *int64 {
+	if c == nil {
+		return nil
+	}
+	return c.PriorSampleSize
+}
+
 func (c *CreateContextualBanditRequest) GetScheduleValue() *float64 {
 	if c == nil {
 		return nil
@@ -305,6 +320,9 @@ type CreateContextualBanditResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *CreateContextualBanditResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (c CreateContextualBanditResponse) MarshalJSON() ([]byte, error) {
@@ -330,4 +348,18 @@ func (c *CreateContextualBanditResponse) GetObject() *CreateContextualBanditResp
 		return nil
 	}
 	return c.Object
+}
+
+func (c *CreateContextualBanditResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if c == nil {
+		return nil
+	}
+	return c.ConfirmationHeld
+}
+
+func (c *CreateContextualBanditResponse) GetHeaders() map[string][]string {
+	if c == nil {
+		return map[string][]string{}
+	}
+	return c.Headers
 }

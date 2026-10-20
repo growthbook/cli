@@ -19,13 +19,13 @@ growthbook environments update [flags]
 ### Options
 
 ```
-      --body string            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --default-state          Default state for new features
-      --description string     The description of the new environment
-  -h, --help                   help for update
-  -i, --id string              The id of the requested resource [required]
-  -p, --projects stringArray   list of values
-  -t, --toggle-on-list         Show on feature list page
+      --body string          Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --default-state        Default state for new features
+      --description string   Put context here, not in the name.
+  -h, --help                 help for update
+  -i, --id string            The id of the requested resource [required]
+  -p, --projects []          Limits which Projects can use this environment. Omit to keep the current list; send [] to allow all Projects.
+  -t, --toggle-on-list       Show on feature list page
 ```
 
 ### Options inherited from parent commands

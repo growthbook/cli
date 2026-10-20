@@ -25,7 +25,7 @@ growthbook dimensions create [flags]
   -h, --help                     help for create
   -i, --identifier-type string   Type of identifier (user, anonymous, etc.) [required]
   -m, --managed-by string        Where this dimension must be managed from. If not set (empty string), it can be managed from anywhere. (options: , api)
-  -n, --name string              Name of the dimension [required]
+  -n, --name description         Short display name. Put details in description. [required]
       --owner string             The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
       --query string             SQL query or equivalent for the dimension [required]
 ```

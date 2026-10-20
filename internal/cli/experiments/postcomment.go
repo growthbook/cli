@@ -24,7 +24,7 @@ func initPostCommentCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "post-comment",
 		Short:   "Post a comment on an experiment",
-		Long:    "Adds a new comment to an experiment's discussion thread.",
+		Long:    "Adds a new comment to an experiment's discussion thread, credited to the person behind the request. Needs a personal access token, or an organization API key that assumes a named member's role.",
 		Example: "  growthbook experiments post-comment --id <id> --comment New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016",
 		RunE:    runPostCommentCmd,
 		Aliases: []string{"pc"},

@@ -304,8 +304,11 @@ func (p *PutFeatureRevisionMetadataV2JSONSchema) GetEnabled() bool {
 // #endregion class-body-putfeaturerevisionmetadatav2jsonschema
 
 type PutFeatureRevisionMetadataV2RequestBody struct {
-	Comment     *string `json:"comment,omitzero"`
-	Title       *string `json:"title,omitzero"`
+	// Markdown. What changed and why, for reviewers.
+	Comment *string `json:"comment,omitzero"`
+	// Short draft title (e.g. `Enable for beta testers`).
+	Title *string `json:"title,omitzero"`
+	// Markdown. What the Feature Flag gates and why, rollout plan, and links. Put context here, not in the key.
 	Description *string `json:"description,omitzero"`
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
 	Owner   *string `json:"owner,omitzero"`
@@ -319,7 +322,7 @@ type PutFeatureRevisionMetadataV2RequestBody struct {
 	CustomFields      map[string]any `json:"customFields,omitzero"`
 	// Validation schema to stage on the draft. The server sets `date`, so don't send it.
 	JSONSchema *PutFeatureRevisionMetadataV2JSONSchema `json:"jsonSchema,omitzero"`
-	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
 }
 
@@ -470,6 +473,9 @@ type PutFeatureRevisionMetadataV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource updated
 	Object *PutFeatureRevisionMetadataV2ResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PutFeatureRevisionMetadataV2Response) MarshalJSON() ([]byte, error) {
@@ -495,6 +501,20 @@ func (p *PutFeatureRevisionMetadataV2Response) GetObject() *PutFeatureRevisionMe
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PutFeatureRevisionMetadataV2Response) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PutFeatureRevisionMetadataV2Response) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }
 
 // #region class-body-putfeaturerevisionmetadatav2response

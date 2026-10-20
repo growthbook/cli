@@ -10,11 +10,11 @@ import (
 type PostFeatureRevisionToggleV2RequestBody struct {
 	Environment string `json:"environment"`
 	Enabled     bool   `json:"enabled"`
-	// Title for a newly created draft. Only used when version is "new"; ignored for existing revisions.
+	// Short draft title (e.g. `Enable for beta testers`). Only used when `version` is "new"; ignored for existing drafts.
 	RevisionTitle *string `json:"revisionTitle,omitzero"`
-	// Comment for a newly created draft. Only used when version is "new"; ignored for existing revisions.
+	// Markdown. What changed and why, for reviewers. Only used when `version` is "new"; ignored for existing drafts.
 	RevisionComment *string `json:"revisionComment,omitzero"`
-	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
 }
 
@@ -105,6 +105,9 @@ type PostFeatureRevisionToggleV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostFeatureRevisionToggleV2ResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostFeatureRevisionToggleV2Response) MarshalJSON() ([]byte, error) {
@@ -130,6 +133,20 @@ func (p *PostFeatureRevisionToggleV2Response) GetObject() *PostFeatureRevisionTo
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostFeatureRevisionToggleV2Response) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostFeatureRevisionToggleV2Response) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }
 
 // #region class-body-postfeaturerevisiontogglev2response

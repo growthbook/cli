@@ -27,7 +27,7 @@ growthbook feature-revisions-v1 delete-feature-revision-rule-ramp-schedule [flag
   -e, --environment string        string value
   -h, --help                      help for delete-feature-revision-rule-ramp-schedule
       --id string                 [required]
-      --ignore-warnings           Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+      --ignore-warnings           Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
       --revision-comment string   string value
       --revision-title string     string value
       --rule-id string            [required]

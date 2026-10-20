@@ -100,6 +100,9 @@ type PostConstantRevisionRebaseResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostConstantRevisionRebaseResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostConstantRevisionRebaseResponse) MarshalJSON() ([]byte, error) {
@@ -125,4 +128,18 @@ func (p *PostConstantRevisionRebaseResponse) GetObject() *PostConstantRevisionRe
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostConstantRevisionRebaseResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostConstantRevisionRebaseResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

@@ -753,13 +753,13 @@ type PostMetricRequest struct {
 	ManagedBy *PostMetricManagedBy `json:"managedBy,omitzero"`
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
 	Owner *string `json:"owner,omitzero"`
-	// Name of the metric
+	// Short display name (e.g. `Purchases per user`). Put the definition in `description`.
 	Name string `json:"name"`
-	// Description of the metric
+	// Markdown. Put context here, not in the name.
 	Description *string `json:"description,omitzero"`
 	// Type of metric. See [Metrics documentation](/app/metrics/legacy)
 	Type PostMetricType `json:"type"`
-	// List of tags
+	// Tags for filtering and grouping. Use these instead of encoding groups in names.
 	Tags []string `json:"tags,omitzero"`
 	// List of project IDs for projects that can access this metric
 	Projects []string            `json:"projects,omitzero"`
@@ -891,6 +891,9 @@ type PostMetricResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostMetricResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostMetricResponse) MarshalJSON() ([]byte, error) {
@@ -916,4 +919,18 @@ func (p *PostMetricResponse) GetObject() *PostMetricResponseBody {
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostMetricResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostMetricResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

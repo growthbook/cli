@@ -181,6 +181,17 @@ type LookbackOverride struct {
 	ValueUnit *LookbackOverrideValueUnit `json:"valueUnit,omitzero"`
 }
 
+func (l LookbackOverride) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
+}
+
+func (l *LookbackOverride) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (l *LookbackOverride) GetType() LookbackOverrideType {
 	if l == nil {
 		return LookbackOverrideType("")

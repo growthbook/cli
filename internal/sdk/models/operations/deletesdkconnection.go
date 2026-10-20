@@ -35,6 +35,9 @@ type DeleteSDKConnectionResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource deleted
 	Object *DeleteSDKConnectionResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (d DeleteSDKConnectionResponse) MarshalJSON() ([]byte, error) {
@@ -60,4 +63,18 @@ func (d *DeleteSDKConnectionResponse) GetObject() *DeleteSDKConnectionResponseBo
 		return nil
 	}
 	return d.Object
+}
+
+func (d *DeleteSDKConnectionResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if d == nil {
+		return nil
+	}
+	return d.ConfirmationHeld
+}
+
+func (d *DeleteSDKConnectionResponse) GetHeaders() map[string][]string {
+	if d == nil {
+		return map[string][]string{}
+	}
+	return d.Headers
 }

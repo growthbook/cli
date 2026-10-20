@@ -25,7 +25,7 @@ growthbook feature-revisions request-review [flags]
 ```
   -a, --auto-publish-on-approval        boolean flag
       --body string                     Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -c, --comment string                  string value
+  -c, --comment string                  Markdown. What changed and why, for reviewers. Replaces the draft's comment; leaving it out clears it.
   -h, --help                            help for request-review
   -i, --id string                       [required]
       --scheduled-publish-at string     date/time value

@@ -40,6 +40,7 @@ growthbook contextual-bandits update [flags]
   -n, --name string                         string value
       --owner string                        The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
       --prerequisites string                list of values
+      --prior-sample-size int               integer value
       --project string                      string value
       --saved-groups string                 list of values
       --schedule-unit string                options: days, hours
@@ -47,7 +48,7 @@ growthbook contextual-bandits update [flags]
       --seed string                         string value
       --status string                       options: draft, running, stopped
       --tags stringArray                    list of values
-      --tracking-key string                 string value
+      --tracking-key string                 Key sent with exposure events. Keep it short, in kebab-case. Changing it after launch splits exposures across two keys.
 ```
 
 ### Options inherited from parent commands

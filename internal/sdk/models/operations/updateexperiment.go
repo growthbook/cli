@@ -422,9 +422,12 @@ type UpdateExperimentVariation struct {
 	// Stable variation id. On update, an omitted id is filled from the stored variation with the same key, or the same position, when the number of variations is unchanged.
 	ID *string `json:"id,omitzero"`
 	// Alias for `id`. Mirrors the GET response. `id` takes precedence.
-	VariationID *string                      `json:"variationId,omitzero"`
-	Key         string                       `json:"key"`
-	Name        string                       `json:"name"`
+	VariationID *string `json:"variationId,omitzero"`
+	// Key sent with exposure events (e.g. `0`, `1`). Changing it after launch splits exposures.
+	Key string `json:"key"`
+	// Short label shown in results (e.g. `Control`).
+	Name string `json:"name"`
+	// What this variation changes.
 	Description *string                      `json:"description,omitzero"`
 	Screenshots []UpdateExperimentScreenshot `json:"screenshots,omitzero"`
 }
@@ -1208,18 +1211,20 @@ type UpdateExperimentRequestBody struct {
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	AssignmentQueryID *string `json:"assignmentQueryId,omitzero"`
-	TrackingKey       *string `json:"trackingKey,omitzero"`
-	// If true, allow updating the tracking key even if another experiment with the same tracking key already exist. This is ignored if the organization requires unique tracking keys as a rule.
+	// Key sent with exposure events. Keep it short, in kebab-case (usually the Feature Flag key). If your organization requires a tracking key format, a key that doesn't match is rejected with `invalid_tracking_key`. Changing it after launch splits exposures across two keys.
+	TrackingKey *string `json:"trackingKey,omitzero"`
+	// If true, allow updating the tracking key even if another experiment with the same tracking key already exist. This is ignored if the organization requires unique tracking keys as a rule. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	BypassDuplicateKeyCheck *bool `json:"bypassDuplicateKeyCheck,omitzero"`
-	// Name of the experiment
+	// Short display name (e.g. `Express checkout button`). Put reasoning in `hypothesis` and context in `description`.
 	Name *string               `json:"name,omitzero"`
 	Type *UpdateExperimentType `json:"type,omitzero"`
 	// Project ID which the experiment belongs to
 	Project *string `json:"project,omitzero"`
-	// Hypothesis of the experiment
+	// Markdown. If we change X, metric Y will move because Z.
 	Hypothesis *string `json:"hypothesis,omitzero"`
-	// Description of the experiment
-	Description      *string  `json:"description,omitzero"`
+	// Markdown. Put context here, not in the name.
+	Description *string `json:"description,omitzero"`
+	// Tags for filtering and grouping. Use these instead of encoding groups in names.
 	Tags             []string `json:"tags,omitzero"`
 	Metrics          []string `json:"metrics,omitzero"`
 	SecondaryMetrics []string `json:"secondaryMetrics,omitzero"`
@@ -1286,7 +1291,7 @@ type UpdateExperimentRequestBody struct {
 	CustomMetricSlices          []UpdateExperimentCustomMetricSlice                                     `json:"customMetricSlices,omitzero"`
 	StatusUpdateSchedule        optionalnullable.OptionalNullable[UpdateExperimentStatusUpdateSchedule] `json:"statusUpdateSchedule,omitzero"`
 	PrecomputedUnitDimensionIds []string                                                                `json:"precomputedUnitDimensionIds,omitzero"`
-	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
 }
 
@@ -1766,6 +1771,9 @@ type UpdateExperimentResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *UpdateExperimentResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (u UpdateExperimentResponse) MarshalJSON() ([]byte, error) {
@@ -1791,4 +1799,18 @@ func (u *UpdateExperimentResponse) GetObject() *UpdateExperimentResponseBody {
 		return nil
 	}
 	return u.Object
+}
+
+func (u *UpdateExperimentResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if u == nil {
+		return nil
+	}
+	return u.ConfirmationHeld
+}
+
+func (u *UpdateExperimentResponse) GetHeaders() map[string][]string {
+	if u == nil {
+		return map[string][]string{}
+	}
+	return u.Headers
 }

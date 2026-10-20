@@ -15,9 +15,9 @@ import (
 )
 
 var createCustomFieldCmdMeta = []flagutil.FlagMeta{
-	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The unique key for the custom field [required]"},
+	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "Unique, permanent key used in API payloads (e.g. `jira_ticket`). Lowercase letters, numbers, hyphens, and underscores. Put the label in `name`. [required]"},
 	{FlagName: "name", Shorthand: "n", FieldPath: "Name", Kind: flagutil.FlagKindString, Required: true, Description: "The display name of the custom field [required]"},
-	{FlagName: "description", FieldPath: "Description", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "description", FieldPath: "Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Help text shown under the field."},
 	{FlagName: "placeholder", FieldPath: "Placeholder", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "default-value", FieldPath: "DefaultValue", Kind: flagutil.FlagKindUnion, Union: &flagutil.UnionMeta{Discriminated: false, Optional: true, TypeDescription: "JSON value (one of: string | number | boolean | date-time | date | array of string | array of number | array of boolean | array of date-time | array of date)"}},
 	{FlagName: "type", Shorthand: "t", FieldPath: "Type", Kind: flagutil.FlagKindEnum, Required: true, EnumValues: []string{"text", "textarea", "markdown", "enum", "multiselect", "url", "number", "boolean", "date", "datetime"}, Description: "The type of value this custom field will take (options: text, textarea, markdown, enum, multiselect, url, number, boolean, date, datetime) [required]"},

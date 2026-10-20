@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
+)
+
 type ScheduledStopPlanMode string
 
 const (
@@ -56,6 +60,17 @@ type ScheduledStopPlan struct {
 	// What to do at the scheduled end when there is no clear winner. Required when `mode` is `"auto-ship"`; ignored for other modes.
 	Fallback            *Fallback `json:"fallback,omitzero"`
 	FallbackVariationID *string   `json:"fallbackVariationId,omitzero"`
+}
+
+func (s ScheduledStopPlan) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *ScheduledStopPlan) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (s *ScheduledStopPlan) GetMode() ScheduledStopPlanMode {

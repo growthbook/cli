@@ -10,7 +10,7 @@ import (
 type APIAdvanceRampScheduleRequestBody struct {
 	// Reason for advancing
 	Reason *string `json:"reason,omitzero"`
-	// Bypass a pending approval gate on the current step. Requires admin-level (`FlagsBypassApprovals`) permission. When omitted or `false`, a 409 is returned if the step has an unsatisfied `holdConditions.requiresApproval` gate.
+	// Bypass a pending approval gate on the current step. Requires admin-level (`FlagsBypassApprovals`) permission. When omitted or `false`, a 409 is returned if the step has an unsatisfied `holdConditions.requiresApproval` gate. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	Force *bool `json:"force,omitzero"`
 }
 
@@ -74,6 +74,9 @@ type APIAdvanceRampScheduleResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *APIAdvanceRampScheduleResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (a APIAdvanceRampScheduleResponse) MarshalJSON() ([]byte, error) {
@@ -99,4 +102,18 @@ func (a *APIAdvanceRampScheduleResponse) GetObject() *APIAdvanceRampScheduleResp
 		return nil
 	}
 	return a.Object
+}
+
+func (a *APIAdvanceRampScheduleResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if a == nil {
+		return nil
+	}
+	return a.ConfirmationHeld
+}
+
+func (a *APIAdvanceRampScheduleResponse) GetHeaders() map[string][]string {
+	if a == nil {
+		return map[string][]string{}
+	}
+	return a.Headers
 }

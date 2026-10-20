@@ -17,7 +17,7 @@ import (
 var apiAdvanceRampScheduleCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "reason", Shorthand: "r", FieldPath: "Body.Reason", Kind: flagutil.FlagKindString, Optional: true, Description: "Reason for advancing"},
-	{FlagName: "force", Shorthand: "f", FieldPath: "Body.Force", Kind: flagutil.FlagKindBool, Optional: true, Description: "Bypass a pending approval gate on the current step. Requires admin-level (`FlagsBypassApprovals`) permission. When omitted or `false`, a 409 is returned if the step has an unsatisfied `holdConditions.requiresApproval` gate."},
+	{FlagName: "force", Shorthand: "f", FieldPath: "Body.Force", Kind: flagutil.FlagKindBool, Optional: true, Description: "Bypass a pending approval gate on the current step. Requires admin-level (`FlagsBypassApprovals`) permission. When omitted or `false`, a 409 is returned if the step has an unsatisfied `holdConditions.requiresApproval` gate. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it."},
 }
 
 // initApiAdvanceRampScheduleCmd initializes the api-advance-ramp-schedule command.

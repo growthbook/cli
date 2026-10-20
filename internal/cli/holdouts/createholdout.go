@@ -15,11 +15,11 @@ import (
 )
 
 var createHoldoutCmdMeta = []flagutil.FlagMeta{
-	{FlagName: "name", Shorthand: "n", FieldPath: "Name", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "description", FieldPath: "Description", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "name", Shorthand: "n", FieldPath: "Name", Kind: flagutil.FlagKindString, Required: true, Description: "Short display name. Put details in `description`. [required]"},
+	{FlagName: "description", FieldPath: "Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Markdown. Put context here, not in the name."},
 	{FlagName: "projects", Shorthand: "p", FieldPath: "Projects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Project IDs this Holdout applies to. Omit or send an empty array for All Projects."},
 	{FlagName: "owner", FieldPath: "Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization."},
-	{FlagName: "tags", FieldPath: "Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
+	{FlagName: "tags", FieldPath: "Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Tags for filtering and grouping. Use these instead of encoding groups in names."},
 	{FlagName: "skip-as-default-holdout", FieldPath: "SkipAsDefaultHoldout", Kind: flagutil.FlagKindBool, Optional: true, Description: "When true, this Holdout is not selected automatically when creating Feature Flags or Experiments in Projects assigned to the Holdout."},
 	{FlagName: "holdout-size", FieldPath: "HoldoutSize", Kind: flagutil.FlagKindFloat64, Optional: true, Description: "Proportion of traffic held out, expressed as a decimal (e.g. 0.05 for 5%). An equally-sized control group is bucketed alongside it. Defaults to 0.05. Maximum 0.5."},
 	{FlagName: "hash-attribute", FieldPath: "HashAttribute", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},

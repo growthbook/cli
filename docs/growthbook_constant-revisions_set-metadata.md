@@ -19,16 +19,16 @@ growthbook constant-revisions set-metadata [flags]
 ### Options
 
 ```
-      --body string               Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --description string        string value
-  -h, --help                      help for set-metadata
-  -k, --key string                [required]
-  -n, --name string               string value
-      --owner string              The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-  -p, --project string            string value
-      --revision-comment string   string value
-      --revision-title string     string value
-  -v, --version-param string      [required]
+      --body string                              Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --description string                       Markdown. Put context here, not in the name.
+  -h, --help                                     help for set-metadata
+  -k, --key string                               [required]
+  -n, --name description                         Short display name. Put details in description.
+      --owner string                             The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
+  -p, --project string                           string value
+      --revision-comment version                 Markdown. What changed and why, for reviewers. Only used when version is "new"; ignored for existing drafts.
+      --revision-title Enable for beta testers   Short draft title (e.g. Enable for beta testers). Only used when `version` is "new"; ignored for existing drafts.
+  -v, --version-param string                     [required]
 ```
 
 ### Options inherited from parent commands

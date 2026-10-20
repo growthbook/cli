@@ -39,6 +39,17 @@ type ExperimentVariation struct {
 	Screenshots []string `json:"screenshots"`
 }
 
+func (e ExperimentVariation) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ExperimentVariation) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (e *ExperimentVariation) GetVariationID() string {
 	if e == nil {
 		return ""
@@ -77,6 +88,17 @@ func (e *ExperimentVariation) GetScreenshots() []string {
 type ExperimentTrafficSplit struct {
 	VariationID string  `json:"variationId"`
 	Weight      float64 `json:"weight"`
+}
+
+func (e ExperimentTrafficSplit) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ExperimentTrafficSplit) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (e *ExperimentTrafficSplit) GetVariationID() string {
@@ -144,6 +166,17 @@ type ExperimentPhasePrerequisite struct {
 	Condition string `json:"condition"`
 }
 
+func (e ExperimentPhasePrerequisite) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ExperimentPhasePrerequisite) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (e *ExperimentPhasePrerequisite) GetID() string {
 	if e == nil {
 		return ""
@@ -184,6 +217,17 @@ func (e *ExperimentPhaseMatchType) IsExact() bool {
 type ExperimentPhaseSavedGroupTargeting struct {
 	MatchType   ExperimentPhaseMatchType `json:"matchType"`
 	SavedGroups []string                 `json:"savedGroups"`
+}
+
+func (e ExperimentPhaseSavedGroupTargeting) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ExperimentPhaseSavedGroupTargeting) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (e *ExperimentPhaseSavedGroupTargeting) GetMatchType() ExperimentPhaseMatchType {
@@ -308,6 +352,17 @@ type ExperimentResultSummary struct {
 	Conclusions         string `json:"conclusions"`
 	ReleasedVariationID string `json:"releasedVariationId"`
 	ExcludeFromPayload  bool   `json:"excludeFromPayload"`
+}
+
+func (e ExperimentResultSummary) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ExperimentResultSummary) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (e *ExperimentResultSummary) GetStatus() string {
@@ -438,6 +493,17 @@ type ExperimentSlice struct {
 	Levels []string `json:"levels"`
 }
 
+func (e ExperimentSlice) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ExperimentSlice) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (e *ExperimentSlice) GetColumn() string {
 	if e == nil {
 		return ""
@@ -454,6 +520,17 @@ func (e *ExperimentSlice) GetLevels() []string {
 
 type ExperimentCustomMetricSlice struct {
 	Slices []ExperimentSlice `json:"slices"`
+}
+
+func (e ExperimentCustomMetricSlice) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ExperimentCustomMetricSlice) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (e *ExperimentCustomMetricSlice) GetSlices() []ExperimentSlice {
@@ -489,6 +566,17 @@ func (e *ExperimentUnit) IsExact() bool {
 type ExperimentStopAfter struct {
 	Value int64          `json:"value"`
 	Unit  ExperimentUnit `json:"unit"`
+}
+
+func (e ExperimentStopAfter) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ExperimentStopAfter) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (e *ExperimentStopAfter) GetValue() int64 {

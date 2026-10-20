@@ -22,7 +22,7 @@ growthbook fact-tables create-virtual-column [flags]
       --body string            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
   -c, --column _vc             The column identifier used in generated SQL. Must contain only letters, numbers, and underscores and end with _vc. [required]
       --datatype string        The data type of the computed column (options: number, string, date, boolean, json, binary, other) [required]
-      --description string     string value
+      --description string     Put context here, not in the name.
   -f, --fact-table-id string   Specify a specific fact table [required]
   -h, --help                   help for create-virtual-column
       --name string            Display name for the column

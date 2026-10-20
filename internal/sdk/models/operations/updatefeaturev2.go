@@ -237,6 +237,7 @@ func (e *UpdateFeatureV2Status) UnmarshalJSON(data []byte) error {
 }
 
 type UpdateFeatureV2RuleSafeRollout struct {
+	// Short note on why the rule exists (e.g. `Beta testers only`).
 	Description *string `json:"description,omitzero"`
 	ID          *string `json:"id,omitzero"`
 	Enabled     *bool   `json:"enabled,omitzero"`
@@ -681,6 +682,7 @@ func (u *UpdateFeatureV2Variation) GetConfig() optionalnullable.OptionalNullable
 // #endregion class-body-updatefeaturev2variation
 
 type UpdateFeatureV2RuleExperimentRef struct {
+	// Short note on why the rule exists (e.g. `Beta testers only`).
 	Description *string `json:"description,omitzero"`
 	ID          *string `json:"id,omitzero"`
 	Enabled     *bool   `json:"enabled,omitzero"`
@@ -1051,6 +1053,7 @@ func (u *UpdateFeatureV2ScheduleRule2) GetEnabled() bool {
 // #endregion class-body-updatefeaturev2schedulerule2
 
 type UpdateFeatureV2RuleRollout struct {
+	// Short note on why the rule exists (e.g. `Beta testers only`).
 	Description *string                      `json:"description,omitzero"`
 	Condition   *string                      `json:"condition,omitzero"`
 	SavedGroups []UpdateFeatureV2SavedGroup2 `json:"savedGroups,omitzero"`
@@ -1455,6 +1458,7 @@ func (u *UpdateFeatureV2ScheduleRule1) GetEnabled() bool {
 // #endregion class-body-updatefeaturev2schedulerule1
 
 type UpdateFeatureV2RuleForce struct {
+	// Short note on why the rule exists (e.g. `Beta testers only`).
 	Description *string                      `json:"description,omitzero"`
 	Condition   *string                      `json:"condition,omitzero"`
 	SavedGroups []UpdateFeatureV2SavedGroup1 `json:"savedGroups,omitzero"`
@@ -1761,6 +1765,7 @@ func (u UpdateFeatureV2RuleUnion) MarshalJSON() ([]byte, error) {
 }
 
 type UpdateFeatureV2Environments struct {
+	// Whether the Feature Flag is enabled in this environment.
 	Enabled *bool `json:"enabled,omitzero"`
 }
 
@@ -1799,7 +1804,7 @@ func (u *UpdateFeatureV2Holdout) GetValue() string {
 // #endregion class-body-updatefeaturev2holdout
 
 type UpdateFeatureV2RequestBody struct {
-	// Description of the feature
+	// Markdown. What the Feature Flag gates and why, rollout plan, and links. Put context here, not in the key.
 	Description *string `json:"description,omitzero"`
 	Archived    *bool   `json:"archived,omitzero"`
 	// An associated project ID
@@ -1815,7 +1820,7 @@ type UpdateFeatureV2RequestBody struct {
 	BaseConfig optionalnullable.OptionalNullable[string] `json:"baseConfig,omitzero"`
 	// Optional. A config within `baseConfig`'s family that the default value resolves to instead of `baseConfig` itself. null or omitted means the default is `baseConfig`. The default is exactly this config and carries no overrides of its own.
 	DefaultValueConfig optionalnullable.OptionalNullable[string] `json:"defaultValueConfig,omitzero"`
-	// List of associated tags. Will override tags completely with submitted list
+	// Tags for filtering and grouping. Use these instead of encoding groups in names. Replaces the existing tags completely.
 	Tags []string `json:"tags,omitzero"`
 	// Replaces all feature rules atomically. Behavior differs from v1: v1 PUT applies per-environment patches, v2 PUT swaps the entire `rules` array in one revision. To preserve existing rules during a partial edit, GET the feature first, mutate the returned `rules` array, and PUT the full array back. Safe-rollout rules round-trip via their `safeRolloutId` (creation requires `POST /v2/features/:id/revisions/:version/rules`).
 	Rules []UpdateFeatureV2RuleUnion `json:"rules,omitzero"`
@@ -1831,11 +1836,11 @@ type UpdateFeatureV2RequestBody struct {
 	Holdout optionalnullable.OptionalNullable[UpdateFeatureV2Holdout] `json:"holdout,omitzero"`
 	// Comment to record on the revision this update publishes, when it publishes one. Defaults to "Created via REST API".
 	Comment *string `json:"comment,omitzero"`
-	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
-	// Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	// Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	SkipSchemaValidation *bool `json:"skipSchemaValidation,omitzero"`
-	// Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored.
+	// Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	SkipHooks *bool `json:"skipHooks,omitzero"`
 }
 
@@ -2055,6 +2060,9 @@ type UpdateFeatureV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *UpdateFeatureV2ResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (u UpdateFeatureV2Response) MarshalJSON() ([]byte, error) {
@@ -2080,6 +2088,20 @@ func (u *UpdateFeatureV2Response) GetObject() *UpdateFeatureV2ResponseBody {
 		return nil
 	}
 	return u.Object
+}
+
+func (u *UpdateFeatureV2Response) GetConfirmationHeld() *components.ConfirmationHeld {
+	if u == nil {
+		return nil
+	}
+	return u.ConfirmationHeld
+}
+
+func (u *UpdateFeatureV2Response) GetHeaders() map[string][]string {
+	if u == nil {
+		return map[string][]string{}
+	}
+	return u.Headers
 }
 
 // #region class-body-updatefeaturev2response

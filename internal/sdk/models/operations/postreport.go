@@ -477,7 +477,7 @@ type PostReportRequest struct {
 	Title *string `json:"title,omitzero"`
 	// Report description
 	Description *string `json:"description,omitzero"`
-	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the user associated with the request's Personal Access Token (PAT), if one is being used.
+	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the requesting member: a personal access token's owner, or the member an organization API key assumes. An organization API key acting as itself leaves it empty.
 	Owner *string `json:"owner,omitzero"`
 	// Stats engine override
 	StatsEngine *PostReportStatsEngine `json:"statsEngine,omitzero"`
@@ -730,6 +730,9 @@ type PostReportResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostReportResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostReportResponse) MarshalJSON() ([]byte, error) {
@@ -755,4 +758,18 @@ func (p *PostReportResponse) GetObject() *PostReportResponseBody {
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostReportResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostReportResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

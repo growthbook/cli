@@ -390,10 +390,11 @@ func (e *CreateCustomFieldSection) UnmarshalJSON(data []byte) error {
 }
 
 type CreateCustomFieldRequest struct {
-	// The unique key for the custom field
+	// Unique, permanent key used in API payloads (e.g. `jira_ticket`). Lowercase letters, numbers, hyphens, and underscores. Put the label in `name`.
 	ID string `json:"id"`
 	// The display name of the custom field
-	Name         string                         `json:"name"`
+	Name string `json:"name"`
+	// Help text shown under the field.
 	Description  *string                        `json:"description,omitzero"`
 	Placeholder  *string                        `json:"placeholder,omitzero"`
 	DefaultValue *CreateCustomFieldDefaultValue `json:"defaultValue,omitzero"`
@@ -512,6 +513,9 @@ type CreateCustomFieldResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *CreateCustomFieldResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (c CreateCustomFieldResponse) MarshalJSON() ([]byte, error) {
@@ -537,4 +541,18 @@ func (c *CreateCustomFieldResponse) GetObject() *CreateCustomFieldResponseBody {
 		return nil
 	}
 	return c.Object
+}
+
+func (c *CreateCustomFieldResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if c == nil {
+		return nil
+	}
+	return c.ConfirmationHeld
+}
+
+func (c *CreateCustomFieldResponse) GetHeaders() map[string][]string {
+	if c == nil {
+		return map[string][]string{}
+	}
+	return c.Headers
 }

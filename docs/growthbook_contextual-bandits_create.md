@@ -28,18 +28,19 @@ growthbook contextual-bandits create [flags]
       --conversion-window-value float       number value
       --datasource string                   [required]
       --decision-metric string              [required]
-      --description string                  string value
+      --description string                  Markdown. Put context here, not in the name.
       --hash-attribute string               string value
   -h, --help                                help for create
       --max-leaves int                      integer value
       --min-users-per-leaf int              integer value
-  -n, --name string                         [required]
+  -n, --name description                    Short display name. Put details in description. [required]
       --owner string                        The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-  -p, --project string                      string value
+      --prior-sample-size int               integer value
+      --project string                      string value
       --schedule-unit string                options: days, hours
       --schedule-value float                number value
-      --tags stringArray                    list of values
-      --tracking-key string                 [required]
+      --tags stringArray                    Tags for filtering and grouping. Use these instead of encoding groups in names.
+      --tracking-key string                 Key sent with exposure events. Keep it short, in kebab-case. Changing it after launch splits exposures across two keys. [required]
   -v, --variations string                   [required]
 ```
 

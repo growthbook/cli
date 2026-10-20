@@ -15,12 +15,13 @@ import (
 )
 
 var createCmdMeta = []flagutil.FlagMeta{
-	{FlagName: "name", Shorthand: "n", FieldPath: "Name", Kind: flagutil.FlagKindString, Required: true, Description: "The display name of the Saved Group [required]"},
+	{FlagName: "name", Shorthand: "n", FieldPath: "Name", Kind: flagutil.FlagKindString, Required: true, Description: "Short display name (e.g. `Internal employees`). Put details in `description`. [required]"},
+	{FlagName: "description", FieldPath: "Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Short note (max 100 characters) on who is in the Saved Group and why."},
 	{FlagName: "type", Shorthand: "t", FieldPath: "Type", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"condition", "list"}, Description: "The type of Saved Group (inferred from other arguments if missing) (options: condition, list)"},
 	{FlagName: "condition", Shorthand: "c", FieldPath: "Condition", Kind: flagutil.FlagKindString, Optional: true, Description: "When type = 'condition', this is the JSON-encoded condition for the group"},
 	{FlagName: "attribute-key", Shorthand: "a", FieldPath: "AttributeKey", Kind: flagutil.FlagKindString, Optional: true, Description: "When type = 'list', this is the attribute key the group is based on"},
 	{FlagName: "values", Shorthand: "v", FieldPath: "Values", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "When type = 'list', this is the list of values for the attribute key"},
-	{FlagName: "owner", FieldPath: "Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the user associated with the request's Personal Access Token (PAT), if one is being used."},
+	{FlagName: "owner", FieldPath: "Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the requesting member: a personal access token's owner, or the member an organization API key assumes. An organization API key acting as itself leaves it empty."},
 	{FlagName: "projects", Shorthand: "p", FieldPath: "Projects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
 	{FlagName: "bypass-approval", Shorthand: "b", FieldPath: "BypassApproval", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to create the live Saved Group without approval. The caller must have Bypass draft approvals access in every assigned Project. This field has no effect when approval is not required."},
 }

@@ -155,7 +155,8 @@ type FactTableColumnInput struct {
 	// For JSON columns, defines the structure of nested fields
 	JSONFields map[string]FactTableColumnInputJSONFields `json:"jsonFields,omitzero"`
 	// Display name for the column (can be different from the actual column name)
-	Name        *string `json:"name,omitzero"`
+	Name *string `json:"name,omitzero"`
+	// What the column contains.
 	Description *string `json:"description,omitzero"`
 	// Whether this column should always be included as an inline filter in queries
 	AlwaysInlineFilter *bool `default:"false" json:"alwaysInlineFilter"`

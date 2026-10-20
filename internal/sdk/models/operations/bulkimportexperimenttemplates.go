@@ -11,7 +11,9 @@ import (
 )
 
 type BulkImportExperimentTemplatesTemplateMetadata struct {
-	Name        string  `json:"name"`
+	// Short display name (e.g. `Checkout test`).
+	Name string `json:"name"`
+	// When to use this template.
 	Description *string `json:"description,omitzero"`
 }
 
@@ -247,11 +249,14 @@ type BulkImportExperimentTemplatesData struct {
 	Project          *string                                       `json:"project,omitzero"`
 	TemplateMetadata BulkImportExperimentTemplatesTemplateMetadata `json:"templateMetadata"`
 	Type             BulkImportExperimentTemplatesType             `json:"type"`
-	Hypothesis       *string                                       `json:"hypothesis,omitzero"`
-	Description      *string                                       `json:"description,omitzero"`
-	Tags             []string                                      `json:"tags,omitzero"`
-	CustomFields     map[string]string                             `json:"customFields,omitzero"`
-	Datasource       string                                        `json:"datasource"`
+	// Default hypothesis for experiments created from this template. Markdown. If we change X, metric Y will move because Z.
+	Hypothesis *string `json:"hypothesis,omitzero"`
+	// Default description for experiments created from this template. Markdown.
+	Description *string `json:"description,omitzero"`
+	// Tags for filtering and grouping. Use these instead of encoding groups in names.
+	Tags         []string          `json:"tags,omitzero"`
+	CustomFields map[string]string `json:"customFields,omitzero"`
+	Datasource   string            `json:"datasource"`
 	// The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `exposureQueryId`.
 	ExposureQuery *BulkImportExperimentTemplatesExposureQuery `json:"exposureQuery,omitzero"`
 	// Deprecated: use `exposureQuery`. Rejected when selecting a different assignment query that declares several identifier types; set `exposureQuery.identifierType` instead.
@@ -491,6 +496,9 @@ type BulkImportExperimentTemplatesResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *BulkImportExperimentTemplatesResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (b BulkImportExperimentTemplatesResponse) MarshalJSON() ([]byte, error) {
@@ -516,4 +524,18 @@ func (b *BulkImportExperimentTemplatesResponse) GetObject() *BulkImportExperimen
 		return nil
 	}
 	return b.Object
+}
+
+func (b *BulkImportExperimentTemplatesResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if b == nil {
+		return nil
+	}
+	return b.ConfirmationHeld
+}
+
+func (b *BulkImportExperimentTemplatesResponse) GetHeaders() map[string][]string {
+	if b == nil {
+		return map[string][]string{}
+	}
+	return b.Headers
 }

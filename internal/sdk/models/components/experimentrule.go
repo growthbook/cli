@@ -139,6 +139,7 @@ func (e *ExperimentRuleVariation) GetConfig() optionalnullable.OptionalNullable[
 
 // ExperimentRule - An experiment rule that links a feature value to an existing experiment.
 type ExperimentRule struct {
+	// Short note on why the rule exists (e.g. `Beta testers only`).
 	Description   *string                      `json:"description,omitzero"`
 	Enabled       *bool                        `json:"enabled,omitzero"`
 	Condition     *string                      `json:"condition,omitzero"`

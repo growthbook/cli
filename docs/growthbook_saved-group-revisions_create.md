@@ -19,11 +19,11 @@ growthbook saved-group-revisions create [flags]
 ### Options
 
 ```
-      --body string             Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -c, --comment string          string value
-  -h, --help                    help for create
-  -s, --saved-group-id string   [required]
-  -t, --title string            string value
+      --body string                     Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -c, --comment string                  Markdown. What changed and why, for reviewers.
+  -h, --help                            help for create
+  -s, --saved-group-id string           [required]
+  -t, --title Enable for beta testers   Short draft title (e.g. Enable for beta testers).
 ```
 
 ### Options inherited from parent commands

@@ -20,12 +20,12 @@ growthbook feature-revisions set-metadata [flags]
 
 ```
       --body string                             Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --comment string                          string value
+      --comment string                          Markdown. What changed and why, for reviewers.
       --custom-fields string                    value
-      --description string                      string value
+      --description string                      Markdown. What the Feature Flag gates and why, rollout plan, and links. Put context here, not in the key.
   -h, --help                                    help for set-metadata
       --id string                               [required]
-      --ignore-warnings                         Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access.
+      --ignore-warnings                         Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
   -j, --json-schema date                        Validation schema to stage on the draft. The server sets date, so don't send it.
   -n, --never-stale                             boolean flag
       --owner string                            The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
@@ -33,7 +33,7 @@ growthbook feature-revisions set-metadata [flags]
       --tags stringArray                        list of values
       --targeting-all-projects targetFeatures   Stage delivering this feature to every project. Requires the targetFeatures permission unscoped to any project.
       --targeting-projects targetFeatures       Stage the secondary project IDs this feature is delivered to. Adding a project requires the targetFeatures permission (FlagsTarget policy) in that project.
-      --title string                            string value
+      --title Enable for beta testers           Short draft title (e.g. Enable for beta testers).
   -v, --version-param string                    [required]
 ```
 

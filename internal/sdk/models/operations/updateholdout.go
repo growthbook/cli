@@ -163,11 +163,15 @@ func (u *UpdateHoldoutStatusUpdateSchedule) GetStopAt() *time.Time {
 }
 
 type UpdateHoldoutRequestBody struct {
-	Name        *string  `json:"name,omitzero"`
-	Description *string  `json:"description,omitzero"`
-	Projects    []string `json:"projects,omitzero"`
+	// Short display name. Put details in `description`.
+	Name *string `json:"name,omitzero"`
+	// Markdown. Put context here, not in the name.
+	Description *string `json:"description,omitzero"`
+	// Project IDs this Holdout applies to. Send an empty array for All Projects.
+	Projects []string `json:"projects,omitzero"`
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-	Owner    *string  `json:"owner,omitzero"`
+	Owner *string `json:"owner,omitzero"`
+	// Tags for filtering and grouping. Use these instead of encoding groups in names.
 	Tags     []string `json:"tags,omitzero"`
 	Archived *bool    `json:"archived,omitzero"`
 	// When true, this Holdout is not selected automatically when creating Feature Flags or Experiments in Projects assigned to the Holdout.
@@ -372,6 +376,9 @@ type UpdateHoldoutResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource updated
 	Object *UpdateHoldoutResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (u UpdateHoldoutResponse) MarshalJSON() ([]byte, error) {
@@ -397,4 +404,18 @@ func (u *UpdateHoldoutResponse) GetObject() *UpdateHoldoutResponseBody {
 		return nil
 	}
 	return u.Object
+}
+
+func (u *UpdateHoldoutResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if u == nil {
+		return nil
+	}
+	return u.ConfirmationHeld
+}
+
+func (u *UpdateHoldoutResponse) GetHeaders() map[string][]string {
+	if u == nil {
+		return map[string][]string{}
+	}
+	return u.Headers
 }

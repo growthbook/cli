@@ -17,8 +17,8 @@ import (
 var submitReviewCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "comment", Shorthand: "c", FieldPath: "Body.Comment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "action", Shorthand: "a", FieldPath: "Body.Action", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"approve", "request-changes", "comment"}, Description: "options: approve, request-changes, comment"},
+	{FlagName: "comment", Shorthand: "c", FieldPath: "Body.Comment", Kind: flagutil.FlagKindString, Optional: true, Description: "Markdown. Why you approved, requested changes or commented."},
+	{FlagName: "action", Shorthand: "a", FieldPath: "Body.Action", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"approve", "request-changes", "comment"}, Description: "`approve`, `request-changes` or `comment`. Defaults to `comment`, which doesn't change whether the draft is approved. (options: approve, request-changes, comment)"},
 	{FlagName: "skip-auto-publish", Shorthand: "s", FieldPath: "Body.SkipAutoPublish", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 }
 
@@ -27,7 +27,7 @@ func initSubmitReviewCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "submit-review",
 		Short:   "Submit a review on a draft revision",
-		Long:    "Submits an `approve`, `request-changes`, or `comment` review on the draft. Contributors cannot approve their own drafts when `blockSelfApproval` is enabled.\n\nWhen `action` is `approve` and the revision has `autoPublishOnApproval` enabled, the revision is automatically published after approval. The response includes `autoPublished: true` when this happens. Pass `skipAutoPublish: true` to approve without triggering auto-publish.",
+		Long:    "Submits an `approve`, `request-changes`, or `comment` review on the draft. The verdict belongs to whoever the request acts as; see [Naming who asked](/api/introduction#naming-who-asked). No one can rule on a draft they created. Contributors cannot approve their own drafts when `blockSelfApproval` is enabled.\n\nWhen `action` is `approve` and the revision has `autoPublishOnApproval` enabled, the revision is automatically published after approval. The response includes `autoPublished: true` when this happens. Pass `skipAutoPublish: true` to approve without triggering auto-publish.",
 		Example: "  growthbook feature-revisions submit-review --id <id> --version-param 494187",
 		RunE:    runSubmitReviewCmd,
 		Aliases: []string{"sr"},

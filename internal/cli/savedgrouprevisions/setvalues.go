@@ -17,8 +17,8 @@ import (
 var setValuesCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "saved-group-id", Shorthand: "s", FieldPath: "SavedGroupID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "Short draft title (e.g. `Enable for beta testers`). Only used when `version` is \"new\"; ignored for existing drafts."},
+	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "Markdown. What changed and why, for reviewers. Only used when `version` is \"new\"; ignored for existing drafts."},
 	{FlagName: "values", FieldPath: "Body.Values", Kind: flagutil.FlagKindStringArray, Required: true, Description: "[required]"},
 }
 

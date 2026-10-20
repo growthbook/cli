@@ -13,6 +13,17 @@ type DecisionFrameworkMetricOverride struct {
 	TargetMDE *float64 `json:"targetMDE,omitzero"`
 }
 
+func (d DecisionFrameworkMetricOverride) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DecisionFrameworkMetricOverride) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (d *DecisionFrameworkMetricOverride) GetID() string {
 	if d == nil {
 		return ""

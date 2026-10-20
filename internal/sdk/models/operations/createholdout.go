@@ -163,13 +163,16 @@ func (c *CreateHoldoutStatusUpdateSchedule) GetStopAt() *time.Time {
 }
 
 type CreateHoldoutRequest struct {
-	Name        string  `json:"name"`
+	// Short display name. Put details in `description`.
+	Name string `json:"name"`
+	// Markdown. Put context here, not in the name.
 	Description *string `json:"description,omitzero"`
 	// Project IDs this Holdout applies to. Omit or send an empty array for All Projects.
 	Projects []string `json:"projects,omitzero"`
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-	Owner *string  `json:"owner,omitzero"`
-	Tags  []string `json:"tags,omitzero"`
+	Owner *string `json:"owner,omitzero"`
+	// Tags for filtering and grouping. Use these instead of encoding groups in names.
+	Tags []string `json:"tags,omitzero"`
 	// When true, this Holdout is not selected automatically when creating Feature Flags or Experiments in Projects assigned to the Holdout.
 	SkipAsDefaultHoldout *bool `json:"skipAsDefaultHoldout,omitzero"`
 	// Proportion of traffic held out, expressed as a decimal (e.g. 0.05 for 5%). An equally-sized control group is bucketed alongside it. Defaults to 0.05. Maximum 0.5.
@@ -348,6 +351,9 @@ type CreateHoldoutResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *CreateHoldoutResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (c CreateHoldoutResponse) MarshalJSON() ([]byte, error) {
@@ -373,4 +379,18 @@ func (c *CreateHoldoutResponse) GetObject() *CreateHoldoutResponseBody {
 		return nil
 	}
 	return c.Object
+}
+
+func (c *CreateHoldoutResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if c == nil {
+		return nil
+	}
+	return c.ConfirmationHeld
+}
+
+func (c *CreateHoldoutResponse) GetHeaders() map[string][]string {
+	if c == nil {
+		return map[string][]string{}
+	}
+	return c.Headers
 }

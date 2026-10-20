@@ -22,13 +22,13 @@ growthbook metric-groups create [flags]
   -a, --archived               boolean flag
       --body string            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
       --datasource string      [required]
-      --description string     [required]
+      --description string     Put context here, not in the name. [required]
   -h, --help                   help for create
   -m, --metrics stringArray    [required]
-  -n, --name string            [required]
+  -n, --name description       Short display name. Put details in description. [required]
       --owner string           The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-  -p, --projects stringArray   [required]
-  -t, --tags stringArray       list of values
+  -p, --projects stringArray   Project IDs that can use this. An empty list means all Projects. Projects control access and availability, so don't use them as labels. [required]
+  -t, --tags stringArray       Tags for filtering and grouping. Use these instead of encoding groups in names.
 ```
 
 ### Options inherited from parent commands

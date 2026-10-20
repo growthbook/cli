@@ -17,7 +17,7 @@ import (
 var requestReviewCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "comment", Shorthand: "c", FieldPath: "Body.Comment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "comment", Shorthand: "c", FieldPath: "Body.Comment", Kind: flagutil.FlagKindString, Optional: true, Description: "Markdown. What changed and why, for reviewers. Replaces the draft's comment; leaving it out clears it."},
 	{FlagName: "auto-publish-on-approval", Shorthand: "a", FieldPath: "Body.AutoPublishOnApproval", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "scheduled-publish-at", FieldPath: "Body.ScheduledPublishAt", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"scheduledPublishAt,omitempty"`, Description: "date/time value"},
 	{FlagName: "scheduled-publish-lock-edits", FieldPath: "Body.ScheduledPublishLockEdits", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},

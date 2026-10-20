@@ -22,14 +22,14 @@ growthbook metric-groups update [flags]
   -a, --archived               boolean flag
       --body string            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
       --datasource string      string value
-      --description string     string value
+      --description string     Put context here, not in the name.
   -h, --help                   help for update
   -i, --id string              [required]
   -m, --metrics stringArray    list of values
-  -n, --name string            string value
+  -n, --name description       Short display name. Put details in description.
       --owner string           The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-  -p, --projects stringArray   list of values
-  -t, --tags stringArray       list of values
+  -p, --projects stringArray   Project IDs that can use this. An empty list means all Projects. Projects control access and availability, so don't use them as labels.
+  -t, --tags stringArray       Tags for filtering and grouping. Use these instead of encoding groups in names.
 ```
 
 ### Options inherited from parent commands

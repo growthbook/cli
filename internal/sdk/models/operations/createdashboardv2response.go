@@ -5618,6 +5618,9 @@ type CreateDashboardV2Response struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *CreateDashboardV2ResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (c CreateDashboardV2Response) MarshalJSON() ([]byte, error) {
@@ -5643,6 +5646,20 @@ func (c *CreateDashboardV2Response) GetObject() *CreateDashboardV2ResponseBody {
 		return nil
 	}
 	return c.Object
+}
+
+func (c *CreateDashboardV2Response) GetConfirmationHeld() *components.ConfirmationHeld {
+	if c == nil {
+		return nil
+	}
+	return c.ConfirmationHeld
+}
+
+func (c *CreateDashboardV2Response) GetHeaders() map[string][]string {
+	if c == nil {
+		return map[string][]string{}
+	}
+	return c.Headers
 }
 
 // #region class-body-createdashboardv2response

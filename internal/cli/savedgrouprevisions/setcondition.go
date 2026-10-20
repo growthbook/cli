@@ -17,8 +17,8 @@ import (
 var setConditionCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "saved-group-id", Shorthand: "s", FieldPath: "SavedGroupID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "Short draft title (e.g. `Enable for beta testers`). Only used when `version` is \"new\"; ignored for existing drafts."},
+	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "Markdown. What changed and why, for reviewers. Only used when `version` is \"new\"; ignored for existing drafts."},
 	{FlagName: "condition", Shorthand: "c", FieldPath: "Body.Condition", Kind: flagutil.FlagKindString, Required: true, Description: "The JSON-encoded condition for the saved group [required]"},
 }
 

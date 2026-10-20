@@ -17,10 +17,10 @@ import (
 var archiveCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "saved-group-id", Shorthand: "s", FieldPath: "SavedGroupID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "revision-title", FieldPath: "Body.RevisionTitle", Kind: flagutil.FlagKindString, Optional: true, Description: "Short draft title (e.g. `Enable for beta testers`). Only used when `version` is \"new\"; ignored for existing drafts."},
+	{FlagName: "revision-comment", FieldPath: "Body.RevisionComment", Kind: flagutil.FlagKindString, Optional: true, Description: "Markdown. What changed and why, for reviewers. Only used when `version` is \"new\"; ignored for existing drafts."},
 	{FlagName: "archived", Shorthand: "a", FieldPath: "Body.Archived", Kind: flagutil.FlagKindBool, Required: true, Description: "[required]"},
-	{FlagName: "ignore-warnings", Shorthand: "i", FieldPath: "Body.IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access."},
+	{FlagName: "ignore-warnings", Shorthand: "i", FieldPath: "Body.IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it."},
 }
 
 // initArchiveCmd initializes the archive command.
