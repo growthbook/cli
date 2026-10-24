@@ -1411,6 +1411,8 @@ type PutFeatureRevisionRuleV2RequestBody struct {
 	SkipSchemaValidation *bool `json:"skipSchemaValidation,omitzero"`
 	// Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	SkipHooks *bool `json:"skipHooks,omitzero"`
+	// When the organization requires rules to target specific environments or Projects, set to true to save a rule that applies to All Environments and All Projects. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
+	AllowUnscopedRules *bool `json:"allowUnscopedRules,omitzero"`
 }
 
 func (p PutFeatureRevisionRuleV2RequestBody) MarshalJSON() ([]byte, error) {
@@ -1480,6 +1482,13 @@ func (p *PutFeatureRevisionRuleV2RequestBody) GetSkipHooks() *bool {
 	return p.SkipHooks
 }
 
+func (p *PutFeatureRevisionRuleV2RequestBody) GetAllowUnscopedRules() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AllowUnscopedRules
+}
+
 // #region class-body-putfeaturerevisionrulev2requestbody
 // #endregion class-body-putfeaturerevisionrulev2requestbody
 
@@ -1520,6 +1529,29 @@ func (p *PutFeatureRevisionRuleV2Request) GetBody() PutFeatureRevisionRuleV2Requ
 
 // #region class-body-putfeaturerevisionrulev2request
 // #endregion class-body-putfeaturerevisionrulev2request
+
+type PutFeatureRevisionRuleV2Code string
+
+const (
+	PutFeatureRevisionRuleV2CodeUnscopedRule PutFeatureRevisionRuleV2Code = "unscoped_rule"
+)
+
+func (e PutFeatureRevisionRuleV2Code) ToPointer() *PutFeatureRevisionRuleV2Code {
+	return &e
+}
+func (e *PutFeatureRevisionRuleV2Code) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "unscoped_rule":
+		*e = PutFeatureRevisionRuleV2Code(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PutFeatureRevisionRuleV2Code: %v", v)
+	}
+}
 
 // PutFeatureRevisionRuleV2ResponseBody - Resource updated
 type PutFeatureRevisionRuleV2ResponseBody struct {

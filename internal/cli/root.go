@@ -30,6 +30,7 @@ import (
 	"github.com/growthbook/cli/v3/internal/cli/features"
 	"github.com/growthbook/cli/v3/internal/cli/featuresv1"
 	"github.com/growthbook/cli/v3/internal/cli/holdouts"
+	"github.com/growthbook/cli/v3/internal/cli/interleavings"
 	"github.com/growthbook/cli/v3/internal/cli/learnings"
 	"github.com/growthbook/cli/v3/internal/cli/members"
 	"github.com/growthbook/cli/v3/internal/cli/meta"
@@ -210,6 +211,9 @@ func NewRootCommand() (*cobra.Command, error) {
 	}
 	if err := contextualbanditqueries.InitContextualBanditQueriesRoot(rootCmd); err != nil {
 		return nil, fmt.Errorf("init contextual-bandit-queries: %w", err)
+	}
+	if err := interleavings.InitInterleavingsRoot(rootCmd); err != nil {
+		return nil, fmt.Errorf("init interleavings: %w", err)
 	}
 	if err := customfields.InitCustomFieldsRoot(rootCmd); err != nil {
 		return nil, fmt.Errorf("init custom-fields: %w", err)

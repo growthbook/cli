@@ -2,8 +2,8 @@ speakeasyVersion: 1.794.0
 sources:
     GrowthBook REST API:
         sourceNamespace: growth-book-rest-api
-        sourceRevisionDigest: sha256:2cf7c9b09fb7928aef2110532e4499c68f41a3945ab8ad5353afdc844d66c89e
-        sourceBlobDigest: sha256:8ca10c1ffac25ebdaf8cc3d5e66a71673db6882d2964fee1efc09453914d00b9
+        sourceRevisionDigest: sha256:4d295e0194e8e4656ed5d39e78df513417805636a5681cd57c7e8bb6a050718a
+        sourceBlobDigest: sha256:0b2aaa27a5388fdcbee012677f9626fe8c8084d84c6c4f041b918b5792f68780
         tags:
             - latest
             - 5.1.0
@@ -11,8 +11,8 @@ targets:
     growthbook:
         source: GrowthBook REST API
         sourceNamespace: growth-book-rest-api
-        sourceRevisionDigest: sha256:2cf7c9b09fb7928aef2110532e4499c68f41a3945ab8ad5353afdc844d66c89e
-        sourceBlobDigest: sha256:8ca10c1ffac25ebdaf8cc3d5e66a71673db6882d2964fee1efc09453914d00b9
+        sourceRevisionDigest: sha256:4d295e0194e8e4656ed5d39e78df513417805636a5681cd57c7e8bb6a050718a
+        sourceBlobDigest: sha256:0b2aaa27a5388fdcbee012677f9626fe8c8084d84c6c4f041b918b5792f68780
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: 1.794.0

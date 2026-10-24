@@ -497,11 +497,249 @@ func (l *Leaf) GetContexts() []GetContextualBanditResultsContext {
 	return l.Contexts
 }
 
+type HealthVariation struct {
+	VariationID   string  `json:"variationId"`
+	VariationName *string `json:"variationName,omitzero"`
+	Weight        float64 `json:"weight"`
+}
+
+func (h *HealthVariation) GetVariationID() string {
+	if h == nil {
+		return ""
+	}
+	return h.VariationID
+}
+
+func (h *HealthVariation) GetVariationName() *string {
+	if h == nil {
+		return nil
+	}
+	return h.VariationName
+}
+
+func (h *HealthVariation) GetWeight() float64 {
+	if h == nil {
+		return 0.0
+	}
+	return h.Weight
+}
+
+type TrafficOverall struct {
+	Name           string    `json:"name"`
+	Srm            float64   `json:"srm"`
+	VariationUnits []float64 `json:"variationUnits"`
+}
+
+func (t *TrafficOverall) GetName() string {
+	if t == nil {
+		return ""
+	}
+	return t.Name
+}
+
+func (t *TrafficOverall) GetSrm() float64 {
+	if t == nil {
+		return 0.0
+	}
+	return t.Srm
+}
+
+func (t *TrafficOverall) GetVariationUnits() []float64 {
+	if t == nil {
+		return []float64{}
+	}
+	return t.VariationUnits
+}
+
+type GetContextualBanditResultsDimension struct {
+	Name           string    `json:"name"`
+	Srm            float64   `json:"srm"`
+	VariationUnits []float64 `json:"variationUnits"`
+}
+
+func (g *GetContextualBanditResultsDimension) GetName() string {
+	if g == nil {
+		return ""
+	}
+	return g.Name
+}
+
+func (g *GetContextualBanditResultsDimension) GetSrm() float64 {
+	if g == nil {
+		return 0.0
+	}
+	return g.Srm
+}
+
+func (g *GetContextualBanditResultsDimension) GetVariationUnits() []float64 {
+	if g == nil {
+		return []float64{}
+	}
+	return g.VariationUnits
+}
+
+type Traffic struct {
+	Overall   TrafficOverall                                   `json:"overall"`
+	Dimension map[string][]GetContextualBanditResultsDimension `json:"dimension"`
+	Error     *string                                          `json:"error,omitzero"`
+}
+
+func (t *Traffic) GetOverall() TrafficOverall {
+	if t == nil {
+		return TrafficOverall{}
+	}
+	return t.Overall
+}
+
+func (t *Traffic) GetDimension() map[string][]GetContextualBanditResultsDimension {
+	if t == nil {
+		return map[string][]GetContextualBanditResultsDimension{}
+	}
+	return t.Dimension
+}
+
+func (t *Traffic) GetError() *string {
+	if t == nil {
+		return nil
+	}
+	return t.Error
+}
+
+type SrmLeaf struct {
+	LeafID   string    `json:"leafId"`
+	Observed []float64 `json:"observed"`
+	Expected []float64 `json:"expected"`
+}
+
+func (s *SrmLeaf) GetLeafID() string {
+	if s == nil {
+		return ""
+	}
+	return s.LeafID
+}
+
+func (s *SrmLeaf) GetObserved() []float64 {
+	if s == nil {
+		return []float64{}
+	}
+	return s.Observed
+}
+
+func (s *SrmLeaf) GetExpected() []float64 {
+	if s == nil {
+		return []float64{}
+	}
+	return s.Expected
+}
+
+type LatestPeriod struct {
+	BanditVersion string    `json:"banditVersion"`
+	Leaves        []SrmLeaf `json:"leaves"`
+}
+
+func (l *LatestPeriod) GetBanditVersion() string {
+	if l == nil {
+		return ""
+	}
+	return l.BanditVersion
+}
+
+func (l *LatestPeriod) GetLeaves() []SrmLeaf {
+	if l == nil {
+		return []SrmLeaf{}
+	}
+	return l.Leaves
+}
+
+type Srm struct {
+	Statistic        float64       `json:"statistic"`
+	PValue           float64       `json:"pValue"`
+	DegreesOfFreedom int64         `json:"degreesOfFreedom"`
+	LatestPeriod     *LatestPeriod `json:"latestPeriod,omitzero"`
+}
+
+func (s Srm) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *Srm) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *Srm) GetStatistic() float64 {
+	if s == nil {
+		return 0.0
+	}
+	return s.Statistic
+}
+
+func (s *Srm) GetPValue() float64 {
+	if s == nil {
+		return 0.0
+	}
+	return s.PValue
+}
+
+func (s *Srm) GetDegreesOfFreedom() int64 {
+	if s == nil {
+		return 0
+	}
+	return s.DegreesOfFreedom
+}
+
+func (s *Srm) GetLatestPeriod() *LatestPeriod {
+	if s == nil {
+		return nil
+	}
+	return s.LatestPeriod
+}
+
+type Health struct {
+	Variations        []HealthVariation `json:"variations"`
+	Traffic           *Traffic          `json:"traffic"`
+	Srm               *Srm              `json:"srm"`
+	MultipleExposures *float64          `json:"multipleExposures"`
+}
+
+func (h *Health) GetVariations() []HealthVariation {
+	if h == nil {
+		return []HealthVariation{}
+	}
+	return h.Variations
+}
+
+func (h *Health) GetTraffic() *Traffic {
+	if h == nil {
+		return nil
+	}
+	return h.Traffic
+}
+
+func (h *Health) GetSrm() *Srm {
+	if h == nil {
+		return nil
+	}
+	return h.Srm
+}
+
+func (h *Health) GetMultipleExposures() *float64 {
+	if h == nil {
+		return nil
+	}
+	return h.MultipleExposures
+}
+
 type GetContextualBanditResultsResults struct {
 	Attributes    []string        `json:"attributes"`
 	SseTrajectory []SseTrajectory `json:"sseTrajectory"`
 	Overall       Overall         `json:"overall"`
 	Leaves        []Leaf          `json:"leaves"`
+	SnapshotID    string          `json:"snapshotId"`
+	DateCreated   string          `json:"dateCreated"`
+	Health        *Health         `json:"health"`
 }
 
 func (g *GetContextualBanditResultsResults) GetAttributes() []string {
@@ -530,6 +768,27 @@ func (g *GetContextualBanditResultsResults) GetLeaves() []Leaf {
 		return []Leaf{}
 	}
 	return g.Leaves
+}
+
+func (g *GetContextualBanditResultsResults) GetSnapshotID() string {
+	if g == nil {
+		return ""
+	}
+	return g.SnapshotID
+}
+
+func (g *GetContextualBanditResultsResults) GetDateCreated() string {
+	if g == nil {
+		return ""
+	}
+	return g.DateCreated
+}
+
+func (g *GetContextualBanditResultsResults) GetHealth() *Health {
+	if g == nil {
+		return nil
+	}
+	return g.Health
 }
 
 type GetContextualBanditResultsStatus string
@@ -607,33 +866,6 @@ func (q *Query) GetName() string {
 	return q.Name
 }
 
-type Srm struct {
-	Statistic        float64 `json:"statistic"`
-	PValue           float64 `json:"pValue"`
-	DegreesOfFreedom int64   `json:"degreesOfFreedom"`
-}
-
-func (s *Srm) GetStatistic() float64 {
-	if s == nil {
-		return 0.0
-	}
-	return s.Statistic
-}
-
-func (s *Srm) GetPValue() float64 {
-	if s == nil {
-		return 0.0
-	}
-	return s.PValue
-}
-
-func (s *Srm) GetDegreesOfFreedom() int64 {
-	if s == nil {
-		return 0
-	}
-	return s.DegreesOfFreedom
-}
-
 type Latest struct {
 	ID                string                           `json:"id"`
 	Status            GetContextualBanditResultsStatus `json:"status"`
@@ -644,7 +876,6 @@ type Latest struct {
 	MultipleExposures float64                          `json:"multipleExposures"`
 	Type              string                           `json:"type"`
 	TriggeredBy       string                           `json:"triggeredBy"`
-	Srm               *Srm                             `json:"srm"`
 }
 
 func (l *Latest) GetID() string {
@@ -708,13 +939,6 @@ func (l *Latest) GetTriggeredBy() string {
 		return ""
 	}
 	return l.TriggeredBy
-}
-
-func (l *Latest) GetSrm() *Srm {
-	if l == nil {
-		return nil
-	}
-	return l.Srm
 }
 
 // GetContextualBanditResultsResponseBody - Successful response

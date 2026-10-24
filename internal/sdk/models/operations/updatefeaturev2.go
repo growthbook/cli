@@ -1842,6 +1842,8 @@ type UpdateFeatureV2RequestBody struct {
 	SkipSchemaValidation *bool `json:"skipSchemaValidation,omitzero"`
 	// Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	SkipHooks *bool `json:"skipHooks,omitzero"`
+	// When the organization requires rules to target specific environments or Projects, set to true to save a rule that applies to All Environments and All Projects. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
+	AllowUnscopedRules *bool `json:"allowUnscopedRules,omitzero"`
 }
 
 func (u UpdateFeatureV2RequestBody) MarshalJSON() ([]byte, error) {
@@ -1995,6 +1997,13 @@ func (u *UpdateFeatureV2RequestBody) GetSkipHooks() *bool {
 	return u.SkipHooks
 }
 
+func (u *UpdateFeatureV2RequestBody) GetAllowUnscopedRules() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.AllowUnscopedRules
+}
+
 // #region class-body-updatefeaturev2requestbody
 // #endregion class-body-updatefeaturev2requestbody
 
@@ -2020,6 +2029,29 @@ func (u *UpdateFeatureV2Request) GetBody() UpdateFeatureV2RequestBody {
 
 // #region class-body-updatefeaturev2request
 // #endregion class-body-updatefeaturev2request
+
+type UpdateFeatureV2Code string
+
+const (
+	UpdateFeatureV2CodeUnscopedRule UpdateFeatureV2Code = "unscoped_rule"
+)
+
+func (e UpdateFeatureV2Code) ToPointer() *UpdateFeatureV2Code {
+	return &e
+}
+func (e *UpdateFeatureV2Code) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "unscoped_rule":
+		*e = UpdateFeatureV2Code(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for UpdateFeatureV2Code: %v", v)
+	}
+}
 
 // UpdateFeatureV2ResponseBody - Resource created
 type UpdateFeatureV2ResponseBody struct {

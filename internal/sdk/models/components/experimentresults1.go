@@ -102,7 +102,7 @@ func (e *Engine) IsExact() bool {
 	return false
 }
 
-type Analysis struct {
+type ExperimentResultsAnalysis struct {
 	Engine        Engine  `json:"engine"`
 	Numerator     float64 `json:"numerator"`
 	Denominator   float64 `json:"denominator"`
@@ -119,102 +119,102 @@ type Analysis struct {
 	ErrorMessage        *string  `json:"errorMessage,omitzero"`
 }
 
-func (a *Analysis) GetEngine() Engine {
-	if a == nil {
+func (e *ExperimentResultsAnalysis) GetEngine() Engine {
+	if e == nil {
 		return Engine("")
 	}
-	return a.Engine
+	return e.Engine
 }
 
-func (a *Analysis) GetNumerator() float64 {
-	if a == nil {
+func (e *ExperimentResultsAnalysis) GetNumerator() float64 {
+	if e == nil {
 		return 0.0
 	}
-	return a.Numerator
+	return e.Numerator
 }
 
-func (a *Analysis) GetDenominator() float64 {
-	if a == nil {
+func (e *ExperimentResultsAnalysis) GetDenominator() float64 {
+	if e == nil {
 		return 0.0
 	}
-	return a.Denominator
+	return e.Denominator
 }
 
-func (a *Analysis) GetMean() float64 {
-	if a == nil {
+func (e *ExperimentResultsAnalysis) GetMean() float64 {
+	if e == nil {
 		return 0.0
 	}
-	return a.Mean
+	return e.Mean
 }
 
-func (a *Analysis) GetStddev() float64 {
-	if a == nil {
+func (e *ExperimentResultsAnalysis) GetStddev() float64 {
+	if e == nil {
 		return 0.0
 	}
-	return a.Stddev
+	return e.Stddev
 }
 
-func (a *Analysis) GetPercentChange() float64 {
-	if a == nil {
+func (e *ExperimentResultsAnalysis) GetPercentChange() float64 {
+	if e == nil {
 		return 0.0
 	}
-	return a.PercentChange
+	return e.PercentChange
 }
 
-func (a *Analysis) GetEffectStandardError() float64 {
-	if a == nil {
+func (e *ExperimentResultsAnalysis) GetEffectStandardError() float64 {
+	if e == nil {
 		return 0.0
 	}
-	return a.EffectStandardError
+	return e.EffectStandardError
 }
 
-func (a *Analysis) GetCiLow() float64 {
-	if a == nil {
+func (e *ExperimentResultsAnalysis) GetCiLow() float64 {
+	if e == nil {
 		return 0.0
 	}
-	return a.CiLow
+	return e.CiLow
 }
 
-func (a *Analysis) GetCiHigh() float64 {
-	if a == nil {
+func (e *ExperimentResultsAnalysis) GetCiHigh() float64 {
+	if e == nil {
 		return 0.0
 	}
-	return a.CiHigh
+	return e.CiHigh
 }
 
-func (a *Analysis) GetPValue() *float64 {
-	if a == nil {
+func (e *ExperimentResultsAnalysis) GetPValue() *float64 {
+	if e == nil {
 		return nil
 	}
-	return a.PValue
+	return e.PValue
 }
 
-func (a *Analysis) GetRisk() *float64 {
-	if a == nil {
+func (e *ExperimentResultsAnalysis) GetRisk() *float64 {
+	if e == nil {
 		return nil
 	}
-	return a.Risk
+	return e.Risk
 }
 
-func (a *Analysis) GetChanceToBeatControl() *float64 {
-	if a == nil {
+func (e *ExperimentResultsAnalysis) GetChanceToBeatControl() *float64 {
+	if e == nil {
 		return nil
 	}
-	return a.ChanceToBeatControl
+	return e.ChanceToBeatControl
 }
 
-func (a *Analysis) GetErrorMessage() *string {
-	if a == nil {
+func (e *ExperimentResultsAnalysis) GetErrorMessage() *string {
+	if e == nil {
 		return nil
 	}
-	return a.ErrorMessage
+	return e.ErrorMessage
 }
 
 type ExperimentResultsVariation1 struct {
-	VariationID   string     `json:"variationId"`
-	VariationName *string    `json:"variationName,omitzero"`
-	Users         *float64   `json:"users,omitzero"`
-	Analyses      []Analysis `json:"analyses"`
+	VariationID   string                      `json:"variationId"`
+	VariationName *string                     `json:"variationName,omitzero"`
+	Users         *float64                    `json:"users,omitzero"`
+	Analyses      []ExperimentResultsAnalysis `json:"analyses"`
 }
 
 func (e *ExperimentResultsVariation1) GetVariationID() string {
@@ -238,9 +238,9 @@ func (e *ExperimentResultsVariation1) GetUsers() *float64 {
 	return e.Users
 }
 
-func (e *ExperimentResultsVariation1) GetAnalyses() []Analysis {
+func (e *ExperimentResultsVariation1) GetAnalyses() []ExperimentResultsAnalysis {
 	if e == nil {
-		return []Analysis{}
+		return []ExperimentResultsAnalysis{}
 	}
 	return e.Analyses
 }
