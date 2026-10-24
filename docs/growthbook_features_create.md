@@ -48,7 +48,8 @@ growthbook features create [flags]
 ### Options
 
 ```
-  -a, --archived                           boolean flag
+      --allow-unscoped-rules               When the organization requires rules to target specific environments or Projects, set to true to save a rule that applies to All Environments and All Projects. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
+      --archived                           boolean flag
   -b, --base-config valueType: "json"      Key of the config backing this flag ("Config mode"). Requires valueType: "json" and a live config. The config supplies the base JSON and schema; `defaultValue` and rule values are override patches on top. null or omitted for a plain flag.
       --body string                        Request body as JSON (alternative to individual flags). Can also be provided via stdin.
       --comment string                     Comment to record on the feature's initial revision. Defaults to an empty comment.

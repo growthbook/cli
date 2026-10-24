@@ -1622,100 +1622,100 @@ func (p *PostFunnelExplorationSliceResponse) GetFilters() []PostFunnelExploratio
 	return p.Filters
 }
 
-type PostFunnelExplorationDimensionSliceResponse struct {
+type PostFunnelExplorationExplorationDimensionSlice struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	dimensionType string                               `const:"slice" json:"dimensionType"`
 	Slices        []PostFunnelExplorationSliceResponse `json:"slices"`
 }
 
-func (p PostFunnelExplorationDimensionSliceResponse) MarshalJSON() ([]byte, error) {
+func (p PostFunnelExplorationExplorationDimensionSlice) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(p, "", false)
 }
 
-func (p *PostFunnelExplorationDimensionSliceResponse) UnmarshalJSON(data []byte) error {
+func (p *PostFunnelExplorationExplorationDimensionSlice) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PostFunnelExplorationDimensionSliceResponse) GetDimensionType() string {
+func (p *PostFunnelExplorationExplorationDimensionSlice) GetDimensionType() string {
 	return "slice"
 }
 
-func (p *PostFunnelExplorationDimensionSliceResponse) GetSlices() []PostFunnelExplorationSliceResponse {
+func (p *PostFunnelExplorationExplorationDimensionSlice) GetSlices() []PostFunnelExplorationSliceResponse {
 	if p == nil {
 		return []PostFunnelExplorationSliceResponse{}
 	}
 	return p.Slices
 }
 
-type PostFunnelExplorationDimensionStaticResponse struct {
+type PostFunnelExplorationExplorationDimensionStatic struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	dimensionType string   `const:"static" json:"dimensionType"`
 	Column        string   `json:"column"`
 	Values        []string `json:"values"`
 }
 
-func (p PostFunnelExplorationDimensionStaticResponse) MarshalJSON() ([]byte, error) {
+func (p PostFunnelExplorationExplorationDimensionStatic) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(p, "", false)
 }
 
-func (p *PostFunnelExplorationDimensionStaticResponse) UnmarshalJSON(data []byte) error {
+func (p *PostFunnelExplorationExplorationDimensionStatic) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PostFunnelExplorationDimensionStaticResponse) GetDimensionType() string {
+func (p *PostFunnelExplorationExplorationDimensionStatic) GetDimensionType() string {
 	return "static"
 }
 
-func (p *PostFunnelExplorationDimensionStaticResponse) GetColumn() string {
+func (p *PostFunnelExplorationExplorationDimensionStatic) GetColumn() string {
 	if p == nil {
 		return ""
 	}
 	return p.Column
 }
 
-func (p *PostFunnelExplorationDimensionStaticResponse) GetValues() []string {
+func (p *PostFunnelExplorationExplorationDimensionStatic) GetValues() []string {
 	if p == nil {
 		return []string{}
 	}
 	return p.Values
 }
 
-type PostFunnelExplorationDimensionDynamicResponse struct {
+type PostFunnelExplorationExplorationDimensionDynamic struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	dimensionType string  `const:"dynamic" json:"dimensionType"`
 	Column        *string `json:"column"`
 	MaxValues     float64 `json:"maxValues"`
 }
 
-func (p PostFunnelExplorationDimensionDynamicResponse) MarshalJSON() ([]byte, error) {
+func (p PostFunnelExplorationExplorationDimensionDynamic) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(p, "", false)
 }
 
-func (p *PostFunnelExplorationDimensionDynamicResponse) UnmarshalJSON(data []byte) error {
+func (p *PostFunnelExplorationExplorationDimensionDynamic) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PostFunnelExplorationDimensionDynamicResponse) GetDimensionType() string {
+func (p *PostFunnelExplorationExplorationDimensionDynamic) GetDimensionType() string {
 	return "dynamic"
 }
 
-func (p *PostFunnelExplorationDimensionDynamicResponse) GetColumn() *string {
+func (p *PostFunnelExplorationExplorationDimensionDynamic) GetColumn() *string {
 	if p == nil {
 		return nil
 	}
 	return p.Column
 }
 
-func (p *PostFunnelExplorationDimensionDynamicResponse) GetMaxValues() float64 {
+func (p *PostFunnelExplorationExplorationDimensionDynamic) GetMaxValues() float64 {
 	if p == nil {
 		return 0.0
 	}
@@ -1748,114 +1748,114 @@ func (e *PostFunnelExplorationDateGranularityResponse) IsExact() bool {
 	return false
 }
 
-type PostFunnelExplorationDimensionDateResponse struct {
+type PostFunnelExplorationExplorationDimensionDate struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	dimensionType   string                                       `const:"date" json:"dimensionType"`
 	Column          *string                                      `json:"column"`
 	DateGranularity PostFunnelExplorationDateGranularityResponse `json:"dateGranularity"`
 }
 
-func (p PostFunnelExplorationDimensionDateResponse) MarshalJSON() ([]byte, error) {
+func (p PostFunnelExplorationExplorationDimensionDate) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(p, "", false)
 }
 
-func (p *PostFunnelExplorationDimensionDateResponse) UnmarshalJSON(data []byte) error {
+func (p *PostFunnelExplorationExplorationDimensionDate) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PostFunnelExplorationDimensionDateResponse) GetDimensionType() string {
+func (p *PostFunnelExplorationExplorationDimensionDate) GetDimensionType() string {
 	return "date"
 }
 
-func (p *PostFunnelExplorationDimensionDateResponse) GetColumn() *string {
+func (p *PostFunnelExplorationExplorationDimensionDate) GetColumn() *string {
 	if p == nil {
 		return nil
 	}
 	return p.Column
 }
 
-func (p *PostFunnelExplorationDimensionDateResponse) GetDateGranularity() PostFunnelExplorationDateGranularityResponse {
+func (p *PostFunnelExplorationExplorationDimensionDate) GetDateGranularity() PostFunnelExplorationDateGranularityResponse {
 	if p == nil {
 		return PostFunnelExplorationDateGranularityResponse("")
 	}
 	return p.DateGranularity
 }
 
-type PostFunnelExplorationDimensionResponseUnionType string
+type PostFunnelExplorationExplorationDimensionUnionType string
 
 const (
-	PostFunnelExplorationDimensionResponseUnionTypeDate    PostFunnelExplorationDimensionResponseUnionType = "date"
-	PostFunnelExplorationDimensionResponseUnionTypeDynamic PostFunnelExplorationDimensionResponseUnionType = "dynamic"
-	PostFunnelExplorationDimensionResponseUnionTypeStatic  PostFunnelExplorationDimensionResponseUnionType = "static"
-	PostFunnelExplorationDimensionResponseUnionTypeSlice   PostFunnelExplorationDimensionResponseUnionType = "slice"
-	PostFunnelExplorationDimensionResponseUnionTypeUnknown PostFunnelExplorationDimensionResponseUnionType = "UNKNOWN"
+	PostFunnelExplorationExplorationDimensionUnionTypeDate    PostFunnelExplorationExplorationDimensionUnionType = "date"
+	PostFunnelExplorationExplorationDimensionUnionTypeDynamic PostFunnelExplorationExplorationDimensionUnionType = "dynamic"
+	PostFunnelExplorationExplorationDimensionUnionTypeStatic  PostFunnelExplorationExplorationDimensionUnionType = "static"
+	PostFunnelExplorationExplorationDimensionUnionTypeSlice   PostFunnelExplorationExplorationDimensionUnionType = "slice"
+	PostFunnelExplorationExplorationDimensionUnionTypeUnknown PostFunnelExplorationExplorationDimensionUnionType = "UNKNOWN"
 )
 
-type PostFunnelExplorationDimensionResponseUnion struct {
-	PostFunnelExplorationDimensionDateResponse    *PostFunnelExplorationDimensionDateResponse    `queryParam:"inline" union:"member"`
-	PostFunnelExplorationDimensionDynamicResponse *PostFunnelExplorationDimensionDynamicResponse `queryParam:"inline" union:"member"`
-	PostFunnelExplorationDimensionStaticResponse  *PostFunnelExplorationDimensionStaticResponse  `queryParam:"inline" union:"member"`
-	PostFunnelExplorationDimensionSliceResponse   *PostFunnelExplorationDimensionSliceResponse   `queryParam:"inline" union:"member"`
-	UnknownRaw                                    json.RawMessage                                `json:"-" union:"unknown"`
+type PostFunnelExplorationExplorationDimensionUnion struct {
+	PostFunnelExplorationExplorationDimensionDate    *PostFunnelExplorationExplorationDimensionDate    `queryParam:"inline" union:"member"`
+	PostFunnelExplorationExplorationDimensionDynamic *PostFunnelExplorationExplorationDimensionDynamic `queryParam:"inline" union:"member"`
+	PostFunnelExplorationExplorationDimensionStatic  *PostFunnelExplorationExplorationDimensionStatic  `queryParam:"inline" union:"member"`
+	PostFunnelExplorationExplorationDimensionSlice   *PostFunnelExplorationExplorationDimensionSlice   `queryParam:"inline" union:"member"`
+	UnknownRaw                                       json.RawMessage                                   `json:"-" union:"unknown"`
 
-	Type PostFunnelExplorationDimensionResponseUnionType
+	Type PostFunnelExplorationExplorationDimensionUnionType
 }
 
-func CreatePostFunnelExplorationDimensionResponseUnionDate(date PostFunnelExplorationDimensionDateResponse) PostFunnelExplorationDimensionResponseUnion {
-	typ := PostFunnelExplorationDimensionResponseUnionTypeDate
+func CreatePostFunnelExplorationExplorationDimensionUnionDate(date PostFunnelExplorationExplorationDimensionDate) PostFunnelExplorationExplorationDimensionUnion {
+	typ := PostFunnelExplorationExplorationDimensionUnionTypeDate
 
-	return PostFunnelExplorationDimensionResponseUnion{
-		PostFunnelExplorationDimensionDateResponse: &date,
+	return PostFunnelExplorationExplorationDimensionUnion{
+		PostFunnelExplorationExplorationDimensionDate: &date,
 		Type: typ,
 	}
 }
 
-func CreatePostFunnelExplorationDimensionResponseUnionDynamic(dynamic PostFunnelExplorationDimensionDynamicResponse) PostFunnelExplorationDimensionResponseUnion {
-	typ := PostFunnelExplorationDimensionResponseUnionTypeDynamic
+func CreatePostFunnelExplorationExplorationDimensionUnionDynamic(dynamic PostFunnelExplorationExplorationDimensionDynamic) PostFunnelExplorationExplorationDimensionUnion {
+	typ := PostFunnelExplorationExplorationDimensionUnionTypeDynamic
 
-	return PostFunnelExplorationDimensionResponseUnion{
-		PostFunnelExplorationDimensionDynamicResponse: &dynamic,
+	return PostFunnelExplorationExplorationDimensionUnion{
+		PostFunnelExplorationExplorationDimensionDynamic: &dynamic,
 		Type: typ,
 	}
 }
 
-func CreatePostFunnelExplorationDimensionResponseUnionStatic(static PostFunnelExplorationDimensionStaticResponse) PostFunnelExplorationDimensionResponseUnion {
-	typ := PostFunnelExplorationDimensionResponseUnionTypeStatic
+func CreatePostFunnelExplorationExplorationDimensionUnionStatic(static PostFunnelExplorationExplorationDimensionStatic) PostFunnelExplorationExplorationDimensionUnion {
+	typ := PostFunnelExplorationExplorationDimensionUnionTypeStatic
 
-	return PostFunnelExplorationDimensionResponseUnion{
-		PostFunnelExplorationDimensionStaticResponse: &static,
+	return PostFunnelExplorationExplorationDimensionUnion{
+		PostFunnelExplorationExplorationDimensionStatic: &static,
 		Type: typ,
 	}
 }
 
-func CreatePostFunnelExplorationDimensionResponseUnionSlice(slice PostFunnelExplorationDimensionSliceResponse) PostFunnelExplorationDimensionResponseUnion {
-	typ := PostFunnelExplorationDimensionResponseUnionTypeSlice
+func CreatePostFunnelExplorationExplorationDimensionUnionSlice(slice PostFunnelExplorationExplorationDimensionSlice) PostFunnelExplorationExplorationDimensionUnion {
+	typ := PostFunnelExplorationExplorationDimensionUnionTypeSlice
 
-	return PostFunnelExplorationDimensionResponseUnion{
-		PostFunnelExplorationDimensionSliceResponse: &slice,
+	return PostFunnelExplorationExplorationDimensionUnion{
+		PostFunnelExplorationExplorationDimensionSlice: &slice,
 		Type: typ,
 	}
 }
 
-func CreatePostFunnelExplorationDimensionResponseUnionUnknown(raw json.RawMessage) PostFunnelExplorationDimensionResponseUnion {
-	return PostFunnelExplorationDimensionResponseUnion{
+func CreatePostFunnelExplorationExplorationDimensionUnionUnknown(raw json.RawMessage) PostFunnelExplorationExplorationDimensionUnion {
+	return PostFunnelExplorationExplorationDimensionUnion{
 		UnknownRaw: raw,
-		Type:       PostFunnelExplorationDimensionResponseUnionTypeUnknown,
+		Type:       PostFunnelExplorationExplorationDimensionUnionTypeUnknown,
 	}
 }
 
-func (u PostFunnelExplorationDimensionResponseUnion) GetUnknownRaw() json.RawMessage {
+func (u PostFunnelExplorationExplorationDimensionUnion) GetUnknownRaw() json.RawMessage {
 	return u.UnknownRaw
 }
 
-func (u PostFunnelExplorationDimensionResponseUnion) IsUnknown() bool {
-	return u.Type == PostFunnelExplorationDimensionResponseUnionTypeUnknown
+func (u PostFunnelExplorationExplorationDimensionUnion) IsUnknown() bool {
+	return u.Type == PostFunnelExplorationExplorationDimensionUnionTypeUnknown
 }
 
-func (u *PostFunnelExplorationDimensionResponseUnion) UnmarshalJSON(data []byte) error {
+func (u *PostFunnelExplorationExplorationDimensionUnion) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
 		DimensionType string `json:"dimensionType"`
@@ -1864,81 +1864,81 @@ func (u *PostFunnelExplorationDimensionResponseUnion) UnmarshalJSON(data []byte)
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = PostFunnelExplorationDimensionResponseUnionTypeUnknown
+		u.Type = PostFunnelExplorationExplorationDimensionUnionTypeUnknown
 		return nil
 	}
 	if dis == nil {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = PostFunnelExplorationDimensionResponseUnionTypeUnknown
+		u.Type = PostFunnelExplorationExplorationDimensionUnionTypeUnknown
 		return nil
 	}
 
 	switch dis.DimensionType {
 	case "date":
-		postFunnelExplorationDimensionDateResponse := new(PostFunnelExplorationDimensionDateResponse)
-		if err := utils.UnmarshalJSON(data, &postFunnelExplorationDimensionDateResponse, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (DimensionType == date) type PostFunnelExplorationDimensionDateResponse within PostFunnelExplorationDimensionResponseUnion: %w", string(data), err)
+		postFunnelExplorationExplorationDimensionDate := new(PostFunnelExplorationExplorationDimensionDate)
+		if err := utils.UnmarshalJSON(data, &postFunnelExplorationExplorationDimensionDate, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (DimensionType == date) type PostFunnelExplorationExplorationDimensionDate within PostFunnelExplorationExplorationDimensionUnion: %w", string(data), err)
 		}
 
-		u.PostFunnelExplorationDimensionDateResponse = postFunnelExplorationDimensionDateResponse
-		u.Type = PostFunnelExplorationDimensionResponseUnionTypeDate
+		u.PostFunnelExplorationExplorationDimensionDate = postFunnelExplorationExplorationDimensionDate
+		u.Type = PostFunnelExplorationExplorationDimensionUnionTypeDate
 		return nil
 	case "dynamic":
-		postFunnelExplorationDimensionDynamicResponse := new(PostFunnelExplorationDimensionDynamicResponse)
-		if err := utils.UnmarshalJSON(data, &postFunnelExplorationDimensionDynamicResponse, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (DimensionType == dynamic) type PostFunnelExplorationDimensionDynamicResponse within PostFunnelExplorationDimensionResponseUnion: %w", string(data), err)
+		postFunnelExplorationExplorationDimensionDynamic := new(PostFunnelExplorationExplorationDimensionDynamic)
+		if err := utils.UnmarshalJSON(data, &postFunnelExplorationExplorationDimensionDynamic, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (DimensionType == dynamic) type PostFunnelExplorationExplorationDimensionDynamic within PostFunnelExplorationExplorationDimensionUnion: %w", string(data), err)
 		}
 
-		u.PostFunnelExplorationDimensionDynamicResponse = postFunnelExplorationDimensionDynamicResponse
-		u.Type = PostFunnelExplorationDimensionResponseUnionTypeDynamic
+		u.PostFunnelExplorationExplorationDimensionDynamic = postFunnelExplorationExplorationDimensionDynamic
+		u.Type = PostFunnelExplorationExplorationDimensionUnionTypeDynamic
 		return nil
 	case "static":
-		postFunnelExplorationDimensionStaticResponse := new(PostFunnelExplorationDimensionStaticResponse)
-		if err := utils.UnmarshalJSON(data, &postFunnelExplorationDimensionStaticResponse, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (DimensionType == static) type PostFunnelExplorationDimensionStaticResponse within PostFunnelExplorationDimensionResponseUnion: %w", string(data), err)
+		postFunnelExplorationExplorationDimensionStatic := new(PostFunnelExplorationExplorationDimensionStatic)
+		if err := utils.UnmarshalJSON(data, &postFunnelExplorationExplorationDimensionStatic, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (DimensionType == static) type PostFunnelExplorationExplorationDimensionStatic within PostFunnelExplorationExplorationDimensionUnion: %w", string(data), err)
 		}
 
-		u.PostFunnelExplorationDimensionStaticResponse = postFunnelExplorationDimensionStaticResponse
-		u.Type = PostFunnelExplorationDimensionResponseUnionTypeStatic
+		u.PostFunnelExplorationExplorationDimensionStatic = postFunnelExplorationExplorationDimensionStatic
+		u.Type = PostFunnelExplorationExplorationDimensionUnionTypeStatic
 		return nil
 	case "slice":
-		postFunnelExplorationDimensionSliceResponse := new(PostFunnelExplorationDimensionSliceResponse)
-		if err := utils.UnmarshalJSON(data, &postFunnelExplorationDimensionSliceResponse, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (DimensionType == slice) type PostFunnelExplorationDimensionSliceResponse within PostFunnelExplorationDimensionResponseUnion: %w", string(data), err)
+		postFunnelExplorationExplorationDimensionSlice := new(PostFunnelExplorationExplorationDimensionSlice)
+		if err := utils.UnmarshalJSON(data, &postFunnelExplorationExplorationDimensionSlice, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (DimensionType == slice) type PostFunnelExplorationExplorationDimensionSlice within PostFunnelExplorationExplorationDimensionUnion: %w", string(data), err)
 		}
 
-		u.PostFunnelExplorationDimensionSliceResponse = postFunnelExplorationDimensionSliceResponse
-		u.Type = PostFunnelExplorationDimensionResponseUnionTypeSlice
+		u.PostFunnelExplorationExplorationDimensionSlice = postFunnelExplorationExplorationDimensionSlice
+		u.Type = PostFunnelExplorationExplorationDimensionUnionTypeSlice
 		return nil
 	default:
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = PostFunnelExplorationDimensionResponseUnionTypeUnknown
+		u.Type = PostFunnelExplorationExplorationDimensionUnionTypeUnknown
 		return nil
 	}
 
 }
 
-func (u PostFunnelExplorationDimensionResponseUnion) MarshalJSON() ([]byte, error) {
-	if u.PostFunnelExplorationDimensionDateResponse != nil {
-		return utils.MarshalJSON(u.PostFunnelExplorationDimensionDateResponse, "", true)
+func (u PostFunnelExplorationExplorationDimensionUnion) MarshalJSON() ([]byte, error) {
+	if u.PostFunnelExplorationExplorationDimensionDate != nil {
+		return utils.MarshalJSON(u.PostFunnelExplorationExplorationDimensionDate, "", true)
 	}
 
-	if u.PostFunnelExplorationDimensionDynamicResponse != nil {
-		return utils.MarshalJSON(u.PostFunnelExplorationDimensionDynamicResponse, "", true)
+	if u.PostFunnelExplorationExplorationDimensionDynamic != nil {
+		return utils.MarshalJSON(u.PostFunnelExplorationExplorationDimensionDynamic, "", true)
 	}
 
-	if u.PostFunnelExplorationDimensionStaticResponse != nil {
-		return utils.MarshalJSON(u.PostFunnelExplorationDimensionStaticResponse, "", true)
+	if u.PostFunnelExplorationExplorationDimensionStatic != nil {
+		return utils.MarshalJSON(u.PostFunnelExplorationExplorationDimensionStatic, "", true)
 	}
 
-	if u.PostFunnelExplorationDimensionSliceResponse != nil {
-		return utils.MarshalJSON(u.PostFunnelExplorationDimensionSliceResponse, "", true)
+	if u.PostFunnelExplorationExplorationDimensionSlice != nil {
+		return utils.MarshalJSON(u.PostFunnelExplorationExplorationDimensionSlice, "", true)
 	}
 
 	if u.UnknownRaw != nil {
 		return json.RawMessage(u.UnknownRaw), nil
 	}
-	return nil, errors.New("could not marshal union type PostFunnelExplorationDimensionResponseUnion: all fields are null")
+	return nil, errors.New("could not marshal union type PostFunnelExplorationExplorationDimensionUnion: all fields are null")
 }
 
 type PostFunnelExplorationChartTypeResponse string
@@ -2361,12 +2361,12 @@ func (p *PostFunnelExplorationDatasetResponse) GetYAxisScale() *YAxisScaleRespon
 
 type PostFunnelExplorationConfig struct {
 	// ID of the datasource to query
-	Datasource    string                                        `json:"datasource"`
-	Dimensions    []PostFunnelExplorationDimensionResponseUnion `json:"dimensions"`
-	ChartType     PostFunnelExplorationChartTypeResponse        `json:"chartType"`
-	DateRange     PostFunnelExplorationDateRangeResponse        `json:"dateRange"`
-	ShowAs        *PostFunnelExplorationShowAsResponse          `json:"showAs,omitzero"`
-	ChartSettings *PostFunnelExplorationChartSettingsResponse   `json:"chartSettings,omitzero"`
+	Datasource    string                                           `json:"datasource"`
+	Dimensions    []PostFunnelExplorationExplorationDimensionUnion `json:"dimensions"`
+	ChartType     PostFunnelExplorationChartTypeResponse           `json:"chartType"`
+	DateRange     PostFunnelExplorationDateRangeResponse           `json:"dateRange"`
+	ShowAs        *PostFunnelExplorationShowAsResponse             `json:"showAs,omitzero"`
+	ChartSettings *PostFunnelExplorationChartSettingsResponse      `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                               `const:"funnel" json:"type"`
 	Dataset PostFunnelExplorationDatasetResponse `json:"dataset"`
@@ -2390,9 +2390,9 @@ func (p *PostFunnelExplorationConfig) GetDatasource() string {
 	return p.Datasource
 }
 
-func (p *PostFunnelExplorationConfig) GetDimensions() []PostFunnelExplorationDimensionResponseUnion {
+func (p *PostFunnelExplorationConfig) GetDimensions() []PostFunnelExplorationExplorationDimensionUnion {
 	if p == nil {
-		return []PostFunnelExplorationDimensionResponseUnion{}
+		return []PostFunnelExplorationExplorationDimensionUnion{}
 	}
 	return p.Dimensions
 }

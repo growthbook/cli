@@ -1218,6 +1218,8 @@ type PostFeatureRevisionRuleAddV2RequestBody struct {
 	SkipSchemaValidation *bool `json:"skipSchemaValidation,omitzero"`
 	// Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	SkipHooks *bool `json:"skipHooks,omitzero"`
+	// When the organization requires rules to target specific environments or Projects, set to true to save a rule that applies to All Environments and All Projects. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
+	AllowUnscopedRules *bool `json:"allowUnscopedRules,omitzero"`
 }
 
 func (p PostFeatureRevisionRuleAddV2RequestBody) MarshalJSON() ([]byte, error) {
@@ -1287,6 +1289,13 @@ func (p *PostFeatureRevisionRuleAddV2RequestBody) GetSkipHooks() *bool {
 	return p.SkipHooks
 }
 
+func (p *PostFeatureRevisionRuleAddV2RequestBody) GetAllowUnscopedRules() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AllowUnscopedRules
+}
+
 // #region class-body-postfeaturerevisionruleaddv2requestbody
 // #endregion class-body-postfeaturerevisionruleaddv2requestbody
 
@@ -1319,6 +1328,29 @@ func (p *PostFeatureRevisionRuleAddV2Request) GetBody() PostFeatureRevisionRuleA
 
 // #region class-body-postfeaturerevisionruleaddv2request
 // #endregion class-body-postfeaturerevisionruleaddv2request
+
+type PostFeatureRevisionRuleAddV2Code string
+
+const (
+	PostFeatureRevisionRuleAddV2CodeUnscopedRule PostFeatureRevisionRuleAddV2Code = "unscoped_rule"
+)
+
+func (e PostFeatureRevisionRuleAddV2Code) ToPointer() *PostFeatureRevisionRuleAddV2Code {
+	return &e
+}
+func (e *PostFeatureRevisionRuleAddV2Code) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "unscoped_rule":
+		*e = PostFeatureRevisionRuleAddV2Code(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PostFeatureRevisionRuleAddV2Code: %v", v)
+	}
+}
 
 // PostFeatureRevisionRuleAddV2ResponseBody - Resource created
 type PostFeatureRevisionRuleAddV2ResponseBody struct {

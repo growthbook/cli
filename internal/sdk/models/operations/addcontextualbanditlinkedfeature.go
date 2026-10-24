@@ -3,6 +3,8 @@
 package operations
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/growthbook/cli/v3/internal/sdk/models/components"
 	"github.com/growthbook/cli/v3/internal/sdk/optionalnullable"
 	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
@@ -51,6 +53,8 @@ type AddContextualBanditLinkedFeatureRequestBody struct {
 	Projects     []string `json:"projects,omitzero"`
 	// Publish the resulting revision immediately instead of leaving it as a draft.
 	AutoPublish *bool `json:"autoPublish,omitzero"`
+	// When the organization requires rules to target specific environments or Projects, set to true to save a rule that applies to All Environments and All Projects. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
+	AllowUnscopedRules *bool `json:"allowUnscopedRules,omitzero"`
 	// Add the rule to this existing draft revision instead of starting a new one.
 	DraftVersion *int64 `json:"draftVersion,omitzero"`
 }
@@ -122,6 +126,13 @@ func (a *AddContextualBanditLinkedFeatureRequestBody) GetAutoPublish() *bool {
 	return a.AutoPublish
 }
 
+func (a *AddContextualBanditLinkedFeatureRequestBody) GetAllowUnscopedRules() *bool {
+	if a == nil {
+		return nil
+	}
+	return a.AllowUnscopedRules
+}
+
 func (a *AddContextualBanditLinkedFeatureRequestBody) GetDraftVersion() *int64 {
 	if a == nil {
 		return nil
@@ -156,6 +167,29 @@ func (a *AddContextualBanditLinkedFeatureRequest) GetBody() AddContextualBanditL
 		return AddContextualBanditLinkedFeatureRequestBody{}
 	}
 	return a.Body
+}
+
+type AddContextualBanditLinkedFeatureCode string
+
+const (
+	AddContextualBanditLinkedFeatureCodeUnscopedRule AddContextualBanditLinkedFeatureCode = "unscoped_rule"
+)
+
+func (e AddContextualBanditLinkedFeatureCode) ToPointer() *AddContextualBanditLinkedFeatureCode {
+	return &e
+}
+func (e *AddContextualBanditLinkedFeatureCode) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "unscoped_rule":
+		*e = AddContextualBanditLinkedFeatureCode(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for AddContextualBanditLinkedFeatureCode: %v", v)
+	}
 }
 
 // AddContextualBanditLinkedFeatureResponseBody - Resource created

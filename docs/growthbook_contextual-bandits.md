@@ -53,9 +53,11 @@ growthbook contextual-bandits [flags]
 * [growthbook contextual-bandits get-results](growthbook_contextual-bandits_get-results.md)	 - Get latest Contextual Bandit results
 * [growthbook contextual-bandits get-snapshot](growthbook_contextual-bandits_get-snapshot.md)	 - Get a single Contextual Bandit snapshot
 * [growthbook contextual-bandits list](growthbook_contextual-bandits_list.md)	 - Get all contextualBandits
+* [growthbook contextual-bandits list-contextual-bandit-visual-changesets](growthbook_contextual-bandits_list-contextual-bandit-visual-changesets.md)	 - List visual changesets for a Contextual Bandit
 * [growthbook contextual-bandits list-events](growthbook_contextual-bandits_list-events.md)	 - List Contextual Bandit weight-update events
 * [growthbook contextual-bandits list-linked-features](growthbook_contextual-bandits_list-linked-features.md)	 - Get features linked to a Contextual Bandit
 * [growthbook contextual-bandits list-snapshots](growthbook_contextual-bandits_list-snapshots.md)	 - List Contextual Bandit snapshots
+* [growthbook contextual-bandits post-contextual-bandit-visual-changesets](growthbook_contextual-bandits_post-contextual-bandit-visual-changesets.md)	 - Create a visual changeset for a Contextual Bandit
 * [growthbook contextual-bandits refresh](growthbook_contextual-bandits_refresh.md)	 - Trigger a Contextual Bandit snapshot refresh
 * [growthbook contextual-bandits start](growthbook_contextual-bandits_start.md)	 - Start a Contextual Bandit
 * [growthbook contextual-bandits stop](growthbook_contextual-bandits_stop.md)	 - Stop a Contextual Bandit
