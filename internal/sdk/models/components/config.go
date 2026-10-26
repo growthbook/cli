@@ -120,7 +120,7 @@ func (c *ConfigSchema) GetValue() map[string]any {
 	return c.Value
 }
 
-type Invariant struct {
+type ConfigInvariant struct {
 	// Unique name for the rule.
 	Name string `json:"name"`
 	// A mongo condition (mongrule) boolean expression over the config's fields.
@@ -129,25 +129,25 @@ type Invariant struct {
 	Message string `json:"message"`
 }
 
-func (i *Invariant) GetName() string {
-	if i == nil {
+func (c *ConfigInvariant) GetName() string {
+	if c == nil {
 		return ""
 	}
-	return i.Name
+	return c.Name
 }
 
-func (i *Invariant) GetRule() map[string]any {
-	if i == nil {
+func (c *ConfigInvariant) GetRule() map[string]any {
+	if c == nil {
 		return map[string]any{}
 	}
-	return i.Rule
+	return c.Rule
 }
 
-func (i *Invariant) GetMessage() string {
-	if i == nil {
+func (c *ConfigInvariant) GetMessage() string {
+	if c == nil {
 		return ""
 	}
-	return i.Message
+	return c.Message
 }
 
 // LockedRevision - The pinned published revision (present only when `locked`). Fetch it via `GET /configs-revisions/:key/:version` for a value guaranteed not to disappear or mutate — use it to pin reproducible builds.
@@ -198,7 +198,7 @@ type Config struct {
 	// Whether this config family permits extra keys beyond the declared fields (child configs, feature rules, ad-hoc overrides). Only the root config's flag applies. Absent = inherit the org default.
 	Extensible *bool `json:"extensible,omitzero"`
 	// Cross-field validation rules (relational checks JSON Schema can't express, e.g. implications or comparing two fields), evaluated against the resolved value at publish.
-	Invariants []Invariant `json:"invariants,omitzero"`
+	Invariants []ConfigInvariant `json:"invariants,omitzero"`
 	// Whether this Config is locked to a published revision. Drafts can still be created and edited while locked, but no change can be published until a user with Bypass draft approvals access unlocks it.
 	Locked *bool `json:"locked,omitzero"`
 	// Whether the experiment guard is enabled. When enabled, publishing a value used by a running experiment returns a warning that must be acknowledged with `ignoreWarnings: true`. Disabling the guard requires Bypass draft approvals access.
@@ -329,7 +329,7 @@ func (c *Config) GetExtensible() *bool {
 	return c.Extensible
 }
 
-func (c *Config) GetInvariants() []Invariant {
+func (c *Config) GetInvariants() []ConfigInvariant {
 	if c == nil {
 		return nil
 	}

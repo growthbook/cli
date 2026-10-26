@@ -26,8 +26,8 @@ growthbook populations create [flags]
   -n, --name string                 [required]
       --owner string                The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the requesting member: a personal access token's owner, or the member an organization API key assumes. An organization API key acting as itself must send it, or the request fails with a 400.
   -p, --projects stringArray        list of values
-  -s, --steps string                Steps a unit must complete, in order, to be included. The steps can read from at most 5 distinct fact tables [required]
-  -u, --user-id-types stringArray   Identifier types the population can be joined on. Every step's fact table must support all of them [required]
+  -s, --steps string                Steps a unit must complete, in order, to be included. Currently limited to 1 step with support for multiple steps coming soon. [required]
+  -u, --user-id-types stringArray   Identifier types the Population can be joined on. Every step's fact table must support all of them [required]
 ```
 
 ### Options inherited from parent commands

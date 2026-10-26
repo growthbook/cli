@@ -25,6 +25,7 @@ var updateLinkedFeatureCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "all-projects", FieldPath: "Body.AllProjects", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "projects", Shorthand: "p", FieldPath: "Body.Projects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
 	{FlagName: "auto-publish", FieldPath: "Body.AutoPublish", Kind: flagutil.FlagKindBool, Optional: true, Description: "Publish the resulting revision immediately instead of leaving it as a draft."},
+	{FlagName: "allow-unscoped-rules", FieldPath: "Body.AllowUnscopedRules", Kind: flagutil.FlagKindBool, Optional: true, Description: "When the organization requires rules to target specific environments or Projects, set to true to save a rule that applies to All Environments and All Projects. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it."},
 	{FlagName: "draft-version", FieldPath: "Body.DraftVersion", Kind: flagutil.FlagKindInt64, Optional: true, Description: "Update the rule on this existing draft revision instead of starting a new one."},
 }
 

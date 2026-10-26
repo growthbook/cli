@@ -311,6 +311,82 @@ func (e *ContextualBanditStage) IsExact() bool {
 	return false
 }
 
+type Health struct {
+	Srm               *float64 `json:"srm"`
+	TotalUsers        float64  `json:"totalUsers"`
+	MultipleExposures *float64 `json:"multipleExposures,omitzero"`
+	VariationIds      []string `json:"variationIds,omitzero"`
+}
+
+func (h Health) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(h, "", false)
+}
+
+func (h *Health) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (h *Health) GetSrm() *float64 {
+	if h == nil {
+		return nil
+	}
+	return h.Srm
+}
+
+func (h *Health) GetTotalUsers() float64 {
+	if h == nil {
+		return 0.0
+	}
+	return h.TotalUsers
+}
+
+func (h *Health) GetMultipleExposures() *float64 {
+	if h == nil {
+		return nil
+	}
+	return h.MultipleExposures
+}
+
+func (h *Health) GetVariationIds() []string {
+	if h == nil {
+		return nil
+	}
+	return h.VariationIds
+}
+
+type AnalysisSummary struct {
+	SnapshotID string  `json:"snapshotId"`
+	Health     *Health `json:"health,omitzero"`
+}
+
+func (a AnalysisSummary) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *AnalysisSummary) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (a *AnalysisSummary) GetSnapshotID() string {
+	if a == nil {
+		return ""
+	}
+	return a.SnapshotID
+}
+
+func (a *AnalysisSummary) GetHealth() *Health {
+	if a == nil {
+		return nil
+	}
+	return a.Health
+}
+
 type ContextualBandit struct {
 	ID          string    `json:"id"`
 	DateCreated time.Time `json:"dateCreated"`
@@ -355,6 +431,7 @@ type ContextualBandit struct {
 	ConversionWindowUnit    optionalnullable.OptionalNullable[ConversionWindowUnit] `json:"conversionWindowUnit,omitzero"`
 	Stage                   *ContextualBanditStage                                  `json:"stage,omitzero"`
 	StageDateStarted        *time.Time                                              `json:"stageDateStarted,omitzero"`
+	AnalysisSummary         *AnalysisSummary                                        `json:"analysisSummary,omitzero"`
 	AutoSnapshots           *bool                                                   `json:"autoSnapshots,omitzero"`
 	NextSnapshotAttempt     *time.Time                                              `json:"nextSnapshotAttempt,omitzero"`
 	HasVisualChangesets     *bool                                                   `json:"hasVisualChangesets,omitzero"`
@@ -656,6 +733,13 @@ func (c *ContextualBandit) GetStageDateStarted() *time.Time {
 		return nil
 	}
 	return c.StageDateStarted
+}
+
+func (c *ContextualBandit) GetAnalysisSummary() *AnalysisSummary {
+	if c == nil {
+		return nil
+	}
+	return c.AnalysisSummary
 }
 
 func (c *ContextualBandit) GetAutoSnapshots() *bool {

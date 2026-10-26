@@ -370,6 +370,8 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`refresh`](docs/growthbook_contextual-bandits_refresh.md) - Trigger a Contextual Bandit snapshot refresh
 * [`update-variations`](docs/growthbook_contextual-bandits_update-variations.md) - Add or remove Contextual Bandit variations
 * [`cancel`](docs/growthbook_contextual-bandits_cancel.md) - Cancel a running Contextual Bandit snapshot refresh
+* [`post-contextual-bandit-visual-changesets`](docs/growthbook_contextual-bandits_post-contextual-bandit-visual-changesets.md) - Create a visual changeset for a Contextual Bandit
+* [`list-contextual-bandit-visual-changesets`](docs/growthbook_contextual-bandits_list-contextual-bandit-visual-changesets.md) - List visual changesets for a Contextual Bandit
 
 ### [snapshots](docs/growthbook_snapshots.md)
 
@@ -698,6 +700,15 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`update`](docs/growthbook_contextual-bandit-queries_update.md) - Update a single contextualBanditQuery
 * [`create`](docs/growthbook_contextual-bandit-queries_create.md) - Create a single contextualBanditQuery
 * [`list`](docs/growthbook_contextual-bandit-queries_list.md) - Get all contextualBanditQueries
+
+### [interleavings](docs/growthbook_interleavings.md)
+
+* [`get`](docs/growthbook_interleavings_get.md) - Get a single interleaving
+* [`update`](docs/growthbook_interleavings_update.md) - Update a single interleaving
+* [`create`](docs/growthbook_interleavings_create.md) - Create a single interleaving
+* [`list`](docs/growthbook_interleavings_list.md) - Get all interleavings
+* [`start`](docs/growthbook_interleavings_start.md) - Start an interleaving experiment
+* [`stop`](docs/growthbook_interleavings_stop.md) - Stop an interleaving experiment
 
 ### [custom-fields](docs/growthbook_custom-fields.md)
 

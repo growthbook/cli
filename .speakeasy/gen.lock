@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 4c8e0331-b838-4af2-bf59-101dac30ada4
 management:
-  docChecksum: ba8b24d99ae8b24d2b4e3a3955b893eb
+  docChecksum: 8d1c62d2a7bd630e747a06acc69eaf99
   docVersion: 5.1.0
   speakeasyVersion: 1.794.0
   generationVersion: 2.930.0
-  releaseVersion: 3.2.0
-  configChecksum: 391e93805e4d95577dd570cda2531d92
+  releaseVersion: 3.2.1
+  configChecksum: 9fe6f7023281281627f852b5b0521e0d
   repoURL: https://github.com/growthbook/cli.git
   installationURL: https://github.com/growthbook/cli
 persistentEdits:
-  generation_id: cc7a695d-eb18-4db9-b3d0-2633652f7ee1
-  pristine_commit_hash: b90dbe92dbe1d2c5e22eaa7c419ed7227aeac952
-  pristine_tree_hash: 1dfd838eba08ba2ac6963e07eb281fc5ec1f65af
+  generation_id: a651570c-e5de-43b1-970f-27ab52a4be67
+  pristine_commit_hash: eefd258e9831e24409195e452c3148eb81e51a8b
+  pristine_tree_hash: 038fbad79de470a29c89ef4352120a20cee0f00a
 features:
   cli:
     additionalProperties: 0.0.1
@@ -51,8 +51,8 @@ trackedFiles:
     pristine_git_object: 454ec99a96039e9afe44bd58e9d63d2f8a786231
   cmd/growthbook/main.go:
     id: b6cdb0d3c891
-    last_write_checksum: sha1:03201cfefb6b81432ee3de8b31cbcad3068cd76a
-    pristine_git_object: 42c54cda59708a6d1df84db6f442f72bb1821484
+    last_write_checksum: sha1:f5112f330fdffdee2924d8c40f418bd33596bde2
+    pristine_git_object: a8b8c546c41bba061e5ec3056e689bdada35905e
   go.mod:
     id: c47645c391ad
     last_write_checksum: sha1:ce1fcc9d937a8b456348c4f718f42dfed4220113
@@ -503,8 +503,8 @@ trackedFiles:
     pristine_git_object: 1cf46d7f0f78776302265d3971d2c18ddb280464
   internal/cli/contextualbandits/addlinkedfeature.go:
     id: d1cd24bc7a84
-    last_write_checksum: sha1:a80cdca17b7d1ec22461b4f86974e87fddc3cdb5
-    pristine_git_object: f0b257db8b001093f69c149c2e510d68d57226f7
+    last_write_checksum: sha1:881e18f5fadd242e217c07e3549aabbc12a435e3
+    pristine_git_object: 4ad54bc4f4fde900edad968e2e325f3da781ddd4
   internal/cli/contextualbandits/cancelcontextualbandit.go:
     id: a6b952cac656
     last_write_checksum: sha1:03a0e8df5be198c6e1bc8acd1d304d0300821e31
@@ -531,8 +531,8 @@ trackedFiles:
     pristine_git_object: aaa68a2f029c429ffd793b41baa26f73cf40efb6
   internal/cli/contextualbandits/getresults.go:
     id: 6d9b3bdaecb8
-    last_write_checksum: sha1:660920249e1e5ee3b8f051bb7cd49852ebba4ba7
-    pristine_git_object: aa5232948eb9c117540ac173e389f37c5017ab6e
+    last_write_checksum: sha1:ed03b82effdfacb8aec2f8ee024d7ac721c36bd7
+    pristine_git_object: 29ed07bd7a5d3661e74c633c442bb6d85b545283
   internal/cli/contextualbandits/getsnapshot.go:
     id: f14ebf438377
     last_write_checksum: sha1:ef31764e1b331d306aa549f252213f97debc1819
@@ -541,6 +541,10 @@ trackedFiles:
     id: 147c5670f015
     last_write_checksum: sha1:682e21b1fa1f2c5da7f93659e65e24be946d295d
     pristine_git_object: 018b246a3317d3406a4bfd03a22acdbc3f229eae
+  internal/cli/contextualbandits/listcontextualbanditvisualchangesets.go:
+    id: 2a441013df61
+    last_write_checksum: sha1:fe1c2ddb78f2b296f3c5569ee9f11ab519f04747
+    pristine_git_object: 20a0f82aab819e0ae12451a9c24b24f6daede850
   internal/cli/contextualbandits/listevents.go:
     id: b6a7e8d22d4e
     last_write_checksum: sha1:f39063ed527fd67adc8d0465d5b5e7c39f0f2d95
@@ -553,14 +557,18 @@ trackedFiles:
     id: 8213ec060591
     last_write_checksum: sha1:c53068c7f16abee24b62dd6e9924f4a4569d2e05
     pristine_git_object: fc32bc4eb66e9c3c5dedd8acae3402226927375f
+  internal/cli/contextualbandits/postcontextualbanditvisualchangesets.go:
+    id: 8f725b71c4fd
+    last_write_checksum: sha1:451fb87dee9d9f18d069bb74e67e40583557b420
+    pristine_git_object: 6a74d90c173c5387deddb5d277a83111621fca76
   internal/cli/contextualbandits/refreshcontextualbandit.go:
     id: d2c0cbcc14d2
     last_write_checksum: sha1:623f4b4cf2c8cf9b1d84bc7069e026ff057700b7
     pristine_git_object: 88299ee1471a57eaa67d306f39b8936e86ff3497
   internal/cli/contextualbandits/root.go:
     id: 64a43dcb367b
-    last_write_checksum: sha1:db6dcf570d2d998e11c051d1c10b0a7ca4bf7ad3
-    pristine_git_object: a4ad1510771148179f94e1c35d4a1a23ddef7da0
+    last_write_checksum: sha1:5ae0e2146ceeba3ca8bcf2e86393f4cb547432e6
+    pristine_git_object: 06aa0d6aa4d019486f1a71a36b9e1cfa1a7de621
   internal/cli/contextualbandits/startcontextualbandit.go:
     id: 62f6fb566a9e
     last_write_checksum: sha1:df732578b47d02da93a003df58e26583ffd30c0b
@@ -575,8 +583,8 @@ trackedFiles:
     pristine_git_object: 9c1430c3b6a36cae25746d06c712f85f9f76b9c3
   internal/cli/contextualbandits/updatelinkedfeature.go:
     id: 0ea9223a702c
-    last_write_checksum: sha1:b1b3d7339df711ddc556bf84a633f415ecaf1642
-    pristine_git_object: 085ae0f6fb722fedfcb99939581049292a697005
+    last_write_checksum: sha1:c35635b93fdcab788d9bdc83550d45bd45431d45
+    pristine_git_object: 1f4d5bfb73c50b1adb06e6eea5e64be543633a02
   internal/cli/contextualbandits/updatevariations.go:
     id: c2ee17ecfe13
     last_write_checksum: sha1:eef932cc2c41e130dca75d2601efd1ed7cd86b89
@@ -963,8 +971,8 @@ trackedFiles:
     pristine_git_object: 184a500ea4ff489f9514420e31575f672b4c05b3
   internal/cli/featurerevisions/addrule.go:
     id: ddd8b48aac2e
-    last_write_checksum: sha1:41368c230aea4c6c5d61abf25882a609af85dd09
-    pristine_git_object: ea5142078cba3a31bcf93f34e66d1ac9a2bb2d27
+    last_write_checksum: sha1:64b5ba4472a5b0cb3d376485f29f80714ac05bf1
+    pristine_git_object: a5132db6cb7589a5ba9bffe9ad3a433b30471219
   internal/cli/featurerevisions/archive.go:
     id: ef31233d5b82
     last_write_checksum: sha1:7894406de3b1ecd6a9000aa22a167ce179984fe6
@@ -1091,8 +1099,8 @@ trackedFiles:
     pristine_git_object: 21e591fcc14b9ab95189a8bbdbd98edbce93b524
   internal/cli/featurerevisions/updaterule.go:
     id: d153dd3617ca
-    last_write_checksum: sha1:f86e315fe8d71a5543e59ae4380e837aed40ca9e
-    pristine_git_object: b1b27b563b7a31e3d28e5d78f6ab64b4751bee66
+    last_write_checksum: sha1:c617d84c258ad42dc3f46f35c36ff3ca5cc070eb
+    pristine_git_object: 3fd3b19c5a28f987cf0af758b026bcc0c617905f
   internal/cli/featurerevisionsv1/create.go:
     id: 27a9d8fe184b
     last_write_checksum: sha1:a34f1ddd3ac5bb86855324c2671d168a6e136bf7
@@ -1195,8 +1203,8 @@ trackedFiles:
     pristine_git_object: 901f9dc8044b702047c252d54964bb3346c77a8d
   internal/cli/features/create.go:
     id: c1e919b20ffa
-    last_write_checksum: sha1:4672bc9866e48433d05eec18fa5af14782e9dccf
-    pristine_git_object: a476fdd7a73b210fb13e03908350386e7ef8081f
+    last_write_checksum: sha1:64721885b825b404781c56a762514ca88487c4e6
+    pristine_git_object: 031b0c44119af41ffc169044d6efc7429d1b4d72
   internal/cli/features/delete.go:
     id: f9a657ddfd2d
     last_write_checksum: sha1:d99c456e14d0cf7afc24b8d8f6d3d3cfea8ae654
@@ -1231,8 +1239,8 @@ trackedFiles:
     pristine_git_object: 1bf0d06d5db43a873865207cc0c23e6e1942f015
   internal/cli/features/update.go:
     id: 97e979f58010
-    last_write_checksum: sha1:0562f0e15c4db0f73dd8aadf934e4ad6847656c3
-    pristine_git_object: 4db58c24ed6dbfde3ebdc88dc0e38b042f1e7584
+    last_write_checksum: sha1:5645d4401a73caa589b9f4cce2fd7e96039c6829
+    pristine_git_object: 0f34e436677ec8e06d8b28f97d8261063e381f3f
   internal/cli/featuresv1/create.go:
     id: ae0c92c62e5d
     last_write_checksum: sha1:07a6d7588bf3b3a78b82ff55785291b1f8f23163
@@ -1305,6 +1313,34 @@ trackedFiles:
     id: 9c609b5469af
     last_write_checksum: sha1:9275b14cad25e78041894dba583fdbc5274f11ae
     pristine_git_object: a041208e8d5032408d969ded1c38a4eeef8e5b45
+  internal/cli/interleavings/createinterleaving.go:
+    id: b86aed7f30d4
+    last_write_checksum: sha1:db2b25d2afed8eb7156165be4aa2d57f04da94ea
+    pristine_git_object: 156c724e03f6aac224166b2a907fb2b7fcfaf12f
+  internal/cli/interleavings/getinterleaving.go:
+    id: 1f1c75e3675c
+    last_write_checksum: sha1:fdddfdd331212eaadf908b70597e1fa3c61e5ab4
+    pristine_git_object: 8dec8b5f4cbba0dcf2ec58f59d4a48ed67db9846
+  internal/cli/interleavings/listinterleavings.go:
+    id: cc5c07923c98
+    last_write_checksum: sha1:53cbde6c8df8c9a36eafce8b3dae4d3f40897f6e
+    pristine_git_object: 998d0a38095d2b157ea309d15082c2e6e7f44eca
+  internal/cli/interleavings/root.go:
+    id: 17846a14b493
+    last_write_checksum: sha1:5eef9e5b5bbb0697180735d522b77e6167245273
+    pristine_git_object: 080898b4ea056bc4b58de69f82ae9acfaba31fbe
+  internal/cli/interleavings/startinterleaving.go:
+    id: 2a65201544b6
+    last_write_checksum: sha1:c2287b493c003b7ecbb82c9e8de861021c27282b
+    pristine_git_object: 7d41490a1c4cd2dbd31f10e045622bd5e827901c
+  internal/cli/interleavings/stopinterleaving.go:
+    id: 289817f094b6
+    last_write_checksum: sha1:0816733af1a8efb3a382281952995990f46cb851
+    pristine_git_object: cf42e166b9183bf4f4f811acf3fbbdf8b18837d5
+  internal/cli/interleavings/updateinterleaving.go:
+    id: 25b67152eb34
+    last_write_checksum: sha1:211839d28969cdc92ab87f88c014c0966aed75ef
+    pristine_git_object: 3856d13768e89c84692a653f27d312f7053b5e91
   internal/cli/learnings/createlearning.go:
     id: 99194a083e05
     last_write_checksum: sha1:36d7ff59407fc4ca10b06f6df5ee37f450829eb3
@@ -1467,8 +1503,8 @@ trackedFiles:
     pristine_git_object: ec5e5f46b364d8da96bccb70f649fea9c62aeae3
   internal/cli/populations/createpopulation.go:
     id: 0a8329f59966
-    last_write_checksum: sha1:d7c5d06f69a62e62a3fd17ff7c06eccd12f70fcf
-    pristine_git_object: e1418fc172a616a9cc4fb771094f8fb5b6416c70
+    last_write_checksum: sha1:70b488f66ada8b410d177abf0c49b4043ecbe9c7
+    pristine_git_object: b3617a9bc218d4cfefd8d210aa4684a14a0800ba
   internal/cli/populations/deletepopulation.go:
     id: bab815dce2a6
     last_write_checksum: sha1:3a0ada2c8b226bfff15edad37c0f129d85be0825
@@ -1487,8 +1523,8 @@ trackedFiles:
     pristine_git_object: d0e2425e80d17d682faee831f15c038fea1115ec
   internal/cli/populations/updatepopulation.go:
     id: fbadb5652a59
-    last_write_checksum: sha1:84a43ba64c0c93c80fa1694cd08aab4b7a3432fa
-    pristine_git_object: 902e33654d9896c41db5fe693f371a24c45e12da
+    last_write_checksum: sha1:d192d325148567626205b7c9475626382ca23423
+    pristine_git_object: b22b0932e5dc36d23bd2f73fb6c5401ad2dd8d3b
   internal/cli/projects/create.go:
     id: f6ad4fffabe8
     last_write_checksum: sha1:524fd930e6f2a3666610f41b2490018007273e4a
@@ -1679,8 +1715,8 @@ trackedFiles:
     pristine_git_object: e75d8ac63cec1c64b2990123d0e6096cf38f182b
   internal/cli/root.go:
     id: 239d55a0d6be
-    last_write_checksum: sha1:83c788a2b23a203c140e35a71d3325748b9041ac
-    pristine_git_object: 40d2b0c27490310fdf784b89bbaa6a2669805c73
+    last_write_checksum: sha1:017d3b94d26cea0fc5e780e5733db65774161b45
+    pristine_git_object: d39850119e656946e367b11746c6563897eb8dd9
   internal/cli/savedgrouprevisions/additems.go:
     id: f9efe41e4d48
     last_write_checksum: sha1:ab7978aa6092f704575577eee9575c28f9369374
@@ -1923,8 +1959,8 @@ trackedFiles:
     pristine_git_object: ebe103193bb45fd5283323d4d62aa2167da0aec8
   internal/cli/version.go:
     id: 7b0665492f72
-    last_write_checksum: sha1:c170a29b297d0d9a5c4eddf5b95672bf3bae1a41
-    pristine_git_object: 4d4367dbf834c79f9f804464e3f899521ec603e8
+    last_write_checksum: sha1:e658c4de5faaa0923c3a5c313d00100cf1a6e471
+    pristine_git_object: 3b4736e2c88ef7b7d733cd88124d725a116315cf
   internal/cli/visualchangesets/addvisualchange.go:
     id: fdbcb9d69b23
     last_write_checksum: sha1:5cded7eeb898816ee2a09f62badf32906cfdc360
@@ -2075,8 +2111,8 @@ trackedFiles:
     pristine_git_object: 6beae96bc6c76e3005a61837dd8f11bff3f7eef1
   internal/sdk/contextualbandits.go:
     id: f637b07ee273
-    last_write_checksum: sha1:dcee67e645727d4768356336145c76f328d89d2b
-    pristine_git_object: 2d2366e3cae9e74405442470333c008760d80214
+    last_write_checksum: sha1:b5cd049ada1c6279535f1e63a8d680304705ef0b
+    pristine_git_object: 68bfbad098d80f2e79d81a6838f4e0e10e5cfdf4
   internal/sdk/customfields.go:
     id: 850a3168a241
     last_write_checksum: sha1:c6e2ea06d744c3428b8eeee72bf71eda47378287
@@ -2119,28 +2155,32 @@ trackedFiles:
     pristine_git_object: d266199c842c75c4d6d4dcf76f42d78a80b9664a
   internal/sdk/featurerevisions.go:
     id: bb75ed2e6390
-    last_write_checksum: sha1:d31b5b6035ec25d9a951fe789de1084aa56d5ca9
-    pristine_git_object: c81eff4b42e60887073cc9a7459409020e255602
+    last_write_checksum: sha1:47dff4934df45af52ea8e60b456b15bb0e2b6c7c
+    pristine_git_object: 84b748e74507a2cc24cbbdc60ef19d3e6f465a8b
   internal/sdk/featurerevisionsv1.go:
     id: f90cbd9c790a
     last_write_checksum: sha1:4045e2c6b55919336c01d14f72d9b7620d9c85db
     pristine_git_object: 04288c8d0ea2f88085562d247574e1da5f523e7e
   internal/sdk/features.go:
     id: 191ad21f984f
-    last_write_checksum: sha1:c641bc685df50898abd545dfadc57366713712ec
-    pristine_git_object: 30ad52b5cd56529e249fe1abd39585ddd30edd14
+    last_write_checksum: sha1:f6aa7d225246442222e9c93c262ed9af0ae194d5
+    pristine_git_object: e3d59516e5d6b9c2a98ff1bf8d22636af8523d7d
   internal/sdk/featuresv1.go:
     id: 70ee9a99f0d7
     last_write_checksum: sha1:9f273a01b3a36096c8c08df7e6d60f12743a3cb5
     pristine_git_object: 781033ec02076929e429f82ceb1a5be3513381d6
   internal/sdk/growthbook.go:
     id: c159b715703a
-    last_write_checksum: sha1:6d8ed433ec78b511b0fae804617565eb2656d631
-    pristine_git_object: de4cda254e1915945a87cabf07504e4abbc422bc
+    last_write_checksum: sha1:86d29de6764d36b3e9b50cf7418cefb576e1c98f
+    pristine_git_object: f64a2276859e6699bf3609cf4f9980c74f2ad50b
   internal/sdk/holdouts.go:
     id: 1f4476b6e0df
     last_write_checksum: sha1:edc7ccb56fc6ca758b5863a43ba8f5a0b2c5e215
     pristine_git_object: 30939e8d19b5caa7ffe550cdc2bdf131fc189dfc
+  internal/sdk/interleavings.go:
+    id: bc937c7b715c
+    last_write_checksum: sha1:948feec64167affd2b625ae76b1898abb4c08c79
+    pristine_git_object: 51cf0df02edac96d04afe00f1ee461ae207adc68
   internal/sdk/learnings.go:
     id: c2496c45e036
     last_write_checksum: sha1:fd439e282e15a0ade2be10a16d41f4c6e71f3761
@@ -2205,6 +2245,10 @@ trackedFiles:
     id: ace0e273b551
     last_write_checksum: sha1:15fd72e2f631e2f113ef05f5680d30c64e9390d5
     pristine_git_object: 9f7b6416e7aa01d1c51dc2a956c896090e214cae
+  internal/sdk/models/components/apierrorunscopedruledetails.go:
+    id: "448574962244"
+    last_write_checksum: sha1:73229dd8b7baa8c423d0664d1b05868864f11296
+    pristine_git_object: ae6757130af049dbf5fce491aaf811225eda4862
   internal/sdk/models/components/approvalflows.go:
     id: dc7b1959f637
     last_write_checksum: sha1:82ce95f3a73392e77d2437f63dd4cbf32858cfd0
@@ -2259,8 +2303,8 @@ trackedFiles:
     pristine_git_object: 2880e06b2c2e614567139d858e516885cc1c65c9
   internal/sdk/models/components/config.go:
     id: 20314dc6028d
-    last_write_checksum: sha1:b0d3226350240a684508b86c871829fb8918f868
-    pristine_git_object: 49c3ee9a0c240deeba2644904cc4f818cd48bc41
+    last_write_checksum: sha1:a336f5e95faf83d1d7da5fc5bb7da708b2b1eb9e
+    pristine_git_object: edcef31a7e6c7d88652da1037940b84889b30644
   internal/sdk/models/components/configrevision.go:
     id: 39905ce5af57
     last_write_checksum: sha1:9dc3705eb8594d0aee0c0adac66e3bd90d6d9420
@@ -2287,8 +2331,8 @@ trackedFiles:
     pristine_git_object: 8a397bee0c8bc16d86980b6e7274304f54f84149
   internal/sdk/models/components/confirmation.go:
     id: 8bd84a72b8a6
-    last_write_checksum: sha1:d899c9639d15b9bc163d8e882f4a55518e266265
-    pristine_git_object: bc94b8c74ff8cc3c9e990d67ef259bb5409894e3
+    last_write_checksum: sha1:a3733c7268f41f0f3fc952f7b36c98dc9addbc00
+    pristine_git_object: ab106bdbbeceb64c1f602c33d30e4c6ee0100396
   internal/sdk/models/components/confirmationheld.go:
     id: a3401396835b
     last_write_checksum: sha1:5bf407ed61378c394b4342fbe3ee5a9f26a11c1f
@@ -2323,8 +2367,8 @@ trackedFiles:
     pristine_git_object: 6ee7b3ec17c342174d7f7ad22fc722ad22dfc748
   internal/sdk/models/components/contextualbandit.go:
     id: 7b81512bf270
-    last_write_checksum: sha1:033137343fafbfdcad453b76466ff4071f2ee506
-    pristine_git_object: 5111f5152d91ad988bd15ef08a3238dd4f2e1f60
+    last_write_checksum: sha1:392a8047e5c7dbf5b3e8dd87f28585d386acfea5
+    pristine_git_object: 7a6ed6f29aa4aff3f1631494abb34e05716bc1ca
   internal/sdk/models/components/contextualbanditquery.go:
     id: 3707540f644e
     last_write_checksum: sha1:0f26d70de27497b5257e99ee507231f8d147f9b1
@@ -2403,8 +2447,8 @@ trackedFiles:
     pristine_git_object: 696539f1b8d861fa484d0d60e29b714698565aca
   internal/sdk/models/components/experimentresults1.go:
     id: e2904cac1dcc
-    last_write_checksum: sha1:a4eb887750a0b9c0883443dd437023bf70bf5b3b
-    pristine_git_object: 07dcbac2538b1b26ca31096949accaab4dab7170
+    last_write_checksum: sha1:1482b7398fac7787fa911e21ff41b0f7faffa6d4
+    pristine_git_object: 533ef9be0b1c66bfd027c51e96eaebbf8bcbe161
   internal/sdk/models/components/experimentresults2.go:
     id: 98a81a5a1178
     last_write_checksum: sha1:d401073bf5789ce583f4e4921851949a4d9feea7
@@ -2561,6 +2605,10 @@ trackedFiles:
     id: 31abecf808f5
     last_write_checksum: sha1:51bd8b7ff9c163bb9fec68d125b0e31070f39f05
     pristine_git_object: 2cc81f9043baa8da5f90df2bfbc9b533d0636a51
+  internal/sdk/models/components/interleaving.go:
+    id: 2c90184ec15c
+    last_write_checksum: sha1:3ef7b1e5c81eee8a4db06821757cd3f061c0ff22
+    pristine_git_object: 26f5fb362007fefd4acf607843b551999c1ed2e6
   internal/sdk/models/components/learning.go:
     id: c086d02f046c
     last_write_checksum: sha1:8bf915aa853def92b04b4b648d1e1025333a7ddf
@@ -2823,8 +2871,8 @@ trackedFiles:
     pristine_git_object: e8bbcf9a2cfa5b2aa090208f6702aa1c0779e042
   internal/sdk/models/operations/addcontextualbanditlinkedfeature.go:
     id: cd8cfbc2892a
-    last_write_checksum: sha1:778951871a11cbda3c6b46b637cdb7e60813b502
-    pristine_git_object: e531864e69e0f6a7ab1ef3c42a115a4810ad92d4
+    last_write_checksum: sha1:f6f97e82d283871f48a1dc2209abefc51f207afe
+    pristine_git_object: e8ada176caeb4c4644b43387b30b1da4629ea561
   internal/sdk/models/operations/addtargetrampschedule.go:
     id: 2349ee91df56
     last_write_checksum: sha1:5a2f018dc42af8d81429f04752c17e44925778d5
@@ -2909,6 +2957,10 @@ trackedFiles:
     id: 869c29b0688d
     last_write_checksum: sha1:5792e44670fd6fab0e277b2eaf8c76b72ba78411
     pristine_git_object: ba22c69a7884b8d7f8bcbbbd06aae3a8845289e6
+  internal/sdk/models/operations/createinterleaving.go:
+    id: f45e84f3fca4
+    last_write_checksum: sha1:35b5c6538757111800de2d584cc430bab4fede67
+    pristine_git_object: 8d58a74825c94832775d90eb7d27c90c13ab0726
   internal/sdk/models/operations/createlearning.go:
     id: 5546a27b734a
     last_write_checksum: sha1:630a6a78236e3a702ae26b32fd6f2ceab53de508
@@ -2919,8 +2971,8 @@ trackedFiles:
     pristine_git_object: 42256bccb31cd8e342d964d7e085456066da714c
   internal/sdk/models/operations/createpopulation.go:
     id: e8457bb838f6
-    last_write_checksum: sha1:352be30a03f2c38ba210c4b7d31b322f584cdeef
-    pristine_git_object: 6ab672f90ddad96097398d470260b736650649ad
+    last_write_checksum: sha1:6e8be574acc2373e194f18dc14fcfa2cfbc4d6c8
+    pristine_git_object: 9ba1d9b0097dba74783d055bc8f24949296d30d4
   internal/sdk/models/operations/createrampscheduletemplate.go:
     id: f6491ad8760e
     last_write_checksum: sha1:83663e8c454e55f41f603f5cbe6a29a0774a2640
@@ -3195,8 +3247,8 @@ trackedFiles:
     pristine_git_object: 6c537571af06001c0593484cd79f79d9002c59ce
   internal/sdk/models/operations/getcontextualbanditresults.go:
     id: 77c6e8a346fc
-    last_write_checksum: sha1:97c6ba0d7ac5e828ac597439e1f4f33e2661d21f
-    pristine_git_object: a1571cea6ce83340f1f37f8b6099eb529c360573
+    last_write_checksum: sha1:5bfb670ac028347d28de05ff8e7bff90a8b62945
+    pristine_git_object: 5b4916cc04d33f82fbeb862c213cb62f4b1c4037
   internal/sdk/models/operations/getcontextualbanditsnapshot.go:
     id: 455c86a36001
     last_write_checksum: sha1:e199a4a11ef7204e193bf9ddca8ec4740de953e0
@@ -3337,6 +3389,10 @@ trackedFiles:
     id: 40ecbc454b0a
     last_write_checksum: sha1:8085cc5c60475a1d3d60e73d42961ce9486cad67
     pristine_git_object: 857d63be0a598a868db685d7b53f46ee0cfb23f2
+  internal/sdk/models/operations/getinterleaving.go:
+    id: bfcddf814e3b
+    last_write_checksum: sha1:eda9f453fa740cd2a122dfb310dd1608cad0bf80
+    pristine_git_object: 759506163f78e5ccaad611252a40481ebf4c3259
   internal/sdk/models/operations/getlearning.go:
     id: f3f89a013034
     last_write_checksum: sha1:99a2972e21327662d98c44dd404974fba84fc8ee
@@ -3407,8 +3463,8 @@ trackedFiles:
     pristine_git_object: 139dc2555c8b804587f05197e04492a9a97e2cc7
   internal/sdk/models/operations/getsavedgroupreferences.go:
     id: b9d0c3184a4d
-    last_write_checksum: sha1:f0299dc209500ff619f1e7eb6cc5dbf5a7f0b957
-    pristine_git_object: 941df9d304cb001cc3df2b5c53edffac284aa063
+    last_write_checksum: sha1:638e3a5b90c025653f13e737fb00124f6ab11182
+    pristine_git_object: ca24639d5206708962306a89886fe7350f47d29f
   internal/sdk/models/operations/getsavedgrouprevision.go:
     id: 9b9af775adbe
     last_write_checksum: sha1:1fd9b041e7440bc301d78cc88183bdf18eff7aad
@@ -3513,6 +3569,10 @@ trackedFiles:
     id: 71a0da794f28
     last_write_checksum: sha1:915cba304e27aa0267685c60afad677c421f564c
     pristine_git_object: b5a579d99dbfdcecafdec1b35483714e7f4e55cc
+  internal/sdk/models/operations/listcontextualbanditvisualchangesets.go:
+    id: 1e1e267f9ea8
+    last_write_checksum: sha1:8afc0775ecfcab08de81293a378c1562414df2b8
+    pristine_git_object: d14377979e053aed1a04673125e94d37d402fbbb
   internal/sdk/models/operations/listcustomfields.go:
     id: 39339b06f4a3
     last_write_checksum: sha1:e04b7ded7952a8ef048d0c3a2e322ce023e88333
@@ -3577,6 +3637,10 @@ trackedFiles:
     id: 2bdf0bbe0388
     last_write_checksum: sha1:d265edfe02de6699311c313cd959da43ff4721d9
     pristine_git_object: 61f0a648adf974c5d2b1223973007ed9073a5fb2
+  internal/sdk/models/operations/listinterleavings.go:
+    id: a94d0d869569
+    last_write_checksum: sha1:8d36b37175f5144d6adcdbb133ddc3baa73f80d0
+    pristine_git_object: b29782c666c6435bceeb53c36d295dd5e1260239
   internal/sdk/models/operations/listlearnings.go:
     id: bf766267e96a
     last_write_checksum: sha1:a0eb9d4b52e9f9f085eabc930ca422ef41a64c0f
@@ -3785,6 +3849,10 @@ trackedFiles:
     id: 3a1382e91f67
     last_write_checksum: sha1:5924eb24e1ff1c137032d8ec032ecb642336128f
     pristine_git_object: e6777f2c29d07fb4dab4050990425b5a331545cf
+  internal/sdk/models/operations/postcontextualbanditvisualchangesets.go:
+    id: 0153d37eeaff
+    last_write_checksum: sha1:6017d8197768af2d03f95a6a1b0845f730b957c0
+    pristine_git_object: 32cd9e65cded6593ae700ba1925575232601316a
   internal/sdk/models/operations/postcopytransform.go:
     id: 061f9c83c1d1
     last_write_checksum: sha1:c99fca18e5992cc424f964d8e6bd5756b4196ef4
@@ -3795,8 +3863,8 @@ trackedFiles:
     pristine_git_object: c375d277b80fa3170e96681d6408c8f36e086c18
   internal/sdk/models/operations/postdatasourceexploration.go:
     id: 6c879d0cf2c3
-    last_write_checksum: sha1:2d118c2a1b46d8f82520b458b482961f6212559f
-    pristine_git_object: 530c34612e08433f4d95d1795a431297e932586a
+    last_write_checksum: sha1:c4b5ac642331527540522ab878f2ee0c9e68cb30
+    pristine_git_object: 18392b8fcbc8830a463aece0b332291d36454361
   internal/sdk/models/operations/postdimension.go:
     id: 23268548bfe5
     last_write_checksum: sha1:945da95876b44b598a48ca65a24b5bdc5bbfb339
@@ -3847,8 +3915,8 @@ trackedFiles:
     pristine_git_object: daf6be9ae0c78488f54fa2e1abd8e4ce31891e78
   internal/sdk/models/operations/postfacttableexploration.go:
     id: 57b5b33196ad
-    last_write_checksum: sha1:089d93ad4373e78d482f5e37e2cbd8415224de76
-    pristine_git_object: 08b0f942ae8f4f063d32d9c4fbb9615d58a9ca9e
+    last_write_checksum: sha1:457325b460454ee2d74a5327bb2aaca78099d490
+    pristine_git_object: 97f9d56acc5b2eae02a62ab89d089e46fdc56bc9
   internal/sdk/models/operations/postfacttablefilter.go:
     id: 93b8eacca6e4
     last_write_checksum: sha1:6aecd6ae7969ff6a943b2ce29385451761f4c60d
@@ -3923,8 +3991,8 @@ trackedFiles:
     pristine_git_object: b5d16ae3cf8eb321a2a0bc2f7f6fd0b27f26f103
   internal/sdk/models/operations/postfeaturerevisionruleaddv2.go:
     id: 83c9f3341fcc
-    last_write_checksum: sha1:c7ee9aad9934237288d7f4c9cf6cf585b57cf233
-    pristine_git_object: 4f7ac8d4d785970ebbdaad6033441ea83ff6fbae
+    last_write_checksum: sha1:b058520668460215ed6a7263c4c5b0b9874ade8d
+    pristine_git_object: fa31a0fbb080a69121088497acd48ff1738c7b08
   internal/sdk/models/operations/postfeaturerevisionrulesreorder.go:
     id: d203bbbd897d
     last_write_checksum: sha1:2e023eefa22a52376ca1f79678cc9ac8beb05036
@@ -3963,24 +4031,24 @@ trackedFiles:
     pristine_git_object: 1c93d61cf5226c1c39bb8ae9847ffda90b2f91bb
   internal/sdk/models/operations/postfeaturev2.go:
     id: 549976d0211f
-    last_write_checksum: sha1:f68f5564307d9ef02ac41b094dd7b87a273b9b98
-    pristine_git_object: e4af67446741ede6c14ffd5f88be8276f1617efb
+    last_write_checksum: sha1:3389c956f5348431fb5bba974be847c2725e2b48
+    pristine_git_object: fb64d2f1cbbfc600f007e87df7e21f080f6a2561
   internal/sdk/models/operations/postfunnelexploration.go:
     id: 449e5f49551a
-    last_write_checksum: sha1:53c2cb23a9511baf10cc214d4e06ff0abbb9bfd4
-    pristine_git_object: 68a58523b249af778c51fa1475ff28c7745cfe91
+    last_write_checksum: sha1:6dc0f76257b4e9e69cf059dace7e3d320058b36e
+    pristine_git_object: 72dbda071dae76c71d500f24f87fb94e300a37e6
   internal/sdk/models/operations/postjourneyexploration.go:
     id: 970bdda314ca
-    last_write_checksum: sha1:7c37ead555f45befcd9d723c5bc8e557d7b98218
-    pristine_git_object: 707ae16cc6767024b26de0e96431e74a8dbccb59
+    last_write_checksum: sha1:1ac878c6226ecb43a67d347e0ef2492db88b15ba
+    pristine_git_object: aefec04f97f73de92894ea556c21aaf0920aa261
   internal/sdk/models/operations/postmetric.go:
     id: cf733cf0a5ff
     last_write_checksum: sha1:4ce5847002a8c8c095677ff96abf56330126245c
     pristine_git_object: 8cf2b76e796eb5d3a6a754a0d85fa8bf85528049
   internal/sdk/models/operations/postmetricexploration.go:
     id: 59293604a362
-    last_write_checksum: sha1:9cd787cd9481a658e0c412645f63f39f1471bea8
-    pristine_git_object: 01fbe506548086c95e774feaeb1f55d2ef241079
+    last_write_checksum: sha1:a8bfdb7b035655a147519be8b43be6b0bad7fd7b
+    pristine_git_object: 426c39c1e9049404330c2b3e78b1527c536d7c2c
   internal/sdk/models/operations/postnamespace.go:
     id: 3391ad305b24
     last_write_checksum: sha1:c24939df617375c65a78c0197b4500878a8fe0c9
@@ -4079,8 +4147,8 @@ trackedFiles:
     pristine_git_object: c6f1fe9748c6b36ce53d6a44a929727acec4eba5
   internal/sdk/models/operations/postsqlexploration.go:
     id: 4f627738188b
-    last_write_checksum: sha1:24697ecd6527af60f30172b501e515c08c11dd93
-    pristine_git_object: 7c7eff65f90755452db415d7cfe723f720c120c9
+    last_write_checksum: sha1:59a21078e6ffe8dce5c0426575d13bf133e2dd5b
+    pristine_git_object: ed587d597506177969abde062dea939def8e08bd
   internal/sdk/models/operations/postvariationimageupload.go:
     id: 9502659280fa
     last_write_checksum: sha1:57cd469bdeee2da2db5f8794eb6fb9de46fbc37b
@@ -4211,8 +4279,8 @@ trackedFiles:
     pristine_git_object: 3698deb937c46df3618bfa4bf36c9289bd8f445c
   internal/sdk/models/operations/putfeaturerevisionrulev2.go:
     id: b2f7356bb855
-    last_write_checksum: sha1:b4dc9e60f4d836de3879decb0e03bb17af170854
-    pristine_git_object: 7f9157154e9d971e5a5295ad7b8c238557b7f945
+    last_write_checksum: sha1:c4935d4c447a6c7b18bd08f91a625ac2f635e062
+    pristine_git_object: 3fcd619d1e3f2893bceeb59a68eb2b25aa17fd34
   internal/sdk/models/operations/putmetric.go:
     id: df887bc82d8a
     last_write_checksum: sha1:00a0e423097c85bf82c5a4f05c45cf5665290545
@@ -4341,6 +4409,10 @@ trackedFiles:
     id: 26f3be7c7b3b
     last_write_checksum: sha1:d7ec518bb9e79710c97cfddc11f0d22bb3363f96
     pristine_git_object: 736df6633cf775ddc00800ffad677124a973160f
+  internal/sdk/models/operations/startinterleaving.go:
+    id: fe08562ccaee
+    last_write_checksum: sha1:6ba7a211d0b4bd8d7d35554cfafe1dc0bef86438
+    pristine_git_object: 3ddf6acbf215e5666473b53bc8f6020a83a1c018
   internal/sdk/models/operations/startrampschedule.go:
     id: 6aa3b3f1dbd8
     last_write_checksum: sha1:bd13dd6a23365796aa703888fa70ed8401afbb61
@@ -4353,6 +4425,10 @@ trackedFiles:
     id: 254638a239ef
     last_write_checksum: sha1:2d383bc36248618078d3627236e00e97b7d9b4b3
     pristine_git_object: cbd077aeb5608e0d24a8dabeb1a5c2ed614149c2
+  internal/sdk/models/operations/stopinterleaving.go:
+    id: bfe76438d1be
+    last_write_checksum: sha1:e82c92f260b55ff24532e60114e74e73c08df5eb
+    pristine_git_object: f6b0f5915fd0abaac3358777e9774dc23b8d1f9b
   internal/sdk/models/operations/testcustomhook.go:
     id: d7e80283eee2
     last_write_checksum: sha1:56079fff7cd5fd86583bea38d3105305aebe1f89
@@ -4399,8 +4475,8 @@ trackedFiles:
     pristine_git_object: ccc6ea5888d47b1df96db96171aa37c5d2470275
   internal/sdk/models/operations/updatecontextualbanditlinkedfeature.go:
     id: bdaa13f4bbb3
-    last_write_checksum: sha1:bf72b39f6825d8b7ec630fa17a3a2f4c45e787d9
-    pristine_git_object: 6badbc1ac1c3122c47711025e7a29e04b6e91b0b
+    last_write_checksum: sha1:3a87e646d8271017ebc9eb2156f27afed27f3914
+    pristine_git_object: adbec024244281179b54dc18357798274b92afa8
   internal/sdk/models/operations/updatecontextualbanditquery.go:
     id: ae4a8c2923ec
     last_write_checksum: sha1:ff89cc817d1187d116af86bda049a67f3dbd230b
@@ -4467,12 +4543,16 @@ trackedFiles:
     pristine_git_object: 4274cf3956dc74d975a4521ff251ac6a1e02a444
   internal/sdk/models/operations/updatefeaturev2.go:
     id: 5e312cd89284
-    last_write_checksum: sha1:1cbc452736d486254bafe077b1135f9732ae0d0e
-    pristine_git_object: a4dffdc049fe188c7ecf363f4baa2f52cc671e42
+    last_write_checksum: sha1:2b03552d3b68668c30fe72201c3d5e106d1eb8be
+    pristine_git_object: 6411e85043f1f817eac9991f15afc6c9674f7f6e
   internal/sdk/models/operations/updateholdout.go:
     id: b2ef4585cd9e
     last_write_checksum: sha1:58c204c42a5bbd35d7dfb4f7fe18c580b40921d9
     pristine_git_object: 42c95ba5195d0205d6abfba43835afe106db4b1c
+  internal/sdk/models/operations/updateinterleaving.go:
+    id: b22a829fe95f
+    last_write_checksum: sha1:074df65811cf4b49af0c8a71a7baba793e977298
+    pristine_git_object: bc4597dd2e25e051a0c8c240a8566fd9880edeb8
   internal/sdk/models/operations/updatelearning.go:
     id: c92152bf02ac
     last_write_checksum: sha1:91f9019ae84a4a595dd07829d94788bc06d45a27
@@ -4487,8 +4567,8 @@ trackedFiles:
     pristine_git_object: afece22339768143cbe8e0266b6b158686356247
   internal/sdk/models/operations/updatepopulation.go:
     id: 8a922cac3527
-    last_write_checksum: sha1:48f6a252c39d0208be630b92d85de610724ca003
-    pristine_git_object: b39d4280d68daa8a659bcc779fe3f5fb0704806b
+    last_write_checksum: sha1:172a32db8dddae26c4f630653708df2460408568
+    pristine_git_object: 3bcdcce164c2e3265e48783f8355e3746fc9c105
   internal/sdk/models/operations/updaterampschedule.go:
     id: adb936f1b2b1
     last_write_checksum: sha1:abb87b70b933f00faf5224b1ff3bf737f383af67
@@ -4525,6 +4605,10 @@ trackedFiles:
     id: 1285ab97fa89
     last_write_checksum: sha1:1d9ae29a30e7077d47ab1d6468630add4c6128fd
     pristine_git_object: 693d2904e758cd98b56bb929b674e3e3ef345f12
+  internal/sdk/models/sdkerrors/addcontextualbanditlinkedfeature.go:
+    id: 5cd7ac85a80a
+    last_write_checksum: sha1:1f5094a1de861804f8beca16ed148b287566e27b
+    pristine_git_object: b42c77a06951ed2f4e8551c84b63f839f5f8111f
   internal/sdk/models/sdkerrors/postexperimentmodifytemporaryrollout.go:
     id: f41456c99d10
     last_write_checksum: sha1:c32fde3f937ecb0cc3ebf5424d15c2f2f6170ed8
@@ -4541,10 +4625,22 @@ trackedFiles:
     id: 51010976599e
     last_write_checksum: sha1:565ce061cc47e5b1824c092687fcf3bf730c38f0
     pristine_git_object: e2399b2d31a7f75a894852a145aa8de8e7c3c668
+  internal/sdk/models/sdkerrors/postfeaturerevisionruleaddv2.go:
+    id: 7de50208caca
+    last_write_checksum: sha1:c3effd41643f416b91caa23dd3d1df0bf6cc3295
+    pristine_git_object: 866895bfaabfd49e28bdcc0f5b6f1ddfd58b2ec7
+  internal/sdk/models/sdkerrors/postfeaturev2.go:
+    id: 3f243397198d
+    last_write_checksum: sha1:4ba83ea9449b039777e3810489bef183f7106130
+    pristine_git_object: 281e69dc763424d6d8f6dc98c3d369b8bcfca0f2
   internal/sdk/models/sdkerrors/putexperimentschedule.go:
     id: ae7de63077cf
     last_write_checksum: sha1:ec76595b4e80a3ad9cffa9305eae83f4b34f8c42
     pristine_git_object: 30b4731d9b2a3b34c462138a15c024117dcac8e7
+  internal/sdk/models/sdkerrors/putfeaturerevisionrulev2.go:
+    id: 9f09fb95831a
+    last_write_checksum: sha1:61c65d30086c09f392c0e085649b54ea0d10241f
+    pristine_git_object: 8bb5c5296c401d1de313b46ace960f6b9fcea3c5
   internal/sdk/models/sdkerrors/sdkdefaulterror.go:
     id: 78e4ee2e2586
     last_write_checksum: sha1:437b3a3eacb54d8648a68f80b3cd38fa5019f006
@@ -4561,10 +4657,18 @@ trackedFiles:
     id: 75e69eb416d4
     last_write_checksum: sha1:f6a1a8bf7f436f896e79a4507beeb583df65f3f0
     pristine_git_object: 3c84d7ee205a7a1a0579c32e3713634e6069d312
+  internal/sdk/models/sdkerrors/updatecontextualbanditlinkedfeature.go:
+    id: 1dac5bfcc47b
+    last_write_checksum: sha1:05b197b2d9041271056ef83474224eb0143485a3
+    pristine_git_object: 2ca79fde9973b6d28b33755486e82b19b162c984
   internal/sdk/models/sdkerrors/updateexperiment.go:
     id: 43e816d22e28
     last_write_checksum: sha1:c2fb16d11a93f65bc1a8ff1b8171af7b992a0b40
     pristine_git_object: a504d561802a29d929a60f7944ac176aeb708d29
+  internal/sdk/models/sdkerrors/updatefeaturev2.go:
+    id: d60b924fda0c
+    last_write_checksum: sha1:d9aa62d53a9cf2f0227628e7dc913cea8a3dd187
+    pristine_git_object: 62417c43405285787ff5ee0b88a6eb7c0628b7a8
   internal/sdk/namespaces.go:
     id: 2481c61108b7
     last_write_checksum: sha1:15c365ac5427da4b59faac57ffd21d2d77f1951f
@@ -4731,8 +4835,8 @@ trackedFiles:
     pristine_git_object: 159a87ec97aba99e4edd132f69652e123434303e
   internal/usage/schema.go:
     id: 0f40f4612437
-    last_write_checksum: sha1:a521840d5e6149eb478ba09e18d1855c85e3c1c2
-    pristine_git_object: b7eac7e00732e904550022acdd8b333b6fddae82
+    last_write_checksum: sha1:d3edad78ac60a69fd9eb072c2ce55e3df2856e6b
+    pristine_git_object: df7bcdeac1c6df11f21636d04e006cd99dc0112c
   scripts/install.ps1:
     id: fee0853709e9
     last_write_checksum: sha1:f9df93912e2b5d20eaffddbdb2708ce76ec06445
@@ -5080,6 +5184,8 @@ examples:
           application/json: {"feature": {"id": "<id>", "dateCreated": "2026-09-19T06:49:25.599Z", "dateUpdated": "2026-10-16T05:45:11.071Z", "archived": true, "description": "deafening filthy besides belabor hm", "owner": "<value>", "project": "<value>", "valueType": "json", "defaultValue": "<value>", "tags": [], "rules": [{"description": "cripple showboat how excepting", "id": "<id>", "enabled": true, "type": "rollout", "value": "<value>", "coverage": 7478.73, "hashAttribute": "<value>", "allEnvironments": true}], "environments": {}, "revision": {"version": 323023, "comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality", "date": "2024-05-18T16:12:00.949Z"}}}
         "202":
           application/json: {"confirmation": {"id": "<id>", "status": "completed", "actions": [{"action": "override.skipHooks", "environments": []}], "summary": "<value>", "url": "https://fat-ribbon.org/", "expiresAt": "1764478686945", "response": {"status": 7721.56, "body": "<value>"}, "note": "<value>"}, "message": "<value>"}
+        "422":
+          application/json: {"message": "<value>", "code": "unscoped_rule", "details": {"ruleIds": ["<value 1>", "<value 2>"]}}
   getFeatureV2:
     speakeasy-default-get-feature-v2:
       parameters:
@@ -5100,6 +5206,8 @@ examples:
           application/json: {"feature": {"id": "<id>", "dateCreated": "2025-02-18T12:48:32.985Z", "dateUpdated": "2024-02-12T06:44:31.358Z", "archived": false, "description": "venom rosemary secondary", "owner": "<value>", "project": "<value>", "valueType": "boolean", "defaultValue": "<value>", "tags": ["<value 1>", "<value 2>", "<value 3>"], "rules": [{"description": "phew downshift sniveling because what draft fortunately lively", "id": "<id>", "enabled": true, "type": "rollout", "value": "<value>", "coverage": 3394.25, "hashAttribute": "<value>", "allEnvironments": true}], "environments": {"key": {"enabled": false, "defaultValue": "<value>"}}, "revision": {"version": 39888, "comment": "The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design", "date": "2025-02-04T07:42:19.271Z"}}}
         "202":
           application/json: {"confirmation": {"id": "<id>", "status": "running", "actions": [], "summary": "<value>", "url": "https://boiling-shore.org", "expiresAt": "1736277711464", "response": {"status": 4241.81, "body": "<value>"}, "note": "<value>"}, "message": "<value>"}
+        "422":
+          application/json: {"message": "<value>", "code": "unscoped_rule", "details": {"ruleIds": ["<value 1>"]}}
   deleteFeatureV2:
     speakeasy-default-delete-feature-v2:
       parameters:
@@ -7369,6 +7477,8 @@ examples:
           application/json: {"revision": {"id": "<id>", "featureId": "<id>", "baseVersion": 309415, "version": 217280, "comment": "Carbonite web goalkeeper gloves are ergonomically designed to give easy fit", "date": "2026-12-05T01:17:50.582Z", "status": "<value>", "rules": []}}
         "202":
           application/json: {"confirmation": {"id": "<id>", "status": "pending", "actions": [], "summary": "<value>", "url": "https://deafening-waist.com/", "expiresAt": "1761737300673", "response": {"status": 1374.67, "body": "<value>"}, "note": "<value>"}, "message": "<value>"}
+        "422":
+          application/json: {"message": "<value>", "code": "unscoped_rule", "details": {"ruleIds": []}}
   putFeatureRevisionRuleV2:
     speakeasy-default-put-feature-revision-rule-v2:
       parameters:
@@ -7383,6 +7493,8 @@ examples:
           application/json: {"revision": {"id": "<id>", "featureId": "<id>", "baseVersion": 446276, "version": 261409, "comment": "The Football Is Good For Training And Recreational Purposes", "date": "2025-08-03T23:52:52.461Z", "status": "<value>", "rules": [{"description": "heroine whenever pfft yet magnificent sustenance indeed", "id": "<id>", "enabled": true, "type": "rollout", "value": "<value>", "coverage": 8912.14, "hashAttribute": "<value>", "allEnvironments": true}]}}
         "202":
           application/json: {"confirmation": {"id": "<id>", "status": "completed", "actions": [], "summary": "<value>", "url": "https://muffled-moment.biz", "expiresAt": "1753204070622", "response": null, "note": "<value>"}, "message": "<value>"}
+        "422":
+          application/json: {"message": "<value>", "code": "unscoped_rule", "details": {"ruleIds": ["<value 1>"]}}
   deleteFeatureRevisionRuleV2:
     speakeasy-default-delete-feature-revision-rule-v2:
       parameters:
@@ -7701,7 +7813,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"contextualBanditSnapshot": {"attributes": [], "responses": []}, "overallWeights": [], "results": {"attributes": ["<value 1>", "<value 2>"], "sseTrajectory": [{"numSplits": 774399, "totalSse": 7047.59}], "overall": {"variations": []}, "leaves": [{"leafId": 897096, "updateMessage": "<value>", "error": "<value>", "clauses": [], "variations": [], "contexts": [{"attributes": {"key": "<value>", "key1": "<value>"}, "variations": [{"variationId": "<id>", "users": 2496.21, "mean": 4468.76, "variance": 5665.44}]}]}]}, "latest": {"id": "<id>", "status": "error", "error": "<value>", "queries": [{"query": "<value>", "status": "queued", "name": "<value>"}], "runStarted": "<value>", "dateCreated": "<value>", "multipleExposures": 5056.52, "type": "<value>", "triggeredBy": "<value>", "srm": {"statistic": 1610.93, "pValue": 3977.45, "degreesOfFreedom": 320227}}}
+          application/json: {"contextualBanditSnapshot": {"attributes": [], "responses": []}, "overallWeights": [], "results": {"attributes": ["<value 1>", "<value 2>"], "sseTrajectory": [{"numSplits": 774399, "totalSse": 7047.59}], "overall": {"variations": []}, "leaves": [{"leafId": 897096, "updateMessage": "<value>", "error": "<value>", "clauses": [], "variations": [], "contexts": [{"attributes": {"key": "<value>", "key1": "<value>"}, "variations": [{"variationId": "<id>", "users": 2496.21, "mean": 4468.76, "variance": 5665.44}]}]}], "snapshotId": "<id>", "dateCreated": "<value>", "health": {"variations": [], "traffic": null, "srm": {"statistic": 4490.81, "pValue": 3980.85, "degreesOfFreedom": 573440}, "multipleExposures": 7743.99}}, "latest": {"id": "<id>", "status": "error", "error": "<value>", "queries": [{"query": "<value>", "status": "queued", "name": "<value>"}], "runStarted": "<value>", "dateCreated": "<value>", "multipleExposures": 5056.52, "type": "<value>", "triggeredBy": "<value>"}}
   getContextualBanditLinkedFeatures:
     speakeasy-default-get-contextual-bandit-linked-features:
       parameters:
@@ -7792,7 +7904,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"features": [{"id": "<id>"}], "experiments": [], "contextualBandits": [{"id": "<id>"}], "savedGroups": [{"id": "<id>"}]}
+          application/json: {"features": [{"id": "<id>"}], "experiments": [], "contextualBandits": [{"id": "<id>"}], "interleavings": [{"id": "<id>"}], "savedGroups": [{"id": "<id>"}]}
   listConstants:
     speakeasy-default-list-constants:
       parameters:
@@ -8590,6 +8702,8 @@ examples:
           application/json: {"featureId": "<id>", "ruleId": "<id>", "revisionVersion": 3536.03, "published": true}
         "202":
           application/json: {"confirmation": {"id": "<id>", "status": "expired", "actions": [], "summary": "<value>", "url": "https://comfortable-reward.net/", "expiresAt": "1750898943386", "response": {"status": 4299.29, "body": "<value>"}, "note": null}, "message": "<value>"}
+        "422":
+          application/json: {"message": "<value>", "code": "unscoped_rule", "details": {"ruleIds": ["<value 1>", "<value 2>", "<value 3>"]}}
   updateContextualBanditLinkedFeature:
     speakeasy-default-update-contextual-bandit-linked-feature:
       parameters:
@@ -8603,6 +8717,8 @@ examples:
           application/json: {"featureId": "<id>", "ruleIds": [], "revisionVersion": 2309.45, "published": false}
         "202":
           application/json: {"confirmation": {"id": "<id>", "status": "rejected", "actions": [], "summary": "<value>", "url": "https://squeaky-bench.com/", "expiresAt": "1758935018230", "response": {"status": 3896.71, "body": "<value>"}, "note": "<value>"}, "message": "<value>"}
+        "422":
+          application/json: {"message": "<value>", "code": "unscoped_rule", "details": {"ruleIds": ["<value 1>", "<value 2>"]}}
   cancelContextualBandit:
     speakeasy-default-cancel-contextual-bandit:
       parameters:
@@ -9169,4 +9285,79 @@ examples:
           application/json: {"deletedId": "<id>"}
         "202":
           application/json: {"confirmation": {"id": "<id>", "status": "completed", "actions": [], "summary": "<value>", "url": "https://supportive-sesame.com/", "expiresAt": "1743584372704", "response": {"status": 7160, "body": "<value>"}, "note": "<value>"}, "message": "<value>"}
+  postContextualBanditVisualChangesets:
+    speakeasy-default-post-contextual-bandit-visual-changesets:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"editorUrl": "https://small-resource.name/", "urlPatterns": []}
+      responses:
+        "200":
+          application/json: {"visualChangeset": {"urlPatterns": [{"type": "regex", "pattern": "<value>"}], "editorUrl": "https://necessary-baseboard.name", "visualChanges": [{"variation": "<value>", "domMutations": []}]}}
+        "202":
+          application/json: {"confirmation": {"id": "<id>", "status": "rejected", "actions": [], "summary": "<value>", "url": "https://major-amendment.com", "expiresAt": "1743710085722", "response": null, "note": "<value>"}, "message": "<value>"}
+  listContextualBanditVisualChangesets:
+    speakeasy-default-list-contextual-bandit-visual-changesets:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"visualChangesets": [{"urlPatterns": [], "editorUrl": "https://quiet-hydrolyse.name/", "visualChanges": []}]}
+  getInterleaving:
+    speakeasy-default-get-interleaving:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"interleaving": {"id": "<id>", "dateCreated": "2025-12-28T22:33:53.335Z", "dateUpdated": "2025-08-12T03:10:05.287Z", "name": "<value>", "owner": "<value>", "tags": [], "archived": false, "status": "running", "key": "<key>", "trackingKey": "<value>", "hashAttribute": "<value>", "seed": "<value>", "variations": [{"id": "<id>", "key": "<key>", "name": "<value>", "config": "<value>"}], "jsonSchema": {"schemaType": "simple", "schema": "<value>", "simple": {"type": "object[]", "fields": [{"key": "<key>", "type": "string", "required": true, "default": "<value>", "description": "across hmph steak sun dispense electrify though trusting blah", "enum": ["<value 1>"]}]}, "enabled": false, "date": "2024-11-16T18:42:53.546Z"}, "datasource": "<value>", "interleavingQueryId": "<id>", "userIdType": "<value>", "metrics": [{"id": "<id>", "analyses": []}], "environmentSettings": {"key": {"enabled": false}}}}
+  updateInterleaving:
+    speakeasy-default-update-interleaving:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {}
+      responses:
+        "200":
+          application/json: {"interleaving": {"id": "<id>", "dateCreated": "2025-10-22T12:57:33.500Z", "dateUpdated": "2025-10-15T18:39:10.257Z", "name": "<value>", "owner": "<value>", "tags": ["<value 1>", "<value 2>"], "archived": false, "status": "draft", "key": "<key>", "trackingKey": "<value>", "hashAttribute": "<value>", "seed": "<value>", "variations": [{"id": "<id>", "key": "<key>", "name": "<value>", "config": "<value>"}], "jsonSchema": {"schemaType": "schema", "schema": "<value>", "simple": {"type": "primitive", "fields": [{"key": "<key>", "type": "integer", "required": false, "default": "<value>", "description": "troubled onto phooey ugh stack", "enum": ["<value 1>"]}]}, "enabled": false, "date": "2026-01-14T03:03:42.687Z"}, "datasource": "<value>", "interleavingQueryId": "<id>", "userIdType": "<value>", "metrics": [{"id": "<id>", "analyses": []}], "environmentSettings": {}}}
+        "202":
+          application/json: {"confirmation": {"id": "<id>", "status": "completed", "actions": [], "summary": "<value>", "url": "https://muted-slime.net", "expiresAt": "1747562515891", "response": {"status": 5750.86, "body": "<value>"}, "note": "<value>"}, "message": "<value>"}
+  createInterleaving:
+    speakeasy-default-create-interleaving:
+      requestBody:
+        application/json: {"name": "<value>", "key": "<key>", "variations": [], "datasource": "<value>", "interleavingQueryId": "<id>", "userIdType": "<value>"}
+      responses:
+        "200":
+          application/json: {"interleaving": {"id": "<id>", "dateCreated": "2026-12-03T16:36:06.946Z", "dateUpdated": "2025-09-20T23:54:47.033Z", "name": "<value>", "owner": "<value>", "tags": [], "archived": true, "status": "stopped", "key": "<key>", "trackingKey": "<value>", "hashAttribute": "<value>", "seed": "<value>", "variations": [], "jsonSchema": {"schemaType": "simple", "schema": "<value>", "simple": {"type": "primitive", "fields": []}, "enabled": true, "date": "2026-10-14T15:06:30.756Z"}, "datasource": "<value>", "interleavingQueryId": "<id>", "userIdType": "<value>", "metrics": [], "environmentSettings": {"key": {"enabled": true}}}}
+        "202":
+          application/json: {"confirmation": {"id": "<id>", "status": "rejected", "actions": [{"action": "experiment.draft", "environments": ["<value 1>", "<value 2>", "<value 3>"]}], "summary": "<value>", "url": "https://fond-mom.info/", "expiresAt": "1745759568023", "response": {"status": 7319.19, "body": "<value>"}, "note": "<value>"}, "message": "<value>"}
+  listInterleavings:
+    speakeasy-default-list-interleavings:
+      responses:
+        "200":
+          application/json: {"interleavings": []}
+  startInterleaving:
+    speakeasy-default-start-interleaving:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"interleaving": {"id": "<id>", "dateCreated": "2025-03-31T13:16:12.456Z", "dateUpdated": "2026-07-12T06:46:55.292Z", "name": "<value>", "owner": "<value>", "tags": ["<value 1>", "<value 2>"], "archived": true, "status": "stopped", "key": "<key>", "trackingKey": "<value>", "hashAttribute": "<value>", "seed": "<value>", "variations": [], "jsonSchema": {"schemaType": "schema", "schema": "<value>", "simple": {"type": "object[]", "fields": []}, "enabled": true, "date": "2026-08-29T16:56:53.448Z"}, "datasource": "<value>", "interleavingQueryId": "<id>", "userIdType": "<value>", "metrics": [{"id": "<id>", "analyses": [{"type": "paired"}]}], "environmentSettings": {"key": {"enabled": true}}}}
+        "202":
+          application/json: {"confirmation": {"id": "<id>", "status": "completed", "actions": [], "summary": "<value>", "url": "https://formal-wasabi.com/", "expiresAt": "1736753362469", "response": null, "note": "<value>"}, "message": "<value>"}
+  stopInterleaving:
+    speakeasy-default-stop-interleaving:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"interleaving": {"id": "<id>", "dateCreated": "2025-09-22T16:06:52.682Z", "dateUpdated": "2025-01-30T10:14:17.705Z", "name": "<value>", "owner": "<value>", "tags": ["<value 1>", "<value 2>"], "archived": false, "status": "draft", "key": "<key>", "trackingKey": "<value>", "hashAttribute": "<value>", "seed": "<value>", "variations": [{"id": "<id>", "key": "<key>", "name": "<value>", "config": "<value>"}], "jsonSchema": {"schemaType": "schema", "schema": "<value>", "simple": {"type": "object", "fields": []}, "enabled": true, "date": "2025-08-02T22:40:01.216Z"}, "datasource": "<value>", "interleavingQueryId": "<id>", "userIdType": "<value>", "metrics": [{"id": "<id>", "analyses": []}], "environmentSettings": {}}}
+        "202":
+          application/json: {"confirmation": {"id": "<id>", "status": "completed", "actions": [{"action": "segment.edit", "environments": ["<value 1>"]}], "summary": "<value>", "url": "https://raw-plugin.info", "expiresAt": "1741875236871", "response": {"status": 1093.26, "body": "<value>"}, "note": null}, "message": "<value>"}
 examplesVersion: 1.0.2
+releaseNotes: "## Cli SDK Changes:\n* `Growthbook.ContextualBandits.GetResults()`:  `response` **Changed** (Breaking ⚠️)\n* `Growthbook.ContextualBandits.PostContextualBanditVisualChangesets()`: **Added**\n* `Growthbook.ContextualBandits.ListContextualBanditVisualChangesets()`: **Added**\n* `Growthbook.Interleavings.GetInterleaving()`: **Added**\n* `Growthbook.Interleavings.UpdateInterleaving()`: **Added**\n* `Growthbook.Interleavings.CreateInterleaving()`: **Added**\n* `Growthbook.Interleavings.ListInterleavings()`: **Added**\n* `Growthbook.Interleavings.StartInterleaving()`: **Added**\n* `Growthbook.Interleavings.StopInterleaving()`: **Added**\n* `Growthbook.FeaturesV1.Create()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeaturesV1.Update()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeaturesV1.Delete()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeaturesV1.Toggle()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeaturesV1.Revert()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisionsV1.Create()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionMetadata()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionDefaultValue()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionPrerequisites()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionHoldout()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionArchive()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionToggle()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionRuleAdd()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionRule()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisionsV1.DeleteFeatureRevisionRule()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionRulesReorder()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionRuleRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisionsV1.DeleteFeatureRevisionRuleRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionRequestReview()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionSubmitReview()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionRebase()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionPublish()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionDiscard()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionRevert()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Features.Create()`: \n  *  `request.Request.AllowUnscopedRules` **Added**\n  *  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n  *  `error.status[422]` **Added**\n* `Growthbook.Features.Update()`: \n  *  `request.Request.Body.AllowUnscopedRules` **Added**\n  *  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n  *  `error.status[422]` **Added**\n* `Growthbook.Features.Delete()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Features.Toggle()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Features.Revert()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisions.Create()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisions.SetMetadata()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisions.SetDefaultValue()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisions.SetPrerequisites()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisions.SetHoldout()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisions.Archive()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisions.Toggle()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisions.AddRule()`: \n  *  `request.Request.Body.AllowUnscopedRules` **Added**\n  *  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n  *  `error.status[422]` **Added**\n* `Growthbook.FeatureRevisions.UpdateRule()`: \n  *  `request.Request.Body.AllowUnscopedRules` **Added**\n  *  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n  *  `error.status[422]` **Added**\n* `Growthbook.FeatureRevisions.DeleteRule()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisions.ReorderRules()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisions.SetRuleRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisions.DeleteRuleRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisions.RequestReview()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisions.SchedulePublish()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisions.SubmitReview()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisions.RecallReview()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisions.UndoReview()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisions.AddLogComment()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisions.DeleteLogEntry()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisions.RebasePreview()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisions.Rebase()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisions.Publish()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisions.Discard()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisions.Reopen()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FeatureRevisions.Revert()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Archetypes.Create()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Archetypes.Update()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Archetypes.DeleteArchetype()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Experiments.Create()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Experiments.UpdateExperiment()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Experiments.Start()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Experiments.CompleteStartChecklist()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Experiments.Stop()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Experiments.SetSchedule()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Experiments.ModifyTemporaryRollout()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Experiments.UploadVariationScreenshot()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Experiments.DeleteVariationScreenshot()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Experiments.PostComment()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.VisualChangesets.Create()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.VisualChangesets.Update()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.VisualChangesets.AddVisualChange()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.VisualChangesets.UpdateVisualChange()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ContextualBandits.AddLinkedFeature()`: \n  *  `request.Request.Body.AllowUnscopedRules` **Added**\n  *  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n  *  `error.status[422]` **Added**\n* `Growthbook.ContextualBandits.UpdateLinkedFeature()`: \n  *  `request.Request.Body.AllowUnscopedRules` **Added**\n  *  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n  *  `error.status[422]` **Added**\n* `Growthbook.ContextualBandits.DeleteLinkedFeature()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ContextualBandits.GetContextualBandit()`:  `response.ContextualBandit.AnalysisSummary` **Added**\n* `Growthbook.ContextualBandits.UpdateContextualBandit()`:  `response` **Changed**\n* `Growthbook.ContextualBandits.CreateContextualBandit()`:  `response` **Changed**\n* `Growthbook.ContextualBandits.ListContextualBandits()`:  `response.ContextualBandits[].AnalysisSummary` **Added**\n* `Growthbook.ContextualBandits.StartContextualBandit()`:  `response` **Changed**\n* `Growthbook.ContextualBandits.StopContextualBandit()`:  `response` **Changed**\n* `Growthbook.ContextualBandits.RefreshContextualBandit()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ContextualBandits.UpdateVariations()`:  `response` **Changed**\n* `Growthbook.Metrics.Create()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Metrics.Update()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Metrics.DeleteMetric()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Segments.Create()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Segments.UpdateSegment()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Segments.DeleteSegment()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Dimensions.Create()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Dimensions.UpdateDimension()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Dimensions.DeleteDimension()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Projects.Create()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Projects.Update()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Projects.DeleteProject()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Environments.Create()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Environments.Update()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Environments.DeleteEnvironment()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Attributes.Create()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Attributes.Update()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Attributes.DeleteAttribute()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.SdkConnections.Create()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.SdkConnections.Update()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.SdkConnections.DeleteSdkConnection()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.SavedGroups.Create()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.SavedGroups.UpdateSavedGroup()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.SavedGroups.DeleteSavedGroup()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.SavedGroups.ArchiveSavedGroup()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.SavedGroups.UnarchiveSavedGroup()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.SavedGroups.GetReferences()`:  `response.Interleavings` **Added**\n* `Growthbook.SavedGroupRevisions.Create()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.SavedGroupRevisions.SetMetadata()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.SavedGroupRevisions.SetCondition()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.SavedGroupRevisions.SetValues()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.SavedGroupRevisions.Archive()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.SavedGroupRevisions.AddItems()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.SavedGroupRevisions.RemoveItems()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.SavedGroupRevisions.RequestReview()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.SavedGroupRevisions.SubmitReview()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.SavedGroupRevisions.RecallReview()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.SavedGroupRevisions.Reopen()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.SavedGroupRevisions.SchedulePublish()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.SavedGroupRevisions.UndoReview()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.SavedGroupRevisions.Rebase()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.SavedGroupRevisions.Publish()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.SavedGroupRevisions.Discard()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.SavedGroupRevisions.Revert()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Constants.Create()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Constants.UpdateConstant()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Constants.DeleteConstant()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Constants.ArchiveConstant()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Constants.UnarchiveConstant()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConstantRevisions.Create()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConstantRevisions.SetMetadata()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConstantRevisions.SetValue()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConstantRevisions.Archive()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConstantRevisions.RequestReview()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConstantRevisions.SubmitReview()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConstantRevisions.RecallReview()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConstantRevisions.Reopen()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConstantRevisions.SchedulePublish()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConstantRevisions.UndoReview()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConstantRevisions.Rebase()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConstantRevisions.Publish()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConstantRevisions.Discard()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConstantRevisions.Revert()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Configs.Create()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Configs.UpdateConfig()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Configs.DeleteConfig()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Configs.ArchiveConfig()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Configs.UnarchiveConfig()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Configs.LockConfig()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Configs.UnlockConfig()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConfigRevisions.Create()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConfigRevisions.SetMetadata()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConfigRevisions.SetValue()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConfigRevisions.SetProperty()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConfigRevisions.DeleteProperty()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConfigRevisions.SetSchema()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConfigRevisions.SetProjection()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConfigRevisions.DeleteProjection()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConfigRevisions.Archive()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConfigRevisions.RequestReview()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConfigRevisions.SubmitReview()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConfigRevisions.UndoReview()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConfigRevisions.RecallReview()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConfigRevisions.Reopen()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConfigRevisions.SchedulePublish()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConfigRevisions.Rebase()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConfigRevisions.Publish()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConfigRevisions.Discard()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ConfigRevisions.Revert()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Releases.PublishRevisions()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.CustomHooks.Create()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.CustomHooks.UpdateCustomHook()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.CustomHooks.DeleteCustomHook()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.CustomHooks.RevertCustomHook()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Organizations.Create()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Organizations.Update()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FactTables.Create()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FactTables.UpdateFactTable()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FactTables.DeleteFactTable()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FactTables.CreateFilter()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FactTables.UpdateFilter()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FactTables.DeleteFilter()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FactTables.CreateVirtualColumn()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FactTables.UpdateVirtualColumn()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FactTables.DeleteVirtualColumn()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FactTables.BulkImport()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FactMetrics.Create()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FactMetrics.UpdateFactMetric()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.FactMetrics.DeleteFactMetric()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.CodeReferences.Submit()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Members.UpdateRole()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Members.DeleteMember()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Settings.SetApprovals()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Meta.GetConfirmation()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.RampSchedules.Create()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.RampSchedules.StartRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.RampSchedules.PauseRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.RampSchedules.ResumeRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.RampSchedules.RollbackRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.RampSchedules.RestartRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.RampSchedules.JumpRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.RampSchedules.CompleteRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.RampSchedules.ApproveStepRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.RampSchedules.AddTargetRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.RampSchedules.EjectTargetRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.RampSchedules.ApiAdvanceRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.RampSchedules.SetMonitoringModeRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.RampSchedules.SetAutoUpdateRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.RampSchedules.UpdateMonitoring()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.RampSchedules.UpdateLockdown()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.RampSchedules.UpdateSteps()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.RampSchedules.DeleteRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.RampSchedules.UpdateRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Reports.Create()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Reports.SetMetadata()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Reports.SetSettings()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Namespaces.Create()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Namespaces.Update()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Namespaces.DeleteNamespace()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Namespaces.RotateSeed()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Dashboards.DeleteDashboard()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Dashboards.UpdateDashboard()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Dashboards.CreateV1()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Dashboards.Create()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ContextualBanditQueries.Delete()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ContextualBanditQueries.Update()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ContextualBanditQueries.Create()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.CustomFields.CreateCustomField()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.CustomFields.DeleteCustomField()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.CustomFields.UpdateCustomField()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.MetricGroups.DeleteMetricGroup()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.MetricGroups.UpdateMetricGroup()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.MetricGroups.CreateMetricGroup()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Teams.UpdateTeam()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Teams.DeleteTeam()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Teams.CreateTeam()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Teams.AddMembers()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Teams.RemoveMembers()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ExperimentTemplates.DeleteExperimentTemplate()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ExperimentTemplates.UpdateExperimentTemplate()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ExperimentTemplates.CreateExperimentTemplate()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.ExperimentTemplates.BulkImportExperimentTemplates()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.RampScheduleTemplates.DeleteRampScheduleTemplate()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.RampScheduleTemplates.UpdateRampScheduleTemplate()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.RampScheduleTemplates.CreateRampScheduleTemplate()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Learnings.DeleteLearning()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Learnings.UpdateLearning()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Learnings.CreateLearning()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Holdouts.UpdateHoldout()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Holdouts.CreateHoldout()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Holdouts.StartHoldout()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Holdouts.StartAnalysis()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Holdouts.StopHoldout()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.AutoRuns.CreateAutoRun()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.AutoRuns.UpdateAutoRun()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.AutoRuns.AppendArtifact()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Populations.CreatePopulation()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Populations.UpdatePopulation()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n* `Growthbook.Populations.DeletePopulation()`:  `response.Confirmation.Actions[].Action.Enum(override.unscopedRules)` **Added**\n"

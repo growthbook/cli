@@ -155,6 +155,7 @@ type Growthbook struct {
 	Namespaces              *Namespaces
 	Dashboards              *Dashboards
 	ContextualBanditQueries *ContextualBanditQueries
+	Interleavings           *Interleavings
 	CustomFields            *CustomFields
 	MetricGroups            *MetricGroups
 	Teams                   *Teams
@@ -322,6 +323,7 @@ func New(opts ...SDKOption) *Growthbook {
 	sdk.Namespaces = newNamespaces(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Dashboards = newDashboards(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.ContextualBanditQueries = newContextualBanditQueries(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Interleavings = newInterleavings(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.CustomFields = newCustomFields(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.MetricGroups = newMetricGroups(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Teams = newTeams(sdk, sdk.sdkConfiguration, sdk.hooks)

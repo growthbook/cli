@@ -21,7 +21,8 @@ growthbook features update [flags]
 ### Options
 
 ```
-  -a, --archived                           boolean flag
+      --allow-unscoped-rules               When the organization requires rules to target specific environments or Projects, set to true to save a rule that applies to All Environments and All Projects. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
+      --archived                           boolean flag
   -b, --base-config string                 The config backing this flag, fixed at creation. Cannot be changed by an update — resend the current value or omit it; a different value is rejected.
       --body string                        Request body as JSON (alternative to individual flags). Can also be provided via stdin.
       --comment string                     Comment to record on the revision this update publishes, when it publishes one. Defaults to "Created via REST API".
