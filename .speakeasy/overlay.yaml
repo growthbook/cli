@@ -911,6 +911,10 @@ actions:
     update: { x-speakeasy-name-override: delete-linked-feature }
   - target: $..[?(@.operationId=="updateContextualBanditVariations")]
     update: { x-speakeasy-name-override: update-variations }
+  - target: $..[?(@.operationId=="listContextualBanditVisualChangesets")]
+    update: { x-speakeasy-name-override: list-visual-changesets }
+  - target: $..[?(@.operationId=="postContextualBanditVisualChangesets")]
+    update: { x-speakeasy-name-override: create-visual-changeset }
   - target: $..[?(@.operationId=="createContextualBanditQuery")]
     update: { x-speakeasy-name-override: create }
   - target: $..[?(@.operationId=="getContextualBanditQuery")]

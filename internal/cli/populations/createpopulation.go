@@ -20,8 +20,8 @@ var createPopulationCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "owner", FieldPath: "Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the requesting member: a personal access token's owner, or the member an organization API key assumes. An organization API key acting as itself must send it, or the request fails with a 400."},
 	{FlagName: "projects", Shorthand: "p", FieldPath: "Projects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
 	{FlagName: "datasource", FieldPath: "Datasource", Kind: flagutil.FlagKindString, Required: true, Description: "Id of the Data Source [required]"},
-	{FlagName: "user-id-types", Shorthand: "u", FieldPath: "UserIDTypes", Kind: flagutil.FlagKindStringArray, Required: true, Description: "Identifier types the population can be joined on. Every step's fact table must support all of them [required]"},
-	{FlagName: "steps", Shorthand: "s", FieldPath: "Steps", Kind: flagutil.FlagKindJSON, Required: true, Annotations: `json:"steps"`, Description: "Steps a unit must complete, in order, to be included. The steps can read from at most 5 distinct fact tables [required]"},
+	{FlagName: "user-id-types", Shorthand: "u", FieldPath: "UserIDTypes", Kind: flagutil.FlagKindStringArray, Required: true, Description: "Identifier types the Population can be joined on. Every step's fact table must support all of them [required]"},
+	{FlagName: "steps", Shorthand: "s", FieldPath: "Steps", Kind: flagutil.FlagKindJSON, Required: true, Annotations: `json:"steps"`, Description: "Steps a unit must complete, in order, to be included. Currently limited to 1 step with support for multiple steps coming soon. [required]"},
 }
 
 // initCreatePopulationCmd initializes the create-population command.

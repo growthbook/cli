@@ -46,6 +46,7 @@ growthbook contextual-bandits [flags]
 * [growthbook contextual-bandits add-linked-feature](growthbook_contextual-bandits_add-linked-feature.md)	 - Link a feature to a Contextual Bandit
 * [growthbook contextual-bandits cancel](growthbook_contextual-bandits_cancel.md)	 - Cancel a running Contextual Bandit snapshot refresh
 * [growthbook contextual-bandits create](growthbook_contextual-bandits_create.md)	 - Create a single contextualBandit
+* [growthbook contextual-bandits create-visual-changeset](growthbook_contextual-bandits_create-visual-changeset.md)	 - Create a visual changeset for a Contextual Bandit
 * [growthbook contextual-bandits delete-linked-feature](growthbook_contextual-bandits_delete-linked-feature.md)	 - Unlink a feature from a Contextual Bandit
 * [growthbook contextual-bandits get](growthbook_contextual-bandits_get.md)	 - Get a single contextualBandit
 * [growthbook contextual-bandits get-current-weights](growthbook_contextual-bandits_get-current-weights.md)	 - Get current Contextual Bandit leaf weights and latest event
@@ -56,6 +57,7 @@ growthbook contextual-bandits [flags]
 * [growthbook contextual-bandits list-events](growthbook_contextual-bandits_list-events.md)	 - List Contextual Bandit weight-update events
 * [growthbook contextual-bandits list-linked-features](growthbook_contextual-bandits_list-linked-features.md)	 - Get features linked to a Contextual Bandit
 * [growthbook contextual-bandits list-snapshots](growthbook_contextual-bandits_list-snapshots.md)	 - List Contextual Bandit snapshots
+* [growthbook contextual-bandits list-visual-changesets](growthbook_contextual-bandits_list-visual-changesets.md)	 - List visual changesets for a Contextual Bandit
 * [growthbook contextual-bandits refresh](growthbook_contextual-bandits_refresh.md)	 - Trigger a Contextual Bandit snapshot refresh
 * [growthbook contextual-bandits start](growthbook_contextual-bandits_start.md)	 - Start a Contextual Bandit
 * [growthbook contextual-bandits stop](growthbook_contextual-bandits_stop.md)	 - Stop a Contextual Bandit

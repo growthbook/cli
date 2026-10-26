@@ -19,8 +19,8 @@ var updatePopulationCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "name", Shorthand: "n", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "projects", Shorthand: "p", FieldPath: "Body.Projects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
-	{FlagName: "user-id-types", Shorthand: "u", FieldPath: "Body.UserIDTypes", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Identifier types the population can be joined on. Every step's fact table must support all of them"},
-	{FlagName: "steps", Shorthand: "s", FieldPath: "Body.Steps", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"steps,omitempty"`, Description: "Steps a unit must complete, in order, to be included. The steps can read from at most 5 distinct fact tables"},
+	{FlagName: "user-id-types", Shorthand: "u", FieldPath: "Body.UserIDTypes", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Identifier types the Population can be joined on. Every step's fact table must support all of them"},
+	{FlagName: "steps", Shorthand: "s", FieldPath: "Body.Steps", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"steps,omitempty"`, Description: "Steps a unit must complete, in order, to be included. Currently limited to 1 step with support for multiple steps coming soon."},
 	{FlagName: "owner", FieldPath: "Body.Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization."},
 }
 

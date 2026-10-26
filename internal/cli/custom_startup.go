@@ -29,6 +29,7 @@ func customRegister(rootCmd *cobra.Command) {
 	rootCmd.AddCommand(newGenerateTypesCmd())
 	rootCmd.AddCommand(newProfilesCmd())
 	registerRenamedAliases(rootCmd)
+	pinShorthands(rootCmd)
 	registerConfirmationHandling(rootCmd)
 
 	// Drop `table` from the advertised output formats — it's disabled pending an
