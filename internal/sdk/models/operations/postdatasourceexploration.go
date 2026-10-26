@@ -1623,100 +1623,100 @@ func (p *PostDataSourceExplorationSliceResponse) GetFilters() []PostDataSourceEx
 	return p.Filters
 }
 
-type PostDataSourceExplorationDimensionSliceResponse struct {
+type PostDataSourceExplorationExplorationDimensionSlice struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	dimensionType string                                   `const:"slice" json:"dimensionType"`
 	Slices        []PostDataSourceExplorationSliceResponse `json:"slices"`
 }
 
-func (p PostDataSourceExplorationDimensionSliceResponse) MarshalJSON() ([]byte, error) {
+func (p PostDataSourceExplorationExplorationDimensionSlice) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(p, "", false)
 }
 
-func (p *PostDataSourceExplorationDimensionSliceResponse) UnmarshalJSON(data []byte) error {
+func (p *PostDataSourceExplorationExplorationDimensionSlice) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PostDataSourceExplorationDimensionSliceResponse) GetDimensionType() string {
+func (p *PostDataSourceExplorationExplorationDimensionSlice) GetDimensionType() string {
 	return "slice"
 }
 
-func (p *PostDataSourceExplorationDimensionSliceResponse) GetSlices() []PostDataSourceExplorationSliceResponse {
+func (p *PostDataSourceExplorationExplorationDimensionSlice) GetSlices() []PostDataSourceExplorationSliceResponse {
 	if p == nil {
 		return []PostDataSourceExplorationSliceResponse{}
 	}
 	return p.Slices
 }
 
-type PostDataSourceExplorationDimensionStaticResponse struct {
+type PostDataSourceExplorationExplorationDimensionStatic struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	dimensionType string   `const:"static" json:"dimensionType"`
 	Column        string   `json:"column"`
 	Values        []string `json:"values"`
 }
 
-func (p PostDataSourceExplorationDimensionStaticResponse) MarshalJSON() ([]byte, error) {
+func (p PostDataSourceExplorationExplorationDimensionStatic) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(p, "", false)
 }
 
-func (p *PostDataSourceExplorationDimensionStaticResponse) UnmarshalJSON(data []byte) error {
+func (p *PostDataSourceExplorationExplorationDimensionStatic) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PostDataSourceExplorationDimensionStaticResponse) GetDimensionType() string {
+func (p *PostDataSourceExplorationExplorationDimensionStatic) GetDimensionType() string {
 	return "static"
 }
 
-func (p *PostDataSourceExplorationDimensionStaticResponse) GetColumn() string {
+func (p *PostDataSourceExplorationExplorationDimensionStatic) GetColumn() string {
 	if p == nil {
 		return ""
 	}
 	return p.Column
 }
 
-func (p *PostDataSourceExplorationDimensionStaticResponse) GetValues() []string {
+func (p *PostDataSourceExplorationExplorationDimensionStatic) GetValues() []string {
 	if p == nil {
 		return []string{}
 	}
 	return p.Values
 }
 
-type PostDataSourceExplorationDimensionDynamicResponse struct {
+type PostDataSourceExplorationExplorationDimensionDynamic struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	dimensionType string  `const:"dynamic" json:"dimensionType"`
 	Column        *string `json:"column"`
 	MaxValues     float64 `json:"maxValues"`
 }
 
-func (p PostDataSourceExplorationDimensionDynamicResponse) MarshalJSON() ([]byte, error) {
+func (p PostDataSourceExplorationExplorationDimensionDynamic) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(p, "", false)
 }
 
-func (p *PostDataSourceExplorationDimensionDynamicResponse) UnmarshalJSON(data []byte) error {
+func (p *PostDataSourceExplorationExplorationDimensionDynamic) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PostDataSourceExplorationDimensionDynamicResponse) GetDimensionType() string {
+func (p *PostDataSourceExplorationExplorationDimensionDynamic) GetDimensionType() string {
 	return "dynamic"
 }
 
-func (p *PostDataSourceExplorationDimensionDynamicResponse) GetColumn() *string {
+func (p *PostDataSourceExplorationExplorationDimensionDynamic) GetColumn() *string {
 	if p == nil {
 		return nil
 	}
 	return p.Column
 }
 
-func (p *PostDataSourceExplorationDimensionDynamicResponse) GetMaxValues() float64 {
+func (p *PostDataSourceExplorationExplorationDimensionDynamic) GetMaxValues() float64 {
 	if p == nil {
 		return 0.0
 	}
@@ -1749,114 +1749,114 @@ func (e *PostDataSourceExplorationDateGranularityResponse) IsExact() bool {
 	return false
 }
 
-type PostDataSourceExplorationDimensionDateResponse struct {
+type PostDataSourceExplorationExplorationDimensionDate struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	dimensionType   string                                           `const:"date" json:"dimensionType"`
 	Column          *string                                          `json:"column"`
 	DateGranularity PostDataSourceExplorationDateGranularityResponse `json:"dateGranularity"`
 }
 
-func (p PostDataSourceExplorationDimensionDateResponse) MarshalJSON() ([]byte, error) {
+func (p PostDataSourceExplorationExplorationDimensionDate) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(p, "", false)
 }
 
-func (p *PostDataSourceExplorationDimensionDateResponse) UnmarshalJSON(data []byte) error {
+func (p *PostDataSourceExplorationExplorationDimensionDate) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PostDataSourceExplorationDimensionDateResponse) GetDimensionType() string {
+func (p *PostDataSourceExplorationExplorationDimensionDate) GetDimensionType() string {
 	return "date"
 }
 
-func (p *PostDataSourceExplorationDimensionDateResponse) GetColumn() *string {
+func (p *PostDataSourceExplorationExplorationDimensionDate) GetColumn() *string {
 	if p == nil {
 		return nil
 	}
 	return p.Column
 }
 
-func (p *PostDataSourceExplorationDimensionDateResponse) GetDateGranularity() PostDataSourceExplorationDateGranularityResponse {
+func (p *PostDataSourceExplorationExplorationDimensionDate) GetDateGranularity() PostDataSourceExplorationDateGranularityResponse {
 	if p == nil {
 		return PostDataSourceExplorationDateGranularityResponse("")
 	}
 	return p.DateGranularity
 }
 
-type PostDataSourceExplorationDimensionResponseUnionType string
+type PostDataSourceExplorationExplorationDimensionUnionType string
 
 const (
-	PostDataSourceExplorationDimensionResponseUnionTypeDate    PostDataSourceExplorationDimensionResponseUnionType = "date"
-	PostDataSourceExplorationDimensionResponseUnionTypeDynamic PostDataSourceExplorationDimensionResponseUnionType = "dynamic"
-	PostDataSourceExplorationDimensionResponseUnionTypeStatic  PostDataSourceExplorationDimensionResponseUnionType = "static"
-	PostDataSourceExplorationDimensionResponseUnionTypeSlice   PostDataSourceExplorationDimensionResponseUnionType = "slice"
-	PostDataSourceExplorationDimensionResponseUnionTypeUnknown PostDataSourceExplorationDimensionResponseUnionType = "UNKNOWN"
+	PostDataSourceExplorationExplorationDimensionUnionTypeDate    PostDataSourceExplorationExplorationDimensionUnionType = "date"
+	PostDataSourceExplorationExplorationDimensionUnionTypeDynamic PostDataSourceExplorationExplorationDimensionUnionType = "dynamic"
+	PostDataSourceExplorationExplorationDimensionUnionTypeStatic  PostDataSourceExplorationExplorationDimensionUnionType = "static"
+	PostDataSourceExplorationExplorationDimensionUnionTypeSlice   PostDataSourceExplorationExplorationDimensionUnionType = "slice"
+	PostDataSourceExplorationExplorationDimensionUnionTypeUnknown PostDataSourceExplorationExplorationDimensionUnionType = "UNKNOWN"
 )
 
-type PostDataSourceExplorationDimensionResponseUnion struct {
-	PostDataSourceExplorationDimensionDateResponse    *PostDataSourceExplorationDimensionDateResponse    `queryParam:"inline" union:"member"`
-	PostDataSourceExplorationDimensionDynamicResponse *PostDataSourceExplorationDimensionDynamicResponse `queryParam:"inline" union:"member"`
-	PostDataSourceExplorationDimensionStaticResponse  *PostDataSourceExplorationDimensionStaticResponse  `queryParam:"inline" union:"member"`
-	PostDataSourceExplorationDimensionSliceResponse   *PostDataSourceExplorationDimensionSliceResponse   `queryParam:"inline" union:"member"`
-	UnknownRaw                                        json.RawMessage                                    `json:"-" union:"unknown"`
+type PostDataSourceExplorationExplorationDimensionUnion struct {
+	PostDataSourceExplorationExplorationDimensionDate    *PostDataSourceExplorationExplorationDimensionDate    `queryParam:"inline" union:"member"`
+	PostDataSourceExplorationExplorationDimensionDynamic *PostDataSourceExplorationExplorationDimensionDynamic `queryParam:"inline" union:"member"`
+	PostDataSourceExplorationExplorationDimensionStatic  *PostDataSourceExplorationExplorationDimensionStatic  `queryParam:"inline" union:"member"`
+	PostDataSourceExplorationExplorationDimensionSlice   *PostDataSourceExplorationExplorationDimensionSlice   `queryParam:"inline" union:"member"`
+	UnknownRaw                                           json.RawMessage                                       `json:"-" union:"unknown"`
 
-	Type PostDataSourceExplorationDimensionResponseUnionType
+	Type PostDataSourceExplorationExplorationDimensionUnionType
 }
 
-func CreatePostDataSourceExplorationDimensionResponseUnionDate(date PostDataSourceExplorationDimensionDateResponse) PostDataSourceExplorationDimensionResponseUnion {
-	typ := PostDataSourceExplorationDimensionResponseUnionTypeDate
+func CreatePostDataSourceExplorationExplorationDimensionUnionDate(date PostDataSourceExplorationExplorationDimensionDate) PostDataSourceExplorationExplorationDimensionUnion {
+	typ := PostDataSourceExplorationExplorationDimensionUnionTypeDate
 
-	return PostDataSourceExplorationDimensionResponseUnion{
-		PostDataSourceExplorationDimensionDateResponse: &date,
+	return PostDataSourceExplorationExplorationDimensionUnion{
+		PostDataSourceExplorationExplorationDimensionDate: &date,
 		Type: typ,
 	}
 }
 
-func CreatePostDataSourceExplorationDimensionResponseUnionDynamic(dynamic PostDataSourceExplorationDimensionDynamicResponse) PostDataSourceExplorationDimensionResponseUnion {
-	typ := PostDataSourceExplorationDimensionResponseUnionTypeDynamic
+func CreatePostDataSourceExplorationExplorationDimensionUnionDynamic(dynamic PostDataSourceExplorationExplorationDimensionDynamic) PostDataSourceExplorationExplorationDimensionUnion {
+	typ := PostDataSourceExplorationExplorationDimensionUnionTypeDynamic
 
-	return PostDataSourceExplorationDimensionResponseUnion{
-		PostDataSourceExplorationDimensionDynamicResponse: &dynamic,
+	return PostDataSourceExplorationExplorationDimensionUnion{
+		PostDataSourceExplorationExplorationDimensionDynamic: &dynamic,
 		Type: typ,
 	}
 }
 
-func CreatePostDataSourceExplorationDimensionResponseUnionStatic(static PostDataSourceExplorationDimensionStaticResponse) PostDataSourceExplorationDimensionResponseUnion {
-	typ := PostDataSourceExplorationDimensionResponseUnionTypeStatic
+func CreatePostDataSourceExplorationExplorationDimensionUnionStatic(static PostDataSourceExplorationExplorationDimensionStatic) PostDataSourceExplorationExplorationDimensionUnion {
+	typ := PostDataSourceExplorationExplorationDimensionUnionTypeStatic
 
-	return PostDataSourceExplorationDimensionResponseUnion{
-		PostDataSourceExplorationDimensionStaticResponse: &static,
+	return PostDataSourceExplorationExplorationDimensionUnion{
+		PostDataSourceExplorationExplorationDimensionStatic: &static,
 		Type: typ,
 	}
 }
 
-func CreatePostDataSourceExplorationDimensionResponseUnionSlice(slice PostDataSourceExplorationDimensionSliceResponse) PostDataSourceExplorationDimensionResponseUnion {
-	typ := PostDataSourceExplorationDimensionResponseUnionTypeSlice
+func CreatePostDataSourceExplorationExplorationDimensionUnionSlice(slice PostDataSourceExplorationExplorationDimensionSlice) PostDataSourceExplorationExplorationDimensionUnion {
+	typ := PostDataSourceExplorationExplorationDimensionUnionTypeSlice
 
-	return PostDataSourceExplorationDimensionResponseUnion{
-		PostDataSourceExplorationDimensionSliceResponse: &slice,
+	return PostDataSourceExplorationExplorationDimensionUnion{
+		PostDataSourceExplorationExplorationDimensionSlice: &slice,
 		Type: typ,
 	}
 }
 
-func CreatePostDataSourceExplorationDimensionResponseUnionUnknown(raw json.RawMessage) PostDataSourceExplorationDimensionResponseUnion {
-	return PostDataSourceExplorationDimensionResponseUnion{
+func CreatePostDataSourceExplorationExplorationDimensionUnionUnknown(raw json.RawMessage) PostDataSourceExplorationExplorationDimensionUnion {
+	return PostDataSourceExplorationExplorationDimensionUnion{
 		UnknownRaw: raw,
-		Type:       PostDataSourceExplorationDimensionResponseUnionTypeUnknown,
+		Type:       PostDataSourceExplorationExplorationDimensionUnionTypeUnknown,
 	}
 }
 
-func (u PostDataSourceExplorationDimensionResponseUnion) GetUnknownRaw() json.RawMessage {
+func (u PostDataSourceExplorationExplorationDimensionUnion) GetUnknownRaw() json.RawMessage {
 	return u.UnknownRaw
 }
 
-func (u PostDataSourceExplorationDimensionResponseUnion) IsUnknown() bool {
-	return u.Type == PostDataSourceExplorationDimensionResponseUnionTypeUnknown
+func (u PostDataSourceExplorationExplorationDimensionUnion) IsUnknown() bool {
+	return u.Type == PostDataSourceExplorationExplorationDimensionUnionTypeUnknown
 }
 
-func (u *PostDataSourceExplorationDimensionResponseUnion) UnmarshalJSON(data []byte) error {
+func (u *PostDataSourceExplorationExplorationDimensionUnion) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
 		DimensionType string `json:"dimensionType"`
@@ -1865,81 +1865,81 @@ func (u *PostDataSourceExplorationDimensionResponseUnion) UnmarshalJSON(data []b
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = PostDataSourceExplorationDimensionResponseUnionTypeUnknown
+		u.Type = PostDataSourceExplorationExplorationDimensionUnionTypeUnknown
 		return nil
 	}
 	if dis == nil {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = PostDataSourceExplorationDimensionResponseUnionTypeUnknown
+		u.Type = PostDataSourceExplorationExplorationDimensionUnionTypeUnknown
 		return nil
 	}
 
 	switch dis.DimensionType {
 	case "date":
-		postDataSourceExplorationDimensionDateResponse := new(PostDataSourceExplorationDimensionDateResponse)
-		if err := utils.UnmarshalJSON(data, &postDataSourceExplorationDimensionDateResponse, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (DimensionType == date) type PostDataSourceExplorationDimensionDateResponse within PostDataSourceExplorationDimensionResponseUnion: %w", string(data), err)
+		postDataSourceExplorationExplorationDimensionDate := new(PostDataSourceExplorationExplorationDimensionDate)
+		if err := utils.UnmarshalJSON(data, &postDataSourceExplorationExplorationDimensionDate, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (DimensionType == date) type PostDataSourceExplorationExplorationDimensionDate within PostDataSourceExplorationExplorationDimensionUnion: %w", string(data), err)
 		}
 
-		u.PostDataSourceExplorationDimensionDateResponse = postDataSourceExplorationDimensionDateResponse
-		u.Type = PostDataSourceExplorationDimensionResponseUnionTypeDate
+		u.PostDataSourceExplorationExplorationDimensionDate = postDataSourceExplorationExplorationDimensionDate
+		u.Type = PostDataSourceExplorationExplorationDimensionUnionTypeDate
 		return nil
 	case "dynamic":
-		postDataSourceExplorationDimensionDynamicResponse := new(PostDataSourceExplorationDimensionDynamicResponse)
-		if err := utils.UnmarshalJSON(data, &postDataSourceExplorationDimensionDynamicResponse, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (DimensionType == dynamic) type PostDataSourceExplorationDimensionDynamicResponse within PostDataSourceExplorationDimensionResponseUnion: %w", string(data), err)
+		postDataSourceExplorationExplorationDimensionDynamic := new(PostDataSourceExplorationExplorationDimensionDynamic)
+		if err := utils.UnmarshalJSON(data, &postDataSourceExplorationExplorationDimensionDynamic, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (DimensionType == dynamic) type PostDataSourceExplorationExplorationDimensionDynamic within PostDataSourceExplorationExplorationDimensionUnion: %w", string(data), err)
 		}
 
-		u.PostDataSourceExplorationDimensionDynamicResponse = postDataSourceExplorationDimensionDynamicResponse
-		u.Type = PostDataSourceExplorationDimensionResponseUnionTypeDynamic
+		u.PostDataSourceExplorationExplorationDimensionDynamic = postDataSourceExplorationExplorationDimensionDynamic
+		u.Type = PostDataSourceExplorationExplorationDimensionUnionTypeDynamic
 		return nil
 	case "static":
-		postDataSourceExplorationDimensionStaticResponse := new(PostDataSourceExplorationDimensionStaticResponse)
-		if err := utils.UnmarshalJSON(data, &postDataSourceExplorationDimensionStaticResponse, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (DimensionType == static) type PostDataSourceExplorationDimensionStaticResponse within PostDataSourceExplorationDimensionResponseUnion: %w", string(data), err)
+		postDataSourceExplorationExplorationDimensionStatic := new(PostDataSourceExplorationExplorationDimensionStatic)
+		if err := utils.UnmarshalJSON(data, &postDataSourceExplorationExplorationDimensionStatic, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (DimensionType == static) type PostDataSourceExplorationExplorationDimensionStatic within PostDataSourceExplorationExplorationDimensionUnion: %w", string(data), err)
 		}
 
-		u.PostDataSourceExplorationDimensionStaticResponse = postDataSourceExplorationDimensionStaticResponse
-		u.Type = PostDataSourceExplorationDimensionResponseUnionTypeStatic
+		u.PostDataSourceExplorationExplorationDimensionStatic = postDataSourceExplorationExplorationDimensionStatic
+		u.Type = PostDataSourceExplorationExplorationDimensionUnionTypeStatic
 		return nil
 	case "slice":
-		postDataSourceExplorationDimensionSliceResponse := new(PostDataSourceExplorationDimensionSliceResponse)
-		if err := utils.UnmarshalJSON(data, &postDataSourceExplorationDimensionSliceResponse, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (DimensionType == slice) type PostDataSourceExplorationDimensionSliceResponse within PostDataSourceExplorationDimensionResponseUnion: %w", string(data), err)
+		postDataSourceExplorationExplorationDimensionSlice := new(PostDataSourceExplorationExplorationDimensionSlice)
+		if err := utils.UnmarshalJSON(data, &postDataSourceExplorationExplorationDimensionSlice, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (DimensionType == slice) type PostDataSourceExplorationExplorationDimensionSlice within PostDataSourceExplorationExplorationDimensionUnion: %w", string(data), err)
 		}
 
-		u.PostDataSourceExplorationDimensionSliceResponse = postDataSourceExplorationDimensionSliceResponse
-		u.Type = PostDataSourceExplorationDimensionResponseUnionTypeSlice
+		u.PostDataSourceExplorationExplorationDimensionSlice = postDataSourceExplorationExplorationDimensionSlice
+		u.Type = PostDataSourceExplorationExplorationDimensionUnionTypeSlice
 		return nil
 	default:
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = PostDataSourceExplorationDimensionResponseUnionTypeUnknown
+		u.Type = PostDataSourceExplorationExplorationDimensionUnionTypeUnknown
 		return nil
 	}
 
 }
 
-func (u PostDataSourceExplorationDimensionResponseUnion) MarshalJSON() ([]byte, error) {
-	if u.PostDataSourceExplorationDimensionDateResponse != nil {
-		return utils.MarshalJSON(u.PostDataSourceExplorationDimensionDateResponse, "", true)
+func (u PostDataSourceExplorationExplorationDimensionUnion) MarshalJSON() ([]byte, error) {
+	if u.PostDataSourceExplorationExplorationDimensionDate != nil {
+		return utils.MarshalJSON(u.PostDataSourceExplorationExplorationDimensionDate, "", true)
 	}
 
-	if u.PostDataSourceExplorationDimensionDynamicResponse != nil {
-		return utils.MarshalJSON(u.PostDataSourceExplorationDimensionDynamicResponse, "", true)
+	if u.PostDataSourceExplorationExplorationDimensionDynamic != nil {
+		return utils.MarshalJSON(u.PostDataSourceExplorationExplorationDimensionDynamic, "", true)
 	}
 
-	if u.PostDataSourceExplorationDimensionStaticResponse != nil {
-		return utils.MarshalJSON(u.PostDataSourceExplorationDimensionStaticResponse, "", true)
+	if u.PostDataSourceExplorationExplorationDimensionStatic != nil {
+		return utils.MarshalJSON(u.PostDataSourceExplorationExplorationDimensionStatic, "", true)
 	}
 
-	if u.PostDataSourceExplorationDimensionSliceResponse != nil {
-		return utils.MarshalJSON(u.PostDataSourceExplorationDimensionSliceResponse, "", true)
+	if u.PostDataSourceExplorationExplorationDimensionSlice != nil {
+		return utils.MarshalJSON(u.PostDataSourceExplorationExplorationDimensionSlice, "", true)
 	}
 
 	if u.UnknownRaw != nil {
 		return json.RawMessage(u.UnknownRaw), nil
 	}
-	return nil, errors.New("could not marshal union type PostDataSourceExplorationDimensionResponseUnion: all fields are null")
+	return nil, errors.New("could not marshal union type PostDataSourceExplorationExplorationDimensionUnion: all fields are null")
 }
 
 type PostDataSourceExplorationChartTypeResponse string
@@ -2359,12 +2359,12 @@ func (p *PostDataSourceExplorationDatasetResponse) GetValues() []ValueDataSource
 
 type PostDataSourceExplorationConfig struct {
 	// ID of the datasource to query
-	Datasource    string                                            `json:"datasource"`
-	Dimensions    []PostDataSourceExplorationDimensionResponseUnion `json:"dimensions"`
-	ChartType     PostDataSourceExplorationChartTypeResponse        `json:"chartType"`
-	DateRange     PostDataSourceExplorationDateRangeResponse        `json:"dateRange"`
-	ShowAs        *PostDataSourceExplorationShowAsResponse          `json:"showAs,omitzero"`
-	ChartSettings *PostDataSourceExplorationChartSettingsResponse   `json:"chartSettings,omitzero"`
+	Datasource    string                                               `json:"datasource"`
+	Dimensions    []PostDataSourceExplorationExplorationDimensionUnion `json:"dimensions"`
+	ChartType     PostDataSourceExplorationChartTypeResponse           `json:"chartType"`
+	DateRange     PostDataSourceExplorationDateRangeResponse           `json:"dateRange"`
+	ShowAs        *PostDataSourceExplorationShowAsResponse             `json:"showAs,omitzero"`
+	ChartSettings *PostDataSourceExplorationChartSettingsResponse      `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                                   `const:"data_source" json:"type"`
 	Dataset PostDataSourceExplorationDatasetResponse `json:"dataset"`
@@ -2388,9 +2388,9 @@ func (p *PostDataSourceExplorationConfig) GetDatasource() string {
 	return p.Datasource
 }
 
-func (p *PostDataSourceExplorationConfig) GetDimensions() []PostDataSourceExplorationDimensionResponseUnion {
+func (p *PostDataSourceExplorationConfig) GetDimensions() []PostDataSourceExplorationExplorationDimensionUnion {
 	if p == nil {
-		return []PostDataSourceExplorationDimensionResponseUnion{}
+		return []PostDataSourceExplorationExplorationDimensionUnion{}
 	}
 	return p.Dimensions
 }

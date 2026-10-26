@@ -2,6 +2,29 @@
 
 ## [Unreleased]
 
+### Added
+
+- **`interleavings`** (`create`, `get`, `list`, `update`, `start`, `stop`) manages interleaving
+  experiments, which compare two rankers by interleaving their results for each user.
+- **`contextual-bandits create-visual-changeset`** and **`contextual-bandits
+  list-visual-changesets`** manage a contextual bandit's visual changesets.
+- **`--allow-unscoped-rules`** on `features create|update`, `feature-revisions
+  add-rule|update-rule` and `contextual-bandits add-linked-feature|update-linked-feature`. When an
+  organization requires rules to target specific environments or projects, it allows saving a rule
+  that applies everywhere; without it, such a write fails with a `422` (`unscoped_rule`). The flag
+  deliberately has no shorthand.
+- **`contextual-bandits get-results`** gains `results.health` (traffic, SRM and multiple-exposure
+  checks from the latest results run), plus `results.snapshotId` and `results.dateCreated`.
+  `saved-groups get-references` gains `interleavings`.
+
+### Changed
+
+- **Breaking (beta): `contextual-bandits get-results` no longer returns `latest.srm`.** Read
+  `results.health.srm` instead, which adds `latestPeriod`. Contextual bandits are in beta, so this
+  ships in a minor release.
+- **`populations create|update`**: the server now accepts only one entry in `--steps` (was up to
+  20).
+
 ## [3.2.0] - 2026-10-20
 
 ### Added

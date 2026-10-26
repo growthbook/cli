@@ -70,6 +70,7 @@ type GetSavedGroupReferencesResponseBody struct {
 	Features          []components.SavedGroupReferenceResource `json:"features"`
 	Experiments       []GetSavedGroupReferencesExperiment      `json:"experiments"`
 	ContextualBandits []components.SavedGroupReferenceResource `json:"contextualBandits"`
+	Interleavings     []components.SavedGroupReferenceResource `json:"interleavings"`
 	SavedGroups       []components.SavedGroups                 `json:"savedGroups"`
 }
 
@@ -92,6 +93,13 @@ func (g *GetSavedGroupReferencesResponseBody) GetContextualBandits() []component
 		return []components.SavedGroupReferenceResource{}
 	}
 	return g.ContextualBandits
+}
+
+func (g *GetSavedGroupReferencesResponseBody) GetInterleavings() []components.SavedGroupReferenceResource {
+	if g == nil {
+		return []components.SavedGroupReferenceResource{}
+	}
+	return g.Interleavings
 }
 
 func (g *GetSavedGroupReferencesResponseBody) GetSavedGroups() []components.SavedGroups {

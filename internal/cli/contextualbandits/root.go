@@ -97,6 +97,14 @@ func InitContextualBanditsRoot(parent *cobra.Command) error {
 		return err
 	}
 
+	if err := initCreateVisualChangesetCmd(ContextualBanditsCmd); err != nil {
+		return err
+	}
+
+	if err := initListVisualChangesetsCmd(ContextualBanditsCmd); err != nil {
+		return err
+	}
+
 	parent.AddCommand(ContextualBanditsCmd)
 	return nil
 }

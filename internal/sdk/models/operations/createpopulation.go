@@ -419,7 +419,7 @@ func (c *CreatePopulationStep) GetWindowSettings() *CreatePopulationWindowSettin
 	return c.WindowSettings
 }
 
-// CreatePopulationRequest - Create a population
+// CreatePopulationRequest - Create a Population
 type CreatePopulationRequest struct {
 	Name        string  `json:"name"`
 	Description *string `json:"description,omitzero"`
@@ -428,9 +428,9 @@ type CreatePopulationRequest struct {
 	Projects []string `json:"projects,omitzero"`
 	// Id of the Data Source
 	Datasource string `json:"datasource"`
-	// Identifier types the population can be joined on. Every step's fact table must support all of them
+	// Identifier types the Population can be joined on. Every step's fact table must support all of them
 	UserIDTypes []string `json:"userIdTypes"`
-	// Steps a unit must complete, in order, to be included. The steps can read from at most 5 distinct fact tables
+	// Steps a unit must complete, in order, to be included. Currently limited to 1 step with support for multiple steps coming soon.
 	Steps []CreatePopulationStep `json:"steps"`
 }
 

@@ -419,14 +419,14 @@ func (u *UpdatePopulationStep) GetWindowSettings() *UpdatePopulationWindowSettin
 	return u.WindowSettings
 }
 
-// UpdatePopulationRequestBody - Update a population
+// UpdatePopulationRequestBody - Update a Population
 type UpdatePopulationRequestBody struct {
 	Name        *string  `json:"name,omitzero"`
 	Description *string  `json:"description,omitzero"`
 	Projects    []string `json:"projects,omitzero"`
-	// Identifier types the population can be joined on. Every step's fact table must support all of them
+	// Identifier types the Population can be joined on. Every step's fact table must support all of them
 	UserIDTypes []string `json:"userIdTypes,omitzero"`
-	// Steps a unit must complete, in order, to be included. The steps can read from at most 5 distinct fact tables
+	// Steps a unit must complete, in order, to be included. Currently limited to 1 step with support for multiple steps coming soon.
 	Steps []UpdatePopulationStep `json:"steps,omitzero"`
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
 	Owner *string `json:"owner,omitzero"`

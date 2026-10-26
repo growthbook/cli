@@ -21,6 +21,7 @@ growthbook feature-revisions add-rule [flags]
 ### Options
 
 ```
+      --allow-unscoped-rules                     When the organization requires rules to target specific environments or Projects, set to true to save a rule that applies to All Environments and All Projects. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
       --body string                              Request body as JSON (alternative to individual flags). Can also be provided via stdin.
   -h, --help                                     help for add-rule
       --id string                                [required]
