@@ -30,13 +30,9 @@ func (e *Window) IsExact() bool {
 }
 
 type Overrides struct {
-	DelayHours  *float64 `json:"delayHours,omitzero"`
-	WindowHours *float64 `json:"windowHours,omitzero"`
-	Window      *Window  `json:"window,omitzero"`
-	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-	WinRiskThreshold *float64 `json:"winRiskThreshold,omitzero"`
-	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-	LoseRiskThreshold            *float64 `json:"loseRiskThreshold,omitzero"`
+	DelayHours                   *float64 `json:"delayHours,omitzero"`
+	WindowHours                  *float64 `json:"windowHours,omitzero"`
+	Window                       *Window  `json:"window,omitzero"`
 	ProperPriorOverride          *bool    `json:"properPriorOverride,omitzero"`
 	ProperPriorEnabled           *bool    `json:"properPriorEnabled,omitzero"`
 	ProperPriorMean              *float64 `json:"properPriorMean,omitzero"`
@@ -44,6 +40,14 @@ type Overrides struct {
 	RegressionAdjustmentOverride *bool    `json:"regressionAdjustmentOverride,omitzero"`
 	RegressionAdjustmentEnabled  *bool    `json:"regressionAdjustmentEnabled,omitzero"`
 	RegressionAdjustmentDays     *float64 `json:"regressionAdjustmentDays,omitzero"`
+	// No longer used. Never returned.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	WinRiskThreshold *float64 `json:"winRiskThreshold,omitzero"`
+	// No longer used. Never returned.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	LoseRiskThreshold *float64 `json:"loseRiskThreshold,omitzero"`
 }
 
 func (o Overrides) MarshalJSON() ([]byte, error) {
@@ -76,20 +80,6 @@ func (o *Overrides) GetWindow() *Window {
 		return nil
 	}
 	return o.Window
-}
-
-func (o *Overrides) GetWinRiskThreshold() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.WinRiskThreshold
-}
-
-func (o *Overrides) GetLoseRiskThreshold() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.LoseRiskThreshold
 }
 
 func (o *Overrides) GetProperPriorOverride() *bool {
@@ -139,6 +129,20 @@ func (o *Overrides) GetRegressionAdjustmentDays() *float64 {
 		return nil
 	}
 	return o.RegressionAdjustmentDays
+}
+
+func (o *Overrides) GetWinRiskThreshold() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WinRiskThreshold
+}
+
+func (o *Overrides) GetLoseRiskThreshold() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoseRiskThreshold
 }
 
 type ExperimentMetric struct {

@@ -18,8 +18,8 @@ type GetFeatureRevisionsRequest struct {
 	// Self-hosted only. Has no effect unless API_ALLOW_SKIP_PAGINATION is set to true or 1.
 	SkipPagination *bool `default:"false" queryParam:"style=form,explode=true,name=skipPagination"`
 	// Filter by revision status. Single value, comma-separated list, repeated params (?status=draft&status=approved), or `all-drafts` shorthand for all active-draft statuses (draft, pending-review, approved, changes-requested).
-	Status *components.Status `queryParam:"style=form,explode=true,name=status"`
-	Author *string            `queryParam:"style=form,explode=true,name=author"`
+	Status *components.StatusParameter `queryParam:"style=form,explode=true,name=status"`
+	Author *string                     `queryParam:"style=form,explode=true,name=author"`
 }
 
 func (g GetFeatureRevisionsRequest) MarshalJSON() ([]byte, error) {
@@ -61,7 +61,7 @@ func (g *GetFeatureRevisionsRequest) GetSkipPagination() *bool {
 	return g.SkipPagination
 }
 
-func (g *GetFeatureRevisionsRequest) GetStatus() *components.Status {
+func (g *GetFeatureRevisionsRequest) GetStatus() *components.StatusParameter {
 	if g == nil {
 		return nil
 	}

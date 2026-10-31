@@ -27,7 +27,7 @@ growthbook fact-tables update [flags]
   -e, --event-name string                       The event name used in SQL template variables
   -h, --help                                    help for update
   -i, --id string                               The id of the requested resource [required]
-  -m, --managed-by string                       Set this to "api" to disable editing in the GrowthBook UI (options: , api, admin)
+  -m, --managed-by string                       Set this to "api" (or "dbt" for resources synced from dbt) to disable editing in the GrowthBook UI (options: , api, admin, dbt)
   -n, --name description                        Short display name. Put details in description.
       --owner string                            The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
   -p, --projects stringArray                    List of associated project ids

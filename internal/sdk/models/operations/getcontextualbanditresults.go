@@ -814,22 +814,22 @@ func (e *GetContextualBanditResultsStatus) IsExact() bool {
 	return false
 }
 
-type QueryStatus string
+type GetContextualBanditResultsQueryStatus string
 
 const (
-	QueryStatusQueued             QueryStatus = "queued"
-	QueryStatusRunning            QueryStatus = "running"
-	QueryStatusFailed             QueryStatus = "failed"
-	QueryStatusPartiallySucceeded QueryStatus = "partially-succeeded"
-	QueryStatusSucceeded          QueryStatus = "succeeded"
+	GetContextualBanditResultsQueryStatusQueued             GetContextualBanditResultsQueryStatus = "queued"
+	GetContextualBanditResultsQueryStatusRunning            GetContextualBanditResultsQueryStatus = "running"
+	GetContextualBanditResultsQueryStatusFailed             GetContextualBanditResultsQueryStatus = "failed"
+	GetContextualBanditResultsQueryStatusPartiallySucceeded GetContextualBanditResultsQueryStatus = "partially-succeeded"
+	GetContextualBanditResultsQueryStatusSucceeded          GetContextualBanditResultsQueryStatus = "succeeded"
 )
 
-func (e QueryStatus) ToPointer() *QueryStatus {
+func (e GetContextualBanditResultsQueryStatus) ToPointer() *GetContextualBanditResultsQueryStatus {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *QueryStatus) IsExact() bool {
+func (e *GetContextualBanditResultsQueryStatus) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "queued", "running", "failed", "partially-succeeded", "succeeded":
@@ -839,106 +839,106 @@ func (e *QueryStatus) IsExact() bool {
 	return false
 }
 
-type Query struct {
-	Query  string      `json:"query"`
-	Status QueryStatus `json:"status"`
-	Name   string      `json:"name"`
+type GetContextualBanditResultsQuery struct {
+	Query  string                                `json:"query"`
+	Status GetContextualBanditResultsQueryStatus `json:"status"`
+	Name   string                                `json:"name"`
 }
 
-func (q *Query) GetQuery() string {
-	if q == nil {
+func (g *GetContextualBanditResultsQuery) GetQuery() string {
+	if g == nil {
 		return ""
 	}
-	return q.Query
+	return g.Query
 }
 
-func (q *Query) GetStatus() QueryStatus {
-	if q == nil {
-		return QueryStatus("")
+func (g *GetContextualBanditResultsQuery) GetStatus() GetContextualBanditResultsQueryStatus {
+	if g == nil {
+		return GetContextualBanditResultsQueryStatus("")
 	}
-	return q.Status
+	return g.Status
 }
 
-func (q *Query) GetName() string {
-	if q == nil {
+func (g *GetContextualBanditResultsQuery) GetName() string {
+	if g == nil {
 		return ""
 	}
-	return q.Name
+	return g.Name
 }
 
-type Latest struct {
-	ID                string                           `json:"id"`
-	Status            GetContextualBanditResultsStatus `json:"status"`
-	Error             string                           `json:"error"`
-	Queries           []Query                          `json:"queries"`
-	RunStarted        *string                          `json:"runStarted"`
-	DateCreated       string                           `json:"dateCreated"`
-	MultipleExposures float64                          `json:"multipleExposures"`
-	Type              string                           `json:"type"`
-	TriggeredBy       string                           `json:"triggeredBy"`
+type GetContextualBanditResultsLatest struct {
+	ID                string                            `json:"id"`
+	Status            GetContextualBanditResultsStatus  `json:"status"`
+	Error             string                            `json:"error"`
+	Queries           []GetContextualBanditResultsQuery `json:"queries"`
+	RunStarted        *string                           `json:"runStarted"`
+	DateCreated       string                            `json:"dateCreated"`
+	MultipleExposures float64                           `json:"multipleExposures"`
+	Type              string                            `json:"type"`
+	TriggeredBy       string                            `json:"triggeredBy"`
 }
 
-func (l *Latest) GetID() string {
-	if l == nil {
+func (g *GetContextualBanditResultsLatest) GetID() string {
+	if g == nil {
 		return ""
 	}
-	return l.ID
+	return g.ID
 }
 
-func (l *Latest) GetStatus() GetContextualBanditResultsStatus {
-	if l == nil {
+func (g *GetContextualBanditResultsLatest) GetStatus() GetContextualBanditResultsStatus {
+	if g == nil {
 		return GetContextualBanditResultsStatus("")
 	}
-	return l.Status
+	return g.Status
 }
 
-func (l *Latest) GetError() string {
-	if l == nil {
+func (g *GetContextualBanditResultsLatest) GetError() string {
+	if g == nil {
 		return ""
 	}
-	return l.Error
+	return g.Error
 }
 
-func (l *Latest) GetQueries() []Query {
-	if l == nil {
-		return []Query{}
+func (g *GetContextualBanditResultsLatest) GetQueries() []GetContextualBanditResultsQuery {
+	if g == nil {
+		return []GetContextualBanditResultsQuery{}
 	}
-	return l.Queries
+	return g.Queries
 }
 
-func (l *Latest) GetRunStarted() *string {
-	if l == nil {
+func (g *GetContextualBanditResultsLatest) GetRunStarted() *string {
+	if g == nil {
 		return nil
 	}
-	return l.RunStarted
+	return g.RunStarted
 }
 
-func (l *Latest) GetDateCreated() string {
-	if l == nil {
+func (g *GetContextualBanditResultsLatest) GetDateCreated() string {
+	if g == nil {
 		return ""
 	}
-	return l.DateCreated
+	return g.DateCreated
 }
 
-func (l *Latest) GetMultipleExposures() float64 {
-	if l == nil {
+func (g *GetContextualBanditResultsLatest) GetMultipleExposures() float64 {
+	if g == nil {
 		return 0.0
 	}
-	return l.MultipleExposures
+	return g.MultipleExposures
 }
 
-func (l *Latest) GetType() string {
-	if l == nil {
+func (g *GetContextualBanditResultsLatest) GetType() string {
+	if g == nil {
 		return ""
 	}
-	return l.Type
+	return g.Type
 }
 
-func (l *Latest) GetTriggeredBy() string {
-	if l == nil {
+func (g *GetContextualBanditResultsLatest) GetTriggeredBy() string {
+	if g == nil {
 		return ""
 	}
-	return l.TriggeredBy
+	return g.TriggeredBy
 }
 
 // GetContextualBanditResultsResponseBody - Successful response
@@ -946,7 +946,7 @@ type GetContextualBanditResultsResponseBody struct {
 	ContextualBanditSnapshot *ContextualBanditSnapshot          `json:"contextualBanditSnapshot"`
 	OverallWeights           []OverallWeights                   `json:"overallWeights"`
 	Results                  *GetContextualBanditResultsResults `json:"results"`
-	Latest                   *Latest                            `json:"latest"`
+	Latest                   *GetContextualBanditResultsLatest  `json:"latest"`
 }
 
 func (g *GetContextualBanditResultsResponseBody) GetContextualBanditSnapshot() *ContextualBanditSnapshot {
@@ -970,7 +970,7 @@ func (g *GetContextualBanditResultsResponseBody) GetResults() *GetContextualBand
 	return g.Results
 }
 
-func (g *GetContextualBanditResultsResponseBody) GetLatest() *Latest {
+func (g *GetContextualBanditResultsResponseBody) GetLatest() *GetContextualBanditResultsLatest {
 	if g == nil {
 		return nil
 	}

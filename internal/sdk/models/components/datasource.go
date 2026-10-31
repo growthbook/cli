@@ -26,6 +26,70 @@ func (i *IdentifierType) GetDescription() string {
 	return i.Description
 }
 
+// ColumnMapping - The column `sql` returns for each role, where it isn't the canonical name (`experiment_id`, `variation_id`, `timestamp`, `experiment_name`, `variation_name`, or the identifier type's own name). Roles not listed use the canonical name.
+type ColumnMapping struct {
+	ExperimentIDColumn *string `json:"experimentIdColumn,omitzero"`
+	VariationIDColumn  *string `json:"variationIdColumn,omitzero"`
+	TimestampColumn    *string `json:"timestampColumn,omitzero"`
+	// Column for each identifier type, keyed by type
+	UserIDColumns        map[string]string `json:"userIdColumns,omitzero"`
+	ExperimentNameColumn *string           `json:"experimentNameColumn,omitzero"`
+	VariationNameColumn  *string           `json:"variationNameColumn,omitzero"`
+}
+
+func (c ColumnMapping) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ColumnMapping) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *ColumnMapping) GetExperimentIDColumn() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ExperimentIDColumn
+}
+
+func (c *ColumnMapping) GetVariationIDColumn() *string {
+	if c == nil {
+		return nil
+	}
+	return c.VariationIDColumn
+}
+
+func (c *ColumnMapping) GetTimestampColumn() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TimestampColumn
+}
+
+func (c *ColumnMapping) GetUserIDColumns() map[string]string {
+	if c == nil {
+		return nil
+	}
+	return c.UserIDColumns
+}
+
+func (c *ColumnMapping) GetExperimentNameColumn() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ExperimentNameColumn
+}
+
+func (c *ColumnMapping) GetVariationNameColumn() *string {
+	if c == nil {
+		return nil
+	}
+	return c.VariationNameColumn
+}
+
 type DataSourceAssignmentQuery struct {
 	ID              string   `json:"id"`
 	Name            string   `json:"name"`
@@ -37,6 +101,19 @@ type DataSourceAssignmentQuery struct {
 	IncludesNameColumns bool     `json:"includesNameColumns"`
 	DimensionColumns    []string `json:"dimensionColumns"`
 	Projects            []string `json:"projects"`
+	// The column `sql` returns for each role, where it isn't the canonical name (`experiment_id`, `variation_id`, `timestamp`, `experiment_name`, `variation_name`, or the identifier type's own name). Roles not listed use the canonical name.
+	ColumnMapping *ColumnMapping `json:"columnMapping,omitzero"`
+}
+
+func (d DataSourceAssignmentQuery) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DataSourceAssignmentQuery) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (d *DataSourceAssignmentQuery) GetID() string {
@@ -100,6 +177,13 @@ func (d *DataSourceAssignmentQuery) GetProjects() []string {
 		return []string{}
 	}
 	return d.Projects
+}
+
+func (d *DataSourceAssignmentQuery) GetColumnMapping() *ColumnMapping {
+	if d == nil {
+		return nil
+	}
+	return d.ColumnMapping
 }
 
 type IdentifierJoinQuery struct {

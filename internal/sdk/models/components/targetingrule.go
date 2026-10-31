@@ -149,7 +149,9 @@ type TargetingRule struct {
 	Coverage *float64 `json:"coverage,omitzero"`
 	// Attribute to hash on for consistent assignment. Required when coverage < 1.
 	HashAttribute *string `json:"hashAttribute,omitzero"`
-	Seed          *string `json:"seed,omitzero"`
+	// Used in place of `hashAttribute` when a user lacks it. Only SDKs with Sticky Bucketing enabled use it.
+	FallbackAttribute *string `json:"fallbackAttribute,omitzero"`
+	Seed              *string `json:"seed,omitzero"`
 	// Hash algorithm version for bucketing. Defaults to 2 (preferred) when not specified.
 	HashVersion *float64 `json:"hashVersion,omitzero"`
 }
@@ -254,6 +256,13 @@ func (t *TargetingRule) GetHashAttribute() *string {
 		return nil
 	}
 	return t.HashAttribute
+}
+
+func (t *TargetingRule) GetFallbackAttribute() *string {
+	if t == nil {
+		return nil
+	}
+	return t.FallbackAttribute
 }
 
 func (t *TargetingRule) GetSeed() *string {

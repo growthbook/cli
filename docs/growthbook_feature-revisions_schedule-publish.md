@@ -6,7 +6,9 @@ Schedule (or cancel) a deferred publish for a draft revision
 
 Schedules the draft to publish on or after `scheduledPublishAt`. When approval is required, publishing waits until the draft is also approved. Send `scheduledPublishAt: null` to cancel the schedule.
 
-Set `lockEdits` to prevent content changes while the schedule is pending; rebasing remains allowed. Set `lockOthers` to prevent other drafts of this Feature Flag from being published until this schedule runs or is canceled. The caller needs Publish access, and that access is checked again when the schedule runs. A caller with Bypass draft approvals access can schedule an unapproved draft by sending `bypassApproval: true`. That schedule must be canceled and recreated before it can be changed.
+Set `lockEdits` to prevent content changes while the schedule is pending; rebasing remains allowed. Set `lockOthers` to prevent other drafts of this Feature Flag from being published until this schedule runs or is canceled. The caller needs Publish access, and that access is checked again when the schedule runs. A caller with Bypass draft approvals access can schedule an unapproved draft by sending `bypassApproval: true`. That schedule must be canceled and recreated before it can be changed, and a later edit that would reset an approval also drops the bypass.
+
+A draft whose rules would take a draft experiment live can't be scheduled, since a scheduled publish doesn't start the experiment. Schedule the experiment's start instead; starting it publishes the draft.
 
 ```
 growthbook feature-revisions schedule-publish [flags]

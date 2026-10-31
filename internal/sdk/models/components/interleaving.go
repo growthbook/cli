@@ -644,7 +644,7 @@ type Interleaving struct {
 	Status      InterleavingStatus `json:"status"`
 	DateStarted *time.Time         `json:"dateStarted,omitzero"`
 	DateStopped *time.Time         `json:"dateStopped,omitzero"`
-	// The key your code passes to `interleave()` as `ranker`
+	// The key your code passes to `interleave()` as `key`
 	Key string `json:"key"`
 	// The `experiment_id` recorded in exposures
 	TrackingKey         string                         `json:"trackingKey"`

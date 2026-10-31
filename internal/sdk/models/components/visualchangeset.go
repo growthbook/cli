@@ -126,11 +126,19 @@ func (d *DomMutation) GetInsertBeforeSelector() *string {
 }
 
 type VisualChange struct {
+	ID           *string       `json:"id,omitzero"`
 	Description  *string       `json:"description,omitzero"`
 	CSS          *string       `json:"css,omitzero"`
 	Js           *string       `json:"js,omitzero"`
 	Variation    string        `json:"variation"`
 	DomMutations []DomMutation `json:"domMutations"`
+}
+
+func (v *VisualChange) GetID() *string {
+	if v == nil {
+		return nil
+	}
+	return v.ID
 }
 
 func (v *VisualChange) GetDescription() *string {

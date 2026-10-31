@@ -4,7 +4,7 @@ Update a single experiment
 
 ### Synopsis
 
-Update a single experiment
+Setting `status` from draft to running starts the experiment as `POST /experiments/{id}/start` does, judged on the experiment as this update leaves it, with `skipChecklist` in this body. Changing `archived` archives or unarchives it as `POST /experiments/{id}/archive` and `/unarchive` do.
 
 ```
 growthbook experiments update [flags]
@@ -35,10 +35,11 @@ growthbook experiments update [flags]
       --bandit-schedule-value float                  number value
       --body string                                  Request body as JSON (alternative to individual flags). Can also be provided via stdin.
       --bucket-version int                           integer value
+      --bypass-approval                              Deprecated and ignored. Approval is bypassed automatically when the caller has Bypass draft approvals access for this resource or when the organization enables the REST API approval bypass. Otherwise, the revision must be approved before it can be published.
       --bypass-duplicate-key-check                   If true, allow updating the tracking key even if another experiment with the same tracking key already exist. This is ignored if the organization requires unique tracking keys as a rule. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
       --custom-fields string                         value
       --custom-metric-slices string                  Custom slices that apply to ALL applicable metrics in the experiment
-      --datasource-id string                         Can only be set if existing experiment does not have a datasource
+      --datasource-id assignmentQueryId              Changing it needs an assignmentQueryId from the new one, and drops the metrics, segment and unit dimensions that aren't from it.
       --decision-framework-settings string           Controls the decision framework and metric overrides for the experiment. Replaces the entire stored object on update (does not patch individual fields).
       --default-dashboard-id string                  ID of the default dashboard for this experiment.
       --description string                           Markdown. Put context here, not in the name.
@@ -53,7 +54,8 @@ growthbook experiments update [flags]
       --id string                                    The id of the requested resource [required]
       --ignore-warnings                              Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
       --in-progress-conversions string               options: loose, strict
-  -l, --lookback-override string                     Controls the lookback override for the experiment. For type "window", value must be a non-negative number and valueUnit is required.
+      --linked-changes string                        Required while the experiment still serves through linked changes. "materialize" keeps a stopped experiment's released variation as a permanent force rule on each linked Feature Flag; "remove" acknowledges that the linked changes stop serving. (options: materialize, remove)
+      --lookback-override string                     Controls the lookback override for the experiment. For type "window", value must be a non-negative number and valueUnit is required.
       --metric-overrides string                      Per-metric analysis overrides for this experiment. Replaces the entire stored array (does not patch individual entries).
       --metrics stringArray                          list of values
       --min-bucket-version int                       integer value
@@ -72,6 +74,7 @@ growthbook experiments update [flags]
       --sequential-testing-enabled                   Only applicable to frequentist analyses
       --sequential-testing-tuning-parameter float    number value
       --share-level string                           options: public, organization
+      --skip-checklist status                        When status starts a draft: start past its incomplete launch checklist items, as `POST /experiments/{id}/start` does. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
       --stats-engine string                          options: bayesian, frequentist
       --status string                                options: draft, running, stopped
       --status-update-schedule string                JSON object

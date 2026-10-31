@@ -327,8 +327,11 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`list-results`](docs/growthbook_experiments_list-results.md) - Get latest results for many experiments
 * [`get`](docs/growthbook_experiments_get.md) - Get a single experiment
 * [`update`](docs/growthbook_experiments_update.md) - Update a single experiment
+* [`delete`](docs/growthbook_experiments_delete.md) - Delete an experiment
 * [`get-start-checklist`](docs/growthbook_experiments_get-start-checklist.md) - Get an experiment pre-launch checklist status
 * [`results`](docs/growthbook_experiments_results.md) - Get results for an experiment
+* [`post-experiment-archive`](docs/growthbook_experiments_post-experiment-archive.md) - Archive an experiment
+* [`post-experiment-unarchive`](docs/growthbook_experiments_post-experiment-unarchive.md) - Unarchive an experiment
 * [`start`](docs/growthbook_experiments_start.md) - Start/Stage an experiment
 * [`complete-start-checklist`](docs/growthbook_experiments_complete-start-checklist.md) - Mark manual pre-launch checklist items complete
 * [`stop`](docs/growthbook_experiments_stop.md) - Stop an experiment
@@ -357,12 +360,14 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`list-events`](docs/growthbook_contextual-bandits_list-events.md) - List Contextual Bandit weight-update events
 * [`get-event`](docs/growthbook_contextual-bandits_get-event.md) - Get a single Contextual Bandit weight-update event
 * [`get-results`](docs/growthbook_contextual-bandits_get-results.md) - Get latest Contextual Bandit results
+* [`get-contextual-bandit-status`](docs/growthbook_contextual-bandits_get-contextual-bandit-status.md) - Get Contextual Bandit run status
 * [`list-linked-features`](docs/growthbook_contextual-bandits_list-linked-features.md) - Get features linked to a Contextual Bandit
 * [`add-linked-feature`](docs/growthbook_contextual-bandits_add-linked-feature.md) - Link a feature to a Contextual Bandit
 * [`update-linked-feature`](docs/growthbook_contextual-bandits_update-linked-feature.md) - Replace a Contextual Bandit's rule on a linked feature
 * [`delete-linked-feature`](docs/growthbook_contextual-bandits_delete-linked-feature.md) - Unlink a feature from a Contextual Bandit
 * [`get`](docs/growthbook_contextual-bandits_get.md) - Get a single contextualBandit
 * [`update`](docs/growthbook_contextual-bandits_update.md) - Update a single contextualBandit
+* [`delete`](docs/growthbook_contextual-bandits_delete.md) - Delete a single contextualBandit
 * [`create`](docs/growthbook_contextual-bandits_create.md) - Create a single contextualBandit
 * [`list`](docs/growthbook_contextual-bandits_list.md) - Get all contextualBandits
 * [`start`](docs/growthbook_contextual-bandits_start.md) - Start a Contextual Bandit
@@ -458,6 +463,12 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`archive`](docs/growthbook_saved-groups_archive.md) - Archive a single saved group
 * [`unarchive`](docs/growthbook_saved-groups_unarchive.md) - Unarchive a single saved group
 * [`get-references`](docs/growthbook_saved-groups_get-references.md) - Get features, experiments, and saved groups that reference this saved group
+* [`list-saved-group-uploads`](docs/growthbook_saved-groups_list-saved-group-uploads.md) - List the uploads of a remote saved group
+* [`post-saved-group-upload`](docs/growthbook_saved-groups_post-saved-group-upload.md) - Upload a new version of a remote saved group's IDs
+* [`post-saved-group-upload-url`](docs/growthbook_saved-groups_post-saved-group-upload-url.md) - Get a signed URL to upload a remote saved group CSV
+* [`post-saved-group-upload-load`](docs/growthbook_saved-groups_post-saved-group-upload-load.md) - Report loading a remote saved group upload into a data store
+* [`get-saved-group-upload`](docs/growthbook_saved-groups_get-saved-group-upload.md) - Get one upload of a remote saved group
+* [`delete-saved-group-upload`](docs/growthbook_saved-groups_delete-saved-group-upload.md) - Delete an upload of a remote saved group
 
 ### [saved-group-revisions](docs/growthbook_saved-group-revisions.md)
 
@@ -469,6 +480,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`set-metadata`](docs/growthbook_saved-group-revisions_set-metadata.md) - Update saved group metadata in a draft revision
 * [`set-condition`](docs/growthbook_saved-group-revisions_set-condition.md) - Update the condition of a condition saved group draft revision
 * [`set-values`](docs/growthbook_saved-group-revisions_set-values.md) - Replace the values list in a list saved group draft revision
+* [`put-saved-group-revision-upload-version`](docs/growthbook_saved-group-revisions_put-saved-group-revision-upload-version.md) - Set the upload a remote saved group draft revision uses
 * [`archive`](docs/growthbook_saved-group-revisions_archive.md) - Stage an archive/unarchive in a draft revision
 * [`add-items`](docs/growthbook_saved-group-revisions_add-items.md) - Append items to a list saved group draft revision
 * [`remove-items`](docs/growthbook_saved-group-revisions_remove-items.md) - Remove items from a list saved group draft revision
@@ -660,6 +672,8 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`update-lockdown`](docs/growthbook_ramp-schedules_update-lockdown.md) - Update ramp lockdown configuration
 * [`update-steps`](docs/growthbook_ramp-schedules_update-steps.md) - Update ramp schedule steps
 * [`refresh-monitoring`](docs/growthbook_ramp-schedules_refresh-monitoring.md) - Trigger a manual monitoring update
+* [`rollback-matching`](docs/growthbook_ramp-schedules_rollback-matching.md) - Roll back matching ramp schedules
+* [`pause-matching`](docs/growthbook_ramp-schedules_pause-matching.md) - Pause matching ramp schedules
 * [`get`](docs/growthbook_ramp-schedules_get.md) - Get a single rampSchedule
 * [`delete`](docs/growthbook_ramp-schedules_delete.md) - Delete a single rampSchedule
 * [`update`](docs/growthbook_ramp-schedules_update.md) - Update a single rampSchedule

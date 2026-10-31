@@ -4,16 +4,19 @@ package sdkerrors
 
 import (
 	"encoding/json"
+	"errors"
+	"fmt"
 	"github.com/growthbook/cli/v3/internal/sdk/models/components"
 	"github.com/growthbook/cli/v3/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 )
 
 // UpdateExperimentPendingDraftPublishFailedError - One or more linked feature drafts could not be published
 type UpdateExperimentPendingDraftPublishFailedError struct {
-	Message  string                                              `json:"message"`
-	Code     operations.UpdateExperimentCode                     `json:"code"`
-	Details  components.APIErrorPendingDraftPublishFailedDetails `json:"details"`
-	HTTPMeta components.HTTPMetadata                             `json:"-"`
+	Message  string                                                   `json:"message"`
+	Code     operations.UpdateExperimentCodePendingDraftPublishFailed `json:"code"`
+	Details  components.APIErrorPendingDraftPublishFailedDetails      `json:"details"`
+	HTTPMeta components.HTTPMetadata                                  `json:"-"`
 }
 
 var _ error = &UpdateExperimentPendingDraftPublishFailedError{}
@@ -21,4 +24,151 @@ var _ error = &UpdateExperimentPendingDraftPublishFailedError{}
 func (e *UpdateExperimentPendingDraftPublishFailedError) Error() string {
 	data, _ := json.Marshal(e)
 	return string(data)
+}
+
+// UpdateExperimentChecklistIncompleteError - An experiment start is blocked by its launch checklist or a linked Feature Flag
+type UpdateExperimentChecklistIncompleteError struct {
+	Message  string                                             `json:"message"`
+	Code     operations.UpdateExperimentCodeChecklistIncomplete `json:"code"`
+	Details  components.APIErrorChecklistIncompleteDetails      `json:"details"`
+	HTTPMeta components.HTTPMetadata                            `json:"-"`
+}
+
+var _ error = &UpdateExperimentChecklistIncompleteError{}
+
+func (e *UpdateExperimentChecklistIncompleteError) Error() string {
+	data, _ := json.Marshal(e)
+	return string(data)
+}
+
+type UpdateExperimentConflictType string
+
+const (
+	UpdateExperimentConflictTypeChecklistIncomplete       UpdateExperimentConflictType = "checklist_incomplete"
+	UpdateExperimentConflictTypePendingDraftPublishFailed UpdateExperimentConflictType = "pending_draft_publish_failed"
+	UpdateExperimentConflictTypeUnknown                   UpdateExperimentConflictType = "UNKNOWN"
+)
+
+// UpdateExperimentConflict - Conflict
+type UpdateExperimentConflict struct {
+	UpdateExperimentChecklistIncompleteError       *UpdateExperimentChecklistIncompleteError       `queryParam:"inline" union:"member"`
+	UpdateExperimentPendingDraftPublishFailedError *UpdateExperimentPendingDraftPublishFailedError `queryParam:"inline" union:"member"`
+	UnknownRaw                                     json.RawMessage                                 `json:"-" union:"unknown"`
+
+	Type UpdateExperimentConflictType
+
+	HTTPMeta components.HTTPMetadata `json:"-"`
+}
+
+var _ error = &UpdateExperimentConflict{}
+
+func CreateUpdateExperimentConflictChecklistIncomplete(checklistIncomplete UpdateExperimentChecklistIncompleteError) UpdateExperimentConflict {
+	typ := UpdateExperimentConflictTypeChecklistIncomplete
+
+	return UpdateExperimentConflict{
+		UpdateExperimentChecklistIncompleteError: &checklistIncomplete,
+		Type:                                     typ,
+	}
+}
+
+func CreateUpdateExperimentConflictPendingDraftPublishFailed(pendingDraftPublishFailed UpdateExperimentPendingDraftPublishFailedError) UpdateExperimentConflict {
+	typ := UpdateExperimentConflictTypePendingDraftPublishFailed
+
+	return UpdateExperimentConflict{
+		UpdateExperimentPendingDraftPublishFailedError: &pendingDraftPublishFailed,
+		Type: typ,
+	}
+}
+
+func CreateUpdateExperimentConflictUnknown(raw json.RawMessage) UpdateExperimentConflict {
+	return UpdateExperimentConflict{
+		UnknownRaw: raw,
+		Type:       UpdateExperimentConflictTypeUnknown,
+	}
+}
+
+func (u UpdateExperimentConflict) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u UpdateExperimentConflict) IsUnknown() bool {
+	return u.Type == UpdateExperimentConflictTypeUnknown
+}
+
+func (u *UpdateExperimentConflict) UnmarshalJSON(data []byte) error {
+
+	type discriminator struct {
+		Code string `json:"code"`
+	}
+
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = UpdateExperimentConflictTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = UpdateExperimentConflictTypeUnknown
+		return nil
+	}
+
+	switch dis.Code {
+	case "checklist_incomplete":
+		updateExperimentChecklistIncompleteError := new(UpdateExperimentChecklistIncompleteError)
+		if err := utils.UnmarshalJSON(data, &updateExperimentChecklistIncompleteError, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Code == checklist_incomplete) type UpdateExperimentChecklistIncompleteError within UpdateExperimentConflict: %w", string(data), err)
+		}
+
+		u.UpdateExperimentChecklistIncompleteError = updateExperimentChecklistIncompleteError
+		u.Type = UpdateExperimentConflictTypeChecklistIncomplete
+		return nil
+	case "pending_draft_publish_failed":
+		updateExperimentPendingDraftPublishFailedError := new(UpdateExperimentPendingDraftPublishFailedError)
+		if err := utils.UnmarshalJSON(data, &updateExperimentPendingDraftPublishFailedError, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Code == pending_draft_publish_failed) type UpdateExperimentPendingDraftPublishFailedError within UpdateExperimentConflict: %w", string(data), err)
+		}
+
+		u.UpdateExperimentPendingDraftPublishFailedError = updateExperimentPendingDraftPublishFailedError
+		u.Type = UpdateExperimentConflictTypePendingDraftPublishFailed
+		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = UpdateExperimentConflictTypeUnknown
+		return nil
+	}
+
+}
+
+func (u UpdateExperimentConflict) MarshalJSON() ([]byte, error) {
+	if u.UpdateExperimentChecklistIncompleteError != nil {
+		return utils.MarshalJSON(u.UpdateExperimentChecklistIncompleteError, "", true)
+	}
+
+	if u.UpdateExperimentPendingDraftPublishFailedError != nil {
+		return utils.MarshalJSON(u.UpdateExperimentPendingDraftPublishFailedError, "", true)
+	}
+
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
+	return nil, errors.New("could not marshal union type UpdateExperimentConflict: all fields are null")
+}
+
+func (u UpdateExperimentConflict) Error() string {
+	switch u.Type {
+	case UpdateExperimentConflictTypeChecklistIncomplete:
+		data, _ := json.Marshal(u.UpdateExperimentChecklistIncompleteError)
+		return string(data)
+	case UpdateExperimentConflictTypePendingDraftPublishFailed:
+		data, _ := json.Marshal(u.UpdateExperimentPendingDraftPublishFailedError)
+		return string(data)
+	case UpdateExperimentConflictTypeUnknown:
+		if u.UnknownRaw != nil {
+			return string(u.UnknownRaw)
+		}
+		return "unknown error"
+	default:
+		return "unknown error"
+	}
 }

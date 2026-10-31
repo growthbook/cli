@@ -738,7 +738,7 @@ type CreateInterleavingRequest struct {
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
 	Owner *string  `json:"owner,omitzero"`
 	Tags  []string `json:"tags,omitzero"`
-	// The key your code passes to `interleave()` as `ranker`. Can't be changed later. Several experiments may share a key so you can iterate without changing code, but only one of them can be running in a given environment, and each needs its own `trackingKey`.
+	// The key your code passes to `interleave()` as `key`. Can't be changed later. Several experiments may share a key so you can iterate without changing code, but only one of them can be running in a given environment, and each needs its own `trackingKey`.
 	Key string `json:"key"`
 	// The `experiment_id` recorded in exposures. Defaults to `key`.
 	TrackingKey   *string `json:"trackingKey,omitzero"`

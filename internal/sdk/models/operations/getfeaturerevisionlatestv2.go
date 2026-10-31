@@ -12,7 +12,7 @@ type GetFeatureRevisionLatestV2Request struct {
 	// If true, return only the most recent active draft authored by or contributed to by the calling user.
 	Mine *bool `queryParam:"style=form,explode=true,name=mine"`
 	// Filter by revision status. Single value, comma-separated list, repeated params (?status=draft&status=approved), or `all-drafts` shorthand for all active-draft statuses (draft, pending-review, approved, changes-requested).
-	Status *components.Status `queryParam:"style=form,explode=true,name=status"`
+	Status *components.StatusParameter `queryParam:"style=form,explode=true,name=status"`
 	// Filter to drafts created by this user (userId).
 	Author *string `queryParam:"style=form,explode=true,name=author"`
 }
@@ -31,7 +31,7 @@ func (g *GetFeatureRevisionLatestV2Request) GetMine() *bool {
 	return g.Mine
 }
 
-func (g *GetFeatureRevisionLatestV2Request) GetStatus() *components.Status {
+func (g *GetFeatureRevisionLatestV2Request) GetStatus() *components.StatusParameter {
 	if g == nil {
 		return nil
 	}

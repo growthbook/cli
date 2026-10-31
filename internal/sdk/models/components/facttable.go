@@ -70,6 +70,7 @@ const (
 	FactTableManagedByUnknown FactTableManagedBy = ""
 	FactTableManagedByAPI     FactTableManagedBy = "api"
 	FactTableManagedByAdmin   FactTableManagedBy = "admin"
+	FactTableManagedByDbt     FactTableManagedBy = "dbt"
 )
 
 func (e FactTableManagedBy) ToPointer() *FactTableManagedBy {
@@ -80,7 +81,7 @@ func (e FactTableManagedBy) ToPointer() *FactTableManagedBy {
 func (e *FactTableManagedBy) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "", "api", "admin":
+		case "", "api", "admin", "dbt":
 			return true
 		}
 	}

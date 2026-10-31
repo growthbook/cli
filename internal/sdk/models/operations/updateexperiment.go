@@ -60,6 +60,33 @@ func (e *UpdateExperimentType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// UpdateExperimentLinkedChanges - Required while the experiment still serves through linked changes. "materialize" keeps a stopped experiment's released variation as a permanent force rule on each linked Feature Flag; "remove" acknowledges that the linked changes stop serving.
+type UpdateExperimentLinkedChanges string
+
+const (
+	UpdateExperimentLinkedChangesMaterialize UpdateExperimentLinkedChanges = "materialize"
+	UpdateExperimentLinkedChangesRemove      UpdateExperimentLinkedChanges = "remove"
+)
+
+func (e UpdateExperimentLinkedChanges) ToPointer() *UpdateExperimentLinkedChanges {
+	return &e
+}
+func (e *UpdateExperimentLinkedChanges) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "materialize":
+		fallthrough
+	case "remove":
+		*e = UpdateExperimentLinkedChanges(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for UpdateExperimentLinkedChanges: %v", v)
+	}
+}
+
 type UpdateExperimentStatus string
 
 const (
@@ -486,9 +513,21 @@ func (u *UpdateExperimentVariation) GetScreenshots() []UpdateExperimentScreensho
 }
 
 type UpdateExperimentNamespace struct {
-	NamespaceID string    `json:"namespaceId"`
-	Range       []float64 `json:"range"`
-	Enabled     *bool     `json:"enabled,omitzero"`
+	NamespaceID string      `json:"namespaceId"`
+	Enabled     *bool       `json:"enabled,omitzero"`
+	Range       []float64   `json:"range,omitzero"`
+	Ranges      [][]float64 `json:"ranges,omitzero"`
+}
+
+func (u UpdateExperimentNamespace) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdateExperimentNamespace) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (u *UpdateExperimentNamespace) GetNamespaceID() string {
@@ -498,18 +537,25 @@ func (u *UpdateExperimentNamespace) GetNamespaceID() string {
 	return u.NamespaceID
 }
 
-func (u *UpdateExperimentNamespace) GetRange() []float64 {
-	if u == nil {
-		return []float64{}
-	}
-	return u.Range
-}
-
 func (u *UpdateExperimentNamespace) GetEnabled() *bool {
 	if u == nil {
 		return nil
 	}
 	return u.Enabled
+}
+
+func (u *UpdateExperimentNamespace) GetRange() []float64 {
+	if u == nil {
+		return nil
+	}
+	return u.Range
+}
+
+func (u *UpdateExperimentNamespace) GetRanges() [][]float64 {
+	if u == nil {
+		return nil
+	}
+	return u.Ranges
 }
 
 type UpdateExperimentPrerequisite struct {
@@ -1203,7 +1249,7 @@ func (u *UpdateExperimentStatusUpdateSchedule) GetScheduledStopPlan() *component
 }
 
 type UpdateExperimentRequestBody struct {
-	// Can only be set if existing experiment does not have a datasource
+	// Changing it needs an `assignmentQueryId` from the new one, and drops the metrics, segment and unit dimensions that aren't from it.
 	DatasourceID *string `json:"datasourceId,omitzero"`
 	// The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `assignmentQueryId`.
 	AssignmentQuery *UpdateExperimentAssignmentQuery `json:"assignmentQuery,omitzero"`
@@ -1218,6 +1264,8 @@ type UpdateExperimentRequestBody struct {
 	// Short display name (e.g. `Express checkout button`). Put reasoning in `hypothesis` and context in `description`.
 	Name *string               `json:"name,omitzero"`
 	Type *UpdateExperimentType `json:"type,omitzero"`
+	// Deprecated and ignored. Approval is bypassed automatically when the caller has Bypass draft approvals access for this resource or when the organization enables the REST API approval bypass. Otherwise, the revision must be approved before it can be published.
+	BypassApproval *bool `json:"bypassApproval,omitzero"`
 	// Project ID which the experiment belongs to
 	Project *string `json:"project,omitzero"`
 	// Markdown. If we change X, metric Y will move because Z.
@@ -1236,12 +1284,14 @@ type UpdateExperimentRequestBody struct {
 	// WHERE clause to add to the default experiment query
 	QueryFilter *string `json:"queryFilter,omitzero"`
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-	Owner             *string                 `json:"owner,omitzero"`
-	Archived          *bool                   `json:"archived,omitzero"`
-	Status            *UpdateExperimentStatus `json:"status,omitzero"`
-	AutoRefresh       *bool                   `json:"autoRefresh,omitzero"`
-	HashAttribute     *string                 `json:"hashAttribute,omitzero"`
-	FallbackAttribute *string                 `json:"fallbackAttribute,omitzero"`
+	Owner    *string `json:"owner,omitzero"`
+	Archived *bool   `json:"archived,omitzero"`
+	// Required while the experiment still serves through linked changes. "materialize" keeps a stopped experiment's released variation as a permanent force rule on each linked Feature Flag; "remove" acknowledges that the linked changes stop serving.
+	LinkedChanges     *UpdateExperimentLinkedChanges `json:"linkedChanges,omitzero"`
+	Status            *UpdateExperimentStatus        `json:"status,omitzero"`
+	AutoRefresh       *bool                          `json:"autoRefresh,omitzero"`
+	HashAttribute     *string                        `json:"hashAttribute,omitzero"`
+	FallbackAttribute *string                        `json:"fallbackAttribute,omitzero"`
 	// Picker preference: show attributes from all projects in this experiment's targeting UI instead of only those in scope for its project and linked features. Does not loosen enforcement — when the organization requires registered attributes with project scoping, out-of-scope attributes are still rejected.
 	AttributeScopeAllProjects *bool    `json:"attributeScopeAllProjects,omitzero"`
 	HashVersion               *float64 `json:"hashVersion,omitzero"`
@@ -1293,6 +1343,8 @@ type UpdateExperimentRequestBody struct {
 	PrecomputedUnitDimensionIds []string                                                                `json:"precomputedUnitDimensionIds,omitzero"`
 	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
+	// When `status` starts a draft: start past its incomplete launch checklist items, as `POST /experiments/{id}/start` does. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
+	SkipChecklist *bool `json:"skipChecklist,omitzero"`
 }
 
 func (u UpdateExperimentRequestBody) MarshalJSON() ([]byte, error) {
@@ -1353,6 +1405,13 @@ func (u *UpdateExperimentRequestBody) GetType() *UpdateExperimentType {
 		return nil
 	}
 	return u.Type
+}
+
+func (u *UpdateExperimentRequestBody) GetBypassApproval() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.BypassApproval
 }
 
 func (u *UpdateExperimentRequestBody) GetProject() *string {
@@ -1437,6 +1496,13 @@ func (u *UpdateExperimentRequestBody) GetArchived() *bool {
 		return nil
 	}
 	return u.Archived
+}
+
+func (u *UpdateExperimentRequestBody) GetLinkedChanges() *UpdateExperimentLinkedChanges {
+	if u == nil {
+		return nil
+	}
+	return u.LinkedChanges
 }
 
 func (u *UpdateExperimentRequestBody) GetStatus() *UpdateExperimentStatus {
@@ -1712,6 +1778,13 @@ func (u *UpdateExperimentRequestBody) GetIgnoreWarnings() *bool {
 	return u.IgnoreWarnings
 }
 
+func (u *UpdateExperimentRequestBody) GetSkipChecklist() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.SkipChecklist
+}
+
 type UpdateExperimentRequest struct {
 	// The id of the requested resource
 	ID   string                      `pathParam:"style=simple,explode=false,name=id"`
@@ -1732,32 +1805,145 @@ func (u *UpdateExperimentRequest) GetBody() UpdateExperimentRequestBody {
 	return u.Body
 }
 
-type UpdateExperimentCode string
+type UpdateExperimentCodePendingDraftPublishFailed string
 
 const (
-	UpdateExperimentCodePendingDraftPublishFailed UpdateExperimentCode = "pending_draft_publish_failed"
+	UpdateExperimentCodePendingDraftPublishFailedPendingDraftPublishFailed UpdateExperimentCodePendingDraftPublishFailed = "pending_draft_publish_failed"
 )
 
-func (e UpdateExperimentCode) ToPointer() *UpdateExperimentCode {
+func (e UpdateExperimentCodePendingDraftPublishFailed) ToPointer() *UpdateExperimentCodePendingDraftPublishFailed {
 	return &e
 }
-func (e *UpdateExperimentCode) UnmarshalJSON(data []byte) error {
+func (e *UpdateExperimentCodePendingDraftPublishFailed) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "pending_draft_publish_failed":
-		*e = UpdateExperimentCode(v)
+		*e = UpdateExperimentCodePendingDraftPublishFailed(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for UpdateExperimentCode: %v", v)
+		return fmt.Errorf("invalid value for UpdateExperimentCodePendingDraftPublishFailed: %v", v)
 	}
+}
+
+type UpdateExperimentCodeChecklistIncomplete string
+
+const (
+	UpdateExperimentCodeChecklistIncompleteChecklistIncomplete UpdateExperimentCodeChecklistIncomplete = "checklist_incomplete"
+)
+
+func (e UpdateExperimentCodeChecklistIncomplete) ToPointer() *UpdateExperimentCodeChecklistIncomplete {
+	return &e
+}
+func (e *UpdateExperimentCodeChecklistIncomplete) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "checklist_incomplete":
+		*e = UpdateExperimentCodeChecklistIncomplete(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for UpdateExperimentCodeChecklistIncomplete: %v", v)
+	}
+}
+
+// UpdateExperimentVia - How it was passed: `skipChecklist`, the caller's permission (`bypassApprovalPermission`), or the organization's REST API approval bypass (`restApiBypassesReviews`).
+type UpdateExperimentVia string
+
+const (
+	UpdateExperimentViaIgnoreWarnings           UpdateExperimentVia = "ignoreWarnings"
+	UpdateExperimentViaSkipSchemaValidation     UpdateExperimentVia = "skipSchemaValidation"
+	UpdateExperimentViaSkipHooks                UpdateExperimentVia = "skipHooks"
+	UpdateExperimentViaBypassApprovalPermission UpdateExperimentVia = "bypassApprovalPermission"
+	UpdateExperimentViaRestAPIBypassesReviews   UpdateExperimentVia = "restApiBypassesReviews"
+	UpdateExperimentViaRevertsBypassApproval    UpdateExperimentVia = "revertsBypassApproval"
+	UpdateExperimentViaSkipChecklist            UpdateExperimentVia = "skipChecklist"
+)
+
+func (e UpdateExperimentVia) ToPointer() *UpdateExperimentVia {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *UpdateExperimentVia) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "ignoreWarnings", "skipSchemaValidation", "skipHooks", "bypassApprovalPermission", "restApiBypassesReviews", "revertsBypassApproval", "skipChecklist":
+			return true
+		}
+	}
+	return false
+}
+
+type UpdateExperimentBypassedGate struct {
+	// The checklist item, or `rampLocked:<featureId>` for a linked Feature Flag a ramp locks.
+	Key string `json:"key"`
+	// Gate kind: "checklist-item", "approval-required", "merge-conflict", "unrelated-draft-changes", "permission-denied" or "ramp-locked".
+	Type string `json:"type"`
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	outcome string `const:"bypassed" json:"outcome"`
+	// How it was passed: `skipChecklist`, the caller's permission (`bypassApprovalPermission`), or the organization's REST API approval bypass (`restApiBypassesReviews`).
+	Via UpdateExperimentVia `json:"via"`
+}
+
+func (u UpdateExperimentBypassedGate) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdateExperimentBypassedGate) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *UpdateExperimentBypassedGate) GetKey() string {
+	if u == nil {
+		return ""
+	}
+	return u.Key
+}
+
+func (u *UpdateExperimentBypassedGate) GetType() string {
+	if u == nil {
+		return ""
+	}
+	return u.Type
+}
+
+func (u *UpdateExperimentBypassedGate) GetOutcome() string {
+	return "bypassed"
+}
+
+func (u *UpdateExperimentBypassedGate) GetVia() UpdateExperimentVia {
+	if u == nil {
+		return UpdateExperimentVia("")
+	}
+	return u.Via
 }
 
 // UpdateExperimentResponseBody - Resource created
 type UpdateExperimentResponseBody struct {
 	Experiment components.Experiment `json:"experiment"`
+	// Gates this start skipped or bypassed. Present only when there were some.
+	BypassedGates []UpdateExperimentBypassedGate `json:"bypassedGates,omitzero"`
+	// The linked Feature Flag drafts the start published. Present only when it published some.
+	PublishedFeatureDrafts []components.PublishedFeatureDrafts `json:"publishedFeatureDrafts,omitzero"`
+}
+
+func (u UpdateExperimentResponseBody) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdateExperimentResponseBody) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (u *UpdateExperimentResponseBody) GetExperiment() components.Experiment {
@@ -1765,6 +1951,20 @@ func (u *UpdateExperimentResponseBody) GetExperiment() components.Experiment {
 		return components.Experiment{}
 	}
 	return u.Experiment
+}
+
+func (u *UpdateExperimentResponseBody) GetBypassedGates() []UpdateExperimentBypassedGate {
+	if u == nil {
+		return nil
+	}
+	return u.BypassedGates
+}
+
+func (u *UpdateExperimentResponseBody) GetPublishedFeatureDrafts() []components.PublishedFeatureDrafts {
+	if u == nil {
+		return nil
+	}
+	return u.PublishedFeatureDrafts
 }
 
 type UpdateExperimentResponse struct {
