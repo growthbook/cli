@@ -41,17 +41,17 @@ func (e *PostExperimentStartPendingDraftPublishFailedError) Error() string {
 	return string(data)
 }
 
-// ChecklistIncompleteError - Required checklist items are incomplete
-type ChecklistIncompleteError struct {
-	Message  string                                        `json:"message"`
-	Code     operations.CodeChecklistIncomplete            `json:"code"`
-	Details  components.APIErrorChecklistIncompleteDetails `json:"details"`
-	HTTPMeta components.HTTPMetadata                       `json:"-"`
+// PostExperimentStartChecklistIncompleteError - An experiment start is blocked by its launch checklist or a linked Feature Flag
+type PostExperimentStartChecklistIncompleteError struct {
+	Message  string                                                `json:"message"`
+	Code     operations.PostExperimentStartCodeChecklistIncomplete `json:"code"`
+	Details  components.APIErrorChecklistIncompleteDetails         `json:"details"`
+	HTTPMeta components.HTTPMetadata                               `json:"-"`
 }
 
-var _ error = &ChecklistIncompleteError{}
+var _ error = &PostExperimentStartChecklistIncompleteError{}
 
-func (e *ChecklistIncompleteError) Error() string {
+func (e *PostExperimentStartChecklistIncompleteError) Error() string {
 	data, _ := json.Marshal(e)
 	return string(data)
 }
@@ -67,7 +67,7 @@ const (
 
 // PostExperimentStartConflict - Conflict
 type PostExperimentStartConflict struct {
-	ChecklistIncompleteError                          *ChecklistIncompleteError                          `queryParam:"inline" union:"member"`
+	PostExperimentStartChecklistIncompleteError       *PostExperimentStartChecklistIncompleteError       `queryParam:"inline" union:"member"`
 	PostExperimentStartPendingDraftPublishFailedError *PostExperimentStartPendingDraftPublishFailedError `queryParam:"inline" union:"member"`
 	PostExperimentStartInvalidStatusError             *PostExperimentStartInvalidStatusError             `queryParam:"inline" union:"member"`
 	UnknownRaw                                        json.RawMessage                                    `json:"-" union:"unknown"`
@@ -79,12 +79,12 @@ type PostExperimentStartConflict struct {
 
 var _ error = &PostExperimentStartConflict{}
 
-func CreatePostExperimentStartConflictChecklistIncomplete(checklistIncomplete ChecklistIncompleteError) PostExperimentStartConflict {
+func CreatePostExperimentStartConflictChecklistIncomplete(checklistIncomplete PostExperimentStartChecklistIncompleteError) PostExperimentStartConflict {
 	typ := PostExperimentStartConflictTypeChecklistIncomplete
 
 	return PostExperimentStartConflict{
-		ChecklistIncompleteError: &checklistIncomplete,
-		Type:                     typ,
+		PostExperimentStartChecklistIncompleteError: &checklistIncomplete,
+		Type: typ,
 	}
 }
 
@@ -141,12 +141,12 @@ func (u *PostExperimentStartConflict) UnmarshalJSON(data []byte) error {
 
 	switch dis.Code {
 	case "checklist_incomplete":
-		checklistIncompleteError := new(ChecklistIncompleteError)
-		if err := utils.UnmarshalJSON(data, &checklistIncompleteError, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Code == checklist_incomplete) type ChecklistIncompleteError within PostExperimentStartConflict: %w", string(data), err)
+		postExperimentStartChecklistIncompleteError := new(PostExperimentStartChecklistIncompleteError)
+		if err := utils.UnmarshalJSON(data, &postExperimentStartChecklistIncompleteError, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Code == checklist_incomplete) type PostExperimentStartChecklistIncompleteError within PostExperimentStartConflict: %w", string(data), err)
 		}
 
-		u.ChecklistIncompleteError = checklistIncompleteError
+		u.PostExperimentStartChecklistIncompleteError = postExperimentStartChecklistIncompleteError
 		u.Type = PostExperimentStartConflictTypeChecklistIncomplete
 		return nil
 	case "pending_draft_publish_failed":
@@ -176,8 +176,8 @@ func (u *PostExperimentStartConflict) UnmarshalJSON(data []byte) error {
 }
 
 func (u PostExperimentStartConflict) MarshalJSON() ([]byte, error) {
-	if u.ChecklistIncompleteError != nil {
-		return utils.MarshalJSON(u.ChecklistIncompleteError, "", true)
+	if u.PostExperimentStartChecklistIncompleteError != nil {
+		return utils.MarshalJSON(u.PostExperimentStartChecklistIncompleteError, "", true)
 	}
 
 	if u.PostExperimentStartPendingDraftPublishFailedError != nil {
@@ -197,7 +197,7 @@ func (u PostExperimentStartConflict) MarshalJSON() ([]byte, error) {
 func (u PostExperimentStartConflict) Error() string {
 	switch u.Type {
 	case PostExperimentStartConflictTypeChecklistIncomplete:
-		data, _ := json.Marshal(u.ChecklistIncompleteError)
+		data, _ := json.Marshal(u.PostExperimentStartChecklistIncompleteError)
 		return string(data)
 	case PostExperimentStartConflictTypePendingDraftPublishFailed:
 		data, _ := json.Marshal(u.PostExperimentStartPendingDraftPublishFailedError)

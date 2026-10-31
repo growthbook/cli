@@ -326,13 +326,19 @@ type Behavior struct {
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	ConversionWindowStart *float64 `json:"conversionWindowStart,omitzero"`
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-	ConversionWindowEnd  *float64 `json:"conversionWindowEnd,omitzero"`
-	RiskThresholdSuccess float64  `json:"riskThresholdSuccess"`
-	RiskThresholdDanger  float64  `json:"riskThresholdDanger"`
-	MinPercentChange     float64  `json:"minPercentChange"`
-	MaxPercentChange     float64  `json:"maxPercentChange"`
-	MinSampleSize        float64  `json:"minSampleSize"`
-	TargetMDE            float64  `json:"targetMDE"`
+	ConversionWindowEnd *float64 `json:"conversionWindowEnd,omitzero"`
+	// No longer used. Always the default value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	RiskThresholdSuccess float64 `json:"riskThresholdSuccess"`
+	// No longer used. Always the default value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	RiskThresholdDanger float64 `json:"riskThresholdDanger"`
+	MinPercentChange    float64 `json:"minPercentChange"`
+	MaxPercentChange    float64 `json:"maxPercentChange"`
+	MinSampleSize       float64 `json:"minSampleSize"`
+	TargetMDE           float64 `json:"targetMDE"`
 }
 
 func (b Behavior) MarshalJSON() ([]byte, error) {

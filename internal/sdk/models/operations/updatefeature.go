@@ -1205,7 +1205,9 @@ type UpdateFeatureRuleRollout struct {
 	// Percent of traffic included in this experiment. Users not included in the experiment will skip this rule.
 	Coverage      float64 `json:"coverage"`
 	HashAttribute string  `json:"hashAttribute"`
-	Seed          *string `json:"seed,omitzero"`
+	// Used in place of `hashAttribute` when a user lacks it. Only SDKs with Sticky Bucketing enabled use it.
+	FallbackAttribute *string `json:"fallbackAttribute,omitzero"`
+	Seed              *string `json:"seed,omitzero"`
 	// Hash algorithm version for bucketing. Defaults to 2 (preferred) when not specified.
 	HashVersion *float64 `json:"hashVersion,omitzero"`
 }
@@ -1335,6 +1337,13 @@ func (u *UpdateFeatureRuleRollout) GetHashAttribute() string {
 		return ""
 	}
 	return u.HashAttribute
+}
+
+func (u *UpdateFeatureRuleRollout) GetFallbackAttribute() *string {
+	if u == nil {
+		return nil
+	}
+	return u.FallbackAttribute
 }
 
 func (u *UpdateFeatureRuleRollout) GetSeed() *string {
@@ -2973,7 +2982,9 @@ type UpdateFeatureRuleDraftRollout struct {
 	// Percent of traffic included in this experiment. Users not included in the experiment will skip this rule.
 	Coverage      float64 `json:"coverage"`
 	HashAttribute string  `json:"hashAttribute"`
-	Seed          *string `json:"seed,omitzero"`
+	// Used in place of `hashAttribute` when a user lacks it. Only SDKs with Sticky Bucketing enabled use it.
+	FallbackAttribute *string `json:"fallbackAttribute,omitzero"`
+	Seed              *string `json:"seed,omitzero"`
 	// Hash algorithm version for bucketing. Defaults to 2 (preferred) when not specified.
 	HashVersion *float64 `json:"hashVersion,omitzero"`
 }
@@ -3103,6 +3114,13 @@ func (u *UpdateFeatureRuleDraftRollout) GetHashAttribute() string {
 		return ""
 	}
 	return u.HashAttribute
+}
+
+func (u *UpdateFeatureRuleDraftRollout) GetFallbackAttribute() *string {
+	if u == nil {
+		return nil
+	}
+	return u.FallbackAttribute
 }
 
 func (u *UpdateFeatureRuleDraftRollout) GetSeed() *string {

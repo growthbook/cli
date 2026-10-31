@@ -1080,6 +1080,8 @@ type UpdateFeatureV2RuleRollout struct {
 	Sparse        *bool   `json:"sparse,omitzero"`
 	Coverage      float64 `json:"coverage"`
 	HashAttribute string  `json:"hashAttribute"`
+	// Used in place of `hashAttribute` when a user lacks it. Only SDKs with Sticky Bucketing enabled use it.
+	FallbackAttribute *string `json:"fallbackAttribute,omitzero"`
 	// Optional seed for the hash function; defaults to the rule id
 	Seed        *string  `json:"seed,omitzero"`
 	HashVersion *float64 `json:"hashVersion,omitzero"`
@@ -1218,6 +1220,13 @@ func (u *UpdateFeatureV2RuleRollout) GetHashAttribute() string {
 		return ""
 	}
 	return u.HashAttribute
+}
+
+func (u *UpdateFeatureV2RuleRollout) GetFallbackAttribute() *string {
+	if u == nil {
+		return nil
+	}
+	return u.FallbackAttribute
 }
 
 func (u *UpdateFeatureV2RuleRollout) GetSeed() *string {

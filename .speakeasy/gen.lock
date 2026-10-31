@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 4c8e0331-b838-4af2-bf59-101dac30ada4
 management:
-  docChecksum: 401fa9ce26e48fe6699154a65bd3da03
+  docChecksum: 0f6d84baaa247a3e7c23873c46b3d7b2
   docVersion: 5.1.0
   speakeasyVersion: 1.794.0
   generationVersion: 2.930.0
-  releaseVersion: 3.3.0
-  configChecksum: f3b47f5c283bd604745a5bfea8c99f23
+  releaseVersion: 3.3.1
+  configChecksum: 12960dca58c03c4cb2a9ffb383690b62
   repoURL: https://github.com/growthbook/cli.git
   installationURL: https://github.com/growthbook/cli
 persistentEdits:
-  generation_id: 8e66194b-d1f8-4bce-b11c-d20c7f83bb11
-  pristine_commit_hash: 4704045d813024e4cbaec8b57168cc3c5af15a41
-  pristine_tree_hash: 8e0a6caa9c06371328548c51c2a481a023581576
+  generation_id: cd542f6b-739c-4f1c-930c-ae54efc5b78d
+  pristine_commit_hash: d2d3743c8f5c7c2e5d8f07d01610ab911109ec9f
+  pristine_tree_hash: 6a9e63f07ff0128f0a22c5dc8ece197ee0243aac
 features:
   cli:
     additionalProperties: 0.0.1
@@ -55,8 +55,8 @@ trackedFiles:
     pristine_git_object: a8b8c546c41bba061e5ec3056e689bdada35905e
   go.mod:
     id: c47645c391ad
-    last_write_checksum: sha1:71495d27bf016346a6c5d538062aeeba1433c413
-    pristine_git_object: d00b46767f63150f618ce29bf75c45f109c66dec
+    last_write_checksum: sha1:ce1fcc9d937a8b456348c4f718f42dfed4220113
+    pristine_git_object: 9df2ef2c830311940a246345177889bee66d9677
   internal/cli//copytransform.go:
     id: b9278f4c2248
     last_write_checksum: sha1:672b13bc5aa072c90d8780eb4fcaf4583467bf8c
@@ -517,6 +517,10 @@ trackedFiles:
     id: a7517b0260e0
     last_write_checksum: sha1:161a5356f736ce6f1891811994bb3538794bede7
     pristine_git_object: 02c082a250ccfda40ab1798f637bdb7537c173a3
+  internal/cli/contextualbandits/deletecontextualbandit.go:
+    id: 0cb61350e047
+    last_write_checksum: sha1:a681e15452d206d21eeb44f4a7392b46a709ca7d
+    pristine_git_object: f8b022df49758433d31cfa7fe1a2f9c0aacf6431
   internal/cli/contextualbandits/deletelinkedfeature.go:
     id: 6b33426b413c
     last_write_checksum: sha1:6b3ef18573f93b6089ed497f3d2a5214aba5a109
@@ -525,6 +529,10 @@ trackedFiles:
     id: 3a3e7c4b9150
     last_write_checksum: sha1:a0d9d482ebf19d4b4829e618d03b8994e9416270
     pristine_git_object: e0ab33458b52a0b3e03d2a4371acfb607692413b
+  internal/cli/contextualbandits/getcontextualbanditstatus.go:
+    id: 65da708ddc9c
+    last_write_checksum: sha1:38950b4460888343fc72dee614ad97a326c31c07
+    pristine_git_object: 9dec0d41c78072f9d9a079e08e56bb084af2df8b
   internal/cli/contextualbandits/getcurrentweights.go:
     id: df4b46e18e74
     last_write_checksum: sha1:0ba79ade6df289afee91b277a6f9019e44006746
@@ -567,8 +575,8 @@ trackedFiles:
     pristine_git_object: 88299ee1471a57eaa67d306f39b8936e86ff3497
   internal/cli/contextualbandits/root.go:
     id: 64a43dcb367b
-    last_write_checksum: sha1:aa458f9819dd69769d594832b173b1d064d1bf2b
-    pristine_git_object: 779815e38c864d267b9f82f6f93a555d78563b43
+    last_write_checksum: sha1:b089c260e7b335336f9554a626577485f1005132
+    pristine_git_object: 1a1ca936ce39e5fa0d5d1b07d929837fdc810b57
   internal/cli/contextualbandits/startcontextualbandit.go:
     id: 62f6fb566a9e
     last_write_checksum: sha1:df732578b47d02da93a003df58e26583ffd30c0b
@@ -773,6 +781,10 @@ trackedFiles:
     id: 78453ca1a3cd
     last_write_checksum: sha1:a2aaa2aea3ba7e57016620d5ba443817e2b258b0
     pristine_git_object: f1246f276aedc2b829e90007f5cb49b210790d67
+  internal/cli/experiments/deleteexperiment.go:
+    id: c1716bd1a4df
+    last_write_checksum: sha1:4da60e52e644eb36c602bd7efb05bc9d6fd5241d
+    pristine_git_object: 9df091289dc9479417cb3995659400ce62f226fb
   internal/cli/experiments/deletevariationscreenshot.go:
     id: ca0bd0b168b0
     last_write_checksum: sha1:e427ddc1733ff0fcd7195276c7f66dfe90a75e9b
@@ -805,30 +817,38 @@ trackedFiles:
     id: c5591a24a061
     last_write_checksum: sha1:001793d699c41e2ea173736e26e3643f66f12db1
     pristine_git_object: 237472a44610ef7e92b6e8449910d3e62f48a7e8
+  internal/cli/experiments/postexperimentarchive.go:
+    id: 2c01fbe04fce
+    last_write_checksum: sha1:d70f675626a75c43618553fe6d47fc88f934ae33
+    pristine_git_object: 81717b6cd7ada99d7928c15a6022941fb250cc62
+  internal/cli/experiments/postexperimentunarchive.go:
+    id: b8a3fdaac07b
+    last_write_checksum: sha1:c6e159e03204649889d6420b6523203656da65bc
+    pristine_git_object: ff437643915798942b176bc7008697478e83db3b
   internal/cli/experiments/results.go:
     id: 6d661695fba7
     last_write_checksum: sha1:785f20b5600b81b055bcde34f1280d21d76b3bb4
     pristine_git_object: e02d4fb73bf2bd70ae024c988663f796c839f8ca
   internal/cli/experiments/root.go:
     id: d0e0eb77fb95
-    last_write_checksum: sha1:ede17e1be70953c3ab463f40c9c154d6069ee051
-    pristine_git_object: 83e318297322b6bea784aa5f77d595ae25a6e319
+    last_write_checksum: sha1:c30e2433fab97de46be19357bb7b8bb02102fac0
+    pristine_git_object: bd97d8e332540a1e0d342e3d999823e5fcea5464
   internal/cli/experiments/setschedule.go:
     id: cfed25366e1e
     last_write_checksum: sha1:9d2ed413797fd0cab1f13b9932a578fb4714f2a6
     pristine_git_object: a65886a1983704a728556e392c319f3b81e04052
   internal/cli/experiments/start.go:
     id: a7837c97739a
-    last_write_checksum: sha1:08276b3f45ad9bdcaa55eb1c44d79325b0c558b8
-    pristine_git_object: f2ad9cd721b1b1fb952c73c939daf8500116768c
+    last_write_checksum: sha1:a60d47f735c1bd392e7a9e2aede2f742203a2fdd
+    pristine_git_object: 18d84e3d90908e3dfbba16c84b55d2ca04ae684a
   internal/cli/experiments/stop.go:
     id: 7701b8c754d7
     last_write_checksum: sha1:2d233affbe746baf8656cf0aa2b7d6679638a96b
     pristine_git_object: b1cd4b38c7af50a6ccb2104d54c09b4b946a0db4
   internal/cli/experiments/updateexperiment.go:
     id: b5d8fe8a28b5
-    last_write_checksum: sha1:c753f78fe5ab62cafbd641e3cc33d61a96ef38dc
-    pristine_git_object: cd851b03f1fc04dfbdf493223ec979393701a013
+    last_write_checksum: sha1:ae37ee386073ab7fd1319d218df6849269b2b69e
+    pristine_git_object: 67d2d25faee8f7bbb02c3fd4cc813d90ecc0f41e
   internal/cli/experiments/uploadvariationscreenshot.go:
     id: 27f8d729adfb
     last_write_checksum: sha1:ffbc772b856c506e6586c356374fd940e5a2f8a4
@@ -863,8 +883,8 @@ trackedFiles:
     pristine_git_object: 3737b0597fad4b4f88c71455f07e4ca4d757534b
   internal/cli/factmetrics/create.go:
     id: 2be35afee8be
-    last_write_checksum: sha1:55301775c75a4f50e7fabc83b55c98d2d83256fb
-    pristine_git_object: 838b62e216a795b218d59e9d019f01e1966e4ebc
+    last_write_checksum: sha1:4cd45060792d9cfc0506a30ee33c5c042c12098e
+    pristine_git_object: 1b60649067b128f258cd26d65c82eba32dcdf4e8
   internal/cli/factmetrics/createanalysis.go:
     id: 843449db3307
     last_write_checksum: sha1:806a8000b93cc77e3825c98f17088ce6ab44329d
@@ -887,16 +907,16 @@ trackedFiles:
     pristine_git_object: 1e576c29ac1a0d793f7d4146941ddef2b49e6938
   internal/cli/factmetrics/updatefactmetric.go:
     id: bccd2fde5452
-    last_write_checksum: sha1:a548bb923c258d2459b743759f996adf59f550f5
-    pristine_git_object: c803b2cd2f94c25087cb030c07b93fe0542302d5
+    last_write_checksum: sha1:3abab6d5779973f0ee9dd12061b7ea82d87e9b7a
+    pristine_git_object: 3123dadaf7caa66a6ff4ce6c7c557aff4ccbb6a4
   internal/cli/facttables/bulkimport.go:
     id: c8f7d1068918
-    last_write_checksum: sha1:7958585522484769d56abca1f93ab9e8742aa74a
-    pristine_git_object: a19243a071dd397465635b35b4e4247ff6e45609
+    last_write_checksum: sha1:ea9b1ad9115b3672e4ed8dd5f69335f7cb0c7634
+    pristine_git_object: a1d43f901574b8a1919883f88468675dbbd7598b
   internal/cli/facttables/create.go:
     id: 9af36736741c
-    last_write_checksum: sha1:7633636b6142a83d92c0e2becc1d2aff2633a796
-    pristine_git_object: fb9640a2c27ce5ced9dcb7c3c8d33689cc134d24
+    last_write_checksum: sha1:734cfe8dd7f593b715f3aa699ce9ffe0e1d7dc06
+    pristine_git_object: 32094fafb670c10b90ee99ae01719080c520ad4d
   internal/cli/facttables/createfilter.go:
     id: c2df29d20a05
     last_write_checksum: sha1:2bebcd5084e9ccfbd89d235923c96edd9dfbac97
@@ -955,8 +975,8 @@ trackedFiles:
     pristine_git_object: dbbd8d942c15d59a96e709e4e9674e5632a79414
   internal/cli/facttables/updatefacttable.go:
     id: bc03c672e845
-    last_write_checksum: sha1:041d04cccde84f6e2408bbfcfd29ed95e581d892
-    pristine_git_object: fb49d63ba8689ef33960d77346f39d6248dc2224
+    last_write_checksum: sha1:fe7d8a0ab41e918b8ede19de5f9df5f79821cc2e
+    pristine_git_object: 42b659d37e74791024c45d3d8944813878f548a0
   internal/cli/facttables/updatefilter.go:
     id: 3507026bb51b
     last_write_checksum: sha1:b02662e14607d9e21b6b88a51b1193ef0b633896
@@ -1051,8 +1071,8 @@ trackedFiles:
     pristine_git_object: 0c8504f5d6a4f537a71348ddbc62b12fe4c38960
   internal/cli/featurerevisions/requestreview.go:
     id: c234e569c3c3
-    last_write_checksum: sha1:e980509e24f17a1a92eccfcb2584359fb055a41d
-    pristine_git_object: 6d9deb43f4fbd8914465345af5709438888d8f66
+    last_write_checksum: sha1:56cf3384eb43e2d54f77de0196e9644093bf1582
+    pristine_git_object: c515d32ed702ef0038856a41341a77eaee2f1db5
   internal/cli/featurerevisions/revert.go:
     id: 0790d8c42cef
     last_write_checksum: sha1:e5e3e8c7d70f52d5f8d3eba285b2603350b68634
@@ -1063,8 +1083,8 @@ trackedFiles:
     pristine_git_object: 2f15b618a3d07b86bfa7eee94d2389b20a745993
   internal/cli/featurerevisions/schedulepublish.go:
     id: 5e924d9b060b
-    last_write_checksum: sha1:57b68671f6f37a8f403f8b711d8094a2b5c422b2
-    pristine_git_object: 29d07289eb6f3728445d84185ea328af48f596c7
+    last_write_checksum: sha1:da446bc37443e18cdca3878b8a2d1b5fdff88d6c
+    pristine_git_object: a5c2ac5c494e643a50e3bc917e2b70d47826b506
   internal/cli/featurerevisions/setdefaultvalue.go:
     id: e55954410129
     last_write_checksum: sha1:bc175f2e699065fbf8105dea3183af5232eff058
@@ -1315,8 +1335,8 @@ trackedFiles:
     pristine_git_object: a041208e8d5032408d969ded1c38a4eeef8e5b45
   internal/cli/interleavings/createinterleaving.go:
     id: b86aed7f30d4
-    last_write_checksum: sha1:db2b25d2afed8eb7156165be4aa2d57f04da94ea
-    pristine_git_object: 156c724e03f6aac224166b2a907fb2b7fcfaf12f
+    last_write_checksum: sha1:b9989b83c5e59d9e194e48ed95024ac9c5d9e2ad
+    pristine_git_object: e154f6a0feda4d1cdc2e0f339336b19aa396112b
   internal/cli/interleavings/getinterleaving.go:
     id: 1f1c75e3675c
     last_write_checksum: sha1:fdddfdd331212eaadf908b70597e1fa3c61e5ab4
@@ -1527,8 +1547,8 @@ trackedFiles:
     pristine_git_object: b22b0932e5dc36d23bd2f73fb6c5401ad2dd8d3b
   internal/cli/projects/create.go:
     id: f6ad4fffabe8
-    last_write_checksum: sha1:524fd930e6f2a3666610f41b2490018007273e4a
-    pristine_git_object: 1c4d623da301259abd75300b5695d1daebf01b53
+    last_write_checksum: sha1:e40a603e0f51fe8fe56ab96a28620e4549c696ab
+    pristine_git_object: 89bfd2514782031c945bef0149516534a653c8a9
   internal/cli/projects/deleteproject.go:
     id: d76033675d35
     last_write_checksum: sha1:ef0188c4b5f7124bbb3f44733dbd0af80cafe2ed
@@ -1547,8 +1567,8 @@ trackedFiles:
     pristine_git_object: 50c5d39603a7f4f97647a86ad402207412649ca7
   internal/cli/projects/update.go:
     id: 79b2d809d1e9
-    last_write_checksum: sha1:02b31bcc00b7c2cf3966c75460ee02978b562d78
-    pristine_git_object: 53dcd533baf87aa1bd102ca0496dfe21be3dee54
+    last_write_checksum: sha1:daf362b7421d10b200a5acff564ab4fd29d6931d
+    pristine_git_object: 83089155c4c8c4080f4da6b57d2cbc2a65f036a6
   internal/cli/queries/getquery.go:
     id: 1520ed3ed28f
     last_write_checksum: sha1:09f1ffea74dd824ab7a93547e671163ea8eff084
@@ -1601,6 +1621,10 @@ trackedFiles:
     id: d92e6e64f96a
     last_write_checksum: sha1:e69dcd7f312a5a0d56dd0e3606aa281c9050af8b
     pristine_git_object: 9dde0d4f5bb0ecea5f49e5efc09149f087cc93c6
+  internal/cli/rampschedules/pausematchingrampschedules.go:
+    id: 621d1b2765d3
+    last_write_checksum: sha1:771b00206492be2b3e6e507af9237dd51bad3c1d
+    pristine_git_object: 59ef8e9287468d96e55d14abe24e946226f70a7a
   internal/cli/rampschedules/pauserampschedule.go:
     id: 25fa9050cbde
     last_write_checksum: sha1:984aacd8e4d91e384ec0fb64237872e3436f1560
@@ -1617,14 +1641,18 @@ trackedFiles:
     id: 4dc8db6173f6
     last_write_checksum: sha1:9e5278ef3c3358716d8ee7abaac03d90386d963b
     pristine_git_object: 6a0bf9995c27b62289e5604714a4a847f20a46c9
+  internal/cli/rampschedules/rollbackmatchingrampschedules.go:
+    id: 8f2f8a91180f
+    last_write_checksum: sha1:e00f78cd25661b07090dc734d51a7bbbff22fe0e
+    pristine_git_object: fc42fd65df3a24c4509bf5c5cc3dbaf79c5e61bf
   internal/cli/rampschedules/rollbackrampschedule.go:
     id: 21abd6102b2a
     last_write_checksum: sha1:971999fa3d7ccb497ec3b614ba107f54c044e760
     pristine_git_object: eefb07f13ed6932967319ae2d66dabc8cc290f88
   internal/cli/rampschedules/root.go:
     id: 5508062a3c9e
-    last_write_checksum: sha1:f7c7ef9ff686d3acdbb7f51016fa07d0e1106a88
-    pristine_git_object: 6c3d472569832680df3b450e4174eb7aa138008f
+    last_write_checksum: sha1:b53fd4a5f48c01845591426cc410784d3f87a513
+    pristine_git_object: 771a9e28e1732ca418d78404ad68b3db6d5da7e2
   internal/cli/rampschedules/setautoupdaterampschedule.go:
     id: e889e7271339
     last_write_checksum: sha1:fc94de20fc24fdedcea44b3dfbe394ffc9bedd9a
@@ -1687,8 +1715,8 @@ trackedFiles:
     pristine_git_object: e04d31de04d9a3e5db03bc91d3acb7bd43be6196
   internal/cli/reports/create.go:
     id: f0973de57d49
-    last_write_checksum: sha1:76dec560959aafebe7bb6a2734f1e5abef756053
-    pristine_git_object: 2a6a6d891b34f7cc9fac359841c8662387c43e3a
+    last_write_checksum: sha1:69d13c4c5dd5c5476b0c95631ae8aeb6ecb7b799
+    pristine_git_object: 7a2b5d716efdcf4745813f84917864bb8e586a05
   internal/cli/reports/getreport.go:
     id: 36de02412a90
     last_write_checksum: sha1:b587f7a92b304a686487c705d2536adbbd8cca53
@@ -1711,8 +1739,8 @@ trackedFiles:
     pristine_git_object: 79154f07d0d366977dd77c9ec07c00f5fc1da15b
   internal/cli/reports/setsettings.go:
     id: adc2a69bca6e
-    last_write_checksum: sha1:ff47f0650bbc7e48a50e9a92bc134eeff2c4ab25
-    pristine_git_object: e75d8ac63cec1c64b2990123d0e6096cf38f182b
+    last_write_checksum: sha1:f39fef729a8938d1e5ef15916b353a3de65225a5
+    pristine_git_object: 86c32782b3ae8aee7665ecac8dc617be2e6b4f3b
   internal/cli/root.go:
     id: 239d55a0d6be
     last_write_checksum: sha1:017d3b94d26cea0fc5e780e5733db65774161b45
@@ -1757,6 +1785,10 @@ trackedFiles:
     id: 512f7a31a53d
     last_write_checksum: sha1:782987cd1e59ff5b7a8e495358c63a450812c8c8
     pristine_git_object: a199fdf0fec994e55600785b87b717cb735e8839
+  internal/cli/savedgrouprevisions/putsavedgrouprevisionuploadversion.go:
+    id: d6ef284acfcd
+    last_write_checksum: sha1:d14b09bcbbf4c456ab69013a68e4f358133e0077
+    pristine_git_object: b34fbfb84ae1c52145e2b22aeaeabdd389db7997
   internal/cli/savedgrouprevisions/rebase.go:
     id: 58fea6374528
     last_write_checksum: sha1:1ae4d481ce73718be4e9fa3f31ad354982445cdf
@@ -1783,8 +1815,8 @@ trackedFiles:
     pristine_git_object: d63d3c7a959b1016e38fe042782c31cc6a0c7c42
   internal/cli/savedgrouprevisions/root.go:
     id: 03e85de4cca5
-    last_write_checksum: sha1:dab28f6b71c2bba64dc0fc450b36105ef3200b97
-    pristine_git_object: 7fe7435eae720d618f25ef8a235582e67689cd99
+    last_write_checksum: sha1:6af7f87f28b1b301cdce8cdd029dc041ba06edf5
+    pristine_git_object: b3f17ca32d1acb7aeb443a621ad09d5c75cfb3e2
   internal/cli/savedgrouprevisions/schedulepublish.go:
     id: 4fa225c63934
     last_write_checksum: sha1:fcc64263ca9291922457d188f4e7fc7ab96c61b1
@@ -1815,12 +1847,16 @@ trackedFiles:
     pristine_git_object: 3a38c87b3e3f5dbee8e4593d10cbaebc6a4a3b4c
   internal/cli/savedgroups/create.go:
     id: ba0aa12aff48
-    last_write_checksum: sha1:b0ed87a94601f82491ce57c6c44475db04105254
-    pristine_git_object: d696e652685eaff50aff5228548bcfde57b8d2d1
+    last_write_checksum: sha1:bad54d9283c5bbce2d8d47289066855f94332f68
+    pristine_git_object: e6f8f74b816494c414e6ec16ac12d311623dc2e7
   internal/cli/savedgroups/deletesavedgroup.go:
     id: 2805bc65995b
     last_write_checksum: sha1:fbe01257b58231d988a51c672a7c5e623432c189
     pristine_git_object: 2a0faeb9c3a7f547e45d91e941315eab300b0cb5
+  internal/cli/savedgroups/deletesavedgroupupload.go:
+    id: d0bda1d6ef67
+    last_write_checksum: sha1:51948cd3a2d5ef2a47829607d5364ed4cfa9aa16
+    pristine_git_object: d636966b8126860a301ffb617d8ab3419100bb5e
   internal/cli/savedgroups/getreferences.go:
     id: b00ba3d4cd78
     last_write_checksum: sha1:3b2c9c3746fd0f81ef86e6d9497f8078feddb1be
@@ -1829,22 +1865,42 @@ trackedFiles:
     id: f823e3b89caa
     last_write_checksum: sha1:c230ebb5c9647549b5ef32ac9b1614cbb1f3ece1
     pristine_git_object: 8a95f497f99c4e5b746fc639f656feb92e3460b3
+  internal/cli/savedgroups/getsavedgroupupload.go:
+    id: 1cac9f0699a1
+    last_write_checksum: sha1:85dbf6a9f33f758f6988c7f7dd55a96ed12d84cf
+    pristine_git_object: c31c4f2c3d5598f802f26701e0417687050a3a36
   internal/cli/savedgroups/listsavedgroups.go:
     id: f0309a57bffc
-    last_write_checksum: sha1:494c72000d94785f0c7ff1a577cf1eb6b5c2e2b4
-    pristine_git_object: 5aed592565151d2c353208f03698c2dc0ca30e9e
+    last_write_checksum: sha1:95fbbf662bf60388f4d00465d42aff1f5725a662
+    pristine_git_object: 93936e674ccd2eae2f402c81e13275f8fcf96200
+  internal/cli/savedgroups/listsavedgroupuploads.go:
+    id: 08a45a9a9681
+    last_write_checksum: sha1:a2bd39c7b2a22503392d34396d1bfd4a6208bff0
+    pristine_git_object: 09d5a1ae23533c934ac87d1021bd0ceb921e9196
+  internal/cli/savedgroups/postsavedgroupupload.go:
+    id: "111683083647"
+    last_write_checksum: sha1:6f0a0786d9c509732f604b0dbe53d6a06edcf10c
+    pristine_git_object: 5b035dd095a1e1d99d6f007534d128ca22b9610f
+  internal/cli/savedgroups/postsavedgroupuploadload.go:
+    id: da0842b7e6bf
+    last_write_checksum: sha1:b6ca9af7eae24b38454b2a4363c956d39127a507
+    pristine_git_object: 564b044515b3cb03500adf0e6323eef6e4dff077
+  internal/cli/savedgroups/postsavedgroupuploadurl.go:
+    id: f34a97a65121
+    last_write_checksum: sha1:4056349c928097ca660af75f23d80e7c88812d75
+    pristine_git_object: 51cb8bea7536dd7268680f453d65ae9e43955092
   internal/cli/savedgroups/root.go:
     id: 06931a08e92c
-    last_write_checksum: sha1:002f2cb9e2ef6efbc8fcb3c2fd236d288746c6d0
-    pristine_git_object: c6ecc54ecc0e7a6cef0431ee00b730d618f1f40d
+    last_write_checksum: sha1:0c780d73d3cda11d700bcc1bee7fc530c657cbbf
+    pristine_git_object: abd2a54453ec02e3ae2d0c957ab8671da394f09d
   internal/cli/savedgroups/unarchivesavedgroup.go:
     id: 48dca3ff2f25
     last_write_checksum: sha1:5d3ac60fd169a688a4622e39aa6e755657c0c356
     pristine_git_object: c8d497a914a3369e64e67e277d0f8202aa11ad3b
   internal/cli/savedgroups/updatesavedgroup.go:
     id: 73f25e2e2a2f
-    last_write_checksum: sha1:b6c96e105ccfc0a49696584bcce845698ee9d4ba
-    pristine_git_object: 76f5adbade76e3747bb38cca789764865cf473f1
+    last_write_checksum: sha1:7eedfd8f5e6ec9d625ac6b32286967e154afdb91
+    pristine_git_object: f3b50b5479b40dd55919c8c4278ac819f6c0e786
   internal/cli/sdkconnections/create.go:
     id: 076ca84907f0
     last_write_checksum: sha1:f71f478e27ad8c5cd37e0c0d35d18b40145b2863
@@ -1959,8 +2015,8 @@ trackedFiles:
     pristine_git_object: ebe103193bb45fd5283323d4d62aa2167da0aec8
   internal/cli/version.go:
     id: 7b0665492f72
-    last_write_checksum: sha1:12d3b163e4a5790857ca0864f615bd4c0ecf9a53
-    pristine_git_object: be59a37d54604502267df590c0aa5eaa8649b0bb
+    last_write_checksum: sha1:f81daff87e08cd1c13ef2997fe2c049c094cb92f
+    pristine_git_object: 517d7fb49e4392a752ef262b5fca4feb96a164c1
   internal/cli/visualchangesets/addvisualchange.go:
     id: fdbcb9d69b23
     last_write_checksum: sha1:5cded7eeb898816ee2a09f62badf32906cfdc360
@@ -2111,8 +2167,8 @@ trackedFiles:
     pristine_git_object: 6beae96bc6c76e3005a61837dd8f11bff3f7eef1
   internal/sdk/contextualbandits.go:
     id: f637b07ee273
-    last_write_checksum: sha1:ee4f3c4933b9bba0950000f6252b38413c689e33
-    pristine_git_object: 1779df4e55891c9f97e0e8b091a2e9999538df3f
+    last_write_checksum: sha1:ef95187c58db1dd4dee835ca8b28a4d98735dc1a
+    pristine_git_object: a748fab6d4ff187dfa39d3d18d755c48aed29435
   internal/sdk/customfields.go:
     id: 850a3168a241
     last_write_checksum: sha1:c6e2ea06d744c3428b8eeee72bf71eda47378287
@@ -2139,8 +2195,8 @@ trackedFiles:
     pristine_git_object: e12ad7e96e28ce7e4bbbf9366a29fc58a3d1dbb5
   internal/sdk/experiments.go:
     id: bec31387a809
-    last_write_checksum: sha1:6526ffef812fb0bca200777c50e0d84a15c8e188
-    pristine_git_object: 901b52c305d6621e6439ffcf233ae2d0a5b83e03
+    last_write_checksum: sha1:72028bcb763a4e189c1df47e79ef664eec1e60d4
+    pristine_git_object: 2b5267846a8f602296cd9fba9a3afbe0d22b4d65
   internal/sdk/experimenttemplates.go:
     id: f5bb1ab10d00
     last_write_checksum: sha1:d63021d88866285cf261690ed1f8c1d518acab66
@@ -2155,8 +2211,8 @@ trackedFiles:
     pristine_git_object: d266199c842c75c4d6d4dcf76f42d78a80b9664a
   internal/sdk/featurerevisions.go:
     id: bb75ed2e6390
-    last_write_checksum: sha1:47dff4934df45af52ea8e60b456b15bb0e2b6c7c
-    pristine_git_object: 84b748e74507a2cc24cbbdc60ef19d3e6f465a8b
+    last_write_checksum: sha1:21b8b19cd14bacb2885be77bd3683f09c0e636fe
+    pristine_git_object: a3a3d2fb02ac260157ab453928f4d7eef01541f4
   internal/sdk/featurerevisionsv1.go:
     id: f90cbd9c790a
     last_write_checksum: sha1:4045e2c6b55919336c01d14f72d9b7620d9c85db
@@ -2279,16 +2335,16 @@ trackedFiles:
     pristine_git_object: dd3982e735779f7519f9c99e09d57c1881d28581
   internal/sdk/models/components/bypassedgates.go:
     id: 01cd15330348
-    last_write_checksum: sha1:3587e341b84630f7c0419ca03900ac99f785b94d
-    pristine_git_object: f55f5936fb03c232e9ad8359f5e86ff3e341bd73
+    last_write_checksum: sha1:e803a57711f02e0d3f760764ac8ec0e77f5dcd26
+    pristine_git_object: aeb460929a7878179c5b9be2beb7e7c53b9adf4d
   internal/sdk/models/components/cache.go:
     id: b46926b55171
     last_write_checksum: sha1:bfa56c025c403692e33be460fd1d80ab6fd777e3
     pristine_git_object: c9a9b42fa687e94cd92a996cd382eec4b0590528
   internal/sdk/models/components/checklistitems.go:
     id: 39cb29423e6b
-    last_write_checksum: sha1:223d5ed4791780d589e7f4f1f0af4365b4bc35c2
-    pristine_git_object: c465ea2c930b3f8f7852ed6d6aebbb8cdf010214
+    last_write_checksum: sha1:0702ab8bc6b6b703bef3e18faddfe5d73c86b82a
+    pristine_git_object: ca5063faac72190edb96b09310358cd0127ed144
   internal/sdk/models/components/checks.go:
     id: 3786acdfdc93
     last_write_checksum: sha1:0ef92fff703836c4d66cbf6effabdda1f47d1631
@@ -2331,8 +2387,8 @@ trackedFiles:
     pristine_git_object: 8a397bee0c8bc16d86980b6e7274304f54f84149
   internal/sdk/models/components/confirmation.go:
     id: 8bd84a72b8a6
-    last_write_checksum: sha1:a3733c7268f41f0f3fc952f7b36c98dc9addbc00
-    pristine_git_object: ab106bdbbeceb64c1f602c33d30e4c6ee0100396
+    last_write_checksum: sha1:d6ec8fd5910d50e2e13d2dd1ff3de48d3ffe7f9a
+    pristine_git_object: 87d430477f3b25bd2ed7a96110c64fa6641af15d
   internal/sdk/models/components/confirmationheld.go:
     id: a3401396835b
     last_write_checksum: sha1:5bf407ed61378c394b4342fbe3ee5a9f26a11c1f
@@ -2387,12 +2443,12 @@ trackedFiles:
     pristine_git_object: c496dcb3ad125ff908894bdacb38987d0ce009d3
   internal/sdk/models/components/dashboard.go:
     id: 109e32a9f261
-    last_write_checksum: sha1:cf5e4b4e23bbf0b1fc6883d232350a106b874a65
-    pristine_git_object: caa2b0af8a05a54cb266f26175f1f8d876a047c0
+    last_write_checksum: sha1:c2bb120700706754842ce9af25e35d5c15abb690
+    pristine_git_object: 4fee40f3c2ee8bd0173b4371f05d6cc2ed0f5339
   internal/sdk/models/components/datasource.go:
     id: c652d5b090e8
-    last_write_checksum: sha1:fe84c27f14853bf2df2fb41ddd7375d257e07a4b
-    pristine_git_object: 6bfd79276ee88c47165cdca78fea28a19e8c04c3
+    last_write_checksum: sha1:b756a5cbe007abd4879c939e1b092f38674334bb
+    pristine_git_object: 9270da28bbb6b31c2cf3e65b946b91622c494631
   internal/sdk/models/components/dategranularitymetric.go:
     id: 41f053e9a906
     last_write_checksum: sha1:2a75037bccf0ed6675fbbd37d78b62ff98849651
@@ -2439,8 +2495,8 @@ trackedFiles:
     pristine_git_object: 05f6ea390baa023bf63637e2ed1d0db0c007776f
   internal/sdk/models/components/experimentmetric.go:
     id: b22bb62fdb1f
-    last_write_checksum: sha1:d413caed4bb388762f28ef362533e3cb4b2675d3
-    pristine_git_object: c1e60e1becd373df17a91d7ddedbe5af76faf15b
+    last_write_checksum: sha1:087cbfdaa60a81cb083a9a7e7e47edc02b7076a8
+    pristine_git_object: 5bcb2e62cd01d7796c85ae3701267faae9d86c9b
   internal/sdk/models/components/experimentmetricoverrideentry.go:
     id: d041dba37d27
     last_write_checksum: sha1:e65084ae68313f424bf370b6ba96c09d3dc92059
@@ -2471,12 +2527,12 @@ trackedFiles:
     pristine_git_object: 2f5367f37bfb27e60d2191f8ddfd5fa04463bec5
   internal/sdk/models/components/factmetric.go:
     id: b69202d41e56
-    last_write_checksum: sha1:05ffd41b993a498a3a1eab339bce9c247887c6e7
-    pristine_git_object: 818184e411e69cc0c47fb56fd45c0fc646f596b2
+    last_write_checksum: sha1:3287764bfd844816e82b693683c7fbb5977f866c
+    pristine_git_object: 46c8eed56073f21585d6aaba133b78ed76ffb19a
   internal/sdk/models/components/facttable.go:
     id: df5174a9602e
-    last_write_checksum: sha1:ac5e5c5d7b99ad2953763a6863b748aa9aa8b1ce
-    pristine_git_object: 114f4baa1e5dd7697fddb7af68ab474bb7566aec
+    last_write_checksum: sha1:1de2a420f336172dfd203d6f0fede4eb3fd588cc
+    pristine_git_object: 4b735462c2b90f4c2256179b07be16cff7332210
   internal/sdk/models/components/facttablecolumn.go:
     id: 617734bcf730
     last_write_checksum: sha1:f6bc388c09fbffe2119afa1a9aa77aafacb44b38
@@ -2535,16 +2591,16 @@ trackedFiles:
     pristine_git_object: ea2eaff05b0255fd91195d709f75b9a8bf826d86
   internal/sdk/models/components/featurerolloutrule.go:
     id: 4dc249cdddf2
-    last_write_checksum: sha1:61fdfaf2c58fc4d19953bfae3021aba36641bd99
-    pristine_git_object: a2ddc69d59195580492e7c36cf07914db9e8ef24
+    last_write_checksum: sha1:50695e07554b1d43f32b1a9df1103bf68fafc018
+    pristine_git_object: 0416dc924c7ceef26ce3c896d662cef69817d3fe
   internal/sdk/models/components/featurerulev1.go:
     id: 0a1f2530f600
     last_write_checksum: sha1:fc079ae141bbe9f2e0edfa8cdae18ed85c520cfd
     pristine_git_object: bdc2c5637375efcc46bfe8f2758c77a999cce10a
   internal/sdk/models/components/featurerulev2.go:
     id: e00855f8dcab
-    last_write_checksum: sha1:298c8ae789ccdb2e68ef991ccf46e9c88cd99328
-    pristine_git_object: 8c22d4131faac6fd3cd558981cc867eb4740ef7c
+    last_write_checksum: sha1:93b0984e7347f677e62741034845ffef0bcc5193
+    pristine_git_object: bc9f419f6018a655d6f590434b0c362629653738
   internal/sdk/models/components/features.go:
     id: 80fd4267a296
     last_write_checksum: sha1:8fd97462e000bdd8cddd2c2d409a6878f0efb958
@@ -2575,8 +2631,8 @@ trackedFiles:
     pristine_git_object: b4d5beb4ea0b91f61d236e18e3c4de9ac4b744fe
   internal/sdk/models/components/gates.go:
     id: 845a0505c576
-    last_write_checksum: sha1:a23215543b4ccb44635898015f8b0147feded657
-    pristine_git_object: ed50faf3fb9fb7c09cdb89914b6645366ddb8b67
+    last_write_checksum: sha1:0907c5e0d875aa4d3634fc988985317f286a9eaa
+    pristine_git_object: be2995854ee262761e1b7265fbc7229ac7f44e3e
   internal/sdk/models/components/healthsummary.go:
     id: 758aa0062984
     last_write_checksum: sha1:ad15deac7168f4b61e5f6d6017e909b814556136
@@ -2607,8 +2663,8 @@ trackedFiles:
     pristine_git_object: 2cc81f9043baa8da5f90df2bfbc9b533d0636a51
   internal/sdk/models/components/interleaving.go:
     id: 2c90184ec15c
-    last_write_checksum: sha1:3ef7b1e5c81eee8a4db06821757cd3f061c0ff22
-    pristine_git_object: 26f5fb362007fefd4acf607843b551999c1ed2e6
+    last_write_checksum: sha1:82be7d94940c182941ce2975466f833d4cbe108d
+    pristine_git_object: 4ec9bd1a58cccfb6dcfa6ab15e1d3ced37fd633a
   internal/sdk/models/components/learning.go:
     id: c086d02f046c
     last_write_checksum: sha1:8bf915aa853def92b04b4b648d1e1025333a7ddf
@@ -2617,6 +2673,10 @@ trackedFiles:
     id: e60ff5b99034
     last_write_checksum: sha1:a9d9193d5879a41faf7ddaf6b167cee5f02a4e7e
     pristine_git_object: 1ba5cd817b4d0efafbf3d93d95ced8a1217bb7cf
+  internal/sdk/models/components/linkedchanges.go:
+    id: 7da72922396b
+    last_write_checksum: sha1:95bac77ca15a9e0e7a832b206c8e1f930a0bf751
+    pristine_git_object: 93aa649c2977caf4c331d0fa30e3205d94ae8572
   internal/sdk/models/components/lockdownconfig.go:
     id: 1c981faf5b4a
     last_write_checksum: sha1:f7c2ce28f2781d095f037f98989ce0278b7f9c80
@@ -2629,6 +2689,10 @@ trackedFiles:
     id: 05862ade9ac6
     last_write_checksum: sha1:8f3d77b74f94b42870faccbcfce18e3849b56f5c
     pristine_git_object: 87e3f663e5cd7ac8fcfbdeea3aa36456e5bf8c7c
+  internal/sdk/models/components/matchedrampschedule.go:
+    id: 0590b5e5e0c7
+    last_write_checksum: sha1:b5389800fc1016177ed1d1223ea4a6f799320c9f
+    pristine_git_object: 0b1e9a0efd240a531d690cebc87cc6dcea7ad319
   internal/sdk/models/components/member.go:
     id: abaee35977f2
     last_write_checksum: sha1:633bc8439f3e4ae03dfca504c567f9a85971c9c0
@@ -2639,8 +2703,8 @@ trackedFiles:
     pristine_git_object: 0c34fead5bebf29fb13031294ba27a48330a3285
   internal/sdk/models/components/metric.go:
     id: e528a21ba718
-    last_write_checksum: sha1:3350ebcab135d6b45fdeff9728bb555c83b5ee9d
-    pristine_git_object: ca0217167da49550e70c265f7cc240f378226fc1
+    last_write_checksum: sha1:3bfadb10f2f52d41d963b1944366fbb46ff078bd
+    pristine_git_object: 7e7ed9d6d6cfcf27e9a820f91cf441f815e6a031
   internal/sdk/models/components/metricanalysis.go:
     id: dd837eb69d98
     last_write_checksum: sha1:79261528aaf1cc063227e51427df028850f449a8
@@ -2679,12 +2743,16 @@ trackedFiles:
     pristine_git_object: ec77a448393e146fe56336ff89c779e8fa7cab65
   internal/sdk/models/components/population.go:
     id: 0001bd64e2c9
-    last_write_checksum: sha1:6ac70dd03be3433e260dc3f777374d387232884d
-    pristine_git_object: 59ff3b6a6e7e5cb1aef2719840f63b4d1a862054
+    last_write_checksum: sha1:a28848da29dee429cbba77b0de583c9439a97052
+    pristine_git_object: 72f57ba59197486f2a09925c4f1488018c2370a3
   internal/sdk/models/components/project.go:
     id: 7664ccc68b17
     last_write_checksum: sha1:9a70f7440e2b5315cf72f1b0bd61361445a332a2
     pristine_git_object: 4f9a3925d492a6f2f7ca5b001fc1ff3b74a9147a
+  internal/sdk/models/components/publishedfeaturedrafts.go:
+    id: 5f04323f2994
+    last_write_checksum: sha1:eab881c939283a9555b006865c821e30de3e8982
+    pristine_git_object: ad0b7f390061d3be562cc88afdcfea889c9781dc
   internal/sdk/models/components/query.go:
     id: df0c12f964e3
     last_write_checksum: sha1:902ee72c74125cdf2ec80be070e4c91ccff40bec
@@ -2699,8 +2767,8 @@ trackedFiles:
     pristine_git_object: e515aef406ca19e7a08f010ff56b68d0132c2108
   internal/sdk/models/components/report.go:
     id: c59fa920e885
-    last_write_checksum: sha1:da6b4a1b80e7ed84c3f57191e636dd1aaf177d4c
-    pristine_git_object: ca061eaa11902348f3d5f2bb5c0b75e4fa48a055
+    last_write_checksum: sha1:5d0750c49167b7a007f171d29c2f79a6818c0406
+    pristine_git_object: 7739f64734907c5e04680d44a56178301974009f
   internal/sdk/models/components/requirereviewrule.go:
     id: 3b782c1dd2a4
     last_write_checksum: sha1:fb21d4d362add83569affa0d66b28ac83a3c9737
@@ -2711,12 +2779,12 @@ trackedFiles:
     pristine_git_object: 6aeea698a09b193a44607db028abff30c6881382
   internal/sdk/models/components/result.go:
     id: e9a346324ff5
-    last_write_checksum: sha1:998a3e7e555b26bd2679c0a75087693b21d8e266
-    pristine_git_object: 4821fe7477f238318bbde9a3f05a83c61014170e
-  internal/sdk/models/components/resultenum.go:
-    id: dd19f092a2ce
-    last_write_checksum: sha1:08372b0829b38501b9267a96e77d311a9f37a068
-    pristine_git_object: f8bc1115646814e25181afbc938f6e1c5e13bec4
+    last_write_checksum: sha1:7dd150c6164aadd34f1acc9d2e4efbd9083a2edc
+    pristine_git_object: bd4a9df6420317761d39ff38ca42bac5bab5b811
+  internal/sdk/models/components/resultparameter.go:
+    id: 231069ef3414
+    last_write_checksum: sha1:e000388514321a0297a14a787bcb5c701db6c9f8
+    pristine_git_object: 389a0535eb2b54dd2d22c08a0895602d69d60c8b
   internal/sdk/models/components/results.go:
     id: 1ac92ca4541e
     last_write_checksum: sha1:3346b9fa2b7eccd025ca57cac2f15ed93c9a1282
@@ -2731,8 +2799,8 @@ trackedFiles:
     pristine_git_object: 8ac4cab8c6328901cfd2672e8629fa50a2705df2
   internal/sdk/models/components/savedgroup.go:
     id: 7d1071a269a9
-    last_write_checksum: sha1:57119d06a58e4a33a1c7a3b5f9f692c9fc165eda
-    pristine_git_object: 6133ac6b689089951dfe76f495b71bbed201c0f2
+    last_write_checksum: sha1:e2837029a1ed0e68be63b25c18cf18ca0534bcbe
+    pristine_git_object: ac87fe053318f05380ed6086583f627887c99670
   internal/sdk/models/components/savedgroupapprovalrule.go:
     id: 23885de02dfc
     last_write_checksum: sha1:1c1a0bd19295a97a60080dde42ce2802085e8730
@@ -2761,6 +2829,10 @@ trackedFiles:
     id: dd4fa3b7a19e
     last_write_checksum: sha1:8010bc271b0b5539c80a678beed650cee457b5f0
     pristine_git_object: 8aac9e1aeb022ba627837cde6bc9ce3cc355c54b
+  internal/sdk/models/components/savedgroupupload.go:
+    id: 990fd5a3f15f
+    last_write_checksum: sha1:77b0d0d0915a39aeaa16751b4fc29c2a93c39696
+    pristine_git_object: e56386de91e715a45b172ccb62ff716c7e80980d
   internal/sdk/models/components/scheduledstopplan.go:
     id: 000fd7c9657a
     last_write_checksum: sha1:9fa4b0565b859a9c950efe9495f0a58b8e81244b
@@ -2791,8 +2863,8 @@ trackedFiles:
     pristine_git_object: 4cd26aec329ec84ccb1e38ad7e716a4036976cb6
   internal/sdk/models/components/settings.go:
     id: 4d11f8213a85
-    last_write_checksum: sha1:63e487af4c6441ce8359bcc20345ed640fd7ee92
-    pristine_git_object: f7ce07bebc1711ad5688498eb8300fcbaf72f0d4
+    last_write_checksum: sha1:65091958cb9b400cfd62ee14eb7ce6e30ead0133
+    pristine_git_object: 427eab7a4091431a8adbf4252fa9ec9c3e64b450
   internal/sdk/models/components/snapshot.go:
     id: a869c8f3b12a
     last_write_checksum: sha1:12f8900d643bf89b5c79c5137c7c9e82b2c6e1ca
@@ -2817,10 +2889,10 @@ trackedFiles:
     id: d5697c508ba0
     last_write_checksum: sha1:67a5dd17154ec29b83191e1c2691178c19dcc8a3
     pristine_git_object: cbdc9e6449fa5d36f1123f6d3f6b3d917ada05ec
-  internal/sdk/models/components/status.go:
-    id: bf85eba857ca
-    last_write_checksum: sha1:0dc25dfaa12f2345741ef867b7a9795e2d575944
-    pristine_git_object: c87f41246215278752c0940dcece3a2cda428881
+  internal/sdk/models/components/statusparameter.go:
+    id: dc9d7183f715
+    last_write_checksum: sha1:c90ddc0d8bb18c60a0213054807ae0397216bc2c
+    pristine_git_object: 6efc251177db28a35eb1192ef868c1886250d0a7
   internal/sdk/models/components/steps.go:
     id: 5524bea9e8ed
     last_write_checksum: sha1:74cbe783945e274745d765997b5bfb3efa3b0408
@@ -2839,8 +2911,8 @@ trackedFiles:
     pristine_git_object: ecc456265a6bcbe64ce1fdb9fa1b474eb1db4bd4
   internal/sdk/models/components/targetingrule.go:
     id: 7c45b11797f6
-    last_write_checksum: sha1:bfe3983b94e3d347912a5a2b22bf74e06aa7c701
-    pristine_git_object: 55a3d1a9880f2c4e7bbcf88db961917c5be876d3
+    last_write_checksum: sha1:414d1d07465522c4e294e9e5807dfacd09d1c0c4
+    pristine_git_object: 906fb830c3070b7e2cff58de781327d936096133
   internal/sdk/models/components/targets.go:
     id: f19f41c91f2f
     last_write_checksum: sha1:8b9ca98989e71c8b04f872c38c5818049498d4aa
@@ -2859,8 +2931,8 @@ trackedFiles:
     pristine_git_object: 9c627d9375505ff2fff04be1e801e15d1b6f84e6
   internal/sdk/models/components/visualchangeset.go:
     id: db584a86f2e8
-    last_write_checksum: sha1:d74b75fe050111c7d3ac0da8d8689e3e882ae875
-    pristine_git_object: 1b7b15389ac12513d1e1153524392fc3f468f90f
+    last_write_checksum: sha1:d63b326cb269eec672e2b6053ba644c7c8cb9565
+    pristine_git_object: 932b5de7f5d1e3f715093e3a56e4c1112a5e9b39
   internal/sdk/models/components/visualeditorcbexperimentstub.go:
     id: 95c0d36f247f
     last_write_checksum: sha1:d03a72f039579b63e0829312cd65e67f50e5d652
@@ -2959,8 +3031,8 @@ trackedFiles:
     pristine_git_object: ba22c69a7884b8d7f8bcbbbd06aae3a8845289e6
   internal/sdk/models/operations/createinterleaving.go:
     id: f45e84f3fca4
-    last_write_checksum: sha1:35b5c6538757111800de2d584cc430bab4fede67
-    pristine_git_object: 8d58a74825c94832775d90eb7d27c90c13ab0726
+    last_write_checksum: sha1:16bb980ed2ec5d79a08d897883ddc64a69fcb7b6
+    pristine_git_object: 724d51de668c08512f485eeb9b3a5fd0a62563bb
   internal/sdk/models/operations/createlearning.go:
     id: 5546a27b734a
     last_write_checksum: sha1:630a6a78236e3a702ae26b32fd6f2ceab53de508
@@ -2971,8 +3043,8 @@ trackedFiles:
     pristine_git_object: 42256bccb31cd8e342d964d7e085456066da714c
   internal/sdk/models/operations/createpopulation.go:
     id: e8457bb838f6
-    last_write_checksum: sha1:6e8be574acc2373e194f18dc14fcfa2cfbc4d6c8
-    pristine_git_object: 9ba1d9b0097dba74783d055bc8f24949296d30d4
+    last_write_checksum: sha1:30d2db99f874e3060316ec32a5585a0479d35a58
+    pristine_git_object: 572b1d191892accae1343c9605878acd12f4d032
   internal/sdk/models/operations/createrampscheduletemplate.go:
     id: f6491ad8760e
     last_write_checksum: sha1:83663e8c454e55f41f603f5cbe6a29a0774a2640
@@ -3005,6 +3077,10 @@ trackedFiles:
     id: 0c584837b769
     last_write_checksum: sha1:861b9723e339b0f159031735a402d0d44a73b8ca
     pristine_git_object: a5cae124f70cda4d2bf00894be515a8f6649379f
+  internal/sdk/models/operations/deletecontextualbandit.go:
+    id: 0d1972e5e232
+    last_write_checksum: sha1:22d63c8b188a7d0ea05eae368da9d5f7119e726a
+    pristine_git_object: 10919281e80c427c0389b4fc88fa76427a77a5e2
   internal/sdk/models/operations/deletecontextualbanditlinkedfeature.go:
     id: ae8c5151849b
     last_write_checksum: sha1:43494dd8a561905648de286c5037aadcb543c5e4
@@ -3033,6 +3109,10 @@ trackedFiles:
     id: 729d6b5f1588
     last_write_checksum: sha1:12dba84d2b4570923f6e8caedb73a8254a4f9e73
     pristine_git_object: 161bfc46193f4654ae9199ee9a8e4895f9faf194
+  internal/sdk/models/operations/deleteexperiment.go:
+    id: e539bcee7645
+    last_write_checksum: sha1:f2b8feed323b83d618ff73ffe42f848b4001d388
+    pristine_git_object: e6ebe2326817448f5baf9aa714a6eab6661a3443
   internal/sdk/models/operations/deleteexperimenttemplate.go:
     id: 47154db0b8b3
     last_write_checksum: sha1:21db94e36090c8aed1c4f5b09b97a40c674313e5
@@ -3121,6 +3201,10 @@ trackedFiles:
     id: 17131bfc270a
     last_write_checksum: sha1:096f569806f4c8a5f2694781cc34c861eb3dd079
     pristine_git_object: 69d5f227512ad7bd9efcb45bb42688018bddca56
+  internal/sdk/models/operations/deletesavedgroupupload.go:
+    id: 44d372f60426
+    last_write_checksum: sha1:ef664cc4fd4f44b0f6adae7ec6d836c5c5075569
+    pristine_git_object: c630854e18f5d1bcabdd61924f1f8635e38b7297
   internal/sdk/models/operations/deletesdkconnection.go:
     id: dfcc35c70d8f
     last_write_checksum: sha1:09c5eeea58ab081737f9ea2e71eb78735cc54550
@@ -3247,12 +3331,16 @@ trackedFiles:
     pristine_git_object: 6c537571af06001c0593484cd79f79d9002c59ce
   internal/sdk/models/operations/getcontextualbanditresults.go:
     id: 77c6e8a346fc
-    last_write_checksum: sha1:5bfb670ac028347d28de05ff8e7bff90a8b62945
-    pristine_git_object: 5b4916cc04d33f82fbeb862c213cb62f4b1c4037
+    last_write_checksum: sha1:fa5da6e9688b0556738cb89f8f14fdf64e17e064
+    pristine_git_object: 6af461cf2f3c27c0184e2cce31b31d749aab2cdc
   internal/sdk/models/operations/getcontextualbanditsnapshot.go:
     id: 455c86a36001
     last_write_checksum: sha1:e199a4a11ef7204e193bf9ddca8ec4740de953e0
     pristine_git_object: 60817fa590f3cf974afc195cfb8fd2d072d58da0
+  internal/sdk/models/operations/getcontextualbanditstatus.go:
+    id: b0b96f7dff5e
+    last_write_checksum: sha1:85b69260906056ed12fd583f9c4733b5116d2a68
+    pristine_git_object: d35fff122bfab6f6244299c0af98bc7b2785ddfc
   internal/sdk/models/operations/getcustomfield.go:
     id: d13de092d49e
     last_write_checksum: sha1:c41c57aa702023d3dfa3d10e755657dc6dd57a71
@@ -3295,8 +3383,8 @@ trackedFiles:
     pristine_git_object: 82c68277ae4579bc416ef51d8c9cb5eba9d2465b
   internal/sdk/models/operations/getexperimentstartchecklist.go:
     id: e507511d2c63
-    last_write_checksum: sha1:70e17d22faac2df573f9677080f18e34694016fb
-    pristine_git_object: 950199b1e8a45519f16a8a7279b6c0df44315525
+    last_write_checksum: sha1:47d39c83a8d8af7253c7931aae2f6e3e99637d9b
+    pristine_git_object: 4af3696ec7f5656516bd2f7c041f93626cc713f3
   internal/sdk/models/operations/getexperimenttemplate.go:
     id: cc9886f2c424
     last_write_checksum: sha1:e82620f11984c7d7b44929cddd975964d03bfe5d
@@ -3339,8 +3427,8 @@ trackedFiles:
     pristine_git_object: a712916d639add607b8507407875decf3be36d31
   internal/sdk/models/operations/getfeaturerevisionlatestv2.go:
     id: 430228c354d8
-    last_write_checksum: sha1:0d49678b2280f1b3b3953bd024935a64a5150282
-    pristine_git_object: 0a94128b628957b39c8e4faa854158be9b8ff0d3
+    last_write_checksum: sha1:0b416dba55f34c5774b8227b026c27ce4798e2f6
+    pristine_git_object: bb3e9fbed86a38cd3ebe4b5902136a5e2afdd716
   internal/sdk/models/operations/getfeaturerevisionlogv2.go:
     id: 8142ef21f1dd
     last_write_checksum: sha1:f40131d984ebd0b951823b5ffa1fc4a7be5ad78a
@@ -3355,12 +3443,12 @@ trackedFiles:
     pristine_git_object: ef90cf4c482221a3c2834f84b7498aa81a446ebb
   internal/sdk/models/operations/getfeaturerevisions.go:
     id: d386f8a3ddc5
-    last_write_checksum: sha1:3d15f72a92efd1f8636c2488e952b50173b184ad
-    pristine_git_object: 5b5ac36a568a8fb322b4b295a0dca158fb15a6df
+    last_write_checksum: sha1:ebc032a7157a4d836a5bfa5631ee88fb721b5952
+    pristine_git_object: 2a2e7be1c85c56c725fddce0cec2be9e3324799d
   internal/sdk/models/operations/getfeaturerevisionsv2.go:
     id: 772478c64556
-    last_write_checksum: sha1:a4dced2f003d93af4da7b115b943813c1cbdbf18
-    pristine_git_object: 969cb8d5d5b0c91795d83e473a002cb138f88a10
+    last_write_checksum: sha1:579df7b9f0fb9777ba2d2a9623b916e4695eb3a4
+    pristine_git_object: 5c785e26e428aa81cde5b0ff88ff83291319b8b3
   internal/sdk/models/operations/getfeaturerevisionv2.go:
     id: 5b759f9584d0
     last_write_checksum: sha1:97893c758b7d3042fa521b36ee7b1d2cb619d565
@@ -3481,6 +3569,10 @@ trackedFiles:
     id: 7269de7f26f5
     last_write_checksum: sha1:245e323cea8ea721defed6d6b4e7b354f510c5e4
     pristine_git_object: a9b72841d5977609828d7da2cd1c3a96befcdcaa
+  internal/sdk/models/operations/getsavedgroupupload.go:
+    id: 8404efc55da4
+    last_write_checksum: sha1:07c99f3e4abacb8ba56294f19e4843cc3cf83a1f
+    pristine_git_object: 00bcf89257fae94e1b4d23ed0f26244fae2c51a7
   internal/sdk/models/operations/getsdkconnection.go:
     id: c44a6412fa4e
     last_write_checksum: sha1:b083b444549b454d181bc83a6c949f031b6d89e7
@@ -3607,8 +3699,8 @@ trackedFiles:
     pristine_git_object: 6b1ebc444de3a3e74a2a6d539d64effc9dc6a1df
   internal/sdk/models/operations/listexperiments.go:
     id: 4003999484b0
-    last_write_checksum: sha1:dd5000bfe8eff5754bcc96076a0aac1ec28109d0
-    pristine_git_object: 9fdaa2a10b2b433fc16dfff601da526c7a5b8b8d
+    last_write_checksum: sha1:aceaf2a65dd92ca783fcb3230d8c59124f59399f
+    pristine_git_object: 5994b473dce50e7ec41b860d2d510afdb5dd1704
   internal/sdk/models/operations/listexperimenttemplates.go:
     id: 915ffcadb486
     last_write_checksum: sha1:5f7cda5ccd12639e0c4255eb68c91d716a936e79
@@ -3691,20 +3783,24 @@ trackedFiles:
     pristine_git_object: ad3ba79ba47cae79caf65a8df2b4edfce86dfa6e
   internal/sdk/models/operations/listrevisions.go:
     id: 5363e15bfe2b
-    last_write_checksum: sha1:1021bf24d240fc85fe8194375be678cd1984fc63
-    pristine_git_object: 6776f617e22228e688257e6dc21e147e0b1d6a4b
+    last_write_checksum: sha1:4b65704cde145062908681f972cc04f4409f2985
+    pristine_git_object: aefc1558ed0807a4982d9e7765774fea99407da0
   internal/sdk/models/operations/listrevisionsv2.go:
     id: dfc38461c953
-    last_write_checksum: sha1:506bf1341b3b71a989da2bf2ef00150ada17f93e
-    pristine_git_object: 199e1bfea705bbd4412a429b5399d56f4f940097
+    last_write_checksum: sha1:f94bbbf4d47408ec25ea0ca64732a1e9f520d012
+    pristine_git_object: 46191f0cf68e265b1abe809cbdfb78de9232f215
   internal/sdk/models/operations/listsavedgrouprevisions.go:
     id: 51a19f6b949f
     last_write_checksum: sha1:f2b39e4b4a83cc2f318f8bbcc3f888c3c3ff26d3
     pristine_git_object: d12e6926e55a18ec90d8d3970e06cea0adf81a26
   internal/sdk/models/operations/listsavedgroups.go:
     id: 1a730daa9d1f
-    last_write_checksum: sha1:b585c0ef610d0ef116f1a6307daacc5665337a80
-    pristine_git_object: b75c9a40111719f87797888c1688b597caf2d00f
+    last_write_checksum: sha1:cf6d08e7885e3e107991ef140222274d84bb9b83
+    pristine_git_object: 2cf5e9f7f9b2f6a95215f981759625e1e97d90fc
+  internal/sdk/models/operations/listsavedgroupuploads.go:
+    id: 4f74450c3328
+    last_write_checksum: sha1:36597b077931bd782d19aa9b4c4eba2798b0b2d8
+    pristine_git_object: ef878de4cd8dd4eb316ee15c2f79c19da48844f7
   internal/sdk/models/operations/listsdkconnections.go:
     id: 514d1a6611c1
     last_write_checksum: sha1:733fcc674efe5ff44d1957db385efdc260f46ea6
@@ -3733,6 +3829,10 @@ trackedFiles:
     id: 6d0d29414e00
     last_write_checksum: sha1:3621c3714717dc86f2c0bba3dcb0f1a49303893c
     pristine_git_object: 273dd7c46aded05bf1ec9daec77ff1fff8bf826b
+  internal/sdk/models/operations/pausematchingrampschedules.go:
+    id: a3a53972d437
+    last_write_checksum: sha1:118b707c3f9b6b7b917065345bcaf123ea1a51d0
+    pristine_git_object: 55f14aa7a718aded00390c5e874e3cc8112a4709
   internal/sdk/models/operations/pauserampschedule.go:
     id: 299016ca5bdd
     last_write_checksum: sha1:8c1675e41d9d169600aeaf5611c211cdf6eb4832
@@ -3747,8 +3847,8 @@ trackedFiles:
     pristine_git_object: 725da7da4acf88df511737af1a079f0a27abfd39
   internal/sdk/models/operations/postbulkimportfacts.go:
     id: dd7e4c8f96c5
-    last_write_checksum: sha1:0f11c92c9a995ea918e71aff5d039c79c6b09edd
-    pristine_git_object: d0ebb18ea3e7ab5886591f48f9b659666b10fcc9
+    last_write_checksum: sha1:b790a584a232c5e0c3217134fc63610cd60148a0
+    pristine_git_object: 517ef623aeb91967e366f2340edbcb3360acb49f
   internal/sdk/models/operations/postcoderefs.go:
     id: aedf29f18cd3
     last_write_checksum: sha1:3dfc2d670300b4539a1c4591437444971d9cda1c
@@ -3877,6 +3977,10 @@ trackedFiles:
     id: 627b78d51960
     last_write_checksum: sha1:be41b1aeb87ba254fd2f9684dc6095a6a83a2adc
     pristine_git_object: 11ee73c3b9560037d0629b1dc77abca754c344f2
+  internal/sdk/models/operations/postexperimentarchive.go:
+    id: 5115fcc2196f
+    last_write_checksum: sha1:45eba6918d29eb55b78cc7291996e9c2bfda1ac5
+    pristine_git_object: 0bcc8e5f5625edc4e1f7316d4d3d32d70234b967
   internal/sdk/models/operations/postexperimentcomment.go:
     id: 113ef349e4a8
     last_write_checksum: sha1:0da31b6d0c323cc0277b724e4870e17c92bd18b8
@@ -3891,28 +3995,32 @@ trackedFiles:
     pristine_git_object: 3aa44ed01553cb83a90b7eb42e727a60b291977d
   internal/sdk/models/operations/postexperimentstart.go:
     id: 00aa2dc60f78
-    last_write_checksum: sha1:ecf0c1c558b65b170b74882a81dc884172ca930a
-    pristine_git_object: 5e0caba43e1b31444f132d01fd848d8152b3edbe
+    last_write_checksum: sha1:98e2e10a3db3180cb93cf2ed7bac20c77384727e
+    pristine_git_object: abab2037ab43b46f845efdd482b81b561595deaa
   internal/sdk/models/operations/postexperimentstartchecklistmanualcomplete.go:
     id: 4a33574dd42b
-    last_write_checksum: sha1:7fa3e2a196e490bb40aa77510392adeea23c7b1b
-    pristine_git_object: 6bab2b0e813cf00b246c550b9cfdd450fb2b597a
+    last_write_checksum: sha1:8a4c310a89d3c694c526239b5a772e5d9e3e7c66
+    pristine_git_object: 1db4d7fdb1db9b2405b3f9e300ceb7629923aa1c
   internal/sdk/models/operations/postexperimentstop.go:
     id: 00f8875b1c43
     last_write_checksum: sha1:278337c0a035150f081760c31c5ca2e20cd9e421
     pristine_git_object: 29e60f04b09853ea3891be2936236d46f836b16a
+  internal/sdk/models/operations/postexperimentunarchive.go:
+    id: d00a3fed6775
+    last_write_checksum: sha1:a9010f950bc84f3799830191ef6114b9ad167a85
+    pristine_git_object: b9c2a5739d26a4b6e3a4d58edd18decd9c2a3f6f
   internal/sdk/models/operations/postfactmetric.go:
     id: 495aabeb779c
-    last_write_checksum: sha1:d0db1e8eeaf75eae51f70246c03f840777ff7145
-    pristine_git_object: b93497094f7df52d6c6bb1b786850b02231663ba
+    last_write_checksum: sha1:798647e3c7b1e71e531b7c2e06dd5df166c33913
+    pristine_git_object: e4fb534c615330b638dd74cbf4d6f09aa70d9d6e
   internal/sdk/models/operations/postfactmetricanalysis.go:
     id: fee648ef9895
     last_write_checksum: sha1:9faed3b8cc2f54aac3f7fb0f3c1f11ba47a988ed
     pristine_git_object: 84bd758d0ecb9ef6dfb6f52d6bdec7561a42fd91
   internal/sdk/models/operations/postfacttable.go:
     id: 3a2b4f8b18ca
-    last_write_checksum: sha1:79391eb4d8b88669382f1e2efeb9c38d0513b30a
-    pristine_git_object: daf6be9ae0c78488f54fa2e1abd8e4ce31891e78
+    last_write_checksum: sha1:3dda5573baf97c8d653ef89acfbab0116bf8e3c5
+    pristine_git_object: 2e6fab7aa1ca4b0510da9676d42cba4da2b177a5
   internal/sdk/models/operations/postfacttableexploration.go:
     id: 57b5b33196ad
     last_write_checksum: sha1:457325b460454ee2d74a5327bb2aaca78099d490
@@ -3927,8 +4035,8 @@ trackedFiles:
     pristine_git_object: 87f9d67924096b5f5df95bac56258fabe4228fae
   internal/sdk/models/operations/postfeature.go:
     id: af85af07d08a
-    last_write_checksum: sha1:9ec8831c2fe0538a6adcd4c7510aa22a9833a047
-    pristine_git_object: c97f11773113be3f37bfdee7884826617a52ad00
+    last_write_checksum: sha1:9c949583f28b93e351b6af390ae5ecff83351fee
+    pristine_git_object: 5a40c1a220543161662e9757c4825f749cbe8cbf
   internal/sdk/models/operations/postfeaturerevision.go:
     id: 3b89bb406def
     last_write_checksum: sha1:be631737b93214ee03d5c7624500e574624145b3
@@ -3987,8 +4095,8 @@ trackedFiles:
     pristine_git_object: 27b644a0def668fa9f50940945d99ae2b57b4f14
   internal/sdk/models/operations/postfeaturerevisionruleadd.go:
     id: 93c1a3a061b3
-    last_write_checksum: sha1:8e773c5c4965b658c816705154c21f756a8f26c5
-    pristine_git_object: b5d16ae3cf8eb321a2a0bc2f7f6fd0b27f26f103
+    last_write_checksum: sha1:cf648cd8216dde9ff969b64c6bd7f3d1a20dcbda
+    pristine_git_object: 3dce0ccb299994d7173c938f8fdf50bc5fde1041
   internal/sdk/models/operations/postfeaturerevisionruleaddv2.go:
     id: 83c9f3341fcc
     last_write_checksum: sha1:b058520668460215ed6a7263c4c5b0b9874ade8d
@@ -4031,8 +4139,8 @@ trackedFiles:
     pristine_git_object: 1c93d61cf5226c1c39bb8ae9847ffda90b2f91bb
   internal/sdk/models/operations/postfeaturev2.go:
     id: 549976d0211f
-    last_write_checksum: sha1:3389c956f5348431fb5bba974be847c2725e2b48
-    pristine_git_object: fb64d2f1cbbfc600f007e87df7e21f080f6a2561
+    last_write_checksum: sha1:c141847d591bf34f4141239429e461a69890cd23
+    pristine_git_object: fc3c37aa11bd5bc36022365ff788d79d5560867a
   internal/sdk/models/operations/postfunnelexploration.go:
     id: 449e5f49551a
     last_write_checksum: sha1:6dc0f76257b4e9e69cf059dace7e3d320058b36e
@@ -4043,8 +4151,8 @@ trackedFiles:
     pristine_git_object: aefec04f97f73de92894ea556c21aaf0920aa261
   internal/sdk/models/operations/postmetric.go:
     id: cf733cf0a5ff
-    last_write_checksum: sha1:4ce5847002a8c8c095677ff96abf56330126245c
-    pristine_git_object: 8cf2b76e796eb5d3a6a754a0d85fa8bf85528049
+    last_write_checksum: sha1:8294bb300bd80d89ec31f145800e4eb57bd90d1a
+    pristine_git_object: 97e20d0b118b7c225765514fdf08d35630888443
   internal/sdk/models/operations/postmetricexploration.go:
     id: 59293604a362
     last_write_checksum: sha1:a8bfdb7b035655a147519be8b43be6b0bad7fd7b
@@ -4063,28 +4171,28 @@ trackedFiles:
     pristine_git_object: cca447c975ce086a7b5fe0493f1500f7092754e9
   internal/sdk/models/operations/postproject.go:
     id: a4a6e994f496
-    last_write_checksum: sha1:f41eecce1e16ef5051a6b2df6a31d8a330630a93
-    pristine_git_object: fb558ef6ca861de6ae5f5763841a7e023b673afe
+    last_write_checksum: sha1:c1ecea57835388cc4e63812c57898f34a3675726
+    pristine_git_object: 9bd0a379af79c230714d685a581fdc1f538cbe03
   internal/sdk/models/operations/postrampschedule.go:
     id: 963323980a74
     last_write_checksum: sha1:3bd1f33601b509f6923a21037ee8764c8efbe1db
     pristine_git_object: bc38ff2c92cba551dafd7b829af17aeb63fc6744
   internal/sdk/models/operations/postreleasepublishrevisions.go:
     id: 01708ab638cb
-    last_write_checksum: sha1:4444af8604b78f7b160760ce4a6c62596a2277ec
-    pristine_git_object: c5b717814731cad36e4640d84fde906b2c23b729
+    last_write_checksum: sha1:4b0ecf7a010117b1d5e596464d47b65b139542a8
+    pristine_git_object: 8327c7cb279631675b8beecc347e6f8bdb66a7e1
   internal/sdk/models/operations/postreport.go:
     id: 1bd9db275977
-    last_write_checksum: sha1:1603b98ca3d11e5504d956f0eac6f5458cfc6543
-    pristine_git_object: 49a16a9448e817205e99a12875e0d5fd441fb810
+    last_write_checksum: sha1:539b9295a991169cbb7c2506fc9d12d4fb0635d3
+    pristine_git_object: 6fb790692e83db026bdafb7838d3cf17755563c6
   internal/sdk/models/operations/postreportrefresh.go:
     id: 2b088599c119
     last_write_checksum: sha1:147f0ad9bcb62e976345c041d9e3732b0a09037e
     pristine_git_object: 5cb4ea7bf3c03b47f13844fd915f8c306701189c
   internal/sdk/models/operations/postsavedgroup.go:
     id: 78bee380fde5
-    last_write_checksum: sha1:602919fc0424769705437b6cbf6b9b47abf06618
-    pristine_git_object: 8388eb89c8ed19507b0ec5dab0d6c09e795ec833
+    last_write_checksum: sha1:6ef0a36616dd5651b9c0636143b73c450e08244d
+    pristine_git_object: ac8826d5e0b42bd13bde254347cf726eb6dcc664
   internal/sdk/models/operations/postsavedgrouprevision.go:
     id: 5af51fd0bcee
     last_write_checksum: sha1:cc5948582f0b01c2c9edb562ae864ec27879c1cc
@@ -4137,6 +4245,18 @@ trackedFiles:
     id: 93b97ba2d758
     last_write_checksum: sha1:4cf889d0635b0618d0b1f060847913a825ebb7e7
     pristine_git_object: ab12e9245b987521301251ef544d00f3981909ff
+  internal/sdk/models/operations/postsavedgroupupload.go:
+    id: fda2abcd71c4
+    last_write_checksum: sha1:7360a2781bfe28fc14e7653e7c75b1d380bf30f2
+    pristine_git_object: 5ce11b620d27a1e14102da5fb0d8e79fd55c8225
+  internal/sdk/models/operations/postsavedgroupuploadload.go:
+    id: 36843d476171
+    last_write_checksum: sha1:c3da81ba573a5c8e3934a9fd974f7de57a55f81a
+    pristine_git_object: ea277c93cf13c2cd1018fc71fc70682661321b0f
+  internal/sdk/models/operations/postsavedgroupuploadurl.go:
+    id: 570ba5a2de3d
+    last_write_checksum: sha1:2d0799e9a2bc5fac68274c97d71670e03af815dc
+    pristine_git_object: ebb1d31070f9d4ef2b8964d7de227be6ec392744
   internal/sdk/models/operations/postsdkconnection.go:
     id: c72912948937
     last_write_checksum: sha1:bcbd5ebfd5678ffdcbfe0f12821ce0b54256cefa
@@ -4267,8 +4387,8 @@ trackedFiles:
     pristine_git_object: 9e04363411a5ffe65a193ee716dc44303a5a70af
   internal/sdk/models/operations/putfeaturerevisionrule.go:
     id: bfe7405e0878
-    last_write_checksum: sha1:f85e19b70dcfc053ab826385bcd0513851586412
-    pristine_git_object: 8603aab37a8b770af9b4a517d8cabb8995628801
+    last_write_checksum: sha1:51d0d4e7dda75800e74b73aa0dc7d877b525422d
+    pristine_git_object: ab0acd74063e6e5af0fdc3687602b5e0125a478e
   internal/sdk/models/operations/putfeaturerevisionrulerampschedule.go:
     id: 6fb30e769e56
     last_write_checksum: sha1:3ef1c94d96a5e863f50d37f412c134e8836651b3
@@ -4279,12 +4399,12 @@ trackedFiles:
     pristine_git_object: 3698deb937c46df3618bfa4bf36c9289bd8f445c
   internal/sdk/models/operations/putfeaturerevisionrulev2.go:
     id: b2f7356bb855
-    last_write_checksum: sha1:c4935d4c447a6c7b18bd08f91a625ac2f635e062
-    pristine_git_object: 3fcd619d1e3f2893bceeb59a68eb2b25aa17fd34
+    last_write_checksum: sha1:ed488e95bc1ae854104d55e70824bac4ed114697
+    pristine_git_object: a9ee2a0495e5add2ed7740126ff2afd1543bc2a6
   internal/sdk/models/operations/putmetric.go:
     id: df887bc82d8a
-    last_write_checksum: sha1:00a0e423097c85bf82c5a4f05c45cf5665290545
-    pristine_git_object: 3aac0460c52a2e80bd78d423163bfa82847963a6
+    last_write_checksum: sha1:3a380cbafc398a9cf8639c6732cd599884f5867d
+    pristine_git_object: efa7076d218aa80c7d5e31e40f42516fa489ffac
   internal/sdk/models/operations/putnamespace.go:
     id: cdcb2131e548
     last_write_checksum: sha1:9b46710bb04e03047b1fe436db3c5ae79197331c
@@ -4295,16 +4415,16 @@ trackedFiles:
     pristine_git_object: fe4737dcf4037e05242c99e9480b98a1c1953835
   internal/sdk/models/operations/putproject.go:
     id: 20ea9a80ad19
-    last_write_checksum: sha1:6b785f25444484bbfa033ecf554c9aa85cd8f2b5
-    pristine_git_object: 1a8cb840791d37e20909ade2228d750fd1afd182
+    last_write_checksum: sha1:647a7145ffe031975edd1d6209ac47fe05019709
+    pristine_git_object: 586419feb76a749843f09d8b1445c4fe4996ba6f
   internal/sdk/models/operations/putreportmetadata.go:
     id: 0ce73eb930fa
     last_write_checksum: sha1:76f1000598b6060b30d0388f9f36bda306225917
     pristine_git_object: 9f0be06fe13d8b3ed9aef3b4a52e24497bdae6e5
   internal/sdk/models/operations/putreportsettings.go:
     id: 8ec3625758e0
-    last_write_checksum: sha1:c4e5c81288b93e86fe9bceb1f7154df9f1558817
-    pristine_git_object: b9270688fbe01db4d99eb9049f80d57b30b38465
+    last_write_checksum: sha1:1d14d5a629eccefb5f00aee2933c4f194078154a
+    pristine_git_object: e9ed6fd273b8c08a64c7c784160acce21d3144ad
   internal/sdk/models/operations/putsavedgrouprevisionarchive.go:
     id: d88a8ce34aa5
     last_write_checksum: sha1:216dd87a5c8b33e7b2fc212bbc6f79b82aee3f7f
@@ -4317,6 +4437,10 @@ trackedFiles:
     id: 9c51f75e1333
     last_write_checksum: sha1:6a0c1115428749b597c854c14f8c13ad1fac80b5
     pristine_git_object: 8ef30b990eadf5a0d2db1f22958175bb4b051df5
+  internal/sdk/models/operations/putsavedgrouprevisionuploadversion.go:
+    id: a7e52b64b69e
+    last_write_checksum: sha1:a50b17641a09a5a5773cd27806bfe59c80eefcf3
+    pristine_git_object: af944046d3e47da45c76fb311e9fa6139f1a1f08
   internal/sdk/models/operations/putsavedgrouprevisionvalues.go:
     id: 7d999b9177e5
     last_write_checksum: sha1:48b21a74f3da2a45d16015606af61ab4b57b3af4
@@ -4369,6 +4493,10 @@ trackedFiles:
     id: 4fbfba7bf462
     last_write_checksum: sha1:e34b02e29e11558b402e6ef42ae3cc1f6fddb9e7
     pristine_git_object: 9b59ba06a18d51e639f736ccd2db23d008ccabcb
+  internal/sdk/models/operations/rollbackmatchingrampschedules.go:
+    id: ab32af97b28c
+    last_write_checksum: sha1:7dbbe73d749b56d35a5f0489c05fad82600b0f6b
+    pristine_git_object: cbb766a8d4fbc53186656c4b22b2945f1ab8f6a0
   internal/sdk/models/operations/rollbackrampschedule.go:
     id: 699caf368efe
     last_write_checksum: sha1:5d00ac94d15956ffeeea10286021871025caeda0
@@ -4515,20 +4643,20 @@ trackedFiles:
     pristine_git_object: 37fa0251c6b94f21a135c8a7d3d6199ca18afaeb
   internal/sdk/models/operations/updateexperiment.go:
     id: c49b3a9ef5c0
-    last_write_checksum: sha1:e7fb6a325c737e13233aa6cafba8e9e3c7154b20
-    pristine_git_object: 9459a8524f986c73f27c74757991320501f7c147
+    last_write_checksum: sha1:9f82f61b25a7263890cbff28b3b81be57d7b4a87
+    pristine_git_object: 0c660ce80e02480ec36a087af3c2c5bd8e8a2763
   internal/sdk/models/operations/updateexperimenttemplate.go:
     id: 3f6f77c9eeba
     last_write_checksum: sha1:487f32ac96188239456db5b19bfa4d81acfba516
     pristine_git_object: 5317435a04a9ea81f376d15d18218e8cb7500ccf
   internal/sdk/models/operations/updatefactmetric.go:
     id: 1dc552f21e13
-    last_write_checksum: sha1:188929ccd3d8fa024e248e32035b6639ff0d6ae0
-    pristine_git_object: b1e0f543b810a2ea3a483a681fd744c1d35d932c
+    last_write_checksum: sha1:80d7b16ebf7316c4d54d365501e55944b3980c0a
+    pristine_git_object: 20bba50405b1639abad5fd8ed313403702c39612
   internal/sdk/models/operations/updatefacttable.go:
     id: 2ba3588ad25b
-    last_write_checksum: sha1:8cb4666804c9a677f31c7ce2859fcc2712b638b8
-    pristine_git_object: 37873543363166e50f0b7eb2c8a0ac0ec05e05bf
+    last_write_checksum: sha1:3e102df7abdf467d820a4c1c5ffb687da81b300d
+    pristine_git_object: f59c0105be8911fc68a5663348f03c2c3cc0f349
   internal/sdk/models/operations/updatefacttablefilter.go:
     id: 4fedf49410e2
     last_write_checksum: sha1:749cb44ec5a1ea7377938174c0caafbe1b01022c
@@ -4539,12 +4667,12 @@ trackedFiles:
     pristine_git_object: f3599ba4bca48334f6b059cfc924b9ab309af867
   internal/sdk/models/operations/updatefeature.go:
     id: dea172322687
-    last_write_checksum: sha1:a06c414b092ea92e1da73169d61fafe6c345c803
-    pristine_git_object: 4274cf3956dc74d975a4521ff251ac6a1e02a444
+    last_write_checksum: sha1:1662204fa4a235ab731334c1fe4c09e9ef8f02db
+    pristine_git_object: e205ae9b161c9074f0a02ca41f7eab1929bb007c
   internal/sdk/models/operations/updatefeaturev2.go:
     id: 5e312cd89284
-    last_write_checksum: sha1:2b03552d3b68668c30fe72201c3d5e106d1eb8be
-    pristine_git_object: 6411e85043f1f817eac9991f15afc6c9674f7f6e
+    last_write_checksum: sha1:5fe7f968a3ddb31e240b265d555ea46209026023
+    pristine_git_object: cb82254345b751408aa9fdf73dae3fd3d94f64c8
   internal/sdk/models/operations/updateholdout.go:
     id: b2ef4585cd9e
     last_write_checksum: sha1:58c204c42a5bbd35d7dfb4f7fe18c580b40921d9
@@ -4567,8 +4695,8 @@ trackedFiles:
     pristine_git_object: afece22339768143cbe8e0266b6b158686356247
   internal/sdk/models/operations/updatepopulation.go:
     id: 8a922cac3527
-    last_write_checksum: sha1:172a32db8dddae26c4f630653708df2460408568
-    pristine_git_object: 3bcdcce164c2e3265e48783f8355e3746fc9c105
+    last_write_checksum: sha1:30279c2703e8b88be18b459e5f3fbacdd38abdba
+    pristine_git_object: 68defc017338bd45f61924365343a6d6e5e04d33
   internal/sdk/models/operations/updaterampschedule.go:
     id: adb936f1b2b1
     last_write_checksum: sha1:abb87b70b933f00faf5224b1ff3bf737f383af67
@@ -4591,8 +4719,8 @@ trackedFiles:
     pristine_git_object: 164e5c058f1dbe37f6b68a83cf7b662dece38618
   internal/sdk/models/operations/updatesavedgroup.go:
     id: d396c1790986
-    last_write_checksum: sha1:fa9e5a39ab9c7349ef786b16e1d112f4add02ace
-    pristine_git_object: c47f5485a4348e1fd7bc769a4a5983d55032ed30
+    last_write_checksum: sha1:ff3cf71b07d93d60b51629eca4590ff0b7d09308
+    pristine_git_object: 29b342442d36f5d9d76e63a5a0a5be96e7f0bc63
   internal/sdk/models/operations/updatesegment.go:
     id: d1514cd13a76
     last_write_checksum: sha1:4c132d28e724d39069972e4a8a322edc0e2ea3b5
@@ -4619,8 +4747,8 @@ trackedFiles:
     pristine_git_object: b21fdc48d70bdb678c9e2982a3737a67a2eda67f
   internal/sdk/models/sdkerrors/postexperimentstart.go:
     id: 524b09eab7ca
-    last_write_checksum: sha1:80c9b8e0ab832a659e02d2e31bbb226351af9432
-    pristine_git_object: 5869b9d401770bb8f1ddd9257a7426604dbee96b
+    last_write_checksum: sha1:88d201e244e0f2cc645d5f0ea1991c4b4c33500c
+    pristine_git_object: 1e5ace2d5e7914b09f83d0b71a7970fcbc2bea1f
   internal/sdk/models/sdkerrors/postexperimentstop.go:
     id: 51010976599e
     last_write_checksum: sha1:565ce061cc47e5b1824c092687fcf3bf730c38f0
@@ -4663,8 +4791,8 @@ trackedFiles:
     pristine_git_object: 2ca79fde9973b6d28b33755486e82b19b162c984
   internal/sdk/models/sdkerrors/updateexperiment.go:
     id: 43e816d22e28
-    last_write_checksum: sha1:c2fb16d11a93f65bc1a8ff1b8171af7b992a0b40
-    pristine_git_object: a504d561802a29d929a60f7944ac176aeb708d29
+    last_write_checksum: sha1:a52577bb22717489171e4c861f67221812985f32
+    pristine_git_object: 84890b41bba732d03099f33eb58320951b9fb796
   internal/sdk/models/sdkerrors/updatefeaturev2.go:
     id: d60b924fda0c
     last_write_checksum: sha1:d9aa62d53a9cf2f0227628e7dc913cea8a3dd187
@@ -4699,8 +4827,8 @@ trackedFiles:
     pristine_git_object: ded50d94c671c1518391ade17aba209c3f747487
   internal/sdk/rampschedules.go:
     id: 899ea39fe48b
-    last_write_checksum: sha1:6262773638ed79d0e1477158036c9fde4609e0b5
-    pristine_git_object: 596e178db8d5b7370525aa724bf42e1c35c63329
+    last_write_checksum: sha1:0aff17f8a1972c717e7b929ea40a4d63d37d7268
+    pristine_git_object: 30f45602a36ad0ee0f907aa543f87b90329ac2e1
   internal/sdk/rampscheduletemplates.go:
     id: 6232c9da2168
     last_write_checksum: sha1:be8cdb1ea02c959e89b366eae2f6cf1f39210149
@@ -4719,12 +4847,12 @@ trackedFiles:
     pristine_git_object: 767002c7898128324d8741ce9c534bd466492169
   internal/sdk/savedgrouprevisions.go:
     id: b115c5cfa92a
-    last_write_checksum: sha1:42a70f013ec02f5613ad50de778c5214e35248f2
-    pristine_git_object: f6efeb02c37425035854c0083650f514172f6896
+    last_write_checksum: sha1:f4a2c185c888ffd2371739adda519088b7bc9f52
+    pristine_git_object: 6f49bd0fb8978495a9cc1fbfb761a97e2934b5cf
   internal/sdk/savedgroups.go:
     id: 311f5163cba7
-    last_write_checksum: sha1:1a4a769ac1332c06f6a4223852815aa026b486fe
-    pristine_git_object: 9bd5eb6975eaf664ec10cfdffccf49b7bd186e4b
+    last_write_checksum: sha1:98bae5a1d35cae6ea2e1b96b74e4099aee4ffd0d
+    pristine_git_object: 56be18a1da42065d805d746fd52d5858d6cc6e90
   internal/sdk/sdkconnections.go:
     id: 243fbbc2dc7e
     last_write_checksum: sha1:f85c84817e793c75a4b4682bd22f950eaeeef5ed
@@ -4835,8 +4963,8 @@ trackedFiles:
     pristine_git_object: 159a87ec97aba99e4edd132f69652e123434303e
   internal/usage/schema.go:
     id: 0f40f4612437
-    last_write_checksum: sha1:71054c237835165bab1a3d29214b58f8bc5672fb
-    pristine_git_object: 499705553197fea95980cfd37fdeb7d0708115a6
+    last_write_checksum: sha1:98df9abcdb2237434d2ba70e2845eadc5d7234a9
+    pristine_git_object: 740b4add02ab41bb83f7242847e964b83b3f9632
   scripts/install.ps1:
     id: fee0853709e9
     last_write_checksum: sha1:f9df93912e2b5d20eaffddbdb2708ce76ec06445
@@ -5495,7 +5623,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"checklistItems": [], "status": "ready"}
+          application/json: {"checklistItems": [], "status": "ready", "gates": []}
   getExperimentResults:
     speakeasy-default-get-experiment-results:
       parameters:
@@ -5525,7 +5653,7 @@ examples:
         application/json: {"keys": []}
       responses:
         "200":
-          application/json: {"checklistItems": [{"key": "<key>", "required": true, "status": "complete", "manual": true, "reason": "<value>"}], "status": "ready"}
+          application/json: {"checklistItems": [{"key": "<key>", "required": true, "status": "complete", "manual": true, "reason": "<value>"}], "status": "ready", "gates": []}
         "202":
           application/json: {"confirmation": {"id": "<id>", "status": "pending", "actions": [{"action": "feature.other", "environments": []}], "summary": "<value>", "url": "https://liquid-design.net/", "expiresAt": "1737640169260", "response": {"status": 8035.46, "body": "<value>"}, "note": "<value>"}, "message": "<value>"}
   postExperimentStop:
@@ -9262,7 +9390,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"population": {"id": "<id>", "dateCreated": "2025-01-18T07:06:46.074Z", "dateUpdated": "2026-11-27T21:08:47.029Z", "projects": ["<value 1>", "<value 2>"], "owner": "<value>", "name": "<value>", "description": "confiscate yippee duh drum immediately enlightened pharmacopoeia impartial pish", "datasource": "<value>", "userIdTypes": ["<value 1>"], "steps": [{"source": {"type": "factTable", "factTableId": "<id>"}, "rowFilters": [], "windowSettings": {"type": "lookback", "delayValue": 833.99, "delayUnit": "minutes", "windowValue": 2538.13, "windowUnit": "weeks"}}]}}
+          application/json: {"population": {"id": "<id>", "dateCreated": "2025-01-18T07:06:46.074Z", "dateUpdated": "2026-11-27T21:08:47.029Z", "projects": ["<value 1>", "<value 2>"], "owner": "<value>", "name": "<value>", "description": "confiscate yippee duh drum immediately enlightened pharmacopoeia impartial pish", "datasource": "<value>", "userIdTypes": ["<value 1>"], "steps": [{"source": {"type": "factTable", "factTableId": "<id>"}, "rowFilters": []}]}}
   updatePopulation:
     speakeasy-default-update-population:
       parameters:
@@ -9272,7 +9400,7 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"population": {"id": "<id>", "dateCreated": "2024-01-24T18:51:53.479Z", "dateUpdated": "2024-01-09T03:56:54.684Z", "projects": ["<value 1>", "<value 2>"], "owner": "<value>", "name": "<value>", "description": "annual except perfectly mid innocently", "datasource": "<value>", "userIdTypes": ["<value 1>"], "steps": [{"source": {"type": "factTable", "factTableId": "<id>"}, "rowFilters": [], "windowSettings": {"type": "", "delayValue": 7634.84, "delayUnit": "days", "windowValue": 9582.8, "windowUnit": "weeks"}}]}}
+          application/json: {"population": {"id": "<id>", "dateCreated": "2024-01-24T18:51:53.479Z", "dateUpdated": "2024-01-09T03:56:54.684Z", "projects": ["<value 1>", "<value 2>"], "owner": "<value>", "name": "<value>", "description": "annual except perfectly mid innocently", "datasource": "<value>", "userIdTypes": ["<value 1>"], "steps": [{"source": {"type": "factTable", "factTableId": "<id>"}, "rowFilters": []}]}}
         "202":
           application/json: {"confirmation": {"id": "<id>", "status": "rejected", "actions": [], "summary": "<value>", "url": "https://unconscious-straw.com", "expiresAt": "1756408845507", "response": null, "note": "<value>"}, "message": "<value>"}
   deletePopulation:
@@ -9359,4 +9487,150 @@ examples:
           application/json: {"interleaving": {"id": "<id>", "dateCreated": "2025-09-22T16:06:52.682Z", "dateUpdated": "2025-01-30T10:14:17.705Z", "name": "<value>", "owner": "<value>", "tags": ["<value 1>", "<value 2>"], "archived": false, "status": "draft", "key": "<key>", "trackingKey": "<value>", "hashAttribute": "<value>", "seed": "<value>", "variations": [{"id": "<id>", "key": "<key>", "name": "<value>", "config": "<value>"}], "jsonSchema": {"schemaType": "schema", "schema": "<value>", "simple": {"type": "object", "fields": []}, "enabled": true, "date": "2025-08-02T22:40:01.216Z"}, "datasource": "<value>", "interleavingQueryId": "<id>", "userIdType": "<value>", "metrics": [{"id": "<id>", "analyses": []}], "environmentSettings": {}}}
         "202":
           application/json: {"confirmation": {"id": "<id>", "status": "completed", "actions": [{"action": "segment.edit", "environments": ["<value 1>"]}], "summary": "<value>", "url": "https://raw-plugin.info", "expiresAt": "1741875236871", "response": {"status": 1093.26, "body": "<value>"}, "note": null}, "message": "<value>"}
+  deleteExperiment:
+    speakeasy-default-delete-experiment:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"deletedId": "<id>"}
+        "202":
+          application/json: {"confirmation": {"id": "<id>", "status": "completed", "actions": [], "summary": "<value>", "url": "https://accurate-joy.com", "expiresAt": "1762097918831", "response": null, "note": "<value>"}, "message": "<value>"}
+  postExperimentArchive:
+    speakeasy-default-post-experiment-archive:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {}
+      responses:
+        "200":
+          application/json: {"experiment": {"id": "<id>", "trackingKey": "<value>", "dateCreated": "2026-11-05T09:36:39.819Z", "dateUpdated": "2026-04-11T03:44:24.555Z", "name": "<value>", "type": "multi-armed-bandit", "project": "<value>", "hypothesis": "<value>", "description": "underneath negligible lest militate stool", "tags": ["<value 1>"], "owner": "<value>", "archived": false, "status": "<value>", "autoRefresh": false, "hashAttribute": "<value>", "hashVersion": 7135.78, "variations": [{"variationId": "<id>", "key": "<key>", "name": "<value>", "description": "amongst not oh accompany quirkily", "screenshots": ["<value 1>", "<value 2>"]}], "phases": [], "settings": {"datasourceId": "<id>", "assignmentQuery": {"id": "<id>", "identifierType": "<value>"}, "assignmentQueryId": "<id>", "experimentId": "<id>", "segmentId": "<id>", "queryFilter": "<value>", "inProgressConversions": "include", "attributionModel": "lookbackOverride", "statsEngine": "frequentist", "goals": [], "secondaryMetrics": [{"metricId": "<id>", "overrides": {}}], "guardrails": [{"metricId": "<id>", "overrides": {}}]}}}
+        "202":
+          application/json: {"confirmation": {"id": "<id>", "status": "expired", "actions": [{"action": "config.archive", "environments": ["<value 1>", "<value 2>"]}], "summary": "<value>", "url": "https://square-space.org", "expiresAt": "1738649619811", "response": {"status": 6753.51, "body": "<value>"}, "note": "<value>"}, "message": "<value>"}
+  postExperimentUnarchive:
+    speakeasy-default-post-experiment-unarchive:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {}
+      responses:
+        "200":
+          application/json: {"experiment": {"id": "<id>", "trackingKey": "<value>", "dateCreated": "2024-10-13T20:01:43.512Z", "dateUpdated": "2025-11-27T07:42:37.782Z", "name": "<value>", "type": "holdout", "project": "<value>", "hypothesis": "<value>", "description": "fragrant leap crooked", "tags": ["<value 1>", "<value 2>"], "owner": "<value>", "archived": true, "status": "<value>", "autoRefresh": false, "hashAttribute": "<value>", "hashVersion": 5689.86, "variations": [], "phases": [{"name": "<value>", "dateStarted": "<value>", "dateEnded": "<value>", "reasonForStopping": "<value>", "seed": "<value>", "coverage": 2983.27, "trafficSplit": [], "targetingCondition": "<value>"}], "settings": {"datasourceId": "<id>", "assignmentQuery": {"id": "<id>", "identifierType": null}, "assignmentQueryId": "<id>", "experimentId": "<id>", "segmentId": "<id>", "queryFilter": "<value>", "inProgressConversions": "include", "attributionModel": "firstExposure", "statsEngine": "frequentist", "goals": [{"metricId": "<id>", "overrides": {}}], "secondaryMetrics": [], "guardrails": []}}}
+        "202":
+          application/json: {"confirmation": {"id": "<id>", "status": "expired", "actions": [{"action": "override.skipChecklist", "environments": ["<value 1>", "<value 2>"]}], "summary": "<value>", "url": "https://violent-worth.info/", "expiresAt": "1748902912731", "response": {"status": 296.2, "body": "<value>"}, "note": "<value>"}, "message": "<value>"}
+  getContextualBanditStatus:
+    speakeasy-default-get-contextual-bandit-status:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"latest": {"id": "<id>", "status": "success", "error": "<value>", "queries": [], "runStarted": "<value>", "dateCreated": "<value>", "multipleExposures": 285.75, "type": "<value>", "triggeredBy": "<value>"}}
+  deleteContextualBandit:
+    speakeasy-default-delete-contextual-bandit:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"deletedId": "<id>"}
+        "202":
+          application/json: {"confirmation": {"id": "<id>", "status": "completed", "actions": [{"action": "sdkConnection.edit", "environments": ["<value 1>", "<value 2>", "<value 3>"]}], "summary": "<value>", "url": "https://cheerful-digit.com/", "expiresAt": "1759010405716", "response": {"status": 7070.06, "body": "<value>"}, "note": "<value>"}, "message": "<value>"}
+  listSavedGroupUploads:
+    speakeasy-default-list-saved-group-uploads:
+      parameters:
+        path:
+          id: "<id>"
+        query:
+          limit: 10
+          offset: 0
+      responses:
+        "200":
+          application/json: {"uploads": [], "limit": 524419, "offset": 626185, "count": 805721, "total": 820025, "hasMore": true, "nextOffset": 43728}
+  postSavedGroupUpload:
+    speakeasy-default-post-saved-group-upload:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"fileKey": "<value>"}
+      responses:
+        "200":
+          application/json: {"upload": {"savedGroupId": "<id>", "version": 847517, "fileName": "example.file", "size": 520463, "sha256": "<value>", "dateCreated": "2025-12-23T14:36:42.387Z", "createdBy": "<value>", "status": {"type": "invalid", "invalidLineCount": 900004, "errors": []}, "loads": [{"storeId": "<id>", "status": {"type": "invalid", "invalidLineCount": 62026, "errors": ["<value 1>", "<value 2>", "<value 3>"]}, "dateUpdated": "2025-09-26T01:11:37.641Z"}]}}
+        "202":
+          application/json: {"confirmation": {"id": "<id>", "status": "expired", "actions": [], "summary": "<value>", "url": "https://strange-catalyst.info/", "expiresAt": "1761101160452", "response": {"status": 2564.47, "body": "<value>"}, "note": null}, "message": "<value>"}
+  postSavedGroupUploadUrl:
+    speakeasy-default-post-saved-group-upload-url:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"signedUrl": "https://foolish-league.name", "fields": {"key": "<value>"}, "fileKey": "<value>", "maxBytes": 632219, "expiresAt": "2025-05-29T01:58:27.346Z"}
+        "202":
+          application/json: {"confirmation": {"id": "<id>", "status": "running", "actions": [], "summary": "<value>", "url": "https://unaware-flint.info", "expiresAt": "1739587944054", "response": {"status": 1989.34, "body": "<value>"}, "note": "<value>"}, "message": "<value>"}
+  postSavedGroupUploadLoad:
+    speakeasy-default-post-saved-group-upload-load:
+      parameters:
+        path:
+          id: "<id>"
+          version: "<value>"
+      requestBody:
+        application/json: {"storeId": "<id>", "status": {"type": "loaded", "rowCount": 650353}}
+      responses:
+        "200":
+          application/json: {"upload": {"savedGroupId": "<id>", "version": 630511, "fileName": null, "size": 104757, "sha256": "<value>", "dateCreated": "2024-12-03T08:44:37.473Z", "createdBy": "<value>", "status": {"type": "invalid", "invalidLineCount": 546622, "errors": ["<value 1>", "<value 2>"]}, "loads": []}}
+        "202":
+          application/json: {"confirmation": {"id": "<id>", "status": "expired", "actions": [{"action": "rampSchedule.approve", "environments": []}], "summary": "<value>", "url": "https://joyous-volleyball.net/", "expiresAt": "1747921442168", "response": {"status": 8655.16, "body": "<value>"}, "note": "<value>"}, "message": "<value>"}
+  getSavedGroupUpload:
+    speakeasy-default-get-saved-group-upload:
+      parameters:
+        path:
+          id: "<id>"
+          version: "<value>"
+      responses:
+        "200":
+          application/json: {"upload": {"savedGroupId": "<id>", "version": 899628, "fileName": "example.file", "size": 237989, "sha256": "<value>", "dateCreated": "2026-08-02T08:30:52.048Z", "createdBy": "<value>", "status": {"type": "invalid", "invalidLineCount": 497652, "errors": ["<value 1>", "<value 2>"]}, "loads": []}}
+  deleteSavedGroupUpload:
+    speakeasy-default-delete-saved-group-upload:
+      parameters:
+        path:
+          id: "<id>"
+          version: "<value>"
+      responses:
+        "200":
+          application/json: {"deletedVersion": 258750}
+        "202":
+          application/json: {"confirmation": {"id": "<id>", "status": "rejected", "actions": [{"action": "project.delete", "environments": ["<value 1>", "<value 2>"]}], "summary": "<value>", "url": "https://rewarding-swine.biz", "expiresAt": "1746339154468", "response": null, "note": "<value>"}, "message": "<value>"}
+  putSavedGroupRevisionUploadVersion:
+    speakeasy-default-put-saved-group-revision-upload-version:
+      parameters:
+        path:
+          savedGroupId: "<id>"
+          version: "<value>"
+      requestBody:
+        application/json: {"currentUploadVersion": 830251}
+      responses:
+        "200":
+          application/json: {"revision": {"id": "<id>", "status": "draft", "authorId": "<id>", "reviews": [{"id": "<id>", "userId": "<id>", "decision": "request-changes", "dateCreated": "2024-01-11T10:43:51.989Z"}], "activityLog": [{"id": "<id>", "userId": "<id>", "action": "commented", "dateCreated": "2026-02-26T17:30:05.441Z"}], "dateCreated": "2025-02-14T12:45:43.020Z", "dateUpdated": "2025-10-23T15:01:53.824Z", "baseSavedGroup": {"id": "<id>", "type": "list", "dateCreated": "2026-06-24T11:23:21.152Z", "dateUpdated": "2025-09-21T23:14:51.679Z", "name": "<value>"}, "proposedSavedGroup": {"id": "<id>", "type": "condition", "dateCreated": "2025-10-23T01:03:51.381Z", "dateUpdated": "2024-08-22T01:38:33.957Z", "name": "<value>"}, "proposedChanges": [{"op": "replace", "path": "/sys", "value": "<value>"}]}}
+        "202":
+          application/json: {"confirmation": {"id": "<id>", "status": "running", "actions": [], "summary": "<value>", "url": "https://dazzling-premium.biz", "expiresAt": "1737240675573", "response": {"status": 517.57, "body": "<value>"}, "note": "<value>"}, "message": "<value>"}
+  rollbackMatchingRampSchedules:
+    speakeasy-default-rollback-matching-ramp-schedules:
+      responses:
+        "200":
+          application/json: {"rampSchedules": [{"id": "<id>", "featureId": "<id>", "result": "skipped"}]}
+        "202":
+          application/json: {"confirmation": {"id": "<id>", "status": "rejected", "actions": [{"action": "savedGroup.draft", "environments": ["<value 1>", "<value 2>", "<value 3>"]}], "summary": "<value>", "url": "https://self-assured-cappelletti.name", "expiresAt": "1757910724424", "response": null, "note": "<value>"}, "message": "<value>"}
+  pauseMatchingRampSchedules:
+    speakeasy-default-pause-matching-ramp-schedules:
+      responses:
+        "200":
+          application/json: {"rampSchedules": []}
+        "202":
+          application/json: {"confirmation": {"id": "<id>", "status": "pending", "actions": [{"action": "metric.edit", "environments": ["<value 1>", "<value 2>"]}], "summary": "<value>", "url": "https://tidy-bourgeoisie.biz/", "expiresAt": "1760062951039", "response": {"status": 5078.7, "body": "<value>"}, "note": "<value>"}, "message": "<value>"}
 examplesVersion: 1.0.2
+releaseNotes: "## Cli SDK Changes:\n* `Growthbook.Experiments.UpdateExperiment()`: \n  *  `request.Request.Body` **Changed**\n  *  `response` **Changed**\n  *  `error` **Changed** (Breaking ⚠️)\n* `Growthbook.Populations.ListPopulations()`:  `response.Populations[].Steps[].WindowSettings` **Removed** (Breaking ⚠️)\n* `Growthbook.Populations.CreatePopulation()`: \n  *  `request.Request.Steps[].WindowSettings` **Removed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n* `Growthbook.Populations.GetPopulation()`:  `response.Population.Steps[].WindowSettings` **Removed** (Breaking ⚠️)\n* `Growthbook.Populations.UpdatePopulation()`: \n  *  `request.Request.Body.Steps[].WindowSettings` **Removed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n* `Growthbook.SavedGroupRevisions.SetValues()`:  `response` **Changed**\n* `Growthbook.Holdouts.CreateHoldout()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Experiments.PostExperimentUnarchive()`: **Added**\n* `Growthbook.SavedGroupRevisions.RemoveItems()`:  `response` **Changed**\n* `Growthbook.ContextualBandits.DeleteContextualBandit()`: **Added**\n* `Growthbook.SavedGroups.ListSavedGroupUploads()`: **Added**\n* `Growthbook.SavedGroups.PostSavedGroupUpload()`: **Added**\n* `Growthbook.SavedGroups.PostSavedGroupUploadUrl()`: **Added**\n* `Growthbook.SavedGroups.PostSavedGroupUploadLoad()`: **Added**\n* `Growthbook.SavedGroups.GetSavedGroupUpload()`: **Added**\n* `Growthbook.SavedGroups.DeleteSavedGroupUpload()`: **Added**\n* `Growthbook.SavedGroupRevisions.PutSavedGroupRevisionUploadVersion()`: **Added**\n* `Growthbook.RampSchedules.RollbackMatchingRampSchedules()`: **Added**\n* `Growthbook.RampSchedules.PauseMatchingRampSchedules()`: **Added**\n* `Growthbook.FeaturesV1.List()`:  `response.Features[].Environments.Map<FeatureEnvironmentV1>.Rules[].union(rollout).FallbackAttribute` **Added**\n* `Growthbook.FeaturesV1.Create()`: \n  *  `request.Request.Environments.Map<environments>` **Changed**\n  *  `response` **Changed**\n* `Growthbook.FeaturesV1.Get()`:  `response.Feature.Environments.Map<FeatureEnvironmentV1>.Rules[].union(rollout).FallbackAttribute` **Added**\n* `Growthbook.FeaturesV1.Update()`: \n  *  `request.Request.Body.Environments.Map<environments>` **Changed**\n  *  `response` **Changed**\n* `Growthbook.FeaturesV1.Delete()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.FeaturesV1.Toggle()`:  `response` **Changed**\n* `Growthbook.FeaturesV1.Revert()`:  `response` **Changed**\n* `Growthbook.FeatureRevisionsV1.ListRevisions()`:  `response.Revisions[].Rules.Map<Array<FeatureRuleV1>>[].union(rollout).FallbackAttribute` **Added**\n* `Growthbook.FeatureRevisionsV1.ListForFeature()`:  `response.Revisions[].Rules.Map<Array<FeatureRuleV1>>[].union(rollout).FallbackAttribute` **Added**\n* `Growthbook.FeatureRevisionsV1.Create()`:  `response` **Changed**\n* `Growthbook.FeatureRevisionsV1.GetFeatureRevisionLatest()`:  `response.Revision.Rules.Map<Array<FeatureRuleV1>>[].union(rollout).FallbackAttribute` **Added**\n* `Growthbook.FeatureRevisionsV1.GetFeatureRevision()`:  `response.Revision.Rules.Map<Array<FeatureRuleV1>>[].union(rollout).FallbackAttribute` **Added**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionMetadata()`:  `response` **Changed**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionDefaultValue()`:  `response` **Changed**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionPrerequisites()`:  `response` **Changed**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionHoldout()`:  `response` **Changed**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionArchive()`:  `response` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionToggle()`:  `response` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionRuleAdd()`: \n  *  `request.Request.Body.Rule.union(class (2)).FallbackAttribute` **Added**\n  *  `response` **Changed**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionRule()`: \n  *  `request.Request.Body.Rule.FallbackAttribute` **Added**\n  *  `response` **Changed**\n* `Growthbook.FeatureRevisionsV1.DeleteFeatureRevisionRule()`:  `response` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionRulesReorder()`:  `response` **Changed**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionRuleRampSchedule()`:  `response` **Changed**\n* `Growthbook.FeatureRevisionsV1.DeleteFeatureRevisionRuleRampSchedule()`:  `response` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionRequestReview()`:  `response` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionSubmitReview()`:  `response` **Changed**\n* `Growthbook.FeatureRevisionsV1.GetFeatureRevisionMergeStatus()`:  `response.Result.Rules[].union(rollout).FallbackAttribute` **Added**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionRebase()`:  `response` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionPublish()`:  `response` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionDiscard()`:  `response` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionRevert()`:  `response` **Changed**\n* `Growthbook.Features.List()`:  `response.Features[].Rules[].union(rollout).FallbackAttribute` **Added**\n* `Growthbook.Features.Create()`: \n  *  `request.Request.Rules[].union(rollout).FallbackAttribute` **Added**\n  *  `response` **Changed**\n* `Growthbook.Features.Get()`:  `response.Feature.Rules[].union(rollout).FallbackAttribute` **Added**\n* `Growthbook.Features.Update()`: \n  *  `request.Request.Body.Rules[].union(rollout).FallbackAttribute` **Added**\n  *  `response` **Changed**\n* `Growthbook.Features.Delete()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Features.Toggle()`:  `response` **Changed**\n* `Growthbook.Features.Revert()`:  `response` **Changed**\n* `Growthbook.FeatureRevisions.ListRevisions()`:  `response.Revisions[].Rules[].union(rollout).FallbackAttribute` **Added**\n* `Growthbook.FeatureRevisions.ListForFeature()`:  `response.Revisions[].Rules[].union(rollout).FallbackAttribute` **Added**\n* `Growthbook.FeatureRevisions.Create()`:  `response` **Changed**\n* `Growthbook.FeatureRevisions.Latest()`:  `response.Revision.Rules[].union(rollout).FallbackAttribute` **Added**\n* `Growthbook.FeatureRevisions.Get()`:  `response.Revision.Rules[].union(rollout).FallbackAttribute` **Added**\n* `Growthbook.FeatureRevisions.SetMetadata()`:  `response` **Changed**\n* `Growthbook.FeatureRevisions.SetDefaultValue()`:  `response` **Changed**\n* `Growthbook.FeatureRevisions.SetPrerequisites()`:  `response` **Changed**\n* `Growthbook.FeatureRevisions.SetHoldout()`:  `response` **Changed**\n* `Growthbook.FeatureRevisions.Archive()`:  `response` **Changed**\n* `Growthbook.FeatureRevisions.Toggle()`:  `response` **Changed**\n* `Growthbook.FeatureRevisions.AddRule()`: \n  *  `request.Request.Body.Rule.union(Targeting Rule).FallbackAttribute` **Added**\n  *  `response` **Changed**\n* `Growthbook.FeatureRevisions.UpdateRule()`: \n  *  `request.Request.Body.Rule.FallbackAttribute` **Added**\n  *  `response` **Changed**\n* `Growthbook.FeatureRevisions.DeleteRule()`:  `response` **Changed**\n* `Growthbook.FeatureRevisions.ReorderRules()`:  `response` **Changed**\n* `Growthbook.FeatureRevisions.SetRuleRampSchedule()`:  `response` **Changed**\n* `Growthbook.FeatureRevisions.DeleteRuleRampSchedule()`:  `response` **Changed**\n* `Growthbook.FeatureRevisions.RequestReview()`:  `response` **Changed**\n* `Growthbook.FeatureRevisions.SchedulePublish()`:  `response` **Changed**\n* `Growthbook.FeatureRevisions.SubmitReview()`:  `response` **Changed**\n* `Growthbook.FeatureRevisions.RecallReview()`:  `response` **Changed**\n* `Growthbook.FeatureRevisions.UndoReview()`:  `response` **Changed**\n* `Growthbook.FeatureRevisions.AddLogComment()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.FeatureRevisions.DeleteLogEntry()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.FeatureRevisions.RebasePreview()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.FeatureRevisions.Rebase()`:  `response` **Changed**\n* `Growthbook.FeatureRevisions.Publish()`:  `response` **Changed**\n* `Growthbook.FeatureRevisions.Discard()`:  `response` **Changed**\n* `Growthbook.FeatureRevisions.Reopen()`:  `response` **Changed**\n* `Growthbook.FeatureRevisions.Revert()`:  `response` **Changed**\n* `Growthbook.Archetypes.Create()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Archetypes.Update()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Archetypes.DeleteArchetype()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Experiments.Create()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Experiments.GetStartChecklist()`:  `response` **Changed**\n* `Growthbook.Experiments.Start()`: \n  *  `request.Request.Body.BypassApproval` **Added**\n  *  `response` **Changed**\n* `Growthbook.Experiments.CompleteStartChecklist()`:  `response` **Changed**\n* `Growthbook.Experiments.Stop()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Experiments.SetSchedule()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Experiments.ModifyTemporaryRollout()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Experiments.UploadVariationScreenshot()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Experiments.DeleteVariationScreenshot()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Experiments.PostComment()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.VisualChangesets.ListVisualChangesets()`:  `response.VisualChangesets[].VisualChanges[].Id` **Added**\n* `Growthbook.VisualChangesets.Create()`:  `response` **Changed**\n* `Growthbook.VisualChangesets.GetVisualChangeset()`:  `response.VisualChangeset.VisualChanges[].Id` **Added**\n* `Growthbook.VisualChangesets.Update()`:  `response` **Changed**\n* `Growthbook.VisualChangesets.AddVisualChange()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.VisualChangesets.UpdateVisualChange()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ContextualBandits.AddLinkedFeature()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ContextualBandits.UpdateLinkedFeature()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ContextualBandits.DeleteLinkedFeature()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ContextualBandits.UpdateContextualBandit()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ContextualBandits.CreateContextualBandit()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ContextualBandits.StartContextualBandit()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ContextualBandits.StopContextualBandit()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ContextualBandits.RefreshContextualBandit()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ContextualBandits.UpdateVariations()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ContextualBandits.CreateVisualChangeset()`:  `response` **Changed**\n* `Growthbook.ContextualBandits.ListVisualChangesets()`:  `response.VisualChangesets[].VisualChanges[].Id` **Added**\n* `Growthbook.Metrics.Create()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Metrics.Update()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Metrics.DeleteMetric()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Segments.Create()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Segments.UpdateSegment()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Segments.DeleteSegment()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Dimensions.Create()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Dimensions.UpdateDimension()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Dimensions.DeleteDimension()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Projects.Create()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Projects.Update()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Projects.DeleteProject()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Environments.Create()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Environments.Update()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Environments.DeleteEnvironment()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Attributes.Create()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Attributes.Update()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Attributes.DeleteAttribute()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.SdkConnections.Create()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.SdkConnections.Update()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.SdkConnections.DeleteSdkConnection()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.DataSources.ListDataSources()`:  `response.DataSources[].AssignmentQueries[].ColumnMapping` **Added**\n* `Growthbook.DataSources.GetDataSource()`:  `response.DataSource.AssignmentQueries[].ColumnMapping` **Added**\n* `Growthbook.SavedGroups.ListSavedGroups()`: \n  *  `request.Request.Type` **Added**\n  *  `response.SavedGroups[]` **Changed**\n* `Growthbook.SavedGroups.Create()`: \n  *  `request.Request.Type.Enum(remote)` **Added**\n  *  `response` **Changed**\n* `Growthbook.SavedGroups.GetSavedGroup()`:  `response.SavedGroup` **Changed**\n* `Growthbook.SavedGroups.UpdateSavedGroup()`: \n  *  `request.Request.Body.CurrentUploadVersion` **Added**\n  *  `response` **Changed**\n* `Growthbook.SavedGroups.DeleteSavedGroup()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.SavedGroups.ArchiveSavedGroup()`:  `response` **Changed**\n* `Growthbook.SavedGroups.UnarchiveSavedGroup()`:  `response` **Changed**\n* `Growthbook.SavedGroupRevisions.ListSavedGroupRevisions()`:  `response.Revisions[].BaseSavedGroup` **Changed**\n* `Growthbook.SavedGroupRevisions.ListForSavedGroup()`:  `response.Revisions[].BaseSavedGroup` **Changed**\n* `Growthbook.SavedGroupRevisions.Create()`:  `response` **Changed**\n* `Growthbook.SavedGroupRevisions.Latest()`:  `response.Revision.BaseSavedGroup` **Changed**\n* `Growthbook.SavedGroupRevisions.GetSavedGroupRevision()`:  `response.Revision.BaseSavedGroup` **Changed**\n* `Growthbook.SavedGroupRevisions.SetMetadata()`:  `response` **Changed**\n* `Growthbook.SavedGroupRevisions.SetCondition()`:  `response` **Changed**\n* `Growthbook.Experiments.DeleteExperiment()`: **Added**\n* `Growthbook.SavedGroupRevisions.Archive()`:  `response` **Changed**\n* `Growthbook.SavedGroupRevisions.AddItems()`:  `response` **Changed**\n* `Growthbook.ContextualBandits.GetContextualBanditStatus()`: **Added**\n* `Growthbook.Experiments.PostExperimentArchive()`: **Added**\n* `Growthbook.Constants.Create()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.SavedGroupRevisions.RecallReview()`:  `response` **Changed**\n* `Growthbook.SavedGroupRevisions.Reopen()`:  `response` **Changed**\n* `Growthbook.SavedGroupRevisions.SchedulePublish()`:  `response` **Changed**\n* `Growthbook.SavedGroupRevisions.UndoReview()`:  `response` **Changed**\n* `Growthbook.SavedGroupRevisions.Rebase()`:  `response` **Changed**\n* `Growthbook.SavedGroupRevisions.Publish()`:  `response` **Changed**\n* `Growthbook.SavedGroupRevisions.Discard()`:  `response` **Changed**\n* `Growthbook.SavedGroupRevisions.Revert()`:  `response` **Changed**\n* `Growthbook.SavedGroupRevisions.SubmitReview()`:  `response` **Changed**\n* `Growthbook.Constants.UpdateConstant()`:  `response` **Changed**\n* `Growthbook.Constants.DeleteConstant()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Constants.ArchiveConstant()`:  `response` **Changed**\n* `Growthbook.Constants.UnarchiveConstant()`:  `response` **Changed**\n* `Growthbook.ConstantRevisions.Create()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ConstantRevisions.SetMetadata()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ConstantRevisions.SetValue()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ConstantRevisions.Archive()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ConstantRevisions.RequestReview()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ConstantRevisions.SubmitReview()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ConstantRevisions.RecallReview()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ConstantRevisions.Reopen()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ConstantRevisions.SchedulePublish()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ConstantRevisions.UndoReview()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ConstantRevisions.Rebase()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ConstantRevisions.Publish()`:  `response` **Changed**\n* `Growthbook.ConstantRevisions.Discard()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ConstantRevisions.Revert()`:  `response` **Changed**\n* `Growthbook.Configs.Create()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Configs.UpdateConfig()`:  `response` **Changed**\n* `Growthbook.Configs.DeleteConfig()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Configs.ArchiveConfig()`:  `response` **Changed**\n* `Growthbook.Configs.UnarchiveConfig()`:  `response` **Changed**\n* `Growthbook.Configs.LockConfig()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Configs.UnlockConfig()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ConfigRevisions.Create()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ConfigRevisions.SetMetadata()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ConfigRevisions.SetValue()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ConfigRevisions.SetProperty()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ConfigRevisions.DeleteProperty()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ConfigRevisions.SetSchema()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ConfigRevisions.SetProjection()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ConfigRevisions.DeleteProjection()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ConfigRevisions.Archive()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ConfigRevisions.RequestReview()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ConfigRevisions.SubmitReview()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ConfigRevisions.UndoReview()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ConfigRevisions.RecallReview()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ConfigRevisions.Reopen()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ConfigRevisions.SchedulePublish()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ConfigRevisions.Rebase()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ConfigRevisions.Publish()`:  `response` **Changed**\n* `Growthbook.ConfigRevisions.Discard()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ConfigRevisions.Revert()`:  `response` **Changed**\n* `Growthbook.Releases.PublishRevisions()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.CustomHooks.Create()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.CustomHooks.UpdateCustomHook()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.CustomHooks.DeleteCustomHook()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.CustomHooks.RevertCustomHook()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Organizations.Create()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Organizations.Update()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.FactTables.ListFactTables()`:  `response.FactTables[].ManagedBy.Enum(dbt)` **Added**\n* `Growthbook.FactTables.Create()`: \n  *  `request.Request.ManagedBy.Enum(dbt)` **Added**\n  *  `response` **Changed**\n* `Growthbook.FactTables.GetFactTable()`:  `response.FactTable.ManagedBy.Enum(dbt)` **Added**\n* `Growthbook.FactTables.UpdateFactTable()`: \n  *  `request.Request.Body.ManagedBy.Enum(dbt)` **Added**\n  *  `response` **Changed**\n* `Growthbook.FactTables.DeleteFactTable()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.FactTables.CreateFilter()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.FactTables.UpdateFilter()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.FactTables.DeleteFilter()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.FactTables.CreateVirtualColumn()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.FactTables.UpdateVirtualColumn()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.FactTables.DeleteVirtualColumn()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.FactTables.BulkImport()`: \n  *  `request.Request` **Changed**\n  *  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.FactMetrics.ListFactMetrics()`:  `response.FactMetrics[].ManagedBy.Enum(dbt)` **Added**\n* `Growthbook.FactMetrics.Create()`: \n  *  `request.Request.ManagedBy.Enum(dbt)` **Added**\n  *  `response` **Changed**\n* `Growthbook.FactMetrics.GetFactMetric()`:  `response.FactMetric.ManagedBy.Enum(dbt)` **Added**\n* `Growthbook.FactMetrics.UpdateFactMetric()`: \n  *  `request.Request.Body.ManagedBy.Enum(dbt)` **Added**\n  *  `response` **Changed**\n* `Growthbook.FactMetrics.DeleteFactMetric()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.CodeReferences.Submit()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Members.UpdateRole()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Members.DeleteMember()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Settings.GetSettings()`:  `response.Settings.UpdateSchedule` **Changed**\n* `Growthbook.Settings.SetApprovals()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Meta.GetConfirmation()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.RampSchedules.Create()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.RampSchedules.StartRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.RampSchedules.PauseRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.RampSchedules.ResumeRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.RampSchedules.RollbackRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.RampSchedules.RestartRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.RampSchedules.JumpRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.RampSchedules.CompleteRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.RampSchedules.ApproveStepRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.RampSchedules.AddTargetRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.RampSchedules.EjectTargetRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.RampSchedules.ApiAdvanceRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.RampSchedules.SetMonitoringModeRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.RampSchedules.SetAutoUpdateRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.RampSchedules.UpdateMonitoring()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.RampSchedules.UpdateLockdown()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.RampSchedules.UpdateSteps()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.RampSchedules.DeleteRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.RampSchedules.UpdateRampSchedule()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Reports.Create()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Reports.SetMetadata()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Reports.SetSettings()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Namespaces.Create()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Namespaces.Update()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Namespaces.DeleteNamespace()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Namespaces.RotateSeed()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Dashboards.DeleteDashboard()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Dashboards.UpdateDashboard()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Dashboards.CreateV1()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Dashboards.Create()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ContextualBanditQueries.Delete()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ContextualBanditQueries.Update()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ContextualBanditQueries.Create()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Interleavings.UpdateInterleaving()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Interleavings.CreateInterleaving()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Interleavings.StartInterleaving()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Interleavings.StopInterleaving()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.CustomFields.CreateCustomField()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.CustomFields.DeleteCustomField()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.CustomFields.UpdateCustomField()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.MetricGroups.DeleteMetricGroup()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.MetricGroups.UpdateMetricGroup()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.MetricGroups.CreateMetricGroup()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Teams.UpdateTeam()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Teams.DeleteTeam()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Teams.CreateTeam()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Teams.AddMembers()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Teams.RemoveMembers()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ExperimentTemplates.DeleteExperimentTemplate()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ExperimentTemplates.UpdateExperimentTemplate()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ExperimentTemplates.CreateExperimentTemplate()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.ExperimentTemplates.BulkImportExperimentTemplates()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.RampScheduleTemplates.DeleteRampScheduleTemplate()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.RampScheduleTemplates.UpdateRampScheduleTemplate()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.RampScheduleTemplates.CreateRampScheduleTemplate()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Learnings.DeleteLearning()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Learnings.UpdateLearning()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Learnings.CreateLearning()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Holdouts.UpdateHoldout()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.SavedGroupRevisions.RequestReview()`:  `response` **Changed**\n* `Growthbook.Holdouts.StartHoldout()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Holdouts.StartAnalysis()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Holdouts.StopHoldout()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.AutoRuns.CreateAutoRun()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.AutoRuns.UpdateAutoRun()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.AutoRuns.AppendArtifact()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n* `Growthbook.Populations.DeletePopulation()`:  `response.Confirmation.Actions[].Action.Enum(experiment.checklist)` **Added**\n"

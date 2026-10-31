@@ -39,6 +39,7 @@ func (p *PostExperimentStartChecklistManualCompleteRequest) GetBody() PostExperi
 	return p.Body
 }
 
+// PostExperimentStartChecklistManualCompleteStatus - `notReady` while there's any gate.
 type PostExperimentStartChecklistManualCompleteStatus string
 
 const (
@@ -63,8 +64,11 @@ func (e *PostExperimentStartChecklistManualCompleteStatus) IsExact() bool {
 
 // PostExperimentStartChecklistManualCompleteResponseBody - Resource created
 type PostExperimentStartChecklistManualCompleteResponseBody struct {
-	ChecklistItems []components.ChecklistItems                      `json:"checklistItems"`
-	Status         PostExperimentStartChecklistManualCompleteStatus `json:"status"`
+	ChecklistItems []components.ChecklistItems `json:"checklistItems"`
+	// `notReady` while there's any gate.
+	Status PostExperimentStartChecklistManualCompleteStatus `json:"status"`
+	// Each incomplete required item, and each linked Feature Flag a ramp locks, as a gate. A refused start returns the blocking ones in `gates`.
+	Gates []components.Gates `json:"gates"`
 }
 
 func (p *PostExperimentStartChecklistManualCompleteResponseBody) GetChecklistItems() []components.ChecklistItems {
@@ -79,6 +83,13 @@ func (p *PostExperimentStartChecklistManualCompleteResponseBody) GetStatus() Pos
 		return PostExperimentStartChecklistManualCompleteStatus("")
 	}
 	return p.Status
+}
+
+func (p *PostExperimentStartChecklistManualCompleteResponseBody) GetGates() []components.Gates {
+	if p == nil {
+		return []components.Gates{}
+	}
+	return p.Gates
 }
 
 type PostExperimentStartChecklistManualCompleteResponse struct {

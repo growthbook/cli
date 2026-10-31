@@ -180,24 +180,25 @@ func (p *PutFeatureRevisionRuleVariation) GetValue() string {
 
 type PutFeatureRevisionRuleRule struct {
 	// Short note on why the rule exists (e.g. `Beta testers only`).
-	Description    *string                                                               `json:"description,omitzero"`
-	Enabled        *bool                                                                 `json:"enabled,omitzero"`
-	Condition      *string                                                               `json:"condition,omitzero"`
-	SavedGroups    []PutFeatureRevisionRuleSavedGroup                                    `json:"savedGroups,omitzero"`
-	Prerequisites  []PutFeatureRevisionRulePrerequisite                                  `json:"prerequisites,omitzero"`
-	ScheduleRules  optionalnullable.OptionalNullable[[]ScheduleRules]                    `json:"scheduleRules,omitzero"`
-	ScheduleType   optionalnullable.OptionalNullable[PutFeatureRevisionRuleScheduleType] `json:"scheduleType,omitzero"`
-	Type           *PutFeatureRevisionRuleType                                           `json:"type,omitzero"`
-	Value          *string                                                               `json:"value,omitzero"`
-	Sparse         *bool                                                                 `json:"sparse,omitzero"`
-	Coverage       *float64                                                              `json:"coverage,omitzero"`
-	HashAttribute  *string                                                               `json:"hashAttribute,omitzero"`
-	Seed           *string                                                               `json:"seed,omitzero"`
-	HashVersion    *float64                                                              `json:"hashVersion,omitzero"`
-	ExperimentID   *string                                                               `json:"experimentId,omitzero"`
-	Variations     []PutFeatureRevisionRuleVariation                                     `json:"variations,omitzero"`
-	ControlValue   *string                                                               `json:"controlValue,omitzero"`
-	VariationValue *string                                                               `json:"variationValue,omitzero"`
+	Description       *string                                                               `json:"description,omitzero"`
+	Enabled           *bool                                                                 `json:"enabled,omitzero"`
+	Condition         *string                                                               `json:"condition,omitzero"`
+	SavedGroups       []PutFeatureRevisionRuleSavedGroup                                    `json:"savedGroups,omitzero"`
+	Prerequisites     []PutFeatureRevisionRulePrerequisite                                  `json:"prerequisites,omitzero"`
+	ScheduleRules     optionalnullable.OptionalNullable[[]ScheduleRules]                    `json:"scheduleRules,omitzero"`
+	ScheduleType      optionalnullable.OptionalNullable[PutFeatureRevisionRuleScheduleType] `json:"scheduleType,omitzero"`
+	Type              *PutFeatureRevisionRuleType                                           `json:"type,omitzero"`
+	Value             *string                                                               `json:"value,omitzero"`
+	Sparse            *bool                                                                 `json:"sparse,omitzero"`
+	Coverage          *float64                                                              `json:"coverage,omitzero"`
+	HashAttribute     *string                                                               `json:"hashAttribute,omitzero"`
+	FallbackAttribute *string                                                               `json:"fallbackAttribute,omitzero"`
+	Seed              *string                                                               `json:"seed,omitzero"`
+	HashVersion       *float64                                                              `json:"hashVersion,omitzero"`
+	ExperimentID      *string                                                               `json:"experimentId,omitzero"`
+	Variations        []PutFeatureRevisionRuleVariation                                     `json:"variations,omitzero"`
+	ControlValue      *string                                                               `json:"controlValue,omitzero"`
+	VariationValue    *string                                                               `json:"variationValue,omitzero"`
 }
 
 func (p PutFeatureRevisionRuleRule) MarshalJSON() ([]byte, error) {
@@ -293,6 +294,13 @@ func (p *PutFeatureRevisionRuleRule) GetHashAttribute() *string {
 		return nil
 	}
 	return p.HashAttribute
+}
+
+func (p *PutFeatureRevisionRuleRule) GetFallbackAttribute() *string {
+	if p == nil {
+		return nil
+	}
+	return p.FallbackAttribute
 }
 
 func (p *PutFeatureRevisionRuleRule) GetSeed() *string {

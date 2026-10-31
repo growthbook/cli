@@ -28,7 +28,7 @@ var updateFactTableCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "timestamp-column", FieldPath: "Body.TimestampColumn", Kind: flagutil.FlagKindString, Optional: true, Description: "The column holding the event timestamp. Must be a date column on this fact table. Defaults to \"timestamp\" when unset."},
 	{FlagName: "event-name", Shorthand: "e", FieldPath: "Body.EventName", Kind: flagutil.FlagKindString, Optional: true, Description: "The event name used in SQL template variables"},
 	{FlagName: "columns", Shorthand: "c", FieldPath: "Body.Columns", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"columns,omitempty"`, Description: "Optional array of columns to upsert by `column`: existing columns are patched, new columns are created, and columns not included are left unchanged. Omit `datatype` to leave an existing column's type untouched; send \"\" to reset it for auto-detection; new columns are auto-detected when `datatype` is omitted or \"\". Slice-related properties require an enterprise license."},
-	{FlagName: "managed-by", Shorthand: "m", FieldPath: "Body.ManagedBy", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"", "api", "admin"}, Description: "Set this to \"api\" to disable editing in the GrowthBook UI (options: , api, admin)"},
+	{FlagName: "managed-by", Shorthand: "m", FieldPath: "Body.ManagedBy", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"", "api", "admin", "dbt"}, Description: "Set this to \"api\" (or \"dbt\" for resources synced from dbt) to disable editing in the GrowthBook UI (options: , api, admin, dbt)"},
 	{FlagName: "archived", FieldPath: "Body.Archived", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 }
 

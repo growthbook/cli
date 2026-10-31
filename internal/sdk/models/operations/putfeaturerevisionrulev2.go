@@ -158,16 +158,17 @@ type PutFeatureRevisionRuleV2Rule struct {
 	Type          *PutFeatureRevisionRuleV2Type          `json:"type,omitzero"`
 	Value         *string                                `json:"value,omitzero"`
 	// Force/rollout rules only. Key of a config to back the value (or null to detach). When set, `value` is a JSON override patch merged on top of the config. Omit to leave the existing config backing unchanged.
-	Config         optionalnullable.OptionalNullable[string] `json:"config,omitzero"`
-	Sparse         *bool                                     `json:"sparse,omitzero"`
-	Coverage       *float64                                  `json:"coverage,omitzero"`
-	HashAttribute  *string                                   `json:"hashAttribute,omitzero"`
-	Seed           *string                                   `json:"seed,omitzero"`
-	HashVersion    *float64                                  `json:"hashVersion,omitzero"`
-	ExperimentID   *string                                   `json:"experimentId,omitzero"`
-	Variations     []PutFeatureRevisionRuleV2Variation       `json:"variations,omitzero"`
-	ControlValue   *string                                   `json:"controlValue,omitzero"`
-	VariationValue *string                                   `json:"variationValue,omitzero"`
+	Config            optionalnullable.OptionalNullable[string] `json:"config,omitzero"`
+	Sparse            *bool                                     `json:"sparse,omitzero"`
+	Coverage          *float64                                  `json:"coverage,omitzero"`
+	HashAttribute     *string                                   `json:"hashAttribute,omitzero"`
+	FallbackAttribute *string                                   `json:"fallbackAttribute,omitzero"`
+	Seed              *string                                   `json:"seed,omitzero"`
+	HashVersion       *float64                                  `json:"hashVersion,omitzero"`
+	ExperimentID      *string                                   `json:"experimentId,omitzero"`
+	Variations        []PutFeatureRevisionRuleV2Variation       `json:"variations,omitzero"`
+	ControlValue      *string                                   `json:"controlValue,omitzero"`
+	VariationValue    *string                                   `json:"variationValue,omitzero"`
 	// Omit both scope fields to keep the current scope.
 	AllEnvironments *bool `json:"allEnvironments,omitzero"`
 	// Environment IDs the rule applies to. Ignored when allEnvironments is true.
@@ -260,6 +261,13 @@ func (p *PutFeatureRevisionRuleV2Rule) GetHashAttribute() *string {
 		return nil
 	}
 	return p.HashAttribute
+}
+
+func (p *PutFeatureRevisionRuleV2Rule) GetFallbackAttribute() *string {
+	if p == nil {
+		return nil
+	}
+	return p.FallbackAttribute
 }
 
 func (p *PutFeatureRevisionRuleV2Rule) GetSeed() *string {

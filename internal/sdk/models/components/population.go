@@ -206,128 +206,13 @@ func (p *PopulationRowFilter) GetValues() []string {
 	return p.Values
 }
 
-type PopulationWindowSettingsType string
-
-const (
-	PopulationWindowSettingsTypeConversion PopulationWindowSettingsType = "conversion"
-	PopulationWindowSettingsTypeLookback   PopulationWindowSettingsType = "lookback"
-	PopulationWindowSettingsTypeUnknown    PopulationWindowSettingsType = ""
-)
-
-func (e PopulationWindowSettingsType) ToPointer() *PopulationWindowSettingsType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PopulationWindowSettingsType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "conversion", "lookback", "":
-			return true
-		}
-	}
-	return false
-}
-
-type PopulationDelayUnit string
-
-const (
-	PopulationDelayUnitWeeks   PopulationDelayUnit = "weeks"
-	PopulationDelayUnitDays    PopulationDelayUnit = "days"
-	PopulationDelayUnitHours   PopulationDelayUnit = "hours"
-	PopulationDelayUnitMinutes PopulationDelayUnit = "minutes"
-)
-
-func (e PopulationDelayUnit) ToPointer() *PopulationDelayUnit {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PopulationDelayUnit) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "weeks", "days", "hours", "minutes":
-			return true
-		}
-	}
-	return false
-}
-
-type PopulationWindowUnit string
-
-const (
-	PopulationWindowUnitWeeks   PopulationWindowUnit = "weeks"
-	PopulationWindowUnitDays    PopulationWindowUnit = "days"
-	PopulationWindowUnitHours   PopulationWindowUnit = "hours"
-	PopulationWindowUnitMinutes PopulationWindowUnit = "minutes"
-)
-
-func (e PopulationWindowUnit) ToPointer() *PopulationWindowUnit {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PopulationWindowUnit) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "weeks", "days", "hours", "minutes":
-			return true
-		}
-	}
-	return false
-}
-
-type PopulationWindowSettings struct {
-	Type        PopulationWindowSettingsType `json:"type"`
-	DelayValue  float64                      `json:"delayValue"`
-	DelayUnit   PopulationDelayUnit          `json:"delayUnit"`
-	WindowValue float64                      `json:"windowValue"`
-	WindowUnit  PopulationWindowUnit         `json:"windowUnit"`
-}
-
-func (p *PopulationWindowSettings) GetType() PopulationWindowSettingsType {
-	if p == nil {
-		return PopulationWindowSettingsType("")
-	}
-	return p.Type
-}
-
-func (p *PopulationWindowSettings) GetDelayValue() float64 {
-	if p == nil {
-		return 0.0
-	}
-	return p.DelayValue
-}
-
-func (p *PopulationWindowSettings) GetDelayUnit() PopulationDelayUnit {
-	if p == nil {
-		return PopulationDelayUnit("")
-	}
-	return p.DelayUnit
-}
-
-func (p *PopulationWindowSettings) GetWindowValue() float64 {
-	if p == nil {
-		return 0.0
-	}
-	return p.WindowValue
-}
-
-func (p *PopulationWindowSettings) GetWindowUnit() PopulationWindowUnit {
-	if p == nil {
-		return PopulationWindowUnit("")
-	}
-	return p.WindowUnit
-}
-
 type PopulationStep struct {
 	Source     Source                `json:"source"`
 	RowFilters []PopulationRowFilter `json:"rowFilters"`
-	// Conditions on each unit's total within the window, such as ">=3" or ">=3,<10". Requires aggregateFilterColumn
+	// Conditions on each unit's total within the queried date range, such as ">=3" or ">=3,<10". Requires aggregateFilterColumn
 	AggregateFilter *string `json:"aggregateFilter,omitzero"`
 	// Numeric column to total, or "$$count" to count rows. Requires aggregateFilter
-	AggregateFilterColumn *string                  `json:"aggregateFilterColumn,omitzero"`
-	WindowSettings        PopulationWindowSettings `json:"windowSettings"`
+	AggregateFilterColumn *string `json:"aggregateFilterColumn,omitzero"`
 }
 
 func (p *PopulationStep) GetSource() Source {
@@ -356,13 +241,6 @@ func (p *PopulationStep) GetAggregateFilterColumn() *string {
 		return nil
 	}
 	return p.AggregateFilterColumn
-}
-
-func (p *PopulationStep) GetWindowSettings() PopulationWindowSettings {
-	if p == nil {
-		return PopulationWindowSettings{}
-	}
-	return p.WindowSettings
 }
 
 type Population struct {

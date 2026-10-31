@@ -18,8 +18,8 @@ type GetFeatureRevisionsV2Request struct {
 	// Self-hosted only. Has no effect unless API_ALLOW_SKIP_PAGINATION is set to true or 1.
 	SkipPagination *bool `default:"false" queryParam:"style=form,explode=true,name=skipPagination"`
 	// Filter by revision status. Single value, comma-separated list, repeated params (?status=draft&status=approved), or `all-drafts` shorthand for all active-draft statuses (draft, pending-review, approved, changes-requested).
-	Status *components.Status `queryParam:"style=form,explode=true,name=status"`
-	Author *string            `queryParam:"style=form,explode=true,name=author"`
+	Status *components.StatusParameter `queryParam:"style=form,explode=true,name=status"`
+	Author *string                     `queryParam:"style=form,explode=true,name=author"`
 	// If true, return only revisions authored by or contributed to by the calling user. Needs a personal access token, or an organization API key that assumes a named member's role. Mutually exclusive with `author`.
 	Mine *bool `queryParam:"style=form,explode=true,name=mine"`
 }
@@ -63,7 +63,7 @@ func (g *GetFeatureRevisionsV2Request) GetSkipPagination() *bool {
 	return g.SkipPagination
 }
 
-func (g *GetFeatureRevisionsV2Request) GetStatus() *components.Status {
+func (g *GetFeatureRevisionsV2Request) GetStatus() *components.StatusParameter {
 	if g == nil {
 		return nil
 	}

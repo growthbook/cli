@@ -400,11 +400,11 @@ type PostMetricBehavior struct {
 	ConversionWindowEnd *float64 `json:"conversionWindowEnd,omitzero"`
 	// Controls the bayesian prior for the metric. If omitted, organization defaults will be used.
 	PriorSettings *PostMetricPriorSettings `json:"priorSettings,omitzero"`
-	// No longer used. Threshold for Risk to be considered low enough, as a proportion (e.g. put 0.0025 for 0.25%). <br/> Must be a non-negative number and must not be higher than `riskThresholdDanger`.
+	// No longer used. Accepted and ignored.
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	RiskThresholdSuccess *float64 `json:"riskThresholdSuccess,omitzero"`
-	// No longer used. Threshold for Risk to be considered too high, as a proportion (e.g. put 0.0125 for 1.25%). <br/> Must be a non-negative number.
+	// No longer used. Accepted and ignored.
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	RiskThresholdDanger *float64 `json:"riskThresholdDanger,omitzero"`

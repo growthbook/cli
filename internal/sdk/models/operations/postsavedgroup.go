@@ -15,6 +15,7 @@ type PostSavedGroupType string
 const (
 	PostSavedGroupTypeCondition PostSavedGroupType = "condition"
 	PostSavedGroupTypeList      PostSavedGroupType = "list"
+	PostSavedGroupTypeRemote    PostSavedGroupType = "remote"
 )
 
 func (e PostSavedGroupType) ToPointer() *PostSavedGroupType {
@@ -29,6 +30,8 @@ func (e *PostSavedGroupType) UnmarshalJSON(data []byte) error {
 	case "condition":
 		fallthrough
 	case "list":
+		fallthrough
+	case "remote":
 		*e = PostSavedGroupType(v)
 		return nil
 	default:
@@ -45,7 +48,7 @@ type PostSavedGroupRequest struct {
 	Type *PostSavedGroupType `json:"type,omitzero"`
 	// When type = 'condition', this is the JSON-encoded condition for the group
 	Condition *string `json:"condition,omitzero"`
-	// When type = 'list', this is the attribute key the group is based on
+	// When type = 'list' or 'remote', this is the attribute key the group is based on
 	AttributeKey *string `json:"attributeKey,omitzero"`
 	// When type = 'list', this is the list of values for the attribute key
 	Values []string `json:"values,omitzero"`

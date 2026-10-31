@@ -20,7 +20,7 @@ growthbook fact-tables bulk-import [flags]
 
 ```
       --body string                    Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --default-managed-by managedBy   Fallback managedBy for Fact Tables and Fact Metrics that omit the field. Defaults to `"api"`. Filters inherit `"api"` only when the parent Fact Table is api-managed. (options: , api, admin)
+      --default-managed-by managedBy   Fallback managedBy for Fact Tables and Fact Metrics that omit the field. Defaults to `"api"`; the dbt sync sends `"dbt"`. Filters inherit `"api"` only when the parent Fact Table is api-managed. (options: , api, admin, dbt)
       --fact-metrics string            list of values
       --fact-table-filters string      list of values
       --fact-tables string             list of values

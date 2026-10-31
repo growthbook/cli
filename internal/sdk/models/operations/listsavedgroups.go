@@ -3,15 +3,49 @@
 package operations
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/growthbook/cli/v3/internal/sdk/models/components"
 	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 )
+
+// ListSavedGroupsType - Only list Saved Groups of this type
+type ListSavedGroupsType string
+
+const (
+	ListSavedGroupsTypeCondition ListSavedGroupsType = "condition"
+	ListSavedGroupsTypeList      ListSavedGroupsType = "list"
+	ListSavedGroupsTypeRemote    ListSavedGroupsType = "remote"
+)
+
+func (e ListSavedGroupsType) ToPointer() *ListSavedGroupsType {
+	return &e
+}
+func (e *ListSavedGroupsType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "condition":
+		fallthrough
+	case "list":
+		fallthrough
+	case "remote":
+		*e = ListSavedGroupsType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for ListSavedGroupsType: %v", v)
+	}
+}
 
 type ListSavedGroupsRequest struct {
 	// The number of items to return
 	Limit *int64 `default:"10" queryParam:"style=form,explode=true,name=limit"`
 	// How many items to skip (use in conjunction with limit for pagination)
 	Offset *int64 `default:"0" queryParam:"style=form,explode=true,name=offset"`
+	// Only list Saved Groups of this type
+	Type *ListSavedGroupsType `queryParam:"style=form,explode=true,name=type"`
 }
 
 func (l ListSavedGroupsRequest) MarshalJSON() ([]byte, error) {
@@ -37,6 +71,13 @@ func (l *ListSavedGroupsRequest) GetOffset() *int64 {
 		return nil
 	}
 	return l.Offset
+}
+
+func (l *ListSavedGroupsRequest) GetType() *ListSavedGroupsType {
+	if l == nil {
+		return nil
+	}
+	return l.Type
 }
 
 // ListSavedGroupsResponseBody - Successful response

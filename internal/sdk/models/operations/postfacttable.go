@@ -64,13 +64,14 @@ func (p *PostFactTableAggregatedFactTableSettings) GetRestateChunkDays() *int64 
 	return p.RestateChunkDays
 }
 
-// PostFactTableManagedBy - Set this to "api" to disable editing in the GrowthBook UI
+// PostFactTableManagedBy - Set this to "api" (or "dbt" for resources synced from dbt) to disable editing in the GrowthBook UI
 type PostFactTableManagedBy string
 
 const (
 	PostFactTableManagedByUnknown PostFactTableManagedBy = ""
 	PostFactTableManagedByAPI     PostFactTableManagedBy = "api"
 	PostFactTableManagedByAdmin   PostFactTableManagedBy = "admin"
+	PostFactTableManagedByDbt     PostFactTableManagedBy = "dbt"
 )
 
 func (e PostFactTableManagedBy) ToPointer() *PostFactTableManagedBy {
@@ -87,6 +88,8 @@ func (e *PostFactTableManagedBy) UnmarshalJSON(data []byte) error {
 	case "api":
 		fallthrough
 	case "admin":
+		fallthrough
+	case "dbt":
 		*e = PostFactTableManagedBy(v)
 		return nil
 	default:
@@ -121,7 +124,7 @@ type PostFactTableRequest struct {
 	EventName *string `json:"eventName,omitzero"`
 	// Optional array of column definitions to store for this fact table. Supplied columns are stored as-is. Omit `datatype` (or send "") on a column to have it auto-detected from the SQL.
 	Columns []components.FactTableColumnInput `json:"columns,omitzero"`
-	// Set this to "api" to disable editing in the GrowthBook UI
+	// Set this to "api" (or "dbt" for resources synced from dbt) to disable editing in the GrowthBook UI
 	ManagedBy *PostFactTableManagedBy `json:"managedBy,omitzero"`
 }
 

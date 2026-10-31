@@ -55,6 +55,7 @@ growthbook saved-group-revisions [flags]
 * [growthbook saved-group-revisions list-for-saved-group](growthbook_saved-group-revisions_list-for-saved-group.md)	 - List revisions for a saved group
 * [growthbook saved-group-revisions merge-status](growthbook_saved-group-revisions_merge-status.md)	 - Get merge status for a draft revision
 * [growthbook saved-group-revisions publish](growthbook_saved-group-revisions_publish.md)	 - Publish a draft revision
+* [growthbook saved-group-revisions put-saved-group-revision-upload-version](growthbook_saved-group-revisions_put-saved-group-revision-upload-version.md)	 - Set the upload a remote saved group draft revision uses
 * [growthbook saved-group-revisions rebase](growthbook_saved-group-revisions_rebase.md)	 - Rebase a draft revision onto the current live saved group
 * [growthbook saved-group-revisions recall-review](growthbook_saved-group-revisions_recall-review.md)	 - Recall a review request
 * [growthbook saved-group-revisions remove-items](growthbook_saved-group-revisions_remove-items.md)	 - Remove items from a list saved group draft revision

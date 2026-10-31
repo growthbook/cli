@@ -37,7 +37,7 @@ growthbook reports create [flags]
       --lookback-override.window string              postReport_lookbackOverride_Window variant as JSON
       --lookback-override.window.value float         [required]
       --lookback-override.window.value-unit string   options: minutes, hours, days, weeks [required]
-  -m, --metric-overrides string                      Per-metric window, risk, and regression-adjustment overrides
+  -m, --metric-overrides string                      Per-metric window, prior, and regression-adjustment overrides
       --owner string                                 The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the requesting member: a personal access token's owner, or the member an organization API key assumes. An organization API key acting as itself leaves it empty.
       --query-filter string                          Raw SQL WHERE clause added to the exposure query. Defaults to experiment setting.
   -r, --regression-adjustment-enabled                Enable CUPED regression adjustment

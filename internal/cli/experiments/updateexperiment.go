@@ -16,13 +16,14 @@ import (
 
 var updateExperimentCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The id of the requested resource [required]"},
-	{FlagName: "datasource-id", FieldPath: "Body.DatasourceID", Kind: flagutil.FlagKindString, Optional: true, Description: "Can only be set if existing experiment does not have a datasource"},
+	{FlagName: "datasource-id", FieldPath: "Body.DatasourceID", Kind: flagutil.FlagKindString, Optional: true, Description: "Changing it needs an `assignmentQueryId` from the new one, and drops the metrics, segment and unit dimensions that aren't from it."},
 	{FlagName: "assignment-query", FieldPath: "Body.AssignmentQuery", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"assignmentQuery,omitempty"`, Description: "The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `assignmentQueryId`."},
 	{FlagName: "assignment-query-id", FieldPath: "Body.AssignmentQueryID", Kind: flagutil.FlagKindString, Optional: true, Description: "Deprecated: use `assignmentQuery`. Rejected when selecting a different assignment query that declares several identifier types; set `assignmentQuery.identifierType` instead."},
 	{FlagName: "tracking-key", FieldPath: "Body.TrackingKey", Kind: flagutil.FlagKindString, Optional: true, Description: "Key sent with exposure events. Keep it short, in kebab-case (usually the Feature Flag key). If your organization requires a tracking key format, a key that doesn't match is rejected with `invalid_tracking_key`. Changing it after launch splits exposures across two keys."},
 	{FlagName: "bypass-duplicate-key-check", FieldPath: "Body.BypassDuplicateKeyCheck", Kind: flagutil.FlagKindBool, Optional: true, Description: "If true, allow updating the tracking key even if another experiment with the same tracking key already exist. This is ignored if the organization requires unique tracking keys as a rule. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it."},
 	{FlagName: "name", Shorthand: "n", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Optional: true, Description: "Short display name (e.g. `Express checkout button`). Put reasoning in `hypothesis` and context in `description`."},
 	{FlagName: "type", FieldPath: "Body.Type", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"standard", "multi-armed-bandit"}, Description: "options: standard, multi-armed-bandit"},
+	{FlagName: "bypass-approval", FieldPath: "Body.BypassApproval", Kind: flagutil.FlagKindBool, Optional: true, Description: "Deprecated and ignored. Approval is bypassed automatically when the caller has Bypass draft approvals access for this resource or when the organization enables the REST API approval bypass. Otherwise, the revision must be approved before it can be published."},
 	{FlagName: "project", FieldPath: "Body.Project", Kind: flagutil.FlagKindString, Optional: true, Description: "Project ID which the experiment belongs to"},
 	{FlagName: "hypothesis", FieldPath: "Body.Hypothesis", Kind: flagutil.FlagKindString, Optional: true, Description: "Markdown. If we change X, metric Y will move because Z."},
 	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Markdown. Put context here, not in the name."},
@@ -35,6 +36,7 @@ var updateExperimentCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "query-filter", FieldPath: "Body.QueryFilter", Kind: flagutil.FlagKindString, Optional: true, Description: "WHERE clause to add to the default experiment query"},
 	{FlagName: "owner", FieldPath: "Body.Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization."},
 	{FlagName: "archived", FieldPath: "Body.Archived", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
+	{FlagName: "linked-changes", FieldPath: "Body.LinkedChanges", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"materialize", "remove"}, Description: "Required while the experiment still serves through linked changes. \"materialize\" keeps a stopped experiment's released variation as a permanent force rule on each linked Feature Flag; \"remove\" acknowledges that the linked changes stop serving. (options: materialize, remove)"},
 	{FlagName: "status", FieldPath: "Body.Status", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"draft", "running", "stopped"}, Description: "options: draft, running, stopped"},
 	{FlagName: "auto-refresh", FieldPath: "Body.AutoRefresh", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "hash-attribute", FieldPath: "Body.HashAttribute", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
@@ -51,7 +53,7 @@ var updateExperimentCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "exclude-from-payload", Shorthand: "e", FieldPath: "Body.ExcludeFromPayload", Kind: flagutil.FlagKindBool, Optional: true, Description: "If true, the experiment is excluded from the SDK payload. Maps to resultSummary.excludeFromPayload in the GET response."},
 	{FlagName: "in-progress-conversions", FieldPath: "Body.InProgressConversions", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"loose", "strict"}, Description: "options: loose, strict"},
 	{FlagName: "attribution-model", FieldPath: "Body.AttributionModel", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"firstExposure", "experimentDuration", "lookbackOverride"}, Description: "Setting attribution model to `\"experimentDuration\"` is the same as selecting \"Ignore Conversion Windows\" for the Conversion Window Override. Setting it to `\"lookbackOverride\"` requires a `lookbackOverride` object to be provided. (options: firstExposure, experimentDuration, lookbackOverride)"},
-	{FlagName: "lookback-override", Shorthand: "l", FieldPath: "Body.LookbackOverride", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"lookbackOverride,omitempty"`, Description: "Controls the lookback override for the experiment. For type \"window\", value must be a non-negative number and valueUnit is required."},
+	{FlagName: "lookback-override", FieldPath: "Body.LookbackOverride", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"lookbackOverride,omitempty"`, Description: "Controls the lookback override for the experiment. For type \"window\", value must be a non-negative number and valueUnit is required."},
 	{FlagName: "stats-engine", FieldPath: "Body.StatsEngine", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"bayesian", "frequentist"}, Description: "options: bayesian, frequentist"},
 	{FlagName: "variations", Shorthand: "v", FieldPath: "Body.Variations", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"variations,omitempty"`, Description: "list of values"},
 	{FlagName: "phases", FieldPath: "Body.Phases", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"phases,omitempty"`, Description: "list of values"},
@@ -74,6 +76,7 @@ var updateExperimentCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "status-update-schedule", FieldPath: "Body.StatusUpdateSchedule", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"statusUpdateSchedule,omitempty"`, Description: "JSON object"},
 	{FlagName: "precomputed-unit-dimension-ids", FieldPath: "Body.PrecomputedUnitDimensionIds", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
 	{FlagName: "ignore-warnings", FieldPath: "Body.IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it."},
+	{FlagName: "skip-checklist", FieldPath: "Body.SkipChecklist", Kind: flagutil.FlagKindBool, Optional: true, Description: "When `status` starts a draft: start past its incomplete launch checklist items, as `POST /experiments/{id}/start` does. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it."},
 }
 
 // initUpdateExperimentCmd initializes the update-experiment command.
@@ -81,7 +84,7 @@ func initUpdateExperimentCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "update",
 		Short:   "Update a single experiment",
-		Long:    "Update a single experiment",
+		Long:    "Setting `status` from draft to running starts the experiment as `POST /experiments/{id}/start` does, judged on the experiment as this update leaves it, with `skipChecklist` in this body. Changing `archived` archives or unarchives it as `POST /experiments/{id}/archive` and `/unarchive` do.",
 		Example: "  growthbook experiments update --id <id>",
 		RunE:    runUpdateExperimentCmd,
 	}

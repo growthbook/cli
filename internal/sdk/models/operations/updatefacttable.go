@@ -64,13 +64,14 @@ func (u *UpdateFactTableAggregatedFactTableSettings) GetRestateChunkDays() *int6
 	return u.RestateChunkDays
 }
 
-// UpdateFactTableManagedBy - Set this to "api" to disable editing in the GrowthBook UI
+// UpdateFactTableManagedBy - Set this to "api" (or "dbt" for resources synced from dbt) to disable editing in the GrowthBook UI
 type UpdateFactTableManagedBy string
 
 const (
 	UpdateFactTableManagedByUnknown UpdateFactTableManagedBy = ""
 	UpdateFactTableManagedByAPI     UpdateFactTableManagedBy = "api"
 	UpdateFactTableManagedByAdmin   UpdateFactTableManagedBy = "admin"
+	UpdateFactTableManagedByDbt     UpdateFactTableManagedBy = "dbt"
 )
 
 func (e UpdateFactTableManagedBy) ToPointer() *UpdateFactTableManagedBy {
@@ -87,6 +88,8 @@ func (e *UpdateFactTableManagedBy) UnmarshalJSON(data []byte) error {
 	case "api":
 		fallthrough
 	case "admin":
+		fallthrough
+	case "dbt":
 		*e = UpdateFactTableManagedBy(v)
 		return nil
 	default:
@@ -119,7 +122,7 @@ type UpdateFactTableRequestBody struct {
 	EventName *string `json:"eventName,omitzero"`
 	// Optional array of columns to upsert by `column`: existing columns are patched, new columns are created, and columns not included are left unchanged. Omit `datatype` to leave an existing column's type untouched; send "" to reset it for auto-detection; new columns are auto-detected when `datatype` is omitted or "". Slice-related properties require an enterprise license.
 	Columns []components.FactTableColumnInput `json:"columns,omitzero"`
-	// Set this to "api" to disable editing in the GrowthBook UI
+	// Set this to "api" (or "dbt" for resources synced from dbt) to disable editing in the GrowthBook UI
 	ManagedBy *UpdateFactTableManagedBy `json:"managedBy,omitzero"`
 	Archived  *bool                     `json:"archived,omitzero"`
 }

@@ -151,10 +151,36 @@ func (e *SettingsType) IsExact() bool {
 	return false
 }
 
+type AnalysisEndDateMode string
+
+const (
+	AnalysisEndDateModeRunTime   AnalysisEndDateMode = "runTime"
+	AnalysisEndDateModeLag       AnalysisEndDateMode = "lag"
+	AnalysisEndDateModeFixedTime AnalysisEndDateMode = "fixedTime"
+)
+
+func (e AnalysisEndDateMode) ToPointer() *AnalysisEndDateMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *AnalysisEndDateMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "runTime", "lag", "fixedTime":
+			return true
+		}
+	}
+	return false
+}
+
 type SettingsUpdateSchedule struct {
-	Type  *SettingsType                              `json:"type,omitzero"`
-	Cron  optionalnullable.OptionalNullable[string]  `json:"cron,omitzero"`
-	Hours optionalnullable.OptionalNullable[float64] `json:"hours,omitzero"`
+	Type                    *SettingsType                              `json:"type,omitzero"`
+	Cron                    optionalnullable.OptionalNullable[string]  `json:"cron,omitzero"`
+	Hours                   optionalnullable.OptionalNullable[float64] `json:"hours,omitzero"`
+	AnalysisEndDateMode     *AnalysisEndDateMode                       `json:"analysisEndDateMode,omitzero"`
+	AnalysisEndDateLagHours optionalnullable.OptionalNullable[float64] `json:"analysisEndDateLagHours,omitzero"`
+	AnalysisEndDateTime     optionalnullable.OptionalNullable[string]  `json:"analysisEndDateTime,omitzero"`
 }
 
 func (s *SettingsUpdateSchedule) GetType() *SettingsType {
@@ -176,6 +202,27 @@ func (s *SettingsUpdateSchedule) GetHours() optionalnullable.OptionalNullable[fl
 		return nil
 	}
 	return s.Hours
+}
+
+func (s *SettingsUpdateSchedule) GetAnalysisEndDateMode() *AnalysisEndDateMode {
+	if s == nil {
+		return nil
+	}
+	return s.AnalysisEndDateMode
+}
+
+func (s *SettingsUpdateSchedule) GetAnalysisEndDateLagHours() optionalnullable.OptionalNullable[float64] {
+	if s == nil {
+		return nil
+	}
+	return s.AnalysisEndDateLagHours
+}
+
+func (s *SettingsUpdateSchedule) GetAnalysisEndDateTime() optionalnullable.OptionalNullable[string] {
+	if s == nil {
+		return nil
+	}
+	return s.AnalysisEndDateTime
 }
 
 type DefaultRole struct {
@@ -340,50 +387,56 @@ func (e *TopValuesLookbackUnit) UnmarshalJSON(data []byte) error {
 }
 
 type Settings struct {
-	ConfidenceLevel                  float64                                    `json:"confidenceLevel"`
-	NorthStar                        *NorthStar                                 `json:"northStar"`
-	MetricDefaults                   MetricDefaults                             `json:"metricDefaults"`
-	PastExperimentsMinLength         float64                                    `json:"pastExperimentsMinLength"`
-	MetricAnalysisDays               float64                                    `json:"metricAnalysisDays"`
-	UpdateSchedule                   *SettingsUpdateSchedule                    `json:"updateSchedule"`
-	MultipleExposureMinPercent       float64                                    `json:"multipleExposureMinPercent"`
-	DefaultRole                      DefaultRole                                `json:"defaultRole"`
-	StatsEngine                      string                                     `json:"statsEngine"`
-	PValueThreshold                  float64                                    `json:"pValueThreshold"`
-	RegressionAdjustmentEnabled      bool                                       `json:"regressionAdjustmentEnabled"`
-	RegressionAdjustmentDays         float64                                    `json:"regressionAdjustmentDays"`
-	SequentialTestingEnabled         bool                                       `json:"sequentialTestingEnabled"`
-	SequentialTestingTuningParameter float64                                    `json:"sequentialTestingTuningParameter"`
-	AttributionModel                 SettingsAttributionModel                   `json:"attributionModel"`
-	TargetMDE                        float64                                    `json:"targetMDE"`
-	DelayHours                       float64                                    `json:"delayHours"`
-	WindowType                       string                                     `json:"windowType"`
-	WindowHours                      float64                                    `json:"windowHours"`
-	WinRisk                          float64                                    `json:"winRisk"`
-	LoseRisk                         float64                                    `json:"loseRisk"`
-	SecureAttributeSalt              string                                     `json:"secureAttributeSalt"`
-	KillswitchConfirmation           bool                                       `json:"killswitchConfirmation"`
-	FeatureKillSwitchBehavior        *FeatureKillSwitchBehavior                 `json:"featureKillSwitchBehavior,omitzero"`
-	RequireReviews                   []RequireReviewRule                        `json:"requireReviews"`
-	ApprovalFlows                    SettingsApprovalFlows                      `json:"approvalFlows"`
-	TargetingReviewMode              []TargetingReviewRule                      `json:"targetingReviewMode,omitzero"`
-	RestAPIBypassesReviews           *bool                                      `json:"restApiBypassesReviews,omitzero"`
-	RequireRebaseBeforePublish       *bool                                      `json:"requireRebaseBeforePublish,omitzero"`
-	RevertsBypassApproval            *bool                                      `json:"revertsBypassApproval,omitzero"`
-	MaxConcurrentDrafts              *float64                                   `json:"maxConcurrentDrafts,omitzero"`
-	FeatureKeyExample                string                                     `json:"featureKeyExample"`
-	FeatureRegexValidator            string                                     `json:"featureRegexValidator"`
-	SparseJSONRulesByDefault         *bool                                      `json:"sparseJSONRulesByDefault,omitzero"`
-	BanditScheduleValue              float64                                    `json:"banditScheduleValue"`
-	BanditScheduleUnit               SettingsBanditScheduleUnit                 `json:"banditScheduleUnit"`
-	BanditBurnInValue                float64                                    `json:"banditBurnInValue"`
-	BanditBurnInUnit                 SettingsBanditBurnInUnit                   `json:"banditBurnInUnit"`
-	ExperimentMinLengthDays          float64                                    `json:"experimentMinLengthDays"`
-	ExperimentMaxLengthDays          optionalnullable.OptionalNullable[float64] `json:"experimentMaxLengthDays,omitzero"`
-	PreferredEnvironment             optionalnullable.OptionalNullable[string]  `json:"preferredEnvironment,omitzero"`
-	MaxMetricSliceLevels             *float64                                   `json:"maxMetricSliceLevels,omitzero"`
-	TopValuesLookbackValue           *float64                                   `json:"topValuesLookbackValue,omitzero"`
-	TopValuesLookbackUnit            *TopValuesLookbackUnit                     `json:"topValuesLookbackUnit,omitzero"`
+	ConfidenceLevel                  float64                  `json:"confidenceLevel"`
+	NorthStar                        *NorthStar               `json:"northStar"`
+	MetricDefaults                   MetricDefaults           `json:"metricDefaults"`
+	PastExperimentsMinLength         float64                  `json:"pastExperimentsMinLength"`
+	MetricAnalysisDays               float64                  `json:"metricAnalysisDays"`
+	UpdateSchedule                   *SettingsUpdateSchedule  `json:"updateSchedule"`
+	MultipleExposureMinPercent       float64                  `json:"multipleExposureMinPercent"`
+	DefaultRole                      DefaultRole              `json:"defaultRole"`
+	StatsEngine                      string                   `json:"statsEngine"`
+	PValueThreshold                  float64                  `json:"pValueThreshold"`
+	RegressionAdjustmentEnabled      bool                     `json:"regressionAdjustmentEnabled"`
+	RegressionAdjustmentDays         float64                  `json:"regressionAdjustmentDays"`
+	SequentialTestingEnabled         bool                     `json:"sequentialTestingEnabled"`
+	SequentialTestingTuningParameter float64                  `json:"sequentialTestingTuningParameter"`
+	AttributionModel                 SettingsAttributionModel `json:"attributionModel"`
+	TargetMDE                        float64                  `json:"targetMDE"`
+	DelayHours                       float64                  `json:"delayHours"`
+	WindowType                       string                   `json:"windowType"`
+	WindowHours                      float64                  `json:"windowHours"`
+	// No longer used. Always the default value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	WinRisk float64 `json:"winRisk"`
+	// No longer used. Always the default value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	LoseRisk                   float64                                    `json:"loseRisk"`
+	SecureAttributeSalt        string                                     `json:"secureAttributeSalt"`
+	KillswitchConfirmation     bool                                       `json:"killswitchConfirmation"`
+	FeatureKillSwitchBehavior  *FeatureKillSwitchBehavior                 `json:"featureKillSwitchBehavior,omitzero"`
+	RequireReviews             []RequireReviewRule                        `json:"requireReviews"`
+	ApprovalFlows              SettingsApprovalFlows                      `json:"approvalFlows"`
+	TargetingReviewMode        []TargetingReviewRule                      `json:"targetingReviewMode,omitzero"`
+	RestAPIBypassesReviews     *bool                                      `json:"restApiBypassesReviews,omitzero"`
+	RequireRebaseBeforePublish *bool                                      `json:"requireRebaseBeforePublish,omitzero"`
+	RevertsBypassApproval      *bool                                      `json:"revertsBypassApproval,omitzero"`
+	MaxConcurrentDrafts        *float64                                   `json:"maxConcurrentDrafts,omitzero"`
+	FeatureKeyExample          string                                     `json:"featureKeyExample"`
+	FeatureRegexValidator      string                                     `json:"featureRegexValidator"`
+	SparseJSONRulesByDefault   *bool                                      `json:"sparseJSONRulesByDefault,omitzero"`
+	BanditScheduleValue        float64                                    `json:"banditScheduleValue"`
+	BanditScheduleUnit         SettingsBanditScheduleUnit                 `json:"banditScheduleUnit"`
+	BanditBurnInValue          float64                                    `json:"banditBurnInValue"`
+	BanditBurnInUnit           SettingsBanditBurnInUnit                   `json:"banditBurnInUnit"`
+	ExperimentMinLengthDays    float64                                    `json:"experimentMinLengthDays"`
+	ExperimentMaxLengthDays    optionalnullable.OptionalNullable[float64] `json:"experimentMaxLengthDays,omitzero"`
+	PreferredEnvironment       optionalnullable.OptionalNullable[string]  `json:"preferredEnvironment,omitzero"`
+	MaxMetricSliceLevels       *float64                                   `json:"maxMetricSliceLevels,omitzero"`
+	TopValuesLookbackValue     *float64                                   `json:"topValuesLookbackValue,omitzero"`
+	TopValuesLookbackUnit      *TopValuesLookbackUnit                     `json:"topValuesLookbackUnit,omitzero"`
 }
 
 func (s Settings) MarshalJSON() ([]byte, error) {

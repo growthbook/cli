@@ -12,6 +12,8 @@ import (
 type PostExperimentStartRequestBody struct {
 	// If true, skips validating the experiment satisfies all pre-launch checklist items. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	SkipChecklist *bool `json:"skipChecklist,omitzero"`
+	// Deprecated and ignored. Approval is bypassed automatically when the caller has Bypass draft approvals access for this resource or when the organization enables the REST API approval bypass. Otherwise, the revision must be approved before it can be published.
+	BypassApproval *bool `json:"bypassApproval,omitzero"`
 	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
 }
@@ -21,6 +23,13 @@ func (p *PostExperimentStartRequestBody) GetSkipChecklist() *bool {
 		return nil
 	}
 	return p.SkipChecklist
+}
+
+func (p *PostExperimentStartRequestBody) GetBypassApproval() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.BypassApproval
 }
 
 func (p *PostExperimentStartRequestBody) GetIgnoreWarnings() *bool {
@@ -107,27 +116,102 @@ func (e *PostExperimentStartCodePendingDraftPublishFailed) UnmarshalJSON(data []
 	}
 }
 
-type CodeChecklistIncomplete string
+type PostExperimentStartCodeChecklistIncomplete string
 
 const (
-	CodeChecklistIncompleteChecklistIncomplete CodeChecklistIncomplete = "checklist_incomplete"
+	PostExperimentStartCodeChecklistIncompleteChecklistIncomplete PostExperimentStartCodeChecklistIncomplete = "checklist_incomplete"
 )
 
-func (e CodeChecklistIncomplete) ToPointer() *CodeChecklistIncomplete {
+func (e PostExperimentStartCodeChecklistIncomplete) ToPointer() *PostExperimentStartCodeChecklistIncomplete {
 	return &e
 }
-func (e *CodeChecklistIncomplete) UnmarshalJSON(data []byte) error {
+func (e *PostExperimentStartCodeChecklistIncomplete) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "checklist_incomplete":
-		*e = CodeChecklistIncomplete(v)
+		*e = PostExperimentStartCodeChecklistIncomplete(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CodeChecklistIncomplete: %v", v)
+		return fmt.Errorf("invalid value for PostExperimentStartCodeChecklistIncomplete: %v", v)
 	}
+}
+
+// PostExperimentStartVia - How it was passed: `skipChecklist`, the caller's permission (`bypassApprovalPermission`), or the organization's REST API approval bypass (`restApiBypassesReviews`).
+type PostExperimentStartVia string
+
+const (
+	PostExperimentStartViaIgnoreWarnings           PostExperimentStartVia = "ignoreWarnings"
+	PostExperimentStartViaSkipSchemaValidation     PostExperimentStartVia = "skipSchemaValidation"
+	PostExperimentStartViaSkipHooks                PostExperimentStartVia = "skipHooks"
+	PostExperimentStartViaBypassApprovalPermission PostExperimentStartVia = "bypassApprovalPermission"
+	PostExperimentStartViaRestAPIBypassesReviews   PostExperimentStartVia = "restApiBypassesReviews"
+	PostExperimentStartViaRevertsBypassApproval    PostExperimentStartVia = "revertsBypassApproval"
+	PostExperimentStartViaSkipChecklist            PostExperimentStartVia = "skipChecklist"
+)
+
+func (e PostExperimentStartVia) ToPointer() *PostExperimentStartVia {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *PostExperimentStartVia) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "ignoreWarnings", "skipSchemaValidation", "skipHooks", "bypassApprovalPermission", "restApiBypassesReviews", "revertsBypassApproval", "skipChecklist":
+			return true
+		}
+	}
+	return false
+}
+
+type PostExperimentStartBypassedGate struct {
+	// The checklist item, or `rampLocked:<featureId>` for a linked Feature Flag a ramp locks.
+	Key string `json:"key"`
+	// Gate kind: "checklist-item", "approval-required", "merge-conflict", "unrelated-draft-changes", "permission-denied" or "ramp-locked".
+	Type string `json:"type"`
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	outcome string `const:"bypassed" json:"outcome"`
+	// How it was passed: `skipChecklist`, the caller's permission (`bypassApprovalPermission`), or the organization's REST API approval bypass (`restApiBypassesReviews`).
+	Via PostExperimentStartVia `json:"via"`
+}
+
+func (p PostExperimentStartBypassedGate) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostExperimentStartBypassedGate) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PostExperimentStartBypassedGate) GetKey() string {
+	if p == nil {
+		return ""
+	}
+	return p.Key
+}
+
+func (p *PostExperimentStartBypassedGate) GetType() string {
+	if p == nil {
+		return ""
+	}
+	return p.Type
+}
+
+func (p *PostExperimentStartBypassedGate) GetOutcome() string {
+	return "bypassed"
+}
+
+func (p *PostExperimentStartBypassedGate) GetVia() PostExperimentStartVia {
+	if p == nil {
+		return PostExperimentStartVia("")
+	}
+	return p.Via
 }
 
 // PostExperimentStartResponseBody - Resource created
@@ -135,6 +219,21 @@ type PostExperimentStartResponseBody struct {
 	Experiment components.ExperimentWithEnhancedStatus `json:"experiment"`
 	// Present only when the request staged a future scheduled start instead of starting the experiment immediately.
 	Message *string `json:"message,omitzero"`
+	// Gates this start skipped or bypassed. Present only when there were some.
+	BypassedGates []PostExperimentStartBypassedGate `json:"bypassedGates,omitzero"`
+	// The linked Feature Flag drafts the start published. Present only when it published some.
+	PublishedFeatureDrafts []components.PublishedFeatureDrafts `json:"publishedFeatureDrafts,omitzero"`
+}
+
+func (p PostExperimentStartResponseBody) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostExperimentStartResponseBody) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (p *PostExperimentStartResponseBody) GetExperiment() components.ExperimentWithEnhancedStatus {
@@ -149,6 +248,20 @@ func (p *PostExperimentStartResponseBody) GetMessage() *string {
 		return nil
 	}
 	return p.Message
+}
+
+func (p *PostExperimentStartResponseBody) GetBypassedGates() []PostExperimentStartBypassedGate {
+	if p == nil {
+		return nil
+	}
+	return p.BypassedGates
+}
+
+func (p *PostExperimentStartResponseBody) GetPublishedFeatureDrafts() []components.PublishedFeatureDrafts {
+	if p == nil {
+		return nil
+	}
+	return p.PublishedFeatureDrafts
 }
 
 type PostExperimentStartResponse struct {

@@ -19,36 +19,36 @@ growthbook fact-metrics update [flags]
 ### Options
 
 ```
-  -a, --archived                                     Set to true to archive the metric. Archived metrics are hidden by default in the UI and excluded from new experiments.
-      --body string                                  Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -c, --capping-settings string                      Upper cap. Omit on update to preserve it. Use type: none to disable it explicitly. Invalid values are rejected.
-      --denominator string                           Only when metricType is 'ratio'
-      --description string                           Markdown. Put context here, not in the name.
-      --display-as-percentage                        If true and the metric is a ratio or dailyParticipation metric, variation means will be displayed as a percentage. Defaults to true for dailyParticipation metrics and false for ratio metrics.
-  -f, --funnel-settings string                       Funnel metric settings (required when metricType is "funnel")
-  -h, --help                                         help for update
-      --id string                                    The id of the requested resource [required]
-      --inverse                                      Set to true for things like Bounce Rate, where you want the metric to decrease
-  -l, --lower-capping-settings string                Independent lower cap. Omit on update to preserve it. Use null or type: none to disable it explicitly. Invalid values are rejected. For mixed cap types, the absolute bound takes precedence if thresholds cross.
-      --managed-by string                            Set this to "api" to disable editing in the GrowthBook UI (options: , api, admin)
-      --max-percent-change float                     Maximum percent change to consider uplift significant, as a proportion (e.g. put 0.5 for 50%)
-      --metric-auto-slices stringArray               Array of slice column names that will be automatically included in metric analysis. This is an enterprise feature.
-      --metric-type string                           options: proportion, retention, mean, quantile, ratio, dailyParticipation, funnel
-      --min-percent-change float                     Minimum percent change to consider uplift significant, as a proportion (e.g. put 0.005 for 0.5%)
-      --min-sample-size float                        number value
-      --name Purchases per user                      Short display name (e.g. Purchases per user). Put the definition in `description`.
-      --numerator string                             JSON object
-      --owner string                                 The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-      --prior-settings string                        Controls the bayesian prior for the metric. If omitted, organization defaults will be used.
-      --projects stringArray                         list of values
-      --quantile-settings string                     Controls the settings for quantile metrics (mandatory if metricType is "quantile")
-      --regression-adjustment-settings string        Controls the regression adjustment (CUPED) settings for the metric
-      --replaces stringArray                         Ids of older metrics (legacy or fact) that this metric supersedes, for example the legacy metric it was migrated from. Cannot include this metric's own id. Informational only - GrowthBook uses it to link the old and new definitions in the UI and to keep showing results from a snapshot that was created before an experiment switched to this metric. This field can only be set through the API.
-      --risk-threshold-danger float                  No longer used. Threshold for Risk to be considered too high, as a proportion (e.g. put 0.0125 for 1.25%). <br/> Must be a non-negative number.
-      --risk-threshold-success riskThresholdDanger   No longer used. Threshold for Risk to be considered low enough, as a proportion (e.g. put 0.0025 for 0.25%). <br/> Must be a non-negative number and must not be higher than riskThresholdDanger.
-      --tags stringArray                             Tags for filtering and grouping. Use these instead of encoding groups in names.
-      --target-mde float                             The percentage change that you want to reliably detect before ending an experiment, as a proportion (e.g. put 0.1 for 10%). This is used to estimate the "Days Left" for running experiments.
-  -w, --window-settings string                       Controls the conversion window for the metric
+  -a, --archived                                Set to true to archive the metric. Archived metrics are hidden by default in the UI and excluded from new experiments.
+      --body string                             Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -c, --capping-settings string                 Upper cap. Omit on update to preserve it. Use type: none to disable it explicitly. Invalid values are rejected.
+      --denominator string                      Only when metricType is 'ratio'
+      --description string                      Markdown. Put context here, not in the name.
+      --display-as-percentage                   If true and the metric is a ratio or dailyParticipation metric, variation means will be displayed as a percentage. Defaults to true for dailyParticipation metrics and false for ratio metrics.
+  -f, --funnel-settings string                  Funnel metric settings (required when metricType is "funnel")
+  -h, --help                                    help for update
+      --id string                               The id of the requested resource [required]
+      --inverse                                 Set to true for things like Bounce Rate, where you want the metric to decrease
+  -l, --lower-capping-settings string           Independent lower cap. Omit on update to preserve it. Use null or type: none to disable it explicitly. Invalid values are rejected. For mixed cap types, the absolute bound takes precedence if thresholds cross.
+      --managed-by string                       Set this to "api" (or "dbt" for resources synced from dbt) to disable editing in the GrowthBook UI (options: , api, admin, dbt)
+      --max-percent-change float                Maximum percent change to consider uplift significant, as a proportion (e.g. put 0.5 for 50%)
+      --metric-auto-slices stringArray          Array of slice column names that will be automatically included in metric analysis. This is an enterprise feature.
+      --metric-type string                      options: proportion, retention, mean, quantile, ratio, dailyParticipation, funnel
+      --min-percent-change float                Minimum percent change to consider uplift significant, as a proportion (e.g. put 0.005 for 0.5%)
+      --min-sample-size float                   number value
+      --name Purchases per user                 Short display name (e.g. Purchases per user). Put the definition in `description`.
+      --numerator string                        JSON object
+      --owner string                            The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
+      --prior-settings string                   Controls the bayesian prior for the metric. If omitted, organization defaults will be used.
+      --projects stringArray                    list of values
+      --quantile-settings string                Controls the settings for quantile metrics (mandatory if metricType is "quantile")
+      --regression-adjustment-settings string   Controls the regression adjustment (CUPED) settings for the metric
+      --replaces stringArray                    Ids of older metrics (legacy or fact) that this metric supersedes, for example the legacy metric it was migrated from. Cannot include this metric's own id. Informational only - GrowthBook uses it to link the old and new definitions in the UI and to keep showing results from a snapshot that was created before an experiment switched to this metric. This field can only be set through the API.
+      --risk-threshold-danger float             No longer used. Accepted and ignored.
+      --risk-threshold-success float            No longer used. Accepted and ignored.
+      --tags stringArray                        Tags for filtering and grouping. Use these instead of encoding groups in names.
+      --target-mde float                        The percentage change that you want to reliably detect before ending an experiment, as a proportion (e.g. put 0.1 for 10%). This is used to estimate the "Days Left" for running experiments.
+  -w, --window-settings string                  Controls the conversion window for the metric
 ```
 
 ### Options inherited from parent commands

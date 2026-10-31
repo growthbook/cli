@@ -29,7 +29,7 @@ growthbook interleavings create [flags]
   -h, --help                           help for create
   -i, --interleaving-query-id string   [required]
   -j, --json-schema date               Validation schema to stage on the draft. The server sets date, so don't send it.
-  -k, --key interleave()               The key your code passes to interleave() as `ranker`. Can't be changed later. Several experiments may share a key so you can iterate without changing code, but only one of them can be running in a given environment, and each needs its own `trackingKey`. [required]
+  -k, --key interleave()               The key your code passes to interleave() as `key`. Can't be changed later. Several experiments may share a key so you can iterate without changing code, but only one of them can be running in a given environment, and each needs its own `trackingKey`. [required]
   -m, --metrics string                 list of values
   -n, --name string                    [required]
       --owner string                   The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.

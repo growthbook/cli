@@ -16,6 +16,7 @@ const (
 	ViaBypassApprovalPermission Via = "bypassApprovalPermission"
 	ViaRestAPIBypassesReviews   Via = "restApiBypassesReviews"
 	ViaRevertsBypassApproval    Via = "revertsBypassApproval"
+	ViaSkipChecklist            Via = "skipChecklist"
 )
 
 func (e Via) ToPointer() *Via {
@@ -26,7 +27,7 @@ func (e Via) ToPointer() *Via {
 func (e *Via) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "ignoreWarnings", "skipSchemaValidation", "skipHooks", "bypassApprovalPermission", "restApiBypassesReviews", "revertsBypassApproval":
+		case "ignoreWarnings", "skipSchemaValidation", "skipHooks", "bypassApprovalPermission", "restApiBypassesReviews", "revertsBypassApproval", "skipChecklist":
 			return true
 		}
 	}
