@@ -2,30 +2,6 @@
 
 package components
 
-type GatesEntityType string
-
-const (
-	GatesEntityTypeFeature    GatesEntityType = "feature"
-	GatesEntityTypeSavedGroup GatesEntityType = "saved-group"
-	GatesEntityTypeConfig     GatesEntityType = "config"
-	GatesEntityTypeConstant   GatesEntityType = "constant"
-)
-
-func (e GatesEntityType) ToPointer() *GatesEntityType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *GatesEntityType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "feature", "saved-group", "config", "constant":
-			return true
-		}
-	}
-	return false
-}
-
 type Severity string
 
 const (
@@ -76,40 +52,27 @@ func (g *GatesResolution) GetPath() string {
 }
 
 type Gates struct {
-	EntityType GatesEntityType `json:"entityType"`
-	// The identifier used in the request.
-	ID      string `json:"id"`
-	Version int64  `json:"version"`
-	// Gate kind, e.g. "approval-required".
-	Type     string   `json:"type"`
-	Severity Severity `json:"severity"`
-	Messages []string `json:"messages"`
-	// Request flag that clears this gate on retry, if any.
-	Override           *string `json:"override"`
+	// The checklist item, or `rampLocked:<featureId>` for a linked Feature Flag a ramp locks.
+	Key string `json:"key"`
+	// Gate kind: "checklist-item", "approval-required", "merge-conflict", "unrelated-draft-changes", "permission-denied" or "ramp-locked".
+	Type string `json:"type"`
+	// The linked Feature Flag whose authority decides this gate.
+	FeatureID *string  `json:"featureId,omitzero"`
+	Severity  Severity `json:"severity"`
+	Messages  []string `json:"messages"`
+	// Request flag that gets past this gate on retry, if any (`skipChecklist`).
+	Override *string `json:"override"`
+	// Permission on the linked Feature Flag's Project that bypasses this gate.
 	RequiresPermission *string `json:"requiresPermission"`
-	// A route that resolves the gate without an override flag.
+	// A route that resolves the gate.
 	Resolution *GatesResolution `json:"resolution"`
 }
 
-func (g *Gates) GetEntityType() GatesEntityType {
-	if g == nil {
-		return GatesEntityType("")
-	}
-	return g.EntityType
-}
-
-func (g *Gates) GetID() string {
+func (g *Gates) GetKey() string {
 	if g == nil {
 		return ""
 	}
-	return g.ID
-}
-
-func (g *Gates) GetVersion() int64 {
-	if g == nil {
-		return 0
-	}
-	return g.Version
+	return g.Key
 }
 
 func (g *Gates) GetType() string {
@@ -117,6 +80,13 @@ func (g *Gates) GetType() string {
 		return ""
 	}
 	return g.Type
+}
+
+func (g *Gates) GetFeatureID() *string {
+	if g == nil {
+		return nil
+	}
+	return g.FeatureID
 }
 
 func (g *Gates) GetSeverity() Severity {

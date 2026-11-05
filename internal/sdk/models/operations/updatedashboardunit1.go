@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/growthbook/cli/v3/internal/sdk/models/components"
 	"github.com/growthbook/cli/v3/internal/sdk/optionalnullable"
 	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 )
@@ -574,8 +575,9 @@ func (u *UpdateDashboardValueMetric2) GetDenominatorUnit() *string {
 
 type UpdateDashboardDatasetMetric2 struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_  string                        `const:"metric" json:"type"`
-	Values []UpdateDashboardValueMetric2 `json:"values"`
+	type_      string                            `const:"metric" json:"type"`
+	Values     []UpdateDashboardValueMetric2     `json:"values"`
+	Population *components.ExplorationPopulation `json:"population,omitzero"`
 }
 
 func (u UpdateDashboardDatasetMetric2) MarshalJSON() ([]byte, error) {
@@ -598,6 +600,13 @@ func (u *UpdateDashboardDatasetMetric2) GetValues() []UpdateDashboardValueMetric
 		return []UpdateDashboardValueMetric2{}
 	}
 	return u.Values
+}
+
+func (u *UpdateDashboardDatasetMetric2) GetPopulation() *components.ExplorationPopulation {
+	if u == nil {
+		return nil
+	}
+	return u.Population
 }
 
 // #region class-body-updatedashboarddatasetmetric2

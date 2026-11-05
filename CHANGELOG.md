@@ -2,6 +2,48 @@
 
 ## [Unreleased]
 
+### Added
+
+- **Remote saved group uploads**: `saved-groups create-upload-url`, `create-upload`,
+  `load-upload`, `get-upload`, `list-uploads` and `delete-upload` manage the uploaded ID versions
+  of a remote saved group. `saved-groups update --current-upload-version` and `saved-group-revisions
+  set-upload-version` choose which upload the group uses. `saved-groups list --type` filters by
+  type.
+- **`interleaving-exposure-queries`** (`create`, `get`, `list`, `update`, `delete`) manages the
+  exposure queries interleavings read from.
+- **`interleavings`** gains `delete`, `refresh`, `get-results`, `get-status`, `get-snapshot` and
+  `list-snapshots`.
+- **`experiments archive`**, **`experiments unarchive`** and **`experiments delete`**.
+- **`contextual-bandits delete`** and **`contextual-bandits get-status`**.
+- **`ramp-schedules pause-matching`** and **`ramp-schedules rollback-matching`** act on every ramp
+  schedule that matches the request.
+- **Cluster experiments**: `--is-cluster-experiment` and `--cluster-sub-unit-identifier` on
+  `experiments create|update` and `experiment-templates create|update` randomize on a cluster
+  (e.g. `region_id`) while analyzing a nested sub-unit (e.g. `user_id`).
+- **`experiments update --skip-checklist`** starts a draft past incomplete launch checklist items,
+  and **`--linked-changes`** (`materialize` or `remove`) says what happens to linked Feature Flag
+  changes when an experiment stops.
+
+### Changed
+
+- **Breaking (beta): `interleavings create|update` flags renamed.** Use `--datasource-id` instead
+  of `--datasource`, and `--interleaving-exposure-query-id` instead of `--interleaving-query-id`.
+  `--variations` now takes an object with `control` and `treatment` rankers, not a two-element
+  array. The `ownership` and `engagementSignal` analysis types are replaced by `preference`.
+  Interleavings are in closed beta, so this ships in a minor release.
+- **Breaking (beta): `populations` steps no longer take `windowSettings`.** Remove it from
+  `--steps` in `populations create|update`; `get` and `list` no longer return it. Aggregate filters
+  now apply to the queried date range. Populations are in beta, so this ships in a minor release.
+
+### Deprecated
+
+- **`--bypass-approval` on `experiments start|update`** is ignored. Approval is bypassed
+  automatically when the caller has Bypass draft approvals access or the organization enables the
+  REST API approval bypass; otherwise, get the revision approved first.
+- **`riskThresholdDanger` / `riskThresholdSuccess`** on metrics and fact metrics, and
+  **`winRisk` / `loseRisk`** on settings and reports, are no longer used and always return the
+  default. Stop setting them.
+
 ## [3.3.0] - 2026-10-26
 
 ### Added

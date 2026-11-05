@@ -1118,6 +1118,43 @@ actions:
     update: { x-speakeasy-name-override: append-artifact }
   - target: $..[?(@.operationId=="startHoldoutAnalysis")]
     update: { x-speakeasy-name-override: start-analysis }
+  - target: $..[?(@.operationId=="getContextualBanditStatus")]
+    update: { x-speakeasy-name-override: get-status }
+  - target: $..[?(@.operationId=="postExperimentArchive")]
+    update: { x-speakeasy-name-override: archive }
+  - target: $..[?(@.operationId=="postExperimentUnarchive")]
+    update: { x-speakeasy-name-override: unarchive }
+  # Siblings are contextual-bandits get-results / get-snapshot / get-status / list-snapshots.
+  - target: $..[?(@.operationId=="getInterleavingResults")]
+    update: { x-speakeasy-name-override: get-results }
+  - target: $..[?(@.operationId=="getInterleavingSnapshot")]
+    update: { x-speakeasy-name-override: get-snapshot }
+  - target: $..[?(@.operationId=="getInterleavingStatus")]
+    update: { x-speakeasy-name-override: get-status }
+  - target: $..[?(@.operationId=="listInterleavingSnapshots")]
+    update: { x-speakeasy-name-override: list-snapshots }
+  - target: $..[?(@.operationId=="createInterleavingExposureQuery")]
+    update: { x-speakeasy-name-override: create }
+  - target: $..[?(@.operationId=="getInterleavingExposureQuery")]
+    update: { x-speakeasy-name-override: get }
+  - target: $..[?(@.operationId=="updateInterleavingExposureQuery")]
+    update: { x-speakeasy-name-override: update }
+  - target: $..[?(@.operationId=="deleteInterleavingExposureQuery")]
+    update: { x-speakeasy-name-override: delete }
+  - target: $..[?(@.operationId=="getSavedGroupUpload")]
+    update: { x-speakeasy-name-override: get-upload }
+  - target: $..[?(@.operationId=="deleteSavedGroupUpload")]
+    update: { x-speakeasy-name-override: delete-upload }
+  - target: $..[?(@.operationId=="listSavedGroupUploads")]
+    update: { x-speakeasy-name-override: list-uploads }
+  - target: $..[?(@.operationId=="postSavedGroupUpload")]
+    update: { x-speakeasy-name-override: create-upload }
+  - target: $..[?(@.operationId=="postSavedGroupUploadUrl")]
+    update: { x-speakeasy-name-override: create-upload-url }
+  - target: $..[?(@.operationId=="postSavedGroupUploadLoad")]
+    update: { x-speakeasy-name-override: load-upload }
+  - target: $..[?(@.operationId=="putSavedGroupRevisionUploadVersion")]
+    update: { x-speakeasy-name-override: set-upload-version }
   # 7. Rename the `dryRun` BODY field's flag to --validate-only.
   #
   # `--dry-run` is one of our root persistent flags: preview the request and

@@ -1197,6 +1197,10 @@ type PostExperimentRequest struct {
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	AssignmentQueryID *string `json:"assignmentQueryId,omitzero"`
+	// Run as a cluster-randomized experiment: randomize on the assignment query's identifier type (the cluster, e.g. region_id) while analyzing a nested sub-unit (clusterSubUnitIdentifier, e.g. user_id). The assignment query must declare both identifier types.
+	IsClusterExperiment *bool `json:"isClusterExperiment,omitzero"`
+	// The nested sub-unit identifier type analyzed within each cluster (e.g. user_id). Required when isClusterExperiment is true; must be declared by the assignment query and differ from its cluster identifier type.
+	ClusterSubUnitIdentifier *string `json:"clusterSubUnitIdentifier,omitzero"`
 	// Key sent with exposure events. Keep it short, in kebab-case (usually the Feature Flag key). If your organization requires a tracking key format, a key that doesn't match is rejected with `invalid_tracking_key`. Changing it after launch splits exposures across two keys.
 	TrackingKey string `json:"trackingKey"`
 	// If true, allow creating an experiment even if another experiment with the same tracking key already exists. This is ignored if the organization requires unique tracking keys as a rule. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
@@ -1306,6 +1310,20 @@ func (p *PostExperimentRequest) GetAssignmentQueryID() *string {
 		return nil
 	}
 	return p.AssignmentQueryID
+}
+
+func (p *PostExperimentRequest) GetIsClusterExperiment() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.IsClusterExperiment
+}
+
+func (p *PostExperimentRequest) GetClusterSubUnitIdentifier() *string {
+	if p == nil {
+		return nil
+	}
+	return p.ClusterSubUnitIdentifier
 }
 
 func (p *PostExperimentRequest) GetTrackingKey() string {

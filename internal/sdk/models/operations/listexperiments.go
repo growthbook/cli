@@ -57,7 +57,7 @@ type ListExperimentsRequest struct {
 	// Filter by comma-separated owner ids, names, or emails
 	Owner *string `queryParam:"style=form,explode=true,name=owner"`
 	// Filter by comma-separated results (won, lost, inconclusive, dnf). Matches the experiment's recorded result — set when an experiment is stopped and retained if it's later restarted, so running experiments can match too
-	Result []components.ResultEnum `queryParam:"style=form,explode=false,name=result"`
+	Result []components.ResultParameter `queryParam:"style=form,explode=false,name=result"`
 	// Filter by comma-separated tags
 	Tag *string `queryParam:"style=form,explode=true,name=tag"`
 	// Filter by comma-separated implementation types (feature, visualChange, redirect) — the kinds of changes linked to the experiment. To filter standard experiments vs bandits, use `bandits` instead
@@ -148,7 +148,7 @@ func (l *ListExperimentsRequest) GetOwner() *string {
 	return l.Owner
 }
 
-func (l *ListExperimentsRequest) GetResult() []components.ResultEnum {
+func (l *ListExperimentsRequest) GetResult() []components.ResultParameter {
 	if l == nil {
 		return nil
 	}

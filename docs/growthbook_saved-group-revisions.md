@@ -64,6 +64,7 @@ growthbook saved-group-revisions [flags]
 * [growthbook saved-group-revisions schedule-publish](growthbook_saved-group-revisions_schedule-publish.md)	 - Schedule (or cancel) a deferred publish
 * [growthbook saved-group-revisions set-condition](growthbook_saved-group-revisions_set-condition.md)	 - Update the condition of a condition saved group draft revision
 * [growthbook saved-group-revisions set-metadata](growthbook_saved-group-revisions_set-metadata.md)	 - Update saved group metadata in a draft revision
+* [growthbook saved-group-revisions set-upload-version](growthbook_saved-group-revisions_set-upload-version.md)	 - Set the upload a remote saved group draft revision uses
 * [growthbook saved-group-revisions set-values](growthbook_saved-group-revisions_set-values.md)	 - Replace the values list in a list saved group draft revision
 * [growthbook saved-group-revisions submit-review](growthbook_saved-group-revisions_submit-review.md)	 - Submit a review on a draft revision
 * [growthbook saved-group-revisions undo-review](growthbook_saved-group-revisions_undo-review.md)	 - Retract your own review verdict

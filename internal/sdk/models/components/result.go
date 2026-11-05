@@ -2062,13 +2062,14 @@ type RuleRollout struct {
 	Prerequisites   []RulePrerequisite2   `json:"prerequisites,omitzero"`
 	ScheduleType    *ResultScheduleType2  `json:"scheduleType,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_         string   `const:"rollout" json:"type"`
-	Value         string   `json:"value"`
-	Sparse        *bool    `json:"sparse,omitzero"`
-	Coverage      float64  `json:"coverage"`
-	HashAttribute string   `json:"hashAttribute"`
-	Seed          *string  `json:"seed,omitzero"`
-	HashVersion   *float64 `json:"hashVersion,omitzero"`
+	type_             string   `const:"rollout" json:"type"`
+	Value             string   `json:"value"`
+	Sparse            *bool    `json:"sparse,omitzero"`
+	Coverage          float64  `json:"coverage"`
+	HashAttribute     string   `json:"hashAttribute"`
+	FallbackAttribute *string  `json:"fallbackAttribute,omitzero"`
+	Seed              *string  `json:"seed,omitzero"`
+	HashVersion       *float64 `json:"hashVersion,omitzero"`
 }
 
 func (r RuleRollout) MarshalJSON() ([]byte, error) {
@@ -2196,6 +2197,13 @@ func (r *RuleRollout) GetHashAttribute() string {
 		return ""
 	}
 	return r.HashAttribute
+}
+
+func (r *RuleRollout) GetFallbackAttribute() *string {
+	if r == nil {
+		return nil
+	}
+	return r.FallbackAttribute
 }
 
 func (r *RuleRollout) GetSeed() *string {

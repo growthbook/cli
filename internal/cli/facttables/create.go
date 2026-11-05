@@ -28,7 +28,7 @@ var createCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "timestamp-column", FieldPath: "TimestampColumn", Kind: flagutil.FlagKindString, Optional: true, Description: "The column holding the event timestamp. Must be a date column on this fact table. Defaults to \"timestamp\" when unset."},
 	{FlagName: "event-name", Shorthand: "e", FieldPath: "EventName", Kind: flagutil.FlagKindString, Optional: true, Description: "The event name used in SQL template variables"},
 	{FlagName: "columns", Shorthand: "c", FieldPath: "Columns", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"columns,omitempty"`, Description: "Optional array of column definitions to store for this fact table. Supplied columns are stored as-is. Omit `datatype` (or send \"\") on a column to have it auto-detected from the SQL."},
-	{FlagName: "managed-by", Shorthand: "m", FieldPath: "ManagedBy", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"", "api", "admin"}, Description: "Set this to \"api\" to disable editing in the GrowthBook UI (options: , api, admin)"},
+	{FlagName: "managed-by", Shorthand: "m", FieldPath: "ManagedBy", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"", "api", "admin", "dbt"}, Description: "Set this to \"api\" (or \"dbt\" for resources synced from dbt) to disable editing in the GrowthBook UI (options: , api, admin, dbt)"},
 }
 
 // initCreateCmd initializes the create command.

@@ -253,19 +253,21 @@ type ExperimentTemplate struct {
 	// Deprecated: use `exposureQuery`.
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-	ExposureQueryID        string                                `json:"exposureQueryId"`
-	HashAttribute          *string                               `json:"hashAttribute,omitzero"`
-	FallbackAttribute      *string                               `json:"fallbackAttribute,omitzero"`
-	DisableStickyBucketing *bool                                 `json:"disableStickyBucketing,omitzero"`
-	GoalMetrics            []string                              `json:"goalMetrics,omitzero"`
-	SecondaryMetrics       []string                              `json:"secondaryMetrics,omitzero"`
-	GuardrailMetrics       []string                              `json:"guardrailMetrics,omitzero"`
-	ActivationMetric       *string                               `json:"activationMetric,omitzero"`
-	StatsEngine            ExperimentTemplateStatsEngine         `json:"statsEngine"`
-	Segment                *string                               `json:"segment,omitzero"`
-	SkipPartialData        *bool                                 `json:"skipPartialData,omitzero"`
-	Targeting              Targeting                             `json:"targeting"`
-	CustomMetricSlices     []ExperimentTemplateCustomMetricSlice `json:"customMetricSlices,omitzero"`
+	ExposureQueryID          string                                `json:"exposureQueryId"`
+	IsClusterExperiment      *bool                                 `json:"isClusterExperiment,omitzero"`
+	ClusterSubUnitIdentifier *string                               `json:"clusterSubUnitIdentifier,omitzero"`
+	HashAttribute            *string                               `json:"hashAttribute,omitzero"`
+	FallbackAttribute        *string                               `json:"fallbackAttribute,omitzero"`
+	DisableStickyBucketing   *bool                                 `json:"disableStickyBucketing,omitzero"`
+	GoalMetrics              []string                              `json:"goalMetrics,omitzero"`
+	SecondaryMetrics         []string                              `json:"secondaryMetrics,omitzero"`
+	GuardrailMetrics         []string                              `json:"guardrailMetrics,omitzero"`
+	ActivationMetric         *string                               `json:"activationMetric,omitzero"`
+	StatsEngine              ExperimentTemplateStatsEngine         `json:"statsEngine"`
+	Segment                  *string                               `json:"segment,omitzero"`
+	SkipPartialData          *bool                                 `json:"skipPartialData,omitzero"`
+	Targeting                Targeting                             `json:"targeting"`
+	CustomMetricSlices       []ExperimentTemplateCustomMetricSlice `json:"customMetricSlices,omitzero"`
 }
 
 func (e ExperimentTemplate) MarshalJSON() ([]byte, error) {
@@ -382,6 +384,20 @@ func (e *ExperimentTemplate) GetExposureQueryID() string {
 		return ""
 	}
 	return e.ExposureQueryID
+}
+
+func (e *ExperimentTemplate) GetIsClusterExperiment() *bool {
+	if e == nil {
+		return nil
+	}
+	return e.IsClusterExperiment
+}
+
+func (e *ExperimentTemplate) GetClusterSubUnitIdentifier() *string {
+	if e == nil {
+		return nil
+	}
+	return e.ClusterSubUnitIdentifier
 }
 
 func (e *ExperimentTemplate) GetHashAttribute() *string {

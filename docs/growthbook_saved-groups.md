@@ -45,9 +45,15 @@ growthbook saved-groups [flags]
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
 * [growthbook saved-groups archive](growthbook_saved-groups_archive.md)	 - Archive a single saved group
 * [growthbook saved-groups create](growthbook_saved-groups_create.md)	 - Create a single saved group
+* [growthbook saved-groups create-upload](growthbook_saved-groups_create-upload.md)	 - Upload a new version of a remote saved group's IDs
+* [growthbook saved-groups create-upload-url](growthbook_saved-groups_create-upload-url.md)	 - Get a signed URL to upload a remote saved group CSV
 * [growthbook saved-groups delete](growthbook_saved-groups_delete.md)	 - Deletes a single saved group
+* [growthbook saved-groups delete-upload](growthbook_saved-groups_delete-upload.md)	 - Delete an upload of a remote saved group
 * [growthbook saved-groups get](growthbook_saved-groups_get.md)	 - Get a single saved group
 * [growthbook saved-groups get-references](growthbook_saved-groups_get-references.md)	 - Get features, experiments, and saved groups that reference this saved group
+* [growthbook saved-groups get-upload](growthbook_saved-groups_get-upload.md)	 - Get one upload of a remote saved group
 * [growthbook saved-groups list](growthbook_saved-groups_list.md)	 - Get all saved group
+* [growthbook saved-groups list-uploads](growthbook_saved-groups_list-uploads.md)	 - List the uploads of a remote saved group
+* [growthbook saved-groups load-upload](growthbook_saved-groups_load-upload.md)	 - Report loading a remote saved group upload into a data store
 * [growthbook saved-groups unarchive](growthbook_saved-groups_unarchive.md)	 - Unarchive a single saved group
 * [growthbook saved-groups update](growthbook_saved-groups_update.md)	 - Partially update a single saved group

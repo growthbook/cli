@@ -7,7 +7,7 @@ import (
 	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 )
 
-// PostProjectSettings - Project stats settings that, when set, override the organization settings.
+// PostProjectSettings - Project settings that, when set, override the organization settings.
 type PostProjectSettings struct {
 	// Stats engine.
 	StatsEngine *string `json:"statsEngine,omitzero"`
@@ -47,7 +47,7 @@ type PostProjectRequest struct {
 	Description *string `json:"description,omitzero"`
 	// URL-safe slug (lowercase letters, numbers, dashes). Auto-generated from name if not provided.
 	PublicID *string `json:"publicId,omitzero"`
-	// Project stats settings that, when set, override the organization settings.
+	// Project settings that, when set, override the organization settings.
 	Settings *PostProjectSettings `json:"settings,omitzero"`
 	// When true, only members with an explicit role on this Project (directly or via a team) can access it. Members with the manageTeam permission retain access. Requires a Pro or Enterprise plan.
 	RestrictAccess *bool `json:"restrictAccess,omitzero"`

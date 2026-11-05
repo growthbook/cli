@@ -11,7 +11,8 @@ import (
 	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 )
 
-type UpdateInterleavingVariations2 struct {
+// UpdateInterleavingControl - The default ranker. Users who are not exposed to interleaved rankings get its list.
+type UpdateInterleavingControl struct {
 	Key         string  `json:"key"`
 	Name        string  `json:"name"`
 	Description *string `json:"description,omitzero"`
@@ -19,49 +20,36 @@ type UpdateInterleavingVariations2 struct {
 	Config string `json:"config"`
 }
 
-func (u UpdateInterleavingVariations2) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateInterleavingVariations2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateInterleavingVariations2) GetKey() string {
+func (u *UpdateInterleavingControl) GetKey() string {
 	if u == nil {
 		return ""
 	}
 	return u.Key
 }
 
-func (u *UpdateInterleavingVariations2) GetName() string {
+func (u *UpdateInterleavingControl) GetName() string {
 	if u == nil {
 		return ""
 	}
 	return u.Name
 }
 
-func (u *UpdateInterleavingVariations2) GetDescription() *string {
+func (u *UpdateInterleavingControl) GetDescription() *string {
 	if u == nil {
 		return nil
 	}
 	return u.Description
 }
 
-func (u *UpdateInterleavingVariations2) GetConfig() string {
+func (u *UpdateInterleavingControl) GetConfig() string {
 	if u == nil {
 		return ""
 	}
 	return u.Config
 }
 
-// #region class-body-updateinterleavingvariations2
-// #endregion class-body-updateinterleavingvariations2
-
-type UpdateInterleavingVariations1 struct {
+// UpdateInterleavingTreatment - The ranker being tested against control.
+type UpdateInterleavingTreatment struct {
 	Key         string  `json:"key"`
 	Name        string  `json:"name"`
 	Description *string `json:"description,omitzero"`
@@ -69,135 +57,54 @@ type UpdateInterleavingVariations1 struct {
 	Config string `json:"config"`
 }
 
-func (u UpdateInterleavingVariations1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateInterleavingVariations1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateInterleavingVariations1) GetKey() string {
+func (u *UpdateInterleavingTreatment) GetKey() string {
 	if u == nil {
 		return ""
 	}
 	return u.Key
 }
 
-func (u *UpdateInterleavingVariations1) GetName() string {
+func (u *UpdateInterleavingTreatment) GetName() string {
 	if u == nil {
 		return ""
 	}
 	return u.Name
 }
 
-func (u *UpdateInterleavingVariations1) GetDescription() *string {
+func (u *UpdateInterleavingTreatment) GetDescription() *string {
 	if u == nil {
 		return nil
 	}
 	return u.Description
 }
 
-func (u *UpdateInterleavingVariations1) GetConfig() string {
+func (u *UpdateInterleavingTreatment) GetConfig() string {
 	if u == nil {
 		return ""
 	}
 	return u.Config
 }
 
-// #region class-body-updateinterleavingvariations1
-// #endregion class-body-updateinterleavingvariations1
-
-type UpdateInterleavingVariationsUnionType string
-
-const (
-	UpdateInterleavingVariationsUnionTypeUpdateInterleavingVariations1 UpdateInterleavingVariationsUnionType = "updateInterleaving_variations_1"
-	UpdateInterleavingVariationsUnionTypeUpdateInterleavingVariations2 UpdateInterleavingVariationsUnionType = "updateInterleaving_variations_2"
-)
-
-type UpdateInterleavingVariationsUnion struct {
-	UpdateInterleavingVariations1 *UpdateInterleavingVariations1 `queryParam:"inline" union:"member"`
-	UpdateInterleavingVariations2 *UpdateInterleavingVariations2 `queryParam:"inline" union:"member"`
-
-	Type UpdateInterleavingVariationsUnionType
+// UpdateInterleavingVariations - Replaces both rankers. Each keeps its id.
+type UpdateInterleavingVariations struct {
+	// The default ranker. Users who are not exposed to interleaved rankings get its list.
+	Control UpdateInterleavingControl `json:"control"`
+	// The ranker being tested against control.
+	Treatment UpdateInterleavingTreatment `json:"treatment"`
 }
 
-func CreateUpdateInterleavingVariationsUnionUpdateInterleavingVariations1(updateInterleavingVariations1 UpdateInterleavingVariations1) UpdateInterleavingVariationsUnion {
-	typ := UpdateInterleavingVariationsUnionTypeUpdateInterleavingVariations1
-
-	return UpdateInterleavingVariationsUnion{
-		UpdateInterleavingVariations1: &updateInterleavingVariations1,
-		Type:                          typ,
+func (u *UpdateInterleavingVariations) GetControl() UpdateInterleavingControl {
+	if u == nil {
+		return UpdateInterleavingControl{}
 	}
+	return u.Control
 }
 
-func CreateUpdateInterleavingVariationsUnionUpdateInterleavingVariations2(updateInterleavingVariations2 UpdateInterleavingVariations2) UpdateInterleavingVariationsUnion {
-	typ := UpdateInterleavingVariationsUnionTypeUpdateInterleavingVariations2
-
-	return UpdateInterleavingVariationsUnion{
-		UpdateInterleavingVariations2: &updateInterleavingVariations2,
-		Type:                          typ,
+func (u *UpdateInterleavingVariations) GetTreatment() UpdateInterleavingTreatment {
+	if u == nil {
+		return UpdateInterleavingTreatment{}
 	}
-}
-
-func (u *UpdateInterleavingVariationsUnion) UnmarshalJSON(data []byte) error {
-
-	var candidates []utils.UnionCandidate
-
-	// Collect all valid candidates
-	var updateInterleavingVariations1 UpdateInterleavingVariations1 = UpdateInterleavingVariations1{}
-	if err := utils.UnmarshalJSON(data, &updateInterleavingVariations1, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  UpdateInterleavingVariationsUnionTypeUpdateInterleavingVariations1,
-			Value: &updateInterleavingVariations1,
-		})
-	}
-
-	var updateInterleavingVariations2 UpdateInterleavingVariations2 = UpdateInterleavingVariations2{}
-	if err := utils.UnmarshalJSON(data, &updateInterleavingVariations2, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  UpdateInterleavingVariationsUnionTypeUpdateInterleavingVariations2,
-			Value: &updateInterleavingVariations2,
-		})
-	}
-
-	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for UpdateInterleavingVariationsUnion", string(data))
-	}
-
-	// Pick the best candidate using multi-stage filtering
-	best := utils.PickBestUnionCandidate(candidates, data)
-	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for UpdateInterleavingVariationsUnion", string(data))
-	}
-
-	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(UpdateInterleavingVariationsUnionType)
-	switch best.Type {
-	case UpdateInterleavingVariationsUnionTypeUpdateInterleavingVariations1:
-		u.UpdateInterleavingVariations1 = best.Value.(*UpdateInterleavingVariations1)
-		return nil
-	case UpdateInterleavingVariationsUnionTypeUpdateInterleavingVariations2:
-		u.UpdateInterleavingVariations2 = best.Value.(*UpdateInterleavingVariations2)
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for UpdateInterleavingVariationsUnion", string(data))
-}
-
-func (u UpdateInterleavingVariationsUnion) MarshalJSON() ([]byte, error) {
-	if u.UpdateInterleavingVariations1 != nil {
-		return utils.MarshalJSON(u.UpdateInterleavingVariations1, "", true)
-	}
-
-	if u.UpdateInterleavingVariations2 != nil {
-		return utils.MarshalJSON(u.UpdateInterleavingVariations2, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type UpdateInterleavingVariationsUnion: all fields are null")
+	return u.Treatment
 }
 
 type UpdateInterleavingSchemaType string
@@ -485,8 +392,7 @@ func (u *UpdateInterleavingJSONSchema) GetEnabled() bool {
 type UpdateInterleavingAttribution string
 
 const (
-	UpdateInterleavingAttributionExposureCount    UpdateInterleavingAttribution = "exposureCount"
-	UpdateInterleavingAttributionEngagementSignal UpdateInterleavingAttribution = "engagementSignal"
+	UpdateInterleavingAttributionExposureCount UpdateInterleavingAttribution = "exposureCount"
 )
 
 func (e UpdateInterleavingAttribution) ToPointer() *UpdateInterleavingAttribution {
@@ -499,8 +405,6 @@ func (e *UpdateInterleavingAttribution) UnmarshalJSON(data []byte) error {
 	}
 	switch v {
 	case "exposureCount":
-		fallthrough
-	case "engagementSignal":
 		*e = UpdateInterleavingAttribution(v)
 		return nil
 	default:
@@ -508,28 +412,28 @@ func (e *UpdateInterleavingAttribution) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type UpdateInterleavingAnalysisOwnership struct {
+type UpdateInterleavingAnalysisExposureCount struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_       string                        `const:"ownership" json:"type"`
+	type_       string                        `const:"preference" json:"type"`
 	Attribution UpdateInterleavingAttribution `json:"attribution"`
 }
 
-func (u UpdateInterleavingAnalysisOwnership) MarshalJSON() ([]byte, error) {
+func (u UpdateInterleavingAnalysisExposureCount) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(u, "", false)
 }
 
-func (u *UpdateInterleavingAnalysisOwnership) UnmarshalJSON(data []byte) error {
+func (u *UpdateInterleavingAnalysisExposureCount) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (u *UpdateInterleavingAnalysisOwnership) GetType() string {
-	return "ownership"
+func (u *UpdateInterleavingAnalysisExposureCount) GetType() string {
+	return "preference"
 }
 
-func (u *UpdateInterleavingAnalysisOwnership) GetAttribution() UpdateInterleavingAttribution {
+func (u *UpdateInterleavingAnalysisExposureCount) GetAttribution() UpdateInterleavingAttribution {
 	if u == nil {
 		return UpdateInterleavingAttribution("")
 	}
@@ -559,13 +463,13 @@ func (u *UpdateInterleavingAnalysisPaired) GetType() string {
 type UpdateInterleavingAnalysisUnionType string
 
 const (
-	UpdateInterleavingAnalysisUnionTypePaired    UpdateInterleavingAnalysisUnionType = "paired"
-	UpdateInterleavingAnalysisUnionTypeOwnership UpdateInterleavingAnalysisUnionType = "ownership"
+	UpdateInterleavingAnalysisUnionTypePaired     UpdateInterleavingAnalysisUnionType = "paired"
+	UpdateInterleavingAnalysisUnionTypePreference UpdateInterleavingAnalysisUnionType = "preference"
 )
 
 type UpdateInterleavingAnalysisUnion struct {
-	UpdateInterleavingAnalysisPaired    *UpdateInterleavingAnalysisPaired    `queryParam:"inline" union:"member"`
-	UpdateInterleavingAnalysisOwnership *UpdateInterleavingAnalysisOwnership `queryParam:"inline" union:"member"`
+	UpdateInterleavingAnalysisPaired        *UpdateInterleavingAnalysisPaired        `queryParam:"inline" union:"member"`
+	UpdateInterleavingAnalysisExposureCount *UpdateInterleavingAnalysisExposureCount `queryParam:"inline" union:"member"`
 
 	Type UpdateInterleavingAnalysisUnionType
 }
@@ -579,12 +483,12 @@ func CreateUpdateInterleavingAnalysisUnionPaired(paired UpdateInterleavingAnalys
 	}
 }
 
-func CreateUpdateInterleavingAnalysisUnionOwnership(ownership UpdateInterleavingAnalysisOwnership) UpdateInterleavingAnalysisUnion {
-	typ := UpdateInterleavingAnalysisUnionTypeOwnership
+func CreateUpdateInterleavingAnalysisUnionPreference(preference UpdateInterleavingAnalysisExposureCount) UpdateInterleavingAnalysisUnion {
+	typ := UpdateInterleavingAnalysisUnionTypePreference
 
 	return UpdateInterleavingAnalysisUnion{
-		UpdateInterleavingAnalysisOwnership: &ownership,
-		Type:                                typ,
+		UpdateInterleavingAnalysisExposureCount: &preference,
+		Type:                                    typ,
 	}
 }
 
@@ -609,14 +513,14 @@ func (u *UpdateInterleavingAnalysisUnion) UnmarshalJSON(data []byte) error {
 		u.UpdateInterleavingAnalysisPaired = updateInterleavingAnalysisPaired
 		u.Type = UpdateInterleavingAnalysisUnionTypePaired
 		return nil
-	case "ownership":
-		updateInterleavingAnalysisOwnership := new(UpdateInterleavingAnalysisOwnership)
-		if err := utils.UnmarshalJSON(data, &updateInterleavingAnalysisOwnership, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == ownership) type UpdateInterleavingAnalysisOwnership within UpdateInterleavingAnalysisUnion: %w", string(data), err)
+	case "preference":
+		updateInterleavingAnalysisExposureCount := new(UpdateInterleavingAnalysisExposureCount)
+		if err := utils.UnmarshalJSON(data, &updateInterleavingAnalysisExposureCount, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == preference) type UpdateInterleavingAnalysisExposureCount within UpdateInterleavingAnalysisUnion: %w", string(data), err)
 		}
 
-		u.UpdateInterleavingAnalysisOwnership = updateInterleavingAnalysisOwnership
-		u.Type = UpdateInterleavingAnalysisUnionTypeOwnership
+		u.UpdateInterleavingAnalysisExposureCount = updateInterleavingAnalysisExposureCount
+		u.Type = UpdateInterleavingAnalysisUnionTypePreference
 		return nil
 	}
 
@@ -628,8 +532,8 @@ func (u UpdateInterleavingAnalysisUnion) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.UpdateInterleavingAnalysisPaired, "", true)
 	}
 
-	if u.UpdateInterleavingAnalysisOwnership != nil {
-		return utils.MarshalJSON(u.UpdateInterleavingAnalysisOwnership, "", true)
+	if u.UpdateInterleavingAnalysisExposureCount != nil {
+		return utils.MarshalJSON(u.UpdateInterleavingAnalysisExposureCount, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type UpdateInterleavingAnalysisUnion: all fields are null")
@@ -739,23 +643,24 @@ type UpdateInterleavingRequestBody struct {
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
 	Owner *string  `json:"owner,omitzero"`
 	Tags  []string `json:"tags,omitzero"`
-	// Stop a running interleaving experiment before archiving it.
-	Archived      *bool   `json:"archived,omitzero"`
+	// Archiving removes a running interleaving experiment from the SDK payload, so its rankers stop serving immediately.
+	Archived *bool `json:"archived,omitzero"`
+	// The `experiment_id` recorded in exposures. Must be unique within the Data Source. Changing it on a running experiment means earlier exposures are no longer counted.
 	TrackingKey   *string `json:"trackingKey,omitzero"`
 	HashAttribute *string `json:"hashAttribute,omitzero"`
 	Seed          *string `json:"seed,omitzero"`
-	// Replaces both rankers. Each keeps its id by position, so the first entry updates the first ranker.
-	Variations          []UpdateInterleavingVariationsUnion                             `json:"variations,omitzero"`
-	JSONSchema          optionalnullable.OptionalNullable[UpdateInterleavingJSONSchema] `json:"jsonSchema,omitzero"`
-	Datasource          *string                                                         `json:"datasource,omitzero"`
-	InterleavingQueryID *string                                                         `json:"interleavingQueryId,omitzero"`
-	UserIDType          *string                                                         `json:"userIdType,omitzero"`
-	Metrics             []UpdateInterleavingMetric                                      `json:"metrics,omitzero"`
-	Coverage            *float64                                                        `json:"coverage,omitzero"`
-	Condition           *string                                                         `json:"condition,omitzero"`
-	SavedGroups         []UpdateInterleavingSavedGroup                                  `json:"savedGroups,omitzero"`
-	Prerequisites       []UpdateInterleavingPrerequisite                                `json:"prerequisites,omitzero"`
-	EnvironmentSettings map[string]UpdateInterleavingEnvironmentSettings                `json:"environmentSettings,omitzero"`
+	// Replaces both rankers. Each keeps its id.
+	Variations                  *UpdateInterleavingVariations                                   `json:"variations,omitzero"`
+	JSONSchema                  optionalnullable.OptionalNullable[UpdateInterleavingJSONSchema] `json:"jsonSchema,omitzero"`
+	DatasourceID                *string                                                         `json:"datasourceId,omitzero"`
+	InterleavingExposureQueryID *string                                                         `json:"interleavingExposureQueryId,omitzero"`
+	UserIDType                  *string                                                         `json:"userIdType,omitzero"`
+	Metrics                     []UpdateInterleavingMetric                                      `json:"metrics,omitzero"`
+	Coverage                    *float64                                                        `json:"coverage,omitzero"`
+	Condition                   *string                                                         `json:"condition,omitzero"`
+	SavedGroups                 []UpdateInterleavingSavedGroup                                  `json:"savedGroups,omitzero"`
+	Prerequisites               []UpdateInterleavingPrerequisite                                `json:"prerequisites,omitzero"`
+	EnvironmentSettings         map[string]UpdateInterleavingEnvironmentSettings                `json:"environmentSettings,omitzero"`
 }
 
 func (u UpdateInterleavingRequestBody) MarshalJSON() ([]byte, error) {
@@ -832,7 +737,7 @@ func (u *UpdateInterleavingRequestBody) GetSeed() *string {
 	return u.Seed
 }
 
-func (u *UpdateInterleavingRequestBody) GetVariations() []UpdateInterleavingVariationsUnion {
+func (u *UpdateInterleavingRequestBody) GetVariations() *UpdateInterleavingVariations {
 	if u == nil {
 		return nil
 	}
@@ -846,18 +751,18 @@ func (u *UpdateInterleavingRequestBody) GetJSONSchema() optionalnullable.Optiona
 	return u.JSONSchema
 }
 
-func (u *UpdateInterleavingRequestBody) GetDatasource() *string {
+func (u *UpdateInterleavingRequestBody) GetDatasourceID() *string {
 	if u == nil {
 		return nil
 	}
-	return u.Datasource
+	return u.DatasourceID
 }
 
-func (u *UpdateInterleavingRequestBody) GetInterleavingQueryID() *string {
+func (u *UpdateInterleavingRequestBody) GetInterleavingExposureQueryID() *string {
 	if u == nil {
 		return nil
 	}
-	return u.InterleavingQueryID
+	return u.InterleavingExposureQueryID
 }
 
 func (u *UpdateInterleavingRequestBody) GetUserIDType() *string {

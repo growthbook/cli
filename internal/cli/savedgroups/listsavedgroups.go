@@ -17,6 +17,7 @@ import (
 var listSavedGroupsCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "limit", Shorthand: "l", FieldPath: "Limit", Kind: flagutil.FlagKindInt64, Optional: true, HasDefault: true, DefaultInt: 10, Description: "The number of items to return"},
 	{FlagName: "offset", FieldPath: "Offset", Kind: flagutil.FlagKindInt64, Optional: true, HasDefault: true, Description: "How many items to skip (use in conjunction with limit for pagination)"},
+	{FlagName: "type", Shorthand: "t", FieldPath: "Type", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"condition", "list", "remote"}, Description: "Only list Saved Groups of this type (options: condition, list, remote)"},
 }
 
 // initListSavedGroupsCmd initializes the list-saved-groups command.

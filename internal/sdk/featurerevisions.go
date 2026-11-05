@@ -3227,6 +3227,8 @@ func (s *FeatureRevisions) DeleteRuleRampSchedule(ctx context.Context, request o
 // Set `autoPublishOnApproval` to `true` to publish the revision automatically the moment it is approved (GitHub auto-merge model). This requires the org to have auto-publish-on-approval enabled for the feature and the caller to have publish permission; the auto-publish then executes with the caller's authority.
 //
 // Set `scheduledPublishAt` to a future ISO date-time to defer the auto-publish until that date (it still also requires approval when review is required). Use `scheduledPublishLockEdits` to freeze edits to this draft while the schedule is pending, and `scheduledPublishLockOthers` to block publishing other drafts of this feature in the meantime.
+//
+// Neither can be set on a draft whose rules would take a draft experiment live, since an automatic publish doesn't start the experiment. Schedule the experiment's start instead; starting it publishes the draft.
 func (s *FeatureRevisions) RequestReview(ctx context.Context, request operations.PostFeatureRevisionRequestReviewV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionRequestReviewV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -3405,7 +3407,9 @@ func (s *FeatureRevisions) RequestReview(ctx context.Context, request operations
 // SchedulePublish - Schedule (or cancel) a deferred publish for a draft revision
 // Schedules the draft to publish on or after `scheduledPublishAt`. When approval is required, publishing waits until the draft is also approved. Send `scheduledPublishAt: null` to cancel the schedule.
 //
-// Set `lockEdits` to prevent content changes while the schedule is pending; rebasing remains allowed. Set `lockOthers` to prevent other drafts of this Feature Flag from being published until this schedule runs or is canceled. The caller needs Publish access, and that access is checked again when the schedule runs. A caller with Bypass draft approvals access can schedule an unapproved draft by sending `bypassApproval: true`. That schedule must be canceled and recreated before it can be changed.
+// Set `lockEdits` to prevent content changes while the schedule is pending; rebasing remains allowed. Set `lockOthers` to prevent other drafts of this Feature Flag from being published until this schedule runs or is canceled. The caller needs Publish access, and that access is checked again when the schedule runs. A caller with Bypass draft approvals access can schedule an unapproved draft by sending `bypassApproval: true`. That schedule must be canceled and recreated before it can be changed, and a later edit that would reset an approval also drops the bypass.
+//
+// A draft whose rules would take a draft experiment live can't be scheduled, since a scheduled publish doesn't start the experiment. Schedule the experiment's start instead; starting it publishes the draft.
 func (s *FeatureRevisions) SchedulePublish(ctx context.Context, request operations.PostFeatureRevisionSchedulePublishV2Request, opts ...operations.Option) (*operations.PostFeatureRevisionSchedulePublishV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{

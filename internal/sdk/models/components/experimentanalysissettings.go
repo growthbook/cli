@@ -115,11 +115,15 @@ type ExperimentAnalysisSettings struct {
 	// Deprecated: use `assignmentQuery`.
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-	AssignmentQueryID     string                `json:"assignmentQueryId"`
-	ExperimentID          string                `json:"experimentId"`
-	SegmentID             string                `json:"segmentId"`
-	QueryFilter           string                `json:"queryFilter"`
-	InProgressConversions InProgressConversions `json:"inProgressConversions"`
+	AssignmentQueryID string `json:"assignmentQueryId"`
+	// Whether this is a cluster-randomized experiment (randomized on the assignment query's identifier type, analyzed on clusterSubUnitIdentifier).
+	IsClusterExperiment *bool `json:"isClusterExperiment,omitzero"`
+	// For cluster experiments, the nested sub-unit identifier type analyzed within each cluster (e.g. user_id).
+	ClusterSubUnitIdentifier *string               `json:"clusterSubUnitIdentifier,omitzero"`
+	ExperimentID             string                `json:"experimentId"`
+	SegmentID                string                `json:"segmentId"`
+	QueryFilter              string                `json:"queryFilter"`
+	InProgressConversions    InProgressConversions `json:"inProgressConversions"`
 	// Setting attribution model to `"experimentDuration"` is the same as selecting "Ignore Conversion Windows" for the Conversion Window Override. Setting it to `"lookbackOverride"` requires a `lookbackOverride` object to be provided.
 	AttributionModel ExperimentAnalysisSettingsAttributionModel `json:"attributionModel"`
 	// Controls the lookback override for the experiment. For type "window", value must be a non-negative number and valueUnit is required.
@@ -170,6 +174,20 @@ func (e *ExperimentAnalysisSettings) GetAssignmentQueryID() string {
 		return ""
 	}
 	return e.AssignmentQueryID
+}
+
+func (e *ExperimentAnalysisSettings) GetIsClusterExperiment() *bool {
+	if e == nil {
+		return nil
+	}
+	return e.IsClusterExperiment
+}
+
+func (e *ExperimentAnalysisSettings) GetClusterSubUnitIdentifier() *string {
+	if e == nil {
+		return nil
+	}
+	return e.ClusterSubUnitIdentifier
 }
 
 func (e *ExperimentAnalysisSettings) GetExperimentID() string {

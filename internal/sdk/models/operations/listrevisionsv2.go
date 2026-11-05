@@ -17,8 +17,8 @@ type ListRevisionsV2Request struct {
 	SkipPagination *bool   `default:"false" queryParam:"style=form,explode=true,name=skipPagination"`
 	FeatureID      *string `queryParam:"style=form,explode=true,name=featureId"`
 	// Filter by revision status. Single value, comma-separated list, repeated params (?status=draft&status=approved), or `all-drafts` shorthand for all active-draft statuses (draft, pending-review, approved, changes-requested).
-	Status *components.Status `queryParam:"style=form,explode=true,name=status"`
-	Author *string            `queryParam:"style=form,explode=true,name=author"`
+	Status *components.StatusParameter `queryParam:"style=form,explode=true,name=status"`
+	Author *string                     `queryParam:"style=form,explode=true,name=author"`
 	// If true, return only revisions authored by or contributed to by the calling user.
 	Mine *bool `queryParam:"style=form,explode=true,name=mine"`
 	// Whether to include revisions for archived features. Defaults to `false` (non-archived features only). Pass `true` to include revisions for archived features alongside non-archived ones.
@@ -64,7 +64,7 @@ func (l *ListRevisionsV2Request) GetFeatureID() *string {
 	return l.FeatureID
 }
 
-func (l *ListRevisionsV2Request) GetStatus() *components.Status {
+func (l *ListRevisionsV2Request) GetStatus() *components.StatusParameter {
 	if l == nil {
 		return nil
 	}

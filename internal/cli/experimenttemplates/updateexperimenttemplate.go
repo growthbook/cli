@@ -15,7 +15,7 @@ import (
 )
 
 var updateExperimentTemplateCmdMeta = []flagutil.FlagMeta{
-	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
+	{FlagName: "id", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "project", Shorthand: "p", FieldPath: "Body.Project", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "template-metadata", FieldPath: "Body.TemplateMetadata", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"templateMetadata,omitempty"`, Description: "JSON object"},
 	{FlagName: "type", FieldPath: "Body.Type", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"standard"}, Description: "options: standard"},
@@ -26,6 +26,8 @@ var updateExperimentTemplateCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "datasource", FieldPath: "Body.Datasource", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "exposure-query", FieldPath: "Body.ExposureQuery", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"exposureQuery,omitempty"`, Description: "The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `exposureQueryId`."},
 	{FlagName: "exposure-query-id", FieldPath: "Body.ExposureQueryID", Kind: flagutil.FlagKindString, Optional: true, Description: "Deprecated: use `exposureQuery`. Rejected when selecting a different assignment query that declares several identifier types; set `exposureQuery.identifierType` instead."},
+	{FlagName: "is-cluster-experiment", FieldPath: "Body.IsClusterExperiment", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
+	{FlagName: "cluster-sub-unit-identifier", FieldPath: "Body.ClusterSubUnitIdentifier", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "hash-attribute", FieldPath: "Body.HashAttribute", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "fallback-attribute", Shorthand: "f", FieldPath: "Body.FallbackAttribute", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "disable-sticky-bucketing", FieldPath: "Body.DisableStickyBucketing", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},

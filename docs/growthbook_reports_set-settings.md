@@ -37,7 +37,7 @@ growthbook reports set-settings [flags]
       --lookback-override.window string              putReportSettings_lookbackOverride_Window variant as JSON
       --lookback-override.window.value float         [required]
       --lookback-override.window.value-unit string   options: minutes, hours, days, weeks [required]
-  -m, --metric-overrides string                      Per-metric window, risk, and regression-adjustment overrides
+  -m, --metric-overrides string                      Per-metric window, prior, and regression-adjustment overrides
       --query-filter string                          Raw SQL WHERE clause added to the exposure query
   -r, --regression-adjustment-enabled                Enable CUPED regression adjustment
       --secondary-metrics stringArray                Secondary metric IDs

@@ -19,6 +19,8 @@ type UpdateSavedGroupRequestBody struct {
 	// The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
 	Owner    *string  `json:"owner,omitzero"`
 	Projects []string `json:"projects,omitzero"`
+	// When type = 'remote', the upload whose IDs the group uses. Must be a valid upload of this group.
+	CurrentUploadVersion *int64 `json:"currentUploadVersion,omitzero"`
 	// Set to true to update the live Saved Group without approval. The caller must have Bypass draft approvals access in every current and destination Project. This field has no effect when approval is not required.
 	BypassApproval *bool `json:"bypassApproval,omitzero"`
 }
@@ -74,6 +76,13 @@ func (u *UpdateSavedGroupRequestBody) GetProjects() []string {
 		return nil
 	}
 	return u.Projects
+}
+
+func (u *UpdateSavedGroupRequestBody) GetCurrentUploadVersion() *int64 {
+	if u == nil {
+		return nil
+	}
+	return u.CurrentUploadVersion
 }
 
 func (u *UpdateSavedGroupRequestBody) GetBypassApproval() *bool {

@@ -2,7 +2,7 @@
 
 package sdk
 
-// Generated from OpenAPI doc version 5.1.0 and generator version 2.930.0
+// Generated from OpenAPI doc version 5.2.0 and generator version 2.930.0
 
 import (
 	"bytes"
@@ -152,15 +152,16 @@ type Growthbook struct {
 	// Custom analysis reports built on top of experiment snapshots. Reports let you re-run analysis with different metrics, date ranges, stats engines, and other settings without modifying the underlying experiment.
 	Reports *Reports
 	// Namespaces partition your user population into buckets so that experiments using the same hash attribute do not overlap unintentionally. Each namespace defines a 0–1 range and individual experiments claim sub-ranges within it.
-	Namespaces              *Namespaces
-	Dashboards              *Dashboards
-	ContextualBanditQueries *ContextualBanditQueries
-	Interleavings           *Interleavings
-	CustomFields            *CustomFields
-	MetricGroups            *MetricGroups
-	Teams                   *Teams
-	ExperimentTemplates     *ExperimentTemplates
-	AnalyticsExplorations   *AnalyticsExplorations
+	Namespaces                  *Namespaces
+	Dashboards                  *Dashboards
+	ContextualBanditQueries     *ContextualBanditQueries
+	InterleavingExposureQueries *InterleavingExposureQueries
+	Interleavings               *Interleavings
+	CustomFields                *CustomFields
+	MetricGroups                *MetricGroups
+	Teams                       *Teams
+	ExperimentTemplates         *ExperimentTemplates
+	AnalyticsExplorations       *AnalyticsExplorations
 	// Reusable step configurations for ramp schedules.
 	RampScheduleTemplates *RampScheduleTemplates
 	// Saved learnings captured across experiments, including AI-discovered patterns.
@@ -262,7 +263,7 @@ func New(opts ...SDKOption) *Growthbook {
 	sdk := &Growthbook{
 		SDKVersion: "0.0.1",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/go 0.0.1 2.930.0 5.1.0 github.com/growthbook/cli/v3/internal/sdk",
+			UserAgent:  "speakeasy-sdk/go 0.0.1 2.930.0 5.2.0 github.com/growthbook/cli/v3/internal/sdk",
 			ServerList: ServerList,
 			ServerVariables: []map[string]string{
 				{},
@@ -323,6 +324,7 @@ func New(opts ...SDKOption) *Growthbook {
 	sdk.Namespaces = newNamespaces(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Dashboards = newDashboards(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.ContextualBanditQueries = newContextualBanditQueries(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.InterleavingExposureQueries = newInterleavingExposureQueries(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Interleavings = newInterleavings(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.CustomFields = newCustomFields(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.MetricGroups = newMetricGroups(sdk, sdk.sdkConfiguration, sdk.hooks)

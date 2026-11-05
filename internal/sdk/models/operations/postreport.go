@@ -308,8 +308,6 @@ type PostReportMetricOverride struct {
 	WindowType                   *PostReportWindowType `json:"windowType,omitzero"`
 	WindowHours                  *float64              `json:"windowHours,omitzero"`
 	DelayHours                   *float64              `json:"delayHours,omitzero"`
-	WinRisk                      *float64              `json:"winRisk,omitzero"`
-	LoseRisk                     *float64              `json:"loseRisk,omitzero"`
 	ProperPriorOverride          *bool                 `json:"properPriorOverride,omitzero"`
 	ProperPriorEnabled           *bool                 `json:"properPriorEnabled,omitzero"`
 	ProperPriorMean              *float64              `json:"properPriorMean,omitzero"`
@@ -317,6 +315,14 @@ type PostReportMetricOverride struct {
 	RegressionAdjustmentOverride *bool                 `json:"regressionAdjustmentOverride,omitzero"`
 	RegressionAdjustmentEnabled  *bool                 `json:"regressionAdjustmentEnabled,omitzero"`
 	RegressionAdjustmentDays     *float64              `json:"regressionAdjustmentDays,omitzero"`
+	// No longer used. Accepted and ignored.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	WinRisk *float64 `json:"winRisk,omitzero"`
+	// No longer used. Accepted and ignored.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	LoseRisk *float64 `json:"loseRisk,omitzero"`
 }
 
 func (p *PostReportMetricOverride) GetID() string {
@@ -345,20 +351,6 @@ func (p *PostReportMetricOverride) GetDelayHours() *float64 {
 		return nil
 	}
 	return p.DelayHours
-}
-
-func (p *PostReportMetricOverride) GetWinRisk() *float64 {
-	if p == nil {
-		return nil
-	}
-	return p.WinRisk
-}
-
-func (p *PostReportMetricOverride) GetLoseRisk() *float64 {
-	if p == nil {
-		return nil
-	}
-	return p.LoseRisk
 }
 
 func (p *PostReportMetricOverride) GetProperPriorOverride() *bool {
@@ -408,6 +400,20 @@ func (p *PostReportMetricOverride) GetRegressionAdjustmentDays() *float64 {
 		return nil
 	}
 	return p.RegressionAdjustmentDays
+}
+
+func (p *PostReportMetricOverride) GetWinRisk() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.WinRisk
+}
+
+func (p *PostReportMetricOverride) GetLoseRisk() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.LoseRisk
 }
 
 type PostReportSlice struct {
@@ -507,7 +513,7 @@ type PostReportRequest struct {
 	AttributionModel *PostReportAttributionModel `json:"attributionModel,omitzero"`
 	// Lookback window when `attributionModel` is `lookbackOverride`
 	LookbackOverride *PostReportLookbackOverrideUnion `json:"lookbackOverride,omitzero"`
-	// Per-metric window, risk, and regression-adjustment overrides
+	// Per-metric window, prior, and regression-adjustment overrides
 	MetricOverrides []PostReportMetricOverride `json:"metricOverrides,omitzero"`
 	// Custom metric slice definitions
 	CustomMetricSlices []PostReportCustomMetricSlice `json:"customMetricSlices,omitzero"`

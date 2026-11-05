@@ -19,6 +19,7 @@ func (g *GetExperimentStartChecklistRequest) GetID() string {
 	return g.ID
 }
 
+// GetExperimentStartChecklistStatus - `notReady` while there's any gate.
 type GetExperimentStartChecklistStatus string
 
 const (
@@ -43,8 +44,11 @@ func (e *GetExperimentStartChecklistStatus) IsExact() bool {
 
 // GetExperimentStartChecklistResponseBody - Successful response
 type GetExperimentStartChecklistResponseBody struct {
-	ChecklistItems []components.ChecklistItems       `json:"checklistItems"`
-	Status         GetExperimentStartChecklistStatus `json:"status"`
+	ChecklistItems []components.ChecklistItems `json:"checklistItems"`
+	// `notReady` while there's any gate.
+	Status GetExperimentStartChecklistStatus `json:"status"`
+	// Each incomplete required item, and each linked Feature Flag a ramp locks, as a gate. A refused start returns the blocking ones in `gates`.
+	Gates []components.Gates `json:"gates"`
 }
 
 func (g *GetExperimentStartChecklistResponseBody) GetChecklistItems() []components.ChecklistItems {
@@ -59,6 +63,13 @@ func (g *GetExperimentStartChecklistResponseBody) GetStatus() GetExperimentStart
 		return GetExperimentStartChecklistStatus("")
 	}
 	return g.Status
+}
+
+func (g *GetExperimentStartChecklistResponseBody) GetGates() []components.Gates {
+	if g == nil {
+		return []components.Gates{}
+	}
+	return g.Gates
 }
 
 type GetExperimentStartChecklistResponse struct {

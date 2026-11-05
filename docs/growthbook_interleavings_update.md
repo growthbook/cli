@@ -19,29 +19,29 @@ growthbook interleavings update [flags]
 ### Options
 
 ```
-  -a, --archived                       Stop a running interleaving experiment before archiving it.
-      --body string                    Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --condition string               string value
-      --coverage float                 number value
-      --datasource string              string value
-      --description string             string value
-  -e, --environment-settings string    value
-      --hash-attribute string          string value
-  -h, --help                           help for update
-      --id string                      [required]
-      --interleaving-query-id string   string value
-  -j, --json-schema string             JSON object
-  -m, --metrics string                 list of values
-  -n, --name string                    string value
-      --owner string                   The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-      --prerequisites string           list of values
-      --project string                 string value
-      --saved-groups string            list of values
-      --seed string                    string value
-      --tags stringArray               list of values
-      --tracking-key string            string value
-  -u, --user-id-type string            string value
-  -v, --variations string              Replaces both rankers. Each keeps its id by position, so the first entry updates the first ranker.
+  -a, --archived                                Archiving removes a running interleaving experiment from the SDK payload, so its rankers stop serving immediately.
+      --body string                             Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --condition string                        string value
+      --coverage float                          number value
+      --datasource-id string                    string value
+      --description string                      string value
+  -e, --environment-settings string             value
+      --hash-attribute string                   string value
+  -h, --help                                    help for update
+      --id string                               [required]
+      --interleaving-exposure-query-id string   string value
+  -j, --json-schema string                      JSON object
+  -m, --metrics string                          list of values
+  -n, --name string                             string value
+      --owner string                            The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
+      --prerequisites string                    list of values
+      --project string                          string value
+      --saved-groups string                     list of values
+      --seed string                             string value
+      --tags stringArray                        list of values
+      --tracking-key experiment_id              The experiment_id recorded in exposures. Must be unique within the Data Source. Changing it on a running experiment means earlier exposures are no longer counted.
+  -u, --user-id-type string                     string value
+  -v, --variations string                       Replaces both rankers. Each keeps its id.
 ```
 
 ### Options inherited from parent commands

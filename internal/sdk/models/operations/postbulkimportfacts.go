@@ -10,13 +10,14 @@ import (
 	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 )
 
-// DefaultManagedBy - Fallback `managedBy` for Fact Tables and Fact Metrics that omit the field. Defaults to `"api"`. Filters inherit `"api"` only when the parent Fact Table is api-managed.
+// DefaultManagedBy - Fallback `managedBy` for Fact Tables and Fact Metrics that omit the field. Defaults to `"api"`; the dbt sync sends `"dbt"`. Filters inherit `"api"` only when the parent Fact Table is api-managed.
 type DefaultManagedBy string
 
 const (
 	DefaultManagedByUnknown DefaultManagedBy = ""
 	DefaultManagedByAPI     DefaultManagedBy = "api"
 	DefaultManagedByAdmin   DefaultManagedBy = "admin"
+	DefaultManagedByDbt     DefaultManagedBy = "dbt"
 )
 
 func (e DefaultManagedBy) ToPointer() *DefaultManagedBy {
@@ -33,6 +34,8 @@ func (e *DefaultManagedBy) UnmarshalJSON(data []byte) error {
 	case "api":
 		fallthrough
 	case "admin":
+		fallthrough
+	case "dbt":
 		*e = DefaultManagedBy(v)
 		return nil
 	default:
@@ -95,13 +98,14 @@ func (p *PostBulkImportFactsAggregatedFactTableSettings) GetRestateChunkDays() *
 	return p.RestateChunkDays
 }
 
-// FactTableManagedBy - Set this to "api" to disable editing in the GrowthBook UI
+// FactTableManagedBy - Set this to "api" (or "dbt" for resources synced from dbt) to disable editing in the GrowthBook UI
 type FactTableManagedBy string
 
 const (
 	FactTableManagedByUnknown FactTableManagedBy = ""
 	FactTableManagedByAPI     FactTableManagedBy = "api"
 	FactTableManagedByAdmin   FactTableManagedBy = "admin"
+	FactTableManagedByDbt     FactTableManagedBy = "dbt"
 )
 
 func (e FactTableManagedBy) ToPointer() *FactTableManagedBy {
@@ -118,6 +122,8 @@ func (e *FactTableManagedBy) UnmarshalJSON(data []byte) error {
 	case "api":
 		fallthrough
 	case "admin":
+		fallthrough
+	case "dbt":
 		*e = FactTableManagedBy(v)
 		return nil
 	default:
@@ -152,7 +158,7 @@ type FactTableData struct {
 	EventName *string `json:"eventName,omitzero"`
 	// Optional array of column definitions for this fact table. On create, columns are stored as-is. On update, columns upsert by `column`: existing columns are patched, new columns are created, and columns not included are left unchanged. Omit `datatype` to leave an existing column's type untouched; send "" to reset it for auto-detection; new columns are auto-detected when `datatype` is omitted or "". Datatype-dependent properties (e.g. `alwaysInlineFilter`) are validated once the datatype is known. Slice-related properties require an enterprise license.
 	Columns []components.FactTableColumnInput `json:"columns,omitzero"`
-	// Set this to "api" to disable editing in the GrowthBook UI
+	// Set this to "api" (or "dbt" for resources synced from dbt) to disable editing in the GrowthBook UI
 	ManagedBy *FactTableManagedBy `json:"managedBy,omitzero"`
 }
 
@@ -1603,13 +1609,14 @@ func (p *PostBulkImportFactsRegressionAdjustmentSettings) GetDays() *float64 {
 	return p.Days
 }
 
-// FactMetricManagedBy - Set this to "api" to disable editing in the GrowthBook UI
+// FactMetricManagedBy - Set this to "api" (or "dbt" for resources synced from dbt) to disable editing in the GrowthBook UI
 type FactMetricManagedBy string
 
 const (
 	FactMetricManagedByUnknown FactMetricManagedBy = ""
 	FactMetricManagedByAPI     FactMetricManagedBy = "api"
 	FactMetricManagedByAdmin   FactMetricManagedBy = "admin"
+	FactMetricManagedByDbt     FactMetricManagedBy = "dbt"
 )
 
 func (e FactMetricManagedBy) ToPointer() *FactMetricManagedBy {
@@ -1626,6 +1633,8 @@ func (e *FactMetricManagedBy) UnmarshalJSON(data []byte) error {
 	case "api":
 		fallthrough
 	case "admin":
+		fallthrough
+	case "dbt":
 		*e = FactMetricManagedBy(v)
 		return nil
 	default:
@@ -1663,11 +1672,11 @@ type FactMetricData struct {
 	PriorSettings *PostBulkImportFactsPriorSettings `json:"priorSettings,omitzero"`
 	// Controls the regression adjustment (CUPED) settings for the metric
 	RegressionAdjustmentSettings *PostBulkImportFactsRegressionAdjustmentSettings `json:"regressionAdjustmentSettings,omitzero"`
-	// No longer used. Threshold for Risk to be considered low enough, as a proportion (e.g. put 0.0025 for 0.25%). <br/> Must be a non-negative number and must not be higher than `riskThresholdDanger`.
+	// No longer used. Accepted and ignored.
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	RiskThresholdSuccess *float64 `json:"riskThresholdSuccess,omitzero"`
-	// No longer used. Threshold for Risk to be considered too high, as a proportion (e.g. put 0.0125 for 1.25%). <br/> Must be a non-negative number.
+	// No longer used. Accepted and ignored.
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	RiskThresholdDanger *float64 `json:"riskThresholdDanger,omitzero"`
@@ -1680,7 +1689,7 @@ type FactMetricData struct {
 	MinSampleSize    *float64 `json:"minSampleSize,omitzero"`
 	// The percentage change that you want to reliably detect before ending an experiment, as a proportion (e.g. put 0.1 for 10%). This is used to estimate the "Days Left" for running experiments.
 	TargetMDE *float64 `json:"targetMDE,omitzero"`
-	// Set this to "api" to disable editing in the GrowthBook UI
+	// Set this to "api" (or "dbt" for resources synced from dbt) to disable editing in the GrowthBook UI
 	ManagedBy *FactMetricManagedBy `json:"managedBy,omitzero"`
 	// Array of slice column names that will be automatically included in metric analysis. This is an enterprise feature.
 	MetricAutoSlices []string `json:"metricAutoSlices,omitzero"`
@@ -1910,7 +1919,7 @@ func (f *FactMetric) GetData() FactMetricData {
 }
 
 type PostBulkImportFactsRequest struct {
-	// Fallback `managedBy` for Fact Tables and Fact Metrics that omit the field. Defaults to `"api"`. Filters inherit `"api"` only when the parent Fact Table is api-managed.
+	// Fallback `managedBy` for Fact Tables and Fact Metrics that omit the field. Defaults to `"api"`; the dbt sync sends `"dbt"`. Filters inherit `"api"` only when the parent Fact Table is api-managed.
 	DefaultManagedBy *DefaultManagedBy `json:"defaultManagedBy,omitzero"`
 	// Validate with zero writes.
 	ValidateOnly     *bool             `json:"dryRun,omitzero"`

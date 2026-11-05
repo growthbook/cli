@@ -10,6 +10,8 @@ Set `autoPublishOnApproval` to `true` to publish the revision automatically the 
 
 Set `scheduledPublishAt` to a future ISO date-time to defer the auto-publish until that date (it still also requires approval when review is required). Use `scheduledPublishLockEdits` to freeze edits to this draft while the schedule is pending, and `scheduledPublishLockOthers` to block publishing other drafts of this feature in the meantime.
 
+Neither can be set on a draft whose rules would take a draft experiment live, since an automatic publish doesn't start the experiment. Schedule the experiment's start instead; starting it publishes the draft.
+
 ```
 growthbook feature-revisions request-review [flags]
 ```

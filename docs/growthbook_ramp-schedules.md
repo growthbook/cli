@@ -55,10 +55,12 @@ growthbook ramp-schedules [flags]
 * [growthbook ramp-schedules jump](growthbook_ramp-schedules_jump.md)	 - Jump to a specific step
 * [growthbook ramp-schedules list](growthbook_ramp-schedules_list.md)	 - Get all rampSchedules
 * [growthbook ramp-schedules pause](growthbook_ramp-schedules_pause.md)	 - Pause a ramp schedule
+* [growthbook ramp-schedules pause-matching](growthbook_ramp-schedules_pause-matching.md)	 - Pause matching ramp schedules
 * [growthbook ramp-schedules refresh-monitoring](growthbook_ramp-schedules_refresh-monitoring.md)	 - Trigger a manual monitoring update
 * [growthbook ramp-schedules restart](growthbook_ramp-schedules_restart.md)	 - Restart a terminal ramp schedule
 * [growthbook ramp-schedules resume](growthbook_ramp-schedules_resume.md)	 - Resume a paused ramp schedule
 * [growthbook ramp-schedules rollback](growthbook_ramp-schedules_rollback.md)	 - Roll back a ramp schedule
+* [growthbook ramp-schedules rollback-matching](growthbook_ramp-schedules_rollback-matching.md)	 - Roll back matching ramp schedules
 * [growthbook ramp-schedules set-auto-update](growthbook_ramp-schedules_set-auto-update.md)	 - Toggle automatic monitoring updates
 * [growthbook ramp-schedules set-monitoring-mode](growthbook_ramp-schedules_set-monitoring-mode.md)	 - Set ramp monitoring mode
 * [growthbook ramp-schedules start](growthbook_ramp-schedules_start.md)	 - Start a ramp schedule

@@ -3,6 +3,7 @@
 package components
 
 import (
+	"github.com/growthbook/cli/v3/internal/sdk/optionalnullable"
 	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
 	"time"
 )
@@ -12,6 +13,7 @@ type SavedGroupType string
 const (
 	SavedGroupTypeCondition SavedGroupType = "condition"
 	SavedGroupTypeList      SavedGroupType = "list"
+	SavedGroupTypeRemote    SavedGroupType = "remote"
 )
 
 func (e SavedGroupType) ToPointer() *SavedGroupType {
@@ -22,11 +24,50 @@ func (e SavedGroupType) ToPointer() *SavedGroupType {
 func (e *SavedGroupType) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "condition", "list":
+		case "condition", "list", "remote":
 			return true
 		}
 	}
 	return false
+}
+
+type CurrentUpload struct {
+	Version     int64     `json:"version"`
+	DateCreated time.Time `json:"dateCreated"`
+	// Whether the group's attribute is a number. Loaders store number IDs in their shortest form, String(Number(id)).
+	Numeric bool `json:"numeric"`
+}
+
+func (c CurrentUpload) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CurrentUpload) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CurrentUpload) GetVersion() int64 {
+	if c == nil {
+		return 0
+	}
+	return c.Version
+}
+
+func (c *CurrentUpload) GetDateCreated() time.Time {
+	if c == nil {
+		return time.Time{}
+	}
+	return c.DateCreated
+}
+
+func (c *CurrentUpload) GetNumeric() bool {
+	if c == nil {
+		return false
+	}
+	return c.Numeric
 }
 
 type SavedGroup struct {
@@ -41,7 +82,7 @@ type SavedGroup struct {
 	OwnerEmail *string `json:"ownerEmail,omitzero"`
 	// When type = 'condition', this is the JSON-encoded condition for the group
 	Condition *string `json:"condition,omitzero"`
-	// When type = 'list', this is the attribute key the group is based on
+	// When type = 'list' or 'remote', this is the attribute key the group is based on
 	AttributeKey *string `json:"attributeKey,omitzero"`
 	// When type = 'list', this is the list of values for the attribute key
 	Values            []string `json:"values,omitzero"`
@@ -49,6 +90,10 @@ type SavedGroup struct {
 	Projects          []string `json:"projects,omitzero"`
 	Archived          *bool    `json:"archived,omitzero"`
 	UseEmptyListGroup *bool    `json:"useEmptyListGroup,omitzero"`
+	// When type = 'remote', the version of the upload the group uses. Absent when it uses none.
+	CurrentUploadVersion *int64 `json:"currentUploadVersion,omitzero"`
+	// When type = 'remote', the upload whose IDs the group uses, or null if it has none. Loaders load this version.
+	CurrentUpload optionalnullable.OptionalNullable[CurrentUpload] `json:"currentUpload,omitzero"`
 }
 
 func (s SavedGroup) MarshalJSON() ([]byte, error) {
@@ -158,4 +203,18 @@ func (s *SavedGroup) GetUseEmptyListGroup() *bool {
 		return nil
 	}
 	return s.UseEmptyListGroup
+}
+
+func (s *SavedGroup) GetCurrentUploadVersion() *int64 {
+	if s == nil {
+		return nil
+	}
+	return s.CurrentUploadVersion
+}
+
+func (s *SavedGroup) GetCurrentUpload() optionalnullable.OptionalNullable[CurrentUpload] {
+	if s == nil {
+		return nil
+	}
+	return s.CurrentUpload
 }

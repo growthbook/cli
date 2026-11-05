@@ -24,6 +24,7 @@ growthbook saved-groups list [flags]
   -l, --limit int       The number of items to return (default 10)
       --max-pages int   Maximum number of pages to fetch when using --all (0 = no limit)
       --offset int      How many items to skip (use in conjunction with limit for pagination)
+  -t, --type string     Only list Saved Groups of this type (options: condition, list, remote)
 ```
 
 ### Options inherited from parent commands

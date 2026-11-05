@@ -1415,10 +1415,12 @@ func (u PostFunnelExplorationJourneyUnion) MarshalJSON() ([]byte, error) {
 }
 
 type PostFunnelExplorationRow struct {
-	Dimensions []*string                          `json:"dimensions"`
-	Values     []PostFunnelExplorationValue       `json:"values,omitzero"`
-	Steps      []PostFunnelExplorationRowStep     `json:"steps,omitzero"`
-	Journey    *PostFunnelExplorationJourneyUnion `json:"journey,omitzero"`
+	Dimensions []*string                    `json:"dimensions"`
+	Values     []PostFunnelExplorationValue `json:"values,omitzero"`
+	// **Beta** — this field is new and may change in backwards-incompatible ways. Number of units in the dataset's population for this row. Only present when the request has a population; each value's numerator and denominator keep their usual meaning, limited to population members.
+	PopulationCount *float64                           `json:"populationCount,omitzero"`
+	Steps           []PostFunnelExplorationRowStep     `json:"steps,omitzero"`
+	Journey         *PostFunnelExplorationJourneyUnion `json:"journey,omitzero"`
 }
 
 func (p PostFunnelExplorationRow) MarshalJSON() ([]byte, error) {
@@ -1444,6 +1446,13 @@ func (p *PostFunnelExplorationRow) GetValues() []PostFunnelExplorationValue {
 		return nil
 	}
 	return p.Values
+}
+
+func (p *PostFunnelExplorationRow) GetPopulationCount() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.PopulationCount
 }
 
 func (p *PostFunnelExplorationRow) GetSteps() []PostFunnelExplorationRowStep {

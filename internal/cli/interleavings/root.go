@@ -28,6 +28,10 @@ func InitInterleavingsRoot(parent *cobra.Command) error {
 		return err
 	}
 
+	if err := initDeleteInterleavingCmd(InterleavingsCmd); err != nil {
+		return err
+	}
+
 	if err := initCreateInterleavingCmd(InterleavingsCmd); err != nil {
 		return err
 	}
@@ -41,6 +45,26 @@ func InitInterleavingsRoot(parent *cobra.Command) error {
 	}
 
 	if err := initStopInterleavingCmd(InterleavingsCmd); err != nil {
+		return err
+	}
+
+	if err := initRefreshInterleavingCmd(InterleavingsCmd); err != nil {
+		return err
+	}
+
+	if err := initGetResultsCmd(InterleavingsCmd); err != nil {
+		return err
+	}
+
+	if err := initGetStatusCmd(InterleavingsCmd); err != nil {
+		return err
+	}
+
+	if err := initListSnapshotsCmd(InterleavingsCmd); err != nil {
+		return err
+	}
+
+	if err := initGetSnapshotCmd(InterleavingsCmd); err != nil {
 		return err
 	}
 

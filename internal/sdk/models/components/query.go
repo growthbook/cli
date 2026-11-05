@@ -2,22 +2,22 @@
 
 package components
 
-type QueryStatus string
+type QueryStatus1 string
 
 const (
-	QueryStatusRunning            QueryStatus = "running"
-	QueryStatusQueued             QueryStatus = "queued"
-	QueryStatusFailed             QueryStatus = "failed"
-	QueryStatusPartiallySucceeded QueryStatus = "partially-succeeded"
-	QueryStatusSucceeded          QueryStatus = "succeeded"
+	QueryStatus1Running            QueryStatus1 = "running"
+	QueryStatus1Queued             QueryStatus1 = "queued"
+	QueryStatus1Failed             QueryStatus1 = "failed"
+	QueryStatus1PartiallySucceeded QueryStatus1 = "partially-succeeded"
+	QueryStatus1Succeeded          QueryStatus1 = "succeeded"
 )
 
-func (e QueryStatus) ToPointer() *QueryStatus {
+func (e QueryStatus1) ToPointer() *QueryStatus1 {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *QueryStatus) IsExact() bool {
+func (e *QueryStatus1) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "running", "queued", "failed", "partially-succeeded", "succeeded":
@@ -28,18 +28,18 @@ func (e *QueryStatus) IsExact() bool {
 }
 
 type Query struct {
-	ID           string      `json:"id"`
-	Organization string      `json:"organization"`
-	Datasource   string      `json:"datasource"`
-	Language     string      `json:"language"`
-	Query        string      `json:"query"`
-	QueryType    string      `json:"queryType"`
-	CreatedAt    string      `json:"createdAt"`
-	StartedAt    string      `json:"startedAt"`
-	Status       QueryStatus `json:"status"`
-	ExternalID   string      `json:"externalId"`
-	Dependencies []string    `json:"dependencies"`
-	RunAtEnd     bool        `json:"runAtEnd"`
+	ID           string       `json:"id"`
+	Organization string       `json:"organization"`
+	Datasource   string       `json:"datasource"`
+	Language     string       `json:"language"`
+	Query        string       `json:"query"`
+	QueryType    string       `json:"queryType"`
+	CreatedAt    string       `json:"createdAt"`
+	StartedAt    string       `json:"startedAt"`
+	Status       QueryStatus1 `json:"status"`
+	ExternalID   string       `json:"externalId"`
+	Dependencies []string     `json:"dependencies"`
+	RunAtEnd     bool         `json:"runAtEnd"`
 }
 
 func (q *Query) GetID() string {
@@ -98,9 +98,9 @@ func (q *Query) GetStartedAt() string {
 	return q.StartedAt
 }
 
-func (q *Query) GetStatus() QueryStatus {
+func (q *Query) GetStatus() QueryStatus1 {
 	if q == nil {
-		return QueryStatus("")
+		return QueryStatus1("")
 	}
 	return q.Status
 }

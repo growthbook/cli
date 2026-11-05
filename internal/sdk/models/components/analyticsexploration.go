@@ -340,8 +340,10 @@ func (u Journey) MarshalJSON() ([]byte, error) {
 type Row struct {
 	Dimensions []*string  `json:"dimensions"`
 	Values     []RowValue `json:"values,omitzero"`
-	Steps      []RowStep  `json:"steps,omitzero"`
-	Journey    *Journey   `json:"journey,omitzero"`
+	// **Beta** — this field is new and may change in backwards-incompatible ways. Number of units in the dataset's population for this row. Only present when the request has a population; each value's numerator and denominator keep their usual meaning, limited to population members.
+	PopulationCount *float64  `json:"populationCount,omitzero"`
+	Steps           []RowStep `json:"steps,omitzero"`
+	Journey         *Journey  `json:"journey,omitzero"`
 }
 
 func (r Row) MarshalJSON() ([]byte, error) {
@@ -367,6 +369,13 @@ func (r *Row) GetValues() []RowValue {
 		return nil
 	}
 	return r.Values
+}
+
+func (r *Row) GetPopulationCount() *float64 {
+	if r == nil {
+		return nil
+	}
+	return r.PopulationCount
 }
 
 func (r *Row) GetSteps() []RowStep {
@@ -6055,8 +6064,9 @@ func (c *ConfigValueMetric) GetDenominatorUnit() *string {
 
 type AnalyticsExplorationDatasetMetric struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_  string              `const:"metric" json:"type"`
-	Values []ConfigValueMetric `json:"values"`
+	type_      string                 `const:"metric" json:"type"`
+	Values     []ConfigValueMetric    `json:"values"`
+	Population *ExplorationPopulation `json:"population,omitzero"`
 }
 
 func (a AnalyticsExplorationDatasetMetric) MarshalJSON() ([]byte, error) {
@@ -6079,6 +6089,13 @@ func (a *AnalyticsExplorationDatasetMetric) GetValues() []ConfigValueMetric {
 		return []ConfigValueMetric{}
 	}
 	return a.Values
+}
+
+func (a *AnalyticsExplorationDatasetMetric) GetPopulation() *ExplorationPopulation {
+	if a == nil {
+		return nil
+	}
+	return a.Population
 }
 
 type AnalyticsExplorationConfigMetric struct {
