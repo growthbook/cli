@@ -53,6 +53,30 @@ func InitSavedGroupsRoot(parent *cobra.Command) error {
 		return err
 	}
 
+	if err := initListSavedGroupUploadsCmd(SavedGroupsCmd); err != nil {
+		return err
+	}
+
+	if err := initPostSavedGroupUploadCmd(SavedGroupsCmd); err != nil {
+		return err
+	}
+
+	if err := initPostSavedGroupUploadUrlCmd(SavedGroupsCmd); err != nil {
+		return err
+	}
+
+	if err := initPostSavedGroupUploadLoadCmd(SavedGroupsCmd); err != nil {
+		return err
+	}
+
+	if err := initGetSavedGroupUploadCmd(SavedGroupsCmd); err != nil {
+		return err
+	}
+
+	if err := initDeleteSavedGroupUploadCmd(SavedGroupsCmd); err != nil {
+		return err
+	}
+
 	parent.AddCommand(SavedGroupsCmd)
 	return nil
 }

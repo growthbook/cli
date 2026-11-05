@@ -198,20 +198,21 @@ func (e *PostFeatureRevisionRuleAddType) UnmarshalJSON(data []byte) error {
 
 type PostFeatureRevisionRuleAddRule struct {
 	// Short note on why the rule exists (e.g. `Beta testers only`).
-	Description   *string                                   `json:"description,omitzero"`
-	Enabled       *bool                                     `json:"enabled,omitzero"`
-	Condition     *string                                   `json:"condition,omitzero"`
-	SavedGroups   []PostFeatureRevisionRuleAddSavedGroup3   `json:"savedGroups,omitzero"`
-	Prerequisites []PostFeatureRevisionRuleAddPrerequisite3 `json:"prerequisites,omitzero"`
-	ScheduleRules []PostFeatureRevisionRuleAddScheduleRule3 `json:"scheduleRules,omitzero"`
-	ScheduleType  *PostFeatureRevisionRuleAddScheduleType3  `json:"scheduleType,omitzero"`
-	Type          *PostFeatureRevisionRuleAddType           `json:"type,omitzero"`
-	Value         string                                    `json:"value"`
-	Sparse        *bool                                     `json:"sparse,omitzero"`
-	Coverage      *float64                                  `json:"coverage,omitzero"`
-	HashAttribute *string                                   `json:"hashAttribute,omitzero"`
-	Seed          *string                                   `json:"seed,omitzero"`
-	HashVersion   *float64                                  `json:"hashVersion,omitzero"`
+	Description       *string                                   `json:"description,omitzero"`
+	Enabled           *bool                                     `json:"enabled,omitzero"`
+	Condition         *string                                   `json:"condition,omitzero"`
+	SavedGroups       []PostFeatureRevisionRuleAddSavedGroup3   `json:"savedGroups,omitzero"`
+	Prerequisites     []PostFeatureRevisionRuleAddPrerequisite3 `json:"prerequisites,omitzero"`
+	ScheduleRules     []PostFeatureRevisionRuleAddScheduleRule3 `json:"scheduleRules,omitzero"`
+	ScheduleType      *PostFeatureRevisionRuleAddScheduleType3  `json:"scheduleType,omitzero"`
+	Type              *PostFeatureRevisionRuleAddType           `json:"type,omitzero"`
+	Value             string                                    `json:"value"`
+	Sparse            *bool                                     `json:"sparse,omitzero"`
+	Coverage          *float64                                  `json:"coverage,omitzero"`
+	HashAttribute     *string                                   `json:"hashAttribute,omitzero"`
+	FallbackAttribute *string                                   `json:"fallbackAttribute,omitzero"`
+	Seed              *string                                   `json:"seed,omitzero"`
+	HashVersion       *float64                                  `json:"hashVersion,omitzero"`
 }
 
 func (p PostFeatureRevisionRuleAddRule) MarshalJSON() ([]byte, error) {
@@ -307,6 +308,13 @@ func (p *PostFeatureRevisionRuleAddRule) GetHashAttribute() *string {
 		return nil
 	}
 	return p.HashAttribute
+}
+
+func (p *PostFeatureRevisionRuleAddRule) GetFallbackAttribute() *string {
+	if p == nil {
+		return nil
+	}
+	return p.FallbackAttribute
 }
 
 func (p *PostFeatureRevisionRuleAddRule) GetSeed() *string {

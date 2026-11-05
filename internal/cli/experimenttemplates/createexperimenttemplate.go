@@ -25,6 +25,8 @@ var createExperimentTemplateCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "datasource", FieldPath: "Datasource", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "exposure-query", FieldPath: "ExposureQuery", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"exposureQuery,omitempty"`, Description: "The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `exposureQueryId`."},
 	{FlagName: "exposure-query-id", FieldPath: "ExposureQueryID", Kind: flagutil.FlagKindString, Optional: true, Description: "Deprecated: use `exposureQuery`. Rejected when selecting a different assignment query that declares several identifier types; set `exposureQuery.identifierType` instead."},
+	{FlagName: "is-cluster-experiment", Shorthand: "i", FieldPath: "IsClusterExperiment", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
+	{FlagName: "cluster-sub-unit-identifier", FieldPath: "ClusterSubUnitIdentifier", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "hash-attribute", FieldPath: "HashAttribute", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "fallback-attribute", Shorthand: "f", FieldPath: "FallbackAttribute", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "disable-sticky-bucketing", FieldPath: "DisableStickyBucketing", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},

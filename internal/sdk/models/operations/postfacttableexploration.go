@@ -1357,10 +1357,12 @@ func (u PostFactTableExplorationJourneyUnion) MarshalJSON() ([]byte, error) {
 }
 
 type PostFactTableExplorationRow struct {
-	Dimensions []*string                             `json:"dimensions"`
-	Values     []PostFactTableExplorationRowValue    `json:"values,omitzero"`
-	Steps      []PostFactTableExplorationStep        `json:"steps,omitzero"`
-	Journey    *PostFactTableExplorationJourneyUnion `json:"journey,omitzero"`
+	Dimensions []*string                          `json:"dimensions"`
+	Values     []PostFactTableExplorationRowValue `json:"values,omitzero"`
+	// **Beta** — this field is new and may change in backwards-incompatible ways. Number of units in the dataset's population for this row. Only present when the request has a population; each value's numerator and denominator keep their usual meaning, limited to population members.
+	PopulationCount *float64                              `json:"populationCount,omitzero"`
+	Steps           []PostFactTableExplorationStep        `json:"steps,omitzero"`
+	Journey         *PostFactTableExplorationJourneyUnion `json:"journey,omitzero"`
 }
 
 func (p PostFactTableExplorationRow) MarshalJSON() ([]byte, error) {
@@ -1386,6 +1388,13 @@ func (p *PostFactTableExplorationRow) GetValues() []PostFactTableExplorationRowV
 		return nil
 	}
 	return p.Values
+}
+
+func (p *PostFactTableExplorationRow) GetPopulationCount() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.PopulationCount
 }
 
 func (p *PostFactTableExplorationRow) GetSteps() []PostFactTableExplorationStep {

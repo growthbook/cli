@@ -19,7 +19,7 @@ growthbook saved-groups create [flags]
 ### Options
 
 ```
-  -a, --attribute-key string      When type = 'list', this is the attribute key the group is based on
+  -a, --attribute-key string      When type = 'list' or 'remote', this is the attribute key the group is based on
       --body string               Request body as JSON (alternative to individual flags). Can also be provided via stdin.
   -b, --bypass-approval           Set to true to create the live Saved Group without approval. The caller must have Bypass draft approvals access in every assigned Project. This field has no effect when approval is not required.
   -c, --condition string          When type = 'condition', this is the JSON-encoded condition for the group
@@ -28,7 +28,7 @@ growthbook saved-groups create [flags]
   -n, --name Internal employees   Short display name (e.g. Internal employees). Put details in `description`. [required]
       --owner string              The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the requesting member: a personal access token's owner, or the member an organization API key assumes. An organization API key acting as itself leaves it empty.
   -p, --projects stringArray      list of values
-  -t, --type string               The type of Saved Group (inferred from other arguments if missing) (options: condition, list)
+  -t, --type string               The type of Saved Group (inferred from other arguments if missing) (options: condition, list, remote)
   -v, --values stringArray        When type = 'list', this is the list of values for the attribute key
 ```
 

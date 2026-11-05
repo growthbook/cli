@@ -233,21 +233,21 @@ func (p *PostReleasePublishRevisionsRequest) GetComment() *string {
 	return p.Comment
 }
 
-type PostReleasePublishRevisionsEntityType string
+type GateEntityType string
 
 const (
-	PostReleasePublishRevisionsEntityTypeFeature    PostReleasePublishRevisionsEntityType = "feature"
-	PostReleasePublishRevisionsEntityTypeSavedGroup PostReleasePublishRevisionsEntityType = "saved-group"
-	PostReleasePublishRevisionsEntityTypeConfig     PostReleasePublishRevisionsEntityType = "config"
-	PostReleasePublishRevisionsEntityTypeConstant   PostReleasePublishRevisionsEntityType = "constant"
+	GateEntityTypeFeature    GateEntityType = "feature"
+	GateEntityTypeSavedGroup GateEntityType = "saved-group"
+	GateEntityTypeConfig     GateEntityType = "config"
+	GateEntityTypeConstant   GateEntityType = "constant"
 )
 
-func (e PostReleasePublishRevisionsEntityType) ToPointer() *PostReleasePublishRevisionsEntityType {
+func (e GateEntityType) ToPointer() *GateEntityType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PostReleasePublishRevisionsEntityType) IsExact() bool {
+func (e *GateEntityType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "feature", "saved-group", "config", "constant":
@@ -257,48 +257,200 @@ func (e *PostReleasePublishRevisionsEntityType) IsExact() bool {
 	return false
 }
 
-type BypassedGate struct {
-	EntityType PostReleasePublishRevisionsEntityType `json:"entityType"`
-	ID         string                                `json:"id"`
-	Version    int64                                 `json:"version"`
-	Type       string                                `json:"type"`
+type Severity string
+
+const (
+	SeverityBlocker Severity = "blocker"
+	SeverityWarning Severity = "warning"
+)
+
+func (e Severity) ToPointer() *Severity {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *Severity) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "blocker", "warning":
+			return true
+		}
+	}
+	return false
+}
+
+type Resolution struct {
+	Action string `json:"action"`
+	Method string `json:"method"`
+	Path   string `json:"path"`
+}
+
+func (r *Resolution) GetAction() string {
+	if r == nil {
+		return ""
+	}
+	return r.Action
+}
+
+func (r *Resolution) GetMethod() string {
+	if r == nil {
+		return ""
+	}
+	return r.Method
+}
+
+func (r *Resolution) GetPath() string {
+	if r == nil {
+		return ""
+	}
+	return r.Path
+}
+
+type Gate struct {
+	EntityType GateEntityType `json:"entityType"`
+	// The identifier used in the request.
+	ID      string `json:"id"`
+	Version int64  `json:"version"`
+	// Gate kind, e.g. "approval-required".
+	Type     string   `json:"type"`
+	Severity Severity `json:"severity"`
+	Messages []string `json:"messages"`
+	// Request flag that clears this gate on retry, if any.
+	Override           *string `json:"override"`
+	RequiresPermission *string `json:"requiresPermission"`
+	// A route that resolves the gate without an override flag.
+	Resolution *Resolution `json:"resolution"`
+}
+
+func (g *Gate) GetEntityType() GateEntityType {
+	if g == nil {
+		return GateEntityType("")
+	}
+	return g.EntityType
+}
+
+func (g *Gate) GetID() string {
+	if g == nil {
+		return ""
+	}
+	return g.ID
+}
+
+func (g *Gate) GetVersion() int64 {
+	if g == nil {
+		return 0
+	}
+	return g.Version
+}
+
+func (g *Gate) GetType() string {
+	if g == nil {
+		return ""
+	}
+	return g.Type
+}
+
+func (g *Gate) GetSeverity() Severity {
+	if g == nil {
+		return Severity("")
+	}
+	return g.Severity
+}
+
+func (g *Gate) GetMessages() []string {
+	if g == nil {
+		return []string{}
+	}
+	return g.Messages
+}
+
+func (g *Gate) GetOverride() *string {
+	if g == nil {
+		return nil
+	}
+	return g.Override
+}
+
+func (g *Gate) GetRequiresPermission() *string {
+	if g == nil {
+		return nil
+	}
+	return g.RequiresPermission
+}
+
+func (g *Gate) GetResolution() *Resolution {
+	if g == nil {
+		return nil
+	}
+	return g.Resolution
+}
+
+type BypassedGateEntityType string
+
+const (
+	BypassedGateEntityTypeFeature    BypassedGateEntityType = "feature"
+	BypassedGateEntityTypeSavedGroup BypassedGateEntityType = "saved-group"
+	BypassedGateEntityTypeConfig     BypassedGateEntityType = "config"
+	BypassedGateEntityTypeConstant   BypassedGateEntityType = "constant"
+)
+
+func (e BypassedGateEntityType) ToPointer() *BypassedGateEntityType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *BypassedGateEntityType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "feature", "saved-group", "config", "constant":
+			return true
+		}
+	}
+	return false
+}
+
+type PostReleasePublishRevisionsBypassedGate struct {
+	EntityType BypassedGateEntityType `json:"entityType"`
+	ID         string                 `json:"id"`
+	Version    int64                  `json:"version"`
+	Type       string                 `json:"type"`
 	// How the gate was bypassed: a request field, the caller's permissions, or the organization's REST API approval-bypass setting.
 	Via string `json:"via"`
 }
 
-func (b *BypassedGate) GetEntityType() PostReleasePublishRevisionsEntityType {
-	if b == nil {
-		return PostReleasePublishRevisionsEntityType("")
+func (p *PostReleasePublishRevisionsBypassedGate) GetEntityType() BypassedGateEntityType {
+	if p == nil {
+		return BypassedGateEntityType("")
 	}
-	return b.EntityType
+	return p.EntityType
 }
 
-func (b *BypassedGate) GetID() string {
-	if b == nil {
+func (p *PostReleasePublishRevisionsBypassedGate) GetID() string {
+	if p == nil {
 		return ""
 	}
-	return b.ID
+	return p.ID
 }
 
-func (b *BypassedGate) GetVersion() int64 {
-	if b == nil {
+func (p *PostReleasePublishRevisionsBypassedGate) GetVersion() int64 {
+	if p == nil {
 		return 0
 	}
-	return b.Version
+	return p.Version
 }
 
-func (b *BypassedGate) GetType() string {
-	if b == nil {
+func (p *PostReleasePublishRevisionsBypassedGate) GetType() string {
+	if p == nil {
 		return ""
 	}
-	return b.Type
+	return p.Type
 }
 
-func (b *BypassedGate) GetVia() string {
-	if b == nil {
+func (p *PostReleasePublishRevisionsBypassedGate) GetVia() string {
+	if p == nil {
 		return ""
 	}
-	return b.Via
+	return p.Via
 }
 
 // PostReleasePublishRevisionsResponseBody - Resource created
@@ -308,10 +460,10 @@ type PostReleasePublishRevisionsResponseBody struct {
 	BulkPublishID *string              `json:"bulkPublishId,omitzero"`
 	Results       []components.Results `json:"results"`
 	// Dry runs report every gate, cleared and blocking. Real publishes return an empty list — blocking gates fail with a 422 instead.
-	Gates []components.Gates `json:"gates"`
+	Gates []Gate `json:"gates"`
 	// Gates bypassed by the caller's flags or authority — what this publish overrode.
-	BypassedGates []BypassedGate `json:"bypassedGates"`
-	Warnings      []string       `json:"warnings"`
+	BypassedGates []PostReleasePublishRevisionsBypassedGate `json:"bypassedGates"`
+	Warnings      []string                                  `json:"warnings"`
 }
 
 func (p *PostReleasePublishRevisionsResponseBody) GetDryRun() bool {
@@ -335,16 +487,16 @@ func (p *PostReleasePublishRevisionsResponseBody) GetResults() []components.Resu
 	return p.Results
 }
 
-func (p *PostReleasePublishRevisionsResponseBody) GetGates() []components.Gates {
+func (p *PostReleasePublishRevisionsResponseBody) GetGates() []Gate {
 	if p == nil {
-		return []components.Gates{}
+		return []Gate{}
 	}
 	return p.Gates
 }
 
-func (p *PostReleasePublishRevisionsResponseBody) GetBypassedGates() []BypassedGate {
+func (p *PostReleasePublishRevisionsResponseBody) GetBypassedGates() []PostReleasePublishRevisionsBypassedGate {
 	if p == nil {
-		return []BypassedGate{}
+		return []PostReleasePublishRevisionsBypassedGate{}
 	}
 	return p.BypassedGates
 }

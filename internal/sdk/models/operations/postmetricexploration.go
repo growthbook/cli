@@ -870,8 +870,9 @@ func (p *PostMetricExplorationValueRequest) GetDenominatorUnit() *string {
 
 type PostMetricExplorationDatasetRequest struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_  string                              `const:"metric" json:"type"`
-	Values []PostMetricExplorationValueRequest `json:"values"`
+	type_      string                              `const:"metric" json:"type"`
+	Values     []PostMetricExplorationValueRequest `json:"values"`
+	Population *components.ExplorationPopulation   `json:"population,omitzero"`
 }
 
 func (p PostMetricExplorationDatasetRequest) MarshalJSON() ([]byte, error) {
@@ -894,6 +895,13 @@ func (p *PostMetricExplorationDatasetRequest) GetValues() []PostMetricExploratio
 		return []PostMetricExplorationValueRequest{}
 	}
 	return p.Values
+}
+
+func (p *PostMetricExplorationDatasetRequest) GetPopulation() *components.ExplorationPopulation {
+	if p == nil {
+		return nil
+	}
+	return p.Population
 }
 
 type PostMetricExplorationRequestBody struct {
@@ -1320,10 +1328,12 @@ func (u PostMetricExplorationJourneyUnion) MarshalJSON() ([]byte, error) {
 }
 
 type PostMetricExplorationRow struct {
-	Dimensions []*string                          `json:"dimensions"`
-	Values     []PostMetricExplorationRowValue    `json:"values,omitzero"`
-	Steps      []PostMetricExplorationStep        `json:"steps,omitzero"`
-	Journey    *PostMetricExplorationJourneyUnion `json:"journey,omitzero"`
+	Dimensions []*string                       `json:"dimensions"`
+	Values     []PostMetricExplorationRowValue `json:"values,omitzero"`
+	// **Beta** — this field is new and may change in backwards-incompatible ways. Number of units in the dataset's population for this row. Only present when the request has a population; each value's numerator and denominator keep their usual meaning, limited to population members.
+	PopulationCount *float64                           `json:"populationCount,omitzero"`
+	Steps           []PostMetricExplorationStep        `json:"steps,omitzero"`
+	Journey         *PostMetricExplorationJourneyUnion `json:"journey,omitzero"`
 }
 
 func (p PostMetricExplorationRow) MarshalJSON() ([]byte, error) {
@@ -1349,6 +1359,13 @@ func (p *PostMetricExplorationRow) GetValues() []PostMetricExplorationRowValue {
 		return nil
 	}
 	return p.Values
+}
+
+func (p *PostMetricExplorationRow) GetPopulationCount() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.PopulationCount
 }
 
 func (p *PostMetricExplorationRow) GetSteps() []PostMetricExplorationStep {
@@ -2155,8 +2172,9 @@ func (v *ValueMetricResponse) GetDenominatorUnit() *string {
 
 type PostMetricExplorationDatasetResponse struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_  string                `const:"metric" json:"type"`
-	Values []ValueMetricResponse `json:"values"`
+	type_      string                            `const:"metric" json:"type"`
+	Values     []ValueMetricResponse             `json:"values"`
+	Population *components.ExplorationPopulation `json:"population,omitzero"`
 }
 
 func (p PostMetricExplorationDatasetResponse) MarshalJSON() ([]byte, error) {
@@ -2179,6 +2197,13 @@ func (p *PostMetricExplorationDatasetResponse) GetValues() []ValueMetricResponse
 		return []ValueMetricResponse{}
 	}
 	return p.Values
+}
+
+func (p *PostMetricExplorationDatasetResponse) GetPopulation() *components.ExplorationPopulation {
+	if p == nil {
+		return nil
+	}
+	return p.Population
 }
 
 type PostMetricExplorationConfig struct {

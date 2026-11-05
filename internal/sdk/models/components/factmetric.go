@@ -974,6 +974,7 @@ const (
 	FactMetricManagedByUnknown FactMetricManagedBy = ""
 	FactMetricManagedByAPI     FactMetricManagedBy = "api"
 	FactMetricManagedByAdmin   FactMetricManagedBy = "admin"
+	FactMetricManagedByDbt     FactMetricManagedBy = "dbt"
 )
 
 func (e FactMetricManagedBy) ToPointer() *FactMetricManagedBy {
@@ -984,7 +985,7 @@ func (e FactMetricManagedBy) ToPointer() *FactMetricManagedBy {
 func (e *FactMetricManagedBy) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "", "api", "admin":
+		case "", "api", "admin", "dbt":
 			return true
 		}
 	}
@@ -1020,8 +1021,14 @@ type FactMetric struct {
 	PriorSettings FactMetricPriorSettings `json:"priorSettings"`
 	// Controls the regression adjustment (CUPED) settings for the metric
 	RegressionAdjustmentSettings RegressionAdjustmentSettings `json:"regressionAdjustmentSettings"`
-	RiskThresholdSuccess         float64                      `json:"riskThresholdSuccess"`
-	RiskThresholdDanger          float64                      `json:"riskThresholdDanger"`
+	// No longer used. Always the default value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	RiskThresholdSuccess float64 `json:"riskThresholdSuccess"`
+	// No longer used. Always the default value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	RiskThresholdDanger float64 `json:"riskThresholdDanger"`
 	// If true and the metric is a ratio metric, variation means will be displayed as a percentage
 	DisplayAsPercentage *bool   `json:"displayAsPercentage,omitzero"`
 	MinPercentChange    float64 `json:"minPercentChange"`

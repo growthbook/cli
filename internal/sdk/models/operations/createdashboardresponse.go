@@ -563,8 +563,9 @@ func (c *CreateDashboardValueMetric) GetDenominatorUnit() *string {
 
 type CreateDashboardDatasetMetric struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_  string                       `const:"metric" json:"type"`
-	Values []CreateDashboardValueMetric `json:"values"`
+	type_      string                            `const:"metric" json:"type"`
+	Values     []CreateDashboardValueMetric      `json:"values"`
+	Population *components.ExplorationPopulation `json:"population,omitzero"`
 }
 
 func (c CreateDashboardDatasetMetric) MarshalJSON() ([]byte, error) {
@@ -587,6 +588,13 @@ func (c *CreateDashboardDatasetMetric) GetValues() []CreateDashboardValueMetric 
 		return []CreateDashboardValueMetric{}
 	}
 	return c.Values
+}
+
+func (c *CreateDashboardDatasetMetric) GetPopulation() *components.ExplorationPopulation {
+	if c == nil {
+		return nil
+	}
+	return c.Population
 }
 
 type CreateDashboardConfigMetric struct {

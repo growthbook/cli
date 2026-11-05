@@ -73,8 +73,6 @@ type PutReportSettingsMetricOverride struct {
 	WindowType                   *PutReportSettingsWindowType `json:"windowType,omitzero"`
 	WindowHours                  *float64                     `json:"windowHours,omitzero"`
 	DelayHours                   *float64                     `json:"delayHours,omitzero"`
-	WinRisk                      *float64                     `json:"winRisk,omitzero"`
-	LoseRisk                     *float64                     `json:"loseRisk,omitzero"`
 	ProperPriorOverride          *bool                        `json:"properPriorOverride,omitzero"`
 	ProperPriorEnabled           *bool                        `json:"properPriorEnabled,omitzero"`
 	ProperPriorMean              *float64                     `json:"properPriorMean,omitzero"`
@@ -82,6 +80,14 @@ type PutReportSettingsMetricOverride struct {
 	RegressionAdjustmentOverride *bool                        `json:"regressionAdjustmentOverride,omitzero"`
 	RegressionAdjustmentEnabled  *bool                        `json:"regressionAdjustmentEnabled,omitzero"`
 	RegressionAdjustmentDays     *float64                     `json:"regressionAdjustmentDays,omitzero"`
+	// No longer used. Accepted and ignored.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	WinRisk *float64 `json:"winRisk,omitzero"`
+	// No longer used. Accepted and ignored.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	LoseRisk *float64 `json:"loseRisk,omitzero"`
 }
 
 func (p *PutReportSettingsMetricOverride) GetID() string {
@@ -110,20 +116,6 @@ func (p *PutReportSettingsMetricOverride) GetDelayHours() *float64 {
 		return nil
 	}
 	return p.DelayHours
-}
-
-func (p *PutReportSettingsMetricOverride) GetWinRisk() *float64 {
-	if p == nil {
-		return nil
-	}
-	return p.WinRisk
-}
-
-func (p *PutReportSettingsMetricOverride) GetLoseRisk() *float64 {
-	if p == nil {
-		return nil
-	}
-	return p.LoseRisk
 }
 
 func (p *PutReportSettingsMetricOverride) GetProperPriorOverride() *bool {
@@ -173,6 +165,20 @@ func (p *PutReportSettingsMetricOverride) GetRegressionAdjustmentDays() *float64
 		return nil
 	}
 	return p.RegressionAdjustmentDays
+}
+
+func (p *PutReportSettingsMetricOverride) GetWinRisk() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.WinRisk
+}
+
+func (p *PutReportSettingsMetricOverride) GetLoseRisk() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.LoseRisk
 }
 
 type PutReportSettingsSlice struct {
@@ -488,7 +494,7 @@ type PutReportSettingsRequestBody struct {
 	GuardrailMetrics []string `json:"guardrailMetrics,omitzero"`
 	// Activation metric ID
 	ActivationMetric *string `json:"activationMetric,omitzero"`
-	// Per-metric window, risk, and regression-adjustment overrides
+	// Per-metric window, prior, and regression-adjustment overrides
 	MetricOverrides []PutReportSettingsMetricOverride `json:"metricOverrides,omitzero"`
 	// Custom metric slice definitions
 	CustomMetricSlices []PutReportSettingsCustomMetricSlice `json:"customMetricSlices,omitzero"`

@@ -47,8 +47,10 @@ growthbook contextual-bandits [flags]
 * [growthbook contextual-bandits cancel](growthbook_contextual-bandits_cancel.md)	 - Cancel a running Contextual Bandit snapshot refresh
 * [growthbook contextual-bandits create](growthbook_contextual-bandits_create.md)	 - Create a single contextualBandit
 * [growthbook contextual-bandits create-visual-changeset](growthbook_contextual-bandits_create-visual-changeset.md)	 - Create a visual changeset for a Contextual Bandit
+* [growthbook contextual-bandits delete](growthbook_contextual-bandits_delete.md)	 - Delete a single contextualBandit
 * [growthbook contextual-bandits delete-linked-feature](growthbook_contextual-bandits_delete-linked-feature.md)	 - Unlink a feature from a Contextual Bandit
 * [growthbook contextual-bandits get](growthbook_contextual-bandits_get.md)	 - Get a single contextualBandit
+* [growthbook contextual-bandits get-contextual-bandit-status](growthbook_contextual-bandits_get-contextual-bandit-status.md)	 - Get Contextual Bandit run status
 * [growthbook contextual-bandits get-current-weights](growthbook_contextual-bandits_get-current-weights.md)	 - Get current Contextual Bandit leaf weights and latest event
 * [growthbook contextual-bandits get-event](growthbook_contextual-bandits_get-event.md)	 - Get a single Contextual Bandit weight-update event
 * [growthbook contextual-bandits get-results](growthbook_contextual-bandits_get-results.md)	 - Get latest Contextual Bandit results

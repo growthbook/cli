@@ -21,7 +21,7 @@ var setSettingsCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "secondary-metrics", FieldPath: "Body.SecondaryMetrics", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Secondary metric IDs"},
 	{FlagName: "guardrail-metrics", FieldPath: "Body.GuardrailMetrics", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Guardrail metric IDs"},
 	{FlagName: "activation-metric", FieldPath: "Body.ActivationMetric", Kind: flagutil.FlagKindString, Optional: true, Description: "Activation metric ID"},
-	{FlagName: "metric-overrides", Shorthand: "m", FieldPath: "Body.MetricOverrides", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"metricOverrides,omitempty"`, Description: "Per-metric window, risk, and regression-adjustment overrides"},
+	{FlagName: "metric-overrides", Shorthand: "m", FieldPath: "Body.MetricOverrides", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"metricOverrides,omitempty"`, Description: "Per-metric window, prior, and regression-adjustment overrides"},
 	{FlagName: "custom-metric-slices", FieldPath: "Body.CustomMetricSlices", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"customMetricSlices,omitempty"`, Description: "Custom metric slice definitions"},
 	{FlagName: "dimension", FieldPath: "Body.Dimension", Kind: flagutil.FlagKindString, Optional: true, Description: "Dimension to cut results by"},
 	{FlagName: "difference-type", FieldPath: "Body.DifferenceType", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"relative", "absolute", "scaled"}, Description: "How lifts are expressed in results (options: relative, absolute, scaled)"},

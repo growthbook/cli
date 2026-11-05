@@ -225,152 +225,13 @@ func (u *UpdatePopulationRowFilter) GetValues() []string {
 	return u.Values
 }
 
-type UpdatePopulationType string
-
-const (
-	UpdatePopulationTypeConversion UpdatePopulationType = "conversion"
-	UpdatePopulationTypeLookback   UpdatePopulationType = "lookback"
-	UpdatePopulationTypeUnknown    UpdatePopulationType = ""
-)
-
-func (e UpdatePopulationType) ToPointer() *UpdatePopulationType {
-	return &e
-}
-func (e *UpdatePopulationType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "conversion":
-		fallthrough
-	case "lookback":
-		fallthrough
-	case "":
-		*e = UpdatePopulationType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdatePopulationType: %v", v)
-	}
-}
-
-type UpdatePopulationDelayUnit string
-
-const (
-	UpdatePopulationDelayUnitWeeks   UpdatePopulationDelayUnit = "weeks"
-	UpdatePopulationDelayUnitDays    UpdatePopulationDelayUnit = "days"
-	UpdatePopulationDelayUnitHours   UpdatePopulationDelayUnit = "hours"
-	UpdatePopulationDelayUnitMinutes UpdatePopulationDelayUnit = "minutes"
-)
-
-func (e UpdatePopulationDelayUnit) ToPointer() *UpdatePopulationDelayUnit {
-	return &e
-}
-func (e *UpdatePopulationDelayUnit) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "weeks":
-		fallthrough
-	case "days":
-		fallthrough
-	case "hours":
-		fallthrough
-	case "minutes":
-		*e = UpdatePopulationDelayUnit(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdatePopulationDelayUnit: %v", v)
-	}
-}
-
-type UpdatePopulationWindowUnit string
-
-const (
-	UpdatePopulationWindowUnitWeeks   UpdatePopulationWindowUnit = "weeks"
-	UpdatePopulationWindowUnitDays    UpdatePopulationWindowUnit = "days"
-	UpdatePopulationWindowUnitHours   UpdatePopulationWindowUnit = "hours"
-	UpdatePopulationWindowUnitMinutes UpdatePopulationWindowUnit = "minutes"
-)
-
-func (e UpdatePopulationWindowUnit) ToPointer() *UpdatePopulationWindowUnit {
-	return &e
-}
-func (e *UpdatePopulationWindowUnit) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "weeks":
-		fallthrough
-	case "days":
-		fallthrough
-	case "hours":
-		fallthrough
-	case "minutes":
-		*e = UpdatePopulationWindowUnit(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdatePopulationWindowUnit: %v", v)
-	}
-}
-
-// UpdatePopulationWindowSettings - Defaults to no window. Conversion windows are only allowed on steps after the first
-type UpdatePopulationWindowSettings struct {
-	Type        UpdatePopulationType       `json:"type"`
-	DelayValue  float64                    `json:"delayValue"`
-	DelayUnit   UpdatePopulationDelayUnit  `json:"delayUnit"`
-	WindowValue float64                    `json:"windowValue"`
-	WindowUnit  UpdatePopulationWindowUnit `json:"windowUnit"`
-}
-
-func (u *UpdatePopulationWindowSettings) GetType() UpdatePopulationType {
-	if u == nil {
-		return UpdatePopulationType("")
-	}
-	return u.Type
-}
-
-func (u *UpdatePopulationWindowSettings) GetDelayValue() float64 {
-	if u == nil {
-		return 0.0
-	}
-	return u.DelayValue
-}
-
-func (u *UpdatePopulationWindowSettings) GetDelayUnit() UpdatePopulationDelayUnit {
-	if u == nil {
-		return UpdatePopulationDelayUnit("")
-	}
-	return u.DelayUnit
-}
-
-func (u *UpdatePopulationWindowSettings) GetWindowValue() float64 {
-	if u == nil {
-		return 0.0
-	}
-	return u.WindowValue
-}
-
-func (u *UpdatePopulationWindowSettings) GetWindowUnit() UpdatePopulationWindowUnit {
-	if u == nil {
-		return UpdatePopulationWindowUnit("")
-	}
-	return u.WindowUnit
-}
-
 type UpdatePopulationStep struct {
 	Source     UpdatePopulationSourceUnion `json:"source"`
 	RowFilters []UpdatePopulationRowFilter `json:"rowFilters,omitzero"`
-	// Conditions on each unit's total within the window, such as ">=3" or ">=3,<10". Requires aggregateFilterColumn
+	// Conditions on each unit's total within the queried date range, such as ">=3" or ">=3,<10". Requires aggregateFilterColumn
 	AggregateFilter *string `json:"aggregateFilter,omitzero"`
 	// Numeric column to total, or "$$count" to count rows. Requires aggregateFilter
 	AggregateFilterColumn *string `json:"aggregateFilterColumn,omitzero"`
-	// Defaults to no window. Conversion windows are only allowed on steps after the first
-	WindowSettings *UpdatePopulationWindowSettings `json:"windowSettings,omitzero"`
 }
 
 func (u UpdatePopulationStep) MarshalJSON() ([]byte, error) {
@@ -410,13 +271,6 @@ func (u *UpdatePopulationStep) GetAggregateFilterColumn() *string {
 		return nil
 	}
 	return u.AggregateFilterColumn
-}
-
-func (u *UpdatePopulationStep) GetWindowSettings() *UpdatePopulationWindowSettings {
-	if u == nil {
-		return nil
-	}
-	return u.WindowSettings
 }
 
 // UpdatePopulationRequestBody - Update a Population

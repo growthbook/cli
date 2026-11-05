@@ -9,88 +9,88 @@ import (
 	"time"
 )
 
-type SourceFactTable struct {
+type PopulationSourceFactTable struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_       string `const:"factTable" json:"type"`
 	FactTableID string `json:"factTableId"`
 }
 
-func (s SourceFactTable) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
+func (p PopulationSourceFactTable) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
 }
 
-func (s *SourceFactTable) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+func (p *PopulationSourceFactTable) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *SourceFactTable) GetType() string {
+func (p *PopulationSourceFactTable) GetType() string {
 	return "factTable"
 }
 
-func (s *SourceFactTable) GetFactTableID() string {
-	if s == nil {
+func (p *PopulationSourceFactTable) GetFactTableID() string {
+	if p == nil {
 		return ""
 	}
-	return s.FactTableID
+	return p.FactTableID
 }
 
-type SourceType string
+type PopulationSourceUnionType string
 
 const (
-	SourceTypeSourceFactTable SourceType = "source_FactTable"
-	SourceTypeUnknown         SourceType = "Unknown"
+	PopulationSourceUnionTypePopulationSourceFactTable PopulationSourceUnionType = "Population_source_FactTable"
+	PopulationSourceUnionTypeUnknown                   PopulationSourceUnionType = "Unknown"
 )
 
-type Source struct {
-	SourceFactTable *SourceFactTable `queryParam:"inline" union:"member"`
-	UnknownRaw      json.RawMessage  `json:"-" union:"unknown"`
+type PopulationSourceUnion struct {
+	PopulationSourceFactTable *PopulationSourceFactTable `queryParam:"inline" union:"member"`
+	UnknownRaw                json.RawMessage            `json:"-" union:"unknown"`
 
-	Type SourceType
+	Type PopulationSourceUnionType
 }
 
-func CreateSourceSourceFactTable(sourceFactTable SourceFactTable) Source {
-	typ := SourceTypeSourceFactTable
+func CreatePopulationSourceUnionPopulationSourceFactTable(populationSourceFactTable PopulationSourceFactTable) PopulationSourceUnion {
+	typ := PopulationSourceUnionTypePopulationSourceFactTable
 
-	return Source{
-		SourceFactTable: &sourceFactTable,
-		Type:            typ,
+	return PopulationSourceUnion{
+		PopulationSourceFactTable: &populationSourceFactTable,
+		Type:                      typ,
 	}
 }
 
-func CreateSourceUnknown(raw json.RawMessage) Source {
-	return Source{
+func CreatePopulationSourceUnionUnknown(raw json.RawMessage) PopulationSourceUnion {
+	return PopulationSourceUnion{
 		UnknownRaw: raw,
-		Type:       SourceTypeUnknown,
+		Type:       PopulationSourceUnionTypeUnknown,
 	}
 }
 
-func (u Source) GetUnknownRaw() json.RawMessage {
+func (u PopulationSourceUnion) GetUnknownRaw() json.RawMessage {
 	return u.UnknownRaw
 }
 
-func (u Source) IsUnknown() bool {
-	return u.Type == SourceTypeUnknown
+func (u PopulationSourceUnion) IsUnknown() bool {
+	return u.Type == PopulationSourceUnionTypeUnknown
 }
 
-func (u *Source) UnmarshalJSON(data []byte) error {
+func (u *PopulationSourceUnion) UnmarshalJSON(data []byte) error {
 
 	var candidates []utils.UnionCandidate
 
 	// Collect all valid candidates
-	var sourceFactTable SourceFactTable = SourceFactTable{}
-	if err := utils.UnmarshalJSON(data, &sourceFactTable, "", true, nil); err == nil {
+	var populationSourceFactTable PopulationSourceFactTable = PopulationSourceFactTable{}
+	if err := utils.UnmarshalJSON(data, &populationSourceFactTable, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  SourceTypeSourceFactTable,
-			Value: &sourceFactTable,
+			Type:  PopulationSourceUnionTypePopulationSourceFactTable,
+			Value: &populationSourceFactTable,
 		})
 	}
 
 	if len(candidates) == 0 {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = SourceTypeUnknown
+		u.Type = PopulationSourceUnionTypeUnknown
 		return nil
 	}
 
@@ -98,32 +98,32 @@ func (u *Source) UnmarshalJSON(data []byte) error {
 	best := utils.PickBestUnionCandidate(candidates, data)
 	if best == nil {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = SourceTypeUnknown
+		u.Type = PopulationSourceUnionTypeUnknown
 		return nil
 	}
 
 	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(SourceType)
+	u.Type = best.Type.(PopulationSourceUnionType)
 	switch best.Type {
-	case SourceTypeSourceFactTable:
-		u.SourceFactTable = best.Value.(*SourceFactTable)
+	case PopulationSourceUnionTypePopulationSourceFactTable:
+		u.PopulationSourceFactTable = best.Value.(*PopulationSourceFactTable)
 		return nil
 	}
 
 	u.UnknownRaw = json.RawMessage(data)
-	u.Type = SourceTypeUnknown
+	u.Type = PopulationSourceUnionTypeUnknown
 	return nil
 }
 
-func (u Source) MarshalJSON() ([]byte, error) {
-	if u.SourceFactTable != nil {
-		return utils.MarshalJSON(u.SourceFactTable, "", true)
+func (u PopulationSourceUnion) MarshalJSON() ([]byte, error) {
+	if u.PopulationSourceFactTable != nil {
+		return utils.MarshalJSON(u.PopulationSourceFactTable, "", true)
 	}
 
 	if u.UnknownRaw != nil {
 		return json.RawMessage(u.UnknownRaw), nil
 	}
-	return nil, errors.New("could not marshal union type Source: all fields are null")
+	return nil, errors.New("could not marshal union type PopulationSourceUnion: all fields are null")
 }
 
 type PopulationOperator string
@@ -206,133 +206,18 @@ func (p *PopulationRowFilter) GetValues() []string {
 	return p.Values
 }
 
-type PopulationWindowSettingsType string
-
-const (
-	PopulationWindowSettingsTypeConversion PopulationWindowSettingsType = "conversion"
-	PopulationWindowSettingsTypeLookback   PopulationWindowSettingsType = "lookback"
-	PopulationWindowSettingsTypeUnknown    PopulationWindowSettingsType = ""
-)
-
-func (e PopulationWindowSettingsType) ToPointer() *PopulationWindowSettingsType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PopulationWindowSettingsType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "conversion", "lookback", "":
-			return true
-		}
-	}
-	return false
-}
-
-type PopulationDelayUnit string
-
-const (
-	PopulationDelayUnitWeeks   PopulationDelayUnit = "weeks"
-	PopulationDelayUnitDays    PopulationDelayUnit = "days"
-	PopulationDelayUnitHours   PopulationDelayUnit = "hours"
-	PopulationDelayUnitMinutes PopulationDelayUnit = "minutes"
-)
-
-func (e PopulationDelayUnit) ToPointer() *PopulationDelayUnit {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PopulationDelayUnit) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "weeks", "days", "hours", "minutes":
-			return true
-		}
-	}
-	return false
-}
-
-type PopulationWindowUnit string
-
-const (
-	PopulationWindowUnitWeeks   PopulationWindowUnit = "weeks"
-	PopulationWindowUnitDays    PopulationWindowUnit = "days"
-	PopulationWindowUnitHours   PopulationWindowUnit = "hours"
-	PopulationWindowUnitMinutes PopulationWindowUnit = "minutes"
-)
-
-func (e PopulationWindowUnit) ToPointer() *PopulationWindowUnit {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PopulationWindowUnit) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "weeks", "days", "hours", "minutes":
-			return true
-		}
-	}
-	return false
-}
-
-type PopulationWindowSettings struct {
-	Type        PopulationWindowSettingsType `json:"type"`
-	DelayValue  float64                      `json:"delayValue"`
-	DelayUnit   PopulationDelayUnit          `json:"delayUnit"`
-	WindowValue float64                      `json:"windowValue"`
-	WindowUnit  PopulationWindowUnit         `json:"windowUnit"`
-}
-
-func (p *PopulationWindowSettings) GetType() PopulationWindowSettingsType {
-	if p == nil {
-		return PopulationWindowSettingsType("")
-	}
-	return p.Type
-}
-
-func (p *PopulationWindowSettings) GetDelayValue() float64 {
-	if p == nil {
-		return 0.0
-	}
-	return p.DelayValue
-}
-
-func (p *PopulationWindowSettings) GetDelayUnit() PopulationDelayUnit {
-	if p == nil {
-		return PopulationDelayUnit("")
-	}
-	return p.DelayUnit
-}
-
-func (p *PopulationWindowSettings) GetWindowValue() float64 {
-	if p == nil {
-		return 0.0
-	}
-	return p.WindowValue
-}
-
-func (p *PopulationWindowSettings) GetWindowUnit() PopulationWindowUnit {
-	if p == nil {
-		return PopulationWindowUnit("")
-	}
-	return p.WindowUnit
-}
-
 type PopulationStep struct {
-	Source     Source                `json:"source"`
+	Source     PopulationSourceUnion `json:"source"`
 	RowFilters []PopulationRowFilter `json:"rowFilters"`
-	// Conditions on each unit's total within the window, such as ">=3" or ">=3,<10". Requires aggregateFilterColumn
+	// Conditions on each unit's total within the queried date range, such as ">=3" or ">=3,<10". Requires aggregateFilterColumn
 	AggregateFilter *string `json:"aggregateFilter,omitzero"`
 	// Numeric column to total, or "$$count" to count rows. Requires aggregateFilter
-	AggregateFilterColumn *string                  `json:"aggregateFilterColumn,omitzero"`
-	WindowSettings        PopulationWindowSettings `json:"windowSettings"`
+	AggregateFilterColumn *string `json:"aggregateFilterColumn,omitzero"`
 }
 
-func (p *PopulationStep) GetSource() Source {
+func (p *PopulationStep) GetSource() PopulationSourceUnion {
 	if p == nil {
-		return Source{}
+		return PopulationSourceUnion{}
 	}
 	return p.Source
 }
@@ -356,13 +241,6 @@ func (p *PopulationStep) GetAggregateFilterColumn() *string {
 		return nil
 	}
 	return p.AggregateFilterColumn
-}
-
-func (p *PopulationStep) GetWindowSettings() PopulationWindowSettings {
-	if p == nil {
-		return PopulationWindowSettings{}
-	}
-	return p.WindowSettings
 }
 
 type Population struct {

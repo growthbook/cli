@@ -154,8 +154,6 @@ type MetricOverride struct {
 	WindowType                   *ReportWindowType `json:"windowType,omitzero"`
 	WindowHours                  *float64          `json:"windowHours,omitzero"`
 	DelayHours                   *float64          `json:"delayHours,omitzero"`
-	WinRisk                      *float64          `json:"winRisk,omitzero"`
-	LoseRisk                     *float64          `json:"loseRisk,omitzero"`
 	ProperPriorOverride          *bool             `json:"properPriorOverride,omitzero"`
 	ProperPriorEnabled           *bool             `json:"properPriorEnabled,omitzero"`
 	ProperPriorMean              *float64          `json:"properPriorMean,omitzero"`
@@ -163,6 +161,14 @@ type MetricOverride struct {
 	RegressionAdjustmentOverride *bool             `json:"regressionAdjustmentOverride,omitzero"`
 	RegressionAdjustmentEnabled  *bool             `json:"regressionAdjustmentEnabled,omitzero"`
 	RegressionAdjustmentDays     *float64          `json:"regressionAdjustmentDays,omitzero"`
+	// No longer used. Accepted and ignored.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	WinRisk *float64 `json:"winRisk,omitzero"`
+	// No longer used. Accepted and ignored.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	LoseRisk *float64 `json:"loseRisk,omitzero"`
 }
 
 func (m *MetricOverride) GetID() string {
@@ -191,20 +197,6 @@ func (m *MetricOverride) GetDelayHours() *float64 {
 		return nil
 	}
 	return m.DelayHours
-}
-
-func (m *MetricOverride) GetWinRisk() *float64 {
-	if m == nil {
-		return nil
-	}
-	return m.WinRisk
-}
-
-func (m *MetricOverride) GetLoseRisk() *float64 {
-	if m == nil {
-		return nil
-	}
-	return m.LoseRisk
 }
 
 func (m *MetricOverride) GetProperPriorOverride() *bool {
@@ -254,6 +246,20 @@ func (m *MetricOverride) GetRegressionAdjustmentDays() *float64 {
 		return nil
 	}
 	return m.RegressionAdjustmentDays
+}
+
+func (m *MetricOverride) GetWinRisk() *float64 {
+	if m == nil {
+		return nil
+	}
+	return m.WinRisk
+}
+
+func (m *MetricOverride) GetLoseRisk() *float64 {
+	if m == nil {
+		return nil
+	}
+	return m.LoseRisk
 }
 
 type ReportSlice struct {
@@ -560,7 +566,7 @@ type ReportAnalysisSettings struct {
 	SecondaryMetrics []string           `json:"secondaryMetrics,omitzero"`
 	GuardrailMetrics []string           `json:"guardrailMetrics,omitzero"`
 	ActivationMetric *string            `json:"activationMetric,omitzero"`
-	// Per-metric window, risk, and regression-adjustment overrides
+	// Per-metric window, prior, and regression-adjustment overrides
 	MetricOverrides []MetricOverride `json:"metricOverrides,omitzero"`
 	// Custom metric slice definitions
 	CustomMetricSlices []ReportCustomMetricSlice `json:"customMetricSlices,omitzero"`

@@ -262,19 +262,21 @@ type BulkImportExperimentTemplatesData struct {
 	// Deprecated: use `exposureQuery`. Rejected when selecting a different assignment query that declares several identifier types; set `exposureQuery.identifierType` instead.
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-	ExposureQueryID        *string                                          `json:"exposureQueryId,omitzero"`
-	HashAttribute          *string                                          `json:"hashAttribute,omitzero"`
-	FallbackAttribute      *string                                          `json:"fallbackAttribute,omitzero"`
-	DisableStickyBucketing *bool                                            `json:"disableStickyBucketing,omitzero"`
-	GoalMetrics            []string                                         `json:"goalMetrics,omitzero"`
-	SecondaryMetrics       []string                                         `json:"secondaryMetrics,omitzero"`
-	GuardrailMetrics       []string                                         `json:"guardrailMetrics,omitzero"`
-	ActivationMetric       *string                                          `json:"activationMetric,omitzero"`
-	StatsEngine            BulkImportExperimentTemplatesStatsEngine         `json:"statsEngine"`
-	Segment                *string                                          `json:"segment,omitzero"`
-	SkipPartialData        *bool                                            `json:"skipPartialData,omitzero"`
-	Targeting              BulkImportExperimentTemplatesTargeting           `json:"targeting"`
-	CustomMetricSlices     []BulkImportExperimentTemplatesCustomMetricSlice `json:"customMetricSlices,omitzero"`
+	ExposureQueryID          *string                                          `json:"exposureQueryId,omitzero"`
+	IsClusterExperiment      *bool                                            `json:"isClusterExperiment,omitzero"`
+	ClusterSubUnitIdentifier *string                                          `json:"clusterSubUnitIdentifier,omitzero"`
+	HashAttribute            *string                                          `json:"hashAttribute,omitzero"`
+	FallbackAttribute        *string                                          `json:"fallbackAttribute,omitzero"`
+	DisableStickyBucketing   *bool                                            `json:"disableStickyBucketing,omitzero"`
+	GoalMetrics              []string                                         `json:"goalMetrics,omitzero"`
+	SecondaryMetrics         []string                                         `json:"secondaryMetrics,omitzero"`
+	GuardrailMetrics         []string                                         `json:"guardrailMetrics,omitzero"`
+	ActivationMetric         *string                                          `json:"activationMetric,omitzero"`
+	StatsEngine              BulkImportExperimentTemplatesStatsEngine         `json:"statsEngine"`
+	Segment                  *string                                          `json:"segment,omitzero"`
+	SkipPartialData          *bool                                            `json:"skipPartialData,omitzero"`
+	Targeting                BulkImportExperimentTemplatesTargeting           `json:"targeting"`
+	CustomMetricSlices       []BulkImportExperimentTemplatesCustomMetricSlice `json:"customMetricSlices,omitzero"`
 }
 
 func (b BulkImportExperimentTemplatesData) MarshalJSON() ([]byte, error) {
@@ -356,6 +358,20 @@ func (b *BulkImportExperimentTemplatesData) GetExposureQueryID() *string {
 		return nil
 	}
 	return b.ExposureQueryID
+}
+
+func (b *BulkImportExperimentTemplatesData) GetIsClusterExperiment() *bool {
+	if b == nil {
+		return nil
+	}
+	return b.IsClusterExperiment
+}
+
+func (b *BulkImportExperimentTemplatesData) GetClusterSubUnitIdentifier() *string {
+	if b == nil {
+		return nil
+	}
+	return b.ClusterSubUnitIdentifier
 }
 
 func (b *BulkImportExperimentTemplatesData) GetHashAttribute() *string {

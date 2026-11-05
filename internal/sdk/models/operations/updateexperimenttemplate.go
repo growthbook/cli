@@ -262,19 +262,21 @@ type UpdateExperimentTemplateRequestBody struct {
 	// Deprecated: use `exposureQuery`. Rejected when selecting a different assignment query that declares several identifier types; set `exposureQuery.identifierType` instead.
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-	ExposureQueryID        *string                                     `json:"exposureQueryId,omitzero"`
-	HashAttribute          *string                                     `json:"hashAttribute,omitzero"`
-	FallbackAttribute      *string                                     `json:"fallbackAttribute,omitzero"`
-	DisableStickyBucketing *bool                                       `json:"disableStickyBucketing,omitzero"`
-	GoalMetrics            []string                                    `json:"goalMetrics,omitzero"`
-	SecondaryMetrics       []string                                    `json:"secondaryMetrics,omitzero"`
-	GuardrailMetrics       []string                                    `json:"guardrailMetrics,omitzero"`
-	ActivationMetric       *string                                     `json:"activationMetric,omitzero"`
-	StatsEngine            *UpdateExperimentTemplateStatsEngine        `json:"statsEngine,omitzero"`
-	Segment                *string                                     `json:"segment,omitzero"`
-	SkipPartialData        *bool                                       `json:"skipPartialData,omitzero"`
-	Targeting              *UpdateExperimentTemplateTargeting          `json:"targeting,omitzero"`
-	CustomMetricSlices     []UpdateExperimentTemplateCustomMetricSlice `json:"customMetricSlices,omitzero"`
+	ExposureQueryID          *string                                     `json:"exposureQueryId,omitzero"`
+	IsClusterExperiment      *bool                                       `json:"isClusterExperiment,omitzero"`
+	ClusterSubUnitIdentifier *string                                     `json:"clusterSubUnitIdentifier,omitzero"`
+	HashAttribute            *string                                     `json:"hashAttribute,omitzero"`
+	FallbackAttribute        *string                                     `json:"fallbackAttribute,omitzero"`
+	DisableStickyBucketing   *bool                                       `json:"disableStickyBucketing,omitzero"`
+	GoalMetrics              []string                                    `json:"goalMetrics,omitzero"`
+	SecondaryMetrics         []string                                    `json:"secondaryMetrics,omitzero"`
+	GuardrailMetrics         []string                                    `json:"guardrailMetrics,omitzero"`
+	ActivationMetric         *string                                     `json:"activationMetric,omitzero"`
+	StatsEngine              *UpdateExperimentTemplateStatsEngine        `json:"statsEngine,omitzero"`
+	Segment                  *string                                     `json:"segment,omitzero"`
+	SkipPartialData          *bool                                       `json:"skipPartialData,omitzero"`
+	Targeting                *UpdateExperimentTemplateTargeting          `json:"targeting,omitzero"`
+	CustomMetricSlices       []UpdateExperimentTemplateCustomMetricSlice `json:"customMetricSlices,omitzero"`
 }
 
 func (u UpdateExperimentTemplateRequestBody) MarshalJSON() ([]byte, error) {
@@ -356,6 +358,20 @@ func (u *UpdateExperimentTemplateRequestBody) GetExposureQueryID() *string {
 		return nil
 	}
 	return u.ExposureQueryID
+}
+
+func (u *UpdateExperimentTemplateRequestBody) GetIsClusterExperiment() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.IsClusterExperiment
+}
+
+func (u *UpdateExperimentTemplateRequestBody) GetClusterSubUnitIdentifier() *string {
+	if u == nil {
+		return nil
+	}
+	return u.ClusterSubUnitIdentifier
 }
 
 func (u *UpdateExperimentTemplateRequestBody) GetHashAttribute() *string {

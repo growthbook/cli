@@ -18,10 +18,11 @@ var updateSavedGroupCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The id of the requested resource [required]"},
 	{FlagName: "name", Shorthand: "n", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Optional: true, Description: "Short display name (e.g. `Internal employees`). Put details in `description`."},
 	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Short note (max 100 characters) on who is in the Saved Group and why."},
-	{FlagName: "condition", Shorthand: "c", FieldPath: "Body.Condition", Kind: flagutil.FlagKindString, Optional: true, Description: "When type = 'condition', this is the JSON-encoded condition for the group"},
+	{FlagName: "condition", FieldPath: "Body.Condition", Kind: flagutil.FlagKindString, Optional: true, Description: "When type = 'condition', this is the JSON-encoded condition for the group"},
 	{FlagName: "values", Shorthand: "v", FieldPath: "Body.Values", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "When type = 'list', this is the list of values for the attribute key"},
 	{FlagName: "owner", FieldPath: "Body.Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization."},
 	{FlagName: "projects", Shorthand: "p", FieldPath: "Body.Projects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
+	{FlagName: "current-upload-version", FieldPath: "Body.CurrentUploadVersion", Kind: flagutil.FlagKindInt64, Optional: true, Description: "When type = 'remote', the upload whose IDs the group uses. Must be a valid upload of this group."},
 	{FlagName: "bypass-approval", Shorthand: "b", FieldPath: "Body.BypassApproval", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to update the live Saved Group without approval. The caller must have Bypass draft approvals access in every current and destination Project. This field has no effect when approval is not required."},
 }
 

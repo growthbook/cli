@@ -39,6 +39,7 @@ growthbook experiments create [flags]
       --body string                                  Request body as JSON (alternative to individual flags). Can also be provided via stdin.
       --bucket-version int                           integer value
       --bypass-duplicate-key-check                   If true, allow creating an experiment even if another experiment with the same tracking key already exists. This is ignored if the organization requires unique tracking keys as a rule. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
+      --cluster-sub-unit-identifier string           The nested sub-unit identifier type analyzed within each cluster (e.g. user_id). Required when isClusterExperiment is true; must be declared by the assignment query and differ from its cluster identifier type.
       --custom-fields string                         value
       --custom-metric-slices string                  Custom slices that apply to ALL applicable metrics in the experiment
       --datasource-id string                         ID for the [DataSource](#tag/DataSource_model). Can only be set if a templateId is not provided.
@@ -55,6 +56,7 @@ growthbook experiments create [flags]
       --hypothesis string                            Markdown. If we change X, metric Y will move because Z.
       --ignore-warnings                              Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
       --in-progress-conversions string               options: loose, strict
+      --is-cluster-experiment                        Run as a cluster-randomized experiment: randomize on the assignment query's identifier type (the cluster, e.g. region_id) while analyzing a nested sub-unit (clusterSubUnitIdentifier, e.g. user_id). The assignment query must declare both identifier types.
   -l, --lookback-override string                     Controls the lookback override for the experiment. For type "window", value must be a non-negative number and valueUnit is required.
       --metric-overrides string                      Per-metric analysis overrides for this experiment. Replaces the entire stored array (does not patch individual entries).
       --metrics stringArray                          list of values

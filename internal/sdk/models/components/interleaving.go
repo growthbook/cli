@@ -33,7 +33,8 @@ func (e *InterleavingStatus) IsExact() bool {
 	return false
 }
 
-type InterleavingVariation struct {
+// InterleavingControl - The default ranker.
+type InterleavingControl struct {
 	ID          string  `json:"id"`
 	Key         string  `json:"key"`
 	Name        string  `json:"name"`
@@ -42,39 +43,106 @@ type InterleavingVariation struct {
 	Config string `json:"config"`
 }
 
-func (i *InterleavingVariation) GetID() string {
+func (i *InterleavingControl) GetID() string {
 	if i == nil {
 		return ""
 	}
 	return i.ID
 }
 
-func (i *InterleavingVariation) GetKey() string {
+func (i *InterleavingControl) GetKey() string {
 	if i == nil {
 		return ""
 	}
 	return i.Key
 }
 
-func (i *InterleavingVariation) GetName() string {
+func (i *InterleavingControl) GetName() string {
 	if i == nil {
 		return ""
 	}
 	return i.Name
 }
 
-func (i *InterleavingVariation) GetDescription() *string {
+func (i *InterleavingControl) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InterleavingVariation) GetConfig() string {
+func (i *InterleavingControl) GetConfig() string {
 	if i == nil {
 		return ""
 	}
 	return i.Config
+}
+
+// InterleavingTreatment - The ranker being tested against control.
+type InterleavingTreatment struct {
+	ID          string  `json:"id"`
+	Key         string  `json:"key"`
+	Name        string  `json:"name"`
+	Description *string `json:"description,omitzero"`
+	// The ranker's config, as a JSON string
+	Config string `json:"config"`
+}
+
+func (i *InterleavingTreatment) GetID() string {
+	if i == nil {
+		return ""
+	}
+	return i.ID
+}
+
+func (i *InterleavingTreatment) GetKey() string {
+	if i == nil {
+		return ""
+	}
+	return i.Key
+}
+
+func (i *InterleavingTreatment) GetName() string {
+	if i == nil {
+		return ""
+	}
+	return i.Name
+}
+
+func (i *InterleavingTreatment) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InterleavingTreatment) GetConfig() string {
+	if i == nil {
+		return ""
+	}
+	return i.Config
+}
+
+// InterleavingVariations - Exactly two rankers, by role.
+type InterleavingVariations struct {
+	// The default ranker.
+	Control InterleavingControl `json:"control"`
+	// The ranker being tested against control.
+	Treatment InterleavingTreatment `json:"treatment"`
+}
+
+func (i *InterleavingVariations) GetControl() InterleavingControl {
+	if i == nil {
+		return InterleavingControl{}
+	}
+	return i.Control
+}
+
+func (i *InterleavingVariations) GetTreatment() InterleavingTreatment {
+	if i == nil {
+		return InterleavingTreatment{}
+	}
+	return i.Treatment
 }
 
 type InterleavingSchemaType string
@@ -358,126 +426,127 @@ func (i *InterleavingJSONSchema) GetDate() time.Time {
 	return i.Date
 }
 
-type Attribution string
+type InterleavingAttribution string
 
 const (
-	AttributionExposureCount    Attribution = "exposureCount"
-	AttributionEngagementSignal Attribution = "engagementSignal"
+	InterleavingAttributionExposureCount InterleavingAttribution = "exposureCount"
 )
 
-func (e Attribution) ToPointer() *Attribution {
+func (e InterleavingAttribution) ToPointer() *InterleavingAttribution {
 	return &e
 }
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *Attribution) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "exposureCount", "engagementSignal":
-			return true
-		}
+func (e *InterleavingAttribution) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
 	}
-	return false
+	switch v {
+	case "exposureCount":
+		*e = InterleavingAttribution(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InterleavingAttribution: %v", v)
+	}
 }
 
-type AnalysisOwnership struct {
+type InterleavingAnalysisExposureCount struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_       string      `const:"ownership" json:"type"`
-	Attribution Attribution `json:"attribution"`
+	type_       string                  `const:"preference" json:"type"`
+	Attribution InterleavingAttribution `json:"attribution"`
 }
 
-func (a AnalysisOwnership) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(a, "", false)
+func (i InterleavingAnalysisExposureCount) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
 }
 
-func (a *AnalysisOwnership) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+func (i *InterleavingAnalysisExposureCount) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (a *AnalysisOwnership) GetType() string {
-	return "ownership"
+func (i *InterleavingAnalysisExposureCount) GetType() string {
+	return "preference"
 }
 
-func (a *AnalysisOwnership) GetAttribution() Attribution {
-	if a == nil {
-		return Attribution("")
+func (i *InterleavingAnalysisExposureCount) GetAttribution() InterleavingAttribution {
+	if i == nil {
+		return InterleavingAttribution("")
 	}
-	return a.Attribution
+	return i.Attribution
 }
 
-type AnalysisPaired struct {
+type InterleavingAnalysisPaired struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_ string `const:"paired" json:"type"`
 }
 
-func (a AnalysisPaired) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(a, "", false)
+func (i InterleavingAnalysisPaired) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
 }
 
-func (a *AnalysisPaired) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+func (i *InterleavingAnalysisPaired) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (a *AnalysisPaired) GetType() string {
+func (i *InterleavingAnalysisPaired) GetType() string {
 	return "paired"
 }
 
-type AnalysisType string
+type InterleavingAnalysisUnionType string
 
 const (
-	AnalysisTypePaired    AnalysisType = "paired"
-	AnalysisTypeOwnership AnalysisType = "ownership"
-	AnalysisTypeUnknown   AnalysisType = "UNKNOWN"
+	InterleavingAnalysisUnionTypePaired     InterleavingAnalysisUnionType = "paired"
+	InterleavingAnalysisUnionTypePreference InterleavingAnalysisUnionType = "preference"
+	InterleavingAnalysisUnionTypeUnknown    InterleavingAnalysisUnionType = "UNKNOWN"
 )
 
-type Analysis struct {
-	AnalysisPaired    *AnalysisPaired    `queryParam:"inline" union:"member"`
-	AnalysisOwnership *AnalysisOwnership `queryParam:"inline" union:"member"`
-	UnknownRaw        json.RawMessage    `json:"-" union:"unknown"`
+type InterleavingAnalysisUnion struct {
+	InterleavingAnalysisPaired        *InterleavingAnalysisPaired        `queryParam:"inline" union:"member"`
+	InterleavingAnalysisExposureCount *InterleavingAnalysisExposureCount `queryParam:"inline" union:"member"`
+	UnknownRaw                        json.RawMessage                    `json:"-" union:"unknown"`
 
-	Type AnalysisType
+	Type InterleavingAnalysisUnionType
 }
 
-func CreateAnalysisPaired(paired AnalysisPaired) Analysis {
-	typ := AnalysisTypePaired
+func CreateInterleavingAnalysisUnionPaired(paired InterleavingAnalysisPaired) InterleavingAnalysisUnion {
+	typ := InterleavingAnalysisUnionTypePaired
 
-	return Analysis{
-		AnalysisPaired: &paired,
-		Type:           typ,
+	return InterleavingAnalysisUnion{
+		InterleavingAnalysisPaired: &paired,
+		Type:                       typ,
 	}
 }
 
-func CreateAnalysisOwnership(ownership AnalysisOwnership) Analysis {
-	typ := AnalysisTypeOwnership
+func CreateInterleavingAnalysisUnionPreference(preference InterleavingAnalysisExposureCount) InterleavingAnalysisUnion {
+	typ := InterleavingAnalysisUnionTypePreference
 
-	return Analysis{
-		AnalysisOwnership: &ownership,
-		Type:              typ,
+	return InterleavingAnalysisUnion{
+		InterleavingAnalysisExposureCount: &preference,
+		Type:                              typ,
 	}
 }
 
-func CreateAnalysisUnknown(raw json.RawMessage) Analysis {
-	return Analysis{
+func CreateInterleavingAnalysisUnionUnknown(raw json.RawMessage) InterleavingAnalysisUnion {
+	return InterleavingAnalysisUnion{
 		UnknownRaw: raw,
-		Type:       AnalysisTypeUnknown,
+		Type:       InterleavingAnalysisUnionTypeUnknown,
 	}
 }
 
-func (u Analysis) GetUnknownRaw() json.RawMessage {
+func (u InterleavingAnalysisUnion) GetUnknownRaw() json.RawMessage {
 	return u.UnknownRaw
 }
 
-func (u Analysis) IsUnknown() bool {
-	return u.Type == AnalysisTypeUnknown
+func (u InterleavingAnalysisUnion) IsUnknown() bool {
+	return u.Type == InterleavingAnalysisUnionTypeUnknown
 }
 
-func (u *Analysis) UnmarshalJSON(data []byte) error {
+func (u *InterleavingAnalysisUnion) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
 		Type string `json:"type"`
@@ -486,60 +555,60 @@ func (u *Analysis) UnmarshalJSON(data []byte) error {
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = AnalysisTypeUnknown
+		u.Type = InterleavingAnalysisUnionTypeUnknown
 		return nil
 	}
 	if dis == nil {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = AnalysisTypeUnknown
+		u.Type = InterleavingAnalysisUnionTypeUnknown
 		return nil
 	}
 
 	switch dis.Type {
 	case "paired":
-		analysisPaired := new(AnalysisPaired)
-		if err := utils.UnmarshalJSON(data, &analysisPaired, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == paired) type AnalysisPaired within Analysis: %w", string(data), err)
+		interleavingAnalysisPaired := new(InterleavingAnalysisPaired)
+		if err := utils.UnmarshalJSON(data, &interleavingAnalysisPaired, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == paired) type InterleavingAnalysisPaired within InterleavingAnalysisUnion: %w", string(data), err)
 		}
 
-		u.AnalysisPaired = analysisPaired
-		u.Type = AnalysisTypePaired
+		u.InterleavingAnalysisPaired = interleavingAnalysisPaired
+		u.Type = InterleavingAnalysisUnionTypePaired
 		return nil
-	case "ownership":
-		analysisOwnership := new(AnalysisOwnership)
-		if err := utils.UnmarshalJSON(data, &analysisOwnership, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == ownership) type AnalysisOwnership within Analysis: %w", string(data), err)
+	case "preference":
+		interleavingAnalysisExposureCount := new(InterleavingAnalysisExposureCount)
+		if err := utils.UnmarshalJSON(data, &interleavingAnalysisExposureCount, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == preference) type InterleavingAnalysisExposureCount within InterleavingAnalysisUnion: %w", string(data), err)
 		}
 
-		u.AnalysisOwnership = analysisOwnership
-		u.Type = AnalysisTypeOwnership
+		u.InterleavingAnalysisExposureCount = interleavingAnalysisExposureCount
+		u.Type = InterleavingAnalysisUnionTypePreference
 		return nil
 	default:
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = AnalysisTypeUnknown
+		u.Type = InterleavingAnalysisUnionTypeUnknown
 		return nil
 	}
 
 }
 
-func (u Analysis) MarshalJSON() ([]byte, error) {
-	if u.AnalysisPaired != nil {
-		return utils.MarshalJSON(u.AnalysisPaired, "", true)
+func (u InterleavingAnalysisUnion) MarshalJSON() ([]byte, error) {
+	if u.InterleavingAnalysisPaired != nil {
+		return utils.MarshalJSON(u.InterleavingAnalysisPaired, "", true)
 	}
 
-	if u.AnalysisOwnership != nil {
-		return utils.MarshalJSON(u.AnalysisOwnership, "", true)
+	if u.InterleavingAnalysisExposureCount != nil {
+		return utils.MarshalJSON(u.InterleavingAnalysisExposureCount, "", true)
 	}
 
 	if u.UnknownRaw != nil {
 		return json.RawMessage(u.UnknownRaw), nil
 	}
-	return nil, errors.New("could not marshal union type Analysis: all fields are null")
+	return nil, errors.New("could not marshal union type InterleavingAnalysisUnion: all fields are null")
 }
 
 type InterleavingMetric struct {
-	ID       string     `json:"id"`
-	Analyses []Analysis `json:"analyses"`
+	ID       string                      `json:"id"`
+	Analyses []InterleavingAnalysisUnion `json:"analyses"`
 }
 
 func (i *InterleavingMetric) GetID() string {
@@ -549,9 +618,9 @@ func (i *InterleavingMetric) GetID() string {
 	return i.ID
 }
 
-func (i *InterleavingMetric) GetAnalyses() []Analysis {
+func (i *InterleavingMetric) GetAnalyses() []InterleavingAnalysisUnion {
 	if i == nil {
-		return []Analysis{}
+		return []InterleavingAnalysisUnion{}
 	}
 	return i.Analyses
 }
@@ -644,23 +713,24 @@ type Interleaving struct {
 	Status      InterleavingStatus `json:"status"`
 	DateStarted *time.Time         `json:"dateStarted,omitzero"`
 	DateStopped *time.Time         `json:"dateStopped,omitzero"`
-	// The key your code passes to `interleave()` as `ranker`
+	// The key your code passes to `interleave()` as `key`
 	Key string `json:"key"`
 	// The `experiment_id` recorded in exposures
-	TrackingKey         string                         `json:"trackingKey"`
-	HashAttribute       string                         `json:"hashAttribute"`
-	Seed                string                         `json:"seed"`
-	Variations          []InterleavingVariation        `json:"variations"`
-	JSONSchema          *InterleavingJSONSchema        `json:"jsonSchema"`
-	Datasource          string                         `json:"datasource"`
-	InterleavingQueryID string                         `json:"interleavingQueryId"`
-	UserIDType          string                         `json:"userIdType"`
-	Metrics             []InterleavingMetric           `json:"metrics"`
-	Coverage            *float64                       `json:"coverage,omitzero"`
-	Condition           *string                        `json:"condition,omitzero"`
-	SavedGroups         []InterleavingSavedGroup       `json:"savedGroups,omitzero"`
-	Prerequisites       []InterleavingPrerequisite     `json:"prerequisites,omitzero"`
-	EnvironmentSettings map[string]EnvironmentSettings `json:"environmentSettings"`
+	TrackingKey   string `json:"trackingKey"`
+	HashAttribute string `json:"hashAttribute"`
+	Seed          string `json:"seed"`
+	// Exactly two rankers, by role.
+	Variations                  InterleavingVariations         `json:"variations"`
+	JSONSchema                  *InterleavingJSONSchema        `json:"jsonSchema"`
+	DatasourceID                string                         `json:"datasourceId"`
+	InterleavingExposureQueryID string                         `json:"interleavingExposureQueryId"`
+	UserIDType                  string                         `json:"userIdType"`
+	Metrics                     []InterleavingMetric           `json:"metrics"`
+	Coverage                    *float64                       `json:"coverage,omitzero"`
+	Condition                   *string                        `json:"condition,omitzero"`
+	SavedGroups                 []InterleavingSavedGroup       `json:"savedGroups,omitzero"`
+	Prerequisites               []InterleavingPrerequisite     `json:"prerequisites,omitzero"`
+	EnvironmentSettings         map[string]EnvironmentSettings `json:"environmentSettings"`
 }
 
 func (i Interleaving) MarshalJSON() ([]byte, error) {
@@ -793,9 +863,9 @@ func (i *Interleaving) GetSeed() string {
 	return i.Seed
 }
 
-func (i *Interleaving) GetVariations() []InterleavingVariation {
+func (i *Interleaving) GetVariations() InterleavingVariations {
 	if i == nil {
-		return []InterleavingVariation{}
+		return InterleavingVariations{}
 	}
 	return i.Variations
 }
@@ -807,18 +877,18 @@ func (i *Interleaving) GetJSONSchema() *InterleavingJSONSchema {
 	return i.JSONSchema
 }
 
-func (i *Interleaving) GetDatasource() string {
+func (i *Interleaving) GetDatasourceID() string {
 	if i == nil {
 		return ""
 	}
-	return i.Datasource
+	return i.DatasourceID
 }
 
-func (i *Interleaving) GetInterleavingQueryID() string {
+func (i *Interleaving) GetInterleavingExposureQueryID() string {
 	if i == nil {
 		return ""
 	}
-	return i.InterleavingQueryID
+	return i.InterleavingExposureQueryID
 }
 
 func (i *Interleaving) GetUserIDType() string {

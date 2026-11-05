@@ -40,11 +40,23 @@ func InitExperimentsRoot(parent *cobra.Command) error {
 		return err
 	}
 
+	if err := initDeleteExperimentCmd(ExperimentsCmd); err != nil {
+		return err
+	}
+
 	if err := initGetStartChecklistCmd(ExperimentsCmd); err != nil {
 		return err
 	}
 
 	if err := initResultsCmd(ExperimentsCmd); err != nil {
+		return err
+	}
+
+	if err := initPostExperimentArchiveCmd(ExperimentsCmd); err != nil {
+		return err
+	}
+
+	if err := initPostExperimentUnarchiveCmd(ExperimentsCmd); err != nil {
 		return err
 	}
 

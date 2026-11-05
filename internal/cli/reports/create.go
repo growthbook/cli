@@ -39,7 +39,7 @@ var createCmdMeta = []flagutil.FlagMeta{
 			{FlagName: "lookback-override.window.value-unit", FieldPath: "ValueUnit", Kind: flagutil.FlagKindEnum, Required: true, EnumValues: []string{"minutes", "hours", "days", "weeks"}, Description: "options: minutes, hours, days, weeks [required]"},
 		}},
 	}}},
-	{FlagName: "metric-overrides", Shorthand: "m", FieldPath: "MetricOverrides", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"metricOverrides,omitempty"`, Description: "Per-metric window, risk, and regression-adjustment overrides"},
+	{FlagName: "metric-overrides", Shorthand: "m", FieldPath: "MetricOverrides", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"metricOverrides,omitempty"`, Description: "Per-metric window, prior, and regression-adjustment overrides"},
 	{FlagName: "custom-metric-slices", Shorthand: "c", FieldPath: "CustomMetricSlices", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"customMetricSlices,omitempty"`, Description: "Custom metric slice definitions"},
 	{FlagName: "segment", FieldPath: "Segment", Kind: flagutil.FlagKindString, Optional: true, Description: "Segment ID to filter users by. Defaults to experiment setting."},
 	{FlagName: "query-filter", FieldPath: "QueryFilter", Kind: flagutil.FlagKindString, Optional: true, Description: "Raw SQL WHERE clause added to the exposure query. Defaults to experiment setting."},

@@ -101,6 +101,14 @@ func InitRampSchedulesRoot(parent *cobra.Command) error {
 		return err
 	}
 
+	if err := initRollbackMatchingRampSchedulesCmd(RampSchedulesCmd); err != nil {
+		return err
+	}
+
+	if err := initPauseMatchingRampSchedulesCmd(RampSchedulesCmd); err != nil {
+		return err
+	}
+
 	if err := initGetRampScheduleCmd(RampSchedulesCmd); err != nil {
 		return err
 	}

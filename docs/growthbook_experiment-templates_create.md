@@ -19,30 +19,32 @@ growthbook experiment-templates create [flags]
 ### Options
 
 ```
-  -a, --activation-metric string          string value
-      --body string                       Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --custom-fields string              value
-      --custom-metric-slices string       list of values
-      --datasource string                 [required]
-      --description string                Default description for experiments created from this template. Markdown.
-      --disable-sticky-bucketing          boolean flag
-      --exposure-query exposureQueryId    The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated exposureQueryId.
-      --exposure-query-id exposureQuery   Deprecated: use exposureQuery. Rejected when selecting a different assignment query that declares several identifier types; set `exposureQuery.identifierType` instead.
-  -f, --fallback-attribute string         string value
-      --goal-metrics stringArray          list of values
-      --guardrail-metrics stringArray     list of values
-      --hash-attribute string             string value
-  -h, --help                              help for create
-      --hypothesis string                 Default hypothesis for experiments created from this template. Markdown. If we change X, metric Y will move because Z.
-  -p, --project string                    string value
-      --secondary-metrics stringArray     list of values
-      --segment string                    string value
-      --skip-partial-data                 boolean flag
-      --stats-engine string               options: bayesian, frequentist [required]
-      --tags stringArray                  Tags for filtering and grouping. Use these instead of encoding groups in names.
-      --targeting string                  [required]
-      --template-metadata string          [required]
-      --type string                       options: standard [required]
+  -a, --activation-metric string             string value
+      --body string                          Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --cluster-sub-unit-identifier string   string value
+      --custom-fields string                 value
+      --custom-metric-slices string          list of values
+      --datasource string                    [required]
+      --description string                   Default description for experiments created from this template. Markdown.
+      --disable-sticky-bucketing             boolean flag
+      --exposure-query exposureQueryId       The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated exposureQueryId.
+      --exposure-query-id exposureQuery      Deprecated: use exposureQuery. Rejected when selecting a different assignment query that declares several identifier types; set `exposureQuery.identifierType` instead.
+  -f, --fallback-attribute string            string value
+      --goal-metrics stringArray             list of values
+      --guardrail-metrics stringArray        list of values
+      --hash-attribute string                string value
+  -h, --help                                 help for create
+      --hypothesis string                    Default hypothesis for experiments created from this template. Markdown. If we change X, metric Y will move because Z.
+  -i, --is-cluster-experiment                boolean flag
+  -p, --project string                       string value
+      --secondary-metrics stringArray        list of values
+      --segment string                       string value
+      --skip-partial-data                    boolean flag
+      --stats-engine string                  options: bayesian, frequentist [required]
+      --tags stringArray                     Tags for filtering and grouping. Use these instead of encoding groups in names.
+      --targeting string                     [required]
+      --template-metadata string             [required]
+      --type string                          options: standard [required]
 ```
 
 ### Options inherited from parent commands

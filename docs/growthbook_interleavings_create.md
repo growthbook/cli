@@ -13,33 +13,33 @@ growthbook interleavings create [flags]
 ### Examples
 
 ```
-  growthbook interleavings create --name <value> --key <key> --variations '[]' --datasource <value> --interleaving-query-id <id>
+  growthbook interleavings create --name <value> --key <key> --variations '{"control":{"key":"<key>","name":"<value>","config":"<value>"},"treatment":{"key":"<key>","name":"<value>","config":"<value>"} }' --datasource-id <id> --interleaving-exposure-query-id <id>
 ```
 
 ### Options
 
 ```
-      --body string                    Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --condition string               string value
-      --coverage float                 number value
-      --datasource string              [required]
-      --description string             string value
-  -e, --environment-settings string    value
-      --hash-attribute string          string value
-  -h, --help                           help for create
-  -i, --interleaving-query-id string   [required]
-  -j, --json-schema date               Validation schema to stage on the draft. The server sets date, so don't send it.
-  -k, --key interleave()               The key your code passes to interleave() as `ranker`. Can't be changed later. Several experiments may share a key so you can iterate without changing code, but only one of them can be running in a given environment, and each needs its own `trackingKey`. [required]
-  -m, --metrics string                 list of values
-  -n, --name string                    [required]
-      --owner string                   The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
-      --prerequisites string           list of values
-      --project string                 string value
-  -s, --saved-groups string            list of values
-      --tags stringArray               list of values
-      --tracking-key experiment_id     The experiment_id recorded in exposures. Defaults to `key`.
-  -u, --user-id-type string            [required]
-  -v, --variations string              Exactly two rankers. Users who are not exposed to interleaved rankings get the first ranker's list. [required]
+      --body string                             Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --condition string                        string value
+      --coverage float                          number value
+      --datasource-id string                    [required]
+      --description string                      string value
+  -e, --environment-settings string             value
+      --hash-attribute string                   string value
+  -h, --help                                    help for create
+  -i, --interleaving-exposure-query-id string   [required]
+  -j, --json-schema date                        Validation schema to stage on the draft. The server sets date, so don't send it.
+  -k, --key interleave()                        The key your code passes to interleave() as `key`. Can't be changed later. Several experiments may share a key so you can iterate without changing code, but only one of them can be running in a given environment. [required]
+  -m, --metrics string                          list of values
+  -n, --name string                             [required]
+      --owner string                            The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
+      --prerequisites string                    list of values
+      --project string                          string value
+  -s, --saved-groups string                     list of values
+      --tags stringArray                        list of values
+      --tracking-key experiment_id              The experiment_id recorded in exposures. Leave this unset: it is generated from `key`, with a `_v1` style suffix when another experiment in this Data Source already uses it. Tracking keys must be unique within a Data Source, so supplying one that is taken is rejected.
+  -u, --user-id-type string                     [required]
+  -v, --variations string                       Exactly two rankers, by role. [required]
 ```
 
 ### Options inherited from parent commands

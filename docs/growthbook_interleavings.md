@@ -44,8 +44,14 @@ growthbook interleavings [flags]
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
 * [growthbook interleavings create](growthbook_interleavings_create.md)	 - Create a single interleaving
+* [growthbook interleavings delete](growthbook_interleavings_delete.md)	 - Delete a single interleaving
 * [growthbook interleavings get](growthbook_interleavings_get.md)	 - Get a single interleaving
+* [growthbook interleavings get-interleaving-results](growthbook_interleavings_get-interleaving-results.md)	 - Get the latest interleaving experiment results
+* [growthbook interleavings get-interleaving-snapshot](growthbook_interleavings_get-interleaving-snapshot.md)	 - Get an interleaving experiment results snapshot
+* [growthbook interleavings get-interleaving-status](growthbook_interleavings_get-interleaving-status.md)	 - Get interleaving experiment run status
 * [growthbook interleavings list](growthbook_interleavings_list.md)	 - Get all interleavings
+* [growthbook interleavings list-interleaving-snapshots](growthbook_interleavings_list-interleaving-snapshots.md)	 - List interleaving experiment results snapshots
+* [growthbook interleavings refresh](growthbook_interleavings_refresh.md)	 - Refresh interleaving experiment results
 * [growthbook interleavings start](growthbook_interleavings_start.md)	 - Start an interleaving experiment
 * [growthbook interleavings stop](growthbook_interleavings_stop.md)	 - Stop an interleaving experiment
 * [growthbook interleavings update](growthbook_interleavings_update.md)	 - Update a single interleaving

@@ -46,8 +46,14 @@ growthbook saved-groups [flags]
 * [growthbook saved-groups archive](growthbook_saved-groups_archive.md)	 - Archive a single saved group
 * [growthbook saved-groups create](growthbook_saved-groups_create.md)	 - Create a single saved group
 * [growthbook saved-groups delete](growthbook_saved-groups_delete.md)	 - Deletes a single saved group
+* [growthbook saved-groups delete-saved-group-upload](growthbook_saved-groups_delete-saved-group-upload.md)	 - Delete an upload of a remote saved group
 * [growthbook saved-groups get](growthbook_saved-groups_get.md)	 - Get a single saved group
 * [growthbook saved-groups get-references](growthbook_saved-groups_get-references.md)	 - Get features, experiments, and saved groups that reference this saved group
+* [growthbook saved-groups get-saved-group-upload](growthbook_saved-groups_get-saved-group-upload.md)	 - Get one upload of a remote saved group
 * [growthbook saved-groups list](growthbook_saved-groups_list.md)	 - Get all saved group
+* [growthbook saved-groups list-saved-group-uploads](growthbook_saved-groups_list-saved-group-uploads.md)	 - List the uploads of a remote saved group
+* [growthbook saved-groups post-saved-group-upload](growthbook_saved-groups_post-saved-group-upload.md)	 - Upload a new version of a remote saved group's IDs
+* [growthbook saved-groups post-saved-group-upload-load](growthbook_saved-groups_post-saved-group-upload-load.md)	 - Report loading a remote saved group upload into a data store
+* [growthbook saved-groups post-saved-group-upload-url](growthbook_saved-groups_post-saved-group-upload-url.md)	 - Get a signed URL to upload a remote saved group CSV
 * [growthbook saved-groups unarchive](growthbook_saved-groups_unarchive.md)	 - Unarchive a single saved group
 * [growthbook saved-groups update](growthbook_saved-groups_update.md)	 - Partially update a single saved group

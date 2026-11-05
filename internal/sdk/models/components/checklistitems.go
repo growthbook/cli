@@ -32,6 +32,8 @@ type ChecklistItems struct {
 	Reason   string               `json:"reason"`
 	// When true, this item cannot be bypassed with `skipChecklist` — the experiment cannot be started until it is resolved.
 	HardBlock *bool `json:"hardBlock,omitzero"`
+	// The linked Feature Flag the item is about.
+	FeatureID *string `json:"featureId,omitzero"`
 }
 
 func (c *ChecklistItems) GetKey() string {
@@ -74,4 +76,11 @@ func (c *ChecklistItems) GetHardBlock() *bool {
 		return nil
 	}
 	return c.HardBlock
+}
+
+func (c *ChecklistItems) GetFeatureID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.FeatureID
 }

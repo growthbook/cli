@@ -17,6 +17,7 @@ import (
 var startCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The id of the requested resource [required]"},
 	{FlagName: "skip-checklist", Shorthand: "s", FieldPath: "Body.SkipChecklist", Kind: flagutil.FlagKindBool, Optional: true, Description: "If true, skips validating the experiment satisfies all pre-launch checklist items. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it."},
+	{FlagName: "bypass-approval", Shorthand: "b", FieldPath: "Body.BypassApproval", Kind: flagutil.FlagKindBool, Optional: true, Description: "Deprecated and ignored. Approval is bypassed automatically when the caller has Bypass draft approvals access for this resource or when the organization enables the REST API approval bypass. Otherwise, the revision must be approved before it can be published."},
 	{FlagName: "ignore-warnings", FieldPath: "Body.IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it."},
 }
 
@@ -25,7 +26,7 @@ func initStartCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "start",
 		Short:   "Start/Stage an experiment",
-		Long:    "Starts an experiment or stages it for a future start if a `statusUpdateSchedule` is set on the experiment.",
+		Long:    "Starts an experiment or stages it for a future start if a `statusUpdateSchedule` is set on the experiment. Both check the launch checklist that `GET /experiments/{id}/start-checklist` returns, as gates. An incomplete item refuses the start with `checklist_incomplete` unless `skipChecklist` is set; a linked Feature Flag blocker refuses it either way. The refusal lists each blocking gate in `gates`, with the flag or permission that gets past it and a route that resolves it. A linked Feature Flag draft that still needs approval, or a flag locked by a ramp, is bypassed automatically when the caller has Bypass draft approvals access for that flag or the organization enables the REST API approval bypass. A start reports what it got past in `bypassedGates` and the drafts it published in `publishedFeatureDrafts`; if a draft can't publish, for example because it needs a rebase, the start fails with `pending_draft_publish_failed` before any is published. A staged start carries the caller's Bypass draft approvals access to when it runs, for the drafts as they were when it was staged: if one has changed since, or the caller has lost that access, it needs approval like any other. The organization's REST API approval bypass doesn't carry to a staged start.",
 		Example: "  growthbook experiments start --id <id>",
 		RunE:    runStartCmd,
 	}

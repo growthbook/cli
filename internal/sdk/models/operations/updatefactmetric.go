@@ -1236,13 +1236,14 @@ func (u *UpdateFactMetricRegressionAdjustmentSettings) GetDays() *float64 {
 	return u.Days
 }
 
-// UpdateFactMetricManagedBy - Set this to "api" to disable editing in the GrowthBook UI
+// UpdateFactMetricManagedBy - Set this to "api" (or "dbt" for resources synced from dbt) to disable editing in the GrowthBook UI
 type UpdateFactMetricManagedBy string
 
 const (
 	UpdateFactMetricManagedByUnknown UpdateFactMetricManagedBy = ""
 	UpdateFactMetricManagedByAPI     UpdateFactMetricManagedBy = "api"
 	UpdateFactMetricManagedByAdmin   UpdateFactMetricManagedBy = "admin"
+	UpdateFactMetricManagedByDbt     UpdateFactMetricManagedBy = "dbt"
 )
 
 func (e UpdateFactMetricManagedBy) ToPointer() *UpdateFactMetricManagedBy {
@@ -1259,6 +1260,8 @@ func (e *UpdateFactMetricManagedBy) UnmarshalJSON(data []byte) error {
 	case "api":
 		fallthrough
 	case "admin":
+		fallthrough
+	case "dbt":
 		*e = UpdateFactMetricManagedBy(v)
 		return nil
 	default:
@@ -1296,11 +1299,11 @@ type UpdateFactMetricRequestBody struct {
 	PriorSettings *UpdateFactMetricPriorSettings `json:"priorSettings,omitzero"`
 	// Controls the regression adjustment (CUPED) settings for the metric
 	RegressionAdjustmentSettings *UpdateFactMetricRegressionAdjustmentSettings `json:"regressionAdjustmentSettings,omitzero"`
-	// No longer used. Threshold for Risk to be considered low enough, as a proportion (e.g. put 0.0025 for 0.25%). <br/> Must be a non-negative number and must not be higher than `riskThresholdDanger`.
+	// No longer used. Accepted and ignored.
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	RiskThresholdSuccess *float64 `json:"riskThresholdSuccess,omitzero"`
-	// No longer used. Threshold for Risk to be considered too high, as a proportion (e.g. put 0.0125 for 1.25%). <br/> Must be a non-negative number.
+	// No longer used. Accepted and ignored.
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	RiskThresholdDanger *float64 `json:"riskThresholdDanger,omitzero"`
@@ -1313,7 +1316,7 @@ type UpdateFactMetricRequestBody struct {
 	MinSampleSize    *float64 `json:"minSampleSize,omitzero"`
 	// The percentage change that you want to reliably detect before ending an experiment, as a proportion (e.g. put 0.1 for 10%). This is used to estimate the "Days Left" for running experiments.
 	TargetMDE *float64 `json:"targetMDE,omitzero"`
-	// Set this to "api" to disable editing in the GrowthBook UI
+	// Set this to "api" (or "dbt" for resources synced from dbt) to disable editing in the GrowthBook UI
 	ManagedBy *UpdateFactMetricManagedBy `json:"managedBy,omitzero"`
 	// Array of slice column names that will be automatically included in metric analysis. This is an enterprise feature.
 	MetricAutoSlices []string `json:"metricAutoSlices,omitzero"`
