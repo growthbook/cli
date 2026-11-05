@@ -330,8 +330,8 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`delete`](docs/growthbook_experiments_delete.md) - Delete an experiment
 * [`get-start-checklist`](docs/growthbook_experiments_get-start-checklist.md) - Get an experiment pre-launch checklist status
 * [`results`](docs/growthbook_experiments_results.md) - Get results for an experiment
-* [`post-experiment-archive`](docs/growthbook_experiments_post-experiment-archive.md) - Archive an experiment
-* [`post-experiment-unarchive`](docs/growthbook_experiments_post-experiment-unarchive.md) - Unarchive an experiment
+* [`archive`](docs/growthbook_experiments_archive.md) - Archive an experiment
+* [`unarchive`](docs/growthbook_experiments_unarchive.md) - Unarchive an experiment
 * [`start`](docs/growthbook_experiments_start.md) - Start/Stage an experiment
 * [`complete-start-checklist`](docs/growthbook_experiments_complete-start-checklist.md) - Mark manual pre-launch checklist items complete
 * [`stop`](docs/growthbook_experiments_stop.md) - Stop an experiment
@@ -360,7 +360,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`list-events`](docs/growthbook_contextual-bandits_list-events.md) - List Contextual Bandit weight-update events
 * [`get-event`](docs/growthbook_contextual-bandits_get-event.md) - Get a single Contextual Bandit weight-update event
 * [`get-results`](docs/growthbook_contextual-bandits_get-results.md) - Get latest Contextual Bandit results
-* [`get-contextual-bandit-status`](docs/growthbook_contextual-bandits_get-contextual-bandit-status.md) - Get Contextual Bandit run status
+* [`get-status`](docs/growthbook_contextual-bandits_get-status.md) - Get Contextual Bandit run status
 * [`list-linked-features`](docs/growthbook_contextual-bandits_list-linked-features.md) - Get features linked to a Contextual Bandit
 * [`add-linked-feature`](docs/growthbook_contextual-bandits_add-linked-feature.md) - Link a feature to a Contextual Bandit
 * [`update-linked-feature`](docs/growthbook_contextual-bandits_update-linked-feature.md) - Replace a Contextual Bandit's rule on a linked feature
@@ -463,12 +463,12 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`archive`](docs/growthbook_saved-groups_archive.md) - Archive a single saved group
 * [`unarchive`](docs/growthbook_saved-groups_unarchive.md) - Unarchive a single saved group
 * [`get-references`](docs/growthbook_saved-groups_get-references.md) - Get features, experiments, and saved groups that reference this saved group
-* [`list-saved-group-uploads`](docs/growthbook_saved-groups_list-saved-group-uploads.md) - List the uploads of a remote saved group
-* [`post-saved-group-upload`](docs/growthbook_saved-groups_post-saved-group-upload.md) - Upload a new version of a remote saved group's IDs
-* [`post-saved-group-upload-url`](docs/growthbook_saved-groups_post-saved-group-upload-url.md) - Get a signed URL to upload a remote saved group CSV
-* [`post-saved-group-upload-load`](docs/growthbook_saved-groups_post-saved-group-upload-load.md) - Report loading a remote saved group upload into a data store
-* [`get-saved-group-upload`](docs/growthbook_saved-groups_get-saved-group-upload.md) - Get one upload of a remote saved group
-* [`delete-saved-group-upload`](docs/growthbook_saved-groups_delete-saved-group-upload.md) - Delete an upload of a remote saved group
+* [`list-uploads`](docs/growthbook_saved-groups_list-uploads.md) - List the uploads of a remote saved group
+* [`create-upload`](docs/growthbook_saved-groups_create-upload.md) - Upload a new version of a remote saved group's IDs
+* [`create-upload-url`](docs/growthbook_saved-groups_create-upload-url.md) - Get a signed URL to upload a remote saved group CSV
+* [`load-upload`](docs/growthbook_saved-groups_load-upload.md) - Report loading a remote saved group upload into a data store
+* [`get-upload`](docs/growthbook_saved-groups_get-upload.md) - Get one upload of a remote saved group
+* [`delete-upload`](docs/growthbook_saved-groups_delete-upload.md) - Delete an upload of a remote saved group
 
 ### [saved-group-revisions](docs/growthbook_saved-group-revisions.md)
 
@@ -480,7 +480,7 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`set-metadata`](docs/growthbook_saved-group-revisions_set-metadata.md) - Update saved group metadata in a draft revision
 * [`set-condition`](docs/growthbook_saved-group-revisions_set-condition.md) - Update the condition of a condition saved group draft revision
 * [`set-values`](docs/growthbook_saved-group-revisions_set-values.md) - Replace the values list in a list saved group draft revision
-* [`put-saved-group-revision-upload-version`](docs/growthbook_saved-group-revisions_put-saved-group-revision-upload-version.md) - Set the upload a remote saved group draft revision uses
+* [`set-upload-version`](docs/growthbook_saved-group-revisions_set-upload-version.md) - Set the upload a remote saved group draft revision uses
 * [`archive`](docs/growthbook_saved-group-revisions_archive.md) - Stage an archive/unarchive in a draft revision
 * [`add-items`](docs/growthbook_saved-group-revisions_add-items.md) - Append items to a list saved group draft revision
 * [`remove-items`](docs/growthbook_saved-group-revisions_remove-items.md) - Remove items from a list saved group draft revision
@@ -717,10 +717,10 @@ growthbook generate-types --project prj_123                 # limit to one proje
 
 ### [interleaving-exposure-queries](docs/growthbook_interleaving-exposure-queries.md)
 
-* [`get-interleaving-exposure-query`](docs/growthbook_interleaving-exposure-queries_get-interleaving-exposure-query.md) - Get a single interleavingExposureQuery
-* [`delete-interleaving-exposure-query`](docs/growthbook_interleaving-exposure-queries_delete-interleaving-exposure-query.md) - Delete a single interleavingExposureQuery
-* [`update-interleaving-exposure-query`](docs/growthbook_interleaving-exposure-queries_update-interleaving-exposure-query.md) - Update a single interleavingExposureQuery
-* [`create-interleaving-exposure-query`](docs/growthbook_interleaving-exposure-queries_create-interleaving-exposure-query.md) - Create a single interleavingExposureQuery
+* [`get`](docs/growthbook_interleaving-exposure-queries_get.md) - Get a single interleavingExposureQuery
+* [`delete`](docs/growthbook_interleaving-exposure-queries_delete.md) - Delete a single interleavingExposureQuery
+* [`update`](docs/growthbook_interleaving-exposure-queries_update.md) - Update a single interleavingExposureQuery
+* [`create`](docs/growthbook_interleaving-exposure-queries_create.md) - Create a single interleavingExposureQuery
 * [`list`](docs/growthbook_interleaving-exposure-queries_list.md) - Get all interleavingExposureQueries
 
 ### [interleavings](docs/growthbook_interleavings.md)
@@ -733,10 +733,10 @@ growthbook generate-types --project prj_123                 # limit to one proje
 * [`start`](docs/growthbook_interleavings_start.md) - Start an interleaving experiment
 * [`stop`](docs/growthbook_interleavings_stop.md) - Stop an interleaving experiment
 * [`refresh`](docs/growthbook_interleavings_refresh.md) - Refresh interleaving experiment results
-* [`get-interleaving-results`](docs/growthbook_interleavings_get-interleaving-results.md) - Get the latest interleaving experiment results
-* [`get-interleaving-status`](docs/growthbook_interleavings_get-interleaving-status.md) - Get interleaving experiment run status
-* [`list-interleaving-snapshots`](docs/growthbook_interleavings_list-interleaving-snapshots.md) - List interleaving experiment results snapshots
-* [`get-interleaving-snapshot`](docs/growthbook_interleavings_get-interleaving-snapshot.md) - Get an interleaving experiment results snapshot
+* [`get-results`](docs/growthbook_interleavings_get-results.md) - Get the latest interleaving experiment results
+* [`get-status`](docs/growthbook_interleavings_get-status.md) - Get interleaving experiment run status
+* [`list-snapshots`](docs/growthbook_interleavings_list-snapshots.md) - List interleaving experiment results snapshots
+* [`get-snapshot`](docs/growthbook_interleavings_get-snapshot.md) - Get an interleaving experiment results snapshot
 
 ### [custom-fields](docs/growthbook_custom-fields.md)
 

@@ -52,11 +52,11 @@ func InitExperimentsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPostExperimentArchiveCmd(ExperimentsCmd); err != nil {
+	if err := initArchiveCmd(ExperimentsCmd); err != nil {
 		return err
 	}
 
-	if err := initPostExperimentUnarchiveCmd(ExperimentsCmd); err != nil {
+	if err := initUnarchiveCmd(ExperimentsCmd); err != nil {
 		return err
 	}
 

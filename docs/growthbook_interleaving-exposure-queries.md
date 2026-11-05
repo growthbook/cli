@@ -43,8 +43,8 @@ growthbook interleaving-exposure-queries [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
-* [growthbook interleaving-exposure-queries create-interleaving-exposure-query](growthbook_interleaving-exposure-queries_create-interleaving-exposure-query.md)	 - Create a single interleavingExposureQuery
-* [growthbook interleaving-exposure-queries delete-interleaving-exposure-query](growthbook_interleaving-exposure-queries_delete-interleaving-exposure-query.md)	 - Delete a single interleavingExposureQuery
-* [growthbook interleaving-exposure-queries get-interleaving-exposure-query](growthbook_interleaving-exposure-queries_get-interleaving-exposure-query.md)	 - Get a single interleavingExposureQuery
+* [growthbook interleaving-exposure-queries create](growthbook_interleaving-exposure-queries_create.md)	 - Create a single interleavingExposureQuery
+* [growthbook interleaving-exposure-queries delete](growthbook_interleaving-exposure-queries_delete.md)	 - Delete a single interleavingExposureQuery
+* [growthbook interleaving-exposure-queries get](growthbook_interleaving-exposure-queries_get.md)	 - Get a single interleavingExposureQuery
 * [growthbook interleaving-exposure-queries list](growthbook_interleaving-exposure-queries_list.md)	 - Get all interleavingExposureQueries
-* [growthbook interleaving-exposure-queries update-interleaving-exposure-query](growthbook_interleaving-exposure-queries_update-interleaving-exposure-query.md)	 - Update a single interleavingExposureQuery
+* [growthbook interleaving-exposure-queries update](growthbook_interleaving-exposure-queries_update.md)	 - Update a single interleavingExposureQuery

@@ -1382,9 +1382,9 @@ func (s *SavedGroups) GetReferences(ctx context.Context, request operations.GetS
 
 }
 
-// ListSavedGroupUploads - List the uploads of a remote saved group
+// ListUploads - List the uploads of a remote saved group
 // Newest first.
-func (s *SavedGroups) ListSavedGroupUploads(ctx context.Context, request operations.ListSavedGroupUploadsRequest, opts ...operations.Option) (*operations.ListSavedGroupUploadsResponse, error) {
+func (s *SavedGroups) ListUploads(ctx context.Context, request operations.ListSavedGroupUploadsRequest, opts ...operations.Option) (*operations.ListSavedGroupUploadsResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1531,9 +1531,9 @@ func (s *SavedGroups) ListSavedGroupUploads(ctx context.Context, request operati
 
 }
 
-// PostSavedGroupUpload - Upload a new version of a remote saved group's IDs
+// CreateUpload - Upload a new version of a remote saved group's IDs
 // Records the next version of the group's IDs. The start and end of the file are checked for one ID per line, then the whole file in the background; loaders trim and deduplicate the IDs. Poll `GET /saved-groups/{id}/uploads/{version}` until it's valid, then set the group's `currentUploadVersion` with `PUT /saved-groups-revisions/{id}/{version}/upload-version` to use it. Loaders pick up the group's version from `currentUpload` and download it from `GET /saved-groups/{id}/uploads/{version}/file`, which redirects to a short-lived signed storage URL.
-func (s *SavedGroups) PostSavedGroupUpload(ctx context.Context, request operations.PostSavedGroupUploadRequest, opts ...operations.Option) (*operations.PostSavedGroupUploadResponse, error) {
+func (s *SavedGroups) CreateUpload(ctx context.Context, request operations.PostSavedGroupUploadRequest, opts ...operations.Option) (*operations.PostSavedGroupUploadResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1708,9 +1708,9 @@ func (s *SavedGroups) PostSavedGroupUpload(ctx context.Context, request operatio
 
 }
 
-// PostSavedGroupUploadURL - Get a signed URL to upload a remote saved group CSV
+// CreateUploadURL - Get a signed URL to upload a remote saved group CSV
 // Upload a CSV with one ID per line to the returned URL with `Content-Type: text/csv`, then create an upload with the `fileKey`. A first line equal to the attribute name is a header. Needs S3 or Google Cloud Storage.
-func (s *SavedGroups) PostSavedGroupUploadURL(ctx context.Context, request operations.PostSavedGroupUploadURLRequest, opts ...operations.Option) (*operations.PostSavedGroupUploadURLResponse, error) {
+func (s *SavedGroups) CreateUploadURL(ctx context.Context, request operations.PostSavedGroupUploadURLRequest, opts ...operations.Option) (*operations.PostSavedGroupUploadURLResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1878,9 +1878,9 @@ func (s *SavedGroups) PostSavedGroupUploadURL(ctx context.Context, request opera
 
 }
 
-// PostSavedGroupUploadLoad - Report loading a remote saved group upload into a data store
+// LoadUpload - Report loading a remote saved group upload into a data store
 // Called by remote saved group loaders. Each report replaces the previous one from the same `storeId`. Needs permission to publish the saved group.
-func (s *SavedGroups) PostSavedGroupUploadLoad(ctx context.Context, request operations.PostSavedGroupUploadLoadRequest, opts ...operations.Option) (*operations.PostSavedGroupUploadLoadResponse, error) {
+func (s *SavedGroups) LoadUpload(ctx context.Context, request operations.PostSavedGroupUploadLoadRequest, opts ...operations.Option) (*operations.PostSavedGroupUploadLoadResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -2055,9 +2055,9 @@ func (s *SavedGroups) PostSavedGroupUploadLoad(ctx context.Context, request oper
 
 }
 
-// GetSavedGroupUpload - Get one upload of a remote saved group
+// GetUpload - Get one upload of a remote saved group
 // Returns an upload of any status. After creating an upload, poll this until `status.type` is `valid` or `invalid`.
-func (s *SavedGroups) GetSavedGroupUpload(ctx context.Context, request operations.GetSavedGroupUploadRequest, opts ...operations.Option) (*operations.GetSavedGroupUploadResponse, error) {
+func (s *SavedGroups) GetUpload(ctx context.Context, request operations.GetSavedGroupUploadRequest, opts ...operations.Option) (*operations.GetSavedGroupUploadResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -2200,9 +2200,9 @@ func (s *SavedGroups) GetSavedGroupUpload(ctx context.Context, request operation
 
 }
 
-// DeleteSavedGroupUpload - Delete an upload of a remote saved group
+// DeleteUpload - Delete an upload of a remote saved group
 // Deletes the upload and its file. The version the group uses, or one an open draft uses, can't be deleted. Version numbers aren't reused. Needs permission to publish the saved group.
-func (s *SavedGroups) DeleteSavedGroupUpload(ctx context.Context, request operations.DeleteSavedGroupUploadRequest, opts ...operations.Option) (*operations.DeleteSavedGroupUploadResponse, error) {
+func (s *SavedGroups) DeleteUpload(ctx context.Context, request operations.DeleteSavedGroupUploadRequest, opts ...operations.Option) (*operations.DeleteSavedGroupUploadResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

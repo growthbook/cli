@@ -21,19 +21,19 @@ func InitInterleavingExposureQueriesRoot(parent *cobra.Command) error {
 		Aliases: []string{"ieq"},
 	}
 
-	if err := initGetInterleavingExposureQueryCmd(InterleavingExposureQueriesCmd); err != nil {
+	if err := initGetCmd(InterleavingExposureQueriesCmd); err != nil {
 		return err
 	}
 
-	if err := initDeleteInterleavingExposureQueryCmd(InterleavingExposureQueriesCmd); err != nil {
+	if err := initDeleteCmd(InterleavingExposureQueriesCmd); err != nil {
 		return err
 	}
 
-	if err := initUpdateInterleavingExposureQueryCmd(InterleavingExposureQueriesCmd); err != nil {
+	if err := initUpdateCmd(InterleavingExposureQueriesCmd); err != nil {
 		return err
 	}
 
-	if err := initCreateInterleavingExposureQueryCmd(InterleavingExposureQueriesCmd); err != nil {
+	if err := initCreateCmd(InterleavingExposureQueriesCmd); err != nil {
 		return err
 	}
 

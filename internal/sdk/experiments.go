@@ -1420,9 +1420,9 @@ func (s *Experiments) Results(ctx context.Context, request operations.GetExperim
 
 }
 
-// PostExperimentArchive - Archive an experiment
+// Archive an experiment
 // An archived experiment leaves the SDK payload. Refused while a running experiment or a temporary rollout still serves through linked changes unless `linkedChanges` says what happens to them.
-func (s *Experiments) PostExperimentArchive(ctx context.Context, request operations.PostExperimentArchiveRequest, opts ...operations.Option) (*operations.PostExperimentArchiveResponse, error) {
+func (s *Experiments) Archive(ctx context.Context, request operations.PostExperimentArchiveRequest, opts ...operations.Option) (*operations.PostExperimentArchiveResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1597,8 +1597,8 @@ func (s *Experiments) PostExperimentArchive(ctx context.Context, request operati
 
 }
 
-// PostExperimentUnarchive - Unarchive an experiment
-func (s *Experiments) PostExperimentUnarchive(ctx context.Context, request operations.PostExperimentUnarchiveRequest, opts ...operations.Option) (*operations.PostExperimentUnarchiveResponse, error) {
+// Unarchive an experiment
+func (s *Experiments) Unarchive(ctx context.Context, request operations.PostExperimentUnarchiveRequest, opts ...operations.Option) (*operations.PostExperimentUnarchiveResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

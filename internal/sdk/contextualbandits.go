@@ -903,9 +903,9 @@ func (s *ContextualBandits) GetResults(ctx context.Context, request operations.G
 
 }
 
-// GetContextualBanditStatus - Get Contextual Bandit run status
+// GetStatus - Get Contextual Bandit run status
 // Returns just the status of the most recent snapshot run for the contextual bandit (id, status, queries, timestamps). A lightweight alternative to the full results endpoint, intended for polling while a run is in progress.
-func (s *ContextualBandits) GetContextualBanditStatus(ctx context.Context, request operations.GetContextualBanditStatusRequest, opts ...operations.Option) (*operations.GetContextualBanditStatusResponse, error) {
+func (s *ContextualBandits) GetStatus(ctx context.Context, request operations.GetContextualBanditStatusRequest, opts ...operations.Option) (*operations.GetContextualBanditStatusResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

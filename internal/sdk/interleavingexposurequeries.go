@@ -30,8 +30,8 @@ func newInterleavingExposureQueries(rootSDK *Growthbook, sdkConfig config.SDKCon
 	}
 }
 
-// GetInterleavingExposureQuery - Get a single interleavingExposureQuery
-func (s *InterleavingExposureQueries) GetInterleavingExposureQuery(ctx context.Context, request operations.GetInterleavingExposureQueryRequest, opts ...operations.Option) (*operations.GetInterleavingExposureQueryResponse, error) {
+// Get a single interleavingExposureQuery
+func (s *InterleavingExposureQueries) Get(ctx context.Context, request operations.GetInterleavingExposureQueryRequest, opts ...operations.Option) (*operations.GetInterleavingExposureQueryResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -174,8 +174,8 @@ func (s *InterleavingExposureQueries) GetInterleavingExposureQuery(ctx context.C
 
 }
 
-// DeleteInterleavingExposureQuery - Delete a single interleavingExposureQuery
-func (s *InterleavingExposureQueries) DeleteInterleavingExposureQuery(ctx context.Context, request operations.DeleteInterleavingExposureQueryRequest, opts ...operations.Option) (*operations.DeleteInterleavingExposureQueryResponse, error) {
+// Delete a single interleavingExposureQuery
+func (s *InterleavingExposureQueries) Delete(ctx context.Context, request operations.DeleteInterleavingExposureQueryRequest, opts ...operations.Option) (*operations.DeleteInterleavingExposureQueryResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -343,8 +343,8 @@ func (s *InterleavingExposureQueries) DeleteInterleavingExposureQuery(ctx contex
 
 }
 
-// UpdateInterleavingExposureQuery - Update a single interleavingExposureQuery
-func (s *InterleavingExposureQueries) UpdateInterleavingExposureQuery(ctx context.Context, request operations.UpdateInterleavingExposureQueryRequest, opts ...operations.Option) (*operations.UpdateInterleavingExposureQueryResponse, error) {
+// Update a single interleavingExposureQuery
+func (s *InterleavingExposureQueries) Update(ctx context.Context, request operations.UpdateInterleavingExposureQueryRequest, opts ...operations.Option) (*operations.UpdateInterleavingExposureQueryResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -519,8 +519,8 @@ func (s *InterleavingExposureQueries) UpdateInterleavingExposureQuery(ctx contex
 
 }
 
-// CreateInterleavingExposureQuery - Create a single interleavingExposureQuery
-func (s *InterleavingExposureQueries) CreateInterleavingExposureQuery(ctx context.Context, request operations.CreateInterleavingExposureQueryRequest, opts ...operations.Option) (*operations.CreateInterleavingExposureQueryResponse, error) {
+// Create a single interleavingExposureQuery
+func (s *InterleavingExposureQueries) Create(ctx context.Context, request operations.CreateInterleavingExposureQueryRequest, opts ...operations.Option) (*operations.CreateInterleavingExposureQueryResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

@@ -14844,6 +14844,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: archive
   /v1/experiments/{id}/unarchive:
     post:
       operationId: postExperimentUnarchive
@@ -14883,6 +14884,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: unarchive
   /v1/experiments/{id}/start:
     post:
       operationId: postExperimentStart
@@ -16594,6 +16596,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: get-status
   /v1/contextual-bandits/{id}/linked-features:
     get:
       operationId: getContextualBanditLinkedFeatures
@@ -20792,6 +20795,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: list-uploads
     post:
       operationId: postSavedGroupUpload
       summary: Upload a new version of a remote saved group's IDs
@@ -20844,6 +20848,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"fileKey":"org_abc/remote-saved-groups/grp_123/staging/1234.csv"}'
+      x-speakeasy-name-override: create-upload
   /v1/saved-groups/{id}/upload-url:
     post:
       operationId: postSavedGroupUploadUrl
@@ -20899,6 +20904,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: create-upload-url
   /v1/saved-groups/{id}/uploads/{version}/loads:
     post:
       operationId: postSavedGroupUploadLoad
@@ -21025,6 +21031,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"storeId":"redis-us-east","status":{"type":"loaded","rowCount":120000}}'
+      x-speakeasy-name-override: load-upload
   /v1/saved-groups/{id}/uploads/{version}:
     get:
       operationId: getSavedGroupUpload
@@ -21070,6 +21077,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: get-upload
     delete:
       operationId: deleteSavedGroupUpload
       summary: Delete an upload of a remote saved group
@@ -21116,6 +21124,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: delete-upload
   /v1/saved-groups-revisions/{savedGroupId}:
     get:
       operationId: getSavedGroupRevisions
@@ -21613,6 +21622,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: set-upload-version
   /v1/saved-groups-revisions/{savedGroupId}/{version}/archive:
     put:
       operationId: putSavedGroupRevisionArchive
@@ -50601,6 +50611,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: get
     delete:
       operationId: deleteInterleavingExposureQuery
       summary: Delete a single interleavingExposureQuery
@@ -50636,6 +50647,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: delete
     put:
       operationId: updateInterleavingExposureQuery
       summary: Update a single interleavingExposureQuery
@@ -50698,6 +50710,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: update
   /v1/interleaving-exposure-queries:
     post:
       operationId: createInterleavingExposureQuery
@@ -50761,6 +50774,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: create
     get:
       operationId: listInterleavingExposureQueries
       summary: Get all interleavingExposureQueries
@@ -51708,6 +51722,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: get-results
   /v1/interleavings/{id}/status:
     get:
       operationId: getInterleavingStatus
@@ -51749,6 +51764,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: get-status
   /v1/interleavings/{id}/snapshots:
     get:
       operationId: listInterleavingSnapshots
@@ -51794,6 +51810,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: list-snapshots
   /v1/interleavings/{id}/snapshots/{snapshotId}:
     get:
       operationId: getInterleavingSnapshot
@@ -51830,6 +51847,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: get-snapshot
   /v1/custom-fields:
     post:
       operationId: createCustomField

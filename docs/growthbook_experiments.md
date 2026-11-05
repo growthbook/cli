@@ -43,6 +43,7 @@ growthbook experiments [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
+* [growthbook experiments archive](growthbook_experiments_archive.md)	 - Archive an experiment
 * [growthbook experiments complete-start-checklist](growthbook_experiments_complete-start-checklist.md)	 - Mark manual pre-launch checklist items complete
 * [growthbook experiments create](growthbook_experiments_create.md)	 - Create a single experiment
 * [growthbook experiments create-snapshot](growthbook_experiments_create-snapshot.md)	 - Create Experiment Snapshot
@@ -55,11 +56,10 @@ growthbook experiments [flags]
 * [growthbook experiments list-results](growthbook_experiments_list-results.md)	 - Get latest results for many experiments
 * [growthbook experiments modify-temporary-rollout](growthbook_experiments_modify-temporary-rollout.md)	 - Modify temporary rollout status for a stopped experiment
 * [growthbook experiments post-comment](growthbook_experiments_post-comment.md)	 - Post a comment on an experiment
-* [growthbook experiments post-experiment-archive](growthbook_experiments_post-experiment-archive.md)	 - Archive an experiment
-* [growthbook experiments post-experiment-unarchive](growthbook_experiments_post-experiment-unarchive.md)	 - Unarchive an experiment
 * [growthbook experiments results](growthbook_experiments_results.md)	 - Get results for an experiment
 * [growthbook experiments set-schedule](growthbook_experiments_set-schedule.md)	 - Set an experiment's schedule and shipping automation
 * [growthbook experiments start](growthbook_experiments_start.md)	 - Start/Stage an experiment
 * [growthbook experiments stop](growthbook_experiments_stop.md)	 - Stop an experiment
+* [growthbook experiments unarchive](growthbook_experiments_unarchive.md)	 - Unarchive an experiment
 * [growthbook experiments update](growthbook_experiments_update.md)	 - Update a single experiment
 * [growthbook experiments upload-variation-screenshot](growthbook_experiments_upload-variation-screenshot.md)	 - Upload a variation screenshot

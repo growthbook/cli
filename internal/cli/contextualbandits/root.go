@@ -45,7 +45,7 @@ func InitContextualBanditsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initGetContextualBanditStatusCmd(ContextualBanditsCmd); err != nil {
+	if err := initGetStatusCmd(ContextualBanditsCmd); err != nil {
 		return err
 	}
 

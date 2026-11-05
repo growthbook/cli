@@ -55,7 +55,6 @@ growthbook saved-group-revisions [flags]
 * [growthbook saved-group-revisions list-for-saved-group](growthbook_saved-group-revisions_list-for-saved-group.md)	 - List revisions for a saved group
 * [growthbook saved-group-revisions merge-status](growthbook_saved-group-revisions_merge-status.md)	 - Get merge status for a draft revision
 * [growthbook saved-group-revisions publish](growthbook_saved-group-revisions_publish.md)	 - Publish a draft revision
-* [growthbook saved-group-revisions put-saved-group-revision-upload-version](growthbook_saved-group-revisions_put-saved-group-revision-upload-version.md)	 - Set the upload a remote saved group draft revision uses
 * [growthbook saved-group-revisions rebase](growthbook_saved-group-revisions_rebase.md)	 - Rebase a draft revision onto the current live saved group
 * [growthbook saved-group-revisions recall-review](growthbook_saved-group-revisions_recall-review.md)	 - Recall a review request
 * [growthbook saved-group-revisions remove-items](growthbook_saved-group-revisions_remove-items.md)	 - Remove items from a list saved group draft revision
@@ -65,6 +64,7 @@ growthbook saved-group-revisions [flags]
 * [growthbook saved-group-revisions schedule-publish](growthbook_saved-group-revisions_schedule-publish.md)	 - Schedule (or cancel) a deferred publish
 * [growthbook saved-group-revisions set-condition](growthbook_saved-group-revisions_set-condition.md)	 - Update the condition of a condition saved group draft revision
 * [growthbook saved-group-revisions set-metadata](growthbook_saved-group-revisions_set-metadata.md)	 - Update saved group metadata in a draft revision
+* [growthbook saved-group-revisions set-upload-version](growthbook_saved-group-revisions_set-upload-version.md)	 - Set the upload a remote saved group draft revision uses
 * [growthbook saved-group-revisions set-values](growthbook_saved-group-revisions_set-values.md)	 - Replace the values list in a list saved group draft revision
 * [growthbook saved-group-revisions submit-review](growthbook_saved-group-revisions_submit-review.md)	 - Submit a review on a draft revision
 * [growthbook saved-group-revisions undo-review](growthbook_saved-group-revisions_undo-review.md)	 - Retract your own review verdict

@@ -53,7 +53,7 @@ func InitSavedGroupRevisionsRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPutSavedGroupRevisionUploadVersionCmd(SavedGroupRevisionsCmd); err != nil {
+	if err := initSetUploadVersionCmd(SavedGroupRevisionsCmd); err != nil {
 		return err
 	}
 

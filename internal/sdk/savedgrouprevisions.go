@@ -1424,9 +1424,9 @@ func (s *SavedGroupRevisions) SetValues(ctx context.Context, request operations.
 
 }
 
-// PutSavedGroupRevisionUploadVersion - Set the upload a remote saved group draft revision uses
+// SetUploadVersion - Set the upload a remote saved group draft revision uses
 // Stages which upload the group uses. Only valid for `remote` saved groups, and the upload must be valid. Pass `version: "new"` to auto-create a draft.
-func (s *SavedGroupRevisions) PutSavedGroupRevisionUploadVersion(ctx context.Context, request operations.PutSavedGroupRevisionUploadVersionRequest, opts ...operations.Option) (*operations.PutSavedGroupRevisionUploadVersionResponse, error) {
+func (s *SavedGroupRevisions) SetUploadVersion(ctx context.Context, request operations.PutSavedGroupRevisionUploadVersionRequest, opts ...operations.Option) (*operations.PutSavedGroupRevisionUploadVersionResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

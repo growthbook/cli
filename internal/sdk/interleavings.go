@@ -1330,9 +1330,9 @@ func (s *Interleavings) RefreshInterleaving(ctx context.Context, request operati
 
 }
 
-// GetInterleavingResults - Get the latest interleaving experiment results
+// GetResults - Get the latest interleaving experiment results
 // Returns the most recent successful `snapshot` and the status-only `latest` run. Poll `latest` while a refresh is in progress; `snapshot` remains null until a run succeeds.
-func (s *Interleavings) GetInterleavingResults(ctx context.Context, request operations.GetInterleavingResultsRequest, opts ...operations.Option) (*operations.GetInterleavingResultsResponse, error) {
+func (s *Interleavings) GetResults(ctx context.Context, request operations.GetInterleavingResultsRequest, opts ...operations.Option) (*operations.GetInterleavingResultsResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1475,9 +1475,9 @@ func (s *Interleavings) GetInterleavingResults(ctx context.Context, request oper
 
 }
 
-// GetInterleavingStatus - Get interleaving experiment run status
+// GetStatus - Get interleaving experiment run status
 // Just the status of the most recent results run (id, status, queries, timestamps). A lightweight alternative to the full results endpoint, intended for polling while a run is in progress.
-func (s *Interleavings) GetInterleavingStatus(ctx context.Context, request operations.GetInterleavingStatusRequest, opts ...operations.Option) (*operations.GetInterleavingStatusResponse, error) {
+func (s *Interleavings) GetStatus(ctx context.Context, request operations.GetInterleavingStatusRequest, opts ...operations.Option) (*operations.GetInterleavingStatusResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1620,9 +1620,9 @@ func (s *Interleavings) GetInterleavingStatus(ctx context.Context, request opera
 
 }
 
-// ListInterleavingSnapshots - List interleaving experiment results snapshots
+// ListSnapshots - List interleaving experiment results snapshots
 // Newest snapshot first, regardless of status.
-func (s *Interleavings) ListInterleavingSnapshots(ctx context.Context, request operations.ListInterleavingSnapshotsRequest, opts ...operations.Option) (*operations.ListInterleavingSnapshotsResponse, error) {
+func (s *Interleavings) ListSnapshots(ctx context.Context, request operations.ListInterleavingSnapshotsRequest, opts ...operations.Option) (*operations.ListInterleavingSnapshotsResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -1769,8 +1769,8 @@ func (s *Interleavings) ListInterleavingSnapshots(ctx context.Context, request o
 
 }
 
-// GetInterleavingSnapshot - Get an interleaving experiment results snapshot
-func (s *Interleavings) GetInterleavingSnapshot(ctx context.Context, request operations.GetInterleavingSnapshotRequest, opts ...operations.Option) (*operations.GetInterleavingSnapshotResponse, error) {
+// GetSnapshot - Get an interleaving experiment results snapshot
+func (s *Interleavings) GetSnapshot(ctx context.Context, request operations.GetInterleavingSnapshotRequest, opts ...operations.Option) (*operations.GetInterleavingSnapshotResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
