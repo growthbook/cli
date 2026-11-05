@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [3.4.0] - 2026-11-05
+
 ### Added
 
 - **Remote saved group uploads**: `saved-groups create-upload-url`, `create-upload`,
