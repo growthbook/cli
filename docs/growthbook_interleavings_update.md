@@ -39,7 +39,7 @@ growthbook interleavings update [flags]
       --saved-groups string                     list of values
       --seed string                             string value
       --tags stringArray                        list of values
-      --tracking-key experiment_id              The experiment_id recorded in exposures. Must be unique within the Data Source. Changing it on a running experiment means earlier exposures are no longer counted.
+      --tracking-key experiment_id              The experiment_id recorded in exposures. Must be unique across the organization. Changing it on a running experiment means earlier exposures are no longer counted.
   -u, --user-id-type string                     string value
   -v, --variations string                       Replaces both rankers. Each keeps its id.
 ```

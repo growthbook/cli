@@ -645,7 +645,7 @@ type UpdateInterleavingRequestBody struct {
 	Tags  []string `json:"tags,omitzero"`
 	// Archiving removes a running interleaving experiment from the SDK payload, so its rankers stop serving immediately.
 	Archived *bool `json:"archived,omitzero"`
-	// The `experiment_id` recorded in exposures. Must be unique within the Data Source. Changing it on a running experiment means earlier exposures are no longer counted.
+	// The `experiment_id` recorded in exposures. Must be unique across the organization. Changing it on a running experiment means earlier exposures are no longer counted.
 	TrackingKey   *string `json:"trackingKey,omitzero"`
 	HashAttribute *string `json:"hashAttribute,omitzero"`
 	Seed          *string `json:"seed,omitzero"`
