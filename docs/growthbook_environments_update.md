@@ -23,7 +23,8 @@ growthbook environments update [flags]
       --default-state        Default state for new features
       --description string   Put context here, not in the name.
   -h, --help                 help for update
-  -i, --id string            The id of the requested resource [required]
+      --id string            The id of the requested resource [required]
+      --is-production        Whether this is a production environment
   -p, --projects []          Limits which Projects can use this environment. Omit to keep the current list; send [] to allow all Projects.
   -t, --toggle-on-list       Show on feature list page
 ```

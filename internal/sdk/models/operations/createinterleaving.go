@@ -644,16 +644,16 @@ type CreateInterleavingRequest struct {
 	Tags  []string `json:"tags,omitzero"`
 	// The key your code passes to `interleave()` as `key`. Can't be changed later. Several experiments may share a key so you can iterate without changing code, but only one of them can be running in a given environment.
 	Key string `json:"key"`
-	// The `experiment_id` recorded in exposures. Leave this unset: it is generated from `key`, with a `_v1` style suffix when another experiment in this Data Source already uses it. Tracking keys must be unique within a Data Source, so supplying one that is taken is rejected.
+	// The `experiment_id` recorded in exposures. Leave this unset: it is generated from `key`, with a `_v1` style suffix when another experiment already uses it. Tracking keys must be unique across the organization, so supplying one that is taken is rejected.
 	TrackingKey   *string `json:"trackingKey,omitzero"`
 	HashAttribute *string `json:"hashAttribute,omitzero"`
 	// Exactly two rankers, by role.
 	Variations CreateInterleavingVariations `json:"variations"`
 	// Validation schema to stage on the draft. The server sets `date`, so don't send it.
 	JSONSchema                  *CreateInterleavingJSONSchema                    `json:"jsonSchema,omitzero"`
-	DatasourceID                string                                           `json:"datasourceId"`
-	InterleavingExposureQueryID string                                           `json:"interleavingExposureQueryId"`
-	UserIDType                  string                                           `json:"userIdType"`
+	DatasourceID                *string                                          `json:"datasourceId,omitzero"`
+	InterleavingExposureQueryID *string                                          `json:"interleavingExposureQueryId,omitzero"`
+	UserIDType                  *string                                          `json:"userIdType,omitzero"`
 	Metrics                     []CreateInterleavingMetric                       `json:"metrics,omitzero"`
 	Coverage                    *float64                                         `json:"coverage,omitzero"`
 	Condition                   *string                                          `json:"condition,omitzero"`
@@ -743,23 +743,23 @@ func (c *CreateInterleavingRequest) GetJSONSchema() *CreateInterleavingJSONSchem
 	return c.JSONSchema
 }
 
-func (c *CreateInterleavingRequest) GetDatasourceID() string {
+func (c *CreateInterleavingRequest) GetDatasourceID() *string {
 	if c == nil {
-		return ""
+		return nil
 	}
 	return c.DatasourceID
 }
 
-func (c *CreateInterleavingRequest) GetInterleavingExposureQueryID() string {
+func (c *CreateInterleavingRequest) GetInterleavingExposureQueryID() *string {
 	if c == nil {
-		return ""
+		return nil
 	}
 	return c.InterleavingExposureQueryID
 }
 
-func (c *CreateInterleavingRequest) GetUserIDType() string {
+func (c *CreateInterleavingRequest) GetUserIDType() *string {
 	if c == nil {
-		return ""
+		return nil
 	}
 	return c.UserIDType
 }

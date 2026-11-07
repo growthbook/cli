@@ -9,6 +9,7 @@ type Environment struct {
 	DefaultState bool     `json:"defaultState"`
 	Projects     []string `json:"projects"`
 	Parent       *string  `json:"parent,omitzero"`
+	IsProduction bool     `json:"isProduction"`
 }
 
 func (e *Environment) GetID() string {
@@ -51,4 +52,11 @@ func (e *Environment) GetParent() *string {
 		return nil
 	}
 	return e.Parent
+}
+
+func (e *Environment) GetIsProduction() bool {
+	if e == nil {
+		return false
+	}
+	return e.IsProduction
 }

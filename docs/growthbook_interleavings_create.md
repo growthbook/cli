@@ -13,7 +13,7 @@ growthbook interleavings create [flags]
 ### Examples
 
 ```
-  growthbook interleavings create --name <value> --key <key> --variations '{"control":{"key":"<key>","name":"<value>","config":"<value>"},"treatment":{"key":"<key>","name":"<value>","config":"<value>"} }' --datasource-id <id> --interleaving-exposure-query-id <id>
+  growthbook interleavings create --name <value> --key <key> --variations '{"control":{"key":"<key>","name":"<value>","config":"<value>"},"treatment":{"key":"<key>","name":"<value>","config":"<value>"} }'
 ```
 
 ### Options
@@ -22,12 +22,12 @@ growthbook interleavings create [flags]
       --body string                             Request body as JSON (alternative to individual flags). Can also be provided via stdin.
       --condition string                        string value
       --coverage float                          number value
-      --datasource-id string                    [required]
+      --datasource-id string                    string value
       --description string                      string value
   -e, --environment-settings string             value
       --hash-attribute string                   string value
   -h, --help                                    help for create
-  -i, --interleaving-exposure-query-id string   [required]
+  -i, --interleaving-exposure-query-id string   string value
   -j, --json-schema date                        Validation schema to stage on the draft. The server sets date, so don't send it.
   -k, --key interleave()                        The key your code passes to interleave() as `key`. Can't be changed later. Several experiments may share a key so you can iterate without changing code, but only one of them can be running in a given environment. [required]
   -m, --metrics string                          list of values
@@ -37,8 +37,8 @@ growthbook interleavings create [flags]
       --project string                          string value
   -s, --saved-groups string                     list of values
       --tags stringArray                        list of values
-      --tracking-key experiment_id              The experiment_id recorded in exposures. Leave this unset: it is generated from `key`, with a `_v1` style suffix when another experiment in this Data Source already uses it. Tracking keys must be unique within a Data Source, so supplying one that is taken is rejected.
-  -u, --user-id-type string                     [required]
+      --tracking-key experiment_id              The experiment_id recorded in exposures. Leave this unset: it is generated from `key`, with a `_v1` style suffix when another experiment already uses it. Tracking keys must be unique across the organization, so supplying one that is taken is rejected.
+  -u, --user-id-type string                     string value
   -v, --variations string                       Exactly two rankers, by role. [required]
 ```
 
