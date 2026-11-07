@@ -182,10 +182,10 @@ growthbook dimensions get  [--id]
 growthbook dimensions list  [--all --datasource-id --limit --max-pages --offset]
 growthbook dimensions update  [--body --datasource-id --description --id --identifier-type --managed-by --name --owner --query]
 growthbook environments
-growthbook environments create  [--body --default-state --description --id --parent --projects --toggle-on-list]
+growthbook environments create  [--body --default-state --description --id --is-production --parent --projects --toggle-on-list]
 growthbook environments delete  [--id]
 growthbook environments list
-growthbook environments update  [--body --default-state --description --id --projects --toggle-on-list]
+growthbook environments update  [--body --default-state --description --id --is-production --projects --toggle-on-list]
 growthbook experiment-templates
 growthbook experiment-templates bulk-import  [--body --templates]
 growthbook experiment-templates create  [--activation-metric --body --cluster-sub-unit-identifier --custom-fields --custom-metric-slices --datasource --description --disable-sticky-bucketing --exposure-query --exposure-query-id --fallback-attribute --goal-metrics --guardrail-metrics --hash-attribute --hypothesis --is-cluster-experiment --project --secondary-metrics --segment --skip-partial-data --stats-engine --tags --targeting --template-metadata --type]
