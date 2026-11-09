@@ -23,7 +23,8 @@ growthbook environments create [flags]
       --default-state          Default state for new features
       --description string     Put context here, not in the name.
   -h, --help                   help for create
-  -i, --id production          Permanent ID, shown as the environment name (e.g. production). Short lowercase slug. [required]
+      --id production          Permanent ID, shown as the environment name (e.g. production). Short lowercase slug. [required]
+      --is-production          Whether this is a production environment
       --parent string          An environment that the new environment should inherit feature rules from. Requires an enterprise license
       --projects stringArray   Limits which Projects can use this environment. Omit to allow all Projects.
   -t, --toggle-on-list         Show on feature list page

@@ -20,6 +20,8 @@ type PostEnvironmentRequest struct {
 	Projects []string `json:"projects,omitzero"`
 	// An environment that the new environment should inherit feature rules from. Requires an enterprise license
 	Parent *string `json:"parent,omitzero"`
+	// Whether this is a production environment
+	IsProduction *bool `json:"isProduction,omitzero"`
 }
 
 func (p PostEnvironmentRequest) MarshalJSON() ([]byte, error) {
@@ -73,6 +75,13 @@ func (p *PostEnvironmentRequest) GetParent() *string {
 		return nil
 	}
 	return p.Parent
+}
+
+func (p *PostEnvironmentRequest) GetIsProduction() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.IsProduction
 }
 
 // PostEnvironmentResponseBody - Resource created
