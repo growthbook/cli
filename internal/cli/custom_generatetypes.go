@@ -58,6 +58,8 @@ func runGenerateTypes(cmd *cobra.Command, args []string) error {
 	outputDir, _ := cmd.Flags().GetString("output")
 	filename, _ := cmd.Flags().GetString("filename")
 	projects, _ := cmd.Flags().GetStringSlice("project")
+	// An empty id (e.g. a trailing comma) would otherwise fetch every feature unfiltered.
+	projects = slices.DeleteFunc(projects, func(p string) bool { return p == "" })
 	strictAttributes, _ := cmd.Flags().GetBool("strict-attributes")
 	noRegister, _ := cmd.Flags().GetBool("no-register")
 
@@ -94,6 +96,9 @@ func runGenerateTypes(cmd *cobra.Command, args []string) error {
 	}
 
 	fmt.Fprintf(cmd.OutOrStdout(), "Wrote TypeScript definitions for %d feature(s) and %d attribute(s) to %s\n", len(features), len(attributes), outPath)
+	if len(features) == 0 && !noRegister {
+		fmt.Fprintln(cmd.ErrOrStderr(), "Warning: no features found, so every feature key in your app will be a type error. Check --project and your API key's access, or pass --no-register.")
+	}
 	return nil
 }
 
@@ -233,6 +238,13 @@ func renderAppAttributesTS(attributes []components.Attribute, strict bool) strin
 			node = node.children[part]
 		}
 		node.ts = attributeTSType(a)
+		// The SDK reads a hash attribute as a flat key, so a dotted one needs that form too.
+		if hash := a.GetHashAttribute(); hash != nil && *hash && strings.Contains(a.GetProperty(), ".") {
+			if root.children == nil {
+				root.children = map[string]*attributeNode{}
+			}
+			root.children[a.GetProperty()] = &attributeNode{ts: node.ts}
+		}
 	}
 
 	var b strings.Builder

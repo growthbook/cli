@@ -50,9 +50,11 @@ func TestRenderAppFeaturesTSSortsAndTypesFeatures(t *testing.T) {
 
 func TestRenderAppAttributesTS(t *testing.T) {
 	enum := "free, pro,enterprise"
+	hash := true
 	attributes := []components.Attribute{
 		{Property: "plan", Datatype: components.AttributeDatatypeEnum, Enum: &enum},
 		{Property: "id", Datatype: components.AttributeDatatypeString},
+		{Property: "company.id", Datatype: components.AttributeDatatypeString, HashAttribute: &hash},
 		{Property: "company.size", Datatype: components.AttributeDatatypeNumber},
 		{Property: "company.name", Datatype: components.AttributeDatatypeSecureString},
 		{Property: "tags", Datatype: components.AttributeDatatypeStringArray, Enum: &enum},
@@ -63,9 +65,11 @@ func TestRenderAppAttributesTS(t *testing.T) {
 
 	want := `export type AppAttributes = {
   'company'?: {
+    'id'?: string | null;
     'name'?: string | null;
     'size'?: number | null;
   } | null;
+  'company.id'?: string | null;
   'id'?: string | null;
   'it\'s'?: boolean | null;
   'plan'?: 'free' | 'pro' | 'enterprise' | null;
@@ -80,9 +84,11 @@ func TestRenderAppAttributesTS(t *testing.T) {
 
 	wantStrict := `export type AppAttributes = {
   'company': {
+    'id': string | null | undefined;
     'name': string | null | undefined;
     'size': number | null | undefined;
   } | null | undefined;
+  'company.id': string | null | undefined;
   'id': string | null | undefined;
   'it\'s': boolean | null | undefined;
   'plan': 'free' | 'pro' | 'enterprise' | null | undefined;
@@ -111,20 +117,28 @@ func TestE2E_GenerateTypes(t *testing.T) {
 		case strings.HasSuffix(r.URL.Path, "/features"):
 			project := r.URL.Query().Get("projectId")
 			featureProjects = append(featureProjects, project)
+			if project == "prj_empty" {
+				_, _ = w.Write([]byte(`{"features":[],"limit":100,"offset":0,"count":0,"total":0,"hasMore":false,"nextOffset":null}`))
+				return
+			}
 			_, _ = w.Write([]byte(`{"features":[{"id":"flag-` + project + `","valueType":"boolean","defaultValue":"false","project":"` + project + `"}],"limit":100,"offset":0,"count":1,"total":1,"hasMore":false,"nextOffset":null}`))
 		default:
 			t.Errorf("unexpected request: %s", r.URL.Path)
 		}
 	}
 
-	// Several projects, given both ways the flag allows, with one repeated.
+	// Several projects, given both ways the flag allows, with one repeated and
+	// a trailing comma that must not add an unfiltered request.
 	dir := t.TempDir()
-	out, _, err := runCLI(t, handler, "generate-types", "--output", dir, "--project", "prj_1,prj_2", "--project", "prj_1")
+	out, stderr, err := runCLI(t, handler, "generate-types", "--output", dir, "--project", "prj_1,prj_2,", "--project", "prj_1")
 	if err != nil {
 		t.Fatalf("generate-types returned error: %v", err)
 	}
 	if got := strings.Join(featureProjects, ","); got != "prj_1,prj_2,prj_1" {
 		t.Errorf("features requested for projects %q, want one request per --project", got)
+	}
+	if strings.Contains(stderr, "Warning") {
+		t.Errorf("unexpected warning: %s", stderr)
 	}
 	if !strings.Contains(out, "2 feature(s) and 2 attribute(s)") {
 		t.Errorf("unexpected stdout: %s", out)
@@ -183,5 +197,14 @@ declare module '@growthbook/growthbook-react' {
 	}
 	if strings.Contains(string(got), "declare module") {
 		t.Errorf("--no-register still registered the types:\n%s", got)
+	}
+
+	// Registering zero features makes every feature key a type error, so warn.
+	_, stderr, err = runCLI(t, handler, "generate-types", "--output", dir, "--project", "prj_empty")
+	if err != nil {
+		t.Fatalf("generate-types --project prj_empty returned error: %v", err)
+	}
+	if !strings.Contains(stderr, "Warning: no features found") {
+		t.Errorf("expected a no-features warning, got stderr: %s", stderr)
 	}
 }

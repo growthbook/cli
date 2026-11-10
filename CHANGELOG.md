@@ -29,7 +29,8 @@ GrowthBook instance and React hook, which can surface new type errors in your ap
 
 - **`generate-types` writes an `AppAttributes` type** from your targeting attributes. Enums become
   unions of string literals, and a dotted property such as `company.name` becomes a nested
-  object. Every attribute is optional, so you can set them in stages. `--project` filters
+  object (a dotted hash attribute also gets a flat `'company.id'` key, which is how the SDK reads
+  it for bucketing). Every attribute is optional, so you can set them in stages. `--project` filters
   attributes as well as features.
 - **`generate-types --strict-attributes`** makes every attribute a required key (its value may
   still be `null` or `undefined`), so leaving one out when setting attributes is a type error.
