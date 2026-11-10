@@ -28,7 +28,6 @@ func customRegister(rootCmd *cobra.Command) {
 
 	rootCmd.AddCommand(newGenerateTypesCmd())
 	rootCmd.AddCommand(newProfilesCmd())
-	registerRenamedAliases(rootCmd)
 	pinShorthands(rootCmd)
 	registerConfirmationHandling(rootCmd)
 
@@ -63,7 +62,6 @@ func customRegister(rootCmd *cobra.Command) {
 			output.ResetAgentMode()
 			output.InitAgentMode(cmd)
 		}
-		warnIfRenamedAlias(cmd)
 		return customcfg.OnStartup(cmd)
 	}
 }
