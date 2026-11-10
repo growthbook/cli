@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [4.0.0] - 2026-11-10
+
 Upgrading from 3.x: `generate-types` now makes the generated types the default for every
 GrowthBook instance and React hook, which can surface new type errors in your app. Pass
 `--no-register` to keep the previous behavior. The command names renamed in 3.0.0 no longer work
