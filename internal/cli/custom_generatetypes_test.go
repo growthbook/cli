@@ -55,6 +55,7 @@ func TestRenderAppAttributesTS(t *testing.T) {
 		{Property: "plan", Datatype: components.AttributeDatatypeEnum, Enum: &enum},
 		{Property: "id", Datatype: components.AttributeDatatypeString},
 		{Property: "company.id", Datatype: components.AttributeDatatypeString, HashAttribute: &hash},
+		{Property: "company", Datatype: components.AttributeDatatypeString},
 		{Property: "company.size", Datatype: components.AttributeDatatypeNumber},
 		{Property: "company.name", Datatype: components.AttributeDatatypeSecureString},
 		{Property: "tags", Datatype: components.AttributeDatatypeStringArray, Enum: &enum},
@@ -64,7 +65,7 @@ func TestRenderAppAttributesTS(t *testing.T) {
 	}
 
 	want := `export type AppAttributes = {
-  'company'?: {
+  'company'?: string | {
     'id'?: string | null;
     'name'?: string | null;
     'size'?: number | null;
@@ -83,7 +84,7 @@ func TestRenderAppAttributesTS(t *testing.T) {
 	}
 
 	wantStrict := `export type AppAttributes = {
-  'company': {
+  'company': string | {
     'id': string | null | undefined;
     'name': string | null | undefined;
     'size': number | null | undefined;

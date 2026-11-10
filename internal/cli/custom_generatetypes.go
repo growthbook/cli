@@ -272,6 +272,10 @@ func writeAttributeNode(b *strings.Builder, node *attributeNode, indent string, 
 		child := node.children[k]
 		fmt.Fprintf(b, key, indent, tsString(k))
 		if child.children != nil {
+			// `company` and `company.name` can both be attributes; a value can only satisfy one.
+			if child.ts != "" {
+				b.WriteString(child.ts + " | ")
+			}
 			writeAttributeNode(b, child, indent+"  ", strict)
 		} else {
 			b.WriteString(child.ts)
