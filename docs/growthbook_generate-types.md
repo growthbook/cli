@@ -1,10 +1,12 @@
 ## growthbook generate-types
 
-Generate TypeScript types for all your features
+Generate TypeScript types for all your features and attributes
 
 ### Synopsis
 
-Fetches all of your features and writes a TypeScript `AppFeatures` type definition, giving you type-safe feature keys and values in the GrowthBook SDK.
+Fetches all of your features and attributes and writes TypeScript `AppFeatures` and `AppAttributes` type definitions, giving you type-safe feature keys, feature values and targeting attributes in the GrowthBook SDK.
+
+The file also registers the types with the SDK, so every GrowthBook instance and React hook is typed with no generics (JS and React SDK 2.1.0+).
 
 ```
 growthbook generate-types [flags]
@@ -16,15 +18,20 @@ growthbook generate-types [flags]
   growthbook generate-types
   growthbook generate-types --output ./src/types --filename growthbook.ts
   growthbook generate-types --project prj_123
+  growthbook generate-types --project prj_123 --project prj_456
+  growthbook generate-types --strict-attributes
+  growthbook generate-types --no-register
 ```
 
 ### Options
 
 ```
-  -f, --filename string   Output filename for the generated types (default "app-features.ts")
-  -h, --help              help for generate-types
-      --output string     Output directory for the types file (default ./growthbook-types)
-  -p, --project string    Filter features by project id
+  -f, --filename string     Output filename for the generated types (default "app-features.ts")
+  -h, --help                help for generate-types
+      --no-register         Only write the type definitions, without registering them with the SDK
+      --output string       Output directory for the types file (default ./growthbook-types)
+  -p, --project strings     Filter features and attributes by project id. Repeat the flag or comma-separate ids for several projects, e.g. to match an SDK Connection
+      --strict-attributes   Make every attribute a required key, so leaving one out when setting attributes is a type error
 ```
 
 ### Options inherited from parent commands

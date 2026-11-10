@@ -208,13 +208,18 @@ Select a profile for a single command with `--profile <name>`, or set `GBCLI_PRO
 
 ## Generating TypeScript types
 
-`generate-types` fetches all of your features and writes a TypeScript `AppFeatures` definition, giving you type-safe feature keys and values in the GrowthBook SDK:
+`generate-types` fetches all of your features and attributes and writes TypeScript `AppFeatures` and `AppAttributes` definitions, giving you type-safe feature keys, feature values and targeting attributes in the GrowthBook SDK:
 
 ```bash
 growthbook generate-types                                   # → ./growthbook-types/app-features.ts
 growthbook generate-types --output ./src/types --filename growthbook.ts
 growthbook generate-types --project prj_123                 # limit to one project
+growthbook generate-types -p prj_123 -p prj_456             # or several, to match an SDK Connection
 ```
+
+The file also registers both types with the SDK, so every GrowthBook instance and React hook is typed with no generics (JS and React SDK 2.1.0+). Pass `--no-register` to leave the registration out.
+
+Attributes are optional keys by default. Pass `--strict-attributes` to make each one required, so an attribute added in GrowthBook but never passed to the SDK is a type error.
 
 <!-- Start Available Commands [operations] -->
 ## Available Commands

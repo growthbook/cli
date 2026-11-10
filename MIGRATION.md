@@ -63,7 +63,10 @@ growthbook generate-types --project prj_123
 ```
 
 Flags: `--output` (default `./growthbook-types`), `-f/--filename` (default `app-features.ts`),
-`-p/--project`.
+`-p/--project` (repeatable), `--strict-attributes`, `--no-register`.
+
+The generated file now also contains an `AppAttributes` type and registers both types with the
+SDK. Pass `--no-register` for a file with only the two type definitions.
 
 ## New conveniences
 
