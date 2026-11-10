@@ -4,9 +4,40 @@
 
 Upgrading from 3.x: `generate-types` now makes the generated types the default for every
 GrowthBook instance and React hook, which can surface new type errors in your app. Pass
-`--no-register` to keep the previous behavior.
+`--no-register` to keep the previous behavior. The command names renamed in 3.0.0 no longer work
+under their old names (table under "Removed").
+
+### Removed
+
+- **The pre-3.0.0 command names.** They have printed a deprecation warning since 3.0.0 and now
+  fail as unknown commands. Use the new names:
+
+  | Removed                                          | Use instead                        |
+  | ------------------------------------------------ | ---------------------------------- |
+  | `SDK-connections lookup-SDK-connection-by-key`   | `SDK-connections lookup`           |
+  | `features get-feature-keys`                      | `features list-keys`               |
+  | `features get-feature-stale`                     | `features get-stale`               |
+  | `features-v1 get-feature-keys`                   | `features-v1 list-keys`            |
+  | `features-v1 get-feature-stale`                  | `features-v1 get-stale`            |
+  | `members update-member-role`                     | `members update-role`              |
+  | `ramp-schedules get-ramp-schedule-status`        | `ramp-schedules get-status`        |
+  | `ramp-schedules update-ramp-schedule-lockdown`   | `ramp-schedules update-lockdown`   |
+  | `ramp-schedules update-ramp-schedule-monitoring` | `ramp-schedules update-monitoring` |
+  | `ramp-schedules update-ramp-schedule-steps`      | `ramp-schedules update-steps`      |
+  | `saved-groups get-saved-group-references`        | `saved-groups get-references`      |
+  | `teams add-team-members`                         | `teams add-members`                |
+  | `teams remove-team-member`                       | `teams remove-members`             |
 
 ### Changed
+
+- **`go install` path is now `/v4`:**
+
+  ```bash
+  go install github.com/growthbook/cli/v4/cmd/growthbook@latest
+  ```
+
+  This affects `go install` only. npm, Homebrew, the install script and the prebuilt binaries
+  are unchanged.
 
 - **Breaking: `generate-types` registers the generated types with the SDK.** The file now ends
   with `declare module` blocks for `@growthbook/growthbook` and `@growthbook/growthbook-react`. On

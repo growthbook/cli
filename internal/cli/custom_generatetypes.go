@@ -10,10 +10,10 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/growthbook/cli/v3/internal/client"
-	"github.com/growthbook/cli/v3/internal/sdk"
-	"github.com/growthbook/cli/v3/internal/sdk/models/components"
-	"github.com/growthbook/cli/v3/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v4/internal/client"
+	"github.com/growthbook/cli/v4/internal/sdk"
+	"github.com/growthbook/cli/v4/internal/sdk/models/components"
+	"github.com/growthbook/cli/v4/internal/sdk/models/operations"
 	"github.com/spf13/cobra"
 )
 
