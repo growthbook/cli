@@ -4,9 +4,9 @@ package cli
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/v3/internal/config"
-	"github.com/growthbook/cli/v3/internal/customcfg"
-	"github.com/growthbook/cli/v3/internal/usage"
+	"github.com/growthbook/cli/v4/internal/config"
+	"github.com/growthbook/cli/v4/internal/customcfg"
+	"github.com/growthbook/cli/v4/internal/usage"
 	"github.com/spf13/cobra"
 )
 

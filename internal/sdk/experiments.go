@@ -6,12 +6,12 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/growthbook/cli/v3/internal/sdk/models/components"
-	"github.com/growthbook/cli/v3/internal/sdk/models/operations"
-	"github.com/growthbook/cli/v3/internal/sdk/models/sdkerrors"
-	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/config"
-	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/hooks"
-	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v4/internal/sdk/models/components"
+	"github.com/growthbook/cli/v4/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v4/internal/sdk/models/sdkerrors"
+	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/config"
+	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/hooks"
+	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/utils"
 	"github.com/spyzhov/ajson"
 	"net/http"
 	"net/url"
@@ -2874,6 +2874,31 @@ func (s *Experiments) CreateSnapshot(ctx context.Context, request operations.Pos
 				}
 
 				res.Object = &out
+			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewSDKDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 202:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			if o.SkipDeserialization == nil || !*o.SkipDeserialization {
+				rawBody, err := utils.ConsumeRawBody(httpRes)
+				if err != nil {
+					return nil, err
+				}
+
+				var out components.ConfirmationHeld
+				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+					return nil, err
+				}
+
+				res.ConfirmationHeld = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)

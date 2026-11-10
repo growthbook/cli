@@ -1,4 +1,4 @@
-module github.com/growthbook/cli/v3
+module github.com/growthbook/cli/v4
 
 go 1.25.10
 

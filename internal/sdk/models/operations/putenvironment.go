@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/growthbook/cli/v3/internal/sdk/models/components"
-	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v4/internal/sdk/models/components"
+	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/utils"
 )
 
 type PutEnvironmentRequestBody struct {
@@ -16,6 +16,8 @@ type PutEnvironmentRequestBody struct {
 	DefaultState *bool `json:"defaultState,omitzero"`
 	// Limits which Projects can use this environment. Omit to keep the current list; send `[]` to allow all Projects.
 	Projects []string `json:"projects,omitzero"`
+	// Whether this is a production environment
+	IsProduction *bool `json:"isProduction,omitzero"`
 }
 
 func (p PutEnvironmentRequestBody) MarshalJSON() ([]byte, error) {
@@ -55,6 +57,13 @@ func (p *PutEnvironmentRequestBody) GetProjects() []string {
 		return nil
 	}
 	return p.Projects
+}
+
+func (p *PutEnvironmentRequestBody) GetIsProduction() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.IsProduction
 }
 
 type PutEnvironmentRequest struct {

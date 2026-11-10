@@ -8,13 +8,13 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/growthbook/cli/v3/internal/sdk/models/components"
-	"github.com/growthbook/cli/v3/internal/sdk/models/operations"
-	"github.com/growthbook/cli/v3/internal/sdk/models/sdkerrors"
-	"github.com/growthbook/cli/v3/internal/sdk/retry"
-	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/config"
-	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/hooks"
-	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v4/internal/sdk/models/components"
+	"github.com/growthbook/cli/v4/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v4/internal/sdk/models/sdkerrors"
+	"github.com/growthbook/cli/v4/internal/sdk/retry"
+	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/config"
+	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/hooks"
+	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/utils"
 	"net/http"
 	"net/url"
 	"time"
@@ -263,7 +263,7 @@ func New(opts ...SDKOption) *Growthbook {
 	sdk := &Growthbook{
 		SDKVersion: "0.0.1",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/go 0.0.1 2.930.0 5.2.0 github.com/growthbook/cli/v3/internal/sdk",
+			UserAgent:  "speakeasy-sdk/go 0.0.1 2.930.0 5.2.0 github.com/growthbook/cli/v4/internal/sdk",
 			ServerList: ServerList,
 			ServerVariables: []map[string]string{
 				{},

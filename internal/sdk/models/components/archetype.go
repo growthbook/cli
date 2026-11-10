@@ -3,7 +3,7 @@
 package components
 
 import (
-	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/utils"
 )
 
 type Archetype struct {

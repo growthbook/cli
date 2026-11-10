@@ -9,8 +9,9 @@ under their old names (table under "Removed").
 
 ### Removed
 
-- **The pre-3.0.0 command names.** They have printed a deprecation warning since 3.0.0 and now
-  fail as unknown commands. Use the new names:
+- **The pre-3.0.0 command names.** They have printed a deprecation warning since 3.0.0 and are now
+  gone. An old name prints its group's help instead of running, and **exits 0**, so a script that
+  still calls one won't fail; search your scripts for these names. Use the new names:
 
   | Removed                                          | Use instead                        |
   | ------------------------------------------------ | ---------------------------------- |
@@ -38,7 +39,8 @@ under their old names (table under "Removed").
 
   This affects `go install` only. npm, Homebrew, the install script and the prebuilt binaries
   are unchanged.
-
+- **`interleavings create` no longer requires** `--datasource-id`, `--interleaving-exposure-query-id`
+  or `--user-id-type`.
 - **Breaking: `generate-types` registers the generated types with the SDK.** The file now ends
   with `declare module` blocks for `@growthbook/growthbook` and `@growthbook/growthbook-react`. On
   JS or React SDK 2.1.0+ this types your whole project without passing `AppFeatures` as a generic,
@@ -58,6 +60,10 @@ under their old names (table under "Removed").
 
 ### Added
 
+- **`--is-production`** on `environments create` and `environments update`, to mark a
+  production environment.
+- **`--ignore-warnings`** on `experiments create-snapshot`, to acknowledge the warnings in a
+  blocked response and continue.
 - **`generate-types` writes an `AppAttributes` type** from your targeting attributes. Enums become
   unions of string literals, and a dotted property such as `company.name` becomes a nested
   object (a dotted hash attribute also gets a flat `'company.id'` key, which is how the SDK reads

@@ -4,22 +4,23 @@ package environments
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/v3/internal/client"
-	"github.com/growthbook/cli/v3/internal/flagutil"
-	"github.com/growthbook/cli/v3/internal/interactive"
-	"github.com/growthbook/cli/v3/internal/output"
-	"github.com/growthbook/cli/v3/internal/sdk"
-	"github.com/growthbook/cli/v3/internal/sdk/models/operations"
-	"github.com/growthbook/cli/v3/internal/usage"
+	"github.com/growthbook/cli/v4/internal/client"
+	"github.com/growthbook/cli/v4/internal/flagutil"
+	"github.com/growthbook/cli/v4/internal/interactive"
+	"github.com/growthbook/cli/v4/internal/output"
+	"github.com/growthbook/cli/v4/internal/sdk"
+	"github.com/growthbook/cli/v4/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v4/internal/usage"
 	"github.com/spf13/cobra"
 )
 
 var updateCmdMeta = []flagutil.FlagMeta{
-	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The id of the requested resource [required]"},
+	{FlagName: "id", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The id of the requested resource [required]"},
 	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Put context here, not in the name."},
 	{FlagName: "toggle-on-list", Shorthand: "t", FieldPath: "Body.ToggleOnList", Kind: flagutil.FlagKindBool, Optional: true, Description: "Show on feature list page"},
 	{FlagName: "default-state", FieldPath: "Body.DefaultState", Kind: flagutil.FlagKindBool, Optional: true, Description: "Default state for new features"},
 	{FlagName: "projects", Shorthand: "p", FieldPath: "Body.Projects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Limits which Projects can use this environment. Omit to keep the current list; send `[]` to allow all Projects."},
+	{FlagName: "is-production", FieldPath: "Body.IsProduction", Kind: flagutil.FlagKindBool, Optional: true, Description: "Whether this is a production environment"},
 }
 
 // initUpdateCmd initializes the update command.
