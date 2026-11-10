@@ -2,6 +2,41 @@
 
 ## [Unreleased]
 
+Upgrading from 3.x: `generate-types` now makes the generated types the default for every
+GrowthBook instance and React hook, which can surface new type errors in your app. Pass
+`--no-register` to keep the previous behavior.
+
+### Changed
+
+- **Breaking: `generate-types` registers the generated types with the SDK.** The file now ends
+  with `declare module` blocks for `@growthbook/growthbook` and `@growthbook/growthbook-react`. On
+  JS or React SDK 2.1.0+ this types your whole project without passing `AppFeatures` as a generic,
+  so code that compiled before can fail type-checking once you regenerate:
+  - Feature keys that aren't in the generated file (typos, archived features, features outside
+    `--project`), and keys passed as a plain `string`.
+  - Fallback values that don't match the feature's type.
+  - `setAttributes` calls and `attributes` options that include an attribute that isn't defined
+    in GrowthBook, or a value of the wrong type.
+
+  To keep the previous behavior, pass `--no-register`. The file then only holds the type
+  definitions, for you to pass as generics as before. SDK versions before 2.1.0 ignore the
+  registration.
+- **`generate-types` output changes on the next run**, even if your features didn't: it gains the
+  attributes type, the registration and an `/* eslint-disable */` header. If CI fails when the
+  generated file is out of date, regenerate and commit it once.
+
+### Added
+
+- **`generate-types` writes an `AppAttributes` type** from your targeting attributes. Enums become
+  unions of string literals, and a dotted property such as `company.name` becomes a nested
+  object. Every attribute is optional, so you can set them in stages. `--project` filters
+  attributes as well as features.
+- **`generate-types --strict-attributes`** makes every attribute a required key (its value may
+  still be `null` or `undefined`), so leaving one out when setting attributes is a type error.
+  Use it to catch an attribute that was added in GrowthBook but never passed to the SDK.
+- **`generate-types --project` accepts several projects**, repeated (`-p prj_1 -p prj_2`) or
+  comma-separated (`-p prj_1,prj_2`), to match an SDK Connection that spans projects.
+
 ## [3.4.0] - 2026-11-05
 
 ### Added

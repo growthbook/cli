@@ -320,7 +320,7 @@ growthbook features-v1 list-keys  [--project-id]
 growthbook features-v1 revert  [--body --comment --id --ignore-warnings --revision --skip-hooks --skip-schema-validation]
 growthbook features-v1 toggle  [--body --comment --environments --id --reason]
 growthbook features-v1 update  [--archived --base-config --body --comment --custom-fields --default-value --description --environments --holdout --id --ignore-warnings --json-schema --owner --prerequisites --project --skip-hooks --skip-schema-validation --tags --targeting-all-projects --targeting-projects]
-growthbook generate-types  [--filename --output --project]
+growthbook generate-types  [--filename --no-register --output --project --strict-attributes]
 growthbook get-SDK-payload  [--key]
 growthbook holdouts
 growthbook holdouts create  [--assignment-query --assignment-query-id --body --datasource-id --description --environments --goal-metrics --hash-attribute --holdout-size --name --owner --projects --saved-group-targeting --secondary-metrics --skip-as-default-holdout --stats-engine --status-update-schedule --tags --targeting-condition]
