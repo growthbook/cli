@@ -82,7 +82,7 @@ iwr -useb https://raw.githubusercontent.com/growthbook/cli/main/scripts/install.
 Alternatively, install directly via Go:
 
 ```bash
-go install github.com/growthbook/cli/v3/cmd/growthbook@latest
+go install github.com/growthbook/cli/v4/cmd/growthbook@latest
 ```
 
 ### Manual Download

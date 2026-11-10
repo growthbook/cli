@@ -3,7 +3,7 @@
 package components
 
 import (
-	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/utils"
 )
 
 // EventUserType - `dashboard` (signed-in member), `api_key` (API key or personal access token) or `system`

@@ -4,8 +4,8 @@ package sdkerrors
 
 import (
 	"encoding/json"
-	"github.com/growthbook/cli/v3/internal/sdk/models/components"
-	"github.com/growthbook/cli/v3/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v4/internal/sdk/models/components"
+	"github.com/growthbook/cli/v4/internal/sdk/models/operations"
 )
 
 // AddContextualBanditLinkedFeatureUnscopedRuleError - A rule applies to All Environments and All Projects, which the organization doesn't allow without `allowUnscopedRules`

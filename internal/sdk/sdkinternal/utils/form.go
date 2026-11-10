@@ -10,8 +10,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/growthbook/cli/v3/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/v3/internal/sdk/types"
+	"github.com/growthbook/cli/v4/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v4/internal/sdk/types"
 )
 
 func populateForm(paramName string, explode bool, objType reflect.Type, objValue reflect.Value, delimiter string, defaultValue *string, allowEmptyValue map[string]struct{}, getFieldName func(reflect.StructField) string) url.Values {

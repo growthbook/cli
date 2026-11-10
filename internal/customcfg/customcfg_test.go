@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/growthbook/cli/v3/internal/config"
+	"github.com/growthbook/cli/v4/internal/config"
 	"github.com/spf13/cobra"
 	"github.com/zalando/go-keyring"
 )

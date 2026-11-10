@@ -3,11 +3,11 @@
 package settings
 
 import (
-	"github.com/growthbook/cli/v3/internal/client"
-	"github.com/growthbook/cli/v3/internal/output"
-	"github.com/growthbook/cli/v3/internal/sdk"
-	"github.com/growthbook/cli/v3/internal/sdk/models/operations"
-	"github.com/growthbook/cli/v3/internal/usage"
+	"github.com/growthbook/cli/v4/internal/client"
+	"github.com/growthbook/cli/v4/internal/output"
+	"github.com/growthbook/cli/v4/internal/sdk"
+	"github.com/growthbook/cli/v4/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v4/internal/usage"
 	"github.com/spf13/cobra"
 )
 

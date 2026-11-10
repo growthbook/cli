@@ -5,8 +5,8 @@ package operations
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/growthbook/cli/v3/internal/sdk/models/components"
-	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v4/internal/sdk/models/components"
+	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/utils"
 )
 
 // PostFeatureRevisionSubmitReviewV2Action - `approve`, `request-changes` or `comment`. Defaults to `comment`, which doesn't change whether the draft is approved.

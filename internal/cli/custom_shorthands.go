@@ -13,6 +13,14 @@ var pinnedShorthands = map[string]map[string]map[string]string{
 		"create": {"archived": "a"},
 		"update": {"archived": "a"},
 	},
+	// --is-production / --ignore-warnings (4.0.0) would otherwise cost --id its -i.
+	"environments": {
+		"create": {"id": "i"},
+		"update": {"id": "i"},
+	},
+	"experiments": {
+		"create-snapshot": {"id": "i"},
+	},
 	// A guardrail bypass shouldn't be one keystroke away.
 	"feature-revisions": {
 		"add-rule":    {"allow-unscoped-rules": ""},

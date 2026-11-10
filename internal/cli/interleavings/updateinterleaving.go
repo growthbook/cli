@@ -4,13 +4,13 @@ package interleavings
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/v3/internal/client"
-	"github.com/growthbook/cli/v3/internal/flagutil"
-	"github.com/growthbook/cli/v3/internal/interactive"
-	"github.com/growthbook/cli/v3/internal/output"
-	"github.com/growthbook/cli/v3/internal/sdk"
-	"github.com/growthbook/cli/v3/internal/sdk/models/operations"
-	"github.com/growthbook/cli/v3/internal/usage"
+	"github.com/growthbook/cli/v4/internal/client"
+	"github.com/growthbook/cli/v4/internal/flagutil"
+	"github.com/growthbook/cli/v4/internal/interactive"
+	"github.com/growthbook/cli/v4/internal/output"
+	"github.com/growthbook/cli/v4/internal/sdk"
+	"github.com/growthbook/cli/v4/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v4/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -22,7 +22,7 @@ var updateInterleavingCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "owner", FieldPath: "Body.Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization."},
 	{FlagName: "tags", FieldPath: "Body.Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
 	{FlagName: "archived", Shorthand: "a", FieldPath: "Body.Archived", Kind: flagutil.FlagKindBool, Optional: true, Description: "Archiving removes a running interleaving experiment from the SDK payload, so its rankers stop serving immediately."},
-	{FlagName: "tracking-key", FieldPath: "Body.TrackingKey", Kind: flagutil.FlagKindString, Optional: true, Description: "The `experiment_id` recorded in exposures. Must be unique within the Data Source. Changing it on a running experiment means earlier exposures are no longer counted."},
+	{FlagName: "tracking-key", FieldPath: "Body.TrackingKey", Kind: flagutil.FlagKindString, Optional: true, Description: "The `experiment_id` recorded in exposures. Must be unique across the organization. Changing it on a running experiment means earlier exposures are no longer counted."},
 	{FlagName: "hash-attribute", FieldPath: "Body.HashAttribute", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "seed", FieldPath: "Body.Seed", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "variations", Shorthand: "v", FieldPath: "Body.Variations", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"variations,omitempty"`, Description: "Replaces both rankers. Each keeps its id."},

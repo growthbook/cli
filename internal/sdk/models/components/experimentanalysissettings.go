@@ -3,8 +3,8 @@
 package components
 
 import (
-	"github.com/growthbook/cli/v3/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v4/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/utils"
 )
 
 // ExperimentAnalysisSettingsAssignmentQuery - The assignment query, grouping its ID with the identifier type analyzed on.

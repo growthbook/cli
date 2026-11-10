@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/growthbook/cli/v3/internal/sdk/models/components"
+	"github.com/growthbook/cli/v4/internal/sdk/models/components"
 )
 
 func TestTSType(t *testing.T) {

@@ -3,8 +3,8 @@
 package components
 
 import (
-	"github.com/growthbook/cli/v3/internal/sdk/optionalnullable"
-	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v4/internal/sdk/optionalnullable"
+	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/utils"
 )
 
 // MetricManagedBy - Where this metric must be managed from. If not set (empty string), it can be managed from anywhere.

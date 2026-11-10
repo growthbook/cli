@@ -5,8 +5,8 @@ package operations
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/growthbook/cli/v3/internal/sdk/models/components"
-	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v4/internal/sdk/models/components"
+	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/utils"
 )
 
 // TriggeredBy - Set to "schedule" if you want this request to trigger notifications and other events as if it were a scheduled update. Defaults to manual.
@@ -43,6 +43,8 @@ type PostExperimentSnapshotRequestBody struct {
 	Dimension *string `json:"dimension,omitzero"`
 	// Zero-based phase index to snapshot, where 0 is the first experiment phase. Defaults to the latest phase.
 	Phase *int64 `json:"phase,omitzero"`
+	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
+	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
 }
 
 func (p *PostExperimentSnapshotRequestBody) GetTriggeredBy() *TriggeredBy {
@@ -64,6 +66,13 @@ func (p *PostExperimentSnapshotRequestBody) GetPhase() *int64 {
 		return nil
 	}
 	return p.Phase
+}
+
+func (p *PostExperimentSnapshotRequestBody) GetIgnoreWarnings() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.IgnoreWarnings
 }
 
 type PostExperimentSnapshotRequest struct {
@@ -159,6 +168,9 @@ type PostExperimentSnapshotResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
 	Object *PostExperimentSnapshotResponseBody
+	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
+	ConfirmationHeld *components.ConfirmationHeld
+	Headers          map[string][]string
 }
 
 func (p PostExperimentSnapshotResponse) MarshalJSON() ([]byte, error) {
@@ -184,4 +196,18 @@ func (p *PostExperimentSnapshotResponse) GetObject() *PostExperimentSnapshotResp
 		return nil
 	}
 	return p.Object
+}
+
+func (p *PostExperimentSnapshotResponse) GetConfirmationHeld() *components.ConfirmationHeld {
+	if p == nil {
+		return nil
+	}
+	return p.ConfirmationHeld
+}
+
+func (p *PostExperimentSnapshotResponse) GetHeaders() map[string][]string {
+	if p == nil {
+		return map[string][]string{}
+	}
+	return p.Headers
 }

@@ -4,23 +4,24 @@ package environments
 
 import (
 	"fmt"
-	"github.com/growthbook/cli/v3/internal/client"
-	"github.com/growthbook/cli/v3/internal/flagutil"
-	"github.com/growthbook/cli/v3/internal/interactive"
-	"github.com/growthbook/cli/v3/internal/output"
-	"github.com/growthbook/cli/v3/internal/sdk"
-	"github.com/growthbook/cli/v3/internal/sdk/models/operations"
-	"github.com/growthbook/cli/v3/internal/usage"
+	"github.com/growthbook/cli/v4/internal/client"
+	"github.com/growthbook/cli/v4/internal/flagutil"
+	"github.com/growthbook/cli/v4/internal/interactive"
+	"github.com/growthbook/cli/v4/internal/output"
+	"github.com/growthbook/cli/v4/internal/sdk"
+	"github.com/growthbook/cli/v4/internal/sdk/models/operations"
+	"github.com/growthbook/cli/v4/internal/usage"
 	"github.com/spf13/cobra"
 )
 
 var createCmdMeta = []flagutil.FlagMeta{
-	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "Permanent ID, shown as the environment name (e.g. `production`). Short lowercase slug. [required]"},
+	{FlagName: "id", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "Permanent ID, shown as the environment name (e.g. `production`). Short lowercase slug. [required]"},
 	{FlagName: "description", FieldPath: "Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Put context here, not in the name."},
 	{FlagName: "toggle-on-list", Shorthand: "t", FieldPath: "ToggleOnList", Kind: flagutil.FlagKindBool, Optional: true, Description: "Show on feature list page"},
 	{FlagName: "default-state", FieldPath: "DefaultState", Kind: flagutil.FlagKindBool, Optional: true, Description: "Default state for new features"},
 	{FlagName: "projects", FieldPath: "Projects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Limits which Projects can use this environment. Omit to allow all Projects."},
 	{FlagName: "parent", FieldPath: "Parent", Kind: flagutil.FlagKindString, Optional: true, Description: "An environment that the new environment should inherit feature rules from. Requires an enterprise license"},
+	{FlagName: "is-production", FieldPath: "IsProduction", Kind: flagutil.FlagKindBool, Optional: true, Description: "Whether this is a production environment"},
 }
 
 // initCreateCmd initializes the create command.

@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/growthbook/cli/v3/internal/sdk/sdkinternal/utils"
+	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/utils"
 	"time"
 )
 
@@ -731,6 +731,8 @@ type Interleaving struct {
 	SavedGroups                 []InterleavingSavedGroup       `json:"savedGroups,omitzero"`
 	Prerequisites               []InterleavingPrerequisite     `json:"prerequisites,omitzero"`
 	EnvironmentSettings         map[string]EnvironmentSettings `json:"environmentSettings"`
+	AutoSnapshots               *bool                          `json:"autoSnapshots,omitzero"`
+	NextSnapshotAttempt         *time.Time                     `json:"nextSnapshotAttempt,omitzero"`
 }
 
 func (i Interleaving) MarshalJSON() ([]byte, error) {
@@ -938,4 +940,18 @@ func (i *Interleaving) GetEnvironmentSettings() map[string]EnvironmentSettings {
 		return map[string]EnvironmentSettings{}
 	}
 	return i.EnvironmentSettings
+}
+
+func (i *Interleaving) GetAutoSnapshots() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.AutoSnapshots
+}
+
+func (i *Interleaving) GetNextSnapshotAttempt() *time.Time {
+	if i == nil {
+		return nil
+	}
+	return i.NextSnapshotAttempt
 }

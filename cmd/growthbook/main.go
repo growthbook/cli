@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/growthbook/cli/v3/internal/cli"
-	"github.com/growthbook/cli/v3/internal/output"
+	"github.com/growthbook/cli/v4/internal/cli"
+	"github.com/growthbook/cli/v4/internal/output"
 )
 
 // version and buildTime can be set at build time using Go linker flags:

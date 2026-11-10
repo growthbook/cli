@@ -11,7 +11,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/growthbook/cli/v3/internal/cli"
+	"github.com/growthbook/cli/v4/internal/cli"
 	"github.com/spf13/cobra"
 	"github.com/spf13/cobra/doc"
 )
