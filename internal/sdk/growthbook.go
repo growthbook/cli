@@ -146,13 +146,18 @@ type Growthbook struct {
 	// Get the organization settings.
 	Settings *Settings
 	// Server metadata, including the running build's version and commit for version-skew checks.
-	Meta *Meta
+	Meta                    *Meta
+	InformationSchemaTables *InformationSchemaTables
 	// Multi-step rollout schedules that gradually increase feature rule traffic over time, with optional real-time monitoring. Each step supports interval timers, approval gates, and hold conditions. Monitored steps are backed by a live analysis experiment that can automatically hold, roll back, or advance the ramp based on guardrail and signal metric health.
 	RampSchedules *RampSchedules
 	// Custom analysis reports built on top of experiment snapshots. Reports let you re-run analysis with different metrics, date ranges, stats engines, and other settings without modifying the underlying experiment.
 	Reports *Reports
 	// Namespaces partition your user population into buckets so that experiments using the same hash attribute do not overlap unintentionally. Each namespace defines a 0–1 range and individual experiments claim sub-ranges within it.
-	Namespaces                  *Namespaces
+	Namespaces *Namespaces
+	// Send GrowthBook events (feature, experiment and other changes) to your own endpoint.
+	EventWebhooks *EventWebhooks
+	// Audit history of who changed what, and the event log that drives event webhooks. Requires permission to view audit logs.
+	Audits                      *Audits
 	Dashboards                  *Dashboards
 	ContextualBanditQueries     *ContextualBanditQueries
 	InterleavingExposureQueries *InterleavingExposureQueries
@@ -173,6 +178,10 @@ type Growthbook struct {
 	//
 	// Populations define a set of units by the steps they must complete, such as appearing in a fact table. Populations are not yet used in analysis.
 	Populations *Populations
+	// Secrets substituted into webhook URLs and headers at send time. Values are set in the app and never returned.
+	WebhookSecrets *WebhookSecrets
+	// Webhooks that fire when an SDK Connection's payload changes. Signing keys and headers are only returned by GET.
+	SDKWebhooks *SDKWebhooks
 
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
@@ -319,9 +328,12 @@ func New(opts ...SDKOption) *Growthbook {
 	sdk.Queries = newQueries(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Settings = newSettings(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Meta = newMeta(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.InformationSchemaTables = newInformationSchemaTables(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.RampSchedules = newRampSchedules(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Reports = newReports(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Namespaces = newNamespaces(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.EventWebhooks = newEventWebhooks(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Audits = newAudits(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Dashboards = newDashboards(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.ContextualBanditQueries = newContextualBanditQueries(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.InterleavingExposureQueries = newInterleavingExposureQueries(sdk, sdk.sdkConfiguration, sdk.hooks)
@@ -336,6 +348,8 @@ func New(opts ...SDKOption) *Growthbook {
 	sdk.Holdouts = newHoldouts(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.AutoRuns = newAutoRuns(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Populations = newPopulations(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.WebhookSecrets = newWebhookSecrets(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.SDKWebhooks = newSDKWebhooks(sdk, sdk.sdkConfiguration, sdk.hooks)
 
 	return sdk
 }

@@ -9,6 +9,36 @@ import (
 	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/utils"
 )
 
+// UpdateDimensionTiming - What the query returns and how the value at a unit's first exposure is resolved. `none` (default): one value per unit, resolved with MAX(value). `rowTimestamp`: timestamped rows; the query also returns a `timestamp` column and the latest row at or before first exposure is used. `validityRange`: validity ranges; the query also returns `start_timestamp` and `end_timestamp` (NULL = still valid) columns and the row valid at first exposure is used. Only supported for SQL Data Sources.
+type UpdateDimensionTiming string
+
+const (
+	UpdateDimensionTimingNone          UpdateDimensionTiming = "none"
+	UpdateDimensionTimingRowTimestamp  UpdateDimensionTiming = "rowTimestamp"
+	UpdateDimensionTimingValidityRange UpdateDimensionTiming = "validityRange"
+)
+
+func (e UpdateDimensionTiming) ToPointer() *UpdateDimensionTiming {
+	return &e
+}
+func (e *UpdateDimensionTiming) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "none":
+		fallthrough
+	case "rowTimestamp":
+		fallthrough
+	case "validityRange":
+		*e = UpdateDimensionTiming(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for UpdateDimensionTiming: %v", v)
+	}
+}
+
 // UpdateDimensionManagedBy - Where this dimension must be managed from. If not set (empty string), it can be managed from anywhere.
 type UpdateDimensionManagedBy string
 
@@ -49,6 +79,10 @@ type UpdateDimensionRequestBody struct {
 	IdentifierType *string `json:"identifierType,omitzero"`
 	// SQL query or equivalent for the dimension
 	Query *string `json:"query,omitzero"`
+	// What the query returns and how the value at a unit's first exposure is resolved. `none` (default): one value per unit, resolved with MAX(value). `rowTimestamp`: timestamped rows; the query also returns a `timestamp` column and the latest row at or before first exposure is used. `validityRange`: validity ranges; the query also returns `start_timestamp` and `end_timestamp` (NULL = still valid) columns and the row valid at first exposure is used. Only supported for SQL Data Sources.
+	Timing *UpdateDimensionTiming `json:"timing,omitzero"`
+	// Label used in experiment results for units with no dimension value. Leave empty to use the default null label.
+	NullLabel *string `json:"nullLabel,omitzero"`
 	// Where this dimension must be managed from. If not set (empty string), it can be managed from anywhere.
 	ManagedBy *UpdateDimensionManagedBy `json:"managedBy,omitzero"`
 }
@@ -93,6 +127,20 @@ func (u *UpdateDimensionRequestBody) GetQuery() *string {
 		return nil
 	}
 	return u.Query
+}
+
+func (u *UpdateDimensionRequestBody) GetTiming() *UpdateDimensionTiming {
+	if u == nil {
+		return nil
+	}
+	return u.Timing
+}
+
+func (u *UpdateDimensionRequestBody) GetNullLabel() *string {
+	if u == nil {
+		return nil
+	}
+	return u.NullLabel
 }
 
 func (u *UpdateDimensionRequestBody) GetManagedBy() *UpdateDimensionManagedBy {

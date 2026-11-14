@@ -69,7 +69,553 @@ func (e *ExperimentResultsDimension2) GetDimensions() []ExperimentResultsDimensi
 // #region class-body-experimentresultsdimension2
 // #endregion class-body-experimentresultsdimension2
 
+// ExperimentResultsSrmStatus - `unhealthy` when the check fails the organization's threshold. `not-enough-traffic` when there are too few units to judge.
+type ExperimentResultsSrmStatus string
+
+const (
+	ExperimentResultsSrmStatusHealthy          ExperimentResultsSrmStatus = "healthy"
+	ExperimentResultsSrmStatusUnhealthy        ExperimentResultsSrmStatus = "unhealthy"
+	ExperimentResultsSrmStatusNotEnoughTraffic ExperimentResultsSrmStatus = "not-enough-traffic"
+)
+
+func (e ExperimentResultsSrmStatus) ToPointer() *ExperimentResultsSrmStatus {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ExperimentResultsSrmStatus) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "healthy", "unhealthy", "not-enough-traffic":
+			return true
+		}
+	}
+	return false
+}
+
+type ExperimentResultsSrm struct {
+	// Sample ratio mismatch p-value.
+	PValue float64 `json:"pValue"`
+	// `unhealthy` when the check fails the organization's threshold. `not-enough-traffic` when there are too few units to judge.
+	Status ExperimentResultsSrmStatus `json:"status"`
+	// The organization's SRM p-value threshold. The check is `unhealthy` when `pValue` is below it.
+	Threshold float64 `json:"threshold"`
+	// Units the p-value was computed on: clusters for cluster experiments, otherwise the randomization unit.
+	TotalUnits *float64 `json:"totalUnits"`
+	// Units per variation, in the experiment's variation order.
+	VariationUnits []float64 `json:"variationUnits"`
+}
+
+func (e *ExperimentResultsSrm) GetPValue() float64 {
+	if e == nil {
+		return 0.0
+	}
+	return e.PValue
+}
+
+func (e *ExperimentResultsSrm) GetStatus() ExperimentResultsSrmStatus {
+	if e == nil {
+		return ExperimentResultsSrmStatus("")
+	}
+	return e.Status
+}
+
+func (e *ExperimentResultsSrm) GetThreshold() float64 {
+	if e == nil {
+		return 0.0
+	}
+	return e.Threshold
+}
+
+func (e *ExperimentResultsSrm) GetTotalUnits() *float64 {
+	if e == nil {
+		return nil
+	}
+	return e.TotalUnits
+}
+
+func (e *ExperimentResultsSrm) GetVariationUnits() []float64 {
+	if e == nil {
+		return nil
+	}
+	return e.VariationUnits
+}
+
+// ExperimentResultsMultipleExposuresStatus - `unhealthy` when the check fails the organization's threshold. `not-enough-traffic` when there are too few units to judge.
+type ExperimentResultsMultipleExposuresStatus string
+
+const (
+	ExperimentResultsMultipleExposuresStatusHealthy          ExperimentResultsMultipleExposuresStatus = "healthy"
+	ExperimentResultsMultipleExposuresStatusUnhealthy        ExperimentResultsMultipleExposuresStatus = "unhealthy"
+	ExperimentResultsMultipleExposuresStatusNotEnoughTraffic ExperimentResultsMultipleExposuresStatus = "not-enough-traffic"
+)
+
+func (e ExperimentResultsMultipleExposuresStatus) ToPointer() *ExperimentResultsMultipleExposuresStatus {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ExperimentResultsMultipleExposuresStatus) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "healthy", "unhealthy", "not-enough-traffic":
+			return true
+		}
+	}
+	return false
+}
+
+type ExperimentResultsMultipleExposures struct {
+	// Units exposed to more than one variation. They are excluded from the analysis.
+	Count float64 `json:"count"`
+	// Units `percent` is measured against.
+	TotalUnits float64 `json:"totalUnits"`
+	// `count` divided by `totalUnits`, as a fraction from 0 to 1.
+	Percent float64 `json:"percent"`
+	// `unhealthy` when the check fails the organization's threshold. `not-enough-traffic` when there are too few units to judge.
+	Status ExperimentResultsMultipleExposuresStatus `json:"status"`
+	// The organization's threshold, as a fraction from 0 to 1. The check is `unhealthy` when `percent` reaches or exceeds it.
+	Threshold float64 `json:"threshold"`
+}
+
+func (e *ExperimentResultsMultipleExposures) GetCount() float64 {
+	if e == nil {
+		return 0.0
+	}
+	return e.Count
+}
+
+func (e *ExperimentResultsMultipleExposures) GetTotalUnits() float64 {
+	if e == nil {
+		return 0.0
+	}
+	return e.TotalUnits
+}
+
+func (e *ExperimentResultsMultipleExposures) GetPercent() float64 {
+	if e == nil {
+		return 0.0
+	}
+	return e.Percent
+}
+
+func (e *ExperimentResultsMultipleExposures) GetStatus() ExperimentResultsMultipleExposuresStatus {
+	if e == nil {
+		return ExperimentResultsMultipleExposuresStatus("")
+	}
+	return e.Status
+}
+
+func (e *ExperimentResultsMultipleExposures) GetThreshold() float64 {
+	if e == nil {
+		return 0.0
+	}
+	return e.Threshold
+}
+
+type Power struct {
+	// Whether the experiment is unlikely to detect its target effect by the end of its planned run.
+	IsLowPowered bool `json:"isLowPowered"`
+	// Estimated extra days needed to reach the target power. null when the experiment is not expected to reach it at the current traffic.
+	AdditionalDaysNeeded *float64 `json:"additionalDaysNeeded"`
+}
+
+func (p *Power) GetIsLowPowered() bool {
+	if p == nil {
+		return false
+	}
+	return p.IsLowPowered
+}
+
+func (p *Power) GetAdditionalDaysNeeded() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.AdditionalDaysNeeded
+}
+
+type CovariateImbalance struct {
+	// Whether variations already differed on the experiment's metrics before exposure (pre-exposure bias).
+	IsImbalanced                  bool    `json:"isImbalanced"`
+	NumGoalMetricsImbalanced      float64 `json:"numGoalMetricsImbalanced"`
+	NumGuardrailMetricsImbalanced float64 `json:"numGuardrailMetricsImbalanced"`
+	NumSecondaryMetricsImbalanced float64 `json:"numSecondaryMetricsImbalanced"`
+}
+
+func (c *CovariateImbalance) GetIsImbalanced() bool {
+	if c == nil {
+		return false
+	}
+	return c.IsImbalanced
+}
+
+func (c *CovariateImbalance) GetNumGoalMetricsImbalanced() float64 {
+	if c == nil {
+		return 0.0
+	}
+	return c.NumGoalMetricsImbalanced
+}
+
+func (c *CovariateImbalance) GetNumGuardrailMetricsImbalanced() float64 {
+	if c == nil {
+		return 0.0
+	}
+	return c.NumGuardrailMetricsImbalanced
+}
+
+func (c *CovariateImbalance) GetNumSecondaryMetricsImbalanced() float64 {
+	if c == nil {
+		return 0.0
+	}
+	return c.NumSecondaryMetricsImbalanced
+}
+
+// MixedAssignmentStatus - `unhealthy` when the check fails the organization's threshold. `not-enough-traffic` when there are too few units to judge.
+type MixedAssignmentStatus string
+
+const (
+	MixedAssignmentStatusHealthy          MixedAssignmentStatus = "healthy"
+	MixedAssignmentStatusUnhealthy        MixedAssignmentStatus = "unhealthy"
+	MixedAssignmentStatusNotEnoughTraffic MixedAssignmentStatus = "not-enough-traffic"
+)
+
+func (e MixedAssignmentStatus) ToPointer() *MixedAssignmentStatus {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *MixedAssignmentStatus) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "healthy", "unhealthy", "not-enough-traffic":
+			return true
+		}
+	}
+	return false
+}
+
+type MixedAssignment struct {
+	TotalClusters float64 `json:"totalClusters"`
+	// Clusters whose sub-units saw more than one variation.
+	MixedClusters float64 `json:"mixedClusters"`
+	Percent       float64 `json:"percent"`
+	// `unhealthy` when the check fails the organization's threshold. `not-enough-traffic` when there are too few units to judge.
+	Status MixedAssignmentStatus `json:"status"`
+}
+
+func (m *MixedAssignment) GetTotalClusters() float64 {
+	if m == nil {
+		return 0.0
+	}
+	return m.TotalClusters
+}
+
+func (m *MixedAssignment) GetMixedClusters() float64 {
+	if m == nil {
+		return 0.0
+	}
+	return m.MixedClusters
+}
+
+func (m *MixedAssignment) GetPercent() float64 {
+	if m == nil {
+		return 0.0
+	}
+	return m.Percent
+}
+
+func (m *MixedAssignment) GetStatus() MixedAssignmentStatus {
+	if m == nil {
+		return MixedAssignmentStatus("")
+	}
+	return m.Status
+}
+
+// UnitsInMultipleClustersStatus - `unhealthy` when the check fails the organization's threshold. `not-enough-traffic` when there are too few units to judge.
+type UnitsInMultipleClustersStatus string
+
+const (
+	UnitsInMultipleClustersStatusHealthy          UnitsInMultipleClustersStatus = "healthy"
+	UnitsInMultipleClustersStatusUnhealthy        UnitsInMultipleClustersStatus = "unhealthy"
+	UnitsInMultipleClustersStatusNotEnoughTraffic UnitsInMultipleClustersStatus = "not-enough-traffic"
+)
+
+func (e UnitsInMultipleClustersStatus) ToPointer() *UnitsInMultipleClustersStatus {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *UnitsInMultipleClustersStatus) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "healthy", "unhealthy", "not-enough-traffic":
+			return true
+		}
+	}
+	return false
+}
+
+type UnitsInMultipleClusters struct {
+	TotalUnits float64 `json:"totalUnits"`
+	// Sub-units that appear in more than one cluster.
+	MultiClusterUnits float64 `json:"multiClusterUnits"`
+	Percent           float64 `json:"percent"`
+	// `unhealthy` when the check fails the organization's threshold. `not-enough-traffic` when there are too few units to judge.
+	Status UnitsInMultipleClustersStatus `json:"status"`
+}
+
+func (u *UnitsInMultipleClusters) GetTotalUnits() float64 {
+	if u == nil {
+		return 0.0
+	}
+	return u.TotalUnits
+}
+
+func (u *UnitsInMultipleClusters) GetMultiClusterUnits() float64 {
+	if u == nil {
+		return 0.0
+	}
+	return u.MultiClusterUnits
+}
+
+func (u *UnitsInMultipleClusters) GetPercent() float64 {
+	if u == nil {
+		return 0.0
+	}
+	return u.Percent
+}
+
+func (u *UnitsInMultipleClusters) GetStatus() UnitsInMultipleClustersStatus {
+	if u == nil {
+		return UnitsInMultipleClustersStatus("")
+	}
+	return u.Status
+}
+
+type ReliabilityStatus string
+
+const (
+	ReliabilityStatusHealthy   ReliabilityStatus = "healthy"
+	ReliabilityStatusUnhealthy ReliabilityStatus = "unhealthy"
+)
+
+func (e ReliabilityStatus) ToPointer() *ReliabilityStatus {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ReliabilityStatus) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "healthy", "unhealthy":
+			return true
+		}
+	}
+	return false
+}
+
+type TooFewClusters struct {
+	VariationIndex float64 `json:"variationIndex"`
+	VariationKey   string  `json:"variationKey"`
+	VariationID    *string `json:"variationId,omitzero"`
+	Clusters       float64 `json:"clusters"`
+}
+
+func (t *TooFewClusters) GetVariationIndex() float64 {
+	if t == nil {
+		return 0.0
+	}
+	return t.VariationIndex
+}
+
+func (t *TooFewClusters) GetVariationKey() string {
+	if t == nil {
+		return ""
+	}
+	return t.VariationKey
+}
+
+func (t *TooFewClusters) GetVariationID() *string {
+	if t == nil {
+		return nil
+	}
+	return t.VariationID
+}
+
+func (t *TooFewClusters) GetClusters() float64 {
+	if t == nil {
+		return 0.0
+	}
+	return t.Clusters
+}
+
+type OversizedCluster struct {
+	ID string `json:"id"`
+	// The cluster's share of sub-units, as a fraction from 0 to 1.
+	Percent float64 `json:"percent"`
+}
+
+func (o *OversizedCluster) GetID() string {
+	if o == nil {
+		return ""
+	}
+	return o.ID
+}
+
+func (o *OversizedCluster) GetPercent() float64 {
+	if o == nil {
+		return 0.0
+	}
+	return o.Percent
+}
+
+type Reliability struct {
+	Status ReliabilityStatus `json:"status"`
+	// Recommended minimum number of clusters per variation.
+	MinClustersPerVariation float64 `json:"minClustersPerVariation"`
+	// Share of sub-units, as a fraction from 0 to 1, that no single cluster should reach.
+	MaxClusterShare float64 `json:"maxClusterShare"`
+	// The variation with the fewest clusters, when it has fewer than `minClustersPerVariation`. `variationIndex` and `variationKey` come from the snapshot; `variationId` is the current variation with that key, omitted when none matches.
+	TooFewClusters *TooFewClusters `json:"tooFewClusters"`
+	// The largest cluster, when its share reaches `maxClusterShare`.
+	OversizedCluster *OversizedCluster `json:"oversizedCluster"`
+}
+
+func (r *Reliability) GetStatus() ReliabilityStatus {
+	if r == nil {
+		return ReliabilityStatus("")
+	}
+	return r.Status
+}
+
+func (r *Reliability) GetMinClustersPerVariation() float64 {
+	if r == nil {
+		return 0.0
+	}
+	return r.MinClustersPerVariation
+}
+
+func (r *Reliability) GetMaxClusterShare() float64 {
+	if r == nil {
+		return 0.0
+	}
+	return r.MaxClusterShare
+}
+
+func (r *Reliability) GetTooFewClusters() *TooFewClusters {
+	if r == nil {
+		return nil
+	}
+	return r.TooFewClusters
+}
+
+func (r *Reliability) GetOversizedCluster() *OversizedCluster {
+	if r == nil {
+		return nil
+	}
+	return r.OversizedCluster
+}
+
+// Cluster experiment checks. Omitted for other experiments.
+type Cluster struct {
+	MixedAssignment         *MixedAssignment         `json:"mixedAssignment"`
+	UnitsInMultipleClusters *UnitsInMultipleClusters `json:"unitsInMultipleClusters"`
+	// Whether there are enough clusters, evenly sized enough, to trust the results. `unhealthy` when either `tooFewClusters` or `oversizedCluster` is set. The app shows it as a warning on the results; it is not part of `enhancedStatus.decision`. null when the snapshot has no cluster counts.
+	Reliability *Reliability `json:"reliability"`
+}
+
+func (c *Cluster) GetMixedAssignment() *MixedAssignment {
+	if c == nil {
+		return nil
+	}
+	return c.MixedAssignment
+}
+
+func (c *Cluster) GetUnitsInMultipleClusters() *UnitsInMultipleClusters {
+	if c == nil {
+		return nil
+	}
+	return c.UnitsInMultipleClusters
+}
+
+func (c *Cluster) GetReliability() *Reliability {
+	if c == nil {
+		return nil
+	}
+	return c.Reliability
+}
+
+// ExperimentResultsHealth - Health checks for the snapshot as a whole, with the same verdicts the app shows. They are not broken down by dimension value.
+type ExperimentResultsHealth struct {
+	// Sample ratio mismatch check for the experiment as a whole. It comes from the traffic query, or from the overall result when that query did not run or failed. null when neither is available, for example on some dimension breakdowns.
+	Srm *ExperimentResultsSrm `json:"srm"`
+	// Multiple exposures check. For cluster experiments it counts sub-units. null when the snapshot has no unit total to measure against, for example on dimension breakdowns whose traffic query did not run or failed.
+	MultipleExposures *ExperimentResultsMultipleExposures `json:"multipleExposures"`
+	// Variation IDs found in the exposure data that match none of the experiment's variations. A non-empty list usually means the tracked variation IDs are misconfigured.
+	UnknownVariations []string `json:"unknownVariations"`
+	// Mid-experiment power estimate. null when the snapshot did not compute one or the calculation failed.
+	Power *Power `json:"power"`
+	// Pre-exposure bias check. null when the snapshot did not compute one.
+	CovariateImbalance *CovariateImbalance `json:"covariateImbalance"`
+	// Cluster experiment checks. Omitted for other experiments.
+	Cluster *Cluster `json:"cluster,omitzero"`
+}
+
+func (e ExperimentResultsHealth) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ExperimentResultsHealth) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (e *ExperimentResultsHealth) GetSrm() *ExperimentResultsSrm {
+	if e == nil {
+		return nil
+	}
+	return e.Srm
+}
+
+func (e *ExperimentResultsHealth) GetMultipleExposures() *ExperimentResultsMultipleExposures {
+	if e == nil {
+		return nil
+	}
+	return e.MultipleExposures
+}
+
+func (e *ExperimentResultsHealth) GetUnknownVariations() []string {
+	if e == nil {
+		return []string{}
+	}
+	return e.UnknownVariations
+}
+
+func (e *ExperimentResultsHealth) GetPower() *Power {
+	if e == nil {
+		return nil
+	}
+	return e.Power
+}
+
+func (e *ExperimentResultsHealth) GetCovariateImbalance() *CovariateImbalance {
+	if e == nil {
+		return nil
+	}
+	return e.CovariateImbalance
+}
+
+func (e *ExperimentResultsHealth) GetCluster() *Cluster {
+	if e == nil {
+		return nil
+	}
+	return e.Cluster
+}
+
 type ExperimentResultsChecks struct {
+	// Sample ratio mismatch p-value for this row's units. `health.srm` is the experiment-wide check with a verdict; the two can differ slightly as this comes from the metric query and the other comes from the traffic query. If they disagree, rely on the `health.srm` value.
 	Srm float64 `json:"srm"`
 }
 
@@ -320,7 +866,20 @@ type ExperimentResults1 struct {
 	Dimension    ExperimentResultsDimension2 `json:"dimension"`
 	Settings     ExperimentAnalysisSettings  `json:"settings"`
 	QueryIds     []string                    `json:"queryIds"`
-	Results      []ExperimentResultsResult   `json:"results"`
+	// Health checks for the snapshot as a whole, with the same verdicts the app shows. They are not broken down by dimension value.
+	Health  *ExperimentResultsHealth  `json:"health,omitzero"`
+	Results []ExperimentResultsResult `json:"results"`
+}
+
+func (e ExperimentResults1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ExperimentResults1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (e *ExperimentResults1) GetID() string {
@@ -384,6 +943,13 @@ func (e *ExperimentResults1) GetQueryIds() []string {
 		return []string{}
 	}
 	return e.QueryIds
+}
+
+func (e *ExperimentResults1) GetHealth() *ExperimentResultsHealth {
+	if e == nil {
+		return nil
+	}
+	return e.Health
 }
 
 func (e *ExperimentResults1) GetResults() []ExperimentResultsResult {

@@ -2,6 +2,30 @@
 
 package components
 
+// Timing - What the query returns and how the value at a unit's first exposure is resolved. `none` (default): one value per unit, resolved with MAX(value). `rowTimestamp`: timestamped rows; the query also returns a `timestamp` column and the latest row at or before first exposure is used. `validityRange`: validity ranges; the query also returns `start_timestamp` and `end_timestamp` (NULL = still valid) columns and the row valid at first exposure is used. Only supported for SQL Data Sources.
+type Timing string
+
+const (
+	TimingNone          Timing = "none"
+	TimingRowTimestamp  Timing = "rowTimestamp"
+	TimingValidityRange Timing = "validityRange"
+)
+
+func (e Timing) ToPointer() *Timing {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *Timing) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "rowTimestamp", "validityRange":
+			return true
+		}
+	}
+	return false
+}
+
 // DimensionManagedBy - Where this dimension must be managed from. If not set (empty string), it can be managed from anywhere.
 type DimensionManagedBy string
 
@@ -39,6 +63,10 @@ type Dimension struct {
 	Name           string  `json:"name"`
 	Description    *string `json:"description,omitzero"`
 	Query          string  `json:"query"`
+	// What the query returns and how the value at a unit's first exposure is resolved. `none` (default): one value per unit, resolved with MAX(value). `rowTimestamp`: timestamped rows; the query also returns a `timestamp` column and the latest row at or before first exposure is used. `validityRange`: validity ranges; the query also returns `start_timestamp` and `end_timestamp` (NULL = still valid) columns and the row valid at first exposure is used. Only supported for SQL Data Sources.
+	Timing *Timing `json:"timing,omitzero"`
+	// Label used in experiment results for units with no dimension value. Leave empty to use the default null label.
+	NullLabel *string `json:"nullLabel,omitzero"`
 	// Where this dimension must be managed from. If not set (empty string), it can be managed from anywhere.
 	ManagedBy *DimensionManagedBy `json:"managedBy,omitzero"`
 }
@@ -111,6 +139,20 @@ func (d *Dimension) GetQuery() string {
 		return ""
 	}
 	return d.Query
+}
+
+func (d *Dimension) GetTiming() *Timing {
+	if d == nil {
+		return nil
+	}
+	return d.Timing
+}
+
+func (d *Dimension) GetNullLabel() *string {
+	if d == nil {
+		return nil
+	}
+	return d.NullLabel
 }
 
 func (d *Dimension) GetManagedBy() *DimensionManagedBy {

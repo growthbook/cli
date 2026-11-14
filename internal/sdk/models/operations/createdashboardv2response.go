@@ -324,17 +324,20 @@ func (c *CreateDashboardV2DateRangeMetric) GetEndDate() optionalnullable.Optiona
 // #region class-body-createdashboardv2daterangemetric
 // #endregion class-body-createdashboardv2daterangemetric
 
-type CreateDashboardV2ShowAsMetric string
+// CreateDashboardV2ShowAsMetric1 - Deprecated: use `showAs` on each metric value.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+type CreateDashboardV2ShowAsMetric1 string
 
 const (
-	CreateDashboardV2ShowAsMetricTotal   CreateDashboardV2ShowAsMetric = "total"
-	CreateDashboardV2ShowAsMetricPerUnit CreateDashboardV2ShowAsMetric = "per_unit"
+	CreateDashboardV2ShowAsMetric1Total   CreateDashboardV2ShowAsMetric1 = "total"
+	CreateDashboardV2ShowAsMetric1PerUnit CreateDashboardV2ShowAsMetric1 = "per_unit"
 )
 
-func (e CreateDashboardV2ShowAsMetric) ToPointer() *CreateDashboardV2ShowAsMetric {
+func (e CreateDashboardV2ShowAsMetric1) ToPointer() *CreateDashboardV2ShowAsMetric1 {
 	return &e
 }
-func (e *CreateDashboardV2ShowAsMetric) UnmarshalJSON(data []byte) error {
+func (e *CreateDashboardV2ShowAsMetric1) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -343,16 +346,18 @@ func (e *CreateDashboardV2ShowAsMetric) UnmarshalJSON(data []byte) error {
 	case "total":
 		fallthrough
 	case "per_unit":
-		*e = CreateDashboardV2ShowAsMetric(v)
+		*e = CreateDashboardV2ShowAsMetric1(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateDashboardV2ShowAsMetric: %v", v)
+		return fmt.Errorf("invalid value for CreateDashboardV2ShowAsMetric1: %v", v)
 	}
 }
 
 type CreateDashboardV2ChartSettingsMetric struct {
 	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
 	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+	// Line charts only: whether the y-axis starts at 0. Defaults to true.
+	AnchorYAxisToZero *bool `json:"anchorYAxisToZero,omitzero"`
 }
 
 func (c CreateDashboardV2ChartSettingsMetric) MarshalJSON() ([]byte, error) {
@@ -378,6 +383,13 @@ func (c *CreateDashboardV2ChartSettingsMetric) GetValueAxisLabel() *string {
 		return nil
 	}
 	return c.ValueAxisLabel
+}
+
+func (c *CreateDashboardV2ChartSettingsMetric) GetAnchorYAxisToZero() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.AnchorYAxisToZero
 }
 
 // #region class-body-createdashboardv2chartsettingsmetric
@@ -510,6 +522,33 @@ func (c *CreateDashboardV2RowFilterMetric) GetValues() []string {
 // #region class-body-createdashboardv2rowfiltermetric
 // #endregion class-body-createdashboardv2rowfiltermetric
 
+// CreateDashboardV2ShowAsMetric2 - How a mean metric renders: `total` sums the numerator, `per_unit` divides it by the unit count. Ignored for other metric types. Omit to use the default (`per_unit` for `max` and `count distinct` aggregations, otherwise `total`).
+type CreateDashboardV2ShowAsMetric2 string
+
+const (
+	CreateDashboardV2ShowAsMetric2Total   CreateDashboardV2ShowAsMetric2 = "total"
+	CreateDashboardV2ShowAsMetric2PerUnit CreateDashboardV2ShowAsMetric2 = "per_unit"
+)
+
+func (e CreateDashboardV2ShowAsMetric2) ToPointer() *CreateDashboardV2ShowAsMetric2 {
+	return &e
+}
+func (e *CreateDashboardV2ShowAsMetric2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "total":
+		fallthrough
+	case "per_unit":
+		*e = CreateDashboardV2ShowAsMetric2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateDashboardV2ShowAsMetric2: %v", v)
+	}
+}
+
 type CreateDashboardV2ValueMetric struct {
 	Name       string                             `json:"name"`
 	RowFilters []CreateDashboardV2RowFilterMetric `json:"rowFilters"`
@@ -518,6 +557,8 @@ type CreateDashboardV2ValueMetric struct {
 	MetricID        string  `json:"metricId"`
 	Unit            *string `json:"unit"`
 	DenominatorUnit *string `json:"denominatorUnit"`
+	// How a mean metric renders: `total` sums the numerator, `per_unit` divides it by the unit count. Ignored for other metric types. Omit to use the default (`per_unit` for `max` and `count distinct` aggregations, otherwise `total`).
+	ShowAs *CreateDashboardV2ShowAsMetric2 `json:"showAs,omitzero"`
 }
 
 func (c CreateDashboardV2ValueMetric) MarshalJSON() ([]byte, error) {
@@ -570,6 +611,13 @@ func (c *CreateDashboardV2ValueMetric) GetDenominatorUnit() *string {
 	return c.DenominatorUnit
 }
 
+func (c *CreateDashboardV2ValueMetric) GetShowAs() *CreateDashboardV2ShowAsMetric2 {
+	if c == nil {
+		return nil
+	}
+	return c.ShowAs
+}
+
 // #region class-body-createdashboardv2valuemetric
 // #endregion class-body-createdashboardv2valuemetric
 
@@ -614,12 +662,15 @@ func (c *CreateDashboardV2DatasetMetric) GetPopulation() *components.Exploration
 
 type CreateDashboardV2ConfigMetric struct {
 	// ID of the datasource to query
-	Datasource    string                                  `json:"datasource"`
-	Dimensions    []CreateDashboardV2DimensionMetricUnion `json:"dimensions"`
-	ChartType     CreateDashboardV2ChartTypeMetric        `json:"chartType"`
-	DateRange     CreateDashboardV2DateRangeMetric        `json:"dateRange"`
-	ShowAs        *CreateDashboardV2ShowAsMetric          `json:"showAs,omitzero"`
-	ChartSettings *CreateDashboardV2ChartSettingsMetric   `json:"chartSettings,omitzero"`
+	Datasource string                                  `json:"datasource"`
+	Dimensions []CreateDashboardV2DimensionMetricUnion `json:"dimensions"`
+	ChartType  CreateDashboardV2ChartTypeMetric        `json:"chartType"`
+	DateRange  CreateDashboardV2DateRangeMetric        `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *CreateDashboardV2ShowAsMetric1       `json:"showAs,omitzero"`
+	ChartSettings *CreateDashboardV2ChartSettingsMetric `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                         `const:"metric" json:"type"`
 	Dataset CreateDashboardV2DatasetMetric `json:"dataset"`
@@ -664,7 +715,7 @@ func (c *CreateDashboardV2ConfigMetric) GetDateRange() CreateDashboardV2DateRang
 	return c.DateRange
 }
 
-func (c *CreateDashboardV2ConfigMetric) GetShowAs() *CreateDashboardV2ShowAsMetric {
+func (c *CreateDashboardV2ConfigMetric) GetShowAs() *CreateDashboardV2ShowAsMetric1 {
 	if c == nil {
 		return nil
 	}

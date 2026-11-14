@@ -20,7 +20,7 @@ var runFactTableCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "dimensions", FieldPath: "Body.Dimensions", Kind: flagutil.FlagKindJSON, Required: true, Annotations: `json:"dimensions"`, Description: "[required]"},
 	{FlagName: "chart-type", FieldPath: "Body.ChartType", Kind: flagutil.FlagKindEnum, Required: true, EnumValues: []string{"line", "area", "timeseries-table", "table", "bar", "stackedBar", "horizontalBar", "stackedHorizontalBar", "bigNumber", "rawTable"}, Description: "options: line, area, timeseries-table, table, bar, stackedBar, horizontalBar, stackedHorizontalBar, bigNumber, rawTable [required]"},
 	{FlagName: "date-range", FieldPath: "Body.DateRange", Kind: flagutil.FlagKindJSON, Required: true, Annotations: `json:"dateRange"`, Description: "[required]"},
-	{FlagName: "show-as", Shorthand: "s", FieldPath: "Body.ShowAs", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"total", "per_unit"}, Description: "options: total, per_unit"},
+	{FlagName: "show-as", Shorthand: "s", FieldPath: "Body.ShowAs", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"total", "per_unit"}, Description: "Deprecated: use `showAs` on each metric value. (options: total, per_unit)"},
 	{FlagName: "chart-settings", FieldPath: "Body.ChartSettings", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"chartSettings,omitempty"`, Description: "JSON object"},
 	{FlagName: "dataset", FieldPath: "Body.Dataset", Kind: flagutil.FlagKindJSON, Required: true, Annotations: `json:"dataset"`, Description: "[required]"},
 }

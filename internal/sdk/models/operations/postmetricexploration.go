@@ -639,17 +639,20 @@ func (p *PostMetricExplorationDateRangeRequest) GetEndDate() optionalnullable.Op
 	return p.EndDate
 }
 
-type PostMetricExplorationShowAsRequest string
+// PostMetricExplorationShowAsRequest1 - Deprecated: use `showAs` on each metric value.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+type PostMetricExplorationShowAsRequest1 string
 
 const (
-	PostMetricExplorationShowAsRequestTotal   PostMetricExplorationShowAsRequest = "total"
-	PostMetricExplorationShowAsRequestPerUnit PostMetricExplorationShowAsRequest = "per_unit"
+	PostMetricExplorationShowAsRequest1Total   PostMetricExplorationShowAsRequest1 = "total"
+	PostMetricExplorationShowAsRequest1PerUnit PostMetricExplorationShowAsRequest1 = "per_unit"
 )
 
-func (e PostMetricExplorationShowAsRequest) ToPointer() *PostMetricExplorationShowAsRequest {
+func (e PostMetricExplorationShowAsRequest1) ToPointer() *PostMetricExplorationShowAsRequest1 {
 	return &e
 }
-func (e *PostMetricExplorationShowAsRequest) UnmarshalJSON(data []byte) error {
+func (e *PostMetricExplorationShowAsRequest1) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -658,16 +661,18 @@ func (e *PostMetricExplorationShowAsRequest) UnmarshalJSON(data []byte) error {
 	case "total":
 		fallthrough
 	case "per_unit":
-		*e = PostMetricExplorationShowAsRequest(v)
+		*e = PostMetricExplorationShowAsRequest1(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for PostMetricExplorationShowAsRequest: %v", v)
+		return fmt.Errorf("invalid value for PostMetricExplorationShowAsRequest1: %v", v)
 	}
 }
 
 type PostMetricExplorationChartSettingsRequest struct {
 	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
 	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+	// Line charts only: whether the y-axis starts at 0. Defaults to true.
+	AnchorYAxisToZero *bool `json:"anchorYAxisToZero,omitzero"`
 }
 
 func (p *PostMetricExplorationChartSettingsRequest) GetCategoryAxisLabel() *string {
@@ -682,6 +687,13 @@ func (p *PostMetricExplorationChartSettingsRequest) GetValueAxisLabel() *string 
 		return nil
 	}
 	return p.ValueAxisLabel
+}
+
+func (p *PostMetricExplorationChartSettingsRequest) GetAnchorYAxisToZero() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AnchorYAxisToZero
 }
 
 type PostMetricExplorationRowFilterOperatorRequest string
@@ -808,6 +820,33 @@ func (p *PostMetricExplorationRowFilterRequest) GetValues() []string {
 	return p.Values
 }
 
+// PostMetricExplorationShowAsRequest2 - How a mean metric renders: `total` sums the numerator, `per_unit` divides it by the unit count. Ignored for other metric types. Omit to use the default (`per_unit` for `max` and `count distinct` aggregations, otherwise `total`).
+type PostMetricExplorationShowAsRequest2 string
+
+const (
+	PostMetricExplorationShowAsRequest2Total   PostMetricExplorationShowAsRequest2 = "total"
+	PostMetricExplorationShowAsRequest2PerUnit PostMetricExplorationShowAsRequest2 = "per_unit"
+)
+
+func (e PostMetricExplorationShowAsRequest2) ToPointer() *PostMetricExplorationShowAsRequest2 {
+	return &e
+}
+func (e *PostMetricExplorationShowAsRequest2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "total":
+		fallthrough
+	case "per_unit":
+		*e = PostMetricExplorationShowAsRequest2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PostMetricExplorationShowAsRequest2: %v", v)
+	}
+}
+
 type PostMetricExplorationValueRequest struct {
 	Name       string                                  `json:"name"`
 	RowFilters []PostMetricExplorationRowFilterRequest `json:"rowFilters"`
@@ -816,6 +855,8 @@ type PostMetricExplorationValueRequest struct {
 	MetricID        string  `json:"metricId"`
 	Unit            *string `json:"unit"`
 	DenominatorUnit *string `json:"denominatorUnit"`
+	// How a mean metric renders: `total` sums the numerator, `per_unit` divides it by the unit count. Ignored for other metric types. Omit to use the default (`per_unit` for `max` and `count distinct` aggregations, otherwise `total`).
+	ShowAs *PostMetricExplorationShowAsRequest2 `json:"showAs,omitzero"`
 }
 
 func (p PostMetricExplorationValueRequest) MarshalJSON() ([]byte, error) {
@@ -868,6 +909,13 @@ func (p *PostMetricExplorationValueRequest) GetDenominatorUnit() *string {
 	return p.DenominatorUnit
 }
 
+func (p *PostMetricExplorationValueRequest) GetShowAs() *PostMetricExplorationShowAsRequest2 {
+	if p == nil {
+		return nil
+	}
+	return p.ShowAs
+}
+
 type PostMetricExplorationDatasetRequest struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_      string                              `const:"metric" json:"type"`
@@ -906,12 +954,15 @@ func (p *PostMetricExplorationDatasetRequest) GetPopulation() *components.Explor
 
 type PostMetricExplorationRequestBody struct {
 	// ID of the datasource to query
-	Datasource    string                                       `json:"datasource"`
-	Dimensions    []PostMetricExplorationDimensionRequestUnion `json:"dimensions"`
-	ChartType     PostMetricExplorationChartTypeRequest        `json:"chartType"`
-	DateRange     PostMetricExplorationDateRangeRequest        `json:"dateRange"`
-	ShowAs        *PostMetricExplorationShowAsRequest          `json:"showAs,omitzero"`
-	ChartSettings *PostMetricExplorationChartSettingsRequest   `json:"chartSettings,omitzero"`
+	Datasource string                                       `json:"datasource"`
+	Dimensions []PostMetricExplorationDimensionRequestUnion `json:"dimensions"`
+	ChartType  PostMetricExplorationChartTypeRequest        `json:"chartType"`
+	DateRange  PostMetricExplorationDateRangeRequest        `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *PostMetricExplorationShowAsRequest1       `json:"showAs,omitzero"`
+	ChartSettings *PostMetricExplorationChartSettingsRequest `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                              `const:"metric" json:"type"`
 	Dataset PostMetricExplorationDatasetRequest `json:"dataset"`
@@ -956,7 +1007,7 @@ func (p *PostMetricExplorationRequestBody) GetDateRange() PostMetricExplorationD
 	return p.DateRange
 }
 
-func (p *PostMetricExplorationRequestBody) GetShowAs() *PostMetricExplorationShowAsRequest {
+func (p *PostMetricExplorationRequestBody) GetShowAs() *PostMetricExplorationShowAsRequest1 {
 	if p == nil {
 		return nil
 	}
@@ -1989,19 +2040,22 @@ func (p *PostMetricExplorationDateRangeResponse) GetEndDate() optionalnullable.O
 	return p.EndDate
 }
 
-type PostMetricExplorationShowAsResponse string
+// PostMetricExplorationShowAsResponse1 - Deprecated: use `showAs` on each metric value.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+type PostMetricExplorationShowAsResponse1 string
 
 const (
-	PostMetricExplorationShowAsResponseTotal   PostMetricExplorationShowAsResponse = "total"
-	PostMetricExplorationShowAsResponsePerUnit PostMetricExplorationShowAsResponse = "per_unit"
+	PostMetricExplorationShowAsResponse1Total   PostMetricExplorationShowAsResponse1 = "total"
+	PostMetricExplorationShowAsResponse1PerUnit PostMetricExplorationShowAsResponse1 = "per_unit"
 )
 
-func (e PostMetricExplorationShowAsResponse) ToPointer() *PostMetricExplorationShowAsResponse {
+func (e PostMetricExplorationShowAsResponse1) ToPointer() *PostMetricExplorationShowAsResponse1 {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PostMetricExplorationShowAsResponse) IsExact() bool {
+func (e *PostMetricExplorationShowAsResponse1) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "total", "per_unit":
@@ -2014,6 +2068,8 @@ func (e *PostMetricExplorationShowAsResponse) IsExact() bool {
 type PostMetricExplorationChartSettingsResponse struct {
 	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
 	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+	// Line charts only: whether the y-axis starts at 0. Defaults to true.
+	AnchorYAxisToZero *bool `json:"anchorYAxisToZero,omitzero"`
 }
 
 func (p *PostMetricExplorationChartSettingsResponse) GetCategoryAxisLabel() *string {
@@ -2028,6 +2084,13 @@ func (p *PostMetricExplorationChartSettingsResponse) GetValueAxisLabel() *string
 		return nil
 	}
 	return p.ValueAxisLabel
+}
+
+func (p *PostMetricExplorationChartSettingsResponse) GetAnchorYAxisToZero() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AnchorYAxisToZero
 }
 
 type PostMetricExplorationExplorationRowFilterOperator string
@@ -2110,6 +2173,29 @@ func (p *PostMetricExplorationRowFilterResponse) GetValues() []string {
 	return p.Values
 }
 
+// PostMetricExplorationShowAsResponse2 - How a mean metric renders: `total` sums the numerator, `per_unit` divides it by the unit count. Ignored for other metric types. Omit to use the default (`per_unit` for `max` and `count distinct` aggregations, otherwise `total`).
+type PostMetricExplorationShowAsResponse2 string
+
+const (
+	PostMetricExplorationShowAsResponse2Total   PostMetricExplorationShowAsResponse2 = "total"
+	PostMetricExplorationShowAsResponse2PerUnit PostMetricExplorationShowAsResponse2 = "per_unit"
+)
+
+func (e PostMetricExplorationShowAsResponse2) ToPointer() *PostMetricExplorationShowAsResponse2 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *PostMetricExplorationShowAsResponse2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "total", "per_unit":
+			return true
+		}
+	}
+	return false
+}
+
 type ValueMetricResponse struct {
 	Name       string                                   `json:"name"`
 	RowFilters []PostMetricExplorationRowFilterResponse `json:"rowFilters"`
@@ -2118,6 +2204,8 @@ type ValueMetricResponse struct {
 	MetricID        string  `json:"metricId"`
 	Unit            *string `json:"unit"`
 	DenominatorUnit *string `json:"denominatorUnit"`
+	// How a mean metric renders: `total` sums the numerator, `per_unit` divides it by the unit count. Ignored for other metric types. Omit to use the default (`per_unit` for `max` and `count distinct` aggregations, otherwise `total`).
+	ShowAs *PostMetricExplorationShowAsResponse2 `json:"showAs,omitzero"`
 }
 
 func (v ValueMetricResponse) MarshalJSON() ([]byte, error) {
@@ -2170,6 +2258,13 @@ func (v *ValueMetricResponse) GetDenominatorUnit() *string {
 	return v.DenominatorUnit
 }
 
+func (v *ValueMetricResponse) GetShowAs() *PostMetricExplorationShowAsResponse2 {
+	if v == nil {
+		return nil
+	}
+	return v.ShowAs
+}
+
 type PostMetricExplorationDatasetResponse struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_      string                            `const:"metric" json:"type"`
@@ -2208,12 +2303,15 @@ func (p *PostMetricExplorationDatasetResponse) GetPopulation() *components.Explo
 
 type PostMetricExplorationConfig struct {
 	// ID of the datasource to query
-	Datasource    string                                           `json:"datasource"`
-	Dimensions    []PostMetricExplorationExplorationDimensionUnion `json:"dimensions"`
-	ChartType     PostMetricExplorationChartTypeResponse           `json:"chartType"`
-	DateRange     PostMetricExplorationDateRangeResponse           `json:"dateRange"`
-	ShowAs        *PostMetricExplorationShowAsResponse             `json:"showAs,omitzero"`
-	ChartSettings *PostMetricExplorationChartSettingsResponse      `json:"chartSettings,omitzero"`
+	Datasource string                                           `json:"datasource"`
+	Dimensions []PostMetricExplorationExplorationDimensionUnion `json:"dimensions"`
+	ChartType  PostMetricExplorationChartTypeResponse           `json:"chartType"`
+	DateRange  PostMetricExplorationDateRangeResponse           `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *PostMetricExplorationShowAsResponse1       `json:"showAs,omitzero"`
+	ChartSettings *PostMetricExplorationChartSettingsResponse `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                               `const:"metric" json:"type"`
 	Dataset PostMetricExplorationDatasetResponse `json:"dataset"`
@@ -2258,7 +2356,7 @@ func (p *PostMetricExplorationConfig) GetDateRange() PostMetricExplorationDateRa
 	return p.DateRange
 }
 
-func (p *PostMetricExplorationConfig) GetShowAs() *PostMetricExplorationShowAsResponse {
+func (p *PostMetricExplorationConfig) GetShowAs() *PostMetricExplorationShowAsResponse1 {
 	if p == nil {
 		return nil
 	}

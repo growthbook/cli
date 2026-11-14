@@ -11,6 +11,38 @@ import (
 	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/utils"
 )
 
+type UpdateDashboardUnit1 string
+
+const (
+	UpdateDashboardUnit1Weeks   UpdateDashboardUnit1 = "weeks"
+	UpdateDashboardUnit1Days    UpdateDashboardUnit1 = "days"
+	UpdateDashboardUnit1Hours   UpdateDashboardUnit1 = "hours"
+	UpdateDashboardUnit1Minutes UpdateDashboardUnit1 = "minutes"
+)
+
+func (e UpdateDashboardUnit1) ToPointer() *UpdateDashboardUnit1 {
+	return &e
+}
+func (e *UpdateDashboardUnit1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "weeks":
+		fallthrough
+	case "days":
+		fallthrough
+	case "hours":
+		fallthrough
+	case "minutes":
+		*e = UpdateDashboardUnit1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for UpdateDashboardUnit1: %v", v)
+	}
+}
+
 type UpdateDashboardConversionWindow1 struct {
 	Unit  UpdateDashboardUnit1 `json:"unit"`
 	Value float64              `json:"value"`
@@ -184,12 +216,15 @@ func (u *UpdateDashboardDatasetFunnel1) GetYAxisScale() *UpdateDashboardYAxisSca
 
 type UpdateDashboardConfigFunnel1 struct {
 	// ID of the datasource to query
-	Datasource    string                                 `json:"datasource"`
-	Dimensions    []UpdateDashboardDimensionFunnelUnion1 `json:"dimensions"`
-	ChartType     UpdateDashboardChartTypeFunnel1        `json:"chartType"`
-	DateRange     UpdateDashboardDateRangeFunnel1        `json:"dateRange"`
-	ShowAs        *UpdateDashboardShowAsFunnel1          `json:"showAs,omitzero"`
-	ChartSettings *UpdateDashboardChartSettingsFunnel1   `json:"chartSettings,omitzero"`
+	Datasource string                                 `json:"datasource"`
+	Dimensions []UpdateDashboardDimensionFunnelUnion1 `json:"dimensions"`
+	ChartType  UpdateDashboardChartTypeFunnel1        `json:"chartType"`
+	DateRange  UpdateDashboardDateRangeFunnel1        `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *UpdateDashboardShowAsFunnel1        `json:"showAs,omitzero"`
+	ChartSettings *UpdateDashboardChartSettingsFunnel1 `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                        `const:"funnel" json:"type"`
 	Dataset UpdateDashboardDatasetFunnel1 `json:"dataset"`
@@ -1343,6 +1378,9 @@ func (u *UpdateDashboardDateRangeDataSource1) GetEndDate() optionalnullable.Opti
 // #region class-body-updatedashboarddaterangedatasource1
 // #endregion class-body-updatedashboarddaterangedatasource1
 
+// UpdateDashboardShowAsDataSource1 - Deprecated: use `showAs` on each metric value.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 type UpdateDashboardShowAsDataSource1 string
 
 const (
@@ -1372,6 +1410,8 @@ func (e *UpdateDashboardShowAsDataSource1) UnmarshalJSON(data []byte) error {
 type UpdateDashboardChartSettingsDataSource1 struct {
 	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
 	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+	// Line charts only: whether the y-axis starts at 0. Defaults to true.
+	AnchorYAxisToZero *bool `json:"anchorYAxisToZero,omitzero"`
 }
 
 func (u UpdateDashboardChartSettingsDataSource1) MarshalJSON() ([]byte, error) {
@@ -1397,6 +1437,13 @@ func (u *UpdateDashboardChartSettingsDataSource1) GetValueAxisLabel() *string {
 		return nil
 	}
 	return u.ValueAxisLabel
+}
+
+func (u *UpdateDashboardChartSettingsDataSource1) GetAnchorYAxisToZero() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.AnchorYAxisToZero
 }
 
 // #region class-body-updatedashboardchartsettingsdatasource1
@@ -1721,12 +1768,15 @@ func (u *UpdateDashboardDatasetDataSource1) GetValues() []UpdateDashboardValueDa
 
 type UpdateDashboardConfigDataSource1 struct {
 	// ID of the datasource to query
-	Datasource    string                                     `json:"datasource"`
-	Dimensions    []UpdateDashboardDimensionDataSourceUnion1 `json:"dimensions"`
-	ChartType     UpdateDashboardChartTypeDataSource1        `json:"chartType"`
-	DateRange     UpdateDashboardDateRangeDataSource1        `json:"dateRange"`
-	ShowAs        *UpdateDashboardShowAsDataSource1          `json:"showAs,omitzero"`
-	ChartSettings *UpdateDashboardChartSettingsDataSource1   `json:"chartSettings,omitzero"`
+	Datasource string                                     `json:"datasource"`
+	Dimensions []UpdateDashboardDimensionDataSourceUnion1 `json:"dimensions"`
+	ChartType  UpdateDashboardChartTypeDataSource1        `json:"chartType"`
+	DateRange  UpdateDashboardDateRangeDataSource1        `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *UpdateDashboardShowAsDataSource1        `json:"showAs,omitzero"`
+	ChartSettings *UpdateDashboardChartSettingsDataSource1 `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                            `const:"data_source" json:"type"`
 	Dataset UpdateDashboardDatasetDataSource1 `json:"dataset"`
@@ -2872,6 +2922,9 @@ func (u *UpdateDashboardDateRangeFactTable1) GetEndDate() optionalnullable.Optio
 // #region class-body-updatedashboarddaterangefacttable1
 // #endregion class-body-updatedashboarddaterangefacttable1
 
+// UpdateDashboardShowAsFactTable1 - Deprecated: use `showAs` on each metric value.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 type UpdateDashboardShowAsFactTable1 string
 
 const (
@@ -2901,6 +2954,8 @@ func (e *UpdateDashboardShowAsFactTable1) UnmarshalJSON(data []byte) error {
 type UpdateDashboardChartSettingsFactTable1 struct {
 	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
 	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+	// Line charts only: whether the y-axis starts at 0. Defaults to true.
+	AnchorYAxisToZero *bool `json:"anchorYAxisToZero,omitzero"`
 }
 
 func (u UpdateDashboardChartSettingsFactTable1) MarshalJSON() ([]byte, error) {
@@ -2926,6 +2981,13 @@ func (u *UpdateDashboardChartSettingsFactTable1) GetValueAxisLabel() *string {
 		return nil
 	}
 	return u.ValueAxisLabel
+}
+
+func (u *UpdateDashboardChartSettingsFactTable1) GetAnchorYAxisToZero() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.AnchorYAxisToZero
 }
 
 // #region class-body-updatedashboardchartsettingsfacttable1
@@ -3191,12 +3253,15 @@ func (u *UpdateDashboardDatasetFactTable1) GetValues() []UpdateDashboardValueFac
 
 type UpdateDashboardConfigFactTable1 struct {
 	// ID of the datasource to query
-	Datasource    string                                    `json:"datasource"`
-	Dimensions    []UpdateDashboardDimensionFactTableUnion1 `json:"dimensions"`
-	ChartType     UpdateDashboardChartTypeFactTable1        `json:"chartType"`
-	DateRange     UpdateDashboardDateRangeFactTable1        `json:"dateRange"`
-	ShowAs        *UpdateDashboardShowAsFactTable1          `json:"showAs,omitzero"`
-	ChartSettings *UpdateDashboardChartSettingsFactTable1   `json:"chartSettings,omitzero"`
+	Datasource string                                    `json:"datasource"`
+	Dimensions []UpdateDashboardDimensionFactTableUnion1 `json:"dimensions"`
+	ChartType  UpdateDashboardChartTypeFactTable1        `json:"chartType"`
+	DateRange  UpdateDashboardDateRangeFactTable1        `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *UpdateDashboardShowAsFactTable1        `json:"showAs,omitzero"`
+	ChartSettings *UpdateDashboardChartSettingsFactTable1 `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                           `const:"fact_table" json:"type"`
 	Dataset UpdateDashboardDatasetFactTable1 `json:"dataset"`
@@ -4342,6 +4407,9 @@ func (u *UpdateDashboardDateRangeMetric1) GetEndDate() optionalnullable.Optional
 // #region class-body-updatedashboarddaterangemetric1
 // #endregion class-body-updatedashboarddaterangemetric1
 
+// UpdateDashboardShowAsMetric1 - Deprecated: use `showAs` on each metric value.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 type UpdateDashboardShowAsMetric1 string
 
 const (
@@ -4371,6 +4439,8 @@ func (e *UpdateDashboardShowAsMetric1) UnmarshalJSON(data []byte) error {
 type UpdateDashboardChartSettingsMetric1 struct {
 	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
 	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+	// Line charts only: whether the y-axis starts at 0. Defaults to true.
+	AnchorYAxisToZero *bool `json:"anchorYAxisToZero,omitzero"`
 }
 
 func (u UpdateDashboardChartSettingsMetric1) MarshalJSON() ([]byte, error) {
@@ -4396,6 +4466,13 @@ func (u *UpdateDashboardChartSettingsMetric1) GetValueAxisLabel() *string {
 		return nil
 	}
 	return u.ValueAxisLabel
+}
+
+func (u *UpdateDashboardChartSettingsMetric1) GetAnchorYAxisToZero() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.AnchorYAxisToZero
 }
 
 // #region class-body-updatedashboardchartsettingsmetric1
@@ -4528,6 +4605,33 @@ func (u *UpdateDashboardRowFilterMetric1) GetValues() []string {
 // #region class-body-updatedashboardrowfiltermetric1
 // #endregion class-body-updatedashboardrowfiltermetric1
 
+// UpdateDashboardShowAsMetric2 - How a mean metric renders: `total` sums the numerator, `per_unit` divides it by the unit count. Ignored for other metric types. Omit to use the default (`per_unit` for `max` and `count distinct` aggregations, otherwise `total`).
+type UpdateDashboardShowAsMetric2 string
+
+const (
+	UpdateDashboardShowAsMetric2Total   UpdateDashboardShowAsMetric2 = "total"
+	UpdateDashboardShowAsMetric2PerUnit UpdateDashboardShowAsMetric2 = "per_unit"
+)
+
+func (e UpdateDashboardShowAsMetric2) ToPointer() *UpdateDashboardShowAsMetric2 {
+	return &e
+}
+func (e *UpdateDashboardShowAsMetric2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "total":
+		fallthrough
+	case "per_unit":
+		*e = UpdateDashboardShowAsMetric2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for UpdateDashboardShowAsMetric2: %v", v)
+	}
+}
+
 type UpdateDashboardValueMetric1 struct {
 	Name       string                            `json:"name"`
 	RowFilters []UpdateDashboardRowFilterMetric1 `json:"rowFilters"`
@@ -4536,6 +4640,8 @@ type UpdateDashboardValueMetric1 struct {
 	MetricID        string  `json:"metricId"`
 	Unit            *string `json:"unit"`
 	DenominatorUnit *string `json:"denominatorUnit"`
+	// How a mean metric renders: `total` sums the numerator, `per_unit` divides it by the unit count. Ignored for other metric types. Omit to use the default (`per_unit` for `max` and `count distinct` aggregations, otherwise `total`).
+	ShowAs *UpdateDashboardShowAsMetric2 `json:"showAs,omitzero"`
 }
 
 func (u UpdateDashboardValueMetric1) MarshalJSON() ([]byte, error) {
@@ -4588,6 +4694,13 @@ func (u *UpdateDashboardValueMetric1) GetDenominatorUnit() *string {
 	return u.DenominatorUnit
 }
 
+func (u *UpdateDashboardValueMetric1) GetShowAs() *UpdateDashboardShowAsMetric2 {
+	if u == nil {
+		return nil
+	}
+	return u.ShowAs
+}
+
 // #region class-body-updatedashboardvaluemetric1
 // #endregion class-body-updatedashboardvaluemetric1
 
@@ -4632,12 +4745,15 @@ func (u *UpdateDashboardDatasetMetric1) GetPopulation() *components.ExplorationP
 
 type UpdateDashboardConfigMetric1 struct {
 	// ID of the datasource to query
-	Datasource    string                                 `json:"datasource"`
-	Dimensions    []UpdateDashboardDimensionMetricUnion1 `json:"dimensions"`
-	ChartType     UpdateDashboardChartTypeMetric1        `json:"chartType"`
-	DateRange     UpdateDashboardDateRangeMetric1        `json:"dateRange"`
-	ShowAs        *UpdateDashboardShowAsMetric1          `json:"showAs,omitzero"`
-	ChartSettings *UpdateDashboardChartSettingsMetric1   `json:"chartSettings,omitzero"`
+	Datasource string                                 `json:"datasource"`
+	Dimensions []UpdateDashboardDimensionMetricUnion1 `json:"dimensions"`
+	ChartType  UpdateDashboardChartTypeMetric1        `json:"chartType"`
+	DateRange  UpdateDashboardDateRangeMetric1        `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *UpdateDashboardShowAsMetric1        `json:"showAs,omitzero"`
+	ChartSettings *UpdateDashboardChartSettingsMetric1 `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                        `const:"metric" json:"type"`
 	Dataset UpdateDashboardDatasetMetric1 `json:"dataset"`
@@ -7827,92 +7943,3 @@ func (e *UpdateDashboardBlockPreviousTimeFramePredefined1) UnmarshalJSON(data []
 		return fmt.Errorf("invalid value for UpdateDashboardBlockPreviousTimeFramePredefined1: %v", v)
 	}
 }
-
-type UpdateDashboardBlockPreviousTimeFrameLookbackUnit1 string
-
-const (
-	UpdateDashboardBlockPreviousTimeFrameLookbackUnit1Hour  UpdateDashboardBlockPreviousTimeFrameLookbackUnit1 = "hour"
-	UpdateDashboardBlockPreviousTimeFrameLookbackUnit1Day   UpdateDashboardBlockPreviousTimeFrameLookbackUnit1 = "day"
-	UpdateDashboardBlockPreviousTimeFrameLookbackUnit1Week  UpdateDashboardBlockPreviousTimeFrameLookbackUnit1 = "week"
-	UpdateDashboardBlockPreviousTimeFrameLookbackUnit1Month UpdateDashboardBlockPreviousTimeFrameLookbackUnit1 = "month"
-)
-
-func (e UpdateDashboardBlockPreviousTimeFrameLookbackUnit1) ToPointer() *UpdateDashboardBlockPreviousTimeFrameLookbackUnit1 {
-	return &e
-}
-func (e *UpdateDashboardBlockPreviousTimeFrameLookbackUnit1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "hour":
-		fallthrough
-	case "day":
-		fallthrough
-	case "week":
-		fallthrough
-	case "month":
-		*e = UpdateDashboardBlockPreviousTimeFrameLookbackUnit1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdateDashboardBlockPreviousTimeFrameLookbackUnit1: %v", v)
-	}
-}
-
-type UpdateDashboardBlockPreviousTimeFrame1 struct {
-	Predefined    UpdateDashboardBlockPreviousTimeFramePredefined1                                      `json:"predefined"`
-	LookbackValue optionalnullable.OptionalNullable[float64]                                            `json:"lookbackValue,omitzero"`
-	LookbackUnit  optionalnullable.OptionalNullable[UpdateDashboardBlockPreviousTimeFrameLookbackUnit1] `json:"lookbackUnit,omitzero"`
-	StartDate     optionalnullable.OptionalNullable[string]                                             `json:"startDate,omitzero"`
-	EndDate       optionalnullable.OptionalNullable[string]                                             `json:"endDate,omitzero"`
-}
-
-func (u UpdateDashboardBlockPreviousTimeFrame1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateDashboardBlockPreviousTimeFrame1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateDashboardBlockPreviousTimeFrame1) GetPredefined() UpdateDashboardBlockPreviousTimeFramePredefined1 {
-	if u == nil {
-		return UpdateDashboardBlockPreviousTimeFramePredefined1("")
-	}
-	return u.Predefined
-}
-
-func (u *UpdateDashboardBlockPreviousTimeFrame1) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
-	if u == nil {
-		return nil
-	}
-	return u.LookbackValue
-}
-
-func (u *UpdateDashboardBlockPreviousTimeFrame1) GetLookbackUnit() optionalnullable.OptionalNullable[UpdateDashboardBlockPreviousTimeFrameLookbackUnit1] {
-	if u == nil {
-		return nil
-	}
-	return u.LookbackUnit
-}
-
-func (u *UpdateDashboardBlockPreviousTimeFrame1) GetStartDate() optionalnullable.OptionalNullable[string] {
-	if u == nil {
-		return nil
-	}
-	return u.StartDate
-}
-
-func (u *UpdateDashboardBlockPreviousTimeFrame1) GetEndDate() optionalnullable.OptionalNullable[string] {
-	if u == nil {
-		return nil
-	}
-	return u.EndDate
-}
-
-// #region class-body-updatedashboardblockprevioustimeframe1
-// #endregion class-body-updatedashboardblockprevioustimeframe1

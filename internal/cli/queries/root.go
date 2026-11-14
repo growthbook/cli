@@ -24,6 +24,14 @@ func InitQueriesRoot(parent *cobra.Command) error {
 		return err
 	}
 
+	if err := initListDataSourceQueriesCmd(QueriesCmd); err != nil {
+		return err
+	}
+
+	if err := initPostQueryCancelCmd(QueriesCmd); err != nil {
+		return err
+	}
+
 	parent.AddCommand(QueriesCmd)
 	return nil
 }

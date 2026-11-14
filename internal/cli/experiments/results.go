@@ -16,7 +16,7 @@ import (
 
 var resultsCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The id of the requested resource [required]"},
-	{FlagName: "phase", Shorthand: "p", FieldPath: "Phase", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "phase", Shorthand: "p", FieldPath: "Phase", Kind: flagutil.FlagKindString, Optional: true, Description: "Phase index, defaulting to the latest phase. `experiment.enhancedStatus` describes the latest phase, so it is omitted for any other phase."},
 	{FlagName: "dimension", FieldPath: "Dimension", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 }
 

@@ -6,6 +6,12 @@ growthbook SDK-connections get  [--id]
 growthbook SDK-connections list  [--all --limit --max-pages --multi-org --offset --project-id --with-proxy]
 growthbook SDK-connections lookup  [--key]
 growthbook SDK-connections update  [--allowed-custom-fields-in-metadata --body --encrypt-payload --environment --hash-secure-attributes --id --include-custom-fields-in-metadata --include-draft-experiment-refs --include-draft-experiments --include-experiment-names --include-experiment-schedule-in-metadata --include-project-id-in-metadata --include-redirect-experiments --include-referenced-prerequisites --include-rule-ids --include-tags-in-metadata --include-visual-experiments --language --name --projects --proxy-enabled --proxy-host --remote-eval-enabled --saved-group-format --saved-group-references-enabled --sdk-version]
+growthbook SDK-webhooks
+growthbook SDK-webhooks delete  [--id]
+growthbook SDK-webhooks list-SDK-connection-webhooks  [--id]
+growthbook SDK-webhooks post-SDK-connection-webhook  [--body --endpoint --headers --http-method --id --name --payload-format --payload-key --timeout-seconds]
+growthbook SDK-webhooks post-SDK-webhook-test  [--id]
+growthbook SDK-webhooks put  [--body --endpoint --headers --http-method --id --name --payload-format --payload-key --sdk-connections --timeout-seconds]
 growthbook analytics-explorations
 growthbook analytics-explorations get  [--id]
 growthbook analytics-explorations get-column-values  [--body --columns --fact-table-id --limit --metric-ids --search-term --source]
@@ -28,6 +34,10 @@ growthbook attributes create  [--archived --body --custom-fields --datatype --de
 growthbook attributes delete  [--property]
 growthbook attributes list  [--project-id]
 growthbook attributes update  [--archived --body --custom-fields --datatype --description --enum --format-param --hash-attribute --projects --property --tags]
+growthbook audits
+growthbook audits get-event  [--id]
+growthbook audits list  [--before --entity-id --entity-type --limit]
+growthbook audits list-events  [--after --before --events --limit]
 growthbook auth
 growthbook auth login
 growthbook auth logout
@@ -167,25 +177,36 @@ growthbook dashboards list
 growthbook dashboards list-for-experiment  [--experiment-id]
 growthbook dashboards update  [--blocks --body --comparison --edit-level --enable-auto-updates --global-controls --id --owner --projects --share-level --title --update-schedule --update-schedule.cron --update-schedule.cron.cron --update-schedule.stale --update-schedule.stale.hours]
 growthbook data-sources
+growthbook data-sources delete  [--id]
 growthbook data-sources get  [--id]
 growthbook data-sources get-information-schema  [--data-source-id]
 growthbook data-sources get-information-schema-table  [--table-id]
 growthbook data-sources get-warehouse-table-schema  [--body --id --tables]
 growthbook data-sources list  [--all --limit --max-pages --offset --project-id]
+growthbook data-sources post-data-source-information-schema-refresh  [--id]
 growthbook data-sources preview-warehouse-column-values  [--body --columns --database-name --id --limit --table-name --table-schema]
 growthbook data-sources run-sql-query  [--body --confirm --id --purpose --sql --table-metadata]
 growthbook data-sources search-warehouse-tables  [--body --id --limit --query]
+growthbook data-sources update  [--assignment-queries --body --description --event-tracker --id --identifier-join-queries --identifier-types --max-concurrent-queries --mixpanel-settings --name --pipeline-settings --project-ids --query-cache-ttl-mins]
 growthbook dimensions
-growthbook dimensions create  [--body --datasource-id --description --identifier-type --managed-by --name --owner --query]
+growthbook dimensions create  [--body --datasource-id --description --identifier-type --managed-by --name --null-label --owner --query --timing]
 growthbook dimensions delete  [--id]
 growthbook dimensions get  [--id]
 growthbook dimensions list  [--all --datasource-id --limit --max-pages --offset]
-growthbook dimensions update  [--body --datasource-id --description --id --identifier-type --managed-by --name --owner --query]
+growthbook dimensions update  [--body --datasource-id --description --id --identifier-type --managed-by --name --null-label --owner --query --timing]
 growthbook environments
 growthbook environments create  [--body --default-state --description --id --is-production --parent --projects --toggle-on-list]
 growthbook environments delete  [--id]
 growthbook environments list
 growthbook environments update  [--body --default-state --description --id --is-production --projects --toggle-on-list]
+growthbook event-webhooks
+growthbook event-webhooks delete  [--id]
+growthbook event-webhooks get  [--id]
+growthbook event-webhooks list
+growthbook event-webhooks list-event-webhook-logs  [--id]
+growthbook event-webhooks post  [--body --enabled --environments --events --headers --method --name --payload-type --projects --tags --timeout-seconds --url]
+growthbook event-webhooks post-event-webhook-test  [--id]
+growthbook event-webhooks put  [--body --enabled --environments --events --headers --id --method --name --payload-type --projects --tags --timeout-seconds --url]
 growthbook experiment-templates
 growthbook experiment-templates bulk-import  [--body --templates]
 growthbook experiment-templates create  [--activation-metric --body --cluster-sub-unit-identifier --custom-fields --custom-metric-slices --datasource --description --disable-sticky-bucketing --exposure-query --exposure-query-id --fallback-attribute --goal-metrics --guardrail-metrics --hash-attribute --hypothesis --is-cluster-experiment --project --secondary-metrics --segment --skip-partial-data --stats-engine --tags --targeting --template-metadata --type]
@@ -216,12 +237,12 @@ growthbook experiments update  [--activation-metric --analysis --archived --assi
 growthbook experiments upload-variation-screenshot  [--body --content-type --description --id --screenshot --variation-id]
 growthbook explore
 growthbook fact-metrics
-growthbook fact-metrics create  [--body --capping-settings --denominator --description --display-as-percentage --funnel-settings --inverse --lower-capping-settings --managed-by --max-percent-change --metric-auto-slices --metric-type --min-percent-change --min-sample-size --name --numerator --owner --prior-settings --projects --quantile-settings --regression-adjustment-settings --replaces --risk-threshold-danger --risk-threshold-success --tags --target-mde --window-settings]
+growthbook fact-metrics create  [--body --capping-settings --compound-settings --denominator --description --display-as-percentage --funnel-settings --inverse --lower-capping-settings --managed-by --max-percent-change --metric-auto-slices --metric-type --min-percent-change --min-sample-size --name --numerator --owner --prior-settings --projects --quantile-settings --regression-adjustment-settings --replaces --risk-threshold-danger --risk-threshold-success --tags --target-mde --window-settings]
 growthbook fact-metrics create-analysis  [--additional-denominator-filters --additional-numerator-filters --body --id --lookback-days --population-id --population-type --use-cache --user-id-type]
 growthbook fact-metrics delete  [--id]
 growthbook fact-metrics get  [--id]
 growthbook fact-metrics list  [--all --datasource-id --fact-table-id --limit --max-pages --offset --project-id]
-growthbook fact-metrics update  [--archived --body --capping-settings --denominator --description --display-as-percentage --funnel-settings --id --inverse --lower-capping-settings --managed-by --max-percent-change --metric-auto-slices --metric-type --min-percent-change --min-sample-size --name --numerator --owner --prior-settings --projects --quantile-settings --regression-adjustment-settings --replaces --risk-threshold-danger --risk-threshold-success --tags --target-mde --window-settings]
+growthbook fact-metrics update  [--archived --body --capping-settings --compound-settings --denominator --description --display-as-percentage --funnel-settings --id --inverse --lower-capping-settings --managed-by --max-percent-change --metric-auto-slices --metric-type --min-percent-change --min-sample-size --name --numerator --owner --prior-settings --projects --quantile-settings --regression-adjustment-settings --replaces --risk-threshold-danger --risk-threshold-success --tags --target-mde --window-settings]
 growthbook fact-tables
 growthbook fact-tables bulk-import  [--body --default-managed-by --fact-metrics --fact-table-filters --fact-tables --validate-only]
 growthbook fact-tables create  [--aggregated-fact-table-settings --body --columns --datasource --description --event-name --managed-by --name --owner --projects --sql --tags --timestamp-column --user-id-columns --user-id-types]
@@ -330,6 +351,8 @@ growthbook holdouts start  [--id]
 growthbook holdouts start-analysis  [--id]
 growthbook holdouts stop  [--id]
 growthbook holdouts update  [--archived --assignment-query --assignment-query-id --body --datasource-id --description --environments --goal-metrics --hash-attribute --holdout-size --id --name --owner --projects --saved-group-targeting --secondary-metrics --skip-as-default-holdout --stats-engine --status-update-schedule --tags --targeting-condition]
+growthbook information-schema-tables
+growthbook information-schema-tables post-information-schema-table-refresh  [--table-id]
 growthbook interleaving-exposure-queries
 growthbook interleaving-exposure-queries create  [--body --datasource-id --description --name --owner --query --user-id-types]
 growthbook interleaving-exposure-queries delete  [--id]
@@ -407,6 +430,8 @@ growthbook projects list  [--all --limit --max-pages --offset]
 growthbook projects update  [--allow-targeting --body --description --id --name --owner --public-id --restrict-access --settings]
 growthbook queries
 growthbook queries get-query  [--id]
+growthbook queries list-data-source  [--id]
+growthbook queries post-query-cancel  [--id]
 growthbook ramp-schedule-templates
 growthbook ramp-schedule-templates create  [--body --end-patch --lockdown-config --monitoring-config --name --official --order --steps]
 growthbook ramp-schedule-templates delete  [--id]
@@ -516,4 +541,8 @@ growthbook visual-changesets get  [--id --include-experiment]
 growthbook visual-changesets list  [--id]
 growthbook visual-changesets update  [--additional-properties --allow-running-experiment --body --editor-url --id --url-patterns --visual-changes]
 growthbook visual-changesets update-visual-change  [--additional-properties --allow-running-experiment --body --css --description --dom-mutations --id --js --variation --visual-change-id]
+growthbook webhook-secrets
+growthbook webhook-secrets delete  [--id]
+growthbook webhook-secrets get  [--id]
+growthbook webhook-secrets list
 growthbook whoami
