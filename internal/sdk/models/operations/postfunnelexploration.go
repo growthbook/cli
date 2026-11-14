@@ -639,6 +639,9 @@ func (p *PostFunnelExplorationDateRangeRequest) GetEndDate() optionalnullable.Op
 	return p.EndDate
 }
 
+// PostFunnelExplorationShowAsRequest - Deprecated: use `showAs` on each metric value.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 type PostFunnelExplorationShowAsRequest string
 
 const (
@@ -668,6 +671,8 @@ func (e *PostFunnelExplorationShowAsRequest) UnmarshalJSON(data []byte) error {
 type PostFunnelExplorationChartSettingsRequest struct {
 	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
 	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+	// Line charts only: whether the y-axis starts at 0. Defaults to true.
+	AnchorYAxisToZero *bool `json:"anchorYAxisToZero,omitzero"`
 }
 
 func (p *PostFunnelExplorationChartSettingsRequest) GetCategoryAxisLabel() *string {
@@ -682,6 +687,13 @@ func (p *PostFunnelExplorationChartSettingsRequest) GetValueAxisLabel() *string 
 		return nil
 	}
 	return p.ValueAxisLabel
+}
+
+func (p *PostFunnelExplorationChartSettingsRequest) GetAnchorYAxisToZero() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AnchorYAxisToZero
 }
 
 type PostFunnelExplorationStepOperatorRequest string
@@ -993,12 +1005,15 @@ func (p *PostFunnelExplorationDatasetRequest) GetYAxisScale() *PostFunnelExplora
 
 type PostFunnelExplorationRequestBody struct {
 	// ID of the datasource to query
-	Datasource    string                                       `json:"datasource"`
-	Dimensions    []PostFunnelExplorationDimensionRequestUnion `json:"dimensions"`
-	ChartType     PostFunnelExplorationChartTypeRequest        `json:"chartType"`
-	DateRange     PostFunnelExplorationDateRangeRequest        `json:"dateRange"`
-	ShowAs        *PostFunnelExplorationShowAsRequest          `json:"showAs,omitzero"`
-	ChartSettings *PostFunnelExplorationChartSettingsRequest   `json:"chartSettings,omitzero"`
+	Datasource string                                       `json:"datasource"`
+	Dimensions []PostFunnelExplorationDimensionRequestUnion `json:"dimensions"`
+	ChartType  PostFunnelExplorationChartTypeRequest        `json:"chartType"`
+	DateRange  PostFunnelExplorationDateRangeRequest        `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *PostFunnelExplorationShowAsRequest        `json:"showAs,omitzero"`
+	ChartSettings *PostFunnelExplorationChartSettingsRequest `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                              `const:"funnel" json:"type"`
 	Dataset PostFunnelExplorationDatasetRequest `json:"dataset"`
@@ -2076,6 +2091,9 @@ func (p *PostFunnelExplorationDateRangeResponse) GetEndDate() optionalnullable.O
 	return p.EndDate
 }
 
+// PostFunnelExplorationShowAsResponse - Deprecated: use `showAs` on each metric value.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 type PostFunnelExplorationShowAsResponse string
 
 const (
@@ -2101,6 +2119,8 @@ func (e *PostFunnelExplorationShowAsResponse) IsExact() bool {
 type PostFunnelExplorationChartSettingsResponse struct {
 	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
 	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+	// Line charts only: whether the y-axis starts at 0. Defaults to true.
+	AnchorYAxisToZero *bool `json:"anchorYAxisToZero,omitzero"`
 }
 
 func (p *PostFunnelExplorationChartSettingsResponse) GetCategoryAxisLabel() *string {
@@ -2115,6 +2135,13 @@ func (p *PostFunnelExplorationChartSettingsResponse) GetValueAxisLabel() *string
 		return nil
 	}
 	return p.ValueAxisLabel
+}
+
+func (p *PostFunnelExplorationChartSettingsResponse) GetAnchorYAxisToZero() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AnchorYAxisToZero
 }
 
 type ExplorationStepOperator string
@@ -2370,12 +2397,15 @@ func (p *PostFunnelExplorationDatasetResponse) GetYAxisScale() *YAxisScaleRespon
 
 type PostFunnelExplorationConfig struct {
 	// ID of the datasource to query
-	Datasource    string                                           `json:"datasource"`
-	Dimensions    []PostFunnelExplorationExplorationDimensionUnion `json:"dimensions"`
-	ChartType     PostFunnelExplorationChartTypeResponse           `json:"chartType"`
-	DateRange     PostFunnelExplorationDateRangeResponse           `json:"dateRange"`
-	ShowAs        *PostFunnelExplorationShowAsResponse             `json:"showAs,omitzero"`
-	ChartSettings *PostFunnelExplorationChartSettingsResponse      `json:"chartSettings,omitzero"`
+	Datasource string                                           `json:"datasource"`
+	Dimensions []PostFunnelExplorationExplorationDimensionUnion `json:"dimensions"`
+	ChartType  PostFunnelExplorationChartTypeResponse           `json:"chartType"`
+	DateRange  PostFunnelExplorationDateRangeResponse           `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *PostFunnelExplorationShowAsResponse        `json:"showAs,omitzero"`
+	ChartSettings *PostFunnelExplorationChartSettingsResponse `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                               `const:"funnel" json:"type"`
 	Dataset PostFunnelExplorationDatasetResponse `json:"dataset"`

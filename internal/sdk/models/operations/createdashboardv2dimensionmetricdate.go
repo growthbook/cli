@@ -1573,6 +1573,9 @@ func (c *CreateDashboardV2DateRangeSQL) GetEndDate() optionalnullable.OptionalNu
 // #region class-body-createdashboardv2daterangesql
 // #endregion class-body-createdashboardv2daterangesql
 
+// CreateDashboardV2ShowAsSQL - Deprecated: use `showAs` on each metric value.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 type CreateDashboardV2ShowAsSQL string
 
 const (
@@ -1602,6 +1605,8 @@ func (e *CreateDashboardV2ShowAsSQL) UnmarshalJSON(data []byte) error {
 type CreateDashboardV2ChartSettingsSQL struct {
 	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
 	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+	// Line charts only: whether the y-axis starts at 0. Defaults to true.
+	AnchorYAxisToZero *bool `json:"anchorYAxisToZero,omitzero"`
 }
 
 func (c CreateDashboardV2ChartSettingsSQL) MarshalJSON() ([]byte, error) {
@@ -1627,6 +1632,13 @@ func (c *CreateDashboardV2ChartSettingsSQL) GetValueAxisLabel() *string {
 		return nil
 	}
 	return c.ValueAxisLabel
+}
+
+func (c *CreateDashboardV2ChartSettingsSQL) GetAnchorYAxisToZero() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.AnchorYAxisToZero
 }
 
 // #region class-body-createdashboardv2chartsettingssql
@@ -1951,12 +1963,15 @@ func (c *CreateDashboardV2DatasetSQL) GetHiddenColumns() []string {
 
 type CreateDashboardV2ConfigSQL struct {
 	// ID of the datasource to query
-	Datasource    string                               `json:"datasource"`
-	Dimensions    []CreateDashboardV2DimensionSQLUnion `json:"dimensions"`
-	ChartType     CreateDashboardV2ChartTypeSQL        `json:"chartType"`
-	DateRange     CreateDashboardV2DateRangeSQL        `json:"dateRange"`
-	ShowAs        *CreateDashboardV2ShowAsSQL          `json:"showAs,omitzero"`
-	ChartSettings *CreateDashboardV2ChartSettingsSQL   `json:"chartSettings,omitzero"`
+	Datasource string                               `json:"datasource"`
+	Dimensions []CreateDashboardV2DimensionSQLUnion `json:"dimensions"`
+	ChartType  CreateDashboardV2ChartTypeSQL        `json:"chartType"`
+	DateRange  CreateDashboardV2DateRangeSQL        `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *CreateDashboardV2ShowAsSQL        `json:"showAs,omitzero"`
+	ChartSettings *CreateDashboardV2ChartSettingsSQL `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                      `const:"sql" json:"type"`
 	Dataset CreateDashboardV2DatasetSQL `json:"dataset"`
@@ -3078,6 +3093,9 @@ func (c *CreateDashboardV2DateRangeFunnel) GetEndDate() optionalnullable.Optiona
 // #region class-body-createdashboardv2daterangefunnel
 // #endregion class-body-createdashboardv2daterangefunnel
 
+// CreateDashboardV2ShowAsFunnel - Deprecated: use `showAs` on each metric value.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 type CreateDashboardV2ShowAsFunnel string
 
 const (
@@ -3107,6 +3125,8 @@ func (e *CreateDashboardV2ShowAsFunnel) UnmarshalJSON(data []byte) error {
 type CreateDashboardV2ChartSettingsFunnel struct {
 	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
 	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+	// Line charts only: whether the y-axis starts at 0. Defaults to true.
+	AnchorYAxisToZero *bool `json:"anchorYAxisToZero,omitzero"`
 }
 
 func (c CreateDashboardV2ChartSettingsFunnel) MarshalJSON() ([]byte, error) {
@@ -3132,6 +3152,13 @@ func (c *CreateDashboardV2ChartSettingsFunnel) GetValueAxisLabel() *string {
 		return nil
 	}
 	return c.ValueAxisLabel
+}
+
+func (c *CreateDashboardV2ChartSettingsFunnel) GetAnchorYAxisToZero() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.AnchorYAxisToZero
 }
 
 // #region class-body-createdashboardv2chartsettingsfunnel
@@ -3469,12 +3496,15 @@ func (c *CreateDashboardV2DatasetFunnel) GetYAxisScale() *CreateDashboardV2YAxis
 
 type CreateDashboardV2ConfigFunnel struct {
 	// ID of the datasource to query
-	Datasource    string                                  `json:"datasource"`
-	Dimensions    []CreateDashboardV2DimensionFunnelUnion `json:"dimensions"`
-	ChartType     CreateDashboardV2ChartTypeFunnel        `json:"chartType"`
-	DateRange     CreateDashboardV2DateRangeFunnel        `json:"dateRange"`
-	ShowAs        *CreateDashboardV2ShowAsFunnel          `json:"showAs,omitzero"`
-	ChartSettings *CreateDashboardV2ChartSettingsFunnel   `json:"chartSettings,omitzero"`
+	Datasource string                                  `json:"datasource"`
+	Dimensions []CreateDashboardV2DimensionFunnelUnion `json:"dimensions"`
+	ChartType  CreateDashboardV2ChartTypeFunnel        `json:"chartType"`
+	DateRange  CreateDashboardV2DateRangeFunnel        `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *CreateDashboardV2ShowAsFunnel        `json:"showAs,omitzero"`
+	ChartSettings *CreateDashboardV2ChartSettingsFunnel `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                         `const:"funnel" json:"type"`
 	Dataset CreateDashboardV2DatasetFunnel `json:"dataset"`
@@ -4604,6 +4634,9 @@ func (c *CreateDashboardV2DateRangeDataSource) GetEndDate() optionalnullable.Opt
 // #region class-body-createdashboardv2daterangedatasource
 // #endregion class-body-createdashboardv2daterangedatasource
 
+// CreateDashboardV2ShowAsDataSource - Deprecated: use `showAs` on each metric value.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 type CreateDashboardV2ShowAsDataSource string
 
 const (
@@ -4633,6 +4666,8 @@ func (e *CreateDashboardV2ShowAsDataSource) UnmarshalJSON(data []byte) error {
 type CreateDashboardV2ChartSettingsDataSource struct {
 	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
 	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+	// Line charts only: whether the y-axis starts at 0. Defaults to true.
+	AnchorYAxisToZero *bool `json:"anchorYAxisToZero,omitzero"`
 }
 
 func (c CreateDashboardV2ChartSettingsDataSource) MarshalJSON() ([]byte, error) {
@@ -4658,6 +4693,13 @@ func (c *CreateDashboardV2ChartSettingsDataSource) GetValueAxisLabel() *string {
 		return nil
 	}
 	return c.ValueAxisLabel
+}
+
+func (c *CreateDashboardV2ChartSettingsDataSource) GetAnchorYAxisToZero() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.AnchorYAxisToZero
 }
 
 // #region class-body-createdashboardv2chartsettingsdatasource
@@ -4982,12 +5024,15 @@ func (c *CreateDashboardV2DatasetDataSource) GetValues() []CreateDashboardV2Valu
 
 type CreateDashboardV2ConfigDataSource struct {
 	// ID of the datasource to query
-	Datasource    string                                      `json:"datasource"`
-	Dimensions    []CreateDashboardV2DimensionDataSourceUnion `json:"dimensions"`
-	ChartType     CreateDashboardV2ChartTypeDataSource        `json:"chartType"`
-	DateRange     CreateDashboardV2DateRangeDataSource        `json:"dateRange"`
-	ShowAs        *CreateDashboardV2ShowAsDataSource          `json:"showAs,omitzero"`
-	ChartSettings *CreateDashboardV2ChartSettingsDataSource   `json:"chartSettings,omitzero"`
+	Datasource string                                      `json:"datasource"`
+	Dimensions []CreateDashboardV2DimensionDataSourceUnion `json:"dimensions"`
+	ChartType  CreateDashboardV2ChartTypeDataSource        `json:"chartType"`
+	DateRange  CreateDashboardV2DateRangeDataSource        `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *CreateDashboardV2ShowAsDataSource        `json:"showAs,omitzero"`
+	ChartSettings *CreateDashboardV2ChartSettingsDataSource `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                             `const:"data_source" json:"type"`
 	Dataset CreateDashboardV2DatasetDataSource `json:"dataset"`
@@ -6109,6 +6154,9 @@ func (c *CreateDashboardV2DateRangeFactTable) GetEndDate() optionalnullable.Opti
 // #region class-body-createdashboardv2daterangefacttable
 // #endregion class-body-createdashboardv2daterangefacttable
 
+// CreateDashboardV2ShowAsFactTable - Deprecated: use `showAs` on each metric value.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 type CreateDashboardV2ShowAsFactTable string
 
 const (
@@ -6138,6 +6186,8 @@ func (e *CreateDashboardV2ShowAsFactTable) UnmarshalJSON(data []byte) error {
 type CreateDashboardV2ChartSettingsFactTable struct {
 	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
 	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+	// Line charts only: whether the y-axis starts at 0. Defaults to true.
+	AnchorYAxisToZero *bool `json:"anchorYAxisToZero,omitzero"`
 }
 
 func (c CreateDashboardV2ChartSettingsFactTable) MarshalJSON() ([]byte, error) {
@@ -6163,6 +6213,13 @@ func (c *CreateDashboardV2ChartSettingsFactTable) GetValueAxisLabel() *string {
 		return nil
 	}
 	return c.ValueAxisLabel
+}
+
+func (c *CreateDashboardV2ChartSettingsFactTable) GetAnchorYAxisToZero() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.AnchorYAxisToZero
 }
 
 // #region class-body-createdashboardv2chartsettingsfacttable
@@ -6428,12 +6485,15 @@ func (c *CreateDashboardV2DatasetFactTable) GetValues() []CreateDashboardV2Value
 
 type CreateDashboardV2ConfigFactTable struct {
 	// ID of the datasource to query
-	Datasource    string                                     `json:"datasource"`
-	Dimensions    []CreateDashboardV2DimensionFactTableUnion `json:"dimensions"`
-	ChartType     CreateDashboardV2ChartTypeFactTable        `json:"chartType"`
-	DateRange     CreateDashboardV2DateRangeFactTable        `json:"dateRange"`
-	ShowAs        *CreateDashboardV2ShowAsFactTable          `json:"showAs,omitzero"`
-	ChartSettings *CreateDashboardV2ChartSettingsFactTable   `json:"chartSettings,omitzero"`
+	Datasource string                                     `json:"datasource"`
+	Dimensions []CreateDashboardV2DimensionFactTableUnion `json:"dimensions"`
+	ChartType  CreateDashboardV2ChartTypeFactTable        `json:"chartType"`
+	DateRange  CreateDashboardV2DateRangeFactTable        `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *CreateDashboardV2ShowAsFactTable        `json:"showAs,omitzero"`
+	ChartSettings *CreateDashboardV2ChartSettingsFactTable `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                            `const:"fact_table" json:"type"`
 	Dataset CreateDashboardV2DatasetFactTable `json:"dataset"`

@@ -23,7 +23,7 @@ func initGetInformationSchemaTableCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "get-information-schema-table",
 		Short:   "Get a single Information Schema Table by id",
-		Long:    "Returns cached metadata for a specific table in the Data Source, including columns and their data types. Not all data source types support information schemas.",
+		Long:    "Returns cached metadata for a specific table in the Data Source, including columns and their data types. The first request for a table listed in the information schema reads its columns from the warehouse, which needs permission to run queries. Not all data source types support information schemas.",
 		Example: "  growthbook data-sources get-information-schema-table --table-id <id>",
 		RunE:    runGetInformationSchemaTableCmd,
 		Aliases: []string{"gist"},

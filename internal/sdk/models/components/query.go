@@ -36,10 +36,13 @@ type Query struct {
 	QueryType    string       `json:"queryType"`
 	CreatedAt    string       `json:"createdAt"`
 	StartedAt    string       `json:"startedAt"`
+	FinishedAt   *string      `json:"finishedAt"`
 	Status       QueryStatus1 `json:"status"`
-	ExternalID   string       `json:"externalId"`
-	Dependencies []string     `json:"dependencies"`
-	RunAtEnd     bool         `json:"runAtEnd"`
+	// Why the query failed
+	Error        *string  `json:"error"`
+	ExternalID   string   `json:"externalId"`
+	Dependencies []string `json:"dependencies"`
+	RunAtEnd     bool     `json:"runAtEnd"`
 }
 
 func (q *Query) GetID() string {
@@ -98,11 +101,25 @@ func (q *Query) GetStartedAt() string {
 	return q.StartedAt
 }
 
+func (q *Query) GetFinishedAt() *string {
+	if q == nil {
+		return nil
+	}
+	return q.FinishedAt
+}
+
 func (q *Query) GetStatus() QueryStatus1 {
 	if q == nil {
 		return QueryStatus1("")
 	}
 	return q.Status
+}
+
+func (q *Query) GetError() *string {
+	if q == nil {
+		return nil
+	}
+	return q.Error
 }
 
 func (q *Query) GetExternalID() string {

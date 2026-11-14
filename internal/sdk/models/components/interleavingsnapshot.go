@@ -609,20 +609,20 @@ func (r *ResultTreatment) GetCr() float64 {
 	return r.Cr
 }
 
-// Method - Which test produced this result. paired_delta_t: paired delta-method t-test on per-user credited rates (paired analysis). exact_binomial_sign: exact binomial sign test over non-tied users with a Clopper-Pearson interval (preference analysis).
-type Method string
+// InterleavingSnapshotMethod - Which test produced this result. paired_delta_t: paired delta-method t-test on per-user credited rates (paired analysis). exact_binomial_sign: exact binomial sign test over non-tied users with a Clopper-Pearson interval (preference analysis).
+type InterleavingSnapshotMethod string
 
 const (
-	MethodPairedDeltaT      Method = "paired_delta_t"
-	MethodExactBinomialSign Method = "exact_binomial_sign"
+	InterleavingSnapshotMethodPairedDeltaT      InterleavingSnapshotMethod = "paired_delta_t"
+	InterleavingSnapshotMethodExactBinomialSign InterleavingSnapshotMethod = "exact_binomial_sign"
 )
 
-func (e Method) ToPointer() *Method {
+func (e InterleavingSnapshotMethod) ToPointer() *InterleavingSnapshotMethod {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *Method) IsExact() bool {
+func (e *InterleavingSnapshotMethod) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "paired_delta_t", "exact_binomial_sign":
@@ -656,17 +656,17 @@ func (e *PValueErrorMessage) IsExact() bool {
 
 type Test struct {
 	// Which test produced this result. paired_delta_t: paired delta-method t-test on per-user credited rates (paired analysis). exact_binomial_sign: exact binomial sign test over non-tied users with a Clopper-Pearson interval (preference analysis).
-	Method             Method              `json:"method"`
-	Expected           float64             `json:"expected"`
-	Ci                 []any               `json:"ci"`
-	PValue             *float64            `json:"pValue"`
-	ErrorMessage       *string             `json:"errorMessage"`
-	PValueErrorMessage *PValueErrorMessage `json:"pValueErrorMessage"`
+	Method             InterleavingSnapshotMethod `json:"method"`
+	Expected           float64                    `json:"expected"`
+	Ci                 []any                      `json:"ci"`
+	PValue             *float64                   `json:"pValue"`
+	ErrorMessage       *string                    `json:"errorMessage"`
+	PValueErrorMessage *PValueErrorMessage        `json:"pValueErrorMessage"`
 }
 
-func (t *Test) GetMethod() Method {
+func (t *Test) GetMethod() InterleavingSnapshotMethod {
 	if t == nil {
-		return Method("")
+		return InterleavingSnapshotMethod("")
 	}
 	return t.Method
 }

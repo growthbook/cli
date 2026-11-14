@@ -11,6 +11,95 @@ import (
 	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/utils"
 )
 
+type UpdateDashboardBlockPreviousTimeFrameLookbackUnit1 string
+
+const (
+	UpdateDashboardBlockPreviousTimeFrameLookbackUnit1Hour  UpdateDashboardBlockPreviousTimeFrameLookbackUnit1 = "hour"
+	UpdateDashboardBlockPreviousTimeFrameLookbackUnit1Day   UpdateDashboardBlockPreviousTimeFrameLookbackUnit1 = "day"
+	UpdateDashboardBlockPreviousTimeFrameLookbackUnit1Week  UpdateDashboardBlockPreviousTimeFrameLookbackUnit1 = "week"
+	UpdateDashboardBlockPreviousTimeFrameLookbackUnit1Month UpdateDashboardBlockPreviousTimeFrameLookbackUnit1 = "month"
+)
+
+func (e UpdateDashboardBlockPreviousTimeFrameLookbackUnit1) ToPointer() *UpdateDashboardBlockPreviousTimeFrameLookbackUnit1 {
+	return &e
+}
+func (e *UpdateDashboardBlockPreviousTimeFrameLookbackUnit1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "hour":
+		fallthrough
+	case "day":
+		fallthrough
+	case "week":
+		fallthrough
+	case "month":
+		*e = UpdateDashboardBlockPreviousTimeFrameLookbackUnit1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for UpdateDashboardBlockPreviousTimeFrameLookbackUnit1: %v", v)
+	}
+}
+
+type UpdateDashboardBlockPreviousTimeFrame1 struct {
+	Predefined    UpdateDashboardBlockPreviousTimeFramePredefined1                                      `json:"predefined"`
+	LookbackValue optionalnullable.OptionalNullable[float64]                                            `json:"lookbackValue,omitzero"`
+	LookbackUnit  optionalnullable.OptionalNullable[UpdateDashboardBlockPreviousTimeFrameLookbackUnit1] `json:"lookbackUnit,omitzero"`
+	StartDate     optionalnullable.OptionalNullable[string]                                             `json:"startDate,omitzero"`
+	EndDate       optionalnullable.OptionalNullable[string]                                             `json:"endDate,omitzero"`
+}
+
+func (u UpdateDashboardBlockPreviousTimeFrame1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdateDashboardBlockPreviousTimeFrame1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *UpdateDashboardBlockPreviousTimeFrame1) GetPredefined() UpdateDashboardBlockPreviousTimeFramePredefined1 {
+	if u == nil {
+		return UpdateDashboardBlockPreviousTimeFramePredefined1("")
+	}
+	return u.Predefined
+}
+
+func (u *UpdateDashboardBlockPreviousTimeFrame1) GetLookbackValue() optionalnullable.OptionalNullable[float64] {
+	if u == nil {
+		return nil
+	}
+	return u.LookbackValue
+}
+
+func (u *UpdateDashboardBlockPreviousTimeFrame1) GetLookbackUnit() optionalnullable.OptionalNullable[UpdateDashboardBlockPreviousTimeFrameLookbackUnit1] {
+	if u == nil {
+		return nil
+	}
+	return u.LookbackUnit
+}
+
+func (u *UpdateDashboardBlockPreviousTimeFrame1) GetStartDate() optionalnullable.OptionalNullable[string] {
+	if u == nil {
+		return nil
+	}
+	return u.StartDate
+}
+
+func (u *UpdateDashboardBlockPreviousTimeFrame1) GetEndDate() optionalnullable.OptionalNullable[string] {
+	if u == nil {
+		return nil
+	}
+	return u.EndDate
+}
+
+// #region class-body-updatedashboardblockprevioustimeframe1
+// #endregion class-body-updatedashboardblockprevioustimeframe1
+
 type UpdateDashboardBlockComparison1 struct {
 	Enabled           bool                                    `json:"enabled"`
 	Mode              *UpdateDashboardBlockMode1              `json:"mode,omitzero"`

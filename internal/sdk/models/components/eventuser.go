@@ -30,43 +30,43 @@ func (e *EventUserType) IsExact() bool {
 	return false
 }
 
-// RequestedBy - The member named with `X-GrowthBook-Requested-By`
-type RequestedBy struct {
+// EventUserRequestedBy - The member named with `X-GrowthBook-Requested-By`
+type EventUserRequestedBy struct {
 	ID    string `json:"id"`
 	Name  string `json:"name"`
 	Email string `json:"email"`
 }
 
-func (r RequestedBy) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
+func (e EventUserRequestedBy) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
 }
 
-func (r *RequestedBy) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+func (e *EventUserRequestedBy) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *RequestedBy) GetID() string {
-	if r == nil {
+func (e *EventUserRequestedBy) GetID() string {
+	if e == nil {
 		return ""
 	}
-	return r.ID
+	return e.ID
 }
 
-func (r *RequestedBy) GetName() string {
-	if r == nil {
+func (e *EventUserRequestedBy) GetName() string {
+	if e == nil {
 		return ""
 	}
-	return r.Name
+	return e.Name
 }
 
-func (r *RequestedBy) GetEmail() string {
-	if r == nil {
+func (e *EventUserRequestedBy) GetEmail() string {
+	if e == nil {
 		return ""
 	}
-	return r.Email
+	return e.Email
 }
 
 // EventUser - Who performed an action
@@ -82,7 +82,7 @@ type EventUser struct {
 	// The member's email. Absent for an organization API key
 	Email *string `json:"email,omitzero"`
 	// The member named with `X-GrowthBook-Requested-By`
-	RequestedBy *RequestedBy `json:"requestedBy,omitzero"`
+	RequestedBy *EventUserRequestedBy `json:"requestedBy,omitzero"`
 	// Whether the key assumed the named member's role
 	AssumedRole *bool `json:"assumedRole,omitzero"`
 }
@@ -133,7 +133,7 @@ func (e *EventUser) GetEmail() *string {
 	return e.Email
 }
 
-func (e *EventUser) GetRequestedBy() *RequestedBy {
+func (e *EventUser) GetRequestedBy() *EventUserRequestedBy {
 	if e == nil {
 		return nil
 	}

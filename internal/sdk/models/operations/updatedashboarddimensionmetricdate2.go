@@ -1555,6 +1555,9 @@ func (u *UpdateDashboardDateRangeSQL2) GetEndDate() optionalnullable.OptionalNul
 // #region class-body-updatedashboarddaterangesql2
 // #endregion class-body-updatedashboarddaterangesql2
 
+// UpdateDashboardShowAsSQL2 - Deprecated: use `showAs` on each metric value.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 type UpdateDashboardShowAsSQL2 string
 
 const (
@@ -1584,6 +1587,8 @@ func (e *UpdateDashboardShowAsSQL2) UnmarshalJSON(data []byte) error {
 type UpdateDashboardChartSettingsSQL2 struct {
 	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
 	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+	// Line charts only: whether the y-axis starts at 0. Defaults to true.
+	AnchorYAxisToZero *bool `json:"anchorYAxisToZero,omitzero"`
 }
 
 func (u UpdateDashboardChartSettingsSQL2) MarshalJSON() ([]byte, error) {
@@ -1609,6 +1614,13 @@ func (u *UpdateDashboardChartSettingsSQL2) GetValueAxisLabel() *string {
 		return nil
 	}
 	return u.ValueAxisLabel
+}
+
+func (u *UpdateDashboardChartSettingsSQL2) GetAnchorYAxisToZero() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.AnchorYAxisToZero
 }
 
 // #region class-body-updatedashboardchartsettingssql2
@@ -1933,12 +1945,15 @@ func (u *UpdateDashboardDatasetSQL2) GetHiddenColumns() []string {
 
 type UpdateDashboardConfigSQL2 struct {
 	// ID of the datasource to query
-	Datasource    string                              `json:"datasource"`
-	Dimensions    []UpdateDashboardDimensionSQLUnion2 `json:"dimensions"`
-	ChartType     UpdateDashboardChartTypeSQL2        `json:"chartType"`
-	DateRange     UpdateDashboardDateRangeSQL2        `json:"dateRange"`
-	ShowAs        *UpdateDashboardShowAsSQL2          `json:"showAs,omitzero"`
-	ChartSettings *UpdateDashboardChartSettingsSQL2   `json:"chartSettings,omitzero"`
+	Datasource string                              `json:"datasource"`
+	Dimensions []UpdateDashboardDimensionSQLUnion2 `json:"dimensions"`
+	ChartType  UpdateDashboardChartTypeSQL2        `json:"chartType"`
+	DateRange  UpdateDashboardDateRangeSQL2        `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *UpdateDashboardShowAsSQL2        `json:"showAs,omitzero"`
+	ChartSettings *UpdateDashboardChartSettingsSQL2 `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                     `const:"sql" json:"type"`
 	Dataset UpdateDashboardDatasetSQL2 `json:"dataset"`
@@ -3060,6 +3075,9 @@ func (u *UpdateDashboardDateRangeFunnel2) GetEndDate() optionalnullable.Optional
 // #region class-body-updatedashboarddaterangefunnel2
 // #endregion class-body-updatedashboarddaterangefunnel2
 
+// UpdateDashboardShowAsFunnel2 - Deprecated: use `showAs` on each metric value.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 type UpdateDashboardShowAsFunnel2 string
 
 const (
@@ -3089,6 +3107,8 @@ func (e *UpdateDashboardShowAsFunnel2) UnmarshalJSON(data []byte) error {
 type UpdateDashboardChartSettingsFunnel2 struct {
 	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
 	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+	// Line charts only: whether the y-axis starts at 0. Defaults to true.
+	AnchorYAxisToZero *bool `json:"anchorYAxisToZero,omitzero"`
 }
 
 func (u UpdateDashboardChartSettingsFunnel2) MarshalJSON() ([]byte, error) {
@@ -3114,6 +3134,13 @@ func (u *UpdateDashboardChartSettingsFunnel2) GetValueAxisLabel() *string {
 		return nil
 	}
 	return u.ValueAxisLabel
+}
+
+func (u *UpdateDashboardChartSettingsFunnel2) GetAnchorYAxisToZero() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.AnchorYAxisToZero
 }
 
 // #region class-body-updatedashboardchartsettingsfunnel2
@@ -3451,12 +3478,15 @@ func (u *UpdateDashboardDatasetFunnel2) GetYAxisScale() *UpdateDashboardYAxisSca
 
 type UpdateDashboardConfigFunnel2 struct {
 	// ID of the datasource to query
-	Datasource    string                                 `json:"datasource"`
-	Dimensions    []UpdateDashboardDimensionFunnelUnion2 `json:"dimensions"`
-	ChartType     UpdateDashboardChartTypeFunnel2        `json:"chartType"`
-	DateRange     UpdateDashboardDateRangeFunnel2        `json:"dateRange"`
-	ShowAs        *UpdateDashboardShowAsFunnel2          `json:"showAs,omitzero"`
-	ChartSettings *UpdateDashboardChartSettingsFunnel2   `json:"chartSettings,omitzero"`
+	Datasource string                                 `json:"datasource"`
+	Dimensions []UpdateDashboardDimensionFunnelUnion2 `json:"dimensions"`
+	ChartType  UpdateDashboardChartTypeFunnel2        `json:"chartType"`
+	DateRange  UpdateDashboardDateRangeFunnel2        `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *UpdateDashboardShowAsFunnel2        `json:"showAs,omitzero"`
+	ChartSettings *UpdateDashboardChartSettingsFunnel2 `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                        `const:"funnel" json:"type"`
 	Dataset UpdateDashboardDatasetFunnel2 `json:"dataset"`
@@ -4586,6 +4616,9 @@ func (u *UpdateDashboardDateRangeDataSource2) GetEndDate() optionalnullable.Opti
 // #region class-body-updatedashboarddaterangedatasource2
 // #endregion class-body-updatedashboarddaterangedatasource2
 
+// UpdateDashboardShowAsDataSource2 - Deprecated: use `showAs` on each metric value.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 type UpdateDashboardShowAsDataSource2 string
 
 const (
@@ -4615,6 +4648,8 @@ func (e *UpdateDashboardShowAsDataSource2) UnmarshalJSON(data []byte) error {
 type UpdateDashboardChartSettingsDataSource2 struct {
 	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
 	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+	// Line charts only: whether the y-axis starts at 0. Defaults to true.
+	AnchorYAxisToZero *bool `json:"anchorYAxisToZero,omitzero"`
 }
 
 func (u UpdateDashboardChartSettingsDataSource2) MarshalJSON() ([]byte, error) {
@@ -4640,6 +4675,13 @@ func (u *UpdateDashboardChartSettingsDataSource2) GetValueAxisLabel() *string {
 		return nil
 	}
 	return u.ValueAxisLabel
+}
+
+func (u *UpdateDashboardChartSettingsDataSource2) GetAnchorYAxisToZero() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.AnchorYAxisToZero
 }
 
 // #region class-body-updatedashboardchartsettingsdatasource2
@@ -4964,12 +5006,15 @@ func (u *UpdateDashboardDatasetDataSource2) GetValues() []UpdateDashboardValueDa
 
 type UpdateDashboardConfigDataSource2 struct {
 	// ID of the datasource to query
-	Datasource    string                                     `json:"datasource"`
-	Dimensions    []UpdateDashboardDimensionDataSourceUnion2 `json:"dimensions"`
-	ChartType     UpdateDashboardChartTypeDataSource2        `json:"chartType"`
-	DateRange     UpdateDashboardDateRangeDataSource2        `json:"dateRange"`
-	ShowAs        *UpdateDashboardShowAsDataSource2          `json:"showAs,omitzero"`
-	ChartSettings *UpdateDashboardChartSettingsDataSource2   `json:"chartSettings,omitzero"`
+	Datasource string                                     `json:"datasource"`
+	Dimensions []UpdateDashboardDimensionDataSourceUnion2 `json:"dimensions"`
+	ChartType  UpdateDashboardChartTypeDataSource2        `json:"chartType"`
+	DateRange  UpdateDashboardDateRangeDataSource2        `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *UpdateDashboardShowAsDataSource2        `json:"showAs,omitzero"`
+	ChartSettings *UpdateDashboardChartSettingsDataSource2 `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                            `const:"data_source" json:"type"`
 	Dataset UpdateDashboardDatasetDataSource2 `json:"dataset"`
@@ -6091,6 +6136,9 @@ func (u *UpdateDashboardDateRangeFactTable2) GetEndDate() optionalnullable.Optio
 // #region class-body-updatedashboarddaterangefacttable2
 // #endregion class-body-updatedashboarddaterangefacttable2
 
+// UpdateDashboardShowAsFactTable2 - Deprecated: use `showAs` on each metric value.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 type UpdateDashboardShowAsFactTable2 string
 
 const (
@@ -6120,6 +6168,8 @@ func (e *UpdateDashboardShowAsFactTable2) UnmarshalJSON(data []byte) error {
 type UpdateDashboardChartSettingsFactTable2 struct {
 	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
 	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+	// Line charts only: whether the y-axis starts at 0. Defaults to true.
+	AnchorYAxisToZero *bool `json:"anchorYAxisToZero,omitzero"`
 }
 
 func (u UpdateDashboardChartSettingsFactTable2) MarshalJSON() ([]byte, error) {
@@ -6145,6 +6195,13 @@ func (u *UpdateDashboardChartSettingsFactTable2) GetValueAxisLabel() *string {
 		return nil
 	}
 	return u.ValueAxisLabel
+}
+
+func (u *UpdateDashboardChartSettingsFactTable2) GetAnchorYAxisToZero() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.AnchorYAxisToZero
 }
 
 // #region class-body-updatedashboardchartsettingsfacttable2
@@ -6410,12 +6467,15 @@ func (u *UpdateDashboardDatasetFactTable2) GetValues() []UpdateDashboardValueFac
 
 type UpdateDashboardConfigFactTable2 struct {
 	// ID of the datasource to query
-	Datasource    string                                    `json:"datasource"`
-	Dimensions    []UpdateDashboardDimensionFactTableUnion2 `json:"dimensions"`
-	ChartType     UpdateDashboardChartTypeFactTable2        `json:"chartType"`
-	DateRange     UpdateDashboardDateRangeFactTable2        `json:"dateRange"`
-	ShowAs        *UpdateDashboardShowAsFactTable2          `json:"showAs,omitzero"`
-	ChartSettings *UpdateDashboardChartSettingsFactTable2   `json:"chartSettings,omitzero"`
+	Datasource string                                    `json:"datasource"`
+	Dimensions []UpdateDashboardDimensionFactTableUnion2 `json:"dimensions"`
+	ChartType  UpdateDashboardChartTypeFactTable2        `json:"chartType"`
+	DateRange  UpdateDashboardDateRangeFactTable2        `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *UpdateDashboardShowAsFactTable2        `json:"showAs,omitzero"`
+	ChartSettings *UpdateDashboardChartSettingsFactTable2 `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                           `const:"fact_table" json:"type"`
 	Dataset UpdateDashboardDatasetFactTable2 `json:"dataset"`

@@ -103,6 +103,8 @@ type DataSourceAssignmentQuery struct {
 	Projects            []string `json:"projects"`
 	// The column `sql` returns for each role, where it isn't the canonical name (`experiment_id`, `variation_id`, `timestamp`, `experiment_name`, `variation_name`, or the identifier type's own name). Roles not listed use the canonical name.
 	ColumnMapping *ColumnMapping `json:"columnMapping,omitzero"`
+	// Why the last validation of this query failed
+	Error *string `json:"error,omitzero"`
 }
 
 func (d DataSourceAssignmentQuery) MarshalJSON() ([]byte, error) {
@@ -186,6 +188,13 @@ func (d *DataSourceAssignmentQuery) GetColumnMapping() *ColumnMapping {
 	return d.ColumnMapping
 }
 
+func (d *DataSourceAssignmentQuery) GetError() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Error
+}
+
 type IdentifierJoinQuery struct {
 	IdentifierTypes []string `json:"identifierTypes"`
 	SQL             string   `json:"sql"`
@@ -240,6 +249,116 @@ func (m *MixpanelSettings) GetExtraUserIDProperty() string {
 	return m.ExtraUserIDProperty
 }
 
+type DataSourceMode string
+
+const (
+	DataSourceModeEphemeral   DataSourceMode = "ephemeral"
+	DataSourceModeIncremental DataSourceMode = "incremental"
+)
+
+func (e DataSourceMode) ToPointer() *DataSourceMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *DataSourceMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "ephemeral", "incremental":
+			return true
+		}
+	}
+	return false
+}
+
+type PipelineSettings struct {
+	// Let GrowthBook write temporary tables to speed up analysis
+	AllowWriting  bool           `json:"allowWriting"`
+	Mode          DataSourceMode `json:"mode"`
+	WriteDatabase *string        `json:"writeDatabase,omitzero"`
+	// Schema (or dataset) to write tables to
+	WriteDataset                  string   `json:"writeDataset"`
+	UnitsTableRetentionHours      float64  `json:"unitsTableRetentionHours"`
+	UnitsTableDeletion            *bool    `json:"unitsTableDeletion,omitzero"`
+	IncludedExperimentIds         []string `json:"includedExperimentIds,omitzero"`
+	ExcludedExperimentIds         []string `json:"excludedExperimentIds,omitzero"`
+	IncrementalOptInExperimentIds []string `json:"incrementalOptInExperimentIds,omitzero"`
+}
+
+func (p PipelineSettings) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PipelineSettings) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PipelineSettings) GetAllowWriting() bool {
+	if p == nil {
+		return false
+	}
+	return p.AllowWriting
+}
+
+func (p *PipelineSettings) GetMode() DataSourceMode {
+	if p == nil {
+		return DataSourceMode("")
+	}
+	return p.Mode
+}
+
+func (p *PipelineSettings) GetWriteDatabase() *string {
+	if p == nil {
+		return nil
+	}
+	return p.WriteDatabase
+}
+
+func (p *PipelineSettings) GetWriteDataset() string {
+	if p == nil {
+		return ""
+	}
+	return p.WriteDataset
+}
+
+func (p *PipelineSettings) GetUnitsTableRetentionHours() float64 {
+	if p == nil {
+		return 0.0
+	}
+	return p.UnitsTableRetentionHours
+}
+
+func (p *PipelineSettings) GetUnitsTableDeletion() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.UnitsTableDeletion
+}
+
+func (p *PipelineSettings) GetIncludedExperimentIds() []string {
+	if p == nil {
+		return nil
+	}
+	return p.IncludedExperimentIds
+}
+
+func (p *PipelineSettings) GetExcludedExperimentIds() []string {
+	if p == nil {
+		return nil
+	}
+	return p.ExcludedExperimentIds
+}
+
+func (p *PipelineSettings) GetIncrementalOptInExperimentIds() []string {
+	if p == nil {
+		return nil
+	}
+	return p.IncrementalOptInExperimentIds
+}
+
 type DataSource struct {
 	ID                    string                      `json:"id"`
 	DateCreated           time.Time                   `json:"dateCreated"`
@@ -253,6 +372,9 @@ type DataSource struct {
 	AssignmentQueries     []DataSourceAssignmentQuery `json:"assignmentQueries"`
 	IdentifierJoinQueries []IdentifierJoinQuery       `json:"identifierJoinQueries"`
 	MixpanelSettings      *MixpanelSettings           `json:"mixpanelSettings,omitzero"`
+	PipelineSettings      *PipelineSettings           `json:"pipelineSettings,omitzero"`
+	MaxConcurrentQueries  *int64                      `json:"maxConcurrentQueries,omitzero"`
+	QueryCacheTTLMins     *int64                      `json:"queryCacheTTLMins,omitzero"`
 }
 
 func (d DataSource) MarshalJSON() ([]byte, error) {
@@ -348,4 +470,25 @@ func (d *DataSource) GetMixpanelSettings() *MixpanelSettings {
 		return nil
 	}
 	return d.MixpanelSettings
+}
+
+func (d *DataSource) GetPipelineSettings() *PipelineSettings {
+	if d == nil {
+		return nil
+	}
+	return d.PipelineSettings
+}
+
+func (d *DataSource) GetMaxConcurrentQueries() *int64 {
+	if d == nil {
+		return nil
+	}
+	return d.MaxConcurrentQueries
+}
+
+func (d *DataSource) GetQueryCacheTTLMins() *int64 {
+	if d == nil {
+		return nil
+	}
+	return d.QueryCacheTTLMins
 }
