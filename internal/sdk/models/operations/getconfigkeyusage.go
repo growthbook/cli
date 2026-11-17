@@ -19,30 +19,10 @@ func (g *GetConfigKeyUsageRequest) GetKey() string {
 	return g.Key
 }
 
-// GetConfigKeyUsageResponseBody - Successful response
-type GetConfigKeyUsageResponseBody struct {
-	FamilyKeys      []string                     `json:"familyKeys"`
-	Implementations []components.Implementations `json:"implementations"`
-}
-
-func (g *GetConfigKeyUsageResponseBody) GetFamilyKeys() []string {
-	if g == nil {
-		return []string{}
-	}
-	return g.FamilyKeys
-}
-
-func (g *GetConfigKeyUsageResponseBody) GetImplementations() []components.Implementations {
-	if g == nil {
-		return []components.Implementations{}
-	}
-	return g.Implementations
-}
-
 type GetConfigKeyUsageResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Successful response
-	Object *GetConfigKeyUsageResponseBody
+	ConfigKeyUsage *components.ConfigKeyUsage
 }
 
 func (g GetConfigKeyUsageResponse) MarshalJSON() ([]byte, error) {
@@ -63,9 +43,9 @@ func (g *GetConfigKeyUsageResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetConfigKeyUsageResponse) GetObject() *GetConfigKeyUsageResponseBody {
+func (g *GetConfigKeyUsageResponse) GetConfigKeyUsage() *components.ConfigKeyUsage {
 	if g == nil {
 		return nil
 	}
-	return g.Object
+	return g.ConfigKeyUsage
 }

@@ -41,6 +41,10 @@ func InitRampSchedulesRoot(parent *cobra.Command) error {
 		return err
 	}
 
+	if err := initRetryRampScheduleCmd(RampSchedulesCmd); err != nil {
+		return err
+	}
+
 	if err := initRollbackRampScheduleCmd(RampSchedulesCmd); err != nil {
 		return err
 	}

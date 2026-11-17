@@ -59,6 +59,7 @@ growthbook ramp-schedules [flags]
 * [growthbook ramp-schedules refresh-monitoring](growthbook_ramp-schedules_refresh-monitoring.md)	 - Trigger a manual monitoring update
 * [growthbook ramp-schedules restart](growthbook_ramp-schedules_restart.md)	 - Restart a terminal ramp schedule
 * [growthbook ramp-schedules resume](growthbook_ramp-schedules_resume.md)	 - Resume a paused ramp schedule
+* [growthbook ramp-schedules retry](growthbook_ramp-schedules_retry.md)	 - Retry a ramp schedule's failed step
 * [growthbook ramp-schedules rollback](growthbook_ramp-schedules_rollback.md)	 - Roll back a ramp schedule
 * [growthbook ramp-schedules rollback-matching](growthbook_ramp-schedules_rollback-matching.md)	 - Roll back matching ramp schedules
 * [growthbook ramp-schedules set-auto-update](growthbook_ramp-schedules_set-auto-update.md)	 - Toggle automatic monitoring updates

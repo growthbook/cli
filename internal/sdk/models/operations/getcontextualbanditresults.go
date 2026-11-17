@@ -427,32 +427,32 @@ func (c *ContextVariation) GetVariance() *float64 {
 	return c.Variance
 }
 
-type GetContextualBanditResultsContext struct {
+type Context struct {
 	Attributes map[string]string  `json:"attributes"`
 	Variations []ContextVariation `json:"variations"`
 }
 
-func (g *GetContextualBanditResultsContext) GetAttributes() map[string]string {
-	if g == nil {
+func (c *Context) GetAttributes() map[string]string {
+	if c == nil {
 		return map[string]string{}
 	}
-	return g.Attributes
+	return c.Attributes
 }
 
-func (g *GetContextualBanditResultsContext) GetVariations() []ContextVariation {
-	if g == nil {
+func (c *Context) GetVariations() []ContextVariation {
+	if c == nil {
 		return []ContextVariation{}
 	}
-	return g.Variations
+	return c.Variations
 }
 
 type Leaf struct {
-	LeafID        int64                               `json:"leafId"`
-	UpdateMessage *string                             `json:"updateMessage"`
-	Error         *string                             `json:"error"`
-	Clauses       []Clause                            `json:"clauses"`
-	Variations    []LeafVariation                     `json:"variations"`
-	Contexts      []GetContextualBanditResultsContext `json:"contexts"`
+	LeafID        int64           `json:"leafId"`
+	UpdateMessage *string         `json:"updateMessage"`
+	Error         *string         `json:"error"`
+	Clauses       []Clause        `json:"clauses"`
+	Variations    []LeafVariation `json:"variations"`
+	Contexts      []Context       `json:"contexts"`
 }
 
 func (l *Leaf) GetLeafID() int64 {
@@ -490,9 +490,9 @@ func (l *Leaf) GetVariations() []LeafVariation {
 	return l.Variations
 }
 
-func (l *Leaf) GetContexts() []GetContextualBanditResultsContext {
+func (l *Leaf) GetContexts() []Context {
 	if l == nil {
-		return []GetContextualBanditResultsContext{}
+		return []Context{}
 	}
 	return l.Contexts
 }

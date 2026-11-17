@@ -431,6 +431,7 @@ type Settings struct {
 	BanditScheduleUnit         SettingsBanditScheduleUnit                 `json:"banditScheduleUnit"`
 	BanditBurnInValue          float64                                    `json:"banditBurnInValue"`
 	BanditBurnInUnit           SettingsBanditBurnInUnit                   `json:"banditBurnInUnit"`
+	BanditPeriodWeighting      *bool                                      `json:"banditPeriodWeighting,omitzero"`
 	ExperimentMinLengthDays    float64                                    `json:"experimentMinLengthDays"`
 	ExperimentMaxLengthDays    optionalnullable.OptionalNullable[float64] `json:"experimentMaxLengthDays,omitzero"`
 	PreferredEnvironment       optionalnullable.OptionalNullable[string]  `json:"preferredEnvironment,omitzero"`
@@ -714,6 +715,13 @@ func (s *Settings) GetBanditBurnInUnit() SettingsBanditBurnInUnit {
 		return SettingsBanditBurnInUnit("")
 	}
 	return s.BanditBurnInUnit
+}
+
+func (s *Settings) GetBanditPeriodWeighting() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.BanditPeriodWeighting
 }
 
 func (s *Settings) GetExperimentMinLengthDays() float64 {

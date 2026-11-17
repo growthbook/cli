@@ -463,12 +463,12 @@ func (s *Configs) GetReferences(ctx context.Context, request operations.GetConfi
 					return nil, err
 				}
 
-				var out operations.GetConfigReferencesResponseBody
+				var out components.ConfigReferences
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.Object = &out
+				res.ConfigReferences = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -608,12 +608,12 @@ func (s *Configs) GetKeyUsage(ctx context.Context, request operations.GetConfigK
 					return nil, err
 				}
 
-				var out operations.GetConfigKeyUsageResponseBody
+				var out components.ConfigKeyUsage
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.Object = &out
+				res.ConfigKeyUsage = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -752,12 +752,12 @@ func (s *Configs) GetLineage(ctx context.Context, request operations.GetConfigLi
 					return nil, err
 				}
 
-				var out operations.GetConfigLineageResponseBody
+				var out components.ConfigLineage
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.Object = &out
+				res.ConfigLineage = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -903,12 +903,12 @@ func (s *Configs) VerifySchema(ctx context.Context, request operations.VerifyCon
 					return nil, err
 				}
 
-				var out operations.VerifyConfigSchemaResponseBody
+				var out components.ConfigSchemaVerify
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.Object = &out
+				res.ConfigSchemaVerify = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -1051,12 +1051,12 @@ func (s *Configs) GetSchema(ctx context.Context, request operations.GetConfigSch
 					return nil, err
 				}
 
-				var out operations.GetConfigSchemaResponseBody
+				var out components.ConfigSchemaExport
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.Object = &out
+				res.ConfigSchemaExport = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)

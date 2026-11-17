@@ -639,6 +639,9 @@ func (p *PostJourneyExplorationDateRangeRequest) GetEndDate() optionalnullable.O
 	return p.EndDate
 }
 
+// PostJourneyExplorationShowAsRequest - Deprecated: use `showAs` on each metric value.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 type PostJourneyExplorationShowAsRequest string
 
 const (
@@ -668,6 +671,8 @@ func (e *PostJourneyExplorationShowAsRequest) UnmarshalJSON(data []byte) error {
 type PostJourneyExplorationChartSettingsRequest struct {
 	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
 	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+	// Line charts only: whether the y-axis starts at 0. Defaults to true.
+	AnchorYAxisToZero *bool `json:"anchorYAxisToZero,omitzero"`
 }
 
 func (p *PostJourneyExplorationChartSettingsRequest) GetCategoryAxisLabel() *string {
@@ -682,6 +687,13 @@ func (p *PostJourneyExplorationChartSettingsRequest) GetValueAxisLabel() *string
 		return nil
 	}
 	return p.ValueAxisLabel
+}
+
+func (p *PostJourneyExplorationChartSettingsRequest) GetAnchorYAxisToZero() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AnchorYAxisToZero
 }
 
 type StepGroupRequest struct {
@@ -1000,12 +1012,15 @@ func (p *PostJourneyExplorationDatasetRequest) GetHeightScale() *HeightScaleRequ
 
 type PostJourneyExplorationRequestBody struct {
 	// ID of the datasource to query
-	Datasource    string                                        `json:"datasource"`
-	Dimensions    []PostJourneyExplorationDimensionRequestUnion `json:"dimensions"`
-	ChartType     PostJourneyExplorationChartTypeRequest        `json:"chartType"`
-	DateRange     PostJourneyExplorationDateRangeRequest        `json:"dateRange"`
-	ShowAs        *PostJourneyExplorationShowAsRequest          `json:"showAs,omitzero"`
-	ChartSettings *PostJourneyExplorationChartSettingsRequest   `json:"chartSettings,omitzero"`
+	Datasource string                                        `json:"datasource"`
+	Dimensions []PostJourneyExplorationDimensionRequestUnion `json:"dimensions"`
+	ChartType  PostJourneyExplorationChartTypeRequest        `json:"chartType"`
+	DateRange  PostJourneyExplorationDateRangeRequest        `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *PostJourneyExplorationShowAsRequest        `json:"showAs,omitzero"`
+	ChartSettings *PostJourneyExplorationChartSettingsRequest `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                               `const:"journey" json:"type"`
 	Dataset PostJourneyExplorationDatasetRequest `json:"dataset"`
@@ -2083,6 +2098,9 @@ func (p *PostJourneyExplorationDateRangeResponse) GetEndDate() optionalnullable.
 	return p.EndDate
 }
 
+// PostJourneyExplorationShowAsResponse - Deprecated: use `showAs` on each metric value.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 type PostJourneyExplorationShowAsResponse string
 
 const (
@@ -2108,6 +2126,8 @@ func (e *PostJourneyExplorationShowAsResponse) IsExact() bool {
 type PostJourneyExplorationChartSettingsResponse struct {
 	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
 	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+	// Line charts only: whether the y-axis starts at 0. Defaults to true.
+	AnchorYAxisToZero *bool `json:"anchorYAxisToZero,omitzero"`
 }
 
 func (p *PostJourneyExplorationChartSettingsResponse) GetCategoryAxisLabel() *string {
@@ -2122,6 +2142,13 @@ func (p *PostJourneyExplorationChartSettingsResponse) GetValueAxisLabel() *strin
 		return nil
 	}
 	return p.ValueAxisLabel
+}
+
+func (p *PostJourneyExplorationChartSettingsResponse) GetAnchorYAxisToZero() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AnchorYAxisToZero
 }
 
 type StepGroupResponse struct {
@@ -2388,12 +2415,15 @@ func (p *PostJourneyExplorationDatasetResponse) GetHeightScale() *HeightScaleRes
 
 type PostJourneyExplorationConfig struct {
 	// ID of the datasource to query
-	Datasource    string                                            `json:"datasource"`
-	Dimensions    []PostJourneyExplorationExplorationDimensionUnion `json:"dimensions"`
-	ChartType     PostJourneyExplorationChartTypeResponse           `json:"chartType"`
-	DateRange     PostJourneyExplorationDateRangeResponse           `json:"dateRange"`
-	ShowAs        *PostJourneyExplorationShowAsResponse             `json:"showAs,omitzero"`
-	ChartSettings *PostJourneyExplorationChartSettingsResponse      `json:"chartSettings,omitzero"`
+	Datasource string                                            `json:"datasource"`
+	Dimensions []PostJourneyExplorationExplorationDimensionUnion `json:"dimensions"`
+	ChartType  PostJourneyExplorationChartTypeResponse           `json:"chartType"`
+	DateRange  PostJourneyExplorationDateRangeResponse           `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *PostJourneyExplorationShowAsResponse        `json:"showAs,omitzero"`
+	ChartSettings *PostJourneyExplorationChartSettingsResponse `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                                `const:"journey" json:"type"`
 	Dataset PostJourneyExplorationDatasetResponse `json:"dataset"`

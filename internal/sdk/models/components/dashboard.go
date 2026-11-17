@@ -341,19 +341,22 @@ func (d *DateRangeMetric) GetEndDate() optionalnullable.OptionalNullable[string]
 	return d.EndDate
 }
 
-type ShowAsMetric string
+// DashboardShowAsMetric1 - Deprecated: use `showAs` on each metric value.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+type DashboardShowAsMetric1 string
 
 const (
-	ShowAsMetricTotal   ShowAsMetric = "total"
-	ShowAsMetricPerUnit ShowAsMetric = "per_unit"
+	DashboardShowAsMetric1Total   DashboardShowAsMetric1 = "total"
+	DashboardShowAsMetric1PerUnit DashboardShowAsMetric1 = "per_unit"
 )
 
-func (e ShowAsMetric) ToPointer() *ShowAsMetric {
+func (e DashboardShowAsMetric1) ToPointer() *DashboardShowAsMetric1 {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ShowAsMetric) IsExact() bool {
+func (e *DashboardShowAsMetric1) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "total", "per_unit":
@@ -366,6 +369,8 @@ func (e *ShowAsMetric) IsExact() bool {
 type ChartSettingsMetric struct {
 	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
 	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+	// Line charts only: whether the y-axis starts at 0. Defaults to true.
+	AnchorYAxisToZero *bool `json:"anchorYAxisToZero,omitzero"`
 }
 
 func (c ChartSettingsMetric) MarshalJSON() ([]byte, error) {
@@ -391,6 +396,13 @@ func (c *ChartSettingsMetric) GetValueAxisLabel() *string {
 		return nil
 	}
 	return c.ValueAxisLabel
+}
+
+func (c *ChartSettingsMetric) GetAnchorYAxisToZero() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.AnchorYAxisToZero
 }
 
 type DashboardRowFilterOperatorMetric string
@@ -473,6 +485,29 @@ func (d *DashboardRowFilterMetric) GetValues() []string {
 	return d.Values
 }
 
+// DashboardShowAsMetric2 - How a mean metric renders: `total` sums the numerator, `per_unit` divides it by the unit count. Ignored for other metric types. Omit to use the default (`per_unit` for `max` and `count distinct` aggregations, otherwise `total`).
+type DashboardShowAsMetric2 string
+
+const (
+	DashboardShowAsMetric2Total   DashboardShowAsMetric2 = "total"
+	DashboardShowAsMetric2PerUnit DashboardShowAsMetric2 = "per_unit"
+)
+
+func (e DashboardShowAsMetric2) ToPointer() *DashboardShowAsMetric2 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *DashboardShowAsMetric2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "total", "per_unit":
+			return true
+		}
+	}
+	return false
+}
+
 type DashboardValueMetric struct {
 	Name       string                     `json:"name"`
 	RowFilters []DashboardRowFilterMetric `json:"rowFilters"`
@@ -481,6 +516,8 @@ type DashboardValueMetric struct {
 	MetricID        string  `json:"metricId"`
 	Unit            *string `json:"unit"`
 	DenominatorUnit *string `json:"denominatorUnit"`
+	// How a mean metric renders: `total` sums the numerator, `per_unit` divides it by the unit count. Ignored for other metric types. Omit to use the default (`per_unit` for `max` and `count distinct` aggregations, otherwise `total`).
+	ShowAs *DashboardShowAsMetric2 `json:"showAs,omitzero"`
 }
 
 func (d DashboardValueMetric) MarshalJSON() ([]byte, error) {
@@ -533,6 +570,13 @@ func (d *DashboardValueMetric) GetDenominatorUnit() *string {
 	return d.DenominatorUnit
 }
 
+func (d *DashboardValueMetric) GetShowAs() *DashboardShowAsMetric2 {
+	if d == nil {
+		return nil
+	}
+	return d.ShowAs
+}
+
 type DashboardDatasetMetric struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_      string                 `const:"metric" json:"type"`
@@ -571,12 +615,15 @@ func (d *DashboardDatasetMetric) GetPopulation() *ExplorationPopulation {
 
 type DashboardConfigMetric struct {
 	// ID of the datasource to query
-	Datasource    string                 `json:"datasource"`
-	Dimensions    []DimensionMetricUnion `json:"dimensions"`
-	ChartType     ChartTypeMetric        `json:"chartType"`
-	DateRange     DateRangeMetric        `json:"dateRange"`
-	ShowAs        *ShowAsMetric          `json:"showAs,omitzero"`
-	ChartSettings *ChartSettingsMetric   `json:"chartSettings,omitzero"`
+	Datasource string                 `json:"datasource"`
+	Dimensions []DimensionMetricUnion `json:"dimensions"`
+	ChartType  ChartTypeMetric        `json:"chartType"`
+	DateRange  DateRangeMetric        `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *DashboardShowAsMetric1 `json:"showAs,omitzero"`
+	ChartSettings *ChartSettingsMetric    `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                 `const:"metric" json:"type"`
 	Dataset DashboardDatasetMetric `json:"dataset"`
@@ -621,7 +668,7 @@ func (d *DashboardConfigMetric) GetDateRange() DateRangeMetric {
 	return d.DateRange
 }
 
-func (d *DashboardConfigMetric) GetShowAs() *ShowAsMetric {
+func (d *DashboardConfigMetric) GetShowAs() *DashboardShowAsMetric1 {
 	if d == nil {
 		return nil
 	}

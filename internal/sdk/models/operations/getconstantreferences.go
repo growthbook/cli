@@ -19,57 +19,10 @@ func (g *GetConstantReferencesRequest) GetKey() string {
 	return g.Key
 }
 
-type GetConstantReferencesFeature struct {
-	ID      string  `json:"id"`
-	Name    *string `json:"name,omitzero"`
-	Project *string `json:"project,omitzero"`
-}
-
-func (g *GetConstantReferencesFeature) GetID() string {
-	if g == nil {
-		return ""
-	}
-	return g.ID
-}
-
-func (g *GetConstantReferencesFeature) GetName() *string {
-	if g == nil {
-		return nil
-	}
-	return g.Name
-}
-
-func (g *GetConstantReferencesFeature) GetProject() *string {
-	if g == nil {
-		return nil
-	}
-	return g.Project
-}
-
-// GetConstantReferencesResponseBody - Successful response
-type GetConstantReferencesResponseBody struct {
-	Features  []GetConstantReferencesFeature `json:"features"`
-	Constants []components.Constants         `json:"constants"`
-}
-
-func (g *GetConstantReferencesResponseBody) GetFeatures() []GetConstantReferencesFeature {
-	if g == nil {
-		return []GetConstantReferencesFeature{}
-	}
-	return g.Features
-}
-
-func (g *GetConstantReferencesResponseBody) GetConstants() []components.Constants {
-	if g == nil {
-		return []components.Constants{}
-	}
-	return g.Constants
-}
-
 type GetConstantReferencesResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Successful response
-	Object *GetConstantReferencesResponseBody
+	ConstantReferences *components.ConstantReferences
 }
 
 func (g GetConstantReferencesResponse) MarshalJSON() ([]byte, error) {
@@ -90,9 +43,9 @@ func (g *GetConstantReferencesResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetConstantReferencesResponse) GetObject() *GetConstantReferencesResponseBody {
+func (g *GetConstantReferencesResponse) GetConstantReferences() *components.ConstantReferences {
 	if g == nil {
 		return nil
 	}
-	return g.Object
+	return g.ConstantReferences
 }

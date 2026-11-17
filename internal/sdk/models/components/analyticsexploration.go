@@ -1031,6 +1031,9 @@ func (a *AnalyticsExplorationDateRange6) GetEndDate() optionalnullable.OptionalN
 // #region class-body-analyticsexplorationdaterange6
 // #endregion class-body-analyticsexplorationdaterange6
 
+// AnalyticsExplorationShowAs6 - Deprecated: use `showAs` on each metric value.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 type AnalyticsExplorationShowAs6 string
 
 const (
@@ -1056,6 +1059,8 @@ func (e *AnalyticsExplorationShowAs6) IsExact() bool {
 type AnalyticsExplorationChartSettings6 struct {
 	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
 	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+	// Line charts only: whether the y-axis starts at 0. Defaults to true.
+	AnchorYAxisToZero *bool `json:"anchorYAxisToZero,omitzero"`
 }
 
 func (a AnalyticsExplorationChartSettings6) MarshalJSON() ([]byte, error) {
@@ -1081,6 +1086,13 @@ func (a *AnalyticsExplorationChartSettings6) GetValueAxisLabel() *string {
 		return nil
 	}
 	return a.ValueAxisLabel
+}
+
+func (a *AnalyticsExplorationChartSettings6) GetAnchorYAxisToZero() *bool {
+	if a == nil {
+		return nil
+	}
+	return a.AnchorYAxisToZero
 }
 
 // #region class-body-analyticsexplorationchartsettings6
@@ -1372,12 +1384,15 @@ func (d *DatasetJourney) GetHeightScale() *HeightScale {
 
 type ConfigJourney struct {
 	// ID of the datasource to query
-	Datasource    string                                `json:"datasource"`
-	Dimensions    []AnalyticsExplorationDimensionUnion6 `json:"dimensions"`
-	ChartType     AnalyticsExplorationChartType6        `json:"chartType"`
-	DateRange     AnalyticsExplorationDateRange6        `json:"dateRange"`
-	ShowAs        *AnalyticsExplorationShowAs6          `json:"showAs,omitzero"`
-	ChartSettings *AnalyticsExplorationChartSettings6   `json:"chartSettings,omitzero"`
+	Datasource string                                `json:"datasource"`
+	Dimensions []AnalyticsExplorationDimensionUnion6 `json:"dimensions"`
+	ChartType  AnalyticsExplorationChartType6        `json:"chartType"`
+	DateRange  AnalyticsExplorationDateRange6        `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *AnalyticsExplorationShowAs6        `json:"showAs,omitzero"`
+	ChartSettings *AnalyticsExplorationChartSettings6 `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string         `const:"journey" json:"type"`
 	Dataset DatasetJourney `json:"dataset"`
@@ -2034,6 +2049,9 @@ func (a *AnalyticsExplorationDateRange5) GetEndDate() optionalnullable.OptionalN
 // #region class-body-analyticsexplorationdaterange5
 // #endregion class-body-analyticsexplorationdaterange5
 
+// AnalyticsExplorationShowAs5 - Deprecated: use `showAs` on each metric value.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 type AnalyticsExplorationShowAs5 string
 
 const (
@@ -2059,6 +2077,8 @@ func (e *AnalyticsExplorationShowAs5) IsExact() bool {
 type AnalyticsExplorationChartSettings5 struct {
 	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
 	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+	// Line charts only: whether the y-axis starts at 0. Defaults to true.
+	AnchorYAxisToZero *bool `json:"anchorYAxisToZero,omitzero"`
 }
 
 func (a AnalyticsExplorationChartSettings5) MarshalJSON() ([]byte, error) {
@@ -2084,6 +2104,13 @@ func (a *AnalyticsExplorationChartSettings5) GetValueAxisLabel() *string {
 		return nil
 	}
 	return a.ValueAxisLabel
+}
+
+func (a *AnalyticsExplorationChartSettings5) GetAnchorYAxisToZero() *bool {
+	if a == nil {
+		return nil
+	}
+	return a.AnchorYAxisToZero
 }
 
 // #region class-body-analyticsexplorationchartsettings5
@@ -2353,12 +2380,15 @@ func (a *AnalyticsExplorationDatasetFunnel) GetYAxisScale() *AnalyticsExploratio
 
 type AnalyticsExplorationConfigFunnel struct {
 	// ID of the datasource to query
-	Datasource    string                                `json:"datasource"`
-	Dimensions    []AnalyticsExplorationDimensionUnion5 `json:"dimensions"`
-	ChartType     AnalyticsExplorationChartType5        `json:"chartType"`
-	DateRange     AnalyticsExplorationDateRange5        `json:"dateRange"`
-	ShowAs        *AnalyticsExplorationShowAs5          `json:"showAs,omitzero"`
-	ChartSettings *AnalyticsExplorationChartSettings5   `json:"chartSettings,omitzero"`
+	Datasource string                                `json:"datasource"`
+	Dimensions []AnalyticsExplorationDimensionUnion5 `json:"dimensions"`
+	ChartType  AnalyticsExplorationChartType5        `json:"chartType"`
+	DateRange  AnalyticsExplorationDateRange5        `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *AnalyticsExplorationShowAs5        `json:"showAs,omitzero"`
+	ChartSettings *AnalyticsExplorationChartSettings5 `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                            `const:"funnel" json:"type"`
 	Dataset AnalyticsExplorationDatasetFunnel `json:"dataset"`
@@ -3015,6 +3045,9 @@ func (a *AnalyticsExplorationDateRange4) GetEndDate() optionalnullable.OptionalN
 // #region class-body-analyticsexplorationdaterange4
 // #endregion class-body-analyticsexplorationdaterange4
 
+// AnalyticsExplorationShowAs4 - Deprecated: use `showAs` on each metric value.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 type AnalyticsExplorationShowAs4 string
 
 const (
@@ -3040,6 +3073,8 @@ func (e *AnalyticsExplorationShowAs4) IsExact() bool {
 type AnalyticsExplorationChartSettings4 struct {
 	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
 	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+	// Line charts only: whether the y-axis starts at 0. Defaults to true.
+	AnchorYAxisToZero *bool `json:"anchorYAxisToZero,omitzero"`
 }
 
 func (a AnalyticsExplorationChartSettings4) MarshalJSON() ([]byte, error) {
@@ -3065,6 +3100,13 @@ func (a *AnalyticsExplorationChartSettings4) GetValueAxisLabel() *string {
 		return nil
 	}
 	return a.ValueAxisLabel
+}
+
+func (a *AnalyticsExplorationChartSettings4) GetAnchorYAxisToZero() *bool {
+	if a == nil {
+		return nil
+	}
+	return a.AnchorYAxisToZero
 }
 
 // #region class-body-analyticsexplorationchartsettings4
@@ -3320,12 +3362,15 @@ func (a *AnalyticsExplorationDatasetSQL) GetHiddenColumns() []string {
 
 type AnalyticsExplorationConfigSQL struct {
 	// ID of the datasource to query
-	Datasource    string                                `json:"datasource"`
-	Dimensions    []AnalyticsExplorationDimensionUnion4 `json:"dimensions"`
-	ChartType     AnalyticsExplorationChartType4        `json:"chartType"`
-	DateRange     AnalyticsExplorationDateRange4        `json:"dateRange"`
-	ShowAs        *AnalyticsExplorationShowAs4          `json:"showAs,omitzero"`
-	ChartSettings *AnalyticsExplorationChartSettings4   `json:"chartSettings,omitzero"`
+	Datasource string                                `json:"datasource"`
+	Dimensions []AnalyticsExplorationDimensionUnion4 `json:"dimensions"`
+	ChartType  AnalyticsExplorationChartType4        `json:"chartType"`
+	DateRange  AnalyticsExplorationDateRange4        `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *AnalyticsExplorationShowAs4        `json:"showAs,omitzero"`
+	ChartSettings *AnalyticsExplorationChartSettings4 `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                         `const:"sql" json:"type"`
 	Dataset AnalyticsExplorationDatasetSQL `json:"dataset"`
@@ -3982,6 +4027,9 @@ func (a *AnalyticsExplorationDateRange3) GetEndDate() optionalnullable.OptionalN
 // #region class-body-analyticsexplorationdaterange3
 // #endregion class-body-analyticsexplorationdaterange3
 
+// AnalyticsExplorationShowAs3 - Deprecated: use `showAs` on each metric value.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 type AnalyticsExplorationShowAs3 string
 
 const (
@@ -4007,6 +4055,8 @@ func (e *AnalyticsExplorationShowAs3) IsExact() bool {
 type AnalyticsExplorationChartSettings3 struct {
 	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
 	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+	// Line charts only: whether the y-axis starts at 0. Defaults to true.
+	AnchorYAxisToZero *bool `json:"anchorYAxisToZero,omitzero"`
 }
 
 func (a AnalyticsExplorationChartSettings3) MarshalJSON() ([]byte, error) {
@@ -4032,6 +4082,13 @@ func (a *AnalyticsExplorationChartSettings3) GetValueAxisLabel() *string {
 		return nil
 	}
 	return a.ValueAxisLabel
+}
+
+func (a *AnalyticsExplorationChartSettings3) GetAnchorYAxisToZero() *bool {
+	if a == nil {
+		return nil
+	}
+	return a.AnchorYAxisToZero
 }
 
 // #region class-body-analyticsexplorationchartsettings3
@@ -4287,12 +4344,15 @@ func (a *AnalyticsExplorationDatasetDataSource) GetValues() []ConfigValueDataSou
 
 type AnalyticsExplorationConfigDataSource struct {
 	// ID of the datasource to query
-	Datasource    string                                `json:"datasource"`
-	Dimensions    []AnalyticsExplorationDimensionUnion3 `json:"dimensions"`
-	ChartType     AnalyticsExplorationChartType3        `json:"chartType"`
-	DateRange     AnalyticsExplorationDateRange3        `json:"dateRange"`
-	ShowAs        *AnalyticsExplorationShowAs3          `json:"showAs,omitzero"`
-	ChartSettings *AnalyticsExplorationChartSettings3   `json:"chartSettings,omitzero"`
+	Datasource string                                `json:"datasource"`
+	Dimensions []AnalyticsExplorationDimensionUnion3 `json:"dimensions"`
+	ChartType  AnalyticsExplorationChartType3        `json:"chartType"`
+	DateRange  AnalyticsExplorationDateRange3        `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *AnalyticsExplorationShowAs3        `json:"showAs,omitzero"`
+	ChartSettings *AnalyticsExplorationChartSettings3 `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                                `const:"data_source" json:"type"`
 	Dataset AnalyticsExplorationDatasetDataSource `json:"dataset"`
@@ -4949,6 +5009,9 @@ func (a *AnalyticsExplorationDateRange2) GetEndDate() optionalnullable.OptionalN
 // #region class-body-analyticsexplorationdaterange2
 // #endregion class-body-analyticsexplorationdaterange2
 
+// AnalyticsExplorationShowAs2 - Deprecated: use `showAs` on each metric value.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 type AnalyticsExplorationShowAs2 string
 
 const (
@@ -4974,6 +5037,8 @@ func (e *AnalyticsExplorationShowAs2) IsExact() bool {
 type AnalyticsExplorationChartSettings2 struct {
 	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
 	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+	// Line charts only: whether the y-axis starts at 0. Defaults to true.
+	AnchorYAxisToZero *bool `json:"anchorYAxisToZero,omitzero"`
 }
 
 func (a AnalyticsExplorationChartSettings2) MarshalJSON() ([]byte, error) {
@@ -4999,6 +5064,13 @@ func (a *AnalyticsExplorationChartSettings2) GetValueAxisLabel() *string {
 		return nil
 	}
 	return a.ValueAxisLabel
+}
+
+func (a *AnalyticsExplorationChartSettings2) GetAnchorYAxisToZero() *bool {
+	if a == nil {
+		return nil
+	}
+	return a.AnchorYAxisToZero
 }
 
 // #region class-body-analyticsexplorationchartsettings2
@@ -5205,12 +5277,15 @@ func (a *AnalyticsExplorationDatasetFactTable) GetValues() []ConfigValueFactTabl
 
 type AnalyticsExplorationConfigFactTable struct {
 	// ID of the datasource to query
-	Datasource    string                                `json:"datasource"`
-	Dimensions    []AnalyticsExplorationDimensionUnion2 `json:"dimensions"`
-	ChartType     AnalyticsExplorationChartType2        `json:"chartType"`
-	DateRange     AnalyticsExplorationDateRange2        `json:"dateRange"`
-	ShowAs        *AnalyticsExplorationShowAs2          `json:"showAs,omitzero"`
-	ChartSettings *AnalyticsExplorationChartSettings2   `json:"chartSettings,omitzero"`
+	Datasource string                                `json:"datasource"`
+	Dimensions []AnalyticsExplorationDimensionUnion2 `json:"dimensions"`
+	ChartType  AnalyticsExplorationChartType2        `json:"chartType"`
+	DateRange  AnalyticsExplorationDateRange2        `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *AnalyticsExplorationShowAs2        `json:"showAs,omitzero"`
+	ChartSettings *AnalyticsExplorationChartSettings2 `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                               `const:"fact_table" json:"type"`
 	Dataset AnalyticsExplorationDatasetFactTable `json:"dataset"`
@@ -5867,6 +5942,9 @@ func (a *AnalyticsExplorationDateRange1) GetEndDate() optionalnullable.OptionalN
 // #region class-body-analyticsexplorationdaterange1
 // #endregion class-body-analyticsexplorationdaterange1
 
+// AnalyticsExplorationShowAs1 - Deprecated: use `showAs` on each metric value.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 type AnalyticsExplorationShowAs1 string
 
 const (
@@ -5892,6 +5970,8 @@ func (e *AnalyticsExplorationShowAs1) IsExact() bool {
 type AnalyticsExplorationChartSettings1 struct {
 	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
 	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+	// Line charts only: whether the y-axis starts at 0. Defaults to true.
+	AnchorYAxisToZero *bool `json:"anchorYAxisToZero,omitzero"`
 }
 
 func (a AnalyticsExplorationChartSettings1) MarshalJSON() ([]byte, error) {
@@ -5917,6 +5997,13 @@ func (a *AnalyticsExplorationChartSettings1) GetValueAxisLabel() *string {
 		return nil
 	}
 	return a.ValueAxisLabel
+}
+
+func (a *AnalyticsExplorationChartSettings1) GetAnchorYAxisToZero() *bool {
+	if a == nil {
+		return nil
+	}
+	return a.AnchorYAxisToZero
 }
 
 // #region class-body-analyticsexplorationchartsettings1
@@ -6002,6 +6089,29 @@ func (a *AnalyticsExplorationRowFilterMetric) GetValues() []string {
 	return a.Values
 }
 
+// AnalyticsExplorationShowAsMetric - How a mean metric renders: `total` sums the numerator, `per_unit` divides it by the unit count. Ignored for other metric types. Omit to use the default (`per_unit` for `max` and `count distinct` aggregations, otherwise `total`).
+type AnalyticsExplorationShowAsMetric string
+
+const (
+	AnalyticsExplorationShowAsMetricTotal   AnalyticsExplorationShowAsMetric = "total"
+	AnalyticsExplorationShowAsMetricPerUnit AnalyticsExplorationShowAsMetric = "per_unit"
+)
+
+func (e AnalyticsExplorationShowAsMetric) ToPointer() *AnalyticsExplorationShowAsMetric {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *AnalyticsExplorationShowAsMetric) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "total", "per_unit":
+			return true
+		}
+	}
+	return false
+}
+
 type ConfigValueMetric struct {
 	Name       string                                `json:"name"`
 	RowFilters []AnalyticsExplorationRowFilterMetric `json:"rowFilters"`
@@ -6010,6 +6120,8 @@ type ConfigValueMetric struct {
 	MetricID        string  `json:"metricId"`
 	Unit            *string `json:"unit"`
 	DenominatorUnit *string `json:"denominatorUnit"`
+	// How a mean metric renders: `total` sums the numerator, `per_unit` divides it by the unit count. Ignored for other metric types. Omit to use the default (`per_unit` for `max` and `count distinct` aggregations, otherwise `total`).
+	ShowAs *AnalyticsExplorationShowAsMetric `json:"showAs,omitzero"`
 }
 
 func (c ConfigValueMetric) MarshalJSON() ([]byte, error) {
@@ -6062,6 +6174,13 @@ func (c *ConfigValueMetric) GetDenominatorUnit() *string {
 	return c.DenominatorUnit
 }
 
+func (c *ConfigValueMetric) GetShowAs() *AnalyticsExplorationShowAsMetric {
+	if c == nil {
+		return nil
+	}
+	return c.ShowAs
+}
+
 type AnalyticsExplorationDatasetMetric struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_      string                 `const:"metric" json:"type"`
@@ -6100,12 +6219,15 @@ func (a *AnalyticsExplorationDatasetMetric) GetPopulation() *ExplorationPopulati
 
 type AnalyticsExplorationConfigMetric struct {
 	// ID of the datasource to query
-	Datasource    string                                `json:"datasource"`
-	Dimensions    []AnalyticsExplorationDimensionUnion1 `json:"dimensions"`
-	ChartType     AnalyticsExplorationChartType1        `json:"chartType"`
-	DateRange     AnalyticsExplorationDateRange1        `json:"dateRange"`
-	ShowAs        *AnalyticsExplorationShowAs1          `json:"showAs,omitzero"`
-	ChartSettings *AnalyticsExplorationChartSettings1   `json:"chartSettings,omitzero"`
+	Datasource string                                `json:"datasource"`
+	Dimensions []AnalyticsExplorationDimensionUnion1 `json:"dimensions"`
+	ChartType  AnalyticsExplorationChartType1        `json:"chartType"`
+	DateRange  AnalyticsExplorationDateRange1        `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *AnalyticsExplorationShowAs1        `json:"showAs,omitzero"`
+	ChartSettings *AnalyticsExplorationChartSettings1 `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                            `const:"metric" json:"type"`
 	Dataset AnalyticsExplorationDatasetMetric `json:"dataset"`

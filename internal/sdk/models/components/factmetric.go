@@ -18,6 +18,7 @@ const (
 	FactMetricMetricTypeRatio              FactMetricMetricType = "ratio"
 	FactMetricMetricTypeDailyParticipation FactMetricMetricType = "dailyParticipation"
 	FactMetricMetricTypeFunnel             FactMetricMetricType = "funnel"
+	FactMetricMetricTypeCompound           FactMetricMetricType = "compound"
 )
 
 func (e FactMetricMetricType) ToPointer() *FactMetricMetricType {
@@ -28,7 +29,7 @@ func (e FactMetricMetricType) ToPointer() *FactMetricMetricType {
 func (e *FactMetricMetricType) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "proportion", "retention", "mean", "quantile", "ratio", "dailyParticipation", "funnel":
+		case "proportion", "retention", "mean", "quantile", "ratio", "dailyParticipation", "funnel", "compound":
 			return true
 		}
 	}
@@ -674,6 +675,122 @@ func (f *FunnelSettings) GetConcurrencyWindowSeconds() *int64 {
 	return f.ConcurrencyWindowSeconds
 }
 
+type ComponentOperator string
+
+const (
+	ComponentOperatorEqual             ComponentOperator = "="
+	ComponentOperatorNotEqual          ComponentOperator = "!="
+	ComponentOperatorGreaterThan       ComponentOperator = ">"
+	ComponentOperatorLessThan          ComponentOperator = "<"
+	ComponentOperatorGreaterThanEqual  ComponentOperator = ">="
+	ComponentOperatorLessThanEqual     ComponentOperator = "<="
+	ComponentOperatorBetween           ComponentOperator = "between"
+	ComponentOperatorNotBetween        ComponentOperator = "not_between"
+	ComponentOperatorIn                ComponentOperator = "in"
+	ComponentOperatorNotIn             ComponentOperator = "not_in"
+	ComponentOperatorIsNull            ComponentOperator = "is_null"
+	ComponentOperatorNotNull           ComponentOperator = "not_null"
+	ComponentOperatorIsTrue            ComponentOperator = "is_true"
+	ComponentOperatorIsFalse           ComponentOperator = "is_false"
+	ComponentOperatorContains          ComponentOperator = "contains"
+	ComponentOperatorNotContains       ComponentOperator = "not_contains"
+	ComponentOperatorMatchesPattern    ComponentOperator = "matches_pattern"
+	ComponentOperatorNotMatchesPattern ComponentOperator = "not_matches_pattern"
+	ComponentOperatorStartsWith        ComponentOperator = "starts_with"
+	ComponentOperatorEndsWith          ComponentOperator = "ends_with"
+	ComponentOperatorSQLExpr           ComponentOperator = "sql_expr"
+	ComponentOperatorSavedFilter       ComponentOperator = "saved_filter"
+)
+
+func (e ComponentOperator) ToPointer() *ComponentOperator {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ComponentOperator) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "=", "!=", ">", "<", ">=", "<=", "between", "not_between", "in", "not_in", "is_null", "not_null", "is_true", "is_false", "contains", "not_contains", "matches_pattern", "not_matches_pattern", "starts_with", "ends_with", "sql_expr", "saved_filter":
+			return true
+		}
+	}
+	return false
+}
+
+type ComponentRowFilter struct {
+	Operator ComponentOperator `json:"operator"`
+	// Not required for is_null, not_null, is_true, is_false operators. The between and not_between operators take at most two values, a lower and an upper bound in that order; leave a bound as an empty string for an open-ended range.
+	Values []string `json:"values,omitzero"`
+	// Required for all operators except sql_expr and saved_filter.
+	Column *string `json:"column,omitzero"`
+}
+
+func (c ComponentRowFilter) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ComponentRowFilter) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *ComponentRowFilter) GetOperator() ComponentOperator {
+	if c == nil {
+		return ComponentOperator("")
+	}
+	return c.Operator
+}
+
+func (c *ComponentRowFilter) GetValues() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Values
+}
+
+func (c *ComponentRowFilter) GetColumn() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Column
+}
+
+type Component struct {
+	// The fact table this component draws events from
+	FactTableID string `json:"factTableId"`
+	// Filters that decide whether an event row counts for this component
+	RowFilters []ComponentRowFilter `json:"rowFilters"`
+}
+
+func (c *Component) GetFactTableID() string {
+	if c == nil {
+		return ""
+	}
+	return c.FactTableID
+}
+
+func (c *Component) GetRowFilters() []ComponentRowFilter {
+	if c == nil {
+		return []ComponentRowFilter{}
+	}
+	return c.RowFilters
+}
+
+// CompoundSettings - Compound metric settings (required when metricType is "compound")
+type CompoundSettings struct {
+	// A unit passes when it has at least one matching event for every component, in any order. Minimum 2 components required.
+	Components []Component `json:"components"`
+}
+
+func (c *CompoundSettings) GetComponents() []Component {
+	if c == nil {
+		return []Component{}
+	}
+	return c.Components
+}
+
 type FactMetricCappingSettingsType string
 
 const (
@@ -1012,6 +1129,8 @@ type FactMetric struct {
 	QuantileSettings *QuantileSettings `json:"quantileSettings,omitzero"`
 	// Funnel metric settings (required when metricType is "funnel")
 	FunnelSettings *FunnelSettings `json:"funnelSettings,omitzero"`
+	// Compound metric settings (required when metricType is "compound")
+	CompoundSettings *CompoundSettings `json:"compoundSettings,omitzero"`
 	// Controls how outliers are handled
 	CappingSettings      FactMetricCappingSettings                               `json:"cappingSettings"`
 	LowerCappingSettings optionalnullable.OptionalNullable[LowerCappingSettings] `json:"lowerCappingSettings,omitzero"`
@@ -1153,6 +1272,13 @@ func (f *FactMetric) GetFunnelSettings() *FunnelSettings {
 		return nil
 	}
 	return f.FunnelSettings
+}
+
+func (f *FactMetric) GetCompoundSettings() *CompoundSettings {
+	if f == nil {
+		return nil
+	}
+	return f.CompoundSettings
 }
 
 func (f *FactMetric) GetCappingSettings() FactMetricCappingSettings {

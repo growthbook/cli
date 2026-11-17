@@ -33,67 +33,67 @@ func (e *AutoRunSource) IsExact() bool {
 	return false
 }
 
-type AutoRunMetadataType string
+type MetadataType string
 
 const (
-	AutoRunMetadataTypeStr     AutoRunMetadataType = "str"
-	AutoRunMetadataTypeNumber  AutoRunMetadataType = "number"
-	AutoRunMetadataTypeBoolean AutoRunMetadataType = "boolean"
-	AutoRunMetadataTypeUnknown AutoRunMetadataType = "Unknown"
+	MetadataTypeStr     MetadataType = "str"
+	MetadataTypeNumber  MetadataType = "number"
+	MetadataTypeBoolean MetadataType = "boolean"
+	MetadataTypeUnknown MetadataType = "Unknown"
 )
 
-type AutoRunMetadata struct {
+type Metadata struct {
 	Str        *string         `queryParam:"inline" union:"member"`
 	Number     *float64        `queryParam:"inline" union:"member"`
 	Boolean    *bool           `queryParam:"inline" union:"member"`
 	UnknownRaw json.RawMessage `json:"-" union:"unknown"`
 
-	Type AutoRunMetadataType
+	Type MetadataType
 }
 
-func CreateAutoRunMetadataStr(str string) AutoRunMetadata {
-	typ := AutoRunMetadataTypeStr
+func CreateMetadataStr(str string) Metadata {
+	typ := MetadataTypeStr
 
-	return AutoRunMetadata{
+	return Metadata{
 		Str:  &str,
 		Type: typ,
 	}
 }
 
-func CreateAutoRunMetadataNumber(number float64) AutoRunMetadata {
-	typ := AutoRunMetadataTypeNumber
+func CreateMetadataNumber(number float64) Metadata {
+	typ := MetadataTypeNumber
 
-	return AutoRunMetadata{
+	return Metadata{
 		Number: &number,
 		Type:   typ,
 	}
 }
 
-func CreateAutoRunMetadataBoolean(boolean bool) AutoRunMetadata {
-	typ := AutoRunMetadataTypeBoolean
+func CreateMetadataBoolean(boolean bool) Metadata {
+	typ := MetadataTypeBoolean
 
-	return AutoRunMetadata{
+	return Metadata{
 		Boolean: &boolean,
 		Type:    typ,
 	}
 }
 
-func CreateAutoRunMetadataUnknown(raw json.RawMessage) AutoRunMetadata {
-	return AutoRunMetadata{
+func CreateMetadataUnknown(raw json.RawMessage) Metadata {
+	return Metadata{
 		UnknownRaw: raw,
-		Type:       AutoRunMetadataTypeUnknown,
+		Type:       MetadataTypeUnknown,
 	}
 }
 
-func (u AutoRunMetadata) GetUnknownRaw() json.RawMessage {
+func (u Metadata) GetUnknownRaw() json.RawMessage {
 	return u.UnknownRaw
 }
 
-func (u AutoRunMetadata) IsUnknown() bool {
-	return u.Type == AutoRunMetadataTypeUnknown
+func (u Metadata) IsUnknown() bool {
+	return u.Type == MetadataTypeUnknown
 }
 
-func (u *AutoRunMetadata) UnmarshalJSON(data []byte) error {
+func (u *Metadata) UnmarshalJSON(data []byte) error {
 
 	var candidates []utils.UnionCandidate
 
@@ -101,7 +101,7 @@ func (u *AutoRunMetadata) UnmarshalJSON(data []byte) error {
 	var str string = ""
 	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  AutoRunMetadataTypeStr,
+			Type:  MetadataTypeStr,
 			Value: &str,
 		})
 	}
@@ -109,7 +109,7 @@ func (u *AutoRunMetadata) UnmarshalJSON(data []byte) error {
 	var number float64 = float64(0)
 	if err := utils.UnmarshalJSON(data, &number, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  AutoRunMetadataTypeNumber,
+			Type:  MetadataTypeNumber,
 			Value: &number,
 		})
 	}
@@ -117,14 +117,14 @@ func (u *AutoRunMetadata) UnmarshalJSON(data []byte) error {
 	var boolean bool = false
 	if err := utils.UnmarshalJSON(data, &boolean, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  AutoRunMetadataTypeBoolean,
+			Type:  MetadataTypeBoolean,
 			Value: &boolean,
 		})
 	}
 
 	if len(candidates) == 0 {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = AutoRunMetadataTypeUnknown
+		u.Type = MetadataTypeUnknown
 		return nil
 	}
 
@@ -132,30 +132,30 @@ func (u *AutoRunMetadata) UnmarshalJSON(data []byte) error {
 	best := utils.PickBestUnionCandidate(candidates, data)
 	if best == nil {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = AutoRunMetadataTypeUnknown
+		u.Type = MetadataTypeUnknown
 		return nil
 	}
 
 	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(AutoRunMetadataType)
+	u.Type = best.Type.(MetadataType)
 	switch best.Type {
-	case AutoRunMetadataTypeStr:
+	case MetadataTypeStr:
 		u.Str = best.Value.(*string)
 		return nil
-	case AutoRunMetadataTypeNumber:
+	case MetadataTypeNumber:
 		u.Number = best.Value.(*float64)
 		return nil
-	case AutoRunMetadataTypeBoolean:
+	case MetadataTypeBoolean:
 		u.Boolean = best.Value.(*bool)
 		return nil
 	}
 
 	u.UnknownRaw = json.RawMessage(data)
-	u.Type = AutoRunMetadataTypeUnknown
+	u.Type = MetadataTypeUnknown
 	return nil
 }
 
-func (u AutoRunMetadata) MarshalJSON() ([]byte, error) {
+func (u Metadata) MarshalJSON() ([]byte, error) {
 	if u.Str != nil {
 		return utils.MarshalJSON(u.Str, "", true)
 	}
@@ -171,29 +171,29 @@ func (u AutoRunMetadata) MarshalJSON() ([]byte, error) {
 	if u.UnknownRaw != nil {
 		return json.RawMessage(u.UnknownRaw), nil
 	}
-	return nil, errors.New("could not marshal union type AutoRunMetadata: all fields are null")
+	return nil, errors.New("could not marshal union type Metadata: all fields are null")
 }
 
-type AutoRunKind string
+type Kind string
 
 const (
-	AutoRunKindSDKConnection AutoRunKind = "sdk-connection"
-	AutoRunKindFeature       AutoRunKind = "feature"
-	AutoRunKindExperiment    AutoRunKind = "experiment"
-	AutoRunKindAttribute     AutoRunKind = "attribute"
-	AutoRunKindMetric        AutoRunKind = "metric"
-	AutoRunKindFactTable     AutoRunKind = "fact-table"
-	AutoRunKindSavedGroup    AutoRunKind = "saved-group"
-	AutoRunKindEnvironment   AutoRunKind = "environment"
-	AutoRunKindTag           AutoRunKind = "tag"
+	KindSDKConnection Kind = "sdk-connection"
+	KindFeature       Kind = "feature"
+	KindExperiment    Kind = "experiment"
+	KindAttribute     Kind = "attribute"
+	KindMetric        Kind = "metric"
+	KindFactTable     Kind = "fact-table"
+	KindSavedGroup    Kind = "saved-group"
+	KindEnvironment   Kind = "environment"
+	KindTag           Kind = "tag"
 )
 
-func (e AutoRunKind) ToPointer() *AutoRunKind {
+func (e Kind) ToPointer() *Kind {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *AutoRunKind) IsExact() bool {
+func (e *Kind) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "sdk-connection", "feature", "experiment", "attribute", "metric", "fact-table", "saved-group", "environment", "tag":
@@ -203,19 +203,19 @@ func (e *AutoRunKind) IsExact() bool {
 	return false
 }
 
-type AutoRunBy string
+type By string
 
 const (
-	AutoRunByDeveloper  AutoRunBy = "developer"
-	AutoRunByGrowthbook AutoRunBy = "growthbook"
+	ByDeveloper  By = "developer"
+	ByGrowthbook By = "growthbook"
 )
 
-func (e AutoRunBy) ToPointer() *AutoRunBy {
+func (e By) ToPointer() *By {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *AutoRunBy) IsExact() bool {
+func (e *By) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "developer", "growthbook":
@@ -252,11 +252,11 @@ func (e *AutoRunAction) IsExact() bool {
 }
 
 type Artifact struct {
-	Kind   AutoRunKind `json:"kind"`
-	ID     string      `json:"id"`
-	Label  string      `json:"label"`
-	By     AutoRunBy   `json:"by"`
-	Detail *string     `json:"detail"`
+	Kind   Kind    `json:"kind"`
+	ID     string  `json:"id"`
+	Label  string  `json:"label"`
+	By     By      `json:"by"`
+	Detail *string `json:"detail"`
 	// Id in the system this was imported from, when it was imported
 	ExternalID optionalnullable.OptionalNullable[string] `json:"externalId,omitzero"`
 	// What the run did to this object
@@ -275,9 +275,9 @@ func (a *Artifact) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (a *Artifact) GetKind() AutoRunKind {
+func (a *Artifact) GetKind() Kind {
 	if a == nil {
-		return AutoRunKind("")
+		return Kind("")
 	}
 	return a.Kind
 }
@@ -296,9 +296,9 @@ func (a *Artifact) GetLabel() string {
 	return a.Label
 }
 
-func (a *Artifact) GetBy() AutoRunBy {
+func (a *Artifact) GetBy() By {
 	if a == nil {
-		return AutoRunBy("")
+		return By("")
 	}
 	return a.By
 }
@@ -390,12 +390,12 @@ type AutoRun struct {
 	// Id of the user who ran the wizard
 	CreatedBy *string `json:"createdBy"`
 	// What the wizard learned about the environment it ran in — language, packageManager, framework, versions. Open by design; do not rely on any single key being present
-	Metadata      map[string]*AutoRunMetadata `json:"metadata"`
-	Artifacts     []Artifact                  `json:"artifacts"`
-	Checks        []Check                     `json:"checks"`
-	Outcome       *Outcome                    `json:"outcome"`
-	FailureReason *string                     `json:"failureReason"`
-	DateCompleted *time.Time                  `json:"dateCompleted"`
+	Metadata      map[string]*Metadata `json:"metadata"`
+	Artifacts     []Artifact           `json:"artifacts"`
+	Checks        []Check              `json:"checks"`
+	Outcome       *Outcome             `json:"outcome"`
+	FailureReason *string              `json:"failureReason"`
+	DateCompleted *time.Time           `json:"dateCompleted"`
 	// Absolute URL of the run's page in the app. Built server-side so callers never guess the app origin
 	URL string `json:"url"`
 }
@@ -453,9 +453,9 @@ func (a *AutoRun) GetCreatedBy() *string {
 	return a.CreatedBy
 }
 
-func (a *AutoRun) GetMetadata() map[string]*AutoRunMetadata {
+func (a *AutoRun) GetMetadata() map[string]*Metadata {
 	if a == nil {
-		return map[string]*AutoRunMetadata{}
+		return map[string]*Metadata{}
 	}
 	return a.Metadata
 }

@@ -9,6 +9,36 @@ import (
 	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/utils"
 )
 
+// PostDimensionTiming - What the query returns and how the value at a unit's first exposure is resolved. `none` (default): one value per unit, resolved with MAX(value). `rowTimestamp`: timestamped rows; the query also returns a `timestamp` column and the latest row at or before first exposure is used. `validityRange`: validity ranges; the query also returns `start_timestamp` and `end_timestamp` (NULL = still valid) columns and the row valid at first exposure is used. Only supported for SQL Data Sources.
+type PostDimensionTiming string
+
+const (
+	PostDimensionTimingNone          PostDimensionTiming = "none"
+	PostDimensionTimingRowTimestamp  PostDimensionTiming = "rowTimestamp"
+	PostDimensionTimingValidityRange PostDimensionTiming = "validityRange"
+)
+
+func (e PostDimensionTiming) ToPointer() *PostDimensionTiming {
+	return &e
+}
+func (e *PostDimensionTiming) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "none":
+		fallthrough
+	case "rowTimestamp":
+		fallthrough
+	case "validityRange":
+		*e = PostDimensionTiming(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PostDimensionTiming: %v", v)
+	}
+}
+
 // PostDimensionManagedBy - Where this dimension must be managed from. If not set (empty string), it can be managed from anywhere.
 type PostDimensionManagedBy string
 
@@ -49,6 +79,10 @@ type PostDimensionRequest struct {
 	IdentifierType string `json:"identifierType"`
 	// SQL query or equivalent for the dimension
 	Query string `json:"query"`
+	// What the query returns and how the value at a unit's first exposure is resolved. `none` (default): one value per unit, resolved with MAX(value). `rowTimestamp`: timestamped rows; the query also returns a `timestamp` column and the latest row at or before first exposure is used. `validityRange`: validity ranges; the query also returns `start_timestamp` and `end_timestamp` (NULL = still valid) columns and the row valid at first exposure is used. Only supported for SQL Data Sources.
+	Timing *PostDimensionTiming `json:"timing,omitzero"`
+	// Label used in experiment results for units with no dimension value. Leave empty to use the default null label.
+	NullLabel *string `json:"nullLabel,omitzero"`
 	// Where this dimension must be managed from. If not set (empty string), it can be managed from anywhere.
 	ManagedBy *PostDimensionManagedBy `json:"managedBy,omitzero"`
 }
@@ -93,6 +127,20 @@ func (p *PostDimensionRequest) GetQuery() string {
 		return ""
 	}
 	return p.Query
+}
+
+func (p *PostDimensionRequest) GetTiming() *PostDimensionTiming {
+	if p == nil {
+		return nil
+	}
+	return p.Timing
+}
+
+func (p *PostDimensionRequest) GetNullLabel() *string {
+	if p == nil {
+		return nil
+	}
+	return p.NullLabel
 }
 
 func (p *PostDimensionRequest) GetManagedBy() *PostDimensionManagedBy {

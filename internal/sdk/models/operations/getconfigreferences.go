@@ -19,100 +19,10 @@ func (g *GetConfigReferencesRequest) GetKey() string {
 	return g.Key
 }
 
-type GetConfigReferencesFeature struct {
-	ID      string  `json:"id"`
-	Name    *string `json:"name,omitzero"`
-	Project *string `json:"project,omitzero"`
-}
-
-func (g *GetConfigReferencesFeature) GetID() string {
-	if g == nil {
-		return ""
-	}
-	return g.ID
-}
-
-func (g *GetConfigReferencesFeature) GetName() *string {
-	if g == nil {
-		return nil
-	}
-	return g.Name
-}
-
-func (g *GetConfigReferencesFeature) GetProject() *string {
-	if g == nil {
-		return nil
-	}
-	return g.Project
-}
-
-type Constant struct {
-	ID       string  `json:"id"`
-	Key      string  `json:"key"`
-	Name     string  `json:"name"`
-	Project  *string `json:"project,omitzero"`
-	IsConfig *bool   `json:"isConfig,omitzero"`
-}
-
-func (c *Constant) GetID() string {
-	if c == nil {
-		return ""
-	}
-	return c.ID
-}
-
-func (c *Constant) GetKey() string {
-	if c == nil {
-		return ""
-	}
-	return c.Key
-}
-
-func (c *Constant) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *Constant) GetProject() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Project
-}
-
-func (c *Constant) GetIsConfig() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.IsConfig
-}
-
-// GetConfigReferencesResponseBody - Successful response
-type GetConfigReferencesResponseBody struct {
-	Features  []GetConfigReferencesFeature `json:"features"`
-	Constants []Constant                   `json:"constants"`
-}
-
-func (g *GetConfigReferencesResponseBody) GetFeatures() []GetConfigReferencesFeature {
-	if g == nil {
-		return []GetConfigReferencesFeature{}
-	}
-	return g.Features
-}
-
-func (g *GetConfigReferencesResponseBody) GetConstants() []Constant {
-	if g == nil {
-		return []Constant{}
-	}
-	return g.Constants
-}
-
 type GetConfigReferencesResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Successful response
-	Object *GetConfigReferencesResponseBody
+	ConfigReferences *components.ConfigReferences
 }
 
 func (g GetConfigReferencesResponse) MarshalJSON() ([]byte, error) {
@@ -133,9 +43,9 @@ func (g *GetConfigReferencesResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetConfigReferencesResponse) GetObject() *GetConfigReferencesResponseBody {
+func (g *GetConfigReferencesResponse) GetConfigReferences() *components.ConfigReferences {
 	if g == nil {
 		return nil
 	}
-	return g.Object
+	return g.ConfigReferences
 }

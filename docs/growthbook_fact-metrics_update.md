@@ -21,7 +21,8 @@ growthbook fact-metrics update [flags]
 ```
   -a, --archived                                Set to true to archive the metric. Archived metrics are hidden by default in the UI and excluded from new experiments.
       --body string                             Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -c, --capping-settings string                 Upper cap. Omit on update to preserve it. Use type: none to disable it explicitly. Invalid values are rejected.
+      --capping-settings string                 Upper cap. Omit on update to preserve it. Use type: none to disable it explicitly. Invalid values are rejected.
+      --compound-settings string                Compound metric settings (required when metricType is "compound")
       --denominator string                      Only when metricType is 'ratio'
       --description string                      Markdown. Put context here, not in the name.
       --display-as-percentage                   If true and the metric is a ratio or dailyParticipation metric, variation means will be displayed as a percentage. Defaults to true for dailyParticipation metrics and false for ratio metrics.
@@ -33,7 +34,7 @@ growthbook fact-metrics update [flags]
       --managed-by string                       Set this to "api" (or "dbt" for resources synced from dbt) to disable editing in the GrowthBook UI (options: , api, admin, dbt)
       --max-percent-change float                Maximum percent change to consider uplift significant, as a proportion (e.g. put 0.5 for 50%)
       --metric-auto-slices stringArray          Array of slice column names that will be automatically included in metric analysis. This is an enterprise feature.
-      --metric-type string                      options: proportion, retention, mean, quantile, ratio, dailyParticipation, funnel
+      --metric-type string                      options: proportion, retention, mean, quantile, ratio, dailyParticipation, funnel, compound
       --min-percent-change float                Minimum percent change to consider uplift significant, as a proportion (e.g. put 0.005 for 0.5%)
       --min-sample-size float                   number value
       --name Purchases per user                 Short display name (e.g. Purchases per user). Put the definition in `description`.

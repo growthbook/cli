@@ -62,78 +62,10 @@ func (v *VerifyConfigSchemaRequest) GetBody() VerifyConfigSchemaRequestBody {
 	return v.Body
 }
 
-// VerifyConfigSchemaResponseBody - Resource created
-type VerifyConfigSchemaResponseBody struct {
-	// True when the supplied schema is canonically identical to the config's stored schema.
-	InSync bool `json:"inSync"`
-	// Canonical fingerprint of the config's stored schema.
-	Fingerprint string `json:"fingerprint"`
-	// Canonical fingerprint of the supplied schema.
-	IncomingFingerprint string `json:"incomingFingerprint"`
-	// Present only when `inSync` is false.
-	Drift *components.Drift `json:"drift,omitzero"`
-	// Supplied fields an ancestor config already owns ("base wins"). Subtract these from `drift.contract` adds when round-tripping a full effective schema.
-	AncestorOwnedFields []components.AncestorOwnedFields `json:"ancestorOwnedFields,omitzero"`
-	Warnings            []components.ConfigSchemaWarning `json:"warnings,omitzero"`
-}
-
-func (v VerifyConfigSchemaResponseBody) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(v, "", false)
-}
-
-func (v *VerifyConfigSchemaResponseBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &v, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (v *VerifyConfigSchemaResponseBody) GetInSync() bool {
-	if v == nil {
-		return false
-	}
-	return v.InSync
-}
-
-func (v *VerifyConfigSchemaResponseBody) GetFingerprint() string {
-	if v == nil {
-		return ""
-	}
-	return v.Fingerprint
-}
-
-func (v *VerifyConfigSchemaResponseBody) GetIncomingFingerprint() string {
-	if v == nil {
-		return ""
-	}
-	return v.IncomingFingerprint
-}
-
-func (v *VerifyConfigSchemaResponseBody) GetDrift() *components.Drift {
-	if v == nil {
-		return nil
-	}
-	return v.Drift
-}
-
-func (v *VerifyConfigSchemaResponseBody) GetAncestorOwnedFields() []components.AncestorOwnedFields {
-	if v == nil {
-		return nil
-	}
-	return v.AncestorOwnedFields
-}
-
-func (v *VerifyConfigSchemaResponseBody) GetWarnings() []components.ConfigSchemaWarning {
-	if v == nil {
-		return nil
-	}
-	return v.Warnings
-}
-
 type VerifyConfigSchemaResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
-	Object *VerifyConfigSchemaResponseBody
+	ConfigSchemaVerify *components.ConfigSchemaVerify
 }
 
 func (v VerifyConfigSchemaResponse) MarshalJSON() ([]byte, error) {
@@ -154,9 +86,9 @@ func (v *VerifyConfigSchemaResponse) GetHTTPMeta() components.HTTPMetadata {
 	return v.HTTPMeta
 }
 
-func (v *VerifyConfigSchemaResponse) GetObject() *VerifyConfigSchemaResponseBody {
+func (v *VerifyConfigSchemaResponse) GetConfigSchemaVerify() *components.ConfigSchemaVerify {
 	if v == nil {
 		return nil
 	}
-	return v.Object
+	return v.ConfigSchemaVerify
 }

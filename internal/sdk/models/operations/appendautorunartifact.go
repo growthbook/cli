@@ -8,7 +8,6 @@ import (
 	"github.com/growthbook/cli/v4/internal/sdk/models/components"
 	"github.com/growthbook/cli/v4/internal/sdk/optionalnullable"
 	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/utils"
-	"time"
 )
 
 type Kind string
@@ -200,178 +199,10 @@ func (a *AppendAutoRunArtifactRequest) GetBody() AppendAutoRunArtifactRequestBod
 	return a.Body
 }
 
-type AppendAutoRunArtifactSource string
-
-const (
-	AppendAutoRunArtifactSourceCliWizard  AppendAutoRunArtifactSource = "cli-wizard"
-	AppendAutoRunArtifactSourceSkill      AppendAutoRunArtifactSource = "skill"
-	AppendAutoRunArtifactSourceEppoImport AppendAutoRunArtifactSource = "eppo-import"
-)
-
-func (e AppendAutoRunArtifactSource) ToPointer() *AppendAutoRunArtifactSource {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *AppendAutoRunArtifactSource) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "cli-wizard", "skill", "eppo-import":
-			return true
-		}
-	}
-	return false
-}
-
-type AppendAutoRunArtifactOutcome string
-
-const (
-	AppendAutoRunArtifactOutcomeCompleted AppendAutoRunArtifactOutcome = "completed"
-	AppendAutoRunArtifactOutcomePartial   AppendAutoRunArtifactOutcome = "partial"
-	AppendAutoRunArtifactOutcomeFailed    AppendAutoRunArtifactOutcome = "failed"
-)
-
-func (e AppendAutoRunArtifactOutcome) ToPointer() *AppendAutoRunArtifactOutcome {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *AppendAutoRunArtifactOutcome) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "completed", "partial", "failed":
-			return true
-		}
-	}
-	return false
-}
-
-// AppendAutoRunArtifactResponseBody - Resource created
-type AppendAutoRunArtifactResponseBody struct {
-	ID          string                      `json:"id"`
-	DateCreated time.Time                   `json:"dateCreated"`
-	DateUpdated time.Time                   `json:"dateUpdated"`
-	Source      AppendAutoRunArtifactSource `json:"source"`
-	Agent       *string                     `json:"agent"`
-	// Id of the user who ran the wizard
-	CreatedBy *string `json:"createdBy"`
-	// What the wizard learned about the environment it ran in — language, packageManager, framework, versions. Open by design; do not rely on any single key being present
-	Metadata      map[string]*components.Metadata `json:"metadata"`
-	Artifacts     []components.Artifacts          `json:"artifacts"`
-	Checks        []components.Checks             `json:"checks"`
-	Outcome       *AppendAutoRunArtifactOutcome   `json:"outcome"`
-	FailureReason *string                         `json:"failureReason"`
-	DateCompleted *time.Time                      `json:"dateCompleted"`
-	// Absolute URL of the run's page in the app. Built server-side so callers never guess the app origin
-	URL string `json:"url"`
-}
-
-func (a AppendAutoRunArtifactResponseBody) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(a, "", false)
-}
-
-func (a *AppendAutoRunArtifactResponseBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (a *AppendAutoRunArtifactResponseBody) GetID() string {
-	if a == nil {
-		return ""
-	}
-	return a.ID
-}
-
-func (a *AppendAutoRunArtifactResponseBody) GetDateCreated() time.Time {
-	if a == nil {
-		return time.Time{}
-	}
-	return a.DateCreated
-}
-
-func (a *AppendAutoRunArtifactResponseBody) GetDateUpdated() time.Time {
-	if a == nil {
-		return time.Time{}
-	}
-	return a.DateUpdated
-}
-
-func (a *AppendAutoRunArtifactResponseBody) GetSource() AppendAutoRunArtifactSource {
-	if a == nil {
-		return AppendAutoRunArtifactSource("")
-	}
-	return a.Source
-}
-
-func (a *AppendAutoRunArtifactResponseBody) GetAgent() *string {
-	if a == nil {
-		return nil
-	}
-	return a.Agent
-}
-
-func (a *AppendAutoRunArtifactResponseBody) GetCreatedBy() *string {
-	if a == nil {
-		return nil
-	}
-	return a.CreatedBy
-}
-
-func (a *AppendAutoRunArtifactResponseBody) GetMetadata() map[string]*components.Metadata {
-	if a == nil {
-		return map[string]*components.Metadata{}
-	}
-	return a.Metadata
-}
-
-func (a *AppendAutoRunArtifactResponseBody) GetArtifacts() []components.Artifacts {
-	if a == nil {
-		return []components.Artifacts{}
-	}
-	return a.Artifacts
-}
-
-func (a *AppendAutoRunArtifactResponseBody) GetChecks() []components.Checks {
-	if a == nil {
-		return []components.Checks{}
-	}
-	return a.Checks
-}
-
-func (a *AppendAutoRunArtifactResponseBody) GetOutcome() *AppendAutoRunArtifactOutcome {
-	if a == nil {
-		return nil
-	}
-	return a.Outcome
-}
-
-func (a *AppendAutoRunArtifactResponseBody) GetFailureReason() *string {
-	if a == nil {
-		return nil
-	}
-	return a.FailureReason
-}
-
-func (a *AppendAutoRunArtifactResponseBody) GetDateCompleted() *time.Time {
-	if a == nil {
-		return nil
-	}
-	return a.DateCompleted
-}
-
-func (a *AppendAutoRunArtifactResponseBody) GetURL() string {
-	if a == nil {
-		return ""
-	}
-	return a.URL
-}
-
 type AppendAutoRunArtifactResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource created
-	Object *AppendAutoRunArtifactResponseBody
+	AutoRun *components.AutoRun
 	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
 	ConfirmationHeld *components.ConfirmationHeld
 	Headers          map[string][]string
@@ -395,11 +226,11 @@ func (a *AppendAutoRunArtifactResponse) GetHTTPMeta() components.HTTPMetadata {
 	return a.HTTPMeta
 }
 
-func (a *AppendAutoRunArtifactResponse) GetObject() *AppendAutoRunArtifactResponseBody {
+func (a *AppendAutoRunArtifactResponse) GetAutoRun() *components.AutoRun {
 	if a == nil {
 		return nil
 	}
-	return a.Object
+	return a.AutoRun
 }
 
 func (a *AppendAutoRunArtifactResponse) GetConfirmationHeld() *components.ConfirmationHeld {

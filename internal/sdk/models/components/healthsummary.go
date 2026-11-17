@@ -59,20 +59,20 @@ func (e *Signal) IsExact() bool {
 	return false
 }
 
-// SrmStatus - `failing` when p-value is below the org SRM threshold, indicating a traffic imbalance.
-type SrmStatus string
+// TrafficSrmStatus - `failing` when p-value is below the org SRM threshold, indicating a traffic imbalance.
+type TrafficSrmStatus string
 
 const (
-	SrmStatusOk      SrmStatus = "ok"
-	SrmStatusFailing SrmStatus = "failing"
+	TrafficSrmStatusOk      TrafficSrmStatus = "ok"
+	TrafficSrmStatusFailing TrafficSrmStatus = "failing"
 )
 
-func (e SrmStatus) ToPointer() *SrmStatus {
+func (e TrafficSrmStatus) ToPointer() *TrafficSrmStatus {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SrmStatus) IsExact() bool {
+func (e *TrafficSrmStatus) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "ok", "failing":
@@ -82,40 +82,40 @@ func (e *SrmStatus) IsExact() bool {
 	return false
 }
 
-type Srm struct {
+type HealthSummarySrm struct {
 	// SRM p-value from the traffic query.
 	PValue float64 `json:"pValue"`
 	// `failing` when p-value is below the org SRM threshold, indicating a traffic imbalance.
-	Status SrmStatus `json:"status"`
+	Status TrafficSrmStatus `json:"status"`
 }
 
-func (s *Srm) GetPValue() float64 {
-	if s == nil {
+func (h *HealthSummarySrm) GetPValue() float64 {
+	if h == nil {
 		return 0.0
 	}
-	return s.PValue
+	return h.PValue
 }
 
-func (s *Srm) GetStatus() SrmStatus {
-	if s == nil {
-		return SrmStatus("")
+func (h *HealthSummarySrm) GetStatus() TrafficSrmStatus {
+	if h == nil {
+		return TrafficSrmStatus("")
 	}
-	return s.Status
+	return h.Status
 }
 
-type MultipleExposuresStatus string
+type TrafficMultipleExposuresStatus string
 
 const (
-	MultipleExposuresStatusOk      MultipleExposuresStatus = "ok"
-	MultipleExposuresStatusWarning MultipleExposuresStatus = "warning"
+	TrafficMultipleExposuresStatusOk      TrafficMultipleExposuresStatus = "ok"
+	TrafficMultipleExposuresStatusWarning TrafficMultipleExposuresStatus = "warning"
 )
 
-func (e MultipleExposuresStatus) ToPointer() *MultipleExposuresStatus {
+func (e TrafficMultipleExposuresStatus) ToPointer() *TrafficMultipleExposuresStatus {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *MultipleExposuresStatus) IsExact() bool {
+func (e *TrafficMultipleExposuresStatus) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "ok", "warning":
@@ -125,33 +125,33 @@ func (e *MultipleExposuresStatus) IsExact() bool {
 	return false
 }
 
-type MultipleExposures struct {
+type HealthSummaryMultipleExposures struct {
 	// Number of users exposed to both variations.
 	Count float64 `json:"count"`
 	// Fraction of total users with multiple exposures (0–1).
-	Percent float64                 `json:"percent"`
-	Status  MultipleExposuresStatus `json:"status"`
+	Percent float64                        `json:"percent"`
+	Status  TrafficMultipleExposuresStatus `json:"status"`
 }
 
-func (m *MultipleExposures) GetCount() float64 {
-	if m == nil {
+func (h *HealthSummaryMultipleExposures) GetCount() float64 {
+	if h == nil {
 		return 0.0
 	}
-	return m.Count
+	return h.Count
 }
 
-func (m *MultipleExposures) GetPercent() float64 {
-	if m == nil {
+func (h *HealthSummaryMultipleExposures) GetPercent() float64 {
+	if h == nil {
 		return 0.0
 	}
-	return m.Percent
+	return h.Percent
 }
 
-func (m *MultipleExposures) GetStatus() MultipleExposuresStatus {
-	if m == nil {
-		return MultipleExposuresStatus("")
+func (h *HealthSummaryMultipleExposures) GetStatus() TrafficMultipleExposuresStatus {
+	if h == nil {
+		return TrafficMultipleExposuresStatus("")
 	}
-	return m.Status
+	return h.Status
 }
 
 // Traffic health from the latest snapshot. Absent when no snapshot has been taken yet.
@@ -159,9 +159,9 @@ type Traffic struct {
 	// Total unique users across all variations.
 	TotalUsers float64 `json:"totalUsers"`
 	// Per-variation user counts. Index 0 = baseline arm (users continuing to see the existing behavior — either the configured control value on a v1 safe rollout, or users passed through to subsequent rules / feature default on a v2 monitored ramp). Index 1 = treatment arm (users exposed to the new rollout value).
-	VariationUnits    []float64          `json:"variationUnits"`
-	Srm               *Srm               `json:"srm,omitzero"`
-	MultipleExposures *MultipleExposures `json:"multipleExposures,omitzero"`
+	VariationUnits    []float64                       `json:"variationUnits"`
+	Srm               *HealthSummarySrm               `json:"srm,omitzero"`
+	MultipleExposures *HealthSummaryMultipleExposures `json:"multipleExposures,omitzero"`
 }
 
 func (t Traffic) MarshalJSON() ([]byte, error) {
@@ -189,14 +189,14 @@ func (t *Traffic) GetVariationUnits() []float64 {
 	return t.VariationUnits
 }
 
-func (t *Traffic) GetSrm() *Srm {
+func (t *Traffic) GetSrm() *HealthSummarySrm {
 	if t == nil {
 		return nil
 	}
 	return t.Srm
 }
 
-func (t *Traffic) GetMultipleExposures() *MultipleExposures {
+func (t *Traffic) GetMultipleExposures() *HealthSummaryMultipleExposures {
 	if t == nil {
 		return nil
 	}

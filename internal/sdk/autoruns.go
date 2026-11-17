@@ -783,12 +783,12 @@ func (s *AutoRuns) AppendArtifact(ctx context.Context, request operations.Append
 					return nil, err
 				}
 
-				var out operations.AppendAutoRunArtifactResponseBody
+				var out components.AutoRun
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.Object = &out
+				res.AutoRun = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)

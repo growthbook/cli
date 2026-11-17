@@ -1342,9 +1342,10 @@ type UpdateExperimentRequestBody struct {
 	DefaultDashboardID *string           `json:"defaultDashboardId,omitzero"`
 	CustomFields       map[string]string `json:"customFields,omitzero"`
 	// Custom slices that apply to ALL applicable metrics in the experiment
-	CustomMetricSlices          []UpdateExperimentCustomMetricSlice                                     `json:"customMetricSlices,omitzero"`
-	StatusUpdateSchedule        optionalnullable.OptionalNullable[UpdateExperimentStatusUpdateSchedule] `json:"statusUpdateSchedule,omitzero"`
-	PrecomputedUnitDimensionIds []string                                                                `json:"precomputedUnitDimensionIds,omitzero"`
+	CustomMetricSlices   []UpdateExperimentCustomMetricSlice                                     `json:"customMetricSlices,omitzero"`
+	StatusUpdateSchedule optionalnullable.OptionalNullable[UpdateExperimentStatusUpdateSchedule] `json:"statusUpdateSchedule,omitzero"`
+	// A list of unit dimension ids that will be calculated every update and generate timeseries data. Requires the datasource to have pipeline mode enabled.
+	PrecomputedUnitDimensionIds []string `json:"precomputedUnitDimensionIds,omitzero"`
 	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
 	// When `status` starts a draft: start past its incomplete launch checklist items, as `POST /experiments/{id}/start` does. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.

@@ -509,12 +509,12 @@ func (s *Constants) GetReferences(ctx context.Context, request operations.GetCon
 					return nil, err
 				}
 
-				var out operations.GetConstantReferencesResponseBody
+				var out components.ConstantReferences
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.Object = &out
+				res.ConstantReferences = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)

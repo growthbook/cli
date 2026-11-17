@@ -451,7 +451,10 @@ Attributes are optional keys by default. Pass `--strict-attributes` to make each
 
 * [`list`](docs/growthbook_data-sources_list.md) - Get all data sources
 * [`get`](docs/growthbook_data-sources_get.md) - Get a single data source
+* [`update`](docs/growthbook_data-sources_update.md) - Update a data source
+* [`delete`](docs/growthbook_data-sources_delete.md) - Delete a data source
 * [`get-information-schema`](docs/growthbook_data-sources_get-information-schema.md) - Get a Data Source's Information Schema
+* [`refresh-information-schema`](docs/growthbook_data-sources_refresh-information-schema.md) - Refresh a data source's information schema
 * [`search-warehouse-tables`](docs/growthbook_data-sources_search-warehouse-tables.md) - Search warehouse tables
 * [`get-warehouse-table-schema`](docs/growthbook_data-sources_get-warehouse-table-schema.md) - Get warehouse table schemas
 * [`preview-warehouse-column-values`](docs/growthbook_data-sources_preview-warehouse-column-values.md) - Preview distinct column values
@@ -644,6 +647,8 @@ Attributes are optional keys by default. Pass `--strict-attributes` to make each
 ### [queries](docs/growthbook_queries.md)
 
 * [`get-query`](docs/growthbook_queries_get-query.md) - Get a single query
+* [`list-data-source`](docs/growthbook_queries_list-data-source.md) - Get a data source's 50 most recent queries
+* [`cancel`](docs/growthbook_queries_cancel.md) - Cancel a running query
 
 ### [settings](docs/growthbook_settings.md)
 
@@ -655,6 +660,10 @@ Attributes are optional keys by default. Pass `--strict-attributes` to make each
 * [`get-version`](docs/growthbook_meta_get-version.md) - Get the GrowthBook server version and build info
 * [`get-confirmation`](docs/growthbook_meta_get-confirmation.md) - Get a confirmation
 
+### [information-schema-tables](docs/growthbook_information-schema-tables.md)
+
+* [`refresh`](docs/growthbook_information-schema-tables_refresh.md) - Refresh one table's columns
+
 ### [ramp-schedules](docs/growthbook_ramp-schedules.md)
 
 * [`list`](docs/growthbook_ramp-schedules_list.md) - Get all rampSchedules
@@ -662,6 +671,7 @@ Attributes are optional keys by default. Pass `--strict-attributes` to make each
 * [`start`](docs/growthbook_ramp-schedules_start.md) - Start a ramp schedule
 * [`pause`](docs/growthbook_ramp-schedules_pause.md) - Pause a ramp schedule
 * [`resume`](docs/growthbook_ramp-schedules_resume.md) - Resume a paused ramp schedule
+* [`retry`](docs/growthbook_ramp-schedules_retry.md) - Retry a ramp schedule's failed step
 * [`rollback`](docs/growthbook_ramp-schedules_rollback.md) - Roll back a ramp schedule
 * [`restart`](docs/growthbook_ramp-schedules_restart.md) - Restart a terminal ramp schedule
 * [`jump`](docs/growthbook_ramp-schedules_jump.md) - Jump to a specific step
@@ -701,6 +711,22 @@ Attributes are optional keys by default. Pass `--strict-attributes` to make each
 * [`delete`](docs/growthbook_namespaces_delete.md) - Delete a namespace
 * [`get-memberships`](docs/growthbook_namespaces_get-memberships.md) - Get namespace membership
 * [`rotate-seed`](docs/growthbook_namespaces_rotate-seed.md) - Rotate namespace seed
+
+### [event-webhooks](docs/growthbook_event-webhooks.md)
+
+* [`list`](docs/growthbook_event-webhooks_list.md) - Get all event webhooks
+* [`create`](docs/growthbook_event-webhooks_create.md) - Create an event webhook
+* [`get`](docs/growthbook_event-webhooks_get.md) - Get a single event webhook
+* [`update`](docs/growthbook_event-webhooks_update.md) - Update an event webhook
+* [`delete`](docs/growthbook_event-webhooks_delete.md) - Delete an event webhook
+* [`list-logs`](docs/growthbook_event-webhooks_list-logs.md) - Get the 50 most recent deliveries for an event webhook
+* [`test`](docs/growthbook_event-webhooks_test.md) - Send a test event to an event webhook
+
+### [audits](docs/growthbook_audits.md)
+
+* [`list`](docs/growthbook_audits_list.md) - Get audit history for an entity or entity type
+* [`list-events`](docs/growthbook_audits_list-events.md) - Get the organization's event log
+* [`get-event`](docs/growthbook_audits_get-event.md) - Get a single event
 
 ### [dashboards](docs/growthbook_dashboards.md)
 
@@ -833,6 +859,20 @@ Attributes are optional keys by default. Pass `--strict-attributes` to make each
 * [`get`](docs/growthbook_populations_get.md) - Get a single population
 * [`update`](docs/growthbook_populations_update.md) - Update a single population
 * [`delete`](docs/growthbook_populations_delete.md) - Delete a single population
+
+### [webhook-secrets](docs/growthbook_webhook-secrets.md)
+
+* [`get`](docs/growthbook_webhook-secrets_get.md) - Get a single webhookSecret
+* [`delete`](docs/growthbook_webhook-secrets_delete.md) - Delete a single webhookSecret
+* [`list`](docs/growthbook_webhook-secrets_list.md) - Get all webhookSecrets
+
+### [SDK-webhooks](docs/growthbook_SDK-webhooks.md)
+
+* [`list`](docs/growthbook_SDK-webhooks_list.md) - Get the webhooks for an SDK Connection
+* [`create`](docs/growthbook_SDK-webhooks_create.md) - Add a webhook to an SDK Connection
+* [`update`](docs/growthbook_SDK-webhooks_update.md) - Update an SDK webhook
+* [`delete`](docs/growthbook_SDK-webhooks_delete.md) - Delete an SDK webhook
+* [`test`](docs/growthbook_SDK-webhooks_test.md) - Fire an SDK webhook now
 
 </details>
 <!-- End Available Commands [operations] -->

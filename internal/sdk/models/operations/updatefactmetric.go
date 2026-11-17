@@ -20,6 +20,7 @@ const (
 	UpdateFactMetricMetricTypeRatio              UpdateFactMetricMetricType = "ratio"
 	UpdateFactMetricMetricTypeDailyParticipation UpdateFactMetricMetricType = "dailyParticipation"
 	UpdateFactMetricMetricTypeFunnel             UpdateFactMetricMetricType = "funnel"
+	UpdateFactMetricMetricTypeCompound           UpdateFactMetricMetricType = "compound"
 )
 
 func (e UpdateFactMetricMetricType) ToPointer() *UpdateFactMetricMetricType {
@@ -44,6 +45,8 @@ func (e *UpdateFactMetricMetricType) UnmarshalJSON(data []byte) error {
 	case "dailyParticipation":
 		fallthrough
 	case "funnel":
+		fallthrough
+	case "compound":
 		*e = UpdateFactMetricMetricType(v)
 		return nil
 	default:
@@ -894,6 +897,166 @@ func (u *UpdateFactMetricFunnelSettings) GetConcurrencyWindowSeconds() *int64 {
 	return u.ConcurrencyWindowSeconds
 }
 
+type UpdateFactMetricComponentOperator string
+
+const (
+	UpdateFactMetricComponentOperatorEqual             UpdateFactMetricComponentOperator = "="
+	UpdateFactMetricComponentOperatorNotEqual          UpdateFactMetricComponentOperator = "!="
+	UpdateFactMetricComponentOperatorGreaterThan       UpdateFactMetricComponentOperator = ">"
+	UpdateFactMetricComponentOperatorLessThan          UpdateFactMetricComponentOperator = "<"
+	UpdateFactMetricComponentOperatorGreaterThanEqual  UpdateFactMetricComponentOperator = ">="
+	UpdateFactMetricComponentOperatorLessThanEqual     UpdateFactMetricComponentOperator = "<="
+	UpdateFactMetricComponentOperatorBetween           UpdateFactMetricComponentOperator = "between"
+	UpdateFactMetricComponentOperatorNotBetween        UpdateFactMetricComponentOperator = "not_between"
+	UpdateFactMetricComponentOperatorIn                UpdateFactMetricComponentOperator = "in"
+	UpdateFactMetricComponentOperatorNotIn             UpdateFactMetricComponentOperator = "not_in"
+	UpdateFactMetricComponentOperatorIsNull            UpdateFactMetricComponentOperator = "is_null"
+	UpdateFactMetricComponentOperatorNotNull           UpdateFactMetricComponentOperator = "not_null"
+	UpdateFactMetricComponentOperatorIsTrue            UpdateFactMetricComponentOperator = "is_true"
+	UpdateFactMetricComponentOperatorIsFalse           UpdateFactMetricComponentOperator = "is_false"
+	UpdateFactMetricComponentOperatorContains          UpdateFactMetricComponentOperator = "contains"
+	UpdateFactMetricComponentOperatorNotContains       UpdateFactMetricComponentOperator = "not_contains"
+	UpdateFactMetricComponentOperatorMatchesPattern    UpdateFactMetricComponentOperator = "matches_pattern"
+	UpdateFactMetricComponentOperatorNotMatchesPattern UpdateFactMetricComponentOperator = "not_matches_pattern"
+	UpdateFactMetricComponentOperatorStartsWith        UpdateFactMetricComponentOperator = "starts_with"
+	UpdateFactMetricComponentOperatorEndsWith          UpdateFactMetricComponentOperator = "ends_with"
+	UpdateFactMetricComponentOperatorSQLExpr           UpdateFactMetricComponentOperator = "sql_expr"
+	UpdateFactMetricComponentOperatorSavedFilter       UpdateFactMetricComponentOperator = "saved_filter"
+)
+
+func (e UpdateFactMetricComponentOperator) ToPointer() *UpdateFactMetricComponentOperator {
+	return &e
+}
+func (e *UpdateFactMetricComponentOperator) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "=":
+		fallthrough
+	case "!=":
+		fallthrough
+	case ">":
+		fallthrough
+	case "<":
+		fallthrough
+	case ">=":
+		fallthrough
+	case "<=":
+		fallthrough
+	case "between":
+		fallthrough
+	case "not_between":
+		fallthrough
+	case "in":
+		fallthrough
+	case "not_in":
+		fallthrough
+	case "is_null":
+		fallthrough
+	case "not_null":
+		fallthrough
+	case "is_true":
+		fallthrough
+	case "is_false":
+		fallthrough
+	case "contains":
+		fallthrough
+	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
+		fallthrough
+	case "starts_with":
+		fallthrough
+	case "ends_with":
+		fallthrough
+	case "sql_expr":
+		fallthrough
+	case "saved_filter":
+		*e = UpdateFactMetricComponentOperator(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for UpdateFactMetricComponentOperator: %v", v)
+	}
+}
+
+type UpdateFactMetricComponentRowFilter struct {
+	Operator UpdateFactMetricComponentOperator `json:"operator"`
+	// Not required for is_null, not_null, is_true, is_false operators. The between and not_between operators take at most two values, a lower and an upper bound in that order; leave a bound as an empty string for an open-ended range.
+	Values []string `json:"values,omitzero"`
+	// Required for all operators except sql_expr and saved_filter.
+	Column *string `json:"column,omitzero"`
+}
+
+func (u UpdateFactMetricComponentRowFilter) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdateFactMetricComponentRowFilter) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *UpdateFactMetricComponentRowFilter) GetOperator() UpdateFactMetricComponentOperator {
+	if u == nil {
+		return UpdateFactMetricComponentOperator("")
+	}
+	return u.Operator
+}
+
+func (u *UpdateFactMetricComponentRowFilter) GetValues() []string {
+	if u == nil {
+		return nil
+	}
+	return u.Values
+}
+
+func (u *UpdateFactMetricComponentRowFilter) GetColumn() *string {
+	if u == nil {
+		return nil
+	}
+	return u.Column
+}
+
+type UpdateFactMetricComponent struct {
+	// The fact table this component draws events from
+	FactTableID string `json:"factTableId"`
+	// Filters that decide whether an event row counts for this component
+	RowFilters []UpdateFactMetricComponentRowFilter `json:"rowFilters"`
+}
+
+func (u *UpdateFactMetricComponent) GetFactTableID() string {
+	if u == nil {
+		return ""
+	}
+	return u.FactTableID
+}
+
+func (u *UpdateFactMetricComponent) GetRowFilters() []UpdateFactMetricComponentRowFilter {
+	if u == nil {
+		return []UpdateFactMetricComponentRowFilter{}
+	}
+	return u.RowFilters
+}
+
+// UpdateFactMetricCompoundSettings - Compound metric settings (required when metricType is "compound")
+type UpdateFactMetricCompoundSettings struct {
+	// A unit passes when it has at least one matching event for every component, in any order. Minimum 2 components required.
+	Components []UpdateFactMetricComponent `json:"components"`
+}
+
+func (u *UpdateFactMetricCompoundSettings) GetComponents() []UpdateFactMetricComponent {
+	if u == nil {
+		return []UpdateFactMetricComponent{}
+	}
+	return u.Components
+}
+
 type UpdateFactMetricCappingSettingsType string
 
 const (
@@ -1289,6 +1452,8 @@ type UpdateFactMetricRequestBody struct {
 	QuantileSettings *UpdateFactMetricQuantileSettings `json:"quantileSettings,omitzero"`
 	// Funnel metric settings (required when metricType is "funnel")
 	FunnelSettings *UpdateFactMetricFunnelSettings `json:"funnelSettings,omitzero"`
+	// Compound metric settings (required when metricType is "compound")
+	CompoundSettings *UpdateFactMetricCompoundSettings `json:"compoundSettings,omitzero"`
 	// Upper cap. Omit on update to preserve it. Use type: none to disable it explicitly. Invalid values are rejected.
 	CappingSettings *UpdateFactMetricCappingSettings `json:"cappingSettings,omitzero"`
 	// Independent lower cap. Omit on update to preserve it. Use null or type: none to disable it explicitly. Invalid values are rejected. For mixed cap types, the absolute bound takes precedence if thresholds cross.
@@ -1412,6 +1577,13 @@ func (u *UpdateFactMetricRequestBody) GetFunnelSettings() *UpdateFactMetricFunne
 		return nil
 	}
 	return u.FunnelSettings
+}
+
+func (u *UpdateFactMetricRequestBody) GetCompoundSettings() *UpdateFactMetricCompoundSettings {
+	if u == nil {
+		return nil
+	}
+	return u.CompoundSettings
 }
 
 func (u *UpdateFactMetricRequestBody) GetCappingSettings() *UpdateFactMetricCappingSettings {
