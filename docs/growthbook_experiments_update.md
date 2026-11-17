@@ -65,7 +65,7 @@ growthbook experiments update [flags]
       --owner string                                 The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
       --phases string                                list of values
       --post-stratification-enabled string           When null, the organization default is used.
-      --precomputed-unit-dimension-ids stringArray   list of values
+      --precomputed-unit-dimension-ids stringArray   A list of unit dimension ids that will be calculated every update and generate timeseries data. Requires the datasource to have pipeline mode enabled.
       --project string                               Project ID which the experiment belongs to
       --query-filter string                          WHERE clause to add to the default experiment query
       --regression-adjustment-enabled                Controls whether regression adjustment (CUPED) is enabled for experiment analyses

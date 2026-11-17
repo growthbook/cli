@@ -29,7 +29,19 @@ func InitDataSourcesRoot(parent *cobra.Command) error {
 		return err
 	}
 
+	if err := initUpdateDataSourceCmd(DataSourcesCmd); err != nil {
+		return err
+	}
+
+	if err := initDeleteDataSourceCmd(DataSourcesCmd); err != nil {
+		return err
+	}
+
 	if err := initGetInformationSchemaCmd(DataSourcesCmd); err != nil {
+		return err
+	}
+
+	if err := initPostDataSourceInformationSchemaRefreshCmd(DataSourcesCmd); err != nil {
 		return err
 	}
 

@@ -19,100 +19,10 @@ func (g *GetSavedGroupReferencesRequest) GetID() string {
 	return g.ID
 }
 
-type GetSavedGroupReferencesExperiment struct {
-	ID       string   `json:"id"`
-	Name     *string  `json:"name,omitzero"`
-	Project  *string  `json:"project,omitzero"`
-	Projects []string `json:"projects,omitzero"`
-}
-
-func (g GetSavedGroupReferencesExperiment) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(g, "", false)
-}
-
-func (g *GetSavedGroupReferencesExperiment) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (g *GetSavedGroupReferencesExperiment) GetID() string {
-	if g == nil {
-		return ""
-	}
-	return g.ID
-}
-
-func (g *GetSavedGroupReferencesExperiment) GetName() *string {
-	if g == nil {
-		return nil
-	}
-	return g.Name
-}
-
-func (g *GetSavedGroupReferencesExperiment) GetProject() *string {
-	if g == nil {
-		return nil
-	}
-	return g.Project
-}
-
-func (g *GetSavedGroupReferencesExperiment) GetProjects() []string {
-	if g == nil {
-		return nil
-	}
-	return g.Projects
-}
-
-// GetSavedGroupReferencesResponseBody - Successful response
-type GetSavedGroupReferencesResponseBody struct {
-	Features          []components.SavedGroupReferenceResource `json:"features"`
-	Experiments       []GetSavedGroupReferencesExperiment      `json:"experiments"`
-	ContextualBandits []components.SavedGroupReferenceResource `json:"contextualBandits"`
-	Interleavings     []components.SavedGroupReferenceResource `json:"interleavings"`
-	SavedGroups       []components.SavedGroups                 `json:"savedGroups"`
-}
-
-func (g *GetSavedGroupReferencesResponseBody) GetFeatures() []components.SavedGroupReferenceResource {
-	if g == nil {
-		return []components.SavedGroupReferenceResource{}
-	}
-	return g.Features
-}
-
-func (g *GetSavedGroupReferencesResponseBody) GetExperiments() []GetSavedGroupReferencesExperiment {
-	if g == nil {
-		return []GetSavedGroupReferencesExperiment{}
-	}
-	return g.Experiments
-}
-
-func (g *GetSavedGroupReferencesResponseBody) GetContextualBandits() []components.SavedGroupReferenceResource {
-	if g == nil {
-		return []components.SavedGroupReferenceResource{}
-	}
-	return g.ContextualBandits
-}
-
-func (g *GetSavedGroupReferencesResponseBody) GetInterleavings() []components.SavedGroupReferenceResource {
-	if g == nil {
-		return []components.SavedGroupReferenceResource{}
-	}
-	return g.Interleavings
-}
-
-func (g *GetSavedGroupReferencesResponseBody) GetSavedGroups() []components.SavedGroups {
-	if g == nil {
-		return []components.SavedGroups{}
-	}
-	return g.SavedGroups
-}
-
 type GetSavedGroupReferencesResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Successful response
-	Object *GetSavedGroupReferencesResponseBody
+	SavedGroupReferences *components.SavedGroupReferences
 }
 
 func (g GetSavedGroupReferencesResponse) MarshalJSON() ([]byte, error) {
@@ -133,9 +43,9 @@ func (g *GetSavedGroupReferencesResponse) GetHTTPMeta() components.HTTPMetadata 
 	return g.HTTPMeta
 }
 
-func (g *GetSavedGroupReferencesResponse) GetObject() *GetSavedGroupReferencesResponseBody {
+func (g *GetSavedGroupReferencesResponse) GetSavedGroupReferences() *components.SavedGroupReferences {
 	if g == nil {
 		return nil
 	}
-	return g.Object
+	return g.SavedGroupReferences
 }

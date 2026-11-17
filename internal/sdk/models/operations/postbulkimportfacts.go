@@ -393,6 +393,7 @@ const (
 	PostBulkImportFactsMetricTypeRatio              PostBulkImportFactsMetricType = "ratio"
 	PostBulkImportFactsMetricTypeDailyParticipation PostBulkImportFactsMetricType = "dailyParticipation"
 	PostBulkImportFactsMetricTypeFunnel             PostBulkImportFactsMetricType = "funnel"
+	PostBulkImportFactsMetricTypeCompound           PostBulkImportFactsMetricType = "compound"
 )
 
 func (e PostBulkImportFactsMetricType) ToPointer() *PostBulkImportFactsMetricType {
@@ -417,6 +418,8 @@ func (e *PostBulkImportFactsMetricType) UnmarshalJSON(data []byte) error {
 	case "dailyParticipation":
 		fallthrough
 	case "funnel":
+		fallthrough
+	case "compound":
 		*e = PostBulkImportFactsMetricType(v)
 		return nil
 	default:
@@ -1267,6 +1270,166 @@ func (p *PostBulkImportFactsFunnelSettings) GetConcurrencyWindowSeconds() *int64
 	return p.ConcurrencyWindowSeconds
 }
 
+type PostBulkImportFactsComponentOperator string
+
+const (
+	PostBulkImportFactsComponentOperatorEqual             PostBulkImportFactsComponentOperator = "="
+	PostBulkImportFactsComponentOperatorNotEqual          PostBulkImportFactsComponentOperator = "!="
+	PostBulkImportFactsComponentOperatorGreaterThan       PostBulkImportFactsComponentOperator = ">"
+	PostBulkImportFactsComponentOperatorLessThan          PostBulkImportFactsComponentOperator = "<"
+	PostBulkImportFactsComponentOperatorGreaterThanEqual  PostBulkImportFactsComponentOperator = ">="
+	PostBulkImportFactsComponentOperatorLessThanEqual     PostBulkImportFactsComponentOperator = "<="
+	PostBulkImportFactsComponentOperatorBetween           PostBulkImportFactsComponentOperator = "between"
+	PostBulkImportFactsComponentOperatorNotBetween        PostBulkImportFactsComponentOperator = "not_between"
+	PostBulkImportFactsComponentOperatorIn                PostBulkImportFactsComponentOperator = "in"
+	PostBulkImportFactsComponentOperatorNotIn             PostBulkImportFactsComponentOperator = "not_in"
+	PostBulkImportFactsComponentOperatorIsNull            PostBulkImportFactsComponentOperator = "is_null"
+	PostBulkImportFactsComponentOperatorNotNull           PostBulkImportFactsComponentOperator = "not_null"
+	PostBulkImportFactsComponentOperatorIsTrue            PostBulkImportFactsComponentOperator = "is_true"
+	PostBulkImportFactsComponentOperatorIsFalse           PostBulkImportFactsComponentOperator = "is_false"
+	PostBulkImportFactsComponentOperatorContains          PostBulkImportFactsComponentOperator = "contains"
+	PostBulkImportFactsComponentOperatorNotContains       PostBulkImportFactsComponentOperator = "not_contains"
+	PostBulkImportFactsComponentOperatorMatchesPattern    PostBulkImportFactsComponentOperator = "matches_pattern"
+	PostBulkImportFactsComponentOperatorNotMatchesPattern PostBulkImportFactsComponentOperator = "not_matches_pattern"
+	PostBulkImportFactsComponentOperatorStartsWith        PostBulkImportFactsComponentOperator = "starts_with"
+	PostBulkImportFactsComponentOperatorEndsWith          PostBulkImportFactsComponentOperator = "ends_with"
+	PostBulkImportFactsComponentOperatorSQLExpr           PostBulkImportFactsComponentOperator = "sql_expr"
+	PostBulkImportFactsComponentOperatorSavedFilter       PostBulkImportFactsComponentOperator = "saved_filter"
+)
+
+func (e PostBulkImportFactsComponentOperator) ToPointer() *PostBulkImportFactsComponentOperator {
+	return &e
+}
+func (e *PostBulkImportFactsComponentOperator) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "=":
+		fallthrough
+	case "!=":
+		fallthrough
+	case ">":
+		fallthrough
+	case "<":
+		fallthrough
+	case ">=":
+		fallthrough
+	case "<=":
+		fallthrough
+	case "between":
+		fallthrough
+	case "not_between":
+		fallthrough
+	case "in":
+		fallthrough
+	case "not_in":
+		fallthrough
+	case "is_null":
+		fallthrough
+	case "not_null":
+		fallthrough
+	case "is_true":
+		fallthrough
+	case "is_false":
+		fallthrough
+	case "contains":
+		fallthrough
+	case "not_contains":
+		fallthrough
+	case "matches_pattern":
+		fallthrough
+	case "not_matches_pattern":
+		fallthrough
+	case "starts_with":
+		fallthrough
+	case "ends_with":
+		fallthrough
+	case "sql_expr":
+		fallthrough
+	case "saved_filter":
+		*e = PostBulkImportFactsComponentOperator(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PostBulkImportFactsComponentOperator: %v", v)
+	}
+}
+
+type PostBulkImportFactsComponentRowFilter struct {
+	Operator PostBulkImportFactsComponentOperator `json:"operator"`
+	// Not required for is_null, not_null, is_true, is_false operators. The between and not_between operators take at most two values, a lower and an upper bound in that order; leave a bound as an empty string for an open-ended range.
+	Values []string `json:"values,omitzero"`
+	// Required for all operators except sql_expr and saved_filter.
+	Column *string `json:"column,omitzero"`
+}
+
+func (p PostBulkImportFactsComponentRowFilter) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PostBulkImportFactsComponentRowFilter) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PostBulkImportFactsComponentRowFilter) GetOperator() PostBulkImportFactsComponentOperator {
+	if p == nil {
+		return PostBulkImportFactsComponentOperator("")
+	}
+	return p.Operator
+}
+
+func (p *PostBulkImportFactsComponentRowFilter) GetValues() []string {
+	if p == nil {
+		return nil
+	}
+	return p.Values
+}
+
+func (p *PostBulkImportFactsComponentRowFilter) GetColumn() *string {
+	if p == nil {
+		return nil
+	}
+	return p.Column
+}
+
+type PostBulkImportFactsComponent struct {
+	// The fact table this component draws events from
+	FactTableID string `json:"factTableId"`
+	// Filters that decide whether an event row counts for this component
+	RowFilters []PostBulkImportFactsComponentRowFilter `json:"rowFilters"`
+}
+
+func (p *PostBulkImportFactsComponent) GetFactTableID() string {
+	if p == nil {
+		return ""
+	}
+	return p.FactTableID
+}
+
+func (p *PostBulkImportFactsComponent) GetRowFilters() []PostBulkImportFactsComponentRowFilter {
+	if p == nil {
+		return []PostBulkImportFactsComponentRowFilter{}
+	}
+	return p.RowFilters
+}
+
+// PostBulkImportFactsCompoundSettings - Compound metric settings (required when metricType is "compound")
+type PostBulkImportFactsCompoundSettings struct {
+	// A unit passes when it has at least one matching event for every component, in any order. Minimum 2 components required.
+	Components []PostBulkImportFactsComponent `json:"components"`
+}
+
+func (p *PostBulkImportFactsCompoundSettings) GetComponents() []PostBulkImportFactsComponent {
+	if p == nil {
+		return []PostBulkImportFactsComponent{}
+	}
+	return p.Components
+}
+
 type PostBulkImportFactsCappingSettingsType string
 
 const (
@@ -1662,6 +1825,8 @@ type FactMetricData struct {
 	QuantileSettings *PostBulkImportFactsQuantileSettings `json:"quantileSettings,omitzero"`
 	// Funnel metric settings (required when metricType is "funnel")
 	FunnelSettings *PostBulkImportFactsFunnelSettings `json:"funnelSettings,omitzero"`
+	// Compound metric settings (required when metricType is "compound")
+	CompoundSettings *PostBulkImportFactsCompoundSettings `json:"compoundSettings,omitzero"`
 	// Upper cap. Omit on update to preserve it. Use type: none to disable it explicitly. Invalid values are rejected.
 	CappingSettings *PostBulkImportFactsCappingSettings `json:"cappingSettings,omitzero"`
 	// Independent lower cap. Omit on update to preserve it. Use null or type: none to disable it explicitly. Invalid values are rejected. For mixed cap types, the absolute bound takes precedence if thresholds cross.
@@ -1785,6 +1950,13 @@ func (f *FactMetricData) GetFunnelSettings() *PostBulkImportFactsFunnelSettings 
 		return nil
 	}
 	return f.FunnelSettings
+}
+
+func (f *FactMetricData) GetCompoundSettings() *PostBulkImportFactsCompoundSettings {
+	if f == nil {
+		return nil
+	}
+	return f.CompoundSettings
 }
 
 func (f *FactMetricData) GetCappingSettings() *PostBulkImportFactsCappingSettings {

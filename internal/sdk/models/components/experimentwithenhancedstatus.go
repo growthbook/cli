@@ -633,9 +633,225 @@ func (e *ExperimentWithEnhancedStatusStatus) IsExact() bool {
 	return false
 }
 
+// Category - What `status` asks of you. `ready-for-action`: the results are ready to act on (`ship-now`, `rollback-now`, `ready-for-review`, `scheduled-end-review`). `has-issue`: something needs fixing before the results can be trusted (`unhealthy`, `data-incomplete`, `no-data`). `collecting-data`: keep the experiment running (`days-left`, `before-min-duration`).
+type Category string
+
+const (
+	CategoryReadyForAction Category = "ready-for-action"
+	CategoryHasIssue       Category = "has-issue"
+	CategoryCollectingData Category = "collecting-data"
+)
+
+func (e Category) ToPointer() *Category {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *Category) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "ready-for-action", "has-issue", "collecting-data":
+			return true
+		}
+	}
+	return false
+}
+
+// DecisionStatus - `ship-now`, `rollback-now` and `ready-for-review` are recommendations from the Experiment Decision Framework and are only rendered if the Decision Framework is enabled for your organization. `unhealthy` means a health check is failing (see `healthIssues`). `data-incomplete` means some metrics could not be computed (see `erroredMetricIds`). `days-left` and `before-min-duration` mean the experiment should keep running. `scheduled-end-review` means the scheduled end date passed without a recommendation.
+type DecisionStatus string
+
+const (
+	DecisionStatusShipNow            DecisionStatus = "ship-now"
+	DecisionStatusRollbackNow        DecisionStatus = "rollback-now"
+	DecisionStatusReadyForReview     DecisionStatus = "ready-for-review"
+	DecisionStatusScheduledEndReview DecisionStatus = "scheduled-end-review"
+	DecisionStatusDaysLeft           DecisionStatus = "days-left"
+	DecisionStatusBeforeMinDuration  DecisionStatus = "before-min-duration"
+	DecisionStatusNoData             DecisionStatus = "no-data"
+	DecisionStatusUnhealthy          DecisionStatus = "unhealthy"
+	DecisionStatusDataIncomplete     DecisionStatus = "data-incomplete"
+)
+
+func (e DecisionStatus) ToPointer() *DecisionStatus {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *DecisionStatus) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "ship-now", "rollback-now", "ready-for-review", "scheduled-end-review", "days-left", "before-min-duration", "no-data", "unhealthy", "data-incomplete":
+			return true
+		}
+	}
+	return false
+}
+
+type ExperimentWithEnhancedStatusAction string
+
+const (
+	ExperimentWithEnhancedStatusActionShip     ExperimentWithEnhancedStatusAction = "ship"
+	ExperimentWithEnhancedStatusActionRollback ExperimentWithEnhancedStatusAction = "rollback"
+	ExperimentWithEnhancedStatusActionReview   ExperimentWithEnhancedStatusAction = "review"
+)
+
+func (e ExperimentWithEnhancedStatusAction) ToPointer() *ExperimentWithEnhancedStatusAction {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ExperimentWithEnhancedStatusAction) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "ship", "rollback", "review":
+			return true
+		}
+	}
+	return false
+}
+
+type DecisionVariation struct {
+	VariationID string `json:"variationId"`
+	// Action the decision criteria reached for this variation. null when no rule applied.
+	Action *ExperimentWithEnhancedStatusAction `json:"action"`
+}
+
+func (d *DecisionVariation) GetVariationID() string {
+	if d == nil {
+		return ""
+	}
+	return d.VariationID
+}
+
+func (d *DecisionVariation) GetAction() *ExperimentWithEnhancedStatusAction {
+	if d == nil {
+		return nil
+	}
+	return d.Action
+}
+
+type HealthIssue string
+
+const (
+	HealthIssueSampleRatioMismatch     HealthIssue = "sample-ratio-mismatch"
+	HealthIssueMultipleExposures       HealthIssue = "multiple-exposures"
+	HealthIssueLowPower                HealthIssue = "low-power"
+	HealthIssueCovariateImbalance      HealthIssue = "covariate-imbalance"
+	HealthIssueMixedClusterAssignment  HealthIssue = "mixed-cluster-assignment"
+	HealthIssueUnitsInMultipleClusters HealthIssue = "units-in-multiple-clusters"
+)
+
+func (e HealthIssue) ToPointer() *HealthIssue {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *HealthIssue) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "sample-ratio-mismatch", "multiple-exposures", "low-power", "covariate-imbalance", "mixed-cluster-assignment", "units-in-multiple-clusters":
+			return true
+		}
+	}
+	return false
+}
+
+// ExperimentWithEnhancedStatusDecision - The decision behind `detailedStatus` for a running experiment, based on the latest successful standard snapshot of the latest phase. Omitted when there is nothing to report yet.
+type ExperimentWithEnhancedStatusDecision struct {
+	// What `status` asks of you. `ready-for-action`: the results are ready to act on (`ship-now`, `rollback-now`, `ready-for-review`, `scheduled-end-review`). `has-issue`: something needs fixing before the results can be trusted (`unhealthy`, `data-incomplete`, `no-data`). `collecting-data`: keep the experiment running (`days-left`, `before-min-duration`).
+	Category Category `json:"category"`
+	// `ship-now`, `rollback-now` and `ready-for-review` are recommendations from the Experiment Decision Framework and are only rendered if the Decision Framework is enabled for your organization. `unhealthy` means a health check is failing (see `healthIssues`). `data-incomplete` means some metrics could not be computed (see `erroredMetricIds`). `days-left` and `before-min-duration` mean the experiment should keep running. `scheduled-end-review` means the scheduled end date passed without a recommendation.
+	Status DecisionStatus `json:"status"`
+	// Explanation of the status, as shown in the app.
+	Reason *string `json:"reason,omitzero"`
+	// Days until the scheduled end date or, without one, until the experiment is expected to reach its target power. Set when `status` is `days-left`. null when the experiment is not expected to reach its target power at the current traffic.
+	DaysLeft optionalnullable.OptionalNullable[float64] `json:"daysLeft,omitzero"`
+	// Variations the recommendation applies to. Set for `ship-now`, `rollback-now` and `ready-for-review`.
+	Variations []DecisionVariation `json:"variations,omitzero"`
+	// What is wrong with the experiment. Set when `status` is `unhealthy`. The results endpoint has the numbers behind each one under `result.health`: `sample-ratio-mismatch` in `srm`, `multiple-exposures` in `multipleExposures`, `low-power` in `power`, `covariate-imbalance` in `covariateImbalance`, `mixed-cluster-assignment` in `cluster.mixedAssignment` and `units-in-multiple-clusters` in `cluster.unitsInMultipleClusters`.
+	HealthIssues []HealthIssue `json:"healthIssues,omitzero"`
+	// Metrics that could not be computed. Set when `status` is `data-incomplete`.
+	ErroredMetricIds []string `json:"erroredMetricIds,omitzero"`
+}
+
+func (e ExperimentWithEnhancedStatusDecision) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ExperimentWithEnhancedStatusDecision) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (e *ExperimentWithEnhancedStatusDecision) GetCategory() Category {
+	if e == nil {
+		return Category("")
+	}
+	return e.Category
+}
+
+func (e *ExperimentWithEnhancedStatusDecision) GetStatus() DecisionStatus {
+	if e == nil {
+		return DecisionStatus("")
+	}
+	return e.Status
+}
+
+func (e *ExperimentWithEnhancedStatusDecision) GetReason() *string {
+	if e == nil {
+		return nil
+	}
+	return e.Reason
+}
+
+func (e *ExperimentWithEnhancedStatusDecision) GetDaysLeft() optionalnullable.OptionalNullable[float64] {
+	if e == nil {
+		return nil
+	}
+	return e.DaysLeft
+}
+
+func (e *ExperimentWithEnhancedStatusDecision) GetVariations() []DecisionVariation {
+	if e == nil {
+		return nil
+	}
+	return e.Variations
+}
+
+func (e *ExperimentWithEnhancedStatusDecision) GetHealthIssues() []HealthIssue {
+	if e == nil {
+		return nil
+	}
+	return e.HealthIssues
+}
+
+func (e *ExperimentWithEnhancedStatusDecision) GetErroredMetricIds() []string {
+	if e == nil {
+		return nil
+	}
+	return e.ErroredMetricIds
+}
+
 type EnhancedStatus struct {
 	Status         ExperimentWithEnhancedStatusStatus `json:"status"`
 	DetailedStatus *string                            `json:"detailedStatus,omitzero"`
+	// Whether the app flags this experiment as needing attention.
+	NeedsAttention *bool `json:"needsAttention,omitzero"`
+	// The decision behind `detailedStatus` for a running experiment, based on the latest successful standard snapshot of the latest phase. Omitted when there is nothing to report yet.
+	Decision *ExperimentWithEnhancedStatusDecision `json:"decision,omitzero"`
+}
+
+func (e EnhancedStatus) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *EnhancedStatus) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (e *EnhancedStatus) GetStatus() ExperimentWithEnhancedStatusStatus {
@@ -650,6 +866,20 @@ func (e *EnhancedStatus) GetDetailedStatus() *string {
 		return nil
 	}
 	return e.DetailedStatus
+}
+
+func (e *EnhancedStatus) GetNeedsAttention() *bool {
+	if e == nil {
+		return nil
+	}
+	return e.NeedsAttention
+}
+
+func (e *EnhancedStatus) GetDecision() *ExperimentWithEnhancedStatusDecision {
+	if e == nil {
+		return nil
+	}
+	return e.Decision
 }
 
 type ExperimentWithEnhancedStatus struct {

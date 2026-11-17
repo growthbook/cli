@@ -639,6 +639,9 @@ func (p *PostFactTableExplorationDateRangeRequest) GetEndDate() optionalnullable
 	return p.EndDate
 }
 
+// PostFactTableExplorationShowAsRequest - Deprecated: use `showAs` on each metric value.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 type PostFactTableExplorationShowAsRequest string
 
 const (
@@ -668,6 +671,8 @@ func (e *PostFactTableExplorationShowAsRequest) UnmarshalJSON(data []byte) error
 type PostFactTableExplorationChartSettingsRequest struct {
 	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
 	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+	// Line charts only: whether the y-axis starts at 0. Defaults to true.
+	AnchorYAxisToZero *bool `json:"anchorYAxisToZero,omitzero"`
 }
 
 func (p *PostFactTableExplorationChartSettingsRequest) GetCategoryAxisLabel() *string {
@@ -682,6 +687,13 @@ func (p *PostFactTableExplorationChartSettingsRequest) GetValueAxisLabel() *stri
 		return nil
 	}
 	return p.ValueAxisLabel
+}
+
+func (p *PostFactTableExplorationChartSettingsRequest) GetAnchorYAxisToZero() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AnchorYAxisToZero
 }
 
 type PostFactTableExplorationRowFilterOperatorRequest string
@@ -935,12 +947,15 @@ func (p *PostFactTableExplorationDatasetRequest) GetValues() []PostFactTableExpl
 
 type PostFactTableExplorationRequestBody struct {
 	// ID of the datasource to query
-	Datasource    string                                          `json:"datasource"`
-	Dimensions    []PostFactTableExplorationDimensionRequestUnion `json:"dimensions"`
-	ChartType     PostFactTableExplorationChartTypeRequest        `json:"chartType"`
-	DateRange     PostFactTableExplorationDateRangeRequest        `json:"dateRange"`
-	ShowAs        *PostFactTableExplorationShowAsRequest          `json:"showAs,omitzero"`
-	ChartSettings *PostFactTableExplorationChartSettingsRequest   `json:"chartSettings,omitzero"`
+	Datasource string                                          `json:"datasource"`
+	Dimensions []PostFactTableExplorationDimensionRequestUnion `json:"dimensions"`
+	ChartType  PostFactTableExplorationChartTypeRequest        `json:"chartType"`
+	DateRange  PostFactTableExplorationDateRangeRequest        `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *PostFactTableExplorationShowAsRequest        `json:"showAs,omitzero"`
+	ChartSettings *PostFactTableExplorationChartSettingsRequest `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                                 `const:"fact_table" json:"type"`
 	Dataset PostFactTableExplorationDatasetRequest `json:"dataset"`
@@ -2018,6 +2033,9 @@ func (p *PostFactTableExplorationDateRangeResponse) GetEndDate() optionalnullabl
 	return p.EndDate
 }
 
+// PostFactTableExplorationShowAsResponse - Deprecated: use `showAs` on each metric value.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 type PostFactTableExplorationShowAsResponse string
 
 const (
@@ -2043,6 +2061,8 @@ func (e *PostFactTableExplorationShowAsResponse) IsExact() bool {
 type PostFactTableExplorationChartSettingsResponse struct {
 	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
 	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+	// Line charts only: whether the y-axis starts at 0. Defaults to true.
+	AnchorYAxisToZero *bool `json:"anchorYAxisToZero,omitzero"`
 }
 
 func (p *PostFactTableExplorationChartSettingsResponse) GetCategoryAxisLabel() *string {
@@ -2057,6 +2077,13 @@ func (p *PostFactTableExplorationChartSettingsResponse) GetValueAxisLabel() *str
 		return nil
 	}
 	return p.ValueAxisLabel
+}
+
+func (p *PostFactTableExplorationChartSettingsResponse) GetAnchorYAxisToZero() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AnchorYAxisToZero
 }
 
 type PostFactTableExplorationExplorationRowFilterOperator string
@@ -2260,12 +2287,15 @@ func (p *PostFactTableExplorationDatasetResponse) GetValues() []ValueFactTableRe
 
 type PostFactTableExplorationConfig struct {
 	// ID of the datasource to query
-	Datasource    string                                              `json:"datasource"`
-	Dimensions    []PostFactTableExplorationExplorationDimensionUnion `json:"dimensions"`
-	ChartType     PostFactTableExplorationChartTypeResponse           `json:"chartType"`
-	DateRange     PostFactTableExplorationDateRangeResponse           `json:"dateRange"`
-	ShowAs        *PostFactTableExplorationShowAsResponse             `json:"showAs,omitzero"`
-	ChartSettings *PostFactTableExplorationChartSettingsResponse      `json:"chartSettings,omitzero"`
+	Datasource string                                              `json:"datasource"`
+	Dimensions []PostFactTableExplorationExplorationDimensionUnion `json:"dimensions"`
+	ChartType  PostFactTableExplorationChartTypeResponse           `json:"chartType"`
+	DateRange  PostFactTableExplorationDateRangeResponse           `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *PostFactTableExplorationShowAsResponse        `json:"showAs,omitzero"`
+	ChartSettings *PostFactTableExplorationChartSettingsResponse `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                                  `const:"fact_table" json:"type"`
 	Dataset PostFactTableExplorationDatasetResponse `json:"dataset"`

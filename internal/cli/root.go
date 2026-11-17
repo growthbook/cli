@@ -7,6 +7,7 @@ import (
 	"github.com/growthbook/cli/v4/internal/cli/analyticsexplorations"
 	"github.com/growthbook/cli/v4/internal/cli/archetypes"
 	"github.com/growthbook/cli/v4/internal/cli/attributes"
+	"github.com/growthbook/cli/v4/internal/cli/audits"
 	"github.com/growthbook/cli/v4/internal/cli/autoruns"
 	"github.com/growthbook/cli/v4/internal/cli/codereferences"
 	"github.com/growthbook/cli/v4/internal/cli/configrevisions"
@@ -21,6 +22,7 @@ import (
 	"github.com/growthbook/cli/v4/internal/cli/datasources"
 	"github.com/growthbook/cli/v4/internal/cli/dimensions"
 	"github.com/growthbook/cli/v4/internal/cli/environments"
+	"github.com/growthbook/cli/v4/internal/cli/eventwebhooks"
 	"github.com/growthbook/cli/v4/internal/cli/experiments"
 	"github.com/growthbook/cli/v4/internal/cli/experimenttemplates"
 	"github.com/growthbook/cli/v4/internal/cli/factmetrics"
@@ -30,6 +32,7 @@ import (
 	"github.com/growthbook/cli/v4/internal/cli/features"
 	"github.com/growthbook/cli/v4/internal/cli/featuresv1"
 	"github.com/growthbook/cli/v4/internal/cli/holdouts"
+	"github.com/growthbook/cli/v4/internal/cli/informationschematables"
 	"github.com/growthbook/cli/v4/internal/cli/interleavingexposurequeries"
 	"github.com/growthbook/cli/v4/internal/cli/interleavings"
 	"github.com/growthbook/cli/v4/internal/cli/learnings"
@@ -49,12 +52,14 @@ import (
 	"github.com/growthbook/cli/v4/internal/cli/savedgrouprevisions"
 	"github.com/growthbook/cli/v4/internal/cli/savedgroups"
 	"github.com/growthbook/cli/v4/internal/cli/sdkconnections"
+	"github.com/growthbook/cli/v4/internal/cli/sdkwebhooks"
 	"github.com/growthbook/cli/v4/internal/cli/segments"
 	"github.com/growthbook/cli/v4/internal/cli/settings"
 	"github.com/growthbook/cli/v4/internal/cli/snapshots"
 	"github.com/growthbook/cli/v4/internal/cli/teams"
 	"github.com/growthbook/cli/v4/internal/cli/usagemetrics"
 	"github.com/growthbook/cli/v4/internal/cli/visualchangesets"
+	"github.com/growthbook/cli/v4/internal/cli/webhooksecrets"
 	"github.com/growthbook/cli/v4/internal/config"
 	"github.com/growthbook/cli/v4/internal/explorer"
 	"github.com/growthbook/cli/v4/internal/output"
@@ -198,6 +203,9 @@ func NewRootCommand() (*cobra.Command, error) {
 	if err := meta.InitMetaRoot(rootCmd); err != nil {
 		return nil, fmt.Errorf("init meta: %w", err)
 	}
+	if err := informationschematables.InitInformationSchemaTablesRoot(rootCmd); err != nil {
+		return nil, fmt.Errorf("init information-schema-tables: %w", err)
+	}
 	if err := rampschedules.InitRampSchedulesRoot(rootCmd); err != nil {
 		return nil, fmt.Errorf("init ramp-schedules: %w", err)
 	}
@@ -206,6 +214,12 @@ func NewRootCommand() (*cobra.Command, error) {
 	}
 	if err := namespaces.InitNamespacesRoot(rootCmd); err != nil {
 		return nil, fmt.Errorf("init namespaces: %w", err)
+	}
+	if err := eventwebhooks.InitEventWebhooksRoot(rootCmd); err != nil {
+		return nil, fmt.Errorf("init event-webhooks: %w", err)
+	}
+	if err := audits.InitAuditsRoot(rootCmd); err != nil {
+		return nil, fmt.Errorf("init audits: %w", err)
 	}
 	if err := dashboards.InitDashboardsRoot(rootCmd); err != nil {
 		return nil, fmt.Errorf("init dashboards: %w", err)
@@ -248,6 +262,12 @@ func NewRootCommand() (*cobra.Command, error) {
 	}
 	if err := populations.InitPopulationsRoot(rootCmd); err != nil {
 		return nil, fmt.Errorf("init populations: %w", err)
+	}
+	if err := webhooksecrets.InitWebhookSecretsRoot(rootCmd); err != nil {
+		return nil, fmt.Errorf("init webhook-secrets: %w", err)
+	}
+	if err := sdkwebhooks.InitSDKWebhooksRoot(rootCmd); err != nil {
+		return nil, fmt.Errorf("init SDK-webhooks: %w", err)
 	}
 	if err := initGetSDKPayloadCmd(rootCmd); err != nil {
 		return nil, fmt.Errorf("init get-SDK-payload: %w", err)

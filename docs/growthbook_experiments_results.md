@@ -19,10 +19,10 @@ growthbook experiments results [flags]
 ### Options
 
 ```
-      --dimension string   string value
-  -h, --help               help for results
-  -i, --id string          The id of the requested resource [required]
-  -p, --phase string       string value
+      --dimension string                  string value
+  -h, --help                              help for results
+  -i, --id string                         The id of the requested resource [required]
+  -p, --phase experiment.enhancedStatus   Phase index, defaulting to the latest phase. experiment.enhancedStatus describes the latest phase, so it is omitted for any other phase.
 ```
 
 ### Options inherited from parent commands

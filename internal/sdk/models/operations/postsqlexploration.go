@@ -639,6 +639,9 @@ func (p *PostSQLExplorationDateRangeRequest) GetEndDate() optionalnullable.Optio
 	return p.EndDate
 }
 
+// PostSQLExplorationShowAsRequest - Deprecated: use `showAs` on each metric value.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 type PostSQLExplorationShowAsRequest string
 
 const (
@@ -668,6 +671,8 @@ func (e *PostSQLExplorationShowAsRequest) UnmarshalJSON(data []byte) error {
 type PostSQLExplorationChartSettingsRequest struct {
 	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
 	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+	// Line charts only: whether the y-axis starts at 0. Defaults to true.
+	AnchorYAxisToZero *bool `json:"anchorYAxisToZero,omitzero"`
 }
 
 func (p *PostSQLExplorationChartSettingsRequest) GetCategoryAxisLabel() *string {
@@ -682,6 +687,13 @@ func (p *PostSQLExplorationChartSettingsRequest) GetValueAxisLabel() *string {
 		return nil
 	}
 	return p.ValueAxisLabel
+}
+
+func (p *PostSQLExplorationChartSettingsRequest) GetAnchorYAxisToZero() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AnchorYAxisToZero
 }
 
 type PostSQLExplorationColumnTypesRequest string
@@ -994,12 +1006,15 @@ func (p *PostSQLExplorationDatasetRequest) GetHiddenColumns() []string {
 
 type PostSQLExplorationRequestBody struct {
 	// ID of the datasource to query
-	Datasource    string                                    `json:"datasource"`
-	Dimensions    []PostSQLExplorationDimensionRequestUnion `json:"dimensions"`
-	ChartType     PostSQLExplorationChartTypeRequest        `json:"chartType"`
-	DateRange     PostSQLExplorationDateRangeRequest        `json:"dateRange"`
-	ShowAs        *PostSQLExplorationShowAsRequest          `json:"showAs,omitzero"`
-	ChartSettings *PostSQLExplorationChartSettingsRequest   `json:"chartSettings,omitzero"`
+	Datasource string                                    `json:"datasource"`
+	Dimensions []PostSQLExplorationDimensionRequestUnion `json:"dimensions"`
+	ChartType  PostSQLExplorationChartTypeRequest        `json:"chartType"`
+	DateRange  PostSQLExplorationDateRangeRequest        `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *PostSQLExplorationShowAsRequest        `json:"showAs,omitzero"`
+	ChartSettings *PostSQLExplorationChartSettingsRequest `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                           `const:"sql" json:"type"`
 	Dataset PostSQLExplorationDatasetRequest `json:"dataset"`
@@ -2077,6 +2092,9 @@ func (p *PostSQLExplorationDateRangeResponse) GetEndDate() optionalnullable.Opti
 	return p.EndDate
 }
 
+// PostSQLExplorationShowAsResponse - Deprecated: use `showAs` on each metric value.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 type PostSQLExplorationShowAsResponse string
 
 const (
@@ -2102,6 +2120,8 @@ func (e *PostSQLExplorationShowAsResponse) IsExact() bool {
 type PostSQLExplorationChartSettingsResponse struct {
 	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
 	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+	// Line charts only: whether the y-axis starts at 0. Defaults to true.
+	AnchorYAxisToZero *bool `json:"anchorYAxisToZero,omitzero"`
 }
 
 func (p *PostSQLExplorationChartSettingsResponse) GetCategoryAxisLabel() *string {
@@ -2116,6 +2136,13 @@ func (p *PostSQLExplorationChartSettingsResponse) GetValueAxisLabel() *string {
 		return nil
 	}
 	return p.ValueAxisLabel
+}
+
+func (p *PostSQLExplorationChartSettingsResponse) GetAnchorYAxisToZero() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.AnchorYAxisToZero
 }
 
 type PostSQLExplorationColumnTypesResponse string
@@ -2368,12 +2395,15 @@ func (p *PostSQLExplorationDatasetResponse) GetHiddenColumns() []string {
 
 type PostSQLExplorationConfig struct {
 	// ID of the datasource to query
-	Datasource    string                                        `json:"datasource"`
-	Dimensions    []PostSQLExplorationExplorationDimensionUnion `json:"dimensions"`
-	ChartType     PostSQLExplorationChartTypeResponse           `json:"chartType"`
-	DateRange     PostSQLExplorationDateRangeResponse           `json:"dateRange"`
-	ShowAs        *PostSQLExplorationShowAsResponse             `json:"showAs,omitzero"`
-	ChartSettings *PostSQLExplorationChartSettingsResponse      `json:"chartSettings,omitzero"`
+	Datasource string                                        `json:"datasource"`
+	Dimensions []PostSQLExplorationExplorationDimensionUnion `json:"dimensions"`
+	ChartType  PostSQLExplorationChartTypeResponse           `json:"chartType"`
+	DateRange  PostSQLExplorationDateRangeResponse           `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *PostSQLExplorationShowAsResponse        `json:"showAs,omitzero"`
+	ChartSettings *PostSQLExplorationChartSettingsResponse `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                            `const:"sql" json:"type"`
 	Dataset PostSQLExplorationDatasetResponse `json:"dataset"`

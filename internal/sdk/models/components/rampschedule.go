@@ -1223,6 +1223,47 @@ func (s *StepApproval) GetContext() Context {
 	return s.Context
 }
 
+type StepFailure struct {
+	// Failed attempts since the last clean pass.
+	Attempts int64 `json:"attempts"`
+	// The most recent attempt's error.
+	LastError string `json:"lastError"`
+	// When the scheduler makes the next attempt.
+	RetryAt time.Time `json:"retryAt"`
+}
+
+func (s StepFailure) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *StepFailure) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *StepFailure) GetAttempts() int64 {
+	if s == nil {
+		return 0
+	}
+	return s.Attempts
+}
+
+func (s *StepFailure) GetLastError() string {
+	if s == nil {
+		return ""
+	}
+	return s.LastError
+}
+
+func (s *StepFailure) GetRetryAt() time.Time {
+	if s == nil {
+		return time.Time{}
+	}
+	return s.RetryAt
+}
+
 // MonitoringStatusMonitoringMode - User-selected monitoring mode. `auto` schedules snapshots automatically; `manual` requires clicking Update.
 type MonitoringStatusMonitoringMode string
 
@@ -1370,6 +1411,8 @@ type RampSchedule struct {
 	MonitoringStartDate optionalnullable.OptionalNullable[time.Time] `json:"monitoringStartDate,omitzero"`
 	LastRollbackAt      optionalnullable.OptionalNullable[time.Time] `json:"lastRollbackAt,omitzero"`
 	LastRollbackReason  optionalnullable.OptionalNullable[string]    `json:"lastRollbackReason,omitzero"`
+	// Set while the scheduler is retrying a failed step. The schedule holds at its current step and pauses once the retries run out. Use `/actions/retry` to make the next attempt now.
+	StepFailure optionalnullable.OptionalNullable[StepFailure] `json:"stepFailure,omitzero"`
 	// Read-only monitoring status. Present when monitoringConfig is set.
 	MonitoringStatus optionalnullable.OptionalNullable[MonitoringStatus] `json:"monitoringStatus,omitzero"`
 }
@@ -1600,6 +1643,13 @@ func (r *RampSchedule) GetLastRollbackReason() optionalnullable.OptionalNullable
 		return nil
 	}
 	return r.LastRollbackReason
+}
+
+func (r *RampSchedule) GetStepFailure() optionalnullable.OptionalNullable[StepFailure] {
+	if r == nil {
+		return nil
+	}
+	return r.StepFailure
 }
 
 func (r *RampSchedule) GetMonitoringStatus() optionalnullable.OptionalNullable[MonitoringStatus] {

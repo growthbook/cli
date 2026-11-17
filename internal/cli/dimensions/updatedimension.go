@@ -16,12 +16,14 @@ import (
 
 var updateDimensionCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The id of the requested resource [required]"},
-	{FlagName: "name", Shorthand: "n", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Optional: true, Description: "Short display name. Put details in `description`."},
+	{FlagName: "name", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Optional: true, Description: "Short display name. Put details in `description`."},
 	{FlagName: "description", FieldPath: "Body.Description", Kind: flagutil.FlagKindString, Optional: true, Description: "Description of the dimension"},
 	{FlagName: "owner", FieldPath: "Body.Owner", Kind: flagutil.FlagKindString, Optional: true, Description: "The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization."},
 	{FlagName: "datasource-id", FieldPath: "Body.DatasourceID", Kind: flagutil.FlagKindString, Optional: true, Description: "ID of the datasource this dimension belongs to"},
 	{FlagName: "identifier-type", FieldPath: "Body.IdentifierType", Kind: flagutil.FlagKindString, Optional: true, Description: "Type of identifier (user, anonymous, etc.)"},
 	{FlagName: "query", FieldPath: "Body.Query", Kind: flagutil.FlagKindString, Optional: true, Description: "SQL query or equivalent for the dimension"},
+	{FlagName: "timing", Shorthand: "t", FieldPath: "Body.Timing", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"none", "rowTimestamp", "validityRange"}, Description: "What the query returns and how the value at a unit's first exposure is resolved. `none` (default): one value per unit, resolved with MAX(value). `rowTimestamp`: timestamped rows; the query also returns a `timestamp` column and the latest row at or before first exposure is used. `validityRange`: validity ranges; the query also returns `start_timestamp` and `end_timestamp` (NULL = still valid) columns and the row valid at first exposure is used. Only supported for SQL Data Sources. (options: none, rowTimestamp, validityRange)"},
+	{FlagName: "null-label", FieldPath: "Body.NullLabel", Kind: flagutil.FlagKindString, Optional: true, Description: "Label used in experiment results for units with no dimension value. Leave empty to use the default null label."},
 	{FlagName: "managed-by", Shorthand: "m", FieldPath: "Body.ManagedBy", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"", "api"}, Description: "Where this dimension must be managed from. If not set (empty string), it can be managed from anywhere. (options: , api)"},
 }
 

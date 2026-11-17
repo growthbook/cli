@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/growthbook/cli/v4/internal/sdk/models/components"
+	"github.com/growthbook/cli/v4/internal/sdk/optionalnullable"
 	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/utils"
 )
 
@@ -50,10 +51,10 @@ func (g *GetFeatureRevisionDiffV2Request) GetBase() any {
 // #endregion class-body-getfeaturerevisiondiffv2request
 
 type Supplemental2 struct {
-	Name   string `json:"name"`
-	Type   string `json:"type"`
-	Before any    `json:"before"`
-	After  any    `json:"after"`
+	Name   string                                 `json:"name"`
+	Type   string                                 `json:"type"`
+	Before optionalnullable.OptionalNullable[any] `json:"before,omitzero"`
+	After  optionalnullable.OptionalNullable[any] `json:"after,omitzero"`
 }
 
 func (s Supplemental2) MarshalJSON() ([]byte, error) {
@@ -81,14 +82,14 @@ func (s *Supplemental2) GetType() string {
 	return s.Type
 }
 
-func (s *Supplemental2) GetBefore() any {
+func (s *Supplemental2) GetBefore() optionalnullable.OptionalNullable[any] {
 	if s == nil {
 		return nil
 	}
 	return s.Before
 }
 
-func (s *Supplemental2) GetAfter() any {
+func (s *Supplemental2) GetAfter() optionalnullable.OptionalNullable[any] {
 	if s == nil {
 		return nil
 	}

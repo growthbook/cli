@@ -42,9 +42,11 @@ growthbook [flags]
 ### SEE ALSO
 
 * [growthbook SDK-connections](growthbook_SDK-connections.md)	 - Client keys and settings for connecting SDKs to a GrowthBook instance
+* [growthbook SDK-webhooks](growthbook_SDK-webhooks.md)	 - Webhooks that fire when an SDK Connection's payload changes
 * [growthbook analytics-explorations](growthbook_analytics-explorations.md)	 - Operations for analytics-explorations
 * [growthbook archetypes](growthbook_archetypes.md)	 - Archetypes allow you to simulate the result of targeting rules on pre-set user attributes
 * [growthbook attributes](growthbook_attributes.md)	 - Used when targeting feature flags and experiments
+* [growthbook audits](growthbook_audits.md)	 - Audit history of who changed what, and the event log that drives event webhooks
 * [growthbook auth](growthbook_auth.md)	 - Manage authentication credentials
 * [growthbook auto-runs](growthbook_auto-runs.md)	 - Operations for auto-runs
 * [growthbook code-references](growthbook_code-references.md)	 - Intended for use with our code reference CI utility, [`gb-find-code-refs`](https://github
@@ -62,6 +64,7 @@ growthbook [flags]
 * [growthbook data-sources](growthbook_data-sources.md)	 - How GrowthBook connects and queries your data, including cached database schema metadata (information schemas) for tables and columns
 * [growthbook dimensions](growthbook_dimensions.md)	 - Dimensions used during experiment analysis
 * [growthbook environments](growthbook_environments.md)	 - GrowthBook comes with one environment by default (production), but you can add as many as you need
+* [growthbook event-webhooks](growthbook_event-webhooks.md)	 - Send GrowthBook events (feature, experiment and other changes) to your own endpoint
 * [growthbook experiment-templates](growthbook_experiment-templates.md)	 - Operations for experiment-templates
 * [growthbook experiments](growthbook_experiments.md)	 - Experiments (A/B Tests)
 * [growthbook explore](growthbook_explore.md)	 - Interactively browse and run commands
@@ -74,6 +77,7 @@ growthbook [flags]
 * [growthbook generate-types](growthbook_generate-types.md)	 - Generate TypeScript types for all your features and attributes
 * [growthbook get-SDK-payload](growthbook_get-SDK-payload.md)	 - Get a SDK payload
 * [growthbook holdouts](growthbook_holdouts.md)	 - Hold a share of traffic out of all experiments to measure their combined effect
+* [growthbook information-schema-tables](growthbook_information-schema-tables.md)	 - Operations for information-schema-tables
 * [growthbook interleaving-exposure-queries](growthbook_interleaving-exposure-queries.md)	 - Operations for interleaving-exposure-queries
 * [growthbook interleavings](growthbook_interleavings.md)	 - Operations for interleavings
 * [growthbook learnings](growthbook_learnings.md)	 - Saved learnings captured across experiments, including AI-discovered patterns
@@ -100,4 +104,5 @@ growthbook [flags]
 * [growthbook usage-metrics](growthbook_usage-metrics.md)	 - Operations for usage-metrics
 * [growthbook version](growthbook_version.md)	 - Print the CLI version
 * [growthbook visual-changesets](growthbook_visual-changesets.md)	 - Groups of visual changes made by the visual editor to a single page
+* [growthbook webhook-secrets](growthbook_webhook-secrets.md)	 - Secrets substituted into webhook URLs and headers at send time
 * [growthbook whoami](growthbook_whoami.md)	 - Display current authentication configuration

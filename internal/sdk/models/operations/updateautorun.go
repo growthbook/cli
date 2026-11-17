@@ -152,18 +152,18 @@ func (c *Check) GetRequired() bool {
 	return c.Required
 }
 
-type UpdateAutoRunOutcome string
+type Outcome string
 
 const (
-	UpdateAutoRunOutcomeCompleted UpdateAutoRunOutcome = "completed"
-	UpdateAutoRunOutcomePartial   UpdateAutoRunOutcome = "partial"
-	UpdateAutoRunOutcomeFailed    UpdateAutoRunOutcome = "failed"
+	OutcomeCompleted Outcome = "completed"
+	OutcomePartial   Outcome = "partial"
+	OutcomeFailed    Outcome = "failed"
 )
 
-func (e UpdateAutoRunOutcome) ToPointer() *UpdateAutoRunOutcome {
+func (e Outcome) ToPointer() *Outcome {
 	return &e
 }
-func (e *UpdateAutoRunOutcome) UnmarshalJSON(data []byte) error {
+func (e *Outcome) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -174,10 +174,10 @@ func (e *UpdateAutoRunOutcome) UnmarshalJSON(data []byte) error {
 	case "partial":
 		fallthrough
 	case "failed":
-		*e = UpdateAutoRunOutcome(v)
+		*e = Outcome(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for UpdateAutoRunOutcome: %v", v)
+		return fmt.Errorf("invalid value for Outcome: %v", v)
 	}
 }
 
@@ -185,7 +185,7 @@ func (e *UpdateAutoRunOutcome) UnmarshalJSON(data []byte) error {
 type UpdateAutoRunRequestBody struct {
 	Metadata      map[string]*UpdateAutoRunMetadata `json:"metadata,omitzero"`
 	Checks        []Check                           `json:"checks,omitzero"`
-	Outcome       *UpdateAutoRunOutcome             `json:"outcome,omitzero"`
+	Outcome       *Outcome                          `json:"outcome,omitzero"`
 	FailureReason *string                           `json:"failureReason,omitzero"`
 }
 
@@ -214,7 +214,7 @@ func (u *UpdateAutoRunRequestBody) GetChecks() []Check {
 	return u.Checks
 }
 
-func (u *UpdateAutoRunRequestBody) GetOutcome() *UpdateAutoRunOutcome {
+func (u *UpdateAutoRunRequestBody) GetOutcome() *Outcome {
 	if u == nil {
 		return nil
 	}

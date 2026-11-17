@@ -19,59 +19,10 @@ func (g *GetConfigLineageRequest) GetKey() string {
 	return g.Key
 }
 
-// GetConfigLineageResponseBody - Successful response
-type GetConfigLineageResponseBody struct {
-	// The key of the family root (the topmost ancestor).
-	Root string `json:"root"`
-	// The requested config's key.
-	Target string `json:"target"`
-	// The target's ancestor keys, root-first, ending at its immediate parent.
-	Ancestors []string `json:"ancestors"`
-	// Keys of every config that descends from the target.
-	Descendants []string `json:"descendants"`
-	// Every config in the family (root plus all descendants), breadth-first.
-	Nodes []components.Nodes `json:"nodes"`
-}
-
-func (g *GetConfigLineageResponseBody) GetRoot() string {
-	if g == nil {
-		return ""
-	}
-	return g.Root
-}
-
-func (g *GetConfigLineageResponseBody) GetTarget() string {
-	if g == nil {
-		return ""
-	}
-	return g.Target
-}
-
-func (g *GetConfigLineageResponseBody) GetAncestors() []string {
-	if g == nil {
-		return []string{}
-	}
-	return g.Ancestors
-}
-
-func (g *GetConfigLineageResponseBody) GetDescendants() []string {
-	if g == nil {
-		return []string{}
-	}
-	return g.Descendants
-}
-
-func (g *GetConfigLineageResponseBody) GetNodes() []components.Nodes {
-	if g == nil {
-		return []components.Nodes{}
-	}
-	return g.Nodes
-}
-
 type GetConfigLineageResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Successful response
-	Object *GetConfigLineageResponseBody
+	ConfigLineage *components.ConfigLineage
 }
 
 func (g GetConfigLineageResponse) MarshalJSON() ([]byte, error) {
@@ -92,9 +43,9 @@ func (g *GetConfigLineageResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetConfigLineageResponse) GetObject() *GetConfigLineageResponseBody {
+func (g *GetConfigLineageResponse) GetConfigLineage() *components.ConfigLineage {
 	if g == nil {
 		return nil
 	}
-	return g.Object
+	return g.ConfigLineage
 }

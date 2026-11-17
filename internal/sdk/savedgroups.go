@@ -1344,12 +1344,12 @@ func (s *SavedGroups) GetReferences(ctx context.Context, request operations.GetS
 					return nil, err
 				}
 
-				var out operations.GetSavedGroupReferencesResponseBody
+				var out components.SavedGroupReferences
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.Object = &out
+				res.SavedGroupReferences = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)

@@ -25,9 +25,11 @@ growthbook dimensions create [flags]
   -h, --help                     help for create
   -i, --identifier-type string   Type of identifier (user, anonymous, etc.) [required]
   -m, --managed-by string        Where this dimension must be managed from. If not set (empty string), it can be managed from anywhere. (options: , api)
-  -n, --name description         Short display name. Put details in description. [required]
+      --name description         Short display name. Put details in description. [required]
+      --null-label string        Label used in experiment results for units with no dimension value. Leave empty to use the default null label.
       --owner string             The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization.
       --query string             SQL query or equivalent for the dimension [required]
+  -t, --timing none              What the query returns and how the value at a unit's first exposure is resolved. none (default): one value per unit, resolved with MAX(value). `rowTimestamp`: timestamped rows; the query also returns a `timestamp` column and the latest row at or before first exposure is used. `validityRange`: validity ranges; the query also returns `start_timestamp` and `end_timestamp` (NULL = still valid) columns and the row valid at first exposure is used. Only supported for SQL Data Sources. (options: none, rowTimestamp, validityRange)
 ```
 
 ### Options inherited from parent commands

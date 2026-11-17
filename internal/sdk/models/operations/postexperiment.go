@@ -1138,6 +1138,7 @@ func (p *PostExperimentStopAfter) GetUnit() PostExperimentUnit {
 	return p.Unit
 }
 
+// PostExperimentStatusUpdateSchedule - Scheduled start/end for an experiment. All fields optional; the end may be an absolute `stopAt` or a deferred relative `stopAfter`, but not both.
 type PostExperimentStatusUpdateSchedule struct {
 	// ISO datetime when the experiment should start. Must be in the future. Setting or clearing this field invalidates any existing staged start (`nextScheduledStatusUpdate`); call POST /experiments/{id}/start to stage the new schedule.
 	StartAt *time.Time `json:"startAt,omitzero"`
@@ -1273,9 +1274,11 @@ type PostExperimentRequest struct {
 	DefaultDashboardID *string           `json:"defaultDashboardId,omitzero"`
 	CustomFields       map[string]string `json:"customFields,omitzero"`
 	// Custom slices that apply to ALL applicable metrics in the experiment
-	CustomMetricSlices          []PostExperimentCustomMetricSlice   `json:"customMetricSlices,omitzero"`
-	PrecomputedUnitDimensionIds []string                            `json:"precomputedUnitDimensionIds,omitzero"`
-	StatusUpdateSchedule        *PostExperimentStatusUpdateSchedule `json:"statusUpdateSchedule,omitzero"`
+	CustomMetricSlices []PostExperimentCustomMetricSlice `json:"customMetricSlices,omitzero"`
+	// A list of unit dimension ids that will be calculated every update and generate timeseries data. Requires the datasource to have pipeline mode enabled.
+	PrecomputedUnitDimensionIds []string `json:"precomputedUnitDimensionIds,omitzero"`
+	// Scheduled start/end for an experiment. All fields optional; the end may be an absolute `stopAt` or a deferred relative `stopAfter`, but not both.
+	StatusUpdateSchedule *PostExperimentStatusUpdateSchedule `json:"statusUpdateSchedule,omitzero"`
 	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
 }

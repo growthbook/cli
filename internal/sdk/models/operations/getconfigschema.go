@@ -87,64 +87,10 @@ func (g *GetConfigSchemaRequest) GetSource() *string {
 	return g.Source
 }
 
-// GetConfigSchemaResponseBody - Successful response
-type GetConfigSchemaResponseBody struct {
-	Schema components.ConfigSchemaSource `json:"schema"`
-	// True when the schema includes inherited fields accumulated across the lineage; false when it is only this config's own fields.
-	Effective bool `json:"effective"`
-	// Whether the config family permits extra keys.
-	AdditionalProperties bool `json:"additionalProperties"`
-}
-
-func (g *GetConfigSchemaResponseBody) GetSchema() components.ConfigSchemaSource {
-	if g == nil {
-		return components.ConfigSchemaSource{}
-	}
-	return g.Schema
-}
-
-func (g *GetConfigSchemaResponseBody) GetSchemaJSONSchema() *components.ConfigSchemaSourceJSONSchema {
-	return g.GetSchema().ConfigSchemaSourceJSONSchema
-}
-
-func (g *GetConfigSchemaResponseBody) GetSchemaTypescript() *components.ConfigSchemaSourceTypescript {
-	return g.GetSchema().ConfigSchemaSourceTypescript
-}
-
-func (g *GetConfigSchemaResponseBody) GetSchemaProtobuf() *components.ConfigSchemaSourceProtobuf {
-	return g.GetSchema().ConfigSchemaSourceProtobuf
-}
-
-func (g *GetConfigSchemaResponseBody) GetSchemaPython() *components.ConfigSchemaSourcePython {
-	return g.GetSchema().ConfigSchemaSourcePython
-}
-
-func (g *GetConfigSchemaResponseBody) GetSchemaGo() *components.ConfigSchemaSourceGo {
-	return g.GetSchema().ConfigSchemaSourceGo
-}
-
-func (g *GetConfigSchemaResponseBody) GetSchemaRust() *components.ConfigSchemaSourceRust {
-	return g.GetSchema().ConfigSchemaSourceRust
-}
-
-func (g *GetConfigSchemaResponseBody) GetEffective() bool {
-	if g == nil {
-		return false
-	}
-	return g.Effective
-}
-
-func (g *GetConfigSchemaResponseBody) GetAdditionalProperties() bool {
-	if g == nil {
-		return false
-	}
-	return g.AdditionalProperties
-}
-
 type GetConfigSchemaResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Successful response
-	Object *GetConfigSchemaResponseBody
+	ConfigSchemaExport *components.ConfigSchemaExport
 }
 
 func (g GetConfigSchemaResponse) MarshalJSON() ([]byte, error) {
@@ -165,9 +111,9 @@ func (g *GetConfigSchemaResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetConfigSchemaResponse) GetObject() *GetConfigSchemaResponseBody {
+func (g *GetConfigSchemaResponse) GetConfigSchemaExport() *components.ConfigSchemaExport {
 	if g == nil {
 		return nil
 	}
-	return g.Object
+	return g.ConfigSchemaExport
 }

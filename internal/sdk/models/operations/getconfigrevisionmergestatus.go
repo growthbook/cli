@@ -28,9 +28,9 @@ func (g *GetConfigRevisionMergeStatusRequest) GetVersion() string {
 
 type GetConfigRevisionMergeStatusConflict struct {
 	Field         string `json:"field"`
-	BaseValue     any    `json:"baseValue"`
-	LiveValue     any    `json:"liveValue"`
-	ProposedValue any    `json:"proposedValue"`
+	BaseValue     any    `json:"baseValue,omitzero"`
+	LiveValue     any    `json:"liveValue,omitzero"`
+	ProposedValue any    `json:"proposedValue,omitzero"`
 }
 
 func (g *GetConfigRevisionMergeStatusConflict) GetField() string {

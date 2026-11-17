@@ -65,7 +65,7 @@ growthbook experiments create [flags]
       --owner string                                 The userId or email address of the owner. If an email address is provided, it will be used to look up the userId of the matching organization member. If an ID is provided, it will be validated as existing in the organization. When omitted, it defaults to the requesting member: a personal access token's owner, or the member an organization API key assumes. An organization API key acting as itself leaves it empty.
       --phases string                                list of values
       --post-stratification-enabled string           When null, the organization default is used.
-      --precomputed-unit-dimension-ids stringArray   list of values
+      --precomputed-unit-dimension-ids stringArray   A list of unit dimension ids that will be calculated every update and generate timeseries data. Requires the datasource to have pipeline mode enabled.
       --project string                               Project ID which the experiment belongs to
       --query-filter string                          WHERE clause to add to the default experiment query
       --regression-adjustment-enabled                Controls whether regression adjustment (CUPED) is enabled for experiment analyses
@@ -77,7 +77,7 @@ growthbook experiments create [flags]
       --share-level string                           options: public, organization
       --stats-engine string                          options: bayesian, frequentist
       --status string                                options: draft, running, stopped
-      --status-update-schedule string                JSON object
+      --status-update-schedule stopAt                Scheduled start/end for an experiment. All fields optional; the end may be an absolute stopAt or a deferred relative `stopAfter`, but not both.
       --tags stringArray                             Tags for filtering and grouping. Use these instead of encoding groups in names.
       --template-id string                           ID of the [ExperimentTemplate](#tag/ExperimentTemplate_model) this experiment was created from. Template fields are applied by default and overridden by explicitly provided payload fields.
       --tracking-key invalid_tracking_key            Key sent with exposure events. Keep it short, in kebab-case (usually the Feature Flag key). If your organization requires a tracking key format, a key that doesn't match is rejected with invalid_tracking_key. Changing it after launch splits exposures across two keys. [required]

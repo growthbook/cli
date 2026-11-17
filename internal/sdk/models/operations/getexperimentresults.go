@@ -9,7 +9,8 @@ import (
 
 type GetExperimentResultsRequest struct {
 	// The id of the requested resource
-	ID        string  `pathParam:"style=simple,explode=false,name=id"`
+	ID string `pathParam:"style=simple,explode=false,name=id"`
+	// Phase index, defaulting to the latest phase. `experiment.enhancedStatus` describes the latest phase, so it is omitted for any other phase.
 	Phase     *string `queryParam:"style=form,explode=true,name=phase"`
 	Dimension *string `queryParam:"style=form,explode=true,name=dimension"`
 }
@@ -37,13 +38,13 @@ func (g *GetExperimentResultsRequest) GetDimension() *string {
 
 // GetExperimentResultsResponseBody - Successful response
 type GetExperimentResultsResponseBody struct {
-	Experiment components.Experiment         `json:"experiment"`
-	Result     components.ExperimentResults1 `json:"result"`
+	Experiment components.ExperimentWithEnhancedStatus `json:"experiment"`
+	Result     components.ExperimentResults1           `json:"result"`
 }
 
-func (g *GetExperimentResultsResponseBody) GetExperiment() components.Experiment {
+func (g *GetExperimentResultsResponseBody) GetExperiment() components.ExperimentWithEnhancedStatus {
 	if g == nil {
-		return components.Experiment{}
+		return components.ExperimentWithEnhancedStatus{}
 	}
 	return g.Experiment
 }

@@ -44,3 +44,5 @@ growthbook queries [flags]
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
 * [growthbook queries get-query](growthbook_queries_get-query.md)	 - Get a single query
+* [growthbook queries list-data-source](growthbook_queries_list-data-source.md)	 - Get a data source's 50 most recent queries
+* [growthbook queries post-query-cancel](growthbook_queries_post-query-cancel.md)	 - Cancel a running query

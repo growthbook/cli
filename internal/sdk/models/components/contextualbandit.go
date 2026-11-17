@@ -311,55 +311,55 @@ func (e *ContextualBanditStage) IsExact() bool {
 	return false
 }
 
-type Health struct {
+type ContextualBanditHealth struct {
 	Srm               *float64 `json:"srm"`
 	TotalUsers        float64  `json:"totalUsers"`
 	MultipleExposures *float64 `json:"multipleExposures,omitzero"`
 	VariationIds      []string `json:"variationIds,omitzero"`
 }
 
-func (h Health) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(h, "", false)
+func (c ContextualBanditHealth) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (h *Health) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+func (c *ContextualBanditHealth) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *Health) GetSrm() *float64 {
-	if h == nil {
+func (c *ContextualBanditHealth) GetSrm() *float64 {
+	if c == nil {
 		return nil
 	}
-	return h.Srm
+	return c.Srm
 }
 
-func (h *Health) GetTotalUsers() float64 {
-	if h == nil {
+func (c *ContextualBanditHealth) GetTotalUsers() float64 {
+	if c == nil {
 		return 0.0
 	}
-	return h.TotalUsers
+	return c.TotalUsers
 }
 
-func (h *Health) GetMultipleExposures() *float64 {
-	if h == nil {
+func (c *ContextualBanditHealth) GetMultipleExposures() *float64 {
+	if c == nil {
 		return nil
 	}
-	return h.MultipleExposures
+	return c.MultipleExposures
 }
 
-func (h *Health) GetVariationIds() []string {
-	if h == nil {
+func (c *ContextualBanditHealth) GetVariationIds() []string {
+	if c == nil {
 		return nil
 	}
-	return h.VariationIds
+	return c.VariationIds
 }
 
 type AnalysisSummary struct {
-	SnapshotID string  `json:"snapshotId"`
-	Health     *Health `json:"health,omitzero"`
+	SnapshotID string                  `json:"snapshotId"`
+	Health     *ContextualBanditHealth `json:"health,omitzero"`
 }
 
 func (a AnalysisSummary) MarshalJSON() ([]byte, error) {
@@ -380,7 +380,7 @@ func (a *AnalysisSummary) GetSnapshotID() string {
 	return a.SnapshotID
 }
 
-func (a *AnalysisSummary) GetHealth() *Health {
+func (a *AnalysisSummary) GetHealth() *ContextualBanditHealth {
 	if a == nil {
 		return nil
 	}

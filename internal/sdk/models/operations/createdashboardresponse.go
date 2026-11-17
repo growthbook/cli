@@ -321,17 +321,20 @@ func (c *CreateDashboardDateRangeMetric) GetEndDate() optionalnullable.OptionalN
 	return c.EndDate
 }
 
-type CreateDashboardShowAsMetric string
+// CreateDashboardShowAsMetric1 - Deprecated: use `showAs` on each metric value.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+type CreateDashboardShowAsMetric1 string
 
 const (
-	CreateDashboardShowAsMetricTotal   CreateDashboardShowAsMetric = "total"
-	CreateDashboardShowAsMetricPerUnit CreateDashboardShowAsMetric = "per_unit"
+	CreateDashboardShowAsMetric1Total   CreateDashboardShowAsMetric1 = "total"
+	CreateDashboardShowAsMetric1PerUnit CreateDashboardShowAsMetric1 = "per_unit"
 )
 
-func (e CreateDashboardShowAsMetric) ToPointer() *CreateDashboardShowAsMetric {
+func (e CreateDashboardShowAsMetric1) ToPointer() *CreateDashboardShowAsMetric1 {
 	return &e
 }
-func (e *CreateDashboardShowAsMetric) UnmarshalJSON(data []byte) error {
+func (e *CreateDashboardShowAsMetric1) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -340,16 +343,18 @@ func (e *CreateDashboardShowAsMetric) UnmarshalJSON(data []byte) error {
 	case "total":
 		fallthrough
 	case "per_unit":
-		*e = CreateDashboardShowAsMetric(v)
+		*e = CreateDashboardShowAsMetric1(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateDashboardShowAsMetric: %v", v)
+		return fmt.Errorf("invalid value for CreateDashboardShowAsMetric1: %v", v)
 	}
 }
 
 type CreateDashboardChartSettingsMetric struct {
 	CategoryAxisLabel *string `json:"categoryAxisLabel,omitzero"`
 	ValueAxisLabel    *string `json:"valueAxisLabel,omitzero"`
+	// Line charts only: whether the y-axis starts at 0. Defaults to true.
+	AnchorYAxisToZero *bool `json:"anchorYAxisToZero,omitzero"`
 }
 
 func (c CreateDashboardChartSettingsMetric) MarshalJSON() ([]byte, error) {
@@ -375,6 +380,13 @@ func (c *CreateDashboardChartSettingsMetric) GetValueAxisLabel() *string {
 		return nil
 	}
 	return c.ValueAxisLabel
+}
+
+func (c *CreateDashboardChartSettingsMetric) GetAnchorYAxisToZero() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.AnchorYAxisToZero
 }
 
 type CreateDashboardRowFilterOperatorMetric string
@@ -501,6 +513,33 @@ func (c *CreateDashboardRowFilterMetric) GetValues() []string {
 	return c.Values
 }
 
+// CreateDashboardShowAsMetric2 - How a mean metric renders: `total` sums the numerator, `per_unit` divides it by the unit count. Ignored for other metric types. Omit to use the default (`per_unit` for `max` and `count distinct` aggregations, otherwise `total`).
+type CreateDashboardShowAsMetric2 string
+
+const (
+	CreateDashboardShowAsMetric2Total   CreateDashboardShowAsMetric2 = "total"
+	CreateDashboardShowAsMetric2PerUnit CreateDashboardShowAsMetric2 = "per_unit"
+)
+
+func (e CreateDashboardShowAsMetric2) ToPointer() *CreateDashboardShowAsMetric2 {
+	return &e
+}
+func (e *CreateDashboardShowAsMetric2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "total":
+		fallthrough
+	case "per_unit":
+		*e = CreateDashboardShowAsMetric2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateDashboardShowAsMetric2: %v", v)
+	}
+}
+
 type CreateDashboardValueMetric struct {
 	Name       string                           `json:"name"`
 	RowFilters []CreateDashboardRowFilterMetric `json:"rowFilters"`
@@ -509,6 +548,8 @@ type CreateDashboardValueMetric struct {
 	MetricID        string  `json:"metricId"`
 	Unit            *string `json:"unit"`
 	DenominatorUnit *string `json:"denominatorUnit"`
+	// How a mean metric renders: `total` sums the numerator, `per_unit` divides it by the unit count. Ignored for other metric types. Omit to use the default (`per_unit` for `max` and `count distinct` aggregations, otherwise `total`).
+	ShowAs *CreateDashboardShowAsMetric2 `json:"showAs,omitzero"`
 }
 
 func (c CreateDashboardValueMetric) MarshalJSON() ([]byte, error) {
@@ -561,6 +602,13 @@ func (c *CreateDashboardValueMetric) GetDenominatorUnit() *string {
 	return c.DenominatorUnit
 }
 
+func (c *CreateDashboardValueMetric) GetShowAs() *CreateDashboardShowAsMetric2 {
+	if c == nil {
+		return nil
+	}
+	return c.ShowAs
+}
+
 type CreateDashboardDatasetMetric struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_      string                            `const:"metric" json:"type"`
@@ -599,12 +647,15 @@ func (c *CreateDashboardDatasetMetric) GetPopulation() *components.ExplorationPo
 
 type CreateDashboardConfigMetric struct {
 	// ID of the datasource to query
-	Datasource    string                                `json:"datasource"`
-	Dimensions    []CreateDashboardDimensionMetricUnion `json:"dimensions"`
-	ChartType     CreateDashboardChartTypeMetric        `json:"chartType"`
-	DateRange     CreateDashboardDateRangeMetric        `json:"dateRange"`
-	ShowAs        *CreateDashboardShowAsMetric          `json:"showAs,omitzero"`
-	ChartSettings *CreateDashboardChartSettingsMetric   `json:"chartSettings,omitzero"`
+	Datasource string                                `json:"datasource"`
+	Dimensions []CreateDashboardDimensionMetricUnion `json:"dimensions"`
+	ChartType  CreateDashboardChartTypeMetric        `json:"chartType"`
+	DateRange  CreateDashboardDateRangeMetric        `json:"dateRange"`
+	// Deprecated: use `showAs` on each metric value.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ShowAs        *CreateDashboardShowAsMetric1       `json:"showAs,omitzero"`
+	ChartSettings *CreateDashboardChartSettingsMetric `json:"chartSettings,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_   string                       `const:"metric" json:"type"`
 	Dataset CreateDashboardDatasetMetric `json:"dataset"`
@@ -649,7 +700,7 @@ func (c *CreateDashboardConfigMetric) GetDateRange() CreateDashboardDateRangeMet
 	return c.DateRange
 }
 
-func (c *CreateDashboardConfigMetric) GetShowAs() *CreateDashboardShowAsMetric {
+func (c *CreateDashboardConfigMetric) GetShowAs() *CreateDashboardShowAsMetric1 {
 	if c == nil {
 		return nil
 	}

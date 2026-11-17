@@ -8,20 +8,19 @@ import (
 	"github.com/growthbook/cli/v4/internal/sdk/models/components"
 	"github.com/growthbook/cli/v4/internal/sdk/optionalnullable"
 	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/utils"
-	"time"
 )
 
-type UpdateRampScheduleMonitoringMonitoringModeRequest string
+type UpdateRampScheduleMonitoringMonitoringMode string
 
 const (
-	UpdateRampScheduleMonitoringMonitoringModeRequestAuto   UpdateRampScheduleMonitoringMonitoringModeRequest = "auto"
-	UpdateRampScheduleMonitoringMonitoringModeRequestManual UpdateRampScheduleMonitoringMonitoringModeRequest = "manual"
+	UpdateRampScheduleMonitoringMonitoringModeAuto   UpdateRampScheduleMonitoringMonitoringMode = "auto"
+	UpdateRampScheduleMonitoringMonitoringModeManual UpdateRampScheduleMonitoringMonitoringMode = "manual"
 )
 
-func (e UpdateRampScheduleMonitoringMonitoringModeRequest) ToPointer() *UpdateRampScheduleMonitoringMonitoringModeRequest {
+func (e UpdateRampScheduleMonitoringMonitoringMode) ToPointer() *UpdateRampScheduleMonitoringMonitoringMode {
 	return &e
 }
-func (e *UpdateRampScheduleMonitoringMonitoringModeRequest) UnmarshalJSON(data []byte) error {
+func (e *UpdateRampScheduleMonitoringMonitoringMode) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -30,25 +29,25 @@ func (e *UpdateRampScheduleMonitoringMonitoringModeRequest) UnmarshalJSON(data [
 	case "auto":
 		fallthrough
 	case "manual":
-		*e = UpdateRampScheduleMonitoringMonitoringModeRequest(v)
+		*e = UpdateRampScheduleMonitoringMonitoringMode(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for UpdateRampScheduleMonitoringMonitoringModeRequest: %v", v)
+		return fmt.Errorf("invalid value for UpdateRampScheduleMonitoringMonitoringMode: %v", v)
 	}
 }
 
-type UpdateRampScheduleMonitoringSrmActionRequest string
+type UpdateRampScheduleMonitoringSrmAction string
 
 const (
-	UpdateRampScheduleMonitoringSrmActionRequestRollback UpdateRampScheduleMonitoringSrmActionRequest = "rollback"
-	UpdateRampScheduleMonitoringSrmActionRequestHold     UpdateRampScheduleMonitoringSrmActionRequest = "hold"
-	UpdateRampScheduleMonitoringSrmActionRequestWarn     UpdateRampScheduleMonitoringSrmActionRequest = "warn"
+	UpdateRampScheduleMonitoringSrmActionRollback UpdateRampScheduleMonitoringSrmAction = "rollback"
+	UpdateRampScheduleMonitoringSrmActionHold     UpdateRampScheduleMonitoringSrmAction = "hold"
+	UpdateRampScheduleMonitoringSrmActionWarn     UpdateRampScheduleMonitoringSrmAction = "warn"
 )
 
-func (e UpdateRampScheduleMonitoringSrmActionRequest) ToPointer() *UpdateRampScheduleMonitoringSrmActionRequest {
+func (e UpdateRampScheduleMonitoringSrmAction) ToPointer() *UpdateRampScheduleMonitoringSrmAction {
 	return &e
 }
-func (e *UpdateRampScheduleMonitoringSrmActionRequest) UnmarshalJSON(data []byte) error {
+func (e *UpdateRampScheduleMonitoringSrmAction) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -59,25 +58,25 @@ func (e *UpdateRampScheduleMonitoringSrmActionRequest) UnmarshalJSON(data []byte
 	case "hold":
 		fallthrough
 	case "warn":
-		*e = UpdateRampScheduleMonitoringSrmActionRequest(v)
+		*e = UpdateRampScheduleMonitoringSrmAction(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for UpdateRampScheduleMonitoringSrmActionRequest: %v", v)
+		return fmt.Errorf("invalid value for UpdateRampScheduleMonitoringSrmAction: %v", v)
 	}
 }
 
-type UpdateRampScheduleMonitoringNoTrafficActionRequest string
+type UpdateRampScheduleMonitoringNoTrafficAction string
 
 const (
-	UpdateRampScheduleMonitoringNoTrafficActionRequestRollback UpdateRampScheduleMonitoringNoTrafficActionRequest = "rollback"
-	UpdateRampScheduleMonitoringNoTrafficActionRequestHold     UpdateRampScheduleMonitoringNoTrafficActionRequest = "hold"
-	UpdateRampScheduleMonitoringNoTrafficActionRequestWarn     UpdateRampScheduleMonitoringNoTrafficActionRequest = "warn"
+	UpdateRampScheduleMonitoringNoTrafficActionRollback UpdateRampScheduleMonitoringNoTrafficAction = "rollback"
+	UpdateRampScheduleMonitoringNoTrafficActionHold     UpdateRampScheduleMonitoringNoTrafficAction = "hold"
+	UpdateRampScheduleMonitoringNoTrafficActionWarn     UpdateRampScheduleMonitoringNoTrafficAction = "warn"
 )
 
-func (e UpdateRampScheduleMonitoringNoTrafficActionRequest) ToPointer() *UpdateRampScheduleMonitoringNoTrafficActionRequest {
+func (e UpdateRampScheduleMonitoringNoTrafficAction) ToPointer() *UpdateRampScheduleMonitoringNoTrafficAction {
 	return &e
 }
-func (e *UpdateRampScheduleMonitoringNoTrafficActionRequest) UnmarshalJSON(data []byte) error {
+func (e *UpdateRampScheduleMonitoringNoTrafficAction) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -88,25 +87,25 @@ func (e *UpdateRampScheduleMonitoringNoTrafficActionRequest) UnmarshalJSON(data 
 	case "hold":
 		fallthrough
 	case "warn":
-		*e = UpdateRampScheduleMonitoringNoTrafficActionRequest(v)
+		*e = UpdateRampScheduleMonitoringNoTrafficAction(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for UpdateRampScheduleMonitoringNoTrafficActionRequest: %v", v)
+		return fmt.Errorf("invalid value for UpdateRampScheduleMonitoringNoTrafficAction: %v", v)
 	}
 }
 
-type UpdateRampScheduleMonitoringMultipleExposureActionRequest string
+type UpdateRampScheduleMonitoringMultipleExposureAction string
 
 const (
-	UpdateRampScheduleMonitoringMultipleExposureActionRequestRollback UpdateRampScheduleMonitoringMultipleExposureActionRequest = "rollback"
-	UpdateRampScheduleMonitoringMultipleExposureActionRequestHold     UpdateRampScheduleMonitoringMultipleExposureActionRequest = "hold"
-	UpdateRampScheduleMonitoringMultipleExposureActionRequestWarn     UpdateRampScheduleMonitoringMultipleExposureActionRequest = "warn"
+	UpdateRampScheduleMonitoringMultipleExposureActionRollback UpdateRampScheduleMonitoringMultipleExposureAction = "rollback"
+	UpdateRampScheduleMonitoringMultipleExposureActionHold     UpdateRampScheduleMonitoringMultipleExposureAction = "hold"
+	UpdateRampScheduleMonitoringMultipleExposureActionWarn     UpdateRampScheduleMonitoringMultipleExposureAction = "warn"
 )
 
-func (e UpdateRampScheduleMonitoringMultipleExposureActionRequest) ToPointer() *UpdateRampScheduleMonitoringMultipleExposureActionRequest {
+func (e UpdateRampScheduleMonitoringMultipleExposureAction) ToPointer() *UpdateRampScheduleMonitoringMultipleExposureAction {
 	return &e
 }
-func (e *UpdateRampScheduleMonitoringMultipleExposureActionRequest) UnmarshalJSON(data []byte) error {
+func (e *UpdateRampScheduleMonitoringMultipleExposureAction) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -117,29 +116,29 @@ func (e *UpdateRampScheduleMonitoringMultipleExposureActionRequest) UnmarshalJSO
 	case "hold":
 		fallthrough
 	case "warn":
-		*e = UpdateRampScheduleMonitoringMultipleExposureActionRequest(v)
+		*e = UpdateRampScheduleMonitoringMultipleExposureAction(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for UpdateRampScheduleMonitoringMultipleExposureActionRequest: %v", v)
+		return fmt.Errorf("invalid value for UpdateRampScheduleMonitoringMultipleExposureAction: %v", v)
 	}
 }
 
-// UpdateRampScheduleMonitoringExposureQueryRequestBody - The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `exposureQueryId`.
-type UpdateRampScheduleMonitoringExposureQueryRequestBody struct {
+// UpdateRampScheduleMonitoringExposureQuery - The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `exposureQueryId`.
+type UpdateRampScheduleMonitoringExposureQuery struct {
 	// The ID of one of the data source's assignment queries.
 	ID string `json:"id"`
 	// The identifier type to analyze on, which the query must declare. Required when selecting a different assignment query that declares several. Otherwise defaults to the current identifier type, or the query's only one. Null is treated as omitted, so a response's value can be sent back.
 	IdentifierType optionalnullable.OptionalNullable[string] `json:"identifierType,omitzero"`
 }
 
-func (u *UpdateRampScheduleMonitoringExposureQueryRequestBody) GetID() string {
+func (u *UpdateRampScheduleMonitoringExposureQuery) GetID() string {
 	if u == nil {
 		return ""
 	}
 	return u.ID
 }
 
-func (u *UpdateRampScheduleMonitoringExposureQueryRequestBody) GetIdentifierType() optionalnullable.OptionalNullable[string] {
+func (u *UpdateRampScheduleMonitoringExposureQuery) GetIdentifierType() optionalnullable.OptionalNullable[string] {
 	if u == nil {
 		return nil
 	}
@@ -148,19 +147,19 @@ func (u *UpdateRampScheduleMonitoringExposureQueryRequestBody) GetIdentifierType
 
 // UpdateRampScheduleMonitoringRequestBody - Full replacement of the monitoring configuration. `datasourceId` and `exposureQuery` cannot be changed while a monitoring experiment is active — stop the schedule first.
 type UpdateRampScheduleMonitoringRequestBody struct {
-	DatasourceID          string                                              `json:"datasourceId"`
-	GuardrailMetricIds    []string                                            `json:"guardrailMetricIds"`
-	SignalMetricIds       []string                                            `json:"signalMetricIds,omitzero"`
-	UpdateScheduleMinutes optionalnullable.OptionalNullable[float64]          `json:"updateScheduleMinutes,omitzero"`
-	MonitoringMode        *UpdateRampScheduleMonitoringMonitoringModeRequest  `json:"monitoringMode,omitzero"`
-	AutoUpdate            *bool                                               `json:"autoUpdate,omitzero"`
-	SrmAction             *UpdateRampScheduleMonitoringSrmActionRequest       `json:"srmAction,omitzero"`
-	NoTrafficAction       *UpdateRampScheduleMonitoringNoTrafficActionRequest `json:"noTrafficAction,omitzero"`
+	DatasourceID          string                                       `json:"datasourceId"`
+	GuardrailMetricIds    []string                                     `json:"guardrailMetricIds"`
+	SignalMetricIds       []string                                     `json:"signalMetricIds,omitzero"`
+	UpdateScheduleMinutes optionalnullable.OptionalNullable[float64]   `json:"updateScheduleMinutes,omitzero"`
+	MonitoringMode        *UpdateRampScheduleMonitoringMonitoringMode  `json:"monitoringMode,omitzero"`
+	AutoUpdate            *bool                                        `json:"autoUpdate,omitzero"`
+	SrmAction             *UpdateRampScheduleMonitoringSrmAction       `json:"srmAction,omitzero"`
+	NoTrafficAction       *UpdateRampScheduleMonitoringNoTrafficAction `json:"noTrafficAction,omitzero"`
 	// How long to wait for traffic before applying `noTrafficAction`. Defaults to 24 hours when null or not set.
-	NoTrafficGracePeriodHours optionalnullable.OptionalNullable[float64]                 `json:"noTrafficGracePeriodHours,omitzero"`
-	MultipleExposureAction    *UpdateRampScheduleMonitoringMultipleExposureActionRequest `json:"multipleExposureAction,omitzero"`
+	NoTrafficGracePeriodHours optionalnullable.OptionalNullable[float64]          `json:"noTrafficGracePeriodHours,omitzero"`
+	MultipleExposureAction    *UpdateRampScheduleMonitoringMultipleExposureAction `json:"multipleExposureAction,omitzero"`
 	// The assignment query, grouping its ID with the identifier type analyzed on. Mutually exclusive with the deprecated `exposureQueryId`.
-	ExposureQuery *UpdateRampScheduleMonitoringExposureQueryRequestBody `json:"exposureQuery,omitzero"`
+	ExposureQuery *UpdateRampScheduleMonitoringExposureQuery `json:"exposureQuery,omitzero"`
 	// Deprecated: use `exposureQuery`. Rejected when selecting a different assignment query that declares several identifier types; set `exposureQuery.identifierType` instead.
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -206,7 +205,7 @@ func (u *UpdateRampScheduleMonitoringRequestBody) GetUpdateScheduleMinutes() opt
 	return u.UpdateScheduleMinutes
 }
 
-func (u *UpdateRampScheduleMonitoringRequestBody) GetMonitoringMode() *UpdateRampScheduleMonitoringMonitoringModeRequest {
+func (u *UpdateRampScheduleMonitoringRequestBody) GetMonitoringMode() *UpdateRampScheduleMonitoringMonitoringMode {
 	if u == nil {
 		return nil
 	}
@@ -220,14 +219,14 @@ func (u *UpdateRampScheduleMonitoringRequestBody) GetAutoUpdate() *bool {
 	return u.AutoUpdate
 }
 
-func (u *UpdateRampScheduleMonitoringRequestBody) GetSrmAction() *UpdateRampScheduleMonitoringSrmActionRequest {
+func (u *UpdateRampScheduleMonitoringRequestBody) GetSrmAction() *UpdateRampScheduleMonitoringSrmAction {
 	if u == nil {
 		return nil
 	}
 	return u.SrmAction
 }
 
-func (u *UpdateRampScheduleMonitoringRequestBody) GetNoTrafficAction() *UpdateRampScheduleMonitoringNoTrafficActionRequest {
+func (u *UpdateRampScheduleMonitoringRequestBody) GetNoTrafficAction() *UpdateRampScheduleMonitoringNoTrafficAction {
 	if u == nil {
 		return nil
 	}
@@ -241,14 +240,14 @@ func (u *UpdateRampScheduleMonitoringRequestBody) GetNoTrafficGracePeriodHours()
 	return u.NoTrafficGracePeriodHours
 }
 
-func (u *UpdateRampScheduleMonitoringRequestBody) GetMultipleExposureAction() *UpdateRampScheduleMonitoringMultipleExposureActionRequest {
+func (u *UpdateRampScheduleMonitoringRequestBody) GetMultipleExposureAction() *UpdateRampScheduleMonitoringMultipleExposureAction {
 	if u == nil {
 		return nil
 	}
 	return u.MultipleExposureAction
 }
 
-func (u *UpdateRampScheduleMonitoringRequestBody) GetExposureQuery() *UpdateRampScheduleMonitoringExposureQueryRequestBody {
+func (u *UpdateRampScheduleMonitoringRequestBody) GetExposureQuery() *UpdateRampScheduleMonitoringExposureQuery {
 	if u == nil {
 		return nil
 	}
@@ -281,779 +280,10 @@ func (u *UpdateRampScheduleMonitoringRequest) GetBody() UpdateRampScheduleMonito
 	return u.Body
 }
 
-type UpdateRampScheduleMonitoringEntityType string
-
-const (
-	UpdateRampScheduleMonitoringEntityTypeFeature UpdateRampScheduleMonitoringEntityType = "feature"
-)
-
-func (e UpdateRampScheduleMonitoringEntityType) ToPointer() *UpdateRampScheduleMonitoringEntityType {
-	return &e
-}
-func (e *UpdateRampScheduleMonitoringEntityType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "feature":
-		*e = UpdateRampScheduleMonitoringEntityType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdateRampScheduleMonitoringEntityType: %v", v)
-	}
-}
-
-type UpdateRampScheduleMonitoringStatus string
-
-const (
-	UpdateRampScheduleMonitoringStatusPending    UpdateRampScheduleMonitoringStatus = "pending"
-	UpdateRampScheduleMonitoringStatusReady      UpdateRampScheduleMonitoringStatus = "ready"
-	UpdateRampScheduleMonitoringStatusRunning    UpdateRampScheduleMonitoringStatus = "running"
-	UpdateRampScheduleMonitoringStatusPaused     UpdateRampScheduleMonitoringStatus = "paused"
-	UpdateRampScheduleMonitoringStatusCompleted  UpdateRampScheduleMonitoringStatus = "completed"
-	UpdateRampScheduleMonitoringStatusRolledBack UpdateRampScheduleMonitoringStatus = "rolled-back"
-)
-
-func (e UpdateRampScheduleMonitoringStatus) ToPointer() *UpdateRampScheduleMonitoringStatus {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *UpdateRampScheduleMonitoringStatus) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "pending", "ready", "running", "paused", "completed", "rolled-back":
-			return true
-		}
-	}
-	return false
-}
-
-type UpdateRampScheduleMonitoringMonitoringConfigMonitoringMode string
-
-const (
-	UpdateRampScheduleMonitoringMonitoringConfigMonitoringModeAuto   UpdateRampScheduleMonitoringMonitoringConfigMonitoringMode = "auto"
-	UpdateRampScheduleMonitoringMonitoringConfigMonitoringModeManual UpdateRampScheduleMonitoringMonitoringConfigMonitoringMode = "manual"
-)
-
-func (e UpdateRampScheduleMonitoringMonitoringConfigMonitoringMode) ToPointer() *UpdateRampScheduleMonitoringMonitoringConfigMonitoringMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *UpdateRampScheduleMonitoringMonitoringConfigMonitoringMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "manual":
-			return true
-		}
-	}
-	return false
-}
-
-type UpdateRampScheduleMonitoringSrmActionResponse string
-
-const (
-	UpdateRampScheduleMonitoringSrmActionResponseRollback UpdateRampScheduleMonitoringSrmActionResponse = "rollback"
-	UpdateRampScheduleMonitoringSrmActionResponseHold     UpdateRampScheduleMonitoringSrmActionResponse = "hold"
-	UpdateRampScheduleMonitoringSrmActionResponseWarn     UpdateRampScheduleMonitoringSrmActionResponse = "warn"
-)
-
-func (e UpdateRampScheduleMonitoringSrmActionResponse) ToPointer() *UpdateRampScheduleMonitoringSrmActionResponse {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *UpdateRampScheduleMonitoringSrmActionResponse) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "rollback", "hold", "warn":
-			return true
-		}
-	}
-	return false
-}
-
-type UpdateRampScheduleMonitoringNoTrafficActionResponse string
-
-const (
-	UpdateRampScheduleMonitoringNoTrafficActionResponseRollback UpdateRampScheduleMonitoringNoTrafficActionResponse = "rollback"
-	UpdateRampScheduleMonitoringNoTrafficActionResponseHold     UpdateRampScheduleMonitoringNoTrafficActionResponse = "hold"
-	UpdateRampScheduleMonitoringNoTrafficActionResponseWarn     UpdateRampScheduleMonitoringNoTrafficActionResponse = "warn"
-)
-
-func (e UpdateRampScheduleMonitoringNoTrafficActionResponse) ToPointer() *UpdateRampScheduleMonitoringNoTrafficActionResponse {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *UpdateRampScheduleMonitoringNoTrafficActionResponse) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "rollback", "hold", "warn":
-			return true
-		}
-	}
-	return false
-}
-
-type UpdateRampScheduleMonitoringMultipleExposureActionResponse string
-
-const (
-	UpdateRampScheduleMonitoringMultipleExposureActionResponseRollback UpdateRampScheduleMonitoringMultipleExposureActionResponse = "rollback"
-	UpdateRampScheduleMonitoringMultipleExposureActionResponseHold     UpdateRampScheduleMonitoringMultipleExposureActionResponse = "hold"
-	UpdateRampScheduleMonitoringMultipleExposureActionResponseWarn     UpdateRampScheduleMonitoringMultipleExposureActionResponse = "warn"
-)
-
-func (e UpdateRampScheduleMonitoringMultipleExposureActionResponse) ToPointer() *UpdateRampScheduleMonitoringMultipleExposureActionResponse {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *UpdateRampScheduleMonitoringMultipleExposureActionResponse) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "rollback", "hold", "warn":
-			return true
-		}
-	}
-	return false
-}
-
-// UpdateRampScheduleMonitoringExposureQueryResponse - The assignment query, grouping its ID with the identifier type analyzed on.
-type UpdateRampScheduleMonitoringExposureQueryResponse struct {
-	// The ID of one of the data source's assignment queries.
-	ID string `json:"id"`
-	// The identifier type analyzed on. Null when none can be resolved: no assignment query is selected, or a record saved before identifier types were stored points at a query that no longer exists.
-	IdentifierType *string `json:"identifierType"`
-}
-
-func (u *UpdateRampScheduleMonitoringExposureQueryResponse) GetID() string {
-	if u == nil {
-		return ""
-	}
-	return u.ID
-}
-
-func (u *UpdateRampScheduleMonitoringExposureQueryResponse) GetIdentifierType() *string {
-	if u == nil {
-		return nil
-	}
-	return u.IdentifierType
-}
-
-type UpdateRampScheduleMonitoringMonitoringConfig struct {
-	DatasourceID          string                                                      `json:"datasourceId"`
-	GuardrailMetricIds    []string                                                    `json:"guardrailMetricIds"`
-	SignalMetricIds       []string                                                    `json:"signalMetricIds,omitzero"`
-	UpdateScheduleMinutes optionalnullable.OptionalNullable[float64]                  `json:"updateScheduleMinutes,omitzero"`
-	MonitoringMode        *UpdateRampScheduleMonitoringMonitoringConfigMonitoringMode `json:"monitoringMode,omitzero"`
-	AutoUpdate            *bool                                                       `json:"autoUpdate,omitzero"`
-	SrmAction             *UpdateRampScheduleMonitoringSrmActionResponse              `json:"srmAction,omitzero"`
-	NoTrafficAction       *UpdateRampScheduleMonitoringNoTrafficActionResponse        `json:"noTrafficAction,omitzero"`
-	// How long to wait for traffic before applying `noTrafficAction`. Defaults to 24 hours when null or not set.
-	NoTrafficGracePeriodHours optionalnullable.OptionalNullable[float64]                  `json:"noTrafficGracePeriodHours,omitzero"`
-	MultipleExposureAction    *UpdateRampScheduleMonitoringMultipleExposureActionResponse `json:"multipleExposureAction,omitzero"`
-	// The assignment query, grouping its ID with the identifier type analyzed on.
-	ExposureQuery UpdateRampScheduleMonitoringExposureQueryResponse `json:"exposureQuery"`
-	// Deprecated: use `exposureQuery`.
-	//
-	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-	ExposureQueryID string `json:"exposureQueryId"`
-}
-
-func (u UpdateRampScheduleMonitoringMonitoringConfig) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateRampScheduleMonitoringMonitoringConfig) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateRampScheduleMonitoringMonitoringConfig) GetDatasourceID() string {
-	if u == nil {
-		return ""
-	}
-	return u.DatasourceID
-}
-
-func (u *UpdateRampScheduleMonitoringMonitoringConfig) GetGuardrailMetricIds() []string {
-	if u == nil {
-		return []string{}
-	}
-	return u.GuardrailMetricIds
-}
-
-func (u *UpdateRampScheduleMonitoringMonitoringConfig) GetSignalMetricIds() []string {
-	if u == nil {
-		return nil
-	}
-	return u.SignalMetricIds
-}
-
-func (u *UpdateRampScheduleMonitoringMonitoringConfig) GetUpdateScheduleMinutes() optionalnullable.OptionalNullable[float64] {
-	if u == nil {
-		return nil
-	}
-	return u.UpdateScheduleMinutes
-}
-
-func (u *UpdateRampScheduleMonitoringMonitoringConfig) GetMonitoringMode() *UpdateRampScheduleMonitoringMonitoringConfigMonitoringMode {
-	if u == nil {
-		return nil
-	}
-	return u.MonitoringMode
-}
-
-func (u *UpdateRampScheduleMonitoringMonitoringConfig) GetAutoUpdate() *bool {
-	if u == nil {
-		return nil
-	}
-	return u.AutoUpdate
-}
-
-func (u *UpdateRampScheduleMonitoringMonitoringConfig) GetSrmAction() *UpdateRampScheduleMonitoringSrmActionResponse {
-	if u == nil {
-		return nil
-	}
-	return u.SrmAction
-}
-
-func (u *UpdateRampScheduleMonitoringMonitoringConfig) GetNoTrafficAction() *UpdateRampScheduleMonitoringNoTrafficActionResponse {
-	if u == nil {
-		return nil
-	}
-	return u.NoTrafficAction
-}
-
-func (u *UpdateRampScheduleMonitoringMonitoringConfig) GetNoTrafficGracePeriodHours() optionalnullable.OptionalNullable[float64] {
-	if u == nil {
-		return nil
-	}
-	return u.NoTrafficGracePeriodHours
-}
-
-func (u *UpdateRampScheduleMonitoringMonitoringConfig) GetMultipleExposureAction() *UpdateRampScheduleMonitoringMultipleExposureActionResponse {
-	if u == nil {
-		return nil
-	}
-	return u.MultipleExposureAction
-}
-
-func (u *UpdateRampScheduleMonitoringMonitoringConfig) GetExposureQuery() UpdateRampScheduleMonitoringExposureQueryResponse {
-	if u == nil {
-		return UpdateRampScheduleMonitoringExposureQueryResponse{}
-	}
-	return u.ExposureQuery
-}
-
-func (u *UpdateRampScheduleMonitoringMonitoringConfig) GetExposureQueryID() string {
-	if u == nil {
-		return ""
-	}
-	return u.ExposureQueryID
-}
-
-type UpdateRampScheduleMonitoringExperimentHealthAction string
-
-const (
-	UpdateRampScheduleMonitoringExperimentHealthActionRollback UpdateRampScheduleMonitoringExperimentHealthAction = "rollback"
-	UpdateRampScheduleMonitoringExperimentHealthActionHold     UpdateRampScheduleMonitoringExperimentHealthAction = "hold"
-	UpdateRampScheduleMonitoringExperimentHealthActionWarn     UpdateRampScheduleMonitoringExperimentHealthAction = "warn"
-)
-
-func (e UpdateRampScheduleMonitoringExperimentHealthAction) ToPointer() *UpdateRampScheduleMonitoringExperimentHealthAction {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *UpdateRampScheduleMonitoringExperimentHealthAction) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "rollback", "hold", "warn":
-			return true
-		}
-	}
-	return false
-}
-
-// UpdateRampScheduleMonitoringContext - Surface through which the approval was granted.
-type UpdateRampScheduleMonitoringContext string
-
-const (
-	UpdateRampScheduleMonitoringContextUI  UpdateRampScheduleMonitoringContext = "ui"
-	UpdateRampScheduleMonitoringContextAPI UpdateRampScheduleMonitoringContext = "api"
-)
-
-func (e UpdateRampScheduleMonitoringContext) ToPointer() *UpdateRampScheduleMonitoringContext {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *UpdateRampScheduleMonitoringContext) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "ui", "api":
-			return true
-		}
-	}
-	return false
-}
-
-type UpdateRampScheduleMonitoringStepApproval struct {
-	// Index of the step that was approved.
-	StepIndex int64 `json:"stepIndex"`
-	// When the approval was granted.
-	ApprovedAt time.Time `json:"approvedAt"`
-	// Who approved: the approver's user ID, or the API key's ID when a key approved as itself.
-	ApprovedBy string `json:"approvedBy"`
-	// Who performed an action
-	ApprovedByUser *components.EventUser `json:"approvedByUser,omitzero"`
-	// Surface through which the approval was granted.
-	Context UpdateRampScheduleMonitoringContext `json:"context"`
-}
-
-func (u UpdateRampScheduleMonitoringStepApproval) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateRampScheduleMonitoringStepApproval) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateRampScheduleMonitoringStepApproval) GetStepIndex() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.StepIndex
-}
-
-func (u *UpdateRampScheduleMonitoringStepApproval) GetApprovedAt() time.Time {
-	if u == nil {
-		return time.Time{}
-	}
-	return u.ApprovedAt
-}
-
-func (u *UpdateRampScheduleMonitoringStepApproval) GetApprovedBy() string {
-	if u == nil {
-		return ""
-	}
-	return u.ApprovedBy
-}
-
-func (u *UpdateRampScheduleMonitoringStepApproval) GetApprovedByUser() *components.EventUser {
-	if u == nil {
-		return nil
-	}
-	return u.ApprovedByUser
-}
-
-func (u *UpdateRampScheduleMonitoringStepApproval) GetContext() UpdateRampScheduleMonitoringContext {
-	if u == nil {
-		return UpdateRampScheduleMonitoringContext("")
-	}
-	return u.Context
-}
-
-// UpdateRampScheduleMonitoringMonitoringStatusMonitoringMode - User-selected monitoring mode. `auto` schedules snapshots automatically; `manual` requires clicking Update.
-type UpdateRampScheduleMonitoringMonitoringStatusMonitoringMode string
-
-const (
-	UpdateRampScheduleMonitoringMonitoringStatusMonitoringModeAuto   UpdateRampScheduleMonitoringMonitoringStatusMonitoringMode = "auto"
-	UpdateRampScheduleMonitoringMonitoringStatusMonitoringModeManual UpdateRampScheduleMonitoringMonitoringStatusMonitoringMode = "manual"
-)
-
-func (e UpdateRampScheduleMonitoringMonitoringStatusMonitoringMode) ToPointer() *UpdateRampScheduleMonitoringMonitoringStatusMonitoringMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *UpdateRampScheduleMonitoringMonitoringStatusMonitoringMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "manual":
-			return true
-		}
-	}
-	return false
-}
-
-type UpdateRampScheduleMonitoringMonitoringStatus struct {
-	SafeRolloutID optionalnullable.OptionalNullable[string] `json:"safeRolloutId,omitzero"`
-	// User-selected monitoring mode. `auto` schedules snapshots automatically; `manual` requires clicking Update.
-	MonitoringMode UpdateRampScheduleMonitoringMonitoringStatusMonitoringMode `json:"monitoringMode"`
-	// Legacy alias for auto-update behavior. Prefer `monitoringMode` (`auto` means true, `manual` means false).
-	AutoUpdate bool `json:"autoUpdate"`
-	// Computed runtime flag. True only when monitoring mode is auto and schedule state allows automatic snapshot scheduling.
-	EffectiveAutoUpdate bool `json:"effectiveAutoUpdate"`
-	// When `effectiveAutoUpdate` is false, this describes the computed reason auto-updates are currently blocked.
-	BlockedReason optionalnullable.OptionalNullable[string] `json:"blockedReason,omitzero"`
-	// When the next automatic snapshot query will run
-	NextSnapshotAt optionalnullable.OptionalNullable[time.Time] `json:"nextSnapshotAt,omitzero"`
-	// Whether the step at currentStepIndex has monitoring enabled
-	CurrentStepMonitored bool `json:"currentStepMonitored"`
-}
-
-func (u UpdateRampScheduleMonitoringMonitoringStatus) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateRampScheduleMonitoringMonitoringStatus) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateRampScheduleMonitoringMonitoringStatus) GetSafeRolloutID() optionalnullable.OptionalNullable[string] {
-	if u == nil {
-		return nil
-	}
-	return u.SafeRolloutID
-}
-
-func (u *UpdateRampScheduleMonitoringMonitoringStatus) GetMonitoringMode() UpdateRampScheduleMonitoringMonitoringStatusMonitoringMode {
-	if u == nil {
-		return UpdateRampScheduleMonitoringMonitoringStatusMonitoringMode("")
-	}
-	return u.MonitoringMode
-}
-
-func (u *UpdateRampScheduleMonitoringMonitoringStatus) GetAutoUpdate() bool {
-	if u == nil {
-		return false
-	}
-	return u.AutoUpdate
-}
-
-func (u *UpdateRampScheduleMonitoringMonitoringStatus) GetEffectiveAutoUpdate() bool {
-	if u == nil {
-		return false
-	}
-	return u.EffectiveAutoUpdate
-}
-
-func (u *UpdateRampScheduleMonitoringMonitoringStatus) GetBlockedReason() optionalnullable.OptionalNullable[string] {
-	if u == nil {
-		return nil
-	}
-	return u.BlockedReason
-}
-
-func (u *UpdateRampScheduleMonitoringMonitoringStatus) GetNextSnapshotAt() optionalnullable.OptionalNullable[time.Time] {
-	if u == nil {
-		return nil
-	}
-	return u.NextSnapshotAt
-}
-
-func (u *UpdateRampScheduleMonitoringMonitoringStatus) GetCurrentStepMonitored() bool {
-	if u == nil {
-		return false
-	}
-	return u.CurrentStepMonitored
-}
-
-// UpdateRampScheduleMonitoringResponseBody - Resource updated
-type UpdateRampScheduleMonitoringResponseBody struct {
-	// Unique identifier (rs_ prefix)
-	ID          string                                 `json:"id"`
-	DateCreated time.Time                              `json:"dateCreated"`
-	DateUpdated time.Time                              `json:"dateUpdated"`
-	Name        string                                 `json:"name"`
-	EntityType  UpdateRampScheduleMonitoringEntityType `json:"entityType"`
-	EntityID    string                                 `json:"entityId"`
-	// Controlled entity references
-	Targets []components.Targets `json:"targets"`
-	// Actions that restore controlled rules to their pre-ramp state. Applied when rolling back or jumping to start, and the base every step accumulates on; the only place a plan can set hashAttribute, seed or hashVersion.
-	StartActions []components.StartActions `json:"startActions,omitzero"`
-	// Ordered ramp steps
-	Steps []components.Steps `json:"steps"`
-	// Actions applied on top of all step patches when the ramp completes. Represents the final desired rule state.
-	EndActions []components.EndActions `json:"endActions,omitzero"`
-	// When the ramp fires. Absent/null means immediately on publish; set to a future datetime to delay start and keep the rule disabled until that time.
-	StartDate optionalnullable.OptionalNullable[time.Time] `json:"startDate,omitzero"`
-	// Rule-level kill date. When reached, the ramp is completed and the rule is disabled (enabled=false). Use for time-boxed rules that must stop serving on a fixed date regardless of ramp progress. Set to null to clear.
-	CutoffDate optionalnullable.OptionalNullable[time.Time] `json:"cutoffDate,omitzero"`
-	// When true, the ramp holds at step -1 with its rule disabled (zero traffic) until a human approves the start via /actions/approve-step. Composes with startDate ('hold until approved, then arm for that date').
-	RequiresStartApproval *bool `json:"requiresStartApproval,omitzero"`
-	// When the current launch's start was approved. Cleared on every return to step -1 (publish, rollback), re-arming the approval gate.
-	StartApprovedAt optionalnullable.OptionalNullable[time.Time] `json:"startApprovedAt,omitzero"`
-	Status          UpdateRampScheduleMonitoringStatus           `json:"status"`
-	// Index of current step; -1 = not yet started
-	CurrentStepIndex int64                                        `json:"currentStepIndex"`
-	StartedAt        optionalnullable.OptionalNullable[time.Time] `json:"startedAt,omitzero"`
-	// Anchor for cumulative interval timing; resets after each approval gate is satisfied
-	PhaseStartedAt optionalnullable.OptionalNullable[time.Time] `json:"phaseStartedAt,omitzero"`
-	PausedAt       optionalnullable.OptionalNullable[time.Time] `json:"pausedAt,omitzero"`
-	// When the current step's time gate elapses; null for steps with no interval (pure approval gates) and terminal states
-	NextStepAt    *time.Time                                   `json:"nextStepAt"`
-	NextProcessAt optionalnullable.OptionalNullable[time.Time] `json:"nextProcessAt,omitzero"`
-	// Milliseconds since startedAt (computed at response time, not stored)
-	ElapsedMs              optionalnullable.OptionalNullable[int64]                                        `json:"elapsedMs,omitzero"`
-	LockdownConfig         *components.LockdownConfig                                                      `json:"lockdownConfig,omitzero"`
-	MonitoringConfig       optionalnullable.OptionalNullable[UpdateRampScheduleMonitoringMonitoringConfig] `json:"monitoringConfig,omitzero"`
-	ExperimentHealthAction *UpdateRampScheduleMonitoringExperimentHealthAction                             `json:"experimentHealthAction,omitzero"`
-	CurrentStepEnteredAt   optionalnullable.OptionalNullable[time.Time]                                    `json:"currentStepEnteredAt,omitzero"`
-	// Approval record for the current step. Valid only while `stepApproval.stepIndex === currentStepIndex`.
-	StepApproval optionalnullable.OptionalNullable[UpdateRampScheduleMonitoringStepApproval] `json:"stepApproval,omitzero"`
-	// Computed at read time: whether a human approval is the gate blocking the schedule right now — either the start-approval gate (`requiresStartApproval` before step 0) or the current step's `holdConditions.requiresApproval` once its time hold (if any) has elapsed. Paused schedules report `false` (the pause is the blocking gate). For monitored steps the approve-step endpoint may still reject an approval until analysis-based gates clear.
-	AwaitingApproval bool `json:"awaitingApproval"`
-	// When the monitored section most recently started (first monitored step entered). Used for no-traffic grace period gating.
-	MonitoringStartDate optionalnullable.OptionalNullable[time.Time] `json:"monitoringStartDate,omitzero"`
-	LastRollbackAt      optionalnullable.OptionalNullable[time.Time] `json:"lastRollbackAt,omitzero"`
-	LastRollbackReason  optionalnullable.OptionalNullable[string]    `json:"lastRollbackReason,omitzero"`
-	// Read-only monitoring status. Present when monitoringConfig is set.
-	MonitoringStatus optionalnullable.OptionalNullable[UpdateRampScheduleMonitoringMonitoringStatus] `json:"monitoringStatus,omitzero"`
-}
-
-func (u UpdateRampScheduleMonitoringResponseBody) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetID() string {
-	if u == nil {
-		return ""
-	}
-	return u.ID
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetDateCreated() time.Time {
-	if u == nil {
-		return time.Time{}
-	}
-	return u.DateCreated
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetDateUpdated() time.Time {
-	if u == nil {
-		return time.Time{}
-	}
-	return u.DateUpdated
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetName() string {
-	if u == nil {
-		return ""
-	}
-	return u.Name
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetEntityType() UpdateRampScheduleMonitoringEntityType {
-	if u == nil {
-		return UpdateRampScheduleMonitoringEntityType("")
-	}
-	return u.EntityType
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetEntityID() string {
-	if u == nil {
-		return ""
-	}
-	return u.EntityID
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetTargets() []components.Targets {
-	if u == nil {
-		return []components.Targets{}
-	}
-	return u.Targets
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetStartActions() []components.StartActions {
-	if u == nil {
-		return nil
-	}
-	return u.StartActions
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetSteps() []components.Steps {
-	if u == nil {
-		return []components.Steps{}
-	}
-	return u.Steps
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetEndActions() []components.EndActions {
-	if u == nil {
-		return nil
-	}
-	return u.EndActions
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetStartDate() optionalnullable.OptionalNullable[time.Time] {
-	if u == nil {
-		return nil
-	}
-	return u.StartDate
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetCutoffDate() optionalnullable.OptionalNullable[time.Time] {
-	if u == nil {
-		return nil
-	}
-	return u.CutoffDate
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetRequiresStartApproval() *bool {
-	if u == nil {
-		return nil
-	}
-	return u.RequiresStartApproval
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetStartApprovedAt() optionalnullable.OptionalNullable[time.Time] {
-	if u == nil {
-		return nil
-	}
-	return u.StartApprovedAt
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetStatus() UpdateRampScheduleMonitoringStatus {
-	if u == nil {
-		return UpdateRampScheduleMonitoringStatus("")
-	}
-	return u.Status
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetCurrentStepIndex() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.CurrentStepIndex
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetStartedAt() optionalnullable.OptionalNullable[time.Time] {
-	if u == nil {
-		return nil
-	}
-	return u.StartedAt
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetPhaseStartedAt() optionalnullable.OptionalNullable[time.Time] {
-	if u == nil {
-		return nil
-	}
-	return u.PhaseStartedAt
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetPausedAt() optionalnullable.OptionalNullable[time.Time] {
-	if u == nil {
-		return nil
-	}
-	return u.PausedAt
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetNextStepAt() *time.Time {
-	if u == nil {
-		return nil
-	}
-	return u.NextStepAt
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetNextProcessAt() optionalnullable.OptionalNullable[time.Time] {
-	if u == nil {
-		return nil
-	}
-	return u.NextProcessAt
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetElapsedMs() optionalnullable.OptionalNullable[int64] {
-	if u == nil {
-		return nil
-	}
-	return u.ElapsedMs
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetLockdownConfig() *components.LockdownConfig {
-	if u == nil {
-		return nil
-	}
-	return u.LockdownConfig
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetMonitoringConfig() optionalnullable.OptionalNullable[UpdateRampScheduleMonitoringMonitoringConfig] {
-	if u == nil {
-		return nil
-	}
-	return u.MonitoringConfig
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetExperimentHealthAction() *UpdateRampScheduleMonitoringExperimentHealthAction {
-	if u == nil {
-		return nil
-	}
-	return u.ExperimentHealthAction
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetCurrentStepEnteredAt() optionalnullable.OptionalNullable[time.Time] {
-	if u == nil {
-		return nil
-	}
-	return u.CurrentStepEnteredAt
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetStepApproval() optionalnullable.OptionalNullable[UpdateRampScheduleMonitoringStepApproval] {
-	if u == nil {
-		return nil
-	}
-	return u.StepApproval
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetAwaitingApproval() bool {
-	if u == nil {
-		return false
-	}
-	return u.AwaitingApproval
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetMonitoringStartDate() optionalnullable.OptionalNullable[time.Time] {
-	if u == nil {
-		return nil
-	}
-	return u.MonitoringStartDate
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetLastRollbackAt() optionalnullable.OptionalNullable[time.Time] {
-	if u == nil {
-		return nil
-	}
-	return u.LastRollbackAt
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetLastRollbackReason() optionalnullable.OptionalNullable[string] {
-	if u == nil {
-		return nil
-	}
-	return u.LastRollbackReason
-}
-
-func (u *UpdateRampScheduleMonitoringResponseBody) GetMonitoringStatus() optionalnullable.OptionalNullable[UpdateRampScheduleMonitoringMonitoringStatus] {
-	if u == nil {
-		return nil
-	}
-	return u.MonitoringStatus
-}
-
 type UpdateRampScheduleMonitoringResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Resource updated
-	Object *UpdateRampScheduleMonitoringResponseBody
+	RampSchedule *components.RampSchedule
 	// Held until a person confirms it in GrowthBook. Poll the Location until the confirmation completes.
 	ConfirmationHeld *components.ConfirmationHeld
 	Headers          map[string][]string
@@ -1077,11 +307,11 @@ func (u *UpdateRampScheduleMonitoringResponse) GetHTTPMeta() components.HTTPMeta
 	return u.HTTPMeta
 }
 
-func (u *UpdateRampScheduleMonitoringResponse) GetObject() *UpdateRampScheduleMonitoringResponseBody {
+func (u *UpdateRampScheduleMonitoringResponse) GetRampSchedule() *components.RampSchedule {
 	if u == nil {
 		return nil
 	}
-	return u.Object
+	return u.RampSchedule
 }
 
 func (u *UpdateRampScheduleMonitoringResponse) GetConfirmationHeld() *components.ConfirmationHeld {
