@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [4.1.0] - 2026-11-17
+
 ### Added
 
 - **`event-webhooks`** (`create`, `get`, `list`, `update`, `delete`, `test`, `list-logs`) manages
