@@ -30,8 +30,8 @@ func newSDKWebhooks(rootSDK *Growthbook, sdkConfig config.SDKConfiguration, hook
 	}
 }
 
-// ListSDKConnectionWebhooks - Get the webhooks for an SDK Connection
-func (s *SDKWebhooks) ListSDKConnectionWebhooks(ctx context.Context, request operations.ListSDKConnectionWebhooksRequest, opts ...operations.Option) (*operations.ListSDKConnectionWebhooksResponse, error) {
+// List - Get the webhooks for an SDK Connection
+func (s *SDKWebhooks) List(ctx context.Context, request operations.ListSDKConnectionWebhooksRequest, opts ...operations.Option) (*operations.ListSDKConnectionWebhooksResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -174,9 +174,9 @@ func (s *SDKWebhooks) ListSDKConnectionWebhooks(ctx context.Context, request ope
 
 }
 
-// PostSDKConnectionWebhook - Add a webhook to an SDK Connection
+// Create - Add a webhook to an SDK Connection
 // Called whenever the connection's payload changes. `httpMethod` defaults to POST. More than one webhook per organization requires a paid plan.
-func (s *SDKWebhooks) PostSDKConnectionWebhook(ctx context.Context, request operations.PostSDKConnectionWebhookRequest, opts ...operations.Option) (*operations.PostSDKConnectionWebhookResponse, error) {
+func (s *SDKWebhooks) Create(ctx context.Context, request operations.PostSDKConnectionWebhookRequest, opts ...operations.Option) (*operations.PostSDKConnectionWebhookResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -351,9 +351,9 @@ func (s *SDKWebhooks) PostSDKConnectionWebhook(ctx context.Context, request oper
 
 }
 
-// PutSDKWebhook - Update an SDK webhook
+// Update an SDK webhook
 // The webhook fires once after an update. Webhooks managed by the Vercel integration can't be changed.
-func (s *SDKWebhooks) PutSDKWebhook(ctx context.Context, request operations.PutSDKWebhookRequest, opts ...operations.Option) (*operations.PutSDKWebhookResponse, error) {
+func (s *SDKWebhooks) Update(ctx context.Context, request operations.PutSDKWebhookRequest, opts ...operations.Option) (*operations.PutSDKWebhookResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -698,9 +698,9 @@ func (s *SDKWebhooks) DeleteSDKWebhook(ctx context.Context, request operations.D
 
 }
 
-// PostSDKWebhookTest - Fire an SDK webhook now
+// Test - Fire an SDK webhook now
 // Returns the webhook with the outcome in `error` / `lastSuccess`.
-func (s *SDKWebhooks) PostSDKWebhookTest(ctx context.Context, request operations.PostSDKWebhookTestRequest, opts ...operations.Option) (*operations.PostSDKWebhookTestResponse, error) {
+func (s *SDKWebhooks) Test(ctx context.Context, request operations.PostSDKWebhookTestRequest, opts ...operations.Option) (*operations.PostSDKWebhookTestResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

@@ -1,4 +1,4 @@
-## growthbook SDK-webhooks post-SDK-webhook-test
+## growthbook SDK-webhooks test
 
 Fire an SDK webhook now
 
@@ -7,19 +7,19 @@ Fire an SDK webhook now
 Returns the webhook with the outcome in `error` / `lastSuccess`.
 
 ```
-growthbook SDK-webhooks post-SDK-webhook-test [flags]
+growthbook SDK-webhooks test [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook SDK-webhooks post-SDK-webhook-test --id <id>
+  growthbook SDK-webhooks test --id <id>
 ```
 
 ### Options
 
 ```
-  -h, --help        help for post-SDK-webhook-test
+  -h, --help        help for test
   -i, --id string   [required]
 ```
 

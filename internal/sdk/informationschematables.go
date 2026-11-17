@@ -29,9 +29,9 @@ func newInformationSchemaTables(rootSDK *Growthbook, sdkConfig config.SDKConfigu
 	}
 }
 
-// PostInformationSchemaTableRefresh - Refresh one table's columns
+// Refresh one table's columns
 // Re-reads the table's columns from the warehouse and returns the updated table. A failed read returns an error and leaves the stored columns as they were.
-func (s *InformationSchemaTables) PostInformationSchemaTableRefresh(ctx context.Context, request operations.PostInformationSchemaTableRefreshRequest, opts ...operations.Option) (*operations.PostInformationSchemaTableRefreshResponse, error) {
+func (s *InformationSchemaTables) Refresh(ctx context.Context, request operations.PostInformationSchemaTableRefreshRequest, opts ...operations.Option) (*operations.PostInformationSchemaTableRefreshResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

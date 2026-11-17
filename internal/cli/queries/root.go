@@ -28,7 +28,7 @@ func InitQueriesRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPostQueryCancelCmd(QueriesCmd); err != nil {
+	if err := initCancelCmd(QueriesCmd); err != nil {
 		return err
 	}
 

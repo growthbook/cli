@@ -1,26 +1,37 @@
-## growthbook event-webhooks post-event-webhook-test
+## growthbook event-webhooks create
 
-Send a test event to an event webhook
+Create an event webhook
 
 ### Synopsis
 
-Delivery is asynchronous; check the webhook's logs for the result.
+The URL and header values can reference webhook secrets as `{ { KEY } }`, which are filled in at send time.
 
 ```
-growthbook event-webhooks post-event-webhook-test [flags]
+growthbook event-webhooks create [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook event-webhooks post-event-webhook-test --id <id>
+  growthbook event-webhooks create --events '["<value 1>"]' --url https://ajar-hippodrome.org --name <value> --enabled false --payload-type slack
 ```
 
 ### Options
 
 ```
-  -h, --help        help for post-event-webhook-test
-  -i, --id string   [required]
+      --body string                Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --enabled                    [required]
+      --environments stringArray   list of values
+      --events stringArray         [required]
+      --headers string             value
+  -h, --help                       help for create
+  -m, --method string              options: POST, PUT, PATCH
+  -n, --name string                [required]
+      --payload-type string        options: raw, json, slack, discord [required]
+      --projects stringArray       list of values
+      --tags stringArray           list of values
+      --timeout-seconds string     Request timeout in seconds, up to the server maximum (120 unless configured). Null uses the default.
+  -u, --url string                 [required]
 ```
 
 ### Options inherited from parent commands

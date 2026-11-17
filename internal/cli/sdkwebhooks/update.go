@@ -14,47 +14,47 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var postSDKConnectionWebhookCmdMeta = []flagutil.FlagMeta{
-	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The SDK Connection id [required]"},
-	{FlagName: "name", Shorthand: "n", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "endpoint", Shorthand: "e", FieldPath: "Body.Endpoint", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
+var updateCmdMeta = []flagutil.FlagMeta{
+	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
+	{FlagName: "name", Shorthand: "n", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "endpoint", Shorthand: "e", FieldPath: "Body.Endpoint", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "http-method", FieldPath: "Body.HTTPMethod", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"GET", "POST", "PUT", "DELETE", "PATCH", "PURGE"}, Description: "options: GET, POST, PUT, DELETE, PATCH, PURGE"},
-	{FlagName: "payload-format", FieldPath: "Body.PayloadFormat", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"standard", "standard-no-payload", "sdkPayload", "edgeConfig", "edgeConfigUnescaped", "none"}, Description: "options: standard, standard-no-payload, sdkPayload, edgeConfig, edgeConfigUnescaped, none"},
+	{FlagName: "payload-format", FieldPath: "Body.PayloadFormat", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"standard", "standard-no-payload", "sdkPayload", "edgeConfig", "edgeConfigUnescaped", "vercelNativeIntegration", "none"}, Description: "`vercelNativeIntegration` is accepted only on webhooks that already use it (options: standard, standard-no-payload, sdkPayload, edgeConfig, edgeConfigUnescaped, vercelNativeIntegration, none)"},
 	{FlagName: "payload-key", FieldPath: "Body.PayloadKey", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "headers", FieldPath: "Body.Headers", Kind: flagutil.FlagKindString, Optional: true, Description: "JSON-encoded object, e.g. \"{\\\"X-Token\\\": \\\"abc\\\"}\""},
 	{FlagName: "timeout-seconds", Shorthand: "t", FieldPath: "Body.TimeoutSeconds", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"timeoutSeconds,omitempty"`, Description: "Request timeout in seconds, up to the server maximum (120 unless configured). Null uses the default."},
+	{FlagName: "sdk-connections", Shorthand: "s", FieldPath: "Body.SDKConnections", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Replaces the SDK Connections this webhook fires for"},
 }
 
-// initPostSDKConnectionWebhookCmd initializes the post-SDK-connection-webhook command.
-func initPostSDKConnectionWebhookCmd(parent *cobra.Command) error {
+// initUpdateCmd initializes the update command.
+func initUpdateCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
-		Use:     "post-SDK-connection-webhook",
-		Short:   "Add a webhook to an SDK Connection",
-		Long:    "Called whenever the connection's payload changes. `httpMethod` defaults to POST. More than one webhook per organization requires a paid plan.",
-		Example: "  growthbook SDK-webhooks post-SDK-connection-webhook --id <id> --name <value> --endpoint https://brisk-taxicab.name/",
-		RunE:    runPostSDKConnectionWebhookCmd,
-		Aliases: []string{"pScw"},
+		Use:     "update",
+		Short:   "Update an SDK webhook",
+		Long:    "The webhook fires once after an update. Webhooks managed by the Vercel integration can't be changed.",
+		Example: "  growthbook SDK-webhooks update --id <id>",
+		RunE:    runUpdateCmd,
 	}
-	flagutil.RegisterFlags(cmd, postSDKConnectionWebhookCmdMeta)
-	if err := flagutil.ValidateMeta[operations.PostSDKConnectionWebhookRequest](postSDKConnectionWebhookCmdMeta); err != nil {
-		return fmt.Errorf("invalid metadata for post-SDK-connection-webhook: %w", err)
+	flagutil.RegisterFlags(cmd, updateCmdMeta)
+	if err := flagutil.ValidateMeta[operations.PutSDKWebhookRequest](updateCmdMeta); err != nil {
+		return fmt.Errorf("invalid metadata for update: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
 	parent.AddCommand(cmd)
 	return nil
 }
 
-// runPostSDKConnectionWebhookCmd executes the post-SDK-connection-webhook command.
-func runPostSDKConnectionWebhookCmd(cmd *cobra.Command, args []string) error {
+// runUpdateCmd executes the update command.
+func runUpdateCmd(cmd *cobra.Command, args []string) error {
 	if usage.UsageRequested(cmd) {
 		return usage.EmitSchema(cmd, cmd.OutOrStdout())
 	}
-	if interactive.ShouldPrompt(cmd, postSDKConnectionWebhookCmdMeta) {
-		if err := interactive.PromptAndSetFlags(cmd, postSDKConnectionWebhookCmdMeta); err != nil {
+	if interactive.ShouldPrompt(cmd, updateCmdMeta) {
+		if err := interactive.PromptAndSetFlags(cmd, updateCmdMeta); err != nil {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.PostSDKConnectionWebhookRequest](cmd, postSDKConnectionWebhookCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.PutSDKWebhookRequest](cmd, updateCmdMeta, "Body", "body")
 	if err != nil {
 		return err
 	}
@@ -77,7 +77,7 @@ func runPostSDKConnectionWebhookCmd(cmd *cobra.Command, args []string) error {
 	if output.WantsRawJSON(cmd) {
 		sdkOpts = append(sdkOpts, operations.WithSkipDeserialization())
 	}
-	res, err := s.SDKWebhooks.PostSDKConnectionWebhook(cmd.Context(), *req, sdkOpts...)
+	res, err := s.SDKWebhooks.Update(cmd.Context(), *req, sdkOpts...)
 	if err != nil {
 		return output.Error(cmd, err)
 	}

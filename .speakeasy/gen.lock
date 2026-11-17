@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 4c8e0331-b838-4af2-bf59-101dac30ada4
 management:
-  docChecksum: 2e94f065b5feca10ee4f0e6eb0885bf5
+  docChecksum: a4fb8f54a607abfc8e03ecae7c323e3a
   docVersion: 5.2.0
   speakeasyVersion: 1.794.0
   generationVersion: 2.930.0
-  releaseVersion: 4.0.1
-  configChecksum: e7087dfc3b1e763b3ebaa22d94d6b07b
+  releaseVersion: 4.1.0
+  configChecksum: a82bc47b9560dac2ce71a15cc0f12361
   repoURL: https://github.com/growthbook/cli.git
   installationURL: https://github.com/growthbook/cli
 persistentEdits:
-  generation_id: 7741e354-17c5-4f5f-934f-6ad61334ffdd
-  pristine_commit_hash: 6cd3a48f06cc692dd36aaf1995407318ac247ba3
-  pristine_tree_hash: a95c1b9c8346a2b1e4e0b8503add3965819c1ece
+  generation_id: 2d4afde2-21a0-4dd8-965a-5c9c73c6f804
+  pristine_commit_hash: 40ab54878c9fc7250772d4fcb60b52fd97650f2f
+  pristine_tree_hash: 76314cf711f2e8605978996359ac582599b146ee
 features:
   cli:
     additionalProperties: 0.0.1
@@ -729,18 +729,18 @@ trackedFiles:
     id: 7170cced2665
     last_write_checksum: sha1:04182bff84b0a6de91aca7a29260dd43a0212865
     pristine_git_object: 131dea6072622c605567bb6e36a4cf2c45ea6ba1
-  internal/cli/datasources/postdatasourceinformationschemarefresh.go:
-    id: af9a24e2e335
-    last_write_checksum: sha1:05ac2461259a64c3b7d9dd4245a28398c7236f34
-    pristine_git_object: c161264c7ef6fa35e5cc4104638a189313fd1f12
   internal/cli/datasources/previewwarehousecolumnvalues.go:
     id: ed68a86cd4f6
     last_write_checksum: sha1:bf7322520c043877a08a2673a125e94cf382c265
     pristine_git_object: d4e3f9ca0c1d1d5342cf9fefd44b5c44a105cf7c
+  internal/cli/datasources/refreshinformationschema.go:
+    id: 102e173600a2
+    last_write_checksum: sha1:73fd9b25a06cd45ab6e1061252475ea5024981e7
+    pristine_git_object: e3589b878538d6b6ce2d9d033a46f3589bf89124
   internal/cli/datasources/root.go:
     id: d9316548f2b7
-    last_write_checksum: sha1:822ad156d263569e326f56d7d083febe363e9061
-    pristine_git_object: 50c83af63037215b0743d7a39d07187b56d5dbbd
+    last_write_checksum: sha1:4037d8e82d67da7bada96951f222d4b48a1cc488
+    pristine_git_object: 94135b61731f29629de807f9c2cb10da42f76dab
   internal/cli/datasources/runsqlquery.go:
     id: 4bcb400bb0bd
     last_write_checksum: sha1:9bcec608bde747e2f321e2e78896206b8ceb249d
@@ -797,6 +797,10 @@ trackedFiles:
     id: 51d14beb870c
     last_write_checksum: sha1:95aa3a362f7936f948346819adbc0eb762f4fafa
     pristine_git_object: b3e2b33b15eb6784ba07a912feaa786a12bcade8
+  internal/cli/eventwebhooks/create.go:
+    id: 68e06d3d9458
+    last_write_checksum: sha1:b52cf2545dee755942ae72414dc19b39ca1ac784
+    pristine_git_object: 0b653406ab82a9d8573feef9c773383c77159240
   internal/cli/eventwebhooks/deleteeventwebhook.go:
     id: dc5e4dc4ed99
     last_write_checksum: sha1:90b51ef005f6e276a7b12e1837046fa6d231ae6a
@@ -805,30 +809,26 @@ trackedFiles:
     id: c451510ca799
     last_write_checksum: sha1:e286353ad92617b26633c2072bfbc41abb697a05
     pristine_git_object: 7766a34f3cadc4b0a51e70b8101e97dc124bb0bd
-  internal/cli/eventwebhooks/listeventwebhooklogs.go:
-    id: 05f136da0582
-    last_write_checksum: sha1:9c2b865c9e1d7e726f51be75c962ee240310d15d
-    pristine_git_object: 3a4c4afcf2dc07a2dbcef19bd5e7395d3cdc5226
   internal/cli/eventwebhooks/listeventwebhooks.go:
     id: 539f75cb5413
     last_write_checksum: sha1:6ca8975a6bbe50e2d9f0f4732ab472943075a48a
     pristine_git_object: 29d4d336d07c2b1a17d936b900beb1e354c74989
-  internal/cli/eventwebhooks/posteventwebhook.go:
-    id: a182815b7239
-    last_write_checksum: sha1:6c251ebdf395fa73c4ff8d61c72ee72b5317a212
-    pristine_git_object: 7a119bbc40b2101e3cfc585e0deaf229c50f944a
-  internal/cli/eventwebhooks/posteventwebhooktest.go:
-    id: a3a5f469c5f4
-    last_write_checksum: sha1:c367ba1c203083e22ef79d65d1dad465c94290c3
-    pristine_git_object: c25a782cf93416777974e3b1a47117dd240ad622
-  internal/cli/eventwebhooks/puteventwebhook.go:
-    id: 28db7bbecfa6
-    last_write_checksum: sha1:911b522d479f1d7393aa41b4a9d60a0aa98359bb
-    pristine_git_object: 76f925f3d89388d0921a6acaf46f06038840d647
+  internal/cli/eventwebhooks/listlogs.go:
+    id: 58bc5cad328a
+    last_write_checksum: sha1:57dadf5f1153eb0559bf6c92331e995d10244477
+    pristine_git_object: 742ce36dcfb4b21e82c05c0d852009a4f5aadf70
   internal/cli/eventwebhooks/root.go:
     id: 41497c361448
-    last_write_checksum: sha1:dc7046fd7d09686f20ffc1f721949b17e87f8d6c
-    pristine_git_object: 38b0e36f59c3a56343ce338fb3cae8af6785a0e1
+    last_write_checksum: sha1:4120e2dcbb4949d1bb2eea7ca16399b3da49176e
+    pristine_git_object: 89d8ff29624dcf2c361917f11d9179b586bcbf47
+  internal/cli/eventwebhooks/test.go:
+    id: d47384d91582
+    last_write_checksum: sha1:ef05bd2a55365ee4e50317a1b844419244c3f4e1
+    pristine_git_object: fcb649af2c972506110ee6e9ecfc85444800be00
+  internal/cli/eventwebhooks/update.go:
+    id: eae2ea2967fe
+    last_write_checksum: sha1:140824e0a94b20b86d6928ae9bef49f20cda719b
+    pristine_git_object: a022eee6b625a91f6d13e62379f4004481f568ad
   internal/cli/experiments/archive.go:
     id: 3b69237975f0
     last_write_checksum: sha1:82a7dde92f6aece510100df6fce8680b26582c40
@@ -1393,14 +1393,14 @@ trackedFiles:
     id: 9c609b5469af
     last_write_checksum: sha1:2a0dcf53e52d402c413b930cab401fcffaa3f671
     pristine_git_object: 874b4c1e2cbbe0d65b7c0c3da9e6d13032bf73e9
-  internal/cli/informationschematables/postinformationschematablerefresh.go:
-    id: 5787fdf8e487
-    last_write_checksum: sha1:84d9d40327eebb6f498f339871a0d4478cd8cefa
-    pristine_git_object: a233cad9a6ca2505d81be8f14141f1d6bc3ab03d
+  internal/cli/informationschematables/refresh.go:
+    id: e7b5183f73be
+    last_write_checksum: sha1:f10e3ba786a6a9b378b31f829040a7a4239dcd4d
+    pristine_git_object: 0b8c8438d2e351664dca28e43c028b4923331f68
   internal/cli/informationschematables/root.go:
     id: 821d48f48a80
-    last_write_checksum: sha1:937f7b07ba13fccb6e46706c0f0cbe3defc95330
-    pristine_git_object: 73796d1c4d43079e00d5fe8377a8dbd5252086f4
+    last_write_checksum: sha1:ad07822b095a7fbe67fc87b31735319a6b8b282d
+    pristine_git_object: 68b9b910d4c06ddb0dbb4591e015aaa51bef5b8a
   internal/cli/interleavingexposurequeries/create.go:
     id: ac6f831b7e79
     last_write_checksum: sha1:20e51f76547b6882b2aad6dade52f3db753b6951
@@ -1685,6 +1685,10 @@ trackedFiles:
     id: 79b2d809d1e9
     last_write_checksum: sha1:36547c99d8c226f1f5ecf183730a380060db555b
     pristine_git_object: 980c6d8ab31e536b06ab65aa613aff58d7950e8d
+  internal/cli/queries/cancel.go:
+    id: c689faa84774
+    last_write_checksum: sha1:1b1ae14c8c21819961cd2131c0b3a66b537d7ba5
+    pristine_git_object: 03196091b1f21a5db4e671802158050f6a5f3a65
   internal/cli/queries/getquery.go:
     id: 1520ed3ed28f
     last_write_checksum: sha1:9ba30c3f1e50a331dc0843379f5ab4cd8805efcb
@@ -1693,14 +1697,10 @@ trackedFiles:
     id: e78c080c6ab3
     last_write_checksum: sha1:1e4be2241df647826c76d198576abd0ff1583f25
     pristine_git_object: 56539c7303b0ed8d9034c5044c250c10aa1d055e
-  internal/cli/queries/postquerycancel.go:
-    id: 4131c8450c33
-    last_write_checksum: sha1:f969d904cb470e2b04db88d2d7d19a8963569783
-    pristine_git_object: 86e22ddd2652ca947734469bf3abf4db78fb933f
   internal/cli/queries/root.go:
     id: 3e56d86fc95b
-    last_write_checksum: sha1:a843da0f364a7b1452519284ec1c69927a4a5805
-    pristine_git_object: 74675edd2b1c20a5e7f9ee4f8ec943b39ecf4f16
+    last_write_checksum: sha1:76ff26dad6ce70c3e246e6c2bb54595a724212b0
+    pristine_git_object: 33fa25abcf5501002af7823fde9f78b2e6f6d345
   internal/cli/rampschedules/addtargetrampschedule.go:
     id: 4f8b3eddee20
     last_write_checksum: sha1:5142e92ddd30e6489d5f28a51f4cf727430c999e
@@ -2057,30 +2057,30 @@ trackedFiles:
     id: a34bef8c4b0d
     last_write_checksum: sha1:c1b6d05a6142169181b18edaf1ef46fd5e022d9e
     pristine_git_object: cfbb27009fe629547c320c7e973793a61c52b964
+  internal/cli/sdkwebhooks/create.go:
+    id: 41192aeb7cce
+    last_write_checksum: sha1:94925d260d52cceba455f183420127470a6d35ca
+    pristine_git_object: 0c01c0e34be1d13a9ebb81336b50623d68f3453e
   internal/cli/sdkwebhooks/deletesdkwebhook.go:
     id: 3ea514a7f484
     last_write_checksum: sha1:579b01468a768a84addc57ee6435f6bee6c4a7fb
     pristine_git_object: a1404281fd7e9aa86052149889826baa7e5f3dd8
-  internal/cli/sdkwebhooks/listsdkconnectionwebhooks.go:
-    id: 40661a83eed7
-    last_write_checksum: sha1:141e05075838ed666d14724a17a1ee04f21ecadd
-    pristine_git_object: ba2a0f1cf3aa4ae32f595610c3f7b2625dba5caf
-  internal/cli/sdkwebhooks/postsdkconnectionwebhook.go:
-    id: 509a4cd38511
-    last_write_checksum: sha1:5221346e09722a82427a39a953afe900acb4669f
-    pristine_git_object: 813b68f689ef35ffe696f5e10b5a440416b26c9f
-  internal/cli/sdkwebhooks/postsdkwebhooktest.go:
-    id: a34ae89a9dc0
-    last_write_checksum: sha1:f6b939d4f8d14cdfdcb8168e4bcca491a3a8b6d1
-    pristine_git_object: 8037e3969c44db0e1b0c9147bbf11ee3004e2fdd
-  internal/cli/sdkwebhooks/putsdkwebhook.go:
-    id: 28468c7d95be
-    last_write_checksum: sha1:17917df3226e25f3f15f79a1853cfd907330f12d
-    pristine_git_object: 1de053a8c068a6f78acd4164d68eb2cd326066bf
+  internal/cli/sdkwebhooks/list.go:
+    id: 774397a2c7cd
+    last_write_checksum: sha1:a0b8d0ca7283914943da7320d6109ae5816f1f64
+    pristine_git_object: 5be7d50d5c4446a20645c9de8dc44d135e664df1
   internal/cli/sdkwebhooks/root.go:
     id: 885467080fe9
-    last_write_checksum: sha1:ab9a2f6909a73a0dc25ea0381d3c65285191e80c
-    pristine_git_object: 12b4c6d46c85bcc64194900ba10e1b21aa016c51
+    last_write_checksum: sha1:5e0f1d5ab5debb04e63e67fc3da843ce8a6b35c4
+    pristine_git_object: 0a4db48a0f6fb0fc4821279ea836bd3285c98766
+  internal/cli/sdkwebhooks/test.go:
+    id: 8631f613fd67
+    last_write_checksum: sha1:d712afcd17f1464a281062b4eb55a1e3d77fe1da
+    pristine_git_object: 16f2a59cd4abb82b77ea72f079fbc10a57ca4ac0
+  internal/cli/sdkwebhooks/update.go:
+    id: a8ca19ec80e7
+    last_write_checksum: sha1:995bd1eb86e14c6a9ed54b5492e8124e211d79f4
+    pristine_git_object: 8181a45388bcf6640455e8c4f0dd5ccc61d57ba4
   internal/cli/segments/create.go:
     id: 109ac58966ba
     last_write_checksum: sha1:6a547d3aa0feb427cc98ec5f99aa3b003dad3c74
@@ -2167,8 +2167,8 @@ trackedFiles:
     pristine_git_object: 21d35115d6a9c08d3809d40681dfbe063e5814e8
   internal/cli/version.go:
     id: 7b0665492f72
-    last_write_checksum: sha1:5fe75599446e24659f33f818388f71f75e5b93ce
-    pristine_git_object: 83cfeeb43c2f469a0939d0bbd6fc14f09feac5f6
+    last_write_checksum: sha1:f5435bf642ea3367cdb5a09f7792e1b35b3536bf
+    pristine_git_object: d3e10623d2ab6708b49671359661d4f006ba390d
   internal/cli/visualchangesets/addvisualchange.go:
     id: fdbcb9d69b23
     last_write_checksum: sha1:b51f73bea86e4f5a66a0a2002d72deabf8673082
@@ -2355,8 +2355,8 @@ trackedFiles:
     pristine_git_object: 5f6f102463d260cb613286b621b4377288333a54
   internal/sdk/datasources.go:
     id: 220c8b84e1bb
-    last_write_checksum: sha1:16900d815a52586525141ceab8758993c12013cf
-    pristine_git_object: fe04dd75a0d58ec78b6b414ae731180546fb633d
+    last_write_checksum: sha1:407d60ce21c816e80ace5ad14b2bf6a3f90fd0df
+    pristine_git_object: ccb48f85ec323382121c3f3bfb78e74bcecf3840
   internal/sdk/dimensions.go:
     id: d689563c7ed0
     last_write_checksum: sha1:59e0d3917e6e643c13e1cd09202ad02a571e6ab0
@@ -2367,8 +2367,8 @@ trackedFiles:
     pristine_git_object: 306ffb9bd3e579a5495722a68f34734cf9562c9a
   internal/sdk/eventwebhooks.go:
     id: 05bbdbe866eb
-    last_write_checksum: sha1:56270ac7b18fd29e78e1f75e3718d2d847b32f02
-    pristine_git_object: 0d79588f4a3f46ca5ad80aac22e345adbdce8d21
+    last_write_checksum: sha1:11deb116ca2dabfb33291396d113567137a0502e
+    pristine_git_object: 94904ce712d6b3dc1a81ad055d8e1cfb8e90f0a0
   internal/sdk/experiments.go:
     id: bec31387a809
     last_write_checksum: sha1:536a3d0ff454e384bac18dbece0a82bf72b66d43
@@ -2411,8 +2411,8 @@ trackedFiles:
     pristine_git_object: 603c44482b0f73d4a7ee844370386fef7c9a1de0
   internal/sdk/informationschematables.go:
     id: 533c23c6bad5
-    last_write_checksum: sha1:5d8ba84cb4c0c09b397121fc618122b89bcb2414
-    pristine_git_object: 792fad79a7c6ad232cb9ca0dce46e7608b219557
+    last_write_checksum: sha1:6bb27be0f8d4932540d52dbea540e95d662b693d
+    pristine_git_object: 74ca2cf50db2ed8b859abe8587bc9b5ad27ed17b
   internal/sdk/interleavingexposurequeries.go:
     id: 570e30deec0b
     last_write_checksum: sha1:723e6edb85ea95b16c54d7480d65c04d7834cc6e
@@ -5167,8 +5167,8 @@ trackedFiles:
     pristine_git_object: 106282c3242e922ad04767719e0cefc5445decb8
   internal/sdk/queries.go:
     id: "712568963946"
-    last_write_checksum: sha1:a4a32f6a095a62d350b17ca710670d265f993939
-    pristine_git_object: ff4cac36372dca1eb6fbedd5e4db299188f84a18
+    last_write_checksum: sha1:a1b24b1e015fbbc28b98bcaeadcd5239f0321df7
+    pristine_git_object: fcd6e5bc0be38c1781e3694e91c3c7dbbf144712
   internal/sdk/rampschedules.go:
     id: 899ea39fe48b
     last_write_checksum: sha1:beceb181dfc45f14c42e078da061aca6dbcbd800
@@ -5263,8 +5263,8 @@ trackedFiles:
     pristine_git_object: a614e37673d3ea81eabc6139236edfb22a15dc55
   internal/sdk/sdkwebhooks.go:
     id: 97941a81ebff
-    last_write_checksum: sha1:9a5498220f5f930af66fffef1822be111d2c4164
-    pristine_git_object: 5fa89da93a811be0c25dfdbd3813dfb0cb00562b
+    last_write_checksum: sha1:67ffbf37f9150305e1d009e6b80c02d54399a849
+    pristine_git_object: 92892d973128e67a6ce288fb2c3bea47c7c8b2bf
   internal/sdk/segments.go:
     id: 9fc2f795aa54
     last_write_checksum: sha1:37d5643cde093b4bbe1c14629f4a9e53bc8cecdc
@@ -5315,8 +5315,8 @@ trackedFiles:
     pristine_git_object: 159a87ec97aba99e4edd132f69652e123434303e
   internal/usage/schema.go:
     id: 0f40f4612437
-    last_write_checksum: sha1:9210b3e2a9b22907fe5ef579e96e9b30d7e95eae
-    pristine_git_object: a2cd7370c3c0cbd7a74b2c7d20f807b21aed64b9
+    last_write_checksum: sha1:d5eb0ec3b16fd4a9a8ceb5e554548f25b7285e9a
+    pristine_git_object: 966daefac47f2ffc5ac00acc980a11cabd1634b8
   scripts/install.ps1:
     id: fee0853709e9
     last_write_checksum: sha1:f9df93912e2b5d20eaffddbdb2708ce76ec06445
@@ -10310,4 +10310,3 @@ examples:
         "202":
           application/json: {"confirmation": {"id": "<id>", "status": "pending", "actions": [], "summary": "<value>", "url": "https://helpless-redesign.com", "expiresAt": "1754467944709", "response": {"status": 7086.44}, "note": "<value>"}, "message": "<value>"}
 examplesVersion: 1.0.2
-releaseNotes: "## Cli SDK Changes:\n* `Growthbook.Interleavings.RefreshInterleaving()`:  `response.Snapshot.Results[].Test.Ci[]` **Changed** (Breaking ⚠️)\n* `Growthbook.Interleavings.GetResults()`:  `response.Snapshot.Results[].Test.Ci[]` **Changed** (Breaking ⚠️)\n* `Growthbook.Interleavings.ListSnapshots()`:  `response.Snapshots[].Results[].Test.Ci[]` **Changed** (Breaking ⚠️)\n* `Growthbook.Interleavings.GetSnapshot()`:  `response.Snapshot.Results[].Test.Ci[]` **Changed** (Breaking ⚠️)\n* `Growthbook.DataSources.UpdateDataSource()`: **Added**\n* `Growthbook.DataSources.DeleteDataSource()`: **Added**\n* `Growthbook.DataSources.PostDataSourceInformationSchemaRefresh()`: **Added**\n* `Growthbook.Queries.ListDataSourceQueries()`: **Added**\n* `Growthbook.Queries.PostQueryCancel()`: **Added**\n* `Growthbook.InformationSchemaTables.PostInformationSchemaTableRefresh()`: **Added**\n* `Growthbook.RampSchedules.RetryRampSchedule()`: **Added**\n* `Growthbook.EventWebhooks.ListEventWebhooks()`: **Added**\n* `Growthbook.EventWebhooks.PostEventWebhook()`: **Added**\n* `Growthbook.EventWebhooks.GetEventWebhook()`: **Added**\n* `Growthbook.EventWebhooks.PutEventWebhook()`: **Added**\n* `Growthbook.EventWebhooks.DeleteEventWebhook()`: **Added**\n* `Growthbook.EventWebhooks.ListEventWebhookLogs()`: **Added**\n* `Growthbook.EventWebhooks.PostEventWebhookTest()`: **Added**\n* `Growthbook.Audits.ListAudits()`: **Added**\n* `Growthbook.Audits.ListEvents()`: **Added**\n* `Growthbook.Audits.GetEvent()`: **Added**\n* `Growthbook.WebhookSecrets.GetWebhookSecret()`: **Added**\n* `Growthbook.WebhookSecrets.DeleteWebhookSecret()`: **Added**\n* `Growthbook.WebhookSecrets.ListWebhookSecrets()`: **Added**\n* `Growthbook.SdkWebhooks.ListSdkConnectionWebhooks()`: **Added**\n* `Growthbook.SdkWebhooks.PostSdkConnectionWebhook()`: **Added**\n* `Growthbook.SdkWebhooks.PutSdkWebhook()`: **Added**\n* `Growthbook.SdkWebhooks.DeleteSdkWebhook()`: **Added**\n* `Growthbook.SdkWebhooks.PostSdkWebhookTest()`: **Added**\n* `Growthbook.FeaturesV1.Create()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeaturesV1.Update()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeaturesV1.Delete()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeaturesV1.Toggle()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeaturesV1.Revert()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisionsV1.Create()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionMetadata()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionDefaultValue()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionPrerequisites()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionHoldout()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionArchive()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionToggle()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionRuleAdd()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionRule()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisionsV1.DeleteFeatureRevisionRule()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionRulesReorder()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisionsV1.PutFeatureRevisionRuleRampSchedule()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisionsV1.DeleteFeatureRevisionRuleRampSchedule()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionRequestReview()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionSubmitReview()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionRebase()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionPublish()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionDiscard()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisionsV1.PostFeatureRevisionRevert()`:  `response.Confirmation` **Changed**\n* `Growthbook.Features.Create()`:  `response.Confirmation` **Changed**\n* `Growthbook.Features.Update()`:  `response.Confirmation` **Changed**\n* `Growthbook.Features.Delete()`:  `response.Confirmation` **Changed**\n* `Growthbook.Features.Toggle()`:  `response.Confirmation` **Changed**\n* `Growthbook.Features.Revert()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisions.Create()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisions.Diff()`:  `response.union(class (1)).Diff.Supplemental[]` **Changed**\n* `Growthbook.FeatureRevisions.SetMetadata()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisions.SetDefaultValue()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisions.SetPrerequisites()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisions.SetHoldout()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisions.Archive()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisions.Toggle()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisions.AddRule()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisions.UpdateRule()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisions.DeleteRule()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisions.ReorderRules()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisions.SetRuleRampSchedule()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisions.DeleteRuleRampSchedule()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisions.RequestReview()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisions.SchedulePublish()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisions.SubmitReview()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisions.RecallReview()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisions.UndoReview()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisions.AddLogComment()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisions.DeleteLogEntry()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisions.RebasePreview()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisions.Rebase()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisions.Publish()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisions.Discard()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisions.Reopen()`:  `response.Confirmation` **Changed**\n* `Growthbook.FeatureRevisions.Revert()`:  `response.Confirmation` **Changed**\n* `Growthbook.Archetypes.Create()`:  `response.Confirmation` **Changed**\n* `Growthbook.Archetypes.Update()`:  `response.Confirmation` **Changed**\n* `Growthbook.Archetypes.DeleteArchetype()`:  `response.Confirmation` **Changed**\n* `Growthbook.Experiments.Create()`:  `response.Confirmation` **Changed**\n* `Growthbook.Experiments.ListResults()`:  `response.ExperimentResults[].Health` **Added**\n* `Growthbook.Experiments.GetExperiment()`:  `response.Experiment.EnhancedStatus` **Changed**\n* `Growthbook.Experiments.UpdateExperiment()`:  `response.Confirmation` **Changed**\n* `Growthbook.Experiments.DeleteExperiment()`:  `response.Confirmation` **Changed**\n* `Growthbook.Experiments.Results()`:  `response` **Changed**\n* `Growthbook.Experiments.Archive()`:  `response` **Changed**\n* `Growthbook.Experiments.Unarchive()`:  `response` **Changed**\n* `Growthbook.Experiments.Start()`:  `response` **Changed**\n* `Growthbook.Experiments.CompleteStartChecklist()`:  `response.Confirmation` **Changed**\n* `Growthbook.Experiments.Stop()`:  `response` **Changed**\n* `Growthbook.Experiments.SetSchedule()`:  `response` **Changed**\n* `Growthbook.Experiments.ModifyTemporaryRollout()`:  `response` **Changed**\n* `Growthbook.Experiments.CreateSnapshot()`:  `response.Confirmation` **Changed**\n* `Growthbook.Experiments.UploadVariationScreenshot()`:  `response.Confirmation` **Changed**\n* `Growthbook.Experiments.DeleteVariationScreenshot()`:  `response.Confirmation` **Changed**\n* `Growthbook.Experiments.PostComment()`:  `response.Confirmation` **Changed**\n* `Growthbook.VisualChangesets.Create()`:  `response.Confirmation` **Changed**\n* `Growthbook.VisualChangesets.Update()`:  `response.Confirmation` **Changed**\n* `Growthbook.VisualChangesets.AddVisualChange()`:  `response.Confirmation` **Changed**\n* `Growthbook.VisualChangesets.UpdateVisualChange()`:  `response.Confirmation` **Changed**\n* `Growthbook.ContextualBandits.AddLinkedFeature()`:  `response.Confirmation` **Changed**\n* `Growthbook.ContextualBandits.UpdateLinkedFeature()`:  `response.Confirmation` **Changed**\n* `Growthbook.ContextualBandits.DeleteLinkedFeature()`:  `response.Confirmation` **Changed**\n* `Growthbook.ContextualBandits.UpdateContextualBandit()`:  `response.Confirmation` **Changed**\n* `Growthbook.ContextualBandits.DeleteContextualBandit()`:  `response.Confirmation` **Changed**\n* `Growthbook.ContextualBandits.CreateContextualBandit()`:  `response.Confirmation` **Changed**\n* `Growthbook.ContextualBandits.StartContextualBandit()`:  `response.Confirmation` **Changed**\n* `Growthbook.ContextualBandits.StopContextualBandit()`:  `response.Confirmation` **Changed**\n* `Growthbook.ContextualBandits.RefreshContextualBandit()`:  `response.Confirmation` **Changed**\n* `Growthbook.ContextualBandits.UpdateVariations()`:  `response.Confirmation` **Changed**\n* `Growthbook.ContextualBandits.CreateVisualChangeset()`:  `response.Confirmation` **Changed**\n* `Growthbook.Metrics.Create()`:  `response.Confirmation` **Changed**\n* `Growthbook.Metrics.Update()`:  `response.Confirmation` **Changed**\n* `Growthbook.Metrics.DeleteMetric()`:  `response.Confirmation` **Changed**\n* `Growthbook.Segments.Create()`:  `response.Confirmation` **Changed**\n* `Growthbook.Segments.UpdateSegment()`:  `response.Confirmation` **Changed**\n* `Growthbook.Segments.DeleteSegment()`:  `response.Confirmation` **Changed**\n* `Growthbook.Dimensions.ListDimensions()`:  `response.Dimensions[]` **Changed**\n* `Growthbook.Dimensions.Create()`: \n  *  `request.Request` **Changed**\n  *  `response` **Changed**\n* `Growthbook.Dimensions.GetDimension()`:  `response.Dimension` **Changed**\n* `Growthbook.Dimensions.UpdateDimension()`: \n  *  `request.Request.Body` **Changed**\n  *  `response` **Changed**\n* `Growthbook.Dimensions.DeleteDimension()`:  `response.Confirmation` **Changed**\n* `Growthbook.Projects.Create()`:  `response.Confirmation` **Changed**\n* `Growthbook.Projects.Update()`:  `response.Confirmation` **Changed**\n* `Growthbook.Projects.DeleteProject()`:  `response.Confirmation` **Changed**\n* `Growthbook.Environments.Create()`:  `response.Confirmation` **Changed**\n* `Growthbook.Environments.Update()`:  `response.Confirmation` **Changed**\n* `Growthbook.Environments.DeleteEnvironment()`:  `response.Confirmation` **Changed**\n* `Growthbook.Attributes.Create()`:  `response.Confirmation` **Changed**\n* `Growthbook.Attributes.Update()`:  `response.Confirmation` **Changed**\n* `Growthbook.Attributes.DeleteAttribute()`:  `response.Confirmation` **Changed**\n* `Growthbook.SdkConnections.Create()`:  `response.Confirmation` **Changed**\n* `Growthbook.SdkConnections.Update()`:  `response.Confirmation` **Changed**\n* `Growthbook.SdkConnections.DeleteSdkConnection()`:  `response.Confirmation` **Changed**\n* `Growthbook.DataSources.ListDataSources()`:  `response.DataSources[]` **Changed**\n* `Growthbook.DataSources.GetDataSource()`:  `response.DataSource` **Changed**\n* `Growthbook.SavedGroups.Create()`:  `response.Confirmation` **Changed**\n* `Growthbook.SavedGroups.UpdateSavedGroup()`:  `response.Confirmation` **Changed**\n* `Growthbook.SavedGroups.DeleteSavedGroup()`:  `response.Confirmation` **Changed**\n* `Growthbook.SavedGroups.ArchiveSavedGroup()`:  `response.Confirmation` **Changed**\n* `Growthbook.SavedGroups.UnarchiveSavedGroup()`:  `response.Confirmation` **Changed**\n* `Growthbook.SavedGroups.CreateUpload()`:  `response.Confirmation` **Changed**\n* `Growthbook.SavedGroups.CreateUploadUrl()`:  `response.Confirmation` **Changed**\n* `Growthbook.SavedGroups.LoadUpload()`:  `response.Confirmation` **Changed**\n* `Growthbook.SavedGroups.DeleteUpload()`:  `response.Confirmation` **Changed**\n* `Growthbook.SavedGroupRevisions.Create()`:  `response.Confirmation` **Changed**\n* `Growthbook.SavedGroupRevisions.SetMetadata()`:  `response.Confirmation` **Changed**\n* `Growthbook.SavedGroupRevisions.SetCondition()`:  `response.Confirmation` **Changed**\n* `Growthbook.SavedGroupRevisions.SetValues()`:  `response.Confirmation` **Changed**\n* `Growthbook.SavedGroupRevisions.SetUploadVersion()`:  `response.Confirmation` **Changed**\n* `Growthbook.SavedGroupRevisions.Archive()`:  `response.Confirmation` **Changed**\n* `Growthbook.SavedGroupRevisions.AddItems()`:  `response.Confirmation` **Changed**\n* `Growthbook.SavedGroupRevisions.RemoveItems()`:  `response.Confirmation` **Changed**\n* `Growthbook.SavedGroupRevisions.RequestReview()`:  `response.Confirmation` **Changed**\n* `Growthbook.SavedGroupRevisions.SubmitReview()`:  `response.Confirmation` **Changed**\n* `Growthbook.SavedGroupRevisions.RecallReview()`:  `response.Confirmation` **Changed**\n* `Growthbook.SavedGroupRevisions.Reopen()`:  `response.Confirmation` **Changed**\n* `Growthbook.SavedGroupRevisions.SchedulePublish()`:  `response.Confirmation` **Changed**\n* `Growthbook.SavedGroupRevisions.UndoReview()`:  `response.Confirmation` **Changed**\n* `Growthbook.SavedGroupRevisions.MergeStatus()`:  `response.Conflicts[]` **Changed**\n* `Growthbook.SavedGroupRevisions.Rebase()`:  `response.Confirmation` **Changed**\n* `Growthbook.SavedGroupRevisions.Publish()`:  `response.Confirmation` **Changed**\n* `Growthbook.SavedGroupRevisions.Discard()`:  `response.Confirmation` **Changed**\n* `Growthbook.SavedGroupRevisions.Revert()`:  `response.Confirmation` **Changed**\n* `Growthbook.Constants.Create()`:  `response.Confirmation` **Changed**\n* `Growthbook.Constants.UpdateConstant()`:  `response.Confirmation` **Changed**\n* `Growthbook.Constants.DeleteConstant()`:  `response.Confirmation` **Changed**\n* `Growthbook.Constants.ArchiveConstant()`:  `response.Confirmation` **Changed**\n* `Growthbook.Constants.UnarchiveConstant()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConstantRevisions.Create()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConstantRevisions.SetMetadata()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConstantRevisions.SetValue()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConstantRevisions.Archive()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConstantRevisions.RequestReview()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConstantRevisions.SubmitReview()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConstantRevisions.RecallReview()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConstantRevisions.Reopen()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConstantRevisions.SchedulePublish()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConstantRevisions.UndoReview()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConstantRevisions.MergeStatus()`:  `response.Conflicts[]` **Changed**\n* `Growthbook.ConstantRevisions.Rebase()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConstantRevisions.Publish()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConstantRevisions.Discard()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConstantRevisions.Revert()`:  `response.Confirmation` **Changed**\n* `Growthbook.Configs.Create()`:  `response.Confirmation` **Changed**\n* `Growthbook.Configs.UpdateConfig()`:  `response.Confirmation` **Changed**\n* `Growthbook.Configs.DeleteConfig()`:  `response.Confirmation` **Changed**\n* `Growthbook.Configs.ArchiveConfig()`:  `response.Confirmation` **Changed**\n* `Growthbook.Configs.UnarchiveConfig()`:  `response.Confirmation` **Changed**\n* `Growthbook.Configs.LockConfig()`:  `response.Confirmation` **Changed**\n* `Growthbook.Configs.UnlockConfig()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConfigRevisions.Create()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConfigRevisions.SetMetadata()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConfigRevisions.SetValue()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConfigRevisions.SetProperty()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConfigRevisions.DeleteProperty()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConfigRevisions.SetSchema()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConfigRevisions.SetProjection()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConfigRevisions.DeleteProjection()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConfigRevisions.Archive()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConfigRevisions.RequestReview()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConfigRevisions.SubmitReview()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConfigRevisions.UndoReview()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConfigRevisions.RecallReview()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConfigRevisions.Reopen()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConfigRevisions.SchedulePublish()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConfigRevisions.MergeStatus()`:  `response.Conflicts[]` **Changed**\n* `Growthbook.ConfigRevisions.Rebase()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConfigRevisions.Publish()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConfigRevisions.Discard()`:  `response.Confirmation` **Changed**\n* `Growthbook.ConfigRevisions.Revert()`:  `response.Confirmation` **Changed**\n* `Growthbook.Releases.PublishRevisions()`:  `response.Confirmation` **Changed**\n* `Growthbook.CustomHooks.Create()`:  `response.Confirmation` **Changed**\n* `Growthbook.CustomHooks.UpdateCustomHook()`:  `response.Confirmation` **Changed**\n* `Growthbook.CustomHooks.DeleteCustomHook()`:  `response.Confirmation` **Changed**\n* `Growthbook.CustomHooks.RevertCustomHook()`:  `response.Confirmation` **Changed**\n* `Growthbook.Organizations.Create()`:  `response.Confirmation` **Changed**\n* `Growthbook.Organizations.Update()`:  `response.Confirmation` **Changed**\n* `Growthbook.FactTables.Create()`:  `response.Confirmation` **Changed**\n* `Growthbook.FactTables.UpdateFactTable()`:  `response.Confirmation` **Changed**\n* `Growthbook.FactTables.DeleteFactTable()`:  `response.Confirmation` **Changed**\n* `Growthbook.FactTables.CreateFilter()`:  `response.Confirmation` **Changed**\n* `Growthbook.FactTables.UpdateFilter()`:  `response.Confirmation` **Changed**\n* `Growthbook.FactTables.DeleteFilter()`:  `response.Confirmation` **Changed**\n* `Growthbook.FactTables.CreateVirtualColumn()`:  `response.Confirmation` **Changed**\n* `Growthbook.FactTables.UpdateVirtualColumn()`:  `response.Confirmation` **Changed**\n* `Growthbook.FactTables.DeleteVirtualColumn()`:  `response.Confirmation` **Changed**\n* `Growthbook.FactTables.BulkImport()`: \n  *  `request.Request.FactMetrics[].Data` **Changed**\n  *  `response.Confirmation` **Changed**\n* `Growthbook.FactMetrics.ListFactMetrics()`:  `response.FactMetrics[]` **Changed**\n* `Growthbook.FactMetrics.Create()`: \n  *  `request.Request` **Changed**\n  *  `response` **Changed**\n* `Growthbook.FactMetrics.GetFactMetric()`:  `response.FactMetric` **Changed**\n* `Growthbook.FactMetrics.UpdateFactMetric()`: \n  *  `request.Request.Body` **Changed**\n  *  `response` **Changed**\n* `Growthbook.FactMetrics.DeleteFactMetric()`:  `response.Confirmation` **Changed**\n* `Growthbook.CodeReferences.Submit()`:  `response.Confirmation` **Changed**\n* `Growthbook.Members.UpdateRole()`:  `response.Confirmation` **Changed**\n* `Growthbook.Members.DeleteMember()`:  `response.Confirmation` **Changed**\n* `Growthbook.Queries.GetQuery()`:  `response.Query` **Changed**\n* `Growthbook.Settings.GetSettings()`:  `response.Settings.BanditPeriodWeighting` **Added**\n* `Growthbook.Settings.SetApprovals()`:  `response.Confirmation` **Changed**\n* `Growthbook.Meta.GetConfirmation()`:  `response.Confirmation` **Changed**\n* `Growthbook.RampSchedules.ListRampSchedules()`:  `response.RampSchedules[].StepFailure` **Added**\n* `Growthbook.RampSchedules.Create()`:  `response` **Changed**\n* `Growthbook.RampSchedules.StartRampSchedule()`:  `response` **Changed**\n* `Growthbook.RampSchedules.PauseRampSchedule()`:  `response` **Changed**\n* `Growthbook.RampSchedules.ResumeRampSchedule()`:  `response` **Changed**\n* `Growthbook.RampSchedules.RollbackRampSchedule()`:  `response` **Changed**\n* `Growthbook.RampSchedules.RestartRampSchedule()`:  `response` **Changed**\n* `Growthbook.RampSchedules.JumpRampSchedule()`:  `response` **Changed**\n* `Growthbook.RampSchedules.CompleteRampSchedule()`:  `response` **Changed**\n* `Growthbook.RampSchedules.ApproveStepRampSchedule()`:  `response` **Changed**\n* `Growthbook.RampSchedules.AddTargetRampSchedule()`:  `response` **Changed**\n* `Growthbook.RampSchedules.EjectTargetRampSchedule()`:  `response` **Changed**\n* `Growthbook.RampSchedules.ApiAdvanceRampSchedule()`:  `response` **Changed**\n* `Growthbook.RampSchedules.SetMonitoringModeRampSchedule()`:  `response` **Changed**\n* `Growthbook.RampSchedules.SetAutoUpdateRampSchedule()`:  `response` **Changed**\n* `Growthbook.RampSchedules.UpdateMonitoring()`:  `response` **Changed**\n* `Growthbook.RampSchedules.UpdateLockdown()`:  `response` **Changed**\n* `Growthbook.RampSchedules.UpdateSteps()`:  `response` **Changed**\n* `Growthbook.RampSchedules.RefreshMonitoringRampSchedule()`:  `response.RampSchedule.StepFailure` **Added**\n* `Growthbook.RampSchedules.RollbackMatchingRampSchedules()`:  `response.Confirmation` **Changed**\n* `Growthbook.RampSchedules.PauseMatchingRampSchedules()`:  `response.Confirmation` **Changed**\n* `Growthbook.RampSchedules.GetRampSchedule()`:  `response.RampSchedule.StepFailure` **Added**\n* `Growthbook.RampSchedules.DeleteRampSchedule()`:  `response.Confirmation` **Changed**\n* `Growthbook.RampSchedules.UpdateRampSchedule()`:  `response` **Changed**\n* `Growthbook.Reports.ListReports()`:  `response.Reports[].Results.Health` **Added**\n* `Growthbook.Reports.Create()`:  `response` **Changed**\n* `Growthbook.Reports.GetReport()`:  `response.Report.Results.Health` **Added**\n* `Growthbook.Reports.Refresh()`:  `response.Report.Results.Health` **Added**\n* `Growthbook.Reports.SetMetadata()`:  `response` **Changed**\n* `Growthbook.Reports.SetSettings()`:  `response` **Changed**\n* `Growthbook.Namespaces.Create()`:  `response.Confirmation` **Changed**\n* `Growthbook.Namespaces.Update()`:  `response.Confirmation` **Changed**\n* `Growthbook.Namespaces.DeleteNamespace()`:  `response.Confirmation` **Changed**\n* `Growthbook.Namespaces.RotateSeed()`:  `response.Confirmation` **Changed**\n* `Growthbook.Dashboards.GetDashboard()`:  `response.Dashboard.Blocks[]` **Changed**\n* `Growthbook.Dashboards.DeleteDashboard()`:  `response.Confirmation` **Changed**\n* `Growthbook.Dashboards.UpdateDashboard()`: \n  *  `request.Request.Body.Blocks[]` **Changed**\n  *  `response` **Changed**\n* `Growthbook.Dashboards.CreateV1()`: \n  *  `request.Request.Blocks[]` **Changed**\n  *  `response` **Changed**\n* `Growthbook.Dashboards.ListDashboards()`:  `response.Dashboards[].Blocks[]` **Changed**\n* `Growthbook.Dashboards.Create()`: \n  *  `request.Request.Blocks[]` **Changed**\n  *  `response` **Changed**\n* `Growthbook.Dashboards.ListForExperiment()`:  `response.Dashboards[].Blocks[]` **Changed**\n* `Growthbook.ContextualBanditQueries.Delete()`:  `response.Confirmation` **Changed**\n* `Growthbook.ContextualBanditQueries.Update()`:  `response.Confirmation` **Changed**\n* `Growthbook.ContextualBanditQueries.Create()`:  `response.Confirmation` **Changed**\n* `Growthbook.InterleavingExposureQueries.Delete()`:  `response.Confirmation` **Changed**\n* `Growthbook.InterleavingExposureQueries.Update()`:  `response.Confirmation` **Changed**\n* `Growthbook.InterleavingExposureQueries.Create()`:  `response.Confirmation` **Changed**\n* `Growthbook.Interleavings.UpdateInterleaving()`:  `response.Confirmation` **Changed**\n* `Growthbook.Interleavings.DeleteInterleaving()`:  `response.Confirmation` **Changed**\n* `Growthbook.Interleavings.CreateInterleaving()`:  `response.Confirmation` **Changed**\n* `Growthbook.Interleavings.StartInterleaving()`:  `response.Confirmation` **Changed**\n* `Growthbook.Interleavings.StopInterleaving()`:  `response.Confirmation` **Changed**\n* `Growthbook.CustomFields.CreateCustomField()`:  `response.Confirmation` **Changed**\n* `Growthbook.CustomFields.DeleteCustomField()`:  `response.Confirmation` **Changed**\n* `Growthbook.CustomFields.UpdateCustomField()`:  `response.Confirmation` **Changed**\n* `Growthbook.MetricGroups.DeleteMetricGroup()`:  `response.Confirmation` **Changed**\n* `Growthbook.MetricGroups.UpdateMetricGroup()`:  `response.Confirmation` **Changed**\n* `Growthbook.MetricGroups.CreateMetricGroup()`:  `response.Confirmation` **Changed**\n* `Growthbook.Teams.UpdateTeam()`:  `response.Confirmation` **Changed**\n* `Growthbook.Teams.DeleteTeam()`:  `response.Confirmation` **Changed**\n* `Growthbook.Teams.CreateTeam()`:  `response.Confirmation` **Changed**\n* `Growthbook.Teams.AddMembers()`:  `response.Confirmation` **Changed**\n* `Growthbook.Teams.RemoveMembers()`:  `response.Confirmation` **Changed**\n* `Growthbook.ExperimentTemplates.DeleteExperimentTemplate()`:  `response.Confirmation` **Changed**\n* `Growthbook.ExperimentTemplates.UpdateExperimentTemplate()`:  `response.Confirmation` **Changed**\n* `Growthbook.ExperimentTemplates.CreateExperimentTemplate()`:  `response.Confirmation` **Changed**\n* `Growthbook.ExperimentTemplates.BulkImportExperimentTemplates()`:  `response.Confirmation` **Changed**\n* `Growthbook.AnalyticsExplorations.RunMetric()`: \n  *  `request.Request.Body` **Changed**\n  *  `response` **Changed**\n* `Growthbook.AnalyticsExplorations.RunFactTable()`: \n  *  `request.Request.Body.ChartSettings.AnchorYAxisToZero` **Added**\n  *  `response` **Changed**\n* `Growthbook.AnalyticsExplorations.RunDataSource()`: \n  *  `request.Request.Body.ChartSettings.AnchorYAxisToZero` **Added**\n  *  `response` **Changed**\n* `Growthbook.AnalyticsExplorations.RunSql()`: \n  *  `request.Request.Body.ChartSettings.AnchorYAxisToZero` **Added**\n  *  `response` **Changed**\n* `Growthbook.AnalyticsExplorations.RunFunnel()`: \n  *  `request.Request.Body.ChartSettings.AnchorYAxisToZero` **Added**\n  *  `response` **Changed**\n* `Growthbook.AnalyticsExplorations.RunJourney()`: \n  *  `request.Request.Body.ChartSettings.AnchorYAxisToZero` **Added**\n  *  `response` **Changed**\n* `Growthbook.AnalyticsExplorations.Get()`:  `response` **Changed**\n* `Growthbook.RampScheduleTemplates.DeleteRampScheduleTemplate()`:  `response.Confirmation` **Changed**\n* `Growthbook.RampScheduleTemplates.UpdateRampScheduleTemplate()`:  `response.Confirmation` **Changed**\n* `Growthbook.RampScheduleTemplates.CreateRampScheduleTemplate()`:  `response.Confirmation` **Changed**\n* `Growthbook.Learnings.DeleteLearning()`:  `response.Confirmation` **Changed**\n* `Growthbook.Learnings.UpdateLearning()`:  `response.Confirmation` **Changed**\n* `Growthbook.Learnings.CreateLearning()`:  `response.Confirmation` **Changed**\n* `Growthbook.Holdouts.UpdateHoldout()`:  `response.Confirmation` **Changed**\n* `Growthbook.Holdouts.CreateHoldout()`:  `response.Confirmation` **Changed**\n* `Growthbook.Holdouts.StartHoldout()`:  `response.Confirmation` **Changed**\n* `Growthbook.Holdouts.StartAnalysis()`:  `response.Confirmation` **Changed**\n* `Growthbook.Holdouts.StopHoldout()`:  `response.Confirmation` **Changed**\n* `Growthbook.AutoRuns.CreateAutoRun()`:  `response.Confirmation` **Changed**\n* `Growthbook.AutoRuns.UpdateAutoRun()`:  `response.Confirmation` **Changed**\n* `Growthbook.AutoRuns.AppendArtifact()`:  `response.Confirmation` **Changed**\n* `Growthbook.Populations.CreatePopulation()`:  `response.Confirmation` **Changed**\n* `Growthbook.Populations.UpdatePopulation()`:  `response.Confirmation` **Changed**\n* `Growthbook.Populations.DeletePopulation()`:  `response.Confirmation` **Changed**\n"

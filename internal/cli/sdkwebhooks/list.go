@@ -14,39 +14,38 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var listSDKConnectionWebhooksCmdMeta = []flagutil.FlagMeta{
+var listCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The SDK Connection id [required]"},
 }
 
-// initListSDKConnectionWebhooksCmd initializes the list-SDK-connection-webhooks command.
-func initListSDKConnectionWebhooksCmd(parent *cobra.Command) error {
+// initListCmd initializes the list command.
+func initListCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
-		Use:     "list-SDK-connection-webhooks",
+		Use:     "list",
 		Short:   "Get the webhooks for an SDK Connection",
 		Long:    "Get the webhooks for an SDK Connection",
-		Example: "  growthbook SDK-webhooks list-SDK-connection-webhooks --id <id>",
-		RunE:    runListSDKConnectionWebhooksCmd,
-		Aliases: []string{"lScw"},
+		Example: "  growthbook SDK-webhooks list --id <id>",
+		RunE:    runListCmd,
 	}
-	flagutil.RegisterFlags(cmd, listSDKConnectionWebhooksCmdMeta)
-	if err := flagutil.ValidateMeta[operations.ListSDKConnectionWebhooksRequest](listSDKConnectionWebhooksCmdMeta); err != nil {
-		return fmt.Errorf("invalid metadata for list-SDK-connection-webhooks: %w", err)
+	flagutil.RegisterFlags(cmd, listCmdMeta)
+	if err := flagutil.ValidateMeta[operations.ListSDKConnectionWebhooksRequest](listCmdMeta); err != nil {
+		return fmt.Errorf("invalid metadata for list: %w", err)
 	}
 	parent.AddCommand(cmd)
 	return nil
 }
 
-// runListSDKConnectionWebhooksCmd executes the list-SDK-connection-webhooks command.
-func runListSDKConnectionWebhooksCmd(cmd *cobra.Command, args []string) error {
+// runListCmd executes the list command.
+func runListCmd(cmd *cobra.Command, args []string) error {
 	if usage.UsageRequested(cmd) {
 		return usage.EmitSchema(cmd, cmd.OutOrStdout())
 	}
-	if interactive.ShouldPrompt(cmd, listSDKConnectionWebhooksCmdMeta) {
-		if err := interactive.PromptAndSetFlags(cmd, listSDKConnectionWebhooksCmdMeta); err != nil {
+	if interactive.ShouldPrompt(cmd, listCmdMeta) {
+		if err := interactive.PromptAndSetFlags(cmd, listCmdMeta); err != nil {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.ListSDKConnectionWebhooksRequest](cmd, listSDKConnectionWebhooksCmdMeta, "", "")
+	req, err := flagutil.BuildRequest[operations.ListSDKConnectionWebhooksRequest](cmd, listCmdMeta, "", "")
 	if err != nil {
 		return err
 	}
@@ -69,7 +68,7 @@ func runListSDKConnectionWebhooksCmd(cmd *cobra.Command, args []string) error {
 	if output.WantsRawJSON(cmd) {
 		sdkOpts = append(sdkOpts, operations.WithSkipDeserialization())
 	}
-	res, err := s.SDKWebhooks.ListSDKConnectionWebhooks(cmd.Context(), *req, sdkOpts...)
+	res, err := s.SDKWebhooks.List(cmd.Context(), *req, sdkOpts...)
 	if err != nil {
 		return output.Error(cmd, err)
 	}

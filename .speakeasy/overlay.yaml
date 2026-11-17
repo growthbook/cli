@@ -1155,6 +1155,29 @@ actions:
     update: { x-speakeasy-name-override: load-upload }
   - target: $..[?(@.operationId=="putSavedGroupRevisionUploadVersion")]
     update: { x-speakeasy-name-override: set-upload-version }
+  # Webhook groups take create/update/test, not the HTTP verbs the operationIds start with.
+  - target: $..[?(@.operationId=="postEventWebhook")]
+    update: { x-speakeasy-name-override: create }
+  - target: $..[?(@.operationId=="putEventWebhook")]
+    update: { x-speakeasy-name-override: update }
+  - target: $..[?(@.operationId=="listEventWebhookLogs")]
+    update: { x-speakeasy-name-override: list-logs }
+  - target: $..[?(@.operationId=="postEventWebhookTest")]
+    update: { x-speakeasy-name-override: test }
+  - target: $..[?(@.operationId=="listSdkConnectionWebhooks")]
+    update: { x-speakeasy-name-override: list }
+  - target: $..[?(@.operationId=="postSdkConnectionWebhook")]
+    update: { x-speakeasy-name-override: create }
+  - target: $..[?(@.operationId=="putSdkWebhook")]
+    update: { x-speakeasy-name-override: update }
+  - target: $..[?(@.operationId=="postSdkWebhookTest")]
+    update: { x-speakeasy-name-override: test }
+  - target: $..[?(@.operationId=="postDataSourceInformationSchemaRefresh")]
+    update: { x-speakeasy-name-override: refresh-information-schema }
+  - target: $..[?(@.operationId=="postInformationSchemaTableRefresh")]
+    update: { x-speakeasy-name-override: refresh }
+  - target: $..[?(@.operationId=="postQueryCancel")]
+    update: { x-speakeasy-name-override: cancel }
   # 7. Rename the `dryRun` BODY field's flag to --validate-only.
   #
   # `--dry-run` is one of our root persistent flags: preview the request and

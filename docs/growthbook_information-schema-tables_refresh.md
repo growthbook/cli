@@ -1,34 +1,26 @@
-## growthbook SDK-webhooks post-SDK-connection-webhook
+## growthbook information-schema-tables refresh
 
-Add a webhook to an SDK Connection
+Refresh one table's columns
 
 ### Synopsis
 
-Called whenever the connection's payload changes. `httpMethod` defaults to POST. More than one webhook per organization requires a paid plan.
+Re-reads the table's columns from the warehouse and returns the updated table. A failed read returns an error and leaves the stored columns as they were.
 
 ```
-growthbook SDK-webhooks post-SDK-connection-webhook [flags]
+growthbook information-schema-tables refresh [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook SDK-webhooks post-SDK-connection-webhook --id <id> --name <value> --endpoint https://brisk-taxicab.name/
+  growthbook information-schema-tables refresh --table-id <id>
 ```
 
 ### Options
 
 ```
-      --body string              Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -e, --endpoint string          [required]
-      --headers string           JSON-encoded object, e.g. "{\"X-Token\": \"abc\"}"
-  -h, --help                     help for post-SDK-connection-webhook
-      --http-method string       options: GET, POST, PUT, DELETE, PATCH, PURGE
-  -i, --id string                The SDK Connection id [required]
-  -n, --name string              [required]
-      --payload-format string    options: standard, standard-no-payload, sdkPayload, edgeConfig, edgeConfigUnescaped, none
-      --payload-key string       string value
-  -t, --timeout-seconds string   Request timeout in seconds, up to the server maximum (120 unless configured). Null uses the default.
+  -h, --help              help for refresh
+  -t, --table-id string   [required]
 ```
 
 ### Options inherited from parent commands
@@ -57,4 +49,4 @@ growthbook SDK-webhooks post-SDK-connection-webhook [flags]
 
 ### SEE ALSO
 
-* [growthbook SDK-webhooks](growthbook_SDK-webhooks.md)	 - Webhooks that fire when an SDK Connection's payload changes
+* [growthbook information-schema-tables](growthbook_information-schema-tables.md)	 - Operations for information-schema-tables

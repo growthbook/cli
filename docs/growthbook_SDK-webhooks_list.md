@@ -1,26 +1,26 @@
-## growthbook queries post-query-cancel
+## growthbook SDK-webhooks list
 
-Cancel a running query
+Get the webhooks for an SDK Connection
 
 ### Synopsis
 
-Also asks the warehouse to stop it where the integration supports that. Needs permission to run queries on the data source.
+Get the webhooks for an SDK Connection
 
 ```
-growthbook queries post-query-cancel [flags]
+growthbook SDK-webhooks list [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook queries post-query-cancel --id <id>
+  growthbook SDK-webhooks list --id <id>
 ```
 
 ### Options
 
 ```
-  -h, --help        help for post-query-cancel
-  -i, --id string   The id of the requested resource [required]
+  -h, --help        help for list
+  -i, --id string   The SDK Connection id [required]
 ```
 
 ### Options inherited from parent commands
@@ -49,4 +49,4 @@ growthbook queries post-query-cancel [flags]
 
 ### SEE ALSO
 
-* [growthbook queries](growthbook_queries.md)	 - Retrieve queries used in experiments to calculate results
+* [growthbook SDK-webhooks](growthbook_SDK-webhooks.md)	 - Webhooks that fire when an SDK Connection's payload changes

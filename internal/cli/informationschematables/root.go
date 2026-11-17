@@ -21,7 +21,7 @@ func InitInformationSchemaTablesRoot(parent *cobra.Command) error {
 		Aliases: []string{"ist"},
 	}
 
-	if err := initPostInformationSchemaTableRefreshCmd(InformationSchemaTablesCmd); err != nil {
+	if err := initRefreshCmd(InformationSchemaTablesCmd); err != nil {
 		return err
 	}
 

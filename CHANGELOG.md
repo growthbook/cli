@@ -2,6 +2,34 @@
 
 ## [Unreleased]
 
+### Added
+
+- **`event-webhooks`** (`create`, `get`, `list`, `update`, `delete`, `test`, `list-logs`) manages
+  webhooks fired from the organization's event log.
+- **`SDK-webhooks`** (`create`, `list`, `update`, `delete`, `test`) manages the webhooks fired
+  when an SDK connection's payload changes.
+- **`webhook-secrets`** (`get`, `list`, `delete`) manages the secrets substituted into webhook URLs
+  and headers at send time.
+- **`audits`**: `list` shows the audit history of an entity or entity type, and `list-events` /
+  `get-event` read the event log.
+- **`data-sources update`**, **`data-sources delete`** and
+  **`data-sources refresh-information-schema`**, plus **`information-schema-tables refresh`** for
+  a single table.
+- **`queries list-data-source`** lists a data source's 50 most recent queries, and
+  **`queries cancel`** cancels a running one.
+- **`ramp-schedules retry`** retries a ramp schedule's failed step.
+- **`dimensions create|update`** gain `--timing` (`none`, `rowTimestamp` or `validityRange`) and
+  `--null-label`, the label for units with no dimension value.
+- **Compound fact metrics**: `fact-metrics create|update --compound-settings`, required when
+  `--metric-type compound`.
+- Responses gain `health` on experiment and report results, `stepFailure` on ramp schedules, and
+  `banditPeriodWeighting` in `settings get`.
+
+### Deprecated
+
+- **The chart-level `showAs`** on dashboard blocks and analytics explorations (`analytics-explorations
+  run-*`, `dashboards create|update`). Set `showAs` on each metric value instead. It still works.
+
 ## [4.0.0] - 2026-11-10
 
 Upgrading from 3.x: `generate-types` now makes the generated types the default for every

@@ -1,25 +1,25 @@
-## growthbook data-sources post-data-source-information-schema-refresh
+## growthbook queries cancel
 
-Refresh a data source's information schema
+Cancel a running query
 
 ### Synopsis
 
-Queues a background job that re-reads the warehouse's tables, creating the schema if there isn't one yet. A table already read before is only re-read when its column count changed; refresh it on its own to pick up renamed or retyped columns.
+Also asks the warehouse to stop it where the integration supports that. Needs permission to run queries on the data source.
 
 ```
-growthbook data-sources post-data-source-information-schema-refresh [flags]
+growthbook queries cancel [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook data-sources post-data-source-information-schema-refresh --id <id>
+  growthbook queries cancel --id <id>
 ```
 
 ### Options
 
 ```
-  -h, --help        help for post-data-source-information-schema-refresh
+  -h, --help        help for cancel
   -i, --id string   The id of the requested resource [required]
 ```
 
@@ -49,4 +49,4 @@ growthbook data-sources post-data-source-information-schema-refresh [flags]
 
 ### SEE ALSO
 
-* [growthbook data-sources](growthbook_data-sources.md)	 - How GrowthBook connects and queries your data, including cached database schema metadata (information schemas) for tables and columns
+* [growthbook queries](growthbook_queries.md)	 - Retrieve queries used in experiments to calculate results

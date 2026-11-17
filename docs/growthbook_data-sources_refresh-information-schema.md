@@ -1,38 +1,26 @@
-## growthbook event-webhooks put
+## growthbook data-sources refresh-information-schema
 
-Update an event webhook
+Refresh a data source's information schema
 
 ### Synopsis
 
-Update an event webhook
+Queues a background job that re-reads the warehouse's tables, creating the schema if there isn't one yet. A table already read before is only re-read when its column count changed; refresh it on its own to pick up renamed or retyped columns.
 
 ```
-growthbook event-webhooks put [flags]
+growthbook data-sources refresh-information-schema [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook event-webhooks put --id <id>
+  growthbook data-sources refresh-information-schema --id <id>
 ```
 
 ### Options
 
 ```
-      --body string                Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --enabled                    boolean flag
-      --environments stringArray   list of values
-      --events stringArray         list of values
-      --headers string             value
-  -h, --help                       help for put
-  -i, --id string                  [required]
-  -m, --method string              options: POST, PUT, PATCH
-  -n, --name string                string value
-      --payload-type string        options: raw, json, slack, discord
-      --projects stringArray       list of values
-      --tags stringArray           list of values
-      --timeout-seconds string     Request timeout in seconds, up to the server maximum (120 unless configured). Null uses the default.
-  -u, --url string                 string value
+  -h, --help        help for refresh-information-schema
+  -i, --id string   The id of the requested resource [required]
 ```
 
 ### Options inherited from parent commands
@@ -61,4 +49,4 @@ growthbook event-webhooks put [flags]
 
 ### SEE ALSO
 
-* [growthbook event-webhooks](growthbook_event-webhooks.md)	 - Send GrowthBook events (feature, experiment and other changes) to your own endpoint
+* [growthbook data-sources](growthbook_data-sources.md)	 - How GrowthBook connects and queries your data, including cached database schema metadata (information schemas) for tables and columns

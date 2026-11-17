@@ -1,26 +1,26 @@
-## growthbook information-schema-tables post-information-schema-table-refresh
+## growthbook event-webhooks test
 
-Refresh one table's columns
+Send a test event to an event webhook
 
 ### Synopsis
 
-Re-reads the table's columns from the warehouse and returns the updated table. A failed read returns an error and leaves the stored columns as they were.
+Delivery is asynchronous; check the webhook's logs for the result.
 
 ```
-growthbook information-schema-tables post-information-schema-table-refresh [flags]
+growthbook event-webhooks test [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook information-schema-tables post-information-schema-table-refresh --table-id <id>
+  growthbook event-webhooks test --id <id>
 ```
 
 ### Options
 
 ```
-  -h, --help              help for post-information-schema-table-refresh
-  -t, --table-id string   [required]
+  -h, --help        help for test
+  -i, --id string   [required]
 ```
 
 ### Options inherited from parent commands
@@ -49,4 +49,4 @@ growthbook information-schema-tables post-information-schema-table-refresh [flag
 
 ### SEE ALSO
 
-* [growthbook information-schema-tables](growthbook_information-schema-tables.md)	 - Operations for information-schema-tables
+* [growthbook event-webhooks](growthbook_event-webhooks.md)	 - Send GrowthBook events (feature, experiment and other changes) to your own endpoint

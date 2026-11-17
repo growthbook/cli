@@ -21,15 +21,15 @@ func InitSDKWebhooksRoot(parent *cobra.Command) error {
 		Aliases: []string{"Sw"},
 	}
 
-	if err := initListSDKConnectionWebhooksCmd(SDKWebhooksCmd); err != nil {
+	if err := initListCmd(SDKWebhooksCmd); err != nil {
 		return err
 	}
 
-	if err := initPostSDKConnectionWebhookCmd(SDKWebhooksCmd); err != nil {
+	if err := initCreateCmd(SDKWebhooksCmd); err != nil {
 		return err
 	}
 
-	if err := initPutSDKWebhookCmd(SDKWebhooksCmd); err != nil {
+	if err := initUpdateCmd(SDKWebhooksCmd); err != nil {
 		return err
 	}
 
@@ -37,7 +37,7 @@ func InitSDKWebhooksRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPostSDKWebhookTestCmd(SDKWebhooksCmd); err != nil {
+	if err := initTestCmd(SDKWebhooksCmd); err != nil {
 		return err
 	}
 

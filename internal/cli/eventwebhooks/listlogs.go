@@ -14,39 +14,39 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var postEventWebhookTestCmdMeta = []flagutil.FlagMeta{
+var listLogsCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 }
 
-// initPostEventWebhookTestCmd initializes the post-event-webhook-test command.
-func initPostEventWebhookTestCmd(parent *cobra.Command) error {
+// initListLogsCmd initializes the list-logs command.
+func initListLogsCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
-		Use:     "post-event-webhook-test",
-		Short:   "Send a test event to an event webhook",
-		Long:    "Delivery is asynchronous; check the webhook's logs for the result.",
-		Example: "  growthbook event-webhooks post-event-webhook-test --id <id>",
-		RunE:    runPostEventWebhookTestCmd,
-		Aliases: []string{"pewt"},
+		Use:     "list-logs",
+		Short:   "Get the 50 most recent deliveries for an event webhook",
+		Long:    "Get the 50 most recent deliveries for an event webhook",
+		Example: "  growthbook event-webhooks list-logs --id <id>",
+		RunE:    runListLogsCmd,
+		Aliases: []string{"ll"},
 	}
-	flagutil.RegisterFlags(cmd, postEventWebhookTestCmdMeta)
-	if err := flagutil.ValidateMeta[operations.PostEventWebhookTestRequest](postEventWebhookTestCmdMeta); err != nil {
-		return fmt.Errorf("invalid metadata for post-event-webhook-test: %w", err)
+	flagutil.RegisterFlags(cmd, listLogsCmdMeta)
+	if err := flagutil.ValidateMeta[operations.ListEventWebhookLogsRequest](listLogsCmdMeta); err != nil {
+		return fmt.Errorf("invalid metadata for list-logs: %w", err)
 	}
 	parent.AddCommand(cmd)
 	return nil
 }
 
-// runPostEventWebhookTestCmd executes the post-event-webhook-test command.
-func runPostEventWebhookTestCmd(cmd *cobra.Command, args []string) error {
+// runListLogsCmd executes the list-logs command.
+func runListLogsCmd(cmd *cobra.Command, args []string) error {
 	if usage.UsageRequested(cmd) {
 		return usage.EmitSchema(cmd, cmd.OutOrStdout())
 	}
-	if interactive.ShouldPrompt(cmd, postEventWebhookTestCmdMeta) {
-		if err := interactive.PromptAndSetFlags(cmd, postEventWebhookTestCmdMeta); err != nil {
+	if interactive.ShouldPrompt(cmd, listLogsCmdMeta) {
+		if err := interactive.PromptAndSetFlags(cmd, listLogsCmdMeta); err != nil {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.PostEventWebhookTestRequest](cmd, postEventWebhookTestCmdMeta, "", "")
+	req, err := flagutil.BuildRequest[operations.ListEventWebhookLogsRequest](cmd, listLogsCmdMeta, "", "")
 	if err != nil {
 		return err
 	}
@@ -69,7 +69,7 @@ func runPostEventWebhookTestCmd(cmd *cobra.Command, args []string) error {
 	if output.WantsRawJSON(cmd) {
 		sdkOpts = append(sdkOpts, operations.WithSkipDeserialization())
 	}
-	res, err := s.EventWebhooks.PostEventWebhookTest(cmd.Context(), *req, sdkOpts...)
+	res, err := s.EventWebhooks.ListLogs(cmd.Context(), *req, sdkOpts...)
 	if err != nil {
 		return output.Error(cmd, err)
 	}

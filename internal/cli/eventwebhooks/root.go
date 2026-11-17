@@ -25,7 +25,7 @@ func InitEventWebhooksRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPostEventWebhookCmd(EventWebhooksCmd); err != nil {
+	if err := initCreateCmd(EventWebhooksCmd); err != nil {
 		return err
 	}
 
@@ -33,7 +33,7 @@ func InitEventWebhooksRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initPutEventWebhookCmd(EventWebhooksCmd); err != nil {
+	if err := initUpdateCmd(EventWebhooksCmd); err != nil {
 		return err
 	}
 
@@ -41,11 +41,11 @@ func InitEventWebhooksRoot(parent *cobra.Command) error {
 		return err
 	}
 
-	if err := initListEventWebhookLogsCmd(EventWebhooksCmd); err != nil {
+	if err := initListLogsCmd(EventWebhooksCmd); err != nil {
 		return err
 	}
 
-	if err := initPostEventWebhookTestCmd(EventWebhooksCmd); err != nil {
+	if err := initTestCmd(EventWebhooksCmd); err != nil {
 		return err
 	}
 

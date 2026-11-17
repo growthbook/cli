@@ -43,4 +43,4 @@ growthbook information-schema-tables [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
-* [growthbook information-schema-tables post-information-schema-table-refresh](growthbook_information-schema-tables_post-information-schema-table-refresh.md)	 - Refresh one table's columns
+* [growthbook information-schema-tables refresh](growthbook_information-schema-tables_refresh.md)	 - Refresh one table's columns

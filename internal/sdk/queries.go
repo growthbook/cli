@@ -318,9 +318,9 @@ func (s *Queries) ListDataSourceQueries(ctx context.Context, request operations.
 
 }
 
-// PostQueryCancel - Cancel a running query
+// Cancel a running query
 // Also asks the warehouse to stop it where the integration supports that. Needs permission to run queries on the data source.
-func (s *Queries) PostQueryCancel(ctx context.Context, request operations.PostQueryCancelRequest, opts ...operations.Option) (*operations.PostQueryCancelResponse, error) {
+func (s *Queries) Cancel(ctx context.Context, request operations.PostQueryCancelRequest, opts ...operations.Option) (*operations.PostQueryCancelResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

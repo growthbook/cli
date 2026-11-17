@@ -1,26 +1,34 @@
-## growthbook event-webhooks list-event-webhook-logs
+## growthbook SDK-webhooks create
 
-Get the 50 most recent deliveries for an event webhook
+Add a webhook to an SDK Connection
 
 ### Synopsis
 
-Get the 50 most recent deliveries for an event webhook
+Called whenever the connection's payload changes. `httpMethod` defaults to POST. More than one webhook per organization requires a paid plan.
 
 ```
-growthbook event-webhooks list-event-webhook-logs [flags]
+growthbook SDK-webhooks create [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook event-webhooks list-event-webhook-logs --id <id>
+  growthbook SDK-webhooks create --id <id> --name <value> --endpoint https://brisk-taxicab.name/
 ```
 
 ### Options
 
 ```
-  -h, --help        help for list-event-webhook-logs
-  -i, --id string   [required]
+      --body string              Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -e, --endpoint string          [required]
+      --headers string           JSON-encoded object, e.g. "{\"X-Token\": \"abc\"}"
+  -h, --help                     help for create
+      --http-method string       options: GET, POST, PUT, DELETE, PATCH, PURGE
+  -i, --id string                The SDK Connection id [required]
+  -n, --name string              [required]
+      --payload-format string    options: standard, standard-no-payload, sdkPayload, edgeConfig, edgeConfigUnescaped, none
+      --payload-key string       string value
+  -t, --timeout-seconds string   Request timeout in seconds, up to the server maximum (120 unless configured). Null uses the default.
 ```
 
 ### Options inherited from parent commands
@@ -49,4 +57,4 @@ growthbook event-webhooks list-event-webhook-logs [flags]
 
 ### SEE ALSO
 
-* [growthbook event-webhooks](growthbook_event-webhooks.md)	 - Send GrowthBook events (feature, experiment and other changes) to your own endpoint
+* [growthbook SDK-webhooks](growthbook_SDK-webhooks.md)	 - Webhooks that fire when an SDK Connection's payload changes

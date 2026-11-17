@@ -14,39 +14,39 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var postDataSourceInformationSchemaRefreshCmdMeta = []flagutil.FlagMeta{
+var refreshInformationSchemaCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The id of the requested resource [required]"},
 }
 
-// initPostDataSourceInformationSchemaRefreshCmd initializes the post-data-source-information-schema-refresh command.
-func initPostDataSourceInformationSchemaRefreshCmd(parent *cobra.Command) error {
+// initRefreshInformationSchemaCmd initializes the refresh-information-schema command.
+func initRefreshInformationSchemaCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
-		Use:     "post-data-source-information-schema-refresh",
+		Use:     "refresh-information-schema",
 		Short:   "Refresh a data source's information schema",
 		Long:    "Queues a background job that re-reads the warehouse's tables, creating the schema if there isn't one yet. A table already read before is only re-read when its column count changed; refresh it on its own to pick up renamed or retyped columns.",
-		Example: "  growthbook data-sources post-data-source-information-schema-refresh --id <id>",
-		RunE:    runPostDataSourceInformationSchemaRefreshCmd,
-		Aliases: []string{"pdsisr"},
+		Example: "  growthbook data-sources refresh-information-schema --id <id>",
+		RunE:    runRefreshInformationSchemaCmd,
+		Aliases: []string{"ris"},
 	}
-	flagutil.RegisterFlags(cmd, postDataSourceInformationSchemaRefreshCmdMeta)
-	if err := flagutil.ValidateMeta[operations.PostDataSourceInformationSchemaRefreshRequest](postDataSourceInformationSchemaRefreshCmdMeta); err != nil {
-		return fmt.Errorf("invalid metadata for post-data-source-information-schema-refresh: %w", err)
+	flagutil.RegisterFlags(cmd, refreshInformationSchemaCmdMeta)
+	if err := flagutil.ValidateMeta[operations.PostDataSourceInformationSchemaRefreshRequest](refreshInformationSchemaCmdMeta); err != nil {
+		return fmt.Errorf("invalid metadata for refresh-information-schema: %w", err)
 	}
 	parent.AddCommand(cmd)
 	return nil
 }
 
-// runPostDataSourceInformationSchemaRefreshCmd executes the post-data-source-information-schema-refresh command.
-func runPostDataSourceInformationSchemaRefreshCmd(cmd *cobra.Command, args []string) error {
+// runRefreshInformationSchemaCmd executes the refresh-information-schema command.
+func runRefreshInformationSchemaCmd(cmd *cobra.Command, args []string) error {
 	if usage.UsageRequested(cmd) {
 		return usage.EmitSchema(cmd, cmd.OutOrStdout())
 	}
-	if interactive.ShouldPrompt(cmd, postDataSourceInformationSchemaRefreshCmdMeta) {
-		if err := interactive.PromptAndSetFlags(cmd, postDataSourceInformationSchemaRefreshCmdMeta); err != nil {
+	if interactive.ShouldPrompt(cmd, refreshInformationSchemaCmdMeta) {
+		if err := interactive.PromptAndSetFlags(cmd, refreshInformationSchemaCmdMeta); err != nil {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.PostDataSourceInformationSchemaRefreshRequest](cmd, postDataSourceInformationSchemaRefreshCmdMeta, "", "")
+	req, err := flagutil.BuildRequest[operations.PostDataSourceInformationSchemaRefreshRequest](cmd, refreshInformationSchemaCmdMeta, "", "")
 	if err != nil {
 		return err
 	}
@@ -69,7 +69,7 @@ func runPostDataSourceInformationSchemaRefreshCmd(cmd *cobra.Command, args []str
 	if output.WantsRawJSON(cmd) {
 		sdkOpts = append(sdkOpts, operations.WithSkipDeserialization())
 	}
-	res, err := s.DataSources.PostDataSourceInformationSchemaRefresh(cmd.Context(), *req, sdkOpts...)
+	res, err := s.DataSources.RefreshInformationSchema(cmd.Context(), *req, sdkOpts...)
 	if err != nil {
 		return output.Error(cmd, err)
 	}

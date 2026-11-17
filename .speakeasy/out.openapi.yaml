@@ -19878,6 +19878,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: refresh-information-schema
   /v1/data-sources/{id}/sql/search-tables:
     post:
       operationId: searchWarehouseTables
@@ -31399,6 +31400,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: cancel
   /v1/settings:
     get:
       operationId: getSettings
@@ -31621,6 +31623,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: refresh
   /v1/ramp-schedules:
     get:
       operationId: listRampSchedules
@@ -34665,6 +34668,7 @@ paths:
               -H 'Authorization: Bearer YOUR_API_KEY' \
               -H 'Content-Type: application/json' \
               -d '{"name":"Feature changes to Datadog","url":"https://example.com/growthbook-events","enabled":true,"events":["feature.*"],"payloadType":"json"}'
+      x-speakeasy-name-override: create
   /v1/event-webhooks/{id}:
     get:
       operationId: getEventWebhook
@@ -34787,6 +34791,7 @@ paths:
           source: |-
             curl -X PUT 'https://api.growthbook.io/api/v1/event-webhooks/{id}' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: update
     delete:
       operationId: deleteEventWebhook
       summary: Delete an event webhook
@@ -34858,6 +34863,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: list-logs
   /v1/event-webhooks/{id}/test:
     post:
       operationId: postEventWebhookTest
@@ -34896,6 +34902,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: test
   /v1/audits:
     get:
       operationId: listAudits
@@ -61602,6 +61609,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: list
     post:
       operationId: postSdkConnectionWebhook
       summary: Add a webhook to an SDK Connection
@@ -61686,6 +61694,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: create
   /v1/sdk-webhooks/{id}:
     put:
       operationId: putSdkWebhook
@@ -61773,6 +61782,7 @@ paths:
           source: |-
             curl -X PUT 'https://api.growthbook.io/api/v1/sdk-webhooks/{id}' \
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: update
     delete:
       operationId: deleteSdkWebhook
       summary: Delete an SDK webhook
@@ -61846,6 +61856,7 @@ paths:
 
 
               -H 'Authorization: Bearer YOUR_API_KEY'
+      x-speakeasy-name-override: test
 components:
   parameters:
     limit:

@@ -1,26 +1,38 @@
-## growthbook SDK-webhooks list-SDK-connection-webhooks
+## growthbook event-webhooks update
 
-Get the webhooks for an SDK Connection
+Update an event webhook
 
 ### Synopsis
 
-Get the webhooks for an SDK Connection
+Update an event webhook
 
 ```
-growthbook SDK-webhooks list-SDK-connection-webhooks [flags]
+growthbook event-webhooks update [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook SDK-webhooks list-SDK-connection-webhooks --id <id>
+  growthbook event-webhooks update --id <id>
 ```
 
 ### Options
 
 ```
-  -h, --help        help for list-SDK-connection-webhooks
-  -i, --id string   The SDK Connection id [required]
+      --body string                Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+      --enabled                    boolean flag
+      --environments stringArray   list of values
+      --events stringArray         list of values
+      --headers string             value
+  -h, --help                       help for update
+  -i, --id string                  [required]
+  -m, --method string              options: POST, PUT, PATCH
+  -n, --name string                string value
+      --payload-type string        options: raw, json, slack, discord
+      --projects stringArray       list of values
+      --tags stringArray           list of values
+      --timeout-seconds string     Request timeout in seconds, up to the server maximum (120 unless configured). Null uses the default.
+  -u, --url string                 string value
 ```
 
 ### Options inherited from parent commands
@@ -49,4 +61,4 @@ growthbook SDK-webhooks list-SDK-connection-webhooks [flags]
 
 ### SEE ALSO
 
-* [growthbook SDK-webhooks](growthbook_SDK-webhooks.md)	 - Webhooks that fire when an SDK Connection's payload changes
+* [growthbook event-webhooks](growthbook_event-webhooks.md)	 - Send GrowthBook events (feature, experiment and other changes) to your own endpoint

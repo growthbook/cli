@@ -43,10 +43,10 @@ growthbook event-webhooks [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
+* [growthbook event-webhooks create](growthbook_event-webhooks_create.md)	 - Create an event webhook
 * [growthbook event-webhooks delete](growthbook_event-webhooks_delete.md)	 - Delete an event webhook
 * [growthbook event-webhooks get](growthbook_event-webhooks_get.md)	 - Get a single event webhook
 * [growthbook event-webhooks list](growthbook_event-webhooks_list.md)	 - Get all event webhooks
-* [growthbook event-webhooks list-event-webhook-logs](growthbook_event-webhooks_list-event-webhook-logs.md)	 - Get the 50 most recent deliveries for an event webhook
-* [growthbook event-webhooks post](growthbook_event-webhooks_post.md)	 - Create an event webhook
-* [growthbook event-webhooks post-event-webhook-test](growthbook_event-webhooks_post-event-webhook-test.md)	 - Send a test event to an event webhook
-* [growthbook event-webhooks put](growthbook_event-webhooks_put.md)	 - Update an event webhook
+* [growthbook event-webhooks list-logs](growthbook_event-webhooks_list-logs.md)	 - Get the 50 most recent deliveries for an event webhook
+* [growthbook event-webhooks test](growthbook_event-webhooks_test.md)	 - Send a test event to an event webhook
+* [growthbook event-webhooks update](growthbook_event-webhooks_update.md)	 - Update an event webhook

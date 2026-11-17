@@ -14,7 +14,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var putEventWebhookCmdMeta = []flagutil.FlagMeta{
+var updateCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "events", FieldPath: "Body.Events", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
 	{FlagName: "projects", FieldPath: "Body.Projects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
@@ -29,35 +29,35 @@ var putEventWebhookCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "timeout-seconds", FieldPath: "Body.TimeoutSeconds", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"timeoutSeconds,omitempty"`, Description: "Request timeout in seconds, up to the server maximum (120 unless configured). Null uses the default."},
 }
 
-// initPutEventWebhookCmd initializes the put-event-webhook command.
-func initPutEventWebhookCmd(parent *cobra.Command) error {
+// initUpdateCmd initializes the update command.
+func initUpdateCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
-		Use:     "put",
+		Use:     "update",
 		Short:   "Update an event webhook",
 		Long:    "Update an event webhook",
-		Example: "  growthbook event-webhooks put --id <id>",
-		RunE:    runPutEventWebhookCmd,
+		Example: "  growthbook event-webhooks update --id <id>",
+		RunE:    runUpdateCmd,
 	}
-	flagutil.RegisterFlags(cmd, putEventWebhookCmdMeta)
-	if err := flagutil.ValidateMeta[operations.PutEventWebhookRequest](putEventWebhookCmdMeta); err != nil {
-		return fmt.Errorf("invalid metadata for put-event-webhook: %w", err)
+	flagutil.RegisterFlags(cmd, updateCmdMeta)
+	if err := flagutil.ValidateMeta[operations.PutEventWebhookRequest](updateCmdMeta); err != nil {
+		return fmt.Errorf("invalid metadata for update: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
 	parent.AddCommand(cmd)
 	return nil
 }
 
-// runPutEventWebhookCmd executes the put-event-webhook command.
-func runPutEventWebhookCmd(cmd *cobra.Command, args []string) error {
+// runUpdateCmd executes the update command.
+func runUpdateCmd(cmd *cobra.Command, args []string) error {
 	if usage.UsageRequested(cmd) {
 		return usage.EmitSchema(cmd, cmd.OutOrStdout())
 	}
-	if interactive.ShouldPrompt(cmd, putEventWebhookCmdMeta) {
-		if err := interactive.PromptAndSetFlags(cmd, putEventWebhookCmdMeta); err != nil {
+	if interactive.ShouldPrompt(cmd, updateCmdMeta) {
+		if err := interactive.PromptAndSetFlags(cmd, updateCmdMeta); err != nil {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.PutEventWebhookRequest](cmd, putEventWebhookCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.PutEventWebhookRequest](cmd, updateCmdMeta, "Body", "body")
 	if err != nil {
 		return err
 	}
@@ -80,7 +80,7 @@ func runPutEventWebhookCmd(cmd *cobra.Command, args []string) error {
 	if output.WantsRawJSON(cmd) {
 		sdkOpts = append(sdkOpts, operations.WithSkipDeserialization())
 	}
-	res, err := s.EventWebhooks.PutEventWebhook(cmd.Context(), *req, sdkOpts...)
+	res, err := s.EventWebhooks.Update(cmd.Context(), *req, sdkOpts...)
 	if err != nil {
 		return output.Error(cmd, err)
 	}

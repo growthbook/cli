@@ -1,37 +1,26 @@
-## growthbook event-webhooks post
+## growthbook event-webhooks list-logs
 
-Create an event webhook
+Get the 50 most recent deliveries for an event webhook
 
 ### Synopsis
 
-The URL and header values can reference webhook secrets as `{ { KEY } }`, which are filled in at send time.
+Get the 50 most recent deliveries for an event webhook
 
 ```
-growthbook event-webhooks post [flags]
+growthbook event-webhooks list-logs [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook event-webhooks post --events '["<value 1>"]' --url https://ajar-hippodrome.org --name <value> --enabled false --payload-type slack
+  growthbook event-webhooks list-logs --id <id>
 ```
 
 ### Options
 
 ```
-      --body string                Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-      --enabled                    [required]
-      --environments stringArray   list of values
-      --events stringArray         [required]
-      --headers string             value
-  -h, --help                       help for post
-  -m, --method string              options: POST, PUT, PATCH
-  -n, --name string                [required]
-      --payload-type string        options: raw, json, slack, discord [required]
-      --projects stringArray       list of values
-      --tags stringArray           list of values
-      --timeout-seconds string     Request timeout in seconds, up to the server maximum (120 unless configured). Null uses the default.
-  -u, --url string                 [required]
+  -h, --help        help for list-logs
+  -i, --id string   [required]
 ```
 
 ### Options inherited from parent commands

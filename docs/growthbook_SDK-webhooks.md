@@ -43,8 +43,8 @@ growthbook SDK-webhooks [flags]
 ### SEE ALSO
 
 * [growthbook](growthbook.md)	 - GrowthBook REST API: A command-line interface for GrowthBook — manage feature flags, experiments, metrics, and more from your terminal
+* [growthbook SDK-webhooks create](growthbook_SDK-webhooks_create.md)	 - Add a webhook to an SDK Connection
 * [growthbook SDK-webhooks delete](growthbook_SDK-webhooks_delete.md)	 - Delete an SDK webhook
-* [growthbook SDK-webhooks list-SDK-connection-webhooks](growthbook_SDK-webhooks_list-SDK-connection-webhooks.md)	 - Get the webhooks for an SDK Connection
-* [growthbook SDK-webhooks post-SDK-connection-webhook](growthbook_SDK-webhooks_post-SDK-connection-webhook.md)	 - Add a webhook to an SDK Connection
-* [growthbook SDK-webhooks post-SDK-webhook-test](growthbook_SDK-webhooks_post-SDK-webhook-test.md)	 - Fire an SDK webhook now
-* [growthbook SDK-webhooks put](growthbook_SDK-webhooks_put.md)	 - Update an SDK webhook
+* [growthbook SDK-webhooks list](growthbook_SDK-webhooks_list.md)	 - Get the webhooks for an SDK Connection
+* [growthbook SDK-webhooks test](growthbook_SDK-webhooks_test.md)	 - Fire an SDK webhook now
+* [growthbook SDK-webhooks update](growthbook_SDK-webhooks_update.md)	 - Update an SDK webhook

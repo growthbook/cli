@@ -49,8 +49,8 @@ growthbook data-sources [flags]
 * [growthbook data-sources get-information-schema-table](growthbook_data-sources_get-information-schema-table.md)	 - Get a single Information Schema Table by id
 * [growthbook data-sources get-warehouse-table-schema](growthbook_data-sources_get-warehouse-table-schema.md)	 - Get warehouse table schemas
 * [growthbook data-sources list](growthbook_data-sources_list.md)	 - Get all data sources
-* [growthbook data-sources post-data-source-information-schema-refresh](growthbook_data-sources_post-data-source-information-schema-refresh.md)	 - Refresh a data source's information schema
 * [growthbook data-sources preview-warehouse-column-values](growthbook_data-sources_preview-warehouse-column-values.md)	 - Preview distinct column values
+* [growthbook data-sources refresh-information-schema](growthbook_data-sources_refresh-information-schema.md)	 - Refresh a data source's information schema
 * [growthbook data-sources run-sql-query](growthbook_data-sources_run-sql-query.md)	 - Execute a read-only SQL query
 * [growthbook data-sources search-warehouse-tables](growthbook_data-sources_search-warehouse-tables.md)	 - Search warehouse tables
 * [growthbook data-sources update](growthbook_data-sources_update.md)	 - Update a data source

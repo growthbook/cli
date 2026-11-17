@@ -14,7 +14,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var postEventWebhookCmdMeta = []flagutil.FlagMeta{
+var createCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "events", FieldPath: "Events", Kind: flagutil.FlagKindStringArray, Required: true, Description: "[required]"},
 	{FlagName: "projects", FieldPath: "Projects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
 	{FlagName: "tags", FieldPath: "Tags", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
@@ -28,35 +28,35 @@ var postEventWebhookCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "timeout-seconds", FieldPath: "TimeoutSeconds", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"timeoutSeconds,omitempty"`, Description: "Request timeout in seconds, up to the server maximum (120 unless configured). Null uses the default."},
 }
 
-// initPostEventWebhookCmd initializes the post-event-webhook command.
-func initPostEventWebhookCmd(parent *cobra.Command) error {
+// initCreateCmd initializes the create command.
+func initCreateCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
-		Use:     "post",
+		Use:     "create",
 		Short:   "Create an event webhook",
 		Long:    "The URL and header values can reference webhook secrets as `{ { KEY } }`, which are filled in at send time.",
-		Example: "  growthbook event-webhooks post --events '[\"<value 1>\"]' --url https://ajar-hippodrome.org --name <value> --enabled false --payload-type slack",
-		RunE:    runPostEventWebhookCmd,
+		Example: "  growthbook event-webhooks create --events '[\"<value 1>\"]' --url https://ajar-hippodrome.org --name <value> --enabled false --payload-type slack",
+		RunE:    runCreateCmd,
 	}
-	flagutil.RegisterFlags(cmd, postEventWebhookCmdMeta)
-	if err := flagutil.ValidateMeta[operations.PostEventWebhookRequest](postEventWebhookCmdMeta); err != nil {
-		return fmt.Errorf("invalid metadata for post-event-webhook: %w", err)
+	flagutil.RegisterFlags(cmd, createCmdMeta)
+	if err := flagutil.ValidateMeta[operations.PostEventWebhookRequest](createCmdMeta); err != nil {
+		return fmt.Errorf("invalid metadata for create: %w", err)
 	}
 	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
 	parent.AddCommand(cmd)
 	return nil
 }
 
-// runPostEventWebhookCmd executes the post-event-webhook command.
-func runPostEventWebhookCmd(cmd *cobra.Command, args []string) error {
+// runCreateCmd executes the create command.
+func runCreateCmd(cmd *cobra.Command, args []string) error {
 	if usage.UsageRequested(cmd) {
 		return usage.EmitSchema(cmd, cmd.OutOrStdout())
 	}
-	if interactive.ShouldPrompt(cmd, postEventWebhookCmdMeta) {
-		if err := interactive.PromptAndSetFlags(cmd, postEventWebhookCmdMeta); err != nil {
+	if interactive.ShouldPrompt(cmd, createCmdMeta) {
+		if err := interactive.PromptAndSetFlags(cmd, createCmdMeta); err != nil {
 			return err
 		}
 	}
-	request, err := flagutil.BuildRequest[operations.PostEventWebhookRequest](cmd, postEventWebhookCmdMeta, "", "body")
+	request, err := flagutil.BuildRequest[operations.PostEventWebhookRequest](cmd, createCmdMeta, "", "body")
 	if err != nil {
 		return err
 	}
@@ -79,7 +79,7 @@ func runPostEventWebhookCmd(cmd *cobra.Command, args []string) error {
 	if output.WantsRawJSON(cmd) {
 		sdkOpts = append(sdkOpts, operations.WithSkipDeserialization())
 	}
-	res, err := s.EventWebhooks.PostEventWebhook(cmd.Context(), *request, sdkOpts...)
+	res, err := s.EventWebhooks.Create(cmd.Context(), *request, sdkOpts...)
 	if err != nil {
 		return output.Error(cmd, err)
 	}

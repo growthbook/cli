@@ -175,9 +175,9 @@ func (s *EventWebhooks) ListEventWebhooks(ctx context.Context, opts ...operation
 
 }
 
-// PostEventWebhook - Create an event webhook
+// Create an event webhook
 // The URL and header values can reference webhook secrets as `{{ KEY }}`, which are filled in at send time.
-func (s *EventWebhooks) PostEventWebhook(ctx context.Context, request operations.PostEventWebhookRequest, opts ...operations.Option) (*operations.PostEventWebhookResponse, error) {
+func (s *EventWebhooks) Create(ctx context.Context, request operations.PostEventWebhookRequest, opts ...operations.Option) (*operations.PostEventWebhookResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -496,8 +496,8 @@ func (s *EventWebhooks) GetEventWebhook(ctx context.Context, request operations.
 
 }
 
-// PutEventWebhook - Update an event webhook
-func (s *EventWebhooks) PutEventWebhook(ctx context.Context, request operations.PutEventWebhookRequest, opts ...operations.Option) (*operations.PutEventWebhookResponse, error) {
+// Update an event webhook
+func (s *EventWebhooks) Update(ctx context.Context, request operations.PutEventWebhookRequest, opts ...operations.Option) (*operations.PutEventWebhookResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -841,8 +841,8 @@ func (s *EventWebhooks) DeleteEventWebhook(ctx context.Context, request operatio
 
 }
 
-// ListEventWebhookLogs - Get the 50 most recent deliveries for an event webhook
-func (s *EventWebhooks) ListEventWebhookLogs(ctx context.Context, request operations.ListEventWebhookLogsRequest, opts ...operations.Option) (*operations.ListEventWebhookLogsResponse, error) {
+// ListLogs - Get the 50 most recent deliveries for an event webhook
+func (s *EventWebhooks) ListLogs(ctx context.Context, request operations.ListEventWebhookLogsRequest, opts ...operations.Option) (*operations.ListEventWebhookLogsResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -985,9 +985,9 @@ func (s *EventWebhooks) ListEventWebhookLogs(ctx context.Context, request operat
 
 }
 
-// PostEventWebhookTest - Send a test event to an event webhook
+// Test - Send a test event to an event webhook
 // Delivery is asynchronous; check the webhook's logs for the result.
-func (s *EventWebhooks) PostEventWebhookTest(ctx context.Context, request operations.PostEventWebhookTestRequest, opts ...operations.Option) (*operations.PostEventWebhookTestResponse, error) {
+func (s *EventWebhooks) Test(ctx context.Context, request operations.PostEventWebhookTestRequest, opts ...operations.Option) (*operations.PostEventWebhookTestResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

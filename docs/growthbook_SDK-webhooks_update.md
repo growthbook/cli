@@ -1,4 +1,4 @@
-## growthbook SDK-webhooks put
+## growthbook SDK-webhooks update
 
 Update an SDK webhook
 
@@ -7,13 +7,13 @@ Update an SDK webhook
 The webhook fires once after an update. Webhooks managed by the Vercel integration can't be changed.
 
 ```
-growthbook SDK-webhooks put [flags]
+growthbook SDK-webhooks update [flags]
 ```
 
 ### Examples
 
 ```
-  growthbook SDK-webhooks put --id <id>
+  growthbook SDK-webhooks update --id <id>
 ```
 
 ### Options
@@ -22,7 +22,7 @@ growthbook SDK-webhooks put [flags]
       --body string                              Request body as JSON (alternative to individual flags). Can also be provided via stdin.
   -e, --endpoint string                          string value
       --headers string                           JSON-encoded object, e.g. "{\"X-Token\": \"abc\"}"
-  -h, --help                                     help for put
+  -h, --help                                     help for update
       --http-method string                       options: GET, POST, PUT, DELETE, PATCH, PURGE
   -i, --id string                                [required]
   -n, --name string                              string value

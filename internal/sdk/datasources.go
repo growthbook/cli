@@ -861,9 +861,9 @@ func (s *DataSources) GetInformationSchema(ctx context.Context, request operatio
 
 }
 
-// PostDataSourceInformationSchemaRefresh - Refresh a data source's information schema
+// RefreshInformationSchema - Refresh a data source's information schema
 // Queues a background job that re-reads the warehouse's tables, creating the schema if there isn't one yet. A table already read before is only re-read when its column count changed; refresh it on its own to pick up renamed or retyped columns.
-func (s *DataSources) PostDataSourceInformationSchemaRefresh(ctx context.Context, request operations.PostDataSourceInformationSchemaRefreshRequest, opts ...operations.Option) (*operations.PostDataSourceInformationSchemaRefreshResponse, error) {
+func (s *DataSources) RefreshInformationSchema(ctx context.Context, request operations.PostDataSourceInformationSchemaRefreshRequest, opts ...operations.Option) (*operations.PostDataSourceInformationSchemaRefreshResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
