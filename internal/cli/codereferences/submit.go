@@ -15,7 +15,7 @@ import (
 )
 
 var submitCmdMeta = []flagutil.FlagMeta{
-	{FlagName: "delete-missing", FieldPath: "DeleteMissing", Kind: flagutil.FlagKindEnum, Optional: true, HasDefault: true, DefaultStr: "false", EnumValues: []string{"true", "false"}, Description: "Whether to delete code references that are no longer present in the submitted data (options: true, false)"},
+	{FlagName: "delete-missing", FieldPath: "DeleteMissing", Kind: flagutil.FlagKindBool, Optional: true, HasDefault: true, Description: "Whether to delete code references that are no longer present in the submitted data"},
 	{FlagName: "branch", Shorthand: "b", FieldPath: "Body.Branch", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "repo-name", FieldPath: "Body.RepoName", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "refs", FieldPath: "Body.Refs", Kind: flagutil.FlagKindJSON, Required: true, Annotations: `json:"refs"`, Description: "[required]"},

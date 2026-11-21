@@ -7,13 +7,9 @@ import (
 	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/utils"
 )
 
-type PostSavedGroupRevisionUndoReviewRequestBody struct {
-}
-
 type PostSavedGroupRevisionUndoReviewRequest struct {
-	SavedGroupID string                                      `pathParam:"style=simple,explode=false,name=savedGroupId"`
-	Version      string                                      `pathParam:"style=simple,explode=false,name=version"`
-	Body         PostSavedGroupRevisionUndoReviewRequestBody `request:"mediaType=application/json"`
+	SavedGroupID string `pathParam:"style=simple,explode=false,name=savedGroupId"`
+	Version      string `pathParam:"style=simple,explode=false,name=version"`
 }
 
 func (p *PostSavedGroupRevisionUndoReviewRequest) GetSavedGroupID() string {
@@ -28,13 +24,6 @@ func (p *PostSavedGroupRevisionUndoReviewRequest) GetVersion() string {
 		return ""
 	}
 	return p.Version
-}
-
-func (p *PostSavedGroupRevisionUndoReviewRequest) GetBody() PostSavedGroupRevisionUndoReviewRequestBody {
-	if p == nil {
-		return PostSavedGroupRevisionUndoReviewRequestBody{}
-	}
-	return p.Body
 }
 
 // PostSavedGroupRevisionUndoReviewResponseBody - Resource created

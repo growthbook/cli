@@ -10,35 +10,35 @@ import (
 	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/utils"
 )
 
-// EventTracker - `eventForwarder` is only accepted unchanged
-type EventTracker string
+// UpdateDataSourceEventTracker - `eventForwarder` is only accepted unchanged
+type UpdateDataSourceEventTracker string
 
 const (
-	EventTrackerSegment        EventTracker = "segment"
-	EventTrackerSnowplow       EventTracker = "snowplow"
-	EventTrackerJitsu          EventTracker = "jitsu"
-	EventTrackerFreshpaint     EventTracker = "freshpaint"
-	EventTrackerGa4            EventTracker = "ga4"
-	EventTrackerFullstory      EventTracker = "fullstory"
-	EventTrackerMatomo         EventTracker = "matomo"
-	EventTrackerHeap           EventTracker = "heap"
-	EventTrackerRudderstack    EventTracker = "rudderstack"
-	EventTrackerAmplitude      EventTracker = "amplitude"
-	EventTrackerMparticle      EventTracker = "mparticle"
-	EventTrackerMixpanel       EventTracker = "mixpanel"
-	EventTrackerFirebase       EventTracker = "firebase"
-	EventTrackerKeen           EventTracker = "keen"
-	EventTrackerClevertap      EventTracker = "clevertap"
-	EventTrackerLangfuse       EventTracker = "langfuse"
-	EventTrackerPhoenix        EventTracker = "phoenix"
-	EventTrackerEventForwarder EventTracker = "eventForwarder"
-	EventTrackerCustom         EventTracker = "custom"
+	UpdateDataSourceEventTrackerSegment        UpdateDataSourceEventTracker = "segment"
+	UpdateDataSourceEventTrackerSnowplow       UpdateDataSourceEventTracker = "snowplow"
+	UpdateDataSourceEventTrackerJitsu          UpdateDataSourceEventTracker = "jitsu"
+	UpdateDataSourceEventTrackerFreshpaint     UpdateDataSourceEventTracker = "freshpaint"
+	UpdateDataSourceEventTrackerGa4            UpdateDataSourceEventTracker = "ga4"
+	UpdateDataSourceEventTrackerFullstory      UpdateDataSourceEventTracker = "fullstory"
+	UpdateDataSourceEventTrackerMatomo         UpdateDataSourceEventTracker = "matomo"
+	UpdateDataSourceEventTrackerHeap           UpdateDataSourceEventTracker = "heap"
+	UpdateDataSourceEventTrackerRudderstack    UpdateDataSourceEventTracker = "rudderstack"
+	UpdateDataSourceEventTrackerAmplitude      UpdateDataSourceEventTracker = "amplitude"
+	UpdateDataSourceEventTrackerMparticle      UpdateDataSourceEventTracker = "mparticle"
+	UpdateDataSourceEventTrackerMixpanel       UpdateDataSourceEventTracker = "mixpanel"
+	UpdateDataSourceEventTrackerFirebase       UpdateDataSourceEventTracker = "firebase"
+	UpdateDataSourceEventTrackerKeen           UpdateDataSourceEventTracker = "keen"
+	UpdateDataSourceEventTrackerClevertap      UpdateDataSourceEventTracker = "clevertap"
+	UpdateDataSourceEventTrackerLangfuse       UpdateDataSourceEventTracker = "langfuse"
+	UpdateDataSourceEventTrackerPhoenix        UpdateDataSourceEventTracker = "phoenix"
+	UpdateDataSourceEventTrackerEventForwarder UpdateDataSourceEventTracker = "eventForwarder"
+	UpdateDataSourceEventTrackerCustom         UpdateDataSourceEventTracker = "custom"
 )
 
-func (e EventTracker) ToPointer() *EventTracker {
+func (e UpdateDataSourceEventTracker) ToPointer() *UpdateDataSourceEventTracker {
 	return &e
 }
-func (e *EventTracker) UnmarshalJSON(data []byte) error {
+func (e *UpdateDataSourceEventTracker) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -81,34 +81,34 @@ func (e *EventTracker) UnmarshalJSON(data []byte) error {
 	case "eventForwarder":
 		fallthrough
 	case "custom":
-		*e = EventTracker(v)
+		*e = UpdateDataSourceEventTracker(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for EventTracker: %v", v)
+		return fmt.Errorf("invalid value for UpdateDataSourceEventTracker: %v", v)
 	}
 }
 
-type IdentifierType struct {
+type UpdateDataSourceIdentifierType struct {
 	ID          string  `json:"id"`
 	Description *string `json:"description,omitzero"`
 }
 
-func (i *IdentifierType) GetID() string {
-	if i == nil {
+func (u *UpdateDataSourceIdentifierType) GetID() string {
+	if u == nil {
 		return ""
 	}
-	return i.ID
+	return u.ID
 }
 
-func (i *IdentifierType) GetDescription() *string {
-	if i == nil {
+func (u *UpdateDataSourceIdentifierType) GetDescription() *string {
+	if u == nil {
 		return nil
 	}
-	return i.Description
+	return u.Description
 }
 
-// ColumnMapping - Columns `sql` returns under a non-canonical name, by role. Replaces the stored mapping; send `{}` to clear it.
-type ColumnMapping struct {
+// UpdateDataSourceColumnMapping - Columns `sql` returns under a non-canonical name, by role. Replaces the stored mapping; send `{}` to clear it.
+type UpdateDataSourceColumnMapping struct {
 	ExperimentIDColumn *string `json:"experimentIdColumn,omitzero"`
 	VariationIDColumn  *string `json:"variationIdColumn,omitzero"`
 	TimestampColumn    *string `json:"timestampColumn,omitzero"`
@@ -118,57 +118,57 @@ type ColumnMapping struct {
 	VariationNameColumn  *string           `json:"variationNameColumn,omitzero"`
 }
 
-func (c ColumnMapping) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
+func (u UpdateDataSourceColumnMapping) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
 }
 
-func (c *ColumnMapping) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+func (u *UpdateDataSourceColumnMapping) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *ColumnMapping) GetExperimentIDColumn() *string {
-	if c == nil {
+func (u *UpdateDataSourceColumnMapping) GetExperimentIDColumn() *string {
+	if u == nil {
 		return nil
 	}
-	return c.ExperimentIDColumn
+	return u.ExperimentIDColumn
 }
 
-func (c *ColumnMapping) GetVariationIDColumn() *string {
-	if c == nil {
+func (u *UpdateDataSourceColumnMapping) GetVariationIDColumn() *string {
+	if u == nil {
 		return nil
 	}
-	return c.VariationIDColumn
+	return u.VariationIDColumn
 }
 
-func (c *ColumnMapping) GetTimestampColumn() *string {
-	if c == nil {
+func (u *UpdateDataSourceColumnMapping) GetTimestampColumn() *string {
+	if u == nil {
 		return nil
 	}
-	return c.TimestampColumn
+	return u.TimestampColumn
 }
 
-func (c *ColumnMapping) GetUserIDColumns() map[string]string {
-	if c == nil {
+func (u *UpdateDataSourceColumnMapping) GetUserIDColumns() map[string]string {
+	if u == nil {
 		return nil
 	}
-	return c.UserIDColumns
+	return u.UserIDColumns
 }
 
-func (c *ColumnMapping) GetExperimentNameColumn() *string {
-	if c == nil {
+func (u *UpdateDataSourceColumnMapping) GetExperimentNameColumn() *string {
+	if u == nil {
 		return nil
 	}
-	return c.ExperimentNameColumn
+	return u.ExperimentNameColumn
 }
 
-func (c *ColumnMapping) GetVariationNameColumn() *string {
-	if c == nil {
+func (u *UpdateDataSourceColumnMapping) GetVariationNameColumn() *string {
+	if u == nil {
 		return nil
 	}
-	return c.VariationNameColumn
+	return u.VariationNameColumn
 }
 
 type UpdateDataSourceAssignmentQuery struct {
@@ -188,7 +188,7 @@ type UpdateDataSourceAssignmentQuery struct {
 	// Project IDs that can use this. An empty list means all Projects. Projects control access and availability, so don't use them as labels.
 	Projects []string `json:"projects,omitzero"`
 	// Columns `sql` returns under a non-canonical name, by role. Replaces the stored mapping; send `{}` to clear it.
-	ColumnMapping *ColumnMapping `json:"columnMapping,omitzero"`
+	ColumnMapping *UpdateDataSourceColumnMapping `json:"columnMapping,omitzero"`
 }
 
 func (u UpdateDataSourceAssignmentQuery) MarshalJSON() ([]byte, error) {
@@ -265,65 +265,65 @@ func (u *UpdateDataSourceAssignmentQuery) GetProjects() []string {
 	return u.Projects
 }
 
-func (u *UpdateDataSourceAssignmentQuery) GetColumnMapping() *ColumnMapping {
+func (u *UpdateDataSourceAssignmentQuery) GetColumnMapping() *UpdateDataSourceColumnMapping {
 	if u == nil {
 		return nil
 	}
 	return u.ColumnMapping
 }
 
-type IdentifierJoinQuery struct {
+type UpdateDataSourceIdentifierJoinQuery struct {
 	IdentifierTypes []string `json:"identifierTypes"`
 	SQL             string   `json:"sql"`
 }
 
-func (i *IdentifierJoinQuery) GetIdentifierTypes() []string {
-	if i == nil {
+func (u *UpdateDataSourceIdentifierJoinQuery) GetIdentifierTypes() []string {
+	if u == nil {
 		return []string{}
 	}
-	return i.IdentifierTypes
+	return u.IdentifierTypes
 }
 
-func (i *IdentifierJoinQuery) GetSQL() string {
-	if i == nil {
+func (u *UpdateDataSourceIdentifierJoinQuery) GetSQL() string {
+	if u == nil {
 		return ""
 	}
-	return i.SQL
+	return u.SQL
 }
 
-type MixpanelSettings struct {
+type UpdateDataSourceMixpanelSettings struct {
 	ViewedExperimentEventName *string `json:"viewedExperimentEventName,omitzero"`
 	ExperimentIDProperty      *string `json:"experimentIdProperty,omitzero"`
 	VariationIDProperty       *string `json:"variationIdProperty,omitzero"`
 	ExtraUserIDProperty       *string `json:"extraUserIdProperty,omitzero"`
 }
 
-func (m *MixpanelSettings) GetViewedExperimentEventName() *string {
-	if m == nil {
+func (u *UpdateDataSourceMixpanelSettings) GetViewedExperimentEventName() *string {
+	if u == nil {
 		return nil
 	}
-	return m.ViewedExperimentEventName
+	return u.ViewedExperimentEventName
 }
 
-func (m *MixpanelSettings) GetExperimentIDProperty() *string {
-	if m == nil {
+func (u *UpdateDataSourceMixpanelSettings) GetExperimentIDProperty() *string {
+	if u == nil {
 		return nil
 	}
-	return m.ExperimentIDProperty
+	return u.ExperimentIDProperty
 }
 
-func (m *MixpanelSettings) GetVariationIDProperty() *string {
-	if m == nil {
+func (u *UpdateDataSourceMixpanelSettings) GetVariationIDProperty() *string {
+	if u == nil {
 		return nil
 	}
-	return m.VariationIDProperty
+	return u.VariationIDProperty
 }
 
-func (m *MixpanelSettings) GetExtraUserIDProperty() *string {
-	if m == nil {
+func (u *UpdateDataSourceMixpanelSettings) GetExtraUserIDProperty() *string {
+	if u == nil {
 		return nil
 	}
-	return m.ExtraUserIDProperty
+	return u.ExtraUserIDProperty
 }
 
 type UpdateDataSourceMode string
@@ -352,8 +352,8 @@ func (e *UpdateDataSourceMode) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// PipelineSettings - Merged into the stored settings: fields left out keep their values, but any change must leave `allowWriting`, `mode`, `writeDataset` and `unitsTableRetentionHours` set, with a non-empty `writeDataset` when `allowWriting` is true. Send `[]` to clear `excludedExperimentIds` or `incrementalOptInExperimentIds`, and `includedExperimentIds: null` to apply the mode to every experiment again (`[]` applies it to none).
-type PipelineSettings struct {
+// UpdateDataSourcePipelineSettings - Merged into the stored settings: fields left out keep their values, but any change must leave `allowWriting`, `mode`, `writeDataset` and `unitsTableRetentionHours` set, with a non-empty `writeDataset` when `allowWriting` is true. Send `[]` to clear `excludedExperimentIds` or `incrementalOptInExperimentIds`, and `includedExperimentIds: null` to apply the mode to every experiment again (`[]` applies it to none).
+type UpdateDataSourcePipelineSettings struct {
 	// Let GrowthBook write temporary tables to speed up analysis
 	AllowWriting  *bool                 `json:"allowWriting,omitzero"`
 	Mode          *UpdateDataSourceMode `json:"mode,omitzero"`
@@ -367,78 +367,78 @@ type PipelineSettings struct {
 	IncrementalOptInExperimentIds []string                                    `json:"incrementalOptInExperimentIds,omitzero"`
 }
 
-func (p PipelineSettings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
+func (u UpdateDataSourcePipelineSettings) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
 }
 
-func (p *PipelineSettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+func (u *UpdateDataSourcePipelineSettings) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PipelineSettings) GetAllowWriting() *bool {
-	if p == nil {
+func (u *UpdateDataSourcePipelineSettings) GetAllowWriting() *bool {
+	if u == nil {
 		return nil
 	}
-	return p.AllowWriting
+	return u.AllowWriting
 }
 
-func (p *PipelineSettings) GetMode() *UpdateDataSourceMode {
-	if p == nil {
+func (u *UpdateDataSourcePipelineSettings) GetMode() *UpdateDataSourceMode {
+	if u == nil {
 		return nil
 	}
-	return p.Mode
+	return u.Mode
 }
 
-func (p *PipelineSettings) GetWriteDatabase() *string {
-	if p == nil {
+func (u *UpdateDataSourcePipelineSettings) GetWriteDatabase() *string {
+	if u == nil {
 		return nil
 	}
-	return p.WriteDatabase
+	return u.WriteDatabase
 }
 
-func (p *PipelineSettings) GetWriteDataset() *string {
-	if p == nil {
+func (u *UpdateDataSourcePipelineSettings) GetWriteDataset() *string {
+	if u == nil {
 		return nil
 	}
-	return p.WriteDataset
+	return u.WriteDataset
 }
 
-func (p *PipelineSettings) GetUnitsTableRetentionHours() *float64 {
-	if p == nil {
+func (u *UpdateDataSourcePipelineSettings) GetUnitsTableRetentionHours() *float64 {
+	if u == nil {
 		return nil
 	}
-	return p.UnitsTableRetentionHours
+	return u.UnitsTableRetentionHours
 }
 
-func (p *PipelineSettings) GetUnitsTableDeletion() *bool {
-	if p == nil {
+func (u *UpdateDataSourcePipelineSettings) GetUnitsTableDeletion() *bool {
+	if u == nil {
 		return nil
 	}
-	return p.UnitsTableDeletion
+	return u.UnitsTableDeletion
 }
 
-func (p *PipelineSettings) GetIncludedExperimentIds() optionalnullable.OptionalNullable[[]string] {
-	if p == nil {
+func (u *UpdateDataSourcePipelineSettings) GetIncludedExperimentIds() optionalnullable.OptionalNullable[[]string] {
+	if u == nil {
 		return nil
 	}
-	return p.IncludedExperimentIds
+	return u.IncludedExperimentIds
 }
 
-func (p *PipelineSettings) GetExcludedExperimentIds() []string {
-	if p == nil {
+func (u *UpdateDataSourcePipelineSettings) GetExcludedExperimentIds() []string {
+	if u == nil {
 		return nil
 	}
-	return p.ExcludedExperimentIds
+	return u.ExcludedExperimentIds
 }
 
-func (p *PipelineSettings) GetIncrementalOptInExperimentIds() []string {
-	if p == nil {
+func (u *UpdateDataSourcePipelineSettings) GetIncrementalOptInExperimentIds() []string {
+	if u == nil {
 		return nil
 	}
-	return p.IncrementalOptInExperimentIds
+	return u.IncrementalOptInExperimentIds
 }
 
 type UpdateDataSourceRequestBody struct {
@@ -446,18 +446,18 @@ type UpdateDataSourceRequestBody struct {
 	Description *string  `json:"description,omitzero"`
 	ProjectIds  []string `json:"projectIds,omitzero"`
 	// `eventForwarder` is only accepted unchanged
-	EventTracker *EventTracker `json:"eventTracker,omitzero"`
+	EventTracker *UpdateDataSourceEventTracker `json:"eventTracker,omitzero"`
 	// Replaces the list. An entry matching an existing id keeps its description if left out; send `""` to clear it.
-	IdentifierTypes []IdentifierType `json:"identifierTypes,omitzero"`
+	IdentifierTypes []UpdateDataSourceIdentifierType `json:"identifierTypes,omitzero"`
 	// Replaces the list. An entry with an existing `id` keeps `description`, `identifierTypes`, `includesNameColumns`, `dimensionColumns`, `projects` and `columnMapping` if left out; clear the others with `""`, `false` or `[]`. Each query is validated against the warehouse.
 	AssignmentQueries []UpdateDataSourceAssignmentQuery `json:"assignmentQueries,omitzero"`
 	// Replaces the list
-	IdentifierJoinQueries []IdentifierJoinQuery `json:"identifierJoinQueries,omitzero"`
-	MixpanelSettings      *MixpanelSettings     `json:"mixpanelSettings,omitzero"`
+	IdentifierJoinQueries []UpdateDataSourceIdentifierJoinQuery `json:"identifierJoinQueries,omitzero"`
+	MixpanelSettings      *UpdateDataSourceMixpanelSettings     `json:"mixpanelSettings,omitzero"`
 	// Merged into the stored settings: fields left out keep their values, but any change must leave `allowWriting`, `mode`, `writeDataset` and `unitsTableRetentionHours` set, with a non-empty `writeDataset` when `allowWriting` is true. Send `[]` to clear `excludedExperimentIds` or `incrementalOptInExperimentIds`, and `includedExperimentIds: null` to apply the mode to every experiment again (`[]` applies it to none).
-	PipelineSettings     *PipelineSettings `json:"pipelineSettings,omitzero"`
-	MaxConcurrentQueries *int64            `json:"maxConcurrentQueries,omitzero"`
-	QueryCacheTTLMins    *int64            `json:"queryCacheTTLMins,omitzero"`
+	PipelineSettings     *UpdateDataSourcePipelineSettings `json:"pipelineSettings,omitzero"`
+	MaxConcurrentQueries *int64                            `json:"maxConcurrentQueries,omitzero"`
+	QueryCacheTTLMins    *int64                            `json:"queryCacheTTLMins,omitzero"`
 }
 
 func (u UpdateDataSourceRequestBody) MarshalJSON() ([]byte, error) {
@@ -492,14 +492,14 @@ func (u *UpdateDataSourceRequestBody) GetProjectIds() []string {
 	return u.ProjectIds
 }
 
-func (u *UpdateDataSourceRequestBody) GetEventTracker() *EventTracker {
+func (u *UpdateDataSourceRequestBody) GetEventTracker() *UpdateDataSourceEventTracker {
 	if u == nil {
 		return nil
 	}
 	return u.EventTracker
 }
 
-func (u *UpdateDataSourceRequestBody) GetIdentifierTypes() []IdentifierType {
+func (u *UpdateDataSourceRequestBody) GetIdentifierTypes() []UpdateDataSourceIdentifierType {
 	if u == nil {
 		return nil
 	}
@@ -513,21 +513,21 @@ func (u *UpdateDataSourceRequestBody) GetAssignmentQueries() []UpdateDataSourceA
 	return u.AssignmentQueries
 }
 
-func (u *UpdateDataSourceRequestBody) GetIdentifierJoinQueries() []IdentifierJoinQuery {
+func (u *UpdateDataSourceRequestBody) GetIdentifierJoinQueries() []UpdateDataSourceIdentifierJoinQuery {
 	if u == nil {
 		return nil
 	}
 	return u.IdentifierJoinQueries
 }
 
-func (u *UpdateDataSourceRequestBody) GetMixpanelSettings() *MixpanelSettings {
+func (u *UpdateDataSourceRequestBody) GetMixpanelSettings() *UpdateDataSourceMixpanelSettings {
 	if u == nil {
 		return nil
 	}
 	return u.MixpanelSettings
 }
 
-func (u *UpdateDataSourceRequestBody) GetPipelineSettings() *PipelineSettings {
+func (u *UpdateDataSourceRequestBody) GetPipelineSettings() *UpdateDataSourcePipelineSettings {
 	if u == nil {
 		return nil
 	}

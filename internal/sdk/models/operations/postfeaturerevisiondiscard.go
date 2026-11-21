@@ -7,24 +7,9 @@ import (
 	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/utils"
 )
 
-type PostFeatureRevisionDiscardRequestBody struct {
-}
-
 type PostFeatureRevisionDiscardRequest struct {
-	ID      string                                 `pathParam:"style=simple,explode=false,name=id"`
-	Version string                                 `pathParam:"style=simple,explode=false,name=version"`
-	Body    *PostFeatureRevisionDiscardRequestBody `request:"mediaType=application/json"`
-}
-
-func (p PostFeatureRevisionDiscardRequest) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *PostFeatureRevisionDiscardRequest) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
-		return err
-	}
-	return nil
+	ID      string `pathParam:"style=simple,explode=false,name=id"`
+	Version string `pathParam:"style=simple,explode=false,name=version"`
 }
 
 func (p *PostFeatureRevisionDiscardRequest) GetID() string {
@@ -39,13 +24,6 @@ func (p *PostFeatureRevisionDiscardRequest) GetVersion() string {
 		return ""
 	}
 	return p.Version
-}
-
-func (p *PostFeatureRevisionDiscardRequest) GetBody() *PostFeatureRevisionDiscardRequestBody {
-	if p == nil {
-		return nil
-	}
-	return p.Body
 }
 
 // PostFeatureRevisionDiscardResponseBody - Resource created

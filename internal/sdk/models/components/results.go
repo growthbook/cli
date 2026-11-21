@@ -5,10 +5,11 @@ package components
 type ResultsEntityType string
 
 const (
-	ResultsEntityTypeFeature    ResultsEntityType = "feature"
-	ResultsEntityTypeSavedGroup ResultsEntityType = "saved-group"
-	ResultsEntityTypeConfig     ResultsEntityType = "config"
-	ResultsEntityTypeConstant   ResultsEntityType = "constant"
+	ResultsEntityTypeFeature       ResultsEntityType = "feature"
+	ResultsEntityTypeSavedGroup    ResultsEntityType = "saved-group"
+	ResultsEntityTypeConfig        ResultsEntityType = "config"
+	ResultsEntityTypeConstant      ResultsEntityType = "constant"
+	ResultsEntityTypeSDKConnection ResultsEntityType = "sdk-connection"
 )
 
 func (e ResultsEntityType) ToPointer() *ResultsEntityType {
@@ -19,7 +20,7 @@ func (e ResultsEntityType) ToPointer() *ResultsEntityType {
 func (e *ResultsEntityType) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "feature", "saved-group", "config", "constant":
+		case "feature", "saved-group", "config", "constant", "sdk-connection":
 			return true
 		}
 	}

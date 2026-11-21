@@ -3,7 +3,8 @@
 package components
 
 type ApprovalFlows struct {
-	SavedGroups []SavedGroupApprovalRule `json:"savedGroups"`
+	SavedGroups    []SavedGroupApprovalRule    `json:"savedGroups"`
+	SDKConnections []SDKConnectionApprovalRule `json:"sdkConnections"`
 }
 
 func (a *ApprovalFlows) GetSavedGroups() []SavedGroupApprovalRule {
@@ -11,4 +12,11 @@ func (a *ApprovalFlows) GetSavedGroups() []SavedGroupApprovalRule {
 		return []SavedGroupApprovalRule{}
 	}
 	return a.SavedGroups
+}
+
+func (a *ApprovalFlows) GetSDKConnections() []SDKConnectionApprovalRule {
+	if a == nil {
+		return []SDKConnectionApprovalRule{}
+	}
+	return a.SDKConnections
 }

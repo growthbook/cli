@@ -23,7 +23,7 @@ func initDeleteSDKConnectionCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "delete",
 		Short:   "Deletes a single SDK connection",
-		Long:    "Deletes a single SDK connection",
+		Long:    "Deletes an archived SDK Connection. Archive a live one first (`PUT /sdk-connections/{id}` with `archived: true`, or in a draft revision when the organization requires approvals for it), then delete it. A live connection deletes in one step only when the organization enables 'REST API always bypasses approval requirements'.",
 		Example: "  growthbook SDK-connections delete --id <id>",
 		RunE:    runDeleteSDKConnectionCmd,
 	}

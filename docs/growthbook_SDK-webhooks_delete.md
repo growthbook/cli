@@ -4,7 +4,7 @@ Delete an SDK webhook
 
 ### Synopsis
 
-Webhooks managed by the Vercel integration can't be deleted here.
+The removal is recorded as a published revision of each connection the webhook fired for. Webhooks managed by the Vercel integration can't be deleted here. When the organization requires approvals for a connection the webhook fires for, remove it in a draft revision instead (`DELETE /sdk-connections-revisions/{id}/new/webhooks/{webhookId}`), or pass `bypassApproval`.
 
 ```
 growthbook SDK-webhooks delete [flags]
@@ -19,8 +19,12 @@ growthbook SDK-webhooks delete [flags]
 ### Options
 
 ```
-  -h, --help        help for delete
-  -i, --id string   [required]
+      --body string       Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -b, --bypass-approval   Set to true to write directly to the live SDK Connection without approval. The caller must have Bypass draft approvals access in the SDK Connection's Projects, unless the organization enables the REST API approval bypass. This field has no effect when approval is not required.
+  -h, --help              help for delete
+      --id string         [required]
+      --ignore-warnings   Set to true to continue past a warning: one raised by a Custom Hook, or a webhook that references a secret that doesn't exist. On publish, it also force-publishes an out-of-date draft when the caller has Bypass draft approvals access. It never clears a Custom Hook rejection. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
+  -s, --skip-hooks        Set to true to continue despite a Custom Hook rejection. The caller must have Bypass draft approvals access for SDK Connections in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 ```
 
 ### Options inherited from parent commands

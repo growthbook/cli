@@ -13,7 +13,7 @@ type DeleteContextualBanditLinkedFeatureRequest struct {
 	// The linked feature id
 	FeatureID string `pathParam:"style=simple,explode=false,name=featureId"`
 	// Publish the resulting revision immediately instead of leaving it as a draft.
-	AutoPublish any `queryParam:"style=form,explode=true,name=autoPublish"`
+	AutoPublish *bool `queryParam:"style=form,explode=true,name=autoPublish"`
 	// Remove the rule from this existing draft revision instead of live. Required when the rule hasn't been published yet — omitting it targets the live revision, which has nothing to remove.
 	DraftVersion *int64 `queryParam:"style=form,explode=true,name=draftVersion"`
 }
@@ -32,7 +32,7 @@ func (d *DeleteContextualBanditLinkedFeatureRequest) GetFeatureID() string {
 	return d.FeatureID
 }
 
-func (d *DeleteContextualBanditLinkedFeatureRequest) GetAutoPublish() any {
+func (d *DeleteContextualBanditLinkedFeatureRequest) GetAutoPublish() *bool {
 	if d == nil {
 		return nil
 	}

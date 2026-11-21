@@ -15,7 +15,10 @@ import (
 )
 
 var deleteSDKWebhookCmdMeta = []flagutil.FlagMeta{
-	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
+	{FlagName: "id", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
+	{FlagName: "bypass-approval", Shorthand: "b", FieldPath: "Body.BypassApproval", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to write directly to the live SDK Connection without approval. The caller must have Bypass draft approvals access in the SDK Connection's Projects, unless the organization enables the REST API approval bypass. This field has no effect when approval is not required."},
+	{FlagName: "ignore-warnings", FieldPath: "Body.IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to continue past a warning: one raised by a Custom Hook, or a webhook that references a secret that doesn't exist. On publish, it also force-publishes an out-of-date draft when the caller has Bypass draft approvals access. It never clears a Custom Hook rejection. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it."},
+	{FlagName: "skip-hooks", Shorthand: "s", FieldPath: "Body.SkipHooks", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to continue despite a Custom Hook rejection. The caller must have Bypass draft approvals access for SDK Connections in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it."},
 }
 
 // initDeleteSDKWebhookCmd initializes the delete-SDK-webhook command.
@@ -23,7 +26,7 @@ func initDeleteSDKWebhookCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "delete",
 		Short:   "Delete an SDK webhook",
-		Long:    "Webhooks managed by the Vercel integration can't be deleted here.",
+		Long:    "The removal is recorded as a published revision of each connection the webhook fired for. Webhooks managed by the Vercel integration can't be deleted here. When the organization requires approvals for a connection the webhook fires for, remove it in a draft revision instead (`DELETE /sdk-connections-revisions/{id}/new/webhooks/{webhookId}`), or pass `bypassApproval`.",
 		Example: "  growthbook SDK-webhooks delete --id <id>",
 		RunE:    runDeleteSDKWebhookCmd,
 	}
@@ -31,6 +34,7 @@ func initDeleteSDKWebhookCmd(parent *cobra.Command) error {
 	if err := flagutil.ValidateMeta[operations.DeleteSDKWebhookRequest](deleteSDKWebhookCmdMeta); err != nil {
 		return fmt.Errorf("invalid metadata for delete-SDK-webhook: %w", err)
 	}
+	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
 	parent.AddCommand(cmd)
 	return nil
 }
@@ -45,7 +49,7 @@ func runDeleteSDKWebhookCmd(cmd *cobra.Command, args []string) error {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.DeleteSDKWebhookRequest](cmd, deleteSDKWebhookCmdMeta, "", "")
+	req, err := flagutil.BuildRequest[operations.DeleteSDKWebhookRequest](cmd, deleteSDKWebhookCmdMeta, "Body", "body")
 	if err != nil {
 		return err
 	}

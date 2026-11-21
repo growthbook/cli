@@ -18,7 +18,6 @@ var deleteLogEntryCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "log-id", Shorthand: "l", FieldPath: "LogID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "body-param", Shorthand: "b", FieldPath: "Body", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `request:"mediaType=application/json"`, Description: "JSON object"},
 }
 
 // initDeleteLogEntryCmd initializes the delete-log-entry command.
@@ -35,7 +34,6 @@ func initDeleteLogEntryCmd(parent *cobra.Command) error {
 	if err := flagutil.ValidateMeta[operations.DeleteFeatureRevisionLogEntryV2Request](deleteLogEntryCmdMeta); err != nil {
 		return fmt.Errorf("invalid metadata for delete-log-entry: %w", err)
 	}
-	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
 	parent.AddCommand(cmd)
 	return nil
 }
@@ -50,7 +48,7 @@ func runDeleteLogEntryCmd(cmd *cobra.Command, args []string) error {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.DeleteFeatureRevisionLogEntryV2Request](cmd, deleteLogEntryCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.DeleteFeatureRevisionLogEntryV2Request](cmd, deleteLogEntryCmdMeta, "", "")
 	if err != nil {
 		return err
 	}

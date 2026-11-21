@@ -7,27 +7,9 @@ import (
 	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/utils"
 )
 
-type PostFeatureRevisionDiscardV2RequestBody struct {
-}
-
-// #region class-body-postfeaturerevisiondiscardv2requestbody
-// #endregion class-body-postfeaturerevisiondiscardv2requestbody
-
 type PostFeatureRevisionDiscardV2Request struct {
-	ID      string                                   `pathParam:"style=simple,explode=false,name=id"`
-	Version string                                   `pathParam:"style=simple,explode=false,name=version"`
-	Body    *PostFeatureRevisionDiscardV2RequestBody `request:"mediaType=application/json"`
-}
-
-func (p PostFeatureRevisionDiscardV2Request) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *PostFeatureRevisionDiscardV2Request) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
-		return err
-	}
-	return nil
+	ID      string `pathParam:"style=simple,explode=false,name=id"`
+	Version string `pathParam:"style=simple,explode=false,name=version"`
 }
 
 func (p *PostFeatureRevisionDiscardV2Request) GetID() string {
@@ -42,13 +24,6 @@ func (p *PostFeatureRevisionDiscardV2Request) GetVersion() string {
 		return ""
 	}
 	return p.Version
-}
-
-func (p *PostFeatureRevisionDiscardV2Request) GetBody() *PostFeatureRevisionDiscardV2RequestBody {
-	if p == nil {
-		return nil
-	}
-	return p.Body
 }
 
 // #region class-body-postfeaturerevisiondiscardv2request

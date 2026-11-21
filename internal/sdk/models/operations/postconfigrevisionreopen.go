@@ -7,24 +7,9 @@ import (
 	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/utils"
 )
 
-type PostConfigRevisionReopenRequestBody struct {
-}
-
 type PostConfigRevisionReopenRequest struct {
-	Key     string                               `pathParam:"style=simple,explode=false,name=key"`
-	Version string                               `pathParam:"style=simple,explode=false,name=version"`
-	Body    *PostConfigRevisionReopenRequestBody `request:"mediaType=application/json"`
-}
-
-func (p PostConfigRevisionReopenRequest) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *PostConfigRevisionReopenRequest) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
-		return err
-	}
-	return nil
+	Key     string `pathParam:"style=simple,explode=false,name=key"`
+	Version string `pathParam:"style=simple,explode=false,name=version"`
 }
 
 func (p *PostConfigRevisionReopenRequest) GetKey() string {
@@ -39,13 +24,6 @@ func (p *PostConfigRevisionReopenRequest) GetVersion() string {
 		return ""
 	}
 	return p.Version
-}
-
-func (p *PostConfigRevisionReopenRequest) GetBody() *PostConfigRevisionReopenRequestBody {
-	if p == nil {
-		return nil
-	}
-	return p.Body
 }
 
 // PostConfigRevisionReopenResponseBody - Resource created

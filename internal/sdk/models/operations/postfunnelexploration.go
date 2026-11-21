@@ -645,8 +645,9 @@ func (p *PostFunnelExplorationDateRangeRequest) GetEndDate() optionalnullable.Op
 type PostFunnelExplorationShowAsRequest string
 
 const (
-	PostFunnelExplorationShowAsRequestTotal   PostFunnelExplorationShowAsRequest = "total"
-	PostFunnelExplorationShowAsRequestPerUnit PostFunnelExplorationShowAsRequest = "per_unit"
+	PostFunnelExplorationShowAsRequestTotal               PostFunnelExplorationShowAsRequest = "total"
+	PostFunnelExplorationShowAsRequestPerUnit             PostFunnelExplorationShowAsRequest = "per_unit"
+	PostFunnelExplorationShowAsRequestPercentOfPopulation PostFunnelExplorationShowAsRequest = "percent_of_population"
 )
 
 func (e PostFunnelExplorationShowAsRequest) ToPointer() *PostFunnelExplorationShowAsRequest {
@@ -661,6 +662,8 @@ func (e *PostFunnelExplorationShowAsRequest) UnmarshalJSON(data []byte) error {
 	case "total":
 		fallthrough
 	case "per_unit":
+		fallthrough
+	case "percent_of_population":
 		*e = PostFunnelExplorationShowAsRequest(v)
 		return nil
 	default:
@@ -2097,8 +2100,9 @@ func (p *PostFunnelExplorationDateRangeResponse) GetEndDate() optionalnullable.O
 type PostFunnelExplorationShowAsResponse string
 
 const (
-	PostFunnelExplorationShowAsResponseTotal   PostFunnelExplorationShowAsResponse = "total"
-	PostFunnelExplorationShowAsResponsePerUnit PostFunnelExplorationShowAsResponse = "per_unit"
+	PostFunnelExplorationShowAsResponseTotal               PostFunnelExplorationShowAsResponse = "total"
+	PostFunnelExplorationShowAsResponsePerUnit             PostFunnelExplorationShowAsResponse = "per_unit"
+	PostFunnelExplorationShowAsResponsePercentOfPopulation PostFunnelExplorationShowAsResponse = "percent_of_population"
 )
 
 func (e PostFunnelExplorationShowAsResponse) ToPointer() *PostFunnelExplorationShowAsResponse {
@@ -2109,7 +2113,7 @@ func (e PostFunnelExplorationShowAsResponse) ToPointer() *PostFunnelExplorationS
 func (e *PostFunnelExplorationShowAsResponse) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "total", "per_unit":
+		case "total", "per_unit", "percent_of_population":
 			return true
 		}
 	}

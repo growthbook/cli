@@ -76,9 +76,9 @@ type SavedGroup struct {
 	DateCreated time.Time      `json:"dateCreated"`
 	DateUpdated time.Time      `json:"dateUpdated"`
 	Name        string         `json:"name"`
-	// The userId of the owner (or raw owner name/email for legacy records)
+	// The userId of the owner (or raw owner name/email for legacy records). An owner set by email comes back here as its userId; compare against `ownerEmail` instead.
 	Owner *string `json:"owner,omitzero"`
-	// The email address of the owner, when the owner can be resolved to a known user.
+	// The email address of the owner, when the owner can be resolved to a known user. Matches an `owner` that was sent as an email address.
 	OwnerEmail *string `json:"ownerEmail,omitzero"`
 	// When type = 'condition', this is the JSON-encoded condition for the group
 	Condition *string `json:"condition,omitzero"`

@@ -21,7 +21,7 @@ type Node struct {
 	IsTarget bool `json:"isTarget"`
 	// Own value keys whose value no longer conforms to the effective (inherited) field type and must be fixed. Empty when all conform.
 	IncompatibleFields []string `json:"incompatibleFields,omitzero"`
-	// Own value keys the effective schema no longer declares (e.g. an ancestor removed the field). They still resolve and are served, but nothing validates them and validation rules read them as null; a non-extensible family rejects them on the next changing publish.
+	// Own value keys the schema doesn't declare, for example because an ancestor removed the field. They're still served, but nothing checks them, and validation rules see them as null. When the base Config doesn't allow extra fields, publishing this Config fails until they're removed or added to a schema.
 	OrphanedFields []string `json:"orphanedFields,omitzero"`
 }
 

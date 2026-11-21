@@ -25,7 +25,7 @@ var listExperimentsCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "result", Shorthand: "r", FieldPath: "Result", Kind: flagutil.FlagKindString, Optional: true, Description: "Filter by comma-separated results (won, lost, inconclusive, dnf)"},
 	{FlagName: "tag", FieldPath: "Tag", Kind: flagutil.FlagKindString, Optional: true, Description: "Filter by comma-separated tags"},
 	{FlagName: "type", FieldPath: "Type", Kind: flagutil.FlagKindString, Optional: true, Description: "Filter by comma-separated experiment types (feature, visualChange, redirect)"},
-	{FlagName: "bandits", Shorthand: "b", FieldPath: "Bandits", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"true", "false"}, Description: "When true, return only multi-armed bandits; when false, exclude them (options: true, false)"},
+	{FlagName: "bandits", Shorthand: "b", FieldPath: "Bandits", Kind: flagutil.FlagKindBool, Optional: true, Description: "When true, return only multi-armed bandits; when false, exclude them"},
 	{FlagName: "start-date", FieldPath: "StartDate", Kind: flagutil.FlagKindString, Optional: true, Description: "Only include experiments that have a phase which ended on or after this date"},
 	{FlagName: "end-date", Shorthand: "e", FieldPath: "EndDate", Kind: flagutil.FlagKindString, Optional: true, Description: "Only include experiments that have a phase which ended on or before this date"},
 }

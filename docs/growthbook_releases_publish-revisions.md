@@ -4,11 +4,11 @@ Atomically publish revisions across multiple entities
 
 ### Synopsis
 
-Publishes a set of revisions — at most one per entity — across Feature Flags, Saved Groups, configs, and constants as a single all-or-nothing operation.
+Publishes a set of revisions — at most one per entity — across Feature Flags, Saved Groups, Configs, Constants, and SDK Connections as a single all-or-nothing operation.
 
 Validation, guards, and custom hooks run against the combined end-state of the whole set, so interdependent changes (e.g. a config schema change plus the values that depend on it) publish together even when the in-between states would be invalid.
 
-A blocked publish returns one 422 listing every gate across every item and the flag that clears each. A concurrent change to any target aborts with a 409 and nothing publishes. A failure after the commit starts rolls everything back and emits `revision.publishFailed` for each revision in the set. SDK payloads refresh once per request. Pass `dryRun: true` for the full gate report with zero writes.
+A blocked publish returns one 422 listing every gate across every item and the flag that clears each. A concurrent change to any target aborts with a 409 and nothing publishes. A failure after the commit starts rolls everything back, including an SDK Connection's webhooks, and emits `revision.publishFailed` for each revision in the set that has revision events. SDK payloads refresh once per request, and a webhook an SDK Connection revision edits is sent only once the release has landed. Pass `dryRun: true` for the full gate report with zero writes.
 
 Requires the `releases` commercial feature.
 
@@ -30,7 +30,7 @@ growthbook releases publish-revisions [flags]
   -h, --help                     help for publish-revisions
   -i, --ignore-warnings          Set to true to acknowledge warnings from experiment guards, schema changes, or archives. It can also force-publish an out-of-date draft when the caller has Bypass draft approvals access for that resource. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
   -r, --revisions string         The revisions to publish, at most one per entity. [required]
-      --skip-hooks               Set to true to publish despite Custom Hook rejections. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
+      --skip-hooks               Set to true to publish despite Custom Hook rejections. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. A Custom Hook on an SDK Connection takes that access for SDK Connections. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
       --skip-schema-validation   Set to true to publish despite schema or invariant failures. Validation still runs and the response still reports each failure. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
   -v, --validate-only            Report every gate and outcome without writing anything.
 ```

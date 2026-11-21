@@ -101,6 +101,12 @@ type PutSDKWebhookRequestBody struct {
 	Headers *string `json:"headers,omitzero"`
 	// Request timeout in seconds, up to the server maximum (120 unless configured). Null uses the default.
 	TimeoutSeconds optionalnullable.OptionalNullable[int64] `json:"timeoutSeconds,omitzero"`
+	// Set to true to write directly to the live SDK Connection without approval. The caller must have Bypass draft approvals access in the SDK Connection's Projects, unless the organization enables the REST API approval bypass. This field has no effect when approval is not required.
+	BypassApproval *bool `json:"bypassApproval,omitzero"`
+	// Set to true to continue past a warning: one raised by a Custom Hook, or a webhook that references a secret that doesn't exist. On publish, it also force-publishes an out-of-date draft when the caller has Bypass draft approvals access. It never clears a Custom Hook rejection. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
+	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
+	// Set to true to continue despite a Custom Hook rejection. The caller must have Bypass draft approvals access for SDK Connections in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
+	SkipHooks *bool `json:"skipHooks,omitzero"`
 	// Replaces the SDK Connections this webhook fires for
 	SDKConnections []string `json:"sdkConnections,omitzero"`
 }
@@ -165,6 +171,27 @@ func (p *PutSDKWebhookRequestBody) GetTimeoutSeconds() optionalnullable.Optional
 	return p.TimeoutSeconds
 }
 
+func (p *PutSDKWebhookRequestBody) GetBypassApproval() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.BypassApproval
+}
+
+func (p *PutSDKWebhookRequestBody) GetIgnoreWarnings() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.IgnoreWarnings
+}
+
+func (p *PutSDKWebhookRequestBody) GetSkipHooks() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.SkipHooks
+}
+
 func (p *PutSDKWebhookRequestBody) GetSDKConnections() []string {
 	if p == nil {
 		return nil
@@ -194,6 +221,19 @@ func (p *PutSDKWebhookRequest) GetBody() PutSDKWebhookRequestBody {
 // PutSDKWebhookResponseBody - Resource updated
 type PutSDKWebhookResponseBody struct {
 	SDKWebhook components.SDKWebhook `json:"sdkWebhook"`
+	// Gates that would have blocked this publish but were bypassed by the caller's authority. Present only when at least one gate was bypassed.
+	BypassedGates []components.BypassedGates `json:"bypassedGates,omitzero"`
+}
+
+func (p PutSDKWebhookResponseBody) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PutSDKWebhookResponseBody) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (p *PutSDKWebhookResponseBody) GetSDKWebhook() components.SDKWebhook {
@@ -201,6 +241,13 @@ func (p *PutSDKWebhookResponseBody) GetSDKWebhook() components.SDKWebhook {
 		return components.SDKWebhook{}
 	}
 	return p.SDKWebhook
+}
+
+func (p *PutSDKWebhookResponseBody) GetBypassedGates() []components.BypassedGates {
+	if p == nil {
+		return nil
+	}
+	return p.BypassedGates
 }
 
 type PutSDKWebhookResponse struct {

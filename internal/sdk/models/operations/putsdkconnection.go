@@ -58,15 +58,25 @@ type PutSDKConnectionRequestBody struct {
 	AllowedCustomFieldsInMetadata       []string `json:"allowedCustomFieldsInMetadata,omitzero"`
 	IncludeTagsInMetadata               *bool    `json:"includeTagsInMetadata,omitzero"`
 	IncludeExperimentScheduleInMetadata *bool    `json:"includeExperimentScheduleInMetadata,omitzero"`
-	ProxyEnabled                        *bool    `json:"proxyEnabled,omitzero"`
-	ProxyHost                           *string  `json:"proxyHost,omitzero"`
-	HashSecureAttributes                *bool    `json:"hashSecureAttributes,omitzero"`
-	RemoteEvalEnabled                   *bool    `json:"remoteEvalEnabled,omitzero"`
+	// Send SDK evaluation traces to GrowthBook. Only available to organizations with tracing enabled.
+	TracesEnabled        *bool   `json:"tracesEnabled,omitzero"`
+	ProxyEnabled         *bool   `json:"proxyEnabled,omitzero"`
+	ProxyHost            *string `json:"proxyHost,omitzero"`
+	HashSecureAttributes *bool   `json:"hashSecureAttributes,omitzero"`
+	RemoteEvalEnabled    *bool   `json:"remoteEvalEnabled,omitzero"`
 	// Deprecated. Use `savedGroupFormat`.
 	SavedGroupReferencesEnabled *bool                             `json:"savedGroupReferencesEnabled,omitzero"`
 	SavedGroupFormat            *PutSDKConnectionSavedGroupFormat `json:"savedGroupFormat,omitzero"`
 	// Carry prerequisite Feature Flags into this payload even when they target other Projects. Defaults to true for new connections.
 	IncludeReferencedPrerequisites *bool `json:"includeReferencedPrerequisites,omitzero"`
+	// Archive (true) or restore (false) the connection. Archiving takes the same authority as deleting it; restoring takes publish authority.
+	Archived *bool `json:"archived,omitzero"`
+	// Set to true to write directly to the live SDK Connection without approval. The caller must have Bypass draft approvals access in the SDK Connection's Projects, unless the organization enables the REST API approval bypass. This field has no effect when approval is not required.
+	BypassApproval *bool `json:"bypassApproval,omitzero"`
+	// Set to true to continue past a warning: one raised by a Custom Hook, or a webhook that references a secret that doesn't exist. On publish, it also force-publishes an out-of-date draft when the caller has Bypass draft approvals access. It never clears a Custom Hook rejection. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
+	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
+	// Set to true to continue despite a Custom Hook rejection. The caller must have Bypass draft approvals access for SDK Connections in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
+	SkipHooks *bool `json:"skipHooks,omitzero"`
 }
 
 func (p PutSDKConnectionRequestBody) MarshalJSON() ([]byte, error) {
@@ -199,6 +209,13 @@ func (p *PutSDKConnectionRequestBody) GetIncludeExperimentScheduleInMetadata() *
 	return p.IncludeExperimentScheduleInMetadata
 }
 
+func (p *PutSDKConnectionRequestBody) GetTracesEnabled() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.TracesEnabled
+}
+
 func (p *PutSDKConnectionRequestBody) GetProxyEnabled() *bool {
 	if p == nil {
 		return nil
@@ -248,6 +265,34 @@ func (p *PutSDKConnectionRequestBody) GetIncludeReferencedPrerequisites() *bool 
 	return p.IncludeReferencedPrerequisites
 }
 
+func (p *PutSDKConnectionRequestBody) GetArchived() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.Archived
+}
+
+func (p *PutSDKConnectionRequestBody) GetBypassApproval() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.BypassApproval
+}
+
+func (p *PutSDKConnectionRequestBody) GetIgnoreWarnings() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.IgnoreWarnings
+}
+
+func (p *PutSDKConnectionRequestBody) GetSkipHooks() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.SkipHooks
+}
+
 type PutSDKConnectionRequest struct {
 	// The id of the requested resource
 	ID   string                      `pathParam:"style=simple,explode=false,name=id"`
@@ -271,6 +316,19 @@ func (p *PutSDKConnectionRequest) GetBody() PutSDKConnectionRequestBody {
 // PutSDKConnectionResponseBody - Resource updated
 type PutSDKConnectionResponseBody struct {
 	SDKConnection components.SDKConnection `json:"sdkConnection"`
+	// Gates that would have blocked this publish but were bypassed by the caller's authority. Present only when at least one gate was bypassed.
+	BypassedGates []components.BypassedGates `json:"bypassedGates,omitzero"`
+}
+
+func (p PutSDKConnectionResponseBody) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PutSDKConnectionResponseBody) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (p *PutSDKConnectionResponseBody) GetSDKConnection() components.SDKConnection {
@@ -278,6 +336,13 @@ func (p *PutSDKConnectionResponseBody) GetSDKConnection() components.SDKConnecti
 		return components.SDKConnection{}
 	}
 	return p.SDKConnection
+}
+
+func (p *PutSDKConnectionResponseBody) GetBypassedGates() []components.BypassedGates {
+	if p == nil {
+		return nil
+	}
+	return p.BypassedGates
 }
 
 type PutSDKConnectionResponse struct {

@@ -932,7 +932,7 @@ type Report struct {
 	ExperimentID *string `json:"experimentId,omitzero"`
 	// The userId of the report owner. Absent for reports created before owner attribution existed.
 	Owner *string `json:"owner,omitzero"`
-	// The email address of the owner, when the owner can be resolved to a known user.
+	// The email address of the owner, when the owner can be resolved to a known user. Matches an `owner` that was sent as an email address.
 	OwnerEmail *string `json:"ownerEmail,omitzero"`
 	// Snapshot ID (experiment-snapshot type only)
 	SnapshotID *string `json:"snapshotId,omitzero"`

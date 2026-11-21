@@ -7,13 +7,9 @@ import (
 	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/utils"
 )
 
-type PostConstantRevisionReopenRequestBody struct {
-}
-
 type PostConstantRevisionReopenRequest struct {
-	Key     string                                `pathParam:"style=simple,explode=false,name=key"`
-	Version string                                `pathParam:"style=simple,explode=false,name=version"`
-	Body    PostConstantRevisionReopenRequestBody `request:"mediaType=application/json"`
+	Key     string `pathParam:"style=simple,explode=false,name=key"`
+	Version string `pathParam:"style=simple,explode=false,name=version"`
 }
 
 func (p *PostConstantRevisionReopenRequest) GetKey() string {
@@ -28,13 +24,6 @@ func (p *PostConstantRevisionReopenRequest) GetVersion() string {
 		return ""
 	}
 	return p.Version
-}
-
-func (p *PostConstantRevisionReopenRequest) GetBody() PostConstantRevisionReopenRequestBody {
-	if p == nil {
-		return PostConstantRevisionReopenRequestBody{}
-	}
-	return p.Body
 }
 
 // PostConstantRevisionReopenResponseBody - Resource created

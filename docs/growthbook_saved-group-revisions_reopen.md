@@ -19,8 +19,6 @@ growthbook saved-group-revisions reopen [flags]
 ### Options
 
 ```
-      --body string             Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -b, --body-param string       [required]
   -h, --help                    help for reopen
   -s, --saved-group-id string   [required]
   -v, --version-param string    [required]

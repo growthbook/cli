@@ -13,11 +13,13 @@ import (
 type UpdateCustomHookHook string
 
 const (
-	UpdateCustomHookHookValidateFeature         UpdateCustomHookHook = "validateFeature"
-	UpdateCustomHookHookValidateFeatureRevision UpdateCustomHookHook = "validateFeatureRevision"
-	UpdateCustomHookHookValidateConfig          UpdateCustomHookHook = "validateConfig"
-	UpdateCustomHookHookValidateConfigRevision  UpdateCustomHookHook = "validateConfigRevision"
-	UpdateCustomHookHookValidateExperiment      UpdateCustomHookHook = "validateExperiment"
+	UpdateCustomHookHookValidateFeature               UpdateCustomHookHook = "validateFeature"
+	UpdateCustomHookHookValidateFeatureRevision       UpdateCustomHookHook = "validateFeatureRevision"
+	UpdateCustomHookHookValidateConfig                UpdateCustomHookHook = "validateConfig"
+	UpdateCustomHookHookValidateConfigRevision        UpdateCustomHookHook = "validateConfigRevision"
+	UpdateCustomHookHookValidateExperiment            UpdateCustomHookHook = "validateExperiment"
+	UpdateCustomHookHookValidateSDKConnection         UpdateCustomHookHook = "validateSdkConnection"
+	UpdateCustomHookHookValidateSDKConnectionRevision UpdateCustomHookHook = "validateSdkConnectionRevision"
 )
 
 func (e UpdateCustomHookHook) ToPointer() *UpdateCustomHookHook {
@@ -38,6 +40,10 @@ func (e *UpdateCustomHookHook) UnmarshalJSON(data []byte) error {
 	case "validateConfigRevision":
 		fallthrough
 	case "validateExperiment":
+		fallthrough
+	case "validateSdkConnection":
+		fallthrough
+	case "validateSdkConnectionRevision":
 		*e = UpdateCustomHookHook(v)
 		return nil
 	default:
@@ -48,9 +54,10 @@ func (e *UpdateCustomHookHook) UnmarshalJSON(data []byte) error {
 type UpdateCustomHookEntityType string
 
 const (
-	UpdateCustomHookEntityTypeFeature    UpdateCustomHookEntityType = "feature"
-	UpdateCustomHookEntityTypeConfig     UpdateCustomHookEntityType = "config"
-	UpdateCustomHookEntityTypeExperiment UpdateCustomHookEntityType = "experiment"
+	UpdateCustomHookEntityTypeFeature       UpdateCustomHookEntityType = "feature"
+	UpdateCustomHookEntityTypeConfig        UpdateCustomHookEntityType = "config"
+	UpdateCustomHookEntityTypeExperiment    UpdateCustomHookEntityType = "experiment"
+	UpdateCustomHookEntityTypeSDKConnection UpdateCustomHookEntityType = "sdkConnection"
 )
 
 func (e UpdateCustomHookEntityType) ToPointer() *UpdateCustomHookEntityType {
@@ -67,6 +74,8 @@ func (e *UpdateCustomHookEntityType) UnmarshalJSON(data []byte) error {
 	case "config":
 		fallthrough
 	case "experiment":
+		fallthrough
+	case "sdkConnection":
 		*e = UpdateCustomHookEntityType(v)
 		return nil
 	default:
@@ -82,7 +91,7 @@ type UpdateCustomHookRequestBody struct {
 	Projects []string              `json:"projects,omitzero"`
 	// Retarget the hook's scope (set with entityId). Pass null (with entityId: null) to make the hook global/project-scoped; omit to leave unchanged.
 	EntityType optionalnullable.OptionalNullable[UpdateCustomHookEntityType] `json:"entityType,omitzero"`
-	// The scoped resource: a feature id, or a config key. Pass null (with entityType: null) to clear the scope; omit to leave unchanged.
+	// The scoped resource: a feature id, an experiment id, an SDK Connection id, or a config key. Pass null (with entityType: null) to clear the scope; omit to leave unchanged.
 	EntityID               optionalnullable.OptionalNullable[string] `json:"entityId,omitzero"`
 	IncrementalChangesOnly *bool                                     `json:"incrementalChangesOnly,omitzero"`
 }

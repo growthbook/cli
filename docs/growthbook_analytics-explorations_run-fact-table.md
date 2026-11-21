@@ -28,7 +28,7 @@ growthbook analytics-explorations run-fact-table [flags]
       --date-range string       [required]
       --dimensions string       [required]
   -h, --help                    help for run-fact-table
-  -s, --show-as showAs          Deprecated: use showAs on each metric value. (options: total, per_unit)
+  -s, --show-as showAs          Deprecated: use showAs on each metric value. (options: total, per_unit, percent_of_population)
 ```
 
 ### Options inherited from parent commands

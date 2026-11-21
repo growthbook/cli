@@ -7,28 +7,10 @@ import (
 	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/utils"
 )
 
-type DeleteFeatureRevisionLogEntryV2RequestBody struct {
-}
-
-// #region class-body-deletefeaturerevisionlogentryv2requestbody
-// #endregion class-body-deletefeaturerevisionlogentryv2requestbody
-
 type DeleteFeatureRevisionLogEntryV2Request struct {
-	ID      string                                      `pathParam:"style=simple,explode=false,name=id"`
-	Version string                                      `pathParam:"style=simple,explode=false,name=version"`
-	LogID   string                                      `pathParam:"style=simple,explode=false,name=logId"`
-	Body    *DeleteFeatureRevisionLogEntryV2RequestBody `request:"mediaType=application/json"`
-}
-
-func (d DeleteFeatureRevisionLogEntryV2Request) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(d, "", false)
-}
-
-func (d *DeleteFeatureRevisionLogEntryV2Request) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
-		return err
-	}
-	return nil
+	ID      string `pathParam:"style=simple,explode=false,name=id"`
+	Version string `pathParam:"style=simple,explode=false,name=version"`
+	LogID   string `pathParam:"style=simple,explode=false,name=logId"`
 }
 
 func (d *DeleteFeatureRevisionLogEntryV2Request) GetID() string {
@@ -50,13 +32,6 @@ func (d *DeleteFeatureRevisionLogEntryV2Request) GetLogID() string {
 		return ""
 	}
 	return d.LogID
-}
-
-func (d *DeleteFeatureRevisionLogEntryV2Request) GetBody() *DeleteFeatureRevisionLogEntryV2RequestBody {
-	if d == nil {
-		return nil
-	}
-	return d.Body
 }
 
 // #region class-body-deletefeaturerevisionlogentryv2request

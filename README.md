@@ -447,9 +447,34 @@ Attributes are optional keys by default. Pass `--strict-attributes` to make each
 * [`delete`](docs/growthbook_SDK-connections_delete.md) - Deletes a single SDK connection
 * [`lookup`](docs/growthbook_SDK-connections_lookup.md) - Find a single sdk connection by its key
 
+### [SDK-connection-revisions](docs/growthbook_SDK-connection-revisions.md)
+
+* [`list`](docs/growthbook_SDK-connection-revisions_list.md) - List SDK Connection revisions across the organization
+* [`get`](docs/growthbook_SDK-connection-revisions_get.md) - List revisions for an SDK Connection
+* [`post`](docs/growthbook_SDK-connection-revisions_post.md) - Create a draft revision
+* [`get-SDK-connection-revision-latest`](docs/growthbook_SDK-connection-revisions_get-SDK-connection-revision-latest.md) - Get the most recent active draft revision
+* [`get`](docs/growthbook_SDK-connection-revisions_get.md) - Get a single SDK Connection revision
+* [`get-SDK-connection-revision-merge-status`](docs/growthbook_SDK-connection-revisions_get-SDK-connection-revision-merge-status.md) - Get merge status for a draft revision
+* [`put-SDK-connection-revision-settings`](docs/growthbook_SDK-connection-revisions_put-SDK-connection-revision-settings.md) - Update SDK Connection settings in a draft revision
+* [`put-SDK-connection-revision-archive`](docs/growthbook_SDK-connection-revisions_put-SDK-connection-revision-archive.md) - Stage an archive or restore in a draft revision
+* [`post-SDK-connection-revision-webhook`](docs/growthbook_SDK-connection-revisions_post-SDK-connection-revision-webhook.md) - Add a webhook in a draft revision
+* [`put-SDK-connection-revision-webhook`](docs/growthbook_SDK-connection-revisions_put-SDK-connection-revision-webhook.md) - Update a webhook in a draft revision
+* [`delete-SDK-connection-revision-webhook`](docs/growthbook_SDK-connection-revisions_delete-SDK-connection-revision-webhook.md) - Remove a webhook in a draft revision
+* [`post-SDK-connection-revision-request-review`](docs/growthbook_SDK-connection-revisions_post-SDK-connection-revision-request-review.md) - Request review for a draft revision
+* [`post-SDK-connection-revision-submit-review`](docs/growthbook_SDK-connection-revisions_post-SDK-connection-revision-submit-review.md) - Submit a review on a draft revision
+* [`post-SDK-connection-revision-recall-review`](docs/growthbook_SDK-connection-revisions_post-SDK-connection-revision-recall-review.md) - Recall a review request
+* [`post-SDK-connection-revision-undo-review`](docs/growthbook_SDK-connection-revisions_post-SDK-connection-revision-undo-review.md) - Retract your own review verdict
+* [`post-SDK-connection-revision-reopen`](docs/growthbook_SDK-connection-revisions_post-SDK-connection-revision-reopen.md) - Reopen a discarded revision
+* [`post-SDK-connection-revision-schedule-publish`](docs/growthbook_SDK-connection-revisions_post-SDK-connection-revision-schedule-publish.md) - Schedule (or cancel) a deferred publish
+* [`post-SDK-connection-revision-rebase`](docs/growthbook_SDK-connection-revisions_post-SDK-connection-revision-rebase.md) - Rebase a draft revision onto the live SDK Connection
+* [`post-SDK-connection-revision-publish`](docs/growthbook_SDK-connection-revisions_post-SDK-connection-revision-publish.md) - Publish a draft revision
+* [`post-SDK-connection-revision-discard`](docs/growthbook_SDK-connection-revisions_post-SDK-connection-revision-discard.md) - Discard a draft revision
+* [`post-SDK-connection-revision-revert`](docs/growthbook_SDK-connection-revisions_post-SDK-connection-revision-revert.md) - Revert the SDK Connection to a prior revision
+
 ### [data-sources](docs/growthbook_data-sources.md)
 
 * [`list`](docs/growthbook_data-sources_list.md) - Get all data sources
+* [`post`](docs/growthbook_data-sources_post.md) - Create a data source
 * [`get`](docs/growthbook_data-sources_get.md) - Get a single data source
 * [`update`](docs/growthbook_data-sources_update.md) - Update a data source
 * [`delete`](docs/growthbook_data-sources_delete.md) - Delete a data source
@@ -658,6 +683,7 @@ Attributes are optional keys by default. Pass `--strict-attributes` to make each
 ### [meta](docs/growthbook_meta.md)
 
 * [`get-version`](docs/growthbook_meta_get-version.md) - Get the GrowthBook server version and build info
+* [`list-confirmations`](docs/growthbook_meta_list-confirmations.md) - List confirmations
 * [`get-confirmation`](docs/growthbook_meta_get-confirmation.md) - Get a confirmation
 
 ### [information-schema-tables](docs/growthbook_information-schema-tables.md)

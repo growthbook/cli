@@ -1406,8 +1406,9 @@ func (d *DateRangeFunnel) GetEndDate() optionalnullable.OptionalNullable[string]
 type ShowAsFunnel string
 
 const (
-	ShowAsFunnelTotal   ShowAsFunnel = "total"
-	ShowAsFunnelPerUnit ShowAsFunnel = "per_unit"
+	ShowAsFunnelTotal               ShowAsFunnel = "total"
+	ShowAsFunnelPerUnit             ShowAsFunnel = "per_unit"
+	ShowAsFunnelPercentOfPopulation ShowAsFunnel = "percent_of_population"
 )
 
 func (e ShowAsFunnel) ToPointer() *ShowAsFunnel {
@@ -1418,7 +1419,7 @@ func (e ShowAsFunnel) ToPointer() *ShowAsFunnel {
 func (e *ShowAsFunnel) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "total", "per_unit":
+		case "total", "per_unit", "percent_of_population":
 			return true
 		}
 	}
@@ -2760,8 +2761,9 @@ func (d *DateRangeSQL) GetEndDate() optionalnullable.OptionalNullable[string] {
 type ShowAsSQL string
 
 const (
-	ShowAsSQLTotal   ShowAsSQL = "total"
-	ShowAsSQLPerUnit ShowAsSQL = "per_unit"
+	ShowAsSQLTotal               ShowAsSQL = "total"
+	ShowAsSQLPerUnit             ShowAsSQL = "per_unit"
+	ShowAsSQLPercentOfPopulation ShowAsSQL = "percent_of_population"
 )
 
 func (e ShowAsSQL) ToPointer() *ShowAsSQL {
@@ -2772,7 +2774,7 @@ func (e ShowAsSQL) ToPointer() *ShowAsSQL {
 func (e *ShowAsSQL) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "total", "per_unit":
+		case "total", "per_unit", "percent_of_population":
 			return true
 		}
 	}
@@ -4092,8 +4094,9 @@ func (d *DateRangeDataSource) GetEndDate() optionalnullable.OptionalNullable[str
 type ShowAsDataSource string
 
 const (
-	ShowAsDataSourceTotal   ShowAsDataSource = "total"
-	ShowAsDataSourcePerUnit ShowAsDataSource = "per_unit"
+	ShowAsDataSourceTotal               ShowAsDataSource = "total"
+	ShowAsDataSourcePerUnit             ShowAsDataSource = "per_unit"
+	ShowAsDataSourcePercentOfPopulation ShowAsDataSource = "percent_of_population"
 )
 
 func (e ShowAsDataSource) ToPointer() *ShowAsDataSource {
@@ -4104,7 +4107,7 @@ func (e ShowAsDataSource) ToPointer() *ShowAsDataSource {
 func (e *ShowAsDataSource) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "total", "per_unit":
+		case "total", "per_unit", "percent_of_population":
 			return true
 		}
 	}
@@ -5424,8 +5427,9 @@ func (d *DateRangeFactTable) GetEndDate() optionalnullable.OptionalNullable[stri
 type ShowAsFactTable string
 
 const (
-	ShowAsFactTableTotal   ShowAsFactTable = "total"
-	ShowAsFactTablePerUnit ShowAsFactTable = "per_unit"
+	ShowAsFactTableTotal               ShowAsFactTable = "total"
+	ShowAsFactTablePerUnit             ShowAsFactTable = "per_unit"
+	ShowAsFactTablePercentOfPopulation ShowAsFactTable = "percent_of_population"
 )
 
 func (e ShowAsFactTable) ToPointer() *ShowAsFactTable {
@@ -5436,7 +5440,7 @@ func (e ShowAsFactTable) ToPointer() *ShowAsFactTable {
 func (e *ShowAsFactTable) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "total", "per_unit":
+		case "total", "per_unit", "percent_of_population":
 			return true
 		}
 	}

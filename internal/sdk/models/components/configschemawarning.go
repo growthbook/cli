@@ -11,6 +11,7 @@ const (
 	CodeUnsupportedMember    Code = "unsupported-member"
 	CodeRedundantDeclaration Code = "redundant-declaration"
 	CodeUndeclaredRuleField  Code = "undeclared-rule-field"
+	CodeInferredField        Code = "inferred-field"
 )
 
 func (e Code) ToPointer() *Code {
@@ -21,7 +22,7 @@ func (e Code) ToPointer() *Code {
 func (e *Code) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "dropped-declaration", "non-object-root", "unresolved-type", "unsupported-member", "redundant-declaration", "undeclared-rule-field":
+		case "dropped-declaration", "non-object-root", "unresolved-type", "unsupported-member", "redundant-declaration", "undeclared-rule-field", "inferred-field":
 			return true
 		}
 	}
