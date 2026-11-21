@@ -20,6 +20,7 @@ growthbook SDK-connections list [flags]
 
 ```
   -a, --all                 Automatically paginate and fetch all results (streams NDJSON for JSON output)
+      --archived false      Whether to include archived SDK Connections. Defaults to false (non-archived only). Pass `true` to include archived SDK Connections alongside non-archived ones.
   -h, --help                help for list
   -l, --limit int           The number of items to return (default 10)
       --max-pages int       Maximum number of pages to fetch when using --all (0 = no limit)

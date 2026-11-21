@@ -65,7 +65,7 @@ type ListExperimentsRequest struct {
 	// Filter by comma-separated metric ids. Matches experiments that use a metric as a goal, secondary, or guardrail metric
 	MetricID *string `queryParam:"style=form,explode=true,name=metricId"`
 	// When true, return only multi-armed bandits; when false, exclude them
-	Bandits *components.Bandits `queryParam:"style=form,explode=true,name=bandits"`
+	Bandits *bool `queryParam:"style=form,explode=true,name=bandits"`
 	// Filter by archived status. Set to `true` to return only archived experiments, `false` to exclude them. If omitted, both archived and non-archived experiments are returned.
 	Archived *bool `queryParam:"style=form,explode=true,name=archived"`
 	// Field to sort the results by
@@ -176,7 +176,7 @@ func (l *ListExperimentsRequest) GetMetricID() *string {
 	return l.MetricID
 }
 
-func (l *ListExperimentsRequest) GetBandits() *components.Bandits {
+func (l *ListExperimentsRequest) GetBandits() *bool {
 	if l == nil {
 		return nil
 	}

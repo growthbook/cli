@@ -79,8 +79,8 @@ func (p *PostCodeRefsRequestBody) GetRefs() []Ref {
 
 type PostCodeRefsRequest struct {
 	// Whether to delete code references that are no longer present in the submitted data
-	DeleteMissing *components.DeleteMissing `default:"false" queryParam:"style=form,explode=true,name=deleteMissing"`
-	Body          PostCodeRefsRequestBody   `request:"mediaType=application/json"`
+	DeleteMissing *bool                   `default:"false" queryParam:"style=form,explode=true,name=deleteMissing"`
+	Body          PostCodeRefsRequestBody `request:"mediaType=application/json"`
 }
 
 func (p PostCodeRefsRequest) MarshalJSON() ([]byte, error) {
@@ -94,7 +94,7 @@ func (p *PostCodeRefsRequest) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (p *PostCodeRefsRequest) GetDeleteMissing() *components.DeleteMissing {
+func (p *PostCodeRefsRequest) GetDeleteMissing() *bool {
 	if p == nil {
 		return nil
 	}

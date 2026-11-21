@@ -347,8 +347,9 @@ func (d *DateRangeMetric) GetEndDate() optionalnullable.OptionalNullable[string]
 type DashboardShowAsMetric1 string
 
 const (
-	DashboardShowAsMetric1Total   DashboardShowAsMetric1 = "total"
-	DashboardShowAsMetric1PerUnit DashboardShowAsMetric1 = "per_unit"
+	DashboardShowAsMetric1Total               DashboardShowAsMetric1 = "total"
+	DashboardShowAsMetric1PerUnit             DashboardShowAsMetric1 = "per_unit"
+	DashboardShowAsMetric1PercentOfPopulation DashboardShowAsMetric1 = "percent_of_population"
 )
 
 func (e DashboardShowAsMetric1) ToPointer() *DashboardShowAsMetric1 {
@@ -359,7 +360,7 @@ func (e DashboardShowAsMetric1) ToPointer() *DashboardShowAsMetric1 {
 func (e *DashboardShowAsMetric1) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "total", "per_unit":
+		case "total", "per_unit", "percent_of_population":
 			return true
 		}
 	}
@@ -485,12 +486,13 @@ func (d *DashboardRowFilterMetric) GetValues() []string {
 	return d.Values
 }
 
-// DashboardShowAsMetric2 - How a mean metric renders: `total` sums the numerator, `per_unit` divides it by the unit count. Ignored for other metric types. Omit to use the default (`per_unit` for `max` and `count distinct` aggregations, otherwise `total`).
+// DashboardShowAsMetric2 - How a metric renders: `total` sums the numerator, `per_unit` divides it by the unit count (mean metrics only), and `percent_of_population` divides it by the population's member count as a percentage (proportion metrics with a population only). Ignored for other metric types. Omit to use the default (`per_unit` for mean metrics with `max` and `count distinct` aggregations, `percent_of_population` for proportion metrics with a population, otherwise `total`).
 type DashboardShowAsMetric2 string
 
 const (
-	DashboardShowAsMetric2Total   DashboardShowAsMetric2 = "total"
-	DashboardShowAsMetric2PerUnit DashboardShowAsMetric2 = "per_unit"
+	DashboardShowAsMetric2Total               DashboardShowAsMetric2 = "total"
+	DashboardShowAsMetric2PerUnit             DashboardShowAsMetric2 = "per_unit"
+	DashboardShowAsMetric2PercentOfPopulation DashboardShowAsMetric2 = "percent_of_population"
 )
 
 func (e DashboardShowAsMetric2) ToPointer() *DashboardShowAsMetric2 {
@@ -501,7 +503,7 @@ func (e DashboardShowAsMetric2) ToPointer() *DashboardShowAsMetric2 {
 func (e *DashboardShowAsMetric2) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "total", "per_unit":
+		case "total", "per_unit", "percent_of_population":
 			return true
 		}
 	}
@@ -516,7 +518,7 @@ type DashboardValueMetric struct {
 	MetricID        string  `json:"metricId"`
 	Unit            *string `json:"unit"`
 	DenominatorUnit *string `json:"denominatorUnit"`
-	// How a mean metric renders: `total` sums the numerator, `per_unit` divides it by the unit count. Ignored for other metric types. Omit to use the default (`per_unit` for `max` and `count distinct` aggregations, otherwise `total`).
+	// How a metric renders: `total` sums the numerator, `per_unit` divides it by the unit count (mean metrics only), and `percent_of_population` divides it by the population's member count as a percentage (proportion metrics with a population only). Ignored for other metric types. Omit to use the default (`per_unit` for mean metrics with `max` and `count distinct` aggregations, `percent_of_population` for proportion metrics with a population, otherwise `total`).
 	ShowAs *DashboardShowAsMetric2 `json:"showAs,omitzero"`
 }
 
@@ -5402,9 +5404,9 @@ type Dashboard struct {
 	DateCreated       time.Time           `json:"dateCreated"`
 	DateUpdated       time.Time           `json:"dateUpdated"`
 	Blocks            []Block             `json:"blocks"`
-	// The userId of the owner (or raw owner name/email for legacy records)
+	// The userId of the owner (or raw owner name/email for legacy records). An owner set by email comes back here as its userId; compare against `ownerEmail` instead.
 	Owner string `json:"owner"`
-	// The email address of the owner, when the owner can be resolved to a known user.
+	// The email address of the owner, when the owner can be resolved to a known user. Matches an `owner` that was sent as an email address.
 	OwnerEmail *string `json:"ownerEmail,omitzero"`
 }
 

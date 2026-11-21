@@ -17,7 +17,6 @@ import (
 var postFeatureRevisionDiscardCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "body-param", Shorthand: "b", FieldPath: "Body", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `request:"mediaType=application/json"`, Description: "JSON object"},
 }
 
 // initPostFeatureRevisionDiscardCmd initializes the post-feature-revision-discard command.
@@ -34,7 +33,6 @@ func initPostFeatureRevisionDiscardCmd(parent *cobra.Command) error {
 	if err := flagutil.ValidateMeta[operations.PostFeatureRevisionDiscardRequest](postFeatureRevisionDiscardCmdMeta); err != nil {
 		return fmt.Errorf("invalid metadata for post-feature-revision-discard: %w", err)
 	}
-	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
 	parent.AddCommand(cmd)
 	return nil
 }
@@ -49,7 +47,7 @@ func runPostFeatureRevisionDiscardCmd(cmd *cobra.Command, args []string) error {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.PostFeatureRevisionDiscardRequest](cmd, postFeatureRevisionDiscardCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.PostFeatureRevisionDiscardRequest](cmd, postFeatureRevisionDiscardCmdMeta, "", "")
 	if err != nil {
 		return err
 	}

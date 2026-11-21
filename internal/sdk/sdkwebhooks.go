@@ -175,7 +175,7 @@ func (s *SDKWebhooks) List(ctx context.Context, request operations.ListSDKConnec
 }
 
 // Create - Add a webhook to an SDK Connection
-// Called whenever the connection's payload changes. `httpMethod` defaults to POST. More than one webhook per organization requires a paid plan.
+// Called whenever the connection's payload changes. `httpMethod` defaults to POST. More than one webhook per organization requires a paid plan. The change is recorded as a published revision of the connection. When the organization requires approvals for the connection, add it in a draft revision instead (`POST /sdk-connections-revisions/{id}/new/webhooks`), or pass `bypassApproval`.
 func (s *SDKWebhooks) Create(ctx context.Context, request operations.PostSDKConnectionWebhookRequest, opts ...operations.Option) (*operations.PostSDKConnectionWebhookResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -352,7 +352,7 @@ func (s *SDKWebhooks) Create(ctx context.Context, request operations.PostSDKConn
 }
 
 // Update an SDK webhook
-// The webhook fires once after an update. Webhooks managed by the Vercel integration can't be changed.
+// The webhook fires once after an update, and the change is recorded as a published revision of each connection it fires for. Webhooks managed by the Vercel integration can't be changed. When the organization requires approvals for a connection the webhook fires for, change it in a draft revision instead (`PUT /sdk-connections-revisions/{id}/new/webhooks/{webhookId}`), or pass `bypassApproval`.
 func (s *SDKWebhooks) Update(ctx context.Context, request operations.PutSDKWebhookRequest, opts ...operations.Option) (*operations.PutSDKWebhookResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -529,7 +529,7 @@ func (s *SDKWebhooks) Update(ctx context.Context, request operations.PutSDKWebho
 }
 
 // DeleteSDKWebhook - Delete an SDK webhook
-// Webhooks managed by the Vercel integration can't be deleted here.
+// The removal is recorded as a published revision of each connection the webhook fired for. Webhooks managed by the Vercel integration can't be deleted here. When the organization requires approvals for a connection the webhook fires for, remove it in a draft revision instead (`DELETE /sdk-connections-revisions/{id}/new/webhooks/{webhookId}`), or pass `bypassApproval`.
 func (s *SDKWebhooks) DeleteSDKWebhook(ctx context.Context, request operations.DeleteSDKWebhookRequest, opts ...operations.Option) (*operations.DeleteSDKWebhookResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -562,6 +562,10 @@ func (s *SDKWebhooks) DeleteSDKWebhook(ctx context.Context, request operations.D
 		OperationID:      "deleteSdkWebhook",
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, true, "Body", "json", `request:"mediaType=application/json"`)
+	if err != nil {
+		return nil, err
+	}
 
 	timeout := o.Timeout
 	if timeout == nil {
@@ -574,12 +578,15 @@ func (s *SDKWebhooks) DeleteSDKWebhook(ctx context.Context, request operations.D
 		defer cancel()
 	}
 
-	req, err := http.NewRequestWithContext(ctx, "DELETE", opURL, nil)
+	req, err := http.NewRequestWithContext(ctx, "DELETE", opURL, bodyReader)
 	if err != nil {
 		return nil, fmt.Errorf("error creating request: %w", err)
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
+	if reqContentType != "" {
+		req.Header.Set("Content-Type", reqContentType)
+	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err

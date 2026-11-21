@@ -645,8 +645,9 @@ func (p *PostFactTableExplorationDateRangeRequest) GetEndDate() optionalnullable
 type PostFactTableExplorationShowAsRequest string
 
 const (
-	PostFactTableExplorationShowAsRequestTotal   PostFactTableExplorationShowAsRequest = "total"
-	PostFactTableExplorationShowAsRequestPerUnit PostFactTableExplorationShowAsRequest = "per_unit"
+	PostFactTableExplorationShowAsRequestTotal               PostFactTableExplorationShowAsRequest = "total"
+	PostFactTableExplorationShowAsRequestPerUnit             PostFactTableExplorationShowAsRequest = "per_unit"
+	PostFactTableExplorationShowAsRequestPercentOfPopulation PostFactTableExplorationShowAsRequest = "percent_of_population"
 )
 
 func (e PostFactTableExplorationShowAsRequest) ToPointer() *PostFactTableExplorationShowAsRequest {
@@ -661,6 +662,8 @@ func (e *PostFactTableExplorationShowAsRequest) UnmarshalJSON(data []byte) error
 	case "total":
 		fallthrough
 	case "per_unit":
+		fallthrough
+	case "percent_of_population":
 		*e = PostFactTableExplorationShowAsRequest(v)
 		return nil
 	default:
@@ -2039,8 +2042,9 @@ func (p *PostFactTableExplorationDateRangeResponse) GetEndDate() optionalnullabl
 type PostFactTableExplorationShowAsResponse string
 
 const (
-	PostFactTableExplorationShowAsResponseTotal   PostFactTableExplorationShowAsResponse = "total"
-	PostFactTableExplorationShowAsResponsePerUnit PostFactTableExplorationShowAsResponse = "per_unit"
+	PostFactTableExplorationShowAsResponseTotal               PostFactTableExplorationShowAsResponse = "total"
+	PostFactTableExplorationShowAsResponsePerUnit             PostFactTableExplorationShowAsResponse = "per_unit"
+	PostFactTableExplorationShowAsResponsePercentOfPopulation PostFactTableExplorationShowAsResponse = "percent_of_population"
 )
 
 func (e PostFactTableExplorationShowAsResponse) ToPointer() *PostFactTableExplorationShowAsResponse {
@@ -2051,7 +2055,7 @@ func (e PostFactTableExplorationShowAsResponse) ToPointer() *PostFactTableExplor
 func (e *PostFactTableExplorationShowAsResponse) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "total", "per_unit":
+		case "total", "per_unit", "percent_of_population":
 			return true
 		}
 	}

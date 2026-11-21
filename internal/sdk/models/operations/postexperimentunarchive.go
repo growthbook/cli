@@ -7,13 +7,9 @@ import (
 	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/utils"
 )
 
-type PostExperimentUnarchiveRequestBody struct {
-}
-
 type PostExperimentUnarchiveRequest struct {
 	// The id of the requested resource
-	ID   string                             `pathParam:"style=simple,explode=false,name=id"`
-	Body PostExperimentUnarchiveRequestBody `request:"mediaType=application/json"`
+	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
 func (p *PostExperimentUnarchiveRequest) GetID() string {
@@ -21,13 +17,6 @@ func (p *PostExperimentUnarchiveRequest) GetID() string {
 		return ""
 	}
 	return p.ID
-}
-
-func (p *PostExperimentUnarchiveRequest) GetBody() PostExperimentUnarchiveRequestBody {
-	if p == nil {
-		return PostExperimentUnarchiveRequestBody{}
-	}
-	return p.Body
 }
 
 // PostExperimentUnarchiveResponseBody - Resource created

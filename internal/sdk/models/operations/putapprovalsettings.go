@@ -8,14 +8,33 @@ import (
 )
 
 type ApprovalFlows struct {
-	SavedGroups []components.SavedGroupApprovalRule `json:"savedGroups"`
+	SavedGroups    []components.SavedGroupApprovalRule    `json:"savedGroups,omitzero"`
+	SDKConnections []components.SDKConnectionApprovalRule `json:"sdkConnections,omitzero"`
+}
+
+func (a ApprovalFlows) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *ApprovalFlows) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (a *ApprovalFlows) GetSavedGroups() []components.SavedGroupApprovalRule {
 	if a == nil {
-		return []components.SavedGroupApprovalRule{}
+		return nil
 	}
 	return a.SavedGroups
+}
+
+func (a *ApprovalFlows) GetSDKConnections() []components.SDKConnectionApprovalRule {
+	if a == nil {
+		return nil
+	}
+	return a.SDKConnections
 }
 
 type PutApprovalSettingsRequest struct {

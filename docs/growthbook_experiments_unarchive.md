@@ -19,10 +19,8 @@ growthbook experiments unarchive [flags]
 ### Options
 
 ```
-      --body string         Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -b, --body-param string   [required]
-  -h, --help                help for unarchive
-  -i, --id string           The id of the requested resource [required]
+  -h, --help        help for unarchive
+  -i, --id string   The id of the requested resource [required]
 ```
 
 ### Options inherited from parent commands

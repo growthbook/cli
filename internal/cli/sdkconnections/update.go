@@ -30,9 +30,10 @@ var updateCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "include-rule-ids", FieldPath: "Body.IncludeRuleIds", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "include-project-id-in-metadata", FieldPath: "Body.IncludeProjectIDInMetadata", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "include-custom-fields-in-metadata", FieldPath: "Body.IncludeCustomFieldsInMetadata", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
-	{FlagName: "allowed-custom-fields-in-metadata", Shorthand: "a", FieldPath: "Body.AllowedCustomFieldsInMetadata", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
+	{FlagName: "allowed-custom-fields-in-metadata", FieldPath: "Body.AllowedCustomFieldsInMetadata", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
 	{FlagName: "include-tags-in-metadata", FieldPath: "Body.IncludeTagsInMetadata", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "include-experiment-schedule-in-metadata", FieldPath: "Body.IncludeExperimentScheduleInMetadata", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
+	{FlagName: "traces-enabled", Shorthand: "t", FieldPath: "Body.TracesEnabled", Kind: flagutil.FlagKindBool, Optional: true, Description: "Send SDK evaluation traces to GrowthBook. Only available to organizations with tracing enabled."},
 	{FlagName: "proxy-enabled", FieldPath: "Body.ProxyEnabled", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "proxy-host", FieldPath: "Body.ProxyHost", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "hash-secure-attributes", FieldPath: "Body.HashSecureAttributes", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
@@ -40,6 +41,10 @@ var updateCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "saved-group-references-enabled", FieldPath: "Body.SavedGroupReferencesEnabled", Kind: flagutil.FlagKindBool, Optional: true, Description: "Deprecated. Use `savedGroupFormat`."},
 	{FlagName: "saved-group-format", FieldPath: "Body.SavedGroupFormat", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"inline", "referencesV1", "referencesV2"}, Description: "options: inline, referencesV1, referencesV2"},
 	{FlagName: "include-referenced-prerequisites", FieldPath: "Body.IncludeReferencedPrerequisites", Kind: flagutil.FlagKindBool, Optional: true, Description: "Carry prerequisite Feature Flags into this payload even when they target other Projects. Defaults to true for new connections."},
+	{FlagName: "archived", FieldPath: "Body.Archived", Kind: flagutil.FlagKindBool, Optional: true, Description: "Archive (true) or restore (false) the connection. Archiving takes the same authority as deleting it; restoring takes publish authority."},
+	{FlagName: "bypass-approval", Shorthand: "b", FieldPath: "Body.BypassApproval", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to write directly to the live SDK Connection without approval. The caller must have Bypass draft approvals access in the SDK Connection's Projects, unless the organization enables the REST API approval bypass. This field has no effect when approval is not required."},
+	{FlagName: "ignore-warnings", FieldPath: "Body.IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to continue past a warning: one raised by a Custom Hook, or a webhook that references a secret that doesn't exist. On publish, it also force-publishes an out-of-date draft when the caller has Bypass draft approvals access. It never clears a Custom Hook rejection. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it."},
+	{FlagName: "skip-hooks", FieldPath: "Body.SkipHooks", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to continue despite a Custom Hook rejection. The caller must have Bypass draft approvals access for SDK Connections in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it."},
 }
 
 // initUpdateCmd initializes the update command.
@@ -47,7 +52,7 @@ func initUpdateCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "update",
 		Short:   "Update a single sdk connection",
-		Long:    "Update a single sdk connection",
+		Long:    "Applies the change immediately and records it as a published revision, so it appears in the connection's history. When the organization requires approvals for this connection's Projects and environment, stage the change in a draft revision instead (`PUT /sdk-connections-revisions/{id}/new/settings`), or pass `bypassApproval`. Set `archived` to archive or restore the connection.",
 		Example: "  growthbook SDK-connections update --id <id>",
 		RunE:    runUpdateCmd,
 	}

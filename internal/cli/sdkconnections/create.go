@@ -32,6 +32,7 @@ var createCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "allowed-custom-fields-in-metadata", Shorthand: "a", FieldPath: "AllowedCustomFieldsInMetadata", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
 	{FlagName: "include-tags-in-metadata", FieldPath: "IncludeTagsInMetadata", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "include-experiment-schedule-in-metadata", FieldPath: "IncludeExperimentScheduleInMetadata", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
+	{FlagName: "traces-enabled", Shorthand: "t", FieldPath: "TracesEnabled", Kind: flagutil.FlagKindBool, Optional: true, Description: "Send SDK evaluation traces to GrowthBook. Only available to organizations with tracing enabled."},
 	{FlagName: "proxy-enabled", FieldPath: "ProxyEnabled", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "proxy-host", FieldPath: "ProxyHost", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "hash-secure-attributes", FieldPath: "HashSecureAttributes", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
@@ -39,6 +40,8 @@ var createCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "saved-group-references-enabled", FieldPath: "SavedGroupReferencesEnabled", Kind: flagutil.FlagKindBool, Optional: true, Description: "Deprecated. Use `savedGroupFormat`."},
 	{FlagName: "saved-group-format", FieldPath: "SavedGroupFormat", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"inline", "referencesV1", "referencesV2"}, Description: "options: inline, referencesV1, referencesV2"},
 	{FlagName: "include-referenced-prerequisites", FieldPath: "IncludeReferencedPrerequisites", Kind: flagutil.FlagKindBool, Optional: true, Description: "Carry prerequisite Feature Flags into this payload even when they target other Projects. Defaults to true for new connections."},
+	{FlagName: "ignore-warnings", FieldPath: "IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to continue past a warning: one raised by a Custom Hook, or a webhook that references a secret that doesn't exist. On publish, it also force-publishes an out-of-date draft when the caller has Bypass draft approvals access. It never clears a Custom Hook rejection. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it."},
+	{FlagName: "skip-hooks", FieldPath: "SkipHooks", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to continue despite a Custom Hook rejection. The caller must have Bypass draft approvals access for SDK Connections in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it."},
 }
 
 // initCreateCmd initializes the create command.

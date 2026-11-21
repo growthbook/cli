@@ -19,11 +19,11 @@ growthbook contextual-bandits delete-linked-feature [flags]
 ### Options
 
 ```
-  -a, --auto-publish string   Publish the resulting revision immediately instead of leaving it as a draft.
-      --draft-version int     Remove the rule from this existing draft revision instead of live. Required when the rule hasn't been published yet — omitting it targets the live revision, which has nothing to remove.
-  -f, --feature-id string     The linked feature id [required]
-  -h, --help                  help for delete-linked-feature
-  -i, --id string             The Contextual Bandit id [required]
+  -a, --auto-publish        Publish the resulting revision immediately instead of leaving it as a draft.
+      --draft-version int   Remove the rule from this existing draft revision instead of live. Required when the rule hasn't been published yet — omitting it targets the live revision, which has nothing to remove.
+  -f, --feature-id string   The linked feature id [required]
+  -h, --help                help for delete-linked-feature
+  -i, --id string           The Contextual Bandit id [required]
 ```
 
 ### Options inherited from parent commands

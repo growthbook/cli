@@ -12,19 +12,21 @@ import (
 type RevisionType string
 
 const (
-	RevisionTypeFeatureRevisionRef    RevisionType = "FeatureRevisionRef"
-	RevisionTypeSavedGroupRevisionRef RevisionType = "SavedGroupRevisionRef"
-	RevisionTypeConfigRevisionRef     RevisionType = "ConfigRevisionRef"
-	RevisionTypeConstantRevisionRef   RevisionType = "ConstantRevisionRef"
-	RevisionTypeRevisionIDRef         RevisionType = "RevisionIdRef"
+	RevisionTypeFeatureRevisionRef       RevisionType = "FeatureRevisionRef"
+	RevisionTypeSavedGroupRevisionRef    RevisionType = "SavedGroupRevisionRef"
+	RevisionTypeConfigRevisionRef        RevisionType = "ConfigRevisionRef"
+	RevisionTypeConstantRevisionRef      RevisionType = "ConstantRevisionRef"
+	RevisionTypeSDKConnectionRevisionRef RevisionType = "SdkConnectionRevisionRef"
+	RevisionTypeRevisionIDRef            RevisionType = "RevisionIdRef"
 )
 
 type Revision struct {
-	FeatureRevisionRef    *components.FeatureRevisionRef    `queryParam:"inline" union:"member"`
-	SavedGroupRevisionRef *components.SavedGroupRevisionRef `queryParam:"inline" union:"member"`
-	ConfigRevisionRef     *components.ConfigRevisionRef     `queryParam:"inline" union:"member"`
-	ConstantRevisionRef   *components.ConstantRevisionRef   `queryParam:"inline" union:"member"`
-	RevisionIDRef         *components.RevisionIDRef         `queryParam:"inline" union:"member"`
+	FeatureRevisionRef       *components.FeatureRevisionRef       `queryParam:"inline" union:"member"`
+	SavedGroupRevisionRef    *components.SavedGroupRevisionRef    `queryParam:"inline" union:"member"`
+	ConfigRevisionRef        *components.ConfigRevisionRef        `queryParam:"inline" union:"member"`
+	ConstantRevisionRef      *components.ConstantRevisionRef      `queryParam:"inline" union:"member"`
+	SDKConnectionRevisionRef *components.SDKConnectionRevisionRef `queryParam:"inline" union:"member"`
+	RevisionIDRef            *components.RevisionIDRef            `queryParam:"inline" union:"member"`
 
 	Type RevisionType
 }
@@ -62,6 +64,15 @@ func CreateRevisionConstantRevisionRef(constantRevisionRef components.ConstantRe
 	return Revision{
 		ConstantRevisionRef: &constantRevisionRef,
 		Type:                typ,
+	}
+}
+
+func CreateRevisionSDKConnectionRevisionRef(sdkConnectionRevisionRef components.SDKConnectionRevisionRef) Revision {
+	typ := RevisionTypeSDKConnectionRevisionRef
+
+	return Revision{
+		SDKConnectionRevisionRef: &sdkConnectionRevisionRef,
+		Type:                     typ,
 	}
 }
 
@@ -111,6 +122,14 @@ func (u *Revision) UnmarshalJSON(data []byte) error {
 		})
 	}
 
+	var sdkConnectionRevisionRef components.SDKConnectionRevisionRef = components.SDKConnectionRevisionRef{}
+	if err := utils.UnmarshalJSON(data, &sdkConnectionRevisionRef, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RevisionTypeSDKConnectionRevisionRef,
+			Value: &sdkConnectionRevisionRef,
+		})
+	}
+
 	var revisionIDRef components.RevisionIDRef = components.RevisionIDRef{}
 	if err := utils.UnmarshalJSON(data, &revisionIDRef, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
@@ -144,6 +163,9 @@ func (u *Revision) UnmarshalJSON(data []byte) error {
 	case RevisionTypeConstantRevisionRef:
 		u.ConstantRevisionRef = best.Value.(*components.ConstantRevisionRef)
 		return nil
+	case RevisionTypeSDKConnectionRevisionRef:
+		u.SDKConnectionRevisionRef = best.Value.(*components.SDKConnectionRevisionRef)
+		return nil
 	case RevisionTypeRevisionIDRef:
 		u.RevisionIDRef = best.Value.(*components.RevisionIDRef)
 		return nil
@@ -169,6 +191,10 @@ func (u Revision) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.ConstantRevisionRef, "", true)
 	}
 
+	if u.SDKConnectionRevisionRef != nil {
+		return utils.MarshalJSON(u.SDKConnectionRevisionRef, "", true)
+	}
+
 	if u.RevisionIDRef != nil {
 		return utils.MarshalJSON(u.RevisionIDRef, "", true)
 	}
@@ -185,7 +211,7 @@ type PostReleasePublishRevisionsRequest struct {
 	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
 	// Set to true to publish despite schema or invariant failures. Validation still runs and the response still reports each failure. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	SkipSchemaValidation *bool `json:"skipSchemaValidation,omitzero"`
-	// Set to true to publish despite Custom Hook rejections. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
+	// Set to true to publish despite Custom Hook rejections. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. A Custom Hook on an SDK Connection takes that access for SDK Connections. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	SkipHooks *bool `json:"skipHooks,omitzero"`
 	// An optional publish comment recorded on every revision in this release — it appears in each entity's revision history and is passed to any custom validation hooks that run for the publish.
 	Comment *string `json:"comment,omitzero"`
@@ -236,10 +262,11 @@ func (p *PostReleasePublishRevisionsRequest) GetComment() *string {
 type GateEntityType string
 
 const (
-	GateEntityTypeFeature    GateEntityType = "feature"
-	GateEntityTypeSavedGroup GateEntityType = "saved-group"
-	GateEntityTypeConfig     GateEntityType = "config"
-	GateEntityTypeConstant   GateEntityType = "constant"
+	GateEntityTypeFeature       GateEntityType = "feature"
+	GateEntityTypeSavedGroup    GateEntityType = "saved-group"
+	GateEntityTypeConfig        GateEntityType = "config"
+	GateEntityTypeConstant      GateEntityType = "constant"
+	GateEntityTypeSDKConnection GateEntityType = "sdk-connection"
 )
 
 func (e GateEntityType) ToPointer() *GateEntityType {
@@ -250,7 +277,7 @@ func (e GateEntityType) ToPointer() *GateEntityType {
 func (e *GateEntityType) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "feature", "saved-group", "config", "constant":
+		case "feature", "saved-group", "config", "constant", "sdk-connection":
 			return true
 		}
 	}
@@ -388,10 +415,11 @@ func (g *Gate) GetResolution() *Resolution {
 type BypassedGateEntityType string
 
 const (
-	BypassedGateEntityTypeFeature    BypassedGateEntityType = "feature"
-	BypassedGateEntityTypeSavedGroup BypassedGateEntityType = "saved-group"
-	BypassedGateEntityTypeConfig     BypassedGateEntityType = "config"
-	BypassedGateEntityTypeConstant   BypassedGateEntityType = "constant"
+	BypassedGateEntityTypeFeature       BypassedGateEntityType = "feature"
+	BypassedGateEntityTypeSavedGroup    BypassedGateEntityType = "saved-group"
+	BypassedGateEntityTypeConfig        BypassedGateEntityType = "config"
+	BypassedGateEntityTypeConstant      BypassedGateEntityType = "constant"
+	BypassedGateEntityTypeSDKConnection BypassedGateEntityType = "sdk-connection"
 )
 
 func (e BypassedGateEntityType) ToPointer() *BypassedGateEntityType {
@@ -402,7 +430,7 @@ func (e BypassedGateEntityType) ToPointer() *BypassedGateEntityType {
 func (e *BypassedGateEntityType) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "feature", "saved-group", "config", "constant":
+		case "feature", "saved-group", "config", "constant", "sdk-connection":
 			return true
 		}
 	}

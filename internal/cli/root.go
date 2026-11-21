@@ -51,6 +51,7 @@ import (
 	"github.com/growthbook/cli/v4/internal/cli/reports"
 	"github.com/growthbook/cli/v4/internal/cli/savedgrouprevisions"
 	"github.com/growthbook/cli/v4/internal/cli/savedgroups"
+	"github.com/growthbook/cli/v4/internal/cli/sdkconnectionrevisions"
 	"github.com/growthbook/cli/v4/internal/cli/sdkconnections"
 	"github.com/growthbook/cli/v4/internal/cli/sdkwebhooks"
 	"github.com/growthbook/cli/v4/internal/cli/segments"
@@ -151,6 +152,9 @@ func NewRootCommand() (*cobra.Command, error) {
 	}
 	if err := sdkconnections.InitSDKConnectionsRoot(rootCmd); err != nil {
 		return nil, fmt.Errorf("init SDK-connections: %w", err)
+	}
+	if err := sdkconnectionrevisions.InitSDKConnectionRevisionsRoot(rootCmd); err != nil {
+		return nil, fmt.Errorf("init SDK-connection-revisions: %w", err)
 	}
 	if err := datasources.InitDataSourcesRoot(rootCmd); err != nil {
 		return nil, fmt.Errorf("init data-sources: %w", err)

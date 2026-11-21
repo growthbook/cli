@@ -1561,8 +1561,9 @@ func (u *UpdateDashboardDateRangeSQL2) GetEndDate() optionalnullable.OptionalNul
 type UpdateDashboardShowAsSQL2 string
 
 const (
-	UpdateDashboardShowAsSQL2Total   UpdateDashboardShowAsSQL2 = "total"
-	UpdateDashboardShowAsSQL2PerUnit UpdateDashboardShowAsSQL2 = "per_unit"
+	UpdateDashboardShowAsSQL2Total               UpdateDashboardShowAsSQL2 = "total"
+	UpdateDashboardShowAsSQL2PerUnit             UpdateDashboardShowAsSQL2 = "per_unit"
+	UpdateDashboardShowAsSQL2PercentOfPopulation UpdateDashboardShowAsSQL2 = "percent_of_population"
 )
 
 func (e UpdateDashboardShowAsSQL2) ToPointer() *UpdateDashboardShowAsSQL2 {
@@ -1577,6 +1578,8 @@ func (e *UpdateDashboardShowAsSQL2) UnmarshalJSON(data []byte) error {
 	case "total":
 		fallthrough
 	case "per_unit":
+		fallthrough
+	case "percent_of_population":
 		*e = UpdateDashboardShowAsSQL2(v)
 		return nil
 	default:
@@ -3081,8 +3084,9 @@ func (u *UpdateDashboardDateRangeFunnel2) GetEndDate() optionalnullable.Optional
 type UpdateDashboardShowAsFunnel2 string
 
 const (
-	UpdateDashboardShowAsFunnel2Total   UpdateDashboardShowAsFunnel2 = "total"
-	UpdateDashboardShowAsFunnel2PerUnit UpdateDashboardShowAsFunnel2 = "per_unit"
+	UpdateDashboardShowAsFunnel2Total               UpdateDashboardShowAsFunnel2 = "total"
+	UpdateDashboardShowAsFunnel2PerUnit             UpdateDashboardShowAsFunnel2 = "per_unit"
+	UpdateDashboardShowAsFunnel2PercentOfPopulation UpdateDashboardShowAsFunnel2 = "percent_of_population"
 )
 
 func (e UpdateDashboardShowAsFunnel2) ToPointer() *UpdateDashboardShowAsFunnel2 {
@@ -3097,6 +3101,8 @@ func (e *UpdateDashboardShowAsFunnel2) UnmarshalJSON(data []byte) error {
 	case "total":
 		fallthrough
 	case "per_unit":
+		fallthrough
+	case "percent_of_population":
 		*e = UpdateDashboardShowAsFunnel2(v)
 		return nil
 	default:
@@ -4622,8 +4628,9 @@ func (u *UpdateDashboardDateRangeDataSource2) GetEndDate() optionalnullable.Opti
 type UpdateDashboardShowAsDataSource2 string
 
 const (
-	UpdateDashboardShowAsDataSource2Total   UpdateDashboardShowAsDataSource2 = "total"
-	UpdateDashboardShowAsDataSource2PerUnit UpdateDashboardShowAsDataSource2 = "per_unit"
+	UpdateDashboardShowAsDataSource2Total               UpdateDashboardShowAsDataSource2 = "total"
+	UpdateDashboardShowAsDataSource2PerUnit             UpdateDashboardShowAsDataSource2 = "per_unit"
+	UpdateDashboardShowAsDataSource2PercentOfPopulation UpdateDashboardShowAsDataSource2 = "percent_of_population"
 )
 
 func (e UpdateDashboardShowAsDataSource2) ToPointer() *UpdateDashboardShowAsDataSource2 {
@@ -4638,6 +4645,8 @@ func (e *UpdateDashboardShowAsDataSource2) UnmarshalJSON(data []byte) error {
 	case "total":
 		fallthrough
 	case "per_unit":
+		fallthrough
+	case "percent_of_population":
 		*e = UpdateDashboardShowAsDataSource2(v)
 		return nil
 	default:
@@ -6142,8 +6151,9 @@ func (u *UpdateDashboardDateRangeFactTable2) GetEndDate() optionalnullable.Optio
 type UpdateDashboardShowAsFactTable2 string
 
 const (
-	UpdateDashboardShowAsFactTable2Total   UpdateDashboardShowAsFactTable2 = "total"
-	UpdateDashboardShowAsFactTable2PerUnit UpdateDashboardShowAsFactTable2 = "per_unit"
+	UpdateDashboardShowAsFactTable2Total               UpdateDashboardShowAsFactTable2 = "total"
+	UpdateDashboardShowAsFactTable2PerUnit             UpdateDashboardShowAsFactTable2 = "per_unit"
+	UpdateDashboardShowAsFactTable2PercentOfPopulation UpdateDashboardShowAsFactTable2 = "percent_of_population"
 )
 
 func (e UpdateDashboardShowAsFactTable2) ToPointer() *UpdateDashboardShowAsFactTable2 {
@@ -6158,6 +6168,8 @@ func (e *UpdateDashboardShowAsFactTable2) UnmarshalJSON(data []byte) error {
 	case "total":
 		fallthrough
 	case "per_unit":
+		fallthrough
+	case "percent_of_population":
 		*e = UpdateDashboardShowAsFactTable2(v)
 		return nil
 	default:

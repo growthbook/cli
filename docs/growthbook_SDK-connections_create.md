@@ -25,6 +25,7 @@ growthbook SDK-connections create [flags]
       --environment string                                [required]
       --hash-secure-attributes                            boolean flag
   -h, --help                                              help for create
+      --ignore-warnings                                   Set to true to continue past a warning: one raised by a Custom Hook, or a webhook that references a secret that doesn't exist. On publish, it also force-publishes an out-of-date draft when the caller has Bypass draft approvals access. It never clears a Custom Hook rejection. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
       --include-custom-fields-in-metadata                 boolean flag
       --include-draft-experiment-refs                     When true, experiment-ref rules linked to draft experiments are included in feature definitions. Off by default.
       --include-draft-experiments                         boolean flag
@@ -45,6 +46,8 @@ growthbook SDK-connections create [flags]
       --saved-group-format string                         options: inline, referencesV1, referencesV2
       --saved-group-references-enabled savedGroupFormat   Deprecated. Use savedGroupFormat.
       --sdk-version string                                string value
+      --skip-hooks                                        Set to true to continue despite a Custom Hook rejection. The caller must have Bypass draft approvals access for SDK Connections in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
+  -t, --traces-enabled                                    Send SDK evaluation traces to GrowthBook. Only available to organizations with tracing enabled.
 ```
 
 ### Options inherited from parent commands

@@ -645,8 +645,9 @@ func (p *PostMetricExplorationDateRangeRequest) GetEndDate() optionalnullable.Op
 type PostMetricExplorationShowAsRequest1 string
 
 const (
-	PostMetricExplorationShowAsRequest1Total   PostMetricExplorationShowAsRequest1 = "total"
-	PostMetricExplorationShowAsRequest1PerUnit PostMetricExplorationShowAsRequest1 = "per_unit"
+	PostMetricExplorationShowAsRequest1Total               PostMetricExplorationShowAsRequest1 = "total"
+	PostMetricExplorationShowAsRequest1PerUnit             PostMetricExplorationShowAsRequest1 = "per_unit"
+	PostMetricExplorationShowAsRequest1PercentOfPopulation PostMetricExplorationShowAsRequest1 = "percent_of_population"
 )
 
 func (e PostMetricExplorationShowAsRequest1) ToPointer() *PostMetricExplorationShowAsRequest1 {
@@ -661,6 +662,8 @@ func (e *PostMetricExplorationShowAsRequest1) UnmarshalJSON(data []byte) error {
 	case "total":
 		fallthrough
 	case "per_unit":
+		fallthrough
+	case "percent_of_population":
 		*e = PostMetricExplorationShowAsRequest1(v)
 		return nil
 	default:
@@ -820,12 +823,13 @@ func (p *PostMetricExplorationRowFilterRequest) GetValues() []string {
 	return p.Values
 }
 
-// PostMetricExplorationShowAsRequest2 - How a mean metric renders: `total` sums the numerator, `per_unit` divides it by the unit count. Ignored for other metric types. Omit to use the default (`per_unit` for `max` and `count distinct` aggregations, otherwise `total`).
+// PostMetricExplorationShowAsRequest2 - How a metric renders: `total` sums the numerator, `per_unit` divides it by the unit count (mean metrics only), and `percent_of_population` divides it by the population's member count as a percentage (proportion metrics with a population only). Ignored for other metric types. Omit to use the default (`per_unit` for mean metrics with `max` and `count distinct` aggregations, `percent_of_population` for proportion metrics with a population, otherwise `total`).
 type PostMetricExplorationShowAsRequest2 string
 
 const (
-	PostMetricExplorationShowAsRequest2Total   PostMetricExplorationShowAsRequest2 = "total"
-	PostMetricExplorationShowAsRequest2PerUnit PostMetricExplorationShowAsRequest2 = "per_unit"
+	PostMetricExplorationShowAsRequest2Total               PostMetricExplorationShowAsRequest2 = "total"
+	PostMetricExplorationShowAsRequest2PerUnit             PostMetricExplorationShowAsRequest2 = "per_unit"
+	PostMetricExplorationShowAsRequest2PercentOfPopulation PostMetricExplorationShowAsRequest2 = "percent_of_population"
 )
 
 func (e PostMetricExplorationShowAsRequest2) ToPointer() *PostMetricExplorationShowAsRequest2 {
@@ -840,6 +844,8 @@ func (e *PostMetricExplorationShowAsRequest2) UnmarshalJSON(data []byte) error {
 	case "total":
 		fallthrough
 	case "per_unit":
+		fallthrough
+	case "percent_of_population":
 		*e = PostMetricExplorationShowAsRequest2(v)
 		return nil
 	default:
@@ -855,7 +861,7 @@ type PostMetricExplorationValueRequest struct {
 	MetricID        string  `json:"metricId"`
 	Unit            *string `json:"unit"`
 	DenominatorUnit *string `json:"denominatorUnit"`
-	// How a mean metric renders: `total` sums the numerator, `per_unit` divides it by the unit count. Ignored for other metric types. Omit to use the default (`per_unit` for `max` and `count distinct` aggregations, otherwise `total`).
+	// How a metric renders: `total` sums the numerator, `per_unit` divides it by the unit count (mean metrics only), and `percent_of_population` divides it by the population's member count as a percentage (proportion metrics with a population only). Ignored for other metric types. Omit to use the default (`per_unit` for mean metrics with `max` and `count distinct` aggregations, `percent_of_population` for proportion metrics with a population, otherwise `total`).
 	ShowAs *PostMetricExplorationShowAsRequest2 `json:"showAs,omitzero"`
 }
 
@@ -2046,8 +2052,9 @@ func (p *PostMetricExplorationDateRangeResponse) GetEndDate() optionalnullable.O
 type PostMetricExplorationShowAsResponse1 string
 
 const (
-	PostMetricExplorationShowAsResponse1Total   PostMetricExplorationShowAsResponse1 = "total"
-	PostMetricExplorationShowAsResponse1PerUnit PostMetricExplorationShowAsResponse1 = "per_unit"
+	PostMetricExplorationShowAsResponse1Total               PostMetricExplorationShowAsResponse1 = "total"
+	PostMetricExplorationShowAsResponse1PerUnit             PostMetricExplorationShowAsResponse1 = "per_unit"
+	PostMetricExplorationShowAsResponse1PercentOfPopulation PostMetricExplorationShowAsResponse1 = "percent_of_population"
 )
 
 func (e PostMetricExplorationShowAsResponse1) ToPointer() *PostMetricExplorationShowAsResponse1 {
@@ -2058,7 +2065,7 @@ func (e PostMetricExplorationShowAsResponse1) ToPointer() *PostMetricExploration
 func (e *PostMetricExplorationShowAsResponse1) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "total", "per_unit":
+		case "total", "per_unit", "percent_of_population":
 			return true
 		}
 	}
@@ -2173,12 +2180,13 @@ func (p *PostMetricExplorationRowFilterResponse) GetValues() []string {
 	return p.Values
 }
 
-// PostMetricExplorationShowAsResponse2 - How a mean metric renders: `total` sums the numerator, `per_unit` divides it by the unit count. Ignored for other metric types. Omit to use the default (`per_unit` for `max` and `count distinct` aggregations, otherwise `total`).
+// PostMetricExplorationShowAsResponse2 - How a metric renders: `total` sums the numerator, `per_unit` divides it by the unit count (mean metrics only), and `percent_of_population` divides it by the population's member count as a percentage (proportion metrics with a population only). Ignored for other metric types. Omit to use the default (`per_unit` for mean metrics with `max` and `count distinct` aggregations, `percent_of_population` for proportion metrics with a population, otherwise `total`).
 type PostMetricExplorationShowAsResponse2 string
 
 const (
-	PostMetricExplorationShowAsResponse2Total   PostMetricExplorationShowAsResponse2 = "total"
-	PostMetricExplorationShowAsResponse2PerUnit PostMetricExplorationShowAsResponse2 = "per_unit"
+	PostMetricExplorationShowAsResponse2Total               PostMetricExplorationShowAsResponse2 = "total"
+	PostMetricExplorationShowAsResponse2PerUnit             PostMetricExplorationShowAsResponse2 = "per_unit"
+	PostMetricExplorationShowAsResponse2PercentOfPopulation PostMetricExplorationShowAsResponse2 = "percent_of_population"
 )
 
 func (e PostMetricExplorationShowAsResponse2) ToPointer() *PostMetricExplorationShowAsResponse2 {
@@ -2189,7 +2197,7 @@ func (e PostMetricExplorationShowAsResponse2) ToPointer() *PostMetricExploration
 func (e *PostMetricExplorationShowAsResponse2) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "total", "per_unit":
+		case "total", "per_unit", "percent_of_population":
 			return true
 		}
 	}
@@ -2204,7 +2212,7 @@ type ValueMetricResponse struct {
 	MetricID        string  `json:"metricId"`
 	Unit            *string `json:"unit"`
 	DenominatorUnit *string `json:"denominatorUnit"`
-	// How a mean metric renders: `total` sums the numerator, `per_unit` divides it by the unit count. Ignored for other metric types. Omit to use the default (`per_unit` for `max` and `count distinct` aggregations, otherwise `total`).
+	// How a metric renders: `total` sums the numerator, `per_unit` divides it by the unit count (mean metrics only), and `percent_of_population` divides it by the population's member count as a percentage (proportion metrics with a population only). Ignored for other metric types. Omit to use the default (`per_unit` for mean metrics with `max` and `count distinct` aggregations, `percent_of_population` for proportion metrics with a population, otherwise `total`).
 	ShowAs *PostMetricExplorationShowAsResponse2 `json:"showAs,omitzero"`
 }
 

@@ -7,13 +7,9 @@ import (
 	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/utils"
 )
 
-type PostSavedGroupRevisionReopenRequestBody struct {
-}
-
 type PostSavedGroupRevisionReopenRequest struct {
-	SavedGroupID string                                  `pathParam:"style=simple,explode=false,name=savedGroupId"`
-	Version      string                                  `pathParam:"style=simple,explode=false,name=version"`
-	Body         PostSavedGroupRevisionReopenRequestBody `request:"mediaType=application/json"`
+	SavedGroupID string `pathParam:"style=simple,explode=false,name=savedGroupId"`
+	Version      string `pathParam:"style=simple,explode=false,name=version"`
 }
 
 func (p *PostSavedGroupRevisionReopenRequest) GetSavedGroupID() string {
@@ -28,13 +24,6 @@ func (p *PostSavedGroupRevisionReopenRequest) GetVersion() string {
 		return ""
 	}
 	return p.Version
-}
-
-func (p *PostSavedGroupRevisionReopenRequest) GetBody() PostSavedGroupRevisionReopenRequestBody {
-	if p == nil {
-		return PostSavedGroupRevisionReopenRequestBody{}
-	}
-	return p.Body
 }
 
 // PostSavedGroupRevisionReopenResponseBody - Resource created

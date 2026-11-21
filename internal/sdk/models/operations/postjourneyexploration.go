@@ -645,8 +645,9 @@ func (p *PostJourneyExplorationDateRangeRequest) GetEndDate() optionalnullable.O
 type PostJourneyExplorationShowAsRequest string
 
 const (
-	PostJourneyExplorationShowAsRequestTotal   PostJourneyExplorationShowAsRequest = "total"
-	PostJourneyExplorationShowAsRequestPerUnit PostJourneyExplorationShowAsRequest = "per_unit"
+	PostJourneyExplorationShowAsRequestTotal               PostJourneyExplorationShowAsRequest = "total"
+	PostJourneyExplorationShowAsRequestPerUnit             PostJourneyExplorationShowAsRequest = "per_unit"
+	PostJourneyExplorationShowAsRequestPercentOfPopulation PostJourneyExplorationShowAsRequest = "percent_of_population"
 )
 
 func (e PostJourneyExplorationShowAsRequest) ToPointer() *PostJourneyExplorationShowAsRequest {
@@ -661,6 +662,8 @@ func (e *PostJourneyExplorationShowAsRequest) UnmarshalJSON(data []byte) error {
 	case "total":
 		fallthrough
 	case "per_unit":
+		fallthrough
+	case "percent_of_population":
 		*e = PostJourneyExplorationShowAsRequest(v)
 		return nil
 	default:
@@ -2104,8 +2107,9 @@ func (p *PostJourneyExplorationDateRangeResponse) GetEndDate() optionalnullable.
 type PostJourneyExplorationShowAsResponse string
 
 const (
-	PostJourneyExplorationShowAsResponseTotal   PostJourneyExplorationShowAsResponse = "total"
-	PostJourneyExplorationShowAsResponsePerUnit PostJourneyExplorationShowAsResponse = "per_unit"
+	PostJourneyExplorationShowAsResponseTotal               PostJourneyExplorationShowAsResponse = "total"
+	PostJourneyExplorationShowAsResponsePerUnit             PostJourneyExplorationShowAsResponse = "per_unit"
+	PostJourneyExplorationShowAsResponsePercentOfPopulation PostJourneyExplorationShowAsResponse = "percent_of_population"
 )
 
 func (e PostJourneyExplorationShowAsResponse) ToPointer() *PostJourneyExplorationShowAsResponse {
@@ -2116,7 +2120,7 @@ func (e PostJourneyExplorationShowAsResponse) ToPointer() *PostJourneyExploratio
 func (e *PostJourneyExplorationShowAsResponse) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "total", "per_unit":
+		case "total", "per_unit", "percent_of_population":
 			return true
 		}
 	}

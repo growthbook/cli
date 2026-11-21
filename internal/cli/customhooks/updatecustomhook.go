@@ -17,12 +17,12 @@ import (
 var updateCustomHookCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The id of the custom hook [required]"},
 	{FlagName: "name", Shorthand: "n", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
-	{FlagName: "hook", FieldPath: "Body.Hook", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"validateFeature", "validateFeatureRevision", "validateConfig", "validateConfigRevision", "validateExperiment"}, Description: "options: validateFeature, validateFeatureRevision, validateConfig, validateConfigRevision, validateExperiment"},
+	{FlagName: "hook", FieldPath: "Body.Hook", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"validateFeature", "validateFeatureRevision", "validateConfig", "validateConfigRevision", "validateExperiment", "validateSdkConnection", "validateSdkConnectionRevision"}, Description: "options: validateFeature, validateFeatureRevision, validateConfig, validateConfigRevision, validateExperiment, validateSdkConnection, validateSdkConnectionRevision"},
 	{FlagName: "code", Shorthand: "c", FieldPath: "Body.Code", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "enabled", FieldPath: "Body.Enabled", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 	{FlagName: "projects", Shorthand: "p", FieldPath: "Body.Projects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "list of values"},
-	{FlagName: "entity-type", FieldPath: "Body.EntityType", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"entityType,omitempty"`, Description: "Retarget the hook's scope (set with entityId). Pass null (with entityId: null) to make the hook global/project-scoped; omit to leave unchanged. (options: feature, config, experiment)"},
-	{FlagName: "entity-id", FieldPath: "Body.EntityID", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"entityId,omitempty"`, Description: "The scoped resource: a feature id, or a config key. Pass null (with entityType: null) to clear the scope; omit to leave unchanged."},
+	{FlagName: "entity-type", FieldPath: "Body.EntityType", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"entityType,omitempty"`, Description: "Retarget the hook's scope (set with entityId). Pass null (with entityId: null) to make the hook global/project-scoped; omit to leave unchanged. (options: feature, config, experiment, sdkConnection)"},
+	{FlagName: "entity-id", FieldPath: "Body.EntityID", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"entityId,omitempty"`, Description: "The scoped resource: a feature id, an experiment id, an SDK Connection id, or a config key. Pass null (with entityType: null) to clear the scope; omit to leave unchanged."},
 	{FlagName: "incremental-changes-only", FieldPath: "Body.IncrementalChangesOnly", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 }
 

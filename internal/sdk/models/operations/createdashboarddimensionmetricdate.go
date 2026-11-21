@@ -1540,8 +1540,9 @@ func (c *CreateDashboardDateRangeSQL) GetEndDate() optionalnullable.OptionalNull
 type CreateDashboardShowAsSQL string
 
 const (
-	CreateDashboardShowAsSQLTotal   CreateDashboardShowAsSQL = "total"
-	CreateDashboardShowAsSQLPerUnit CreateDashboardShowAsSQL = "per_unit"
+	CreateDashboardShowAsSQLTotal               CreateDashboardShowAsSQL = "total"
+	CreateDashboardShowAsSQLPerUnit             CreateDashboardShowAsSQL = "per_unit"
+	CreateDashboardShowAsSQLPercentOfPopulation CreateDashboardShowAsSQL = "percent_of_population"
 )
 
 func (e CreateDashboardShowAsSQL) ToPointer() *CreateDashboardShowAsSQL {
@@ -1556,6 +1557,8 @@ func (e *CreateDashboardShowAsSQL) UnmarshalJSON(data []byte) error {
 	case "total":
 		fallthrough
 	case "per_unit":
+		fallthrough
+	case "percent_of_population":
 		*e = CreateDashboardShowAsSQL(v)
 		return nil
 	default:
@@ -3021,8 +3024,9 @@ func (c *CreateDashboardDateRangeFunnel) GetEndDate() optionalnullable.OptionalN
 type CreateDashboardShowAsFunnel string
 
 const (
-	CreateDashboardShowAsFunnelTotal   CreateDashboardShowAsFunnel = "total"
-	CreateDashboardShowAsFunnelPerUnit CreateDashboardShowAsFunnel = "per_unit"
+	CreateDashboardShowAsFunnelTotal               CreateDashboardShowAsFunnel = "total"
+	CreateDashboardShowAsFunnelPerUnit             CreateDashboardShowAsFunnel = "per_unit"
+	CreateDashboardShowAsFunnelPercentOfPopulation CreateDashboardShowAsFunnel = "percent_of_population"
 )
 
 func (e CreateDashboardShowAsFunnel) ToPointer() *CreateDashboardShowAsFunnel {
@@ -3037,6 +3041,8 @@ func (e *CreateDashboardShowAsFunnel) UnmarshalJSON(data []byte) error {
 	case "total":
 		fallthrough
 	case "per_unit":
+		fallthrough
+	case "percent_of_population":
 		*e = CreateDashboardShowAsFunnel(v)
 		return nil
 	default:
@@ -4520,8 +4526,9 @@ func (c *CreateDashboardDateRangeDataSource) GetEndDate() optionalnullable.Optio
 type CreateDashboardShowAsDataSource string
 
 const (
-	CreateDashboardShowAsDataSourceTotal   CreateDashboardShowAsDataSource = "total"
-	CreateDashboardShowAsDataSourcePerUnit CreateDashboardShowAsDataSource = "per_unit"
+	CreateDashboardShowAsDataSourceTotal               CreateDashboardShowAsDataSource = "total"
+	CreateDashboardShowAsDataSourcePerUnit             CreateDashboardShowAsDataSource = "per_unit"
+	CreateDashboardShowAsDataSourcePercentOfPopulation CreateDashboardShowAsDataSource = "percent_of_population"
 )
 
 func (e CreateDashboardShowAsDataSource) ToPointer() *CreateDashboardShowAsDataSource {
@@ -4536,6 +4543,8 @@ func (e *CreateDashboardShowAsDataSource) UnmarshalJSON(data []byte) error {
 	case "total":
 		fallthrough
 	case "per_unit":
+		fallthrough
+	case "percent_of_population":
 		*e = CreateDashboardShowAsDataSource(v)
 		return nil
 	default:
@@ -6001,8 +6010,9 @@ func (c *CreateDashboardDateRangeFactTable) GetEndDate() optionalnullable.Option
 type CreateDashboardShowAsFactTable string
 
 const (
-	CreateDashboardShowAsFactTableTotal   CreateDashboardShowAsFactTable = "total"
-	CreateDashboardShowAsFactTablePerUnit CreateDashboardShowAsFactTable = "per_unit"
+	CreateDashboardShowAsFactTableTotal               CreateDashboardShowAsFactTable = "total"
+	CreateDashboardShowAsFactTablePerUnit             CreateDashboardShowAsFactTable = "per_unit"
+	CreateDashboardShowAsFactTablePercentOfPopulation CreateDashboardShowAsFactTable = "percent_of_population"
 )
 
 func (e CreateDashboardShowAsFactTable) ToPointer() *CreateDashboardShowAsFactTable {
@@ -6017,6 +6027,8 @@ func (e *CreateDashboardShowAsFactTable) UnmarshalJSON(data []byte) error {
 	case "total":
 		fallthrough
 	case "per_unit":
+		fallthrough
+	case "percent_of_population":
 		*e = CreateDashboardShowAsFactTable(v)
 		return nil
 	default:

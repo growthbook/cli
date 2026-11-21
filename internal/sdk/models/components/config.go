@@ -175,9 +175,9 @@ type Config struct {
 	// Stable reference handle; used as `@config:key` in values
 	Key  string `json:"key"`
 	Name string `json:"name"`
-	// The userId of the owner (or raw owner name/email for legacy records)
+	// The userId of the owner (or raw owner name/email for legacy records). An owner set by email comes back here as its userId; compare against `ownerEmail` instead.
 	Owner *string `json:"owner,omitzero"`
-	// The email address of the owner, when the owner can be resolved to a known user.
+	// The email address of the owner, when the owner can be resolved to a known user. Matches an `owner` that was sent as an email address.
 	OwnerEmail *string `json:"ownerEmail,omitzero"`
 	// The `key` of the config this one inherits from (lineage parent — the primary spine). Synthesized into `$extends` at resolution time and never stored in `value`.
 	Parent *string `json:"parent,omitzero"`

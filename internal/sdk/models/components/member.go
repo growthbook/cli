@@ -125,12 +125,17 @@ type Member struct {
 	LimitAccessByEnvironment *bool    `json:"limitAccessByEnvironment,omitzero"`
 	// Additional roles granted alongside this one, in the same scope. Each is granted independently and environment access is the union across them.
 	AdditionalRoles []MemberAdditionalRole `json:"additionalRoles,omitzero"`
-	ManagedbyIdp    *bool                  `json:"managedbyIdp,omitzero"`
-	Teams           []string               `json:"teams,omitzero"`
-	ProjectRoles    []MemberProjectRole    `json:"projectRoles,omitzero"`
-	LastLoginDate   *time.Time             `json:"lastLoginDate,omitzero"`
-	DateCreated     *time.Time             `json:"dateCreated,omitzero"`
-	DateUpdated     *time.Time             `json:"dateUpdated,omitzero"`
+	// Whether the member is provisioned and managed by an identity provider (SCIM).
+	ManagedByIdp *bool `json:"managedByIdp,omitzero"`
+	// Deprecated: use `managedByIdp`.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	ManagedbyIdp  *bool               `json:"managedbyIdp,omitzero"`
+	Teams         []string            `json:"teams,omitzero"`
+	ProjectRoles  []MemberProjectRole `json:"projectRoles,omitzero"`
+	LastLoginDate *time.Time          `json:"lastLoginDate,omitzero"`
+	DateCreated   *time.Time          `json:"dateCreated,omitzero"`
+	DateUpdated   *time.Time          `json:"dateUpdated,omitzero"`
 }
 
 func (m Member) MarshalJSON() ([]byte, error) {
@@ -191,6 +196,13 @@ func (m *Member) GetAdditionalRoles() []MemberAdditionalRole {
 		return nil
 	}
 	return m.AdditionalRoles
+}
+
+func (m *Member) GetManagedByIdp() *bool {
+	if m == nil {
+		return nil
+	}
+	return m.ManagedByIdp
 }
 
 func (m *Member) GetManagedbyIdp() *bool {

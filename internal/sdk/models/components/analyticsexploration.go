@@ -1037,8 +1037,9 @@ func (a *AnalyticsExplorationDateRange6) GetEndDate() optionalnullable.OptionalN
 type AnalyticsExplorationShowAs6 string
 
 const (
-	AnalyticsExplorationShowAs6Total   AnalyticsExplorationShowAs6 = "total"
-	AnalyticsExplorationShowAs6PerUnit AnalyticsExplorationShowAs6 = "per_unit"
+	AnalyticsExplorationShowAs6Total               AnalyticsExplorationShowAs6 = "total"
+	AnalyticsExplorationShowAs6PerUnit             AnalyticsExplorationShowAs6 = "per_unit"
+	AnalyticsExplorationShowAs6PercentOfPopulation AnalyticsExplorationShowAs6 = "percent_of_population"
 )
 
 func (e AnalyticsExplorationShowAs6) ToPointer() *AnalyticsExplorationShowAs6 {
@@ -1049,7 +1050,7 @@ func (e AnalyticsExplorationShowAs6) ToPointer() *AnalyticsExplorationShowAs6 {
 func (e *AnalyticsExplorationShowAs6) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "total", "per_unit":
+		case "total", "per_unit", "percent_of_population":
 			return true
 		}
 	}
@@ -2055,8 +2056,9 @@ func (a *AnalyticsExplorationDateRange5) GetEndDate() optionalnullable.OptionalN
 type AnalyticsExplorationShowAs5 string
 
 const (
-	AnalyticsExplorationShowAs5Total   AnalyticsExplorationShowAs5 = "total"
-	AnalyticsExplorationShowAs5PerUnit AnalyticsExplorationShowAs5 = "per_unit"
+	AnalyticsExplorationShowAs5Total               AnalyticsExplorationShowAs5 = "total"
+	AnalyticsExplorationShowAs5PerUnit             AnalyticsExplorationShowAs5 = "per_unit"
+	AnalyticsExplorationShowAs5PercentOfPopulation AnalyticsExplorationShowAs5 = "percent_of_population"
 )
 
 func (e AnalyticsExplorationShowAs5) ToPointer() *AnalyticsExplorationShowAs5 {
@@ -2067,7 +2069,7 @@ func (e AnalyticsExplorationShowAs5) ToPointer() *AnalyticsExplorationShowAs5 {
 func (e *AnalyticsExplorationShowAs5) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "total", "per_unit":
+		case "total", "per_unit", "percent_of_population":
 			return true
 		}
 	}
@@ -3051,8 +3053,9 @@ func (a *AnalyticsExplorationDateRange4) GetEndDate() optionalnullable.OptionalN
 type AnalyticsExplorationShowAs4 string
 
 const (
-	AnalyticsExplorationShowAs4Total   AnalyticsExplorationShowAs4 = "total"
-	AnalyticsExplorationShowAs4PerUnit AnalyticsExplorationShowAs4 = "per_unit"
+	AnalyticsExplorationShowAs4Total               AnalyticsExplorationShowAs4 = "total"
+	AnalyticsExplorationShowAs4PerUnit             AnalyticsExplorationShowAs4 = "per_unit"
+	AnalyticsExplorationShowAs4PercentOfPopulation AnalyticsExplorationShowAs4 = "percent_of_population"
 )
 
 func (e AnalyticsExplorationShowAs4) ToPointer() *AnalyticsExplorationShowAs4 {
@@ -3063,7 +3066,7 @@ func (e AnalyticsExplorationShowAs4) ToPointer() *AnalyticsExplorationShowAs4 {
 func (e *AnalyticsExplorationShowAs4) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "total", "per_unit":
+		case "total", "per_unit", "percent_of_population":
 			return true
 		}
 	}
@@ -4033,8 +4036,9 @@ func (a *AnalyticsExplorationDateRange3) GetEndDate() optionalnullable.OptionalN
 type AnalyticsExplorationShowAs3 string
 
 const (
-	AnalyticsExplorationShowAs3Total   AnalyticsExplorationShowAs3 = "total"
-	AnalyticsExplorationShowAs3PerUnit AnalyticsExplorationShowAs3 = "per_unit"
+	AnalyticsExplorationShowAs3Total               AnalyticsExplorationShowAs3 = "total"
+	AnalyticsExplorationShowAs3PerUnit             AnalyticsExplorationShowAs3 = "per_unit"
+	AnalyticsExplorationShowAs3PercentOfPopulation AnalyticsExplorationShowAs3 = "percent_of_population"
 )
 
 func (e AnalyticsExplorationShowAs3) ToPointer() *AnalyticsExplorationShowAs3 {
@@ -4045,7 +4049,7 @@ func (e AnalyticsExplorationShowAs3) ToPointer() *AnalyticsExplorationShowAs3 {
 func (e *AnalyticsExplorationShowAs3) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "total", "per_unit":
+		case "total", "per_unit", "percent_of_population":
 			return true
 		}
 	}
@@ -5015,8 +5019,9 @@ func (a *AnalyticsExplorationDateRange2) GetEndDate() optionalnullable.OptionalN
 type AnalyticsExplorationShowAs2 string
 
 const (
-	AnalyticsExplorationShowAs2Total   AnalyticsExplorationShowAs2 = "total"
-	AnalyticsExplorationShowAs2PerUnit AnalyticsExplorationShowAs2 = "per_unit"
+	AnalyticsExplorationShowAs2Total               AnalyticsExplorationShowAs2 = "total"
+	AnalyticsExplorationShowAs2PerUnit             AnalyticsExplorationShowAs2 = "per_unit"
+	AnalyticsExplorationShowAs2PercentOfPopulation AnalyticsExplorationShowAs2 = "percent_of_population"
 )
 
 func (e AnalyticsExplorationShowAs2) ToPointer() *AnalyticsExplorationShowAs2 {
@@ -5027,7 +5032,7 @@ func (e AnalyticsExplorationShowAs2) ToPointer() *AnalyticsExplorationShowAs2 {
 func (e *AnalyticsExplorationShowAs2) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "total", "per_unit":
+		case "total", "per_unit", "percent_of_population":
 			return true
 		}
 	}
@@ -5948,8 +5953,9 @@ func (a *AnalyticsExplorationDateRange1) GetEndDate() optionalnullable.OptionalN
 type AnalyticsExplorationShowAs1 string
 
 const (
-	AnalyticsExplorationShowAs1Total   AnalyticsExplorationShowAs1 = "total"
-	AnalyticsExplorationShowAs1PerUnit AnalyticsExplorationShowAs1 = "per_unit"
+	AnalyticsExplorationShowAs1Total               AnalyticsExplorationShowAs1 = "total"
+	AnalyticsExplorationShowAs1PerUnit             AnalyticsExplorationShowAs1 = "per_unit"
+	AnalyticsExplorationShowAs1PercentOfPopulation AnalyticsExplorationShowAs1 = "percent_of_population"
 )
 
 func (e AnalyticsExplorationShowAs1) ToPointer() *AnalyticsExplorationShowAs1 {
@@ -5960,7 +5966,7 @@ func (e AnalyticsExplorationShowAs1) ToPointer() *AnalyticsExplorationShowAs1 {
 func (e *AnalyticsExplorationShowAs1) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "total", "per_unit":
+		case "total", "per_unit", "percent_of_population":
 			return true
 		}
 	}
@@ -6089,12 +6095,13 @@ func (a *AnalyticsExplorationRowFilterMetric) GetValues() []string {
 	return a.Values
 }
 
-// AnalyticsExplorationShowAsMetric - How a mean metric renders: `total` sums the numerator, `per_unit` divides it by the unit count. Ignored for other metric types. Omit to use the default (`per_unit` for `max` and `count distinct` aggregations, otherwise `total`).
+// AnalyticsExplorationShowAsMetric - How a metric renders: `total` sums the numerator, `per_unit` divides it by the unit count (mean metrics only), and `percent_of_population` divides it by the population's member count as a percentage (proportion metrics with a population only). Ignored for other metric types. Omit to use the default (`per_unit` for mean metrics with `max` and `count distinct` aggregations, `percent_of_population` for proportion metrics with a population, otherwise `total`).
 type AnalyticsExplorationShowAsMetric string
 
 const (
-	AnalyticsExplorationShowAsMetricTotal   AnalyticsExplorationShowAsMetric = "total"
-	AnalyticsExplorationShowAsMetricPerUnit AnalyticsExplorationShowAsMetric = "per_unit"
+	AnalyticsExplorationShowAsMetricTotal               AnalyticsExplorationShowAsMetric = "total"
+	AnalyticsExplorationShowAsMetricPerUnit             AnalyticsExplorationShowAsMetric = "per_unit"
+	AnalyticsExplorationShowAsMetricPercentOfPopulation AnalyticsExplorationShowAsMetric = "percent_of_population"
 )
 
 func (e AnalyticsExplorationShowAsMetric) ToPointer() *AnalyticsExplorationShowAsMetric {
@@ -6105,7 +6112,7 @@ func (e AnalyticsExplorationShowAsMetric) ToPointer() *AnalyticsExplorationShowA
 func (e *AnalyticsExplorationShowAsMetric) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "total", "per_unit":
+		case "total", "per_unit", "percent_of_population":
 			return true
 		}
 	}
@@ -6120,7 +6127,7 @@ type ConfigValueMetric struct {
 	MetricID        string  `json:"metricId"`
 	Unit            *string `json:"unit"`
 	DenominatorUnit *string `json:"denominatorUnit"`
-	// How a mean metric renders: `total` sums the numerator, `per_unit` divides it by the unit count. Ignored for other metric types. Omit to use the default (`per_unit` for `max` and `count distinct` aggregations, otherwise `total`).
+	// How a metric renders: `total` sums the numerator, `per_unit` divides it by the unit count (mean metrics only), and `percent_of_population` divides it by the population's member count as a percentage (proportion metrics with a population only). Ignored for other metric types. Omit to use the default (`per_unit` for mean metrics with `max` and `count distinct` aggregations, `percent_of_population` for proportion metrics with a population, otherwise `total`).
 	ShowAs *AnalyticsExplorationShowAsMetric `json:"showAs,omitzero"`
 }
 

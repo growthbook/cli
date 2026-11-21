@@ -17,7 +17,6 @@ import (
 var undoReviewCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "key", Shorthand: "k", FieldPath: "Key", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "body-param", Shorthand: "b", FieldPath: "Body", Kind: flagutil.FlagKindJSON, Required: true, Annotations: `request:"mediaType=application/json"`, Description: "[required]"},
 }
 
 // initUndoReviewCmd initializes the undo-review command.
@@ -34,7 +33,6 @@ func initUndoReviewCmd(parent *cobra.Command) error {
 	if err := flagutil.ValidateMeta[operations.PostConfigRevisionUndoReviewRequest](undoReviewCmdMeta); err != nil {
 		return fmt.Errorf("invalid metadata for undo-review: %w", err)
 	}
-	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
 	parent.AddCommand(cmd)
 	return nil
 }
@@ -49,7 +47,7 @@ func runUndoReviewCmd(cmd *cobra.Command, args []string) error {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.PostConfigRevisionUndoReviewRequest](cmd, undoReviewCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.PostConfigRevisionUndoReviewRequest](cmd, undoReviewCmdMeta, "", "")
 	if err != nil {
 		return err
 	}

@@ -16,6 +16,8 @@ type ListSDKConnectionsRequest struct {
 	ProjectID *string `queryParam:"style=form,explode=true,name=projectId"`
 	WithProxy *string `queryParam:"style=form,explode=true,name=withProxy"`
 	MultiOrg  *string `queryParam:"style=form,explode=true,name=multiOrg"`
+	// Whether to include archived SDK Connections. Defaults to `false` (non-archived only). Pass `true` to include archived SDK Connections alongside non-archived ones.
+	Archived *bool `queryParam:"style=form,explode=true,name=archived"`
 }
 
 func (l ListSDKConnectionsRequest) MarshalJSON() ([]byte, error) {
@@ -62,6 +64,13 @@ func (l *ListSDKConnectionsRequest) GetMultiOrg() *string {
 		return nil
 	}
 	return l.MultiOrg
+}
+
+func (l *ListSDKConnectionsRequest) GetArchived() *bool {
+	if l == nil {
+		return nil
+	}
+	return l.Archived
 }
 
 // ListSDKConnectionsResponseBody - Successful response

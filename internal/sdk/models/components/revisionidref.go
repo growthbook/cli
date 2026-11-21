@@ -11,10 +11,11 @@ import (
 type RevisionIDRefEntityType string
 
 const (
-	RevisionIDRefEntityTypeFeature    RevisionIDRefEntityType = "feature"
-	RevisionIDRefEntityTypeSavedGroup RevisionIDRefEntityType = "saved-group"
-	RevisionIDRefEntityTypeConfig     RevisionIDRefEntityType = "config"
-	RevisionIDRefEntityTypeConstant   RevisionIDRefEntityType = "constant"
+	RevisionIDRefEntityTypeFeature       RevisionIDRefEntityType = "feature"
+	RevisionIDRefEntityTypeSavedGroup    RevisionIDRefEntityType = "saved-group"
+	RevisionIDRefEntityTypeConfig        RevisionIDRefEntityType = "config"
+	RevisionIDRefEntityTypeConstant      RevisionIDRefEntityType = "constant"
+	RevisionIDRefEntityTypeSDKConnection RevisionIDRefEntityType = "sdk-connection"
 )
 
 func (e RevisionIDRefEntityType) ToPointer() *RevisionIDRefEntityType {
@@ -33,6 +34,8 @@ func (e *RevisionIDRefEntityType) UnmarshalJSON(data []byte) error {
 	case "config":
 		fallthrough
 	case "constant":
+		fallthrough
+	case "sdk-connection":
 		*e = RevisionIDRefEntityType(v)
 		return nil
 	default:
