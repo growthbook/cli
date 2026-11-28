@@ -80,21 +80,21 @@ func (e *ReportShareLevel) IsExact() bool {
 	return false
 }
 
-// SnapshotStatus - Status of the latest snapshot (poll this after refresh)
-type SnapshotStatus string
+// ReportSnapshotStatus - Status of the latest snapshot (poll this after refresh)
+type ReportSnapshotStatus string
 
 const (
-	SnapshotStatusRunning SnapshotStatus = "running"
-	SnapshotStatusSuccess SnapshotStatus = "success"
-	SnapshotStatusError   SnapshotStatus = "error"
+	ReportSnapshotStatusRunning ReportSnapshotStatus = "running"
+	ReportSnapshotStatusSuccess ReportSnapshotStatus = "success"
+	ReportSnapshotStatusError   ReportSnapshotStatus = "error"
 )
 
-func (e SnapshotStatus) ToPointer() *SnapshotStatus {
+func (e ReportSnapshotStatus) ToPointer() *ReportSnapshotStatus {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SnapshotStatus) IsExact() bool {
+func (e *ReportSnapshotStatus) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "running", "success", "error":
@@ -932,12 +932,12 @@ type Report struct {
 	ExperimentID *string `json:"experimentId,omitzero"`
 	// The userId of the report owner. Absent for reports created before owner attribution existed.
 	Owner *string `json:"owner,omitzero"`
-	// The email address of the owner, when the owner can be resolved to a known user.
+	// The email address of the owner, when the owner can be resolved to a known user. Matches an `owner` that was sent as an email address.
 	OwnerEmail *string `json:"ownerEmail,omitzero"`
 	// Snapshot ID (experiment-snapshot type only)
 	SnapshotID *string `json:"snapshotId,omitzero"`
 	// Status of the latest snapshot (poll this after refresh)
-	SnapshotStatus *SnapshotStatus `json:"snapshotStatus,omitzero"`
+	SnapshotStatus *ReportSnapshotStatus `json:"snapshotStatus,omitzero"`
 	// Error message if snapshot failed
 	SnapshotError      *string                 `json:"snapshotError,omitzero"`
 	AnalysisSettings   *ReportAnalysisSettings `json:"analysisSettings,omitzero"`
@@ -1047,7 +1047,7 @@ func (r *Report) GetSnapshotID() *string {
 	return r.SnapshotID
 }
 
-func (r *Report) GetSnapshotStatus() *SnapshotStatus {
+func (r *Report) GetSnapshotStatus() *ReportSnapshotStatus {
 	if r == nil {
 		return nil
 	}

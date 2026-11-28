@@ -626,19 +626,19 @@ func (c *Checks) GetSrm() float64 {
 	return c.Srm
 }
 
-type Engine string
+type ExperimentResultsEngine string
 
 const (
-	EngineBayesian    Engine = "bayesian"
-	EngineFrequentist Engine = "frequentist"
+	ExperimentResultsEngineBayesian    ExperimentResultsEngine = "bayesian"
+	ExperimentResultsEngineFrequentist ExperimentResultsEngine = "frequentist"
 )
 
-func (e Engine) ToPointer() *Engine {
+func (e ExperimentResultsEngine) ToPointer() *ExperimentResultsEngine {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *Engine) IsExact() bool {
+func (e *ExperimentResultsEngine) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "bayesian", "frequentist":
@@ -649,12 +649,12 @@ func (e *Engine) IsExact() bool {
 }
 
 type ExperimentResultsAnalysis struct {
-	Engine        Engine  `json:"engine"`
-	Numerator     float64 `json:"numerator"`
-	Denominator   float64 `json:"denominator"`
-	Mean          float64 `json:"mean"`
-	Stddev        float64 `json:"stddev"`
-	PercentChange float64 `json:"percentChange"`
+	Engine        ExperimentResultsEngine `json:"engine"`
+	Numerator     float64                 `json:"numerator"`
+	Denominator   float64                 `json:"denominator"`
+	Mean          float64                 `json:"mean"`
+	Stddev        float64                 `json:"stddev"`
+	PercentChange float64                 `json:"percentChange"`
 	// Standard error of the estimated effect (`percentChange`).
 	EffectStandardError float64  `json:"effectStandardError"`
 	CiLow               float64  `json:"ciLow"`
@@ -665,9 +665,9 @@ type ExperimentResultsAnalysis struct {
 	ErrorMessage        *string  `json:"errorMessage,omitzero"`
 }
 
-func (e *ExperimentResultsAnalysis) GetEngine() Engine {
+func (e *ExperimentResultsAnalysis) GetEngine() ExperimentResultsEngine {
 	if e == nil {
-		return Engine("")
+		return ExperimentResultsEngine("")
 	}
 	return e.Engine
 }

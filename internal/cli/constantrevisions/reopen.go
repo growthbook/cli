@@ -17,7 +17,6 @@ import (
 var reopenCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "key", Shorthand: "k", FieldPath: "Key", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "body-param", Shorthand: "b", FieldPath: "Body", Kind: flagutil.FlagKindJSON, Required: true, Annotations: `request:"mediaType=application/json"`, Description: "[required]"},
 }
 
 // initReopenCmd initializes the reopen command.
@@ -33,7 +32,6 @@ func initReopenCmd(parent *cobra.Command) error {
 	if err := flagutil.ValidateMeta[operations.PostConstantRevisionReopenRequest](reopenCmdMeta); err != nil {
 		return fmt.Errorf("invalid metadata for reopen: %w", err)
 	}
-	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
 	parent.AddCommand(cmd)
 	return nil
 }
@@ -48,7 +46,7 @@ func runReopenCmd(cmd *cobra.Command, args []string) error {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.PostConstantRevisionReopenRequest](cmd, reopenCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.PostConstantRevisionReopenRequest](cmd, reopenCmdMeta, "", "")
 	if err != nil {
 		return err
 	}

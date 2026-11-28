@@ -19,12 +19,12 @@ growthbook code-references submit [flags]
 ### Options
 
 ```
-      --body string             Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -b, --branch string           [required]
-      --delete-missing string   Whether to delete code references that are no longer present in the submitted data (options: true, false) (default "false")
-  -h, --help                    help for submit
-      --refs string             [required]
-      --repo-name string        [required]
+      --body string        Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -b, --branch string      [required]
+      --delete-missing     Whether to delete code references that are no longer present in the submitted data
+  -h, --help               help for submit
+      --refs string        [required]
+      --repo-name string   [required]
 ```
 
 ### Options inherited from parent commands

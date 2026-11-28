@@ -16,11 +16,11 @@ import (
 
 var createCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "name", Shorthand: "n", FieldPath: "Name", Kind: flagutil.FlagKindString, Required: true, Description: "The display name of the custom hook [required]"},
-	{FlagName: "hook", FieldPath: "Hook", Kind: flagutil.FlagKindEnum, Required: true, EnumValues: []string{"validateFeature", "validateFeatureRevision", "validateConfig", "validateConfigRevision", "validateExperiment"}, Description: "options: validateFeature, validateFeatureRevision, validateConfig, validateConfigRevision, validateExperiment [required]"},
+	{FlagName: "hook", FieldPath: "Hook", Kind: flagutil.FlagKindEnum, Required: true, EnumValues: []string{"validateFeature", "validateFeatureRevision", "validateConfig", "validateConfigRevision", "validateExperiment", "validateSdkConnection", "validateSdkConnectionRevision"}, Description: "options: validateFeature, validateFeatureRevision, validateConfig, validateConfigRevision, validateExperiment, validateSdkConnection, validateSdkConnectionRevision [required]"},
 	{FlagName: "code", Shorthand: "c", FieldPath: "Code", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "enabled", FieldPath: "Enabled", Kind: flagutil.FlagKindBool, Optional: true, HasDefault: true, DefaultBool: true, Description: "boolean flag"},
 	{FlagName: "projects", Shorthand: "p", FieldPath: "Projects", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Project ids the hook applies to (empty/omitted = all)"},
-	{FlagName: "entity-type", FieldPath: "EntityType", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"feature", "config", "experiment"}, Description: "options: feature, config, experiment"},
+	{FlagName: "entity-type", FieldPath: "EntityType", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"feature", "config", "experiment", "sdkConnection"}, Description: "options: feature, config, experiment, sdkConnection"},
 	{FlagName: "entity-id", FieldPath: "EntityID", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "incremental-changes-only", Shorthand: "i", FieldPath: "IncrementalChangesOnly", Kind: flagutil.FlagKindBool, Optional: true, Description: "boolean flag"},
 }

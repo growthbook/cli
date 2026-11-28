@@ -4,7 +4,7 @@ Update an SDK webhook
 
 ### Synopsis
 
-The webhook fires once after an update. Webhooks managed by the Vercel integration can't be changed.
+The webhook fires once after an update, and the change is recorded as a published revision of each connection it fires for. Webhooks managed by the Vercel integration can't be changed. When the organization requires approvals for a connection the webhook fires for, change it in a draft revision instead (`PUT /sdk-connections-revisions/{id}/new/webhooks/{webhookId}`), or pass `bypassApproval`.
 
 ```
 growthbook SDK-webhooks update [flags]
@@ -20,15 +20,18 @@ growthbook SDK-webhooks update [flags]
 
 ```
       --body string                              Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -b, --bypass-approval                          Set to true to write directly to the live SDK Connection without approval. The caller must have Bypass draft approvals access in the SDK Connection's Projects, unless the organization enables the REST API approval bypass. This field has no effect when approval is not required.
   -e, --endpoint string                          string value
       --headers string                           JSON-encoded object, e.g. "{\"X-Token\": \"abc\"}"
   -h, --help                                     help for update
       --http-method string                       options: GET, POST, PUT, DELETE, PATCH, PURGE
-  -i, --id string                                [required]
+      --id string                                [required]
+      --ignore-warnings                          Set to true to continue past a warning: one raised by a Custom Hook, or a webhook that references a secret that doesn't exist. On publish, it also force-publishes an out-of-date draft when the caller has Bypass draft approvals access. It never clears a Custom Hook rejection. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
   -n, --name string                              string value
       --payload-format vercelNativeIntegration   vercelNativeIntegration is accepted only on webhooks that already use it (options: standard, standard-no-payload, sdkPayload, edgeConfig, edgeConfigUnescaped, vercelNativeIntegration, none)
       --payload-key string                       string value
-  -s, --sdk-connections stringArray              Replaces the SDK Connections this webhook fires for
+      --sdk-connections stringArray              Replaces the SDK Connections this webhook fires for
+      --skip-hooks                               Set to true to continue despite a Custom Hook rejection. The caller must have Bypass draft approvals access for SDK Connections in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
   -t, --timeout-seconds string                   Request timeout in seconds, up to the server maximum (120 unless configured). Null uses the default.
 ```
 

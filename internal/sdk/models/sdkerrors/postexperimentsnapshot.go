@@ -11,6 +11,51 @@ import (
 	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/utils"
 )
 
+// NewMetricsUpdateUnavailableError - Newly added metrics can't be updated on their own; send "updateScope": "all_metrics" instead
+type NewMetricsUpdateUnavailableError struct {
+	Message  string                                                `json:"message"`
+	Code     operations.CodeNewMetricsUpdateUnavailable            `json:"code"`
+	Details  components.APIErrorNewMetricsUpdateUnavailableDetails `json:"details"`
+	HTTPMeta components.HTTPMetadata                               `json:"-"`
+}
+
+var _ error = &NewMetricsUpdateUnavailableError{}
+
+func (e *NewMetricsUpdateUnavailableError) Error() string {
+	data, _ := json.Marshal(e)
+	return string(data)
+}
+
+// SnapshotInProgressError - An update of the experiment's results is running
+type SnapshotInProgressError struct {
+	Message  string                                       `json:"message"`
+	Code     operations.CodeSnapshotInProgress            `json:"code"`
+	Details  components.APIErrorSnapshotInProgressDetails `json:"details"`
+	HTTPMeta components.HTTPMetadata                      `json:"-"`
+}
+
+var _ error = &SnapshotInProgressError{}
+
+func (e *SnapshotInProgressError) Error() string {
+	data, _ := json.Marshal(e)
+	return string(data)
+}
+
+// MetricsAlreadyUpToDateError - Every metric of the experiment that an update can compute already has results in the latest Overall Results
+type MetricsAlreadyUpToDateError struct {
+	Message  string                                           `json:"message"`
+	Code     operations.CodeMetricsAlreadyUpToDate            `json:"code"`
+	Details  components.APIErrorMetricsAlreadyUpToDateDetails `json:"details"`
+	HTTPMeta components.HTTPMetadata                          `json:"-"`
+}
+
+var _ error = &MetricsAlreadyUpToDateError{}
+
+func (e *MetricsAlreadyUpToDateError) Error() string {
+	data, _ := json.Marshal(e)
+	return string(data)
+}
+
 // DimensionAlreadyUpToDateError - The requested dimension was already computed from the latest Overall Results
 type DimensionAlreadyUpToDateError struct {
 	Message  string                                             `json:"message"`
@@ -44,16 +89,22 @@ func (e *RequiresFullRefreshError) Error() string {
 type PostExperimentSnapshotConflictType string
 
 const (
-	PostExperimentSnapshotConflictTypeRequiresFullRefresh      PostExperimentSnapshotConflictType = "requires_full_refresh"
-	PostExperimentSnapshotConflictTypeDimensionAlreadyUpToDate PostExperimentSnapshotConflictType = "dimension_already_up_to_date"
-	PostExperimentSnapshotConflictTypeUnknown                  PostExperimentSnapshotConflictType = "UNKNOWN"
+	PostExperimentSnapshotConflictTypeRequiresFullRefresh         PostExperimentSnapshotConflictType = "requires_full_refresh"
+	PostExperimentSnapshotConflictTypeDimensionAlreadyUpToDate    PostExperimentSnapshotConflictType = "dimension_already_up_to_date"
+	PostExperimentSnapshotConflictTypeMetricsAlreadyUpToDate      PostExperimentSnapshotConflictType = "metrics_already_up_to_date"
+	PostExperimentSnapshotConflictTypeSnapshotInProgress          PostExperimentSnapshotConflictType = "snapshot_in_progress"
+	PostExperimentSnapshotConflictTypeNewMetricsUpdateUnavailable PostExperimentSnapshotConflictType = "new_metrics_update_unavailable"
+	PostExperimentSnapshotConflictTypeUnknown                     PostExperimentSnapshotConflictType = "UNKNOWN"
 )
 
 // PostExperimentSnapshotConflict - Conflict
 type PostExperimentSnapshotConflict struct {
-	RequiresFullRefreshError      *RequiresFullRefreshError      `queryParam:"inline" union:"member"`
-	DimensionAlreadyUpToDateError *DimensionAlreadyUpToDateError `queryParam:"inline" union:"member"`
-	UnknownRaw                    json.RawMessage                `json:"-" union:"unknown"`
+	RequiresFullRefreshError         *RequiresFullRefreshError         `queryParam:"inline" union:"member"`
+	DimensionAlreadyUpToDateError    *DimensionAlreadyUpToDateError    `queryParam:"inline" union:"member"`
+	MetricsAlreadyUpToDateError      *MetricsAlreadyUpToDateError      `queryParam:"inline" union:"member"`
+	SnapshotInProgressError          *SnapshotInProgressError          `queryParam:"inline" union:"member"`
+	NewMetricsUpdateUnavailableError *NewMetricsUpdateUnavailableError `queryParam:"inline" union:"member"`
+	UnknownRaw                       json.RawMessage                   `json:"-" union:"unknown"`
 
 	Type PostExperimentSnapshotConflictType
 
@@ -77,6 +128,33 @@ func CreatePostExperimentSnapshotConflictDimensionAlreadyUpToDate(dimensionAlrea
 	return PostExperimentSnapshotConflict{
 		DimensionAlreadyUpToDateError: &dimensionAlreadyUpToDate,
 		Type:                          typ,
+	}
+}
+
+func CreatePostExperimentSnapshotConflictMetricsAlreadyUpToDate(metricsAlreadyUpToDate MetricsAlreadyUpToDateError) PostExperimentSnapshotConflict {
+	typ := PostExperimentSnapshotConflictTypeMetricsAlreadyUpToDate
+
+	return PostExperimentSnapshotConflict{
+		MetricsAlreadyUpToDateError: &metricsAlreadyUpToDate,
+		Type:                        typ,
+	}
+}
+
+func CreatePostExperimentSnapshotConflictSnapshotInProgress(snapshotInProgress SnapshotInProgressError) PostExperimentSnapshotConflict {
+	typ := PostExperimentSnapshotConflictTypeSnapshotInProgress
+
+	return PostExperimentSnapshotConflict{
+		SnapshotInProgressError: &snapshotInProgress,
+		Type:                    typ,
+	}
+}
+
+func CreatePostExperimentSnapshotConflictNewMetricsUpdateUnavailable(newMetricsUpdateUnavailable NewMetricsUpdateUnavailableError) PostExperimentSnapshotConflict {
+	typ := PostExperimentSnapshotConflictTypeNewMetricsUpdateUnavailable
+
+	return PostExperimentSnapshotConflict{
+		NewMetricsUpdateUnavailableError: &newMetricsUpdateUnavailable,
+		Type:                             typ,
 	}
 }
 
@@ -132,6 +210,33 @@ func (u *PostExperimentSnapshotConflict) UnmarshalJSON(data []byte) error {
 		u.DimensionAlreadyUpToDateError = dimensionAlreadyUpToDateError
 		u.Type = PostExperimentSnapshotConflictTypeDimensionAlreadyUpToDate
 		return nil
+	case "metrics_already_up_to_date":
+		metricsAlreadyUpToDateError := new(MetricsAlreadyUpToDateError)
+		if err := utils.UnmarshalJSON(data, &metricsAlreadyUpToDateError, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Code == metrics_already_up_to_date) type MetricsAlreadyUpToDateError within PostExperimentSnapshotConflict: %w", string(data), err)
+		}
+
+		u.MetricsAlreadyUpToDateError = metricsAlreadyUpToDateError
+		u.Type = PostExperimentSnapshotConflictTypeMetricsAlreadyUpToDate
+		return nil
+	case "snapshot_in_progress":
+		snapshotInProgressError := new(SnapshotInProgressError)
+		if err := utils.UnmarshalJSON(data, &snapshotInProgressError, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Code == snapshot_in_progress) type SnapshotInProgressError within PostExperimentSnapshotConflict: %w", string(data), err)
+		}
+
+		u.SnapshotInProgressError = snapshotInProgressError
+		u.Type = PostExperimentSnapshotConflictTypeSnapshotInProgress
+		return nil
+	case "new_metrics_update_unavailable":
+		newMetricsUpdateUnavailableError := new(NewMetricsUpdateUnavailableError)
+		if err := utils.UnmarshalJSON(data, &newMetricsUpdateUnavailableError, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Code == new_metrics_update_unavailable) type NewMetricsUpdateUnavailableError within PostExperimentSnapshotConflict: %w", string(data), err)
+		}
+
+		u.NewMetricsUpdateUnavailableError = newMetricsUpdateUnavailableError
+		u.Type = PostExperimentSnapshotConflictTypeNewMetricsUpdateUnavailable
+		return nil
 	default:
 		u.UnknownRaw = json.RawMessage(data)
 		u.Type = PostExperimentSnapshotConflictTypeUnknown
@@ -149,6 +254,18 @@ func (u PostExperimentSnapshotConflict) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.DimensionAlreadyUpToDateError, "", true)
 	}
 
+	if u.MetricsAlreadyUpToDateError != nil {
+		return utils.MarshalJSON(u.MetricsAlreadyUpToDateError, "", true)
+	}
+
+	if u.SnapshotInProgressError != nil {
+		return utils.MarshalJSON(u.SnapshotInProgressError, "", true)
+	}
+
+	if u.NewMetricsUpdateUnavailableError != nil {
+		return utils.MarshalJSON(u.NewMetricsUpdateUnavailableError, "", true)
+	}
+
 	if u.UnknownRaw != nil {
 		return json.RawMessage(u.UnknownRaw), nil
 	}
@@ -162,6 +279,15 @@ func (u PostExperimentSnapshotConflict) Error() string {
 		return string(data)
 	case PostExperimentSnapshotConflictTypeDimensionAlreadyUpToDate:
 		data, _ := json.Marshal(u.DimensionAlreadyUpToDateError)
+		return string(data)
+	case PostExperimentSnapshotConflictTypeMetricsAlreadyUpToDate:
+		data, _ := json.Marshal(u.MetricsAlreadyUpToDateError)
+		return string(data)
+	case PostExperimentSnapshotConflictTypeSnapshotInProgress:
+		data, _ := json.Marshal(u.SnapshotInProgressError)
+		return string(data)
+	case PostExperimentSnapshotConflictTypeNewMetricsUpdateUnavailable:
+		data, _ := json.Marshal(u.NewMetricsUpdateUnavailableError)
 		return string(data)
 	case PostExperimentSnapshotConflictTypeUnknown:
 		if u.UnknownRaw != nil {

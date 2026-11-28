@@ -1113,9 +1113,9 @@ type FactMetric struct {
 	ID          string `json:"id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
-	// The userId of the owner (or raw owner name/email for legacy records)
+	// The userId of the owner (or raw owner name/email for legacy records). An owner set by email comes back here as its userId; compare against `ownerEmail` instead.
 	Owner string `json:"owner"`
-	// The email address of the owner, when the owner can be resolved to a known user.
+	// The email address of the owner, when the owner can be resolved to a known user. Matches an `owner` that was sent as an email address.
 	OwnerEmail  *string              `json:"ownerEmail,omitzero"`
 	Projects    []string             `json:"projects"`
 	Tags        []string             `json:"tags"`

@@ -4,7 +4,7 @@ Add a webhook to an SDK Connection
 
 ### Synopsis
 
-Called whenever the connection's payload changes. `httpMethod` defaults to POST. More than one webhook per organization requires a paid plan.
+Called whenever the connection's payload changes. `httpMethod` defaults to POST. More than one webhook per organization requires a paid plan. The change is recorded as a published revision of the connection. When the organization requires approvals for the connection, add it in a draft revision instead (`POST /sdk-connections-revisions/{id}/new/webhooks`), or pass `bypassApproval`.
 
 ```
 growthbook SDK-webhooks create [flags]
@@ -20,14 +20,17 @@ growthbook SDK-webhooks create [flags]
 
 ```
       --body string              Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -b, --bypass-approval          Set to true to write directly to the live SDK Connection without approval. The caller must have Bypass draft approvals access in the SDK Connection's Projects, unless the organization enables the REST API approval bypass. This field has no effect when approval is not required.
   -e, --endpoint string          [required]
       --headers string           JSON-encoded object, e.g. "{\"X-Token\": \"abc\"}"
   -h, --help                     help for create
       --http-method string       options: GET, POST, PUT, DELETE, PATCH, PURGE
-  -i, --id string                The SDK Connection id [required]
+      --id string                The SDK Connection id [required]
+      --ignore-warnings          Set to true to continue past a warning: one raised by a Custom Hook, or a webhook that references a secret that doesn't exist. On publish, it also force-publishes an out-of-date draft when the caller has Bypass draft approvals access. It never clears a Custom Hook rejection. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
   -n, --name string              [required]
       --payload-format string    options: standard, standard-no-payload, sdkPayload, edgeConfig, edgeConfigUnescaped, none
       --payload-key string       string value
+  -s, --skip-hooks               Set to true to continue despite a Custom Hook rejection. The caller must have Bypass draft approvals access for SDK Connections in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
   -t, --timeout-seconds string   Request timeout in seconds, up to the server maximum (120 unless configured). Null uses the default.
 ```
 

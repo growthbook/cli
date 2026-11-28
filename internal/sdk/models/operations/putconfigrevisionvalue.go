@@ -16,6 +16,8 @@ type PutConfigRevisionValueRequestBody struct {
 	Value map[string]any `json:"value,omitzero"`
 	// When the config has no schema yet, infer one from the supplied `value` and stage it on the same draft.
 	InferSchemaIfMissing *bool `json:"inferSchemaIfMissing,omitzero"`
+	// Add an optional schema field, inferred from its value, for each top-level key in `value` that the Config's effective schema doesn't declare, staged on the same draft. Existing fields are never changed, and keys holding a `@const:`/`@config:` reference are skipped. Each added field is listed in `warnings` with code `inferred-field`. When `inferSchemaIfMissing` infers a whole schema, that takes precedence.
+	InferUndeclaredFields *bool `json:"inferUndeclaredFields,omitzero"`
 	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
 	// Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use `skipHooks` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
@@ -61,6 +63,13 @@ func (p *PutConfigRevisionValueRequestBody) GetInferSchemaIfMissing() *bool {
 		return nil
 	}
 	return p.InferSchemaIfMissing
+}
+
+func (p *PutConfigRevisionValueRequestBody) GetInferUndeclaredFields() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.InferUndeclaredFields
 }
 
 func (p *PutConfigRevisionValueRequestBody) GetIgnoreWarnings() *bool {

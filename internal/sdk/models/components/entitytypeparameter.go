@@ -22,6 +22,7 @@ const (
 	EntityTypeParameterFeature                 EntityTypeParameter = "feature"
 	EntityTypeParameterFeatureRevisionLog      EntityTypeParameter = "featureRevisionLog"
 	EntityTypeParameterURLRedirect             EntityTypeParameter = "urlRedirect"
+	EntityTypeParameterExperimentQaOverride    EntityTypeParameter = "experimentQaOverride"
 	EntityTypeParameterMetric                  EntityTypeParameter = "metric"
 	EntityTypeParameterMetricAnalysis          EntityTypeParameter = "metricAnalysis"
 	EntityTypeParameterMetricGroup             EntityTypeParameter = "metricGroup"
@@ -100,6 +101,8 @@ func (e *EntityTypeParameter) UnmarshalJSON(data []byte) error {
 	case "featureRevisionLog":
 		fallthrough
 	case "urlRedirect":
+		fallthrough
+	case "experimentQaOverride":
 		fallthrough
 	case "metric":
 		fallthrough

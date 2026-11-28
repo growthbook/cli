@@ -645,8 +645,9 @@ func (p *PostDataSourceExplorationDateRangeRequest) GetEndDate() optionalnullabl
 type PostDataSourceExplorationShowAsRequest string
 
 const (
-	PostDataSourceExplorationShowAsRequestTotal   PostDataSourceExplorationShowAsRequest = "total"
-	PostDataSourceExplorationShowAsRequestPerUnit PostDataSourceExplorationShowAsRequest = "per_unit"
+	PostDataSourceExplorationShowAsRequestTotal               PostDataSourceExplorationShowAsRequest = "total"
+	PostDataSourceExplorationShowAsRequestPerUnit             PostDataSourceExplorationShowAsRequest = "per_unit"
+	PostDataSourceExplorationShowAsRequestPercentOfPopulation PostDataSourceExplorationShowAsRequest = "percent_of_population"
 )
 
 func (e PostDataSourceExplorationShowAsRequest) ToPointer() *PostDataSourceExplorationShowAsRequest {
@@ -661,6 +662,8 @@ func (e *PostDataSourceExplorationShowAsRequest) UnmarshalJSON(data []byte) erro
 	case "total":
 		fallthrough
 	case "per_unit":
+		fallthrough
+	case "percent_of_population":
 		*e = PostDataSourceExplorationShowAsRequest(v)
 		return nil
 	default:
@@ -2098,8 +2101,9 @@ func (p *PostDataSourceExplorationDateRangeResponse) GetEndDate() optionalnullab
 type PostDataSourceExplorationShowAsResponse string
 
 const (
-	PostDataSourceExplorationShowAsResponseTotal   PostDataSourceExplorationShowAsResponse = "total"
-	PostDataSourceExplorationShowAsResponsePerUnit PostDataSourceExplorationShowAsResponse = "per_unit"
+	PostDataSourceExplorationShowAsResponseTotal               PostDataSourceExplorationShowAsResponse = "total"
+	PostDataSourceExplorationShowAsResponsePerUnit             PostDataSourceExplorationShowAsResponse = "per_unit"
+	PostDataSourceExplorationShowAsResponsePercentOfPopulation PostDataSourceExplorationShowAsResponse = "percent_of_population"
 )
 
 func (e PostDataSourceExplorationShowAsResponse) ToPointer() *PostDataSourceExplorationShowAsResponse {
@@ -2110,7 +2114,7 @@ func (e PostDataSourceExplorationShowAsResponse) ToPointer() *PostDataSourceExpl
 func (e *PostDataSourceExplorationShowAsResponse) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "total", "per_unit":
+		case "total", "per_unit", "percent_of_population":
 			return true
 		}
 	}

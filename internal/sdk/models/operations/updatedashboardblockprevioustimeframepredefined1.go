@@ -1384,8 +1384,9 @@ func (u *UpdateDashboardDateRangeDataSource1) GetEndDate() optionalnullable.Opti
 type UpdateDashboardShowAsDataSource1 string
 
 const (
-	UpdateDashboardShowAsDataSource1Total   UpdateDashboardShowAsDataSource1 = "total"
-	UpdateDashboardShowAsDataSource1PerUnit UpdateDashboardShowAsDataSource1 = "per_unit"
+	UpdateDashboardShowAsDataSource1Total               UpdateDashboardShowAsDataSource1 = "total"
+	UpdateDashboardShowAsDataSource1PerUnit             UpdateDashboardShowAsDataSource1 = "per_unit"
+	UpdateDashboardShowAsDataSource1PercentOfPopulation UpdateDashboardShowAsDataSource1 = "percent_of_population"
 )
 
 func (e UpdateDashboardShowAsDataSource1) ToPointer() *UpdateDashboardShowAsDataSource1 {
@@ -1400,6 +1401,8 @@ func (e *UpdateDashboardShowAsDataSource1) UnmarshalJSON(data []byte) error {
 	case "total":
 		fallthrough
 	case "per_unit":
+		fallthrough
+	case "percent_of_population":
 		*e = UpdateDashboardShowAsDataSource1(v)
 		return nil
 	default:
@@ -2928,8 +2931,9 @@ func (u *UpdateDashboardDateRangeFactTable1) GetEndDate() optionalnullable.Optio
 type UpdateDashboardShowAsFactTable1 string
 
 const (
-	UpdateDashboardShowAsFactTable1Total   UpdateDashboardShowAsFactTable1 = "total"
-	UpdateDashboardShowAsFactTable1PerUnit UpdateDashboardShowAsFactTable1 = "per_unit"
+	UpdateDashboardShowAsFactTable1Total               UpdateDashboardShowAsFactTable1 = "total"
+	UpdateDashboardShowAsFactTable1PerUnit             UpdateDashboardShowAsFactTable1 = "per_unit"
+	UpdateDashboardShowAsFactTable1PercentOfPopulation UpdateDashboardShowAsFactTable1 = "percent_of_population"
 )
 
 func (e UpdateDashboardShowAsFactTable1) ToPointer() *UpdateDashboardShowAsFactTable1 {
@@ -2944,6 +2948,8 @@ func (e *UpdateDashboardShowAsFactTable1) UnmarshalJSON(data []byte) error {
 	case "total":
 		fallthrough
 	case "per_unit":
+		fallthrough
+	case "percent_of_population":
 		*e = UpdateDashboardShowAsFactTable1(v)
 		return nil
 	default:
@@ -4413,8 +4419,9 @@ func (u *UpdateDashboardDateRangeMetric1) GetEndDate() optionalnullable.Optional
 type UpdateDashboardShowAsMetric1 string
 
 const (
-	UpdateDashboardShowAsMetric1Total   UpdateDashboardShowAsMetric1 = "total"
-	UpdateDashboardShowAsMetric1PerUnit UpdateDashboardShowAsMetric1 = "per_unit"
+	UpdateDashboardShowAsMetric1Total               UpdateDashboardShowAsMetric1 = "total"
+	UpdateDashboardShowAsMetric1PerUnit             UpdateDashboardShowAsMetric1 = "per_unit"
+	UpdateDashboardShowAsMetric1PercentOfPopulation UpdateDashboardShowAsMetric1 = "percent_of_population"
 )
 
 func (e UpdateDashboardShowAsMetric1) ToPointer() *UpdateDashboardShowAsMetric1 {
@@ -4429,6 +4436,8 @@ func (e *UpdateDashboardShowAsMetric1) UnmarshalJSON(data []byte) error {
 	case "total":
 		fallthrough
 	case "per_unit":
+		fallthrough
+	case "percent_of_population":
 		*e = UpdateDashboardShowAsMetric1(v)
 		return nil
 	default:
@@ -4605,12 +4614,13 @@ func (u *UpdateDashboardRowFilterMetric1) GetValues() []string {
 // #region class-body-updatedashboardrowfiltermetric1
 // #endregion class-body-updatedashboardrowfiltermetric1
 
-// UpdateDashboardShowAsMetric2 - How a mean metric renders: `total` sums the numerator, `per_unit` divides it by the unit count. Ignored for other metric types. Omit to use the default (`per_unit` for `max` and `count distinct` aggregations, otherwise `total`).
+// UpdateDashboardShowAsMetric2 - How a metric renders: `total` sums the numerator, `per_unit` divides it by the unit count (mean metrics only), and `percent_of_population` divides it by the population's member count as a percentage (proportion metrics with a population only). Ignored for other metric types. Omit to use the default (`per_unit` for mean metrics with `max` and `count distinct` aggregations, `percent_of_population` for proportion metrics with a population, otherwise `total`).
 type UpdateDashboardShowAsMetric2 string
 
 const (
-	UpdateDashboardShowAsMetric2Total   UpdateDashboardShowAsMetric2 = "total"
-	UpdateDashboardShowAsMetric2PerUnit UpdateDashboardShowAsMetric2 = "per_unit"
+	UpdateDashboardShowAsMetric2Total               UpdateDashboardShowAsMetric2 = "total"
+	UpdateDashboardShowAsMetric2PerUnit             UpdateDashboardShowAsMetric2 = "per_unit"
+	UpdateDashboardShowAsMetric2PercentOfPopulation UpdateDashboardShowAsMetric2 = "percent_of_population"
 )
 
 func (e UpdateDashboardShowAsMetric2) ToPointer() *UpdateDashboardShowAsMetric2 {
@@ -4625,6 +4635,8 @@ func (e *UpdateDashboardShowAsMetric2) UnmarshalJSON(data []byte) error {
 	case "total":
 		fallthrough
 	case "per_unit":
+		fallthrough
+	case "percent_of_population":
 		*e = UpdateDashboardShowAsMetric2(v)
 		return nil
 	default:
@@ -4640,7 +4652,7 @@ type UpdateDashboardValueMetric1 struct {
 	MetricID        string  `json:"metricId"`
 	Unit            *string `json:"unit"`
 	DenominatorUnit *string `json:"denominatorUnit"`
-	// How a mean metric renders: `total` sums the numerator, `per_unit` divides it by the unit count. Ignored for other metric types. Omit to use the default (`per_unit` for `max` and `count distinct` aggregations, otherwise `total`).
+	// How a metric renders: `total` sums the numerator, `per_unit` divides it by the unit count (mean metrics only), and `percent_of_population` divides it by the population's member count as a percentage (proportion metrics with a population only). Ignored for other metric types. Omit to use the default (`per_unit` for mean metrics with `max` and `count distinct` aggregations, `percent_of_population` for proportion metrics with a population, otherwise `total`).
 	ShowAs *UpdateDashboardShowAsMetric2 `json:"showAs,omitzero"`
 }
 

@@ -286,30 +286,9 @@ func (e *SettingsAttributionModel) IsExact() bool {
 	return false
 }
 
-type FeatureKillSwitchBehavior string
-
-const (
-	FeatureKillSwitchBehaviorOff  FeatureKillSwitchBehavior = "off"
-	FeatureKillSwitchBehaviorWarn FeatureKillSwitchBehavior = "warn"
-)
-
-func (e FeatureKillSwitchBehavior) ToPointer() *FeatureKillSwitchBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *FeatureKillSwitchBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "off", "warn":
-			return true
-		}
-	}
-	return false
-}
-
 type SettingsApprovalFlows struct {
-	SavedGroups []SavedGroupApprovalRule `json:"savedGroups"`
+	SavedGroups    []SavedGroupApprovalRule    `json:"savedGroups"`
+	SDKConnections []SDKConnectionApprovalRule `json:"sdkConnections"`
 }
 
 func (s *SettingsApprovalFlows) GetSavedGroups() []SavedGroupApprovalRule {
@@ -317,6 +296,13 @@ func (s *SettingsApprovalFlows) GetSavedGroups() []SavedGroupApprovalRule {
 		return []SavedGroupApprovalRule{}
 	}
 	return s.SavedGroups
+}
+
+func (s *SettingsApprovalFlows) GetSDKConnections() []SDKConnectionApprovalRule {
+	if s == nil {
+		return []SDKConnectionApprovalRule{}
+	}
+	return s.SDKConnections
 }
 
 type SettingsBanditScheduleUnit string
@@ -416,7 +402,6 @@ type Settings struct {
 	LoseRisk                   float64                                    `json:"loseRisk"`
 	SecureAttributeSalt        string                                     `json:"secureAttributeSalt"`
 	KillswitchConfirmation     bool                                       `json:"killswitchConfirmation"`
-	FeatureKillSwitchBehavior  *FeatureKillSwitchBehavior                 `json:"featureKillSwitchBehavior,omitzero"`
 	RequireReviews             []RequireReviewRule                        `json:"requireReviews"`
 	ApprovalFlows              SettingsApprovalFlows                      `json:"approvalFlows"`
 	TargetingReviewMode        []TargetingReviewRule                      `json:"targetingReviewMode,omitzero"`
@@ -610,13 +595,6 @@ func (s *Settings) GetKillswitchConfirmation() bool {
 		return false
 	}
 	return s.KillswitchConfirmation
-}
-
-func (s *Settings) GetFeatureKillSwitchBehavior() *FeatureKillSwitchBehavior {
-	if s == nil {
-		return nil
-	}
-	return s.FeatureKillSwitchBehavior
 }
 
 func (s *Settings) GetRequireReviews() []RequireReviewRule {

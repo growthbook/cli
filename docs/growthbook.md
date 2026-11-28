@@ -41,6 +41,7 @@ growthbook [flags]
 
 ### SEE ALSO
 
+* [growthbook SDK-connection-revisions](growthbook_SDK-connection-revisions.md)	 - Draft revisions for SDK Connections: staged changes to a connection's settings and webhooks, their review, and their lifecycle (publish, discard, rebase)
 * [growthbook SDK-connections](growthbook_SDK-connections.md)	 - Client keys and settings for connecting SDKs to a GrowthBook instance
 * [growthbook SDK-webhooks](growthbook_SDK-webhooks.md)	 - Webhooks that fire when an SDK Connection's payload changes
 * [growthbook analytics-explorations](growthbook_analytics-explorations.md)	 - Operations for analytics-explorations

@@ -15,6 +15,8 @@ type PutConfigRevisionSchemaRequestBody struct {
 	Schema          *components.ConfigSchemaSource `json:"schema,omitzero"`
 	// Derive the schema from the draft's value instead.
 	Infer *bool `json:"infer,omitzero"`
+	// This config's own value, staged together with the schema and validated against it. Use it to retype or remove a field the value sets, which a schema write or a value write can't do on its own.
+	Value map[string]any `json:"value,omitzero"`
 	// Whether the resulting object schema permits extra keys (family extensibility).
 	AdditionalProperties *bool `json:"additionalProperties,omitzero"`
 	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
@@ -23,6 +25,17 @@ type PutConfigRevisionSchemaRequestBody struct {
 	SkipSchemaValidation *bool `json:"skipSchemaValidation,omitzero"`
 	// Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use `skipSchemaValidation` for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	SkipHooks *bool `json:"skipHooks,omitzero"`
+}
+
+func (p PutConfigRevisionSchemaRequestBody) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PutConfigRevisionSchemaRequestBody) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (p *PutConfigRevisionSchemaRequestBody) GetRevisionTitle() *string {
@@ -93,6 +106,13 @@ func (p *PutConfigRevisionSchemaRequestBody) GetInfer() *bool {
 		return nil
 	}
 	return p.Infer
+}
+
+func (p *PutConfigRevisionSchemaRequestBody) GetValue() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Value
 }
 
 func (p *PutConfigRevisionSchemaRequestBody) GetAdditionalProperties() *bool {

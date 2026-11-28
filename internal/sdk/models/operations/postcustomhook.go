@@ -12,11 +12,13 @@ import (
 type PostCustomHookHook string
 
 const (
-	PostCustomHookHookValidateFeature         PostCustomHookHook = "validateFeature"
-	PostCustomHookHookValidateFeatureRevision PostCustomHookHook = "validateFeatureRevision"
-	PostCustomHookHookValidateConfig          PostCustomHookHook = "validateConfig"
-	PostCustomHookHookValidateConfigRevision  PostCustomHookHook = "validateConfigRevision"
-	PostCustomHookHookValidateExperiment      PostCustomHookHook = "validateExperiment"
+	PostCustomHookHookValidateFeature               PostCustomHookHook = "validateFeature"
+	PostCustomHookHookValidateFeatureRevision       PostCustomHookHook = "validateFeatureRevision"
+	PostCustomHookHookValidateConfig                PostCustomHookHook = "validateConfig"
+	PostCustomHookHookValidateConfigRevision        PostCustomHookHook = "validateConfigRevision"
+	PostCustomHookHookValidateExperiment            PostCustomHookHook = "validateExperiment"
+	PostCustomHookHookValidateSDKConnection         PostCustomHookHook = "validateSdkConnection"
+	PostCustomHookHookValidateSDKConnectionRevision PostCustomHookHook = "validateSdkConnectionRevision"
 )
 
 func (e PostCustomHookHook) ToPointer() *PostCustomHookHook {
@@ -37,6 +39,10 @@ func (e *PostCustomHookHook) UnmarshalJSON(data []byte) error {
 	case "validateConfigRevision":
 		fallthrough
 	case "validateExperiment":
+		fallthrough
+	case "validateSdkConnection":
+		fallthrough
+	case "validateSdkConnectionRevision":
 		*e = PostCustomHookHook(v)
 		return nil
 	default:
@@ -47,9 +53,10 @@ func (e *PostCustomHookHook) UnmarshalJSON(data []byte) error {
 type PostCustomHookEntityType string
 
 const (
-	PostCustomHookEntityTypeFeature    PostCustomHookEntityType = "feature"
-	PostCustomHookEntityTypeConfig     PostCustomHookEntityType = "config"
-	PostCustomHookEntityTypeExperiment PostCustomHookEntityType = "experiment"
+	PostCustomHookEntityTypeFeature       PostCustomHookEntityType = "feature"
+	PostCustomHookEntityTypeConfig        PostCustomHookEntityType = "config"
+	PostCustomHookEntityTypeExperiment    PostCustomHookEntityType = "experiment"
+	PostCustomHookEntityTypeSDKConnection PostCustomHookEntityType = "sdkConnection"
 )
 
 func (e PostCustomHookEntityType) ToPointer() *PostCustomHookEntityType {
@@ -66,6 +73,8 @@ func (e *PostCustomHookEntityType) UnmarshalJSON(data []byte) error {
 	case "config":
 		fallthrough
 	case "experiment":
+		fallthrough
+	case "sdkConnection":
 		*e = PostCustomHookEntityType(v)
 		return nil
 	default:

@@ -21,7 +21,7 @@ growthbook experiments list [flags]
 ```
   -a, --all                             Automatically paginate and fetch all results (streams NDJSON for JSON output)
       --archived true                   Filter by archived status. Set to true to return only archived experiments, `false` to exclude them. If omitted, both archived and non-archived experiments are returned.
-  -b, --bandits string                  When true, return only multi-armed bandits; when false, exclude them (options: true, false)
+  -b, --bandits                         When true, return only multi-armed bandits; when false, exclude them
       --datasource-id string            Filter by Data Source
   -e, --experiment-id trackingKey       Filter the returned list by the experiment tracking key (not the internal experiment ID). Note, this was deprecated to help reduce confusion, consider using trackingKey instead, which is functionally identical. You cannot use both params at the same time.
   -h, --help                            help for list

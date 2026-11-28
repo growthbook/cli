@@ -546,6 +546,7 @@ func (s *SDKConnections) GetSDKConnection(ctx context.Context, request operation
 }
 
 // Update a single sdk connection
+// Applies the change immediately and records it as a published revision, so it appears in the connection's history. When the organization requires approvals for this connection's Projects and environment, stage the change in a draft revision instead (`PUT /sdk-connections-revisions/{id}/new/settings`), or pass `bypassApproval`. Set `archived` to archive or restore the connection.
 func (s *SDKConnections) Update(ctx context.Context, request operations.PutSDKConnectionRequest, opts ...operations.Option) (*operations.PutSDKConnectionResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -722,6 +723,7 @@ func (s *SDKConnections) Update(ctx context.Context, request operations.PutSDKCo
 }
 
 // DeleteSDKConnection - Deletes a single SDK connection
+// Deletes an archived SDK Connection. Archive a live one first (`PUT /sdk-connections/{id}` with `archived: true`, or in a draft revision when the organization requires approvals for it), then delete it. A live connection deletes in one step only when the organization enables 'REST API always bypasses approval requirements'.
 func (s *SDKConnections) DeleteSDKConnection(ctx context.Context, request operations.DeleteSDKConnectionRequest, opts ...operations.Option) (*operations.DeleteSDKConnectionResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{

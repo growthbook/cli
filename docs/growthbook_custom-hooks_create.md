@@ -23,9 +23,9 @@ growthbook custom-hooks create [flags]
   -c, --code string                [required]
       --enabled                    boolean flag (default true)
       --entity-id string           string value
-      --entity-type string         options: feature, config, experiment
+      --entity-type string         options: feature, config, experiment, sdkConnection
   -h, --help                       help for create
-      --hook string                options: validateFeature, validateFeatureRevision, validateConfig, validateConfigRevision, validateExperiment [required]
+      --hook string                options: validateFeature, validateFeatureRevision, validateConfig, validateConfigRevision, validateExperiment, validateSdkConnection, validateSdkConnectionRevision [required]
   -i, --incremental-changes-only   boolean flag
   -n, --name string                The display name of the custom hook [required]
   -p, --projects stringArray       Project ids the hook applies to (empty/omitted = all)

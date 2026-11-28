@@ -17,7 +17,7 @@ import (
 var deleteLinkedFeatureCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The Contextual Bandit id [required]"},
 	{FlagName: "feature-id", Shorthand: "f", FieldPath: "FeatureID", Kind: flagutil.FlagKindString, Required: true, Description: "The linked feature id [required]"},
-	{FlagName: "auto-publish", Shorthand: "a", FieldPath: "AutoPublish", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `queryParam:"style=form,explode=true,name=autoPublish"`, Description: "Publish the resulting revision immediately instead of leaving it as a draft."},
+	{FlagName: "auto-publish", Shorthand: "a", FieldPath: "AutoPublish", Kind: flagutil.FlagKindBool, Optional: true, Description: "Publish the resulting revision immediately instead of leaving it as a draft."},
 	{FlagName: "draft-version", FieldPath: "DraftVersion", Kind: flagutil.FlagKindInt64, Optional: true, Description: "Remove the rule from this existing draft revision instead of live. Required when the rule hasn't been published yet — omitting it targets the live revision, which has nothing to remove."},
 }
 

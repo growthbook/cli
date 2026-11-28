@@ -7,23 +7,23 @@ import (
 	"time"
 )
 
-type HTTPMethod string
+type SDKWebhookHTTPMethod string
 
 const (
-	HTTPMethodGet    HTTPMethod = "GET"
-	HTTPMethodPut    HTTPMethod = "PUT"
-	HTTPMethodPost   HTTPMethod = "POST"
-	HTTPMethodDelete HTTPMethod = "DELETE"
-	HTTPMethodPurge  HTTPMethod = "PURGE"
-	HTTPMethodPatch  HTTPMethod = "PATCH"
+	SDKWebhookHTTPMethodGet    SDKWebhookHTTPMethod = "GET"
+	SDKWebhookHTTPMethodPut    SDKWebhookHTTPMethod = "PUT"
+	SDKWebhookHTTPMethodPost   SDKWebhookHTTPMethod = "POST"
+	SDKWebhookHTTPMethodDelete SDKWebhookHTTPMethod = "DELETE"
+	SDKWebhookHTTPMethodPurge  SDKWebhookHTTPMethod = "PURGE"
+	SDKWebhookHTTPMethodPatch  SDKWebhookHTTPMethod = "PATCH"
 )
 
-func (e HTTPMethod) ToPointer() *HTTPMethod {
+func (e SDKWebhookHTTPMethod) ToPointer() *SDKWebhookHTTPMethod {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *HTTPMethod) IsExact() bool {
+func (e *SDKWebhookHTTPMethod) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "GET", "PUT", "POST", "DELETE", "PURGE", "PATCH":
@@ -33,24 +33,24 @@ func (e *HTTPMethod) IsExact() bool {
 	return false
 }
 
-type PayloadFormat string
+type SDKWebhookPayloadFormat string
 
 const (
-	PayloadFormatStandard                PayloadFormat = "standard"
-	PayloadFormatStandardNoPayload       PayloadFormat = "standard-no-payload"
-	PayloadFormatSDKPayload              PayloadFormat = "sdkPayload"
-	PayloadFormatEdgeConfig              PayloadFormat = "edgeConfig"
-	PayloadFormatEdgeConfigUnescaped     PayloadFormat = "edgeConfigUnescaped"
-	PayloadFormatVercelNativeIntegration PayloadFormat = "vercelNativeIntegration"
-	PayloadFormatNone                    PayloadFormat = "none"
+	SDKWebhookPayloadFormatStandard                SDKWebhookPayloadFormat = "standard"
+	SDKWebhookPayloadFormatStandardNoPayload       SDKWebhookPayloadFormat = "standard-no-payload"
+	SDKWebhookPayloadFormatSDKPayload              SDKWebhookPayloadFormat = "sdkPayload"
+	SDKWebhookPayloadFormatEdgeConfig              SDKWebhookPayloadFormat = "edgeConfig"
+	SDKWebhookPayloadFormatEdgeConfigUnescaped     SDKWebhookPayloadFormat = "edgeConfigUnescaped"
+	SDKWebhookPayloadFormatVercelNativeIntegration SDKWebhookPayloadFormat = "vercelNativeIntegration"
+	SDKWebhookPayloadFormatNone                    SDKWebhookPayloadFormat = "none"
 )
 
-func (e PayloadFormat) ToPointer() *PayloadFormat {
+func (e SDKWebhookPayloadFormat) ToPointer() *SDKWebhookPayloadFormat {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PayloadFormat) IsExact() bool {
+func (e *SDKWebhookPayloadFormat) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "standard", "standard-no-payload", "sdkPayload", "edgeConfig", "edgeConfigUnescaped", "vercelNativeIntegration", "none":
@@ -61,15 +61,15 @@ func (e *PayloadFormat) IsExact() bool {
 }
 
 type SDKWebhook struct {
-	ID             string        `json:"id"`
-	DateCreated    time.Time     `json:"dateCreated"`
-	DateUpdated    time.Time     `json:"dateUpdated"`
-	Name           string        `json:"name"`
-	Endpoint       string        `json:"endpoint"`
-	SDKConnections []string      `json:"sdkConnections"`
-	HTTPMethod     HTTPMethod    `json:"httpMethod"`
-	PayloadFormat  PayloadFormat `json:"payloadFormat"`
-	PayloadKey     *string       `json:"payloadKey,omitzero"`
+	ID             string                  `json:"id"`
+	DateCreated    time.Time               `json:"dateCreated"`
+	DateUpdated    time.Time               `json:"dateUpdated"`
+	Name           string                  `json:"name"`
+	Endpoint       string                  `json:"endpoint"`
+	SDKConnections []string                `json:"sdkConnections"`
+	HTTPMethod     SDKWebhookHTTPMethod    `json:"httpMethod"`
+	PayloadFormat  SDKWebhookPayloadFormat `json:"payloadFormat"`
+	PayloadKey     *string                 `json:"payloadKey,omitzero"`
 	// JSON-encoded object of extra headers. Only returned by GET, to callers who can edit the webhook.
 	Headers *string `json:"headers,omitzero"`
 	// Used to verify the signature header. Only returned by GET, to callers who can edit the webhook.
@@ -136,16 +136,16 @@ func (s *SDKWebhook) GetSDKConnections() []string {
 	return s.SDKConnections
 }
 
-func (s *SDKWebhook) GetHTTPMethod() HTTPMethod {
+func (s *SDKWebhook) GetHTTPMethod() SDKWebhookHTTPMethod {
 	if s == nil {
-		return HTTPMethod("")
+		return SDKWebhookHTTPMethod("")
 	}
 	return s.HTTPMethod
 }
 
-func (s *SDKWebhook) GetPayloadFormat() PayloadFormat {
+func (s *SDKWebhook) GetPayloadFormat() SDKWebhookPayloadFormat {
 	if s == nil {
-		return PayloadFormat("")
+		return SDKWebhookPayloadFormat("")
 	}
 	return s.PayloadFormat
 }

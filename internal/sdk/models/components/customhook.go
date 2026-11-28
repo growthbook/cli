@@ -11,11 +11,13 @@ import (
 type Hook string
 
 const (
-	HookValidateFeature         Hook = "validateFeature"
-	HookValidateFeatureRevision Hook = "validateFeatureRevision"
-	HookValidateConfig          Hook = "validateConfig"
-	HookValidateConfigRevision  Hook = "validateConfigRevision"
-	HookValidateExperiment      Hook = "validateExperiment"
+	HookValidateFeature               Hook = "validateFeature"
+	HookValidateFeatureRevision       Hook = "validateFeatureRevision"
+	HookValidateConfig                Hook = "validateConfig"
+	HookValidateConfigRevision        Hook = "validateConfigRevision"
+	HookValidateExperiment            Hook = "validateExperiment"
+	HookValidateSDKConnection         Hook = "validateSdkConnection"
+	HookValidateSDKConnectionRevision Hook = "validateSdkConnectionRevision"
 )
 
 func (e Hook) ToPointer() *Hook {
@@ -26,7 +28,7 @@ func (e Hook) ToPointer() *Hook {
 func (e *Hook) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "validateFeature", "validateFeatureRevision", "validateConfig", "validateConfigRevision", "validateExperiment":
+		case "validateFeature", "validateFeatureRevision", "validateConfig", "validateConfigRevision", "validateExperiment", "validateSdkConnection", "validateSdkConnectionRevision":
 			return true
 		}
 	}
@@ -37,9 +39,10 @@ func (e *Hook) IsExact() bool {
 type CustomHookEntityType string
 
 const (
-	CustomHookEntityTypeFeature    CustomHookEntityType = "feature"
-	CustomHookEntityTypeConfig     CustomHookEntityType = "config"
-	CustomHookEntityTypeExperiment CustomHookEntityType = "experiment"
+	CustomHookEntityTypeFeature       CustomHookEntityType = "feature"
+	CustomHookEntityTypeConfig        CustomHookEntityType = "config"
+	CustomHookEntityTypeExperiment    CustomHookEntityType = "experiment"
+	CustomHookEntityTypeSDKConnection CustomHookEntityType = "sdkConnection"
 )
 
 func (e CustomHookEntityType) ToPointer() *CustomHookEntityType {
@@ -50,7 +53,7 @@ func (e CustomHookEntityType) ToPointer() *CustomHookEntityType {
 func (e *CustomHookEntityType) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "feature", "config", "experiment":
+		case "feature", "config", "experiment", "sdkConnection":
 			return true
 		}
 	}
@@ -69,7 +72,7 @@ type CustomHook struct {
 	Projects []string `json:"projects"`
 	// Set (with entityId) to scope the hook to a single resource.
 	EntityType *CustomHookEntityType `json:"entityType,omitzero"`
-	// The scoped resource: a feature id, or a config key. A config-scoped hook always runs for that config and every config that inherits from it (via parent/extends, transitively).
+	// The scoped resource: a feature id, an experiment id, an SDK Connection id, or a config key. A config-scoped hook always runs for that config and every config that inherits from it (via parent/extends, transitively).
 	EntityID *string `json:"entityId,omitzero"`
 	// When true, errors/warnings that already existed before the change being validated are suppressed
 	IncrementalChangesOnly *bool      `json:"incrementalChangesOnly,omitzero"`

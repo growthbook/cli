@@ -902,7 +902,18 @@ func (p *PutMetricRequest) GetBody() PutMetricRequestBody {
 
 // PutMetricResponseBody - Resource updated
 type PutMetricResponseBody struct {
+	Metric components.Metric `json:"metric"`
+	// Deprecated: use `metric.id`.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	UpdatedID string `json:"updatedId"`
+}
+
+func (p *PutMetricResponseBody) GetMetric() components.Metric {
+	if p == nil {
+		return components.Metric{}
+	}
+	return p.Metric
 }
 
 func (p *PutMetricResponseBody) GetUpdatedID() string {

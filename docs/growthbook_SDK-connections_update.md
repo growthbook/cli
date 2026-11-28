@@ -4,7 +4,7 @@ Update a single sdk connection
 
 ### Synopsis
 
-Update a single sdk connection
+Applies the change immediately and records it as a published revision, so it appears in the connection's history. When the organization requires approvals for this connection's Projects and environment, stage the change in a draft revision instead (`PUT /sdk-connections-revisions/{id}/new/settings`), or pass `bypassApproval`. Set `archived` to archive or restore the connection.
 
 ```
 growthbook SDK-connections update [flags]
@@ -19,13 +19,16 @@ growthbook SDK-connections update [flags]
 ### Options
 
 ```
-  -a, --allowed-custom-fields-in-metadata stringArray     list of values
+      --allowed-custom-fields-in-metadata stringArray     list of values
+      --archived                                          Archive (true) or restore (false) the connection. Archiving takes the same authority as deleting it; restoring takes publish authority.
       --body string                                       Request body as JSON (alternative to individual flags). Can also be provided via stdin.
+  -b, --bypass-approval                                   Set to true to write directly to the live SDK Connection without approval. The caller must have Bypass draft approvals access in the SDK Connection's Projects, unless the organization enables the REST API approval bypass. This field has no effect when approval is not required.
       --encrypt-payload                                   boolean flag
       --environment string                                string value
       --hash-secure-attributes                            boolean flag
   -h, --help                                              help for update
       --id string                                         The id of the requested resource [required]
+      --ignore-warnings                                   Set to true to continue past a warning: one raised by a Custom Hook, or a webhook that references a secret that doesn't exist. On publish, it also force-publishes an out-of-date draft when the caller has Bypass draft approvals access. It never clears a Custom Hook rejection. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
       --include-custom-fields-in-metadata                 boolean flag
       --include-draft-experiment-refs                     When true, experiment-ref rules linked to draft experiments are included in feature definitions. Off by default.
       --include-draft-experiments                         boolean flag
@@ -46,6 +49,8 @@ growthbook SDK-connections update [flags]
       --saved-group-format string                         options: inline, referencesV1, referencesV2
       --saved-group-references-enabled savedGroupFormat   Deprecated. Use savedGroupFormat.
       --sdk-version string                                string value
+      --skip-hooks                                        Set to true to continue despite a Custom Hook rejection. The caller must have Bypass draft approvals access for SDK Connections in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
+  -t, --traces-enabled                                    Send SDK evaluation traces to GrowthBook. Only available to organizations with tracing enabled.
 ```
 
 ### Options inherited from parent commands

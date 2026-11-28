@@ -140,7 +140,7 @@ func (f *FeatureRevisionV1JSONSchema) GetEnabled() *bool {
 // FeatureRevisionV1Metadata - Metadata fields captured in this revision (only present when metadata gating is enabled)
 type FeatureRevisionV1Metadata struct {
 	Description *string `json:"description,omitzero"`
-	// The userId of the owner (or raw owner name/email for legacy records)
+	// The userId of the owner (or raw owner name/email for legacy records). An owner set by email comes back here as its userId; compare against `ownerEmail` instead.
 	Owner        *string                                   `json:"owner,omitzero"`
 	Project      *string                                   `json:"project,omitzero"`
 	Tags         []string                                  `json:"tags,omitzero"`

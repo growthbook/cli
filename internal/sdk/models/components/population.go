@@ -9,88 +9,88 @@ import (
 	"time"
 )
 
-type PopulationSourceFactTable struct {
+type SourceFactTable struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	type_       string `const:"factTable" json:"type"`
 	FactTableID string `json:"factTableId"`
 }
 
-func (p PopulationSourceFactTable) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
+func (s SourceFactTable) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
 }
 
-func (p *PopulationSourceFactTable) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+func (s *SourceFactTable) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PopulationSourceFactTable) GetType() string {
+func (s *SourceFactTable) GetType() string {
 	return "factTable"
 }
 
-func (p *PopulationSourceFactTable) GetFactTableID() string {
-	if p == nil {
+func (s *SourceFactTable) GetFactTableID() string {
+	if s == nil {
 		return ""
 	}
-	return p.FactTableID
+	return s.FactTableID
 }
 
-type PopulationSourceUnionType string
+type SourceType string
 
 const (
-	PopulationSourceUnionTypePopulationSourceFactTable PopulationSourceUnionType = "Population_source_FactTable"
-	PopulationSourceUnionTypeUnknown                   PopulationSourceUnionType = "Unknown"
+	SourceTypeSourceFactTable SourceType = "source_FactTable"
+	SourceTypeUnknown         SourceType = "Unknown"
 )
 
-type PopulationSourceUnion struct {
-	PopulationSourceFactTable *PopulationSourceFactTable `queryParam:"inline" union:"member"`
-	UnknownRaw                json.RawMessage            `json:"-" union:"unknown"`
+type Source struct {
+	SourceFactTable *SourceFactTable `queryParam:"inline" union:"member"`
+	UnknownRaw      json.RawMessage  `json:"-" union:"unknown"`
 
-	Type PopulationSourceUnionType
+	Type SourceType
 }
 
-func CreatePopulationSourceUnionPopulationSourceFactTable(populationSourceFactTable PopulationSourceFactTable) PopulationSourceUnion {
-	typ := PopulationSourceUnionTypePopulationSourceFactTable
+func CreateSourceSourceFactTable(sourceFactTable SourceFactTable) Source {
+	typ := SourceTypeSourceFactTable
 
-	return PopulationSourceUnion{
-		PopulationSourceFactTable: &populationSourceFactTable,
-		Type:                      typ,
+	return Source{
+		SourceFactTable: &sourceFactTable,
+		Type:            typ,
 	}
 }
 
-func CreatePopulationSourceUnionUnknown(raw json.RawMessage) PopulationSourceUnion {
-	return PopulationSourceUnion{
+func CreateSourceUnknown(raw json.RawMessage) Source {
+	return Source{
 		UnknownRaw: raw,
-		Type:       PopulationSourceUnionTypeUnknown,
+		Type:       SourceTypeUnknown,
 	}
 }
 
-func (u PopulationSourceUnion) GetUnknownRaw() json.RawMessage {
+func (u Source) GetUnknownRaw() json.RawMessage {
 	return u.UnknownRaw
 }
 
-func (u PopulationSourceUnion) IsUnknown() bool {
-	return u.Type == PopulationSourceUnionTypeUnknown
+func (u Source) IsUnknown() bool {
+	return u.Type == SourceTypeUnknown
 }
 
-func (u *PopulationSourceUnion) UnmarshalJSON(data []byte) error {
+func (u *Source) UnmarshalJSON(data []byte) error {
 
 	var candidates []utils.UnionCandidate
 
 	// Collect all valid candidates
-	var populationSourceFactTable PopulationSourceFactTable = PopulationSourceFactTable{}
-	if err := utils.UnmarshalJSON(data, &populationSourceFactTable, "", true, nil); err == nil {
+	var sourceFactTable SourceFactTable = SourceFactTable{}
+	if err := utils.UnmarshalJSON(data, &sourceFactTable, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  PopulationSourceUnionTypePopulationSourceFactTable,
-			Value: &populationSourceFactTable,
+			Type:  SourceTypeSourceFactTable,
+			Value: &sourceFactTable,
 		})
 	}
 
 	if len(candidates) == 0 {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = PopulationSourceUnionTypeUnknown
+		u.Type = SourceTypeUnknown
 		return nil
 	}
 
@@ -98,32 +98,32 @@ func (u *PopulationSourceUnion) UnmarshalJSON(data []byte) error {
 	best := utils.PickBestUnionCandidate(candidates, data)
 	if best == nil {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = PopulationSourceUnionTypeUnknown
+		u.Type = SourceTypeUnknown
 		return nil
 	}
 
 	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(PopulationSourceUnionType)
+	u.Type = best.Type.(SourceType)
 	switch best.Type {
-	case PopulationSourceUnionTypePopulationSourceFactTable:
-		u.PopulationSourceFactTable = best.Value.(*PopulationSourceFactTable)
+	case SourceTypeSourceFactTable:
+		u.SourceFactTable = best.Value.(*SourceFactTable)
 		return nil
 	}
 
 	u.UnknownRaw = json.RawMessage(data)
-	u.Type = PopulationSourceUnionTypeUnknown
+	u.Type = SourceTypeUnknown
 	return nil
 }
 
-func (u PopulationSourceUnion) MarshalJSON() ([]byte, error) {
-	if u.PopulationSourceFactTable != nil {
-		return utils.MarshalJSON(u.PopulationSourceFactTable, "", true)
+func (u Source) MarshalJSON() ([]byte, error) {
+	if u.SourceFactTable != nil {
+		return utils.MarshalJSON(u.SourceFactTable, "", true)
 	}
 
 	if u.UnknownRaw != nil {
 		return json.RawMessage(u.UnknownRaw), nil
 	}
-	return nil, errors.New("could not marshal union type PopulationSourceUnion: all fields are null")
+	return nil, errors.New("could not marshal union type Source: all fields are null")
 }
 
 type PopulationOperator string
@@ -207,7 +207,7 @@ func (p *PopulationRowFilter) GetValues() []string {
 }
 
 type PopulationStep struct {
-	Source     PopulationSourceUnion `json:"source"`
+	Source     Source                `json:"source"`
 	RowFilters []PopulationRowFilter `json:"rowFilters"`
 	// Conditions on each unit's total within the queried date range, such as ">=3" or ">=3,<10". Requires aggregateFilterColumn
 	AggregateFilter *string `json:"aggregateFilter,omitzero"`
@@ -215,9 +215,9 @@ type PopulationStep struct {
 	AggregateFilterColumn *string `json:"aggregateFilterColumn,omitzero"`
 }
 
-func (p *PopulationStep) GetSource() PopulationSourceUnion {
+func (p *PopulationStep) GetSource() Source {
 	if p == nil {
-		return PopulationSourceUnion{}
+		return Source{}
 	}
 	return p.Source
 }
@@ -248,9 +248,9 @@ type Population struct {
 	DateCreated time.Time `json:"dateCreated"`
 	DateUpdated time.Time `json:"dateUpdated"`
 	Projects    []string  `json:"projects"`
-	// The userId of the owner (or raw owner name/email for legacy records)
+	// The userId of the owner (or raw owner name/email for legacy records). An owner set by email comes back here as its userId; compare against `ownerEmail` instead.
 	Owner string `json:"owner"`
-	// The email address of the owner, when the owner can be resolved to a known user.
+	// The email address of the owner, when the owner can be resolved to a known user. Matches an `owner` that was sent as an email address.
 	OwnerEmail  *string          `json:"ownerEmail,omitzero"`
 	Name        string           `json:"name"`
 	Description string           `json:"description"`

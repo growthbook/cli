@@ -15,7 +15,7 @@ import (
 )
 
 var updateCmdMeta = []flagutil.FlagMeta{
-	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
+	{FlagName: "id", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "name", Shorthand: "n", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "endpoint", Shorthand: "e", FieldPath: "Body.Endpoint", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "http-method", FieldPath: "Body.HTTPMethod", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"GET", "POST", "PUT", "DELETE", "PATCH", "PURGE"}, Description: "options: GET, POST, PUT, DELETE, PATCH, PURGE"},
@@ -23,7 +23,10 @@ var updateCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "payload-key", FieldPath: "Body.PayloadKey", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "headers", FieldPath: "Body.Headers", Kind: flagutil.FlagKindString, Optional: true, Description: "JSON-encoded object, e.g. \"{\\\"X-Token\\\": \\\"abc\\\"}\""},
 	{FlagName: "timeout-seconds", Shorthand: "t", FieldPath: "Body.TimeoutSeconds", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"timeoutSeconds,omitempty"`, Description: "Request timeout in seconds, up to the server maximum (120 unless configured). Null uses the default."},
-	{FlagName: "sdk-connections", Shorthand: "s", FieldPath: "Body.SDKConnections", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Replaces the SDK Connections this webhook fires for"},
+	{FlagName: "bypass-approval", Shorthand: "b", FieldPath: "Body.BypassApproval", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to write directly to the live SDK Connection without approval. The caller must have Bypass draft approvals access in the SDK Connection's Projects, unless the organization enables the REST API approval bypass. This field has no effect when approval is not required."},
+	{FlagName: "ignore-warnings", FieldPath: "Body.IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to continue past a warning: one raised by a Custom Hook, or a webhook that references a secret that doesn't exist. On publish, it also force-publishes an out-of-date draft when the caller has Bypass draft approvals access. It never clears a Custom Hook rejection. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it."},
+	{FlagName: "skip-hooks", FieldPath: "Body.SkipHooks", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to continue despite a Custom Hook rejection. The caller must have Bypass draft approvals access for SDK Connections in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it."},
+	{FlagName: "sdk-connections", FieldPath: "Body.SDKConnections", Kind: flagutil.FlagKindStringArray, Optional: true, Description: "Replaces the SDK Connections this webhook fires for"},
 }
 
 // initUpdateCmd initializes the update command.
@@ -31,7 +34,7 @@ func initUpdateCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "update",
 		Short:   "Update an SDK webhook",
-		Long:    "The webhook fires once after an update. Webhooks managed by the Vercel integration can't be changed.",
+		Long:    "The webhook fires once after an update, and the change is recorded as a published revision of each connection it fires for. Webhooks managed by the Vercel integration can't be changed. When the organization requires approvals for a connection the webhook fires for, change it in a draft revision instead (`PUT /sdk-connections-revisions/{id}/new/webhooks/{webhookId}`), or pass `bypassApproval`.",
 		Example: "  growthbook SDK-webhooks update --id <id>",
 		RunE:    runUpdateCmd,
 	}

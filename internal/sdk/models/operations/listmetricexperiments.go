@@ -29,7 +29,7 @@ type ListMetricExperimentsRequest struct {
 	// Filter by comma-separated experiment types (feature, visualChange, redirect)
 	Type *string `queryParam:"style=form,explode=true,name=type"`
 	// When true, return only multi-armed bandits; when false, exclude them
-	Bandits *components.Bandits `queryParam:"style=form,explode=true,name=bandits"`
+	Bandits *bool `queryParam:"style=form,explode=true,name=bandits"`
 	// Only include experiments that have a phase which ended on or after this date
 	StartDate *string `queryParam:"style=form,explode=true,name=startDate"`
 	// Only include experiments that have a phase which ended on or before this date
@@ -117,7 +117,7 @@ func (l *ListMetricExperimentsRequest) GetType() *string {
 	return l.Type
 }
 
-func (l *ListMetricExperimentsRequest) GetBandits() *components.Bandits {
+func (l *ListMetricExperimentsRequest) GetBandits() *bool {
 	if l == nil {
 		return nil
 	}

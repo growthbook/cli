@@ -25,7 +25,7 @@ func initSetApprovalsCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "set-approvals",
 		Short:   "Update approval settings",
-		Long:    "Replace the approval requirements for feature flags, configs and constants, for saved groups, and the Targeting Projects review mode. Each family is replaced wholesale when supplied; omit one to leave it unchanged.",
+		Long:    "Replace the approval requirements for feature flags, configs and constants, for saved groups, for SDK connections, and the Targeting Projects review mode. Each family is replaced wholesale when supplied; omit one to leave it unchanged.",
 		Example: "  growthbook settings set-approvals",
 		RunE:    runSetApprovalsCmd,
 		Aliases: []string{"sa"},

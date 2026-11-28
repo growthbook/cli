@@ -22,10 +22,10 @@ growthbook custom-hooks update [flags]
       --body string                Request body as JSON (alternative to individual flags). Can also be provided via stdin.
   -c, --code string                string value
       --enabled                    boolean flag
-      --entity-id string           The scoped resource: a feature id, or a config key. Pass null (with entityType: null) to clear the scope; omit to leave unchanged.
-      --entity-type string         Retarget the hook's scope (set with entityId). Pass null (with entityId: null) to make the hook global/project-scoped; omit to leave unchanged. (options: feature, config, experiment)
+      --entity-id string           The scoped resource: a feature id, an experiment id, an SDK Connection id, or a config key. Pass null (with entityType: null) to clear the scope; omit to leave unchanged.
+      --entity-type string         Retarget the hook's scope (set with entityId). Pass null (with entityId: null) to make the hook global/project-scoped; omit to leave unchanged. (options: feature, config, experiment, sdkConnection)
   -h, --help                       help for update
-      --hook string                options: validateFeature, validateFeatureRevision, validateConfig, validateConfigRevision, validateExperiment
+      --hook string                options: validateFeature, validateFeatureRevision, validateConfig, validateConfigRevision, validateExperiment, validateSdkConnection, validateSdkConnectionRevision
       --id string                  The id of the custom hook [required]
       --incremental-changes-only   boolean flag
   -n, --name string                string value

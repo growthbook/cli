@@ -327,8 +327,9 @@ func (c *CreateDashboardDateRangeMetric) GetEndDate() optionalnullable.OptionalN
 type CreateDashboardShowAsMetric1 string
 
 const (
-	CreateDashboardShowAsMetric1Total   CreateDashboardShowAsMetric1 = "total"
-	CreateDashboardShowAsMetric1PerUnit CreateDashboardShowAsMetric1 = "per_unit"
+	CreateDashboardShowAsMetric1Total               CreateDashboardShowAsMetric1 = "total"
+	CreateDashboardShowAsMetric1PerUnit             CreateDashboardShowAsMetric1 = "per_unit"
+	CreateDashboardShowAsMetric1PercentOfPopulation CreateDashboardShowAsMetric1 = "percent_of_population"
 )
 
 func (e CreateDashboardShowAsMetric1) ToPointer() *CreateDashboardShowAsMetric1 {
@@ -343,6 +344,8 @@ func (e *CreateDashboardShowAsMetric1) UnmarshalJSON(data []byte) error {
 	case "total":
 		fallthrough
 	case "per_unit":
+		fallthrough
+	case "percent_of_population":
 		*e = CreateDashboardShowAsMetric1(v)
 		return nil
 	default:
@@ -513,12 +516,13 @@ func (c *CreateDashboardRowFilterMetric) GetValues() []string {
 	return c.Values
 }
 
-// CreateDashboardShowAsMetric2 - How a mean metric renders: `total` sums the numerator, `per_unit` divides it by the unit count. Ignored for other metric types. Omit to use the default (`per_unit` for `max` and `count distinct` aggregations, otherwise `total`).
+// CreateDashboardShowAsMetric2 - How a metric renders: `total` sums the numerator, `per_unit` divides it by the unit count (mean metrics only), and `percent_of_population` divides it by the population's member count as a percentage (proportion metrics with a population only). Ignored for other metric types. Omit to use the default (`per_unit` for mean metrics with `max` and `count distinct` aggregations, `percent_of_population` for proportion metrics with a population, otherwise `total`).
 type CreateDashboardShowAsMetric2 string
 
 const (
-	CreateDashboardShowAsMetric2Total   CreateDashboardShowAsMetric2 = "total"
-	CreateDashboardShowAsMetric2PerUnit CreateDashboardShowAsMetric2 = "per_unit"
+	CreateDashboardShowAsMetric2Total               CreateDashboardShowAsMetric2 = "total"
+	CreateDashboardShowAsMetric2PerUnit             CreateDashboardShowAsMetric2 = "per_unit"
+	CreateDashboardShowAsMetric2PercentOfPopulation CreateDashboardShowAsMetric2 = "percent_of_population"
 )
 
 func (e CreateDashboardShowAsMetric2) ToPointer() *CreateDashboardShowAsMetric2 {
@@ -533,6 +537,8 @@ func (e *CreateDashboardShowAsMetric2) UnmarshalJSON(data []byte) error {
 	case "total":
 		fallthrough
 	case "per_unit":
+		fallthrough
+	case "percent_of_population":
 		*e = CreateDashboardShowAsMetric2(v)
 		return nil
 	default:
@@ -548,7 +554,7 @@ type CreateDashboardValueMetric struct {
 	MetricID        string  `json:"metricId"`
 	Unit            *string `json:"unit"`
 	DenominatorUnit *string `json:"denominatorUnit"`
-	// How a mean metric renders: `total` sums the numerator, `per_unit` divides it by the unit count. Ignored for other metric types. Omit to use the default (`per_unit` for `max` and `count distinct` aggregations, otherwise `total`).
+	// How a metric renders: `total` sums the numerator, `per_unit` divides it by the unit count (mean metrics only), and `percent_of_population` divides it by the population's member count as a percentage (proportion metrics with a population only). Ignored for other metric types. Omit to use the default (`per_unit` for mean metrics with `max` and `count distinct` aggregations, `percent_of_population` for proportion metrics with a population, otherwise `total`).
 	ShowAs *CreateDashboardShowAsMetric2 `json:"showAs,omitzero"`
 }
 

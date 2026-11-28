@@ -19,8 +19,6 @@ growthbook feature-revisions reopen [flags]
 ### Options
 
 ```
-      --body string            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -b, --body-param string      JSON object
   -h, --help                   help for reopen
   -i, --id string              [required]
   -v, --version-param string   [required]

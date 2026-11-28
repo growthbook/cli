@@ -19,7 +19,7 @@ growthbook metrics list-experiments [flags]
 ### Options
 
 ```
-  -b, --bandits string                  When true, return only multi-armed bandits; when false, exclude them (options: true, false)
+  -b, --bandits                         When true, return only multi-armed bandits; when false, exclude them
   -e, --end-date string                 Only include experiments that have a phase which ended on or before this date
   -h, --help                            help for list-experiments
   -i, --id string                       The id of the requested resource [required]

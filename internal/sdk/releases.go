@@ -34,11 +34,11 @@ func newReleases(rootSDK *Growthbook, sdkConfig config.SDKConfiguration, hooks *
 }
 
 // PublishRevisions - Atomically publish revisions across multiple entities
-// Publishes a set of revisions — at most one per entity — across Feature Flags, Saved Groups, configs, and constants as a single all-or-nothing operation.
+// Publishes a set of revisions — at most one per entity — across Feature Flags, Saved Groups, Configs, Constants, and SDK Connections as a single all-or-nothing operation.
 //
 // Validation, guards, and custom hooks run against the combined end-state of the whole set, so interdependent changes (e.g. a config schema change plus the values that depend on it) publish together even when the in-between states would be invalid.
 //
-// A blocked publish returns one 422 listing every gate across every item and the flag that clears each. A concurrent change to any target aborts with a 409 and nothing publishes. A failure after the commit starts rolls everything back and emits `revision.publishFailed` for each revision in the set. SDK payloads refresh once per request. Pass `dryRun: true` for the full gate report with zero writes.
+// A blocked publish returns one 422 listing every gate across every item and the flag that clears each. A concurrent change to any target aborts with a 409 and nothing publishes. A failure after the commit starts rolls everything back, including an SDK Connection's webhooks, and emits `revision.publishFailed` for each revision in the set that has revision events. SDK payloads refresh once per request, and a webhook an SDK Connection revision edits is sent only once the release has landed. Pass `dryRun: true` for the full gate report with zero writes.
 //
 // Requires the `releases` commercial feature.
 func (s *Releases) PublishRevisions(ctx context.Context, request operations.PostReleasePublishRevisionsRequest, opts ...operations.Option) (*operations.PostReleasePublishRevisionsResponse, error) {
