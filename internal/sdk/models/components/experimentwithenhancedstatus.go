@@ -893,9 +893,9 @@ type ExperimentWithEnhancedStatus struct {
 	Hypothesis  string                           `json:"hypothesis"`
 	Description string                           `json:"description"`
 	Tags        []string                         `json:"tags"`
-	// The userId of the owner (or raw owner name/email for legacy records)
+	// The userId of the owner (or raw owner name/email for legacy records). An owner set by email comes back here as its userId; compare against `ownerEmail` instead.
 	Owner string `json:"owner"`
-	// The email address of the owner, when the owner can be resolved to a known user.
+	// The email address of the owner, when the owner can be resolved to a known user. Matches an `owner` that was sent as an email address.
 	OwnerEmail                  *string                                                 `json:"ownerEmail,omitzero"`
 	Archived                    bool                                                    `json:"archived"`
 	Status                      string                                                  `json:"status"`

@@ -7,8 +7,50 @@ import (
 	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/utils"
 )
 
+type DeleteSDKWebhookRequestBody struct {
+	// Set to true to write directly to the live SDK Connection without approval. The caller must have Bypass draft approvals access in the SDK Connection's Projects, unless the organization enables the REST API approval bypass. This field has no effect when approval is not required.
+	BypassApproval *bool `json:"bypassApproval,omitzero"`
+	// Set to true to continue past a warning: one raised by a Custom Hook, or a webhook that references a secret that doesn't exist. On publish, it also force-publishes an out-of-date draft when the caller has Bypass draft approvals access. It never clears a Custom Hook rejection. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
+	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
+	// Set to true to continue despite a Custom Hook rejection. The caller must have Bypass draft approvals access for SDK Connections in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
+	SkipHooks *bool `json:"skipHooks,omitzero"`
+}
+
+func (d *DeleteSDKWebhookRequestBody) GetBypassApproval() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.BypassApproval
+}
+
+func (d *DeleteSDKWebhookRequestBody) GetIgnoreWarnings() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.IgnoreWarnings
+}
+
+func (d *DeleteSDKWebhookRequestBody) GetSkipHooks() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.SkipHooks
+}
+
 type DeleteSDKWebhookRequest struct {
-	ID string `pathParam:"style=simple,explode=false,name=id"`
+	ID   string                       `pathParam:"style=simple,explode=false,name=id"`
+	Body *DeleteSDKWebhookRequestBody `request:"mediaType=application/json"`
+}
+
+func (d DeleteSDKWebhookRequest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DeleteSDKWebhookRequest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (d *DeleteSDKWebhookRequest) GetID() string {
@@ -18,9 +60,29 @@ func (d *DeleteSDKWebhookRequest) GetID() string {
 	return d.ID
 }
 
+func (d *DeleteSDKWebhookRequest) GetBody() *DeleteSDKWebhookRequestBody {
+	if d == nil {
+		return nil
+	}
+	return d.Body
+}
+
 // DeleteSDKWebhookResponseBody - Resource deleted
 type DeleteSDKWebhookResponseBody struct {
 	DeletedID string `json:"deletedId"`
+	// Gates that would have blocked this publish but were bypassed by the caller's authority. Present only when at least one gate was bypassed.
+	BypassedGates []components.BypassedGates `json:"bypassedGates,omitzero"`
+}
+
+func (d DeleteSDKWebhookResponseBody) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DeleteSDKWebhookResponseBody) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (d *DeleteSDKWebhookResponseBody) GetDeletedID() string {
@@ -28,6 +90,13 @@ func (d *DeleteSDKWebhookResponseBody) GetDeletedID() string {
 		return ""
 	}
 	return d.DeletedID
+}
+
+func (d *DeleteSDKWebhookResponseBody) GetBypassedGates() []components.BypassedGates {
+	if d == nil {
+		return nil
+	}
+	return d.BypassedGates
 }
 
 type DeleteSDKWebhookResponse struct {

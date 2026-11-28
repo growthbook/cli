@@ -4,7 +4,7 @@ Deletes a single SDK connection
 
 ### Synopsis
 
-Deletes a single SDK connection
+Deletes an archived SDK Connection. Archive a live one first (`PUT /sdk-connections/{id}` with `archived: true`, or in a draft revision when the organization requires approvals for it), then delete it. A live connection deletes in one step only when the organization enables 'REST API always bypasses approval requirements'.
 
 ```
 growthbook SDK-connections delete [flags]

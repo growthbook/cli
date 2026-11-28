@@ -7,21 +7,21 @@ import (
 	"time"
 )
 
-// SavedGroupFormat - How Saved Groups are written into this connection's payload. `referencesV2` needs an SDK version that supports it; the payload steps down to `referencesV1` if not.
-type SavedGroupFormat string
+// SDKConnectionSavedGroupFormat - How Saved Groups are written into this connection's payload. `referencesV2` needs an SDK version that supports it; the payload steps down to `referencesV1` if not.
+type SDKConnectionSavedGroupFormat string
 
 const (
-	SavedGroupFormatInline       SavedGroupFormat = "inline"
-	SavedGroupFormatReferencesV1 SavedGroupFormat = "referencesV1"
-	SavedGroupFormatReferencesV2 SavedGroupFormat = "referencesV2"
+	SDKConnectionSavedGroupFormatInline       SDKConnectionSavedGroupFormat = "inline"
+	SDKConnectionSavedGroupFormatReferencesV1 SDKConnectionSavedGroupFormat = "referencesV1"
+	SDKConnectionSavedGroupFormatReferencesV2 SDKConnectionSavedGroupFormat = "referencesV2"
 )
 
-func (e SavedGroupFormat) ToPointer() *SavedGroupFormat {
+func (e SDKConnectionSavedGroupFormat) ToPointer() *SDKConnectionSavedGroupFormat {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SavedGroupFormat) IsExact() bool {
+func (e *SDKConnectionSavedGroupFormat) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "inline", "referencesV1", "referencesV2":
@@ -57,18 +57,22 @@ type SDKConnection struct {
 	AllowedCustomFieldsInMetadata       []string `json:"allowedCustomFieldsInMetadata,omitzero"`
 	IncludeTagsInMetadata               *bool    `json:"includeTagsInMetadata,omitzero"`
 	IncludeExperimentScheduleInMetadata *bool    `json:"includeExperimentScheduleInMetadata,omitzero"`
-	Key                                 string   `json:"key"`
-	ProxyEnabled                        bool     `json:"proxyEnabled"`
-	ProxyHost                           string   `json:"proxyHost"`
-	ProxySigningKey                     string   `json:"proxySigningKey"`
-	SseEnabled                          *bool    `json:"sseEnabled,omitzero"`
-	HashSecureAttributes                *bool    `json:"hashSecureAttributes,omitzero"`
-	RemoteEvalEnabled                   *bool    `json:"remoteEvalEnabled,omitzero"`
+	// Send SDK evaluation traces to GrowthBook. Only available to organizations with tracing enabled.
+	TracesEnabled        *bool  `json:"tracesEnabled,omitzero"`
+	Key                  string `json:"key"`
+	ProxyEnabled         bool   `json:"proxyEnabled"`
+	ProxyHost            string `json:"proxyHost"`
+	ProxySigningKey      string `json:"proxySigningKey"`
+	SseEnabled           *bool  `json:"sseEnabled,omitzero"`
+	HashSecureAttributes *bool  `json:"hashSecureAttributes,omitzero"`
+	RemoteEvalEnabled    *bool  `json:"remoteEvalEnabled,omitzero"`
 	// Deprecated. Use `savedGroupFormat`.
 	SavedGroupReferencesEnabled *bool `json:"savedGroupReferencesEnabled,omitzero"`
 	// How Saved Groups are written into this connection's payload. `referencesV2` needs an SDK version that supports it; the payload steps down to `referencesV1` if not.
-	SavedGroupFormat               *SavedGroupFormat `json:"savedGroupFormat,omitzero"`
-	IncludeReferencedPrerequisites *bool             `json:"includeReferencedPrerequisites,omitzero"`
+	SavedGroupFormat               *SDKConnectionSavedGroupFormat `json:"savedGroupFormat,omitzero"`
+	IncludeReferencedPrerequisites *bool                          `json:"includeReferencedPrerequisites,omitzero"`
+	// An archived connection serves no payload. A connection must be archived before it can be deleted.
+	Archived *bool `json:"archived,omitzero"`
 }
 
 func (s SDKConnection) MarshalJSON() ([]byte, error) {
@@ -243,6 +247,13 @@ func (s *SDKConnection) GetIncludeExperimentScheduleInMetadata() *bool {
 	return s.IncludeExperimentScheduleInMetadata
 }
 
+func (s *SDKConnection) GetTracesEnabled() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.TracesEnabled
+}
+
 func (s *SDKConnection) GetKey() string {
 	if s == nil {
 		return ""
@@ -299,7 +310,7 @@ func (s *SDKConnection) GetSavedGroupReferencesEnabled() *bool {
 	return s.SavedGroupReferencesEnabled
 }
 
-func (s *SDKConnection) GetSavedGroupFormat() *SavedGroupFormat {
+func (s *SDKConnection) GetSavedGroupFormat() *SDKConnectionSavedGroupFormat {
 	if s == nil {
 		return nil
 	}
@@ -311,4 +322,11 @@ func (s *SDKConnection) GetIncludeReferencedPrerequisites() *bool {
 		return nil
 	}
 	return s.IncludeReferencedPrerequisites
+}
+
+func (s *SDKConnection) GetArchived() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.Archived
 }

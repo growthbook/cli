@@ -17,7 +17,6 @@ import (
 var recallReviewCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "body-param", Shorthand: "b", FieldPath: "Body", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `request:"mediaType=application/json"`, Description: "JSON object"},
 }
 
 // initRecallReviewCmd initializes the recall-review command.
@@ -34,7 +33,6 @@ func initRecallReviewCmd(parent *cobra.Command) error {
 	if err := flagutil.ValidateMeta[operations.PostFeatureRevisionRecallReviewV2Request](recallReviewCmdMeta); err != nil {
 		return fmt.Errorf("invalid metadata for recall-review: %w", err)
 	}
-	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
 	parent.AddCommand(cmd)
 	return nil
 }
@@ -49,7 +47,7 @@ func runRecallReviewCmd(cmd *cobra.Command, args []string) error {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.PostFeatureRevisionRecallReviewV2Request](cmd, recallReviewCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.PostFeatureRevisionRecallReviewV2Request](cmd, recallReviewCmdMeta, "", "")
 	if err != nil {
 		return err
 	}

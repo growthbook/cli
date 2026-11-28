@@ -20,6 +20,7 @@ var listSDKConnectionsCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "project-id", Shorthand: "p", FieldPath: "ProjectID", Kind: flagutil.FlagKindString, Optional: true, Description: "Filter by project id"},
 	{FlagName: "with-proxy", Shorthand: "w", FieldPath: "WithProxy", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "multi-org", Shorthand: "m", FieldPath: "MultiOrg", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
+	{FlagName: "archived", FieldPath: "Archived", Kind: flagutil.FlagKindBool, Optional: true, Description: "Whether to include archived SDK Connections. Defaults to `false` (non-archived only). Pass `true` to include archived SDK Connections alongside non-archived ones."},
 }
 
 // initListSDKConnectionsCmd initializes the list-SDK-connections command.

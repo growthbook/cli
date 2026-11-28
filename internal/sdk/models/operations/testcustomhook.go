@@ -12,9 +12,10 @@ import (
 type TestCustomHookEntityType string
 
 const (
-	TestCustomHookEntityTypeFeature    TestCustomHookEntityType = "feature"
-	TestCustomHookEntityTypeConfig     TestCustomHookEntityType = "config"
-	TestCustomHookEntityTypeExperiment TestCustomHookEntityType = "experiment"
+	TestCustomHookEntityTypeFeature       TestCustomHookEntityType = "feature"
+	TestCustomHookEntityTypeConfig        TestCustomHookEntityType = "config"
+	TestCustomHookEntityTypeExperiment    TestCustomHookEntityType = "experiment"
+	TestCustomHookEntityTypeSDKConnection TestCustomHookEntityType = "sdkConnection"
 )
 
 func (e TestCustomHookEntityType) ToPointer() *TestCustomHookEntityType {
@@ -31,6 +32,8 @@ func (e *TestCustomHookEntityType) UnmarshalJSON(data []byte) error {
 	case "config":
 		fallthrough
 	case "experiment":
+		fallthrough
+	case "sdkConnection":
 		*e = TestCustomHookEntityType(v)
 		return nil
 	default:
@@ -41,7 +44,7 @@ func (e *TestCustomHookEntityType) UnmarshalJSON(data []byte) error {
 type TestCustomHookRequest struct {
 	// JavaScript function body to execute in the sandbox
 	FunctionBody string `json:"functionBody"`
-	// Arguments exposed to the function as named globals (e.g. `feature`, `config`, `revision`)
+	// Arguments exposed to the function as named globals (e.g. `feature`, `config`, `revision`, `sdkConnection`, `sdkWebhooks`)
 	FunctionArgs map[string]any `json:"functionArgs,omitzero"`
 	// State before the change. When supplied, the hook also runs against it and Incremental Changes Only suppression is applied to the result.
 	OriginalFunctionArgs map[string]any            `json:"originalFunctionArgs,omitzero"`

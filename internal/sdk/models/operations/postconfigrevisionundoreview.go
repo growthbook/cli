@@ -7,13 +7,9 @@ import (
 	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/utils"
 )
 
-type PostConfigRevisionUndoReviewRequestBody struct {
-}
-
 type PostConfigRevisionUndoReviewRequest struct {
-	Key     string                                  `pathParam:"style=simple,explode=false,name=key"`
-	Version string                                  `pathParam:"style=simple,explode=false,name=version"`
-	Body    PostConfigRevisionUndoReviewRequestBody `request:"mediaType=application/json"`
+	Key     string `pathParam:"style=simple,explode=false,name=key"`
+	Version string `pathParam:"style=simple,explode=false,name=version"`
 }
 
 func (p *PostConfigRevisionUndoReviewRequest) GetKey() string {
@@ -28,13 +24,6 @@ func (p *PostConfigRevisionUndoReviewRequest) GetVersion() string {
 		return ""
 	}
 	return p.Version
-}
-
-func (p *PostConfigRevisionUndoReviewRequest) GetBody() PostConfigRevisionUndoReviewRequestBody {
-	if p == nil {
-		return PostConfigRevisionUndoReviewRequestBody{}
-	}
-	return p.Body
 }
 
 // PostConfigRevisionUndoReviewResponseBody - Resource created

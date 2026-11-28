@@ -19,8 +19,6 @@ growthbook constant-revisions undo-review [flags]
 ### Options
 
 ```
-      --body string            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -b, --body-param string      [required]
   -h, --help                   help for undo-review
   -k, --key string             [required]
   -v, --version-param string   [required]

@@ -101,6 +101,10 @@ type Growthbook struct {
 	Attributes *Attributes
 	// Client keys and settings for connecting SDKs to a GrowthBook instance
 	SDKConnections *SDKConnections
+	// Draft revisions for SDK Connections: staged changes to a connection's settings and webhooks, their review, and their lifecycle (publish, discard, rebase).
+	//
+	// Pass `version: "new"` on the edit endpoints to create the draft. Use these when the organization requires approvals for a connection, or to group several changes into one publish.
+	SDKConnectionRevisions *SDKConnectionRevisions
 	// How GrowthBook connects and queries your data, including cached database schema metadata (information schemas) for tables and columns.
 	DataSources *DataSources
 	// Defined sets of attribute values which can be used with feature rules for targeting features at particular users.
@@ -311,6 +315,7 @@ func New(opts ...SDKOption) *Growthbook {
 	sdk.Environments = newEnvironments(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Attributes = newAttributes(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.SDKConnections = newSDKConnections(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.SDKConnectionRevisions = newSDKConnectionRevisions(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.DataSources = newDataSources(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.SavedGroups = newSavedGroups(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.SavedGroupRevisions = newSavedGroupRevisions(sdk, sdk.sdkConfiguration, sdk.hooks)

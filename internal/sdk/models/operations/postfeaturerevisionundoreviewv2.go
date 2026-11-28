@@ -7,27 +7,9 @@ import (
 	"github.com/growthbook/cli/v4/internal/sdk/sdkinternal/utils"
 )
 
-type PostFeatureRevisionUndoReviewV2RequestBody struct {
-}
-
-// #region class-body-postfeaturerevisionundoreviewv2requestbody
-// #endregion class-body-postfeaturerevisionundoreviewv2requestbody
-
 type PostFeatureRevisionUndoReviewV2Request struct {
-	ID      string                                      `pathParam:"style=simple,explode=false,name=id"`
-	Version string                                      `pathParam:"style=simple,explode=false,name=version"`
-	Body    *PostFeatureRevisionUndoReviewV2RequestBody `request:"mediaType=application/json"`
-}
-
-func (p PostFeatureRevisionUndoReviewV2Request) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *PostFeatureRevisionUndoReviewV2Request) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
-		return err
-	}
-	return nil
+	ID      string `pathParam:"style=simple,explode=false,name=id"`
+	Version string `pathParam:"style=simple,explode=false,name=version"`
 }
 
 func (p *PostFeatureRevisionUndoReviewV2Request) GetID() string {
@@ -42,13 +24,6 @@ func (p *PostFeatureRevisionUndoReviewV2Request) GetVersion() string {
 		return ""
 	}
 	return p.Version
-}
-
-func (p *PostFeatureRevisionUndoReviewV2Request) GetBody() *PostFeatureRevisionUndoReviewV2RequestBody {
-	if p == nil {
-		return nil
-	}
-	return p.Body
 }
 
 // #region class-body-postfeaturerevisionundoreviewv2request

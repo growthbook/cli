@@ -17,7 +17,6 @@ import (
 var discardCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "version-param", Shorthand: "v", FieldPath: "Version", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
-	{FlagName: "body-param", Shorthand: "b", FieldPath: "Body", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `request:"mediaType=application/json"`, Description: "JSON object"},
 }
 
 // initDiscardCmd initializes the discard command.
@@ -33,7 +32,6 @@ func initDiscardCmd(parent *cobra.Command) error {
 	if err := flagutil.ValidateMeta[operations.PostFeatureRevisionDiscardV2Request](discardCmdMeta); err != nil {
 		return fmt.Errorf("invalid metadata for discard: %w", err)
 	}
-	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
 	parent.AddCommand(cmd)
 	return nil
 }
@@ -48,7 +46,7 @@ func runDiscardCmd(cmd *cobra.Command, args []string) error {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.PostFeatureRevisionDiscardV2Request](cmd, discardCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.PostFeatureRevisionDiscardV2Request](cmd, discardCmdMeta, "", "")
 	if err != nil {
 		return err
 	}

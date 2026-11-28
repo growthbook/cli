@@ -2,10 +2,62 @@
 
 package components
 
+// SnapshotStatus - "running" while the update is in progress, then "success" or "error"
+type SnapshotStatus string
+
+const (
+	SnapshotStatusRunning SnapshotStatus = "running"
+	SnapshotStatusSuccess SnapshotStatus = "success"
+	SnapshotStatusError   SnapshotStatus = "error"
+)
+
+func (e SnapshotStatus) ToPointer() *SnapshotStatus {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SnapshotStatus) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "running", "success", "error":
+			return true
+		}
+	}
+	return false
+}
+
+// UpdateScope - "new_metrics" when the update computed only the metrics added since the latest results, otherwise "all_metrics".
+type UpdateScope string
+
+const (
+	UpdateScopeAllMetrics UpdateScope = "all_metrics"
+	UpdateScopeNewMetrics UpdateScope = "new_metrics"
+)
+
+func (e UpdateScope) ToPointer() *UpdateScope {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *UpdateScope) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "all_metrics", "new_metrics":
+			return true
+		}
+	}
+	return false
+}
+
 type Snapshot struct {
 	ID         string `json:"id"`
 	Experiment string `json:"experiment"`
-	Status     string `json:"status"`
+	// "running" while the update is in progress, then "success" or "error"
+	Status SnapshotStatus `json:"status"`
+	// Why the update failed. Present only when "status" is "error"
+	Error *string `json:"error,omitzero"`
+	// "new_metrics" when the update computed only the metrics added since the latest results, otherwise "all_metrics".
+	UpdateScope UpdateScope `json:"updateScope"`
 }
 
 func (s *Snapshot) GetID() string {
@@ -22,9 +74,23 @@ func (s *Snapshot) GetExperiment() string {
 	return s.Experiment
 }
 
-func (s *Snapshot) GetStatus() string {
+func (s *Snapshot) GetStatus() SnapshotStatus {
 	if s == nil {
-		return ""
+		return SnapshotStatus("")
 	}
 	return s.Status
+}
+
+func (s *Snapshot) GetError() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Error
+}
+
+func (s *Snapshot) GetUpdateScope() UpdateScope {
+	if s == nil {
+		return UpdateScope("")
+	}
+	return s.UpdateScope
 }

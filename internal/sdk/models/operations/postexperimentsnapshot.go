@@ -36,6 +36,36 @@ func (e *TriggeredBy) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// UpdateScope - Which metrics the update computes. "auto" (default) computes only the metrics added since the latest results when nothing else changed and those results are recent, otherwise all metrics. "new_metrics" computes only the added metrics and returns a 409 when it cannot. "all_metrics" computes every metric.
+type UpdateScope string
+
+const (
+	UpdateScopeAuto       UpdateScope = "auto"
+	UpdateScopeNewMetrics UpdateScope = "new_metrics"
+	UpdateScopeAllMetrics UpdateScope = "all_metrics"
+)
+
+func (e UpdateScope) ToPointer() *UpdateScope {
+	return &e
+}
+func (e *UpdateScope) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "auto":
+		fallthrough
+	case "new_metrics":
+		fallthrough
+	case "all_metrics":
+		*e = UpdateScope(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for UpdateScope: %v", v)
+	}
+}
+
 type PostExperimentSnapshotRequestBody struct {
 	// Set to "schedule" if you want this request to trigger notifications and other events as if it were a scheduled update. Defaults to manual.
 	TriggeredBy *TriggeredBy `json:"triggeredBy,omitzero"`
@@ -43,6 +73,8 @@ type PostExperimentSnapshotRequestBody struct {
 	Dimension *string `json:"dimension,omitzero"`
 	// Zero-based phase index to snapshot, where 0 is the first experiment phase. Defaults to the latest phase.
 	Phase *int64 `json:"phase,omitzero"`
+	// Which metrics the update computes. "auto" (default) computes only the metrics added since the latest results when nothing else changed and those results are recent, otherwise all metrics. "new_metrics" computes only the added metrics and returns a 409 when it cannot. "all_metrics" computes every metric.
+	UpdateScope *UpdateScope `json:"updateScope,omitzero"`
 	// Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
 	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
 }
@@ -66,6 +98,13 @@ func (p *PostExperimentSnapshotRequestBody) GetPhase() *int64 {
 		return nil
 	}
 	return p.Phase
+}
+
+func (p *PostExperimentSnapshotRequestBody) GetUpdateScope() *UpdateScope {
+	if p == nil {
+		return nil
+	}
+	return p.UpdateScope
 }
 
 func (p *PostExperimentSnapshotRequestBody) GetIgnoreWarnings() *bool {
@@ -104,6 +143,75 @@ func (p *PostExperimentSnapshotRequest) GetBody() *PostExperimentSnapshotRequest
 		return nil
 	}
 	return p.Body
+}
+
+type CodeNewMetricsUpdateUnavailable string
+
+const (
+	CodeNewMetricsUpdateUnavailableNewMetricsUpdateUnavailable CodeNewMetricsUpdateUnavailable = "new_metrics_update_unavailable"
+)
+
+func (e CodeNewMetricsUpdateUnavailable) ToPointer() *CodeNewMetricsUpdateUnavailable {
+	return &e
+}
+func (e *CodeNewMetricsUpdateUnavailable) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "new_metrics_update_unavailable":
+		*e = CodeNewMetricsUpdateUnavailable(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CodeNewMetricsUpdateUnavailable: %v", v)
+	}
+}
+
+type CodeSnapshotInProgress string
+
+const (
+	CodeSnapshotInProgressSnapshotInProgress CodeSnapshotInProgress = "snapshot_in_progress"
+)
+
+func (e CodeSnapshotInProgress) ToPointer() *CodeSnapshotInProgress {
+	return &e
+}
+func (e *CodeSnapshotInProgress) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "snapshot_in_progress":
+		*e = CodeSnapshotInProgress(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CodeSnapshotInProgress: %v", v)
+	}
+}
+
+type CodeMetricsAlreadyUpToDate string
+
+const (
+	CodeMetricsAlreadyUpToDateMetricsAlreadyUpToDate CodeMetricsAlreadyUpToDate = "metrics_already_up_to_date"
+)
+
+func (e CodeMetricsAlreadyUpToDate) ToPointer() *CodeMetricsAlreadyUpToDate {
+	return &e
+}
+func (e *CodeMetricsAlreadyUpToDate) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "metrics_already_up_to_date":
+		*e = CodeMetricsAlreadyUpToDate(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CodeMetricsAlreadyUpToDate: %v", v)
+	}
 }
 
 type CodeDimensionAlreadyUpToDate string

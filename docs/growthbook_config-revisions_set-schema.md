@@ -45,7 +45,8 @@ growthbook config-revisions set-schema [flags]
       --schema.typescript.value string           TypeScript source — an interface or object type. [required]
       --skip-hooks skipSchemaValidation          Set to true to publish despite a Custom Hook rejection. This does not bypass schema validation; use skipSchemaValidation for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
       --skip-schema-validation skipHooks         Set to true to publish despite schema validation errors, failed invariants, or schema changes that invalidate dependent resources. This does not bypass a rejected Custom Hook; use skipHooks for that. The caller must have Bypass draft approvals access for Feature Flags, Configs, and Constants in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
-  -v, --version-param string                     [required]
+      --value string                             This config's own value, staged together with the schema and validated against it. Use it to retype or remove a field the value sets, which a schema write or a value write can't do on its own.
+      --version-param string                     [required]
 ```
 
 ### Options inherited from parent commands

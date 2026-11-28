@@ -58,15 +58,21 @@ type PostSDKConnectionRequest struct {
 	AllowedCustomFieldsInMetadata       []string `json:"allowedCustomFieldsInMetadata,omitzero"`
 	IncludeTagsInMetadata               *bool    `json:"includeTagsInMetadata,omitzero"`
 	IncludeExperimentScheduleInMetadata *bool    `json:"includeExperimentScheduleInMetadata,omitzero"`
-	ProxyEnabled                        *bool    `json:"proxyEnabled,omitzero"`
-	ProxyHost                           *string  `json:"proxyHost,omitzero"`
-	HashSecureAttributes                *bool    `json:"hashSecureAttributes,omitzero"`
-	RemoteEvalEnabled                   *bool    `json:"remoteEvalEnabled,omitzero"`
+	// Send SDK evaluation traces to GrowthBook. Only available to organizations with tracing enabled.
+	TracesEnabled        *bool   `json:"tracesEnabled,omitzero"`
+	ProxyEnabled         *bool   `json:"proxyEnabled,omitzero"`
+	ProxyHost            *string `json:"proxyHost,omitzero"`
+	HashSecureAttributes *bool   `json:"hashSecureAttributes,omitzero"`
+	RemoteEvalEnabled    *bool   `json:"remoteEvalEnabled,omitzero"`
 	// Deprecated. Use `savedGroupFormat`.
 	SavedGroupReferencesEnabled *bool                              `json:"savedGroupReferencesEnabled,omitzero"`
 	SavedGroupFormat            *PostSDKConnectionSavedGroupFormat `json:"savedGroupFormat,omitzero"`
 	// Carry prerequisite Feature Flags into this payload even when they target other Projects. Defaults to true for new connections.
 	IncludeReferencedPrerequisites *bool `json:"includeReferencedPrerequisites,omitzero"`
+	// Set to true to continue past a warning: one raised by a Custom Hook, or a webhook that references a secret that doesn't exist. On publish, it also force-publishes an out-of-date draft when the caller has Bypass draft approvals access. It never clears a Custom Hook rejection. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
+	IgnoreWarnings *bool `json:"ignoreWarnings,omitzero"`
+	// Set to true to continue despite a Custom Hook rejection. The caller must have Bypass draft approvals access for SDK Connections in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
+	SkipHooks *bool `json:"skipHooks,omitzero"`
 }
 
 func (p PostSDKConnectionRequest) MarshalJSON() ([]byte, error) {
@@ -199,6 +205,13 @@ func (p *PostSDKConnectionRequest) GetIncludeExperimentScheduleInMetadata() *boo
 	return p.IncludeExperimentScheduleInMetadata
 }
 
+func (p *PostSDKConnectionRequest) GetTracesEnabled() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.TracesEnabled
+}
+
 func (p *PostSDKConnectionRequest) GetProxyEnabled() *bool {
 	if p == nil {
 		return nil
@@ -246,6 +259,20 @@ func (p *PostSDKConnectionRequest) GetIncludeReferencedPrerequisites() *bool {
 		return nil
 	}
 	return p.IncludeReferencedPrerequisites
+}
+
+func (p *PostSDKConnectionRequest) GetIgnoreWarnings() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.IgnoreWarnings
+}
+
+func (p *PostSDKConnectionRequest) GetSkipHooks() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.SkipHooks
 }
 
 // PostSDKConnectionResponseBody - Resource created

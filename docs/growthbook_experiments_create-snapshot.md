@@ -26,6 +26,7 @@ growthbook experiments create-snapshot [flags]
       --ignore-warnings       Set to true to acknowledge the warnings listed in a blocked response and continue. This covers experiment guards, locked dependents, and references affected by an archive. When the organization treats schema failures as warnings, it also covers schema and invariant warnings. It never bypasses a rejected Custom Hook. On revision publish endpoints, it can also force-publish an out-of-date draft when the caller has Bypass draft approvals access. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it.
   -p, --phase int             Zero-based phase index to snapshot, where 0 is the first experiment phase. Defaults to the latest phase.
   -t, --triggered-by string   Set to "schedule" if you want this request to trigger notifications and other events as if it were a scheduled update. Defaults to manual. (options: manual, schedule)
+  -u, --update-scope string   Which metrics the update computes. "auto" (default) computes only the metrics added since the latest results when nothing else changed and those results are recent, otherwise all metrics. "new_metrics" computes only the added metrics and returns a 409 when it cannot. "all_metrics" computes every metric. (options: auto, new_metrics, all_metrics)
 ```
 
 ### Options inherited from parent commands

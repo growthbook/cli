@@ -15,7 +15,7 @@ import (
 )
 
 var createCmdMeta = []flagutil.FlagMeta{
-	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The SDK Connection id [required]"},
+	{FlagName: "id", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The SDK Connection id [required]"},
 	{FlagName: "name", Shorthand: "n", FieldPath: "Body.Name", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "endpoint", Shorthand: "e", FieldPath: "Body.Endpoint", Kind: flagutil.FlagKindString, Required: true, Description: "[required]"},
 	{FlagName: "http-method", FieldPath: "Body.HTTPMethod", Kind: flagutil.FlagKindEnum, Optional: true, EnumValues: []string{"GET", "POST", "PUT", "DELETE", "PATCH", "PURGE"}, Description: "options: GET, POST, PUT, DELETE, PATCH, PURGE"},
@@ -23,6 +23,9 @@ var createCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "payload-key", FieldPath: "Body.PayloadKey", Kind: flagutil.FlagKindString, Optional: true, Description: "string value"},
 	{FlagName: "headers", FieldPath: "Body.Headers", Kind: flagutil.FlagKindString, Optional: true, Description: "JSON-encoded object, e.g. \"{\\\"X-Token\\\": \\\"abc\\\"}\""},
 	{FlagName: "timeout-seconds", Shorthand: "t", FieldPath: "Body.TimeoutSeconds", Kind: flagutil.FlagKindJSON, Optional: true, Annotations: `json:"timeoutSeconds,omitempty"`, Description: "Request timeout in seconds, up to the server maximum (120 unless configured). Null uses the default."},
+	{FlagName: "bypass-approval", Shorthand: "b", FieldPath: "Body.BypassApproval", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to write directly to the live SDK Connection without approval. The caller must have Bypass draft approvals access in the SDK Connection's Projects, unless the organization enables the REST API approval bypass. This field has no effect when approval is not required."},
+	{FlagName: "ignore-warnings", FieldPath: "Body.IgnoreWarnings", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to continue past a warning: one raised by a Custom Hook, or a webhook that references a secret that doesn't exist. On publish, it also force-publishes an out-of-date draft when the caller has Bypass draft approvals access. It never clears a Custom Hook rejection. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it."},
+	{FlagName: "skip-hooks", Shorthand: "s", FieldPath: "Body.SkipHooks", Kind: flagutil.FlagKindBool, Optional: true, Description: "Set to true to continue despite a Custom Hook rejection. The caller must have Bypass draft approvals access for SDK Connections in every Project. Otherwise, this field is ignored. Only set this when a person has explicitly asked you to. If a check blocks you, stop and ask a person instead of working around it."},
 }
 
 // initCreateCmd initializes the create command.
@@ -30,7 +33,7 @@ func initCreateCmd(parent *cobra.Command) error {
 	var cmd = &cobra.Command{
 		Use:     "create",
 		Short:   "Add a webhook to an SDK Connection",
-		Long:    "Called whenever the connection's payload changes. `httpMethod` defaults to POST. More than one webhook per organization requires a paid plan.",
+		Long:    "Called whenever the connection's payload changes. `httpMethod` defaults to POST. More than one webhook per organization requires a paid plan. The change is recorded as a published revision of the connection. When the organization requires approvals for the connection, add it in a draft revision instead (`POST /sdk-connections-revisions/{id}/new/webhooks`), or pass `bypassApproval`.",
 		Example: "  growthbook SDK-webhooks create --id <id> --name <value> --endpoint https://brisk-taxicab.name/",
 		RunE:    runCreateCmd,
 	}

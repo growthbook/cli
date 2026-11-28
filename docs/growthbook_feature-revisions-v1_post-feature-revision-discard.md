@@ -23,8 +23,6 @@ growthbook feature-revisions-v1 post-feature-revision-discard [flags]
 ### Options
 
 ```
-      --body string            Request body as JSON (alternative to individual flags). Can also be provided via stdin.
-  -b, --body-param string      JSON object
   -h, --help                   help for post-feature-revision-discard
   -i, --id string              [required]
   -v, --version-param string   [required]

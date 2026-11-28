@@ -16,7 +16,6 @@ import (
 
 var unarchiveCmdMeta = []flagutil.FlagMeta{
 	{FlagName: "id", Shorthand: "i", FieldPath: "ID", Kind: flagutil.FlagKindString, Required: true, Description: "The id of the requested resource [required]"},
-	{FlagName: "body-param", Shorthand: "b", FieldPath: "Body", Kind: flagutil.FlagKindJSON, Required: true, Annotations: `request:"mediaType=application/json"`, Description: "[required]"},
 }
 
 // initUnarchiveCmd initializes the unarchive command.
@@ -32,7 +31,6 @@ func initUnarchiveCmd(parent *cobra.Command) error {
 	if err := flagutil.ValidateMeta[operations.PostExperimentUnarchiveRequest](unarchiveCmdMeta); err != nil {
 		return fmt.Errorf("invalid metadata for unarchive: %w", err)
 	}
-	cmd.Flags().String("body", "", "Request body as JSON (alternative to individual flags). Can also be provided via stdin.")
 	parent.AddCommand(cmd)
 	return nil
 }
@@ -47,7 +45,7 @@ func runUnarchiveCmd(cmd *cobra.Command, args []string) error {
 			return err
 		}
 	}
-	req, err := flagutil.BuildRequest[operations.PostExperimentUnarchiveRequest](cmd, unarchiveCmdMeta, "Body", "body")
+	req, err := flagutil.BuildRequest[operations.PostExperimentUnarchiveRequest](cmd, unarchiveCmdMeta, "", "")
 	if err != nil {
 		return err
 	}

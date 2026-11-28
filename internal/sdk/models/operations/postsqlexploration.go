@@ -645,8 +645,9 @@ func (p *PostSQLExplorationDateRangeRequest) GetEndDate() optionalnullable.Optio
 type PostSQLExplorationShowAsRequest string
 
 const (
-	PostSQLExplorationShowAsRequestTotal   PostSQLExplorationShowAsRequest = "total"
-	PostSQLExplorationShowAsRequestPerUnit PostSQLExplorationShowAsRequest = "per_unit"
+	PostSQLExplorationShowAsRequestTotal               PostSQLExplorationShowAsRequest = "total"
+	PostSQLExplorationShowAsRequestPerUnit             PostSQLExplorationShowAsRequest = "per_unit"
+	PostSQLExplorationShowAsRequestPercentOfPopulation PostSQLExplorationShowAsRequest = "percent_of_population"
 )
 
 func (e PostSQLExplorationShowAsRequest) ToPointer() *PostSQLExplorationShowAsRequest {
@@ -661,6 +662,8 @@ func (e *PostSQLExplorationShowAsRequest) UnmarshalJSON(data []byte) error {
 	case "total":
 		fallthrough
 	case "per_unit":
+		fallthrough
+	case "percent_of_population":
 		*e = PostSQLExplorationShowAsRequest(v)
 		return nil
 	default:
@@ -2098,8 +2101,9 @@ func (p *PostSQLExplorationDateRangeResponse) GetEndDate() optionalnullable.Opti
 type PostSQLExplorationShowAsResponse string
 
 const (
-	PostSQLExplorationShowAsResponseTotal   PostSQLExplorationShowAsResponse = "total"
-	PostSQLExplorationShowAsResponsePerUnit PostSQLExplorationShowAsResponse = "per_unit"
+	PostSQLExplorationShowAsResponseTotal               PostSQLExplorationShowAsResponse = "total"
+	PostSQLExplorationShowAsResponsePerUnit             PostSQLExplorationShowAsResponse = "per_unit"
+	PostSQLExplorationShowAsResponsePercentOfPopulation PostSQLExplorationShowAsResponse = "percent_of_population"
 )
 
 func (e PostSQLExplorationShowAsResponse) ToPointer() *PostSQLExplorationShowAsResponse {
@@ -2110,7 +2114,7 @@ func (e PostSQLExplorationShowAsResponse) ToPointer() *PostSQLExplorationShowAsR
 func (e *PostSQLExplorationShowAsResponse) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "total", "per_unit":
+		case "total", "per_unit", "percent_of_population":
 			return true
 		}
 	}
